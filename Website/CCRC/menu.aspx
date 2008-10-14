@@ -109,11 +109,10 @@
             <tr>
                 <td ><a href="NationalUrbanLeague.pdf"  target="Homepage">National Urban League</a></td>
             </tr>
-            
+            <%If InStr(1, userRoles, "29") > 0   Then%>
             <tr>
                 <td style="color:#000088" ><b>NWO/NHS Resources</b></td>
-            </tr>
-            <%If InStr(1, userRoles, "29") > 0   Then%>
+            </tr>            
             <tr>
                 <td >&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.nw5.org/locator"  target="Homepage">NWO Resource Locator</a></td>
             </tr>
