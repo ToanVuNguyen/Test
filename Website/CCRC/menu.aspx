@@ -17,7 +17,7 @@
               
             userRoles = Request.Cookies("CCRCCookie")("profileRoles")
             
-             If InStr(1, userRoles, "83") > 0 Or InStr(1, userRoles, "29") > 0 Then%>            
+              If InStr(1, userRoles, "83") > 0 Or InStr(1, userRoles, "29") > 0 Then%>            
                <tr>
                      <td width="15" colspan="2" style="color:#000088" ><b>Admin</b></td>
                </tr>
@@ -113,7 +113,7 @@
             <tr>
                 <td style="color:#000088" ><b>NWO/NHS Resources</b></td>
             </tr>
-            
+            <%If InStr(1, userRoles, "29") > 0   Then%>
             <tr>
                 <td >&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.nw5.org/locator"  target="Homepage">NWO Resource Locator</a></td>
             </tr>
@@ -121,6 +121,7 @@
             <tr>
                 <td >&nbsp;&nbsp;&nbsp;&nbsp;<a href="reports/ccrc_Users_Report.aspx?agencyType=2"  target="Homepage">Counselor Directory</a></td>
             </tr>
+            <%End if %>  
 <%End if %>  
   
    <%If InStr(1, userRoles, "125") > 0 Or InStr(1, userRoles, "123") > 0 Or InStr(1, userRoles, "83") > 0   Then%>            
