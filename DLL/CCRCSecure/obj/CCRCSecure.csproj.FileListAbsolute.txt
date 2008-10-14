@@ -1,0 +1,34 @@
+C:\CCRC\CCRCSecure\obj\Debug\ResolveAssemblyReference.cache
+C:\CCRC\CCRCSecure\obj\Debug\Interop.ActiveDs.dll
+C:\CCRC\CCRCSecure\obj\Debug\Interop.CCRC_Admin.dll
+C:\CCRC\CCRCSecure\obj\Debug\Interop.CCRC_Main.dll
+C:\CCRC\CCRCSecure\obj\Debug\Interop.IISOle.dll
+C:\CCRC\CCRCSecure\obj\Debug\CCRCSecure.csproj.ResolveComReference.cache
+C:\CCRC\CCRCSecure\bin\Debug\CCRCSecure.dll
+C:\CCRC\CCRCSecure\bin\Debug\CCRCSecure.pdb
+C:\CCRC\CCRCSecure\bin\Debug\Interop.ActiveDs.dll
+C:\CCRC\CCRCSecure\bin\Debug\Interop.CCRC_Admin.dll
+C:\CCRC\CCRCSecure\bin\Debug\Interop.CCRC_Main.dll
+C:\CCRC\CCRCSecure\bin\Debug\Interop.IISOle.dll
+C:\CCRC\CCRCSecure\obj\Debug\CCRCSecure.dll
+C:\CCRC\CCRCSecure\obj\Debug\CCRCSecure.pdb
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Debug\CCRCSecure.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Debug\CCRCSecure.pdb
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Debug\Interop.ActiveDs.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Debug\Interop.IISOle.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Debug\ResolveAssemblyReference.cache
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Debug\Interop.ActiveDs.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Debug\Interop.IISOle.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Debug\CCRCSecure.csproj.ResolveComReference.cache
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Debug\CCRCSecure.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Debug\CCRCSecure.pdb
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\ResolveAssemblyReference.cache
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\Interop.ActiveDs.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\Interop.IISOle.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\CCRCSecure.csproj.ResolveComReference.cache
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Release\CCRCSecure.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Release\CCRCSecure.pdb
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Release\Interop.ActiveDs.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Release\Interop.IISOle.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\CCRCSecure.dll
+C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\CCRCSecure.pdb

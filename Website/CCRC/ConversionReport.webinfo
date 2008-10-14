@@ -1,0 +1,26 @@
+﻿This report shows the steps taken to convert your Web application from ASP.NET 1.1 to ASP.NET 2.0. 
+There may be some unresolved conversion issues you will need to manually fix. 
+For more information, please refer to http://go.microsoft.com/fwlink/?LinkId=46995 or search for the help topic "Converting from Visual Studio .NET 2002 or 2003".
+Conversion Started on project file CCRC.vbproj at May 28 2008, 00:17:25.
+
+=========================ERRORS===================
+ERROR: The following files were not migrated because they were not found in the project file or the associated 'BuildAction' is set to 'None'.
+You may need to exclude these files from the project after the conversion process in order to compile your web site: 
+File List == vs2005\backup\200805_dll backup\ccrc\global.asax,200805_dll backup\ccrc\global.asax,vs2005\backup\global.asax.
+
+=========================WARNINGS=================
+Warning: This web project was converted as a file-based web application. If your site contained any IIS meta-information, e.g. sub-folders marked as virtual directories, it is recommended that you close this web site and re-open it using the Open Web Site command and selecting the Local IIS tab.
+
+=========================COMMENTS=================
+Read-only attribute of file C:\HPF\Code\CCRC\Web.Config has been changed to read-write.
+Web.Config: Added 'xhtmlConformance' attribute.
+Read-only attribute of file C:\HPF\Code\CCRC\Global.asax has been changed to read-write.
+Removed attribute Codebehind from file Global.asax.
+Read-only attribute of file C:\HPF\Code\CCRC\Global.asax.vb has been changed to read-write.
+Added folder App_Code.
+Moved file Global.asax.vb to the App_Code\ directory.
+Read-only attribute of file C:\HPF\Code\CCRC\AssemblyInfo.vb has been changed to read-write.
+Moved file AssemblyInfo.vb to the App_Code\ directory.
+Changed HTML validation schema for all projects to 'Internet Explorer 6.0'.
+Removed file CCRC.vbproj.
+Project CCRC.vbproj has been converted successfully at May 28 2008, 00:17:27.

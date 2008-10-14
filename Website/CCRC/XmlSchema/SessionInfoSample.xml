@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<SessionInfo xmlns="SessionInfo.xsd">
+<ReferralInfo>
+   <LoanID>1</LoanID>
+   <ProgramID>1</ProgramID>
+   <ServicerID>601</ServicerID>
+   <AgencyReferralID>564443</AgencyReferralID>
+   <LastName>Smith</LastName>
+   <FirstName>Joe</FirstName>
+   <Address1>555 Test Drive</Address1>
+   <City>Test City</City>
+   <State>MN</State>
+   <ZipCode>55555</ZipCode>
+   <PhoneNumber>234-234-2344</PhoneNumber>
+   <Age>45</Age>
+   <GenderTypeCode>1</GenderTypeCode>
+   <HispanicIndicator>N</HispanicIndicator>
+   <RaceTypeCode>05</RaceTypeCode>
+   <ReferralTypeCode>1</ReferralTypeCode>
+   <ReferralDate>2008-08-08T12:12:12</ReferralDate>
+   <AssignedCounselorUserName>jsmith</AssignedCounselorUserName>
+   <LoanDefaultReason>Lost job</LoanDefaultReason>
+   <ActionItems>find a job</ActionItems>
+   <FollowUpNotes>talk to counselor in a week</FollowUpNotes>
+   <FirstContactStatusTypeCode>02</FirstContactStatusTypeCode>
+   <ReferralSourceTypeCode>02</ReferralSourceTypeCode>
+   <ContactedIndicator>N</ContactedIndicator>
+   <DurationTypeCode>3</DurationTypeCode>
+   <NetIncomeTypeCode>5</NetIncomeTypeCode>
+   <FirstMortgageTypeCode>A</FirstMortgageTypeCode>
+   <OccupantsNumber>4</OccupantsNumber>
+   <MothersMaidenName>H</MothersMaidenName>
+   <PrivacyConsentIndicator>Y</PrivacyConsentIndicator>
+   <PriorityTypeCode>1</PriorityTypeCode>
+   <BankruptcyIndicator>Y</BankruptcyIndicator>
+   <BankruptcyAttyName>NA</BankruptcyAttyName>
+   <OwnerOccupiedIndicator>Y</OwnerOccupiedIndicator>   
+   <CreditScore>650</CreditScore>
+   <PrimaryDefaultReasonType>1</PrimaryDefaultReasonType>
+   <SecondaryDefaultReasonType>6</SecondaryDefaultReasonType>
+   <MonthlyExpenseTypeCode>12</MonthlyExpenseTypeCode>
+   <HouseholdTypeCode>5</HouseholdTypeCode>
+   <HouseholdIncome>6000</HouseholdIncome>
+   <IncomeCategoryTypeCode>B</IncomeCategoryTypeCode>
+   <IntakeScoreTypeCode>1</IntakeScoreTypeCode>
+   <PitiAmount>1000</PitiAmount>
+   <ArmLoanResetIndicator>Y</ArmLoanResetIndicator>
+   <PropertyForSaleIndicator>Y</PropertyForSaleIndicator>
+   <ListPrice>300000</ListPrice>
+   <RealtorCompanyName>Remax</RealtorCompanyName>
+   <ForeclosureNoticeIndicator>Y</ForeclosureNoticeIndicator>
+   <IncomeEarnerTypeCode>3</IncomeEarnerTypeCode>
+   <SummarySentTypeCode>2</SummarySentTypeCode>
+   <SummarySentDate>2008-08-08T00:00:00</SummarySentDate>
+   <ToEmailAddress>abc@abc.com</ToEmailAddress>
+   <CreateUpdateUserName>jsmith</CreateUpdateUserName>
+</ReferralInfo>
+
+<ReferralBudgets>
+<ReferralBudget AgencyReferralID="564443">
+   <BudgetSubcategory>1</BudgetSubcategory>
+   <Amount>5000</Amount>
+   <BudgetNote>Salary Income</BudgetNote>
+</ReferralBudget>
+<ReferralBudget AgencyReferralID="564443">
+      <BudgetSubcategory>8</BudgetSubcategory>
+      <Amount>3000</Amount>
+      <BudgetNote>mortgage with PMI</BudgetNote>
+</ReferralBudget>
+</ReferralBudgets>
+
+<ReferralResults>
+<ReferralResult AgencyReferralID="564443">
+      <ReferralResultTypeCode>1</ReferralResultTypeCode>
+      <ReferralResultDate>2008-08-11T12:12:12</ReferralResultDate>
+</ReferralResult>
+<ReferralResult AgencyReferralID="564443">
+      <ReferralResultTypeCode>2</ReferralResultTypeCode>
+      <ReferralResultDate>2008-08-15T12:12:12</ReferralResultDate>
+</ReferralResult>
+</ReferralResults>
+</SessionInfo>

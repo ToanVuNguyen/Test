@@ -1,0 +1,23 @@
+' Web Cache File - Create Manually
+WEBID=12028
+TITLE=CCRC
+NAME=CCRC
+HOMEPAGE=/ccrc/home_redirect.htm
+
+'Supported Frameworks 
+FRAMEWORKID1=1051
+FRAMEWORKNAME1=NORMAL
+
+'Menus 
+'MENU1=
+'MENU1NAME=
+'MENU1STYLE=
+
+'Supported Channels 
+CHANNELID=1055
+CHANNELNAME=Valuations
+
+'Additional Attributes
+LEFTMENUOPENCLOSE=YES
+LEFTMENUHEADERBODY=YES
+THEME=

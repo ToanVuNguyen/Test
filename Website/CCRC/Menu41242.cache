@@ -1,0 +1,28 @@
+
+LINE_NBRSORT_ORDER_NBRLEVEL_NBRWEB_SEQ_IDWEB_MENU_SEQ_IDWEB_LINK_SEQ_IDCONTAINER_INDCONTAINER_OPEN_INDSSL_INDNAMECOMMENT_TXTIMG_SRC_NAMEIMG_DOWN_SRC_NAMEIMG_ACTIVE_SRC_NAMEURL_ADDRTARGET_FRAME_NAMETITLE_BAR_TXTTITLE_BAR_IMG_SRC_NAMESECURE_INDSECURE_GROUP_TXTTARGETED_INDTARGET_ATTRIBUTE_TXTMODIFIABLE_INDMODIFY_ATTRIBUTE_TXTPERSONALIZABLE_INDWRAP_TXT_IND
+001001011231841242157402NNNHome/ccrc/splash.aspNNNNN
+002002011231841242158902YYNAdminYrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+003003021231841242172002NNNAgencies/ccrc/admin/entity_list.asp?entityType=3Yrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+004004021231841242172003NNNServicers/ccrc/admin/entity_list.asp?entityType=2Yrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+005005021231841242172004NNNSponsors/ccrc/admin/entity_list.asp?entityType=1Yrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+006006021231841242172005NNNPrograms/ccrc/admin/program_list.aspYrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+007007021231841242199463NNNInvoice Sessions/ccrc/referrals/InvoiceSessions.aspYrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+008008021231841242199464NNNProcess Servicer Payments/ccrc/referrals/ServicerPayments.aspYrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+009009021231841242199462NNNSend Counseling Summaries Not Yet Sent/ccrc/referrals/counselingsummaryautoemail.aspYrfc\rfc-ccrcadmin;rfc\rfc-ccrcsuperuserNNNN
+010010011231841242181063NNNContact Us/ccrc/contactUs.htmNNNNN
+011011011231841242157403NNNAdd Referral/ccrc/referrals/search.asp?formMode=ADDYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;irfc\ccrcnhscounselorNNNN
+012012011231841242160542NNNEdit Referral/ccrc/referrals/search.asp?formMode=EDITYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;irfc\ccrcnhscounselorNNNN
+013013011231841242172602NNNView Referral/ccrc/referrals/search.asp?formMode=VIEWYirfc\ccrcservicer;irfc\ccrcsponsor;rfc\rfc-ccrcowner;rfc\rfc-ccrcservicer;rfc\rfc-ccrcsponsorNNNN
+014014011231841242158922NNNReports/ccrc/reports/ccrc_Report_Config.aspYirfc\ccrcreportuser;rfc\rfc-ccrcreportuser;rfc\rfc-ccrcsuperuser;rfc\rfc-ccrcownerNNNN
+015015011231841242163382NNNCCRC Counselor Directory/ccrc/reports/ccrc_Users_Report.asp?agencyType=1NNNNN
+016016011231841242195862NNNServicer Directory/ccrc/reports/ccrc_Servicers_Report.aspYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;irfc\ccrcnhscounselorNNNN
+017017011231841242195863NNNLocal Resourceshttp://nonprofitreferral.org/Yirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuserNNNN
+018018011231841242196722NNNLifeMatters Counseling/ccrc/LMServices_HOPE.PDFYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuserNNNN
+019019011231841242196723NNNMilitary Assistance Program/ccrc/AtEaseGrantProcedure.docYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuserNNNN
+020020011231841242197462NNNNational Urban League/ccrc/NationalUrbanLeague.pdfYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuserNNNN
+021021011231841242196724YYNNWO/NHS ResourcesYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;irfc\ccrcnhscounselorNNNN
+022022021231841242197445NNNNWO Resource Locator
+http://www.nw5.org/locatorYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;irfc\ccrcnhscounselorNNNN
+023023021231841242197444NNNCounselor Directory/ccrc/reports/ccrc_Users_Report.asp?agencyType=2Yirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;irfc\ccrcnhscounselorNNNN
+024024011231841242157404NNNCounselor User Guide/ccrc/CCRC User Guide.docYirfc\ccrcnonnhscounselor;rfc\rfc-ccrcsuperuser;rfc\rfc-ccrcowner;irfc\ccrcnhscounselorNNNN
+025025011231841242181062NNNFAQ/ccrc/CCRC_FAQ.docNNNNN
