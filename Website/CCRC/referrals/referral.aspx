@@ -74,6 +74,8 @@
 	On Error Resume Next
 	
     varloanId = Request.QueryString("loanId")
+    varloanId = varloanId.ToString().Replace(" ", "") 'Trim white-space           
+    '-------------
     zipCode = Request.QueryString("zipCode")
     userRoles = Request.Cookies("CCRCCookie")("profileRoles")
     entityId = Request.Cookies("CCRCCookie")("entitySeqId")
