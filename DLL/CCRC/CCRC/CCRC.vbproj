@@ -10,11 +10,14 @@
     <RootNamespace>CCRC</RootNamespace>
     <AssemblyName>CCRC</AssemblyName>
     <MyType>Windows</MyType>
-    <SccProjectName>"%24/CCRC/CCRCDLL", IKAAAAAA</SccProjectName>
-    <SccLocalPath>..</SccLocalPath>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
     <SccAuxPath>
     </SccAuxPath>
-    <SccProvider>MSSCCI:Microsoft Visual SourceSafe</SccProvider>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

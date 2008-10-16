@@ -1,6 +1,6 @@
 Imports System.Data.SqlClient
 Imports System.Data.OleDb
-
+Imports CCRC
 
 
 Imports CCRCEncryption
@@ -80,6 +80,16 @@ Public Class Form1
         Else
 
             MessageBox.Show("Login attempt failed.")
+        End If
+
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Dim r As New Referral()
+        If r.IsUseSecureEmail("hpf@wellsfargo.com, hpo.chase@chase.com, mortgagehelp@citi.com") Then
+            MessageBox.Show("Y")
+        Else
+            MessageBox.Show("N")
         End If
 
     End Sub

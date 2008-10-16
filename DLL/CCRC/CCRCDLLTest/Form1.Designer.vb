@@ -21,6 +21,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button
         Me.EMailText = New System.Windows.Forms.Label
+        Me.Button2 = New System.Windows.Forms.Button
         Me.SuspendLayout()
         '
         'Button1
@@ -41,11 +42,21 @@ Partial Class Form1
         Me.EMailText.TabIndex = 1
         Me.EMailText.Text = "Label1"
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(439, 221)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(189, 23)
+        Me.Button2.TabIndex = 2
+        Me.Button2.Text = "Test Secure Mail"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(691, 474)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.EMailText)
         Me.Controls.Add(Me.Button1)
         Me.Name = "Form1"
@@ -56,5 +67,6 @@ Partial Class Form1
     End Sub
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents EMailText As System.Windows.Forms.Label
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 End Class

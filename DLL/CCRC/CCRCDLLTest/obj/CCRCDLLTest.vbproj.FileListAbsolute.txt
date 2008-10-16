@@ -30,3 +30,14 @@ C:\HPF\Code\DLL\CCRC\CCRCDLLTest\bin\Debug\CCRCSecure.dll
 C:\HPF\Code\DLL\CCRC\CCRCDLLTest\bin\Debug\Interop.CCRC_Admin.dll
 C:\HPF\Code\DLL\CCRC\CCRCDLLTest\bin\Debug\Interop.CCRC_Main.dll
 C:\HPF\Code\DLL\CCRC\CCRCDLLTest\bin\Debug\CCRCSecure.pdb
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\CCRCDLLTest.exe
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\CCRCDLLTest.xml
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\CCRCDLLTest.pdb
+D:\HPF\DLL\CCRC\CCRCDLLTest\bin\Release\CCRCDLLTest.exe
+D:\HPF\DLL\CCRC\CCRCDLLTest\bin\Release\CCRCDLLTest.pdb
+D:\HPF\DLL\CCRC\CCRCDLLTest\bin\Release\CCRCDLLTest.xml
+D:\HPF\DLL\CCRC\CCRCDLLTest\bin\Release\CCRC.dll
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\ResolveAssemblyReference.cache
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\CCRCDLLTest.Form1.resources
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\CCRCDLLTest.Resources.resources
+D:\HPF\DLL\CCRC\CCRCDLLTest\obj\Release\CCRCDLLTest.vbproj.GenerateResource.Cache

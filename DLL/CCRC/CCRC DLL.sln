@@ -6,17 +6,6 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CCRCDLLTest", "CCRCDLLTest\CCRCDLLTest.vbproj", "{D6213A92-BA2E-4DFC-BBA6-0BEFEF1BBEDB}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 2
-		SccProjectUniqueName0 = CCRC\\CCRC.vbproj
-		SccLocalPath0 = .
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection0 = CCRC\\
-		SccProjectName1 = \u0022$/CCRC/CCRCDLL\u0022,\u0020IKAAAAAA
-		SccLocalPath1 = .
-		SccProvider1 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-		CanCheckoutShared = false
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
