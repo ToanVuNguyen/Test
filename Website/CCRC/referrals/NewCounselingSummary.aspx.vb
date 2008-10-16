@@ -472,7 +472,15 @@ Dim strlen = Len(str)
         myCDOMail.To = sendToAddress.Text
         'myCDOMail.BCC = TxtfromAddress.Text ----Commented by Long Cao, we do not need to send mail to both send and from e-mail
         myCDOMail.From = TxtfromAddress.Text
-        myCDOMail.Subject = txtSubject.Text + " $s$"
+        '------------
+        Dim referral As CCRC.Referral = New CCRC.Referral()
+        If referral.IsUseSecureEmail(sendToAddress.Text) Then
+            myCDOMail.Subject = txtSubject.Text + " $s$"
+        Else
+            myCDOMail.Subject = txtSubject.Text
+        End If
+        '------------
+
         Label1.Text = Label1.Text & "<B>Counselor Comments:</B><BR>"
         Label1.Text = Label1.Text & emailComment.Value
 
