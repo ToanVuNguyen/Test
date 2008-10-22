@@ -28,15 +28,15 @@ public class LoginBuisness
 
     public int AddSecureUser(int seqID, string sDomain, string username, string ACTIVE_IND,
         string USER_ROLE_STRING, string ChangeProgName, string createdUser, string lastName, string FirstName,
-        string title, string email, string priPhone, string hashedpassword) //,int LocationID
+        string title, string email, string priPhone, string hashedpassword, string AGENCY_USER_ID) //,int LocationID
     {
         return Login.AddSecureUser(seqID,sDomain, username, ACTIVE_IND,
-        USER_ROLE_STRING, ChangeProgName, createdUser, lastName, FirstName, title, email, priPhone, SaltedHash.CreateSaltedPasswordHash(hashedpassword)); //, LocationID
+        USER_ROLE_STRING, ChangeProgName, createdUser, lastName, FirstName, title, email, priPhone, SaltedHash.CreateSaltedPasswordHash(hashedpassword), AGENCY_USER_ID); //, LocationID
     }
 
     public int  UpdateSecureUser(int seqID, string sDomain, string username, string ACTIVE_IND,
         string USER_ROLE_STRING, string ChangeProgName, string createdUser, string lastName, string FirstName,
-        string title, string email, string priPhone, string hashedpassword, int iBSN_ENTITY_LOCTN_SEQ_ID, int iPROFILE_SEQ_ID) 
+        string title, string email, string priPhone, string hashedpassword, int iBSN_ENTITY_LOCTN_SEQ_ID, int iPROFILE_SEQ_ID, string AGENCY_USER_ID) 
     {
         string IsUpdatepwd = "";
         if(hashedpassword!="*******")
@@ -51,7 +51,7 @@ public class LoginBuisness
         
         return     Login.UpdateSecureUser(seqID,sDomain, username, ACTIVE_IND,
                    USER_ROLE_STRING, ChangeProgName, createdUser, lastName, FirstName, title, email, priPhone, hashedpassword, IsUpdatepwd,
-                   iBSN_ENTITY_LOCTN_SEQ_ID, iPROFILE_SEQ_ID); 
+                   iBSN_ENTITY_LOCTN_SEQ_ID, iPROFILE_SEQ_ID, AGENCY_USER_ID); 
     }
 
 

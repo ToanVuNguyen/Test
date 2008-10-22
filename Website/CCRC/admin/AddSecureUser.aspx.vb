@@ -39,6 +39,9 @@ Partial Public Class AddSecureUser
             Dim email As String = txtEmail.Text
             Dim priPhone As String = txtPhone.Text
             Dim uName As String
+
+            Dim agencyUserId As String = txtAgencyUserID.Text
+
             Dim iBSN_ENTITY_LOCTN_SEQ_ID As Integer
             Int32.TryParse(hidBSN_ENTITY_LOCTN_SEQ_ID.Value, iBSN_ENTITY_LOCTN_SEQ_ID)
 
@@ -50,13 +53,13 @@ Partial Public Class AddSecureUser
                 If uName.Trim.Length > 0 Then
                     locationID = Login.UpdateSecureUser(BSN_ENTITY_SEQ_ID, doimain, txtUserID.Text, sActiveInd, getAccesslevels(accessString), sProgname, CreatedUser, _
                                            lastName, FirstName, title, email, priPhone, txtPassword.Text, _
-                                           iBSN_ENTITY_LOCTN_SEQ_ID, iPROFILE_SEQ_ID)
+                                           iBSN_ENTITY_LOCTN_SEQ_ID, iPROFILE_SEQ_ID, agencyUserId)
                     lblMsg.Text = "User Updated successfully."
 
                 End If
             Else
                 locationID = Login.AddSecureUser(BSN_ENTITY_SEQ_ID, doimain, txtUserID.Text, sActiveInd, getAccesslevels(accessString), sProgname, CreatedUser, _
-                                                lastName, FirstName, title, email, priPhone, txtPassword.Text) ', locationID
+                                                lastName, FirstName, title, email, priPhone, txtPassword.Text, agencyUserId) ', locationID
                 lblMsg.Text = "User Created successfully."
             End If
             hidLocationId.Value = locationID
@@ -75,6 +78,7 @@ Partial Public Class AddSecureUser
             lblTitle.Text = txtTitle.Text
             lblUserID.Text = txtUserID.Text
             lblPassword.Text = txtPassword.Text
+            lblAgencyUserId.Text = txtAgencyUserID.Text
          Catch ccex As CCRCException
 
             lblMsg.Text = ccex.Message
@@ -130,6 +134,9 @@ Partial Public Class AddSecureUser
         Dim lastName As String = txtLastName.Text
         Dim FirstName As String = txtFirstName.Text
 
+        Dim Agency_UserID As String = ""
+
+
         Dim title As String = txtTitle.Text
         Dim email As String = txtEmail.Text
         Dim priPhone As String = txtPhone.Text
@@ -145,6 +152,7 @@ Partial Public Class AddSecureUser
             title = dr("TITLE_TXT").ToString()
             email = dr("PRIMARY_EMAIL_ADDR").ToString()
             priPhone = dr("PRIMARY_PHN").ToString()
+            Agency_UserID = dr("AGENCY_USER_ID").ToString()
             strBSN_ENTITY_LOCTN_SEQ_ID = dr("BSN_ENTITY_LOCTN_SEQ_ID").ToString()
             strPROFILE_SEQ_ID = dr("PROFILE_SEQ_ID").ToString()
 
@@ -179,6 +187,7 @@ Partial Public Class AddSecureUser
         txtPhone.Text = priPhone
         txtTitle.Text = title
         txtUserID.Text = uName
+        txtAgencyUserID.Text = Agency_UserID
         hidBSN_ENTITY_LOCTN_SEQ_ID.Value = strBSN_ENTITY_LOCTN_SEQ_ID
         hidPROFILE_SEQ_ID.Value = strPROFILE_SEQ_ID
         ' For Issue Id 62

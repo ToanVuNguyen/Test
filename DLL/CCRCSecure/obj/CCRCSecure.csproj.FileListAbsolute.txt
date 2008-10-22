@@ -32,3 +32,19 @@ C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Release\Interop.ActiveDs.dll
 C:\HPF\From Pravu\CCRC\CCRCSecure\bin\Release\Interop.IISOle.dll
 C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\CCRCSecure.dll
 C:\HPF\From Pravu\CCRC\CCRCSecure\obj\Release\CCRCSecure.pdb
+D:\HPF\DLL\CCRCSecure\obj\Debug\ResolveAssemblyReference.cache
+D:\HPF\DLL\CCRCSecure\obj\Debug\Interop.ActiveDs.dll
+D:\HPF\DLL\CCRCSecure\obj\Debug\CCRCSecure.csproj.ResolveComReference.cache
+D:\HPF\DLL\CCRCSecure\obj\Debug\CCRCSecure.dll
+D:\HPF\DLL\CCRCSecure\bin\Debug\CCRCSecure.dll
+D:\HPF\DLL\CCRCSecure\bin\Debug\CCRCSecure.pdb
+D:\HPF\DLL\CCRCSecure\bin\Debug\Interop.ActiveDs.dll
+D:\HPF\DLL\CCRCSecure\obj\Debug\CCRCSecure.pdb
+D:\HPF\DLL\CCRCSecure\bin\Release\CCRCSecure.dll
+D:\HPF\DLL\CCRCSecure\bin\Release\CCRCSecure.pdb
+D:\HPF\DLL\CCRCSecure\bin\Release\Interop.ActiveDs.dll
+D:\HPF\DLL\CCRCSecure\obj\Release\ResolveAssemblyReference.cache
+D:\HPF\DLL\CCRCSecure\obj\Release\Interop.ActiveDs.dll
+D:\HPF\DLL\CCRCSecure\obj\Release\CCRCSecure.csproj.ResolveComReference.cache
+D:\HPF\DLL\CCRCSecure\obj\Release\CCRCSecure.dll
+D:\HPF\DLL\CCRCSecure\obj\Release\CCRCSecure.pdb

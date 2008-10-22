@@ -96,11 +96,18 @@
                             Display="Dynamic" ControlToValidate="txtPassword"></asp:RequiredFieldValidator></td>
                 </tr>
                 <tr>
-                    <td style="width: 118px" v>
+                    <td style="width: 118px">
                       </td>
                     <td>
                         <asp:TextBox ID="txtPasswordConfirm" runat="server" TextMode="Password" Visible="false"></asp:TextBox>
                     </td>
+                </tr>
+                <tr>
+                    <td style="width: 118px">
+                        Agency User ID:</td>
+                    <td>
+                        <asp:TextBox ID="txtAgencyUserID" runat="server"></asp:TextBox>                       
+                        </td>
                 </tr>
                 <tr>
                     <td style="width: 118px">
@@ -217,6 +224,12 @@
                         Password:</td>
                     <td>
                         <asp:Label ID="lblPassword" runat="server"></asp:Label>
+                </tr>
+                <tr>
+                    <td style="width: 118px">
+                        Agency User ID:</td>
+                    <td>
+                        <asp:Label ID="lblAgencyUserId" runat="server"></asp:Label>
                 </tr>
                 <tr>
                     <td style="width: 118px">

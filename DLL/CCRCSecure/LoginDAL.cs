@@ -40,7 +40,7 @@ public class LoginDAL
 
     public int AddSecureUser(int seqID, string sDomain, string username, string ACTIVE_IND,
         string USER_ROLE_STRING, string ChangeProgName, string createdUser, string lastName, string FirstName,
-        string title, string email, string priPhone, string hashedpassword) //,int locationID
+        string title, string email, string priPhone, string hashedpassword, string AGENCY_USER_ID) //,int locationID
     {
         string SQL = "SELECT COUNT(NT_USERID) AS COUNT_NT_USERID  FROM CCRC_USER WHERE NT_USERID='" + username + "'";
         Sqlhelper sqlhelper = new Sqlhelper();
@@ -54,14 +54,14 @@ public class LoginDAL
 
 
 
-            SqlParameter[] l_SqlParameterArray_params = new SqlParameter[14];
+            SqlParameter[] l_SqlParameterArray_params = new SqlParameter[15];
             l_SqlParameterArray_params[0] = new SqlParameter("@BSN_ENTITY_LOCTN_SEQ_ID", SqlDbType.Int);
             l_SqlParameterArray_params[0].Direction = ParameterDirection.Output;
             l_SqlParameterArray_params[0].Value = 0;
 
             l_SqlParameterArray_params = PopulateParameter(seqID, sDomain, username, ACTIVE_IND,
              USER_ROLE_STRING, ChangeProgName, createdUser, lastName, FirstName,
-             title, email, priPhone, hashedpassword, l_SqlParameterArray_params);
+             title, email, priPhone, hashedpassword,AGENCY_USER_ID, l_SqlParameterArray_params);
 
 
             sqlhelper.ExecuteNonQuery("ADD_User", out LocationID, l_SqlParameterArray_params);
@@ -77,10 +77,10 @@ public class LoginDAL
     public int UpdateSecureUser(int seqID, string sDomain, string username, string ACTIVE_IND,
     string USER_ROLE_STRING, string ChangeProgName, string createdUser, string lastName, string FirstName,
     string title, string email, string priPhone, string hashedpassword, string IsUpdatepwd,
-    int iBSN_ENTITY_LOCTN_SEQ_ID, int iPROFILE_SEQ_ID)
+    int iBSN_ENTITY_LOCTN_SEQ_ID, int iPROFILE_SEQ_ID, string AGENCY_USER_ID)
     {
         Sqlhelper sqlhelper = new Sqlhelper();
-        SqlParameter[] l_SqlParameterArray_params = new SqlParameter[17];
+        SqlParameter[] l_SqlParameterArray_params = new SqlParameter[18];
         int LocationID = 0;
 
         l_SqlParameterArray_params[0] = new SqlParameter("@BSN_ENTITY_LOCTN_SEQ_ID", SqlDbType.Int);
@@ -89,20 +89,20 @@ public class LoginDAL
 
         l_SqlParameterArray_params = PopulateParameter(seqID, sDomain, username, ACTIVE_IND,
          USER_ROLE_STRING, ChangeProgName, createdUser, lastName, FirstName,
-         title, email, priPhone, hashedpassword, l_SqlParameterArray_params);
+         title, email, priPhone, hashedpassword, AGENCY_USER_ID, l_SqlParameterArray_params);
 
-        l_SqlParameterArray_params[14] = new SqlParameter("@IsUpdatepwd", SqlDbType.NVarChar, 1);
-        l_SqlParameterArray_params[14].Direction = ParameterDirection.Input;
-        l_SqlParameterArray_params[14].Value = IsUpdatepwd;
-
-
-        l_SqlParameterArray_params[15] = new SqlParameter("@OLD_BSN_ENTITY_LOCTN_SEQ_ID", SqlDbType.Int);
+        l_SqlParameterArray_params[15] = new SqlParameter("@IsUpdatepwd", SqlDbType.NVarChar, 1);
         l_SqlParameterArray_params[15].Direction = ParameterDirection.Input;
-        l_SqlParameterArray_params[15].Value = iBSN_ENTITY_LOCTN_SEQ_ID;
+        l_SqlParameterArray_params[15].Value = IsUpdatepwd;
 
-        l_SqlParameterArray_params[16] = new SqlParameter("@OLD_PROFILE_SEQ_ID", SqlDbType.Int);
+
+        l_SqlParameterArray_params[16] = new SqlParameter("@OLD_BSN_ENTITY_LOCTN_SEQ_ID", SqlDbType.Int);
         l_SqlParameterArray_params[16].Direction = ParameterDirection.Input;
-        l_SqlParameterArray_params[16].Value = iPROFILE_SEQ_ID;
+        l_SqlParameterArray_params[16].Value = iBSN_ENTITY_LOCTN_SEQ_ID;
+
+        l_SqlParameterArray_params[17] = new SqlParameter("@OLD_PROFILE_SEQ_ID", SqlDbType.Int);
+        l_SqlParameterArray_params[17].Direction = ParameterDirection.Input;
+        l_SqlParameterArray_params[17].Value = iPROFILE_SEQ_ID;
 
         
         sqlhelper.ExecuteNonQuery("Update_User", out LocationID, l_SqlParameterArray_params);
@@ -112,7 +112,7 @@ public class LoginDAL
 
     private SqlParameter[] PopulateParameter(int seqID, string sDomain, string username, string ACTIVE_IND,
         string USER_ROLE_STRING, string ChangeProgName, string createdUser, string lastName, string FirstName,
-        string title, string email, string priPhone, string hashedpassword, SqlParameter[] l_SqlParameterArray_params)
+        string title, string email, string priPhone, string hashedpassword, string AGENCY_USER_ID,SqlParameter[] l_SqlParameterArray_params)
     {
         l_SqlParameterArray_params[1] = new SqlParameter("@BSN_ENTITY_SEQ_ID", SqlDbType.Int);
         l_SqlParameterArray_params[1].Direction = ParameterDirection.Input;
@@ -172,6 +172,10 @@ public class LoginDAL
         l_SqlParameterArray_params[13].Direction = ParameterDirection.Input;
         l_SqlParameterArray_params[13].Value = hashedpassword;
 
+        l_SqlParameterArray_params[14] = new SqlParameter("@AGENCY_USER_ID", SqlDbType.NVarChar, 50);
+        l_SqlParameterArray_params[14].Direction = ParameterDirection.Input;
+        l_SqlParameterArray_params[14].Value = AGENCY_USER_ID;
+
         return l_SqlParameterArray_params;
 
     }
@@ -191,7 +195,7 @@ public class LoginDAL
     public SqlDataReader GetUserInfo(string uName)
     {
         string SQL = "SELECT  BSN_ENTITY_SEQ_ID,  CU.NT_USERID, CU.ACTIVE_IND, USER_ROLE_STRING, CU.LAST_NAME, CU.FIRST_NAME,";
-        SQL += " CU.TITLE_TXT, CU.PRIMARY_EMAIL_ADDR,CU.PRIMARY_PHN,LCU.BSN_ENTITY_LOCTN_SEQ_ID,PROFILE_SEQ_ID";
+        SQL += " CU.TITLE_TXT, CU.PRIMARY_EMAIL_ADDR,CU.PRIMARY_PHN,CU.AGENCY_USER_ID,LCU.BSN_ENTITY_LOCTN_SEQ_ID,PROFILE_SEQ_ID";
         SQL += " FROM     CCRC_USER  CU INNER JOIN BSN_ENTITY_LOCTN_CCRC_USER  LCU ON  CU.CCRC_USER_SEQ_ID =LCU.CCRC_USER_SEQ_ID";
         SQL += " INNER JOIN [PROFILE] PF ON PF.NT_USERID= CU.NT_USERID WHERE     CU.NT_USERID = '" + uName + "'";
 
