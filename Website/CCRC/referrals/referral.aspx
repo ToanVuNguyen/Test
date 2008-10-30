@@ -73,9 +73,9 @@
 
 	On Error Resume Next
 	
+        
     varloanId = Request.QueryString("loanId")
-    varloanId = varloanId.ToString().Replace(" ", "") 'Trim white-space           
-    '-------------
+    
     zipCode = Request.QueryString("zipCode")
     userRoles = Request.Cookies("CCRCCookie")("profileRoles")
     entityId = Request.Cookies("CCRCCookie")("entitySeqId")
@@ -83,11 +83,12 @@
     formMode = Request.QueryString("formMode")
 
      
-	If formMode = "ADD" Then
-		referralId = 0
-	Else
-		referralId = Request.QueryString("referralId")
-	End If	
+    If formMode = "ADD" Then
+        referralId = 0
+        varloanId = varloanId.ToString().Replace(" ", "") 'Trim white-space 
+    Else
+        referralId = Request.QueryString("referralId")
+    End If
 	
     ' varloanId = 1
     ' zipCode = 60559
@@ -98,67 +99,67 @@
     'referralId = 19202
     
     
-	'Dim obj
-	obj = CreateObject("CCRC_Main.CMain")
-	'obj = new CCRC_Main.CMain 
-	If RedirectIfError("XXX Creating CCRC_Main.CMain", eRetPage, eRetBtnText) Then
-		obj = Nothing
-		Response.Clear 
-		Response.End 
-	End If
+    'Dim obj
+    obj = CreateObject("CCRC_Main.CMain")
+    'obj = new CCRC_Main.CMain 
+    If RedirectIfError("XXX Creating CCRC_Main.CMain", eRetPage, eRetBtnText) Then
+        obj = Nothing
+        Response.Clear()
+        Response.End()
+    End If
     
-	if NOT obj is Nothing
+    If Not obj Is Nothing Then
         'Response.Write("HI")
-	    Response.Flush()
-	End if
+        Response.Flush()
+    End If
     Rs = obj.Get_Referral(varloanId, referralId, zipCode, profileSeqId, sUserId, sSQL, iReturnCode, sMessage)
-'response.Write ssql
-'response.end
-	If RedirectIfError("Calling CCRC_Main.CMain.Get_Referral", eRetPage, eRetBtnText) Then
-		obj = Nothing
-		Response.Clear 
-		Response.End 
-	End If
-internal = false		
-	If isValidRS(Rs) Then
+    'response.Write ssql
+    'response.end
+    If RedirectIfError("Calling CCRC_Main.CMain.Get_Referral", eRetPage, eRetBtnText) Then
+        obj = Nothing
+        Response.Clear()
+        Response.End()
+    End If
+    internal = False
+    If isValidRS(Rs) Then
 	
-'dim fld
-'for each fld in Rs.fields
-'	response.Write fld.name & "<br>"
-'next	
-'response.End
+        'dim fld
+        'for each fld in Rs.fields
+        '	response.Write fld.name & "<br>"
+        'next	
+        'response.End
         'Response.Write("HI2")
         varloanId = Rs.Fields("LOAN_ID").Value
 		
-		If Rs.Fields("INTERNAL_IND").Value = "Y" Then
-			internal = true
-		End If
+        If Rs.Fields("INTERNAL_IND").Value = "Y" Then
+            internal = True
+        End If
 		
-		borrowerName = buildName(Rs.Fields("FIRST_NAME").Value, Rs.Fields("MI_NAME").Value, Rs.Fields("LAST_NAME").Value, "")
+        borrowerName = buildName(Rs.Fields("FIRST_NAME").Value, Rs.Fields("MI_NAME").Value, Rs.Fields("LAST_NAME").Value, "")
         varlastName = Rs.Fields("LAST_NAME").Value
-		firstName = Rs.Fields("FIRST_NAME").Value
-		miName = Rs.Fields("MI_NAME").Value
+        firstName = Rs.Fields("FIRST_NAME").Value
+        miName = Rs.Fields("MI_NAME").Value
         varaddrLine1 = Rs.Fields("ADDR_LINE_1").Value
-		city = Rs.Fields("CITY").Value
-		state = Rs.Fields("STATE").Value
-		zipCode = Rs.Fields("ZIP").Value
+        city = Rs.Fields("CITY").Value
+        state = Rs.Fields("STATE").Value
+        zipCode = Rs.Fields("ZIP").Value
 
-		referralId = Rs.Fields("REFERRAL_SEQ_ID").Value
-		If referralId <> "0" Then
-			formMode = "EDIT"
-		End If
+        referralId = Rs.Fields("REFERRAL_SEQ_ID").Value
+        If referralId <> "0" Then
+            formMode = "EDIT"
+        End If
 
-		agencyId = Rs.Fields("AGENCY_SEQ_ID").Value
-		counselorId = Rs.Fields("COUNSELOR_SEQ_ID").Value
-		agencyName = Rs.Fields("BSN_ENTITY_NAME").Value
-		counselorName = buildName(Rs.Fields("COUNSELOR_FIRST_NAME").Value, Rs.Fields("COUNSELOR_MID_INIT_NAME").Value, Rs.Fields("COUNSELOR_LAST_NAME").Value, Rs.Fields("COUNSELOR_NAME_SUFFIX_CODE").Value)
-		servicer = Rs.Fields("SERVICER_SEQ_ID").Value
-		theLocation = Rs.Fields("SERVICER_LOCTN_SEQ_ID").Value
-		theProgram = Rs.Fields("PROGRAM_SEQ_ID").Value
-		agencyTrackingId = Rs.Fields("AGENCY_REFERRAL_ID").Value
-		referralTypeCode = Rs.Fields("REFERRAL_TYPE_CODE").Value
+        agencyId = Rs.Fields("AGENCY_SEQ_ID").Value
+        counselorId = Rs.Fields("COUNSELOR_SEQ_ID").Value
+        agencyName = Rs.Fields("BSN_ENTITY_NAME").Value
+        counselorName = buildName(Rs.Fields("COUNSELOR_FIRST_NAME").Value, Rs.Fields("COUNSELOR_MID_INIT_NAME").Value, Rs.Fields("COUNSELOR_LAST_NAME").Value, Rs.Fields("COUNSELOR_NAME_SUFFIX_CODE").Value)
+        servicer = Rs.Fields("SERVICER_SEQ_ID").Value
+        theLocation = Rs.Fields("SERVICER_LOCTN_SEQ_ID").Value
+        theProgram = Rs.Fields("PROGRAM_SEQ_ID").Value
+        agencyTrackingId = Rs.Fields("AGENCY_REFERRAL_ID").Value
+        referralTypeCode = Rs.Fields("REFERRAL_TYPE_CODE").Value
 		
-		'If IsNull(Rs.Fields("REFERRAL_DATE").Value) Or Len(Rs.Fields("REFERRAL_DATE").Value) = 0 Then
+        'If IsNull(Rs.Fields("REFERRAL_DATE").Value) Or Len(Rs.Fields("REFERRAL_DATE").Value) = 0 Then
         '''PB
         'Response.Write(Rs.Fields("REFERRAL_DATE").Value)
         
@@ -273,14 +274,14 @@ internal = false
         summarySentOtherDate = Rs.Fields("SUMMARY_SENT_OTHER_DATE").Value
     End If
 	
-	If Not isValidRS(Rs) Then
-	    ' For Issue 64 Where Referral Data is to be Todays Date
-	    referralDate = Date.Now.ToString("d")
-	End If 
+    If Not isValidRS(Rs) Then
+        ' For Issue 64 Where Referral Data is to be Todays Date
+        referralDate = Date.Now.ToString("d")
+    End If
 	
-	if Not pitiAmt2 >= 0 Then
-	    pitiAmt2=0
-	End If 
+    If Not pitiAmt2 >= 0 Then
+        pitiAmt2 = 0
+    End If
     'response.Write primaryDfltRsnType
     'response.End
 	
