@@ -468,11 +468,13 @@ Public Function Referral_Update(referralId, loanId, _
     Set objAdmin = New CAdmin
     ServicerId = objAdmin.Entity_Add(newServicer, "2", "", "", "", "", "N", "N", "", "N", is_UserID, os_SQL, os_ReturnCode, os_Message)
 '    locationId = objAdmin.Entity_Location_Add(ServicerId, newLocation, "Y", "", is_UserID, os_sql, os_ReturnCode, os_Message)
-    locationId = GetServicerDefaultLocation(ServicerId)
+'    locationId = GetServicerDefaultLocation(ServicerId) - comment by Long Cao
     Call objAdmin.Program_Entity_Add(programId, ServicerId, is_UserID, os_SQL, os_ReturnCode, os_Message)
     Set objAdmin = Nothing
   End If
-        
+
+  locationId = GetServicerDefaultLocation(ServicerId)  
+      
   os_SQL = "UPDATE REFERRAL SET LOAN_ID = '" & CCom.SQLScrub(loanId) & "'"
   os_SQL = os_SQL & ", PROGRAM_SEQ_ID = " & programId
   os_SQL = os_SQL & ", AGENCY_SEQ_ID = " & agencyId
