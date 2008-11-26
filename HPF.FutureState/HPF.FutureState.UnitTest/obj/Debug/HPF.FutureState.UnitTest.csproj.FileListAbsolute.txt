@@ -1,0 +1,10 @@
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.UnitTest.dll
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.UnitTest.pdb
+C:\HPF.FutureState\HPF.FutureState.UnitTest\obj\Debug\ResolveAssemblyReference.cache
+C:\HPF.FutureState\HPF.FutureState.UnitTest\obj\Debug\HPF.FutureState.UnitTest.dll
+C:\HPF.FutureState\HPF.FutureState.UnitTest\obj\Debug\HPF.FutureState.UnitTest.pdb
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.Common.dll
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.DataAccess.dll
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.DataAccess.pdb
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.Common.pdb
+C:\HPF.FutureState\HPF.FutureState.UnitTest\bin\Debug\HPF.FutureState.UnitTest.dll.config

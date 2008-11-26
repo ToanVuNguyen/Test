@@ -1,0 +1,5 @@
+C:\HPF.FutureState\HPF.FutureState.Web.HPFWebControls\bin\Debug\HPF.FutureState.Web.HPFWebControls.dll
+C:\HPF.FutureState\HPF.FutureState.Web.HPFWebControls\bin\Debug\HPF.FutureState.Web.HPFWebControls.pdb
+C:\HPF.FutureState\HPF.FutureState.Web.HPFWebControls\obj\Debug\ResolveAssemblyReference.cache
+C:\HPF.FutureState\HPF.FutureState.Web.HPFWebControls\obj\Debug\HPF.FutureState.Web.HPFWebControls.dll
+C:\HPF.FutureState\HPF.FutureState.Web.HPFWebControls\obj\Debug\HPF.FutureState.Web.HPFWebControls.pdb

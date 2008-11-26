@@ -1,0 +1,11 @@
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\HPF.FutureState.Common.dll
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\HPF.FutureState.Common.pdb
+C:\HPF.FutureState\HPF.FutureState.Common\obj\Debug\ResolveAssemblyReference.cache
+C:\HPF.FutureState\HPF.FutureState.Common\obj\Debug\HPF.FutureState.Common.dll
+C:\HPF.FutureState\HPF.FutureState.Common\obj\Debug\HPF.FutureState.Common.pdb
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\Microsoft.Practices.Unity.dll
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\HPF.FutureState\HPF.FutureState.Common\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
