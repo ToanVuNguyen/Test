@@ -7,6 +7,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
     public class CallLogRequest
     {
-        public CallLogDTO CallLog { get; set; }
+        public CallLogWSDTO CallLog { get; set; }
     }
 }

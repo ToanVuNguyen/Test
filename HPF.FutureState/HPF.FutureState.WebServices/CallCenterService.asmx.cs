@@ -19,18 +19,15 @@ namespace HPF.FutureState.WebServices
     {
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public CallLogResponse AddNewCallLog(CallLogRequest request)
+        public CallLogResponse SaveCallLog(CallLogRequest request)
         {
             var response = new CallLogResponse();            
             //            
             try
             {
-                if (IsAuthenticated())
+                if (IsAuthenticated())//Authentication checking
                 {
-                    var callCenterId = GetCallCenterId();
-                    request.CallLog.CallCenter = callCenterId.ToString();
-                    //
-                    //CallLogBL.Instance.AddCallLog(request.CallLog);
+                    //Call Business Logic Here
                     response.Status = ResponseStatus.Success;
                 }
             }

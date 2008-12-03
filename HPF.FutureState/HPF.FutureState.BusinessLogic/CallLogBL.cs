@@ -31,29 +31,19 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="aCallLog"></param>
         public void InsertCallLog(CallLogDTO aCallLog)
         {
-
            CallLogDAO.Instance.InsertCallLog(aCallLog);
-        }
-
-        /// <summary>
-        /// Update a Callog
-        /// </summary>
-        /// <param name="aCallLog"></param>
-        public void UpdateCallLog(CallLogDTO aCallLog)
-        {
-            CallLogDAO.Instance.UpdateCallLog(aCallLog);
-        }
+        }       
 
         /// <summary>
         /// Get a CallLog by CallLogId
         /// </summary>
         /// <param name="callLogId">CallLogId</param>
         /// <returns></returns>
-        public CallLogDTO GetCallLog(int callLogId)
+        public CallLogDTO RetrieveCallLog(int callLogId)
         {
             return CallLogDAO.Instance.ReadCallLog(callLogId);
         }
 
-        #endregion
+        #endregion        
     }
 }

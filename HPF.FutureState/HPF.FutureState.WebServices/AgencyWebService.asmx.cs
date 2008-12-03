@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
+using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 namespace HPF.FutureState.WebServices
 {
@@ -20,6 +21,30 @@ namespace HPF.FutureState.WebServices
     // [System.Web.Script.Services.ScriptService]
     public class AgencyWebService : BaseAgencyWebService
     {
-        
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public ForeClosureCaseResponse SaveForeClosureCass(ForeClosureCaseRequest request)
+        {
+            var response = new ForeClosureCaseResponse();
+            //            
+            try
+            {
+                if (IsAuthenticated())
+                {
+                    //
+                    response.Status = ResponseStatus.Success;
+                }
+            }
+            catch (AuthenticationFailException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Message = Ex.Message;
+            }
+            catch (Exception Ex)
+            {
+                response.Message = Ex.Message;
+            }
+            return response;
+        }
     }
 }

@@ -55,7 +55,6 @@
   <ItemGroup>
     <Content Include="AgencyWebService.asmx" />
     <Content Include="CallCenterService.asmx" />
-    <Content Include="SearchWebService.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +69,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AuthenticationInfo.cs" />
-    <Compile Include="BaseSearchWebService.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="CallCenterService.asmx.cs">
       <DependentUpon>CallCenterService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -82,10 +78,6 @@
     </Compile>
     <Compile Include="AuthenticationFailException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchWebService.asmx.cs">
-      <DependentUpon>SearchWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">

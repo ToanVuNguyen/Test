@@ -34,6 +34,26 @@ namespace HPF.FutureState.DataAccess
             return sqlCommand;
         }
 
+        protected virtual SqlCommand CreateCommand(string spName, SqlConnection connection, SqlTransaction transaction)
+        {
+            var sqlCommand = new SqlCommand(spName)
+            {
+                Connection = connection,
+                Transaction = transaction                
+            };
+            return sqlCommand;
+        }
+
+        protected virtual SqlCommand CreateCommand(string spName, SqlTransaction transaction)
+        {
+            var sqlCommand = new SqlCommand(spName)
+            {
+                Connection = transaction.Connection,
+                Transaction = transaction
+            };
+            return sqlCommand;
+        }
+
         protected virtual SqlCommand CreateSPCommand(string spName)
         {
             var sqlCommand = new SqlCommand(spName)
@@ -50,6 +70,28 @@ namespace HPF.FutureState.DataAccess
                                      CommandType = CommandType.StoredProcedure, 
                                      Connection = connection
                                  };            
+            return sqlCommand;
+        }
+
+        protected virtual SqlCommand CreateSPCommand(string spName, SqlConnection connection, SqlTransaction transaction)
+        {
+            var sqlCommand = new SqlCommand(spName)
+            {
+                CommandType = CommandType.StoredProcedure,
+                Transaction = transaction,
+                Connection = connection
+            };
+            return sqlCommand;
+        }
+
+        protected virtual SqlCommand CreateSPCommand(string spName, SqlTransaction transaction)
+        {
+            var sqlCommand = new SqlCommand(spName)
+            {
+                CommandType = CommandType.StoredProcedure,
+                Transaction = transaction,
+                Connection = transaction.Connection
+            };
             return sqlCommand;
         }
 

@@ -47,13 +47,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogicInterface\ICallLogBL.cs" />
+    <Compile Include="BusinessLogicInterface\IForclosureCaseBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
+    <Compile Include="DataTransferObjects\BaseDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BudgetAssetDTO.cs" />
+    <Compile Include="DataTransferObjects\BudgetAssetDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BudgetItemDTO.cs" />
+    <Compile Include="DataTransferObjects\BudgetItemDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BudgetSetDTO.cs" />
+    <Compile Include="DataTransferObjects\BudgetSetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallLogDTO.cs" />
+    <Compile Include="DataTransferObjects\CallLogDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CaseLoanDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseLoanDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\ForeClosureCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeClosureCaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ResponseStatus.cs" />
     <Compile Include="DataTransferObjects\WSType.cs" />
     <Compile Include="DataTransferObjects\WSUserDTO.cs" />
