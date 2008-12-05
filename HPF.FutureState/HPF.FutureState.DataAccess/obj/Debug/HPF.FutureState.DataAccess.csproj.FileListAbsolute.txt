@@ -1,7 +1,0 @@
-C:\HPF.FutureState\HPF.FutureState.DataAccess\bin\Debug\HPF.FutureState.DataAccess.dll
-C:\HPF.FutureState\HPF.FutureState.DataAccess\bin\Debug\HPF.FutureState.DataAccess.pdb
-C:\HPF.FutureState\HPF.FutureState.DataAccess\obj\Debug\ResolveAssemblyReference.cache
-C:\HPF.FutureState\HPF.FutureState.DataAccess\obj\Debug\HPF.FutureState.DataAccess.dll
-C:\HPF.FutureState\HPF.FutureState.DataAccess\obj\Debug\HPF.FutureState.DataAccess.pdb
-C:\HPF.FutureState\HPF.FutureState.DataAccess\bin\Debug\HPF.FutureState.Common.dll
-C:\HPF.FutureState\HPF.FutureState.DataAccess\bin\Debug\HPF.FutureState.Common.pdb

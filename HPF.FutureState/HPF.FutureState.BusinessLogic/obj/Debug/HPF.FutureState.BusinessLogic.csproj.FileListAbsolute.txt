@@ -1,9 +1,0 @@
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\bin\Debug\HPF.FutureState.BusinessLogic.dll
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\bin\Debug\HPF.FutureState.BusinessLogic.pdb
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\obj\Debug\ResolveAssemblyReference.cache
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\obj\Debug\HPF.FutureState.BusinessLogic.dll
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\obj\Debug\HPF.FutureState.BusinessLogic.pdb
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\bin\Debug\HPF.FutureState.Common.dll
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\bin\Debug\HPF.FutureState.DataAccess.dll
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\bin\Debug\HPF.FutureState.DataAccess.pdb
-C:\HPF.FutureState\HPF.FutureState.BusinessLogic\bin\Debug\HPF.FutureState.Common.pdb
