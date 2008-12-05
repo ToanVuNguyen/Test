@@ -1,0 +1,154 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.Common", "HPF.FutureState.Common\HPF.FutureState.Common.csproj", "{571F09A2-386F-42DD-9E7E-B58F8983E368}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.DataAccess", "HPF.FutureState.DataAccess\HPF.FutureState.DataAccess.csproj", "{913C40C6-646F-4F53-8093-018797CEEE52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.BusinessLogic", "HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj", "{C707A0BC-1832-46D4-A9BF-3B38B09625EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.Web", "HPF.FutureState.Web\HPF.FutureState.Web.csproj", "{94A553D0-1C4D-4F55-8F69-A0F756889A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.WebServices", "HPF.FutureState.WebServices\HPF.FutureState.WebServices.csproj", "{AA547ED1-F4A9-4991-ADD5-E718893D678C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.Web.HPFWebControls", "HPF.FutureState.Web.HPFWebControls\HPF.FutureState.Web.HPFWebControls.csproj", "{FE71568F-7CBD-4206-994E-DFC3919C55BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.UnitTest", "HPF.FutureState.UnitTest\HPF.FutureState.UnitTest.csproj", "{5B537C78-E427-4A64-8DD8-BF7E351B598F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3A7D9D8-E2F8-4D96-BF3B-60E09A55A8D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enterprise Library", "Enterprise Library", "{E85B2ACB-43EF-44FB-B395-5C66ABA3ACAA}"
+	ProjectSection(SolutionItems) = preProject
+		Enterprise Library\EntLibConfig.exe = Enterprise Library\EntLibConfig.exe
+		Enterprise Library\EntLibConfig.exe.config = Enterprise Library\EntLibConfig.exe.config
+		Enterprise Library\MergeConfiguration.exe = Enterprise Library\MergeConfiguration.exe
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.AppSettings.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.AppSettings.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.AppSettings.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.AppSettings.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.Database.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Common.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Common.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Common.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Common.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.UI.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Data.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.WCF.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.Database.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.AzMan.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cache.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Security.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Design.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Design.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Design.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Design.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.xml
+		Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.xml = Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+		Enterprise Library\Microsoft.Practices.ObjectBuilder2.dll = Enterprise Library\Microsoft.Practices.ObjectBuilder2.dll
+		Enterprise Library\Microsoft.Practices.Unity.Configuration.dll = Enterprise Library\Microsoft.Practices.Unity.Configuration.dll
+		Enterprise Library\Microsoft.Practices.Unity.dll = Enterprise Library\Microsoft.Practices.Unity.dll
+		Enterprise Library\Microsoft.Practices.Unity.Interception.Configuration.dll = Enterprise Library\Microsoft.Practices.Unity.Interception.Configuration.dll
+		Enterprise Library\Microsoft.Practices.Unity.Interception.dll = Enterprise Library\Microsoft.Practices.Unity.Interception.dll
+		Enterprise Library\Microsoft.Practices.Unity.StaticFactory.dll = Enterprise Library\Microsoft.Practices.Unity.StaticFactory.dll
+		Enterprise Library\MsmqDistributor.exe = Enterprise Library\MsmqDistributor.exe
+		Enterprise Library\MsmqDistributor.exe.config = Enterprise Library\MsmqDistributor.exe.config
+		Enterprise Library\MsmqDistributor.xml = Enterprise Library\MsmqDistributor.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{571F09A2-386F-42DD-9E7E-B58F8983E368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571F09A2-386F-42DD-9E7E-B58F8983E368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571F09A2-386F-42DD-9E7E-B58F8983E368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571F09A2-386F-42DD-9E7E-B58F8983E368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{913C40C6-646F-4F53-8093-018797CEEE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{913C40C6-646F-4F53-8093-018797CEEE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{913C40C6-646F-4F53-8093-018797CEEE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{913C40C6-646F-4F53-8093-018797CEEE52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C707A0BC-1832-46D4-A9BF-3B38B09625EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C707A0BC-1832-46D4-A9BF-3B38B09625EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C707A0BC-1832-46D4-A9BF-3B38B09625EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C707A0BC-1832-46D4-A9BF-3B38B09625EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A553D0-1C4D-4F55-8F69-A0F756889A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A553D0-1C4D-4F55-8F69-A0F756889A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A553D0-1C4D-4F55-8F69-A0F756889A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A553D0-1C4D-4F55-8F69-A0F756889A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA547ED1-F4A9-4991-ADD5-E718893D678C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA547ED1-F4A9-4991-ADD5-E718893D678C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA547ED1-F4A9-4991-ADD5-E718893D678C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA547ED1-F4A9-4991-ADD5-E718893D678C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE71568F-7CBD-4206-994E-DFC3919C55BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE71568F-7CBD-4206-994E-DFC3919C55BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE71568F-7CBD-4206-994E-DFC3919C55BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE71568F-7CBD-4206-994E-DFC3919C55BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B537C78-E427-4A64-8DD8-BF7E351B598F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B537C78-E427-4A64-8DD8-BF7E351B598F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B537C78-E427-4A64-8DD8-BF7E351B598F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B537C78-E427-4A64-8DD8-BF7E351B598F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E85B2ACB-43EF-44FB-B395-5C66ABA3ACAA} = {E3A7D9D8-E2F8-4D96-BF3B-60E09A55A8D6}
+	EndGlobalSection
+EndGlobal
