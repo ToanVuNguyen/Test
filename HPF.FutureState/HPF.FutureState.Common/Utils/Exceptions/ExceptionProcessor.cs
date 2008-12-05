@@ -30,6 +30,11 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         {
             return (T)ExceptionFactory.CreateException(typeof (T).Name, exception);
         }
+
+        public static string FormatException(Exception exception)
+        {
+            return exception.Message;
+        }
     }
 
     

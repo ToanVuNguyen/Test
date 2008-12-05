@@ -9,6 +9,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public enum WSType
     {
         Agency = 0,
-        CallCenter = 1
+        CallCenter = 1,
+        Any = 2
     }
 }

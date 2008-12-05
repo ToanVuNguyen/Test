@@ -36,20 +36,24 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(0, Ex.Message);
+                ExceptionProcessor.HandleException(Ex);
             }
             catch (DataValidationException Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages = Ex.ExceptionMessages;
+                ExceptionProcessor.HandleException(Ex);
             }
-            catch (DataAccessException)
+            catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(0, "Data access error.");
+                ExceptionProcessor.HandleException(Ex);
             } 
             catch(Exception Ex)
             {
-                response.Messages.AddExceptionMessage(0, Ex.Message);               
+                response.Messages.AddExceptionMessage(0, Ex.Message);
+                ExceptionProcessor.HandleException(Ex);
             }
             return response;
         }
