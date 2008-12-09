@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.DataAccess;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -48,7 +50,36 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         public bool WSUserLogin(string userName, string password, WSType wsType)
         {
-            throw new System.NotImplementedException();
+            //This function does not have transaction.
+            try
+            {
+                WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
+                
+                if (user == null)
+                    return false;
+
+                switch (wsType)
+                { 
+                    case WSType.Agency:
+                        if (user.AgencyId != 0)
+                            return true;
+                        break;
+                    case WSType.CallCenter:
+                        if (user.CallCenterId != 0)
+                            return true;
+                        break;
+                    default:
+                        if (user.AgencyId == 0 && user.CallCenterId == 0)
+                            return true;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+
+            return false;
         }
 
         /// <summary>
