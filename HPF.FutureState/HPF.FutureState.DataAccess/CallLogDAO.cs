@@ -244,7 +244,7 @@ namespace HPF.FutureState.DataAccess
         {
             CallLogWSDTO callLogWSDTO = null;
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("USPCallSelectByPK", dbConnection);
+            var command = new SqlCommand("hpf_call_load", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@call_id", callLogId);
