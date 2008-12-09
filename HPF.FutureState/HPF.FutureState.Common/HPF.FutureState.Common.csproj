@@ -78,6 +78,8 @@
     <Compile Include="DataTransferObjects\WebServices\BaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseResponse.cs" />

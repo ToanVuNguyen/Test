@@ -57,5 +57,45 @@ namespace HPF.FutureState.WebServices
             }
             return response;
         }
+
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public CallLogRetrieveResponse RetrieveCallLog(CallLogRetrieveRequest request)
+        {
+            var response = new CallLogRetrieveResponse();
+            //            
+            try
+            {
+                if (IsAuthenticated())//Authentication checking
+                {                    
+                    response.CallLog = CallLogBL.Instance.RetrieveCallLog(request.callLogId);
+                    response.Status = ResponseStatus.Success;
+                }
+            }
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(0, Ex.Message);
+                ExceptionProcessor.HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages = Ex.ExceptionMessages;
+                ExceptionProcessor.HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(0, "Data access error.");
+                ExceptionProcessor.HandleException(Ex);
+            }
+            catch (Exception Ex)
+            {
+                response.Messages.AddExceptionMessage(0, Ex.Message);
+                ExceptionProcessor.HandleException(Ex);
+            }
+            return response;
+        }
     }
 }

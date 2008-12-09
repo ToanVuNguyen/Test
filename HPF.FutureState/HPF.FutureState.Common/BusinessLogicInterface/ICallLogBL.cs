@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 namespace HPF.FutureState.Common.BusinessLogicInterface
 {
@@ -19,7 +20,8 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param name="callLogId">CallLogId</param>
         /// <returns></returns>
-        CallLogDTO RetrieveCallLog(int callLogId);        
-        
+        CallLogDTO RetrieveCallLog(int callLogId);
+
+        CallLogWSDTO RetrieveCallLog(string callLogId);
     }
 }

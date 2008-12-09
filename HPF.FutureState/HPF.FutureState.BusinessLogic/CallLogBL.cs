@@ -1,4 +1,5 @@
-﻿using HPF.FutureState.Common.BusinessLogicInterface;
+﻿using HPF.FutureState.Common.DataTransferObjects.WebServices;
+using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common.Utils.Exceptions;
@@ -46,6 +47,11 @@ namespace HPF.FutureState.BusinessLogic
         {
             return CallLogDAO.Instance.ReadCallLog(callLogId);
         }
+
+        public CallLogWSDTO RetrieveCallLog(string callLogId)
+        {
+            return CallLogDAO.Instance.ReadCallLog(callLogId);
+        }  
 
         #endregion        
     }
