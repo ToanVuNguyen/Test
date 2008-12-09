@@ -3,4 +3,6 @@
 </asp:Content>
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderBody" runat="server">
     
+    <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Button" />
+    
 </asp:Content>

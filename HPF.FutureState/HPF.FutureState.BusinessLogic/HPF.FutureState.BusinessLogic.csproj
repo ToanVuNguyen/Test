@@ -49,6 +49,7 @@
     <Compile Include="CallLogBL.cs" />
     <Compile Include="ForclosureCaseBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceCodeValidatorBL.cs" />
     <Compile Include="SecurityBL.cs" />
   </ItemGroup>
   <ItemGroup>

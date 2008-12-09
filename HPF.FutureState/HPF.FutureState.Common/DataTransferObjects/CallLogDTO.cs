@@ -1,4 +1,5 @@
 ﻿using System;
+using HPF.FutureState.Common.Utils.DataValidator;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
@@ -6,11 +7,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class CallLogDTO : BaseDTO
     {        
         public int CallId { get; set; }
-        
+
+        [StringRequiredValidator(Ruleset = "Default",MessageTemplate = "External call number is required.")]
         public string ExtCallNumber { get; set; }
 
         public string AgencyId { get; set; }
-
+        [InTakeDateValidator(60, MessageTemplate = "StartDate problem", Ruleset = "Default")]
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
