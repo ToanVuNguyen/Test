@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://localhost:1314/CallCenterService.asmx?wsdl" docRef="http://localhost:1314/CallCenterService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://localhost:1314/CallCenterService.asmx" xmlns:q1="https://www.homeownershopenetwork.org" binding="q1:CallCenterServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://localhost:1314/CallCenterService.asmx" xmlns:q2="https://www.homeownershopenetwork.org" binding="q2:CallCenterServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
