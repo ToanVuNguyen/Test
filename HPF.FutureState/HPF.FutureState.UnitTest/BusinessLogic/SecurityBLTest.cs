@@ -1,4 +1,8 @@
-﻿using HPF.FutureState.BusinessLogic;
+﻿using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+
+using HPF.FutureState.BusinessLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HPF.FutureState.Common.DataTransferObjects;
 
@@ -13,9 +17,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
     [TestClass()]
     public class SecurityBLTest
     {
-
-
         private TestContext testContextInstance;
+        private static SqlConnection dbConnection;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -31,6 +34,38 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 testContextInstance = value;
             }
+        }
+
+        /// <summary>
+        /// Setup Test environment
+        /// </summary>
+        /// <param name="testContext"></param>
+        [ClassInitialize]
+        public static void SetupTest(TestContext testContext)
+        {
+            //try
+            //{
+            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+
+            var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user1', 'utest_user1')", dbConnection);
+            dbConnection.Open();
+            command.ExecuteNonQuery();
+            //}
+            //catch (Exception ex)
+            //{ 
+            //}
+        }
+
+        /// <summary>
+        /// Clearn All Data test
+        /// </summary>
+        [ClassCleanup()]
+        public static void CleanupTest()
+        {
+            var command = new SqlCommand("delete from ws_user where login_username like 'utest_user%'", dbConnection);
+            command.ExecuteNonQuery();
+
+            dbConnection.Close();
         }
 
         #region Additional test attributes
@@ -64,18 +99,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
 
 
-        
-        [DeploymentItem("SecurityBL_UserLogin.xls"),
-        DataSource("System.Data.Odbc", "Dsn=Excel Files;dbq=|DataDirectory|\\SecurityBL_UserLogin.xls;defaultdir=\\HPF.FutureState.UnitTest\\BusinessLogic;driverid=790;maxbuffersize=2048;pagetimeout=5", "Success$", DataAccessMethod.Sequential),
-        TestMethod()]
+        /// <summary>
+        /// Test login in case successfull case
+        /// </summary>
+        [TestMethod()]
         public void WSUserLoginSuccessTest()
         {
-            SecurityBL_Accessor target = new SecurityBL_Accessor(); 
-            string userName = TestContext.DataRow["username"].ToString();
-            string password = TestContext.DataRow["password"].ToString();
-            WSType wsType = (WSType)System.Enum.Parse(typeof(WSType), TestContext.DataRow["usertype"].ToString(), true);
+            SecurityBL_Accessor target = new SecurityBL_Accessor();
+            string userName = "utest_user1";
+            string password = "utest_user1";
+            WSType wsType = WSType.Any;
 
-            bool expected = bool.Parse(TestContext.DataRow["result"].ToString());
+            bool expected = true;
             bool actual;
             actual = target.WSUserLogin(userName, password, wsType);
             Assert.AreEqual(expected, actual);            
@@ -84,17 +119,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         /// <summary>
         /// test login in case invalid user type
         /// </summary>
-        [DeploymentItem("SecurityBL_UserLogin.xls"),
-        DataSource("System.Data.Odbc", "Dsn=Excel Files;dbq=|DataDirectory|\\SecurityBL_UserLogin.xls;defaultdir=\\HPF.FutureState.UnitTest\\BusinessLogic;driverid=790;maxbuffersize=2048;pagetimeout=5", "InvalidUserType$", DataAccessMethod.Sequential),
-        TestMethod()]
+        [TestMethod()]
         public void WSUserLoginInvalidUserTypeTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            string userName = TestContext.DataRow["username"].ToString();
-            string password = TestContext.DataRow["password"].ToString();
-            WSType wsType = (WSType)System.Enum.Parse(typeof(WSType), TestContext.DataRow["usertype"].ToString(), true);
+            string userName = "utest_user1";
+            string password = "utest_user1";
+            WSType wsType = WSType.CallCenter;
 
-            bool expected = bool.Parse(TestContext.DataRow["result"].ToString());
+            bool expected = false;
             bool actual;
             actual = target.WSUserLogin(userName, password, wsType);
             Assert.AreEqual(expected, actual);
@@ -102,18 +135,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         /// <summary>
         /// test login in case invalid user type
-        /// </summary>
-        [DeploymentItem("SecurityBL_UserLogin.xls"),
-        DataSource("System.Data.Odbc", "Dsn=Excel Files;dbq=|DataDirectory|\\SecurityBL_UserLogin.xls;defaultdir=\\HPF.FutureState.UnitTest\\BusinessLogic;driverid=790;maxbuffersize=2048;pagetimeout=5", "InvalidPassword$", DataAccessMethod.Sequential),
-        TestMethod()]
+        /// </summary>        
+        [TestMethod()]
         public void WSUserLoginInvalidPasswordTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            string userName = TestContext.DataRow["username"].ToString();
-            string password = TestContext.DataRow["password"].ToString();
-            WSType wsType = (WSType)System.Enum.Parse(typeof(WSType), TestContext.DataRow["usertype"].ToString(), true);
+            string userName = "utest_user1";
+            string password = "utest_user2";
+            WSType wsType = WSType.Any;
 
-            bool expected = bool.Parse(TestContext.DataRow["result"].ToString());
+            bool expected = false;
             bool actual;
             actual = target.WSUserLogin(userName, password, wsType);
             Assert.AreEqual(expected, actual);
