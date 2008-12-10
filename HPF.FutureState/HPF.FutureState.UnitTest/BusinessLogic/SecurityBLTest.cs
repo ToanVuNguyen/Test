@@ -134,7 +134,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
 
         /// <summary>
-        /// test login in case invalid user type
+        /// test login in case invalid password
         /// </summary>        
         [TestMethod()]
         public void WSUserLoginInvalidPasswordTest()

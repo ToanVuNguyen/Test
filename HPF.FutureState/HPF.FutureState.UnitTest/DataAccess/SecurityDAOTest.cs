@@ -65,6 +65,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         //
         #endregion
 
+        #region Setup and Cleanup
         /// <summary>
         /// Setup Test environment
         /// </summary>
@@ -96,6 +97,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
             dbConnection.Close();
         }
+        #endregion
+
         /// <summary>
         ///A test for GetWSUser Successfully case
         ///</summary>
@@ -105,15 +108,14 @@ namespace HPF.FutureState.UnitTest.DataAccess
             SecurityDAO_Accessor target = new SecurityDAO_Accessor();
             string userName = "utest_user1";
             string password = "utest_user1";
-            WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
-            Assert.AreNotEqual(user, null);
-            WSUserDTO actual;
-            actual = target.GetWSUser(userName, password);
-            Assert.AreEqual(user.WsUserId, actual.WsUserId);            
+            int userID = getUserID("utest_user1");
+            
+            WSUserDTO actual = target.GetWSUser(userName, password);
+            Assert.AreEqual(userID, actual.WsUserId);            
         }
         
         /// <summary>
-        ///A test for GetWSUser Fail case
+        ///A test for GetWSUser Fail case: invaliad user/password
         ///</summary>
         [TestMethod()]        
         public void GetWSUserFailCaseTest()
@@ -121,9 +123,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
             SecurityDAO_Accessor target = new SecurityDAO_Accessor(); 
             string userName = "utest_user1";
             string password = "utest_user2";
-            //int userid = (int)(double)TestContext.DataRow["userid"];
-            WSUserDTO actual;
-            actual = target.GetWSUser(userName, password);
+            
+            WSUserDTO actual = target.GetWSUser(userName, password);
             Assert.AreEqual(null, actual);
         }
         
@@ -138,13 +139,23 @@ namespace HPF.FutureState.UnitTest.DataAccess
             string userName = null;
             string password = null;
             
-            WSUserDTO actual;
-            actual = target.GetWSUser(userName, password);
+            WSUserDTO actual = target.GetWSUser(userName, password);
             Assert.AreEqual(null, actual);
         }
 
-        #region Ultility        
+        #region Ultility  
+      
+        private int getUserID(string username)
+        {
+            var command = new SqlCommand("select ws_user_id from ws_user where login_username='" + username + "'", dbConnection);
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                return int.Parse(reader["ws_user_id"].ToString());
+            }
 
+            return 0;
+        }
         #endregion
     }
 }
