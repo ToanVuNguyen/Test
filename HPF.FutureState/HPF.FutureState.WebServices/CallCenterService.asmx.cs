@@ -71,7 +71,11 @@ namespace HPF.FutureState.WebServices
                 {
                     CallLogWSDTO callLogWSDTO = new CallLogWSDTO();
                     CallLogDTO callLogDTO = new CallLogDTO();
-                    var callLogId = Convert.ToInt32(request.callLogId);
+                    var callLogId = int.MinValue;
+                    if (request.callLogId != string.Empty)
+                    {
+                        callLogId = Convert.ToInt32(request.callLogId);                        
+                    }
                     callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
                     //
                     if (callLogDTO != null)
@@ -104,10 +108,13 @@ namespace HPF.FutureState.WebServices
                         callLogWSDTO.FinalDispo = callLogDTO.FinalDispo;
                         callLogWSDTO.TransNumber = callLogDTO.TransNumber;
                         callLogWSDTO.OutOfNetworkReferralTBD = callLogDTO.OutOfNetworkReferralTBD;
+                        response.CallLog = callLogWSDTO;
+                        response.Status = ResponseStatus.Success;
                     }
-                    //
-                    response.CallLog = callLogWSDTO;
-                    response.Status = ResponseStatus.Success;
+                    else
+                    {
+                        response.Status = ResponseStatus.Warning;
+                    }
                 }
             }
             catch (AuthenticationException Ex)
