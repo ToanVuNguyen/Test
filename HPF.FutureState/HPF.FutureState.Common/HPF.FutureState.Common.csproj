@@ -78,7 +78,9 @@
     <Compile Include="DataTransferObjects\CaseLoanDTO.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeClosureCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeClosureCaseSearchResult.cs" />
     <Compile Include="DataTransferObjects\ForeClosureCaseSetDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeClosureCaseSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseResponse.cs" />
@@ -86,8 +88,11 @@
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseSearchResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ResponseStatus.cs" />
     <Compile Include="DataTransferObjects\WSType.cs" />
     <Compile Include="DataTransferObjects\WSUserDTO.cs" />
