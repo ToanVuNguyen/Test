@@ -64,6 +64,18 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RetrieveCallLog.aspx.cs">
+      <DependentUpon>RetrieveCallLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetrieveCallLog.aspx.designer.cs">
+      <DependentUpon>RetrieveCallLog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SearchForeclosureCase.aspx.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -78,11 +90,49 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Web References\HPFCallCenterService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="Site.Master" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
+    <None Include="Web References\HPFCallCenterService\CallCenterService.wsdl" />
+    <None Include="Web References\HPFCallCenterService\CallLogResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HPFCallCenterService\CallLogRetrieveResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HPFCallCenterService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:1314/CallCenterService.asmx%3fop=RetrieveCallLog">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HPFCallCenterService\</RelPath>
+      <UpdateFromURL>http://localhost:1314/CallCenterService.asmx%3fop=RetrieveCallLog</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>HPF_FutureState_WebService_Test_Web_localhost_CallCenterService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
