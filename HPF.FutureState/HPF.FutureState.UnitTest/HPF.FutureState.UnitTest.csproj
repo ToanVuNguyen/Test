@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\ForeclosureCaseBLTest.cs" />
     <Compile Include="BusinessLogic\SecurityBLTest.cs">
       <SubType>Code</SubType>
     </Compile>
