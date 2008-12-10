@@ -64,41 +64,48 @@ namespace HPF.FutureState.UnitTest
         //
         #endregion
 
+        /// <summary>
+        /// Create data test
+        /// </summary>
+        /// <param name="testContext"></param>
+        [ClassInitialize]
+        public static void SetupTest(TestContext testContext)
+        {
+           
+        }
 
         /// <summary>
+        /// Delete data test
+        /// </summary>
+        [ClassCleanup()]
+        public static void CleanupTest()
+        {
+           
+        }
+        /// <summary>
         ///A test sussess for ReadCallLog
-        ///</summary>        
-        //[DeploymentItem("HPF.FutureState.UnitTest\\Call.xls"), DataSource("System.Data.SqlClient", "Data Source=HPF-01;Initial Catalog=HPF;User ID=sa;Password=Password123", "call", DataAccessMethod.Sequential), TestMethod()]     
-        [DeploymentItem("HPF.FutureState.UnitTest\\DataAccess\\Call.xls"), DataSource("System.Data.Odbc", "Dsn=Excel Files;dbq=|DataDirectory|\\DataAccess\\Call.xls;defaultdir=HPF.FutureState.UnitTest;driverid=790;maxbuffersize=2048;pagetimeout=5", "Success$", DataAccessMethod.Sequential), TestMethod]
+        ///</summary>      
+        [TestMethod()]
         public void ReadCallLogTestSuccess()
         {
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = (int)((double)TestContext.DataRow["call_id"]); // TODO: Initialize to an appropriate value
-            CallLogDTO expected = new CallLogDTO(); // TODO: Initialize to an appropriate value            
-            CreateCallLogDTO(expected);
-            
-            CallLogDTO actual;
-            actual = target.ReadCallLog(callLogId);            
-            
+            var callLogId = 2;//TODO: Initialize to an appropriate value
+            CallLogDTO expected = CallLogDAO.Instance.ReadCallLog(callLogId); // TODO: Initialize to an appropriate value                        
+            CallLogDTO actual = target.ReadCallLog(callLogId);            
             CompareCallLogDTO(expected, actual);            
         }
 
         /// <summary>
         ///A test fail for ReadCallLog
-        ///</summary>        
-        //[DeploymentItem("HPF.FutureState.UnitTest\\Call.xls"), DataSource("System.Data.SqlClient", "Data Source=HPF-01;Initial Catalog=HPF;User ID=sa;Password=Password123", "call", DataAccessMethod.Sequential), TestMethod()]     
-        [DeploymentItem("HPF.FutureState.UnitTest\\DataAccess\\Call.xls"), DataSource("System.Data.Odbc", "Dsn=Excel Files;dbq=|DataDirectory|\\DataAccess\\Call.xls;defaultdir=HPF.FutureState.UnitTest;driverid=790;maxbuffersize=2048;pagetimeout=5", "Fail$", DataAccessMethod.Sequential), TestMethod]
+        ///</summary>                
+        [TestMethod()]
         public void ReadCallLogTestFail()
         {
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = (int)((double)TestContext.DataRow["call_id"]); // TODO: Initialize to an appropriate value
-            CallLogDTO expected = new CallLogDTO(); // TODO: Initialize to an appropriate value
-
-            CreateCallLogDTO(expected);
-
-            CallLogDTO actual;
-            actual = target.ReadCallLog(callLogId);
-
+            var callLogId1 = 2; // TODO: Initialize to an appropriate value
+            var callLogId2 = 3;
+            CallLogDTO expected = CallLogDAO.Instance.ReadCallLog(callLogId1); // TODO: Initialize to an appropriate value           
+            CallLogDTO actual = target.ReadCallLog(callLogId2);
             CompareCallLogDTO(expected, actual);
         }
 
