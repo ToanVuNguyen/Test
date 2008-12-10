@@ -13,5 +13,7 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param name="foreClosureCaseSet">ForeClosureCaseSetDTO</param>
         void SaveForeClosureCaseSet(ForeClosureCaseSetDTO foreClosureCaseSet);
+
+        ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria);
     }
 }
