@@ -50,6 +50,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user2', 'utest_user2')", dbConnection);
             dbConnection.Open();
             command.ExecuteNonQuery();
+            dbConnection.Close();
             //}
             //catch (Exception ex)
             //{ 
@@ -62,9 +63,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassCleanup()]
         public static void CleanupTest()
         {
+            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             var command = new SqlCommand("delete from ws_user where login_username = 'utest_user2'", dbConnection);
-            command.ExecuteNonQuery();
-
+            dbConnection.Open();
+            command.ExecuteNonQuery();            
             dbConnection.Close();
         }
 

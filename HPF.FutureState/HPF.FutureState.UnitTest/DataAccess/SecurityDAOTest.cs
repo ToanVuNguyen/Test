@@ -79,7 +79,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
                 var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user1', 'utest_user1')", dbConnection);
                 dbConnection.Open();
-                command.ExecuteNonQuery();                
+                command.ExecuteNonQuery();
+                dbConnection.Close();
             //}
             //catch (Exception ex)
             //{ 
@@ -91,11 +92,12 @@ namespace HPF.FutureState.UnitTest.DataAccess
         /// </summary>
         [ClassCleanup()]        
         public static void CleanupTest()
-        { 
-            var command = new SqlCommand("delete from ws_user where login_username = 'utest_user1'", dbConnection);            
+        {            
+            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand("delete from ws_user where login_username = 'utest_user1'", dbConnection);
+            dbConnection.Open();
             command.ExecuteNonQuery();
-
-            dbConnection.Close();
+            dbConnection.Close();            
         }
         #endregion
 
@@ -147,14 +149,19 @@ namespace HPF.FutureState.UnitTest.DataAccess
       
         private int getUserID(string username)
         {
+            int result = 0;
+            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             var command = new SqlCommand("select ws_user_id from ws_user where login_username='" + username + "'", dbConnection);
+            dbConnection.Open();
             var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return int.Parse(reader["ws_user_id"].ToString());
+                result = int.Parse(reader["ws_user_id"].ToString());
+                break;
             }
+            dbConnection.Close();
 
-            return 0;
+            return result;
         }
         #endregion
     }
