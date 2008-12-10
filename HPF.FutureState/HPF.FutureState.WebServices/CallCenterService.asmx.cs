@@ -4,6 +4,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
+using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.WebServices
@@ -67,8 +68,45 @@ namespace HPF.FutureState.WebServices
             try
             {
                 if (IsAuthenticated())//Authentication checking
-                {                    
-                    response.CallLog = CallLogBL.Instance.RetrieveCallLog(request.callLogId);
+                {
+                    CallLogWSDTO callLogWSDTO = new CallLogWSDTO();
+                    CallLogDTO callLogDTO = new CallLogDTO();
+                    var callLogId = Convert.ToInt32(request.callLogId);
+                    callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
+                    //
+                    if (callLogDTO != null)
+                    {
+                        callLogWSDTO.CallId = "HPF_" + Convert.ToString(callLogDTO.CallId);
+                        callLogWSDTO.ExtCallNumber = callLogDTO.ExtCallNumber;
+                        callLogWSDTO.AgencyId = callLogDTO.AgencyId;
+                        callLogWSDTO.StartDate = callLogDTO.StartDate;
+                        callLogWSDTO.EndDate = callLogDTO.EndDate;
+                        callLogWSDTO.DNIS = callLogDTO.DNIS;
+                        callLogWSDTO.CallCenter = callLogDTO.CallCenter;
+                        callLogWSDTO.CallCenterCD = callLogDTO.CallCenterCD;
+                        callLogWSDTO.CallResource = callLogDTO.CallResource;
+                        callLogWSDTO.ReasonToCall = callLogDTO.ReasonToCall;
+                        callLogWSDTO.AccountNumber = callLogDTO.AccountNumber;
+                        callLogWSDTO.FirstName = callLogDTO.FirstName;
+                        callLogWSDTO.LastName = callLogDTO.LastName;
+                        callLogWSDTO.CounselPastYRInd = callLogDTO.CounselPastYRInd;
+                        callLogWSDTO.MtgProbInd = callLogDTO.MtgProbInd;
+                        callLogWSDTO.PastDueInd = callLogDTO.PastDueInd;
+                        callLogWSDTO.PastDueSoonInd = callLogDTO.PastDueSoonInd;
+                        callLogWSDTO.PastDueMonths = callLogDTO.PastDueMonths;
+                        callLogWSDTO.ServicerId = callLogDTO.ServicerId;
+                        callLogWSDTO.OtherServicerName = callLogDTO.OtherServicerName;
+                        callLogWSDTO.PropZip = callLogDTO.PropZip;
+                        callLogWSDTO.PrevCounselorId = callLogDTO.PrevCounselorId;
+                        callLogWSDTO.PrevAgencyId = callLogDTO.PrevAgencyId;
+                        callLogWSDTO.SelectedAgencyId = callLogDTO.SelectedAgencyId;
+                        callLogWSDTO.ScreenRout = callLogDTO.ScreenRout;
+                        callLogWSDTO.FinalDispo = callLogDTO.FinalDispo;
+                        callLogWSDTO.TransNumber = callLogDTO.TransNumber;
+                        callLogWSDTO.OutOfNetworkReferralTBD = callLogDTO.OutOfNetworkReferralTBD;
+                    }
+                    //
+                    response.CallLog = callLogWSDTO;
                     response.Status = ResponseStatus.Success;
                 }
             }

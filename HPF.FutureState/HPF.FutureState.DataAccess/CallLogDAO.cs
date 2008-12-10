@@ -173,7 +173,7 @@ namespace HPF.FutureState.DataAccess
         {
             CallLogDTO callLogDTO = null;
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("USPCallSelectByPK", dbConnection);
+            var command = new SqlCommand("hpf_call_load", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@call_id", callLogId);
@@ -233,77 +233,6 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }            
             return callLogDTO;
-        }
-
-        /// <summary>
-        /// Read a CallLog in Database by CallLogId
-        /// </summary>
-        /// <param name="callLogId">CallLogId</param>
-        /// <returns>CallLogWSDTO</returns>
-        public CallLogWSDTO ReadCallLog(string callLogId)
-        {
-            CallLogWSDTO callLogWSDTO = null;
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_call_load", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@call_id", callLogId);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            try
-            {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    callLogWSDTO = new CallLogWSDTO();
-                    while (reader.Read())
-                    {
-                        callLogWSDTO.CallId = ConvertToString(reader["call_id"]);
-                        callLogWSDTO.ExtCallNumber = ConvertToString(reader["ext_call_num"]);
-                        callLogWSDTO.AgencyId = ConvertToString(reader["agency_id"]);
-                        callLogWSDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
-                        callLogWSDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
-                        callLogWSDTO.DNIS = ConvertToString(reader["dnis"]);
-                        callLogWSDTO.CallCenter = ConvertToString(reader["call_center"]);
-                        callLogWSDTO.CallCenterCD = ConvertToString(reader["call_center_cd"]);
-                        callLogWSDTO.CallResource = ConvertToString(reader["call_resource"]);
-                        callLogWSDTO.ReasonToCall = ConvertToString(reader["reason_for_call"]);
-                        callLogWSDTO.AccountNumber = ConvertToString(reader["acct_num"]);
-                        callLogWSDTO.FirstName = ConvertToString(reader["fname"]);
-                        callLogWSDTO.LastName = ConvertToString(reader["lname"]);
-                        callLogWSDTO.CounselPastYRInd = ConvertToString(reader["counsel_past_YR_ind"]);
-                        callLogWSDTO.MtgProbInd = ConvertToString(reader["mtg_prob_ind"]);
-                        callLogWSDTO.PastDueInd = ConvertToString(reader["past_due_ind"]);
-                        callLogWSDTO.PastDueSoonInd = ConvertToString(reader["past_due_soon_ind"]);
-                        callLogWSDTO.PastDueMonths = ConvertToInt(reader["past_due_months"]);
-                        callLogWSDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
-                        callLogWSDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
-                        callLogWSDTO.PropZip = ConvertToString(reader["prop_zip"]);
-                        callLogWSDTO.PrevCounselorId = ConvertToInt(reader["prev_counselor_id"]);
-                        callLogWSDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
-                        callLogWSDTO.SelectedAgencyId = ConvertToString(reader["selected_agency_id"]);
-                        callLogWSDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
-                        callLogWSDTO.FinalDispo = ConvertToInt(reader["final_dispo"]);
-                        callLogWSDTO.TransNumber = ConvertToString(reader["trans_num"]);
-                        callLogWSDTO.OutOfNetworkReferralTBD = ConvertToString(reader["out_of_network_referral_TBD"]);
-                        callLogWSDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
-                        callLogWSDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
-                        callLogWSDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
-                        callLogWSDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
-                        callLogWSDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
-                        callLogWSDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
-                    }
-                    reader.Close();
-                }
-                dbConnection.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            return callLogWSDTO;
-        }
+        }       
     }
 }

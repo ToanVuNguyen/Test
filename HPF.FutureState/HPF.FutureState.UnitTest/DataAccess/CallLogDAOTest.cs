@@ -1,5 +1,6 @@
 ﻿using HPF.FutureState.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 namespace HPF.FutureState.UnitTest
@@ -72,14 +73,14 @@ namespace HPF.FutureState.UnitTest
         public void ReadCallLogTestSuccess()
         {
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            string callLogId = (string)TestContext.DataRow["call_id"].ToString(); // TODO: Initialize to an appropriate value
-            CallLogWSDTO expected = new CallLogWSDTO(); // TODO: Initialize to an appropriate value            
-            CreateCallLogWSDTO(expected);
+            int callLogId = (int)((double)TestContext.DataRow["call_id"]); // TODO: Initialize to an appropriate value
+            CallLogDTO expected = new CallLogDTO(); // TODO: Initialize to an appropriate value            
+            CreateCallLogDTO(expected);
             
-            CallLogWSDTO actual;
+            CallLogDTO actual;
             actual = target.ReadCallLog(callLogId);            
             
-            CompareCallLogWSDTO(expected, actual);            
+            CompareCallLogDTO(expected, actual);            
         }
 
         /// <summary>
@@ -90,18 +91,18 @@ namespace HPF.FutureState.UnitTest
         public void ReadCallLogTestFail()
         {
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            string callLogId = (string)TestContext.DataRow["call_id"].ToString(); // TODO: Initialize to an appropriate value
-            CallLogWSDTO expected = new CallLogWSDTO(); // TODO: Initialize to an appropriate value
+            int callLogId = (int)((double)TestContext.DataRow["call_id"]); // TODO: Initialize to an appropriate value
+            CallLogDTO expected = new CallLogDTO(); // TODO: Initialize to an appropriate value
 
-            CreateCallLogWSDTO(expected);
+            CreateCallLogDTO(expected);
 
-            CallLogWSDTO actual;
+            CallLogDTO actual;
             actual = target.ReadCallLog(callLogId);
 
-            CompareCallLogWSDTO(expected, actual);
+            CompareCallLogDTO(expected, actual);
         }
 
-        private void CompareCallLogWSDTO(CallLogWSDTO expected, CallLogWSDTO actual)
+        private void CompareCallLogDTO(CallLogDTO expected, CallLogDTO actual)
         {
             Assert.AreEqual(expected.CallId, actual.CallId);
             Assert.AreEqual(expected.ExtCallNumber, actual.ExtCallNumber);
@@ -139,16 +140,13 @@ namespace HPF.FutureState.UnitTest
             Assert.AreEqual(expected.ChangeLastAppName, actual.ChangeLastAppName);
         }
 
-        private void CreateCallLogWSDTO(CallLogWSDTO expected)
+        private void CreateCallLogDTO(CallLogDTO expected)
         {
             if (TestContext.DataRow["call_id"].ToString() != string.Empty)
             {
-                expected.CallId = (string)TestContext.DataRow["call_id"].ToString();
+                expected.CallId = (int)((double)TestContext.DataRow["call_id"]);
             }
-            else
-            {
-                expected.CallId = string.Empty;
-            }
+           
 
             if (TestContext.DataRow["ext_call_num"].ToString() != string.Empty)
             {

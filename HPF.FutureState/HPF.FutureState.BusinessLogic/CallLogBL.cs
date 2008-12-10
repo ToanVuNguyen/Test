@@ -47,12 +47,6 @@ namespace HPF.FutureState.BusinessLogic
         {
             return CallLogDAO.Instance.ReadCallLog(callLogId);
         }
-
-        public CallLogWSDTO RetrieveCallLog(string callLogId)
-        {
-            return CallLogDAO.Instance.ReadCallLog(callLogId);
-        }  
-
         #endregion        
     }
 }
