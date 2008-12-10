@@ -101,16 +101,19 @@
     <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="Site.Master" />
+    <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
     <None Include="Web References\HPFCallCenterService\CallCenterService.wsdl" />
     <None Include="Web References\HPFCallCenterService\CallLogResponse.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\HPFCallCenterService\CallLogRetrieveResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HPFCallCenterService\ForeClosureCaseSearchResponse.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\HPFCallCenterService\Reference.map">
@@ -122,16 +125,16 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1314/CallCenterService.asmx%3fop=RetrieveCallLog">
+    <WebReferenceUrl Include="http://localhost:1314/CallCenterService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HPFCallCenterService\</RelPath>
-      <UpdateFromURL>http://localhost:1314/CallCenterService.asmx%3fop=RetrieveCallLog</UpdateFromURL>
+      <UpdateFromURL>http://localhost:1314/CallCenterService.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>HPF_FutureState_WebService_Test_Web_localhost_CallCenterService</CachedSettingsPropName>
+      <CachedSettingsPropName>HPF_FutureState_WebService_Test_Web_HPFCallCenterService_CallCenterService</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>

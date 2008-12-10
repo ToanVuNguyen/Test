@@ -2,4 +2,34 @@
 <asp:Content ID="ContentHeader" ContentPlaceHolderID="ContentPlaceHolderHeader" runat="server">
 </asp:Content>
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderBody" runat="server">
+    <asp:Label ID="Label1" runat="server" Text="Agency case number"></asp:Label>
+<asp:TextBox ID="txtAgencyCaseNumber" runat="server"></asp:TextBox>
+<br />
+<asp:Label ID="Label2" runat="server" Text="First name"></asp:Label>
+<asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
+<br />
+<asp:Label ID="Label3" runat="server" Text="Last name"></asp:Label>
+<asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
+<br />
+<asp:Label ID="Label4" runat="server" Text="Loan number"></asp:Label>
+<asp:TextBox ID="txtLoanNumber" runat="server"></asp:TextBox>
+<br />
+<asp:Label ID="Label5" runat="server" Text="Property Zip"></asp:Label>
+<asp:TextBox ID="txtPropertyZip" runat="server"></asp:TextBox>
+<br />
+<asp:Label ID="Label6" runat="server" Text="last 4 ssn"></asp:Label>
+<asp:TextBox ID="txtLast4SSN" runat="server" Width="128px"></asp:TextBox>
+<br />
+    <asp:Label ID="Label7" runat="server" Font-Bold="True" Font-Names="Verdana" 
+        ForeColor="#CC3300" Text="(All the fields are not validated yet)"></asp:Label>
+    <br />
+<asp:Button ID="btnSearch" runat="server" onclick="BtnSearch_Click" 
+    Text="Search Foreclosure Case" />
+<br />
+<asp:GridView ID="grdvResult" runat="server" 
+    onselectedindexchanged="GridView1_SelectedIndexChanged">
+</asp:GridView>
+<asp:Label ID="lblResult" runat="server" Text="Label"></asp:Label>
+<br />
+<br />
 </asp:Content>
