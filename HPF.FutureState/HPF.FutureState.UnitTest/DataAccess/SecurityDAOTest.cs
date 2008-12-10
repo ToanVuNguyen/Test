@@ -8,9 +8,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.UnitTest.DataAccess
-{
-    
-    
+{        
     /// <summary>
     ///This is a test class for SecurityDAOTest and is intended
     ///to contain all SecurityDAOTest Unit Tests
@@ -128,21 +126,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             actual = target.GetWSUser(userName, password);
             Assert.AreEqual(null, actual);
         }
-
-        /// <summary>
-        ///A test for GetWSUser
-        ///</summary>
-        [TestMethod()]  
-        [Ignore]
-        public void GetWSUserDataCaseTest()
-        {
-            SecurityDAO_Accessor target = new SecurityDAO_Accessor();
-            //WSUserDTO user = GetWSUser(TestContext);
-            //WSUserDTO actual;
-            //actual = target.GetWSUser(user.LoginUsername, user.LoginPassword);
-            //AssertCheckEquals(user, actual);
-        }
-
+        
         /// <summary>
         /// exception case test
         /// </summary>
