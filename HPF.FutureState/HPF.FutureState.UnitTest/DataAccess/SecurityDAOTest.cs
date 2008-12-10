@@ -92,7 +92,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [ClassCleanup()]        
         public static void CleanupTest()
         { 
-            var command = new SqlCommand("delete from ws_user where login_username like 'utest_user%'", dbConnection);            
+            var command = new SqlCommand("delete from ws_user where login_username = 'utest_user1'", dbConnection);            
             command.ExecuteNonQuery();
 
             dbConnection.Close();

@@ -47,7 +47,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //{
             dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
 
-            var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user1', 'utest_user1')", dbConnection);
+            var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user2', 'utest_user2')", dbConnection);
             dbConnection.Open();
             command.ExecuteNonQuery();
             //}
@@ -62,7 +62,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassCleanup()]
         public static void CleanupTest()
         {
-            var command = new SqlCommand("delete from ws_user where login_username like 'utest_user%'", dbConnection);
+            var command = new SqlCommand("delete from ws_user where login_username = 'utest_user2'", dbConnection);
             command.ExecuteNonQuery();
 
             dbConnection.Close();
@@ -106,8 +106,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void WSUserLoginSuccessTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            string userName = "utest_user1";
-            string password = "utest_user1";
+            string userName = "utest_user2";
+            string password = "utest_user2";
             WSType wsType = WSType.Any;
 
             bool expected = true;
@@ -123,8 +123,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void WSUserLoginInvalidUserTypeTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            string userName = "utest_user1";
-            string password = "utest_user1";
+            string userName = "utest_user2";
+            string password = "utest_user2";
             WSType wsType = WSType.CallCenter;
 
             bool expected = false;
@@ -140,8 +140,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void WSUserLoginInvalidPasswordTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            string userName = "utest_user1";
-            string password = "utest_user2";
+            string userName = "utest_user2";
+            string password = "utest_user";
             WSType wsType = WSType.Any;
 
             bool expected = false;
