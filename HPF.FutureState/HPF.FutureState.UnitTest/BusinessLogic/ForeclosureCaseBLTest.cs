@@ -62,7 +62,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //searchCriteria.Last4_SSN = criteria[3];
             //searchCriteria.LoanNumber = criteria[4];
             //searchCriteria.PropertyZip = criteria[5];
-            criterias = new string[][]{new string[] {"644186", null, null, null, null, null, "23"},
+            criterias = new string[][]{new string[] {null, null, null, null, null, "12345", "23"},
                                        new string[] {"644186", "MICHAEL", "GOINS", null, null, null, "23"},
                                        new string[] {"10458400", "TODD", "SEITZ", "", "15399", "", "123"}};            
 
@@ -95,10 +95,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             searchCriteria.LoanNumber = criteria[4];
             searchCriteria.PropertyZip = criteria[5];
 
-            int expected = 2; //int.Parse(criteria[6]);  // expect an fc_id to be returned
+            int expected = int.Parse(criteria[6]);  // expect an fc_id to be returned
             
-            ForeClosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[1];
-            int actual = target.SearchForeClosureCase(searchCriteria).Count; //retObj.FcId;
+            ForeClosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[0];
+            int actual =retObj.FcId; // target.SearchForeClosureCase(searchCriteria).Count; 
             
             Assert.AreEqual(expected, actual);
             
