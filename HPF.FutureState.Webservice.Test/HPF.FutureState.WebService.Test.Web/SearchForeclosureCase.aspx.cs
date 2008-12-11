@@ -40,7 +40,10 @@ namespace HPF.FutureState.WebService.Test.Web
             
             ForeClosureCaseSearchResponse response = proxy.SearchForeClosureCase(request);
 
-            grdvResult.DataSource = response.Results;
+            if (response.Status == ResponseStatus.Success)
+                grdvResult.DataSource = response.Results;
+            else
+                grdvResult.DataSource = response.Messages;
             grdvResult.DataBind();
 
             lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
