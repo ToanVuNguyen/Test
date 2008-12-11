@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
@@ -22,7 +23,7 @@ namespace HPF.FutureState.WebServices
         {
             if (SecurityBL.Instance.WSUserLogin(Authentication.UserName, Authentication.Password, WSType.CallCenter))
                 return true;
-            throw new AuthenticationException("Access Deny.");
+            throw new AuthenticationException(ErrorMessages.AUTHENTICATION_ERROR_MSG);
         }
 
         /// <summary>

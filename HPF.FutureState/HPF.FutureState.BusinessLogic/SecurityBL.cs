@@ -54,12 +54,12 @@ namespace HPF.FutureState.BusinessLogic
             try
             {
                 WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
-                
+
                 if (user == null)
                     return false;
 
                 switch (wsType)
-                { 
+                {
                     case WSType.Agency:
                         if (user.AgencyId != 0)
                             return true;
@@ -68,20 +68,18 @@ namespace HPF.FutureState.BusinessLogic
                         if (user.CallCenterId != 0)
                             return true;
                         break;
-                    default:
-                        if (user.AgencyId == 0 && user.CallCenterId == 0)
+                    case WSType.Any:
+                        if (user.AgencyId != 0 && user.CallCenterId != 0)
                             return true;
                         break;
+                    default:
+                        return false;
                 }
-            }
-            catch (DataAccessException)
-            {
-                throw;
             }
             catch (Exception)
             {
-                throw;
-            }            
+                return false;
+            }
 
             return false;
         }
