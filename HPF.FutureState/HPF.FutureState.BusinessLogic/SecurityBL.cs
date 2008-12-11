@@ -74,10 +74,14 @@ namespace HPF.FutureState.BusinessLogic
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (DataAccessException)
             {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                throw;
             }
+            catch (Exception)
+            {
+                throw;
+            }            
 
             return false;
         }
