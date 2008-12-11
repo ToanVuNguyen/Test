@@ -34,7 +34,6 @@ namespace HPF.FutureState.WebServices
         public ForeClosureCaseSearchResponse SearchForeClosureCase(ForeClosureCaseSearchRequest request)
         {
             var response = new ForeClosureCaseSearchResponse();
-            //response.SearchResultCount = 100;         
             try
             {
                 //if (IsAuthenticated())
@@ -46,27 +45,35 @@ namespace HPF.FutureState.WebServices
 
                     ForeClosureCaseSearchResult results = ForeclosureCaseBL.Instance.SearchForeClosureCase(request.SearchCriteria);
                     response = new ForeClosureCaseSearchResponse();
-                    response.Results = new ForeClosureCaseSearchResult();
-
-                    int count = 1;
-                    if (maxRow > 0 && maxRow < results.Count)
+                    if (results.Messages == null || results.Messages.ExceptionMessages.Count == 0)
                     {
-                        //var subResults = results.Take<ForeClosureCaseWSDTO>(maxRow);                        
-                        foreach (ForeClosureCaseWSDTO result in results)
-                            if (count <= maxRow)
-                            {
-                                response.Results.Add(result);
-                                count++;
-                            }
-                            else break;
+                        response.Results = new ForeClosureCaseSearchResult();
+
+                        int count = 1;
+                        if (maxRow > 0 && maxRow < results.Count)
+                        {
+                            //var subResults = results.Take<ForeClosureCaseWSDTO>(maxRow);                        
+                            foreach (ForeClosureCaseWSDTO result in results)
+                                if (count <= maxRow)
+                                {
+                                    response.Results.Add(result);
+                                    count++;
+                                }
+                                else break;
+                        }
+
+                        else
+                            response.Results = results;
+
+
+                        response.SearchResultCount = results.Count;
+                        response.Status = ResponseStatus.Success;
                     }
-
                     else
-                        response.Results = results;//(ForeClosureCaseSearchResult)results.Take(results.Count);
-
-                    //response.Results = results;
-                    response.SearchResultCount = results.Count;
-                    response.Status = ResponseStatus.Success;
+                    {
+                        response.Messages = results.Messages.ExceptionMessages;
+                        response.Status = ResponseStatus.Fail;
+                    }
                 }
             }
             catch (AuthenticationException Ex)
