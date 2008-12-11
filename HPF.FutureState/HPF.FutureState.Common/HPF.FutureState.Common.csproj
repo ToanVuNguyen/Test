@@ -103,6 +103,8 @@
     <Compile Include="Utils\DataValidator\HPFValidator.cs" />
     <Compile Include="Utils\DataValidator\InTakeDateValidator.cs" />
     <Compile Include="Utils\DataValidator\InTakeDateValidatorAttribute.cs" />
+    <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidator.cs" />
+    <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\StringRequiredValidator.cs" />
     <Compile Include="Utils\DataValidator\StringRequiredValidatorAttribute.cs" />
     <Compile Include="Utils\Exceptions\AuthenticationException.cs" />
