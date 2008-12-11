@@ -215,7 +215,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria)
         {           
-            ForeClosureCaseSearchResult results = null;
+            ForeClosureCaseSearchResult results = new ForeClosureCaseSearchResult();
 
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_foreclosure_case_search", dbConnection);
