@@ -6,6 +6,12 @@ using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
 
+using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Common.Utils.Exceptions;
+
+using Microsoft.Practices.EnterpriseLibrary.Common;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+
 namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseBL : BaseBusinessLogic, IForclosureCaseBL
@@ -56,7 +62,33 @@ namespace HPF.FutureState.BusinessLogic
 
         public ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria)
         {
-            return ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);            
+            ForeClosureCaseSearchResult searchResult = new ForeClosureCaseSearchResult();
+            
+            ExceptionMessageCollection exCollection = new ExceptionMessageCollection();
+            Validator<ForeClosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeClosureCaseSearchCriteriaDTO>();
+            ValidationResults results = validator.Validate(searchCriteria);
+            if (!results.IsValid)
+            {
+                searchResult.Messages = new DataValidationException();
+
+                foreach (ValidationResult result in results)
+                {
+                    searchResult.Messages.ExceptionMessages.AddExceptionMessage(0, result.Message);
+                }
+            }
+            else
+            {
+                searchResult = ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
+            }
+//            if (exCollection == null || exCollection.Count == 0)
+//            {
+//                searchResult = ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);                
+//            }
+//            else
+//            {
+//                searchResult.Messages.ExceptionMessages = exCollection;
+//            }
+            return searchResult;
         }
         #endregion
     }
