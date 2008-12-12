@@ -31,10 +31,13 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="aCallLog">CallLogDTO</param>
         /// <returns>a new CallLogId</returns>
-        public void InsertCallLog(CallLogDTO aCallLog)
+        public int InsertCallLog(CallLogDTO aCallLog)
         {            
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("USPCallInsert", dbConnection);
+            //var dbConnection = CreateConnection();
+
+            //var command = CreateSPCommand("hpf_call_insert", dbConnection);
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_call_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[34];
             sqlParam[0] = new SqlParameter("@ext_call_num", aCallLog.ExtCallNumber);
@@ -43,19 +46,19 @@ namespace HPF.FutureState.DataAccess
             sqlParam[3] = new SqlParameter("@end_dt", aCallLog.EndDate);
             sqlParam[4] = new SqlParameter("@dnis", aCallLog.DNIS);
             sqlParam[5] = new SqlParameter("@call_center", aCallLog.CallCenter);
-            sqlParam[6] = new SqlParameter("@call_center_cd", aCallLog.CallCenterCD);
+            sqlParam[6] = new SqlParameter("@call_center_cd",  aCallLog.CallCenterCD);
             sqlParam[7] = new SqlParameter("@call_resource", aCallLog.CallResource);
             sqlParam[8] = new SqlParameter("@reason_for_call", aCallLog.ReasonToCall);
             sqlParam[9] = new SqlParameter("@acct_num", aCallLog.AccountNumber);
             sqlParam[10] = new SqlParameter("@fname", aCallLog.FirstName);
             sqlParam[11] = new SqlParameter("@lname", aCallLog.LastName);
-            sqlParam[12] = new SqlParameter("@counsel_past_YR_ind", aCallLog.CounselPastYRInd);
-            sqlParam[13] = new SqlParameter("@mtg_prob_ind", aCallLog.MtgProbInd);
+            sqlParam[12] = new SqlParameter("@counsel_past_YR_ind",  aCallLog.CounselPastYRInd);
+            sqlParam[13] = new SqlParameter("@mtg_prob_ind",  aCallLog.MtgProbInd);
             sqlParam[14] = new SqlParameter("@past_due_ind", aCallLog.PastDueInd);
-            sqlParam[15] = new SqlParameter("@past_due_soon_ind", aCallLog.PastDueSoonInd);
+            sqlParam[15] = new SqlParameter("@past_due_soon_ind",  aCallLog.PastDueSoonInd);
             sqlParam[16] = new SqlParameter("@past_due_months", aCallLog.PastDueMonths);
             sqlParam[17] = new SqlParameter("@servicer_id", aCallLog.ServicerId);
-            sqlParam[18] = new SqlParameter("@other_servicer_name", aCallLog.OtherServicerName);
+            sqlParam[18] = new SqlParameter("@other_servicer_name",  aCallLog.OtherServicerName);
             sqlParam[19] = new SqlParameter("@prop_zip", aCallLog.PropZip);
             sqlParam[20] = new SqlParameter("@prev_counselor_id", aCallLog.PrevCounselorId);
             sqlParam[21] = new SqlParameter("@prev_agency_id", aCallLog.PrevAgencyId);
@@ -94,6 +97,8 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
+
+            return aCallLog.CallId;
         }
 
         /// <summary>
