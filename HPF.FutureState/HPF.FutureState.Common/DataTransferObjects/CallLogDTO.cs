@@ -1,6 +1,6 @@
 ﻿using System;
 using HPF.FutureState.Common.Utils.DataValidator;
-
+using HPF.FutureState.Common.DataTransferObjects.WebServices;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
@@ -12,9 +12,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ExtCallNumber { get; set; }
 
         public string AgencyId { get; set; }
+
         [InTakeDateValidator(60, MessageTemplate = "StartDate problem", Ruleset = "Default")]
         public DateTime StartDate { get; set; }
-
+        
         public DateTime EndDate { get; set; }
 
         public string DNIS { get; set; }
@@ -62,5 +63,51 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string TransNumber { get; set; }
 
         public string OutOfNetworkReferralTBD { get; set; }
+
+        public CallLogDTO(CallLogWSDTO callLog)
+        {
+            if (callLog.CallId != null)
+            {
+                callLog.CallId = callLog.CallId.Replace("HPF_", "");
+                int id = 0;
+                int.TryParse(callLog.CallId, out id);
+                this.CallId = id;
+            }
+            this.ExtCallNumber = callLog.ExtCallNumber;
+            this.AgencyId = callLog.AgencyId;
+            this.StartDate = callLog.StartDate;
+            this.EndDate = callLog.EndDate;
+            this.DNIS = callLog.DNIS;
+            this.CallCenter = callLog.CallCenter;
+            this.CallCenterCD = callLog.CallCenterCD;
+            this.CallResource = callLog.CallResource;
+            this.ReasonToCall = callLog.ReasonToCall;
+            this.AccountNumber = callLog.AccountNumber;
+            this.FirstName = callLog.FirstName;
+            this.LastName = callLog.LastName;
+            this.CounselPastYRInd = callLog.CounselPastYRInd;
+            this.MtgProbInd = callLog.MtgProbInd;
+            this.PastDueInd = callLog.PastDueInd;
+            this.PastDueSoonInd = callLog.PastDueSoonInd;
+            this.PastDueMonths = callLog.PastDueMonths;
+            this.ServicerId = callLog.ServicerId;
+            this.OtherServicerName = callLog.OtherServicerName;
+            this.PropZip = callLog.PropZip;
+            this.PrevCounselorId = callLog.PrevCounselorId;
+            this.PrevAgencyId = callLog.PrevAgencyId;
+            this.SelectedAgencyId = callLog.SelectedAgencyId;
+            this.ScreenRout = callLog.ScreenRout;
+            this.FinalDispo = callLog.FinalDispo;
+            this.TransNumber = callLog.TransNumber;
+            this.OutOfNetworkReferralTBD = callLog.OutOfNetworkReferralTBD;
+            this.CreateDate = callLog.CreateDate;
+            this.CreateUserId = callLog.CreateUserId;
+            this.CreateAppName = callLog.CreateAppName;
+            this.ChangeLastDate = callLog.ChangeLastDate;
+            this.ChangeLastUserId = callLog.ChangeLastUserId;
+            this.ChangeLastAppName = callLog.ChangeLastAppName;
+        }
+
+        public CallLogDTO() { }
     }
 }

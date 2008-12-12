@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         string _loanNumber = null; 
         
         [IgnoreNulls()]
-        [RegexValidator("[a-zA-Z0-9]", /*Ruleset="AgencyCaseNumberValidator",*/ MessageTemplate="Agency Case Number: Only alpha-numeric characters allowed")]
+        [RegexValidator("[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
         public string AgencyCaseNumber 
         { 
             get; 
@@ -49,10 +49,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        [NullableOrDigitsRequriedValidator(false, 5, MessageTemplate = "Property Zip: is not null and must be 5 alpha - numeric characters"/*, Ruleset = "PropertyZipValidationRule"*/)]
+        [NullableOrDigitsRequriedValidator(false, 5, MessageTemplate = "Property Zip: is not null and must be 5 alpha - numeric characters", Ruleset = "Default")]
         public string PropertyZip { get; set; }
         
-        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be 4 alpha - numeric characters" /*, Ruleset = "SSNValidationRule"*/)]
+        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be 4 alpha - numeric characters", Ruleset = "Default")]
         public string Last4_SSN { get; set; }
 
     }
