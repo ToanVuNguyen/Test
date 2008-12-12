@@ -81,10 +81,10 @@
     <Compile Include="DataTransferObjects\ForeClosureCaseSearchResult.cs" />
     <Compile Include="DataTransferObjects\ForeClosureCaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\ForeClosureCaseSearchCriteriaDTO.cs" />
-    <Compile Include="DataTransferObjects\WebServices\CallLogRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogInsertRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseResponse.cs" />
-    <Compile Include="DataTransferObjects\WebServices\CallLogResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogInsertResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
