@@ -52,7 +52,6 @@ namespace HPF.FutureState.WebServices
                         int count = 1;
                         if (maxRow > 0 && maxRow < results.Count)
                         {
-                            //var subResults = results.Take<ForeClosureCaseWSDTO>(maxRow);                        
                             foreach (ForeClosureCaseWSDTO result in results)
                                 if (count <= maxRow)
                                 {
@@ -61,7 +60,6 @@ namespace HPF.FutureState.WebServices
                                 }
                                 else break;
                         }
-
                         else
                             response.Results = results;
 
@@ -71,6 +69,7 @@ namespace HPF.FutureState.WebServices
                     }
                     else
                     {
+                        //throw results.Messages;
                         response.Messages = results.Messages.ExceptionMessages;
                         response.Status = ResponseStatus.Fail;
                     }
@@ -98,7 +97,7 @@ namespace HPF.FutureState.WebServices
             }
             return response;
         }        
-        
+
 
     }
 }

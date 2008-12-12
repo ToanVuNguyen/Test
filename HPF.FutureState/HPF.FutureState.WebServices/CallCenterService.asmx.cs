@@ -26,15 +26,20 @@ namespace HPF.FutureState.WebServices
     {
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public CallLogResponse SaveCallLog(CallLogRequest request)
+        public CallLogInsertResponse SaveCallLog(CallLogInsertRequest request)
         {
-            var response = new CallLogResponse();            
+            var response = new CallLogInsertResponse();            
             //            
             try
             {
-                if (IsAuthenticated())//Authentication checking
+                //if (IsAuthenticated())//Authentication checking
+                if (true)
                 {
                     //Call Business Logic Here
+                    CallLogDTO callLogDTO = new CallLogDTO(request.CallLog);
+                    string callLogID = CallLogBL.Instance.InsertCallLog(callLogDTO);
+
+                    response.CallLogID = callLogID;
                     response.Status = ResponseStatus.Success;
                 }
             }
@@ -85,34 +90,7 @@ namespace HPF.FutureState.WebServices
                     //
                     if (callLogDTO != null)
                     {
-                        callLogWSDTO.CallId = "HPF_" + Convert.ToString(callLogDTO.CallId);
-                        callLogWSDTO.ExtCallNumber = callLogDTO.ExtCallNumber;
-                        callLogWSDTO.AgencyId = callLogDTO.AgencyId;
-                        callLogWSDTO.StartDate = callLogDTO.StartDate;
-                        callLogWSDTO.EndDate = callLogDTO.EndDate;
-                        callLogWSDTO.DNIS = callLogDTO.DNIS;
-                        callLogWSDTO.CallCenter = callLogDTO.CallCenter;
-                        callLogWSDTO.CallCenterCD = callLogDTO.CallCenterCD;
-                        callLogWSDTO.CallResource = callLogDTO.CallResource;
-                        callLogWSDTO.ReasonToCall = callLogDTO.ReasonToCall;
-                        callLogWSDTO.AccountNumber = callLogDTO.AccountNumber;
-                        callLogWSDTO.FirstName = callLogDTO.FirstName;
-                        callLogWSDTO.LastName = callLogDTO.LastName;
-                        callLogWSDTO.CounselPastYRInd = callLogDTO.CounselPastYRInd;
-                        callLogWSDTO.MtgProbInd = callLogDTO.MtgProbInd;
-                        callLogWSDTO.PastDueInd = callLogDTO.PastDueInd;
-                        callLogWSDTO.PastDueSoonInd = callLogDTO.PastDueSoonInd;
-                        callLogWSDTO.PastDueMonths = callLogDTO.PastDueMonths;
-                        callLogWSDTO.ServicerId = callLogDTO.ServicerId;
-                        callLogWSDTO.OtherServicerName = callLogDTO.OtherServicerName;
-                        callLogWSDTO.PropZip = callLogDTO.PropZip;
-                        callLogWSDTO.PrevCounselorId = callLogDTO.PrevCounselorId;
-                        callLogWSDTO.PrevAgencyId = callLogDTO.PrevAgencyId;
-                        callLogWSDTO.SelectedAgencyId = callLogDTO.SelectedAgencyId;
-                        callLogWSDTO.ScreenRout = callLogDTO.ScreenRout;
-                        callLogWSDTO.FinalDispo = callLogDTO.FinalDispo;
-                        callLogWSDTO.TransNumber = callLogDTO.TransNumber;
-                        callLogWSDTO.OutOfNetworkReferralTBD = callLogDTO.OutOfNetworkReferralTBD;
+                        callLogWSDTO = new CallLogWSDTO(callLogDTO);
                         response.CallLog = callLogWSDTO;
                         response.Status = ResponseStatus.Success;
                     }
@@ -147,6 +125,9 @@ namespace HPF.FutureState.WebServices
             }
             return response;
         }
-        
+
     }
+
+
+
 }
