@@ -16,8 +16,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
     [TestClass()]
     public class SecurityDAOTest
     {
-        private TestContext testContextInstance;
-        private static SqlConnection dbConnection;
+        private TestContext testContextInstance;        
         
         /// <summary>
         ///Gets or sets the test context which provides
@@ -75,7 +74,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         {
             //try
             //{
-                dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+                var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
 
                 var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user1', 'utest_user1')", dbConnection);
                 dbConnection.Open();
@@ -93,7 +92,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [ClassCleanup()]        
         public static void CleanupTest()
         {            
-            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             var command = new SqlCommand("delete from ws_user where login_username = 'utest_user1'", dbConnection);
             dbConnection.Open();
             command.ExecuteNonQuery();
@@ -150,7 +149,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         private int getUserID(string username)
         {
             int result = 0;
-            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             var command = new SqlCommand("select ws_user_id from ws_user where login_username='" + username + "'", dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
