@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         /// <returns>a Validator</returns>
         private static Validator<T> CreateValidator<T>()
         {
-            return ValidationFactory.CreateValidator<T>();
+            return ValidationFactory.CreateValidator<T>("Default");
         }          
 
         public static ValidationResults Validate<T>(T target)
