@@ -99,19 +99,19 @@ namespace HPF.FutureState.WebService.Test.Web.HPFCallCenterService {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/SaveCallLog", RequestNamespace="https://www.homeownershopenetwork.org", ResponseNamespace="https://www.homeownershopenetwork.org", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public CallLogResponse SaveCallLog(CallLogRequest request) {
+        public CallLogInsertResponse SaveCallLog(CallLogInsertRequest request) {
             object[] results = this.Invoke("SaveCallLog", new object[] {
                         request});
-            return ((CallLogResponse)(results[0]));
+            return ((CallLogInsertResponse)(results[0]));
         }
         
         /// <remarks/>
-        public void SaveCallLogAsync(CallLogRequest request) {
+        public void SaveCallLogAsync(CallLogInsertRequest request) {
             this.SaveCallLogAsync(request, null);
         }
         
         /// <remarks/>
-        public void SaveCallLogAsync(CallLogRequest request, object userState) {
+        public void SaveCallLogAsync(CallLogInsertRequest request, object userState) {
             if ((this.SaveCallLogOperationCompleted == null)) {
                 this.SaveCallLogOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSaveCallLogOperationCompleted);
             }
@@ -421,7 +421,7 @@ namespace HPF.FutureState.WebService.Test.Web.HPFCallCenterService {
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeClosureCaseSearchResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogRetrieveResponse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogResponse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogInsertResponse))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1433")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -848,6 +848,78 @@ namespace HPF.FutureState.WebService.Test.Web.HPFCallCenterService {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://www.homeownershopenetwork.org")]
     public partial class BaseDTO {
+        
+        private System.DateTime createDateField;
+        
+        private string createUserIdField;
+        
+        private string createAppNameField;
+        
+        private System.DateTime changeLastDateField;
+        
+        private string changeLastUserIdField;
+        
+        private string changeLastAppNameField;
+        
+        /// <remarks/>
+        public System.DateTime CreateDate {
+            get {
+                return this.createDateField;
+            }
+            set {
+                this.createDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CreateUserId {
+            get {
+                return this.createUserIdField;
+            }
+            set {
+                this.createUserIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CreateAppName {
+            get {
+                return this.createAppNameField;
+            }
+            set {
+                this.createAppNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime ChangeLastDate {
+            get {
+                return this.changeLastDateField;
+            }
+            set {
+                this.changeLastDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string ChangeLastUserId {
+            get {
+                return this.changeLastUserIdField;
+            }
+            set {
+                this.changeLastUserIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string ChangeLastAppName {
+            get {
+                return this.changeLastAppNameField;
+            }
+            set {
+                this.changeLastAppNameField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1222,17 +1294,17 @@ namespace HPF.FutureState.WebService.Test.Web.HPFCallCenterService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://www.homeownershopenetwork.org")]
-    public partial class CallLogResponse : BaseResponse {
+    public partial class CallLogInsertResponse : BaseResponse {
         
-        private CallLogWSDTO callLogField;
+        private string callLogIDField;
         
         /// <remarks/>
-        public CallLogWSDTO CallLog {
+        public string CallLogID {
             get {
-                return this.callLogField;
+                return this.callLogIDField;
             }
             set {
-                this.callLogField = value;
+                this.callLogIDField = value;
             }
         }
     }
@@ -1243,7 +1315,7 @@ namespace HPF.FutureState.WebService.Test.Web.HPFCallCenterService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="https://www.homeownershopenetwork.org")]
-    public partial class CallLogRequest {
+    public partial class CallLogInsertRequest {
         
         private CallLogWSDTO callLogField;
         
@@ -1276,10 +1348,10 @@ namespace HPF.FutureState.WebService.Test.Web.HPFCallCenterService {
         }
         
         /// <remarks/>
-        public CallLogResponse Result {
+        public CallLogInsertResponse Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((CallLogResponse)(this.results[0]));
+                return ((CallLogInsertResponse)(this.results[0]));
             }
         }
     }
