@@ -101,11 +101,11 @@
     <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="Site.Master" />
-    <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
     <None Include="Web References\HPFCallCenterService\CallCenterService.wsdl" />
     <None Include="Web References\HPFCallCenterService\CallLogResponse.datasource">
       <DependentUpon>Reference.map</DependentUpon>
