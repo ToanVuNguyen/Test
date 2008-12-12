@@ -74,7 +74,7 @@ namespace HPF.FutureState.BusinessLogic
 
             //HPFValidator is not complete yet, it does not get the content of the message
             //so use the system validator just for testing
-            Validator<ForeClosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeClosureCaseSearchCriteriaDTO>();
+            Validator<ForeClosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeClosureCaseSearchCriteriaDTO>("Default");
             ValidationResults validationResults = validator.Validate(searchCriteria);
             //if (exceptionMessages != null || exceptionMessages.Count > 0)
             if (!validationResults.IsValid)

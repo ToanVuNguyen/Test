@@ -32,10 +32,12 @@ namespace HPF.FutureState.BusinessLogic
         /// Insert a CallLog
         /// </summary>
         /// <param name="aCallLog"></param>
-        public void InsertCallLog(CallLogDTO aCallLog)
+        /// <returns>string CallLogID</returns>
+        public string InsertCallLog(CallLogDTO aCallLog)
         {
-                       
-           CallLogDAO.Instance.InsertCallLog(aCallLog);
+            int callLogID = CallLogDAO.Instance.InsertCallLog(aCallLog);
+            return "HPF_ " + callLogID;
+            
         }       
 
         /// <summary>
