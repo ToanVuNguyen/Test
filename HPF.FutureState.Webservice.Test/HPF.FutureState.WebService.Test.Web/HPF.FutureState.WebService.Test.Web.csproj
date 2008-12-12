@@ -63,6 +63,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InsertCallLog.aspx.cs">
+      <DependentUpon>InsertCallLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InsertCallLog.aspx.designer.cs">
+      <DependentUpon>InsertCallLog.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -98,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="InsertCallLog.aspx" />
     <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="Site.Master" />
@@ -107,7 +115,7 @@
     </None>
     <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
     <None Include="Web References\HPFCallCenterService\CallCenterService.wsdl" />
-    <None Include="Web References\HPFCallCenterService\CallLogResponse.datasource">
+    <None Include="Web References\HPFCallCenterService\CallLogInsertResponse.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\HPFCallCenterService\CallLogRetrieveResponse.datasource">

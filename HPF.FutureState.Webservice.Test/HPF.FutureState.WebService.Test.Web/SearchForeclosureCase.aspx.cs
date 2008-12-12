@@ -48,13 +48,6 @@ namespace HPF.FutureState.WebService.Test.Web
 
             lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
             
-            
-            
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
