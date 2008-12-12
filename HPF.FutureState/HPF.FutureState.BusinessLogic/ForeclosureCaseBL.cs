@@ -60,18 +60,28 @@ namespace HPF.FutureState.BusinessLogic
             }            
         }
 
+        /// <summary>
+        /// return ForeclosureCase search result 
+        /// </summary>
+        /// <param name="searchCriteria">search criteria</param>
+        /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
         public ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria)
         {
             ForeClosureCaseSearchResult searchResult = new ForeClosureCaseSearchResult();
             
-            ExceptionMessageCollection exCollection = new ExceptionMessageCollection();
+            ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
+            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeClosureCaseSearchCriteriaDTO>(searchCriteria);
+
+            //HPFValidator is not complete yet, it does not get the content of the message
+            //so use the system validator just for testing
             Validator<ForeClosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeClosureCaseSearchCriteriaDTO>();
-            ValidationResults results = validator.Validate(searchCriteria);
-            if (!results.IsValid)
+            ValidationResults validationResults = validator.Validate(searchCriteria);
+            //if (exceptionMessages != null || exceptionMessages.Count > 0)
+            if (!validationResults.IsValid)
             {
                 searchResult.Messages = new DataValidationException();
-
-                foreach (ValidationResult result in results)
+                //searchResult.Messages.ExceptionMessages = exceptionMessages;
+                foreach (ValidationResult result in validationResults)
                 {
                     searchResult.Messages.ExceptionMessages.AddExceptionMessage(0, result.Message);
                 }
@@ -80,14 +90,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 searchResult = ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
             }
-//            if (exCollection == null || exCollection.Count == 0)
-//            {
-//                searchResult = ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);                
-//            }
-//            else
-//            {
-//                searchResult.Messages.ExceptionMessages = exCollection;
-//            }
+
             return searchResult;
         }
         #endregion
