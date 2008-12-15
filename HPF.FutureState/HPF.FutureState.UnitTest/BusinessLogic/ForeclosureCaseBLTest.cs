@@ -4,6 +4,9 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 using System.Collections;
+
+using HPF.FutureState.Common.Utils.Exceptions;
+
 namespace HPF.FutureState.UnitTest.BusinessLogic
 {
     
@@ -55,17 +58,20 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         //Use TestInitialize to run code before running each test
         [TestInitialize()]
         public void MyTestInitialize()
-        {
-            //searchCriteria.AgencyCaseNumber = criteria[0];
-            //searchCriteria.FirstName = criteria[1];
-            //searchCriteria.LastName = criteria[2];
-            //searchCriteria.Last4_SSN = criteria[3];
-            //searchCriteria.LoanNumber = criteria[4];
-            //searchCriteria.PropertyZip = criteria[5];
-            criterias = new string[][]{new string[] {null, null, null, null, null, "12345", "23"},
-                                       new string[] {"644186", "MICHAEL", "GOINS", null, null, null, "23"},
-                                       new string[] {"10458400", "TODD", "SEITZ", "", "15399", "", "123"}};            
-
+        {         
+            //AgencyCaseNumber 0 , FirstName 1 , LastName 2, Last4_SSN 3, LoanNumber 4, PropertyZip 5, return_Fcid
+            criterias = new string[][]{
+                                       new string[] {null, null, null, null, null, null, "23"}, //0 null all
+                                       new string[] {null, null, null, null, null, "abcd", "23"}, //1 invalid Prop Zip
+                                       new string[] {null, null, null, null, null, "123456", "23"}, //2 invalid Prop Zip
+                                       new string[] {null, null, null, null, null, "12345", "23"}, //3 valid Prop Zip
+                                       new string[] {"abc*&*)&", null, null, null, null, "12345", "23"}, //4 invalid Agency Case Num
+                                       new string[] {"644186", null, null, null, null, "12345", "23"}, //5 valid Agency Case Num
+                                       new string[] {null, null, null, "ab12", null, "12345", "23"}, //6 invalid SSN1
+                                       new string[] {null, null, null, "123", null, "12345", "23"}, //7 invalid SSN2
+                                       new string[] {null, null, null, "1234", null, "12345", "23"}, //8 valid SSN
+                                       new string[] {"644186", "MICHAEL", "GOINS", "1234", null, "12345", "23"}};//9 match all
+            
         }
         
         //Use TestCleanup to run code after each test has run
@@ -80,14 +86,77 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         /// <summary>
         ///A test for SearchForeClosureCase
         ///</summary>
-        
+
+        [TestMethod()]
+        public void Test_Null_All()
+        {
+            PerformTest(0);
+        }
+
+        [TestMethod()]
+        public void Test_Invalid_PropZip1()
+        {
+            PerformTest(1);
+            //TestContext.WriteLine(criterias[1][5]);
+        }
+
+        [TestMethod()]
+        public void Test_Invalid_PropZip2()
+        {
+            PerformTest(2);
+            //TestContext.WriteLine(criterias[2][5]);
+        }
+
+        [TestMethod()]
+        public void Test_Valid_PropZip()
+        {
+            PerformTest(3);
+            //TestContext.WriteLine(criterias[3][5]);
+        }
+
+        [TestMethod()]
+        public void Test_InValid_AgencyNumber()
+        {
+            PerformTest(4);
+            //TestContext.WriteLine(criterias[4][0]);
+        }
+        [TestMethod()]
+        public void Test_Valid_AgencyNumber()
+        {
+            PerformTest(5);
+            //TestContext.WriteLine(criterias[5][0]);
+        }
+        [TestMethod()]
+        public void Test_Invalid_SSN1()
+        {
+            PerformTest(6);
+            //TestContext.WriteLine(criterias[6][4]);
+        }
+        [TestMethod()]
+        public void Test_Invalid_SSN2()
+        {
+            PerformTest(7);
+            //TestContext.WriteLine(criterias[7][4]);
+        }
+
+        [TestMethod()]
+        public void Test_Valid_SSN()
+        {
+            PerformTest(8);
+            //TestContext.WriteLine(criterias[8][4]);
+        }
         [TestMethod()]
         public void SearchForeClosureCaseSuccessTest_MatchAllCriteria()
+        {
+            PerformTest(9);                     
+        }
+
+        private void PerformTest(int index)
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             searchCriteria = new ForeClosureCaseSearchCriteriaDTO();
 
-            string[] criteria = criterias[0];
+            string[] criteria = criterias[index];
             searchCriteria.AgencyCaseNumber = criteria[0];
             searchCriteria.FirstName = criteria[1];
             searchCriteria.LastName = criteria[2];
@@ -96,12 +165,42 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             searchCriteria.PropertyZip = criteria[5];
 
             int expected = int.Parse(criteria[6]);  // expect an fc_id to be returned
-            
-            ForeClosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[0];
-            int actual =retObj.FcId; // target.SearchForeClosureCase(searchCriteria).Count; 
-            
-            Assert.AreEqual(expected, actual);
-            
+            int actual = 0;
+            ForeClosureCaseSearchResult results = target.SearchForeClosureCase(searchCriteria);
+
+            if (results != null)
+            {
+                if ((results.Messages != null) && (results.Messages.ExceptionMessages != null) && (results.Messages.ExceptionMessages.Count > 0))
+                {
+                    DisplayWarningMessage(results);
+                }
+                else
+                {
+                    if (results.Count == 0)
+                    {
+                        TestContext.WriteLine("There are no objects found");
+                    }
+                    else
+                    {
+                        ForeClosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[0];
+                        actual = retObj.FcId; // target.SearchForeClosureCase(searchCriteria).Count; 
+                        Assert.AreEqual(expected, actual);
+                        TestContext.WriteLine("Foreclosurecase ID: {0}", retObj.FcId);
+                    }
+                }
+            }
+            else
+            {
+                TestContext.WriteLine("Object return is null");
+            }
+        }
+        private void DisplayWarningMessage(ForeClosureCaseSearchResult results)
+        {
+            foreach (ExceptionMessage ex in results.Messages.ExceptionMessages)
+            {
+                TestContext.WriteLine(string.Format("Warning id:{0} - {1}", ex.ExceptionId, ex.Message));
+            }
+          
         }
     }
 }
