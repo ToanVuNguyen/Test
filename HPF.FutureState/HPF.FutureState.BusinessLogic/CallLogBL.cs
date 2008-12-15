@@ -5,6 +5,10 @@ using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
 
+
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using HPF.FutureState.Common.Utils.DataValidator;
+
 namespace HPF.FutureState.BusinessLogic
 {
     public class CallLogBL : BaseBusinessLogic, ICallLogBL
@@ -32,11 +36,34 @@ namespace HPF.FutureState.BusinessLogic
         /// Insert a CallLog
         /// </summary>
         /// <param name="aCallLog"></param>
-        /// <returns>string CallLogID</returns>
-        public string InsertCallLog(CallLogDTO aCallLog)
+        /// <returns>A result object after inserting a call log</returns>
+        public CallLogInsertResult InsertCallLog(CallLogDTO aCallLog)
         {
-            int callLogID = CallLogDAO.Instance.InsertCallLog(aCallLog);
-            return "HPF_ " + callLogID;
+            ////HPFValidator.ValidateToExceptionMessage<CallLogDTO>(aCallLog);
+            //ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
+            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeClosureCaseSearchCriteriaDTO>(searchCriteria);
+
+            ////HPFValidator is not complete yet, it does not get the content of the message
+            ////so use the system validator just for testing
+            Validator<CallLogDTO> validator = ValidationFactory.CreateValidator<CallLogDTO>("Default");
+            ValidationResults validationResults = validator.Validate(aCallLog);
+            CallLogInsertResult insertResult = new CallLogInsertResult();
+            if (!validationResults.IsValid)
+            {
+                insertResult.Messages = new DataValidationException();
+            //    //searchResult.Messages.ExceptionMessages = exceptionMessages;
+                foreach (ValidationResult result in validationResults)
+                {
+                    insertResult.Messages.ExceptionMessages.AddExceptionMessage(0, result.Message);
+                }
+            }
+            else
+            {
+                insertResult.CallLogID = "HPF_" + CallLogDAO.Instance.InsertCallLog(aCallLog); //ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
+            }
+
+            //return searchResult;
+            return insertResult;
             
         }       
 
