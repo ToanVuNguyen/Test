@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param name="aCallLog"></param>
         /// <returns>callLogID in string format</returns>
-        string InsertCallLog(CallLogDTO aCallLog);
+        CallLogInsertResult InsertCallLog(CallLogDTO aCallLog);
         /// <summary>
        
         /// Get a CallLog by CallLogId
