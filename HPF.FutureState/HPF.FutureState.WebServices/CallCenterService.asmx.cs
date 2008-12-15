@@ -37,10 +37,21 @@ namespace HPF.FutureState.WebServices
                 {
                     //Call Business Logic Here
                     CallLogDTO callLogDTO = new CallLogDTO(request.CallLog);
-                    string callLogID = CallLogBL.Instance.InsertCallLog(callLogDTO);
+                    CallLogInsertResult result = new CallLogInsertResult();
+                    result = CallLogBL.Instance.InsertCallLog(callLogDTO);
+                    //string callLogID = CallLogBL.Instance.InsertCallLog(callLogDTO);
 
-                    response.CallLogID = callLogID;
-                    response.Status = ResponseStatus.Success;
+                    if (result.Messages == null || result.Messages.ExceptionMessages.Count == 0)
+                    {                    
+                        response.CallLogID = result.CallLogID;
+                        response.Status = ResponseStatus.Success;
+                    }
+                    else
+                    {
+                        //throw results.Messages;
+                        response.Messages = result.Messages.ExceptionMessages;
+                        response.Status = ResponseStatus.Fail;
+                    }                    
                 }
             }
             catch (AuthenticationException Ex)
