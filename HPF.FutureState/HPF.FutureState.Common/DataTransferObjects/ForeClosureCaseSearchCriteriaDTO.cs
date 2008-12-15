@@ -18,9 +18,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         string _loanNumber = null; 
         
-        [ValidatorComposition(CompositionType.And, Ruleset="Default")]
-        [IgnoreNulls()]
-        [RegexValidator("[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed")]
+        //[ValidatorComposition(CompositionType.Or, Ruleset="Default")]
+        //[IgnoreNulls()]
+        //[RegexValidator("[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed")]
+        [NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset="Default")]
         public string AgencyCaseNumber 
         { 
             get; 
