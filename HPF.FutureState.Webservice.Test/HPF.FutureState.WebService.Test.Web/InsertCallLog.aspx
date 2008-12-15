@@ -251,6 +251,18 @@
             </asp:TableCell>
         </asp:TableRow>
         
+        <asp:TableRow ID="TableRow2" runat="server">
+            <asp:TableCell ID="TableCell11" runat="server">
+                <asp:Label ID="Label6" runat="server" Text="TransNumber"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell12" runat="server">
+                <asp:TextBox ID="txtTransNumnber" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell55" runat="server">
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell56" runat="server">
+            </asp:TableCell>
+        </asp:TableRow>
     </asp:Table>
     <br />
     <br />

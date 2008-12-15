@@ -71,7 +71,9 @@ namespace HPF.FutureState.WebService.Test.Web
 
             int.TryParse(txtServicerId.Text.Trim(), out temp);
             request.CallLog.ServicerId = temp;
-            request.CallLog.TransNumber = null;
+            request.CallLog.TransNumber = txtTransNumnber.Text.Trim();
+            
+
             
 
             
