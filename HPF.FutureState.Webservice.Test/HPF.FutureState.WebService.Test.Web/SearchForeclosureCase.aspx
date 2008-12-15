@@ -72,8 +72,7 @@
 <asp:Label ID="lblResult" runat="server" Text="Rows found: "></asp:Label>
 <br />
     
-<asp:GridView ID="grdvResult" runat="server" 
-    onselectedindexchanged="GridView1_SelectedIndexChanged">
+<asp:GridView ID="grdvResult" runat="server" >
 </asp:GridView>
 <br />
 <br />
