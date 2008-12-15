@@ -75,6 +75,7 @@
     <Compile Include="DataTransferObjects\BudgetSetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallLogDTO.cs" />
     <Compile Include="DataTransferObjects\CallLogDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CallLogInsertResult.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTO.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeClosureCaseDTO.cs" />
