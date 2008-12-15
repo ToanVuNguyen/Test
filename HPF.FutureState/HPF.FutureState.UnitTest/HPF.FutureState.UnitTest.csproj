@@ -51,11 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\CallLogBLTest.cs" />
     <Compile Include="BusinessLogic\ForeclosureCaseBLTest.cs" />
     <Compile Include="BusinessLogic\SecurityBLTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CallLogBLTest.cs" />
     <Compile Include="DataAccess\CallLogDAOTest.cs">
       <SubType>Code</SubType>
     </Compile>
