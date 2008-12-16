@@ -114,6 +114,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///A test for SearchForeClosureCase
         ///</summary>
 
+        #region SearchForeclosureCase
         [TestMethod()]
         public void Test_Null_All()
         {
@@ -234,7 +235,44 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 TestContext.WriteLine(string.Format("Warning id:{0} - {1}", ex.ExceptionId, ex.Message));
             }
-          
+
         }
+        #endregion
+
+        #region CheckValidFCIdForAgency - Test
+
+        [TestMethod()]
+        public void CheckValidFCIdForAgencyTest_Success()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value            
+            int fc_id = 23; // TODO: Initialize to an appropriate value
+            int agency_id = 2;
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckValidFCIdForAgency(fc_id, agency_id);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CheckValidFCIdForAgencyTest_Fail()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value            
+            int fc_id = 23; // TODO: Initialize to an appropriate value
+            int agency_id = 3;
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckValidFCIdForAgency(fc_id, agency_id);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CheckValidFCIdForAgencyTest_NullCase()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value            
+            int fc_id = -1; // TODO: Initialize to an appropriate value
+            int agency_id = 3;
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckValidFCIdForAgency(fc_id, agency_id);
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
     }
 }
