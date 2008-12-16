@@ -142,6 +142,21 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// Convert an object to Byte
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        protected static byte ConvertToByte(object obj)
+        {
+            byte returnValue = 0;
+            if (null != obj)
+            {
+                byte.TryParse(obj.ToString(), out returnValue);
+            }
+            return returnValue;
+        }
+
+        /// <summary>
         /// Convert an object to bool
         /// </summary>
         /// <param name="obj"></param>
@@ -161,7 +176,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static decimal ConvertToGetDecimal(object obj)
+        protected static decimal ConvertToDecimal(object obj)
         {
             decimal returnValue = 0;
             if (null != obj)
