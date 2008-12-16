@@ -1,5 +1,9 @@
 ﻿using HPF.FutureState.BusinessLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using System.Data.SqlClient;
+using System.Configuration;
+
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
@@ -44,16 +48,38 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = "update foreclosure_case" + 
+                                    " set loan_list = 'abc123, abc124, def123, def1234'" +
+                                    ", prop_zip = '12345'" +
+                                    ", borrower_last4_SSN = '1234'" +
+                                    " where fc_id = 23";
+            command.ExecuteNonQuery();           
+            dbConnection.Close();
+        }
         //
         //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
+        [ClassCleanup()]
+        public static void MyClassCleanup()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand();
+            dbConnection.Open();
+            command.Connection = dbConnection;
+            command.CommandText = "update foreclosure_case" + 
+                                    " set loan_list = null" +
+                                    ", prop_zip = null" +
+                                    ", borrower_last4_SSN = null" +
+                                    " where fc_id = 23";
+            command.ExecuteNonQuery();            
+            dbConnection.Close();
+        }
         //
         //Use TestInitialize to run code before running each test
         [TestInitialize()]
@@ -70,7 +96,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                                        new string[] {null, null, null, "ab12", null, "12345", "23"}, //6 invalid SSN1
                                        new string[] {null, null, null, "123", null, "12345", "23"}, //7 invalid SSN2
                                        new string[] {null, null, null, "1234", null, "12345", "23"}, //8 valid SSN
-                                       new string[] {"644186", "MICHAEL", "GOINS", "1234", null, "12345", "23"}};//9 match all
+                                       new string[] {null, null, null, null, "abc-$^*", "12345", "23"}, //9 test LoanNumber
+                                       new string[] {"644186", "MICHAEL", "GOINS", "1234", null, "12345", "23"}};//10 match all
             
         }
         
@@ -145,10 +172,17 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             PerformTest(8);
             //TestContext.WriteLine(criterias[8][4]);
         }
+
+        [TestMethod()]
+        public void Test_Valid_LoanNumber()
+        {
+            PerformTest(9);
+            //TestContext.WriteLine(criterias[8][4]);
+        }
         [TestMethod()]
         public void SearchForeClosureCaseSuccessTest_MatchAllCriteria()
         {
-            PerformTest(9);                     
+            PerformTest(10);                     
         }
 
         private void PerformTest(int index)
