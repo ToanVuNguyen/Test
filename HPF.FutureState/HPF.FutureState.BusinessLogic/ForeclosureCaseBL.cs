@@ -109,7 +109,14 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         bool CheckValidFCIdForAgency(int fcId, int agencyId)
         {
-            throw new NotImplementedException();
+            ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
+            if (fcCase == null)
+                return false;
+            else
+            {
+                if (agencyId == fcCase.AgencyId) return true;
+                else return false;
+            }
         }
 
         /// <summary>
@@ -164,7 +171,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         ForeclosureCaseDTO GetForeclosureCase(int fc_id)
         {
-            throw new NotImplementedException();
+            return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
         }
 
         #endregion
