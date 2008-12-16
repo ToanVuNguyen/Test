@@ -454,8 +454,37 @@ namespace HPF.FutureState.DataAccess
             }            
             return results;
         }
-    
-    
+
+        public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
+        {
+            bool returnValue = true;
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_foreclosure_case_retrieve_from_agencyID_and_caseNumber", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[2];             	
+            sqlParam[0] = new SqlParameter("@agency_case_num", agency_case_number );
+            sqlParam[1] = new SqlParameter("@agency_id", agency_id);           
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    returnValue = true;
+                else
+                    returnValue = false;
+                reader.Close();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return returnValue;
+
+        }
         
     }
 }
