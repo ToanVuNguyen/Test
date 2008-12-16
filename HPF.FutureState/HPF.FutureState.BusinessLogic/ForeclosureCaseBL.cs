@@ -153,6 +153,19 @@ namespace HPF.FutureState.BusinessLogic
         /// Update the Fore Closure Case
         /// </summary>
         void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get Foreclosure case basing on its fc_id
+        /// </summary>
+        /// <param name="fc_id">id for a ForeclosureCase</param>
+        /// <returns>object of ForeclosureCase </returns>
+        ForeclosureCaseDTO GetForeclosureCase(int fc_id)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }
