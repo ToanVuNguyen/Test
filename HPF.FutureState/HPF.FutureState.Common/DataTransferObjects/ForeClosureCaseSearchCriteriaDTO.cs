@@ -46,7 +46,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     foreach (Match item in matches)
                     {
                         _loanNumber = _loanNumber.Replace(item.Value, string.Empty);
-                    }                    
+                    }
+
+                    exp = new Regex(@"[^a-zA-Z0-9]");
+                    matches = exp.Matches(_loanNumber);
+                    foreach (Match item in matches)
+                    {
+                        _loanNumber = _loanNumber.Replace(item.Value, "%");
+                    }
                 }
             }
         }
