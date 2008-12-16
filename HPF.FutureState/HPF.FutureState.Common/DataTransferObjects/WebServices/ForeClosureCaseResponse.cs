@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
-    public class ForeClosureCaseResponse : BaseResponse
+    public class ForeclosureCaseResponse : BaseResponse
     {
 
     }

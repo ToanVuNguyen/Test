@@ -10,20 +10,20 @@ using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.DataAccess
 {
-    public class ForeClosureCaseSetDAO : BaseDAO
+    public class ForeclosureCaseSetDAO : BaseDAO
     {
         public SqlConnection dbConnection;
 
         public SqlTransaction trans;
 
-        protected ForeClosureCaseSetDAO()
+        protected ForeclosureCaseSetDAO()
         {
 
         }
 
-        public static ForeClosureCaseSetDAO CreateInstance()
+        public static ForeclosureCaseSetDAO CreateInstance()
         {
-            return new ForeClosureCaseSetDAO();
+            return new ForeclosureCaseSetDAO();
         }
 
         /// <summary>
@@ -58,12 +58,12 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="foreClosureCase"></param>
         /// <returns>ForeClosureCaseDTO if it exists, oherwise: null</returns>
-        public ForeClosureCaseDTO GetExistingForeClosureCase(ForeClosureCaseDTO foreClosureCase)
+        public ForeclosureCaseDTO GetExistingForeClosureCase(ForeclosureCaseDTO foreClosureCase)
         {
             return null;
         }
 
-        public void InsertForeClosureCase(ForeClosureCaseDTO foreClosureCase)
+        public void InsertForeClosureCase(ForeclosureCaseDTO foreClosureCase)
         {
             try
             {
@@ -213,9 +213,9 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="searchCriteria"></param>
         /// <returns></returns>
-        public ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria)
+        public ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
         {           
-            ForeClosureCaseSearchResult results = new ForeClosureCaseSearchResult();
+            ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
 
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_foreclosure_case_search", dbConnection);
@@ -237,10 +237,10 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    results = new ForeClosureCaseSearchResult();
+                    results = new ForeclosureCaseSearchResult();
                     while (reader.Read())
                     {
-                        ForeClosureCaseWSDTO item = new ForeClosureCaseWSDTO();
+                        ForeclosureCaseWSDTO item = new ForeclosureCaseWSDTO();
                         //item.Counseled = ConvertToString(reader["counseled"]);
                         item.FcId = ConvertToInt(reader["fc_id"]);
                         item.IntakeDt = ConvertToDateTime(reader["intake_dt"]);

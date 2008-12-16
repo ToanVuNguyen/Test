@@ -26,7 +26,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         private TestContext testContextInstance;
         string[][] criterias;
-        ForeClosureCaseSearchCriteriaDTO searchCriteria;
+        ForeclosureCaseSearchCriteriaDTO searchCriteria;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -188,7 +188,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private void PerformTest(int index)
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
-            searchCriteria = new ForeClosureCaseSearchCriteriaDTO();
+            searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
 
             string[] criteria = criterias[index];
             searchCriteria.AgencyCaseNumber = criteria[0];
@@ -200,7 +200,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             int expected = int.Parse(criteria[6]);  // expect an fc_id to be returned
             int actual = 0;
-            ForeClosureCaseSearchResult results = target.SearchForeClosureCase(searchCriteria);
+            ForeclosureCaseSearchResult results = target.SearchForeClosureCase(searchCriteria);
 
             if (results != null)
             {
@@ -216,7 +216,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     }
                     else
                     {
-                        ForeClosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[0];
+                        ForeclosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[0];
                         actual = retObj.FcId; // target.SearchForeClosureCase(searchCriteria).Count; 
                         Assert.AreEqual(expected, actual);
                         TestContext.WriteLine("Foreclosurecase ID: {0}", retObj.FcId);
@@ -228,7 +228,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 TestContext.WriteLine("Object return is null");
             }
         }
-        private void DisplayWarningMessage(ForeClosureCaseSearchResult results)
+        private void DisplayWarningMessage(ForeclosureCaseSearchResult results)
         {
             foreach (ExceptionMessage ex in results.Messages.ExceptionMessages)
             {

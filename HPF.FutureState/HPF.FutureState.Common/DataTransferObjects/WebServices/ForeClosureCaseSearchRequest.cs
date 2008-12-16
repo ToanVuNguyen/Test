@@ -5,8 +5,8 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
-    public class ForeClosureCaseSearchRequest:BaseRequest
+    public class ForeclosureCaseSearchRequest:BaseRequest
     {
-        public ForeClosureCaseSearchCriteriaDTO SearchCriteria { get; set; }
+        public ForeclosureCaseSearchCriteriaDTO SearchCriteria { get; set; }
     }
 }

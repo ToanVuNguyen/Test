@@ -31,9 +31,9 @@ namespace HPF.FutureState.WebServices
 
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public ForeClosureCaseSearchResponse SearchForeClosureCase(ForeClosureCaseSearchRequest request)
+        public ForeclosureCaseSearchResponse SearchForeClosureCase(ForeclosureCaseSearchRequest request)
         {
-            var response = new ForeClosureCaseSearchResponse();
+            var response = new ForeclosureCaseSearchResponse();
             try
             {
                 //if (IsAuthenticated())
@@ -43,16 +43,16 @@ namespace HPF.FutureState.WebServices
                     int maxRow = 0;
                     int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"].ToString(), out maxRow);
 
-                    ForeClosureCaseSearchResult results = ForeclosureCaseBL.Instance.SearchForeClosureCase(request.SearchCriteria);
-                    response = new ForeClosureCaseSearchResponse();
+                    ForeclosureCaseSearchResult results = ForeclosureCaseBL.Instance.SearchForeClosureCase(request.SearchCriteria);
+                    response = new ForeclosureCaseSearchResponse();
                     if (results.Messages == null || results.Messages.ExceptionMessages.Count == 0)
                     {
-                        response.Results = new ForeClosureCaseSearchResult();
+                        response.Results = new ForeclosureCaseSearchResult();
 
                         int count = 1;
                         if (maxRow > 0 && maxRow < results.Count)
                         {
-                            foreach (ForeClosureCaseWSDTO result in results)
+                            foreach (ForeclosureCaseWSDTO result in results)
                                 if (count <= maxRow)
                                 {
                                     response.Results.Add(result);

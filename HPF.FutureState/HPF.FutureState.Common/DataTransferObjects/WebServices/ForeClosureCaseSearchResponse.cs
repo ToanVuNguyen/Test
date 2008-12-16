@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
-    public class ForeClosureCaseSearchResponse:BaseResponse
+    public class ForeclosureCaseSearchResponse:BaseResponse
     {
-        public ForeClosureCaseSearchResult Results { get; set; }
+        public ForeclosureCaseSearchResult Results { get; set; }
         public int SearchResultCount { get; set; }       
     }
 }

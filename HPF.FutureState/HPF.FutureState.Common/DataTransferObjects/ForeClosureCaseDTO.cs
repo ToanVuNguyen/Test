@@ -6,7 +6,7 @@ using System.Text;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
-    public class ForeClosureCaseDTO : BaseDTO
+    public class ForeclosureCaseDTO : BaseDTO
     {
         public int FcId { get; set; }
         public int AgencyId { get; set; }

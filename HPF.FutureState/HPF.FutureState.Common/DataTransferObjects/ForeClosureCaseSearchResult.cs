@@ -8,7 +8,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public class ForeClosureCaseSearchResult:BaseDTOCollection <ForeClosureCaseWSDTO>
+    public class ForeclosureCaseSearchResult:BaseDTOCollection <ForeclosureCaseWSDTO>
     {
         public DataValidationException Messages { get; set; }
     }

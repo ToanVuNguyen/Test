@@ -6,9 +6,9 @@ using System.Text;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
-    public class ForeClosureCaseSetDTO
+    public class ForeclosureCaseSetDTO
     {
-        public ForeClosureCaseDTO ForeClosureCase { get; set; }
+        public ForeclosureCaseDTO ForeClosureCase { get; set; }
 
         public CaseLoanDTOCollection CaseLoans { get; set; }
 

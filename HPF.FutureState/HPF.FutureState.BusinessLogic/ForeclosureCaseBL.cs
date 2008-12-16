@@ -39,11 +39,11 @@ namespace HPF.FutureState.BusinessLogic
         /// Save a ForeClosureCase
         /// </summary>
         /// <param name="foreClosureCaseSet">ForeClosureCaseSetDTO</param>
-        public void SaveForeClosureCaseSet(ForeClosureCaseSetDTO foreClosureCaseSet)
+        public void SaveForeClosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet)
         {
             //Validation here     
        
-            var foreClosureCaseSetDAO = ForeClosureCaseSetDAO.CreateInstance();
+            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
             //
             try
             {
@@ -65,16 +65,16 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="searchCriteria">search criteria</param>
         /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
-        public ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria)
+        public ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
-            ForeClosureCaseSearchResult searchResult = new ForeClosureCaseSearchResult();
+            ForeclosureCaseSearchResult searchResult = new ForeclosureCaseSearchResult();
             
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeClosureCaseSearchCriteriaDTO>(searchCriteria);
 
             //HPFValidator is not complete yet, it does not get the content of the message
             //so use the system validator just for testing
-            Validator<ForeClosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeClosureCaseSearchCriteriaDTO>("Default");
+            Validator<ForeclosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeclosureCaseSearchCriteriaDTO>("Default");
             ValidationResults validationResults = validator.Validate(searchCriteria);
             //if (exceptionMessages != null || exceptionMessages.Count > 0)
             if (!validationResults.IsValid)
@@ -88,11 +88,72 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                searchResult = ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
+                searchResult = ForeclosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
             }
 
             return searchResult;
         }
+        #endregion
+
+        #region functions to serve SaveForeClosureCaseSet
+        /// <summary>
+        /// Min request validate the fore closure case
+        /// </summary>
+        bool RequireFieldsValidation(ForeclosureCaseSetDTO  foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Check ForeClosureCase Id is existed or not
+        /// </summary>
+        bool CheckValidFCIdForAgency(int fcId, int agencyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Check Fore Closure Case is over one year
+        /// </summary>
+        bool CheckInactiveCase(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Check Duplicated Fore Closure Case
+        /// </summary>
+        bool CheckDuplicateCase(ForeclosureCaseDTO foreclosureCase)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Check existed AgencyId and Case number
+        /// </summary>
+        bool CheckExistingAgencyIdAndCaseNumber(string agencyId, string caseNumner)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool CheckMiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Update the Fore Closure Case
+        /// </summary>
+        void UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Update the Fore Closure Case
+        /// </summary>
+        void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+
         #endregion
     }
 }

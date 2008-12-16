@@ -14,7 +14,7 @@ using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
-    public class ForeClosureCaseSearchCriteriaDTO
+    public class ForeclosureCaseSearchCriteriaDTO
     {
         string _loanNumber = null; 
         

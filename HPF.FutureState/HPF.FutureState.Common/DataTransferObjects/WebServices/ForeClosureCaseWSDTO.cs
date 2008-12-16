@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
-    public class ForeClosureCaseWSDTO : BaseDTO
+    public class ForeclosureCaseWSDTO : BaseDTO
     {
         //public ForeClosureCaseDTO ForeClosureCaseDTO { get; set; }
         public int FcId { get; set; }
