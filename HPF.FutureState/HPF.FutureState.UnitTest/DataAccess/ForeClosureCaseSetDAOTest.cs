@@ -107,6 +107,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         #endregion
 
 
+        #region SearchForeclosureCase - Test
         /// <summary>
         ///A test for SearchForeClosureCase
         ///</summary>
@@ -157,7 +158,10 @@ namespace HPF.FutureState.UnitTest.DataAccess
             else
                 return null;
         }
+        #endregion
 
+
+        #region GetForeclosureCase - Test
         /// <summary>
         ///A test for GetForeclosureCase
         ///</summary>
@@ -191,6 +195,10 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseDTO expected = null; // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO actual = target.GetForeclosureCase(fc_id);
             Assert.AreEqual(expected, actual);
-        }        
+        }
+
+        #endregion
+
+        
     }
 }
