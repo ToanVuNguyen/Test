@@ -7,6 +7,7 @@ using System.Configuration;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
+
 using System.Collections.Generic;
 
 namespace HPF.FutureState.UnitTest.DataAccess
@@ -129,8 +130,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
         private List<int> PerformTest(int index)
         {
-            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
-            ForeClosureCaseSearchCriteriaDTO searchCriteria = new ForeClosureCaseSearchCriteriaDTO();
+            HPF.FutureState.DataAccess.ForeclosureCaseSetDAO_Accessor target = new HPF.FutureState.DataAccess.ForeclosureCaseSetDAO_Accessor();
+            HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO searchCriteria = new HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO();
 
             string[] criteria = criterias[index];
             searchCriteria.AgencyCaseNumber = criteria[0];
@@ -140,14 +141,14 @@ namespace HPF.FutureState.UnitTest.DataAccess
             searchCriteria.LoanNumber = criteria[4];
             searchCriteria.PropertyZip = criteria[5];
 
-            
-            ForeClosureCaseSearchResult searchResults = target.SearchForeClosureCase(searchCriteria);
+
+            HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchResult searchResults = target.SearchForeClosureCase(searchCriteria);
 
             List<int> actual;
             if (searchResults != null)
             {
                 actual = new List<int>();
-                foreach (ForeClosureCaseWSDTO result in searchResults)
+                foreach (HPF.FutureState.Common.DataTransferObjects.WebServices.ForeclosureCaseWSDTO result in searchResults)
                 {
                    actual.Add(result.FcId);
                 }
@@ -156,5 +157,40 @@ namespace HPF.FutureState.UnitTest.DataAccess
             else
                 return null;
         }
+
+        /// <summary>
+        ///A test for GetForeclosureCase
+        ///</summary>
+        [TestMethod()]
+        public void GetForeclosureCaseTest_Success()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int fc_id = 23; // TODO: Initialize to an appropriate value
+            int expected = 23; // TODO: Initialize to an appropriate value
+            int actual = target.GetForeclosureCase(fc_id).FcId;            
+            Assert.AreEqual(expected, actual);
+            
+        }
+
+        [TestMethod()]
+        public void GetForeclosureCaseTest_Fail()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int fc_id = 23; // TODO: Initialize to an appropriate value
+            int expected = 24; // TODO: Initialize to an appropriate value
+            int actual = target.GetForeclosureCase(fc_id).FcId;
+            Assert.AreNotEqual(expected, actual);
+
+        }
+
+        [TestMethod()]
+        public void GetForeclosureCaseTest_Null()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int fc_id = -1; // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO expected = null; // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO actual = target.GetForeclosureCase(fc_id);
+            Assert.AreEqual(expected, actual);
+        }        
     }
 }
