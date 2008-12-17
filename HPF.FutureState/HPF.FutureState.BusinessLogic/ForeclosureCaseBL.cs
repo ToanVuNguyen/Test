@@ -43,7 +43,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             //Validation here     
        
-            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            var foreClosureCaseSetDAO = ForeClosureCaseSetDAO.CreateInstance();
             //
             try
             {
@@ -88,7 +88,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                searchResult = ForeclosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
+                searchResult = ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
             }
 
             return searchResult;
@@ -171,7 +171,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         ForeclosureCaseDTO GetForeclosureCase(int fc_id)
         {
-            return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
+            return ForeClosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
         }
 
         #endregion
