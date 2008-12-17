@@ -46,8 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BudgetAssetDAO.cs" />
+    <Compile Include="BudgetItemDAO.cs" />
+    <Compile Include="BudgetSetDAO.cs" />
     <Compile Include="CallLogDAO.cs" />
-    <Compile Include="ForeClosureCaseSetDAO.cs" />
+    <Compile Include="CaseLoanDAO.cs" />
+    <Compile Include="ForeClosureCaseDAO.cs" />
+    <Compile Include="ForeclosureCaseSetDAO.cs" />
+    <Compile Include="OutcomeItemDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseDAO.cs" />
     <Compile Include="SecurityDAO.cs" />

@@ -115,7 +115,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.BorrowerMaritalStatusCd = ConvertToString(reader["borrower_marital_status_cd"]);
                         returnObject.BorrowerLast4Ssn = ConvertToString(reader["borrower_last4_SSN"]);
                         returnObject.BorrowerMname = ConvertToString(reader["borrower_mname"]);
-                        returnObject.BorrowerOccupation = ConvertToString(reader["borrower_occupation"]);
+                        returnObject.BorrowerOccupationCd = ConvertToString(reader["borrower_occupation"]);
                         returnObject.BorrowerPreferredLangCd = ConvertToString(reader["borrower_preferred_lang_cd"]);
                         returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
 
@@ -130,22 +130,23 @@ namespace HPF.FutureState.DataAccess
                         returnObject.CoBorrowerLname = ConvertToString(reader["co_borrower_lname"]);
                         returnObject.CoBorrowerLast4Ssn = ConvertToString(reader["co_borrower_last4_SSN"]);
                         returnObject.CoBorrowerMname = ConvertToString(reader["co_borrower_mname"]);
-                        returnObject.CoBorrowerOccupation = ConvertToString(reader["co_borrower_occupation"]);
+                        returnObject.CoBorrowerOccupationCd = ConvertToString(reader["co_borrower_occupation"]);
                         returnObject.CoBorrowerSsn = ConvertToString(reader["co_borrower_ssn"]);
                         returnObject.CompletedDt = ConvertToDateTime(reader["completed_dt"]);
                         returnObject.ContactAddr1 = ConvertToString(reader["contact_addr1"]);
                         returnObject.ContactAddr2 = ConvertToString(reader["contact_addr2"]);
                         returnObject.ContactCity = ConvertToString(reader["contact_city"]);
                         returnObject.ContactedSrvcrRecentlyInd = ConvertToString(reader["contacted_srvcr_recently_ind"]);
-                        returnObject.ContactState = ConvertToString(reader["contact_state_cd"]);
+                        returnObject.ContactStateCd = ConvertToString(reader["contact_state_cd"]);
                         returnObject.ContactZip = ConvertToString(reader["contact_zip"]);
                         returnObject.ContactZipPlus4 = ConvertToString(reader["contact_zip_plus4"]);
                         returnObject.CounselingDurationCd = ConvertToString(reader["counseling_duration_cd"]);
-                        returnObject.CounselorFullName = ConvertToString(reader["counselor_full_name"]);
+                        returnObject.CounselorFname = ConvertToString(reader["counselor_fname"]);
+                        returnObject.CounselorLname = ConvertToString(reader["counselor_lname"]);
                         returnObject.CounselorPhone = ConvertToString(reader["counselor_phone"]);
                         returnObject.CounselorExt = ConvertToString(reader["counselor_ext"]);
                         returnObject.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        returnObject.CounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
+                        returnObject.AssignedCounselorIdRef = ConvertToString(reader["assigned_counselor_id_ref"]);
                         returnObject.CreateAppName = ConvertToString(reader["create_app_name"]);
                         returnObject.CreateDate = ConvertToDateTime(reader["create_dt"]);
                         returnObject.CreateUserId = ConvertToString(reader["create_user_id"]);
@@ -204,7 +205,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.PropAddr1 = ConvertToString(reader["prop_addr1"]);
                         returnObject.PropAddr2 = ConvertToString(reader["prop_addr2"]);
                         returnObject.PropCity = ConvertToString(reader["prop_city"]);
-                        returnObject.PropState = ConvertToString(reader["prop_state_cd"]);
+                        returnObject.PropStateCd = ConvertToString(reader["prop_state_cd"]);
                         returnObject.PropZip = ConvertToString(reader["prop_zip"]);
                         returnObject.PropertyCd = ConvertToString(reader["property_cd"]);
                         returnObject.PropZipPlus4 = ConvertToString(reader["prop_zip_plus_4"]);

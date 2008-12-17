@@ -98,7 +98,7 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetItemId = ConvertToInt(reader["budget_item_id"]);
                         item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
                         item.BudgetSubcategoryId = ConvertToInt(reader["budget_subcategory_id"]);
-                        item.BudgetItemAmt = ConvertToGetDecimal(reader["budget_item_amt"]);
+                        item.BudgetItemAmt = ConvertToDecimal(reader["budget_item_amt"]);
                         item.BudgetNote = ConvertToString(reader["budget_note"]);                        
                         results.Add(item);
                     }

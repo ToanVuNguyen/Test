@@ -58,7 +58,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="foreclosureCase">ForeclosureCase</param>
         /// <returns>a new Fc_id</returns>
-        public int InsertForeclosureCase(ForeClosureCaseDTO foreclosureCase)
+        public int InsertForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_insert", dbConnection);
@@ -204,7 +204,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="foreclosureCase">ForeclosureCase</param>
         /// <returns>a new Fc_id</returns>
-        public int UpdateForeclosureCase(ForeClosureCaseDTO foreclosureCase)
+        public int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_update", dbConnection);
@@ -365,9 +365,9 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="searchCriteria"></param>
         /// <returns></returns>
-        public ForeClosureCaseSearchResult SearchForeClosureCase(ForeClosureCaseSearchCriteriaDTO searchCriteria)
-        {           
-            ForeClosureCaseSearchResult results = new ForeClosureCaseSearchResult();
+        public ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
 
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_foreclosure_case_search", dbConnection);
@@ -389,10 +389,10 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    results = new ForeClosureCaseSearchResult();
+                    results = new ForeclosureCaseSearchResult();
                     while (reader.Read())
                     {
-                        ForeClosureCaseWSDTO item = new ForeClosureCaseWSDTO();
+                        ForeclosureCaseWSDTO item = new ForeclosureCaseWSDTO();
                         //item.Counseled = ConvertToString(reader["counseled"]);
                         item.FcId = ConvertToInt(reader["fc_id"]);
                         item.IntakeDt = ConvertToDateTime(reader["intake_dt"]);
