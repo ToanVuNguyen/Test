@@ -244,5 +244,150 @@ namespace HPF.FutureState.UnitTest.DataAccess
             Assert.AreEqual(expected, actual);
         }
         #endregion
+
+        #region CheckDuplicate
+        private void CheckDuplicate_PreTest()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = null, Duplicate_IND = 'N' Where fc_id = 23";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2008-02-17' , Duplicate_IND = 'N' Where fc_id = 4341";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2008-02-17', Duplicate_IND = 'N' Where fc_id = 123";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update case_loan set acct_num = '4650801', servicer_id = 5 where fc_id = 123";
+            command.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+
+        [TestMethod()]
+        public void CheckDuplicateTest_Exist_From_FCID()
+        {
+            CheckDuplicate_PreTest();
+            
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int fc_id = 23; // TODO: Initialize to an appropriate value              
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(fc_id);//, agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+            
+            CheckDuplicate_PostTest();
+        }
+
+        [TestMethod()]
+        public void CheckDuplicateTest_NonExist_FromFCID()
+        {
+            CheckDuplicate_PreTest();
+
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int fc_id = 181; // TODO: Initialize to an appropriate value              
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(fc_id);//, agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+
+            CheckDuplicate_PostTest();
+        }
+
+        [TestMethod()]
+        public void CheckDuplicateTest_InvalidFCID()
+        {
+            CheckDuplicate_PreTest();
+
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int fc_id = -1; // TODO: Initialize to an appropriate value              
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(fc_id);//, agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+
+            CheckDuplicate_PostTest();
+        }
+        [TestMethod()]
+        public void CheckDuplicateTest_Exist_FromAgencyIDandAgency_Case_Number()
+        {
+            CheckDuplicate_PreTest();
+
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            
+            int agency_id = 2;
+            string agency_case_number = "644186";
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+
+            CheckDuplicate_PostTest();
+        }
+        [TestMethod()]
+        public void CheckDuplicateTest_NonExist_FromAgencyIDandAgency_Case_Number()
+        {
+            CheckDuplicate_PreTest();
+
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+
+            int agency_id = 2;
+            string agency_case_number = "644404";
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+
+            CheckDuplicate_PostTest();
+        }
+
+        [TestMethod()]
+        public void CheckDuplicateTest_NonExist_InvalidAgencyID()
+        {
+            CheckDuplicate_PreTest();
+
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+
+            int agency_id = -2;
+            string agency_case_number = "644404";
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+
+            CheckDuplicate_PostTest();
+        }
+
+        [TestMethod()]
+        public void CheckDuplicateTest_NonExist_InvalidAgencyCaseNumber()
+        {
+            CheckDuplicate_PreTest();
+
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+
+            int agency_id = 2;
+            string agency_case_number = "64asd04";
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+
+            CheckDuplicate_PostTest();
+        }
+
+        private void CheckDuplicate_PostTest()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2003-05-15', Duplicate_IND = null Where fc_id = 23 or fc_id = 4341";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2003-05-05', Duplicate_IND = null Where fc_id = 123";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update case_loan set acct_num = '1994489', servicer_id = 2 where fc_id = 123";
+            command.ExecuteNonQuery();
+
+            dbConnection.Close();
+        }
+        #endregion
     }
 }
