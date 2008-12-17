@@ -458,8 +458,6 @@ namespace HPF.FutureState.DataAccess
 
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {
-
-
             bool returnValue = true;
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_foreclosure_case_retrieve_from_agencyID_and_caseNumber", dbConnection);
@@ -489,6 +487,69 @@ namespace HPF.FutureState.DataAccess
 
         }
 
+        /// <summary>        
+        /// Check if there are any active Foreclosure case in DB which are different from current FC_Case
+        /// </summary>
+        /// <param name="fc_id">id of current FC_Case</param>       
+        /// <returns>true if another FC_Case with the same acct_num and servicer_id exists in db, otherwise false</returns>
+        public bool CheckDuplicate(int fc_id)
+        {
+            bool returnValue = true;
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];            
+            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    returnValue = true;
+                else
+                    returnValue = false;
+                reader.Close();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return returnValue;
+        }
+
+        public bool CheckDuplicate(int agency_id, string agency_case_number)
+        {
+            bool returnValue = true;
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[2];
+            sqlParam[0] = new SqlParameter("@agency_case_num", agency_case_number);
+            sqlParam[1] = new SqlParameter("@agency_id", agency_id);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    returnValue = true;
+                else
+                    returnValue = false;
+                reader.Close();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return returnValue;
+        }
     }
 }
 
