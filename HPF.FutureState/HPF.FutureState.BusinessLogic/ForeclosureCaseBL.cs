@@ -246,15 +246,18 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         bool CheckDuplicateCase(ForeclosureCaseDTO foreclosureCase)
         {
-            throw new NotImplementedException();
+            if (foreclosureCase.FcId != 0)
+                return ForeclosureCaseSetDAO.CreateInstance().CheckDuplicate(foreclosureCase.FcId);
+            else
+                return ForeclosureCaseSetDAO.CreateInstance().CheckDuplicate(foreclosureCase.AgencyId, foreclosureCase.AgencyCaseNum);
         }
 
         /// <summary>
         /// Check existed AgencyId and Case number
         /// </summary>
-        bool CheckExistingAgencyIdAndCaseNumber(string agencyId, string caseNumner)
+        bool CheckExistingAgencyIdAndCaseNumber(int agencyId, string caseNumner)
         {
-            throw new NotImplementedException();
+            return ForeclosureCaseSetDAO.CreateInstance().CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
         bool CheckMiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
