@@ -457,6 +457,8 @@ namespace HPF.FutureState.DataAccess
 
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {
+
+
             bool returnValue = true;
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_foreclosure_case_retrieve_from_agencyID_and_caseNumber", dbConnection);
