@@ -51,7 +51,6 @@
     <Compile Include="BudgetSetDAO.cs" />
     <Compile Include="CallLogDAO.cs" />
     <Compile Include="CaseLoanDAO.cs" />
-    <Compile Include="RefCodeItemtDAO.cs" />
     <Compile Include="ForeClosureCaseDAO.cs" />
     <Compile Include="ForeclosureCaseSetDAO.cs" />
     <Compile Include="OutcomeItemDAO.cs" />
