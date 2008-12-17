@@ -121,10 +121,37 @@ namespace HPF.FutureState.BusinessLogic
 
         /// <summary>
         /// Check Fore Closure Case is over one year
+        /// <return>bool</return>
         /// </summary>
-        bool CheckInactiveCase(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            throw new NotImplementedException();
+        bool CheckInactiveCase(DateTime completeDate)
+        {            
+            DateTime currentDate = DateTime.Now;
+            DateTime backOneYear = DateTime.MinValue;
+            if (completeDate == null)
+            {
+                return true;
+            }
+            else
+            {
+                //Check leap year
+                if ((currentDate.Year % 4) != 0)
+                {
+                    backOneYear = currentDate.AddDays(-366);
+                }
+                else
+                {
+                    backOneYear = currentDate.AddDays(-367);
+                }
+                //
+                if (backOneYear < completeDate)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         /// <summary>

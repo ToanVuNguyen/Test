@@ -1,16 +1,12 @@
 ﻿using HPF.FutureState.BusinessLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using System.Data.SqlClient;
 using System.Configuration;
-
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
-
 using System.Collections;
-
 using HPF.FutureState.Common.Utils.Exceptions;
-
+using System;
 namespace HPF.FutureState.UnitTest.BusinessLogic
 {
     
@@ -274,5 +270,37 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(expected, actual);
         }
         #endregion
+
+        /// <summary>
+        ///A test for CheckInactiveCase
+        ///Case False
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckInactiveCaseTestFalse()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            DateTime completeDate = Convert.ToDateTime("12/01/2007");// TODO: Initialize to an appropriate value                        
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckInactiveCase(completeDate);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for CheckInactiveCase
+        ///Case True
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckInactiveCaseTestTrue()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            DateTime completeDate = Convert.ToDateTime("12/12/2009");// TODO: Initialize to an appropriate value                        
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckInactiveCase(completeDate);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
