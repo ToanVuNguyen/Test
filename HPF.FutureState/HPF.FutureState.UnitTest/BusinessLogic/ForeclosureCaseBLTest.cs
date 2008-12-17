@@ -239,7 +239,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
         #endregion
 
-        #region CheckValidFCIdForAgency - Test
+        #region CheckValidFCIdForAgency
 
         [TestMethod()]
         public void CheckValidFCIdForAgencyTest_Success()
