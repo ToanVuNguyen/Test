@@ -9,11 +9,17 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class BudgetSetDTO : BaseDTO
     {
         public int BudgetSetId { get; set; }
+
         public int FcId { get; set; }
+
         public string BudgetSetName { get; set; }
+
         public string BudgetSetComment { get; set; }
+
         public decimal TotalIncome { get; set; }
+
         public decimal TotalExpenses { get; set; }
+
         public decimal TotalAssets { get; set; }        
     }
 }
