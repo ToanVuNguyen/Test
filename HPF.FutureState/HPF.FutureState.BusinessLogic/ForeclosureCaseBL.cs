@@ -206,38 +206,117 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        /// <summary>
-        /// Check Fore Closure Case is over one year
-        /// <return>bool</return>
-        /// </summary>
-        bool CheckInactiveCase(DateTime completeDate)
-        {            
+        private bool CheckInactiveCase(DateTime completeDate)
+        {
             DateTime currentDate = DateTime.Now;
             DateTime backOneYear = DateTime.MinValue;
             if (completeDate == null)
+            {
+                return false;
+            }
+            else
+            {
+                //Check leap year
+                if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))
+                {
+                    backOneYear = currentDate.AddDays(-367);
+                }
+                else
+                {
+                    backOneYear = currentDate.AddDays(-366);
+                }
+                //
+                if (backOneYear < completeDate)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check valid code
+        /// </summary>
+        private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeClosureCase != null && foreclosureCaseSet.CaseLoans != null
+                // Check valid code for ForeClosureCase
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.IncomeEarnersCd, CodeConstants.INCOME_EARNERS_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.CaseSourceCd, CodeConstants.CASE_RESOURCE_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.RaceCd, CodeConstants.RACE_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.HouseholdCd, CodeConstants.HOUSEHOLD_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.NeverBillReasonCd, CodeConstants.NEVER_BILL_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.NeverPayReasonCd, CodeConstants.NEVER_PAY_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.DfltReason1stCd, CodeConstants.DEFAULT_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.DfltReason2ndCd, CodeConstants.DEFAULT_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.HudTerminationReasonCd, CodeConstants.HUD_TERMINATION_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.HudOutcomeCd, CodeConstants.HUD_OUTCOME_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.CounselingDurationCd, CodeConstants.COUNSELING_DURARION_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.GenderCd, CodeConstants.GENDER_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.ContactStateCd, CodeConstants.CONTACT_STATE_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.CaseSourceCd, CodeConstants.PROP_STATE_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerEducLevelCompletedCd, CodeConstants.BORROWER_EDUC_LEVEL_COMPLETED_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerMaritalStatusCd, CodeConstants.BORROWER_MARITAL_STATUS_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerPreferredLangCd, CodeConstants.BORROWER_PREFERRED_LANG_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerOccupationCd, CodeConstants.BORROWER_OCCUPATION_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.CoBorrowerOccupationCd, CodeConstants.CO_BORROWER_OCCUPATION_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.SummarySentOtherCd, CodeConstants.SUMMARY_SENT_OTHER_CD)
+                && CheckCode(foreclosureCaseSet.ForeClosureCase.MilitaryServiceCd, CodeConstants.MILITARY_SERVICE_CD)
+                // Check valid code for Case Loan
+                && CheckCodeCaseLoan(foreclosureCaseSet.CaseLoans)
+            )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check valid code for case loan
+        /// <input>CaseLoanDTOCollection</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckCodeCaseLoan(CaseLoanDTOCollection caseLoanCollection)
+        {
+            foreach (CaseLoanDTO caseLoanDTO in caseLoanCollection)
+            {
+                if (!CheckCode(caseLoanDTO.MortgageTypeCd, CodeConstants.MORTGAGE_TYPE_CD)
+                     || !CheckCode(caseLoanDTO.TermLengthCd, CodeConstants.TERM_LENGTH_CD)
+                     || !CheckCode(caseLoanDTO.LoanDelinqStatusCd, CodeConstants.LOAN_DELINQUENCY_STATUS_CD)
+                    )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check valid code
+        /// <input>string, string</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckCode(string codeValue, string codeName)
+        {
+            RefCodeItemDTOCollection refCodeItemCollection = new RefCodeItemDTOCollection();
+            refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
+            if (codeValue == string.Empty || codeValue == null)
             {
                 return true;
             }
             else
             {
-                //Check leap year
-                if ((currentDate.Year % 4) != 0)
+                foreach (RefCodeItemDTO items in refCodeItemCollection)
                 {
-                    backOneYear = currentDate.AddDays(-366);
+                    if (items.Code == codeValue && items.RefCodeSetName == codeName)
+                    {
+                        return true;
+                    }
                 }
-                else
-                {
-                    backOneYear = currentDate.AddDays(-367);
-                }
-                //
-                if (backOneYear < completeDate)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
         }
 

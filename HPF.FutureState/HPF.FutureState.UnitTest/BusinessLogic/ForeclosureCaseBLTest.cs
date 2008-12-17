@@ -281,7 +281,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             DateTime completeDate = Convert.ToDateTime("12/01/2007");// TODO: Initialize to an appropriate value                        
-            bool expected = false; // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckInactiveCase(completeDate);
             Assert.AreEqual(expected, actual);            
@@ -297,7 +297,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             DateTime completeDate = Convert.ToDateTime("12/12/2009");// TODO: Initialize to an appropriate value                        
-            bool expected = true; // TODO: Initialize to an appropriate value
+            bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckInactiveCase(completeDate);
             Assert.AreEqual(expected, actual);
@@ -366,6 +366,72 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(expected, actual);            
         }
 
+        /// <summary>
+        ///A test for CheckCode
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckCodeTest()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            string codeValue = string.Empty; // TODO: Initialize to an appropriate value
+            string codeName = string.Empty; // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckCode(codeValue, codeName);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for CheckValidCode
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckValidCodeTestSuccess()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeClosureCase = SetForeclosureCase();
+            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckValidCode(foreclosureCaseSet);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for CheckValidCode
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckValidCodeTestFail()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeClosureCase = SetForeclosureCase();
+            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckValidCode(foreclosureCaseSet);
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///A test for CheckCodeCaseLoan
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckCodeCaseLoanTest()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            CaseLoanDTOCollection caseLoanCollection = SetCaseLoanCollection(); // TODO: Initialize to an appropriate value            
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckCodeCaseLoan(caseLoanCollection);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }    
+
         private ForeclosureCaseDTO SetForeclosureCase()
         {            
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
@@ -373,17 +439,17 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ProgramId = Convert.ToInt32("1");
             foreclosureCase.AgencyCaseNum = "Test";
             foreclosureCase.IntakeDt = DateTime.MinValue;
-            foreclosureCase.CaseSourceCd = "Test";
+            foreclosureCase.CaseSourceCd = "";
             foreclosureCase.BorrowerFname = "Test";
             foreclosureCase.BorrowerLname = "Test";
             foreclosureCase.PrimaryContactNo = "Test";
             foreclosureCase.ContactAddr1 = "Test";
             foreclosureCase.ContactCity = "Test";
-            foreclosureCase.ContactStateCd = "Test";
+            foreclosureCase.ContactStateCd = "";
             foreclosureCase.ContactZip = "Test";
             foreclosureCase.PropAddr1 = "Test";
             foreclosureCase.PropCity = "Test";
-            foreclosureCase.PropStateCd = "Test";
+            foreclosureCase.PropStateCd = "";
             foreclosureCase.PropZip = "Test";
             foreclosureCase.OwnerOccupiedInd = "Test";
             foreclosureCase.FundingConsentInd = "Test";
@@ -423,6 +489,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 outcomeItemCollection.Add(outcomeItemDTO);
             }
             return outcomeItemCollection;
+        }
+
+        private CaseLoanDTOCollection SetCaseLoanCollection()
+        {
+            CaseLoanDTOCollection caseLoanCollection = new CaseLoanDTOCollection();
+            for (int i = 0; i < 1; i++)
+            {
+                CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
+                caseLoanDTO.LoanDelinqStatusCd = "30-59";
+                caseLoanCollection.Add(caseLoanDTO);
+            }
+            return caseLoanCollection;
         }
     }
 }
