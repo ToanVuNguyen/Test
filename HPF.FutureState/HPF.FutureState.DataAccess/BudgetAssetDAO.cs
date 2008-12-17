@@ -75,7 +75,7 @@ namespace HPF.FutureState.DataAccess
             BudgetAssetDTOCollection results = new BudgetAssetDTOCollection();
 
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_get_budget_asset_set", dbConnection);
+            var command = new SqlCommand("hpf_get_budget_asset_list", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@fc_id", fc_id);
@@ -96,7 +96,7 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetAssetId = ConvertToInt(reader["budget_asset_id"]);
                         item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
                         item.AssetName = ConvertToString(reader["asset_name"]);
-                        item.AssetValue = ConvertToDecimal(reader["asset_value"]);                        
+                        item.AssetValue = ConvertToString(reader["asset_value"]);                        
                         results.Add(item);
                     }
                     reader.Close();

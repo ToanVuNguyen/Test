@@ -77,7 +77,7 @@ namespace HPF.FutureState.DataAccess
             BudgetItemDTOCollection results = new BudgetItemDTOCollection();
 
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_get_budget_item_set", dbConnection);
+            var command = new SqlCommand("hpf_get_budget_item_list", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@fc_id", fc_id);

@@ -6,20 +6,14 @@ using System.Text;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
-    public class RefCodeItemDTO : BaseDTO
-    {        
-        public int RefCodeItemId { get; set; }
+    public class BudgetAssetDTO : BaseDTO
+    {
+        public int BudgetAssetId { get; set; }
 
-        public string RefCodeSetName { get; set; }
+        public int BudgetSetId { get; set; }
 
-        public string Code { get; set; }
+        public string AssetName { get; set; }
 
-        public string CodeDesc { get; set; }
-
-        public string CodeComment { get; set; }
-
-        public int SortOrder { get; set; }
-
-        public string ActiveInd { get; set; }           
+        public string AssetValue { get; set; }          
     }
 }
