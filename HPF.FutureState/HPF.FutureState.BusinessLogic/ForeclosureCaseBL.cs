@@ -97,11 +97,98 @@ namespace HPF.FutureState.BusinessLogic
 
         #region functions to serve SaveForeClosureCaseSet
         /// <summary>
-        /// Min request validate the fore closure case
+        /// Min request validate the fore closure case set
+        /// 1: fore closure case
+        /// 2: budget item collection
+        /// 3: outcome item collection
         /// </summary>
         bool RequireFieldsValidation(ForeclosureCaseSetDTO  foreclosureCaseSet)
         {
-            throw new NotImplementedException();
+            ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeClosureCase;
+            BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;
+            OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
+            bool rfForeclosureCase = RequireFieldsForeClosureCase(foreclosureCase);
+            bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem);
+            bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem);
+            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 1: fore closure case
+        /// <return>bool</return>
+        /// </summary>
+        bool RequireFieldsForeClosureCase(ForeclosureCaseDTO foreclosureCase)
+        {
+            Validator<ForeclosureCaseDTO> cValidator = ValidationFactory.CreateValidator<ForeclosureCaseDTO>("Default");
+            ValidationResults validationResults = cValidator.Validate(foreclosureCase);
+            if (validationResults.IsValid)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 2: Budget Item Collection
+        /// <return>bool</return>
+        /// </summary>
+        bool RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection)
+        {
+            if (budgetItemDTOCollection != null && budgetItemDTOCollection.Count > 0)
+            {
+                foreach (BudgetItemDTO item in budgetItemDTOCollection)
+                {
+                    Validator<BudgetItemDTO> cValidator = ValidationFactory.CreateValidator<BudgetItemDTO>("Default");
+                    ValidationResults validationResults = cValidator.Validate(item);
+                    if (!validationResults.IsValid)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 3: Outcome Item Collection
+        /// <return>bool</return>
+        /// </summary>
+        bool RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection)
+        {
+            if (outcomeItemDTOCollection != null && outcomeItemDTOCollection.Count > 0)
+            {
+                foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
+                {
+                    Validator<OutcomeItemDTO> cValidator = ValidationFactory.CreateValidator<OutcomeItemDTO>("Default");
+                    ValidationResults validationResults = cValidator.Validate(item);
+                    if (!validationResults.IsValid)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

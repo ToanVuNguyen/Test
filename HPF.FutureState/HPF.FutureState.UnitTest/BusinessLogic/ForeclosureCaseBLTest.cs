@@ -301,6 +301,128 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             bool actual;
             actual = target.CheckInactiveCase(completeDate);
             Assert.AreEqual(expected, actual);
+        }       
+
+        /// <summary>
+        ///A test for RequireFieldsForeClosureCase
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void RequireFieldsForeClosureCaseTestSuccess()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO foreclosureCase = SetForeclosureCase(); // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.RequireFieldsForeClosureCase(foreclosureCase);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for RequireFieldsBudgetItem
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void RequireFieldsBudgetItemTestSuccess()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            BudgetItemDTOCollection budgetItemDTOCollection = SetBudgetItemCollection(); // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.RequireFieldsBudgetItem(budgetItemDTOCollection);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for RequireFieldsOutcomeItem
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void RequireFieldsOutcomeItemTestSuccess()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            OutcomeItemDTOCollection outcomeItemDTOCollection = SetOutcomeItemCollection(); // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.RequireFieldsOutcomeItem(outcomeItemDTOCollection);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void RequireFieldsValidationTestSuccess()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeClosureCase = SetForeclosureCase();
+            foreclosureCaseSet.BudgetItems = SetBudgetItemCollection();
+            foreclosureCaseSet.Outcome = SetOutcomeItemCollection();
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.RequireFieldsValidation(foreclosureCaseSet);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        private ForeclosureCaseDTO SetForeclosureCase()
+        {            
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+            foreclosureCase.AgencyId = Convert.ToInt32("1");
+            foreclosureCase.ProgramId = Convert.ToInt32("1");
+            foreclosureCase.AgencyCaseNum = "Test";
+            foreclosureCase.IntakeDt = DateTime.MinValue;
+            foreclosureCase.CaseSourceCd = "Test";
+            foreclosureCase.BorrowerFname = "Test";
+            foreclosureCase.BorrowerLname = "Test";
+            foreclosureCase.PrimaryContactNo = "Test";
+            foreclosureCase.ContactAddr1 = "Test";
+            foreclosureCase.ContactCity = "Test";
+            foreclosureCase.ContactStateCd = "Test";
+            foreclosureCase.ContactZip = "Test";
+            foreclosureCase.PropAddr1 = "Test";
+            foreclosureCase.PropCity = "Test";
+            foreclosureCase.PropStateCd = "Test";
+            foreclosureCase.PropZip = "Test";
+            foreclosureCase.OwnerOccupiedInd = "Test";
+            foreclosureCase.FundingConsentInd = "Test";
+            foreclosureCase.ServicerConsentInd = "Test";
+            foreclosureCase.AssignedCounselorIdRef = "Test";
+            foreclosureCase.CounselorFname = "Test";
+            foreclosureCase.CounselorLname = "Test";
+            foreclosureCase.CounselorEmail = "Test";
+            foreclosureCase.CounselorPhone = "Test";
+            foreclosureCase.OptOutNewsletterInd = "Test";
+            foreclosureCase.OptOutSurveyInd = "Test";
+            foreclosureCase.DoNotCallInd = "Test";
+            foreclosureCase.PrimaryResidenceInd = "Test";            
+            return foreclosureCase;
+        }
+
+        private BudgetItemDTOCollection SetBudgetItemCollection()
+        {
+            BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();            
+            for (int i = 0; i < 5; i++)
+            {
+                BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
+                budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("1");
+                budgetItemCollection.Add(budgetItemDTO);
+            }
+            return budgetItemCollection;
+        }
+
+        private OutcomeItemDTOCollection SetOutcomeItemCollection()
+        {
+            OutcomeItemDTOCollection outcomeItemCollection = new OutcomeItemDTOCollection();
+            for (int i = 0; i < 5; i++)
+            {
+                OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();
+                outcomeItemDTO.OutcomeItemId = Convert.ToInt32("1");
+                outcomeItemCollection.Add(outcomeItemDTO);
+            }
+            return outcomeItemCollection;
         }
     }
 }
