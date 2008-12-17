@@ -131,7 +131,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
         private List<int> PerformTest(int index)
         {
-            HPF.FutureState.DataAccess.ForeclosureCaseSetDAO_Accessor target = new HPF.FutureState.DataAccess.ForeclosureCaseSetDAO_Accessor();
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor();
             HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO searchCriteria = new HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO();
 
             string[] criteria = criterias[index];
@@ -143,7 +143,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             searchCriteria.PropertyZip = criteria[5];
 
 
-            HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchResult searchResults = target.SearchForeClosureCase(searchCriteria);
+            ForeclosureCaseSearchResult searchResults = target.SearchForeClosureCase(searchCriteria);
 
             List<int> actual;
             if (searchResults != null)
@@ -168,7 +168,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void GetForeclosureCaseTest_Success()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = 23; // TODO: Initialize to an appropriate value
             int expected = 23; // TODO: Initialize to an appropriate value
             int actual = target.GetForeclosureCase(fc_id).FcId;            
@@ -179,7 +179,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void GetForeclosureCaseTest_Fail()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = 23; // TODO: Initialize to an appropriate value
             int expected = 24; // TODO: Initialize to an appropriate value
             int actual = target.GetForeclosureCase(fc_id).FcId;
@@ -190,7 +190,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void GetForeclosureCaseTest_Null()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = -1; // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO expected = null; // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO actual = target.GetForeclosureCase(fc_id);
@@ -203,7 +203,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_Exist()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int agency_id = 2; // TODO: Initialize to an appropriate value
             string agency_case_number = "644186";
             bool expected = true; // TODO: Initialize to an appropriate value
@@ -214,7 +214,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_NonExist()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int agency_id = 2; // TODO: Initialize to an appropriate value
             string agency_case_number = "644187";
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -225,7 +225,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_InvalidAgencyID()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int agency_id = -1; // TODO: Initialize to an appropriate value
             string agency_case_number = "644187";
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -236,7 +236,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_InvalidCaseNumber()
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeClosureCaseSetDAO_Accessor target = new ForeClosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int agency_id = -1; // TODO: Initialize to an appropriate value
             string agency_case_number = "644#$87";
             bool expected = false; // TODO: Initialize to an appropriate value
