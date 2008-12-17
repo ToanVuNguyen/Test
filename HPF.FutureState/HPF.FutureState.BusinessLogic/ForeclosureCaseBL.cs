@@ -171,8 +171,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         ForeclosureCaseDTO GetForeclosureCase(int fc_id)
         {
-            return null;
-            //return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
+
+            return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
+
         }
 
         #endregion
