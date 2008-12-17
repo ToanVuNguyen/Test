@@ -199,6 +199,50 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
         #endregion
 
-        
+        #region CheckExistingAgencyIdAndCaseNumber
+        [TestMethod()]
+        public void CheckExistingAgencyIdAndCaseNumberTest_Exist()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int agency_id = 2; // TODO: Initialize to an appropriate value
+            string agency_case_number = "644186";
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CheckExistingAgencyIdAndCaseNumberTest_NonExist()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int agency_id = 2; // TODO: Initialize to an appropriate value
+            string agency_case_number = "644187";
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CheckExistingAgencyIdAndCaseNumberTest_InvalidAgencyID()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int agency_id = -1; // TODO: Initialize to an appropriate value
+            string agency_case_number = "644187";
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CheckExistingAgencyIdAndCaseNumberTest_InvalidCaseNumber()
+        {
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            int agency_id = -1; // TODO: Initialize to an appropriate value
+            string agency_case_number = "644#$87";
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
     }
 }
