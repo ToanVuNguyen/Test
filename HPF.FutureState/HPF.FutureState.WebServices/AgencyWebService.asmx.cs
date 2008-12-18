@@ -24,7 +24,7 @@ namespace HPF.FutureState.WebServices
     {
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public ForeclosureCaseResponse SaveForeClosureCass(ForeclosureCaseRequest request)
+        public ForeclosureCaseResponse SaveForeclosureCase(ForeclosureCaseRequest request)
         {
             var response = new ForeclosureCaseResponse();
             //            
