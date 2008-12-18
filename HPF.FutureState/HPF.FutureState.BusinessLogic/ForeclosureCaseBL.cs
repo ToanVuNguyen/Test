@@ -14,7 +14,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class ForeclosureCaseBL : BaseBusinessLogic, IForclosureCaseBL
+    public class ForeclosureCaseBL : BaseBusinessLogic, IForeclosureCaseBL
     {
         private static readonly ForeclosureCaseBL instance = new ForeclosureCaseBL();
         /// <summary>
@@ -42,22 +42,47 @@ namespace HPF.FutureState.BusinessLogic
         public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet)
         {
             //Validation here     
-       
-            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
-            //
-            try
+            if (RequireFieldsValidation(foreClosureCaseSet))
             {
-                foreClosureCaseSetDAO.Begin();
-                //
-                //Business process here
-                //
-                foreClosureCaseSetDAO.Commit();
+                ForeclosureCaseDTO fcCase = foreClosureCaseSet.ForeclosureCase;
+
+                if (fcCase != null && fcCase.FcId != 0)
+                {
+                    var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+                    //Biz call
+                    try
+                    {
+                        ProcessInsertUpdateWithForeclosureCaseId(foreClosureCaseSet);   
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    if (fcCase == null)
+                    {
+                        throw new ProcessingException();
+                    }
+                    else if (fcCase.FcId == 0)
+                    {
+                        //Biz call
+                        try
+                        {
+                            ProcessInsertUpdateWithoutForeclosureCaseId(foreClosureCaseSet);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw ex;
+                        }
+                    }
+                }
             }
-            catch (Exception)
-            {                
-                foreClosureCaseSetDAO.Cancel();
-                throw;
-            }            
+            else
+                throw new ProcessingException();
         }
 
         /// <summary>
@@ -384,6 +409,113 @@ namespace HPF.FutureState.BusinessLogic
 
         }
 
+
+        void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            if (foreclosureCaseSet != null)
+            {
+                if (CheckMiscErrorException(foreclosureCaseSet))
+                    throw new MiscProcessingException();
+                else
+                    try
+                    {
+                        UpdateForeclosureCaseSet(foreclosureCaseSet);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+            }
+            else
+                throw new ProcessingException();
+
+        }
+
+        void ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null)
+            {
+                if (CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase))
+                    throw new ProcessingException();
+                else
+                {
+                    if (CheckMiscErrorException(foreclosureCaseSet))
+                        throw new MiscProcessingException();
+                    else
+                        try
+                        {
+                            InsertForeclosureCaseSet(foreclosureCaseSet);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                }
+            }
+            else
+                throw new ProcessingException();
+        }
+
+        void ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase !=null)
+            {
+                if (foreclosureCaseSet.ForeclosureCase.AgencyCaseNum != null)
+                {
+                    if (CheckExistingAgencyIdAndCaseNumber(foreclosureCaseSet.ForeclosureCase.AgencyId, foreclosureCaseSet.ForeclosureCase.AgencyCaseNum))
+                        throw new ProcessingException();
+                    else
+                        try
+                        {
+                            ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }            
+                }
+                else
+                    throw new ProcessingException();
+            }
+            else
+                throw new ProcessingException();
+        }
+
+        void ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null)
+            {
+                ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
+                if (fc.FcId > 0) //CheckInvalidFCID
+                {
+                    if (CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
+                    {
+                        if (CheckInactiveCase(fc.CompletedDt))
+                            try
+                            {
+                                ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw ex;
+                            }
+
+                        else
+                            throw new ProcessingException();
+                    }
+                    else
+                        throw new ProcessingException();
+                }
+                else
+                    throw new ProcessingException();
+            }
+            else
+                throw new ProcessingException();
+            
+             
+        }
+        
+        
         #endregion
     }
 }
