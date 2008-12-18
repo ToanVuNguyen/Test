@@ -15,11 +15,11 @@ namespace HPF.FutureState.UnitTest.DataAccess
     
     
     /// <summary>
-    ///This is a test class for ForeClosureCaseSetDAOTest and is intended
-    ///to contain all ForeClosureCaseSetDAOTest Unit Tests
+    ///This is a test class for ForeclosureCaseSetDAOTest and is intended
+    ///to contain all ForeclosureCaseSetDAOTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class ForeClosureCaseSetDAOTest
+    public class ForeclosureCaseSetDAOTest
     {
 
         string[][] criterias;
@@ -109,20 +109,20 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
         #region SearchForeclosureCase - Test
         /// <summary>
-        ///A test for SearchForeClosureCase
+        ///A test for SearchForeclosureCase
         ///</summary>
         [TestMethod()]
-        public void SearchForeClosureCaseTest_Success()
+        public void SearchForeclosureCaseTest_Success()
         {
             List<int> actual = PerformTest(1);
             CollectionAssert.AreEquivalent(expected, actual);            
         }
 
         /// <summary>
-        ///A test for SearchForeClosureCase
+        ///A test for SearchForeclosureCase
         ///</summary>
         [TestMethod()]
-        public void SearchForeClosureCaseTest_Fail()
+        public void SearchForeclosureCaseTest_Fail()
         {
            var actual = PerformTest(0);
            CollectionAssert.AreNotEqual(expected, actual);
@@ -143,7 +143,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             searchCriteria.PropertyZip = criteria[5];
 
 
-            ForeclosureCaseSearchResult searchResults = target.SearchForeClosureCase(searchCriteria);
+            ForeclosureCaseSearchResult searchResults = target.SearchForeclosureCase(searchCriteria);
 
             List<int> actual;
             if (searchResults != null)

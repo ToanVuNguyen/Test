@@ -107,7 +107,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
 
         /// <summary>
-        ///A test for SearchForeClosureCase
+        ///A test for SearchForeclosureCase
         ///</summary>
 
         #region SearchForeclosureCase
@@ -177,7 +177,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //TestContext.WriteLine(criterias[8][4]);
         }
         [TestMethod()]
-        public void SearchForeClosureCaseSuccessTest_MatchAllCriteria()
+        public void SearchForeclosureCaseSuccessTest_MatchAllCriteria()
         {
             PerformTest(10);                     
         }
@@ -197,7 +197,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             int expected = int.Parse(criteria[6]);  // expect an fc_id to be returned
             int actual = 0;
-            ForeclosureCaseSearchResult results = target.SearchForeClosureCase(searchCriteria);
+            ForeclosureCaseSearchResult results = target.SearchForeclosureCase(searchCriteria);
 
             if (results != null)
             {
@@ -213,8 +213,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     }
                     else
                     {
-                        ForeclosureCaseWSDTO retObj = target.SearchForeClosureCase(searchCriteria)[0];
-                        actual = retObj.FcId; // target.SearchForeClosureCase(searchCriteria).Count; 
+                        ForeclosureCaseWSDTO retObj = target.SearchForeclosureCase(searchCriteria)[0];
+                        actual = retObj.FcId; 
                         Assert.AreEqual(expected, actual);
                         TestContext.WriteLine("Foreclosurecase ID: {0}", retObj.FcId);
                     }
@@ -304,17 +304,17 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }       
 
         /// <summary>
-        ///A test for RequireFieldsForeClosureCase
+        ///A test for RequireFieldsForeclosureCase
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsForeClosureCaseTestSuccess()
+        public void RequireFieldsForeclosureCaseTestSuccess()
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO foreclosureCase = SetForeclosureCase(); // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.RequireFieldsForeClosureCase(foreclosureCase);
+            actual = target.RequireFieldsForeclosureCase(foreclosureCase);
             Assert.AreEqual(expected, actual);            
         }
 
@@ -357,7 +357,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeClosureCase = SetForeclosureCase();
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
             foreclosureCaseSet.BudgetItems = SetBudgetItemCollection();
             foreclosureCaseSet.Outcome = SetOutcomeItemCollection();
             bool expected = true; // TODO: Initialize to an appropriate value
@@ -391,7 +391,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeClosureCase = SetForeclosureCase();
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
             foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
@@ -408,7 +408,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeClosureCase = SetForeclosureCase();
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
             foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
