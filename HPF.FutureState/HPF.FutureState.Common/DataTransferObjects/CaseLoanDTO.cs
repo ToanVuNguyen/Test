@@ -14,29 +14,37 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int FcId { get; set; }
 
         [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public int ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
 
         [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string AcctNum { get; set; }
 
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string Loan1st2nd { get; set; }
 
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string MortgageTypeCd { get; set; }
 
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string ArmLoanInd { get; set; }
 
         public string ArmResetInd { get; set; }
 
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string TermLengthCd { get; set; }
 
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string LoanDelinqStatusCd { get; set; }
 
         public decimal CurrentLoanBalanceAmt { get; set; }
 
         public decimal OrigLoanAmt { get; set; }
 
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public decimal InterestRate { get; set; }
 
         public string OriginatingLenderName { get; set; }

@@ -36,14 +36,12 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_budget_set_insert", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@fc_id", budgetSet.FcId);
-            sqlParam[1] = new SqlParameter("@budget_set_name", budgetSet.BudgetSetName);
-            sqlParam[2] = new SqlParameter("@budget_set_comment", budgetSet.BudgetSetComment);
-            sqlParam[3] = new SqlParameter("@total_income", budgetSet.TotalIncome);
-            sqlParam[4] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
-            sqlParam[5] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
-
+            var sqlParam = new SqlParameter[5];
+            sqlParam[0] = new SqlParameter("@fc_id", budgetSet.FcId);            
+            sqlParam[1] = new SqlParameter("@total_income", budgetSet.TotalIncome);
+            sqlParam[2] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
+            sqlParam[3] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
+            sqlParam[4] = new SqlParameter("@budget_set_dt", budgetSet.TotalAssets);
 
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
@@ -79,14 +77,13 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_budget_set_update", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[7];
-            sqlParam[0] = new SqlParameter("@fc_id", budgetSet.FcId);
-            sqlParam[1] = new SqlParameter("@budget_set_name", budgetSet.BudgetSetName);
-            sqlParam[2] = new SqlParameter("@budget_set_comment", budgetSet.BudgetSetComment);
-            sqlParam[3] = new SqlParameter("@total_income", budgetSet.TotalIncome);
-            sqlParam[4] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
-            sqlParam[5] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
-            sqlParam[6] = new SqlParameter("@budget_set_id", budgetSet.BudgetSetId);
+            var sqlParam = new SqlParameter[6];
+            sqlParam[0] = new SqlParameter("@fc_id", budgetSet.FcId);            
+            sqlParam[1] = new SqlParameter("@total_income", budgetSet.TotalIncome);
+            sqlParam[2] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
+            sqlParam[3] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
+            sqlParam[4] = new SqlParameter("@budget_set_dt", budgetSet.TotalAssets);
+            sqlParam[5] = new SqlParameter("@budget_set_id", budgetSet.BudgetSetId);           
 
             //</Parameter>
             command.Parameters.AddRange(sqlParam);

@@ -10,16 +10,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public int BudgetSetId { get; set; }
 
-        public int FcId { get; set; }
-
-        public string BudgetSetName { get; set; }
-
-        public string BudgetSetComment { get; set; }
+        public int FcId { get; set; }        
 
         public decimal TotalIncome { get; set; }
 
         public decimal TotalExpenses { get; set; }
 
-        public decimal TotalAssets { get; set; }        
+        public decimal TotalAssets { get; set; }
+
+        public DateTime BudgetSetDt { get; set; }
     }
 }

@@ -4,12 +4,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-
 using System.Reflection;
-
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
+using System.Data.SqlTypes;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -238,134 +237,150 @@ namespace HPF.FutureState.DataAccess
 
         }
 
-        public void InsertForeclosureCase(ForeclosureCaseDTO foreClosureCase)
+        /// <summary>
+        /// Insert a ForeclosureCase to database.
+        /// </summary>
+        /// <param name="foreclosureCase">ForeclosureCase</param>
+        /// <returns>a new Fc_id</returns>
+        public int InsertForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_foreclosure_case_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[108];
+            sqlParam[0] = new SqlParameter("@agency_id", foreclosureCase.AgencyId);
+            sqlParam[1] = new SqlParameter("@completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
+            sqlParam[2] = new SqlParameter("@call_id", foreclosureCase.CallId);
+            sqlParam[3] = new SqlParameter("@program_id", foreclosureCase.ProgramId);
+            sqlParam[4] = new SqlParameter("@agency_case_num", foreclosureCase.AgencyCaseNum);
+            sqlParam[5] = new SqlParameter("@agency_client_num", foreclosureCase.AgencyClientNum);
+            sqlParam[6] = new SqlParameter("@intake_dt", foreclosureCase.IntakeDt);
+            sqlParam[7] = new SqlParameter("@income_earners_cd", foreclosureCase.IncomeEarnersCd);
+            sqlParam[8] = new SqlParameter("@case_source_cd", foreclosureCase.CaseSourceCd);
+            sqlParam[9] = new SqlParameter("@race_cd", foreclosureCase.RaceCd);
+            sqlParam[10] = new SqlParameter("@household_cd", foreclosureCase.HouseholdCd);
+            sqlParam[11] = new SqlParameter("@never_bill_reason_cd", foreclosureCase.NeverBillReasonCd);
+            sqlParam[12] = new SqlParameter("@never_pay_reason_cd", foreclosureCase.NeverPayReasonCd);
+            sqlParam[13] = new SqlParameter("@dflt_reason_1st_cd", foreclosureCase.DfltReason1stCd);
+            sqlParam[14] = new SqlParameter("@dflt_reason_2nd_cd", foreclosureCase.DfltReason2ndCd);
+            sqlParam[15] = new SqlParameter("@hud_termination_reason_cd", foreclosureCase.HudTerminationReasonCd);
+            sqlParam[16] = new SqlParameter("@hud_termination_dt", NullableDateTime(foreclosureCase.HudTerminationDt));
+            sqlParam[17] = new SqlParameter("@hud_outcome_cd", foreclosureCase.HudOutcomeCd);
+            sqlParam[18] = new SqlParameter("@AMI_percentage", foreclosureCase.AmiPercentage);
+            sqlParam[19] = new SqlParameter("@counseling_duration_cd", foreclosureCase.CounselingDurationCd);
+            sqlParam[20] = new SqlParameter("@gender_cd", foreclosureCase.GenderCd);
+            sqlParam[21] = new SqlParameter("@borrower_fname", foreclosureCase.BorrowerFname);
+            sqlParam[22] = new SqlParameter("@borrower_lname", foreclosureCase.BorrowerLname);
+            sqlParam[23] = new SqlParameter("@borrower_mname", foreclosureCase.BorrowerMname);
+            sqlParam[24] = new SqlParameter("@mother_maiden_lname", foreclosureCase.MotherMaidenLname);
+            sqlParam[25] = new SqlParameter("@borrower_ssn", foreclosureCase.BorrowerSsn);
+            sqlParam[26] = new SqlParameter("@borrower_last4_SSN", foreclosureCase.BorrowerLast4Ssn);
+            sqlParam[27] = new SqlParameter("@borrower_DOB", NullableDateTime(foreclosureCase.BorrowerDob));
+            sqlParam[28] = new SqlParameter("@co_borrower_fname", foreclosureCase.CoBorrowerFname);
+            sqlParam[29] = new SqlParameter("@co_borrower_lname", foreclosureCase.CoBorrowerLname);
+            sqlParam[30] = new SqlParameter("@co_borrower_mname", foreclosureCase.CoBorrowerMname);
+            sqlParam[31] = new SqlParameter("@co_borrower_ssn", foreclosureCase.CoBorrowerSsn);
+            sqlParam[32] = new SqlParameter("@co_borrower_last4_SSN", foreclosureCase.CoBorrowerLast4Ssn);
+            sqlParam[33] = new SqlParameter("@co_borrower_DOB", NullableDateTime(foreclosureCase.CoBorrowerDob));
+            sqlParam[34] = new SqlParameter("@primary_contact_no", foreclosureCase.PrimaryContactNo);
+            sqlParam[35] = new SqlParameter("@second_contact_no", foreclosureCase.SecondContactNo);
+            sqlParam[36] = new SqlParameter("@email_1", foreclosureCase.Email1);
+            sqlParam[37] = new SqlParameter("@email_2", foreclosureCase.Email2);
+            sqlParam[38] = new SqlParameter("@contact_addr1", foreclosureCase.ContactAddr1);
+            sqlParam[39] = new SqlParameter("@contact_addr2", foreclosureCase.ContactAddr2);
+            sqlParam[40] = new SqlParameter("@contact_city", foreclosureCase.ContactCity);
+            sqlParam[41] = new SqlParameter("@contact_state_cd", foreclosureCase.ContactStateCd);
+            sqlParam[42] = new SqlParameter("@contact_zip", foreclosureCase.ContactZip);
+            sqlParam[43] = new SqlParameter("@contact_zip_plus4", foreclosureCase.ContactZipPlus4);
+            sqlParam[44] = new SqlParameter("@prop_addr1", foreclosureCase.PropAddr1);
+            sqlParam[45] = new SqlParameter("@prop_addr2", foreclosureCase.PropAddr2);
+            sqlParam[46] = new SqlParameter("@prop_city", foreclosureCase.PropCity);
+            sqlParam[47] = new SqlParameter("@prop_state_cd", foreclosureCase.PropStateCd);
+            sqlParam[48] = new SqlParameter("@prop_zip", foreclosureCase.PropZip);
+            sqlParam[49] = new SqlParameter("@prop_zip_plus_4", foreclosureCase.PropZipPlus4);
+            sqlParam[50] = new SqlParameter("@bankruptcy_ind", foreclosureCase.BankruptcyInd);
+            sqlParam[51] = new SqlParameter("@bankruptcy_attorney", foreclosureCase.BankruptcyAttorney);
+            sqlParam[52] = new SqlParameter("@bankruptcy_pmt_current_ind", foreclosureCase.BankruptcyPmtCurrentInd);
+            sqlParam[53] = new SqlParameter("@borrower_educ_level_completed_cd", foreclosureCase.BorrowerEducLevelCompletedCd);
+            sqlParam[54] = new SqlParameter("@borrower_marital_status_cd", foreclosureCase.BorrowerMaritalStatusCd);
+            sqlParam[55] = new SqlParameter("@borrower_preferred_lang_cd", foreclosureCase.BorrowerPreferredLangCd);
+            sqlParam[56] = new SqlParameter("@borrower_occupation", foreclosureCase.BorrowerOccupationCd);
+            sqlParam[57] = new SqlParameter("@co_borrower_occupation", foreclosureCase.CoBorrowerOccupationCd);
+            sqlParam[58] = new SqlParameter("@owner_occupied_ind", foreclosureCase.OwnerOccupiedInd);
+            sqlParam[59] = new SqlParameter("@hispanic_ind", foreclosureCase.HispanicInd);
+            sqlParam[60] = new SqlParameter("@duplicate_ind", foreclosureCase.DuplicateInd);
+            sqlParam[61] = new SqlParameter("@fc_notice_received_ind", foreclosureCase.FcNoticeReceiveInd);
+            sqlParam[62] = new SqlParameter("@case_complete_ind", foreclosureCase.CaseCompleteInd);
+            sqlParam[63] = new SqlParameter("@funding_consent_ind", foreclosureCase.FundingConsentInd);
+            sqlParam[64] = new SqlParameter("@servicer_consent_ind", foreclosureCase.ServicerConsentInd);
+            sqlParam[65] = new SqlParameter("@agency_media_consent_ind", foreclosureCase.AgencyMediaConsentInd);
+            sqlParam[66] = new SqlParameter("@hpf_media_candidate_ind", foreclosureCase.HpfMediaCandidateInd);
+            sqlParam[67] = new SqlParameter("@hpf_network_candidate_ind", foreclosureCase.HpfNetworkCandidateInd);
+            sqlParam[68] = new SqlParameter("@hpf_success_story_ind", foreclosureCase.HpfSuccessStoryInd);
+            sqlParam[69] = new SqlParameter("@agency_success_story_ind", foreclosureCase.AgencySuccessStoryInd);
+            sqlParam[70] = new SqlParameter("@borrower_disabled_ind", foreclosureCase.BorrowerDisabledInd);
+            sqlParam[71] = new SqlParameter("@co_borrower_disabled_ind", foreclosureCase.CoBorrowerDisabledInd);
+            sqlParam[72] = new SqlParameter("@summary_sent_other_cd", foreclosureCase.SummarySentOtherCd);
+            sqlParam[73] = new SqlParameter("@summary_sent_other_dt", NullableDateTime(foreclosureCase.SummarySentOtherDt));
+            sqlParam[74] = new SqlParameter("@summary_sent_dt", NullableDateTime(foreclosureCase.SummarySentDt));
+            sqlParam[75] = new SqlParameter("@occupant_num", foreclosureCase.OccupantNum);
+            sqlParam[76] = new SqlParameter("@loan_dflt_reason_notes", foreclosureCase.LoanDfltReasonNotes);
+            sqlParam[77] = new SqlParameter("@action_items_notes", foreclosureCase.ActionItemsNotes);
+            sqlParam[78] = new SqlParameter("@followup_notes", foreclosureCase.FollowupNotes);
+            sqlParam[79] = new SqlParameter("@prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
+            sqlParam[80] = new SqlParameter("@assigned_counselor_id_ref", foreclosureCase.AssignedCounselorIdRef);
+            sqlParam[81] = new SqlParameter("@counselor_lname", foreclosureCase.CounselorFname);
+            sqlParam[82] = new SqlParameter("@counselor_fname", foreclosureCase.CounselorLname);
+            sqlParam[83] = new SqlParameter("@counselor_email", foreclosureCase.CounselorEmail);
+            sqlParam[84] = new SqlParameter("@counselor_phone", foreclosureCase.CounselorPhone);
+            sqlParam[85] = new SqlParameter("@counselor_ext", foreclosureCase.CounselorExt);
+            sqlParam[86] = new SqlParameter("@discussed_solution_with_srvcr_ind", foreclosureCase.DiscussedSolutionWithSrvcrInd);
+            sqlParam[87] = new SqlParameter("@worked_with_another_agency_ind", foreclosureCase.WorkedWithAnotherAgencyInd);
+            sqlParam[88] = new SqlParameter("@contacted_srvcr_recently_ind", foreclosureCase.ContactedSrvcrRecentlyInd);
+            sqlParam[89] = new SqlParameter("@has_workout_plan_ind", foreclosureCase.HasWorkoutPlanInd);
+            sqlParam[90] = new SqlParameter("@srvcr_workout_plan_current_ind", foreclosureCase.SrvcrWorkoutPlanCurrentInd);
+            sqlParam[91] = new SqlParameter("@fc_sale_date_set_ind", foreclosureCase.FcSaleDateSetInd);
+            sqlParam[92] = new SqlParameter("@opt_out_newsletter_ind", foreclosureCase.OptOutNewsletterInd);
+            sqlParam[93] = new SqlParameter("@opt_out_survey_ind", foreclosureCase.OptOutSurveyInd);
+            sqlParam[94] = new SqlParameter("@do_not_call_ind", foreclosureCase.DoNotCallInd);
+            sqlParam[95] = new SqlParameter("@primary_residence_ind", foreclosureCase.PrimaryResidenceInd);
+            sqlParam[96] = new SqlParameter("@realty_company", foreclosureCase.RealtyCompany);
+            sqlParam[97] = new SqlParameter("@property_cd", foreclosureCase.PropertyCd);
+            sqlParam[98] = new SqlParameter("@for_sale_ind", foreclosureCase.ForSaleInd);
+            sqlParam[99] = new SqlParameter("@home_sale_price", foreclosureCase.HomeSalePrice);
+            sqlParam[100] = new SqlParameter("@home_purchase_year", foreclosureCase.HomePurchaseYear);
+            sqlParam[101] = new SqlParameter("@home_purchase_price", foreclosureCase.HomePurchasePrice);
+            sqlParam[102] = new SqlParameter("@Home_Current_Market_Value", foreclosureCase.HomeCurrentMarketValue);
+            sqlParam[103] = new SqlParameter("@military_service_cd", foreclosureCase.MilitaryServiceCd);
+            sqlParam[104] = new SqlParameter("@household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
+            sqlParam[105] = new SqlParameter("@loan_list", foreclosureCase.LoanList);
+            sqlParam[106] = new SqlParameter("@chg_lst_user_id", foreclosureCase.ChgLstUserId);
+            sqlParam[107] = new SqlParameter("@fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            //</Parameter>            
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            dbConnection.Open();
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            command.Transaction = trans;
+            //
             try
             {
-                var command = CreateSPCommand("USPForeclosureCaseInsert", dbConnection, trans);
-                //<Parameter>
-                var sqlParam = new SqlParameter[109];
-                //sqlParam[0] = new SqlParameter("@agency_id", int);
-                //sqlParam[1] = new SqlParameter("@call_id", int);
-                //sqlParam[2] = new SqlParameter("@program_id", int);
-                //sqlParam[3] = new SqlParameter("@agency_case_num", string);
-                //sqlParam[4] = new SqlParameter("@agency_client_num", string);
-                //sqlParam[5] = new SqlParameter("@intake_dt", DateTime);
-                //sqlParam[6] = new SqlParameter("@income_earners_cd", string);
-                //sqlParam[7] = new SqlParameter("@race_cd", string);
-                //sqlParam[8] = new SqlParameter("@household_cd", string);
-                //sqlParam[9] = new SqlParameter("@never_bill_reason_cd", string);
-                //sqlParam[10] = new SqlParameter("@never_pay_reason_cd", string);
-                //sqlParam[11] = new SqlParameter("@dflt_reason_1st_cd", string);
-                //sqlParam[12] = new SqlParameter("@dflt_reason_2nd_cd", string);
-                //sqlParam[13] = new SqlParameter("@hud_termination_reason_cd", string);
-                //sqlParam[14] = new SqlParameter("@hud_termination_dt", DateTime);
-                //sqlParam[15] = new SqlParameter("@hud_outcome_cd", string);
-                //sqlParam[16] = new SqlParameter("@AMI_percentage", int);
-                //sqlParam[17] = new SqlParameter("@counseling_duration_cd", string);
-                //sqlParam[18] = new SqlParameter("@gender_cd", string);
-                //sqlParam[19] = new SqlParameter("@borrower_fname", string);
-                //sqlParam[20] = new SqlParameter("@borrower_lname", string);
-                //sqlParam[21] = new SqlParameter("@borrower_mname", string);
-                //sqlParam[22] = new SqlParameter("@mother_maiden_lname", string);
-                //sqlParam[23] = new SqlParameter("@borrower_ssn", string);
-                //sqlParam[24] = new SqlParameter("@borrower_last4_SSN", string);
-                //sqlParam[25] = new SqlParameter("@borrower_DOB", DateTime);
-                //sqlParam[26] = new SqlParameter("@co_borrower_fname", string);
-                //sqlParam[27] = new SqlParameter("@co_borrower_lname", string);
-                //sqlParam[28] = new SqlParameter("@co_borrower_mname", string);
-                //sqlParam[29] = new SqlParameter("@co_borrower_ssn", string);
-                //sqlParam[30] = new SqlParameter("@co_borrower_last4_SSN", string);
-                //sqlParam[31] = new SqlParameter("@co_borrower_DOB", DateTime);
-                //sqlParam[32] = new SqlParameter("@primary_contact_no", string);
-                //sqlParam[33] = new SqlParameter("@second_contact_no", string);
-                //sqlParam[34] = new SqlParameter("@email_1", string);
-                //sqlParam[35] = new SqlParameter("@contact_zip_plus4", string);
-                //sqlParam[36] = new SqlParameter("@email_2", string);
-                //sqlParam[37] = new SqlParameter("@contact_addr1", string);
-                //sqlParam[38] = new SqlParameter("@contact_addr2", string);
-                //sqlParam[39] = new SqlParameter("@contact_city", string);
-                //sqlParam[40] = new SqlParameter("@contact_state", string);
-                //sqlParam[41] = new SqlParameter("@contact_zip", string);
-                //sqlParam[42] = new SqlParameter("@prop_addr1", string);
-                //sqlParam[43] = new SqlParameter("@prop_addr2", string);
-                //sqlParam[44] = new SqlParameter("@prop_city", string);
-                //sqlParam[45] = new SqlParameter("@prop_state", string);
-                //sqlParam[46] = new SqlParameter("@prop_zip", string);
-                //sqlParam[47] = new SqlParameter("@prop_zip_plus_4", string);
-                //sqlParam[48] = new SqlParameter("@bankruptcy_ind", string);
-                //sqlParam[49] = new SqlParameter("@bankruptcy_attorney", string);
-                //sqlParam[50] = new SqlParameter("@bankruptcy_pmt_current_ind", string);
-                //sqlParam[51] = new SqlParameter("@borrower_educ_level_completed_cd", string);
-                //sqlParam[52] = new SqlParameter("@borrower_marital_status_cd", string);
-                //sqlParam[53] = new SqlParameter("@borrower_preferred_lang_cd", string);
-                //sqlParam[54] = new SqlParameter("@borrower_occupation", string);
-                //sqlParam[55] = new SqlParameter("@co_borrower_occupation", string);
-                //sqlParam[56] = new SqlParameter("@hispanic_ind", string);
-                //sqlParam[57] = new SqlParameter("@duplicate_ind", string);
-                //sqlParam[58] = new SqlParameter("@fc_notice_receive_ind", string);
-                //sqlParam[59] = new SqlParameter("@case_complete_ind", string);
-                //sqlParam[60] = new SqlParameter("@completed_dt", DateTime);
-                //sqlParam[61] = new SqlParameter("@funding_consent_ind", string);
-                //sqlParam[62] = new SqlParameter("@servicer_consent_ind", string);
-                //sqlParam[63] = new SqlParameter("@agency_media_consent_ind", string);
-                //sqlParam[64] = new SqlParameter("@hpf_media_candidate_ind", string);
-                //sqlParam[65] = new SqlParameter("@hpf_network_candidate_ind", string);
-                //sqlParam[66] = new SqlParameter("@hpf_success_story_ind", string);
-                //sqlParam[67] = new SqlParameter("@agency_success_story_ind", string);
-                //sqlParam[68] = new SqlParameter("@borrower_disabled_ind", string);
-                //sqlParam[69] = new SqlParameter("@co_borrower_disabled_ind", string);
-                //sqlParam[70] = new SqlParameter("@summary_sent_other_cd", string);
-                //sqlParam[71] = new SqlParameter("@summary_sent_other_dt", DateTime);
-                //sqlParam[72] = new SqlParameter("@summary_sent_dt", DateTime);
-                //sqlParam[73] = new SqlParameter("@occupant_num", byte);
-                //sqlParam[74] = new SqlParameter("@loan_dflt_reason_notes", string);
-                //sqlParam[75] = new SqlParameter("@action_items_notes", string);
-                //sqlParam[76] = new SqlParameter("@followup_notes", string);
-                //sqlParam[77] = new SqlParameter("@prim_res_est_mkt_value", decimal);
-                //sqlParam[78] = new SqlParameter("@counselor_id_ref", string);
-                //sqlParam[79] = new SqlParameter("@counselor_full_name", string);
-                //sqlParam[80] = new SqlParameter("@counselor_email", string);
-                //sqlParam[81] = new SqlParameter("@counselor_phone", string);
-                //sqlParam[82] = new SqlParameter("@counselor_ext", string);
-                //sqlParam[83] = new SqlParameter("@discussed_solution_with_srvcr_ind", string);
-                //sqlParam[84] = new SqlParameter("@worked_with_another_agency_ind", string);
-                //sqlParam[85] = new SqlParameter("@contacted_srvcr_recently_ind", string);
-                //sqlParam[86] = new SqlParameter("@has_workout_plan_ind", string);
-                //sqlParam[87] = new SqlParameter("@srvcr_workout_plan_current_ind", string);
-                //sqlParam[88] = new SqlParameter("@fc_sale_date_set_ind", string);
-                //sqlParam[89] = new SqlParameter("@opt_out_newsletter_ind", string);
-                //sqlParam[90] = new SqlParameter("@opt_out_survey_ind", string);
-                //sqlParam[91] = new SqlParameter("@do_not_call_ind", string);
-                //sqlParam[92] = new SqlParameter("@owner_occupied_ind", string);
-                //sqlParam[93] = new SqlParameter("@primary_residence_ind", string);
-                //sqlParam[94] = new SqlParameter("@realty_company", string);
-                //sqlParam[95] = new SqlParameter("@property_cd", string);
-                //sqlParam[96] = new SqlParameter("@for_sale_ind", string);
-                //sqlParam[97] = new SqlParameter("@home_sale_price", decimal);
-                //sqlParam[98] = new SqlParameter("@home_purchase_year", int);
-                //sqlParam[99] = new SqlParameter("@home_purchase_price", decimal);
-                //sqlParam[100] = new SqlParameter("@home_current_market_value", decimal);
-                //sqlParam[101] = new SqlParameter("@military_service_cd", string);
-                //sqlParam[102] = new SqlParameter("@create_dt", DateTime);
-                //sqlParam[103] = new SqlParameter("@create_user_id", string);
-                //sqlParam[104] = new SqlParameter("@create_app_name", string);
-                //sqlParam[105] = new SqlParameter("@chg_lst_dt", DateTime);
-                //sqlParam[106] = new SqlParameter("@chg_lst_user_id", string);
-                //sqlParam[107] = new SqlParameter("@chg_lst_app_name", string);
-                //sqlParam[108] = new SqlParameter("@fc_id", SqlDbType.Int){Direction = ParameterDirection.Output};
-                //</Parameter>
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-                //
                 command.ExecuteNonQuery();
-                foreClosureCase.FcId = ConvertToInt(sqlParam[108].Value);//@fc_id	
+                trans.Commit();
+                dbConnection.Close();
+                foreclosureCase.FcId = ConvertToInt(sqlParam[107].Value);//@fc_id	
             }
             catch (Exception Ex)
             {
+                trans.Rollback();
+                dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-
+            finally
+            {
+                dbConnection.Close();
+            }
+            return foreclosureCase.FcId;
         }
 
         public CaseLoanDTO GetExistingCaseLoan(CaseLoanDTO caseLoan)
@@ -373,14 +388,229 @@ namespace HPF.FutureState.DataAccess
             return null;
         }
 
-        public void InsertCaseLoan(CaseLoanDTO caseLoan)
+        /// <summary>
+        /// Insert a Case Loan to database.
+        /// </summary>
+        /// <param name="caseLoan">CaseLoanDTO</param>
+        /// <returns></returns>
+        public void InsertCaseLoan(CaseLoanDTO caseLoan, int fc_id)
         {
-
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_case_loan_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[20];
+            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[1] = new SqlParameter("@servicer_id", caseLoan.ServicerId);
+            sqlParam[2] = new SqlParameter("@other_servicer_name", caseLoan.OtherServicerName);
+            sqlParam[3] = new SqlParameter("@acct_num", caseLoan.AcctNum);
+            sqlParam[4] = new SqlParameter("@loan_1st_2nd_cd", caseLoan.Loan1st2nd);
+            sqlParam[5] = new SqlParameter("@mortgage_type_cd", caseLoan.MortgageTypeCd);
+            sqlParam[6] = new SqlParameter("@arm_loan_ind", caseLoan.ArmLoanInd);
+            sqlParam[7] = new SqlParameter("@arm_reset_ind", caseLoan.ArmResetInd);
+            sqlParam[8] = new SqlParameter("@term_length_cd", caseLoan.TermLengthCd);
+            sqlParam[9] = new SqlParameter("@loan_delinq_status_cd", caseLoan.LoanDelinqStatusCd);
+            sqlParam[10] = new SqlParameter("@current_loan_balance_amt", caseLoan.CurrentLoanBalanceAmt);
+            sqlParam[11] = new SqlParameter("@orig_loan_amt", caseLoan.OrigLoanAmt);
+            sqlParam[12] = new SqlParameter("@interest_rate", caseLoan.InterestRate);
+            sqlParam[13] = new SqlParameter("@Originating_Lender_Name", caseLoan.OriginatingLenderName);
+            sqlParam[14] = new SqlParameter("@orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
+            sqlParam[15] = new SqlParameter("@Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
+            sqlParam[16] = new SqlParameter("@Orginal_Loan_Num", caseLoan.OrginalLoanNum);
+            sqlParam[17] = new SqlParameter("@FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
+            sqlParam[18] = new SqlParameter("@Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
+            sqlParam[19] = new SqlParameter("@freddie_loan_num", caseLoan.FreddieLoanNum);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            dbConnection.Open();
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            command.Transaction = trans;
+            try
+            {
+                command.ExecuteNonQuery();
+                trans.Commit();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                trans.Rollback();
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
         }
 
         public void UpdateCaseLoan(CaseLoanDTO caseLoan)
         {
 
+        }
+
+        /// <summary>
+        /// Insert a Outcome Item to database.
+        /// </summary>
+        /// <param name="outComeItem">OutcomeItemDTO</param>
+        /// <returns></returns>
+        public void InsertOutcomeItem(OutcomeItemDTO outComeItem, int fc_id)
+        {
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[6];
+            sqlParam[0] = new SqlParameter("@outcome_set_id", outComeItem.OutcomeSetId);
+            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
+            sqlParam[2] = new SqlParameter("@outcome_dt", NullableDateTime(outComeItem.OutcomeDt));
+            sqlParam[3] = new SqlParameter("@outcome_deleted_dt",NullableDateTime(outComeItem.OutcomeDeletedDt));
+            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outComeItem.NonprofitreferralKeyNum);
+            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outComeItem.ExtRefOtherName);
+
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            dbConnection.Open();
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            command.Transaction = trans;
+            try
+            {
+                command.ExecuteNonQuery();
+                trans.Commit();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                trans.Rollback();
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Insert a BudgetSet to database.
+        /// </summary>
+        /// <param name="budgetSet">BudgetSetDTO</param>
+        /// <returns></returns>
+        public int InsertBudgetSet(BudgetSetDTO budgetSet, int fc_id)
+        {
+            try
+            {
+                var dbConnection = new SqlConnection(ConnectionString);
+                var command = new SqlCommand("hpf_budget_set_insert", dbConnection);
+                //<Parameter>
+                var sqlParam = new SqlParameter[6];
+                sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+                sqlParam[1] = new SqlParameter("@total_income", budgetSet.TotalIncome);
+                sqlParam[2] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
+                sqlParam[3] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
+                sqlParam[4] = new SqlParameter("@budget_set_dt", NullableDateTime(budgetSet.BudgetSetDt));
+                sqlParam[5] = new SqlParameter("@budget_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+                command.Transaction = trans;
+            
+                command.ExecuteNonQuery();
+                trans.Commit();
+                dbConnection.Close();
+                budgetSet.BudgetSetId = ConvertToInt(sqlParam[5].Value);
+            }
+            catch (Exception Ex)
+            {
+                trans.Rollback();
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return budgetSet.BudgetSetId;
+        }
+
+        /// <summary>
+        /// Insert a BudgetItem to database.
+        /// </summary>
+        /// <param name="budgetItem">BudgetItemDTO</param>
+        /// <returns></returns>
+        public void InsertBudgetItem(BudgetItemDTO budgetItem, int budget_set_id)
+        {
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_budget_item_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[4];
+            sqlParam[0] = new SqlParameter("@budget_set_id", budget_set_id);
+            sqlParam[1] = new SqlParameter("@budget_subcategory_id", budgetItem.BudgetSubcategoryId);
+            sqlParam[2] = new SqlParameter("@budget_item_amt", budgetItem.BudgetItemAmt);
+            sqlParam[3] = new SqlParameter("@budget_note", budgetItem.BudgetNote);
+
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            dbConnection.Open();
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            command.Transaction = trans;
+            try
+            {
+                command.ExecuteNonQuery();
+                trans.Commit();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                trans.Rollback();
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Insert a BudgetAsset to database.
+        /// </summary>
+        /// <param name="budgetItem">BudgetAssetDTO</param>
+        /// <returns></returns>
+        public void InsertBudgetAsset(BudgetAssetDTO budgetAsset, int budget_set_id)
+        {
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_budget_asset_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[3];
+            sqlParam[0] = new SqlParameter("@budget_set_id", budget_set_id);
+            sqlParam[1] = new SqlParameter("@asset_name", budgetAsset.AssetName);
+            sqlParam[2] = new SqlParameter("@asset_value", budgetAsset.AssetValue);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            dbConnection.Open();
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            command.Transaction = trans;
+            try
+            {
+                command.ExecuteNonQuery();
+                trans.Commit();
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                trans.Rollback();
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
         }
 
         /// <summary>

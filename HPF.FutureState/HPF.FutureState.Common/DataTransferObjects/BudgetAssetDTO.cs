@@ -14,6 +14,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string AssetName { get; set; }
 
-        public string AssetValue { get; set; }          
+        public decimal AssetValue { get; set; }          
     }
 }

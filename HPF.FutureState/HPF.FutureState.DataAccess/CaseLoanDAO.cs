@@ -53,7 +53,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[13] = new SqlParameter("@Originating_Lender_Name", caseLoan.OriginatingLenderName);
             sqlParam[14] = new SqlParameter("@orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
             sqlParam[15] = new SqlParameter("@Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
-            sqlParam[16] = new SqlParameter("@Original_Loan_Num", caseLoan.OrginalLoanNum);
+            sqlParam[16] = new SqlParameter("@Orginal_Loan_Num", caseLoan.OrginalLoanNum);
             sqlParam[17] = new SqlParameter("@FDIC_NCUA_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
             sqlParam[18] = new SqlParameter("@Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
             sqlParam[19] = new SqlParameter("@freddie_loan_num", caseLoan.FreddieLoanNum);
@@ -108,7 +108,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[13] = new SqlParameter("@Originating_Lender_Name", caseLoan.OriginatingLenderName);
             sqlParam[14] = new SqlParameter("@orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
             sqlParam[15] = new SqlParameter("@Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
-            sqlParam[16] = new SqlParameter("@Original_Loan_Num", caseLoan.OrginalLoanNum);
+            sqlParam[16] = new SqlParameter("@Orginal_Loan_Num", caseLoan.OrginalLoanNum);
             sqlParam[17] = new SqlParameter("@FDIC_NCUA_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
             sqlParam[18] = new SqlParameter("@Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
             sqlParam[19] = new SqlParameter("@freddie_loan_num", caseLoan.FreddieLoanNum);

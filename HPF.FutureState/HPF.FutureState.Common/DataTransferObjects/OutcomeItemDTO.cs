@@ -9,7 +9,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class OutcomeItemDTO : BaseDTO
     {      
-        public int OutcomeItemId { get; set; }  
+        public int OutcomeItemId { get; set; }
+
+        public int FcId { get; set; }  
 
         public int OutcomeSetId { get; set; }
 

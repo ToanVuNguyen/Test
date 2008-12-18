@@ -14,7 +14,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class ForeclosureCaseBL : BaseBusinessLogic, IForeclosureCaseBL
+    public class ForeclosureCaseBL : BaseBusinessLogic
     {
         private static readonly ForeclosureCaseBL instance = new ForeclosureCaseBL();
         /// <summary>
@@ -126,16 +126,19 @@ namespace HPF.FutureState.BusinessLogic
         /// 1: Min request validate of Fore Closure Case
         /// 2: Min request validate of Budget Item Collection
         /// 3: Min request validate of Outcome Item Collection
+        /// 4: Min request validate of Case Loan Collection
         /// </summary>
-        bool RequireFieldsValidation(ForeclosureCaseSetDTO  foreclosureCaseSet)
+        bool RequireFieldsValidation(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;
             OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
-            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase);
-            bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem);
-            bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem);
-            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem)
+            CaseLoanDTOCollection caseLoanItem = foreclosureCaseSet.CaseLoans;
+            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Default");
+            bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem, "Default");
+            bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem, "Default");
+            bool rfcaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, "Default");
+            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem && rfcaseLoanItem)
             {
                 return true;
             }
@@ -150,9 +153,9 @@ namespace HPF.FutureState.BusinessLogic
         /// 1: Min request validate of Fore Closure Case
         /// <return>bool</return>
         /// </summary>
-        bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {
-            Validator<ForeclosureCaseDTO> cValidator = ValidationFactory.CreateValidator<ForeclosureCaseDTO>("Default");
+            Validator<ForeclosureCaseDTO> cValidator = ValidationFactory.CreateValidator<ForeclosureCaseDTO>(ruleSet);
             ValidationResults validationResults = cValidator.Validate(foreclosureCase);
             if (validationResults.IsValid)
             {
@@ -169,13 +172,13 @@ namespace HPF.FutureState.BusinessLogic
         /// 2:  Min request validate of Budget Item Collection
         /// <return>bool</return>
         /// </summary>
-        bool RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection)
+        bool RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
         {
             if (budgetItemDTOCollection != null && budgetItemDTOCollection.Count > 0)
             {
                 foreach (BudgetItemDTO item in budgetItemDTOCollection)
                 {
-                    Validator<BudgetItemDTO> cValidator = ValidationFactory.CreateValidator<BudgetItemDTO>("Default");
+                    Validator<BudgetItemDTO> cValidator = ValidationFactory.CreateValidator<BudgetItemDTO>(ruleSet);
                     ValidationResults validationResults = cValidator.Validate(item);
                     if (!validationResults.IsValid)
                     {
@@ -195,13 +198,39 @@ namespace HPF.FutureState.BusinessLogic
         /// 3:  Min request validate of Outcome Item Collection
         /// <return>bool</return>
         /// </summary>
-        bool RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection)
+        bool RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
         {
             if (outcomeItemDTOCollection != null && outcomeItemDTOCollection.Count > 0)
             {
                 foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
                 {
-                    Validator<OutcomeItemDTO> cValidator = ValidationFactory.CreateValidator<OutcomeItemDTO>("Default");
+                    Validator<OutcomeItemDTO> cValidator = ValidationFactory.CreateValidator<OutcomeItemDTO>(ruleSet);
+                    ValidationResults validationResults = cValidator.Validate(item);
+                    if (!validationResults.IsValid)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 4:  Min request validate of Case Loan Collection
+        /// <return>bool</return>
+        /// </summary>
+        bool RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection, string ruleSet)
+        {
+            if (caseLoanDTOCollection != null && caseLoanDTOCollection.Count > 0)
+            {
+                foreach (CaseLoanDTO item in caseLoanDTOCollection)
+                {
+                    Validator<CaseLoanDTO> cValidator = ValidationFactory.CreateValidator<CaseLoanDTO>(ruleSet);
                     ValidationResults validationResults = cValidator.Validate(item);
                     if (!validationResults.IsValid)
                     {
@@ -376,11 +405,34 @@ namespace HPF.FutureState.BusinessLogic
         /// Case 1: Cannot Un-complete a Previously Completed Case
         /// Case 2: Two First Mortgages Not Allowed in a Case 
         /// </summary>
-        bool CheckMiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
+        bool MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Check Misc Error Exception
+        /// Case 1: Cannot Un-complete a Previously Completed Case
+        /// In this case, we must have completeDate
+        /// </summary>
+        private bool CheckMiscErrorCase1(ForeclosureCaseSetDTO foreclosureCaseSetInput, DateTime completeDate)
+        {
+            if (completeDate != null)
+            {
+                if (foreclosureCaseSetInput != null)
+                {
+                    ForeclosureCaseDTO foreclosureCase = foreclosureCaseSetInput.ForeclosureCase;
+                    CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
+                    bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Complete");
+                    bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
+                    if (rfForeclosureCase && rfCaseLoan)
+                        return false;
+                    else
+                        return true;
+                }
+            }
+            return false;
+        }
         /// <summary>
         /// Update the Fore Closure Case
         /// </summary>
@@ -394,7 +446,49 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            throw new NotImplementedException();
+            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            try
+            {
+                foreClosureCaseSetDAO.Begin();
+                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+                CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
+                OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
+                BudgetSetDTO budgetSet = foreclosureCaseSet.BudgetSet;
+                BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+                BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+                //Insert table Foreclosure_Case
+                //Return Fc_id
+                int fcId = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
+                //Insert table Case Loan
+                foreach (CaseLoanDTO items in caseLoanCollection)
+                {
+                    foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
+                }
+                //Insert Table Outcome Item
+                foreach (OutcomeItemDTO items in outcomeItemCollection)
+                {
+                    foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
+                }
+                //Insert Table Budget Set
+                //Return Budget Set Id
+                int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+                //Insert Table Budget Item
+                foreach (BudgetItemDTO items in budgetItemCollection)
+                {
+                    foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
+                }
+                //Insert table Budget Asset
+                foreach (BudgetAssetDTO items in budgetAssetCollection)
+                {
+                    foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
+                }
+                foreClosureCaseSetDAO.Commit();
+            }
+            catch (Exception)
+            {                
+                foreClosureCaseSetDAO.Cancel();                
+                throw;
+            }
         }
 
         /// <summary>
@@ -414,7 +508,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (foreclosureCaseSet != null)
             {
-                if (CheckMiscErrorException(foreclosureCaseSet))
+                if (MiscErrorException(foreclosureCaseSet))
                     throw new MiscProcessingException();
                 else
                     try
@@ -439,7 +533,7 @@ namespace HPF.FutureState.BusinessLogic
                     throw new ProcessingException();
                 else
                 {
-                    if (CheckMiscErrorException(foreclosureCaseSet))
+                    if (MiscErrorException(foreclosureCaseSet))
                         throw new MiscProcessingException();
                     else
                         try

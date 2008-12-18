@@ -89,7 +89,7 @@ namespace HPF.FutureState.UnitTest
             CallLogDTO expected = null; // TODO: Initialize to an appropriate value
             CallLogDTO actual;
             actual = target.RetrieveCallLog(callLogId);
-            Assert.AreNotEqual(expected, actual);            
+            Assert.AreEqual(expected, actual);            
         }
     }
 }
