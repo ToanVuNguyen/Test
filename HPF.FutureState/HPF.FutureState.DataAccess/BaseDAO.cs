@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -229,7 +230,16 @@ namespace HPF.FutureState.DataAccess
                 double.TryParse(obj.ToString(), out returnValue);
             }
             return returnValue;
-        }       
+        }
+
+        protected static SqlDateTime NullableDateTime(DateTime datetime)
+        {
+            if (datetime == null || datetime == DateTime.MinValue)
+                return SqlDateTime.Null;
+            else
+                return datetime;
+            
+        }
         #endregion
     }
 }
