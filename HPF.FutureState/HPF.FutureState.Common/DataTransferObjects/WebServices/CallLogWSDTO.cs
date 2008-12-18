@@ -14,6 +14,9 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string CallId { get; set; }
 
         [IgnoreNulls()]
+        public int CallCenterID { get; set; }
+
+        [IgnoreNulls()]
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "AgencyId's Maximum length is 30 characters")]
         public string CcAgentIdKey { get; set; }
 
