@@ -7,6 +7,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
     public class ForeclosureCaseRequest : BaseRequest
     {
-        public ForeclosureCaseSetDTO ForeClosureCaseSet { get; set; }
+        public ForeclosureCaseSetDTO ForeclosureCaseSet { get; set; }
     }
 }

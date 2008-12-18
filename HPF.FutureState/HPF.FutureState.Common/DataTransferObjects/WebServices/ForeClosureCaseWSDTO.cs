@@ -7,7 +7,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
     public class ForeclosureCaseWSDTO : BaseDTO
     {
-        //public ForeClosureCaseDTO ForeClosureCaseDTO { get; set; }
+        
         public int FcId { get; set; }
         public DateTime IntakeDt { get; set; }
         public string BorrowerFname { get; set; }

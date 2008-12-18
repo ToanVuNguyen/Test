@@ -8,7 +8,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ForeclosureCaseSetDTO
     {
-        public ForeclosureCaseDTO ForeClosureCase { get; set; }
+        public ForeclosureCaseDTO ForeclosureCase { get; set; }
        
         public CaseLoanDTOCollection CaseLoans { get; set; }
 

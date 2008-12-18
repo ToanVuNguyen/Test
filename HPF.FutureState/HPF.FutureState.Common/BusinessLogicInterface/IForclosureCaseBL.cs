@@ -9,11 +9,11 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
     public interface IForclosureCaseBL
     {
         /// <summary>
-        /// Save a ForeClosureCaseSet
+        /// Save a ForeclosureCaseSet
         /// </summary>
-        /// <param name="foreClosureCaseSet">ForeClosureCaseSetDTO</param>
-        void SaveForeClosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet);
+        /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
+        void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet);
 
-        ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria);
+        ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria);
     }
 }
