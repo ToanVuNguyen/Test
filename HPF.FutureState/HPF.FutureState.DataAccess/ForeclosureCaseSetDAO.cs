@@ -19,6 +19,8 @@ namespace HPF.FutureState.DataAccess
 
         public SqlTransaction trans;
 
+        private static ForeclosureCaseSetDAO _instance = new ForeclosureCaseSetDAO();
+
         protected ForeclosureCaseSetDAO()
         {
 
@@ -26,7 +28,8 @@ namespace HPF.FutureState.DataAccess
 
         public static ForeclosureCaseSetDAO CreateInstance()
         {
-            return new ForeclosureCaseSetDAO();
+            return _instance;
+            //return new ForeclosureCaseSetDAO();
         }
 
         /// <summary>
@@ -57,10 +60,10 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
-        /// Get ForeClosure
+        /// Get Foreclosure
         /// </summary>
         /// <param name="foreClosureCase"></param>
-        /// <returns>ForeClosureCaseDTO if it exists, otherwise: null</returns>
+        /// <returns>ForeclosureCaseDTO if it exists, otherwise: null</returns>
         public ForeclosureCaseDTO GetExistingForeclosureCase(ForeclosureCaseDTO foreClosureCase)
         {
             return null;
@@ -235,11 +238,11 @@ namespace HPF.FutureState.DataAccess
 
         }
 
-        public void InsertForeClosureCase(ForeclosureCaseDTO foreClosureCase)
+        public void InsertForeclosureCase(ForeclosureCaseDTO foreClosureCase)
         {
             try
             {
-                var command = CreateSPCommand("USPForeClosureCaseInsert", dbConnection, trans);
+                var command = CreateSPCommand("USPForeclosureCaseInsert", dbConnection, trans);
                 //<Parameter>
                 var sqlParam = new SqlParameter[109];
                 //sqlParam[0] = new SqlParameter("@agency_id", int);
@@ -385,7 +388,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="searchCriteria"></param>
         /// <returns></returns>
-        public ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
+        public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
 

@@ -10,20 +10,20 @@ using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.DataAccess
 {
-    public class ForeClosureCaseDAO : BaseDAO
+    public class ForeclosureCaseDAO : BaseDAO
     {
         public SqlConnection dbConnection;
 
         public SqlTransaction trans;
 
-        protected ForeClosureCaseDAO()
+        protected ForeclosureCaseDAO()
         {
 
         }
 
-        public static ForeClosureCaseDAO CreateInstance()
+        public static ForeclosureCaseDAO CreateInstance()
         {
-            return new ForeClosureCaseDAO();
+            return new ForeclosureCaseDAO();
         }
 
         /// <summary>
@@ -365,7 +365,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="searchCriteria"></param>
         /// <returns></returns>
-        public ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
+        public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
 
