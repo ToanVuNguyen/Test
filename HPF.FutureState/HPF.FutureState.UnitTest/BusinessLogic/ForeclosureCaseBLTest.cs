@@ -229,7 +229,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             foreach (ExceptionMessage ex in results.Messages.ExceptionMessages)
             {
-                TestContext.WriteLine(string.Format("Warning id:{0} - {1}", ex.ExceptionId, ex.Message));
+                TestContext.WriteLine(string.Format("Warning id: {0} - {1}", ex.ExceptionId, ex.Message));
             }
 
         }
