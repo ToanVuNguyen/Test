@@ -64,8 +64,8 @@
   <ItemGroup>
     <Compile Include="BusinessLogicInterface\ICallLogBL.cs" />
     <Compile Include="BusinessLogicInterface\IForeclosureCaseBL.cs" />
+    <Compile Include="BusinessLogicInterface\IRefCodeItemBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
-    <Compile Include="BusinessLogicInterface\RefCodeItemBL.cs" />
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
     <Compile Include="DataTransferObjects\BaseDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetAssetDTO.cs" />
