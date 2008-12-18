@@ -95,8 +95,8 @@
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchRequest.cs" />
-    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseRequest.cs" />
-    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseInsertRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseInsertResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ResponseStatus.cs" />
