@@ -41,7 +41,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ////HPFValidator.ValidateToExceptionMessage<CallLogDTO>(aCallLog);
             //ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
-            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeClosureCaseSearchCriteriaDTO>(searchCriteria);
+            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
 
             ////HPFValidator is not complete yet, it does not get the content of the message
             ////so use the system validator just for testing
@@ -59,7 +59,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                insertResult.CallLogID = "HPF_" + CallLogDAO.Instance.InsertCallLog(aCallLog); //ForeClosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
+                insertResult.CallLogID = "HPF_" + CallLogDAO.Instance.InsertCallLog(aCallLog);
             }
 
             //return searchResult;

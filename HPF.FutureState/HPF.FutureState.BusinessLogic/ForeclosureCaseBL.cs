@@ -36,10 +36,10 @@ namespace HPF.FutureState.BusinessLogic
         #region Implementation of IForclosureCaseBL
 
         /// <summary>
-        /// Save a ForeClosureCase
+        /// Save a ForeclosureCase
         /// </summary>
-        /// <param name="foreClosureCaseSet">ForeClosureCaseSetDTO</param>
-        public void SaveForeClosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet)
+        /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
+        public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet)
         {
             //Validation here     
        
@@ -65,12 +65,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="searchCriteria">search criteria</param>
         /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
-        public ForeclosureCaseSearchResult SearchForeClosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
+        public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             ForeclosureCaseSearchResult searchResult = new ForeclosureCaseSearchResult();
             
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
-            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeClosureCaseSearchCriteriaDTO>(searchCriteria);
+            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
 
             //HPFValidator is not complete yet, it does not get the content of the message
             //so use the system validator just for testing
@@ -88,14 +88,14 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                searchResult = ForeclosureCaseSetDAO.CreateInstance().SearchForeClosureCase(searchCriteria);
+                searchResult = ForeclosureCaseSetDAO.CreateInstance().SearchForeclosureCase(searchCriteria);
             }
 
             return searchResult;
         }
         #endregion
 
-        #region functions to serve SaveForeClosureCaseSet
+        #region functions to serve SaveForeclosureCaseSet
         /// <summary>
         /// Min request validate the fore closure case set
         /// 1: fore closure case
@@ -104,10 +104,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         bool RequireFieldsValidation(ForeclosureCaseSetDTO  foreclosureCaseSet)
         {
-            ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeClosureCase;
+            ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;
             OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
-            bool rfForeclosureCase = RequireFieldsForeClosureCase(foreclosureCase);
+            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase);
             bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem);
             bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem);
             if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem)
@@ -125,7 +125,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 1: fore closure case
         /// <return>bool</return>
         /// </summary>
-        bool RequireFieldsForeClosureCase(ForeclosureCaseDTO foreclosureCase)
+        bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             Validator<ForeclosureCaseDTO> cValidator = ValidationFactory.CreateValidator<ForeclosureCaseDTO>("Default");
             ValidationResults validationResults = cValidator.Validate(foreclosureCase);
@@ -192,7 +192,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
-        /// Check ForeClosureCase Id is existed or not
+        /// Check ForeclosureCase Id is existed or not
         /// </summary>
         bool CheckValidFCIdForAgency(int fcId, int agencyId)
         {
@@ -242,29 +242,29 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeClosureCase != null && foreclosureCaseSet.CaseLoans != null
-                // Check valid code for ForeClosureCase
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.IncomeEarnersCd, CodeConstants.INCOME_EARNERS_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.CaseSourceCd, CodeConstants.CASE_RESOURCE_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.RaceCd, CodeConstants.RACE_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.HouseholdCd, CodeConstants.HOUSEHOLD_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.NeverBillReasonCd, CodeConstants.NEVER_BILL_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.NeverPayReasonCd, CodeConstants.NEVER_PAY_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.DfltReason1stCd, CodeConstants.DEFAULT_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.DfltReason2ndCd, CodeConstants.DEFAULT_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.HudTerminationReasonCd, CodeConstants.HUD_TERMINATION_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.HudOutcomeCd, CodeConstants.HUD_OUTCOME_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.CounselingDurationCd, CodeConstants.COUNSELING_DURARION_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.GenderCd, CodeConstants.GENDER_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.ContactStateCd, CodeConstants.CONTACT_STATE_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.CaseSourceCd, CodeConstants.PROP_STATE_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerEducLevelCompletedCd, CodeConstants.BORROWER_EDUC_LEVEL_COMPLETED_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerMaritalStatusCd, CodeConstants.BORROWER_MARITAL_STATUS_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerPreferredLangCd, CodeConstants.BORROWER_PREFERRED_LANG_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.BorrowerOccupationCd, CodeConstants.BORROWER_OCCUPATION_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.CoBorrowerOccupationCd, CodeConstants.CO_BORROWER_OCCUPATION_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.SummarySentOtherCd, CodeConstants.SUMMARY_SENT_OTHER_CD)
-                && CheckCode(foreclosureCaseSet.ForeClosureCase.MilitaryServiceCd, CodeConstants.MILITARY_SERVICE_CD)
+            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null && foreclosureCaseSet.CaseLoans != null
+                // Check valid code for ForeclosureCase
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.IncomeEarnersCd, CodeConstants.INCOME_EARNERS_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.CaseSourceCd, CodeConstants.CASE_RESOURCE_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.RaceCd, CodeConstants.RACE_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.HouseholdCd, CodeConstants.HOUSEHOLD_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.NeverBillReasonCd, CodeConstants.NEVER_BILL_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.NeverPayReasonCd, CodeConstants.NEVER_PAY_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.DfltReason1stCd, CodeConstants.DEFAULT_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.DfltReason2ndCd, CodeConstants.DEFAULT_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.HudTerminationReasonCd, CodeConstants.HUD_TERMINATION_REASON_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.HudOutcomeCd, CodeConstants.HUD_OUTCOME_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.CounselingDurationCd, CodeConstants.COUNSELING_DURARION_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.GenderCd, CodeConstants.GENDER_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.ContactStateCd, CodeConstants.CONTACT_STATE_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.CaseSourceCd, CodeConstants.PROP_STATE_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerEducLevelCompletedCd, CodeConstants.BORROWER_EDUC_LEVEL_COMPLETED_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerMaritalStatusCd, CodeConstants.BORROWER_MARITAL_STATUS_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerPreferredLangCd, CodeConstants.BORROWER_PREFERRED_LANG_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerOccupationCd, CodeConstants.BORROWER_OCCUPATION_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.CoBorrowerOccupationCd, CodeConstants.CO_BORROWER_OCCUPATION_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd, CodeConstants.SUMMARY_SENT_OTHER_CD)
+                && CheckCode(foreclosureCaseSet.ForeclosureCase.MilitaryServiceCd, CodeConstants.MILITARY_SERVICE_CD)
                 // Check valid code for Case Loan
                 && CheckCodeCaseLoan(foreclosureCaseSet.CaseLoans)
             )
