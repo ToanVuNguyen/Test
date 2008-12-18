@@ -11,7 +11,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
 
         #region property
-        public int CallId { get; set; }        
+        public int CallId { get; set; }
+
+        [IgnoreNulls()]
+        public int CallCenterID { get; set; }
 
         [IgnoreNulls()]
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "AgencyId's Maximum length is 30 characters")]
@@ -170,7 +173,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 int id = 0;
                 int.TryParse(callLog.CallId, out id);
                 this.CallId = id;
-            }            
+            }
+            this.CallCenterID = callLog.CallCenterID;
             this.CcAgentIdKey = callLog.CcAgentIdKey;
             this.StartDate = callLog.StartDate;
             this.EndDate = callLog.EndDate;
