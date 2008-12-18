@@ -98,9 +98,9 @@ namespace HPF.FutureState.BusinessLogic
         #region functions to serve SaveForeclosureCaseSet
         /// <summary>
         /// Min request validate the fore closure case set
-        /// 1: fore closure case
-        /// 2: budget item collection
-        /// 3: outcome item collection
+        /// 1: Min request validate of Fore Closure Case
+        /// 2: Min request validate of Budget Item Collection
+        /// 3: Min request validate of Outcome Item Collection
         /// </summary>
         bool RequireFieldsValidation(ForeclosureCaseSetDTO  foreclosureCaseSet)
         {
@@ -122,7 +122,7 @@ namespace HPF.FutureState.BusinessLogic
 
         /// <summary>
         /// Min request validate the fore closure case set
-        /// 1: fore closure case
+        /// 1: Min request validate of Fore Closure Case
         /// <return>bool</return>
         /// </summary>
         bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase)
@@ -141,7 +141,7 @@ namespace HPF.FutureState.BusinessLogic
 
         /// <summary>
         /// Min request validate the fore closure case set
-        /// 2: Budget Item Collection
+        /// 2:  Min request validate of Budget Item Collection
         /// <return>bool</return>
         /// </summary>
         bool RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection)
@@ -167,7 +167,7 @@ namespace HPF.FutureState.BusinessLogic
 
         /// <summary>
         /// Min request validate the fore closure case set
-        /// 3: Outcome Item Collection
+        /// 3:  Min request validate of Outcome Item Collection
         /// <return>bool</return>
         /// </summary>
         bool RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection)
@@ -206,6 +206,11 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Check Inactive(Over one year)
+        /// <input>datetime</input>
+        /// <return>bool<return>
+        /// </summary>
         private bool CheckInactiveCase(DateTime completeDate)
         {
             DateTime currentDate = DateTime.Now;
@@ -239,6 +244,8 @@ namespace HPF.FutureState.BusinessLogic
 
         /// <summary>
         /// Check valid code
+        /// <input>ForeclosureCaseSetDTO</input>
+        /// <return>bool<return>
         /// </summary>
         private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
@@ -266,7 +273,7 @@ namespace HPF.FutureState.BusinessLogic
                 && CheckCode(foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd, CodeConstants.SUMMARY_SENT_OTHER_CD)
                 && CheckCode(foreclosureCaseSet.ForeclosureCase.MilitaryServiceCd, CodeConstants.MILITARY_SERVICE_CD)
                 // Check valid code for Case Loan
-                && CheckCodeCaseLoan(foreclosureCaseSet.CaseLoans)
+                && CheckValidCodeForCaseLoan(foreclosureCaseSet.CaseLoans)
             )
             {
                 return true;
@@ -279,7 +286,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>CaseLoanDTOCollection</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckCodeCaseLoan(CaseLoanDTOCollection caseLoanCollection)
+        private bool CheckValidCodeForCaseLoan(CaseLoanDTOCollection caseLoanCollection)
         {
             foreach (CaseLoanDTO caseLoanDTO in caseLoanCollection)
             {
@@ -339,6 +346,11 @@ namespace HPF.FutureState.BusinessLogic
             return ForeclosureCaseSetDAO.CreateInstance().CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
+        /// <summary>
+        /// Check Misc Error Exception
+        /// Case 1: Cannot Un-complete a Previously Completed Case
+        /// Case 2: Two First Mortgages Not Allowed in a Case 
+        /// </summary>
         bool CheckMiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             throw new NotImplementedException();

@@ -11,16 +11,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
 
         #region property
-        public int CallId { get; set; }
-        //public string CallId { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "ExtCallNumber's Maximum length is 30 characters")]
-        public string ExtCallNumber { get; set; }
+        public int CallId { get; set; }        
 
         [IgnoreNulls()]
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "AgencyId's Maximum length is 30 characters")]
-        public string AgencyId { get; set; }
+        public string CcAgentIdKey { get; set; }
 
         [IgnoreNulls()]
         public DateTime StartDate { get; set; }
@@ -34,15 +29,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [IgnoreNulls()]
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "CallCenter's Maximum length is 30 characters")]
-        public string CallCenter { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "CallCenterCD's Maximum length is 15 characters")]
-        public string CallCenterCD { get; set; }
+        public string CallCenter { get; set; }        
 
         [IgnoreNulls()]
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "CallResource's Maximum length is 30 characters")]
-        public string CallResource { get; set; }
+        public string CallSourceCd { get; set; }
 
         [IgnoreNulls()]
         [StringLengthValidator(100, Ruleset = "Default", MessageTemplate = " ReasonToCall's Maximum length is 100 characters")]
@@ -50,7 +41,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [IgnoreNulls()]
         [StringLengthValidator(20, Ruleset = "Default", MessageTemplate = "AccountNumber's Maximum length is 20 characters")]
-        public string AccountNumber { get; set; }
+        public string LoanAccountNumber { get; set; }
 
         [IgnoreNulls()]
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "FirstName's Maximum length is 30 characters")]
@@ -61,25 +52,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LastName { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(1, Ruleset = "Default", MessageTemplate = "CounselPastYRInd's Maximum length is 1 characters")]
-        public string CounselPastYRInd { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(1, Ruleset = "Default", MessageTemplate = "MtgProbInd's Maximum length is 1 characters")]
-        public string MtgProbInd { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(1, Ruleset = "Default", MessageTemplate = "Maximum length is 1 characters")]
-        public string PastDueInd { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(1, Ruleset = "Default", MessageTemplate = "PastDueSoonInd's Maximum length is 1 characters")]
-        public string PastDueSoonInd { get; set; }
-
-        [IgnoreNulls()]
-        public int PastDueMonths { get; set; }
-
-        [IgnoreNulls()]
         public int ServicerId { get; set; }
 
         [IgnoreNulls()]
@@ -88,11 +60,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [IgnoreNulls()]
         [StringLengthValidator(20, Ruleset = "Default", MessageTemplate = "PropZip's Maximum length is 20 characters")]
-        public string PropZip { get; set; }
-
-        [IgnoreNulls()]
-        public int PrevCounselorId { get; set; }
-
+        public string PropZipFull9 { get; set; }
+        
         [IgnoreNulls()]
         public int PrevAgencyId { get; set; }
 
@@ -105,15 +74,30 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ScreenRout { get; set; }
 
         [IgnoreNulls()]
-        public int FinalDispo { get; set; }
+        public int FinalDispoCd { get; set; }
 
         [IgnoreNulls()]
         [StringLengthValidator(20, Ruleset = "Default", MessageTemplate = "TransNumber's Maximum length is 20 characters")]
         public string TransNumber { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "OutOfNetworkReferralTBD's Maximum length is 30 characters")]
-        public string OutOfNetworkReferralTBD { get; set; }
+        public string CcCallKey { get; set; }
+
+        [IgnoreNulls()]
+        public string LoanDelinqStatusCd { get; set; }
+
+        [IgnoreNulls()]
+        public string SelectedCounselor { get; set; }
+
+        [IgnoreNulls()]
+        public string HomeownerInd { get; set; }
+
+        [IgnoreNulls()]
+        public string PowerOfAttorneyInd { get; set; }
+
+        [IgnoreNulls()]
+        public string AuthorizedInd { get; set; }
+
         #endregion
 
         
@@ -186,34 +170,25 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 int id = 0;
                 int.TryParse(callLog.CallId, out id);
                 this.CallId = id;
-            }
-            this.ExtCallNumber = callLog.ExtCallNumber;
-            this.AgencyId = callLog.AgencyId;
+            }            
+            this.CcAgentIdKey = callLog.CcAgentIdKey;
             this.StartDate = callLog.StartDate;
             this.EndDate = callLog.EndDate;
             this.DNIS = callLog.DNIS;
-            this.CallCenter = callLog.CallCenter;
-            this.CallCenterCD = callLog.CallCenterCD;
-            this.CallResource = callLog.CallResource;
+            this.CallCenter = callLog.CallCenter;            
+            this.CallSourceCd = callLog.CallSourceCd;
             this.ReasonToCall = callLog.ReasonToCall;
-            this.AccountNumber = callLog.AccountNumber;
+            this.LoanAccountNumber = callLog.LoanAccountNumber;
             this.FirstName = callLog.FirstName;
-            this.LastName = callLog.LastName;
-            this.CounselPastYRInd = callLog.CounselPastYRInd;
-            this.MtgProbInd = callLog.MtgProbInd;
-            this.PastDueInd = callLog.PastDueInd;
-            this.PastDueSoonInd = callLog.PastDueSoonInd;
-            this.PastDueMonths = callLog.PastDueMonths;
+            this.LastName = callLog.LastName;              
             this.ServicerId = callLog.ServicerId;
             this.OtherServicerName = callLog.OtherServicerName;
-            this.PropZip = callLog.PropZip;
-            this.PrevCounselorId = callLog.PrevCounselorId;
+            this.PropZipFull9 = callLog.PropZipFull9;            
             this.PrevAgencyId = callLog.PrevAgencyId;
             this.SelectedAgencyId = callLog.SelectedAgencyId;
             this.ScreenRout = callLog.ScreenRout;
-            this.FinalDispo = callLog.FinalDispo;
-            this.TransNumber = callLog.TransNumber;
-            this.OutOfNetworkReferralTBD = callLog.OutOfNetworkReferralTBD;
+            this.FinalDispoCd = callLog.FinalDispoCd;
+            this.TransNumber = callLog.TransNumber;            
             this.CreateDate = callLog.CreateDate;
             this.CreateUserId = callLog.CreateUserId;
             this.CreateAppName = callLog.CreateAppName;

@@ -427,7 +427,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             CaseLoanDTOCollection caseLoanCollection = SetCaseLoanCollection(); // TODO: Initialize to an appropriate value            
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.CheckCodeCaseLoan(caseLoanCollection);
+            actual = target.CheckValidCodeForCaseLoan(caseLoanCollection);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }    

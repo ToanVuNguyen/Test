@@ -25,12 +25,12 @@ namespace HPF.FutureState.Web
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var dto=new CallLogDTO {ExtCallNumber = string.Empty, StartDate = DateTime.Today.AddDays(-61)};
-            var results = HPFValidator.Validate<CallLogDTO>(dto);
-            foreach (var result in results)
-            {
-                Response.Write(result.Message);
-            }
+            //var dto=new CallLogDTO {ExtCallNumber = string.Empty, StartDate = DateTime.Today.AddDays(-61)};
+            //var results = HPFValidator.Validate<CallLogDTO>(dto);
+            //foreach (var result in results)
+            //{
+            //    Response.Write(result.Message);
+            //}
 
         }              
     }   
