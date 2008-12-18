@@ -123,6 +123,9 @@
     <Compile Include="Utils\Exceptions\ExceptionFactory.cs" />
     <Compile Include="Utils\Exceptions\ExceptionMessageCollection.cs" />
     <Compile Include="Utils\Exceptions\ExceptionProcessor.cs" />
+    <Compile Include="Utils\Exceptions\FatalException.cs" />
+    <Compile Include="Utils\Exceptions\MiscProcessingException.cs" />
+    <Compile Include="Utils\Exceptions\ProcessingException.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
