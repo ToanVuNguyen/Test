@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
        
         public CaseLoanDTOCollection CaseLoans { get; set; }
 
-        public BudgetSetDTOCollection BudgetSet { get; set; }
+        public BudgetSetDTO BudgetSet { get; set; }
 
         public BudgetItemDTOCollection BudgetItems { get; set; }
 
