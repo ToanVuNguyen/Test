@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogicInterface\ICallLogBL.cs" />
-    <Compile Include="BusinessLogicInterface\IForclosureCaseBL.cs" />
+    <Compile Include="BusinessLogicInterface\IForeclosureCaseBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="BusinessLogicInterface\RefCodeItemBL.cs" />
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
