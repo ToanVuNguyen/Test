@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
@@ -40,11 +41,12 @@ namespace HPF.FutureState.DataAccess
             var command = new SqlCommand("hpf_call_insert", dbConnection);
             //<Parameter>
 
+            
             var sqlParam = new SqlParameter[32];
             sqlParam[0] = new SqlParameter("@call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@cc_agent_id_key", aCallLog.CcAgentIdKey );
-            sqlParam[2] = new SqlParameter("@start_dt", aCallLog.StartDate);
-            sqlParam[3] = new SqlParameter("end_dt", aCallLog.EndDate);
+            sqlParam[2] = new SqlParameter("@start_dt", NullableDateTime(aCallLog.StartDate));
+            sqlParam[3] = new SqlParameter("end_dt", NullableDateTime(aCallLog.EndDate));
             sqlParam[4] = new SqlParameter("dnis", aCallLog.DNIS);
             sqlParam[5] = new SqlParameter("call_center", aCallLog.CallCenter);
             sqlParam[6] = new SqlParameter("@call_source_cd", aCallLog.CallSourceCd);
@@ -66,10 +68,10 @@ namespace HPF.FutureState.DataAccess
             sqlParam[22] = new SqlParameter("@homeowner_ind", aCallLog.HomeownerInd);
             sqlParam[23] = new SqlParameter("@power_of_attorney_ind", aCallLog.PowerOfAttorneyInd);
             sqlParam[24] = new SqlParameter("@authorized_ind", aCallLog.AuthorizedInd);
-            sqlParam[25] = new SqlParameter("create_dt", aCallLog.CreateDate);
+            sqlParam[25] = new SqlParameter("create_dt", NullableDateTime(aCallLog.CreateDate));
             sqlParam[26] = new SqlParameter("create_user_id", aCallLog.CreateUserId);
             sqlParam[27] = new SqlParameter("create_app_name", aCallLog.CreateAppName);
-            sqlParam[28] = new SqlParameter("chg_lst_dt", aCallLog.ChangeLastDate);
+            sqlParam[28] = new SqlParameter("chg_lst_dt", NullableDateTime(aCallLog.ChangeLastDate));
             sqlParam[29] = new SqlParameter("chg_lst_user_id", aCallLog.ChangeLastUserId);
             sqlParam[30] = new SqlParameter("chg_lst_app_name", aCallLog.ChangeLastAppName);
             
@@ -78,18 +80,18 @@ namespace HPF.FutureState.DataAccess
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
+            //var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            //command.Transaction = trans;
             try
             {
                 command.ExecuteNonQuery();
-                trans.Commit();
+                //trans.Commit();
                 dbConnection.Close();
-                aCallLog.CallId = ConvertToInt(sqlParam[33].Value);
+                aCallLog.CallId = ConvertToInt(sqlParam[31].Value);
             }
             catch(Exception Ex)
             {
-                trans.Rollback();
+                //trans.Rollback();
                 dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
