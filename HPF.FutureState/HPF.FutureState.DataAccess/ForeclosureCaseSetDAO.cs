@@ -673,10 +673,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                    returnValue = true;
-                else
-                    returnValue = false;
+                returnValue = reader.HasRows;                
                 reader.Close();
                 dbConnection.Close();
             }
@@ -703,10 +700,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                    returnValue = true;
-                else
-                    returnValue = false;
+                returnValue = reader.HasRows; 
                 reader.Close();
                 dbConnection.Close();
             }
