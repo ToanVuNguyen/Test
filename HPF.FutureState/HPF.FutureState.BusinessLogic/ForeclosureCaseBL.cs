@@ -554,7 +554,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase !=null)
             {
-                if (foreclosureCaseSet.ForeclosureCase.AgencyCaseNum != null)
+                if (foreclosureCaseSet.ForeclosureCase.AgencyCaseNum != null && foreclosureCaseSet.ForeclosureCase.AgencyId != 0)
                 {
                     if (CheckExistingAgencyIdAndCaseNumber(foreclosureCaseSet.ForeclosureCase.AgencyId, foreclosureCaseSet.ForeclosureCase.AgencyCaseNum))
                         throw new ProcessingException();
