@@ -5,12 +5,13 @@ using System.Text;
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
-
 using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
 
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
+
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -362,8 +363,13 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckCode(string codeValue, string codeName)
         {
-            RefCodeItemDTOCollection refCodeItemCollection = new RefCodeItemDTOCollection();
-            refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
+            RefCodeItemDTOCollection refCodeItemCollection = new RefCodeItemDTOCollection();            
+            refCodeItemCollection  = HPFCacheManager.Instance.GetData<RefCodeItemDTOCollection>("refCodeItem");            
+            if (refCodeItemCollection == null)
+            {
+                refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
+                HPFCacheManager.Instance.Add("refCodeItem", refCodeItemCollection);
+            } 
             if (codeValue == string.Empty || codeValue == null)
             {
                 return true;
@@ -438,7 +444,44 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         void UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            throw new NotImplementedException();
+            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            try
+            {
+                foreClosureCaseSetDAO.Begin();
+                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+                CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
+                OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
+                BudgetSetDTO budgetSet = foreclosureCaseSet.BudgetSet;
+                BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+                BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+                //Insert table Foreclosure_Case
+                //Return Fc_id
+                int fcId = foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
+                //check changed from budgetItem and budget asset
+                //if they are changed, insert new budget set, budget Item and budget asset
+                if (IsInsertBudgetSet(budgetItemCollection, budgetAssetCollection, fcId))
+                {
+                    //Insert Table Budget Set
+                    //Return Budget Set Id
+                    int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+                    //Insert Table Budget Item
+                    foreach (BudgetItemDTO items in budgetItemCollection)
+                    {
+                        foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
+                    }
+                    //Insert table Budget Asset
+                    foreach (BudgetAssetDTO items in budgetAssetCollection)
+                    {
+                        foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
+                    }
+                }
+                foreClosureCaseSetDAO.Commit();
+            }
+            catch (Exception)
+            {
+                foreClosureCaseSetDAO.Cancel();
+                throw;
+            }   
         }
 
         /// <summary>
@@ -488,9 +531,79 @@ namespace HPF.FutureState.BusinessLogic
             {                
                 foreClosureCaseSetDAO.Cancel();                
                 throw;
-            }
+            }            
         }
 
+        /// <summary>
+        /// Check Budget Item input with Budget Item from DB
+        /// If difference Insert New Budget Items
+        /// VS: Do nothing
+        /// </summary>
+        /// <param name>BudgetItemDTOCollection</param>
+        /// <returns>true: if have difference</returns>
+        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollection, int fc_id)
+        {
+            var budgetItemDAO = BudgetItemDAO.Instance;            
+            BudgetItemDTOCollection budgetCollectionDB = budgetItemDAO.GetBudgetSet(fc_id);
+
+            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollection.Count)
+            {
+                foreach (BudgetItemDTO budgetItemDB in budgetCollectionDB)
+                {
+                    foreach (BudgetItemDTO budgetItem in budgetCollection)
+                    {
+                        if (budgetItemDB.BudgetSubcategoryId != budgetItem.BudgetSubcategoryId
+                            || budgetItemDB.BudgetItemAmt != budgetItem.BudgetItemAmt
+                            || budgetItemDB.BudgetNote != budgetItem.BudgetNote)
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check Budget Asset input with Budget Asset from DB
+        /// If difference Insert New Budget Assets
+        /// VS: Do nothing
+        /// </summary>
+        /// <param name>BudgetAssetDTOCollection</param>
+        /// <returns>true: if have difference</returns>
+        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollection, int fc_id)
+        {
+            var budgetAssetDAO = BudgetAssetDAO.Instance;
+            BudgetAssetDTOCollection budgetCollectionDB = budgetAssetDAO.GetBudgetSet(fc_id);
+            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollection.Count)
+            {
+                foreach (BudgetAssetDTO budgetAssetDB in budgetCollectionDB)
+                {
+                    foreach (BudgetAssetDTO budgetAsset in budgetCollection)
+                    {
+                        if (budgetAssetDB.AssetName != budgetAsset.AssetName
+                            || budgetAssetDB.AssetValue != budgetAsset.AssetValue)
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check for Insert new budget Set
+        /// If budgetItem changed or budgetAsset change insert new
+        /// VS: do Nothing
+        /// </summary>
+        /// <param name>BudgetAssetDTOCollection,BudgetAssetDTOCollection, fc_id </param>
+        /// <returns>true: if have difference</returns>
+        private bool IsInsertBudgetSet(BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fc_id)
+        {
+            bool budgetItem = IsBudgetItemsDifference(budgetItemCollection, fc_id);
+            bool budgetAsset = IsBudgetAssetDifference( budgetAssetCollection, fc_id);
+            if (budgetItem || budgetItem)
+                return true;
+            else
+                return false;
+        }
         /// <summary>
         /// Get Foreclosure case basing on its fc_id
         /// </summary>

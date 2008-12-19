@@ -63,7 +63,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_insert", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[108];
+            var sqlParam = new SqlParameter[109];
             sqlParam[0] = new SqlParameter("@agency_id", foreclosureCase.AgencyId);
             sqlParam[1] = new SqlParameter("@completed_dt", foreclosureCase.CompletedDt);
             sqlParam[2] = new SqlParameter("@call_id", foreclosureCase.CallId);
@@ -170,8 +170,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[103] = new SqlParameter("@military_service_cd", foreclosureCase.MilitaryServiceCd);
             sqlParam[104] = new SqlParameter("@household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
             sqlParam[105] = new SqlParameter("@loan_list", foreclosureCase.LoanList);
-            sqlParam[106] = new SqlParameter("@chg_lst_user_id", foreclosureCase.ChgLstUserId);
-            sqlParam[107] = new SqlParameter("@fc_id", SqlDbType.Int){Direction = ParameterDirection.Output};
+            sqlParam[106] = new SqlParameter("@intake_credit_score", foreclosureCase.IntakeCreditScore);
+            sqlParam[107] = new SqlParameter("@Intake_credit_bureau_cd ", foreclosureCase.IntakeCreditBureauCd);
+            sqlParam[108] = new SqlParameter("@fc_id", SqlDbType.Int){Direction = ParameterDirection.Output};
             //</Parameter>            
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
@@ -209,7 +210,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_update", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[108];
+            var sqlParam = new SqlParameter[109];
             sqlParam[0] = new SqlParameter("@agency_id", foreclosureCase.AgencyId);
             sqlParam[1] = new SqlParameter("@completed_dt", foreclosureCase.CompletedDt);
             sqlParam[2] = new SqlParameter("@call_id", foreclosureCase.CallId);
@@ -316,8 +317,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[103] = new SqlParameter("@military_service_cd", foreclosureCase.MilitaryServiceCd);
             sqlParam[104] = new SqlParameter("@household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
             sqlParam[105] = new SqlParameter("@loan_list", foreclosureCase.LoanList);
-            sqlParam[106] = new SqlParameter("@chg_lst_user_id", foreclosureCase.ChgLstUserId);
-            sqlParam[107] = new SqlParameter("@fc_id", foreclosureCase.FcId);
+            sqlParam[106] = new SqlParameter("@intake_credit_score", foreclosureCase.IntakeCreditScore);
+            sqlParam[107] = new SqlParameter("@Intake_credit_bureau_cd ", foreclosureCase.IntakeCreditBureauCd);
+            sqlParam[108] = new SqlParameter("@fc_id", foreclosureCase.FcId);
             //</Parameter>            
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;

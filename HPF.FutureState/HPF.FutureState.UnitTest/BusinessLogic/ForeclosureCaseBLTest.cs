@@ -811,9 +811,54 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.InsertForeclosureCaseSet(foreclosureCaseSet);            
         }
 
+        /// <summary>
+        ///A test for UpdateForeclosureCaseSet
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void UpdateForeclosureCaseSetTest()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet(); // TODO: Initialize to an appropriate value
+            target.UpdateForeclosureCaseSet(foreclosureCaseSet);
+        }
+
+        /// <summary>
+        ///A test for CheckForInsertBudgetItems
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void IsBudgetItemsDifferenceTest()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            BudgetItemDTOCollection budgetCollection = SetBudgetItemCollection(); // TODO: Initialize to an appropriate value
+            int fc_id = 1350045; // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.IsBudgetItemsDifference(budgetCollection, fc_id);
+            Assert.AreEqual(expected, actual);            
+        }
+
+        /// <summary>
+        ///A test for CheckForInsertBudgetAsset
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void IsBudgetAssetDifferenceTest()
+        {
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            BudgetAssetDTOCollection budgetCollection = SetBudgetAssetCollection(); // TODO: Initialize to an appropriate value
+            int fc_id = 1350045; // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.IsBudgetAssetDifference(budgetCollection, fc_id);
+            Assert.AreEqual(expected, actual);
+        }
+
         private ForeclosureCaseDTO SetForeclosureCase()
         {            
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+            foreclosureCase.FcId = Convert.ToInt32("1350046");
             foreclosureCase.AgencyId = Convert.ToInt32("1");
             foreclosureCase.ProgramId = Convert.ToInt32("1");
             foreclosureCase.AgencyCaseNum = "Test";
@@ -850,11 +895,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private BudgetAssetDTOCollection SetBudgetAssetCollection()
         {
             BudgetAssetDTOCollection budgetAssetCollection = new BudgetAssetDTOCollection();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
+                budgetAsset.BudgetSetId = Convert.ToInt32("76156");
                 budgetAsset.AssetName = "Test";
-                budgetAsset.AssetValue = Convert.ToDecimal("11.2");
+                budgetAsset.AssetValue = Convert.ToDecimal("11.3");
                 budgetAssetCollection.Add(budgetAsset);
             }
             return budgetAssetCollection;
@@ -863,11 +909,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private BudgetItemDTOCollection SetBudgetItemCollection()
         {
             BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();            
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
+                budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
                 budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("1");
+                budgetItemDTO.BudgetNote = null;
                 budgetItemCollection.Add(budgetItemDTO);
             }
             return budgetItemCollection;
@@ -876,7 +924,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private OutcomeItemDTOCollection SetOutcomeItemCollection()
         {
             OutcomeItemDTOCollection outcomeItemCollection = new OutcomeItemDTOCollection();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();
                 outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");

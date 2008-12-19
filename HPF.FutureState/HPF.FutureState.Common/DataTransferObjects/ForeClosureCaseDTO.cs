@@ -251,6 +251,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string LoanList { get; set; }
 
-        public string ChgLstUserId { get; set; }
+        public string IntakeCreditScore { get; set; }
+
+        public string IntakeCreditBureauCd { get; set; }
     }
 }
