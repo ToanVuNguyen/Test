@@ -271,6 +271,373 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
         #endregion
 
+        #region ProcessInsertUpdateWithForeclosureCaseId
+        [TestMethod]
+        public void ProcessInsertUpdateWithForeclosureCaseId_Success_Null_FC_CaseSet()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessInsertUpdateWithForeclosureCaseId_Success_InvalidFcID()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when FCID is invalid");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            foreclosureCaseSet.ForeclosureCase.FcId = -1;            
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessInsertUpdateWithForeclosureCaseId_Success_InvalidFcID_For_Agency()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when pair of FCID and Agency is invalid");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
+            foreclosureCaseSet.ForeclosureCase.FcId = 24;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessInsertUpdateWithForeclosureCaseId_Success_ActiveFcCase()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when fc_case is active");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();            
+            foreclosureCaseSet.ForeclosureCase.FcId = 23;
+            foreclosureCaseSet.ForeclosureCase.CompletedDt = (DateTime)System.Data.SqlTypes.SqlDateTime.Null;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessInsertUpdateWithForeclosureCaseId_Success()
+        {
+            TestContext.WriteLine("This test is not implemented yet");
+            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            //foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            //foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
+            //foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
+            //var expected = (new ProcessingException()).GetType();
+            //try
+            //{
+            //    target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            //}
+            //catch (ProcessingException pe)
+            //{
+            //    Assert.AreEqual(expected, pe.GetType());
+            //}
+        }
+        #endregion
+
+        #region ProcessInsertUpdateWithoutForeclosureCaseId
+        [TestMethod]
+        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_FC_CaseSet()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+        
+        [TestMethod]
+        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_AgencyID_CaseNumber()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when AgencyID or CaseNumber is null");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            foreclosureCaseSet.ForeclosureCase.AgencyId = 0;
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = null;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Existing_AgencyID_CaseNumber()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when AgencyID and CaseNumber existed");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success()
+        {
+            TestContext.WriteLine("This test is not implemented yet");
+            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            //foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            //foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
+            //foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
+            //var expected = (new ProcessingException()).GetType();
+            //try
+            //{
+            //    target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            //}
+            //catch (ProcessingException pe)
+            //{
+            //    Assert.AreEqual(expected, pe.GetType());
+            //}
+        }
+        #endregion
+
+        #region ProcessInsertForeclosureCaseSet
+        [TestMethod]
+        public void ProcessInsertForeclosureCaseSet_Success_Null_FC_CaseSet()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }            
+        }
+
+        private void CheckDuplicate_PreTest()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = null, Duplicate_IND = 'N' Where fc_id = 23";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2008-02-17' , Duplicate_IND = 'N' Where fc_id = 4341";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2008-02-17', Duplicate_IND = 'N' Where fc_id = 123";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update case_loan set acct_num = '4650801', servicer_id = 5 where fc_id = 123";
+            command.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+        private void CheckDuplicate_PostTest()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2003-05-15', Duplicate_IND = null Where fc_id = 23 or fc_id = 4341";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update foreclosure_case Set Completed_dt = '2003-05-05', Duplicate_IND = null Where fc_id = 123";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Update case_loan set acct_num = '1994489', servicer_id = 2 where fc_id = 123";
+            command.ExecuteNonQuery();
+
+            dbConnection.Close();
+        }
+        [TestMethod]
+        public void ProcessInsertForeclosureCaseSet_Success_Duplicated_FC_Case()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when there is a dupe case");
+            CheckDuplicate_PreTest();
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            fcCase.FcId = 123;
+            
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase = fcCase;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+            CheckDuplicate_PostTest();
+        }
+
+        [TestMethod]
+        public void ProcessInsertForeclosureCaseSet_Success_MiscException()
+        {
+            TestContext.WriteLine("This test is not implemented yet");
+            //CheckDuplicate_PreTest();
+            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            //fcCase.FcId = 123;
+
+            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            //foreclosureCaseSet.ForeclosureCase = fcCase;
+            //var expected = (new ProcessingException()).GetType();
+            //try
+            //{
+            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            //}
+            //catch (ProcessingException pe)
+            //{
+            //    Assert.AreEqual(expected, pe.GetType());
+            //}
+            //CheckDuplicate_PostTest();
+        }
+
+        [TestMethod]
+        public void ProcessInsertForeclosureCaseSet_Success()
+        {
+            TestContext.WriteLine("This test is not implemented yet");
+            //CheckDuplicate_PreTest();
+            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            //fcCase.FcId = 123;
+
+            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            //foreclosureCaseSet.ForeclosureCase = fcCase;
+            //var expected = (new ProcessingException()).GetType();
+            //try
+            //{
+            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            //}
+            //catch (ProcessingException pe)
+            //{
+            //    Assert.AreEqual(expected, pe.GetType());
+            //}
+            //CheckDuplicate_PostTest();
+        }
+        #endregion
+
+        #region ProcessUpdateForeclosureCaseSet
+        [TestMethod]
+        public void ProcessUpdateForeclosureCaseSet_Success_Null_FC_CaseSet()
+        {
+            TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+        }
+
+        [TestMethod]
+        public void ProcessUpdateForeclosureCaseSet_Success_MiscException()
+        {
+            TestContext.WriteLine("This test is not implemented yet");
+            //CheckDuplicate_PreTest();
+            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            //fcCase.FcId = 123;
+
+            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            //foreclosureCaseSet.ForeclosureCase = fcCase;
+            //var expected = (new ProcessingException()).GetType();
+            //try
+            //{
+            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            //}
+            //catch (ProcessingException pe)
+            //{
+            //    Assert.AreEqual(expected, pe.GetType());
+            //}
+            //CheckDuplicate_PostTest();
+        }
+
+        [TestMethod]
+        public void ProcessUpdateForeclosureCaseSet_Success()
+        {
+            TestContext.WriteLine("This test is not implemented yet");
+            //CheckDuplicate_PreTest();
+            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            //fcCase.FcId = 123;
+
+            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            //foreclosureCaseSet.ForeclosureCase = fcCase;
+            //var expected = (new ProcessingException()).GetType();
+            //try
+            //{
+            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            //}
+            //catch (ProcessingException pe)
+            //{
+            //    Assert.AreEqual(expected, pe.GetType());
+            //}
+            //CheckDuplicate_PostTest();
+        }
+        #endregion
+        
         /// <summary>
         ///A test for CheckInactiveCase
         ///Case False
