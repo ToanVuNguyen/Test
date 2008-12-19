@@ -244,8 +244,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>a new Fc_id</returns>
         public int InsertForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_foreclosure_case_insert", dbConnection);
+            var command = CreateSPCommand("hpf_foreclosure_case_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[108];
             sqlParam[0] = new SqlParameter("@agency_id", foreclosureCase.AgencyId);
@@ -358,28 +357,18 @@ namespace HPF.FutureState.DataAccess
             sqlParam[107] = new SqlParameter("@fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
             //</Parameter>            
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
+            command.CommandType = CommandType.StoredProcedure;            
+            command.Transaction = this.trans;
             //
             try
             {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();
-                foreclosureCase.FcId = ConvertToInt(sqlParam[107].Value);//@fc_id	
+                command.ExecuteNonQuery();                
+                foreclosureCase.FcId = ConvertToInt(sqlParam[107].Value);
             }
             catch (Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
+            {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
+            }            
             return foreclosureCase.FcId;
         }
 
@@ -394,9 +383,8 @@ namespace HPF.FutureState.DataAccess
         /// <param name="caseLoan">CaseLoanDTO</param>
         /// <returns></returns>
         public void InsertCaseLoan(CaseLoanDTO caseLoan, int fc_id)
-        {
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_case_loan_insert", dbConnection);
+        {            
+            var command = new SqlCommand("hpf_case_loan_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[20];
             sqlParam[0] = new SqlParameter("@fc_id", fc_id);
@@ -421,26 +409,16 @@ namespace HPF.FutureState.DataAccess
             sqlParam[19] = new SqlParameter("@freddie_loan_num", caseLoan.FreddieLoanNum);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
+            command.CommandType = CommandType.StoredProcedure;            
+            command.Transaction = this.trans;
             try
             {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();
+                command.ExecuteNonQuery();                
             }
             catch (Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
+            {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
+            }            
         }
 
         public void UpdateCaseLoan(CaseLoanDTO caseLoan)
@@ -454,9 +432,8 @@ namespace HPF.FutureState.DataAccess
         /// <param name="outComeItem">OutcomeItemDTO</param>
         /// <returns></returns>
         public void InsertOutcomeItem(OutcomeItemDTO outComeItem, int fc_id)
-        {
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
+        {            
+            var command = new SqlCommand("hpf_outcome_item_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];
             sqlParam[0] = new SqlParameter("@outcome_set_id", outComeItem.OutcomeSetId);
@@ -469,26 +446,16 @@ namespace HPF.FutureState.DataAccess
 
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
+            command.CommandType = CommandType.StoredProcedure;            
+            command.Transaction = this.trans;
             try
             {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();
+                command.ExecuteNonQuery();               
             }
             catch (Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
+            {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
+            }            
         }
 
         /// <summary>
@@ -498,40 +465,28 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public int InsertBudgetSet(BudgetSetDTO budgetSet, int fc_id)
         {
+            var command = new SqlCommand("hpf_budget_set_insert", this.dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[6];
+            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[1] = new SqlParameter("@total_income", budgetSet.TotalIncome);
+            sqlParam[2] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
+            sqlParam[3] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
+            sqlParam[4] = new SqlParameter("@budget_set_dt", NullableDateTime(budgetSet.BudgetSetDt));
+            sqlParam[5] = new SqlParameter("@budget_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;                                
+            command.Transaction = this.trans;
             try
-            {
-                var dbConnection = new SqlConnection(ConnectionString);
-                var command = new SqlCommand("hpf_budget_set_insert", dbConnection);
-                //<Parameter>
-                var sqlParam = new SqlParameter[6];
-                sqlParam[0] = new SqlParameter("@fc_id", fc_id);
-                sqlParam[1] = new SqlParameter("@total_income", budgetSet.TotalIncome);
-                sqlParam[2] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
-                sqlParam[3] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
-                sqlParam[4] = new SqlParameter("@budget_set_dt", NullableDateTime(budgetSet.BudgetSetDt));
-                sqlParam[5] = new SqlParameter("@budget_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-                //</Parameter>
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-                dbConnection.Open();
-                var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-                command.Transaction = trans;
-            
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();
+            { 
+                command.ExecuteNonQuery();            
                 budgetSet.BudgetSetId = ConvertToInt(sqlParam[5].Value);
             }
             catch (Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
+            {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
+            }            
             return budgetSet.BudgetSetId;
         }
 
@@ -541,9 +496,8 @@ namespace HPF.FutureState.DataAccess
         /// <param name="budgetItem">BudgetItemDTO</param>
         /// <returns></returns>
         public void InsertBudgetItem(BudgetItemDTO budgetItem, int budget_set_id)
-        {
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_budget_item_insert", dbConnection);
+        {            
+            var command = new SqlCommand("hpf_budget_item_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[4];
             sqlParam[0] = new SqlParameter("@budget_set_id", budget_set_id);
@@ -553,26 +507,16 @@ namespace HPF.FutureState.DataAccess
 
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
+            command.CommandType = CommandType.StoredProcedure;            
+            command.Transaction = this.trans;
             try
             {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();
+                command.ExecuteNonQuery();                
             }
             catch (Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
+            {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
+            }            
         }
 
         /// <summary>
@@ -581,9 +525,8 @@ namespace HPF.FutureState.DataAccess
         /// <param name="budgetItem">BudgetAssetDTO</param>
         /// <returns></returns>
         public void InsertBudgetAsset(BudgetAssetDTO budgetAsset, int budget_set_id)
-        {
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_budget_asset_insert", dbConnection);
+        {            
+            var command = new SqlCommand("hpf_budget_asset_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[3];
             sqlParam[0] = new SqlParameter("@budget_set_id", budget_set_id);
@@ -591,26 +534,16 @@ namespace HPF.FutureState.DataAccess
             sqlParam[2] = new SqlParameter("@asset_value", budgetAsset.AssetValue);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
+            command.CommandType = CommandType.StoredProcedure;            
+            command.Transaction = this.trans;
             try
             {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();
+                command.ExecuteNonQuery();                
             }
             catch (Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
+            {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
+            }           
         }
 
         /// <summary>
