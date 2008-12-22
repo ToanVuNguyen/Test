@@ -73,7 +73,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of a Foreclosure</param>
         /// <returns>ForeclosureCase if exists, otherwise: null</returns>
-        public ForeclosureCaseDTO GetForeclosureCase(int fc_id)
+        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
 
@@ -81,7 +81,7 @@ namespace HPF.FutureState.DataAccess
             var command = new SqlCommand("hpf_foreclosure_case_retrieve_from_fcid", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[0] = new SqlParameter("@fc_id", fcId);
 
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
@@ -105,6 +105,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.AgencyMediaConsentInd = ConvertToString(reader["agency_media_consent_ind"]);
                         returnObject.AgencySuccessStoryInd = ConvertToString(reader["agency_success_story_ind"]);
                         returnObject.AmiPercentage = ConvertToInt(reader["AMI_percentage"]);
+                        returnObject.AssignedCounselorIdRef = ConvertToString(reader["assigned_counselor_id_ref"]);
 
                         returnObject.BankruptcyAttorney = ConvertToString(reader["bankruptcy_attorney"]);
                         returnObject.BankruptcyInd = ConvertToString(reader["bankruptcy_ind"]);
@@ -148,7 +149,6 @@ namespace HPF.FutureState.DataAccess
                         returnObject.CounselorPhone = ConvertToString(reader["counselor_phone"]);
                         returnObject.CounselorExt = ConvertToString(reader["counselor_ext"]);
                         returnObject.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        returnObject.AssignedCounselorIdRef = ConvertToString(reader["assigned_counselor_id_ref"]);
                         returnObject.CreateAppName = ConvertToString(reader["create_app_name"]);
                         returnObject.CreateDate = ConvertToDateTime(reader["create_dt"]);
                         returnObject.CreateUserId = ConvertToString(reader["create_user_id"]);
@@ -214,6 +214,7 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.RaceCd = ConvertToString(reader["race_cd"]);
                         returnObject.RealtyCompany = ConvertToString(reader["realty_company"]);
+                        
                         returnObject.SecondContactNo = ConvertToString(reader["second_contact_no"]);
                         returnObject.ServicerConsentInd = ConvertToString(reader["servicer_consent_ind"]);
                         returnObject.SrvcrWorkoutPlanCurrentInd = ConvertToString(reader["srvcr_workout_plan_current_ind"]);
