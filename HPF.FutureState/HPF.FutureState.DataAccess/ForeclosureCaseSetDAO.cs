@@ -422,11 +422,6 @@ namespace HPF.FutureState.DataAccess
             }            
         }
 
-        public void UpdateCaseLoan(CaseLoanDTO caseLoan)
-        {
-
-        }
-
         /// <summary>
         /// Insert a Outcome Item to database.
         /// </summary>
@@ -436,8 +431,7 @@ namespace HPF.FutureState.DataAccess
         {            
             var command = new SqlCommand("hpf_outcome_item_insert", this.dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@outcome_set_id", outComeItem.OutcomeSetId);
+            var sqlParam = new SqlParameter[6];            
             sqlParam[0] = new SqlParameter("@fc_id", fc_id);
             sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
             sqlParam[2] = new SqlParameter("@outcome_dt", NullableDateTime(outComeItem.OutcomeDt));
@@ -680,6 +674,38 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }            
             return foreclosureCase.FcId;
+        }
+
+        /// <summary>
+        /// Insert a Outcome Item to database.
+        /// </summary>
+        /// <param name="outComeItem">OutcomeItemDTO</param>
+        /// <returns></returns>
+        public void UpdateOutcomeItem(OutcomeItemDTO outComeItem, int fc_id)
+        {
+            var command = new SqlCommand("hpf_outcome_item_update", this.dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[7];
+            sqlParam[0] = new SqlParameter("@outcome_item_id", outComeItem.OutcomeItemId );
+            sqlParam[1] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[2] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
+            sqlParam[3] = new SqlParameter("@outcome_dt", NullableDateTime(outComeItem.OutcomeDt));
+            sqlParam[4] = new SqlParameter("@outcome_deleted_dt", NullableDateTime(outComeItem.OutcomeDeletedDt));
+            sqlParam[5] = new SqlParameter("@nonprofitreferral_key_num", outComeItem.NonprofitreferralKeyNum);
+            sqlParam[6] = new SqlParameter("@ext_ref_other_name", outComeItem.ExtRefOtherName);
+
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Transaction = this.trans;
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
         }
 
         /// <summary>

@@ -297,6 +297,7 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        #region Functions check valid code
         /// <summary>
         /// Check valid code
         /// <input>ForeclosureCaseSetDTO</input>
@@ -363,8 +364,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckCode(string codeValue, string codeName)
         {
-            RefCodeItemDTOCollection refCodeItemCollection = new RefCodeItemDTOCollection();            
-            refCodeItemCollection  = HPFCacheManager.Instance.GetData<RefCodeItemDTOCollection>("refCodeItem");            
+            RefCodeItemDTOCollection refCodeItemCollection = HPFCacheManager.Instance.GetData<RefCodeItemDTOCollection>("refCodeItem");            
             if (refCodeItemCollection == null)
             {
                 refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
@@ -386,6 +386,7 @@ namespace HPF.FutureState.BusinessLogic
                 return false;
             }
         }
+        #endregion
 
         /// <summary>
         /// Check Duplicated Fore Closure Case
@@ -406,6 +407,7 @@ namespace HPF.FutureState.BusinessLogic
             return ForeclosureCaseSetDAO.CreateInstance().CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
+        #region Functions Check MiscError
         /// <summary>
         /// Check Misc Error Exception
         /// Case 1: Cannot Un-complete a Previously Completed Case
@@ -439,6 +441,9 @@ namespace HPF.FutureState.BusinessLogic
             }
             return false;
         }
+        #endregion
+
+        #region Function Update Fore Closure Case Set
         /// <summary>
         /// Update the Fore Closure Case
         /// </summary>
@@ -475,17 +480,39 @@ namespace HPF.FutureState.BusinessLogic
                         foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
                     }
                 }
+                //check outcome item Input with outcome item DB
+                //if not exist, insert new
+                OutcomeItemDTOCollection outcomeCollecionNew = CheckOutcomeItemInputwithDB(outcomeItemCollection, fcId);
+                if (outcomeCollecionNew != null)
+                {
+                    foreach (OutcomeItemDTO items in outcomeCollecionNew)
+                    {
+                        foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
+                    }
+                }
+                //check outcome item DB with outcome item input
+                //if not exit, update outcome_deleted_dt = today()
+                outcomeCollecionNew = CheckOutcomeItemDBwithInput(outcomeItemCollection, fcId);
+                if (outcomeCollecionNew != null)
+                {
+                    foreach (OutcomeItemDTO items in outcomeCollecionNew)
+                    {
+                        foreClosureCaseSetDAO.UpdateOutcomeItem(items, fcId);
+                    }
+                }
                 foreClosureCaseSetDAO.Commit();
             }
             catch (Exception)
             {
                 foreClosureCaseSetDAO.Cancel();
                 throw;
-            }   
+            }
         }
+        #endregion
 
+        #region Function Insert Fore Closure Case Set
         /// <summary>
-        /// Update the Fore Closure Case
+        /// Insert the Fore Closure Case
         /// </summary>
         void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
@@ -531,9 +558,12 @@ namespace HPF.FutureState.BusinessLogic
             {                
                 foreClosureCaseSetDAO.Cancel();                
                 throw;
-            }            
+            }
         }
 
+        #endregion
+
+        #region Functions check for insert Budget_*
         /// <summary>
         /// Check Budget Item input with Budget Item from DB
         /// If difference Insert New Budget Items
@@ -541,23 +571,33 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetItemDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollection, int fc_id)
-        {
-            var budgetItemDAO = BudgetItemDAO.Instance;            
-            BudgetItemDTOCollection budgetCollectionDB = budgetItemDAO.GetBudgetSet(fc_id);
-
-            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollection.Count)
+        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollectionInput, int fc_id)
+        {            
+            BudgetItemDTOCollection budgetCollectionDB = BudgetItemDAO.Instance.GetBudgetSet(fc_id);
+            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
-                foreach (BudgetItemDTO budgetItemDB in budgetCollectionDB)
+                foreach (BudgetItemDTO budgetItem in budgetCollectionInput)
                 {
-                    foreach (BudgetItemDTO budgetItem in budgetCollection)
+                    if (!CompareBudgetItem(budgetItem, budgetCollectionDB))
                     {
-                        if (budgetItemDB.BudgetSubcategoryId != budgetItem.BudgetSubcategoryId
-                            || budgetItemDB.BudgetItemAmt != budgetItem.BudgetItemAmt
-                            || budgetItemDB.BudgetNote != budgetItem.BudgetNote)
-                            return true;
+                        return true;
                     }
                 }
+            }
+            return false;
+        }
+        
+        /// <summary>
+        /// Compare budgetItem input with BudgetItem from DB        
+        /// <returns>false: if have difference</returns>
+        private bool CompareBudgetItem(BudgetItemDTO budgetItemInput, BudgetItemDTOCollection budgetCollectionDB)
+        {
+            foreach (BudgetItemDTO budgetItemDB in budgetCollectionDB)
+            {
+                if (budgetItemInput.BudgetSubcategoryId == budgetItemDB.BudgetSubcategoryId
+                    && budgetItemInput.BudgetItemAmt == budgetItemDB.BudgetItemAmt
+                    && budgetItemInput.BudgetNote == budgetItemDB.BudgetNote)
+                    return true;
             }
             return false;
         }
@@ -569,23 +609,32 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollection, int fc_id)
-        {
-            var budgetAssetDAO = BudgetAssetDAO.Instance;
-            BudgetAssetDTOCollection budgetCollectionDB = budgetAssetDAO.GetBudgetSet(fc_id);
-            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollection.Count)
+        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollectionInput, int fc_id)
+        {            
+            BudgetAssetDTOCollection budgetCollectionDB = BudgetAssetDAO.Instance.GetBudgetSet(fc_id);
+            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
-                foreach (BudgetAssetDTO budgetAssetDB in budgetCollectionDB)
+                foreach (BudgetAssetDTO budgetAssetInput in budgetCollectionInput)
                 {
-                    foreach (BudgetAssetDTO budgetAsset in budgetCollection)
-                    {
-                        if (budgetAssetDB.AssetName != budgetAsset.AssetName
-                            || budgetAssetDB.AssetValue != budgetAsset.AssetValue)
-                            return true;
-                    }
+                    if (!CompareBudgetAsset(budgetAssetInput, budgetCollectionDB))
+                        return true;
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Compare budgetAsset input with BudgetAsset from DB        
+        /// <returns>false: if have difference</returns>
+        private bool CompareBudgetAsset(BudgetAssetDTO budgetAssetInput, BudgetAssetDTOCollection budgetCollectionDB)
+        {
+            foreach (BudgetAssetDTO budgetAssetDB in budgetCollectionDB)
+            {
+                if (budgetAssetInput.AssetName == budgetAssetDB.AssetName
+                    && budgetAssetInput.AssetValue == budgetAssetDB.AssetValue)
+                    return true;
+            }
+            return false;             
         }
 
         /// <summary>
@@ -604,6 +653,96 @@ namespace HPF.FutureState.BusinessLogic
             else
                 return false;
         }
+        #endregion
+
+        #region Functions check for insert or update outcome
+        /// <summary>        
+        /// Check exist of outcome item input with DB
+        /// If not exist add OutcomeItemDTOCollection
+        /// finally, return OutcomeItemDTOCollection
+        /// </summary>
+        /// <param name>OutcomeItemDTOCollection, fc_id </param>
+        /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
+        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(OutcomeItemDTOCollection outcomeItemCollectionInput, int fc_id)
+        {
+            OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
+            OutcomeItemDTOCollection outcomeItemCollectionDB = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
+            if (outcomeItemCollectionDB == null)
+            {
+                outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fc_id);
+                HPFCacheManager.Instance.Add("outcomeItem", outcomeItemCollectionDB);
+            }    
+            //Compare OutcomeItem input with OutcomeItem DB
+            foreach(OutcomeItemDTO itemInput in outcomeItemCollectionInput)
+            {
+                if (!CheckOutcomeItemInput(itemInput, outcomeItemCollectionDB))
+                {
+                    outcomeItemNew.Add(itemInput);                 
+                }
+            }
+            return outcomeItemNew;   
+        }
+
+        /// <summary>        
+        /// Check exist of outcome item DB with input
+        /// If not exist, Update outcome_deleted_dt
+        /// after that add OutcomeItemDTOCollection
+        /// finally, return OutcomeItemDTOCollection
+        /// </summary>
+        /// <param name>OutcomeItemDTOCollection, fc_id </param>
+        /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
+        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(OutcomeItemDTOCollection outcomeItemCollectionInput, int fc_id)
+        {
+            OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
+            OutcomeItemDTOCollection outcomeItemCollectionDB = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
+            if (outcomeItemCollectionDB == null)
+            {
+                outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fc_id);
+                HPFCacheManager.Instance.Add("outcomeItem", outcomeItemCollectionDB);
+            }             
+            //Compare OutcomeItem input with OutcomeItem DB
+            foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
+            {
+                if (!CheckOutcomeItemDB(itemDB, outcomeItemCollectionInput))
+                {
+                    itemDB.OutcomeDeletedDt = DateTime.Now;
+                    outcomeItemNew.Add(itemDB);
+                }
+            }
+            return outcomeItemNew;
+        }
+
+        /// <summary>                
+        /// </summary>
+        /// <param name>OutcomeItemDTOCollection, fc_id </param>
+        /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
+        private bool CheckOutcomeItemInput(OutcomeItemDTO itemInput, OutcomeItemDTOCollection itemCollectionDB)
+        {
+            foreach (OutcomeItemDTO itemDB in itemCollectionDB)
+            {
+                if (itemInput.OutcomeTypeId == itemDB.OutcomeTypeId
+                    && itemInput.OutcomeDt == itemDB.OutcomeDt
+                    && itemInput.NonprofitreferralKeyNum == itemDB.NonprofitreferralKeyNum
+                    && itemInput.ExtRefOtherName == itemDB.ExtRefOtherName)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool CheckOutcomeItemDB(OutcomeItemDTO itemDB, OutcomeItemDTOCollection itemCollectionInput)
+        {
+            foreach (OutcomeItemDTO itemInput in itemCollectionInput)
+            {
+                if (itemDB.OutcomeTypeId == itemInput.OutcomeTypeId
+                    && itemDB.OutcomeDt == itemInput.OutcomeDt
+                    && itemDB.NonprofitreferralKeyNum == itemInput.NonprofitreferralKeyNum
+                    && itemDB.ExtRefOtherName == itemInput.ExtRefOtherName)
+                    return true;
+            }
+            return false;
+        }
+        #endregion
+
         /// <summary>
         /// Get Foreclosure case basing on its fc_id
         /// </summary>
@@ -611,9 +750,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         ForeclosureCaseDTO GetForeclosureCase(int fc_id)
         {
-
             return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
-
         }
 
 
@@ -718,11 +855,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
                 throw new ProcessingException();
-            
-             
         }
-        
-        
         #endregion
     }
 }

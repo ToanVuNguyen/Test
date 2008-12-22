@@ -90,8 +90,8 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    CallLogWSDTO callLogWSDTO = new CallLogWSDTO();
-                    CallLogDTO callLogDTO = new CallLogDTO();
+                    CallLogWSDTO callLogWSDTO = null;
+                    CallLogDTO callLogDTO = null;
                     var callLogId = int.MinValue;
                     if (request.callLogId != string.Empty)
                     {

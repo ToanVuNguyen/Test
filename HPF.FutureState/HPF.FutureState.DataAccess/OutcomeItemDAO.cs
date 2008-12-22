@@ -37,7 +37,7 @@ namespace HPF.FutureState.DataAccess
             var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@outcome_set_id", outComeItem.OutcomeSetId);
+            sqlParam[0] = new SqlParameter("@fc_id", outComeItem.OutcomeSetId);
             sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
             sqlParam[2] = new SqlParameter("@outcome_dt", outComeItem.OutcomeDt);
             sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outComeItem.OutcomeDeletedDt);
@@ -79,7 +79,7 @@ namespace HPF.FutureState.DataAccess
             var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[7];
-            sqlParam[0] = new SqlParameter("@outcome_set_id", outComeItem.OutcomeSetId);
+            sqlParam[0] = new SqlParameter("@fc_id", outComeItem.OutcomeSetId);
             sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
             sqlParam[2] = new SqlParameter("@outcome_dt", outComeItem.OutcomeDt);
             sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outComeItem.OutcomeDeletedDt);
@@ -108,6 +108,53 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }                    
+        }
+
+        /// <summary>
+        /// Select all RefCodeItem from database.        
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>RefCodeItemDTOCollection</returns>
+        public OutcomeItemDTOCollection GetOutcomeItemCollection(int fc_id)
+        {
+            OutcomeItemDTOCollection results = new OutcomeItemDTOCollection();
+
+            var dbConnection = new SqlConnection(ConnectionString);
+            var command = new SqlCommand("hpf_get_outcome_item_list", dbConnection);
+            //<Parameter>            
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            //</Parameter>   
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    results = new OutcomeItemDTOCollection();
+                    while (reader.Read())
+                    {
+                        OutcomeItemDTO item = new OutcomeItemDTO();
+                        item.OutcomeItemId = ConvertToInt(reader["outcome_item_id"]);
+                        item.FcId = ConvertToInt(reader["fc_id"]);
+                        item.OutcomeTypeId = ConvertToInt(reader["outcome_type_id"]);
+                        item.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                        item.OutcomeDeletedDt = ConvertToDateTime(reader["outcome_deleted_dt"]);
+                        item.NonprofitreferralKeyNum = ConvertToString(reader["nonprofitreferral_key_num"]);
+                        item.ExtRefOtherName = ConvertToString(reader["ext_ref_other_name"]);
+                        results.Add(item);
+                    }
+                    reader.Close();
+                }
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return results;
         }   
     }
 }
