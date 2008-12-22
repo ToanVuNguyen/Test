@@ -111,10 +111,10 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
-        /// Select all RefCodeItem from database.        
+        /// Select all OutcomeItem from database by Fc_ID. 
         /// </summary>
         /// <param name=""></param>
-        /// <returns>RefCodeItemDTOCollection</returns>
+        /// <returns>OutcomeItemDTOCollection</returns>
         public OutcomeItemDTOCollection GetOutcomeItemCollection(int fc_id)
         {
             OutcomeItemDTOCollection results = new OutcomeItemDTOCollection();

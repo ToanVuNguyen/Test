@@ -122,6 +122,8 @@ namespace HPF.FutureState.BusinessLogic
         #endregion
 
         #region functions to serve SaveForeclosureCaseSet
+
+        #region Functions check min request validate
         /// <summary>
         /// Min request validate the fore closure case set
         /// 1: Min request validate of Fore Closure Case
@@ -245,6 +247,7 @@ namespace HPF.FutureState.BusinessLogic
                 return false;
             }
         }
+        #endregion
 
         /// <summary>
         /// Check ForeclosureCase Id is existed or not
@@ -415,31 +418,56 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         bool MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            throw new NotImplementedException();
+            bool case1 = CheckMiscErrorCase1(foreclosureCaseSet);
+            bool case2 = CheckMiscErrorCase2(foreclosureCaseSet);
+            if (!case1 && !case2)
+                return false;
+            else
+                return true;
+
         }
 
         /// <summary>
         /// Check Misc Error Exception
-        /// Case 1: Cannot Un-complete a Previously Completed Case
-        /// In this case, we must have completeDate
-        /// </summary>
-        private bool CheckMiscErrorCase1(ForeclosureCaseSetDTO foreclosureCaseSetInput, DateTime completeDate)
+        /// Case 1: Cannot Un-complete a Previously Completed Case        
+        /// </summary>        
+        private bool CheckMiscErrorCase1(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            if (completeDate != null)
+            ForeclosureCaseDTO fcCase = GetForeclosureCase(foreclosureCaseSetInput.ForeclosureCase.FcId);
+            //Check case if is copleted( have Completed Date)
+            if (fcCase != null && fcCase.CompletedDt != DateTime.MinValue)
             {
-                if (foreclosureCaseSetInput != null)
-                {
-                    ForeclosureCaseDTO foreclosureCase = foreclosureCaseSetInput.ForeclosureCase;
-                    CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
-                    bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Complete");
-                    bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
-                    if (rfForeclosureCase && rfCaseLoan)
-                        return false;
-                    else
-                        return true;
-                }
+                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSetInput.ForeclosureCase;
+                CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
+                bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Complete");
+                bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
+                if (rfForeclosureCase && rfCaseLoan)
+                    return false;
+                else
+                    return true;            
             }
             return false;
+        }
+
+        /// <summary>
+        /// Check Misc Error Exception
+        /// Case 2: Two First Mortgages Not Allowed in a Case         
+        /// </summary>
+        private bool CheckMiscErrorCase2(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        {
+            int count = 0;
+            CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
+            foreach (CaseLoanDTO item in caseLoan)
+            {
+                if (item.Loan1st2nd == "1st")
+                {
+                    count = count + 1;
+                }
+            }
+            if (count > 1)
+                return false;
+            else
+                return true;
         }
         #endregion
 
@@ -497,7 +525,34 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     foreach (OutcomeItemDTO items in outcomeCollecionNew)
                     {
-                        foreClosureCaseSetDAO.UpdateOutcomeItem(items, fcId);
+                        foreClosureCaseSetDAO.UpdateOutcomeItem(items);
+                    }
+                }
+                //Check for Delete Case Loan
+                CaseLoanDTOCollection caseLoanCollecionNew = CheckCaseLoanForDelete(caseLoanCollection, fcId);
+                if(caseLoanCollecionNew != null)
+                {
+                    foreach (CaseLoanDTO items in caseLoanCollecionNew)
+                    {
+                        foreClosureCaseSetDAO.DeleteCaseLoan(items);
+                    }
+                }
+                //Check for Update Case Loan
+                caseLoanCollecionNew = CheckCaseLoanForUpdate(caseLoanCollection, fcId);
+                if (caseLoanCollecionNew != null)
+                {
+                    foreach (CaseLoanDTO items in caseLoanCollecionNew)
+                    {
+                        foreClosureCaseSetDAO.UpdateCaseLoan(items);
+                    }
+                }
+                //Check for Insert Case Loan
+                caseLoanCollecionNew = CheckCaseLoanForInsert(caseLoanCollection, fcId);
+                if (caseLoanCollecionNew != null)
+                {
+                    foreach (CaseLoanDTO items in caseLoanCollecionNew)
+                    {
+                        foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
                     }
                 }
                 foreClosureCaseSetDAO.Commit();
@@ -655,7 +710,7 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion
 
-        #region Functions check for insert or update outcome
+        #region Functions check for insert or update Outcome Item
         /// <summary>        
         /// Check exist of outcome item input with DB
         /// If not exist add OutcomeItemDTOCollection
@@ -675,7 +730,8 @@ namespace HPF.FutureState.BusinessLogic
             //Compare OutcomeItem input with OutcomeItem DB
             foreach(OutcomeItemDTO itemInput in outcomeItemCollectionInput)
             {
-                if (!CheckOutcomeItemInput(itemInput, outcomeItemCollectionDB))
+                bool isChanged = CheckOutcomeItem(itemInput, outcomeItemCollectionDB);
+                if (!isChanged)
                 {
                     outcomeItemNew.Add(itemInput);                 
                 }
@@ -703,7 +759,8 @@ namespace HPF.FutureState.BusinessLogic
             //Compare OutcomeItem input with OutcomeItem DB
             foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
             {
-                if (!CheckOutcomeItemDB(itemDB, outcomeItemCollectionInput))
+                bool isDeleted = CheckOutcomeItem(itemDB, outcomeItemCollectionInput);
+                if (!isDeleted)
                 {
                     itemDB.OutcomeDeletedDt = DateTime.Now;
                     outcomeItemNew.Add(itemDB);
@@ -716,30 +773,128 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private bool CheckOutcomeItemInput(OutcomeItemDTO itemInput, OutcomeItemDTOCollection itemCollectionDB)
+        private bool CheckOutcomeItem(OutcomeItemDTO outcomeItem, OutcomeItemDTOCollection itemCollection)
         {
-            foreach (OutcomeItemDTO itemDB in itemCollectionDB)
+            foreach (OutcomeItemDTO item in itemCollection)
             {
-                if (itemInput.OutcomeTypeId == itemDB.OutcomeTypeId
-                    && itemInput.OutcomeDt == itemDB.OutcomeDt
-                    && itemInput.NonprofitreferralKeyNum == itemDB.NonprofitreferralKeyNum
-                    && itemInput.ExtRefOtherName == itemDB.ExtRefOtherName)
+                if (outcomeItem.OutcomeTypeId == item.OutcomeTypeId
+                    && outcomeItem.OutcomeDt == item.OutcomeDt
+                    && outcomeItem.NonprofitreferralKeyNum == item.NonprofitreferralKeyNum
+                    && outcomeItem.ExtRefOtherName == item.ExtRefOtherName)
+                    return true;
+            }
+            return false;
+        }
+       
+        #endregion
+
+        #region Functions check for update Case Loan
+        // <summary>                
+        /// </summary>
+        /// <param name>CaseLoanDTO, caseLoanCollection</param>
+        /// <returns>bool</returns>
+        private bool CheckCaseLoan(CaseLoanDTO caseLoan, CaseLoanDTOCollection caseLoanCollection)
+        {
+            foreach (CaseLoanDTO item in caseLoanCollection)
+            {
+                if (caseLoan.FcId == item.FcId
+                    && caseLoan.ServicerId == item.ServicerId
+                    && caseLoan.AcctNum == item.AcctNum)
                     return true;
             }
             return false;
         }
 
-        private bool CheckOutcomeItemDB(OutcomeItemDTO itemDB, OutcomeItemDTOCollection itemCollectionInput)
+        private bool CheckCaseLoanUpdate(CaseLoanDTO caseLoan, CaseLoanDTOCollection caseLoanCollection)
         {
-            foreach (OutcomeItemDTO itemInput in itemCollectionInput)
+            foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (itemDB.OutcomeTypeId == itemInput.OutcomeTypeId
-                    && itemDB.OutcomeDt == itemInput.OutcomeDt
-                    && itemDB.NonprofitreferralKeyNum == itemInput.NonprofitreferralKeyNum
-                    && itemDB.ExtRefOtherName == itemInput.ExtRefOtherName)
-                    return true;
+                if (caseLoan.FcId == item.FcId && caseLoan.ServicerId == item.ServicerId && caseLoan.AcctNum == item.AcctNum)
+                {
+                    if (caseLoan.OtherServicerName != item.OtherServicerName
+                        || caseLoan.Loan1st2nd != item.Loan1st2nd
+                        || caseLoan.MortgageTypeCd != item.MortgageTypeCd
+                        || caseLoan.ArmLoanInd != item.ArmLoanInd
+                        || caseLoan.ArmResetInd != item.ArmResetInd
+                        || caseLoan.TermLengthCd != item.TermLengthCd
+                        || caseLoan.LoanDelinqStatusCd != item.LoanDelinqStatusCd
+                        || caseLoan.CurrentLoanBalanceAmt != item.CurrentLoanBalanceAmt
+                        || caseLoan.OrigLoanAmt != item.OrigLoanAmt
+                        || caseLoan.InterestRate != item.InterestRate
+                        || caseLoan.OriginatingLenderName != item.OriginatingLenderName
+                        || caseLoan.OrigMortgageCoFdicNcusNum != item.OrigMortgageCoFdicNcusNum
+                        || caseLoan.OrigMortgageCoName != item.OrigMortgageCoName
+                        || caseLoan.OrginalLoanNum != item.OrginalLoanNum
+                        || caseLoan.FdicNcusNumCurrentServicerTbd != item.FdicNcusNumCurrentServicerTbd
+                        || caseLoan.CurrentServicerNameTbd != item.CurrentServicerNameTbd
+                        || caseLoan.FreddieLoanNum != item.FreddieLoanNum
+                        )
+                        return false;
+                }                
             }
-            return false;
+            return true;
+        }
+
+        private CaseLoanDTOCollection CheckCaseLoanForInsert(CaseLoanDTOCollection caseLoanCollection, int fc_id)
+        {
+            CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
+            CaseLoanDTOCollection caseLoanCollectionDB = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
+            if (caseLoanCollectionDB == null)
+            {
+                caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fc_id);
+                HPFCacheManager.Instance.Add("caseLoanItem", caseLoanCollectionDB);
+            }
+            //Compare CAseLoanItem input with Case Loan DB
+            foreach (CaseLoanDTO itemInput in caseLoanCollection)
+            {
+                bool isChanged = CheckCaseLoan(itemInput, caseLoanCollectionDB);
+                if (!isChanged)
+                {
+                    caseLoanNew.Add(itemInput);
+                }
+            }
+            return caseLoanNew;   
+        }
+
+        private CaseLoanDTOCollection CheckCaseLoanForDelete(CaseLoanDTOCollection caseLoanCollection, int fc_id)
+        {
+            CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
+            CaseLoanDTOCollection caseLoanCollectionDB = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
+            if (caseLoanCollectionDB == null)
+            {
+                caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fc_id);
+                HPFCacheManager.Instance.Add("caseLoanItem", caseLoanCollectionDB);
+            }
+            //Compare CAseLoanItem input with Case Loan DB
+            foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
+            {
+                bool isChanged = CheckCaseLoan(itemDB, caseLoanCollection);
+                if (!isChanged)
+                {
+                    caseLoanNew.Add(itemDB);
+                }
+            }
+            return caseLoanNew;   
+        }
+
+        private CaseLoanDTOCollection CheckCaseLoanForUpdate(CaseLoanDTOCollection caseLoanCollection, int fc_id)
+        {
+            CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
+            CaseLoanDTOCollection caseLoanCollectionDB = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
+            if (caseLoanCollectionDB == null)
+            {
+                caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fc_id);
+                HPFCacheManager.Instance.Add("caseLoanItem", caseLoanCollectionDB);
+            }
+            foreach (CaseLoanDTO item in caseLoanCollection)
+            {
+                bool isChanged = CheckCaseLoanUpdate(item, caseLoanCollectionDB);
+                if (!isChanged)
+                {
+                    caseLoanNew.Add(item);
+                }
+            }
+            return caseLoanNew;
         }
         #endregion
 

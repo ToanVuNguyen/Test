@@ -384,12 +384,12 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="caseLoan">CaseLoanDTO</param>
         /// <returns></returns>
-        public void InsertCaseLoan(CaseLoanDTO caseLoan, int fc_id)
+        public void InsertCaseLoan(CaseLoanDTO caseLoan, int fcId)
         {            
             var command = new SqlCommand("hpf_case_loan_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[20];
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[0] = new SqlParameter("@fc_id", fcId);
             sqlParam[1] = new SqlParameter("@servicer_id", caseLoan.ServicerId);
             sqlParam[2] = new SqlParameter("@other_servicer_name", caseLoan.OtherServicerName);
             sqlParam[3] = new SqlParameter("@acct_num", caseLoan.AcctNum);
@@ -424,16 +424,87 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// Insert a Case Loan to database.
+        /// </summary>
+        /// <param name="caseLoan">CaseLoanDTO</param>
+        /// <returns></returns>
+        public void UpdateCaseLoan(CaseLoanDTO caseLoan)
+        {
+            var command = new SqlCommand("hpf_case_loan_update", this.dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[20];
+            sqlParam[0] = new SqlParameter("@fc_id", caseLoan.FcId);
+            sqlParam[1] = new SqlParameter("@servicer_id", caseLoan.ServicerId);
+            sqlParam[2] = new SqlParameter("@other_servicer_name", caseLoan.OtherServicerName);
+            sqlParam[3] = new SqlParameter("@acct_num", caseLoan.AcctNum);
+            sqlParam[4] = new SqlParameter("@loan_1st_2nd_cd", caseLoan.Loan1st2nd);
+            sqlParam[5] = new SqlParameter("@mortgage_type_cd", caseLoan.MortgageTypeCd);
+            sqlParam[6] = new SqlParameter("@arm_loan_ind", caseLoan.ArmLoanInd);
+            sqlParam[7] = new SqlParameter("@arm_reset_ind", caseLoan.ArmResetInd);
+            sqlParam[8] = new SqlParameter("@term_length_cd", caseLoan.TermLengthCd);
+            sqlParam[9] = new SqlParameter("@loan_delinq_status_cd", caseLoan.LoanDelinqStatusCd);
+            sqlParam[10] = new SqlParameter("@current_loan_balance_amt", caseLoan.CurrentLoanBalanceAmt);
+            sqlParam[11] = new SqlParameter("@orig_loan_amt", caseLoan.OrigLoanAmt);
+            sqlParam[12] = new SqlParameter("@interest_rate", caseLoan.InterestRate);
+            sqlParam[13] = new SqlParameter("@Originating_Lender_Name", caseLoan.OriginatingLenderName);
+            sqlParam[14] = new SqlParameter("@orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
+            sqlParam[15] = new SqlParameter("@Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
+            sqlParam[16] = new SqlParameter("@Orginal_Loan_Num", caseLoan.OrginalLoanNum);
+            sqlParam[17] = new SqlParameter("@FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
+            sqlParam[18] = new SqlParameter("@Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
+            sqlParam[19] = new SqlParameter("@freddie_loan_num", caseLoan.FreddieLoanNum);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Transaction = this.trans;
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        }
+
+        /// <summary>
+        /// delete a Case Loan to database.
+        /// </summary>
+        /// <param name="caseLoan">CaseLoanDTO</param>
+        /// <returns></returns>
+        public void DeleteCaseLoan(CaseLoanDTO caseLoan)
+        {            
+            var command = new SqlCommand("hpf_case_loan_delete", this.dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[3];
+            sqlParam[0] = new SqlParameter("@fc_id", caseLoan.FcId);
+            sqlParam[1] = new SqlParameter("@servicer_id", caseLoan.ServicerId);
+            sqlParam[2] = new SqlParameter("@acct_num", caseLoan.AcctNum);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;            
+            command.Transaction = this.trans;
+            try
+            {
+                command.ExecuteNonQuery();                
+            }
+            catch (Exception Ex)
+            {                
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }            
+        }
+
+        /// <summary>
         /// Insert a Outcome Item to database.
         /// </summary>
         /// <param name="outComeItem">OutcomeItemDTO</param>
         /// <returns></returns>
-        public void InsertOutcomeItem(OutcomeItemDTO outComeItem, int fc_id)
+        public void InsertOutcomeItem(OutcomeItemDTO outComeItem, int fcId)
         {            
             var command = new SqlCommand("hpf_outcome_item_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];            
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[0] = new SqlParameter("@fc_id", fcId);
             sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
             sqlParam[2] = new SqlParameter("@outcome_dt", NullableDateTime(outComeItem.OutcomeDt));
             sqlParam[3] = new SqlParameter("@outcome_deleted_dt",NullableDateTime(outComeItem.OutcomeDeletedDt));
@@ -459,12 +530,12 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetSet">BudgetSetDTO</param>
         /// <returns></returns>
-        public int InsertBudgetSet(BudgetSetDTO budgetSet, int fc_id)
+        public int InsertBudgetSet(BudgetSetDTO budgetSet, int fcId)
         {
             var command = new SqlCommand("hpf_budget_set_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[0] = new SqlParameter("@fc_id", fcId);
             sqlParam[1] = new SqlParameter("@total_income", budgetSet.TotalIncome);
             sqlParam[2] = new SqlParameter("@total_expenses", budgetSet.TotalExpenses);
             sqlParam[3] = new SqlParameter("@total_assets", budgetSet.TotalAssets);
@@ -682,13 +753,13 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="outComeItem">OutcomeItemDTO</param>
         /// <returns></returns>
-        public void UpdateOutcomeItem(OutcomeItemDTO outComeItem, int fc_id)
+        public void UpdateOutcomeItem(OutcomeItemDTO outComeItem)
         {
             var command = new SqlCommand("hpf_outcome_item_update", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[7];
             sqlParam[0] = new SqlParameter("@outcome_item_id", outComeItem.OutcomeItemId );
-            sqlParam[1] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[1] = new SqlParameter("@fc_id", outComeItem.FcId);
             sqlParam[2] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
             sqlParam[3] = new SqlParameter("@outcome_dt", NullableDateTime(outComeItem.OutcomeDt));
             sqlParam[4] = new SqlParameter("@outcome_deleted_dt", NullableDateTime(outComeItem.OutcomeDeletedDt));
@@ -819,14 +890,14 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of current FC_Case</param>       
         /// <returns>true if another FC_Case with the same acct_num and servicer_id exists in db, otherwise false</returns>
-        public bool CheckDuplicate(int fc_id)
+        public bool CheckDuplicate(int fcId)
         {
             bool returnValue = true;
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];            
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[0] = new SqlParameter("@fc_id", fcId);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
