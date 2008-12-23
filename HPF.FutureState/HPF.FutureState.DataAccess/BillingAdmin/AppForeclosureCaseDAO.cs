@@ -15,11 +15,16 @@ namespace HPF.FutureState.DataAccess.BillingAdmin
         {
             return new AppForeclosureCaseDAO();
         }
+        /// <summary>
+        /// Search ForeclosureCase
+        /// </summary>
+        /// <param name="searchCriteria">Criteria to search</param>
+        /// <returns>Search Result</returns>
         public AppForeclosureCaseSearchResult AppSearchForeclosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         { 
             AppForeclosureCaseSearchResult results = new AppForeclosureCaseSearchResult();
             var dbConnection = CreateConnection();
-            var command = new SqlCommand("hpf_app_foreclosure_case_search", dbConnection);
+            var command = new SqlCommand("hpf_foreclosure_case_search_app", dbConnection);
 
             var sqlParam = new SqlParameter[11];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
@@ -83,7 +88,33 @@ namespace HPF.FutureState.DataAccess.BillingAdmin
             }
 
             return results;
-            
+        }
+        /// <summary>
+        /// Get ID and Name from table Program to bind on DDLB
+        /// </summary>
+        /// <returns>DataSet contains all Program id and Program Name</returns>
+        public DataSet AppGetProgram()
+        {
+            DataSet result = new DataSet();
+            var dbConnection = CreateConnection();
+            var command = new SqlCommand("hpf_program_get", dbConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = dbConnection;
+            try
+            {
+                dbConnection.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(result);
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
         }
     }
 }
