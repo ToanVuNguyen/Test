@@ -124,7 +124,7 @@ namespace HPF.FutureState.DataAccess
             {
                 return obj.ToString();
             }
-            return string.Empty;
+            return null;
         }
 
         /// <summary>

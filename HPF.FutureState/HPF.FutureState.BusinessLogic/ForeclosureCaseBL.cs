@@ -6,6 +6,7 @@ using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
 using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Common;
@@ -307,36 +308,53 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null && foreclosureCaseSet.CaseLoans != null
-                // Check valid code for ForeclosureCase
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.IncomeEarnersCd, CodeConstants.INCOME_EARNERS_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.CaseSourceCd, CodeConstants.CASE_RESOURCE_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.RaceCd, CodeConstants.RACE_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.HouseholdCd, CodeConstants.HOUSEHOLD_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.NeverBillReasonCd, CodeConstants.NEVER_BILL_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.NeverPayReasonCd, CodeConstants.NEVER_PAY_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.DfltReason1stCd, CodeConstants.DEFAULT_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.DfltReason2ndCd, CodeConstants.DEFAULT_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.HudTerminationReasonCd, CodeConstants.HUD_TERMINATION_REASON_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.HudOutcomeCd, CodeConstants.HUD_OUTCOME_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.CounselingDurationCd, CodeConstants.COUNSELING_DURARION_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.GenderCd, CodeConstants.GENDER_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.ContactStateCd, CodeConstants.CONTACT_STATE_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.CaseSourceCd, CodeConstants.PROP_STATE_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerEducLevelCompletedCd, CodeConstants.BORROWER_EDUC_LEVEL_COMPLETED_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerMaritalStatusCd, CodeConstants.BORROWER_MARITAL_STATUS_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerPreferredLangCd, CodeConstants.BORROWER_PREFERRED_LANG_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.BorrowerOccupationCd, CodeConstants.BORROWER_OCCUPATION_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.CoBorrowerOccupationCd, CodeConstants.CO_BORROWER_OCCUPATION_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd, CodeConstants.SUMMARY_SENT_OTHER_CD)
-                && CheckCode(foreclosureCaseSet.ForeclosureCase.MilitaryServiceCd, CodeConstants.MILITARY_SERVICE_CD)
-                // Check valid code for Case Loan
-                && CheckValidCodeForCaseLoan(foreclosureCaseSet.CaseLoans)
-            )
+            //ReferenceCodeValidatorBL referenceCode = null;
+            if(foreclosureCaseSet != null)
             {
-                return true;
+                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+                CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
+                bool forclosureValid = CheckValidCodeForForclosureCase(foreclosureCase);
+                bool caseLoanValid = CheckValidCodeForCaseLoan(caseLoanCollection);
+                if (forclosureValid && caseLoanValid)
+                    return true;
             }
-            return false;
+            return false;           
+        }
+
+        /// <summary>
+        /// Check valid code for forclosu Case
+        /// <input>Foreclosurecase</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidCodeForForclosureCase(ForeclosureCaseDTO forclosureCase)
+        {
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            if (referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd)
+                && referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd)
+                && referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd)
+                && referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd)
+                && referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd)
+                && referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd)
+                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd)
+                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd)
+                && referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd)
+                && referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd)
+                && referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd)
+                && referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd)
+                && referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd)
+                && referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd)
+                && referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd)
+                && referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd)
+                && referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd)
+                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd)
+                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd)
+                && referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd)
+                && referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd)
+                )            
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -346,17 +364,19 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckValidCodeForCaseLoan(CaseLoanDTOCollection caseLoanCollection)
         {
-            foreach (CaseLoanDTO caseLoanDTO in caseLoanCollection)
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            foreach (CaseLoanDTO caseLoan in caseLoanCollection)
             {
-                if (!CheckCode(caseLoanDTO.MortgageTypeCd, CodeConstants.MORTGAGE_TYPE_CD)
-                     || !CheckCode(caseLoanDTO.TermLengthCd, CodeConstants.TERM_LENGTH_CD)
-                     || !CheckCode(caseLoanDTO.LoanDelinqStatusCd, CodeConstants.LOAN_DELINQUENCY_STATUS_CD)
+                if(
+                    referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd)
+                    && referenceCode.Validate(ReferenceCode.TermLengthCode,caseLoan.TermLengthCd)
+                    && referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd) 
                     )
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -367,7 +387,7 @@ namespace HPF.FutureState.BusinessLogic
         
         private bool CheckCode(string codeValue, string codeName)
         {
-            RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();            
+            RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
             if (codeValue == string.Empty || codeValue == null)
             {
                 return true;
