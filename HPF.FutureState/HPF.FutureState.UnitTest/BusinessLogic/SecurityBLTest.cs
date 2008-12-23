@@ -45,15 +45,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //try
             //{
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-
-            var command = new SqlCommand("insert into ws_user(login_username, login_password) values('utest_user2', 'utest_user2')", dbConnection);
+            string now = System.DateTime.Now.ToString();
+            var command = new SqlCommand("insert into agency(agency_name, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
+                                            "values('utest_agency1','" + now + "',1,'utest','" + now + "',1, 'utest'" + ")", dbConnection);
             dbConnection.Open();
             command.ExecuteNonQuery();
-            command.CommandText = "insert into call_center(call_center_name) values('utest_callcenter1')";
-            command.ExecuteNonQuery();
-            command.CommandText = "insert into agency(agency_name) values('utest_agency1')";
-            command.ExecuteNonQuery();
-            command.CommandText = "insert into ws_user(login_username, login_password, agency_id) values('utest_user2', 'utest_user2', '" + getAgencyID("utest_agency1") + "')";
+            //command.CommandText = "insert into call_center(call_center_name) values('utest_callcenter1')";
+            //command.ExecuteNonQuery();
+            //command.CommandText = "insert into agency(agency_name) values('utest_agency1')";
+            //command.ExecuteNonQuery();
+            command.CommandText = "insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name, agency_id)" +
+                                            "values('utest_user2', 'utest_user2','" + now + "',1,'utest','" + now + "',1, 'utest','" + getAgencyID("utest_agency1") + "')";
+
             command.ExecuteNonQuery();
             dbConnection.Close();
             //}
@@ -74,8 +77,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             command.ExecuteNonQuery();
             command.CommandText = "delete from agency where agency_name = 'utest_agency1'";
             command.ExecuteNonQuery();
-            command.CommandText ="delete from call_center where call_center_name = 'utest_callcenter1'";
-            command.ExecuteNonQuery();
+            //command.CommandText ="delete from call_center where call_center_name = 'utest_callcenter1'";
+            //command.ExecuteNonQuery();
             dbConnection.Close();
         }
 
