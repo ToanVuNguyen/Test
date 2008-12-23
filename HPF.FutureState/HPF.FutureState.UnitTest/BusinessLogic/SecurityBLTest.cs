@@ -54,9 +54,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //command.ExecuteNonQuery();
             //command.CommandText = "insert into agency(agency_name) values('utest_agency1')";
             //command.ExecuteNonQuery();
-            command.CommandText = "insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name, agency_id)" +
-                                            "values('utest_user2', 'utest_user2','" + now + "',1,'utest','" + now + "',1, 'utest','" + getAgencyID("utest_agency1") + "')";
+            command.CommandText = "insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name, agency_id, active_ind)" +
+                                            "values('utest_user2', 'utest_user2','" + now + "',1,'utest','" + now + "',1, 'utest','" + getAgencyID("utest_agency1") + "','Y')";
 
+            command.ExecuteNonQuery();
+            command.CommandText = "insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name, agency_id, active_ind)" +
+                                            "values('utest_user2_1', 'utest_user2_1','" + now + "',1,'utest','" + now + "',1, 'utest','" + getAgencyID("utest_agency1") + "','N')";
+            command.ExecuteNonQuery();
+            command.CommandText = "insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name, agency_id)" +
+                                            "values('utest_user2_2', 'utest_user2_2','" + now + "',1,'utest','" + now + "',1, 'utest','" + getAgencyID("utest_agency1") + "')";           
             command.ExecuteNonQuery();
             dbConnection.Close();
             //}
@@ -72,7 +78,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public static void CleanupTest()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand("delete from ws_user where login_username = 'utest_user2'", dbConnection);
+            var command = new SqlCommand("delete from ws_user where login_username like 'utest_user2%'", dbConnection);
             dbConnection.Open();
             command.ExecuteNonQuery();
             command.CommandText = "delete from agency where agency_name = 'utest_agency1'";
@@ -128,6 +134,40 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             bool actual;
             actual = target.WSUserLogin(userName, password, wsType);
             Assert.AreEqual(expected, actual);            
+        }
+       
+        /// <summary>
+        /// login fail with inactive user
+        /// </summary>
+        [TestMethod()]
+        public void WSUserLoginInactiveTest()
+        {
+            SecurityBL_Accessor target = new SecurityBL_Accessor();
+            string userName = "utest_user2_1";
+            string password = "utest_user2_1";
+            WSType wsType = WSType.Agency;
+
+            bool expected = false;
+            bool actual;
+            actual = target.WSUserLogin(userName, password, wsType);
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// login fail with inactive user. null value active_ind
+        /// </summary>
+        [TestMethod()]
+        public void WSUserLoginInactive2Test()
+        {
+            SecurityBL_Accessor target = new SecurityBL_Accessor();
+            string userName = "utest_user2_2";
+            string password = "utest_user2_2";
+            WSType wsType = WSType.Agency;
+
+            bool expected = false;
+            bool actual;
+            actual = target.WSUserLogin(userName, password, wsType);
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>
