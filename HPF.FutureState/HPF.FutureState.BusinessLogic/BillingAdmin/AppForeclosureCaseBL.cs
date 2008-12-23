@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HPF.FutureState.Common.DataTransferObjects.BillingAdmin;
 using HPF.FutureState.DataAccess.BillingAdmin;
+using System.Data;
 
 namespace HPF.FutureState.BusinessLogic.BillingAdmin
 {
@@ -29,6 +30,15 @@ namespace HPF.FutureState.BusinessLogic.BillingAdmin
         public AppForeclosureCaseSearchResult AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             AppForeclosureCaseSearchResult result = AppForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
+            return result;
+        }
+        /// <summary>
+        /// Get Program Name and Program ID to display in DDLB
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetProgram()
+        {
+            DataSet result = AppForeclosureCaseDAO.CreateInstance().AppGetProgram();
             return result;
         }
     }
