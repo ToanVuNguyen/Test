@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C707A0BC-1832-46D4-A9BF-3B38B09625EF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBusinessLogic.cs" />
+    <Compile Include="BillingAdmin\AppForeclosureCaseBL.cs" />
     <Compile Include="CallLogBL.cs" />
     <Compile Include="CodeConstants.cs" />
     <Compile Include="RefCodeItemBL.cs" />
