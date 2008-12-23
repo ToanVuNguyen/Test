@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{571F09A2-386F-42DD-9E7E-B58F8983E368}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -68,6 +68,8 @@
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
     <Compile Include="DataTransferObjects\BaseDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BillingAdmin\AppForeclosureCaseSearchCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\BillingAdmin\AppForeclosureCaseSearchResult.cs" />
     <Compile Include="DataTransferObjects\BudgetAssetDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetAssetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetItemDTO.cs" />
