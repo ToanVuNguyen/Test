@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 namespace HPF.FutureState.DataAccess
@@ -31,18 +32,18 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="outComeItem">OutcomeItemDTO</param>
         /// <returns></returns>
-        public void InsertOutcomeItem(OutcomeItemDTO outComeItem)
+        public void InsertOutcomeItem(OutcomeItemDTO outcomeItem)
         { 
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@fc_id", outComeItem.OutcomeSetId);
-            sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
-            sqlParam[2] = new SqlParameter("@outcome_dt", outComeItem.OutcomeDt);
-            sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outComeItem.OutcomeDeletedDt);
-            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outComeItem.NonprofitreferralKeyNum);
-            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outComeItem.ExtRefOtherName);
+            sqlParam[0] = new SqlParameter("@fc_id", outcomeItem.OutcomeSetId);
+            sqlParam[1] = new SqlParameter("@outcome_type_id", outcomeItem.OutcomeTypeId);
+            sqlParam[2] = new SqlParameter("@outcome_dt", outcomeItem.OutcomeDt);
+            sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outcomeItem.OutcomeDeletedDt);
+            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outcomeItem.NonprofitreferralKeyNum);
+            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outcomeItem.ExtRefOtherName);
 
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
@@ -73,19 +74,19 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="outComeItem">OutcomeItemDTO</param>
         /// <returns></returns>
-        public void UpdateOutcomeItem(OutcomeItemDTO outComeItem)
+        public void UpdateOutcomeItem(OutcomeItemDTO outcomeItem)
         {   
             var dbConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[7];
-            sqlParam[0] = new SqlParameter("@fc_id", outComeItem.OutcomeSetId);
-            sqlParam[1] = new SqlParameter("@outcome_type_id", outComeItem.OutcomeTypeId);
-            sqlParam[2] = new SqlParameter("@outcome_dt", outComeItem.OutcomeDt);
-            sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outComeItem.OutcomeDeletedDt);
-            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outComeItem.NonprofitreferralKeyNum);
-            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outComeItem.ExtRefOtherName);
-            sqlParam[6] = new SqlParameter("@outcome_item_id", outComeItem.OutcomeItemId);
+            sqlParam[0] = new SqlParameter("@fc_id", outcomeItem.OutcomeSetId);
+            sqlParam[1] = new SqlParameter("@outcome_type_id", outcomeItem.OutcomeTypeId);
+            sqlParam[2] = new SqlParameter("@outcome_dt", outcomeItem.OutcomeDt);
+            sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outcomeItem.OutcomeDeletedDt);
+            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outcomeItem.NonprofitreferralKeyNum);
+            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outcomeItem.ExtRefOtherName);
+            sqlParam[6] = new SqlParameter("@outcome_item_id", outcomeItem.OutcomeItemId);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
@@ -115,44 +116,47 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name=""></param>
         /// <returns>OutcomeItemDTOCollection</returns>
-        public OutcomeItemDTOCollection GetOutcomeItemCollection(int fc_id)
-        {
-            OutcomeItemDTOCollection results = new OutcomeItemDTOCollection();
-
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_get_outcome_item_list", dbConnection);
-            //<Parameter>            
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
-            //</Parameter>   
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            try
+        public OutcomeItemDTOCollection GetOutcomeItemCollection(int fcId)
+        {            
+            OutcomeItemDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
+            if (results == null)
             {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
+                var dbConnection = new SqlConnection(ConnectionString);
+                var command = new SqlCommand("hpf_get_outcome_item_list", dbConnection);
+                //<Parameter>            
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@fc_id", fcId);
+                //</Parameter>   
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                try
                 {
-                    results = new OutcomeItemDTOCollection();
-                    while (reader.Read())
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        OutcomeItemDTO item = new OutcomeItemDTO();
-                        item.OutcomeItemId = ConvertToInt(reader["outcome_item_id"]);
-                        item.FcId = ConvertToInt(reader["fc_id"]);
-                        item.OutcomeTypeId = ConvertToInt(reader["outcome_type_id"]);
-                        item.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
-                        item.OutcomeDeletedDt = ConvertToDateTime(reader["outcome_deleted_dt"]);
-                        item.NonprofitreferralKeyNum = ConvertToString(reader["nonprofitreferral_key_num"]);
-                        item.ExtRefOtherName = ConvertToString(reader["ext_ref_other_name"]);
-                        results.Add(item);
+                        results = new OutcomeItemDTOCollection();
+                        while (reader.Read())
+                        {
+                            OutcomeItemDTO item = new OutcomeItemDTO();
+                            item.OutcomeItemId = ConvertToInt(reader["outcome_item_id"]);
+                            item.FcId = ConvertToInt(reader["fc_id"]);
+                            item.OutcomeTypeId = ConvertToInt(reader["outcome_type_id"]);
+                            item.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                            item.OutcomeDeletedDt = ConvertToDateTime(reader["outcome_deleted_dt"]);
+                            item.NonprofitreferralKeyNum = ConvertToString(reader["nonprofitreferral_key_num"]);
+                            item.ExtRefOtherName = ConvertToString(reader["ext_ref_other_name"]);
+                            results.Add(item);
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
+                    dbConnection.Close();
+                    HPFCacheManager.Instance.Add("outcomeItem", results);
                 }
-                dbConnection.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+                catch (Exception Ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+                }
             }
             return results;
         }   

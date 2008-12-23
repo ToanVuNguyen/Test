@@ -92,12 +92,16 @@ namespace HPF.FutureState.WebServices
                 {
                     CallLogWSDTO callLogWSDTO = null;
                     CallLogDTO callLogDTO = null;
-                    var callLogId = int.MinValue;
-                    if (request.callLogId != string.Empty)
+                    var callLogId = ValidateCallLogID(request);
+                    if (callLogId != int.MinValue)
                     {
-                        callLogId = Convert.ToInt32(request.callLogId);                        
+                        callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
                     }
-                    callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
+                    else
+                    {
+                        response.Messages.AddExceptionMessage(0, "No data found");
+                        response.Status = ResponseStatus.Warning;
+                    }
                     //
                     if (callLogDTO != null)
                     {
@@ -107,6 +111,7 @@ namespace HPF.FutureState.WebServices
                     }
                     else
                     {
+                        response.Messages.AddExceptionMessage(0, "No data found");
                         response.Status = ResponseStatus.Warning;
                     }
                 }
@@ -135,6 +140,16 @@ namespace HPF.FutureState.WebServices
                 ExceptionProcessor.HandleException(Ex);
             }
             return response;
+        }
+
+        private static int ValidateCallLogID(CallLogRetrieveRequest request)
+        {
+            var callLogId = int.MinValue;
+            if (request.callLogId != string.Empty)
+            {
+                callLogId = Convert.ToInt32(request.callLogId);
+            }
+            return callLogId;
         }
 
     }

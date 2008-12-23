@@ -8,7 +8,6 @@ using HPF.FutureState.DataAccess;
 using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
-
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 
@@ -365,14 +364,10 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>string, string</input>
         /// <return>bool<return>
         /// </summary>
+        
         private bool CheckCode(string codeValue, string codeName)
         {
-            RefCodeItemDTOCollection refCodeItemCollection = HPFCacheManager.Instance.GetData<RefCodeItemDTOCollection>("refCodeItem");            
-            if (refCodeItemCollection == null)
-            {
-                refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
-                HPFCacheManager.Instance.Add("refCodeItem", refCodeItemCollection);
-            } 
+            RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();            
             if (codeValue == string.Empty || codeValue == null)
             {
                 return true;
@@ -626,9 +621,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetItemDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollectionInput, int fc_id)
-        {            
-            BudgetItemDTOCollection budgetCollectionDB = BudgetItemDAO.Instance.GetBudgetSet(fc_id);
+        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollectionInput, int fcId)
+        {
+            BudgetItemDTOCollection budgetCollectionDB = BudgetItemDAO.Instance.GetBudgetSet(fcId);
             if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
                 foreach (BudgetItemDTO budgetItem in budgetCollectionInput)
@@ -664,9 +659,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollectionInput, int fc_id)
-        {            
-            BudgetAssetDTOCollection budgetCollectionDB = BudgetAssetDAO.Instance.GetBudgetSet(fc_id);
+        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollectionInput, int fcId)
+        {
+            BudgetAssetDTOCollection budgetCollectionDB = BudgetAssetDAO.Instance.GetBudgetSet(fcId);
             if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
                 foreach (BudgetAssetDTO budgetAssetInput in budgetCollectionInput)
@@ -699,10 +694,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection,BudgetAssetDTOCollection, fc_id </param>
         /// <returns>true: if have difference</returns>
-        private bool IsInsertBudgetSet(BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fc_id)
+        private bool IsInsertBudgetSet(BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
         {
-            bool budgetItem = IsBudgetItemsDifference(budgetItemCollection, fc_id);
-            bool budgetAsset = IsBudgetAssetDifference( budgetAssetCollection, fc_id);
+            bool budgetItem = IsBudgetItemsDifference(budgetItemCollection, fcId);
+            bool budgetAsset = IsBudgetAssetDifference(budgetAssetCollection, fcId);
             if (budgetItem || budgetItem)
                 return true;
             else
@@ -718,15 +713,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(OutcomeItemDTOCollection outcomeItemCollectionInput, int fc_id)
+        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
-            OutcomeItemDTOCollection outcomeItemCollectionDB = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
-            if (outcomeItemCollectionDB == null)
-            {
-                outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fc_id);
-                HPFCacheManager.Instance.Add("outcomeItem", outcomeItemCollectionDB);
-            }    
+            OutcomeItemDTOCollection outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fcId);
             //Compare OutcomeItem input with OutcomeItem DB
             foreach(OutcomeItemDTO itemInput in outcomeItemCollectionInput)
             {
@@ -747,15 +737,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(OutcomeItemDTOCollection outcomeItemCollectionInput, int fc_id)
+        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
-            OutcomeItemDTOCollection outcomeItemCollectionDB = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
-            if (outcomeItemCollectionDB == null)
-            {
-                outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fc_id);
-                HPFCacheManager.Instance.Add("outcomeItem", outcomeItemCollectionDB);
-            }             
+            OutcomeItemDTOCollection outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fcId);            
             //Compare OutcomeItem input with OutcomeItem DB
             foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
             {
@@ -835,15 +820,10 @@ namespace HPF.FutureState.BusinessLogic
             return true;
         }
 
-        private CaseLoanDTOCollection CheckCaseLoanForInsert(CaseLoanDTOCollection caseLoanCollection, int fc_id)
+        private CaseLoanDTOCollection CheckCaseLoanForInsert(CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            CaseLoanDTOCollection caseLoanCollectionDB = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
-            if (caseLoanCollectionDB == null)
-            {
-                caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fc_id);
-                HPFCacheManager.Instance.Add("caseLoanItem", caseLoanCollectionDB);
-            }
+            CaseLoanDTOCollection caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fcId);            
             //Compare CAseLoanItem input with Case Loan DB
             foreach (CaseLoanDTO itemInput in caseLoanCollection)
             {
@@ -856,15 +836,10 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;   
         }
 
-        private CaseLoanDTOCollection CheckCaseLoanForDelete(CaseLoanDTOCollection caseLoanCollection, int fc_id)
+        private CaseLoanDTOCollection CheckCaseLoanForDelete(CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            CaseLoanDTOCollection caseLoanCollectionDB = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
-            if (caseLoanCollectionDB == null)
-            {
-                caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fc_id);
-                HPFCacheManager.Instance.Add("caseLoanItem", caseLoanCollectionDB);
-            }
+            CaseLoanDTOCollection caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fcId);
             //Compare CAseLoanItem input with Case Loan DB
             foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
             {
@@ -877,15 +852,10 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;   
         }
 
-        private CaseLoanDTOCollection CheckCaseLoanForUpdate(CaseLoanDTOCollection caseLoanCollection, int fc_id)
+        private CaseLoanDTOCollection CheckCaseLoanForUpdate(CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            CaseLoanDTOCollection caseLoanCollectionDB = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
-            if (caseLoanCollectionDB == null)
-            {
-                caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fc_id);
-                HPFCacheManager.Instance.Add("caseLoanItem", caseLoanCollectionDB);
-            }
+            CaseLoanDTOCollection caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fcId);
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
                 bool isChanged = CheckCaseLoanUpdate(item, caseLoanCollectionDB);
@@ -903,9 +873,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fc_id">id for a ForeclosureCase</param>
         /// <returns>object of ForeclosureCase </returns>
-        ForeclosureCaseDTO GetForeclosureCase(int fc_id)
+        ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
-            return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fc_id);
+            return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fcId);
         }
 
 

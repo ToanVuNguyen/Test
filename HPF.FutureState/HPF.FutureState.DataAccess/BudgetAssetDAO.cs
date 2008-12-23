@@ -70,7 +70,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetItemDTO</param>
         /// <returns></returns>
-        public BudgetAssetDTOCollection GetBudgetSet(int fc_id)
+        public BudgetAssetDTOCollection GetBudgetSet(int fcId)
         {
             BudgetAssetDTOCollection results = new BudgetAssetDTOCollection();
 
@@ -78,7 +78,7 @@ namespace HPF.FutureState.DataAccess
             var command = new SqlCommand("hpf_get_budget_asset_list", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@fc_id", fc_id);
+            sqlParam[0] = new SqlParameter("@fc_id", fcId);
             
             //</Parameter>
             command.Parameters.AddRange(sqlParam);

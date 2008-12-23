@@ -180,8 +180,8 @@ namespace HPF.FutureState.DataAccess
         public CallLogDTO ReadCallLog(int callLogId)
         {
             CallLogDTO callLogDTO = null;
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_call_load", dbConnection);
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_call_load", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@call_id", callLogId);
