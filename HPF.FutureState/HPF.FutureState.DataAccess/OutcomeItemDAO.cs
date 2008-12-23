@@ -28,90 +28,6 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
-        /// Insert a Outcome Item to database.
-        /// </summary>
-        /// <param name="outComeItem">OutcomeItemDTO</param>
-        /// <returns></returns>
-        public void InsertOutcomeItem(OutcomeItemDTO outcomeItem)
-        { 
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@fc_id", outcomeItem.OutcomeSetId);
-            sqlParam[1] = new SqlParameter("@outcome_type_id", outcomeItem.OutcomeTypeId);
-            sqlParam[2] = new SqlParameter("@outcome_dt", outcomeItem.OutcomeDt);
-            sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outcomeItem.OutcomeDeletedDt);
-            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outcomeItem.NonprofitreferralKeyNum);
-            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outcomeItem.ExtRefOtherName);
-
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
-            try
-            {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();                
-            }
-            catch(Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }            
-        }
-
-        /// <summary>
-        /// Update a Outcome Item to database.
-        /// </summary>
-        /// <param name="outComeItem">OutcomeItemDTO</param>
-        /// <returns></returns>
-        public void UpdateOutcomeItem(OutcomeItemDTO outcomeItem)
-        {   
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_outcome_item_insert", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[7];
-            sqlParam[0] = new SqlParameter("@fc_id", outcomeItem.OutcomeSetId);
-            sqlParam[1] = new SqlParameter("@outcome_type_id", outcomeItem.OutcomeTypeId);
-            sqlParam[2] = new SqlParameter("@outcome_dt", outcomeItem.OutcomeDt);
-            sqlParam[3] = new SqlParameter("@outcome_deleted_dt", outcomeItem.OutcomeDeletedDt);
-            sqlParam[4] = new SqlParameter("@nonprofitreferral_key_num", outcomeItem.NonprofitreferralKeyNum);
-            sqlParam[5] = new SqlParameter("@ext_ref_other_name", outcomeItem.ExtRefOtherName);
-            sqlParam[6] = new SqlParameter("@outcome_item_id", outcomeItem.OutcomeItemId);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
-            try
-            {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();                
-            }
-            catch(Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }                    
-        }
-
-        /// <summary>
         /// Select all OutcomeItem from database by Fc_ID. 
         /// </summary>
         /// <param name=""></param>
@@ -122,10 +38,10 @@ namespace HPF.FutureState.DataAccess
             if (results == null)
             {
                 var dbConnection = new SqlConnection(ConnectionString);
-                var command = new SqlCommand("hpf_get_outcome_item_list", dbConnection);
+                var command = new SqlCommand("hpf_outcome_item_get", dbConnection);
                 //<Parameter>            
                 var sqlParam = new SqlParameter[1];
-                sqlParam[0] = new SqlParameter("@fc_id", fcId);
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 //</Parameter>   
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;

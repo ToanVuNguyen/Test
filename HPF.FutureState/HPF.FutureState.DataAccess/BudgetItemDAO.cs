@@ -25,47 +25,6 @@ namespace HPF.FutureState.DataAccess
         {
             
         }
-
-        /// <summary>
-        /// Insert a BudgetItem to database.
-        /// </summary>
-        /// <param name="budgetItem">BudgetItemDTO</param>
-        /// <returns></returns>
-        public void InsertBudgetItem(BudgetItemDTO budgetItem)
-        { 
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_budget_item_insert", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[4];
-            sqlParam[0] = new SqlParameter("@budget_set_id", budgetItem.BudgetSetId);
-            sqlParam[1] = new SqlParameter("@budget_subcategory_id", budgetItem.BudgetSubcategoryId);
-            sqlParam[2] = new SqlParameter("@budget_item_amt", budgetItem.BudgetItemAmt);
-            sqlParam[3] = new SqlParameter("@budget_note", budgetItem.BudgetNote);
-
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
-            try
-            {
-                command.ExecuteNonQuery();
-                trans.Commit();
-                dbConnection.Close();                
-            }
-            catch(Exception Ex)
-            {
-                trans.Rollback();
-                dbConnection.Close();
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }            
-        }
-
         /// <summary>
         /// Select a BudgetItem to database.
         /// Where Max BudgetSet_ID and FC_ID
@@ -77,10 +36,10 @@ namespace HPF.FutureState.DataAccess
             BudgetItemDTOCollection results = new BudgetItemDTOCollection();
 
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_get_budget_item_list", dbConnection);
+            var command = new SqlCommand("hpf_budget_item_get", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@fc_id", fcId);
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
             
             //</Parameter>
             command.Parameters.AddRange(sqlParam);

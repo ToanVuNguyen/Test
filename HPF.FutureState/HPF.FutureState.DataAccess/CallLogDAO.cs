@@ -181,10 +181,10 @@ namespace HPF.FutureState.DataAccess
         {
             CallLogDTO callLogDTO = null;
             var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_call_load", dbConnection);
+            var command = CreateSPCommand("hpf_call_get", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@call_id", callLogId);
+            sqlParam[0] = new SqlParameter("@pi_call_id", callLogId);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;

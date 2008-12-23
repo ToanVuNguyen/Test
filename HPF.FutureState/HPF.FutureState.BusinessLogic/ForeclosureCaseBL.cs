@@ -504,72 +504,35 @@ namespace HPF.FutureState.BusinessLogic
                 BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
                 //Insert table Foreclosure_Case
                 //Return Fc_id
-                int fcId = foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
+                int fcId = UpdateForeClosureCase(foreClosureCaseSetDAO, foreclosureCase);
+
                 //check changed from budgetItem and budget asset
                 //if they are changed, insert new budget set, budget Item and budget asset
-                if (IsInsertBudgetSet(budgetItemCollection, budgetAssetCollection, fcId))
-                {
-                    //Insert Table Budget Set
-                    //Return Budget Set Id
-                    int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
-                    //Insert Table Budget Item
-                    foreach (BudgetItemDTO items in budgetItemCollection)
-                    {
-                        foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
-                    }
-                    //Insert table Budget Asset
-                    foreach (BudgetAssetDTO items in budgetAssetCollection)
-                    {
-                        foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
-                    }
-                }
+                InsertBudget(foreClosureCaseSetDAO, budgetSet, budgetItemCollection, budgetAssetCollection, fcId);
+
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
-                OutcomeItemDTOCollection outcomeCollecionNew = CheckOutcomeItemInputwithDB(outcomeItemCollection, fcId);
-                if (outcomeCollecionNew != null)
-                {
-                    foreach (OutcomeItemDTO items in outcomeCollecionNew)
-                    {
-                        foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
-                    }
-                }
+                OutcomeItemDTOCollection outcomeCollecionNew = null;
+                outcomeCollecionNew =CheckOutcomeItemInputwithDB(outcomeItemCollection, fcId);
+                InsertOutcomeItem(foreClosureCaseSetDAO, outcomeItemCollection, fcId);
+
                 //check outcome item DB with outcome item input
                 //if not exit, update outcome_deleted_dt = today()
-                outcomeCollecionNew = CheckOutcomeItemDBwithInput(outcomeItemCollection, fcId);
-                if (outcomeCollecionNew != null)
-                {
-                    foreach (OutcomeItemDTO items in outcomeCollecionNew)
-                    {
-                        foreClosureCaseSetDAO.UpdateOutcomeItem(items);
-                    }
-                }
+                outcomeCollecionNew = CheckOutcomeItemDBwithInput(outcomeItemCollection, fcId);                
+                UpdateOutcome(foreClosureCaseSetDAO, outcomeCollecionNew);   
+             
                 //Check for Delete Case Loan
                 CaseLoanDTOCollection caseLoanCollecionNew = CheckCaseLoanForDelete(caseLoanCollection, fcId);
-                if(caseLoanCollecionNew != null)
-                {
-                    foreach (CaseLoanDTO items in caseLoanCollecionNew)
-                    {
-                        foreClosureCaseSetDAO.DeleteCaseLoan(items);
-                    }
-                }
+                DeleteCaseLoan(foreClosureCaseSetDAO, caseLoanCollecionNew);  
+              
                 //Check for Update Case Loan
-                caseLoanCollecionNew = CheckCaseLoanForUpdate(caseLoanCollection, fcId);
-                if (caseLoanCollecionNew != null)
-                {
-                    foreach (CaseLoanDTO items in caseLoanCollecionNew)
-                    {
-                        foreClosureCaseSetDAO.UpdateCaseLoan(items);
-                    }
-                }
+                caseLoanCollecionNew = CheckCaseLoanForUpdate(caseLoanCollection, fcId);                
+                UpdateCaseLoan(foreClosureCaseSetDAO, caseLoanCollecionNew);  
+              
                 //Check for Insert Case Loan
-                caseLoanCollecionNew = CheckCaseLoanForInsert(caseLoanCollection, fcId);
-                if (caseLoanCollecionNew != null)
-                {
-                    foreach (CaseLoanDTO items in caseLoanCollecionNew)
-                    {
-                        foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
-                    }
-                }
+                caseLoanCollecionNew = CheckCaseLoanForInsert(caseLoanCollection, fcId);                
+                InsertCaseLoan(foreClosureCaseSetDAO, caseLoanCollection, fcId);  
+              
                 foreClosureCaseSetDAO.Commit();
             }
             catch (Exception)
@@ -577,6 +540,51 @@ namespace HPF.FutureState.BusinessLogic
                 foreClosureCaseSetDAO.Cancel();
                 throw;
             }
+        }
+
+        private static void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
+        {
+            foreach (CaseLoanDTO items in caseLoanCollecion)
+            {
+                foreClosureCaseSetDAO.UpdateCaseLoan(items);
+            }
+        }
+
+        private static void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
+        {
+            foreach (CaseLoanDTO items in caseLoanCollecion)
+            {
+                foreClosureCaseSetDAO.DeleteCaseLoan(items);
+            }
+        }
+
+        private static void UpdateOutcome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeCollecion)
+        {
+            foreach (OutcomeItemDTO items in outcomeCollecion)
+            {
+                foreClosureCaseSetDAO.UpdateOutcomeItem(items);
+            }
+        }
+
+        private void InsertBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
+        {
+            bool isInsertBudget = IsInsertBudgetSet(budgetItemCollection, budgetAssetCollection, fcId);
+            if (isInsertBudget)
+            {
+                //Insert Table Budget Set
+                //Return Budget Set Id
+                int budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
+                //Insert Table Budget Item
+                InsertbudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
+                //Insert table Budget Asset
+                InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budget_set_id);
+            }
+        }
+
+        private static int UpdateForeClosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
+        {
+            int fcId = foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
+            return fcId;
         }
         #endregion
 
@@ -598,36 +606,73 @@ namespace HPF.FutureState.BusinessLogic
                 BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
                 //Insert table Foreclosure_Case
                 //Return Fc_id
-                int fcId = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
+                int fcId = InsertForeclosureCase(foreClosureCaseSetDAO, foreclosureCase);
+
                 //Insert table Case Loan
-                foreach (CaseLoanDTO items in caseLoanCollection)
-                {
-                    foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
-                }
+                InsertCaseLoan(foreClosureCaseSetDAO, caseLoanCollection, fcId);
+
                 //Insert Table Outcome Item
-                foreach (OutcomeItemDTO items in outcomeItemCollection)
-                {
-                    foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
-                }
+                InsertOutcomeItem(foreClosureCaseSetDAO, outcomeItemCollection, fcId);
+
                 //Insert Table Budget Set
                 //Return Budget Set Id
-                int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+                int budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
+
                 //Insert Table Budget Item
-                foreach (BudgetItemDTO items in budgetItemCollection)
-                {
-                    foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
-                }
+                InsertbudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
+
                 //Insert table Budget Asset
-                foreach (BudgetAssetDTO items in budgetAssetCollection)
-                {
-                    foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
-                }
+                InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budget_set_id);
                 foreClosureCaseSetDAO.Commit();
             }
             catch (Exception)
             {                
                 foreClosureCaseSetDAO.Cancel();                
                 throw;
+            }
+        }
+
+        private static void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int budget_set_id)
+        {
+            foreach (BudgetAssetDTO items in budgetAssetCollection)
+            {
+                foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
+            }
+        }
+
+        private static void InsertbudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int budget_set_id)
+        {
+            foreach (BudgetItemDTO items in budgetItemCollection)
+            {
+                foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
+            }
+        }
+
+        private static int InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int fcId)
+        {
+            int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+            return budget_set_id;
+        }
+
+        private static int InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
+        {
+            int fcId = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
+            return fcId;
+        }
+
+        private static void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int fcId)
+        {
+            foreach (OutcomeItemDTO items in outcomeItemCollection)
+            {
+                foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
+            }
+        }
+
+        private static void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
+        {
+            foreach (CaseLoanDTO items in caseLoanCollection)
+            {
+                foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
             }
         }
 

@@ -40,7 +40,7 @@ namespace HPF.FutureState.DataAccess
             if (results == null)
             {                
                 var dbConnection = CreateConnection();
-                var command = CreateCommand("hpf_get_ref_code_item_list", dbConnection);            
+                var command = CreateCommand("hpf_ref_code_item_get", dbConnection);            
                 command.CommandType = CommandType.StoredProcedure;
                 try
                 {
