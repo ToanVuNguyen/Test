@@ -17,7 +17,7 @@ namespace HPF.FutureState.Web.BillingAdmin
     public partial class FixedHeaderGrid : System.Web.UI.UserControl
     {
         private List<string> _columsName;
-        public List<String> columsName
+        public List<String> ColumsName
         {
             get
             {
@@ -31,7 +31,7 @@ namespace HPF.FutureState.Web.BillingAdmin
         }
         private List<int> _columsWidth;
         
-        public List<int> columsWidth
+        public List<int> ColumsWidth
         {
             get
             {
@@ -53,7 +53,7 @@ namespace HPF.FutureState.Web.BillingAdmin
             set 
             {
                 _headerCssClass = value;
-                tb_header.CssClass = value; 
+                tbHeader.CssClass = value; 
             } 
         }
         private string _gridCssClass;
@@ -64,24 +64,24 @@ namespace HPF.FutureState.Web.BillingAdmin
             set 
             { 
                 _gridCssClass = value;
-                grid_data.CssClass = value;
+                gridData.CssClass = value;
             }
         }
         public object DataSource
         {
             set
             {
-                grid_data.DataSource = value;
-                grid_data.RowDataBound += new GridViewRowEventHandler(GridDataRowDataBound);
-                grid_data.RowStyle.Wrap = true;
-                grid_data.DataBind();
+                gridData.DataSource = value;
+                gridData.RowDataBound += new GridViewRowEventHandler(GridDataRowDataBound);
+                gridData.RowStyle.Wrap = true;
+                gridData.DataBind();
             }
         }
         void GridDataRowDataBound(object sender, GridViewRowEventArgs e)
         {
-            for(int i=0;i<columsWidth.Count;i++)
+            for(int i=0;i<ColumsWidth.Count;i++)
             {
-                e.Row.Cells[i].Width = columsWidth[i];
+                e.Row.Cells[i].Width = ColumsWidth[i];
                 e.Row.Cells[i].Wrap = true;
             }
         }
@@ -93,20 +93,19 @@ namespace HPF.FutureState.Web.BillingAdmin
         }
         private void CreateHeader()
         {
-            if (columsName == null || columsWidth == null)
+            if (ColumsName == null || ColumsWidth == null)
                 return;
-            tb_header.Rows.Clear();
+            tbHeader.Rows.Clear();
             var row = new TableRow();
-            for (int i = 0; i < columsName.Count;i++ )
+            for (int i = 0; i < ColumsName.Count;i++ )
             {
                 TableCell cell = new TableCell();
-                cell.Text = columsName[i];
-                cell.Width = columsWidth[i];
+                cell.Text = ColumsName[i];
+                cell.Width = ColumsWidth[i];
                 cell.BorderWidth = 1;
                 row.Cells.Add(cell);
-                
             }
-            tb_header.Rows.Add(row);
+            tbHeader.Rows.Add(row);
         }
     }
 }

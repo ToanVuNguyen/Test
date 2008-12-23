@@ -14,21 +14,21 @@ namespace HPF.FutureState.Web.BillingAdmin {
     public partial class FixedHeaderGrid {
         
         /// <summary>
-        /// tb_header control.
+        /// tbHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tb_header;
+        protected global::System.Web.UI.WebControls.Table tbHeader;
         
         /// <summary>
-        /// grid_data control.
+        /// gridData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grid_data;
+        protected global::System.Web.UI.WebControls.GridView gridData;
     }
 }
