@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{94A553D0-1C4D-4F55-8F69-A0F756889A94}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -60,6 +60,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillingAdmin\FixedHeaderGrid.ascx.cs">
+      <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillingAdmin\FixedHeaderGrid.ascx.designer.cs">
+      <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -77,6 +84,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BillingAdmin\FixedHeaderGrid.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Site.Master" />
   </ItemGroup>

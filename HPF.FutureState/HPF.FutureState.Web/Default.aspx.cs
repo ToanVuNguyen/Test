@@ -13,6 +13,8 @@ using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.BusinessLogic.BillingAdmin;
+using HPF.FutureState.Common.DataTransferObjects.BillingAdmin;
 
 namespace HPF.FutureState.Web
 {
@@ -23,15 +25,12 @@ namespace HPF.FutureState.Web
                         
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            //var dto=new CallLogDTO {ExtCallNumber = string.Empty, StartDate = DateTime.Today.AddDays(-61)};
-            //var results = HPFValidator.Validate<CallLogDTO>(dto);
-            //foreach (var result in results)
-            //{
-            //    Response.Write(result.Message);
-            //}
+        
 
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            AppForeclosureCaseSearchCriteriaDTO searchCritera = new AppForeclosureCaseSearchCriteriaDTO();
+            AppForeclosureCaseSearchResult result = AppForeclosureCaseBL.Instance.AppSearchforeClosureCase(searchCritera);
         }              
     }   
 }
