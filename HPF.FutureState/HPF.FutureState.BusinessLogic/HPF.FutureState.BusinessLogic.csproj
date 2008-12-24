@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBusinessLogic.cs" />
-    <Compile Include="BillingAdmin\AppForeclosureCaseBL.cs" />
     <Compile Include="CallLogBL.cs" />
     <Compile Include="CodeConstants.cs" />
     <Compile Include="RefCodeItemBL.cs" />
