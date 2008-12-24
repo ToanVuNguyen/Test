@@ -59,7 +59,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
                                     " set loan_list = 'abc123, abc124, def123, def1234'" +
                                     ", prop_zip = '66666'" +
                                     ", borrower_last4_SSN = '1234'" +
-                                    " where fc_id in (23, 123, 181, 183, 185) ";
+                                    " where fc_id in (23, 181, 183, 185) ";
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
@@ -76,7 +76,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
                                     " set loan_list = null" +
                                     ", prop_zip = null" +
                                     ", borrower_last4_SSN = null" +
-                                    " where fc_id in (23, 123, 181, 183, 185)";
+                                    " where fc_id in (23, 181, 183, 185)";
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
@@ -84,18 +84,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
         //Use TestInitialize to run code before running each test
         [TestInitialize()]
         public void MyTestInitialize()
-        {
-            criterias = new string[][]{                                       
-                                       new string[] {null, null, null, null, null, "12346"},
-                                       new string[] {null,null, null, null, null, "12345"}};//10 match all
-            expected = new List<int>();
-            expected.Add(185);
-            expected.Add(183);
-            expected.Add(181);
-            expected.Add(123);
-            expected.Add(23);
-            //int[] results = new int[]{185, 183, 181, 123, 23};
-            
+        {            
+    
         }
         //
         //Use TestCleanup to run code after each test has run
@@ -149,57 +139,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             dbConnection.Close();
             return expected;
         }
-
-        /// <summary>
-        ///A test for SearchForeclosureCase
-        ///</summary>
-        [TestMethod()]
-        public void SearchForeclosureCaseTest_Success()
-        {
-            List<int> actual = PerformTest(1);
-            CollectionAssert.AreEquivalent(expected, actual);            
-        }
-
-        /// <summary>
-        ///A test for SearchForeclosureCase
-        ///</summary>
-        [TestMethod()]
-        public void SearchForeclosureCaseTest_Fail()
-        {
-           var actual = PerformTest(0);
-           CollectionAssert.AreNotEqual(expected, actual);
-            //TestContext.WriteLine(actual.Length.ToString());
-        }
-
-        private List<int> PerformTest(int index)
-        {
-            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
-            HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO searchCriteria = new HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO();
-
-            string[] criteria = criterias[index];
-            searchCriteria.AgencyCaseNumber = criteria[0];
-            searchCriteria.FirstName = criteria[1];
-            searchCriteria.LastName = criteria[2];
-            searchCriteria.Last4_SSN = criteria[3];
-            searchCriteria.LoanNumber = criteria[4];
-            searchCriteria.PropertyZip = criteria[5];
-
-
-            ForeclosureCaseSearchResult searchResults = target.SearchForeclosureCase(searchCriteria, 50);
-
-            List<int> actual;
-            if (searchResults != null)
-            {
-                actual = new List<int>();
-                foreach (HPF.FutureState.Common.DataTransferObjects.WebServices.ForeclosureCaseWSDTO result in searchResults)
-                {
-                   actual.Add(result.FcId);
-                }
-                return actual;
-            }
-            else
-                return null;
-        }
+        
         #endregion
 
 

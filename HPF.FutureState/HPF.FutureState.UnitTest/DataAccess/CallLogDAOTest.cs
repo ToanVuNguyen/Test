@@ -138,11 +138,51 @@ namespace HPF.FutureState.UnitTest
             var command = new SqlCommand();
             command.Connection = dbConnection;
 
-            command.CommandText = "Insert into call_center(call_center_name) values ('call_center_name_1')";
+            command.CommandText = "Insert into call_center(call_center_name, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name) values ('call_center_name_1', '" + DateTime.Now + "', 'test', 'test', '" + DateTime.Now + "', 'test', 'test')";
             command.ExecuteNonQuery();
             
             dbConnection.Close();
 
+        }
+
+        private int GetCallCenterID()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+
+            command.CommandText = "Select Max(call_center_id) from call_center";
+            var reader = command.ExecuteReader();
+            int id = 0;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+            reader.Close();
+            dbConnection.Close();
+            return id;           
+        }
+
+        private int GetCallLogID()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+
+            command.CommandText = "Select Max(call_id) from call";
+            var reader = command.ExecuteReader();
+            int id = 0;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+            reader.Close();
+            dbConnection.Close();
+            return id;
         }
 
         int callLogid = 0;
@@ -153,10 +193,17 @@ namespace HPF.FutureState.UnitTest
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value           
             
             CallLogDTO aCallLog = new CallLogDTO();
-            aCallLog.CallCenterID = 1;            
+            aCallLog.CallCenterID = GetCallCenterID();
+            aCallLog.CreateDate = DateTime.Now;
+            aCallLog.CreateUserId = "test";
+            aCallLog.CreateAppName = "test";
+            aCallLog.ChangeLastDate = DateTime.Now;
+            aCallLog.ChangeLastAppName = "test";
+            aCallLog.ChangeLastUserId = "test";
             int actual = target.InsertCallLog(aCallLog);
+            int expected = GetCallLogID();
             callLogid = actual;
-            Assert.AreNotEqual(0, actual);
+            Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine("New Call Log ID: " + actual);
 
             InsertCallLogTest_Post();
