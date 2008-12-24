@@ -1092,13 +1092,32 @@ namespace HPF.FutureState.BusinessLogic
 
         #region AppForeclosureCaseSearch
         /// <summary>
+        /// Check if the user has input any info to the search criteria?
+        /// </summary>
+        /// <param name="searchCriteria"></param>
+        /// <returns>true for doing search and false for exception</returns>
+        private bool ValidateSearchCriteria(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, "Default");
+            
+            if (validationResults.Count==11)
+                return false;// user doesnt change anything in search criteria
+            return true;
+        }
+        /// <summary>
         /// Search Foreclosure Case
         /// </summary>
         /// <param name="searchCriteria">Search criteria</param>
         /// <returns>Collection of AppForeclosureCaseSearchResult</returns>
         public AppForeclosureCaseSearchResult AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
-            AppForeclosureCaseSearchResult result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
+            AppForeclosureCaseSearchResult result = new AppForeclosureCaseSearchResult();
+            if (ValidateSearchCriteria(searchCriteria))
+                result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
+            else
+            {
+                throw new ProcessingException();
+            }
             return result;
         }
         /// <summary>
