@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BillingAdmin\AppForeclosureCaseDAO.cs" />
     <Compile Include="BudgetAssetDAO.cs" />
     <Compile Include="BudgetItemDAO.cs" />
     <Compile Include="BudgetSetDAO.cs" />
