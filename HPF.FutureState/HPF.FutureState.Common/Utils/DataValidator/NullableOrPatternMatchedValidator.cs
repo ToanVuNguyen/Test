@@ -37,7 +37,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 _pattern += @"^" + _pattern;
                 Regex exp = new Regex(_pattern);
 
-                isValid = exp.Match(objectToValidate).Success;
+                isValid = !exp.Match(objectToValidate).Success;
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
