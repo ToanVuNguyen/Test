@@ -36,35 +36,26 @@ namespace HPF.FutureState.BusinessLogic
         /// Insert a CallLog
         /// </summary>
         /// <param name="aCallLog"></param>
-        /// <returns>A result object after inserting a call log</returns>
-        public CallLogInsertResult InsertCallLog(CallLogDTO aCallLog)
+        /// <returns>return a calllog id after inserting</returns>
+        public int InsertCallLog(CallLogDTO aCallLog)
         {
-            ////HPFValidator.ValidateToExceptionMessage<CallLogDTO>(aCallLog);
-            //ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
-            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
-
-            ////HPFValidator is not complete yet, it does not get the content of the message
-            ////so use the system validator just for testing
-            Validator<CallLogDTO> validator = ValidationFactory.CreateValidator<CallLogDTO>("Default");
-            ValidationResults validationResults = validator.Validate(aCallLog);
-            CallLogInsertResult insertResult = new CallLogInsertResult();
+            int callLogID = 0;
+            ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
+            ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
             if (!validationResults.IsValid)
             {
-                insertResult.Messages = new DataValidationException();
-            //    //searchResult.Messages.ExceptionMessages = exceptionMessages;
+                int i = 0;
+                DataValidationException dataValidationException = new DataValidationException();
                 foreach (ValidationResult result in validationResults)
                 {
-                    insertResult.Messages.ExceptionMessages.AddExceptionMessage(0, result.Message);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(++i, result.Message);
                 }
-            }
-            else
-            {
-                insertResult.CallLogID = "HPF_" + CallLogDAO.Instance.InsertCallLog(aCallLog);
-            }
+                throw dataValidationException;
 
-            //return searchResult;
-            return insertResult;
-            
+            }
+            else  callLogID = CallLogDAO.Instance.InsertCallLog(aCallLog);
+
+            return callLogID;
         }       
 
         /// <summary>
