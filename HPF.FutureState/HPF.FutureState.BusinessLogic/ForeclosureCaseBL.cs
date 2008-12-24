@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
@@ -1042,5 +1043,46 @@ namespace HPF.FutureState.BusinessLogic
                 throw new ProcessingException();
         }
         #endregion
+
+        #region AppForeclosureCaseSearch
+        /// <summary>
+        /// Search Foreclosure Case
+        /// </summary>
+        /// <param name="searchCriteria">Search criteria</param>
+        /// <returns>Collection of AppForeclosureCaseSearchResult</returns>
+        public AppForeclosureCaseSearchResult AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            AppForeclosureCaseSearchResult result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
+            return result;
+        }
+        /// <summary>
+        /// Get Program Name and Program ID to display in DDLB
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetProgram()
+        {
+            DataSet result = ForeclosureCaseDAO.CreateInstance().AppGetProgram();
+            return result;
+        }
+        /// <summary>
+        /// Get State Name and State ID to display in DDLB
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetState()
+        {
+            DataSet result = ForeclosureCaseDAO.CreateInstance().AppGetState();
+            return result;
+        }
+        /// <summary>
+        /// Get Agency Name and Agency ID to display in DDLB
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetAgency()
+        {
+            DataSet result = ForeclosureCaseDAO.CreateInstance().AppGetAgency();
+            return result;
+        }
+
+#endregion
     }
 }
