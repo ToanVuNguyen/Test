@@ -116,5 +116,61 @@ namespace HPF.FutureState.DataAccess.BillingAdmin
             }
             return result;
         }
+
+        /// <summary>
+        /// Get ID and Name from table State to bind on DDLB
+        /// </summary>
+        /// <returns>DataSet contains all State id and State Name</returns>
+        public DataSet AppGetState()
+        {
+            DataSet result = new DataSet();
+            var dbConnection = CreateConnection();
+            var command = new SqlCommand("hpf_state_get", dbConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = dbConnection;
+            try
+            {
+                dbConnection.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(result);
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Get ID and Name from table Agency to bind on DDLB
+        /// </summary>
+        /// <returns>DataSet contains all Agency id and Agency Name</returns>
+        public DataSet AppGetAgency()
+        {
+            DataSet result = new DataSet();
+            var dbConnection = CreateConnection();
+            var command = new SqlCommand("hpf_agency_get", dbConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = dbConnection;
+            try
+            {
+                dbConnection.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(result);
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
     }
 }
