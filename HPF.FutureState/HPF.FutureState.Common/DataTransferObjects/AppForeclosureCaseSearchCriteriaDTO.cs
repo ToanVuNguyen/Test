@@ -17,16 +17,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class AppForeclosureCaseSearchCriteriaDTO
     {
         string _loanNumber = null;
-        //[NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case ID: Only alpha-numeric characters allowed", Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "Default")]
         public string AgencyCaseID { get; set; }
 
+        [NotNullValidator(Ruleset = "Default")]
         public string FirstName { get; set; }
 
+        [NotNullValidator(Ruleset = "Default")]
         public string LastName { get; set; }
-        
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive,Ruleset="Default")]
         public int ForeclosureCaseID { get; set; }
 
-
+        [NotNullValidator(Ruleset = "Default")]
         public string LoanNumber
         {
             get { return _loanNumber; }
@@ -52,14 +54,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        //[NullableOrDigitsRequriedValidator(false, 5, MessageTemplate = "Property Zip: is not null and must be 5 alpha - numeric characters", Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "Default")]
         public string PropertyZip { get; set; }
+
+        [NotNullValidator(Ruleset = "Default")]
         public string PropertyState { get; set; }
+
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
         public int Agency { get; set; }
+
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
         public int Program { get; set; }
+
+        [NotNullValidator(Ruleset = "Default")]
         public string Duplicates { get; set; }
 
-        //[NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be 4 alpha - numeric characters", Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "Default")]
         public string Last4SSN { get; set; }
     }
 }
