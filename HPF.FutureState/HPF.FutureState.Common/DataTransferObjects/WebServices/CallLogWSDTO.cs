@@ -102,44 +102,48 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string AuthorizedInd { get; set; }
         #endregion
 
-        public CallLogWSDTO(CallLogDTO callLog)
-        {
-            if (callLog.CallId != null)
-                this.CallId = "HPF_" + Convert.ToString(callLog.CallId);
+        #region rem
+
+        //public CallLogWSDTO(CallLogDTO callLog)
+        //{
+        //    if (callLog.CallId != null)
+        //        this.CallId = "HPF_" + Convert.ToString(callLog.CallId);
 
             
-            this.CcAgentIdKey = callLog.CcAgentIdKey;
-            this.StartDate = callLog.StartDate;
-            this.EndDate = callLog.EndDate;
-            this.DNIS = callLog.DNIS;
-            this.CallCenter = callLog.CallCenter;            
-            this.CallSourceCd = callLog.CallSourceCd;
-            this.ReasonToCall = callLog.ReasonToCall;
-            this.LoanAccountNumber = callLog.LoanAccountNumber;
-            this.FirstName = callLog.FirstName;
-            this.LastName = callLog.LastName;
-            this.ServicerId = callLog.ServicerId;
-            this.OtherServicerName = callLog.OtherServicerName;
-            this.PropZipFull9 = callLog.PropZipFull9; 
-            this.PrevAgencyId = callLog.PrevAgencyId;
-            this.SelectedAgencyId = callLog.SelectedAgencyId;
-            this.ScreenRout = callLog.ScreenRout;
-            this.FinalDispoCd = callLog.FinalDispoCd;
-            this.TransNumber = callLog.TransNumber;            
-            this.CreateDate = callLog.CreateDate;
-            this.CreateUserId = callLog.CreateUserId;
-            this.CreateAppName = callLog.CreateAppName;
-            this.ChangeLastDate = callLog.ChangeLastDate;
-            this.ChangeLastUserId = callLog.ChangeLastUserId;
-            this.ChangeLastAppName = callLog.ChangeLastAppName;
-            this.CcCallKey = callLog.CcCallKey;
-            this.LoanDelinqStatusCd = callLog.LoanDelinqStatusCd;
-            this.SelectedCounselor = callLog.SelectedCounselor;
-            this.HomeownerInd = callLog.HomeownerInd;
-            this.PowerOfAttorneyInd = callLog.PowerOfAttorneyInd;
-            this.AuthorizedInd = callLog.AuthorizedInd;
-        }
+        //    this.CcAgentIdKey = callLog.CcAgentIdKey;
+        //    this.StartDate = callLog.StartDate;
+        //    this.EndDate = callLog.EndDate;
+        //    this.DNIS = callLog.DNIS;
+        //    this.CallCenter = callLog.CallCenter;            
+        //    this.CallSourceCd = callLog.CallSourceCd;
+        //    this.ReasonToCall = callLog.ReasonToCall;
+        //    this.LoanAccountNumber = callLog.LoanAccountNumber;
+        //    this.FirstName = callLog.FirstName;
+        //    this.LastName = callLog.LastName;
+        //    this.ServicerId = callLog.ServicerId;
+        //    this.OtherServicerName = callLog.OtherServicerName;
+        //    this.PropZipFull9 = callLog.PropZipFull9; 
+        //    this.PrevAgencyId = callLog.PrevAgencyId;
+        //    this.SelectedAgencyId = callLog.SelectedAgencyId;
+        //    this.ScreenRout = callLog.ScreenRout;
+        //    this.FinalDispoCd = callLog.FinalDispoCd;
+        //    this.TransNumber = callLog.TransNumber;            
+        //    this.CreateDate = callLog.CreateDate;
+        //    this.CreateUserId = callLog.CreateUserId;
+        //    this.CreateAppName = callLog.CreateAppName;
+        //    this.ChangeLastDate = callLog.ChangeLastDate;
+        //    this.ChangeLastUserId = callLog.ChangeLastUserId;
+        //    this.ChangeLastAppName = callLog.ChangeLastAppName;
+        //    this.CcCallKey = callLog.CcCallKey;
+        //    this.LoanDelinqStatusCd = callLog.LoanDelinqStatusCd;
+        //    this.SelectedCounselor = callLog.SelectedCounselor;
+        //    this.HomeownerInd = callLog.HomeownerInd;
+        //    this.PowerOfAttorneyInd = callLog.PowerOfAttorneyInd;
+        //    this.AuthorizedInd = callLog.AuthorizedInd;
+        //}
 
-        public CallLogWSDTO() { }
+        //public CallLogWSDTO() { }
+
+        #endregion
     }
 }
