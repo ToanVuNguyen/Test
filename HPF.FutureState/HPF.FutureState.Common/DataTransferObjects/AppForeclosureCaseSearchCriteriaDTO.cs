@@ -17,6 +17,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class AppForeclosureCaseSearchCriteriaDTO
     {
         string _loanNumber = null;
+        [NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case ID: Only alpha-numeric characters allowed", Ruleset = "Default")]
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string AgencyCaseID { get; set; }
 
@@ -25,36 +26,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string LastName { get; set; }
-        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive,Ruleset="Default")]
+
+        [NullableOrPatternMatchedValidator(true, "[0-9]", MessageTemplate = "Foreclosure Case ID: Only numeric characters allowed", Ruleset = "Default")]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
         public int ForeclosureCaseID { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
+        [NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Loan Num: Only alpha-numeric characters allowed", Ruleset = "Default")]
         public string LoanNumber
         {
-            get { return _loanNumber; }
-            set
-            {
-                if (value != null)
-                {
-                    _loanNumber = value;
-                    Regex exp = new Regex(@"[^a-zA-Z0-9*]");
-                    MatchCollection matches = exp.Matches(_loanNumber);
-                    foreach (Match item in matches)
-                    {
-                        _loanNumber = _loanNumber.Replace(item.Value, string.Empty);
-                    }
+            get;
+            set;
 
-                    exp = new Regex(@"[^a-zA-Z0-9]");
-                    matches = exp.Matches(_loanNumber);
-                    foreach (Match item in matches)
-                    {
-                        _loanNumber = _loanNumber.Replace(item.Value, "%");
-                    }
-                }
-            }
         }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
+        [NullableOrDigitsRequriedValidator(true, 5, MessageTemplate = "Foreclosure Case ID: Only 5 numeric characters allowed", Ruleset = "Default")]
         public string PropertyZip { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
@@ -70,6 +57,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Duplicates { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
+        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last4SSN: Only 4 numeric characters allowed", Ruleset = "Default")]
         public string Last4SSN { get; set; }
     }
 }
