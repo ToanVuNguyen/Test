@@ -30,7 +30,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = false;
-            if (objectToValidate == null)
+            if (objectToValidate == null || objectToValidate == string.Empty)
                 isValid = _nullable;
             else
             {
