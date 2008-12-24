@@ -91,30 +91,25 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="searchCriteria">search criteria</param>
         /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
-        public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria)
+        public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
             ForeclosureCaseSearchResult searchResult = new ForeclosureCaseSearchResult();
-            
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
-            //exceptionMessages = HPFValidator.ValidateToExceptionMessage<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
-
-            //HPFValidator is not complete yet, it does not get the content of the message
-            //so use the system validator just for testing
-            Validator<ForeclosureCaseSearchCriteriaDTO> validator = ValidationFactory.CreateValidator<ForeclosureCaseSearchCriteriaDTO>("Default");
-            ValidationResults validationResults = validator.Validate(searchCriteria);
-            //if (exceptionMessages != null || exceptionMessages.Count > 0)
+            ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
             if (!validationResults.IsValid)
             {
-                searchResult.Messages = new DataValidationException();
-                //searchResult.Messages.ExceptionMessages = exceptionMessages;
+                int i =0;
+                DataValidationException dataValidationException = new DataValidationException();
                 foreach (ValidationResult result in validationResults)
                 {
-                    searchResult.Messages.ExceptionMessages.AddExceptionMessage(0, result.Message);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(++i, result.Message);
                 }
+                throw dataValidationException;
+
             }
             else
             {
-                searchResult = ForeclosureCaseSetDAO.CreateInstance().SearchForeclosureCase(searchCriteria);
+                searchResult = ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
             }
 
             return searchResult;
