@@ -18,6 +18,7 @@ namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
+        const int NUMBER_OF_ERROR_APP_SEARCH_CRITERIA = 11;
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         /// <summary>
         /// Singleton
@@ -1098,9 +1099,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>true for doing search and false for exception</returns>
         private bool ValidateSearchCriteria(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
-            ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, "Default");
-            
-            if (validationResults.Count==11)
+            ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, "AppSearchRequireCriteria");
+            if (validationResults.Count == NUMBER_OF_ERROR_APP_SEARCH_CRITERIA)
                 return false;// user doesnt change anything in search criteria
             return true;
         }
