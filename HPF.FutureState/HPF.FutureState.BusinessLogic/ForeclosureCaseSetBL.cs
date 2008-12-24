@@ -16,13 +16,13 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class ForeclosureCaseBL : BaseBusinessLogic
+    public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
-        private static readonly ForeclosureCaseBL instance = new ForeclosureCaseBL();
+        private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         /// <summary>
         /// Singleton
         /// </summary>
-        public static ForeclosureCaseBL Instance
+        public static ForeclosureCaseSetBL Instance
         {
             get
             {
@@ -30,7 +30,7 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        protected ForeclosureCaseBL()
+        protected ForeclosureCaseSetBL()
         {
             
 

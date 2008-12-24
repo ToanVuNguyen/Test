@@ -43,7 +43,7 @@ namespace HPF.FutureState.WebServices
                     int pageSize = 0;
                     int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"].ToString(), out pageSize);
 
-                    ForeclosureCaseSearchResult results = ForeclosureCaseBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);
+                    ForeclosureCaseSearchResult results = ForeclosureCaseSetBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);
                     response = new ForeclosureCaseSearchResponse();
                     response.Results = results;
                     response.SearchResultCount = results.SearchResultCount;

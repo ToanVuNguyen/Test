@@ -184,7 +184,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         private void PerformTest(int index)
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
 
             string[] criteria = criterias[index];
@@ -240,7 +240,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void CheckValidFCIdForAgencyTest_Success()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value            
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
             int fc_id = 23; // TODO: Initialize to an appropriate value
             int agency_id = 2;
             bool expected = true; // TODO: Initialize to an appropriate value
@@ -251,7 +251,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void CheckValidFCIdForAgencyTest_Fail()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value            
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
             int fc_id = 23; // TODO: Initialize to an appropriate value
             int agency_id = 3;
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -262,7 +262,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void CheckValidFCIdForAgencyTest_NullCase()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value            
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
             int fc_id = -1; // TODO: Initialize to an appropriate value
             int agency_id = 3;
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -276,7 +276,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithForeclosureCaseId_Success_Null_FC_CaseSet()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
             var expected = (new ProcessingException()).GetType();
             try
@@ -293,7 +293,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithForeclosureCaseId_Success_InvalidFcID()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when FCID is invalid");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             foreclosureCaseSet.ForeclosureCase.FcId = -1;            
@@ -312,7 +312,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithForeclosureCaseId_Success_InvalidFcID_For_Agency()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when pair of FCID and Agency is invalid");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
@@ -332,7 +332,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithForeclosureCaseId_Success_ActiveFcCase()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when fc_case is active");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();            
             foreclosureCaseSet.ForeclosureCase.FcId = 23;
@@ -352,7 +352,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithForeclosureCaseId_Success()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             //foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             //foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
@@ -374,7 +374,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_FC_CaseSet()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
             var expected = (new ProcessingException()).GetType();
             try
@@ -391,7 +391,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_AgencyID_CaseNumber()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when AgencyID or CaseNumber is null");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             foreclosureCaseSet.ForeclosureCase.AgencyId = 0;
@@ -411,7 +411,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Existing_AgencyID_CaseNumber()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when AgencyID and CaseNumber existed");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
@@ -431,7 +431,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithoutForeclosureCaseId_Success()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             //foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             //foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
@@ -453,7 +453,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertForeclosureCaseSet_Success_Null_FC_CaseSet()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
             var expected = (new ProcessingException()).GetType();
             try
@@ -511,7 +511,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
             fcCase.FcId = 123;
             
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             foreclosureCaseSet.ForeclosureCase = fcCase;
             var expected = (new ProcessingException()).GetType();
@@ -534,7 +534,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
             //fcCase.FcId = 123;
 
-            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             //foreclosureCaseSet.ForeclosureCase = fcCase;
             //var expected = (new ProcessingException()).GetType();
@@ -557,7 +557,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
             //fcCase.FcId = 123;
 
-            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             //foreclosureCaseSet.ForeclosureCase = fcCase;
             //var expected = (new ProcessingException()).GetType();
@@ -578,7 +578,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessUpdateForeclosureCaseSet_Success_Null_FC_CaseSet()
         {
             TestContext.WriteLine("This test will throw an ProcessingException when ForeclosureCaseSetDTO is null");
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
             var expected = (new ProcessingException()).GetType();
             try
@@ -599,7 +599,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
             //fcCase.FcId = 123;
 
-            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             //foreclosureCaseSet.ForeclosureCase = fcCase;
             //var expected = (new ProcessingException()).GetType();
@@ -622,7 +622,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
             //fcCase.FcId = 123;
 
-            //ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             //foreclosureCaseSet.ForeclosureCase = fcCase;
             //var expected = (new ProcessingException()).GetType();
@@ -646,7 +646,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckInactiveCaseTestFalse()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             DateTime completeDate = Convert.ToDateTime("12/01/2007");// TODO: Initialize to an appropriate value                        
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
@@ -662,7 +662,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckInactiveCaseTestTrue()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             DateTime completeDate = Convert.ToDateTime("12/12/2009");// TODO: Initialize to an appropriate value                        
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
@@ -677,7 +677,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void RequireFieldsForeclosureCaseTestSuccess()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO foreclosureCase = SetForeclosureCase(); // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
@@ -692,7 +692,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void RequireFieldsBudgetItemTestSuccess()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             BudgetItemDTOCollection budgetItemDTOCollection = SetBudgetItemCollection(); // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
@@ -707,7 +707,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void RequireFieldsOutcomeItemTestSuccess()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             OutcomeItemDTOCollection outcomeItemDTOCollection = SetOutcomeItemCollection(); // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
@@ -722,7 +722,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void RequireFieldsValidationTestSuccess()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
             foreclosureCaseSet.BudgetItems = SetBudgetItemCollection();
@@ -741,7 +741,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckValidCodeTestSuccess()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
             foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
@@ -758,7 +758,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         //[DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         //public void CheckValidCodeTestFail()
         //{
-        //    ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+        //    ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
         //    ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
         //    foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
         //    foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
@@ -775,7 +775,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckCodeCaseLoanTest()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             CaseLoanDTOCollection caseLoanCollection = SetCaseLoanCollection(); // TODO: Initialize to an appropriate value            
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
@@ -790,7 +790,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void InsertForeclosureCaseSetTest()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet(); // TODO: Initialize to an appropriate value
             target.InsertForeclosureCaseSet(foreclosureCaseSet);            
         }
@@ -802,7 +802,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void UpdateForeclosureCaseSetTest()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet(); // TODO: Initialize to an appropriate value
              target.UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -814,7 +814,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void IsBudgetItemsDifferenceTest()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             BudgetItemDTOCollection budgetCollection = SetBudgetItemCollection(); // TODO: Initialize to an appropriate value
             int fc_id = 1350045; // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value
@@ -830,7 +830,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void IsBudgetAssetDifferenceTest()
         {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             BudgetAssetDTOCollection budgetCollection = SetBudgetAssetCollection(); // TODO: Initialize to an appropriate value
             int fc_id = 1350053; // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value

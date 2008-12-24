@@ -30,7 +30,7 @@ namespace HPF.FutureState.Web
         protected void Button1_Click1(object sender, EventArgs e)
         {
             AppForeclosureCaseSearchCriteriaDTO searchCritera = new AppForeclosureCaseSearchCriteriaDTO();
-            AppForeclosureCaseSearchResult result = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(searchCritera);
+            AppForeclosureCaseSearchResult result = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(searchCritera);
         }              
     }   
 }
