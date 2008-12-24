@@ -39,7 +39,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
 
                 isValid = exp.Match(objectToValidate).Success;
             }
-            if (isValid)//!
+            if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
         }
     }
