@@ -33,6 +33,7 @@ namespace HPF.FutureState.BusinessLogic
         protected ForeclosureCaseBL()
         {
             
+
         }
 
         #region Implementation of IForclosureCaseBL
