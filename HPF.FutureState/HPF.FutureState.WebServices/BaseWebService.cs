@@ -40,39 +40,14 @@ namespace HPF.FutureState.WebServices
                 if (true)
                 {
                     //Business Call
-                    int maxRow = 0;
-                    int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"].ToString(), out maxRow);
+                    int pageSize = 0;
+                    int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"].ToString(), out pageSize);
 
-                    ForeclosureCaseSearchResult results = ForeclosureCaseBL.Instance.SearchForeclosureCase(request.SearchCriteria);
+                    ForeclosureCaseSearchResult results = ForeclosureCaseBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);
                     response = new ForeclosureCaseSearchResponse();
-                    if (results.Messages == null || results.Messages.ExceptionMessages.Count == 0)
-                    {
-                        response.Results = new ForeclosureCaseSearchResult();
-
-                        int count = 1;
-                        if (maxRow > 0 && maxRow < results.Count)
-                        {
-                            foreach (ForeclosureCaseWSDTO result in results)
-                                if (count <= maxRow)
-                                {
-                                    response.Results.Add(result);
-                                    count++;
-                                }
-                                else break;
-                        }
-                        else
-                            response.Results = results;
-
-
-                        response.SearchResultCount = results.Count;
-                        response.Status = ResponseStatus.Success;
-                    }
-                    else
-                    {
-                        //throw results.Messages;
-                        response.Messages = results.Messages.ExceptionMessages;
-                        response.Status = ResponseStatus.Fail;
-                    }
+                    response.Results = results;
+                    response.SearchResultCount = results.SearchResultCount;
+                    response.Status = ResponseStatus.Success;                                       
                 }
             }
             catch (AuthenticationException Ex)
@@ -83,7 +58,8 @@ namespace HPF.FutureState.WebServices
             catch (DataValidationException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages = Ex.ExceptionMessages;
+                //response.Messages.AddExceptionMessage(0, Ex.Message);
             }
             catch (DataAccessException Ex)
             {
