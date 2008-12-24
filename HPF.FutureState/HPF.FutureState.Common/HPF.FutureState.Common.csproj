@@ -82,6 +82,7 @@
     <Compile Include="DataTransferObjects\CaseLoanDTO.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSearchResult.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />
