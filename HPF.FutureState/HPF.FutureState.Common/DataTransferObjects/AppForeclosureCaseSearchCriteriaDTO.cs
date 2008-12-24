@@ -18,7 +18,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         string _loanNumber = null;
         //[NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case ID: Only alpha-numeric characters allowed", Ruleset = "Default")]
-        public int AgencyCaseID { get; set; }
+        public string AgencyCaseID { get; set; }
 
         public string FirstName { get; set; }
 
