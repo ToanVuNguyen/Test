@@ -75,7 +75,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             //try
             //{
                 var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-                string now  = System.DateTime.Now.ToString();
+                string now = "1/1/2009";
                 var command = new SqlCommand("insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" + 
                                             "values('utest_user1', 'utest_user1','" + now + "',1,'utest','" + now + "',1, 'utest'"+ ")", dbConnection);
                 dbConnection.Open();
@@ -114,6 +114,11 @@ namespace HPF.FutureState.UnitTest.DataAccess
             
             WSUserDTO actual = target.GetWSUser(userName, password);
             Assert.AreEqual(userID, actual.WsUserId);            
+            Assert.AreEqual(new System.DateTime(2009, 1, 1), actual.CreateDt);
+            Assert.AreEqual("1", actual.CreateUserId);
+            Assert.AreEqual(new System.DateTime(2009, 1, 1), actual.ChgLstDt);
+            Assert.AreEqual("1", actual.ChgLstUserId);
+            Assert.AreEqual("utest", actual.CreateLstAppName);
         }
         
         /// <summary>
