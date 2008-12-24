@@ -57,7 +57,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PropertyState { get; set; }
         public int Agency { get; set; }
         public int Program { get; set; }
-        public int Duplicates { get; set; }
+        public string Duplicates { get; set; }
 
         //[NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be 4 alpha - numeric characters", Ruleset = "Default")]
         public string Last4SSN { get; set; }
