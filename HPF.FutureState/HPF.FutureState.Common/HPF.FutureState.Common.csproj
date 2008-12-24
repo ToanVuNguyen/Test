@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{571F09A2-386F-42DD-9E7E-B58F8983E368}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -84,7 +84,6 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSearchResult.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSetDTO.cs" />
-    <Compile Include="DataTransferObjects\ForeclosureCaseSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTOCollection.cs" />
     <Compile Include="DataTransferObjects\RefCodeItemDTO.cs" />
@@ -102,9 +101,9 @@
     <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseResponse.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseInsertRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseInsertResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ResponseStatus.cs" />
