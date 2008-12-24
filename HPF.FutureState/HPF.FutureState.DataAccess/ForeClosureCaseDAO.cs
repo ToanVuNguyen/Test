@@ -312,6 +312,7 @@ namespace HPF.FutureState.DataAccess
         public DataSet AppGetAgency()
         {
             DataSet result = new DataSet();
+
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_agency_get", dbConnection);
             command.CommandType = CommandType.StoredProcedure;
