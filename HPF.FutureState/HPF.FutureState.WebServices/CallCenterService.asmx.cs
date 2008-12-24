@@ -29,29 +29,15 @@ namespace HPF.FutureState.WebServices
         public CallLogInsertResponse SaveCallLog(CallLogInsertRequest request)
         {
             var response = new CallLogInsertResponse();            
-            //            
             try
             {
                 //if (IsAuthenticated())//Authentication checking
                 if (true)
-                {
-                    //Call Business Logic Here
-                    CallLogDTO callLogDTO = new CallLogDTO(request.CallLog);
-                    CallLogInsertResult result = new CallLogInsertResult();
-                    result = CallLogBL.Instance.InsertCallLog(callLogDTO);
-                    //string callLogID = CallLogBL.Instance.InsertCallLog(callLogDTO);
-
-                    if (result.Messages == null || result.Messages.ExceptionMessages.Count == 0)
-                    {                    
-                        response.CallLogID = result.CallLogID;
-                        response.Status = ResponseStatus.Success;
-                    }
-                    else
-                    {
-                        //throw results.Messages;
-                        response.Messages = result.Messages.ExceptionMessages;
-                        response.Status = ResponseStatus.Fail;
-                    }                    
+                {                    
+                    CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);                                        
+                    string sCallLogID = "HPF_" + CallLogBL.Instance.InsertCallLog(callLogDTO);
+                    response.CallLogID = sCallLogID;
+                    response.Status = ResponseStatus.Success;                                        
                 }
             }
             catch (AuthenticationException Ex)
@@ -74,6 +60,7 @@ namespace HPF.FutureState.WebServices
             } 
             catch(Exception Ex)
             {
+                response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(0, Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
@@ -105,7 +92,7 @@ namespace HPF.FutureState.WebServices
                     //
                     if (callLogDTO != null)
                     {
-                        callLogWSDTO = new CallLogWSDTO(callLogDTO);
+                        callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
                         response.CallLog = callLogWSDTO;
                         response.Status = ResponseStatus.Success;
                     }
@@ -152,6 +139,79 @@ namespace HPF.FutureState.WebServices
             return callLogId;
         }
 
+        private CallLogDTO ConvertToCallLogDTO(CallLogWSDTO sourceObject)
+        {
+            CallLogDTO destObject = new CallLogDTO();
+            if (sourceObject.CallId != null)
+            {
+                sourceObject.CallId = sourceObject.CallId.Replace("HPF_", "");
+                int id = 0;
+                int.TryParse(sourceObject.CallId, out id);
+                destObject.CallId = id;
+            }
+            destObject.CallCenterID = sourceObject.CallCenterID;
+            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
+            destObject.StartDate = sourceObject.StartDate;
+            destObject.EndDate = sourceObject.EndDate;
+            destObject.DNIS = sourceObject.DNIS;
+            destObject.CallCenter = sourceObject.CallCenter;
+            destObject.CallSourceCd = sourceObject.CallSourceCd;
+            destObject.ReasonToCall = sourceObject.ReasonToCall;
+            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
+            destObject.FirstName = sourceObject.FirstName;
+            destObject.LastName = sourceObject.LastName;
+            destObject.ServicerId = sourceObject.ServicerId;
+            destObject.OtherServicerName = sourceObject.OtherServicerName;
+            destObject.PropZipFull9 = sourceObject.PropZipFull9;
+            destObject.PrevAgencyId = sourceObject.PrevAgencyId;
+            destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
+            destObject.ScreenRout = sourceObject.ScreenRout;
+            destObject.FinalDispoCd = sourceObject.FinalDispoCd;
+            destObject.TransNumber = sourceObject.TransNumber;
+            destObject.CreateDate = sourceObject.CreateDate;
+            destObject.CreateUserId = sourceObject.CreateUserId;
+            destObject.CreateAppName = sourceObject.CreateAppName;
+            destObject.ChangeLastDate = sourceObject.ChangeLastDate;
+            destObject.ChangeLastUserId = sourceObject.ChangeLastUserId;
+            destObject.ChangeLastAppName = sourceObject.ChangeLastAppName;
+
+            return destObject;
+        }
+
+        private CallLogWSDTO ConvertToCallLogWSDTO(CallLogDTO sourceObject )
+        {
+            CallLogWSDTO destObject = new CallLogWSDTO();
+            if (sourceObject.CallId != 0)
+                destObject.CallId = "HPF_" + Convert.ToString(sourceObject.CallId);
+            
+            destObject.CallCenterID = sourceObject.CallCenterID;
+            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
+            destObject.StartDate = sourceObject.StartDate;
+            destObject.EndDate = sourceObject.EndDate;
+            destObject.DNIS = sourceObject.DNIS;
+            destObject.CallCenter = sourceObject.CallCenter;
+            destObject.CallSourceCd = sourceObject.CallSourceCd;
+            destObject.ReasonToCall = sourceObject.ReasonToCall;
+            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
+            destObject.FirstName = sourceObject.FirstName;
+            destObject.LastName = sourceObject.LastName;
+            destObject.ServicerId = sourceObject.ServicerId;
+            destObject.OtherServicerName = sourceObject.OtherServicerName;
+            destObject.PropZipFull9 = sourceObject.PropZipFull9;
+            destObject.PrevAgencyId = sourceObject.PrevAgencyId;
+            destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
+            destObject.ScreenRout = sourceObject.ScreenRout;
+            destObject.FinalDispoCd = sourceObject.FinalDispoCd;
+            destObject.TransNumber = sourceObject.TransNumber;
+            destObject.CreateDate = sourceObject.CreateDate;
+            destObject.CreateUserId = sourceObject.CreateUserId;
+            destObject.CreateAppName = sourceObject.CreateAppName;
+            destObject.ChangeLastDate = sourceObject.ChangeLastDate;
+            destObject.ChangeLastUserId = sourceObject.ChangeLastUserId;
+            destObject.ChangeLastAppName = sourceObject.ChangeLastAppName;
+
+            return destObject;
+        }
     }
 
 
