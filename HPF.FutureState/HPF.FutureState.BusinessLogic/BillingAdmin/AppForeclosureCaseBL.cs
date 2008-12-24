@@ -41,5 +41,23 @@ namespace HPF.FutureState.BusinessLogic.BillingAdmin
             DataSet result = AppForeclosureCaseDAO.CreateInstance().AppGetProgram();
             return result;
         }
+        /// <summary>
+        /// Get State Name and State ID to display in DDLB
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetState()
+        {
+            DataSet result = AppForeclosureCaseDAO.CreateInstance().AppGetState();
+            return result;
+        }
+        /// <summary>
+        /// Get Agency Name and Agency ID to display in DDLB
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetAgency()
+        {
+            DataSet result = AppForeclosureCaseDAO.CreateInstance().AppGetAgency();
+            return result;
+        }
     }
 }
