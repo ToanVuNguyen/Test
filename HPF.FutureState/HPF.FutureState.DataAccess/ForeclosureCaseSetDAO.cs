@@ -76,7 +76,7 @@ namespace HPF.FutureState.DataAccess
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
 
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_foreclosure_case_retrieve_from_fcid", dbConnection);
+            var command = new SqlCommand("hpf_foreclosure_case_get_from_fcid", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
@@ -103,7 +103,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.AgencyMediaConsentInd = ConvertToString(reader["agency_media_consent_ind"]);
                         returnObject.AgencySuccessStoryInd = ConvertToString(reader["agency_success_story_ind"]);
                         returnObject.AmiPercentage = ConvertToInt(reader["AMI_percentage"]);
-                        returnObject.AssignedCounselorIdRef = ConvertToString(reader["assigned_counselor_id_ref"]);
+                        returnObject.AssignedCounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
 
                         returnObject.BankruptcyAttorney = ConvertToString(reader["bankruptcy_attorney"]);
                         returnObject.BankruptcyInd = ConvertToString(reader["bankruptcy_ind"]);
@@ -816,7 +816,7 @@ namespace HPF.FutureState.DataAccess
         {
             bool returnValue = true;
             var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_foreclosure_case_retrieve_from_agencyID_and_caseNumber", dbConnection);
+            var command = new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[2];
             sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
