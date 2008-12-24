@@ -9,7 +9,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     [Serializable]    
     public class CallLogInsertResponse : BaseResponse
     {
-        //public CallLogWSDTO CallLog { get; set; }
         public string CallLogID { get; set; }
     }
 }
