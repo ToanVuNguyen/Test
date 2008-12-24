@@ -70,11 +70,11 @@ namespace HPF.FutureState.DataAccess
         {
             WSUserDTO wsUser = null;
             var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_user_get_from_username_password", dbConnection);
+            var command = CreateSPCommand("hpf_ws_user_get_from_username_password", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[2];
-            sqlParam[0] = new SqlParameter("@username", userName);
-            sqlParam[1] = new SqlParameter("@password", password);            
+            sqlParam[0] = new SqlParameter("@pi_username", userName);
+            sqlParam[1] = new SqlParameter("@pi_password", password);            
             //</Parameter>            
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
