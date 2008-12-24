@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param>ForeclosureCaseDTO</param>
         /// <returns>fc_id</returns>
-        int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase);
+        int SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize);
         
     }
 }
