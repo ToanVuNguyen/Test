@@ -34,64 +34,60 @@ namespace HPF.FutureState.DataAccess
         /// <returns>a new CallLogId</returns>
         public int InsertCallLog(CallLogDTO aCallLog)
         {            
-            //var dbConnection = CreateConnection();
-
-            //var command = CreateSPCommand("hpf_call_insert", dbConnection);
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_call_insert", dbConnection);
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_call_insert", dbConnection);            
+            
             //<Parameter>
-
-            
             var sqlParam = new SqlParameter[32];
-            sqlParam[0] = new SqlParameter("@call_center_id", aCallLog.CallCenterID);
-            sqlParam[1] = new SqlParameter("@cc_agent_id_key", aCallLog.CcAgentIdKey );
-            sqlParam[2] = new SqlParameter("@start_dt", NullableDateTime(aCallLog.StartDate));
-            sqlParam[3] = new SqlParameter("end_dt", NullableDateTime(aCallLog.EndDate));
-            sqlParam[4] = new SqlParameter("dnis", aCallLog.DNIS);
-            sqlParam[5] = new SqlParameter("call_center", aCallLog.CallCenter);
-            sqlParam[6] = new SqlParameter("@call_source_cd", aCallLog.CallSourceCd);
-            sqlParam[7] = new SqlParameter("@reason_for_call", aCallLog.ReasonToCall);
-            sqlParam[8] = new SqlParameter("@loan_acct_num", aCallLog.LoanAccountNumber);
-            sqlParam[9] = new SqlParameter("@fname", aCallLog.FirstName);
-            sqlParam[10] = new SqlParameter("@lname", aCallLog.LastName);
-            sqlParam[11] = new SqlParameter("@servicer_id", aCallLog.ServicerId);
-            sqlParam[12] = new SqlParameter("@other_servicer_name", aCallLog.OtherServicerName);
-            sqlParam[13] = new SqlParameter("@prop_zip_full9", aCallLog.PropZipFull9);
-            sqlParam[14] = new SqlParameter("@prev_agency_id", aCallLog.PrevAgencyId);
-            sqlParam[15] = new SqlParameter("@selected_agency_id", aCallLog.SelectedAgencyId);
-            sqlParam[16] = new SqlParameter("@screen_rout", aCallLog.ScreenRout);
-            sqlParam[17] = new SqlParameter("@final_dispo_cd", aCallLog.FinalDispoCd);
-            sqlParam[18] = new SqlParameter("@trans_num", aCallLog.TransNumber);
-            sqlParam[19] = new SqlParameter("@cc_call_key", aCallLog.CcCallKey);
-            sqlParam[20] = new SqlParameter("@loan_delinq_status_cd", aCallLog.LoanDelinqStatusCd);
-            sqlParam[21] = new SqlParameter("@selected_counselor", aCallLog.SelectedCounselor);
-            sqlParam[22] = new SqlParameter("@homeowner_ind", aCallLog.HomeownerInd);
-            sqlParam[23] = new SqlParameter("@power_of_attorney_ind", aCallLog.PowerOfAttorneyInd);
-            sqlParam[24] = new SqlParameter("@authorized_ind", aCallLog.AuthorizedInd);
-            sqlParam[25] = new SqlParameter("create_dt", NullableDateTime(aCallLog.CreateDate));
-            sqlParam[26] = new SqlParameter("create_user_id", aCallLog.CreateUserId);
-            sqlParam[27] = new SqlParameter("create_app_name", aCallLog.CreateAppName);
-            sqlParam[28] = new SqlParameter("chg_lst_dt", NullableDateTime(aCallLog.ChangeLastDate));
-            sqlParam[29] = new SqlParameter("chg_lst_user_id", aCallLog.ChangeLastUserId);
-            sqlParam[30] = new SqlParameter("chg_lst_app_name", aCallLog.ChangeLastAppName);
+            sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
+            sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey );
+            sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));
+            sqlParam[3] = new SqlParameter("@pi_end_dt", NullableDateTime(aCallLog.EndDate));
+            sqlParam[4] = new SqlParameter("@pi_dnis", aCallLog.DNIS);
+            sqlParam[5] = new SqlParameter("@pi_call_center", aCallLog.CallCenter);
+            sqlParam[6] = new SqlParameter("@pi_call_source_cd", aCallLog.CallSourceCd);
+            sqlParam[7] = new SqlParameter("@pi_reason_for_call", aCallLog.ReasonToCall);
+            sqlParam[8] = new SqlParameter("@pi_loan_acct_num", aCallLog.LoanAccountNumber);
+            sqlParam[9] = new SqlParameter("@pi_fname", aCallLog.FirstName);
+            sqlParam[10] = new SqlParameter("@pi_lname", aCallLog.LastName);
+            sqlParam[11] = new SqlParameter("@pi_servicer_id", aCallLog.ServicerId);
+            sqlParam[12] = new SqlParameter("@pi_other_servicer_name", aCallLog.OtherServicerName);
+            sqlParam[13] = new SqlParameter("@pi_prop_zip_full9", aCallLog.PropZipFull9);
+            sqlParam[14] = new SqlParameter("@pi_prev_agency_id", aCallLog.PrevAgencyId);
+            sqlParam[15] = new SqlParameter("@pi_selected_agency_id", aCallLog.SelectedAgencyId);
+            sqlParam[16] = new SqlParameter("@pi_screen_rout", aCallLog.ScreenRout);
+            sqlParam[17] = new SqlParameter("@pi_final_dispo_cd", aCallLog.FinalDispoCd);
+            sqlParam[18] = new SqlParameter("@pi_trans_num", aCallLog.TransNumber);
+            sqlParam[19] = new SqlParameter("@pi_cc_call_key", aCallLog.CcCallKey);
+            sqlParam[20] = new SqlParameter("@pi_loan_delinq_status_cd", aCallLog.LoanDelinqStatusCd);
+            sqlParam[21] = new SqlParameter("@pi_selected_counselor", aCallLog.SelectedCounselor);
+            sqlParam[22] = new SqlParameter("@pi_homeowner_ind", aCallLog.HomeownerInd);
+            sqlParam[23] = new SqlParameter("@pi_power_of_attorney_ind", aCallLog.PowerOfAttorneyInd);
+            sqlParam[24] = new SqlParameter("@pi_authorized_ind", aCallLog.AuthorizedInd);
+            sqlParam[25] = new SqlParameter("@pi_create_dt", NullableDateTime(aCallLog.CreateDate));
+            sqlParam[26] = new SqlParameter("@pi_create_user_id", aCallLog.CreateUserId);
+            sqlParam[27] = new SqlParameter("@pi_create_app_name", aCallLog.CreateAppName);
+            sqlParam[28] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCallLog.ChangeLastDate));
+            sqlParam[29] = new SqlParameter("@pi_chg_lst_user_id", aCallLog.ChangeLastUserId);
+            sqlParam[30] = new SqlParameter("@pi_chg_lst_app_name", aCallLog.ChangeLastAppName);
             
-            sqlParam[31] = new SqlParameter("@call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            sqlParam[31] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             dbConnection.Open();
-            //var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            //command.Transaction = trans;
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            command.Transaction = trans;
             try
             {
                 command.ExecuteNonQuery();
-                //trans.Commit();
+                trans.Commit();
                 dbConnection.Close();
                 aCallLog.CallId = ConvertToInt(sqlParam[31].Value);
             }
             catch(Exception Ex)
             {
-                //trans.Rollback();
+                trans.Rollback();
                 dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
