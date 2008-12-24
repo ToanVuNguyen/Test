@@ -13,8 +13,8 @@ using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.DataValidator;
-using HPF.FutureState.BusinessLogic.BillingAdmin;
-using HPF.FutureState.Common.DataTransferObjects.BillingAdmin;
+using HPF.FutureState.BusinessLogic;
+
 
 namespace HPF.FutureState.Web
 {
@@ -30,7 +30,7 @@ namespace HPF.FutureState.Web
         protected void Button1_Click1(object sender, EventArgs e)
         {
             AppForeclosureCaseSearchCriteriaDTO searchCritera = new AppForeclosureCaseSearchCriteriaDTO();
-            AppForeclosureCaseSearchResult result = AppForeclosureCaseBL.Instance.AppSearchforeClosureCase(searchCritera);
+            AppForeclosureCaseSearchResult result = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(searchCritera);
         }              
     }   
 }
