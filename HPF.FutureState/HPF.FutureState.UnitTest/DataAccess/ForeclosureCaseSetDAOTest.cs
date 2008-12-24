@@ -57,7 +57,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             command.Connection = dbConnection;
             command.CommandText = "update foreclosure_case" +
                                     " set loan_list = 'abc123, abc124, def123, def1234'" +
-                                    ", prop_zip = '12345'" +
+                                    ", prop_zip = '66666'" +
                                     ", borrower_last4_SSN = '1234'" +
                                     " where fc_id in (23, 123, 181, 183, 185) ";
             command.ExecuteNonQuery();
@@ -108,6 +108,48 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
 
         #region SearchForeclosureCase - Test
+
+        /// <summary>
+        ///A test for SearchForeclosureCase
+        ///</summary>
+        [TestMethod()]
+        public void SearchForeclosureCaseTest()
+        {
+            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO() { PropertyZip = "66666" };
+
+            List<int> expected = GetListFCID(searchCriteria);
+            List<int> actual = new List<int>();
+            ForeclosureCaseSearchResult actualResult = target.SearchForeclosureCase(searchCriteria, 50);
+            foreach (ForeclosureCaseWSDTO wscase in actualResult)
+            {
+                actual.Add(wscase.FcId);
+            }
+            CollectionAssert.AreEquivalent(expected, actual);
+            
+        }
+
+        private static List<int> GetListFCID(ForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            List<int> expected = new List<int>();
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand();
+            dbConnection.Open();
+            command.Connection = dbConnection;
+            command.CommandText = " Select fc_id from foreclosure_case where prop_zip = '" + searchCriteria.PropertyZip + "'";
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    expected.Add(reader.GetInt32(0));
+                }
+            }
+            reader.Close();
+            dbConnection.Close();
+            return expected;
+        }
+
         /// <summary>
         ///A test for SearchForeclosureCase
         ///</summary>
@@ -131,7 +173,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
         private List<int> PerformTest(int index)
         {
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor();
+            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
             HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO searchCriteria = new HPF.FutureState.Common.DataTransferObjects.ForeclosureCaseSearchCriteriaDTO();
 
             string[] criteria = criterias[index];
@@ -143,7 +185,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             searchCriteria.PropertyZip = criteria[5];
 
 
-            ForeclosureCaseSearchResult searchResults = target.SearchForeclosureCase(searchCriteria);
+            ForeclosureCaseSearchResult searchResults = target.SearchForeclosureCase(searchCriteria, 50);
 
             List<int> actual;
             if (searchResults != null)
