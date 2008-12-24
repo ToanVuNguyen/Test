@@ -81,9 +81,13 @@
     <Compile Include="DataTransferObjects\CallLogInsertResult.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTO.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\GeoCodeRefDTO.cs" />
+    <Compile Include="DataTransferObjects\GeoCodeRefDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSearchCriteriaDTO.cs" />
-    <Compile Include="DataTransferObjects\ForeclosureCaseSearchResult.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseSearchResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataTransferObjects\ForeclosureCaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTOCollection.cs" />

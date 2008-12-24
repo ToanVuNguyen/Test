@@ -20,11 +20,21 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         private static Validator<T> CreateValidator<T>()
         {
             return ValidationFactory.CreateValidator<T>("Default");
-        }          
+        }
+
+        private static Validator<T> CreateValidator<T>(string ruleSet)
+        {
+            return ValidationFactory.CreateValidator<T>(ruleSet);
+        } 
 
         public static ValidationResults Validate<T>(T target)
         {
             return CreateValidator<T>().Validate(target);
+        }
+
+        public static ValidationResults Validate<T>(T target, string ruleSet)
+        {
+            return CreateValidator<T>(ruleSet).Validate(target);
         }
 
         public static ExceptionMessageCollection ValidateToExceptionMessage<T>(T target)

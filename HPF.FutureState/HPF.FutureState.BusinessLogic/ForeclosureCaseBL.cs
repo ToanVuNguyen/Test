@@ -155,8 +155,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {
-            Validator<ForeclosureCaseDTO> cValidator = ValidationFactory.CreateValidator<ForeclosureCaseDTO>(ruleSet);
-            ValidationResults validationResults = cValidator.Validate(foreclosureCase);
+            ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);           
             if (validationResults.IsValid)
             {
                 return true;
@@ -178,8 +177,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (BudgetItemDTO item in budgetItemDTOCollection)
                 {
-                    Validator<BudgetItemDTO> cValidator = ValidationFactory.CreateValidator<BudgetItemDTO>(ruleSet);
-                    ValidationResults validationResults = cValidator.Validate(item);
+                    ValidationResults validationResults = HPFValidator.Validate<BudgetItemDTO>(item, ruleSet);
                     if (!validationResults.IsValid)
                     {
                         return false;
@@ -204,8 +202,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
                 {
-                    Validator<OutcomeItemDTO> cValidator = ValidationFactory.CreateValidator<OutcomeItemDTO>(ruleSet);
-                    ValidationResults validationResults = cValidator.Validate(item);
+                    ValidationResults validationResults = HPFValidator.Validate<OutcomeItemDTO>(item, ruleSet);
                     if (!validationResults.IsValid)
                     {
                         return false;
@@ -230,8 +227,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (CaseLoanDTO item in caseLoanDTOCollection)
                 {
-                    Validator<CaseLoanDTO> cValidator = ValidationFactory.CreateValidator<CaseLoanDTO>(ruleSet);
-                    ValidationResults validationResults = cValidator.Validate(item);
+                    ValidationResults validationResults = HPFValidator.Validate<CaseLoanDTO>(item, ruleSet);                    
                     if (!validationResults.IsValid)
                     {
                         return false;
@@ -312,7 +308,9 @@ namespace HPF.FutureState.BusinessLogic
                 CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
                 bool forclosureValid = CheckValidCodeForForclosureCase(foreclosureCase);
                 bool caseLoanValid = CheckValidCodeForCaseLoan(caseLoanCollection);
-                if (forclosureValid && caseLoanValid)
+                bool combinationValid = CheckValidCombinationStateCdAndZip(foreclosureCase);
+                bool zipCodeValid = CheckValidZipCode(foreclosureCase);
+                if (forclosureValid && caseLoanValid && combinationValid && zipCodeValid)
                     return true;
             }
             return false;           
@@ -377,29 +375,76 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
-        /// Check valid code
-        /// <input>string, string</input>
+        /// Check valid combination state_code and zip code
+        /// <input>ForeclosureCaseDTO</input>
         /// <return>bool<return>
         /// </summary>
-        
-        private bool CheckCode(string codeValue, string codeName)
+        private bool CheckValidCombinationStateCdAndZip(ForeclosureCaseDTO forclosureCase)
         {
-            RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
-            if (codeValue == string.Empty || codeValue == null)
+            GeoCodeRefDTOCollection geoCodeRefCollection = GeoCodeRefDAO.Instance.GetGeoCodeRef();
+            bool contactValid = false;
+            bool propertyValid = false;
+            if (geoCodeRefCollection != null)
+            {
+                foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+                {
+                    contactValid = CombinationContactValid(forclosureCase, item);
+                    if (contactValid == true)
+                        break;
+                }
+                foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+                {
+                    propertyValid = CombinationPropertyValid(forclosureCase, item);
+                    if (propertyValid == true)
+                        break;
+                }
+            }
+            if (contactValid && propertyValid)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Check valid combination contact state_code and contact zip code
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationContactValid(ForeclosureCaseDTO forclosureCase,GeoCodeRefDTO item)
+        {
+            if (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr)
             {
                 return true;
             }
-            else
+            return false;
+
+        }
+
+        /// <summary>
+        /// Check valid combination property state_code and property zip code
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationPropertyValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
+        {
+            if (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr)
             {
-                foreach (RefCodeItemDTO items in refCodeItemCollection)
-                {
-                    if (items.Code == codeValue && items.RefCodeSetName == codeName)
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                return true;
             }
+            return false;
+        }
+
+        /// <summary>
+        /// Check valid zipcode
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
+        {
+            if (forclosureCase.ContactZip.Length != 5 || forclosureCase.PropZip.Length != 5)
+                return false;
+            else
+                return true;
         }
         #endregion
 
@@ -510,7 +555,7 @@ namespace HPF.FutureState.BusinessLogic
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
                 OutcomeItemDTOCollection outcomeCollecionNew = null;
-                outcomeCollecionNew =CheckOutcomeItemInputwithDB(outcomeItemCollection, fcId);
+                outcomeCollecionNew = CheckOutcomeItemInputwithDB(outcomeItemCollection, fcId);
                 InsertOutcomeItem(foreClosureCaseSetDAO, outcomeItemCollection, fcId);
 
                 //check outcome item DB with outcome item input

@@ -65,9 +65,9 @@
     </Compile>
     <Compile Include="DataAccess\CallLogTest.cs" />
     <Compile Include="DataAccess\ForeclosureCaseSetDAOTest.cs" />
-    <Compile Include="ForeclosureCaseDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccess\SecurityDAOTest.cs" />
+    <Compile Include="ReferenceCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

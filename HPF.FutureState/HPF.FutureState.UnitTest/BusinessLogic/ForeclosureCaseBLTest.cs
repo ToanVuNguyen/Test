@@ -732,23 +732,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             bool actual;
             actual = target.RequireFieldsValidation(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
-        }
-
-        /// <summary>
-        ///A test for CheckCode
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckCodeTest()
-        {
-            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
-            string codeValue = string.Empty; // TODO: Initialize to an appropriate value
-            string codeName = string.Empty; // TODO: Initialize to an appropriate value
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.CheckCode(codeValue, codeName);
-            Assert.AreEqual(expected, actual);            
-        }
+        }       
 
         /// <summary>
         ///A test for CheckValidCode
@@ -820,7 +804,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet(); // TODO: Initialize to an appropriate value
-            target.UpdateForeclosureCaseSet(foreclosureCaseSet);
+             target.UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
 
         /// <summary>
@@ -848,7 +832,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             BudgetAssetDTOCollection budgetCollection = SetBudgetAssetCollection(); // TODO: Initialize to an appropriate value
-            int fc_id = 1350045; // TODO: Initialize to an appropriate value
+            int fc_id = 1350053; // TODO: Initialize to an appropriate value
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.IsBudgetAssetDifference(budgetCollection, fc_id);
@@ -858,10 +842,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private ForeclosureCaseDTO SetForeclosureCase()
         {            
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
-            foreclosureCase.FcId = Convert.ToInt32("1350046");
+            foreclosureCase.FcId = Convert.ToInt32("1350053");
             foreclosureCase.AgencyId = Convert.ToInt32("1");
             foreclosureCase.ProgramId = Convert.ToInt32("1");
-            foreclosureCase.AgencyCaseNum = "Test";
+            //foreclosureCase.AgencyCaseNum = "Test";
             foreclosureCase.IntakeDt = Convert.ToDateTime("12/12/2009");
             foreclosureCase.CaseSourceCd = "";
             foreclosureCase.BorrowerFname = "Test";
@@ -870,11 +854,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ContactAddr1 = "Test";
             foreclosureCase.ContactCity = "Test";
             foreclosureCase.ContactStateCd = "";
-            foreclosureCase.ContactZip = "Test";
+            foreclosureCase.ContactZip = "12345";
             foreclosureCase.PropAddr1 = "Test";
             foreclosureCase.PropCity = "Test";
             foreclosureCase.PropStateCd = "";
-            foreclosureCase.PropZip = "Test";
+            foreclosureCase.PropZip = "12345";
             foreclosureCase.OwnerOccupiedInd = "Test";
             foreclosureCase.FundingConsentInd = "Test";
             foreclosureCase.ServicerConsentInd = "Test";
@@ -887,7 +871,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.OptOutSurveyInd = "Test";
             foreclosureCase.DoNotCallInd = "Test";
             foreclosureCase.PrimaryResidenceInd = "Test";
-
+            foreclosureCase.CreateDate = DateTime.Now;
+            foreclosureCase.CreateUserId = "HPF";
+            foreclosureCase.CreateAppName = "HPF";
+            foreclosureCase.ChangeLastDate = DateTime.Now;
+            foreclosureCase.ChangeLastAppName = "HPF";
+            foreclosureCase.ChangeLastUserId = "HPF";
             //foreclosureCase.AgencyClientNum = "";
             return foreclosureCase;
         }
@@ -895,27 +884,45 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private BudgetAssetDTOCollection SetBudgetAssetCollection()
         {
             BudgetAssetDTOCollection budgetAssetCollection = new BudgetAssetDTOCollection();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 4; i++)
             {
                 BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
                 budgetAsset.BudgetSetId = Convert.ToInt32("76156");
                 budgetAsset.AssetName = "Test";
                 budgetAsset.AssetValue = Convert.ToDecimal("11.3");
+                budgetAsset.CreateDate = DateTime.Now;
+                budgetAsset.CreateUserId = "HPF";
+                budgetAsset.CreateAppName = "HPF";
+                budgetAsset.ChangeLastDate = DateTime.Now;
+                budgetAsset.ChangeLastAppName = "HPF";
+                budgetAsset.ChangeLastUserId = "HPF";
                 budgetAssetCollection.Add(budgetAsset);
             }
+            //BudgetAssetDTO budgetAsset1 = new BudgetAssetDTO();
+            //budgetAsset1.BudgetSetId = Convert.ToInt32("76156");
+            //budgetAsset1.AssetName = "Test";
+            //budgetAsset1.AssetValue = Convert.ToDecimal("11.2");
+
+            //budgetAssetCollection.Add(budgetAsset1);
             return budgetAssetCollection;
         }
 
         private BudgetItemDTOCollection SetBudgetItemCollection()
         {
             BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();            
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 2; i++)
             {
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
                 budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("1");
                 budgetItemDTO.BudgetNote = null;
+                budgetItemDTO.CreateDate = DateTime.Now;
+                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateAppName = "HPF";
+                budgetItemDTO.ChangeLastDate = DateTime.Now;
+                budgetItemDTO.ChangeLastAppName = "HPF";
+                budgetItemDTO.ChangeLastUserId = "HPF";
                 budgetItemCollection.Add(budgetItemDTO);
             }
             return budgetItemCollection;
@@ -927,9 +934,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             for (int i = 0; i < 1; i++)
             {
                 OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();
-                outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");
-                outcomeItemDTO.OutcomeSetId = Convert.ToInt32("1");
+                outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");                
                 outcomeItemDTO.FcId = Convert.ToInt32("1");
+                outcomeItemDTO.NonprofitreferralKeyNum = "Test";
+                outcomeItemDTO.ExtRefOtherName = "Test";
+                outcomeItemDTO.CreateDate = DateTime.Now;
+                outcomeItemDTO.CreateUserId = "HPF";
+                outcomeItemDTO.CreateAppName = "HPF";
+                outcomeItemDTO.ChangeLastDate = DateTime.Now;
+                outcomeItemDTO.ChangeLastAppName = "HPF";
+                outcomeItemDTO.ChangeLastUserId = "HPF";
                 outcomeItemCollection.Add(outcomeItemDTO);
             }
             return outcomeItemCollection;
@@ -944,6 +958,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 caseLoanDTO.LoanDelinqStatusCd = "30-59";
                 caseLoanDTO.ServicerId = Convert.ToInt32("1");
                 caseLoanDTO.AcctNum = "Test";
+                caseLoanDTO.CreateDate = DateTime.Now;
+                caseLoanDTO.CreateUserId = "HPF";
+                caseLoanDTO.CreateAppName = "HPF";
+                caseLoanDTO.ChangeLastDate = DateTime.Now;
+                caseLoanDTO.ChangeLastAppName = "HPF";
+                caseLoanDTO.ChangeLastUserId = "HPF";
                 caseLoanCollection.Add(caseLoanDTO);
             }
             return caseLoanCollection;
@@ -953,6 +973,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             BudgetSetDTO budgetSetDTO = new BudgetSetDTO();
             budgetSetDTO.BudgetSetDt = Convert.ToDateTime("12/12/2009");
+            budgetSetDTO.CreateDate = DateTime.Now;
+            budgetSetDTO.CreateUserId = "HPF";
+            budgetSetDTO.CreateAppName = "HPF";
+            budgetSetDTO.ChangeLastDate = DateTime.Now;
+            budgetSetDTO.ChangeLastAppName = "HPF";
+            budgetSetDTO.ChangeLastUserId = "HPF";
             return budgetSetDTO;
         }
 

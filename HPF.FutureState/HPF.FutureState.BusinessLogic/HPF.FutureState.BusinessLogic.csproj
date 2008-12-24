@@ -53,7 +53,6 @@
   <ItemGroup>
     <Compile Include="BaseBusinessLogic.cs" />
     <Compile Include="CallLogBL.cs" />
-    <Compile Include="CodeConstants.cs" />
     <Compile Include="RefCodeItemBL.cs" />
     <Compile Include="ForeclosureCaseBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
