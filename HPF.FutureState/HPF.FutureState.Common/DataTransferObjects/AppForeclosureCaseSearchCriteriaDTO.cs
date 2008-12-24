@@ -17,18 +17,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class AppForeclosureCaseSearchCriteriaDTO
     {
         string _loanNumber = null;
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string AgencyCaseID { get; set; }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string FirstName { get; set; }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string LastName { get; set; }
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive,Ruleset="Default")]
         public int ForeclosureCaseID { get; set; }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string LoanNumber
         {
             get { return _loanNumber; }
@@ -54,22 +54,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string PropertyZip { get; set; }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string PropertyState { get; set; }
 
-        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "AppSearchRequireCriteria")]
         public int Agency { get; set; }
 
-        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "AppSearchRequireCriteria")]
         public int Program { get; set; }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string Duplicates { get; set; }
 
-        [NotNullValidator(Ruleset = "Default")]
+        [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string Last4SSN { get; set; }
     }
 }
