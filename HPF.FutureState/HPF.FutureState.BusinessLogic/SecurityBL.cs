@@ -55,9 +55,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
 
-                if (user == null)
-                    return false;
-
+                if (user == null || user.ActiveInd == string.Empty || user.ActiveInd == "" || user.ActiveInd.ToUpper().CompareTo("N") == 0)
+                    return false;                
                 switch (wsType)
                 {
                     case WSType.Agency:
