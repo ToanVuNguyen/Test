@@ -431,5 +431,38 @@ namespace HPF.FutureState.UnitTest.DataAccess
             dbConnection.Close();
         }
         #endregion
+        #region AppSearchForeclosureCase - Test
+        [TestMethod()]
+        public void AppSearchForeclosureCaseTest()
+        {
+            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { PropertyZip = "66666", Last4SSN = "1234", Agency=-1, ForeclosureCaseID=-1, Program=-1};
+            var result = target.AppSearchForeclosureCase(criteria);
+            Assert.AreEqual(result.Count, 5);
+            var expected = new List<string> {"23", "123", "181", "183", "185"};
+            foreach (var actual in result)
+            {
+                Assert.AreEqual(actual.LoanList, "abc123, abc124, def123, def1234");
+                Assert.AreEqual(actual.PropertyZip, "66666");
+                Assert.AreEqual(actual.Last4SSN, "1234");
+                Assert.IsTrue(expected.IndexOf(actual.CaseID)!=-1);
+            }
+        }
+        [TestMethod()]
+        public void AppGetProgram()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = "update foreclosure_case" +
+                                    " set loan_list = 'abc123, abc124, def123, def1234'" +
+                                    ", prop_zip = '66666'" +
+                                    ", borrower_last4_SSN = '1234'" +
+                                    " where fc_id in (23, 123, 181, 183, 185) ";
+            command.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+        #endregion
     }
 }
