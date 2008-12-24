@@ -86,8 +86,10 @@ namespace HPF.FutureState.DataAccess
                 if (reader.HasRows)
                 {
                     wsUser = new WSUserDTO();
+                    wsUser.LoginUsername = userName;
+                    wsUser.LoginPassword = password;
                     while (reader.Read())
-                    {
+                    {                        
                         wsUser.WsUserId = ConvertToInt(reader["ws_user_id"]);
                         wsUser.AgencyId = ConvertToInt(reader["agency_id"]);
                         wsUser.CallCenterId = ConvertToInt(reader["call_center_id"]);
