@@ -23,6 +23,15 @@ namespace HPF.FutureState.Web.BillingAdmin {
         protected global::System.Web.UI.WebControls.TextBox txtSSN;
         
         /// <summary>
+        /// txtSSNCheckValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtSSNCheckValidator;
+        
+        /// <summary>
         /// txtAgencyCaseID control.
         /// </summary>
         /// <remarks>
@@ -30,6 +39,15 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAgencyCaseID;
+        
+        /// <summary>
+        /// txtAgencyCaseIDCheckValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtAgencyCaseIDCheckValidator;
         
         /// <summary>
         /// ddlDup control.
@@ -59,6 +77,15 @@ namespace HPF.FutureState.Web.BillingAdmin {
         protected global::System.Web.UI.WebControls.TextBox txtLoanNum;
         
         /// <summary>
+        /// txtLoanNumCheckValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtLoanNumCheckValidator;
+        
+        /// <summary>
         /// ddlAgency control.
         /// </summary>
         /// <remarks>
@@ -77,15 +104,6 @@ namespace HPF.FutureState.Web.BillingAdmin {
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
         
         /// <summary>
-        /// txtFirstNameCheckValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtFirstNameCheckValidator;
-        
-        /// <summary>
         /// txtPropertyZip control.
         /// </summary>
         /// <remarks>
@@ -93,6 +111,15 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPropertyZip;
+        
+        /// <summary>
+        /// txtPropertyZipCheckValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtPropertyZipCheckValidator;
         
         /// <summary>
         /// ddlProgram control.
@@ -113,13 +140,13 @@ namespace HPF.FutureState.Web.BillingAdmin {
         protected global::System.Web.UI.WebControls.TextBox txtForeclosureCaseID;
         
         /// <summary>
-        /// txtForecloseureCaseIDCheckValidate control.
+        /// RegularExpressionValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtForecloseureCaseIDCheckValidate;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
         /// ddlPropertyState control.
@@ -140,12 +167,21 @@ namespace HPF.FutureState.Web.BillingAdmin {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
+        /// panForeClosureCaseSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panForeClosureCaseSearch;
+        
+        /// <summary>
         /// grvForeClosureCaseSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.BillingAdmin.FixedHeaderGrid grvForeClosureCaseSearch;
+        protected global::System.Web.UI.WebControls.GridView grvForeClosureCaseSearch;
     }
 }
