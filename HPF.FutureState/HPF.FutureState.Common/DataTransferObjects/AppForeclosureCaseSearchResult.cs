@@ -10,7 +10,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CaseID { get; set; }
         public string AgencyCaseID { get; set; }
         public string Counseled { get; set; }
-        public string CaseDate { get; set; }
+        public DateTime CaseDate { get; set; }
         public string BorrowerFirstName { get; set; }
         public string BorrowerLastName { get; set; }
         public string Last4SSN { get; set; }
@@ -26,7 +26,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string AgentPhone { get; set; }
         public string AgentExtension { get; set; }
         public string AgentEmail { get; set; }
-        public string CaseCompleteDate { get; set; }
+        public DateTime CaseCompleteDate { get; set; }
         public string DaysDelinquent { get; set; }
         public string BankruptcyIndicator { get; set; }
         public string ForeclosureNoticeReceivedIndicator { get; set; }
