@@ -212,8 +212,8 @@ namespace HPF.FutureState.DataAccess
                         AppForeclosureCaseSearchResult item = new AppForeclosureCaseSearchResult();
                         item.CaseID = ConvertToString(reader["fc_id"]);
                         item.AgencyCaseID = ConvertToString(reader["agency_id"]);
-                        item.CaseCompleteDate = ConvertToString(reader["completed_dt"]);
-                        item.CaseDate = ConvertToString(reader["intake_dt"]);
+                        item.CaseCompleteDate = ConvertToDateTime(reader["completed_dt"]);
+                        item.CaseDate = ConvertToDateTime(reader["intake_dt"]);
                         item.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
                         item.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
                         item.Last4SSN = ConvertToString(reader["borrower_last4_SSN"]);
