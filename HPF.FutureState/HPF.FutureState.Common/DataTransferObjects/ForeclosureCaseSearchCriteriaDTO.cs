@@ -16,7 +16,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ForeclosureCaseSearchCriteriaDTO
     {
-        [NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
+        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
         public string AgencyCaseNumber
         {
             get;
