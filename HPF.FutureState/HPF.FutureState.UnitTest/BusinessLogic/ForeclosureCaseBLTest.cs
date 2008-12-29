@@ -993,5 +993,19 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.BudgetAssets = SetBudgetAssetCollection();
             return foreclosureCaseSet;
         }
+        #region AppForeclosureCaseSearch Test
+        /// <summary>
+        ///A test for Empty Search Criteria provided by User
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        [ExpectedException(typeof(ProcessingException))]
+        public void EmptySearchCriteriaProvided()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = -1, Program = -1 };
+            target.AppSearchforeClosureCase(criteria);
+        }
+        #endregion
     }
 }
