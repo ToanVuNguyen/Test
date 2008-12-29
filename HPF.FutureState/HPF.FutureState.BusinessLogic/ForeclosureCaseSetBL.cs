@@ -1169,9 +1169,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="searchCriteria">Search criteria</param>
         /// <returns>Collection of AppForeclosureCaseSearchResult</returns>
-        public AppForeclosureCaseSearchResult AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        public AppForeclosureCaseSearchResultDTOCollection AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
-            AppForeclosureCaseSearchResult result = new AppForeclosureCaseSearchResult();
+            AppForeclosureCaseSearchResultDTOCollection result = new AppForeclosureCaseSearchResultDTOCollection();
             if (ValidateSearchCriteria(searchCriteria))
                 result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             else
