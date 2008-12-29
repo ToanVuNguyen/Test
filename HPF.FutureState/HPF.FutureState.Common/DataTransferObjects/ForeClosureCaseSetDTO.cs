@@ -19,5 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public BudgetAssetDTOCollection BudgetAssets { get; set; }
 
         public OutcomeItemDTOCollection Outcome { get; set; }
+
+        public ActivityLogDTOCollection ActivityLog { get; set; }
     }
 }

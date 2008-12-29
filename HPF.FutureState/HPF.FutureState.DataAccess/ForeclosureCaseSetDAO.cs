@@ -9,6 +9,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
 using System.Data.SqlTypes;
+using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -584,14 +585,14 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetItemDTO</param>
         /// <returns></returns>
-        public void InsertBudgetItem(BudgetItemDTO budgetItem, int budget_set_id)
+        public void InsertBudgetItem(BudgetItemDTO budgetItem, int budgetSetId)
         {            
             var command = CreateCommand("hpf_budget_item_insert", this.dbConnection);
             //<Parameter>
             try
             {
                 var sqlParam = new SqlParameter[10];
-                sqlParam[0] = new SqlParameter("@pi_budget_set_id", budget_set_id);
+                sqlParam[0] = new SqlParameter("@pi_budget_set_id", budgetSetId);
                 sqlParam[1] = new SqlParameter("@pi_budget_subcategory_id", budgetItem.BudgetSubcategoryId);
                 sqlParam[2] = new SqlParameter("@pi_budget_item_amt", budgetItem.BudgetItemAmt);
                 sqlParam[3] = new SqlParameter("@pi_budget_note", budgetItem.BudgetNote);
@@ -619,14 +620,14 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetAssetDTO</param>
         /// <returns></returns>
-        public void InsertBudgetAsset(BudgetAssetDTO budgetAsset, int budget_set_id)
+        public void InsertBudgetAsset(BudgetAssetDTO budgetAsset, int budgetSetId)
         {            
             var command = CreateCommand("hpf_budget_asset_insert", this.dbConnection);
             //<Parameter>
             try
             {
                 var sqlParam = new SqlParameter[9];
-                sqlParam[0] = new SqlParameter("@pi_budget_set_id", budget_set_id);
+                sqlParam[0] = new SqlParameter("@pi_budget_set_id", budgetSetId);
                 sqlParam[1] = new SqlParameter("@pi_asset_name", budgetAsset.AssetName);
                 sqlParam[2] = new SqlParameter("@pi_asset_value", budgetAsset.AssetValue);
                 sqlParam[3] = new SqlParameter("@pi_create_dt", budgetAsset.CreateDate);
@@ -646,6 +647,41 @@ namespace HPF.FutureState.DataAccess
             {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }           
+        }
+
+        /// <summary>
+        /// Insert a Activity Log to database.
+        /// </summary>
+        /// <param name="ActivityItem">ActivityDTO</param>
+        /// <returns></returns>
+        public void InsertActivityLog(ActivityLogDTO activityLog, int fcId)
+        {
+            var command = CreateCommand("hpf_activity_log_insert", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[10];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                sqlParam[1] = new SqlParameter("@pi_activity_cd", activityLog.ActivityCd);
+                sqlParam[2] = new SqlParameter("@pi_activity_dt", activityLog.ActivityDt);
+                sqlParam[3] = new SqlParameter("@pi_activity_note", activityLog.ActivityDt);
+                sqlParam[4] = new SqlParameter("@pi_create_dt", activityLog.CreateDate);
+                sqlParam[5] = new SqlParameter("@pi_create_user_id", activityLog.CreateUserId);
+                sqlParam[6] = new SqlParameter("@pi_create_app_name", activityLog.CreateAppName);
+                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", activityLog.ChangeLastDate);
+                sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", activityLog.ChangeLastUserId);
+                sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", activityLog.ChangeLastAppName);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
         }
 
         /// <summary>
@@ -812,6 +848,199 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
+        /// <summary>
+        /// Select a BudgetItem to database.
+        /// Where Max BudgetSet_ID and FC_ID
+        /// </summary>
+        /// <param name="budgetItem">BudgetItemDTO</param>
+        /// <returns></returns>
+        public BudgetAssetDTOCollection GetBudgetAssetSet(int fcId)
+        {
+            BudgetAssetDTOCollection results = new BudgetAssetDTOCollection();            
+            var command = new SqlCommand("hpf_budget_asset_get", this.dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {                
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    results = new BudgetAssetDTOCollection();
+                    while (reader.Read())
+                    {
+                        BudgetAssetDTO item = new BudgetAssetDTO();
+                        item.BudgetAssetId = ConvertToInt(reader["budget_asset_id"]);
+                        item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
+                        item.AssetName = ConvertToString(reader["asset_name"]);
+                        item.AssetValue = ConvertToDecimal(reader["asset_value"]);
+                        results.Add(item);
+                    }
+                    reader.Close();
+                }             
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Select a BudgetItem to database.
+        /// Where Max BudgetSet_ID and FC_ID
+        /// </summary>
+        /// <param name="budgetItem">BudgetItemDTO</param>
+        /// <returns></returns>
+        public BudgetItemDTOCollection GetBudgetItemSet(int fcId)
+        {
+            BudgetItemDTOCollection results = new BudgetItemDTOCollection();
+            var command = new SqlCommand("hpf_budget_item_get", this.dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {                
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    results = new BudgetItemDTOCollection();
+                    while (reader.Read())
+                    {
+                        BudgetItemDTO item = new BudgetItemDTO();
+                        item.BudgetItemId = ConvertToInt(reader["budget_item_id"]);
+                        item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
+                        item.BudgetSubcategoryId = ConvertToInt(reader["budget_subcategory_id"]);
+                        item.BudgetItemAmt = ConvertToDecimal(reader["budget_item_amt"]);
+                        item.BudgetNote = ConvertToString(reader["budget_note"]);
+                        results.Add(item);
+                    }
+                    reader.Close();
+                }             
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Select all CAse Loan from database by Fc_ID. 
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>OutcomeItemDTOCollection</returns>
+        public CaseLoanDTOCollection GetCaseLoanCollection(int fcId)
+        {
+            CaseLoanDTOCollection results = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
+            if (results == null)
+            {                
+                var command = new SqlCommand("hpf_case_loan_get", this.dbConnection);
+                //<Parameter>            
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                //</Parameter>   
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                try
+                {                    
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        results = new CaseLoanDTOCollection();
+                        while (reader.Read())
+                        {
+                            CaseLoanDTO item = new CaseLoanDTO();
+                            item.CaseLoanId = ConvertToInt(reader["case_loan_id"]);
+                            item.FcId = ConvertToInt(reader["fc_id"]);
+                            item.ServicerId = ConvertToInt(reader["servicer_id"]);
+                            item.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
+                            item.AcctNum = ConvertToString(reader["acct_num"]);
+                            item.Loan1st2nd = ConvertToString(reader["loan_1st_2nd_cd"]);
+                            item.MortgageTypeCd = ConvertToString(reader["mortgage_type_cd"]);
+                            item.ArmLoanInd = ConvertToString(reader["arm_loan_ind"]);
+                            item.ArmResetInd = ConvertToString(reader["arm_reset_ind"]);
+                            item.TermLengthCd = ConvertToString(reader["term_length_cd"]);
+                            item.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
+                            item.CurrentLoanBalanceAmt = ConvertToDecimal(reader["current_loan_balance_amt"]);
+                            item.OrigLoanAmt = ConvertToDecimal(reader["orig_loan_amt"]);
+                            item.InterestRate = ConvertToDecimal(reader["interest_rate"]);
+                            item.OriginatingLenderName = ConvertToString(reader["originating_lender_name"]);
+                            item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUS_num"]);
+                            item.OrigMortgageCoName = ConvertToString(reader["orig_mortgage_co_name"]);
+                            item.OrginalLoanNum = ConvertToString(reader["orginal_loan_num"]);
+                            item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["FDIC_NCUS_num_current_servicer_TBD"]);
+                            item.CurrentServicerNameTbd = ConvertToString(reader["current_servicer_name_TBD"]);
+                            item.FreddieLoanNum = ConvertToString(reader["freddie_loan_num"]);
+                            results.Add(item);
+                        }
+                        reader.Close();
+                        HPFCacheManager.Instance.Add("caseLoanItem", results);
+                    }                 
+                }
+                catch (Exception Ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+                }
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Select all OutcomeItem from database by Fc_ID. 
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>OutcomeItemDTOCollection</returns>
+        public OutcomeItemDTOCollection GetOutcomeItemCollection(int fcId)
+        {
+            OutcomeItemDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
+            if (results == null)
+            {                
+                var command = new SqlCommand("hpf_outcome_item_get", this.dbConnection);
+                //<Parameter>            
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                //</Parameter>   
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                try
+                {                    
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        results = new OutcomeItemDTOCollection();
+                        while (reader.Read())
+                        {
+                            OutcomeItemDTO item = new OutcomeItemDTO();
+                            item.OutcomeItemId = ConvertToInt(reader["outcome_item_id"]);
+                            item.FcId = ConvertToInt(reader["fc_id"]);
+                            item.OutcomeTypeId = ConvertToInt(reader["outcome_type_id"]);
+                            item.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                            item.OutcomeDeletedDt = ConvertToDateTime(reader["outcome_deleted_dt"]);
+                            item.NonprofitreferralKeyNum = ConvertToString(reader["nonprofitreferral_key_num"]);
+                            item.ExtRefOtherName = ConvertToString(reader["ext_ref_other_name"]);
+                            results.Add(item);
+                        }
+                        reader.Close();
+                    }                 
+                    HPFCacheManager.Instance.Add("outcomeItem", results);
+                }
+                catch (Exception Ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+                }
+            }
+            return results;
+        }   
+
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {
             bool returnValue = true;
@@ -899,7 +1128,7 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             return returnValue;
-        }
+        }        
     }
 }
 

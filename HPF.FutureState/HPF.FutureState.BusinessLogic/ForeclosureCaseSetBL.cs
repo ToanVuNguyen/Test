@@ -163,7 +163,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     if (CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
                     {
-                        if (CheckInactiveCase(fc.CompletedDt))
+                        if (CheckInactiveCase(foreclosureCaseSet))
                             ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
                         else
                             throw new ProcessingException();
@@ -187,6 +187,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 2: Min request validate of Budget Item Collection
         /// 3: Min request validate of Outcome Item Collection
         /// 4: Min request validate of Case Loan Collection
+        /// 5: Min request validate of Activity Log
         /// </summary>
         bool RequireFieldsValidation(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
@@ -194,18 +195,15 @@ namespace HPF.FutureState.BusinessLogic
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;
             OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
             CaseLoanDTOCollection caseLoanItem = foreclosureCaseSet.CaseLoans;
+            ActivityLogDTOCollection activityLogItem = foreclosureCaseSet.ActivityLog;
             bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Default");
             bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem, "Default");
             bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem, "Default");
             bool rfcaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, "Default");
-            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem && rfcaseLoanItem)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            bool rfactivityLogItem = RequireFieldsActivityLogItem(activityLogItem, "Default");
+            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem && rfcaseLoanItem && rfForeclosureCase)            
+                return true;            
+            return false;            
         }
 
         /// <summary>
@@ -216,14 +214,9 @@ namespace HPF.FutureState.BusinessLogic
         bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {
             ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);           
-            if (validationResults.IsValid)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (validationResults.IsValid)            
+                return true;            
+            return false;
         }
 
         /// <summary>
@@ -300,6 +293,31 @@ namespace HPF.FutureState.BusinessLogic
                 return false;
             }
         }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 5:  Min request validate of Activity Log Collection
+        /// <return>bool</return>
+        /// </summary>
+        bool RequireFieldsActivityLogItem(ActivityLogDTOCollection activityLogDTOCollection, string ruleSet)
+        {
+            if (activityLogDTOCollection != null && activityLogDTOCollection.Count > 0)
+            {
+                foreach (ActivityLogDTO item in activityLogDTOCollection)
+                {
+                    ValidationResults validationResults = HPFValidator.Validate<ActivityLogDTO>(item, ruleSet);
+                    if (!validationResults.IsValid)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -322,10 +340,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>datetime</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckInactiveCase(DateTime completeDate)
+        private bool CheckInactiveCase(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DateTime currentDate = DateTime.Now;
             DateTime backOneYear = DateTime.MinValue;
+            int fcId = foreclosureCaseSet.ForeclosureCase.FcId;
+            ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);
+            DateTime completeDate = foreclosureCase.CompletedDt;
             if (completeDate == null)
             {
                 return false;
@@ -351,162 +372,7 @@ namespace HPF.FutureState.BusinessLogic
                     return true;
                 }
             }
-        }
-
-        #region Functions check valid code
-        /// <summary>
-        /// Check valid code
-        /// <input>ForeclosureCaseSetDTO</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            //ReferenceCodeValidatorBL referenceCode = null;
-            if(foreclosureCaseSet != null)
-            {
-                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
-                CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
-                bool forclosureValid = CheckValidCodeForForclosureCase(foreclosureCase);
-                bool caseLoanValid = CheckValidCodeForCaseLoan(caseLoanCollection);
-                bool combinationValid = CheckValidCombinationStateCdAndZip(foreclosureCase);
-                bool zipCodeValid = CheckValidZipCode(foreclosureCase);
-                if (forclosureValid && caseLoanValid && combinationValid && zipCodeValid)
-                    return true;
-            }
-            return false;           
-        }
-
-        /// <summary>
-        /// Check valid code for forclosu Case
-        /// <input>Foreclosurecase</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CheckValidCodeForForclosureCase(ForeclosureCaseDTO forclosureCase)
-        {
-            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
-            if (referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd)
-                && referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd)
-                && referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd)
-                && referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd)
-                && referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd)
-                && referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd)
-                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd)
-                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd)
-                && referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd)
-                && referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd)
-                && referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd)
-                && referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd)
-                && referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd)
-                && referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd)
-                && referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd)
-                && referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd)
-                && referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd)
-                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd)
-                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd)
-                && referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd)
-                && referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd)
-                )            
-            {
-                return false;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Check valid code for case loan
-        /// <input>CaseLoanDTOCollection</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CheckValidCodeForCaseLoan(CaseLoanDTOCollection caseLoanCollection)
-        {
-            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
-            foreach (CaseLoanDTO caseLoan in caseLoanCollection)
-            {
-                if(
-                    referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd)
-                    && referenceCode.Validate(ReferenceCode.TermLengthCode,caseLoan.TermLengthCd)
-                    && referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd) 
-                    )
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Check valid combination state_code and zip code
-        /// <input>ForeclosureCaseDTO</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CheckValidCombinationStateCdAndZip(ForeclosureCaseDTO forclosureCase)
-        {
-            GeoCodeRefDTOCollection geoCodeRefCollection = GeoCodeRefDAO.Instance.GetGeoCodeRef();
-            bool contactValid = false;
-            bool propertyValid = false;
-            if (geoCodeRefCollection != null)
-            {
-                foreach (GeoCodeRefDTO item in geoCodeRefCollection)
-                {
-                    contactValid = CombinationContactValid(forclosureCase, item);
-                    if (contactValid == true)
-                        break;
-                }
-                foreach (GeoCodeRefDTO item in geoCodeRefCollection)
-                {
-                    propertyValid = CombinationPropertyValid(forclosureCase, item);
-                    if (propertyValid == true)
-                        break;
-                }
-            }
-            if (contactValid && propertyValid)
-                return true;
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// Check valid combination contact state_code and contact zip code
-        /// <input>ForeclosureCaseDTO</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CombinationContactValid(ForeclosureCaseDTO forclosureCase,GeoCodeRefDTO item)
-        {
-            if (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr)
-            {
-                return true;
-            }
-            return false;
-
-        }
-
-        /// <summary>
-        /// Check valid combination property state_code and property zip code
-        /// <input>ForeclosureCaseDTO</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CombinationPropertyValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
-        {
-            if (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Check valid zipcode
-        /// <input>ForeclosureCaseDTO</input>
-        /// <return>bool<return>
-        /// </summary>
-        private bool CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
-        {
-            if (forclosureCase.ContactZip.Length != 5 || forclosureCase.PropZip.Length != 5)
-                return false;
-            else
-                return true;
-        }
-        #endregion
+        }      
 
         /// <summary>
         /// Check Duplicated Fore Closure Case
@@ -615,24 +481,24 @@ namespace HPF.FutureState.BusinessLogic
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
                 OutcomeItemDTOCollection outcomeCollecionNew = null;
-                outcomeCollecionNew = CheckOutcomeItemInputwithDB(outcomeItemCollection, fcId);
+                outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreClosureCaseSetDAO, outcomeItemCollection, fcId);
                 InsertOutcomeItem(foreClosureCaseSetDAO, outcomeItemCollection, fcId);
 
                 //check outcome item DB with outcome item input
                 //if not exit, update outcome_deleted_dt = today()
-                outcomeCollecionNew = CheckOutcomeItemDBwithInput(outcomeItemCollection, fcId);                
+                outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreClosureCaseSetDAO, outcomeItemCollection, fcId);                
                 UpdateOutcome(foreClosureCaseSetDAO, outcomeCollecionNew);   
              
                 //Check for Delete Case Loan
-                CaseLoanDTOCollection caseLoanCollecionNew = CheckCaseLoanForDelete(caseLoanCollection, fcId);
+                CaseLoanDTOCollection caseLoanCollecionNew = CheckCaseLoanForDelete(foreClosureCaseSetDAO, caseLoanCollection, fcId);
                 DeleteCaseLoan(foreClosureCaseSetDAO, caseLoanCollecionNew);  
               
                 //Check for Update Case Loan
-                caseLoanCollecionNew = CheckCaseLoanForUpdate(caseLoanCollection, fcId);                
+                caseLoanCollecionNew = CheckCaseLoanForUpdate(foreClosureCaseSetDAO, caseLoanCollection, fcId);                
                 UpdateCaseLoan(foreClosureCaseSetDAO, caseLoanCollecionNew);  
               
                 //Check for Insert Case Loan
-                caseLoanCollecionNew = CheckCaseLoanForInsert(caseLoanCollection, fcId);                
+                caseLoanCollecionNew = CheckCaseLoanForInsert(foreClosureCaseSetDAO, caseLoanCollection, fcId);                
                 InsertCaseLoan(foreClosureCaseSetDAO, caseLoanCollection, fcId);  
               
                 foreClosureCaseSetDAO.Commit();
@@ -643,46 +509,10 @@ namespace HPF.FutureState.BusinessLogic
                 throw;
             }
         }
-
-        private static void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
-        {
-            foreach (CaseLoanDTO items in caseLoanCollecion)
-            {
-                foreClosureCaseSetDAO.UpdateCaseLoan(items);
-            }
-        }
-
-        private static void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
-        {
-            foreach (CaseLoanDTO items in caseLoanCollecion)
-            {
-                foreClosureCaseSetDAO.DeleteCaseLoan(items);
-            }
-        }
-
-        private static void UpdateOutcome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeCollecion)
-        {
-            foreach (OutcomeItemDTO items in outcomeCollecion)
-            {
-                foreClosureCaseSetDAO.UpdateOutcomeItem(items);
-            }
-        }
-
-        private void InsertBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
-        {
-            bool isInsertBudget = IsInsertBudgetSet(budgetItemCollection, budgetAssetCollection, fcId);
-            if (isInsertBudget)
-            {
-                //Insert Table Budget Set
-                //Return Budget Set Id
-                int budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
-                //Insert Table Budget Item
-                InsertbudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
-                //Insert table Budget Asset
-                InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budget_set_id);
-            }
-        }
-
+        
+        /// <summary>
+        /// Update foreclosureCase
+        /// </summary>
         private static int UpdateForeClosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
             int fcId = foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
@@ -733,7 +563,29 @@ namespace HPF.FutureState.BusinessLogic
                 throw;
             }
         }
+        #endregion
 
+        #region Functions for Insert and Update tables
+        /// <summary>
+        /// Insert Budget
+        /// </summary>
+        private void InsertBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
+        {
+            bool isInsertBudget = IsInsertBudgetSet(foreClosureCaseSetDAO , budgetItemCollection, budgetAssetCollection, fcId);
+            if (isInsertBudget)
+            {
+                //Insert Table Budget Set
+                //Return Budget Set Id
+                int budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
+                //Insert Table Budget Item
+                InsertbudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
+                //Insert table Budget Asset
+                InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budget_set_id);
+            }
+        }
+        /// <summary>
+        /// Insert Budget Asset
+        /// </summary>
         private static void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int budget_set_id)
         {
             foreach (BudgetAssetDTO items in budgetAssetCollection)
@@ -742,6 +594,9 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Insert Budget Item
+        /// </summary>
         private static void InsertbudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int budget_set_id)
         {
             foreach (BudgetItemDTO items in budgetItemCollection)
@@ -750,18 +605,27 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Insert Budget Set
+        /// </summary>
         private static int InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int fcId)
         {
             int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
             return budget_set_id;
         }
 
+        /// <summary>
+        /// Insert ForeclosureCase
+        /// </summary>
         private static int InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
             int fcId = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
             return fcId;
         }
 
+        /// <summary>
+        /// Insert OutcomeItem
+        /// </summary>
         private static void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int fcId)
         {
             foreach (OutcomeItemDTO items in outcomeItemCollection)
@@ -770,6 +634,9 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Insert CaseLoan
+        /// </summary>
         private static void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             foreach (CaseLoanDTO items in caseLoanCollection)
@@ -777,6 +644,50 @@ namespace HPF.FutureState.BusinessLogic
                 foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
             }
         }
+
+        /// <summary>
+        /// Insert ActivityLog
+        /// </summary>
+        private static void InsertActivityLog(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ActivityLogDTOCollection activityLogCollection, int fcId)
+        {
+            foreach (ActivityLogDTO items in activityLogCollection)
+            {
+                foreClosureCaseSetDAO.InsertActivityLog(items, fcId);
+            }
+        }
+
+        /// <summary>
+        /// Update CaseLoan
+        /// </summary>
+        private static void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
+        {
+            foreach (CaseLoanDTO items in caseLoanCollecion)
+            {
+                foreClosureCaseSetDAO.UpdateCaseLoan(items);
+            }
+        }
+
+        /// <summary>
+        /// Delete CaseLoan
+        /// </summary>
+        private static void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
+        {
+            foreach (CaseLoanDTO items in caseLoanCollecion)
+            {
+                foreClosureCaseSetDAO.DeleteCaseLoan(items);
+            }
+        }
+
+        /// <summary>
+        /// Update Outcome
+        /// </summary>
+        private static void UpdateOutcome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeCollecion)
+        {
+            foreach (OutcomeItemDTO items in outcomeCollecion)
+            {
+                foreClosureCaseSetDAO.UpdateOutcomeItem(items);
+            }
+        }      
 
         #endregion
 
@@ -788,9 +699,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetItemDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollectionInput, int fcId)
+        private bool IsBudgetItemsDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetCollectionInput, int fcId)
         {
-            BudgetItemDTOCollection budgetCollectionDB = BudgetItemDAO.Instance.GetBudgetSet(fcId);
+            BudgetItemDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetItemSet(fcId);
             if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
                 foreach (BudgetItemDTO budgetItem in budgetCollectionInput)
@@ -826,9 +737,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollectionInput, int fcId)
+        private bool IsBudgetAssetDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetCollectionInput, int fcId)
         {
-            BudgetAssetDTOCollection budgetCollectionDB = BudgetAssetDAO.Instance.GetBudgetSet(fcId);
+            BudgetAssetDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetAssetSet(fcId);
             if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
                 foreach (BudgetAssetDTO budgetAssetInput in budgetCollectionInput)
@@ -861,10 +772,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection,BudgetAssetDTOCollection, fc_id </param>
         /// <returns>true: if have difference</returns>
-        private bool IsInsertBudgetSet(BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
+        private bool IsInsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
         {
-            bool budgetItem = IsBudgetItemsDifference(budgetItemCollection, fcId);
-            bool budgetAsset = IsBudgetAssetDifference(budgetAssetCollection, fcId);
+            bool budgetItem = IsBudgetItemsDifference(foreClosureCaseSetDAO, budgetItemCollection, fcId);
+            bool budgetAsset = IsBudgetAssetDifference(foreClosureCaseSetDAO, budgetAssetCollection, fcId);
             if (budgetItem || budgetItem)
                 return true;
             else
@@ -880,10 +791,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
+        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
-            OutcomeItemDTOCollection outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fcId);
+            OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);
             //Compare OutcomeItem input with OutcomeItem DB
             foreach(OutcomeItemDTO itemInput in outcomeItemCollectionInput)
             {
@@ -904,10 +815,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
+        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
-            OutcomeItemDTOCollection outcomeItemCollectionDB = OutcomeItemDAO.Instance.GetOutcomeItemCollection(fcId);            
+            OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
             //Compare OutcomeItem input with OutcomeItem DB
             foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
             {
@@ -987,10 +898,10 @@ namespace HPF.FutureState.BusinessLogic
             return true;
         }
 
-        private CaseLoanDTOCollection CheckCaseLoanForInsert(CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForInsert(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            CaseLoanDTOCollection caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fcId);            
+            CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);            
             //Compare CAseLoanItem input with Case Loan DB
             foreach (CaseLoanDTO itemInput in caseLoanCollection)
             {
@@ -1003,10 +914,10 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;   
         }
 
-        private CaseLoanDTOCollection CheckCaseLoanForDelete(CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForDelete(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            CaseLoanDTOCollection caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fcId);
+            CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
             //Compare CAseLoanItem input with Case Loan DB
             foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
             {
@@ -1019,10 +930,10 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;   
         }
 
-        private CaseLoanDTOCollection CheckCaseLoanForUpdate(CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForUpdate(ForeclosureCaseSetDAO foreClosureCaseSetDAO,CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            CaseLoanDTOCollection caseLoanCollectionDB = CaseLoanDAO.Instance.GetCaseLoanCollection(fcId);
+            CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
                 bool isChanged = CheckCaseLoanUpdate(item, caseLoanCollectionDB);
@@ -1032,6 +943,197 @@ namespace HPF.FutureState.BusinessLogic
                 }
             }
             return caseLoanNew;
+        }
+        #endregion
+
+        #region Functions check valid code
+        /// <summary>
+        /// Check valid code
+        /// <input>ForeclosureCaseSetDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            //ReferenceCodeValidatorBL referenceCode = null;
+            if (foreclosureCaseSet != null)
+            {
+                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+                CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
+                bool forclosureValid = CheckValidCodeForForclosureCase(foreclosureCase);
+                bool caseLoanValid = CheckValidCodeForCaseLoan(caseLoanCollection);
+                bool combinationValid = CheckValidCombinationStateCdAndZip(foreclosureCase);
+                bool zipCodeValid = CheckValidZipCode(foreclosureCase);
+                if (forclosureValid && caseLoanValid && combinationValid && zipCodeValid)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check valid code for forclosu Case
+        /// <input>Foreclosurecase</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidCodeForForclosureCase(ForeclosureCaseDTO forclosureCase)
+        {
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            if (referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd)
+                && referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd)
+                && referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd)
+                && referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd)
+                && referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd)
+                && referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd)
+                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd)
+                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd)
+                && referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd)
+                && referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd)
+                && referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd)
+                && referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd)
+                && referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd)
+                && referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd)
+                && referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd)
+                && referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd)
+                && referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd)
+                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd)
+                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd)
+                && referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd)
+                && referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd)
+                )
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check valid code for case loan
+        /// <input>CaseLoanDTOCollection</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidCodeForCaseLoan(CaseLoanDTOCollection caseLoanCollection)
+        {
+            ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
+            foreach (CaseLoanDTO caseLoan in caseLoanCollection)
+            {
+                if (
+                    referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd)
+                    && referenceCode.Validate(ReferenceCode.TermLengthCode, caseLoan.TermLengthCd)
+                    && referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd)
+                    )
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check valid combination state_code and zip code
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidCombinationStateCdAndZip(ForeclosureCaseDTO forclosureCase)
+        {
+            GeoCodeRefDTOCollection geoCodeRefCollection = GeoCodeRefDAO.Instance.GetGeoCodeRef();
+            bool contactValid = false;
+            bool propertyValid = false;
+            if (geoCodeRefCollection != null)
+            {
+                foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+                {
+                    contactValid = CombinationContactValid(forclosureCase, item);
+                    if (contactValid == true)
+                        break;
+                }
+                foreach (GeoCodeRefDTO item in geoCodeRefCollection)
+                {
+                    propertyValid = CombinationPropertyValid(forclosureCase, item);
+                    if (propertyValid == true)
+                        break;
+                }
+            }
+            if (contactValid && propertyValid)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Check valid combination contact state_code and contact zip code
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationContactValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
+        {
+            if (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        /// <summary>
+        /// Check valid combination property state_code and property zip code
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CombinationPropertyValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
+        {
+            if (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check valid zipcode
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
+        {
+            if (forclosureCase.ContactZip.Length != 5 || forclosureCase.PropZip.Length != 5)
+                return false;
+            else
+                return true;
+        }
+        #endregion
+
+        #region Funcrions check to input HP-Auto
+        private bool CheckCaseComplete(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            bool foreclosureCase = true;
+            bool caseloan = true;
+            if (foreclosureCase && caseloan)
+                return true;
+            return false;
+        }
+
+        private ForeclosureCaseDTO ForclosureCaseHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            ForeclosureCaseDTO foreclosureCase = null;            
+            foreclosureCaseSet.ForeclosureCase.CompletedDt = DateTime.Now;
+            foreclosureCaseSet.ForeclosureCase.AmiPercentage = int.MinValue;
+            foreclosureCaseSet.ForeclosureCase.SummarySentDt = DateTime.Now;
+            foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+            return foreclosureCase;
+        }
+
+        private CaseLoanDTOCollection CaseLoanHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        private OutcomeItemDTOCollection OutcomeHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        private BudgetSetDTO BudgetSetHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

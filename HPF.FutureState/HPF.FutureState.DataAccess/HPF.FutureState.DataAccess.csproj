@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{913C40C6-646F-4F53-8093-018797CEEE52}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -46,15 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BudgetAssetDAO.cs" />
-    <Compile Include="BudgetItemDAO.cs" />
-    <Compile Include="BudgetSetDAO.cs" />
     <Compile Include="CallLogDAO.cs" />
-    <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="ForeclosureCaseDAO.cs" />
     <Compile Include="ForeclosureCaseSetDAO.cs" />
     <Compile Include="GeoCodeRefDAO.cs" />
-    <Compile Include="OutcomeItemDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseDAO.cs" />
     <Compile Include="RefCodeItemtDAO.cs" />

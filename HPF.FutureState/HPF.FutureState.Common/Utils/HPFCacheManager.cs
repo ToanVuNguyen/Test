@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.Utils
 
         protected HPFCacheManager()
         {
-            _HPFCache = CacheFactory.GetCacheManager();                        
+            _HPFCache = CacheFactory.GetCacheManager("Cache Manager");                        
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace HPF.FutureState.Common.Utils
 
         private static int GetDuration()
         {
-            return 5;
+            return 500;
         }
     }
 }

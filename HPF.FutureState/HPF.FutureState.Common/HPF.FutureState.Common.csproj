@@ -81,6 +81,8 @@
     <Compile Include="DataTransferObjects\CallLogInsertResult.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTO.cs" />
     <Compile Include="DataTransferObjects\CaseLoanDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\ActivityLogDTO.cs" />
+    <Compile Include="DataTransferObjects\ActivityLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTO.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
@@ -125,8 +127,6 @@
     <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\NullableOrInRangeValidator.cs" />
     <Compile Include="Utils\DataValidator\NullableOrInRangeValidatorAttribute.cs" />
-    <Compile Include="Utils\DataValidator\NullableOrPatternMatchedValidator.cs" />
-    <Compile Include="Utils\DataValidator\NullableOrPatternMatchedValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\StringRequiredValidator.cs" />
     <Compile Include="Utils\DataValidator\StringRequiredValidatorAttribute.cs" />
     <Compile Include="Utils\Exceptions\AuthenticationException.cs" />
