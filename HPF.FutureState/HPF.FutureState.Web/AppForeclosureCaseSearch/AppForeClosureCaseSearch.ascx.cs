@@ -36,24 +36,33 @@ namespace HPF.FutureState.Web.BillingAdmin
         }
         protected void BindDDLState()
         {
-            //DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetState();
-            //string ValueField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
-            //string TextField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
-            //BindDDL(dsProgram, ddlPropertyState, ValueField, TextField, "", "ALL");
+            StateDTOCollection stateCollection = ForeclosureCaseSetBL.Instance.GetState();
+            ddlPropertyState.DataValueField = "StateName";
+            ddlPropertyState.DataTextField = "StateName";
+            ListItem item = new ListItem("ALL", null);
+            ddlPropertyState.Items.Add(item);
+            ddlPropertyState.Items.FindByText("ALL").Selected = true;
+            ddlPropertyState.DataSource = stateCollection;
+            ddlPropertyState.DataBind();
         }
         protected void BindDDLAgency()
         {
-            //DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetAgency();
-            //string ValueField = dsProgram.Tables[0].Columns["agency_id"].ToString();
-            //string TextField = dsProgram.Tables[0].Columns["agency_name"].ToString();
-            //BindDDL(dsProgram, ddlAgency, ValueField, TextField, "", "");
+            AgencyDTOCollection agencyCollection = ForeclosureCaseSetBL.Instance.GetAgency();
+            ddlAgency.DataValueField = "AgencyID";
+            ddlAgency.DataTextField = "AgencyName";
+            ddlAgency.Items.FindByText("ALL").Selected = true;
+            ddlAgency.DataSource = agencyCollection;
+            ddlAgency.DataBind();
         }
         protected void BindDDLProgram()
         {
-            //DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetProgram();
-            //string ValueField = dsProgram.Tables[0].Columns["program_id"].ToString();
-            //string TextField = dsProgram.Tables[0].Columns["program_name"].ToString();
-            //BindDDL(dsProgram, ddlProgram, ValueField, TextField, "-1", "ALL");
+            ProgramDTOCollection programCollection = ForeclosureCaseSetBL.Instance.GetProgram();
+            ddlProgram.DataValueField = "ProgramID";
+            ddlProgram.DataTextField = "ProgramName";
+            ListItem item = new ListItem("ALL", "-1");
+            ddlProgram.Items.FindByText("ALL").Selected = true;
+            ddlProgram.DataSource = programCollection;
+            ddlProgram.DataBind();
         }
 
         protected void BindGrvForeClosureCaseSearch()
