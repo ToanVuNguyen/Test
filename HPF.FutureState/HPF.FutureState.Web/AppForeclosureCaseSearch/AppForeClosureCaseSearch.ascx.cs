@@ -36,24 +36,24 @@ namespace HPF.FutureState.Web.BillingAdmin
         }
         protected void BindDDLState()
         {
-            DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetState();
-            string ValueField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
-            string TextField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
-            BindDDL(dsProgram, ddlPropertyState, ValueField, TextField, "", "ALL");
+            //DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetState();
+            //string ValueField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
+            //string TextField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
+            //BindDDL(dsProgram, ddlPropertyState, ValueField, TextField, "", "ALL");
         }
         protected void BindDDLAgency()
         {
-            DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetAgency();
-            string ValueField = dsProgram.Tables[0].Columns["agency_id"].ToString();
-            string TextField = dsProgram.Tables[0].Columns["agency_name"].ToString();
-            BindDDL(dsProgram, ddlAgency, ValueField, TextField, "", "");
+            //DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetAgency();
+            //string ValueField = dsProgram.Tables[0].Columns["agency_id"].ToString();
+            //string TextField = dsProgram.Tables[0].Columns["agency_name"].ToString();
+            //BindDDL(dsProgram, ddlAgency, ValueField, TextField, "", "");
         }
         protected void BindDDLProgram()
         {
-            DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetProgram();
-            string ValueField = dsProgram.Tables[0].Columns["program_id"].ToString();
-            string TextField = dsProgram.Tables[0].Columns["program_name"].ToString();
-            BindDDL(dsProgram, ddlProgram, ValueField, TextField, "-1", "ALL");
+            //DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetProgram();
+            //string ValueField = dsProgram.Tables[0].Columns["program_id"].ToString();
+            //string TextField = dsProgram.Tables[0].Columns["program_name"].ToString();
+            //BindDDL(dsProgram, ddlProgram, ValueField, TextField, "-1", "ALL");
         }
 
         protected void BindGrvForeClosureCaseSearch()
