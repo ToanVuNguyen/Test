@@ -33,12 +33,15 @@ namespace HPF.FutureState.DataAccess
         /// <param name="aCallLog">CallLogDTO</param>
         /// <returns>a new CallLogId</returns>
         public int InsertCallLog(CallLogDTO aCallLog)
-        {            
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_call_insert", dbConnection);            
-            
+        {
+        
+            SqlConnection dbConnection = CreateConnection();
+            SqlCommand command = CreateSPCommand("hpf_call_insert", dbConnection);
+            SqlTransaction trans = null;
+
+            #region parameters
             //<Parameter>
-            var sqlParam = new SqlParameter[32];
+            SqlParameter[] sqlParam = new SqlParameter[32];
             sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey );
             sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));
@@ -73,22 +76,23 @@ namespace HPF.FutureState.DataAccess
             
             sqlParam[31] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
+            #endregion
+
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            command.Transaction = trans;
             try
             {
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+                command.Transaction = trans;
+            
                 command.ExecuteNonQuery();
                 trans.Commit();
-                dbConnection.Close();
                 aCallLog.CallId = ConvertToInt(sqlParam[31].Value);
             }
             catch(Exception Ex)
             {
-                trans.Rollback();
-                dbConnection.Close();
+                if (trans != null) trans.Rollback();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
