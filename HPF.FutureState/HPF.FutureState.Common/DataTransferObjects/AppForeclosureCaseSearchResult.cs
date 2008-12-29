@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public class AppForeclosureCaseSearchResult:BaseDTOCollection<AppForeclosureCaseSearchResult>
+    public class AppForeclosureCaseSearchResultDTO:BaseDTO
     {
         public string CaseID { get; set; }
         public string AgencyCaseID { get; set; }
