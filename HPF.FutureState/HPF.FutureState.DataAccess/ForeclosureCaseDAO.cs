@@ -79,12 +79,12 @@ namespace HPF.FutureState.DataAccess
             ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
             try
             {
-                var dbConnection = base.CreateConnection();
-                var command = base.CreateCommand("hpf_foreclosure_case_search_ws", dbConnection);  
+                SqlConnection dbConnection = base.CreateConnection();
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_search_ws", dbConnection);
                 string whereClause = GenerateWhereClause(searchCriteria);
                 //<Parameter>
-                var sqlParam = new SqlParameter[9];
-                sqlParam[0] = new SqlParameter("@pi_agency_case_num", searchCriteria.AgencyCaseNumber );
+                SqlParameter[] sqlParam = new SqlParameter[9];
+                sqlParam[0] = new SqlParameter("@pi_agency_case_num", searchCriteria.AgencyCaseNumber);
                 sqlParam[1] = new SqlParameter("@pi_borrower_fname", searchCriteria.FirstName);
                 sqlParam[2] = new SqlParameter("@pi_borrower_lname", searchCriteria.LastName);
                 sqlParam[3] = new SqlParameter("@pi_borrower_last4_SSN", searchCriteria.Last4_SSN);
@@ -97,7 +97,7 @@ namespace HPF.FutureState.DataAccess
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
-            
+
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
@@ -105,13 +105,14 @@ namespace HPF.FutureState.DataAccess
                     results = new ForeclosureCaseSearchResult();
                     while (reader.Read())
                     {
+                        #region set value for ForeclosureCaseWSDTO
                         ForeclosureCaseWSDTO item = new ForeclosureCaseWSDTO();
                         //item.Counseled = ConvertToString(reader["counseled"]);
                         item.FcId = ConvertToInt(reader["fc_id"]);
                         item.IntakeDt = ConvertToDateTime(reader["intake_dt"]);
                         item.BorrowerFname = ConvertToString(reader["borrower_fname"]);
                         item.BorrowerLname = ConvertToString(reader["borrower_lname"]);
-                        item.BorrowerLast4SSN= ConvertToString(reader["borrower_last4_SSN"]);
+                        item.BorrowerLast4SSN = ConvertToString(reader["borrower_last4_SSN"]);
                         item.CoBorrowerFname = ConvertToString(reader["co_borrower_fname"]);
                         item.CoBorrowerLname = ConvertToString(reader["co_borrower_lname"]);
                         item.CoBorrowerLast4SSN = ConvertToString(reader["co_borrower_last4_SSN"]);
@@ -134,18 +135,22 @@ namespace HPF.FutureState.DataAccess
                         item.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         item.CaseLoanID = ConvertToString(reader["case_loan_id"]);
                         item.Counseled = GetCounseledProperty(item.CompletedDt);
+                        #endregion
 
                         results.Add(item);
                     }
                     reader.Close();
                 }
-                dbConnection.Close();
                 results.SearchResultCount = ConvertToInt(sqlParam[8].Value);
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }            
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
             return results;
         }
 
