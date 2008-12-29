@@ -370,7 +370,9 @@ namespace HPF.FutureState.UnitTest.DataAccess
 
             dbConnection.Close();
         }
+
         #endregion
+
         #region AppSearchForeclosureCase - Test
         [TestMethod()]
         public void AppSearchForeclosureCaseTest()
