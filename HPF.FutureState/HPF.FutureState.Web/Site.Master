@@ -1,20 +1,195 @@
-ï»¿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="HPF.FutureState.Web.Site" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="HPF.FutureState.Web.Site" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>HPF Template</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title>Untitled Page</title>
-    <asp:ContentPlaceHolder ID="ContentPlaceHolderHeader" runat="server">
-    </asp:ContentPlaceHolder>
+<META NAME="Content-Language" CONTENT="english">
+
+
+<script language="JavaScript" type="text/JavaScript" src="Scripts/HPF.js"></script>
+<link href="Styles/HPF.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolderBody" runat="server">
-        
-        </asp:ContentPlaceHolder>
-    </div>
-    </form>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
+<form runat="server" id="mainform">
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td height="87"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td width="342" rowspan="2"><img src="Styles/Images/toplogo.jpg" width="342" height="87"></td>
+          <td width="34" rowspan="2"><img src="Styles/Images/topmidspace.jpg" width="34" 
+                  style="height: 87px"></td>
+          <td background="Styles/Images/topbg.jpg"><img src="Styles/Images/topbg.jpg" width="1" height="54"></td>
+        </tr>
+        <tr> 
+          <td background="Styles/Images/topnavbg.jpg">
+            <table id="sddm" >
+                <tr>
+                    <td >
+                        <a href="#"  onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)" >
+                        Home</a>
+                    </td>
+                    <td >
+                        <a href="#" id="Case" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)" style="width:130">
+                        Foreclosure Case</a>
+                    </td>
+                    <td>
+                        <a href="#" id="Billing" onmouseover="mopen('mBilling','Billing')" onmouseout="mclosetime()">
+                        Accounting</a>
+                        <table id="mBilling" >
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Funding Source Invoices</a>        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Agency Accounts Payable</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    <td >
+                        <a href="#" id="Reports" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
+                        Reports</a>
+                        
+                    </td>
+                    <td >
+                        <a href="#" style="width:135" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
+                        Change Password</a>
+                    </td>
+                    <td >
+                        <a href="#" id="Admin" onmouseover="mopen('mAdmin','Admin')" onmouseout="mclosetime()">
+                        Admin</a>
+                        <table id="mAdmin">
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Agency</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Funding Sources</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Servicer</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Rates</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Programs</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">General Codes</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Budget Categories</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Outcomes</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">User</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">WS User</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Call Center</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Congressional Districts</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Area Median Income</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
+                                    <a href="#">Geocode Reference</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    <td >
+                        <a href="#" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
+                        Logout</a>
+                    </td>
+                </tr>
+            </table>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td valign="top">
+    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="e7f3ff" >
+        <tr> 
+          <td height="9" colspan="2" background="Styles/Images/basebg1.jpg"><img src="Styles/Images/basebg1.jpg" width="1" height="9"></td>
+        </tr>
+        <tr> 
+          <td width="9" rowspan="2" valign="top" background="Styles/Images/basebg1.jpg">&nbsp;</td>
+          <td valign="top" bgcolor="#FFFFFF"> 
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr> 
+                <td height="29" colspan="3" background="Styles/Images/navbasebg.jpg"><img src="Styles/Images/navbasebg.jpg" width="1" height="29"></td>
+              </tr>
+              <tr> 
+                <td width="40">&nbsp;</td>
+                <td>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server"></asp:ContentPlaceHolder>
+                </td>
+                <td width="25">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr> 
+          <td bgcolor="#FFFFFF">&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td height="9" background="Styles/Images/basebg1.jpg"><img src="Styles/Images/basebg1.jpg" width="1" height="9"></td>
+  </tr>
+  <tr>
+    <td height="44" valign="top" background="Styles/Images/basebg2.jpg">    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="26" class="baseline">&nbsp;&nbsp;© Copyright 2008 Homeownership Preservation 
+            Foundation. All Rights Reserved.</td>
+        <td align="right" class="baseline">
+            Design by HPF Team&nbsp;&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</form>
 </body>
 </html>
