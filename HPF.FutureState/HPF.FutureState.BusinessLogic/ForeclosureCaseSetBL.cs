@@ -45,31 +45,28 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
         public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet)
         {
-            if (RequireFieldsValidation(foreClosureCaseSet))
-            {
-                ForeclosureCaseDTO fcCase = foreClosureCaseSet.ForeclosureCase;
+            if (!RequireFieldsValidation(foreClosureCaseSet))
+                throw new ProcessingException();
+            if (foreClosureCaseSet == null)
+                throw new ProcessingException();
 
-                if (fcCase != null && fcCase.FcId != 0)
-                {
-                    if (CheckValidCode(foreClosureCaseSet))
-                        ProcessInsertUpdateWithForeclosureCaseId(foreClosureCaseSet);
-                    else
-                        throw new ProcessingException();
-                }
-                else
-                {
-                    if (fcCase == null)
-                    {
-                        throw new ProcessingException();
-                    }
-                    else if (fcCase.FcId == 0)
-                    {
-                        ProcessInsertUpdateWithoutForeclosureCaseId(foreClosureCaseSet);
-                    }
-                }
+            ForeclosureCaseDTO fcCase = foreClosureCaseSet.ForeclosureCase;
+
+            if (fcCase != null && fcCase.FcId != 0)
+            {
+                if (!CheckValidCode(foreClosureCaseSet))
+                    throw new ProcessingException();
+
+                ProcessInsertUpdateWithForeclosureCaseId(foreClosureCaseSet);
+                
             }
             else
-                throw new ProcessingException();
+            {
+                if (fcCase == null)
+                    throw new ProcessingException();
+                else if (fcCase.FcId == 0)
+                    ProcessInsertUpdateWithoutForeclosureCaseId(foreClosureCaseSet);
+            }
         }
 
         /// <summary>
@@ -105,80 +102,67 @@ namespace HPF.FutureState.BusinessLogic
         #region functions to serve SaveForeclosureCaseSet
 
         void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            if (foreclosureCaseSet != null)
-            {
-                if (MiscErrorException(foreclosureCaseSet))
-                    throw new MiscProcessingException();
-                else
-                    UpdateForeclosureCaseSet(foreclosureCaseSet);
-            }
-            else
+        {            
+            if (foreclosureCaseSet == null)
                 throw new ProcessingException();
+
+            if (MiscErrorException(foreclosureCaseSet))
+                throw new MiscProcessingException();
+            
+            UpdateForeclosureCaseSet(foreclosureCaseSet);
 
         }
 
         void ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null)
-            {
-                if (CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase))
-                    throw new ProcessingException();
-                else
-                {
-                    if (MiscErrorException(foreclosureCaseSet))
-                        throw new MiscProcessingException();
-                    else
-                        InsertForeclosureCaseSet(foreclosureCaseSet);
-                }
-            }
-            else
+            if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException();
+            
+            if (CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase))
+                throw new ProcessingException();
+            
+            if (MiscErrorException(foreclosureCaseSet))
+                throw new MiscProcessingException();
+            
+            InsertForeclosureCaseSet(foreclosureCaseSet);
+
+            
         }
 
         void ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null)
-            {
-                if (foreclosureCaseSet.ForeclosureCase.AgencyCaseNum != null && foreclosureCaseSet.ForeclosureCase.AgencyId != 0)
-                {
-                    if (CheckExistingAgencyIdAndCaseNumber(foreclosureCaseSet.ForeclosureCase.AgencyId, foreclosureCaseSet.ForeclosureCase.AgencyCaseNum))
-                        throw new ProcessingException();
-                    else
-                        ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-                }
-                else
-                    throw new ProcessingException();
-            }
-            else
+            
+            if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException();
+
+            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
+
+            if (fcCase.AgencyCaseNum == null || fcCase.AgencyId == 0)
+                throw new ProcessingException();
+
+            if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
+                throw new ProcessingException();
+            
+            ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
         void ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet != null && foreclosureCaseSet.ForeclosureCase != null)
-            {
-                ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
-                if (fc.FcId > 0) //CheckInvalidFCID
-                {
-                    if (CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
-                    {
-                        if (CheckInactiveCase(foreclosureCaseSet))
-                            ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-                        else
-                            throw new ProcessingException();
-                    }
-                    else
-                        throw new ProcessingException();
-                }
-                else
-                    throw new ProcessingException();
-            }
-            else
-                throw new ProcessingException();
+
+            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
+
+            if (fc.FcId > 0) //CheckInvalidFCID
+                throw new ProcessingException();            
+               
+            if (CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
+                throw new ProcessingException();            
+
+            if (!CheckInactiveCase(foreclosureCaseSet))
+                throw new ProcessingException();                
+
+            ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            
         }
-
-
 
         #region Functions check min request validate
         /// <summary>
@@ -321,18 +305,13 @@ namespace HPF.FutureState.BusinessLogic
         #endregion
 
         /// <summary>
-        /// Check ForeclosureCase Id is existed or not
+        /// Check if ForeclosureCase with fcId and agencyId exists or not
         /// </summary>
         bool CheckValidFCIdForAgency(int fcId, int agencyId)
         {
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
-            if (fcCase == null)
-                return false;
-            else
-            {
-                if (agencyId == fcCase.AgencyId) return true;
-                else return false;
-            }
+
+            return (fcCase != null && agencyId == fcCase.AgencyId);
         }
 
         /// <summary>
