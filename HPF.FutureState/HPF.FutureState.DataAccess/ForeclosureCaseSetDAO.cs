@@ -75,26 +75,25 @@ namespace HPF.FutureState.DataAccess
         public ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
-
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_foreclosure_case_get_from_fcid", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
-
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
             try
-            {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
+            { 
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_fcid", dbConnection);
+                
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                           
+                SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)
                 {
                     if (reader.Read())
                     {
-
+                        #region set ForeclosureCase value
                         returnObject.FcId = ConvertToInt(reader["fc_id"]);
 
                         returnObject.ActionItemsNotes = ConvertToString(reader["action_items_notes"]);
@@ -222,12 +221,13 @@ namespace HPF.FutureState.DataAccess
                         returnObject.SummarySentOtherDt = ConvertToDateTime(reader["summary_sent_other_dt"]);
 
                         returnObject.WorkedWithAnotherAgencyInd = ConvertToString(reader["worked_with_another_agency_ind"]);
+                        #endregion
                     }
                     reader.Close();
                 }
                 else
                     returnObject = null;
-                dbConnection.Close();
+                
             }
             catch (Exception Ex)
             {
@@ -1048,25 +1048,20 @@ namespace HPF.FutureState.DataAccess
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {
             bool returnValue = true;
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[2];
-            sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
-            sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
             try
             {
-                dbConnection.Open();
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);//new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
+                //<Parameter>
+                var sqlParam = new SqlParameter[2];
+                sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
+                sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+            
                 var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                    returnValue = true;
-                else
-                    returnValue = false;
+                returnValue = reader.HasRows;
                 reader.Close();
-                dbConnection.Close();
             }
             catch (Exception Ex)
             {
@@ -1084,21 +1079,20 @@ namespace HPF.FutureState.DataAccess
         public bool CheckDuplicate(int fcId)
         {
             bool returnValue = true;
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[1];            
-            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
             try
             {
-                dbConnection.Open();
+                
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];            
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+            
                 var reader = command.ExecuteReader();
                 returnValue = reader.HasRows;                
                 reader.Close();
-                dbConnection.Close();
             }
             catch (Exception Ex)
             {
@@ -1110,22 +1104,21 @@ namespace HPF.FutureState.DataAccess
         public bool CheckDuplicate(int agency_id, string agency_case_number)
         {
             bool returnValue = true;
-            var dbConnection = new SqlConnection(ConnectionString);
-            var command = new SqlCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[2];
-            sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
-            sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
             try
             {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[2];
+                sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
+                sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
+                //</Parameter>
+
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+            
+                SqlDataReader reader = command.ExecuteReader();
                 returnValue = reader.HasRows; 
                 reader.Close();
-                dbConnection.Close();
             }
             catch (Exception Ex)
             {
