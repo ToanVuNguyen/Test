@@ -5,37 +5,7 @@
     TagPrefix="cc1" %>
 <%@ Register Src="~/Common/FixedHeaderGrid.ascx" TagName="FixedHeaderGrid"
     TagPrefix="uc1" %>
-<style type="text/css">
-    .Title
-    {
-        font-weight: bold;
-        text-align: right;
-        font-size:medium;
-    }
-    .Control
-    {
-        text-align: left;
-        padding-left: 10px;
-    }
-    .FixedHeader
-    {
-        position: relative;
-        top: expression(offsetParent.scrollTop);
-    }
-    .ScrollTable
-    {
-        position: relative;
-        width: 950px;
-        height: 300px;
-        overflow: auto;
-        margin: 0;
-    }
-    .GridViewStyle
-    {
-        border-top-style: none;
-        
-    }
-</style>
+<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <table width="100%">
     <colgroup>
         <col width="20%" />
@@ -45,7 +15,7 @@
         <col width="10%" />
         <col width="25%" />
     </colgroup>
-    <tr style="">
+    <tr style=" ">
         <td colspan="6" style="font-size:larger; text-align:center; color:Blue;">
             Foreclosure Case Search
         </td>

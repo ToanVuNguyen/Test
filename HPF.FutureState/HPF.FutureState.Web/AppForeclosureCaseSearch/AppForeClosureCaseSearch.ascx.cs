@@ -88,7 +88,6 @@ namespace HPF.FutureState.Web.BillingAdmin
             }
             catch (Exception ex)
             {
-                throw ex;
             }
             
             
