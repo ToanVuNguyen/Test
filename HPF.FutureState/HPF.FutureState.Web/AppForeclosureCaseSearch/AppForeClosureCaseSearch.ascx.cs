@@ -41,8 +41,6 @@ namespace HPF.FutureState.Web.BillingAdmin
             ddlPropertyState.DataTextField = "StateName";
             ddlPropertyState.DataSource = stateCollection;
             ddlPropertyState.DataBind();
-            ListItem item = new ListItem("ALL", "");
-            ddlPropertyState.Items.Add(item);
             ddlPropertyState.Items.FindByText("ALL").Selected = true;
         }
         protected void BindDDLAgency()
@@ -61,8 +59,6 @@ namespace HPF.FutureState.Web.BillingAdmin
             ddlProgram.DataTextField = "ProgramName";
             ddlProgram.DataSource = programCollection;
             ddlProgram.DataBind();
-            ListItem item = new ListItem("ALL", "-1");
-            ddlProgram.Items.Add(item);
             ddlProgram.Items.FindByText("ALL").Selected = true;
         }
 
@@ -82,7 +78,7 @@ namespace HPF.FutureState.Web.BillingAdmin
                 appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text;
                 appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text;
                 appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty ? null : txtPropertyZip.Text;
-                appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == string.Empty ? null : ddlPropertyState.SelectedValue;
+                appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue;
                 appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
                 appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
                 appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
