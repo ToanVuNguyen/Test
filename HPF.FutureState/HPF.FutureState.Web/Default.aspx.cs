@@ -29,8 +29,8 @@ namespace HPF.FutureState.Web
 
         protected void Button1_Click1(object sender, EventArgs e)
         {
-            AppForeclosureCaseSearchCriteriaDTO searchCritera = new AppForeclosureCaseSearchCriteriaDTO { Agency=-1, ForeclosureCaseID=-1, Program=-1 };
-            AppForeclosureCaseSearchResultDTOCollection result = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(searchCritera);
+            //AppForeclosureCaseSearchCriteriaDTO searchCritera = new AppForeclosureCaseSearchCriteriaDTO { Agency=-1, ForeclosureCaseID=-1, Program=-1 };
+            //AppForeclosureCaseSearchResultDTOCollection result = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(searchCritera);
         }              
     }   
 }
