@@ -31,8 +31,7 @@ namespace HPF.FutureState.WebServices
             var response = new CallLogInsertResponse();            
             try
             {
-                //if (IsAuthenticated())//Authentication checking
-                if (true)
+                if (IsAuthenticated())//Authentication checking
                 {                    
                     CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);                                        
                     string sCallLogID = "HPF_" + CallLogBL.Instance.InsertCallLog(callLogDTO);

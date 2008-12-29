@@ -36,8 +36,7 @@ namespace HPF.FutureState.WebServices
             var response = new ForeclosureCaseSearchResponse();
             try
             {
-                //if (IsAuthenticated())
-                if (true)
+                if (IsAuthenticated())
                 {
                     //Business Call
                     int pageSize = 0;
