@@ -169,3 +169,34 @@ a:hover {
 		background: #49A3FF;
 		color: #fff;
 }
+*{font-family:Tahoma,Arial; font-size:12px;}
+.Title
+    {
+        font-weight: bold;
+        text-align: right;
+        font-size:12px;
+    }
+    .Control
+    {
+        text-align: left;
+        padding-left: 10px;
+    }
+    .FixedHeader
+    {
+        position: relative;
+        top: expression(offsetParent.scrollTop);
+    }
+    .ScrollTable
+    {
+        position: relative;
+        width: 950px;
+        height: 300px;
+        overflow: auto;
+        margin: 0;
+    }
+    .GridViewStyle
+    {
+        border-top-style: none;
+        
+    }
+
