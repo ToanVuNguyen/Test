@@ -13,10 +13,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int FcId{ get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string ActivityCd{ get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public DateTime ActivityDt{ get; set; }
 
         public string ActivityNote { get; set; }

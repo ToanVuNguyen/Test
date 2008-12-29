@@ -90,7 +90,7 @@ namespace HPF.FutureState.Common.Utils
 
         private static int GetDuration()
         {
-            return 500;
+            return 5;
         }
     }
 }

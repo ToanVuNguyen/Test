@@ -414,10 +414,10 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[17] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
                 sqlParam[18] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
                 sqlParam[19] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
-                sqlParam[20] = new SqlParameter("@pi_create_dt", caseLoan.CreateDate);
+                sqlParam[20] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
                 sqlParam[21] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
                 sqlParam[22] = new SqlParameter("@pi_create_app_name", caseLoan.CreateAppName);
-                sqlParam[23] = new SqlParameter("@pi_chg_lst_dt", caseLoan.ChangeLastDate);
+                sqlParam[23] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
                 sqlParam[24] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
                 sqlParam[25] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
@@ -464,7 +464,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[17] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
                 sqlParam[18] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
                 sqlParam[19] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
-                sqlParam[20] = new SqlParameter("@pi_chg_lst_dt", caseLoan.ChangeLastDate);
+                sqlParam[20] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
                 sqlParam[21] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
                 sqlParam[22] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
@@ -524,10 +524,10 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[3] = new SqlParameter("@pi_outcome_deleted_dt", NullableDateTime(outcomeItem.OutcomeDeletedDt));
                 sqlParam[4] = new SqlParameter("@pi_nonprofitreferral_key_num", outcomeItem.NonprofitreferralKeyNum);
                 sqlParam[5] = new SqlParameter("@pi_ext_ref_other_name", outcomeItem.ExtRefOtherName);
-                sqlParam[6] = new SqlParameter("@pi_create_dt", outcomeItem.CreateDate);
+                sqlParam[6] = new SqlParameter("@pi_create_dt", NullableDateTime(outcomeItem.CreateDate));
                 sqlParam[7] = new SqlParameter("@pi_create_user_id", outcomeItem.CreateUserId);
                 sqlParam[8] = new SqlParameter("@pi_create_app_name", outcomeItem.CreateAppName);
-                sqlParam[9] = new SqlParameter("@pi_chg_lst_dt", outcomeItem.ChangeLastDate);
+                sqlParam[9] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(outcomeItem.ChangeLastDate));
                 sqlParam[10] = new SqlParameter("@pi_chg_lst_user_id", outcomeItem.ChangeLastUserId);
                 sqlParam[11] = new SqlParameter("@pi_chg_lst_app_name", outcomeItem.ChangeLastAppName);
                 //</Parameter>
@@ -559,10 +559,10 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[2] = new SqlParameter("@pi_total_expenses", budgetSet.TotalExpenses);
                 sqlParam[3] = new SqlParameter("@pi_total_assets", budgetSet.TotalAssets);
                 sqlParam[4] = new SqlParameter("@pi_budget_set_dt", NullableDateTime(budgetSet.BudgetSetDt));
-                sqlParam[5] = new SqlParameter("@pi_create_dt", budgetSet.CreateDate);
+                sqlParam[5] = new SqlParameter("@pi_create_dt", NullableDateTime(budgetSet.CreateDate));
                 sqlParam[6] = new SqlParameter("@pi_create_user_id", budgetSet.CreateUserId);
                 sqlParam[7] = new SqlParameter("@pi_create_app_name", budgetSet.CreateAppName);
-                sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", budgetSet.ChangeLastDate);
+                sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(budgetSet.ChangeLastDate));
                 sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", budgetSet.ChangeLastUserId);
                 sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", budgetSet.ChangeLastAppName);
                 sqlParam[11] = new SqlParameter("@po_budget_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
@@ -596,10 +596,10 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[1] = new SqlParameter("@pi_budget_subcategory_id", budgetItem.BudgetSubcategoryId);
                 sqlParam[2] = new SqlParameter("@pi_budget_item_amt", budgetItem.BudgetItemAmt);
                 sqlParam[3] = new SqlParameter("@pi_budget_note", budgetItem.BudgetNote);
-                sqlParam[4] = new SqlParameter("@pi_create_dt", budgetItem.CreateDate);
+                sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(budgetItem.CreateDate));
                 sqlParam[5] = new SqlParameter("@pi_create_user_id", budgetItem.CreateUserId);
                 sqlParam[6] = new SqlParameter("@pi_create_app_name", budgetItem.CreateAppName);
-                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", budgetItem.ChangeLastDate);
+                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(budgetItem.ChangeLastDate));
                 sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", budgetItem.ChangeLastUserId);
                 sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", budgetItem.ChangeLastAppName);
 
@@ -630,10 +630,10 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[0] = new SqlParameter("@pi_budget_set_id", budgetSetId);
                 sqlParam[1] = new SqlParameter("@pi_asset_name", budgetAsset.AssetName);
                 sqlParam[2] = new SqlParameter("@pi_asset_value", budgetAsset.AssetValue);
-                sqlParam[3] = new SqlParameter("@pi_create_dt", budgetAsset.CreateDate);
+                sqlParam[3] = new SqlParameter("@pi_create_dt", NullableDateTime(budgetAsset.CreateDate));
                 sqlParam[4] = new SqlParameter("@pi_create_user_id", budgetAsset.CreateUserId);
                 sqlParam[5] = new SqlParameter("@pi_create_app_name", budgetAsset.CreateAppName);
-                sqlParam[6] = new SqlParameter("@pi_chg_lst_dt", budgetAsset.ChangeLastDate);
+                sqlParam[6] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(budgetAsset.ChangeLastDate));
                 sqlParam[7] = new SqlParameter("@pi_chg_lst_user_id", budgetAsset.ChangeLastUserId);
                 sqlParam[8] = new SqlParameter("@pi_chg_lst_app_name", budgetAsset.ChangeLastAppName);
                 //</Parameter>
@@ -665,10 +665,10 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[1] = new SqlParameter("@pi_activity_cd", activityLog.ActivityCd);
                 sqlParam[2] = new SqlParameter("@pi_activity_dt", activityLog.ActivityDt);
                 sqlParam[3] = new SqlParameter("@pi_activity_note", activityLog.ActivityDt);
-                sqlParam[4] = new SqlParameter("@pi_create_dt", activityLog.CreateDate);
+                sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(activityLog.CreateDate));
                 sqlParam[5] = new SqlParameter("@pi_create_user_id", activityLog.CreateUserId);
                 sqlParam[6] = new SqlParameter("@pi_create_app_name", activityLog.CreateAppName);
-                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", activityLog.ChangeLastDate);
+                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(activityLog.ChangeLastDate));
                 sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", activityLog.ChangeLastUserId);
                 sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", activityLog.ChangeLastAppName);
                 //</Parameter>
@@ -803,7 +803,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[104] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);                
                 sqlParam[105] = new SqlParameter("@pi_intake_credit_score", foreclosureCase.IntakeCreditScore);
                 sqlParam[106] = new SqlParameter("@pi_Intake_credit_bureau_cd ", foreclosureCase.IntakeCreditBureauCd);
-                sqlParam[107] = new SqlParameter("@pi_chg_lst_dt", foreclosureCase.ChangeLastDate);
+                sqlParam[107] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
                 sqlParam[108] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
                 sqlParam[109] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
                 sqlParam[110] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
@@ -832,8 +832,8 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 var sqlParam = new SqlParameter[4];
-                sqlParam[0] = new SqlParameter("@pi_outcome_item_id", outcomeItem.OutcomeItemId);                
-                sqlParam[1] = new SqlParameter("@pi_chg_lst_dt", outcomeItem.ChangeLastDate);
+                sqlParam[0] = new SqlParameter("@pi_outcome_item_id", outcomeItem.OutcomeItemId);
+                sqlParam[1] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(outcomeItem.ChangeLastDate));
                 sqlParam[2] = new SqlParameter("@pi_chg_lst_user_id", outcomeItem.ChangeLastUserId);
                 sqlParam[3] = new SqlParameter("@pi_chg_lst_app_name", outcomeItem.ChangeLastAppName);
                 //</Parameter>
@@ -865,9 +865,9 @@ namespace HPF.FutureState.DataAccess
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
-            command.Transaction = this.trans;  
+            command.Transaction = this.trans;
             try
-            {                
+            {
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -880,14 +880,14 @@ namespace HPF.FutureState.DataAccess
                         item.AssetName = ConvertToString(reader["asset_name"]);
                         item.AssetValue = ConvertToDecimal(reader["asset_value"]);
                         results.Add(item);
-                    }
-                    reader.Close();
-                }             
+                    }                    
+                }
+                reader.Close();
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
+            }            
             return results;
         }
 
@@ -924,9 +924,9 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetItemAmt = ConvertToDecimal(reader["budget_item_amt"]);
                         item.BudgetNote = ConvertToString(reader["budget_note"]);
                         results.Add(item);
-                    }
-                    reader.Close();
-                }             
+                    }                    
+                }
+                reader.Close();
             }
             catch (Exception Ex)
             {
@@ -983,11 +983,14 @@ namespace HPF.FutureState.DataAccess
                             item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["FDIC_NCUS_num_current_servicer_TBD"]);
                             item.CurrentServicerNameTbd = ConvertToString(reader["current_servicer_name_TBD"]);
                             item.FreddieLoanNum = ConvertToString(reader["freddie_loan_num"]);
+                            item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                            item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                            item.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                             results.Add(item);
-                        }
-                        reader.Close();
-                        HPFCacheManager.Instance.Add("caseLoanItem", results);
-                    }                 
+                        }                        
+                    }
+                    reader.Close();
+                    HPFCacheManager.Instance.Add("caseLoanItem", results);
                 }
                 catch (Exception Ex)
                 {
@@ -1031,10 +1034,13 @@ namespace HPF.FutureState.DataAccess
                             item.OutcomeDeletedDt = ConvertToDateTime(reader["outcome_deleted_dt"]);
                             item.NonprofitreferralKeyNum = ConvertToString(reader["nonprofitreferral_key_num"]);
                             item.ExtRefOtherName = ConvertToString(reader["ext_ref_other_name"]);
+                            item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                            item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                            item.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                             results.Add(item);
-                        }
-                        reader.Close();
-                    }                 
+                        }                        
+                    }
+                    reader.Close();
                     HPFCacheManager.Instance.Add("outcomeItem", results);
                 }
                 catch (Exception Ex)
@@ -1043,7 +1049,49 @@ namespace HPF.FutureState.DataAccess
                 }
             }
             return results;
+        }
+
+        /// <summary>
+        /// Select all OutcomeItem from database by Fc_ID. 
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>OutcomeItemDTOCollection</returns>
+        public BudgetDTOCollection GetBudget()
+        {
+            BudgetDTOCollection results = HPFCacheManager.Instance.GetData<BudgetDTOCollection>("budget");
+            if (results == null)
+            {
+                var command = new SqlCommand("hpf_view_budget_category_code", this.dbConnection);
+                //<Parameter>            
+                
+                //</Parameter>                   
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                try
+                {
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        results = new BudgetDTOCollection();
+                        while (reader.Read())
+                        {
+                            BudgetDTO item = new BudgetDTO();
+                            item.BudgetSubcategoryId = ConvertToInt(reader["budget_subcategory_id"]);
+                            item.BudgetCategoryCode = ConvertToString(reader["budget_category_cd"]);                            
+                            results.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add("budget", results);
+                }
+                catch (Exception Ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+                }
+            }
+            return results;
         }   
+
 
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {

@@ -11,27 +11,27 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {        
         public int FcId { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public int AgencyId { get; set; }
 
         public DateTime CompletedDt { get; set; }
 
         public int CallId { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public int ProgramId { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string AgencyCaseNum { get; set; }
 
         public string AgencyClientNum { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public DateTime IntakeDt { get; set; }
 
         public string IncomeEarnersCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string CaseSourceCd{ get; set; }
 
         public string RaceCd { get; set; }
@@ -58,10 +58,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string GenderCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string BorrowerFname { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string BorrowerLname { get; set; }
 
         public string BorrowerMname { get; set; }
@@ -86,7 +86,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime CoBorrowerDob { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string PrimaryContactNo { get; set; }
 
         public string SecondContactNo { get; set; }
@@ -95,34 +95,34 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string Email2 { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string ContactAddr1 { get; set; }
 
         public string ContactAddr2 { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string ContactCity { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string ContactStateCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string ContactZip { get; set; }
 
         public string ContactZipPlus4 { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string PropAddr1 { get; set; }
 
         public string PropAddr2 { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string PropCity { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string PropStateCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string PropZip { get; set; }
 
         public string PropZipPlus4 { get; set; }
@@ -143,7 +143,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CoBorrowerOccupationCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string OwnerOccupiedInd { get; set; }
 
         public string HispanicInd { get; set; }
@@ -154,10 +154,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CaseCompleteInd { get; set; }        
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string FundingConsentInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string ServicerConsentInd { get; set; }
 
         public string AgencyMediaConsentInd { get; set; }
@@ -190,19 +190,19 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         public decimal PrimResEstMktValue { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string AssignedCounselorIdRef{ get; set; }       
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string CounselorFname { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string CounselorLname { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string CounselorEmail { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string CounselorPhone { get; set; }
                 
         public string CounselorExt { get; set; }
@@ -219,16 +219,16 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string FcSaleDateSetInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string OptOutNewsletterInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string OptOutSurveyInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string DoNotCallInd { get; set; }        
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public string PrimaryResidenceInd { get; set; }
         
         public string RealtyCompany { get; set; }

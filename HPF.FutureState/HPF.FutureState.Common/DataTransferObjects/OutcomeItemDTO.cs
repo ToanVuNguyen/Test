@@ -15,7 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int OutcomeSetId { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         public int OutcomeTypeId { get; set; }  
 
         public DateTime OutcomeDt { get; set; }  

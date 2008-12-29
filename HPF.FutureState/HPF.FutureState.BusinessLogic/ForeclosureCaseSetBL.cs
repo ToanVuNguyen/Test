@@ -180,12 +180,12 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
             CaseLoanDTOCollection caseLoanItem = foreclosureCaseSet.CaseLoans;
             ActivityLogDTOCollection activityLogItem = foreclosureCaseSet.ActivityLog;
-            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Default");
-            bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem, "Default");
-            bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem, "Default");
-            bool rfcaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, "Default");
-            bool rfactivityLogItem = RequireFieldsActivityLogItem(activityLogItem, "Default");
-            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem && rfcaseLoanItem && rfForeclosureCase)            
+            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Min Request Validate");
+            bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem, "Min Request Validate");
+            bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem, "Min Request Validate");
+            bool rfcaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, "Min Request Validate");
+            bool rfactivityLogItem = RequireFieldsActivityLogItem(activityLogItem, "Min Request Validate");
+            if (rfForeclosureCase && rfbudgetItem && rfoutcomeItem && rfcaseLoanItem && rfForeclosureCase && rfactivityLogItem)  
                 return true;            
             return false;            
         }
@@ -443,12 +443,13 @@ namespace HPF.FutureState.BusinessLogic
             try
             {
                 foreClosureCaseSetDAO.Begin();
-                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+                ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
                 CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
                 OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
-                BudgetSetDTO budgetSet = foreclosureCaseSet.BudgetSet;
+                BudgetSetDTO budgetSet = BudgetSetHPAuto(foreClosureCaseSetDAO, foreclosureCaseSet);
                 BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
                 BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+                ActivityLogDTOCollection activityLogCollection = foreclosureCaseSet.ActivityLog;
                 //Insert table Foreclosure_Case
                 //Return Fc_id
                 int fcId = UpdateForeClosureCase(foreClosureCaseSetDAO, foreclosureCase);
@@ -478,8 +479,11 @@ namespace HPF.FutureState.BusinessLogic
               
                 //Check for Insert Case Loan
                 caseLoanCollecionNew = CheckCaseLoanForInsert(foreClosureCaseSetDAO, caseLoanCollection, fcId);                
-                InsertCaseLoan(foreClosureCaseSetDAO, caseLoanCollection, fcId);  
-              
+                InsertCaseLoan(foreClosureCaseSetDAO, caseLoanCollection, fcId);
+
+                //Insert table ActivityLog
+                InsertActivityLog(foreClosureCaseSetDAO, activityLogCollection, fcId);
+
                 foreClosureCaseSetDAO.Commit();
             }
             catch (Exception)
@@ -509,12 +513,13 @@ namespace HPF.FutureState.BusinessLogic
             try
             {
                 foreClosureCaseSetDAO.Begin();
-                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+                ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
                 CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
-                OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
-                BudgetSetDTO budgetSet = foreclosureCaseSet.BudgetSet;
+                OutcomeItemDTOCollection outcomeItemCollection = OutcomeHPAuto(foreclosureCaseSet);
+                BudgetSetDTO budgetSet = BudgetSetHPAuto(foreClosureCaseSetDAO, foreclosureCaseSet);
                 BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
                 BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+                ActivityLogDTOCollection activityLogCollection = foreclosureCaseSet.ActivityLog;
                 //Insert table Foreclosure_Case
                 //Return Fc_id
                 int fcId = InsertForeclosureCase(foreClosureCaseSetDAO, foreclosureCase);
@@ -527,13 +532,16 @@ namespace HPF.FutureState.BusinessLogic
 
                 //Insert Table Budget Set
                 //Return Budget Set Id
-                int budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
+                int budgetSetId = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
 
                 //Insert Table Budget Item
-                InsertbudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
+                InsertbudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budgetSetId);
 
                 //Insert table Budget Asset
-                InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budget_set_id);
+                InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budgetSetId);
+
+                //Insert table ActivityLog
+                InsertActivityLog(foreClosureCaseSetDAO, activityLogCollection, fcId);
                 foreClosureCaseSetDAO.Commit();
             }
             catch (Exception)
@@ -567,9 +575,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int budget_set_id)
         {
-            foreach (BudgetAssetDTO items in budgetAssetCollection)
+            if (budgetAssetCollection != null)
             {
-                foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
+                foreach (BudgetAssetDTO items in budgetAssetCollection)
+                {
+                    foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
+                }
             }
         }
 
@@ -578,9 +589,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void InsertbudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int budget_set_id)
         {
-            foreach (BudgetItemDTO items in budgetItemCollection)
+            if (budgetItemCollection != null)
             {
-                foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
+                foreach (BudgetItemDTO items in budgetItemCollection)
+                {
+                    foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
+                }
             }
         }
 
@@ -589,7 +603,11 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static int InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int fcId)
         {
-            int budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+            int budget_set_id = int.MinValue;
+            if(budgetSet != null)
+            {
+                budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+            }
             return budget_set_id;
         }
 
@@ -598,7 +616,11 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static int InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
-            int fcId = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
+            int fcId = int.MinValue;
+            if(foreclosureCase != null)
+            {
+                fcId  = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
+            }
             return fcId;
         }
 
@@ -607,9 +629,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int fcId)
         {
-            foreach (OutcomeItemDTO items in outcomeItemCollection)
+            if (outcomeItemCollection != null)
             {
-                foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
+                foreach (OutcomeItemDTO items in outcomeItemCollection)
+                {
+                    foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
+                }
             }
         }
 
@@ -618,9 +643,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
-            foreach (CaseLoanDTO items in caseLoanCollection)
+            if (caseLoanCollection != null)
             {
-                foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
+                foreach (CaseLoanDTO items in caseLoanCollection)
+                {
+                    foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
+                }
             }
         }
 
@@ -629,9 +657,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void InsertActivityLog(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ActivityLogDTOCollection activityLogCollection, int fcId)
         {
-            foreach (ActivityLogDTO items in activityLogCollection)
+            if (activityLogCollection != null)
             {
-                foreClosureCaseSetDAO.InsertActivityLog(items, fcId);
+                foreach (ActivityLogDTO items in activityLogCollection)
+                {
+                    foreClosureCaseSetDAO.InsertActivityLog(items, fcId);
+                }
             }
         }
 
@@ -640,9 +671,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
         {
-            foreach (CaseLoanDTO items in caseLoanCollecion)
+            if (caseLoanCollecion != null)
             {
-                foreClosureCaseSetDAO.UpdateCaseLoan(items);
+                foreach (CaseLoanDTO items in caseLoanCollecion)
+                {
+                    foreClosureCaseSetDAO.UpdateCaseLoan(items);
+                }
             }
         }
 
@@ -651,9 +685,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
         {
-            foreach (CaseLoanDTO items in caseLoanCollecion)
+            if (caseLoanCollecion != null)
             {
-                foreClosureCaseSetDAO.DeleteCaseLoan(items);
+                foreach (CaseLoanDTO items in caseLoanCollecion)
+                {
+                    foreClosureCaseSetDAO.DeleteCaseLoan(items);
+                }
             }
         }
 
@@ -662,9 +699,12 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void UpdateOutcome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeCollecion)
         {
-            foreach (OutcomeItemDTO items in outcomeCollecion)
+            if (outcomeCollecion != null)
             {
-                foreClosureCaseSetDAO.UpdateOutcomeItem(items);
+                foreach (OutcomeItemDTO items in outcomeCollecion)
+                {
+                    foreClosureCaseSetDAO.UpdateOutcomeItem(items);
+                }
             }
         }      
 
@@ -685,10 +725,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (BudgetItemDTO budgetItem in budgetCollectionInput)
                 {
-                    if (!CompareBudgetItem(budgetItem, budgetCollectionDB))
-                    {
-                        return true;
-                    }
+                    if (!CompareBudgetItem(budgetItem, budgetCollectionDB))                    
+                        return true;                    
                 }
             }
             return false;
@@ -755,10 +793,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             bool budgetItem = IsBudgetItemsDifference(foreClosureCaseSetDAO, budgetItemCollection, fcId);
             bool budgetAsset = IsBudgetAssetDifference(foreClosureCaseSetDAO, budgetAssetCollection, fcId);
-            if (budgetItem || budgetItem)
-                return true;
-            else
-                return false;
+            return (budgetItem || budgetItem);
+                
         }
         #endregion
 
@@ -775,12 +811,20 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);
             //Compare OutcomeItem input with OutcomeItem DB
-            foreach(OutcomeItemDTO itemInput in outcomeItemCollectionInput)
+            if (outcomeItemCollectionDB != null)
             {
-                bool isChanged = CheckOutcomeItem(itemInput, outcomeItemCollectionDB);
-                if (!isChanged)
+                foreach (OutcomeItemDTO itemInput in outcomeItemCollectionInput)
                 {
-                    outcomeItemNew.Add(itemInput);                 
+                    bool isChanged = CheckOutcomeItem(itemInput, outcomeItemCollectionDB);
+                    if (!isChanged)
+                        outcomeItemNew.Add(itemInput);
+                }
+            }
+            else
+            {
+                foreach (OutcomeItemDTO itemInput in outcomeItemCollectionInput)
+                {
+                    outcomeItemNew.Add(itemInput);
                 }
             }
             return outcomeItemNew;   
@@ -799,6 +843,10 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
             //Compare OutcomeItem input with OutcomeItem DB
+            if (outcomeItemCollectionDB == null)
+            {
+                return null;
+            }
             foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
             {
                 bool isDeleted = CheckOutcomeItem(itemDB, outcomeItemCollectionInput);
@@ -807,7 +855,7 @@ namespace HPF.FutureState.BusinessLogic
                     itemDB.OutcomeDeletedDt = DateTime.Now;
                     outcomeItemNew.Add(itemDB);
                 }
-            }
+            }            
             return outcomeItemNew;
         }
 
@@ -816,7 +864,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
         private bool CheckOutcomeItem(OutcomeItemDTO outcomeItem, OutcomeItemDTOCollection itemCollection)
-        {
+        {            
             foreach (OutcomeItemDTO item in itemCollection)
             {
                 if (outcomeItem.OutcomeTypeId == item.OutcomeTypeId
@@ -882,10 +930,20 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);            
             //Compare CAseLoanItem input with Case Loan DB
-            foreach (CaseLoanDTO itemInput in caseLoanCollection)
+            if (caseLoanCollectionDB != null)
             {
-                bool isChanged = CheckCaseLoan(itemInput, caseLoanCollectionDB);
-                if (!isChanged)
+                foreach (CaseLoanDTO itemInput in caseLoanCollection)
+                {
+                    bool isChanged = CheckCaseLoan(itemInput, caseLoanCollectionDB);
+                    if (!isChanged)
+                    {
+                        caseLoanNew.Add(itemInput);
+                    }
+                }
+            }
+            else
+            {
+                foreach (CaseLoanDTO itemInput in caseLoanCollection)
                 {
                     caseLoanNew.Add(itemInput);
                 }
@@ -898,6 +956,10 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
             //Compare CAseLoanItem input with Case Loan DB
+            if (caseLoanCollectionDB != null)
+            {
+                return null;
+            }
             foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
             {
                 bool isChanged = CheckCaseLoan(itemDB, caseLoanCollection);
@@ -905,7 +967,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     caseLoanNew.Add(itemDB);
                 }
-            }
+            }            
             return caseLoanNew;   
         }
 
@@ -913,6 +975,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
+            if (caseLoanCollectionDB == null)
+            {
+                return null;
+            }
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
                 bool isChanged = CheckCaseLoanUpdate(item, caseLoanCollectionDB);
@@ -920,7 +986,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     caseLoanNew.Add(item);
                 }
-            }
+            }            
             return caseLoanNew;
         }
         #endregion
@@ -1031,10 +1097,7 @@ namespace HPF.FutureState.BusinessLogic
                         break;
                 }
             }
-            if (contactValid && propertyValid)
-                return true;
-            else
-                return false;
+            return (contactValid && propertyValid);                
         }
 
         /// <summary>
@@ -1044,12 +1107,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CombinationContactValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
         {
-            if (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr)
-            {
-                return true;
-            }
-            return false;
-
+            return (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr);
         }
 
         /// <summary>
@@ -1059,11 +1117,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CombinationPropertyValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
         {
-            if (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr)
-            {
-                return true;
-            }
-            return false;
+            return (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr);            
         }
 
         /// <summary>
@@ -1073,10 +1127,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
         {
-            if (forclosureCase.ContactZip.Length != 5 || forclosureCase.PropZip.Length != 5)
-                return false;
-            else
-                return true;
+            return (forclosureCase.ContactZip.Length == 5 && forclosureCase.PropZip.Length == 5);  
         }
         #endregion
 
@@ -1090,9 +1141,12 @@ namespace HPF.FutureState.BusinessLogic
             return false;
         }
 
+        /// <summary>
+        /// Add value HPF-Auto for ForclosureCase        
+        /// </summary>
         private ForeclosureCaseDTO ForclosureCaseHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            ForeclosureCaseDTO foreclosureCase = null;            
+            ForeclosureCaseDTO foreclosureCase = null;
             foreclosureCaseSet.ForeclosureCase.CompletedDt = DateTime.Now;
             foreclosureCaseSet.ForeclosureCase.AmiPercentage = int.MinValue;
             foreclosureCaseSet.ForeclosureCase.SummarySentDt = DateTime.Now;
@@ -1100,19 +1154,97 @@ namespace HPF.FutureState.BusinessLogic
             return foreclosureCase;
         }
 
-        private CaseLoanDTOCollection CaseLoanHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Add value HPF-Auto for Outcome
+        /// </summary>
         private OutcomeItemDTOCollection OutcomeHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            throw new NotImplementedException();
+            OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
+            OutcomeItemDTOCollection outcomeItemOld = foreclosureCaseSet.Outcome;
+            if (outcomeItemOld == null)
+            {
+                return null;
+            }
+            foreach(OutcomeItemDTO item in outcomeItemOld)
+            {
+                item.OutcomeDt = DateTime.Now;
+                outcomeItemNew.Add(item);
+            }                        
+            return outcomeItemNew;
         }
 
-        private BudgetSetDTO BudgetSetHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private BudgetSetDTO BudgetSetHPAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            throw new NotImplementedException();
+            BudgetSetDTO budgetSet = null;
+            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;            
+            decimal totalIncome = decimal.MinValue;
+            decimal totalExpenses = decimal.MinValue;
+            decimal totalAssest = decimal.MinValue;
+
+            if (budgetAssetCollection != null)
+                totalAssest = CalculateTotalAssets(budgetAssetCollection, totalAssest);
+            if (budgetItemCollection!= null)
+                CalculateTotalExpenseAndIncome(foreClosureCaseSetDAO, budgetItemCollection, ref totalIncome, ref totalExpenses);
+            
+            foreclosureCaseSet.BudgetSet.TotalAssets = totalAssest;
+            foreclosureCaseSet.BudgetSet.TotalExpenses = totalExpenses;
+            foreclosureCaseSet.BudgetSet.TotalIncome = totalIncome;
+            foreclosureCaseSet.BudgetSet.BudgetSetDt = DateTime.Now;
+            budgetSet = foreclosureCaseSet.BudgetSet;
+            return budgetSet;
+        }
+
+        private decimal CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, decimal totalAssest)
+        {
+            //Calculate totalAssest
+            if (budgetAssetCollection == null)
+            {
+                return decimal.MinValue;
+            }
+            totalAssest = 0;
+            foreach (BudgetAssetDTO item in budgetAssetCollection)
+            {
+                totalAssest += item.AssetValue;
+            }            
+            return totalAssest;
+        }
+
+        private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref decimal totalIncome, ref decimal totalExpenses)
+        {
+            //Calculate totalExpenses, totalIncome
+            if (budgetItemCollection == null)
+            {
+                totalIncome = decimal.MinValue;
+                totalExpenses = decimal.MinValue;
+            }
+            totalIncome = 0;
+            totalExpenses = 0;
+            foreach (BudgetItemDTO item in budgetItemCollection)
+            {
+                string budgetCode = BuggetCategoryCode(foreClosureCaseSetDAO, item.BudgetSubcategoryId);
+                if (budgetCode != null)
+                {
+                    if (budgetCode == "1")
+                        totalIncome += item.BudgetItemAmt;
+                    else if (budgetCode == "2")
+                        totalExpenses += item.BudgetItemAmt;
+                }
+            }
+            
+        }
+
+        private string BuggetCategoryCode(ForeclosureCaseSetDAO foreClosureCaseSetDAO, int subCategoryId)
+        {
+            BudgetDTOCollection budgetCollection = foreClosureCaseSetDAO.GetBudget();
+            if (budgetCollection == null)
+                return null;            
+            foreach (BudgetDTO item in budgetCollection)
+            {
+                if (subCategoryId == item.BudgetSubcategoryId)
+                    return item.BudgetCategoryCode;
+            }
+            return null;
         }
         #endregion
 
@@ -1187,6 +1319,6 @@ namespace HPF.FutureState.BusinessLogic
             return result;
         }
 
-#endregion
+        #endregion
     }
 }

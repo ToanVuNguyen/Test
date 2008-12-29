@@ -13,13 +13,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int FcId { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public int ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
 
-        [NotNullValidator(Ruleset = "Default", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public string AcctNum { get; set; }
 
