@@ -388,20 +388,21 @@ namespace HPF.FutureState.UnitTest.DataAccess
                 Assert.IsTrue(expected.IndexOf(actual.CaseID)!=-1);
             }
         }
+        /// <summary>
+        /// Search case which has id = 23
+        /// </summary>
         [TestMethod()]
-        public void AppGetProgram()
+        public void AppSearchForeclosureCasebyID()
         {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
-            command.CommandText = "update foreclosure_case" +
-                                    " set loan_list = 'abc123, abc124, def123, def1234'" +
-                                    ", prop_zip = '66666'" +
-                                    ", borrower_last4_SSN = '1234'" +
-                                    " where fc_id in (23, 123, 181, 183, 185) ";
-            command.ExecuteNonQuery();
-            dbConnection.Close();
+            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO {  Agency = -1, ForeclosureCaseID = 23, Program = -1 };
+            AppForeclosureCaseSearchResultDTOCollection searchResult = target.AppSearchForeclosureCase(criteria);
+            Assert.AreEqual(searchResult.Count, 1);
+            AppForeclosureCaseSearchResultDTO actual = searchResult[0];
+            Assert.AreEqual(actual.LoanList, "abc123, abc124, def123, def1234");
+            Assert.AreEqual(actual.PropertyZip, "66666");
+            Assert.AreEqual(actual.Last4SSN, "1234");
+            Assert.AreEqual(actual.CaseID, "23");
         }
         #endregion
     }
