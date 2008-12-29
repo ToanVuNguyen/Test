@@ -252,10 +252,10 @@ namespace HPF.FutureState.DataAccess
         /// <summary>
         /// Get ID and Name from table Program to bind on DDLB
         /// </summary>
-        /// <returns>DataSet contains all Program id and Program Name</returns>
-        public DataSet AppGetProgram()
+        /// <returns>ProgramDTOCollection contains all Program </returns>
+        public ProgramDTOCollection AppGetProgram()
         {
-            DataSet result = new DataSet();
+            ProgramDTOCollection result = new ProgramDTOCollection();
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_program_get", dbConnection);
             command.CommandType = CommandType.StoredProcedure;
@@ -263,8 +263,18 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 dbConnection.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(result);
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var item = new ProgramDTO();
+                        item.ProgramID = ConvertToString(reader["program_id"]);
+                        item.ProgramName = ConvertToString(reader["program_name"]);
+                        result.Add(item);
+                    }
+                    reader.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -280,10 +290,10 @@ namespace HPF.FutureState.DataAccess
         /// <summary>
         /// Get ID and Name from table State to bind on DDLB
         /// </summary>
-        /// <returns>DataSet contains all State id and State Name</returns>
-        public DataSet AppGetState()
+        /// <returns>StateDTOCollection contains all State</returns>
+        public StateDTOCollection AppGetState()
         {
-            DataSet result = new DataSet();
+            StateDTOCollection result = new StateDTOCollection();
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_state_get", dbConnection);
             command.CommandType = CommandType.StoredProcedure;
@@ -291,8 +301,17 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 dbConnection.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(result);
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        StateDTO item = new StateDTO();
+                        item.StateName = ConvertToString(reader["prop_state_cd"]);
+                        result.Add(item);
+                    }
+                    reader.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -308,10 +327,10 @@ namespace HPF.FutureState.DataAccess
         /// <summary>
         /// Get ID and Name from table Agency to bind on DDLB
         /// </summary>
-        /// <returns>DataSet contains all Agency id and Agency Name</returns>
-        public DataSet AppGetAgency()
+        /// <returns>AgencyDTOCollection contains all Agency </returns>
+        public AgencyDTOCollection AppGetAgency()
         {
-            DataSet result = new DataSet();
+            AgencyDTOCollection result = new AgencyDTOCollection();
 
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_agency_get", dbConnection);
@@ -320,8 +339,18 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 dbConnection.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(result);
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var item = new AgencyDTO();
+                        item.AgencyID = ConvertToString(reader["agency_id"]);
+                        item.AgencyName = ConvertToString(reader["agency_name"]);
+                        result.Add(item);
+                    }
+                    reader.Close();
+                }
             }
             catch (Exception ex)
             {
