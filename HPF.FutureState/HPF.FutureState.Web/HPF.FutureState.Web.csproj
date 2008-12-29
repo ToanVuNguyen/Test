@@ -68,18 +68,18 @@
     <Compile Include="AppForeClosureCaseSearchPage.aspx.designer.cs">
       <DependentUpon>AppForeClosureCaseSearchPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BillingAdmin\AppForeClosureCaseSearch.ascx.cs">
+    <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx.cs">
       <DependentUpon>AppForeClosureCaseSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BillingAdmin\AppForeClosureCaseSearch.ascx.designer.cs">
+    <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx.designer.cs">
       <DependentUpon>AppForeClosureCaseSearch.ascx</DependentUpon>
     </Compile>
-    <Compile Include="BillingAdmin\FixedHeaderGrid.ascx.cs">
+    <Compile Include="Common\FixedHeaderGrid.ascx.cs">
       <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BillingAdmin\FixedHeaderGrid.ascx.designer.cs">
+    <Compile Include="Common\FixedHeaderGrid.ascx.designer.cs">
       <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
@@ -100,8 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppForeClosureCaseSearchPage.aspx" />
-    <Content Include="BillingAdmin\AppForeClosureCaseSearch.ascx" />
-    <Content Include="BillingAdmin\FixedHeaderGrid.ascx" />
+    <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx" />
+    <Content Include="Common\FixedHeaderGrid.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Site.Master" />
   </ItemGroup>
@@ -140,9 +140,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -8,27 +8,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HPF.FutureState.Web {
+namespace HPF.FutureState.Web.BillingAdmin {
     
     
-    public partial class AppForeClosureCaseSearchPage {
+    public partial class FixedHeaderGrid {
         
         /// <summary>
-        /// form1 control.
+        /// tbHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Table tbHeader;
         
         /// <summary>
-        /// AppForeClosureCaseSearchPage1 control.
+        /// gridData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.BillingAdmin.AppForeClosureCaseSearch AppForeClosureCaseSearchPage1;
+        protected global::System.Web.UI.WebControls.GridView gridData;
     }
 }
