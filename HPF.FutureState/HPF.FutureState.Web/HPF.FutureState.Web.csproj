@@ -60,6 +60,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppForeClosureCaseSearchPage.aspx.cs">
+      <DependentUpon>AppForeClosureCaseSearchPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppForeClosureCaseSearchPage.aspx.designer.cs">
+      <DependentUpon>AppForeClosureCaseSearchPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BillingAdmin\FixedHeaderGrid.ascx.cs">
       <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -84,6 +91,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppForeClosureCaseSearchPage.aspx" />
     <Content Include="BillingAdmin\FixedHeaderGrid.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Site.Master" />
