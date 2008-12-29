@@ -101,47 +101,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [IgnoreNulls()]
         public string AuthorizedInd { get; set; }
 
-        #endregion
-
-        #region rem
-
-        //public CallLogDTO(CallLogWSDTO callLog)
-        //{
-        //    if (callLog.CallId != null)
-        //    {
-        //        callLog.CallId = callLog.CallId.Replace("HPF_", "");
-        //        int id = 0;
-        //        int.TryParse(callLog.CallId, out id);
-        //        this.CallId = id;
-        //    }
-        //    this.CallCenterID = callLog.CallCenterID;
-        //    this.CcAgentIdKey = callLog.CcAgentIdKey;
-        //    this.StartDate = callLog.StartDate;
-        //    this.EndDate = callLog.EndDate;
-        //    this.DNIS = callLog.DNIS;
-        //    this.CallCenter = callLog.CallCenter;            
-        //    this.CallSourceCd = callLog.CallSourceCd;
-        //    this.ReasonToCall = callLog.ReasonToCall;
-        //    this.LoanAccountNumber = callLog.LoanAccountNumber;
-        //    this.FirstName = callLog.FirstName;
-        //    this.LastName = callLog.LastName;              
-        //    this.ServicerId = callLog.ServicerId;
-        //    this.OtherServicerName = callLog.OtherServicerName;
-        //    this.PropZipFull9 = callLog.PropZipFull9;            
-        //    this.PrevAgencyId = callLog.PrevAgencyId;
-        //    this.SelectedAgencyId = callLog.SelectedAgencyId;
-        //    this.ScreenRout = callLog.ScreenRout;
-        //    this.FinalDispoCd = callLog.FinalDispoCd;
-        //    this.TransNumber = callLog.TransNumber;            
-        //    this.CreateDate = callLog.CreateDate;
-        //    this.CreateUserId = callLog.CreateUserId;
-        //    this.CreateAppName = callLog.CreateAppName;
-        //    this.ChangeLastDate = callLog.ChangeLastDate;
-        //    this.ChangeLastUserId = callLog.ChangeLastUserId;
-        //    this.ChangeLastAppName = callLog.ChangeLastAppName;
-        //}
-
-        //public CallLogDTO() { }
-        #endregion
+        #endregion        
     }
 }
