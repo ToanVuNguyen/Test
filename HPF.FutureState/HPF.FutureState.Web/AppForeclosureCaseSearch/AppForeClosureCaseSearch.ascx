@@ -3,7 +3,7 @@
 <%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>
-<%@ Register Src="~/BillingAdmin/FixedHeaderGrid.ascx" TagName="FixedHeaderGrid"
+<%@ Register Src="~/Common/FixedHeaderGrid.ascx" TagName="FixedHeaderGrid"
     TagPrefix="uc1" %>
 <style type="text/css">
     .Title
