@@ -180,9 +180,9 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="searchCriteria">Criteria to search</param>
         /// <returns>Search Result</returns>
-        public AppForeclosureCaseSearchResult AppSearchForeclosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        public AppForeclosureCaseSearchResultDTOCollection AppSearchForeclosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
-            AppForeclosureCaseSearchResult results = new AppForeclosureCaseSearchResult();
+            AppForeclosureCaseSearchResultDTOCollection results = new AppForeclosureCaseSearchResultDTOCollection();
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_foreclosure_case_search_app", dbConnection);
 
@@ -209,7 +209,7 @@ namespace HPF.FutureState.DataAccess
                 {
                     while (reader.Read())
                     {
-                        AppForeclosureCaseSearchResult item = new AppForeclosureCaseSearchResult();
+                        AppForeclosureCaseSearchResultDTO item = new AppForeclosureCaseSearchResultDTO();
                         item.CaseID = ConvertToString(reader["fc_id"]);
                         item.AgencyCaseID = ConvertToString(reader["agency_id"]);
                         item.CaseCompleteDate = ConvertToDateTime(reader["completed_dt"]);
