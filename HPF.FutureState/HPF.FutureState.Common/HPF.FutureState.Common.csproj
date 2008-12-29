@@ -68,6 +68,7 @@
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="DataTransferObjects\AgencyDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\AppForeclosureCaseSearchResultCollection.cs" />
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
     <Compile Include="DataTransferObjects\BaseDTOCollection.cs" />
     <Compile Include="DataTransferObjects\AppForeclosureCaseSearchCriteriaDTO.cs" />
