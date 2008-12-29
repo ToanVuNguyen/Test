@@ -15,8 +15,8 @@
         <col width="10%" />
         <col width="25%" />
     </colgroup>
-    <tr style=" ">
-        <td colspan="6" style="font-size:larger; text-align:center; color:Blue;">
+    <tr style="  ">
+        <td colspan="6"  class="Header">
             Foreclosure Case Search
         </td>
     </tr>
@@ -116,7 +116,7 @@
         <td>
             &nbsp;
         </td>
-        <td>
+        <td  class="Control">
             <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click" />
         </td>
     </tr>
