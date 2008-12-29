@@ -1081,28 +1081,28 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Get Program Name and Program ID to display in DDLB
         /// </summary>
-        /// <returns></returns>
-        public DataSet GetProgram()
+        /// <returns>ProgramDTOCollection containts all Programs</returns>
+        public ProgramDTOCollection GetProgram()
         {
-            DataSet result = ForeclosureCaseDAO.CreateInstance().AppGetProgram();
+            ProgramDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetProgram();
             return result;
         }
         /// <summary>
         /// Get State Name and State ID to display in DDLB
         /// </summary>
-        /// <returns></returns>
-        public DataSet GetState()
+        /// <returns>StateDTOCollection containts all State</returns>
+        public StateDTOCollection GetState()
         {
-            DataSet result = ForeclosureCaseDAO.CreateInstance().AppGetState();
+            StateDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetState();
             return result;
         }
         /// <summary>
         /// Get Agency Name and Agency ID to display in DDLB
         /// </summary>
-        /// <returns></returns>
-        public DataSet GetAgency()
+        /// <returns>AgencyDTOCollection containts all Agency</returns>
+        public AgencyDTOCollection GetAgency()
         {
-            DataSet result = ForeclosureCaseDAO.CreateInstance().AppGetAgency();
+            AgencyDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetAgency();
             return result;
         }
 
