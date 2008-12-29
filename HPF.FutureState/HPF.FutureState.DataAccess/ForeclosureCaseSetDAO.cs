@@ -865,6 +865,7 @@ namespace HPF.FutureState.DataAccess
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
+            command.Transaction = this.trans;  
             try
             {                
                 var reader = command.ExecuteReader();
@@ -907,6 +908,7 @@ namespace HPF.FutureState.DataAccess
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
+            command.Transaction = this.trans;  
             try
             {                
                 var reader = command.ExecuteReader();
@@ -950,6 +952,7 @@ namespace HPF.FutureState.DataAccess
                 //</Parameter>   
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;  
                 try
                 {                    
                     var reader = command.ExecuteReader();
@@ -1011,6 +1014,7 @@ namespace HPF.FutureState.DataAccess
                 //</Parameter>   
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;  
                 try
                 {                    
                     var reader = command.ExecuteReader();
