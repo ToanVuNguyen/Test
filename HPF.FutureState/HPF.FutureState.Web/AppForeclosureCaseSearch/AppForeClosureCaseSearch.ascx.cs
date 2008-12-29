@@ -77,7 +77,6 @@ namespace HPF.FutureState.Web.BillingAdmin
             appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : txtLastName.Text;
             appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : txtFirstName.Text;
-            //appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = 676996;
             appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text);
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ?null : txtAgencyCaseID.Text;
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text;
@@ -96,20 +95,7 @@ namespace HPF.FutureState.Web.BillingAdmin
                 throw ex;
             } 
         }
-        protected void BindDDL(DataSet ds, DropDownList ddl,string ValueField,string TextField,string InitValue,string InitText)
-        {
-            ddl.DataSource = ds;
-            ddl.DataTextField = TextField;
-            ddl.DataValueField = ValueField;
-            ddl.DataBind();
-            if (InitText != "")
-            {
-                ListItem item = new ListItem(InitText, InitValue);
-                ddl.Items.Add(item);
-            }
-            if (InitText == ""||InitText==null) InitText = "ALL";
-            ddl.Items.FindByText(InitText).Selected = true;
-        }
+        
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
