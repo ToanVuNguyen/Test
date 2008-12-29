@@ -39,30 +39,31 @@ namespace HPF.FutureState.Web.BillingAdmin
             StateDTOCollection stateCollection = ForeclosureCaseSetBL.Instance.GetState();
             ddlPropertyState.DataValueField = "StateName";
             ddlPropertyState.DataTextField = "StateName";
-            ListItem item = new ListItem("ALL", null);
-            ddlPropertyState.Items.Add(item);
-            ddlPropertyState.Items.FindByText("ALL").Selected = true;
             ddlPropertyState.DataSource = stateCollection;
             ddlPropertyState.DataBind();
+            ListItem item = new ListItem("ALL", "");
+            ddlPropertyState.Items.Add(item);
+            ddlPropertyState.Items.FindByText("ALL").Selected = true;
         }
         protected void BindDDLAgency()
         {
             AgencyDTOCollection agencyCollection = ForeclosureCaseSetBL.Instance.GetAgency();
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataTextField = "AgencyName";
-            ddlAgency.Items.FindByText("ALL").Selected = true;
             ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
+            ddlAgency.Items.FindByText("ALL").Selected = true;
         }
         protected void BindDDLProgram()
         {
             ProgramDTOCollection programCollection = ForeclosureCaseSetBL.Instance.GetProgram();
             ddlProgram.DataValueField = "ProgramID";
             ddlProgram.DataTextField = "ProgramName";
-            ListItem item = new ListItem("ALL", "-1");
-            ddlProgram.Items.FindByText("ALL").Selected = true;
             ddlProgram.DataSource = programCollection;
             ddlProgram.DataBind();
+            ListItem item = new ListItem("ALL", "-1");
+            ddlProgram.Items.Add(item);
+            ddlProgram.Items.FindByText("ALL").Selected = true;
         }
 
         protected void BindGrvForeClosureCaseSearch()
@@ -92,6 +93,7 @@ namespace HPF.FutureState.Web.BillingAdmin
             catch (ProcessingException ex)
             {
 
+                
                 throw ex;
             } 
         }
