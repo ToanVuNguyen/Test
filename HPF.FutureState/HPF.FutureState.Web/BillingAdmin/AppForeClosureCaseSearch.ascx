@@ -61,18 +61,14 @@
         </td>
         <td class="Control">
             <asp:TextBox ID="txtSSN" runat="server"></asp:TextBox>
-            <cc1:PropertyProxyValidator ID="txtSSNCheckValidator" runat="server" PropertyName="Last4SSN" 
-            RulesetName="Default" ControlToValidate="txtSSN" 
-            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+            
         </td>
         <td class="Title">
             Agency Case ID:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtAgencyCaseID" runat="server"></asp:TextBox>
-          <cc1:PropertyProxyValidator ID="txtAgencyCaseIDCheckValidator" runat="server" PropertyName="AgencyCaseID" 
-            RulesetName="Default" ControlToValidate="txtAgencyCaseID"  Display="Dynamic"
-            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+          
         </td>
         <td class="Title">
             Duplicate:
@@ -97,9 +93,7 @@
         </td>
         <td class="Control">
             <asp:TextBox ID="txtLoanNum" runat="server"></asp:TextBox>
-           <cc1:PropertyProxyValidator ID="txtLoanNumCheckValidator" runat="server" PropertyName="LoanNumber" 
-            RulesetName="Default" ControlToValidate="txtLoanNum"  Display="Dynamic"
-            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+          
         </td>
         <td class="Title">
             Agency:
@@ -121,9 +115,7 @@
         </td>
         <td class="Control">
             <asp:TextBox ID="txtPropertyZip" runat="server"></asp:TextBox>
-            <cc1:PropertyProxyValidator ID="txtPropertyZipCheckValidator" runat="server" 
-            PropertyName="PropertyZip" RulesetName="Default" ControlToValidate="txtPropertyZip"
-             SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+           
         </td>
         <td class="Title">
             Program:
@@ -142,7 +134,7 @@
            <%--<cc1:PropertyProxyValidator ID="txtForeclosureCaseIDCheckValidator" runat="server" 
            PropertyName="ForeclosureCaseID" RulesetName="Default" ControlToValidate="txtForeclosureCaseID" 
            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>--%>
-           <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+           
         </td>
         <td class="Title">
             Property State:
@@ -159,24 +151,28 @@
         </td>
     </tr>
     <tr>
-        <td>
-            &nbsp;
+        <td colspan="6">
+           
         </td>
-        <td>
-            &nbsp;
+        
+    </tr>
+     <tr>
+        <td colspan="6">
+        <cc1:PropertyProxyValidator ID="txtSSNCheckValidator" runat="server" PropertyName="Last4SSN" 
+            RulesetName="Default" ControlToValidate="txtSSN"  Display="Dynamic"
+            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator> 
+            <cc1:PropertyProxyValidator ID="txtAgencyCaseIDCheckValidator" runat="server" PropertyName="AgencyCaseID" 
+            RulesetName="Default" ControlToValidate="txtAgencyCaseID"  Display="Dynamic"
+            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+             <cc1:PropertyProxyValidator ID="txtLoanNumCheckValidator" runat="server" PropertyName="LoanNumber" 
+            RulesetName="Default" ControlToValidate="txtLoanNum"  Display="Dynamic"
+            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+            <cc1:PropertyProxyValidator ID="txtPropertyZipCheckValidator" runat="server" Display="Dynamic"
+            PropertyName="PropertyZip" RulesetName="Default" ControlToValidate="txtPropertyZip"
+             SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
+            <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
         </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
+        
     </tr>
     <tr>
         <td colspan="6">

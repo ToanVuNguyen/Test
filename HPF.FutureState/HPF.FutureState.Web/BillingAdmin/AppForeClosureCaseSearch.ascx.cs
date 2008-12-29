@@ -36,21 +36,21 @@ namespace HPF.FutureState.Web.BillingAdmin
         }
         protected void BindDDLState()
         {
-            DataSet dsProgram =  ForeclosureCaseBL.Instance.GetState();
+            DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetState();
             string ValueField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
             string TextField = dsProgram.Tables[0].Columns["prop_state_cd"].ToString();
             BindDDL(dsProgram, ddlPropertyState, ValueField, TextField, "", "ALL");
         }
         protected void BindDDLAgency()
         {
-            DataSet dsProgram = ForeclosureCaseBL.Instance.GetAgency();
+            DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetAgency();
             string ValueField = dsProgram.Tables[0].Columns["agency_id"].ToString();
             string TextField = dsProgram.Tables[0].Columns["agency_name"].ToString();
             BindDDL(dsProgram, ddlAgency, ValueField, TextField, "", "");
         }
         protected void BindDDLProgram()
         {
-            DataSet dsProgram = ForeclosureCaseBL.Instance.GetProgram();
+            DataSet dsProgram = ForeclosureCaseSetBL.Instance.GetProgram();
             string ValueField = dsProgram.Tables[0].Columns["program_id"].ToString();
             string TextField = dsProgram.Tables[0].Columns["program_name"].ToString();
             BindDDL(dsProgram, ddlProgram, ValueField, TextField, "-1", "ALL");
@@ -77,7 +77,7 @@ namespace HPF.FutureState.Web.BillingAdmin
             appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
             appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
             appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
-            var temp = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
+            var temp = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
             grvForeClosureCaseSearch.DataSource = temp;
             grvForeClosureCaseSearch.DataBind();
             }
