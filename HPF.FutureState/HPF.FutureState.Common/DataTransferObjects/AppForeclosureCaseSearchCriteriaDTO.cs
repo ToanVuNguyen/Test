@@ -16,6 +16,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AppForeclosureCaseSearchCriteriaDTO
     {
+        [NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case ID: Only alpha-numeric characters allowed", Ruleset = "Default")]
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string AgencyCaseID { get; set; }
 
@@ -25,15 +26,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string LastName { get; set; }
 
-        
 
 
-        
+
+
+
 
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "AppSearchRequireCriteria")]
+
+
+        [NullableOrPatternMatchedValidator(true, "[0-9]", MessageTemplate = "Foreclosure Case ID: Only numeric characters allowed", Ruleset = "Default")]
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
+
         public int ForeclosureCaseID { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
+        [NullableOrPatternMatchedValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Loan Num: Only alpha-numeric characters allowed", Ruleset = "Default")]
         public string LoanNumber
         {
             get;
@@ -42,6 +50,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
+        [NullableOrDigitsRequriedValidator(true, 5, MessageTemplate = "Foreclosure Case ID: Only 5 numeric characters allowed", Ruleset = "Default")]
         public string PropertyZip { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
@@ -57,6 +66,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Duplicates { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
+        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last4SSN: Only 4 numeric characters allowed", Ruleset = "Default")]
         public string Last4SSN { get; set; }
     }
 }
