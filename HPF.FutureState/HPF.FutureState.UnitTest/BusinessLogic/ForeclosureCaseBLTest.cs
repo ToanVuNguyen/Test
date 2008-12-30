@@ -53,7 +53,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             command.Connection = dbConnection;
             command.CommandText = "update foreclosure_case" + 
                                     " set loan_list = 'abc123, abc124, def123, def1234'" +
-                                    ", prop_zip = '12345'" +
+                                    ", prop_zip = '66666'" +
                                     ", borrower_last4_SSN = '1234'" +
                                     " where fc_id = 23";
             command.ExecuteNonQuery();           
@@ -86,14 +86,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                                        new string[] {null, null, null, null, null, null, "23"}, //0 null all
                                        new string[] {null, null, null, null, null, "abcd", "23"}, //1 invalid Prop Zip
                                        new string[] {null, null, null, null, null, "123456", "23"}, //2 invalid Prop Zip
-                                       new string[] {null, null, null, null, null, "12345", "23"}, //3 valid Prop Zip
-                                       new string[] {"abc*&*)&", null, null, null, null, "12345", "23"}, //4 invalid Agency Case Num
-                                       new string[] {"644186", null, null, null, null, "12345", "23"}, //5 valid Agency Case Num
-                                       new string[] {null, null, null, "ab12", null, "12345", "23"}, //6 invalid SSN1
-                                       new string[] {null, null, null, "123", null, "12345", "23"}, //7 invalid SSN2
-                                       new string[] {null, null, null, "1234", null, "12345", "23"}, //8 valid SSN
-                                       new string[] {null, null, null, null, "abc-$^*", "12345", "23"}, //9 test LoanNumber
-                                       new string[] {"644186", "MICHAEL", "GOINS", "1234", null, "12345", "23"}};//10 match all
+                                       new string[] {null, null, null, null, null, "66666", "23"}, //3 valid Prop Zip
+                                       new string[] {"abc*&*)&", null, null, null, null, "66666", "23"}, //4 invalid Agency Case Num
+                                       new string[] {"644186", null, null, null, null, "66666", "23"}, //5 valid Agency Case Num
+                                       new string[] {null, null, null, "ab12", null, "66666", "23"}, //6 invalid SSN1
+                                       new string[] {null, null, null, "123", null, "66666", "23"}, //7 invalid SSN2
+                                       new string[] {null, null, null, "1234", null, "66666", "23"}, //8 valid SSN
+                                       new string[] {null, null, null, null, "abc-$^*", "66666", "23"}, //9 test LoanNumber
+                                       new string[] {"644186", "MICHAEL", "GOINS", "1234", null, "66666", "23"}};//10 match all
             
         }
         
@@ -114,21 +114,44 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void Test_Null_All()
         {
-            PerformTest(0);
+            try
+            {
+                PerformTest(0);
+            }
+            catch (DataValidationException dve)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), dve.GetType());
+            }
         }
 
         [TestMethod()]
         public void Test_Invalid_PropZip1()
         {
-            PerformTest(1);
+            try
+            {
+                PerformTest(1);
+            }
+            catch (DataValidationException dve)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), dve.GetType());
+            }
             //TestContext.WriteLine(criterias[1][5]);
         }
 
         [TestMethod()]
         public void Test_Invalid_PropZip2()
         {
-            PerformTest(2);
-            //TestContext.WriteLine(criterias[2][5]);
+            try
+            {
+                PerformTest(2);
+            }
+            catch (DataValidationException dve)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), dve.GetType());
+            }
         }
 
         [TestMethod()]
@@ -141,8 +164,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void Test_InValid_AgencyNumber()
         {
-            PerformTest(4);
-            //TestContext.WriteLine(criterias[4][0]);
+            try
+            {
+                PerformTest(4);
+            }
+            catch (DataValidationException dve)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), dve.GetType());
+            }
         }
         [TestMethod()]
         public void Test_Valid_AgencyNumber()
@@ -153,14 +183,29 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void Test_Invalid_SSN1()
         {
-            PerformTest(6);
+            try
+            {
+                PerformTest(6);
+            }
+            catch (DataValidationException dve)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), dve.GetType());
+            }
             //TestContext.WriteLine(criterias[6][4]);
         }
         [TestMethod()]
         public void Test_Invalid_SSN2()
         {
-            PerformTest(7);
-            //TestContext.WriteLine(criterias[7][4]);
+            try
+            {
+                PerformTest(7);
+            }
+            catch (DataValidationException dve)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), dve.GetType());
+            }
         }
 
         [TestMethod()]
@@ -201,24 +246,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             if (results != null)
             {
-                //if ((results.Messages != null) && (results.Messages.ExceptionMessages != null) && (results.Messages.ExceptionMessages.Count > 0))
-                //{
-                //    DisplayWarningMessage(results);
-                //}
-                //else
-                //{
-                //    if (results.Count == 0)
-                //    {
-                //        TestContext.WriteLine("There are no objects found");
-                //    }
-                //    else
-                //    {
-                //        ForeclosureCaseWSDTO retObj = target.SearchForeclosureCase(searchCriteria)[0];
-                //        actual = retObj.FcId; 
-                //        Assert.AreEqual(expected, actual);
-                //        TestContext.WriteLine("Foreclosurecase ID: {0}", retObj.FcId);
-                //    }
-                //}
+                    if (results.Count == 0)
+                    {
+                        TestContext.WriteLine("There are no objects found");
+                    }
+                    else
+                    {
+                        ForeclosureCaseWSDTO retObj = results[0];//target.SearchForeclosureCase(searchCriteria, 50)[0];
+                        
+                        actual = retObj.FcId;
+                        Assert.AreEqual(expected, actual);
+                        TestContext.WriteLine("Foreclosurecase ID: {0}", retObj.FcId);
+                    }
             }
             else
             {
@@ -352,20 +391,20 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithForeclosureCaseId_Success()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            //foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
-            //foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
-            //foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
-            //var expected = (new ProcessingException()).GetType();
-            //try
-            //{
-            //    target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            //}
-            //catch (ProcessingException pe)
-            //{
-            //    Assert.AreEqual(expected, pe.GetType());
-            //}
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
         }
         #endregion
 
@@ -431,20 +470,20 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertUpdateWithoutForeclosureCaseId_Success()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            //foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
-            //foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
-            //foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
-            //var expected = (new ProcessingException()).GetType();
-            //try
-            //{
-            //    target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            //}
-            //catch (ProcessingException pe)
-            //{
-            //    Assert.AreEqual(expected, pe.GetType());
-            //}
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
+            foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
         }
         #endregion
 
@@ -530,46 +569,46 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessInsertForeclosureCaseSet_Success_MiscException()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //CheckDuplicate_PreTest();
-            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            //fcCase.FcId = 123;
+            CheckDuplicate_PreTest();
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            fcCase.FcId = 123;
 
-            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            //foreclosureCaseSet.ForeclosureCase = fcCase;
-            //var expected = (new ProcessingException()).GetType();
-            //try
-            //{
-            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            //}
-            //catch (ProcessingException pe)
-            //{
-            //    Assert.AreEqual(expected, pe.GetType());
-            //}
-            //CheckDuplicate_PostTest();
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase = fcCase;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+            CheckDuplicate_PostTest();
         }
 
         [TestMethod]
         public void ProcessInsertForeclosureCaseSet_Success()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //CheckDuplicate_PreTest();
-            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            //fcCase.FcId = 123;
+            CheckDuplicate_PreTest();
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            fcCase.FcId = 123;
 
-            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            //foreclosureCaseSet.ForeclosureCase = fcCase;
-            //var expected = (new ProcessingException()).GetType();
-            //try
-            //{
-            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            //}
-            //catch (ProcessingException pe)
-            //{
-            //    Assert.AreEqual(expected, pe.GetType());
-            //}
-            //CheckDuplicate_PostTest();
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase = fcCase;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+            CheckDuplicate_PostTest();
         }
         #endregion
 
@@ -595,46 +634,46 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void ProcessUpdateForeclosureCaseSet_Success_MiscException()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //CheckDuplicate_PreTest();
-            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            //fcCase.FcId = 123;
+            CheckDuplicate_PreTest();
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            fcCase.FcId = 123;
 
-            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            //foreclosureCaseSet.ForeclosureCase = fcCase;
-            //var expected = (new ProcessingException()).GetType();
-            //try
-            //{
-            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            //}
-            //catch (ProcessingException pe)
-            //{
-            //    Assert.AreEqual(expected, pe.GetType());
-            //}
-            //CheckDuplicate_PostTest();
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase = fcCase;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+            CheckDuplicate_PostTest();
         }
 
         [TestMethod]
         public void ProcessUpdateForeclosureCaseSet_Success()
         {
             TestContext.WriteLine("This test is not implemented yet");
-            //CheckDuplicate_PreTest();
-            //ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            //fcCase.FcId = 123;
+            CheckDuplicate_PreTest();
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
+            fcCase.FcId = 123;
 
-            //ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            //ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            //foreclosureCaseSet.ForeclosureCase = fcCase;
-            //var expected = (new ProcessingException()).GetType();
-            //try
-            //{
-            //    target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            //}
-            //catch (ProcessingException pe)
-            //{
-            //    Assert.AreEqual(expected, pe.GetType());
-            //}
-            //CheckDuplicate_PostTest();
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase = fcCase;
+            var expected = (new ProcessingException()).GetType();
+            try
+            {
+                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            }
+            catch (ProcessingException pe)
+            {
+                Assert.AreEqual(expected, pe.GetType());
+            }
+            CheckDuplicate_PostTest();
         }
         #endregion
         

@@ -113,22 +113,6 @@ namespace HPF.FutureState.UnitTest
             Assert.AreNotEqual(expected.CallId, actual.CallId);
         }
 
-        /// <summary>
-        ///A test fail for ReadCallLog
-        ///This function will be passed when 
-        /// 01. connection string wrong, or
-        /// 02. store procedure doesn't exist        
-        ///</summary>                
-        //[TestMethod()]
-        //[ExpectedException(typeof(DataAccessException))]
-        //public void ReadCallLogTestFailException()
-        //{
-        //    CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-        //    var callLogId = int.MinValue; // TODO: Initialize to an appropriate value            
-        //    CallLogDTO actual = target.ReadCallLog(callLogId);
-        //    Assert.AreEqual(null, actual);
-        //} 
-
         #region InsertCallLog_Test
 
         private void InsertCallLogTest_Pre()
@@ -203,7 +187,7 @@ namespace HPF.FutureState.UnitTest
             int actual = target.InsertCallLog(aCallLog);
             int expected = GetCallLogID();
             callLogid = actual;
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
             TestContext.WriteLine("New Call Log ID: " + actual);
 
             InsertCallLogTest_Post();
@@ -219,10 +203,10 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = "Delete from Call where call_id = " + callLogid;
             command.ExecuteNonQuery();
 
-            command.CommandText = "Delete from Call_Center where call_center_name = 'call_center_name_1'";
+
+            command.CommandText = "Delete from Call_Center where call_center_ID = " + GetCallCenterID() ;// 'call_center_name_1'";
             command.ExecuteNonQuery();
 
-            
 
             dbConnection.Close();
         }

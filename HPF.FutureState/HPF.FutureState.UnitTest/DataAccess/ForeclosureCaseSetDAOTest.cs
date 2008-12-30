@@ -108,7 +108,12 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO() { PropertyZip = "66666" };
 
-            List<int> expected = GetListFCID(searchCriteria);
+            List<int> expected = new List<int>();            
+            expected.Add(23);
+            expected.Add(181);
+            expected.Add(183);
+            expected.Add(185);
+
             List<int> actual = new List<int>();
             ForeclosureCaseSearchResult actualResult = target.SearchForeclosureCase(searchCriteria, 50);
             foreach (ForeclosureCaseWSDTO wscase in actualResult)
