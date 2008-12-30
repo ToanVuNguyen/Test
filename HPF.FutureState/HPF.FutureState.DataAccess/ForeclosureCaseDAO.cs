@@ -336,7 +336,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_foreclosure_case_search_app", dbConnection);
 
-            var sqlParam = new SqlParameter[11];
+            var sqlParam = new SqlParameter[14];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
             sqlParam[1] = new SqlParameter("@pi_fname", searchCriteria.FirstName);
             sqlParam[2] = new SqlParameter("@pi_lname", searchCriteria.LastName);
@@ -350,7 +350,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[10] = new SqlParameter("@pi_programid ", searchCriteria.Program);
             sqlParam[11] = new SqlParameter("@pi_pagesize", searchCriteria.PageSize);
             sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
-            sqlParam[13] = new SqlParameter("@po_totalrownum", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            sqlParam[13] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             try
@@ -377,7 +377,8 @@ namespace HPF.FutureState.DataAccess
                         item.PropertyState = ConvertToString(reader["prop_state_cd"]);
                         item.PropertyZip = ConvertToString(reader["prop_zip"]);
                         item.AgencyName = ConvertToString(reader["agency_name"]);
-                        item.AgentName = ConvertToString(reader["counselor_fullname"]);
+                        item.AgentFirstName = ConvertToString(reader["counselor_fname"]);
+                        item.AgentLastName = ConvertToString(reader["counselor_lname"]);
                         item.AgentEmail = ConvertToString(reader["counselor_email"]);
                         item.AgentPhone = ConvertToString(reader["counselor_phone"]);
                         item.AgentExtension = ConvertToString(reader["counselor_ext"]);
@@ -388,6 +389,7 @@ namespace HPF.FutureState.DataAccess
                         results.Add(item);
                     }
                     reader.Close();
+                    results.SearchResultCount = Convert.ToDouble(sqlParam[13].Value);
                 }
             }
             catch (Exception ex)
