@@ -9,6 +9,8 @@ using HPF.FutureState.DataAccess;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using HPF.FutureState.Common.Utils.DataValidator;
 
+using System;
+
 namespace HPF.FutureState.BusinessLogic
 {
     public class CallLogBL : BaseBusinessLogic, ICallLogBL
@@ -39,7 +41,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>return a calllog id after inserting</returns>
         public int InsertCallLog(CallLogDTO aCallLog)
         {
-            int callLogID = 0;
+            
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
             if (!validationResults.IsValid)
@@ -53,9 +55,21 @@ namespace HPF.FutureState.BusinessLogic
                 throw dataValidationException;
 
             }
-            else  callLogID = CallLogDAO.Instance.InsertCallLog(aCallLog);
 
-            return callLogID;
+            GenerateDefaultValue(aCallLog);
+            return CallLogDAO.Instance.InsertCallLog(aCallLog);
+
+            
+        }
+
+        private void GenerateDefaultValue(CallLogDTO aCallLog)
+        {
+            aCallLog.ChangeLastAppName = "Test data";
+            aCallLog.ChangeLastDate = DateTime.Now;
+            aCallLog.ChangeLastUserId = "Test data";
+            aCallLog.CreateAppName = "Test data";
+            aCallLog.CreateDate = DateTime.Now;
+            aCallLog.CreateUserId = "Test data";
         }       
 
         /// <summary>
