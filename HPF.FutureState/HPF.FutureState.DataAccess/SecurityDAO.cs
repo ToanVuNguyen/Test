@@ -76,12 +76,12 @@ namespace HPF.FutureState.DataAccess
             sqlParam[0] = new SqlParameter("@pi_username", userName);
             sqlParam[1] = new SqlParameter("@pi_password", password);            
             //</Parameter>            
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            dbConnection.Open();
-            
             try
             {
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -89,7 +89,7 @@ namespace HPF.FutureState.DataAccess
                     wsUser.LoginUsername = userName;
                     wsUser.LoginPassword = password;
                     while (reader.Read())
-                    {                        
+                    {
                         wsUser.WsUserId = ConvertToInt(reader["ws_user_id"]);
                         wsUser.AgencyId = ConvertToInt(reader["agency_id"]);
                         wsUser.CallCenterId = ConvertToInt(reader["call_center_id"]);
@@ -98,12 +98,12 @@ namespace HPF.FutureState.DataAccess
                         wsUser.CreateUserId = ConvertToString(reader["create_user_id"]);
                         wsUser.ChgLstDt = ConvertToDateTime(reader["chg_lst_dt"]);
                         wsUser.ChgLstUserId = ConvertToString(reader["chg_lst_user_id"]);
-                        wsUser.CreateLstAppName = ConvertToString(reader["chg_lst_app_name"]);                        
+                        wsUser.CreateLstAppName = ConvertToString(reader["chg_lst_app_name"]);
                     }
-                }                                
+                }
             }
             catch (Exception Ex)
-            {                
+            {
                 dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
