@@ -16,7 +16,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AppForeclosureCaseSearchCriteriaDTO
     {
-        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
+        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "CriteriaValidation")]
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         public string AgencyCaseID { get; set; }
 
@@ -33,15 +33,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
 
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "AppSearchRequireCriteria")]
-
-
-        [NullableOrInRangeValidator(true, "[0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
-        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default")]
-
+        [NullableOrInRangeValidator(true, "[0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "CriteriaValidation")]
         public int ForeclosureCaseID { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
-        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
+        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "CriteriaValidation")]
         public string LoanNumber
         {
             get;
@@ -50,7 +46,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
-        [NullableOrDigitsRequriedValidator(true, 5, MessageTemplate = "Foreclosure Case ID: Only 5 numeric characters allowed", Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(true, 5, MessageTemplate = "Foreclosure Case ID: Only 5 numeric characters allowed", Ruleset = "CriteriaValidation")]
         public string PropertyZip { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
@@ -66,7 +62,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Duplicates { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
-        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last4SSN: Only 4 numeric characters allowed", Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last4SSN: Only 4 numeric characters allowed", Ruleset = "CriteriaValidation")]
         public string Last4SSN { get; set; }
 
         public int PageSize { get; set; }
