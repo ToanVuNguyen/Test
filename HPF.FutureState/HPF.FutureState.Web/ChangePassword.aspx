@@ -4,7 +4,7 @@
         <table style="width:32%; background-color: #60A5DE; height: 105px;">
             <tr>
                 <td align="center" colspan="2" class="sidelinks2">
-                    Chage Your Password</td>
+                    Change Your Password</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks2">
@@ -36,7 +36,7 @@
                     <asp:Button ID="btn_cancel" runat="server" Text="Cancel" BackColor="White" 
                         CssClass="sidelinks" />
                    &nbsp
-                    <asp:Button ID="btn_chagepassword" runat="server" Text="Chage Password" 
+                    <asp:Button ID="btn_chagepassword" runat="server" Text="Change Password" 
                         BackColor="White" CssClass="sidelinks" />
                     
                                        
