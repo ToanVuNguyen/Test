@@ -1282,6 +1282,7 @@ namespace HPF.FutureState.BusinessLogic
             ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, "AppSearchRequireCriteria");
             if (validationResults.Count == NUMBER_OF_ERROR_APP_SEARCH_CRITERIA)
                 return false;// user doesnt change anything in search criteria
+            
             return true;
         }
         /// <summary>
@@ -1295,7 +1296,9 @@ namespace HPF.FutureState.BusinessLogic
             if (ValidateSearchCriteria(searchCriteria))
                 result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             else
-                throw new Exception();
+            {
+                throw new DataValidationException();
+            }
             return result;
         }
         /// <summary>
