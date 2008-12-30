@@ -223,8 +223,8 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
-            SqlConnection dbConnection = base.CreateConnection();
             ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
+            SqlConnection dbConnection = base.CreateConnection();
             try
             {                
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_search_ws", dbConnection);
