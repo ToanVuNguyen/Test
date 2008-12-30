@@ -59,7 +59,8 @@
                         
                     </td>
                     <td >
-                        <a href="#" style="width:135" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
+                        <a href="ChagePassword.aspx" style="width:135" 
+                            onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
                         Change Password</a>
                     </td>
                     <td >
@@ -165,7 +166,9 @@
               <tr> 
                 <td width="40">&nbsp;</td>
                 <td>
+                    <br />
                     <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server"></asp:ContentPlaceHolder>
+                    <br />
                 </td>
                 <td width="25">&nbsp;</td>
               </tr>
