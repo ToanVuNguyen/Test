@@ -348,7 +348,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[8] = new SqlParameter("@pi_duplicate", searchCriteria.Duplicates);
             sqlParam[9] = new SqlParameter("@pi_agencyid", searchCriteria.Agency);
             sqlParam[10] = new SqlParameter("@pi_programid ", searchCriteria.Program);
-
+            sqlParam[11] = new SqlParameter("@pi_pagesize", searchCriteria.PageSize);
+            sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
+            sqlParam[13] = new SqlParameter("@po_totalrownum", SqlDbType.Int) { Direction = ParameterDirection.Output };
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             try
