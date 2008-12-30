@@ -79,6 +79,13 @@
     <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx.designer.cs">
       <DependentUpon>AppForeClosureCaseSearch.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Common\FixedHeaderGrid.ascx.cs">
       <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -112,17 +119,11 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppForeClosureCaseSearchPage.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx" />
+    <Content Include="ChangePassword.aspx" />
     <Content Include="Common\FixedHeaderGrid.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
@@ -142,7 +143,6 @@
     <Content Include="Styles\Images\toplogo.jpg" />
     <Content Include="Styles\Images\topmidspace.jpg" />
     <Content Include="Styles\Images\topnavbg.jpg" />
-    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">

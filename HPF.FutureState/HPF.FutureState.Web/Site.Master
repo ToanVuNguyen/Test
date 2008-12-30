@@ -59,7 +59,7 @@
                         
                     </td>
                     <td >
-                        <a href="ChagePassword.aspx" style="width:135" 
+                        <a href="ChangePassword.aspx" style="width:135" 
                             onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
                         Change Password</a>
                     </td>
