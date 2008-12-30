@@ -72,7 +72,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of a Foreclosure</param>
         /// <returns>ForeclosureCase if exists, otherwise: null</returns>
-        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        private ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
             try

@@ -69,6 +69,184 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// get Foreclosure case
+        /// </summary>
+        /// <param name="fc_id">id of a Foreclosure</param>
+        /// <returns>ForeclosureCase if exists, otherwise: null</returns>
+        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        {
+            ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
+            try
+            {
+                SqlConnection dbConnection = base.CreateConnection();
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_fcid", dbConnection);
+
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+
+                dbConnection.Open;
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        #region set ForeclosureCase value
+                        returnObject.FcId = ConvertToInt(reader["fc_id"]);
+
+                        returnObject.ActionItemsNotes = ConvertToString(reader["action_items_notes"]);
+                        returnObject.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
+                        returnObject.AgencyClientNum = ConvertToString(reader["agency_client_num"]);
+                        returnObject.AgencyId = ConvertToInt(reader["agency_id"]);
+                        returnObject.AgencyMediaConsentInd = ConvertToString(reader["agency_media_consent_ind"]);
+                        returnObject.AgencySuccessStoryInd = ConvertToString(reader["agency_success_story_ind"]);
+                        returnObject.AmiPercentage = ConvertToInt(reader["AMI_percentage"]);
+                        returnObject.AssignedCounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
+
+                        returnObject.BankruptcyAttorney = ConvertToString(reader["bankruptcy_attorney"]);
+                        returnObject.BankruptcyInd = ConvertToString(reader["bankruptcy_ind"]);
+                        returnObject.BankruptcyPmtCurrentInd = ConvertToString(reader["bankruptcy_pmt_current_ind"]);
+                        returnObject.BorrowerDisabledInd = ConvertToString(reader["borrower_disabled_ind"]);
+                        returnObject.BorrowerDob = ConvertToDateTime(reader["borrower_dob"]);
+                        returnObject.BorrowerEducLevelCompletedCd = ConvertToString(reader["borrower_educ_level_completed_cd"]);
+                        returnObject.BorrowerFname = ConvertToString(reader["borrower_fname"]);
+                        returnObject.BorrowerLname = ConvertToString(reader["borrower_lname"]);
+                        returnObject.BorrowerMaritalStatusCd = ConvertToString(reader["borrower_marital_status_cd"]);
+                        returnObject.BorrowerLast4Ssn = ConvertToString(reader["borrower_last4_SSN"]);
+                        returnObject.BorrowerMname = ConvertToString(reader["borrower_mname"]);
+                        returnObject.BorrowerOccupationCd = ConvertToString(reader["borrower_occupation"]);
+                        returnObject.BorrowerPreferredLangCd = ConvertToString(reader["borrower_preferred_lang_cd"]);
+                        returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
+
+                        returnObject.CallId = ConvertToInt(reader["call_id"]);
+                        returnObject.CaseCompleteInd = ConvertToString(reader["case_complete_ind"]);
+                        returnObject.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        returnObject.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        returnObject.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        returnObject.CoBorrowerDisabledInd = ConvertToString(reader["co_borrower_disabled_ind"]);
+                        returnObject.CoBorrowerDob = ConvertToDateTime(reader["co_borrower_DOB"]);
+                        returnObject.CoBorrowerFname = ConvertToString(reader["co_borrower_fname"]);
+                        returnObject.CoBorrowerLname = ConvertToString(reader["co_borrower_lname"]);
+                        returnObject.CoBorrowerLast4Ssn = ConvertToString(reader["co_borrower_last4_SSN"]);
+                        returnObject.CoBorrowerMname = ConvertToString(reader["co_borrower_mname"]);
+                        returnObject.CoBorrowerOccupationCd = ConvertToString(reader["co_borrower_occupation"]);
+                        returnObject.CoBorrowerSsn = ConvertToString(reader["co_borrower_ssn"]);
+                        returnObject.CompletedDt = ConvertToDateTime(reader["completed_dt"]);
+                        returnObject.ContactAddr1 = ConvertToString(reader["contact_addr1"]);
+                        returnObject.ContactAddr2 = ConvertToString(reader["contact_addr2"]);
+                        returnObject.ContactCity = ConvertToString(reader["contact_city"]);
+                        returnObject.ContactedSrvcrRecentlyInd = ConvertToString(reader["contacted_srvcr_recently_ind"]);
+                        returnObject.ContactStateCd = ConvertToString(reader["contact_state_cd"]);
+                        returnObject.ContactZip = ConvertToString(reader["contact_zip"]);
+                        returnObject.ContactZipPlus4 = ConvertToString(reader["contact_zip_plus4"]);
+                        returnObject.CounselingDurationCd = ConvertToString(reader["counseling_duration_cd"]);
+                        returnObject.CounselorFname = ConvertToString(reader["counselor_fname"]);
+                        returnObject.CounselorLname = ConvertToString(reader["counselor_lname"]);
+                        returnObject.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                        returnObject.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                        returnObject.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                        returnObject.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        returnObject.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        returnObject.CreateUserId = ConvertToString(reader["create_user_id"]);
+
+                        returnObject.DfltReason1stCd = ConvertToString(reader["dflt_reason_1st_cd"]);
+                        returnObject.DfltReason2ndCd = ConvertToString(reader["dflt_reason_2nd_cd"]);
+                        returnObject.DiscussedSolutionWithSrvcrInd = ConvertToString(reader["discussed_solution_with_srvcr_ind"]);
+                        returnObject.DoNotCallInd = ConvertToString(reader["do_not_call_ind"]);
+                        returnObject.DuplicateInd = ConvertToString(reader["duplicate_ind"]);
+
+                        returnObject.Email1 = ConvertToString(reader["email_1"]);
+                        returnObject.Email2 = ConvertToString(reader["email_2"]);
+
+                        returnObject.FcSaleDateSetInd = ConvertToString(reader["fc_sale_date_set_ind"]);
+                        returnObject.FcNoticeReceiveInd = ConvertToString(reader["fc_notice_received_ind"]);
+                        returnObject.FollowupNotes = ConvertToString(reader["followup_notes"]);
+                        returnObject.ForSaleInd = ConvertToString(reader["for_sale_ind"]);
+                        returnObject.FundingConsentInd = ConvertToString(reader["funding_consent_ind"]);
+
+                        returnObject.GenderCd = ConvertToString(reader["gender_cd"]);
+
+                        returnObject.HasWorkoutPlanInd = ConvertToString(reader["has_workout_plan_ind"]);
+                        returnObject.HispanicInd = ConvertToString(reader["hispanic_ind"]);
+                        returnObject.HomeCurrentMarketValue = ConvertToDecimal(reader["home_current_market_value"]);
+                        returnObject.HomePurchasePrice = ConvertToDecimal(reader["home_purchase_price"]);
+                        returnObject.HomePurchaseYear = ConvertToInt(reader["home_purchase_year"]);
+                        returnObject.HomeSalePrice = ConvertToDecimal(reader["home_sale_price"]);
+                        returnObject.HouseholdCd = ConvertToString(reader["household_cd"]);
+                        returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);
+                        returnObject.HpfNetworkCandidateInd = ConvertToString(reader["hpf_network_candidate_ind"]);
+                        returnObject.HpfSuccessStoryInd = ConvertToString(reader["hpf_success_story_ind"]);
+                        returnObject.HudOutcomeCd = ConvertToString(reader["hud_outcome_cd"]);
+                        returnObject.HudTerminationDt = ConvertToDateTime(reader["hud_termination_dt"]);
+                        returnObject.HudTerminationReasonCd = ConvertToString(reader["hud_termination_reason_cd"]);
+
+                        returnObject.IncomeEarnersCd = ConvertToString(reader["income_earners_cd"]);
+                        returnObject.IntakeDt = ConvertToDateTime(reader["intake_dt"]);
+
+                        returnObject.LoanDfltReasonNotes = ConvertToString(reader["loan_dflt_reason_notes"]);
+
+                        returnObject.MilitaryServiceCd = ConvertToString(reader["military_service_cd"]);
+                        returnObject.MotherMaidenLname = ConvertToString(reader["mother_maiden_lname"]);
+
+                        returnObject.NeverBillReasonCd = ConvertToString(reader["never_bill_reason_cd"]);
+                        returnObject.NeverPayReasonCd = ConvertToString(reader["never_pay_reason_cd"]);
+
+                        returnObject.OccupantNum = ConvertToByte(reader["occupant_num"]);
+                        returnObject.OptOutNewsletterInd = ConvertToString(reader["opt_out_newsletter_ind"]);
+                        returnObject.OptOutSurveyInd = ConvertToString(reader["opt_out_survey_ind"]);
+                        returnObject.OwnerOccupiedInd = ConvertToString(reader["owner_occupied_ind"]);
+
+                        returnObject.PrimaryContactNo = ConvertToString(reader["primary_contact_no"]);
+                        returnObject.PrimaryResidenceInd = ConvertToString(reader["primary_residence_ind"]);
+                        returnObject.PrimResEstMktValue = ConvertToDecimal(reader["prim_res_est_mkt_value"]);
+                        returnObject.ProgramId = ConvertToInt(reader["program_id"]);
+                        returnObject.PropAddr1 = ConvertToString(reader["prop_addr1"]);
+                        returnObject.PropAddr2 = ConvertToString(reader["prop_addr2"]);
+                        returnObject.PropCity = ConvertToString(reader["prop_city"]);
+                        returnObject.PropStateCd = ConvertToString(reader["prop_state_cd"]);
+                        returnObject.PropZip = ConvertToString(reader["prop_zip"]);
+                        returnObject.PropertyCd = ConvertToString(reader["property_cd"]);
+                        returnObject.PropZipPlus4 = ConvertToString(reader["prop_zip_plus_4"]);
+
+                        returnObject.RaceCd = ConvertToString(reader["race_cd"]);
+                        returnObject.RealtyCompany = ConvertToString(reader["realty_company"]);
+
+                        returnObject.SecondContactNo = ConvertToString(reader["second_contact_no"]);
+                        returnObject.ServicerConsentInd = ConvertToString(reader["servicer_consent_ind"]);
+                        returnObject.SrvcrWorkoutPlanCurrentInd = ConvertToString(reader["srvcr_workout_plan_current_ind"]);
+                        returnObject.SummarySentDt = ConvertToDateTime(reader["summary_sent_dt"]);
+                        returnObject.SummarySentOtherCd = ConvertToString(reader["summary_sent_other_cd"]);
+                        returnObject.SummarySentOtherDt = ConvertToDateTime(reader["summary_sent_other_dt"]);
+
+                        returnObject.WorkedWithAnotherAgencyInd = ConvertToString(reader["worked_with_another_agency_ind"]);
+                        #endregion
+                    }
+                    reader.Close();
+                }
+                else
+                    returnObject = null;
+
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return returnObject;
+
+        }
+
+
+
+        /// <summary>
         /// return all search results retrieved from database
         /// </summary>
         /// <param name="searchCriteria"></param>
