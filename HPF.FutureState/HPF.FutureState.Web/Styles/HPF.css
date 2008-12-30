@@ -212,5 +212,19 @@ a:hover
 {
     border-top-style: none;
 }
-.Header{text-align:center; font-size:20px; font-weight:bold;color:8FC4F6; }
+.Header
+{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: 8FC4F6;
+}
+.UnderLine
+{
+    text-decoration: none;
+}
+.UnderLine:visited
+{
+    color: red;
+}
 
