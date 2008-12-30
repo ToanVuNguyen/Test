@@ -7,6 +7,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class AppForeclosureCaseSearchResultDTOCollection:BaseDTOCollection<AppForeclosureCaseSearchResultDTO>
     {
-        public double SearchResultCount { get; set; }
+        public double SearchResultCount
+        {
+            get;
+            set;
+        }
+        
     }
 }
