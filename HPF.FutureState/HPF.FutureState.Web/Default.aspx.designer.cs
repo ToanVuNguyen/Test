@@ -14,6 +14,15 @@ namespace HPF.FutureState.Web {
     public partial class Default {
         
         /// <summary>
+        /// UserControlLoader1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HPF.FutureState.Web.HPFWebControls.UserControlLoader UserControlLoader1;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>

@@ -14,6 +14,8 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Web.HPFWebControls;
+
 
 
 namespace HPF.FutureState.Web
@@ -22,7 +24,8 @@ namespace HPF.FutureState.Web
     {       
         protected void Page_Load(object sender, EventArgs e)
         {
-                        
+            if(!IsPostBack)
+                UserControlLoader1.LoadUC("AppForeclosureCaseSearch//AppForeClosureCaseSearch.ascx", "abc");            
         }
 
         
@@ -31,6 +34,7 @@ namespace HPF.FutureState.Web
         {
             //AppForeclosureCaseSearchCriteriaDTO searchCritera = new AppForeclosureCaseSearchCriteriaDTO { Agency=-1, ForeclosureCaseID=-1, Program=-1 };
             //AppForeclosureCaseSearchResultDTOCollection result = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(searchCritera);
+            
         }              
     }   
 }
