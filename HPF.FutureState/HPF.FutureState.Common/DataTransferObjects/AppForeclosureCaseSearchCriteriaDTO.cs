@@ -68,5 +68,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
         [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last4SSN: Only 4 numeric characters allowed", Ruleset = "Default")]
         public string Last4SSN { get; set; }
+
+        public int PageSize { get; set; }
+        public int PageNum { get; set; }
+        public int TotalRowNum { get; set; }
     }
 }
