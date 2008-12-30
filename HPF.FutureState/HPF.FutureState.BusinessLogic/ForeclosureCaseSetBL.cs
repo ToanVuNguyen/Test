@@ -104,10 +104,10 @@ namespace HPF.FutureState.BusinessLogic
         void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             if (foreclosureCaseSet == null)
-                throw new ProcessingException("Foreclosure Case Set is null");
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
             if (MiscErrorException(foreclosureCaseSet))
-                throw new MiscProcessingException("Misc Error Exception is thrown");
+                throw new MiscProcessingException(ErrorMessages.MISC_PROCESSING_EXCEPTION);
             
             UpdateForeclosureCaseSet(foreclosureCaseSet);
 
@@ -116,13 +116,13 @@ namespace HPF.FutureState.BusinessLogic
         void ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                throw new ProcessingException("Either Foreclosure Case Set or Foreclosure is null");
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
             
             if (CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase))
-                throw new ProcessingException("Foreclosure case is duplicated");
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_DUPLICATE_FORECLOSURE_CASE);
             
             if (MiscErrorException(foreclosureCaseSet))
-                throw new MiscProcessingException("Misc Error Exception is thrown");
+                throw new MiscProcessingException(ErrorMessages.MISC_PROCESSING_EXCEPTION);
             
             InsertForeclosureCaseSet(foreclosureCaseSet);
 
@@ -133,15 +133,15 @@ namespace HPF.FutureState.BusinessLogic
         {
             
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                throw new ProcessingException();
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.AgencyCaseNum == null || fcCase.AgencyId == 0)
-                throw new ProcessingException();
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID);
 
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
-                throw new ProcessingException();
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID);
             
             ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -152,10 +152,10 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
 
             if (fc.FcId > 0) //CheckInvalidFCID
-                throw new ProcessingException();            
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID);            
                
             if (!CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
-                throw new ProcessingException();            
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);            
 
             if (CheckInactiveCase(foreclosureCaseSet))                
                 ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
