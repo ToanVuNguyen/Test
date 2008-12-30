@@ -49,14 +49,14 @@ namespace HPF.FutureState.BusinessLogic
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
             if (!RequireFieldsValidation(foreclosureCaseSet))
-                throw new ProcessingException();            
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD);            
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.FcId != 0)
             {
                 if (!CheckValidCode(foreclosureCaseSet))
-                    throw new ProcessingException();
+                    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_CODE);
 
                 ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             }
@@ -144,10 +144,12 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
 
             if (fc.FcId <= 0) //CheckInvalidFCID
-                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID);            
-               
+                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID);
+
             if (!CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
-                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);            
+            {
+                ThrowInvalidFCIdForAgencyException(fc.FcId);
+            }
 
             if (CheckInactiveCase(foreclosureCaseSet))                
                 ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
@@ -1247,13 +1249,26 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fc_id">id for a ForeclosureCase</param>
         /// <returns>object of ForeclosureCase </returns>
-        ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        private ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
         }
 
+        private string GetAgencyName(int AgencyID)
+        {
+            return AgencyDAO.Instance.GetAgencyName(AgencyID);
+        }
 
-        
+        private void ThrowInvalidFCIdForAgencyException(int fcId)
+        {
+            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);
+            ForeclosureCaseDTO fcCase = GetForeclosureCase(fc.FcId);
+            ExceptionMessage em = new ExceptionMessage();
+            em.Message = string.Format("The case belongs to Agency: {0}, Counsellor: {1}, Contact number: {2}, email: {3}", GetAgencyName(fcCase.AgencyId), fcCase.CounselorFname + ", " + fcCase.CounselorLname, fcCase.CounselorPhone, fcCase.CounselorEmail);
+            pe.ExceptionMessages.Add(em);
+
+            throw pe;
+        }
         #endregion
 
         #region AppForeclosureCaseSearch
