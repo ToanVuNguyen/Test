@@ -12,10 +12,7 @@ namespace HPF.FutureState.DataAccess
 {
     public class ForeclosureCaseDAO : BaseDAO
     {
-        public SqlConnection dbConnection;
-
-        public SqlTransaction trans;
-
+        
         protected ForeclosureCaseDAO()
         {
 
@@ -26,33 +23,7 @@ namespace HPF.FutureState.DataAccess
             return new ForeclosureCaseDAO();
         }
 
-        /// <summary>
-        /// Begin working
-        /// </summary>
-        public void Begin()
-        {
-            dbConnection = CreateConnection();
-            dbConnection.Open();
-            trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-        }
-
-        /// <summary>
-        /// Commit work.
-        /// </summary>
-        public void Commit()
-        {
-            trans.Commit();
-            dbConnection.Close();
-        }
-        /// <summary>
-        /// Cancel work
-        /// </summary>
-        public void Cancel()
-        {
-            trans.Rollback();
-            dbConnection.Close();
-        }        
-
+        
         public CaseLoanDTO GetExistingCaseLoan(CaseLoanDTO caseLoan)
         {
             return null;
@@ -252,11 +223,10 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
-            
+            SqlConnection dbConnection = base.CreateConnection();
             ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
             try
-            {
-                SqlConnection dbConnection = base.CreateConnection();
+            {                
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_search_ws", dbConnection);
                 string whereClause = GenerateWhereClause(searchCriteria);
                 //<Parameter>
@@ -345,7 +315,6 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : " AND loan_list like @pi_loan_number");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND prop_zip = @pi_prop_zip");
            
-
             return whereClause.ToString();        
         }
 
@@ -354,8 +323,7 @@ namespace HPF.FutureState.DataAccess
             DateTime oneYearBefore = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day - 1);
             if (completedDt.CompareTo(oneYearBefore) >= 0 && completedDt.CompareTo(DateTime.Now) <= 0)
                 return "<1yr";
-            else
-                return ">1yr";
+            return ">1yr";
         }
         /// <summary>
         /// Search ForeclosureCase
