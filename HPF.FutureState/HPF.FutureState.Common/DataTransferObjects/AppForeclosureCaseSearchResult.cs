@@ -22,7 +22,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PropertyState { get; set; }
         public string PropertyZip { get; set; }
         public string AgencyName { get; set; }
-        public string AgentName { get; set; }
+        public string AgentFirstName { get; set; }
+        public string AgentLastName { get; set; }
         public string AgentPhone { get; set; }
         public string AgentExtension { get; set; }
         public string AgentEmail { get; set; }
