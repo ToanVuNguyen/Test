@@ -93,6 +93,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -114,6 +121,7 @@
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx" />
     <Content Include="Common\FixedHeaderGrid.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Scripts\HPF.js" />
     <Content Include="Site.Master" />
     <Content Include="Styles\HPF.css" />
@@ -121,6 +129,7 @@
     <Content Include="Styles\Images\arrowOpen.jpg" />
     <Content Include="Styles\Images\basebg1.jpg" />
     <Content Include="Styles\Images\basebg2.jpg" />
+    <Content Include="Styles\Images\hpf_logo.gif" />
     <Content Include="Styles\Images\mainpic1.jpg" />
     <Content Include="Styles\Images\navbasebg.jpg" />
     <Content Include="Styles\Images\navspacer.jpg" />
@@ -164,9 +173,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
