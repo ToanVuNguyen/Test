@@ -236,7 +236,11 @@ namespace HPF.FutureState.DataAccess
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }            
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
             return callLogDTO;
         }       
     }
