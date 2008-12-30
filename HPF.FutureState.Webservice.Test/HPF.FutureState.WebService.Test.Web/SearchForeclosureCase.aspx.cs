@@ -11,7 +11,8 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
 
-using HPF.FutureState.WebService.Test.Web.HPFCallCenterService;
+
+
 
 namespace HPF.FutureState.WebService.Test.Web
 {
@@ -24,9 +25,9 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            ForeClosureCaseSearchRequest request = new ForeClosureCaseSearchRequest();
+            ForeclosureCaseSearchRequest request = new ForeclosureCaseSearchRequest();
 
-            request.SearchCriteria = new ForeClosureCaseSearchCriteriaDTO();
+            request.SearchCriteria = new ForeclosureCaseSearchCriteriaDTO();
 
             
             request.SearchCriteria.AgencyCaseNumber = (txtAgencyCaseNumber.Text.Trim() == string.Empty)? null : txtAgencyCaseNumber.Text.Trim() ;
@@ -38,7 +39,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
             CallCenterService proxy = new CallCenterService();
             
-            ForeClosureCaseSearchResponse response = proxy.SearchForeClosureCase(request);
+            ForeclosureCaseSearchResponse response = proxy.SearchForeclosureCase(request);
 
             if (response.Status == ResponseStatus.Success)
                 grdvResult.DataSource = response.Results;

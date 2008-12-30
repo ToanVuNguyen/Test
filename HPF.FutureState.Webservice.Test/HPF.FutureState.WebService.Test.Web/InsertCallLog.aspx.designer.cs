@@ -14,6 +14,24 @@ namespace HPF.FutureState.WebService.Test.Web {
     public partial class InsertCallLog {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Table1 control.
         /// </summary>
         /// <remarks>
@@ -59,13 +77,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell2;
         
         /// <summary>
-        /// txtExtCallNumber control.
+        /// txtCallCenterID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtExtCallNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtCallCenterID;
         
         /// <summary>
         /// TableCell3 control.
@@ -95,13 +113,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell4;
         
         /// <summary>
-        /// txtAgencyId control.
+        /// txtCcAgentIdKey control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAgencyId;
+        protected global::System.Web.UI.WebControls.TextBox txtCcAgentIdKey;
         
         /// <summary>
         /// TableRow3 control.
@@ -146,7 +164,7 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStartDate;
+        protected global::System.Web.UI.WebControls.Calendar txtStartDate;
         
         /// <summary>
         /// TableCell7 control.
@@ -182,7 +200,7 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEndDate;
+        protected global::System.Web.UI.WebControls.Calendar txtEndDate;
         
         /// <summary>
         /// TableRow6 control.
@@ -311,13 +329,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell16;
         
         /// <summary>
-        /// txtCallCenterCD control.
+        /// txtCallSourceCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCallCenterCD;
+        protected global::System.Web.UI.WebControls.TextBox txtCallSourceCd;
         
         /// <summary>
         /// TableCell17 control.
@@ -347,13 +365,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell18;
         
         /// <summary>
-        /// txtCallResource control.
+        /// txtReasonToCall control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCallResource;
+        protected global::System.Web.UI.WebControls.TextBox txtReasonToCall;
         
         /// <summary>
         /// TableRow9 control.
@@ -401,13 +419,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell20;
         
         /// <summary>
-        /// txtReasonToCall control.
+        /// txtLoanAccountNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReasonToCall;
+        protected global::System.Web.UI.WebControls.TextBox txtLoanAccountNumber;
         
         /// <summary>
         /// TableCell21 control.
@@ -437,13 +455,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell22;
         
         /// <summary>
-        /// txtAccountNumber control.
+        /// txtServiceID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAccountNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtServiceID;
         
         /// <summary>
         /// TableRow11 control.
@@ -581,13 +599,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell28;
         
         /// <summary>
-        /// txtCounselPastYRInd control.
+        /// txtOtherServicerName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCounselPastYRInd;
+        protected global::System.Web.UI.WebControls.TextBox txtOtherServicerName;
         
         /// <summary>
         /// TableCell29 control.
@@ -617,13 +635,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell30;
         
         /// <summary>
-        /// txtMtgProbInd control.
+        /// txtPropZipFull9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMtgProbInd;
+        protected global::System.Web.UI.WebControls.TextBox txtPropZipFull9;
         
         /// <summary>
         /// TableRow15 control.
@@ -671,13 +689,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell32;
         
         /// <summary>
-        /// txtPastDueInd control.
+        /// txtPrevAgencyId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPastDueInd;
+        protected global::System.Web.UI.WebControls.TextBox txtPrevAgencyId;
         
         /// <summary>
         /// TableCell33 control.
@@ -707,13 +725,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell34;
         
         /// <summary>
-        /// txtPastDueSoonInd control.
+        /// txtSelectedAgencyId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPastDueSoonInd;
+        protected global::System.Web.UI.WebControls.TextBox txtSelectedAgencyId;
         
         /// <summary>
         /// TableRow18 control.
@@ -752,13 +770,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell36;
         
         /// <summary>
-        /// txtPastDueMonths control.
+        /// txtScreenRout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPastDueMonths;
+        protected global::System.Web.UI.WebControls.TextBox txtScreenRout;
         
         /// <summary>
         /// TableCell37 control.
@@ -788,13 +806,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell38;
         
         /// <summary>
-        /// txtServicerId control.
+        /// FinalDispoCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtServicerId;
+        protected global::System.Web.UI.WebControls.TextBox FinalDispoCd;
         
         /// <summary>
         /// TableRow19 control.
@@ -842,13 +860,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell40;
         
         /// <summary>
-        /// txtOtherServicerName control.
+        /// txtTransNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOtherServicerName;
+        protected global::System.Web.UI.WebControls.TextBox txtTransNumber;
         
         /// <summary>
         /// TableCell41 control.
@@ -878,13 +896,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell42;
         
         /// <summary>
-        /// txtPropZip control.
+        /// txtCcCallKey control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPropZip;
+        protected global::System.Web.UI.WebControls.TextBox txtCcCallKey;
         
         /// <summary>
         /// TableRow21 control.
@@ -932,13 +950,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell44;
         
         /// <summary>
-        /// txtPrevCounselorId control.
+        /// txtLoanDelinqStatusCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrevCounselorId;
+        protected global::System.Web.UI.WebControls.TextBox txtLoanDelinqStatusCd;
         
         /// <summary>
         /// TableCell45 control.
@@ -968,13 +986,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell46;
         
         /// <summary>
-        /// txtPrevAgencyId control.
+        /// txtSelectedCounselor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrevAgencyId;
+        protected global::System.Web.UI.WebControls.TextBox txtSelectedCounselor;
         
         /// <summary>
         /// TableRow23 control.
@@ -1022,13 +1040,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell48;
         
         /// <summary>
-        /// txtSelectedAgencyId control.
+        /// txtHomeownerInd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSelectedAgencyId;
+        protected global::System.Web.UI.WebControls.TextBox txtHomeownerInd;
         
         /// <summary>
         /// TableCell49 control.
@@ -1058,13 +1076,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell50;
         
         /// <summary>
-        /// txtScreenRout control.
+        /// txtPowerOfAttorneyInd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtScreenRout;
+        protected global::System.Web.UI.WebControls.TextBox txtPowerOfAttorneyInd;
         
         /// <summary>
         /// TableRow26 control.
@@ -1103,58 +1121,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell52;
         
         /// <summary>
-        /// txtFinalDispo control.
+        /// txtAuthorizedInd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFinalDispo;
-        
-        /// <summary>
-        /// TableCell53 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell53;
-        
-        /// <summary>
-        /// Label27 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label27;
-        
-        /// <summary>
-        /// TableCell54 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell54;
-        
-        /// <summary>
-        /// txtOutOfNetworkReferralTBD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOutOfNetworkReferralTBD;
-        
-        /// <summary>
-        /// TableRow2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableRow TableRow2;
+        protected global::System.Web.UI.WebControls.TextBox txtAuthorizedInd;
         
         /// <summary>
         /// TableCell11 control.
@@ -1184,31 +1157,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell12;
         
         /// <summary>
-        /// txtTransNumnber control.
+        /// txtFinalDispoCd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTransNumnber;
-        
-        /// <summary>
-        /// TableCell55 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell55;
-        
-        /// <summary>
-        /// TableCell56 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell56;
+        protected global::System.Web.UI.WebControls.TextBox txtFinalDispoCd;
         
         /// <summary>
         /// btnSearch control.
@@ -1227,6 +1182,42 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblResult;
+        
+        /// <summary>
+        /// btnGenerateTestData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenerateTestData;
+        
+        /// <summary>
+        /// btnDeleteTestData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteTestData;
+        
+        /// <summary>
+        /// btnCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCheck;
+        
+        /// <summary>
+        /// lstMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstMessage;
         
         /// <summary>
         /// grdvResult control.

@@ -63,6 +63,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HPFWebServiceProxies\CallCenterServiceProxy.cs" />
     <Compile Include="InsertCallLog.aspx.cs">
       <DependentUpon>InsertCallLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -97,11 +98,6 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="Web References\HPFCallCenterService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -113,41 +109,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\HPFCallCenterService\CallCenterService.disco" />
-    <None Include="Web References\HPFCallCenterService\CallCenterService.wsdl" />
-    <None Include="Web References\HPFCallCenterService\CallLogInsertResponse.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\HPFCallCenterService\CallLogRetrieveResponse.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\HPFCallCenterService\ForeClosureCaseSearchResponse.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\HPFCallCenterService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:1314/CallCenterService.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\HPFCallCenterService\</RelPath>
-      <UpdateFromURL>http://localhost:1314/CallCenterService.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>HPF_FutureState_WebService_Test_Web_HPFCallCenterService_CallCenterService</CachedSettingsPropName>
-    </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="HPFWebServiceProxies\" />
     <Folder Include="Scripts\" />
     <Folder Include="Styles\Images\" />
   </ItemGroup>
