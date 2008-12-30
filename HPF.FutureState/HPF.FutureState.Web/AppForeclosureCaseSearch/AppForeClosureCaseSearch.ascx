@@ -5,7 +5,9 @@
     TagPrefix="cc1" %>
 <%@ Register Src="~/Common/FixedHeaderGrid.ascx" TagName="FixedHeaderGrid"
     TagPrefix="uc1" %>
+
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+
 <table width="100%">
     <colgroup>
         <col width="20%" />
@@ -174,7 +176,7 @@
                                 <asp:Label ID="lblBorrowerName" runat="server" Text='<%#Eval("BorrowerFirstName")+","+Eval("BorrowerLastName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:Boun皜Field DataField="Last4SSN" HeaderText="SSN" />
+                        <asp:BoundField DataField="Last4SSN" HeaderText="SSN" />
                         <asp:TemplateField HeaderText="Co-Borrower">
                             <ItemTemplate>
                                 <asp:Label ID="lblCoBorrowerName" runat="server" Text='<%#Eval("CoborrowerFirstName")+","+Eval("CoborrowerLastName") %>'></asp:Label>
@@ -186,7 +188,11 @@
                         <asp:BoundField DataField="PropertyState" HeaderText="Property State" />
                         <asp:BoundField DataField="PropertyZip" HeaderText="Property Zip" />
                         <asp:BoundField DataField="AgencyName" HeaderText="Agency Name" />
-                        <asp:BoundField DataField="AgentName" HeaderText="Agent Name" />
+                        <asp:TemplateField HeaderText="Agent Name">
+                        <ItemTemplate>
+                        <asp:Label ID="lblAgentName" runat="server" Text='<%#Eval("AgentFirstName")+","+Eval("AgentLastName") %>'></asp:Label>
+                        </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="AgentPhone" HeaderText="Agent Phone" />
                         <asp:BoundField DataField="AgentExtension" HeaderText="Agent Extension" />
                         <asp:BoundField DataField="AgentEmail" HeaderText="Agent Email" />
@@ -205,17 +211,17 @@
     </tr>
     <tr>
         <td colspan="6">
-        <asp:Label ID="lblMinRow" runat="server"></asp:Label>    
-        <asp:Label ID="lbl1" runat="server" Text =" - "></asp:Label>
-        <asp:Label ID="lblMaxRow" runat="server"></asp:Label>
-        <asp:Label ID="lbl2" runat="server" Text=" of "></asp:Label>
-        <asp:Label ID="lblTotalRowNum" runat="server"></asp:Label>
-        <asp:LinkButton ID="lbtnFirst" CommandName="First" OnCommand="lbtnNavigate_Click" runat="server" Text="<<  "></asp:LinkButton>
-        <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server" Text="<"></asp:LinkButton>
+        <asp:Label ID="lblMinRow" runat="server" Visible="false"></asp:Label>    
+        <asp:Label ID="lbl1" runat="server" Text =" - " Visible="false"></asp:Label>
+        <asp:Label ID="lblMaxRow" runat="server" Visible="false"></asp:Label>
+        <asp:Label ID="lbl2" runat="server" Text=" of " Visible="false"></asp:Label>
+        <asp:Label ID="lblTotalRowNum" runat="server" Visible="false"></asp:Label>
+        <asp:LinkButton ID="lbtnFirst" CommandName="First" OnCommand="lbtnNavigate_Click" runat="server" Text="<<  " Visible="false"></asp:LinkButton>
+        <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server" Text="<" Visible="false"></asp:LinkButton>
         <asp:PlaceHolder ID="phPages"  runat="server"></asp:PlaceHolder>
-        <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  "></asp:LinkButton>
-        <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>"></asp:LinkButton>
-        <asp:Label ID="lblTemp" runat="server"></asp:Label>
+        <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  " Visible="false"></asp:LinkButton>
+        <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>" Visible="false"></asp:LinkButton>
+        <asp:Label ID="lblTemp" runat="server" Text=""></asp:Label>
         </td>
         
     </tr>

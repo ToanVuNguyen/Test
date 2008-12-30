@@ -25,9 +25,9 @@ namespace HPF.FutureState.Web.BillingAdmin
             get { return (int.Parse(ConfigurationManager.AppSettings["pagesize"])); }
         }
 
-        protected int TotalRowNum
+        protected double TotalRowNum
         {
-            get { return Convert.ToInt16(ViewState["totalrownum"]); }
+            get { return Convert.ToDouble(ViewState["totalrownum"]); }
             set { ViewState["totalrownum"] = value; }
         }
         protected int PageNum
@@ -38,11 +38,21 @@ namespace HPF.FutureState.Web.BillingAdmin
         protected void Page_Load(object sender, EventArgs e)
         {
 
+
             if (!IsPostBack)
             {
                 BindDDLProgram();
                 BindDDLState();
                 BindDDLAgency();
+
+            }
+            else
+            {
+                if (lblTemp.Text == "1")
+                {
+                    double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+                    GeneratePages(totalpage);
+                }
             }
         }
         protected void BindDDLState()
@@ -93,19 +103,46 @@ namespace HPF.FutureState.Web.BillingAdmin
                 appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
                 appForeclosureCaseSearchCriteriaDTO.PageNum = 1;
                 appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
+                appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
                 var temp = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 grvForeClosureCaseSearch.DataSource = temp;
                 grvForeClosureCaseSearch.DataBind();
+                this.TotalRowNum = temp.SearchResultCount;
+                if (this.TotalRowNum != 0)
+                {
+                    lbl1.Visible = true;
+                    lbl2.Visible = true;
+                    lblMaxRow.Visible = true;
+                    lblMinRow.Visible = true;
+                    lblTotalRowNum.Visible = true;
+                    lbtnFirst.Visible = true;
+                    lbtnLast.Visible = true;
+                    lbtnNext.Visible = true;
+                    lbtnPrev.Visible = true;
 
-                this.TotalRowNum = appForeclosureCaseSearchCriteriaDTO.TotalRowNum;
-                int MinRow = (this.PageSize * (PageNum - 1) + 1);
-                int MaxRow = PageNum * this.PageSize;
-                lblTotalRowNum.Text = this.TotalRowNum.ToString();
-                lblMinRow.Text = MinRow.ToString();
-                lblMaxRow.Text = MaxRow.ToString();
-                if (MaxRow > appForeclosureCaseSearchCriteriaDTO.TotalRowNum)
-                    lblMaxRow.Text = appForeclosureCaseSearchCriteriaDTO.TotalRowNum.ToString();
-                else lblMaxRow.Text = MaxRow.ToString();
+                    int MinRow = (this.PageSize * (PageNum - 1) + 1);
+                    int MaxRow = PageNum * this.PageSize;
+                    lblTotalRowNum.Text = this.TotalRowNum.ToString();
+                    lblMinRow.Text = MinRow.ToString();
+                    lblMaxRow.Text = MaxRow.ToString();
+                    if (MaxRow > this.TotalRowNum)
+                        lblMaxRow.Text = this.TotalRowNum.ToString();
+                    else lblMaxRow.Text = MaxRow.ToString();
+                    lblTemp.Text = "1";
+                }
+                else
+                {
+                    lbl1.Visible = false;
+                    lbl2.Visible = false;
+                    lblMaxRow.Visible = false;
+                    lblMinRow.Visible = false;
+                    lblTotalRowNum.Visible = false;
+                    lbtnFirst.Visible = false;
+                    lbtnLast.Visible = false;
+                    lbtnNext.Visible = false;
+                    lbtnPrev.Visible = false;
+
+                }
 
 
             }
@@ -120,7 +157,7 @@ namespace HPF.FutureState.Web.BillingAdmin
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindGrvForeClosureCaseSearch(1);
-            double totalpage = Math.Ceiling((double)this.TotalRowNum / this.PageSize);
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             GeneratePages(totalpage);
         }
 
@@ -140,7 +177,7 @@ namespace HPF.FutureState.Web.BillingAdmin
         }
         protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
         {
-            double totalpage = Math.Ceiling(double.Parse(lblTotalRowNum.Text) / this.PageSize);
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             switch (e.CommandName)
             {
                 case "First":
@@ -156,6 +193,7 @@ namespace HPF.FutureState.Web.BillingAdmin
                     break;
                 case "Prev":
                     this.PageNum = Convert.ToInt16(this.PageNum) - 1;
+                    if (this.PageNum < 1) this.PageNum = 1;
                     break;
             }
             BindGrvForeClosureCaseSearch(this.PageNum);
@@ -169,7 +207,7 @@ namespace HPF.FutureState.Web.BillingAdmin
                 LinkButton myLinkBtn = new LinkButton();
                 myLinkBtn.ID = i.ToString();
                 myLinkBtn.Text = i.ToString();
-                myLinkBtn.CssClass = "pages";
+                myLinkBtn.CssClass = "UnderLine";
                 myLinkBtn.CommandName = i.ToString();
                 myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
                 phPages.Controls.Add(myLinkBtn);
