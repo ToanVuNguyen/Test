@@ -43,25 +43,25 @@ namespace HPF.FutureState.BusinessLogic
         /// Save a ForeclosureCase
         /// </summary>
         /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
-        public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreClosureCaseSet)
+        public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
-            if (!RequireFieldsValidation(foreClosureCaseSet))
+            if (!RequireFieldsValidation(foreclosureCaseSet))
                 throw new ProcessingException();            
 
-            ForeclosureCaseDTO fcCase = foreClosureCaseSet.ForeclosureCase;
+            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.FcId != 0)
             {
-                if (!CheckValidCode(foreClosureCaseSet))
+                if (!CheckValidCode(foreclosureCaseSet))
                     throw new ProcessingException();
 
-                ProcessInsertUpdateWithForeclosureCaseId(foreClosureCaseSet);
+                ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             }
             else
-                ProcessInsertUpdateWithoutForeclosureCaseId(foreClosureCaseSet);
+                ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
         }
 
         /// <summary>
