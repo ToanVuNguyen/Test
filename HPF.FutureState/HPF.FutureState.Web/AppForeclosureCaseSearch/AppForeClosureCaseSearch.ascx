@@ -174,7 +174,7 @@
                                 <asp:Label ID="lblBorrowerName" runat="server" Text='<%#Eval("BorrowerFirstName")+","+Eval("BorrowerLastName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Last4SSN" HeaderText="SSN" />
+                        <asp:Boun皜Field DataField="Last4SSN" HeaderText="SSN" />
                         <asp:TemplateField HeaderText="Co-Borrower">
                             <ItemTemplate>
                                 <asp:Label ID="lblCoBorrowerName" runat="server" Text='<%#Eval("CoborrowerFirstName")+","+Eval("CoborrowerLastName") %>'></asp:Label>
@@ -204,6 +204,22 @@
         </td>
     </tr>
     <tr>
+        <td colspan="6">
+        <asp:Label ID="lblMinRow" runat="server"></asp:Label>    
+        <asp:Label ID="lbl1" runat="server" Text =" - "></asp:Label>
+        <asp:Label ID="lblMaxRow" runat="server"></asp:Label>
+        <asp:Label ID="lbl2" runat="server" Text=" of "></asp:Label>
+        <asp:Label ID="lblTotalRowNum" runat="server"></asp:Label>
+        <asp:LinkButton ID="lbtnFirst" CommandName="First" OnCommand="lbtnNavigate_Click" runat="server" Text="<<  "></asp:LinkButton>
+        <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server" Text="<"></asp:LinkButton>
+        <asp:PlaceHolder ID="phPages"  runat="server"></asp:PlaceHolder>
+        <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  "></asp:LinkButton>
+        <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>"></asp:LinkButton>
+        <asp:Label ID="lblTemp" runat="server"></asp:Label>
+        </td>
+        
+    </tr>
+     <tr>
         <td>
             &nbsp;
         </td>

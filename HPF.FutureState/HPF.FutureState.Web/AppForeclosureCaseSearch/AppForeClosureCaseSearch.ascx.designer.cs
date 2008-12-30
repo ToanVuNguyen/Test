@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HPF.FutureState.Web.BillingAdmin {
-    
-    
-    public partial class AppForeClosureCaseSearch {
-        
+namespace HPF.FutureState.Web.BillingAdmin
+{
+
+
+    public partial class AppForeClosureCaseSearch
+    {
+
         /// <summary>
         /// txtSSN control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSSN;
-        
+
         /// <summary>
         /// txtAgencyCaseID control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAgencyCaseID;
-        
+
         /// <summary>
         /// ddlDup control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDup;
-        
+
         /// <summary>
         /// txtLastName control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
+
         /// <summary>
         /// txtLoanNum control.
         /// </summary>
@@ -57,7 +59,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLoanNum;
-        
+
         /// <summary>
         /// ddlAgency control.
         /// </summary>
@@ -66,7 +68,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAgency;
-        
+
         /// <summary>
         /// txtFirstName control.
         /// </summary>
@@ -75,7 +77,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
+
         /// <summary>
         /// txtPropertyZip control.
         /// </summary>
@@ -84,7 +86,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPropertyZip;
-        
+
         /// <summary>
         /// ddlProgram control.
         /// </summary>
@@ -93,7 +95,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProgram;
-        
+
         /// <summary>
         /// txtForeclosureCaseID control.
         /// </summary>
@@ -102,7 +104,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtForeclosureCaseID;
-        
+
         /// <summary>
         /// ddlPropertyState control.
         /// </summary>
@@ -111,7 +113,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPropertyState;
-        
+
         /// <summary>
         /// btnSearch control.
         /// </summary>
@@ -120,7 +122,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
-        
+
         /// <summary>
         /// txtSSNCheckValidator control.
         /// </summary>
@@ -129,7 +131,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtSSNCheckValidator;
-        
+
         /// <summary>
         /// txtAgencyCaseIDCheckValidator control.
         /// </summary>
@@ -138,7 +140,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtAgencyCaseIDCheckValidator;
-        
+
         /// <summary>
         /// txtLoanNumCheckValidator control.
         /// </summary>
@@ -147,7 +149,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtLoanNumCheckValidator;
-        
+
         /// <summary>
         /// txtPropertyZipCheckValidator control.
         /// </summary>
@@ -156,7 +158,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtPropertyZipCheckValidator;
-        
+
         /// <summary>
         /// RegularExpressionValidator1 control.
         /// </summary>
@@ -165,7 +167,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
+
         /// <summary>
         /// panForeClosureCaseSearch control.
         /// </summary>
@@ -174,7 +176,7 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panForeClosureCaseSearch;
-        
+
         /// <summary>
         /// grvForeClosureCaseSearch control.
         /// </summary>
@@ -183,5 +185,104 @@ namespace HPF.FutureState.Web.BillingAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grvForeClosureCaseSearch;
+
+        /// <summary>
+        /// lblMinRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMinRow;
+
+        /// <summary>
+        /// lbl1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl1;
+
+        /// <summary>
+        /// lblMaxRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMaxRow;
+
+        /// <summary>
+        /// lbl2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl2;
+
+        /// <summary>
+        /// lblTotalRowNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalRowNum;
+
+        /// <summary>
+        /// lbtnFirst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnFirst;
+
+        /// <summary>
+        /// lbtnPrev control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnPrev;
+
+        /// <summary>
+        /// phPages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phPages;
+
+        /// <summary>
+        /// lbtnNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnNext;
+
+        /// <summary>
+        /// lbtnLast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnLast;
+
+        /// <summary>
+        /// lblTemp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTemp;
     }
 }

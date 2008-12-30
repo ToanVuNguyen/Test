@@ -15,15 +15,26 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils.DataValidator;
-
 namespace HPF.FutureState.Web.BillingAdmin
-
 {
 
     public partial class AppForeClosureCaseSearch : System.Web.UI.UserControl
     {
+        protected int PageSize
+        {
+            get { return (int.Parse(ConfigurationManager.AppSettings["pagesize"])); }
+        }
 
-        protected AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
+        protected int TotalRowNum
+        {
+            get { return Convert.ToInt16(ViewState["totalrownum"]); }
+            set { ViewState["totalrownum"] = value; }
+        }
+        protected int PageNum
+        {
+            get { return Convert.ToInt16(ViewState["pagenum"]); }
+            set { ViewState["pagenum"] = value; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -62,13 +73,11 @@ namespace HPF.FutureState.Web.BillingAdmin
             ddlProgram.Items.FindByText("ALL").Selected = true;
         }
 
-        protected void BindGrvForeClosureCaseSearch()
+        protected void BindGrvForeClosureCaseSearch(int PageNum)
         {
-            
-            //grvForeClosureCaseSearch.ColumsName = new List<string> { "Case ID", "Agency Case ID", "Counseled", "Case Date", "Borrower Name", "SSN", "Co_Borrower", "SSN", "Property Address", "Property City", "Property State", "PropertyZip", "Agency Name", "Agent Name", "Agent Phone", "Agent Extension", "Agent Extension", "Agent Email", "Case Complete Date", "Days Deliquent", "Bankruptcy Indicator", "Foreclosre Notice Received Indicator", "Loan List" };
-            //grvForeClosureCaseSearch.ColumsWidth = new List<int> { 100, 500, 300, 200, 300, 100,300,300, 300, 300, 300, 300, 300, 100, 300, 300, 300, 300, 300, 300, 300, 300, 300 };
-            //grvForeClosureCaseSearch.HeaderCssClass = "header";
 
+
+            AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
             try
             {
                 appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
@@ -82,21 +91,37 @@ namespace HPF.FutureState.Web.BillingAdmin
                 appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
                 appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
                 appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
+                appForeclosureCaseSearchCriteriaDTO.PageNum = 1;
+                appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
                 var temp = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 grvForeClosureCaseSearch.DataSource = temp;
                 grvForeClosureCaseSearch.DataBind();
+
+                this.TotalRowNum = appForeclosureCaseSearchCriteriaDTO.TotalRowNum;
+                int MinRow = (this.PageSize * (PageNum - 1) + 1);
+                int MaxRow = PageNum * this.PageSize;
+                lblTotalRowNum.Text = this.TotalRowNum.ToString();
+                lblMinRow.Text = MinRow.ToString();
+                lblMaxRow.Text = MaxRow.ToString();
+                if (MaxRow > appForeclosureCaseSearchCriteriaDTO.TotalRowNum)
+                    lblMaxRow.Text = appForeclosureCaseSearchCriteriaDTO.TotalRowNum.ToString();
+                else lblMaxRow.Text = MaxRow.ToString();
+
+
             }
             catch (Exception ex)
             {
             }
-            
-            
+
+
         }
-        
+
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            BindGrvForeClosureCaseSearch();
+            BindGrvForeClosureCaseSearch(1);
+            double totalpage = Math.Ceiling((double)this.TotalRowNum / this.PageSize);
+            GeneratePages(totalpage);
         }
 
         protected void grvForeClosureCaseSearch_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -113,8 +138,54 @@ namespace HPF.FutureState.Web.BillingAdmin
 
             }
         }
+        protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
+        {
+            double totalpage = Math.Ceiling(double.Parse(lblTotalRowNum.Text) / this.PageSize);
+            switch (e.CommandName)
+            {
+                case "First":
+                    this.PageNum = 1;
+                    break;
+                case "Last":
+                    this.PageNum = Convert.ToInt16(totalpage);
+                    if (totalpage > 10) totalpage = 10;
+                    break;
+                case "Next":
+                    this.PageNum = Convert.ToInt16(this.PageNum) + 1;
+                    if (this.PageNum > 10) this.PageNum = 10;
+                    break;
+                case "Prev":
+                    this.PageNum = Convert.ToInt16(this.PageNum) - 1;
+                    break;
+            }
+            BindGrvForeClosureCaseSearch(this.PageNum);
+        }
+        void GeneratePages(double totalpage)
+        {
+            if (totalpage > 10) totalpage = 10;
+            phPages.Controls.Clear();
+            for (int i = 1; i <= totalpage; i++)
+            {
+                LinkButton myLinkBtn = new LinkButton();
+                myLinkBtn.ID = i.ToString();
+                myLinkBtn.Text = i.ToString();
+                myLinkBtn.CssClass = "pages";
+                myLinkBtn.CommandName = i.ToString();
+                myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
+                phPages.Controls.Add(myLinkBtn);
+                Literal lit = new Literal();
+                lit.Text = "&nbsp;&nbsp;";
+                phPages.Controls.Add(lit);
+            }
+        }
+
+        void myLinkBtn_Command(object sender, CommandEventArgs e)
+        {
+            int pagenum = int.Parse(e.CommandName);
+            BindGrvForeClosureCaseSearch(pagenum);
+
+        }
 
 
-        
     }
 }
