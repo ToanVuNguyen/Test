@@ -71,7 +71,6 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
         public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
-            ForeclosureCaseSearchResult searchResult = new ForeclosureCaseSearchResult();
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
             if (!validationResults.IsValid)
@@ -85,12 +84,8 @@ namespace HPF.FutureState.BusinessLogic
                 throw dataValidationException;
 
             }
-            else
-            {
-                searchResult = ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
-            }
-
-            return searchResult;
+            
+            return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
         }
         #endregion
 
