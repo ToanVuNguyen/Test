@@ -102,12 +102,12 @@ namespace HPF.FutureState.BusinessLogic
         #region functions to serve SaveForeclosureCaseSet
 
         void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {            
+        {
             if (foreclosureCaseSet == null)
-                throw new ProcessingException();
+                throw new ProcessingException("Foreclosure Case Set is null");
 
             if (MiscErrorException(foreclosureCaseSet))
-                throw new MiscProcessingException();
+                throw new MiscProcessingException("Misc Error Exception is thrown");
             
             UpdateForeclosureCaseSet(foreclosureCaseSet);
 
@@ -116,13 +116,13 @@ namespace HPF.FutureState.BusinessLogic
         void ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                throw new ProcessingException();
+                throw new ProcessingException("Either Foreclosure Case Set or Foreclosure is null");
             
             if (CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase))
-                throw new ProcessingException();
+                throw new ProcessingException("Foreclosure case is duplicated");
             
             if (MiscErrorException(foreclosureCaseSet))
-                throw new MiscProcessingException();
+                throw new MiscProcessingException("Misc Error Exception is thrown");
             
             InsertForeclosureCaseSet(foreclosureCaseSet);
 
@@ -154,13 +154,15 @@ namespace HPF.FutureState.BusinessLogic
             if (fc.FcId > 0) //CheckInvalidFCID
                 throw new ProcessingException();            
                
-            if (CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
+            if (!CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
                 throw new ProcessingException();            
 
-            if (!CheckInactiveCase(foreclosureCaseSet))
-                throw new ProcessingException();                
+            if (CheckInactiveCase(foreclosureCaseSet))                
+                ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            else
+                ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
 
-            ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+
             
         }
 
@@ -1255,7 +1257,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
-            return ForeclosureCaseSetDAO.CreateInstance().GetForeclosureCase(fcId);
+            return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
         }
 
 
