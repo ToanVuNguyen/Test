@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        bool AdminUserLogin(string userName, string password);
+        bool WebUserLogin(string userName, string password);
         /// <summary>
         /// Web Service User Login
         /// </summary>
@@ -34,6 +34,13 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param name="userName">Username</param>
         /// <returns>WSUserDTO</returns>
-        WSUserDTO GetWSUser(string userName);        
+        WSUserDTO GetWSUser(string userName);
+
+        /// <summary>
+        /// Get WebUser for Billing & Admin
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <returns>UserDTO</returns>
+        UserDTO GetWebUser(string userName);
     }
 }

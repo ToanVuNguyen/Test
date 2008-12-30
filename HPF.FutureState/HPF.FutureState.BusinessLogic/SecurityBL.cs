@@ -36,7 +36,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool AdminUserLogin(string userName, string password)
+        public bool WebUserLogin(string userName, string password)
         {
             throw new System.NotImplementedException();
         }
@@ -98,6 +98,16 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="userName">Username</param>
         /// <returns>WSUserDTO</returns>
         public WSUserDTO GetWSUser(string userName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get WebUser for Billing & Admin
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <returns>UserDTO</returns>
+        public UserDTO GetWebUser(string userName)
         {
             throw new System.NotImplementedException();
         }
