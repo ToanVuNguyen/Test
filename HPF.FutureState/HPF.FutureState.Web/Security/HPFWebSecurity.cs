@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using HPF.FutureState.BusinessLogic;
 
 namespace HPF.FutureState.Web.Security
 {
@@ -29,10 +30,8 @@ namespace HPF.FutureState.Web.Security
 
         public static bool IsAuthenticated(string userName, string password)
         {
-            //var userManager = new XmlFileUserManager();
-            //var user = userManager.GetUser(userName, password);
-            //return user != null;
             return false;
+            //return SecurityBL.Instance.WebUserLogin(userName, password);            
         }
 
         public static UserPrincipal CreateUserPrincipal(IIdentity identity)
@@ -43,11 +42,11 @@ namespace HPF.FutureState.Web.Security
                 IsAuthenticated = identity.IsAuthenticated,
                 AuthenticationType = identity.AuthenticationType
             };
-            //var userManager = new XmlFileUserManager();
-            //var user = userManager.GetUser(uId.UserID);
-            //uId.Roles = user.Roles;
-            //uId.DisplayName = user.DisplayName;
-            //uId.Email = user.Email;
+            var user = SecurityBL.Instance.GetWebUser(uId.UserID);
+            uId.Roles = user.UserRole;
+            uId.DisplayName = user.FirstName + "," + user.LastName;
+            uId.Email = user.Email;
+            //
             return new UserPrincipal(uId);
         }
     }

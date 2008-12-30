@@ -34,20 +34,21 @@
                 <td align="right" class="sidelinks2">
                     Password:</td>
                 <td align="left">
-                    <input id="txt_password" runat="server" type="password" /></td>
+                    <asp:TextBox ID="txt_password" runat="server" TextMode="Password"></asp:TextBox></td>
             </tr>
             <tr>
                 <td align="center" colspan="2">
                     <asp:Button ID="btn_login" runat="server" Text="Log In" BackColor="White" 
-                        BorderColor="White" CssClass="sidelinks" EnableTheming="True" />
+                        BorderColor="White" CssClass="sidelinks" EnableTheming="True" 
+                        onclick="btn_login_Click" />
                 </td>
             </tr>
         </table>
             </td>
         </tr>
         <tr>
-            <td>
-                &nbsp;</td>
+            <td align="center">
+                <asp:Label ID="lb_message" runat="server" ForeColor="Red"></asp:Label></td>
         </tr>
     </table>
     </form>
