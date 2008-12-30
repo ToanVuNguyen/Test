@@ -1280,9 +1280,7 @@ namespace HPF.FutureState.BusinessLogic
             if (ValidateSearchCriteria(searchCriteria))
                 result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             else
-            {
                 throw new Exception();
-            }
             return result;
         }
         /// <summary>
