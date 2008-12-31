@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-
+using HPF.Webservice.CallCenter;
 namespace HPF.FutureState.WebService.Test.Web
 {
     public partial class RetrieveCallLog : System.Web.UI.Page

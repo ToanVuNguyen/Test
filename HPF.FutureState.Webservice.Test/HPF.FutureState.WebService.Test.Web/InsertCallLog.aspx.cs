@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 using System.Data.SqlClient;
 
-
+using HPF.Webservice.CallCenter;
 
 namespace HPF.FutureState.WebService.Test.Web
 {
@@ -22,7 +22,7 @@ namespace HPF.FutureState.WebService.Test.Web
         public static int _pageloadno = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            CallCenterService proxy = new CallCenterService();
+            
 
             if (!IsPostBack)
             {
