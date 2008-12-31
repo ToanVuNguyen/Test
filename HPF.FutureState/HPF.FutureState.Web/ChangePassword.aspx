@@ -33,13 +33,12 @@
             </tr>
             <tr>
                 <td align="center" colspan="2">
-                    <asp:Button ID="btn_cancel" runat="server" Text="Cancel" BackColor="White" 
-                        CssClass="sidelinks" />
-                   &nbsp
+                    
                     <asp:Button ID="btn_chagepassword" runat="server" Text="Change Password" 
                         BackColor="White" CssClass="sidelinks" />
-                    
-                                       
+                        &nbsp
+                    <asp:Button ID="btn_cancel" runat="server" Text="Cancel" BackColor="White" 
+                        CssClass="sidelinks" />
                 </td>
             </tr>
         </table> 
