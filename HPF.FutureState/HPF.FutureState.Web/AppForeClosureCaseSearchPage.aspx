@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AppForeClosureCaseSearchPage.aspx.cs" Inherits="HPF.FutureState.Web.AppForeClosureCaseSearchPage" %>
-<%@ Register Src="~/AppForeclosureCaseSearch/AppForeClosureCaseSearch.ascx" TagName="AppForeClosureCaseSearch" TagPrefix="ucgrv" %>
+<%@ Register Src="~/AppForeclosureCaseSearch/AppForeClosureCaseSearchUC.ascx" TagName="AppForeClosureCaseSearch" TagPrefix="ucgrv" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 <html >
