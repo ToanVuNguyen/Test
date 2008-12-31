@@ -38,7 +38,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public bool AdminUserLogin(string userName, string password)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
         
         /// <summary>

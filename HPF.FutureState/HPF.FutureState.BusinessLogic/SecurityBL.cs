@@ -38,7 +38,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         public bool WebUserLogin(string userName, string password)
         {
-            throw new System.NotImplementedException();
+            return SecurityDAO.Instance.AdminUserLogin(userName, password);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>UserDTO</returns>
         public UserDTO GetWebUser(string userName)
         {
-            throw new System.NotImplementedException();
+            return new UserDTO {UserRole = "Admin", FirstName = "First", LastName = "Last"};
         }
 
         #endregion

@@ -5,10 +5,6 @@
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <div>
-        <hpf:UserControlLoader ID="UserControlLoader1" runat="server">
-        </hpf:UserControlLoader>
-    </div>
-    <asp:Button ID="Button1" runat="server" Text="Button" 
-        onclick="Button1_Click1" />
         
+    </div>    
 </asp:Content>

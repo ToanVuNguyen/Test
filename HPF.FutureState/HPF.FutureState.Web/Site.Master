@@ -141,7 +141,7 @@
                     </td>
                     
                     <td >
-                        <a href="#" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
+                        <a href="/Logout.aspx" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
                         Logout</a>
                     </td>
                 </tr>
