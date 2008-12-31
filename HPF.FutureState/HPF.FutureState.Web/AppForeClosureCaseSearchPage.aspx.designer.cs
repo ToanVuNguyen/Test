@@ -20,6 +20,6 @@ namespace HPF.FutureState.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearch AppForeClosureCaseSearchPage1;
+        protected global::HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC AppForeClosureCaseSearchPage1;
     }
 }
