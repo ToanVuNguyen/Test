@@ -75,10 +75,11 @@ namespace HPF.FutureState.DataAccess
         private ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
+            SqlConnection dbConnection = base.CreateConnection();
             try
-            { 
+            {
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_fcid", dbConnection);
-                
+
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
@@ -86,7 +87,7 @@ namespace HPF.FutureState.DataAccess
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
-                           
+                dbConnection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)
@@ -212,7 +213,7 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.RaceCd = ConvertToString(reader["race_cd"]);
                         returnObject.RealtyCompany = ConvertToString(reader["realty_company"]);
-                        
+
                         returnObject.SecondContactNo = ConvertToString(reader["second_contact_no"]);
                         returnObject.ServicerConsentInd = ConvertToString(reader["servicer_consent_ind"]);
                         returnObject.SrvcrWorkoutPlanCurrentInd = ConvertToString(reader["srvcr_workout_plan_current_ind"]);
@@ -227,16 +228,20 @@ namespace HPF.FutureState.DataAccess
                 }
                 else
                     returnObject = null;
-                
+
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
+            finally
+            {
+                dbConnection.Close();
+            }
             return returnObject;
 
         }
-
+        
         /// <summary>
         /// Insert a ForeclosureCase to database.
         /// </summary>
@@ -921,7 +926,7 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetItemId = ConvertToInt(reader["budget_item_id"]);
                         item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
                         item.BudgetSubcategoryId = ConvertToInt(reader["budget_subcategory_id"]);
-                        item.BudgetItemAmt = ConvertToDouble(reader["budget_item_amt"]);
+                        //item.BudgetItemAmt = ConvertToDouble(reader["budget_item_amt"]);
                         item.BudgetNote = ConvertToString(reader["budget_note"]);
                         results.Add(item);
                     }                    
@@ -975,7 +980,7 @@ namespace HPF.FutureState.DataAccess
                             item.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
                             item.CurrentLoanBalanceAmt = ConvertToDecimal(reader["current_loan_balance_amt"]);
                             item.OrigLoanAmt = ConvertToDecimal(reader["orig_loan_amt"]);
-                            item.InterestRate = ConvertToDouble(reader["interest_rate"]);
+                            //item.InterestRate = ConvertToDouble(reader["interest_rate"]);
                             item.OriginatingLenderName = ConvertToString(reader["originating_lender_name"]);
                             item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUS_num"]);
                             item.OrigMortgageCoName = ConvertToString(reader["orig_mortgage_co_name"]);
@@ -1098,7 +1103,7 @@ namespace HPF.FutureState.DataAccess
             bool returnValue = true;
             try
             {
-                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);//new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection, trans);//new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
                 //<Parameter>
                 var sqlParam = new SqlParameter[2];
                 sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
@@ -1124,13 +1129,13 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of current FC_Case</param>       
         /// <returns>true if another FC_Case with the same acct_num and servicer_id exists in db, otherwise false</returns>
-        public bool CheckDuplicate(int fcId)
+        public DuplicatedCaseLoanDTOCollection CheckDuplicate(int fcId)
         {
-            bool returnValue = true;
+            DuplicatedCaseLoanDTOCollection returnCollection = null;
             try
             {
                 
-                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection, trans);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];            
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
@@ -1138,23 +1143,45 @@ namespace HPF.FutureState.DataAccess
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
             
-                var reader = command.ExecuteReader();
-                returnValue = reader.HasRows;                
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    returnCollection = new DuplicatedCaseLoanDTOCollection();
+                    while (reader.Read())
+                    {
+                        DuplicatedCaseLoanDTO obj = new DuplicatedCaseLoanDTO();
+                        obj.LoanNumber = ConvertToString(reader["Acct_num"]);
+                        obj.FcID = ConvertToInt(reader["FC_ID"]);
+                        obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
+
+                        //obj.AgencyID = ConvertToInt(reader["Agency_ID"]);
+                        obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
+                        obj.AgencyName = ConvertToString(reader["Agency_Name"]);
+                        obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
+                        obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
+                        obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                        obj.CounselorFullName = ConvertToString(reader["counselor_fname"]) + ", " + ConvertToString(reader["counselor_lname"]);
+                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]) + " - Ext: " + ConvertToString(reader["counselor_ext"]);
+                        obj.ServicerName = ConvertToString(reader["Servicer_Name"]);                        
+
+                        returnCollection.Add(obj);
+                    }
+                }
                 reader.Close();
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-            return returnValue;
+            return returnCollection;
         }
 
-        public bool CheckDuplicate(int agency_id, string agency_case_number)
+        public DuplicatedCaseLoanDTOCollection CheckDuplicate(int agency_id, string agency_case_number)
         {
-            bool returnValue = true;
+            DuplicatedCaseLoanDTOCollection returnCollection = null;
             try
             {
-                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection, trans);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[2];
                 sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
@@ -1165,14 +1192,34 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
             
                 SqlDataReader reader = command.ExecuteReader();
-                returnValue = reader.HasRows; 
+                if (reader.HasRows)
+                {
+                    returnCollection = new DuplicatedCaseLoanDTOCollection();
+                    while (reader.Read())
+                    {
+                        DuplicatedCaseLoanDTO obj = new DuplicatedCaseLoanDTO();
+                        obj.LoanNumber = ConvertToString(reader["Acct_num"]);
+                        obj.FcID = ConvertToInt(reader["FC_ID"]);
+                        obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
+                        obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
+                        obj.AgencyName = ConvertToString(reader["Agency_Name"]);
+                        obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
+                        obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
+                        obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                        obj.CounselorFullName = ConvertToString(reader["counselor_fname"]) + ", " + ConvertToString(reader["counselor_lname"]);
+                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]) + " - Ext: " + ConvertToString(reader["counselor_ext"]);
+                        obj.ServicerName = ConvertToString(reader["Servicer_Name"]);
+
+                        returnCollection.Add(obj);
+                    }
+                }
                 reader.Close();
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-            return returnValue;
+            return returnCollection;
         }        
     }
 }
