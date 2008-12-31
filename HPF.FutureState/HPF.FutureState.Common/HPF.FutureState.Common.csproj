@@ -68,6 +68,15 @@
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="DataTransferObjects\AgencyDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableDraftDTO.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableCaseDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableDraftDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseDraftDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseDraftDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableDTO.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\AgencyPayableSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\AppForeclosureCaseSearchResultCollection.cs" />
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
     <Compile Include="DataTransferObjects\BaseDTOCollection.cs" />
@@ -98,6 +107,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataTransferObjects\ForeclosureCaseSetDTO.cs" />
+    <Compile Include="DataTransferObjects\InvoiceCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\InvoiceCaseDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\InvoiceDraftDTO.cs" />
+    <Compile Include="DataTransferObjects\InvoiceDraftDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\InvoiceDTO.cs" />
+    <Compile Include="DataTransferObjects\InvoiceDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\InvoiceSearchCriterialDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ProgramDTO.cs" />
