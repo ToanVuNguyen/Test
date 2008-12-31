@@ -43,17 +43,6 @@ namespace HPF.FutureState.Web.HPFWebControls
         }
         protected override void OnLoad(EventArgs e)
         {
-            //this.Controls.Clear();
-            //foreach (Tab t in Tabs)
-            //{
-            //    LinkButton lbtn = GetTab(t.ID, t.Title);
-            //    //if (ViewState["SelectedTab"] != null)
-            //    //{ 
-            //    //    if(lbtn.ID==ViewState["SelectedTab"].ToString())
-            //    //        lbtn.Attributes.Add("class", "TabSelected");
-            //    //}
-            //    this.Controls.Add(lbtn);
-            //}
             //Add CSS to client page
             string includeTemplate ="<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
             string includeLocation = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HPF.FutureState.Web.HPFWebControls.TabControl.css");
