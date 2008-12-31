@@ -84,6 +84,13 @@
     <Compile Include="RetrieveCallLog.aspx.designer.cs">
       <DependentUpon>RetrieveCallLog.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SaveForeclosureCase.aspx.cs">
+      <DependentUpon>SaveForeclosureCase.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SaveForeclosureCase.aspx.designer.cs">
+      <DependentUpon>SaveForeclosureCase.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SearchForeclosureCase.aspx.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -103,6 +110,7 @@
     <Content Include="Default.aspx" />
     <Content Include="InsertCallLog.aspx" />
     <Content Include="RetrieveCallLog.aspx" />
+    <Content Include="SaveForeclosureCase.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="Site.Master" />
     <None Include="Properties\Settings.settings">
