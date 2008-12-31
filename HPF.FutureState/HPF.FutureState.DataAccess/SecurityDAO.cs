@@ -38,9 +38,11 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public bool AdminUserLogin(string userName, string password)
         {
-            return true;
+            if (userName == "Admin" && password == "")
+                return true;
+            return false;
         }
-        
+
         /// <summary>
         /// Add a new Webservice User to the system
         /// </summary>

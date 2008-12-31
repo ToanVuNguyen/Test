@@ -18,7 +18,7 @@ namespace HPF.FutureState.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            txt_username.Text = "Admin";            
         }
 
         protected void btn_login_Click(object sender, EventArgs e)
