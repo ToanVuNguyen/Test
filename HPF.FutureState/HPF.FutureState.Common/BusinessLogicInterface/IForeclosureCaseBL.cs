@@ -23,6 +23,13 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// <param>ForeclosureCaseDTO</param>
         /// <returns>fc_id</returns>
         int SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize);
+
+        /// <summary>
+        /// Save ForeclosureCase Set including 
+        /// ForeclosureCase, CaseLoan, BudgetAsset, BudgetItem, LogActivity...
+        /// </summary>
+        /// <param name="foreclosureCaseSet">a Set of different types of objects to save</param>
+        void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet);
         
     }
 }
