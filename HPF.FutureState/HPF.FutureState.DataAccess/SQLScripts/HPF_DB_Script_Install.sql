@@ -1101,8 +1101,7 @@ GO
 CREATE INDEX IFK_budget_asset_Budget_set_FK ON budget_asset (budget_set_id);
 GO
 
-
-
+-- Stored Procedure/Function
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1914,6 +1913,39 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_ref_code_item_get]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Khoa Do
+-- Create date: 20 Dec 2008
+-- Project : HPF 
+-- Build 
+-- Description:	Get reference code item
+-- =============================================
+CREATE PROCEDURE [dbo].[hpf_ref_code_item_get]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT	ref_code_item_id
+			, ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind
+			, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name
+	FROM	ref_code_item
+	ORDER BY ref_code_set_name, sort_order;
+END
+
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_rpt_CompletedCasesByState]') AND type in (N'P', N'PC'))
 BEGIN
 EXEC dbo.sp_executesql @statement = N'
@@ -1997,39 +2029,6 @@ BEGIN
 			ON jan.state = Dec.state		
 	order by 1;
 END
-
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_ref_code_item_get]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'
--- =============================================
--- Author:		Khoa Do
--- Create date: 20 Dec 2008
--- Project : HPF 
--- Build 
--- Description:	Get reference code item
--- =============================================
-CREATE PROCEDURE [dbo].[hpf_ref_code_item_get]
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-    -- Insert statements for procedure here
-	SELECT	ref_code_item_id
-			, ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind
-			, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name
-	FROM	ref_code_item
-	ORDER BY ref_code_set_name, sort_order;
-END
-
 
 ' 
 END
@@ -2813,7 +2812,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_case_loan_insert]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'-- =============================================
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
 -- Author:		Khoa Do
 -- Create date: 03 Dec 2008
 -- Project : HPF 
@@ -2827,7 +2827,6 @@ CREATE PROCEDURE [dbo].[hpf_case_loan_insert]
            ,@pi_acct_num varchar(30) = null
            ,@pi_loan_1st_2nd_cd varchar(15) = null
            ,@pi_mortgage_type_cd varchar(15) = null
-           ,@pi_arm_loan_ind varchar(1) = null
            ,@pi_arm_reset_ind varchar(1) = null
            ,@pi_term_length_cd varchar(15) = null
            ,@pi_loan_delinq_status_cd varchar(15) = null
@@ -2861,7 +2860,6 @@ BEGIN
            ,[acct_num]
            ,[loan_1st_2nd_cd]
            ,[mortgage_type_cd]
-           ,[arm_loan_ind]
            ,[arm_reset_ind]
            ,[term_length_cd]
            ,[loan_delinq_status_cd]
@@ -2890,7 +2888,6 @@ BEGIN
            ,@pi_acct_num
            ,@pi_loan_1st_2nd_cd
            ,@pi_mortgage_type_cd
-           ,@pi_arm_loan_ind
            ,@pi_arm_reset_ind
            ,@pi_term_length_cd
            ,@pi_loan_delinq_status_cd
@@ -2912,6 +2909,7 @@ BEGIN
 		   ,@pi_chg_lst_app_name            
           )
 END
+
 ' 
 END
 GO
@@ -2921,7 +2919,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_case_loan_update]') AND type in (N'P', N'PC'))
 BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[hpf_case_loan_update]
+EXEC dbo.sp_executesql @statement = N'
+CREATE PROCEDURE [dbo].[hpf_case_loan_update]
 	-- Add the parameters for the stored procedure here
 	       @fc_id int
            ,@servicer_id int
@@ -2929,7 +2928,6 @@ EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[hpf_case_loan_upda
            ,@acct_num varchar(30)
            ,@loan_1st_2nd_cd varchar(15)
            ,@mortgage_type_cd varchar(15)
-           ,@arm_loan_ind varchar(1)
            ,@arm_reset_ind varchar(1)
            ,@term_length_cd varchar(15)
            ,@loan_delinq_status_cd varchar(15)
@@ -2955,7 +2953,6 @@ UPDATE [dbo].[case_loan]
    SET [other_servicer_name] = @other_servicer_name      
       ,[loan_1st_2nd_cd] = @loan_1st_2nd_cd
       ,[mortgage_type_cd] = @mortgage_type_cd
-      ,[arm_loan_ind] = @arm_loan_ind
       ,[arm_reset_ind] = @arm_reset_ind
       ,[term_length_cd] = @term_length_cd
       ,[loan_delinq_status_cd] = @loan_delinq_status_cd
@@ -2971,7 +2968,8 @@ UPDATE [dbo].[case_loan]
       ,[orginal_loan_num] = @orginal_loan_num
  WHERE [servicer_id] = @servicer_id
        AND [acct_num] = @acct_num
-END' 
+END
+' 
 END
 GO
 SET ANSI_NULLS ON
@@ -2981,6 +2979,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_case_loan_get]') AND type in (N'P', N'PC'))
 BEGIN
 EXEC dbo.sp_executesql @statement = N'
+
 -- =============================================
 -- Author:		Khoa Do
 -- Create date: 20 Dec 2008
@@ -3003,7 +3002,6 @@ BEGIN
 			,acct_num
 			,loan_1st_2nd_cd
 			,mortgage_type_cd
-			,arm_loan_ind
 			,arm_reset_ind
 			,term_length_cd
 			,loan_delinq_status_cd
@@ -3026,6 +3024,7 @@ BEGIN
     FROM Case_Loan
     WHERE fc_id = @pi_fc_id      
 END
+
 
 
 ' 
@@ -3170,48 +3169,6 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_budget_item_get]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'
-
--- =============================================
--- Author:		Khoa Do
--- Create date: 20 Dec 2008
--- Project : HPF 
--- Build 
--- Description:	Get budget item(WEB Service)
--- =============================================
-CREATE PROCEDURE [dbo].[hpf_budget_item_get]
-   @pi_fc_id int   
-AS
-BEGIN
-	SELECT	budget_item_id
-			,budget_set_id
-			,budget_subcategory_id
-			,budget_item_amt
-			,budget_note
-			,create_dt
-			,create_user_id
-			,create_app_name
-			,chg_lst_dt
-			,chg_lst_user_id
-			,chg_lst_app_name
-	FROM	budget_item 
-	WHERE	budget_set_id =
-			(
-			SELECT MAX(budget_set_id) as budget_set_id 
-			FROM budget_set
-			WHERE fc_id = @pi_fc_id
-			)    
-END
-
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_budget_asset_get]') AND type in (N'P', N'PC'))
 BEGIN
 EXEC dbo.sp_executesql @statement = N'
@@ -3246,6 +3203,48 @@ BEGIN
 	)    
 END
 
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_budget_item_get]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+-- =============================================
+-- Author:		Khoa Do
+-- Create date: 20 Dec 2008
+-- Project : HPF 
+-- Build 
+-- Description:	Get budget item(WEB Service)
+-- =============================================
+CREATE PROCEDURE [dbo].[hpf_budget_item_get]
+   @pi_fc_id int   
+AS
+BEGIN
+	SELECT	budget_item_id
+			,budget_set_id
+			,budget_subcategory_id
+			,budget_item_amt
+			,budget_note
+			,create_dt
+			,create_user_id
+			,create_app_name
+			,chg_lst_dt
+			,chg_lst_user_id
+			,chg_lst_app_name
+	FROM	budget_item 
+	WHERE	budget_set_id =
+			(
+			SELECT MAX(budget_set_id) as budget_set_id 
+			FROM budget_set
+			WHERE fc_id = @pi_fc_id
+			)    
+END
 
 ' 
 END
@@ -3666,164 +3665,6 @@ End
 
 
 ' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_foreclosure_case_get_from_fcid]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'
-
--- =============================================
--- Author:		Khoa Do
--- Create date: 20 Dec 2008
--- Project : HPF 
--- Build 
--- Description:	Get case from FC_id
--- =============================================
-
-CREATE PROCEDURE [dbo].[hpf_foreclosure_case_get_from_fcid]
-	@pi_fc_id int = 0	
-As 
-Begin
-	SELECT	fc_id
-			,agency_id
-			,call_id
-			,program_id
-			,agency_case_num
-			,agency_client_num
-			,intake_dt
-			,income_earners_cd
-			,case_source_cd
-			,race_cd
-			,household_cd
-			,never_bill_reason_cd
-			,never_pay_reason_cd
-			,dflt_reason_1st_cd
-			,dflt_reason_2nd_cd
-			,hud_termination_reason_cd
-			,hud_termination_dt
-			,hud_outcome_cd
-			,AMI_percentage
-			,counseling_duration_cd
-			,gender_cd
-			,borrower_fname
-			,borrower_lname
-			,borrower_mname
-			,mother_maiden_lname
-			,borrower_ssn
-			,borrower_last4_SSN
-			,borrower_DOB
-			,co_borrower_fname
-			,co_borrower_lname
-			,co_borrower_mname
-			,co_borrower_ssn
-			,co_borrower_last4_SSN
-			,co_borrower_DOB
-			,primary_contact_no
-			,second_contact_no
-			,email_1
-			,contact_zip_plus4
-			,email_2
-			,contact_addr1
-			,contact_addr2
-			,contact_city
-			,contact_state_cd
-			,contact_zip
-			,prop_addr1
-			,prop_addr2
-			,prop_city
-			,prop_state_cd
-			,prop_zip
-			,prop_zip_plus_4
-			,bankruptcy_ind
-			,bankruptcy_attorney
-			,bankruptcy_pmt_current_ind
-			,borrower_educ_level_completed_cd
-			,borrower_marital_status_cd
-			,borrower_preferred_lang_cd
-			,borrower_occupation
-			,co_borrower_occupation
-			,hispanic_ind
-			,duplicate_ind
-			,fc_notice_received_ind
-			,case_complete_ind
-			,completed_dt
-			,funding_consent_ind
-			,servicer_consent_ind
-			,agency_media_consent_ind
-			,hpf_media_candidate_ind
-			,hpf_network_candidate_ind
-			,hpf_success_story_ind
-			,agency_success_story_ind
-			,borrower_disabled_ind
-			,co_borrower_disabled_ind
-			,summary_sent_other_cd
-			,summary_sent_other_dt
-			,summary_sent_dt
-			,occupant_num
-			,loan_dflt_reason_notes
-			,action_items_notes
-			,followup_notes
-			,prim_res_est_mkt_value
-			,counselor_email
-			,counselor_phone
-			,counselor_ext
-			,discussed_solution_with_srvcr_ind
-			,worked_with_another_agency_ind
-			,contacted_srvcr_recently_ind
-			,has_workout_plan_ind
-			,srvcr_workout_plan_current_ind
-			,fc_sale_date_set_ind
-			,opt_out_newsletter_ind
-			,opt_out_survey_ind
-			,do_not_call_ind
-			,owner_occupied_ind
-			,primary_residence_ind
-			,realty_company
-			,property_cd
-			,for_sale_ind
-			,home_sale_price
-			,home_purchase_year
-			,home_purchase_price
-			,home_current_market_value
-			,military_service_cd
-			,household_gross_annual_income_amt
-			,loan_list
-			,create_dt
-			,create_user_id
-			,create_app_name
-			,chg_lst_dt
-			,chg_lst_user_id
-			,chg_lst_app_name
-			,counselor_fname
-			,counselor_lname
-			,intake_credit_score
-			,intake_credit_bureau_cd
-			,counselor_id_ref
-	FROM foreclosure_case WHERE fc_id = @pi_fc_id		
-End
-
-
-
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_temp]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'
-CREATE PROCEDURE [dbo].[hpf_temp]	
-	@outvalue int output
-As 
-Begin
-	Select @outvalue = count(foreclosure_case.fc_id) From foreclosure_case
-End' 
 END
 GO
 SET ANSI_NULLS ON
@@ -4451,10 +4292,178 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_agency_get_from_agency_id]') AND type in (N'P', N'PC'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_temp]') AND type in (N'P', N'PC'))
 BEGIN
 EXEC dbo.sp_executesql @statement = N'
-CREATE PROCEDURE [dbo].[hpf_agency_get_from_agency_id]
+CREATE PROCEDURE [dbo].[hpf_temp]	
+	@outvalue int output
+As 
+Begin
+	Select @outvalue = count(foreclosure_case.fc_id) From foreclosure_case
+End' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_foreclosure_case_detail_get]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+
+-- =============================================
+-- Author:		Thien Nguyen
+-- Create date: 20 Dec 2008
+-- Project : HPF 
+-- Build 
+-- Description:	Get case from FC_id
+-- =============================================
+
+CREATE PROCEDURE [dbo].[hpf_foreclosure_case_detail_get]
+	@pi_fc_id int = 0	
+As 
+Begin
+	SELECT	fc_id
+			,agency_id
+			,call_id
+			,program_id
+			,agency_case_num
+			,agency_client_num
+			,intake_dt
+			,income_earners_cd
+			,case_source_cd
+			,race_cd
+			,household_cd
+			,never_bill_reason_cd
+			,never_pay_reason_cd
+			,dflt_reason_1st_cd
+			,dflt_reason_2nd_cd
+			,hud_termination_reason_cd
+			,hud_termination_dt
+			,hud_outcome_cd
+			,AMI_percentage
+			,counseling_duration_cd
+			,gender_cd
+			,borrower_fname
+			,borrower_lname
+			,borrower_mname
+			,mother_maiden_lname
+			,borrower_ssn
+			,borrower_last4_SSN
+			,borrower_DOB
+			,co_borrower_fname
+			,co_borrower_lname
+			,co_borrower_mname
+			,co_borrower_ssn
+			,co_borrower_last4_SSN
+			,co_borrower_DOB
+			,primary_contact_no
+			,second_contact_no
+			,email_1
+			,contact_zip_plus4
+			,email_2
+			,contact_addr1
+			,contact_addr2
+			,contact_city
+			,contact_state_cd
+			,contact_zip
+			,prop_addr1
+			,prop_addr2
+			,prop_city
+			,prop_state_cd
+			,prop_zip
+			,prop_zip_plus_4
+			,bankruptcy_ind
+			,bankruptcy_attorney
+			,bankruptcy_pmt_current_ind
+			,borrower_educ_level_completed_cd
+			,borrower_marital_status_cd
+			,borrower_preferred_lang_cd
+			,borrower_occupation
+			,co_borrower_occupation
+			,hispanic_ind
+			,duplicate_ind
+			,fc_notice_received_ind
+			,case_complete_ind
+			,completed_dt
+			,funding_consent_ind
+			,servicer_consent_ind
+			,agency_media_consent_ind
+			,hpf_media_candidate_ind
+			,hpf_network_candidate_ind
+			,hpf_success_story_ind
+			,agency_success_story_ind
+			,borrower_disabled_ind
+			,co_borrower_disabled_ind
+			,summary_sent_other_cd
+			,summary_sent_other_dt
+			,summary_sent_dt
+			,occupant_num
+			,loan_dflt_reason_notes
+			,action_items_notes
+			,followup_notes
+			,prim_res_est_mkt_value
+			,counselor_email
+			,counselor_phone
+			,counselor_ext
+			,discussed_solution_with_srvcr_ind
+			,worked_with_another_agency_ind
+			,contacted_srvcr_recently_ind
+			,has_workout_plan_ind
+			,srvcr_workout_plan_current_ind
+			,fc_sale_date_set_ind
+			,opt_out_newsletter_ind
+			,opt_out_survey_ind
+			,do_not_call_ind
+			,owner_occupied_ind
+			,primary_residence_ind
+			,realty_company
+			,property_cd
+			,for_sale_ind
+			,home_sale_price
+			,home_purchase_year
+			,home_purchase_price
+			,home_current_market_value
+			,military_service_cd
+			,household_gross_annual_income_amt
+			,loan_list
+			,create_dt
+			,create_user_id
+			,create_app_name
+			,chg_lst_dt
+			,chg_lst_user_id
+			,chg_lst_app_name
+			,counselor_fname
+			,counselor_lname
+			,intake_credit_score
+			,intake_credit_bureau_cd
+			,counselor_id_ref
+	FROM foreclosure_case WHERE fc_id = @pi_fc_id		
+End
+
+
+
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_agency_detail_get]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Thien Nguyen
+-- Create date: 20 Dec 2008
+-- Project : HPF 
+-- Build 
+-- Description:	Get case from FC_id
+-- =============================================
+
+CREATE PROCEDURE [dbo].[hpf_agency_detail_get]
 	@pi_agency_id int = 0
 As 
 Begin
@@ -4477,42 +4486,8 @@ Begin
 		chg_lst_app_name
 	From Agency
 	Where agency_id = @pi_agency_id
-End	' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_servicer_get_from_servicer_id]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'
-CREATE PROCEDURE [dbo].[hpf_servicer_get_from_servicer_id]
-	@pi_servicer_id int = 0
-As 
-Begin
-	Select 
-		servicer_id,
-		servicer_name,
-		contact_fname,
-		contact_lname,
-		contact_email,
-		phone,
-		fax,
-		active_ind,
-		funding_agreement_ind,
-		secure_delivery_method_cd,
-		couseling_sum_format_cd,
-		hud_servicer_num,
-		create_dt,
-		create_user_id,
-		create_app_name,
-		chg_lst_dt,
-		chg_lst_user_id,
-		chg_lst_app_name
-	From Servicer
-	Where servicer_id = @pi_servicer_id
-End	' 
+End	
+' 
 END
 GO
 SET ANSI_NULLS ON
@@ -4544,3 +4519,4 @@ BEGIN
 END
 ' 
 END
+
