@@ -260,11 +260,12 @@ namespace HPF.FutureState.UnitTest.DataAccess
             CheckDuplicate_PreTest();
             
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int fc_id = 23; // TODO: Initialize to an appropriate value              
             bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(fc_id);//, agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(fc_id) == null) ? false : true ;//, agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
-            
+            target.Commit();
             CheckDuplicate_PostTest();
         }
 
@@ -276,7 +277,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = 181; // TODO: Initialize to an appropriate value              
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(fc_id);//, agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(fc_id) == null) ? false : true; 
             Assert.AreEqual(expected, actual);
 
             CheckDuplicate_PostTest();
@@ -290,7 +291,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = -1; // TODO: Initialize to an appropriate value              
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(fc_id);//, agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(fc_id) == null) ? false : true; //, agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
 
             CheckDuplicate_PostTest();
@@ -305,7 +306,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             int agency_id = 2;
             string agency_case_number = "644186";
             bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true;;
             Assert.AreEqual(expected, actual);
 
             CheckDuplicate_PostTest();
@@ -320,7 +321,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             int agency_id = 2;
             string agency_case_number = "644404";
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true; ;
             Assert.AreEqual(expected, actual);
 
             CheckDuplicate_PostTest();
@@ -336,7 +337,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             int agency_id = -2;
             string agency_case_number = "644404";
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true; ;
             Assert.AreEqual(expected, actual);
 
             CheckDuplicate_PostTest();
@@ -352,7 +353,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             int agency_id = 2;
             string agency_case_number = "64asd04";
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckDuplicate(agency_id, agency_case_number);
+            bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true; ;
             Assert.AreEqual(expected, actual);
 
             CheckDuplicate_PostTest();
