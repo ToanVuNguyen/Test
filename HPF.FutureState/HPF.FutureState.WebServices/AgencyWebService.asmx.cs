@@ -7,7 +7,10 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
+
+using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
+using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.WebServices
@@ -24,15 +27,15 @@ namespace HPF.FutureState.WebServices
     {
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public ForeclosureCaseResponse SaveForeclosureCase(ForeclosureCaseRequest request)
+        public ForeclosureCaseInsertResponse SaveForeclosureCase(ForeclosureCaseInsertRequest request)
         {
-            var response = new ForeclosureCaseResponse();
-            //            
+            var response = new ForeclosureCaseInsertResponse();
             try
             {
-                if (IsAuthenticated())
-                {
-                    //
+                if (IsAuthenticated())//Authentication checking
+                //if (true)
+                {                    
+                    ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
                     response.Status = ResponseStatus.Success;
                 }
             }
@@ -40,15 +43,25 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(0, Ex.Message);
+                ExceptionProcessor.HandleException(Ex);
             }
             catch (DataValidationException Ex)
             {
-                response.Status = ResponseStatus.AuthenticationFail;
+                response.Status = ResponseStatus.Fail;
                 response.Messages = Ex.ExceptionMessages;
-            } 
+                ExceptionProcessor.HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(0, "Data access error.");
+                ExceptionProcessor.HandleException(Ex);
+            }
             catch (Exception Ex)
             {
+                response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(0, Ex.Message);
+                ExceptionProcessor.HandleException(Ex);
             }
             return response;
         }
