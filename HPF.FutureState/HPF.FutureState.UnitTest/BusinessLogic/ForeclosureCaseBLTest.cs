@@ -925,7 +925,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
+                //budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -938,7 +938,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
+                //budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
