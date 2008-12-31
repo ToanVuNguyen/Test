@@ -185,7 +185,7 @@ namespace HPF.FutureState.DataAccess
                 decimal.TryParse(obj.ToString(), out returnValue);
             }
             return returnValue;
-        }
+        }       
 
         /// <summary>
         /// Convert an object to datetime
@@ -222,7 +222,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static double ConvertTodouble(object obj)
+        protected static double ConvertToDouble(object obj)
         {
             double returnValue = 0;
             if (null != obj)

@@ -676,23 +676,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             CheckDuplicate_PostTest();
         }
         #endregion
-        
-        /// <summary>
-        ///A test for CheckInactiveCase
-        ///Case False
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckInactiveCaseTestFalse()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet();// TODO: Initialize to an appropriate value                        
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.CheckInactiveCase(foreclosureCase);
-            Assert.AreEqual(expected, actual);            
-        }
-
+      
         /// <summary>
         ///A test for CheckInactiveCase
         ///Case True
@@ -702,57 +686,30 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseTestTrue()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet();// TODO: Initialize to an appropriate value                        
+            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
+            
             actual = target.CheckInactiveCase(foreclosureCase);
             Assert.AreEqual(expected, actual);
-        }       
-
-        /// <summary>
-        ///A test for RequireFieldsForeclosureCase
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsForeclosureCaseTestSuccess()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseDTO foreclosureCase = SetForeclosureCase(); // TODO: Initialize to an appropriate value
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.RequireFieldsForeclosureCase(foreclosureCase, "Default");
-            Assert.AreEqual(expected, actual);            
         }
 
         /// <summary>
-        ///A test for RequireFieldsBudgetItem
+        ///A test for CheckInactiveCase
+        ///Case True
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsBudgetItemTestSuccess()
+        public void CheckInactiveCaseTestFalse()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            BudgetItemDTOCollection budgetItemDTOCollection = SetBudgetItemCollection(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("FALSE");// TODO: Initialize to an appropriate value                        
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.RequireFieldsBudgetItem(budgetItemDTOCollection, "Default");
-            Assert.AreEqual(expected, actual);            
-        }
 
-        /// <summary>
-        ///A test for RequireFieldsOutcomeItem
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsOutcomeItemTestSuccess()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            OutcomeItemDTOCollection outcomeItemDTOCollection = SetOutcomeItemCollection(); // TODO: Initialize to an appropriate value
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.RequireFieldsOutcomeItem(outcomeItemDTOCollection, "Default");
-            Assert.AreEqual(expected, actual);            
-        }
+            actual = target.CheckInactiveCase(foreclosureCase);
+            Assert.AreEqual(expected, actual);
+        }    
 
         /// <summary>
         ///A test for RequireFieldsValidation
@@ -762,16 +719,27 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void RequireFieldsValidationTestSuccess()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
-            foreclosureCaseSet.BudgetItems = SetBudgetItemCollection();
-            foreclosureCaseSet.Outcome = SetOutcomeItemCollection();
-            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value            
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.RequireFieldsValidation(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
-        }       
+        }
+
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void RequireFieldsValidationTestFail()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value            
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.RequireFieldsValidation(foreclosureCaseSet);
+            Assert.AreEqual(expected, actual);
+        }   
 
         /// <summary>
         ///A test for CheckValidCode
@@ -782,46 +750,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
-            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase("TRUE");
+            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection("TRUE");
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckValidCode(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
         }
 
-        ///// <summary>
-        /////A test for CheckValidCode
-        /////</summary>
-        //[TestMethod()]
-        //[DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        //public void CheckValidCodeTestFail()
-        //{
-        //    ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-        //    ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-        //    foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
-        //    foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
-        //    bool expected = false; // TODO: Initialize to an appropriate value
-        //    bool actual;
-        //    actual = target.CheckValidCode(foreclosureCaseSet);
-        //    Assert.AreEqual(expected, actual);
-        //}
-
-        /// <summary>
-        ///A test for CheckCodeCaseLoan
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckCodeCaseLoanTest()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            CaseLoanDTOCollection caseLoanCollection = SetCaseLoanCollection(); // TODO: Initialize to an appropriate value            
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.CheckValidCodeForCaseLoan(caseLoanCollection);
-            Assert.AreEqual(expected, actual);
-        }
-
+        
         /// <summary>
         ///A test for InsertForeclosureCaseSet
         ///</summary>
@@ -830,7 +767,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void InsertForeclosureCaseSetTest()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             target.InsertForeclosureCaseSet(foreclosureCaseSet);            
         }
 
@@ -842,209 +779,303 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void UpdateForeclosureCaseSetTest()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
              target.UpdateForeclosureCaseSet(foreclosureCaseSet);
-        }
+        }        
 
         /// <summary>
-        ///A test for CheckForInsertBudgetItems
+        ///A test for MiscErrorException
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void IsBudgetItemsDifferenceTest()
+        public void MiscErrorExceptionTest()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            BudgetItemDTOCollection budgetCollection = SetBudgetItemCollection(); // TODO: Initialize to an appropriate value
-            int fc_id = 1350045; // TODO: Initialize to an appropriate value
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual = true;
-            //actual = target.IsBudgetItemsDifference(budgetCollection, fc_id);
-            Assert.AreEqual(expected, actual);            
-        }
-
-        /// <summary>
-        ///A test for CheckForInsertBudgetAsset
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void IsBudgetAssetDifferenceTest()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            BudgetAssetDTOCollection budgetCollection = SetBudgetAssetCollection(); // TODO: Initialize to an appropriate value
-            int fc_id = 1350053; // TODO: Initialize to an appropriate value
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual = true;
-            //actual = target.IsBudgetAssetDifference(budgetCollection, fc_id);
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.MiscErrorException(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);
         }
 
-        private ForeclosureCaseDTO SetForeclosureCase()
+        #region Data test ForeclosureCaseSet
+        private ForeclosureCaseDTO SetForeclosureCase(string status)
         {            
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
-            foreclosureCase.FcId = Convert.ToInt32("1350076");
-            foreclosureCase.AgencyId = Convert.ToInt32("1");
-            foreclosureCase.ProgramId = Convert.ToInt32("1");
-            //foreclosureCase.AgencyCaseNum = "Test";
-            foreclosureCase.IntakeDt = Convert.ToDateTime("12/12/2009");
-            foreclosureCase.CaseSourceCd = "";
-            foreclosureCase.BorrowerFname = "Test";
-            foreclosureCase.BorrowerLname = "Test";
-            foreclosureCase.PrimaryContactNo = "Test";
-            foreclosureCase.ContactAddr1 = "Test";
-            foreclosureCase.ContactCity = "Test";
-            foreclosureCase.ContactStateCd = "";
-            foreclosureCase.ContactZip = "1235";
-            foreclosureCase.PropAddr1 = "Test";
-            foreclosureCase.PropCity = "Test";
-            foreclosureCase.PropStateCd = "";
-            foreclosureCase.PropZip = "12345";
-            foreclosureCase.OwnerOccupiedInd = "Test";
-            foreclosureCase.FundingConsentInd = "Test";
-            foreclosureCase.ServicerConsentInd = "Test";
-            foreclosureCase.AssignedCounselorIdRef = "Test";
-            foreclosureCase.CounselorFname = "Test";
-            foreclosureCase.CounselorLname = "Test";
-            foreclosureCase.CounselorEmail = "Test";
-            foreclosureCase.CounselorPhone = "Test";
-            foreclosureCase.OptOutNewsletterInd = "Test";
-            foreclosureCase.OptOutSurveyInd = "Test";
-            foreclosureCase.DoNotCallInd = "Test";
-            foreclosureCase.PrimaryResidenceInd = "Test";
-            foreclosureCase.CreateDate = DateTime.Now;
-            foreclosureCase.CreateUserId = "HPF";
-            foreclosureCase.CreateAppName = "HPF";
-            foreclosureCase.ChangeLastDate = DateTime.Now;
-            foreclosureCase.ChangeLastAppName = "HPF";
-            foreclosureCase.ChangeLastUserId = "HPF";
-            foreclosureCase.AgencyClientNum = "";
-            foreclosureCase.AgencyCaseNum = "";
+            if (status == "TRUE")
+            {
+                foreclosureCase.AgencyId = Convert.ToInt32("23");
+                foreclosureCase.AgencyId = Convert.ToInt32("1");
+                foreclosureCase.ProgramId = Convert.ToInt32("1");
+                foreclosureCase.AgencyCaseNum = "Test";
+                foreclosureCase.IntakeDt = Convert.ToDateTime("12/12/2009");
+                foreclosureCase.CaseSourceCd = "";
+                foreclosureCase.BorrowerFname = "Test";
+                foreclosureCase.BorrowerLname = "Test";
+                foreclosureCase.PrimaryContactNo = "Test";
+                foreclosureCase.ContactAddr1 = "Test";
+                foreclosureCase.ContactCity = "Test";
+                foreclosureCase.ContactStateCd = "";
+                foreclosureCase.ContactZip = "12345";
+                foreclosureCase.PropAddr1 = "Test";
+                foreclosureCase.PropCity = "Test";
+                foreclosureCase.PropStateCd = "";
+                foreclosureCase.PropZip = "12345";
+                foreclosureCase.OwnerOccupiedInd = "Test";
+                foreclosureCase.FundingConsentInd = "Test";
+                foreclosureCase.ServicerConsentInd = "Test";
+                foreclosureCase.AssignedCounselorIdRef = "Test";
+                foreclosureCase.CounselorFname = "Test";
+                foreclosureCase.CounselorLname = "Test";
+                foreclosureCase.CounselorEmail = "Test";
+                foreclosureCase.CounselorPhone = "Test";
+                foreclosureCase.OptOutNewsletterInd = "Test";
+                foreclosureCase.OptOutSurveyInd = "Test";
+                foreclosureCase.DoNotCallInd = "Test";
+                foreclosureCase.PrimaryResidenceInd = "Test";
+                foreclosureCase.CreateDate = DateTime.Now;
+                foreclosureCase.CreateUserId = "HPF";
+                foreclosureCase.CreateAppName = "HPF";
+                foreclosureCase.ChangeLastDate = DateTime.Now;
+                foreclosureCase.ChangeLastAppName = "HPF";
+                foreclosureCase.ChangeLastUserId = "HPF";
+                foreclosureCase.AgencyClientNum = "";
+            }
+            else
+            {
+                foreclosureCase.AgencyId = Convert.ToInt32("1350076");
+                foreclosureCase.AgencyId = Convert.ToInt32("1");
+                foreclosureCase.ProgramId = Convert.ToInt32("1");
+                foreclosureCase.AgencyCaseNum = "Test";
+                foreclosureCase.IntakeDt = Convert.ToDateTime("12/12/2009");
+                foreclosureCase.CaseSourceCd = "";
+                foreclosureCase.BorrowerFname = "Test";
+                foreclosureCase.BorrowerLname = "Test";
+                foreclosureCase.PrimaryContactNo = "Test";
+                foreclosureCase.ContactAddr1 = "Test";
+            }
             return foreclosureCase;
         }
 
-        private BudgetAssetDTOCollection SetBudgetAssetCollection()
+        private BudgetAssetDTOCollection SetBudgetAssetCollection(string status)
         {
             BudgetAssetDTOCollection budgetAssetCollection = new BudgetAssetDTOCollection();
-            for (int i = 0; i < 4; i++)
+            if (status == "TRUE")
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
+                    budgetAsset.BudgetSetId = Convert.ToInt32("76156");
+                    budgetAsset.AssetName = "Test";
+                    budgetAsset.AssetValue = Convert.ToDecimal("30.65");
+                    budgetAsset.CreateDate = DateTime.Now;
+                    budgetAsset.CreateUserId = "HPF";
+                    budgetAsset.CreateAppName = "HPF";
+                    budgetAsset.ChangeLastDate = DateTime.Now;
+                    budgetAsset.ChangeLastAppName = "HPF";
+                    budgetAsset.ChangeLastUserId = "HPF";
+                    budgetAssetCollection.Add(budgetAsset);
+                }
+            }
+            else
             {
                 BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
                 budgetAsset.BudgetSetId = Convert.ToInt32("76156");
                 budgetAsset.AssetName = "Test";
                 budgetAsset.AssetValue = Convert.ToDecimal("30.65");
-                budgetAsset.CreateDate = DateTime.Now;
-                budgetAsset.CreateUserId = "HPF";
-                budgetAsset.CreateAppName = "HPF";
-                budgetAsset.ChangeLastDate = DateTime.Now;
-                budgetAsset.ChangeLastAppName = "HPF";
-                budgetAsset.ChangeLastUserId = "HPF";
                 budgetAssetCollection.Add(budgetAsset);
             }
-            //BudgetAssetDTO budgetAsset1 = new BudgetAssetDTO();
-            //budgetAsset1.BudgetSetId = Convert.ToInt32("76156");
-            //budgetAsset1.AssetName = "Test";
-            //budgetAsset1.AssetValue = Convert.ToDecimal("11.2");
-
-            //budgetAssetCollection.Add(budgetAsset1);
             return budgetAssetCollection;
         }
 
-        private BudgetItemDTOCollection SetBudgetItemCollection()
+        private BudgetItemDTOCollection SetBudgetItemCollection(string status)
         {
-            BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();                        
-            BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
-            budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
-            budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-            budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("900.08");
-            budgetItemDTO.BudgetNote = null;
-            budgetItemDTO.CreateDate = DateTime.Now;
-            budgetItemDTO.CreateUserId = "HPF";
-            budgetItemDTO.CreateAppName = "HPF";
-            budgetItemDTO.ChangeLastDate = DateTime.Now;
-            budgetItemDTO.ChangeLastAppName = "HPF";
-            budgetItemDTO.ChangeLastUserId = "HPF";
-            budgetItemCollection.Add(budgetItemDTO);
-            //
-            budgetItemDTO = new BudgetItemDTO();
-            budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
-            budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-            budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300.05");
-            budgetItemDTO.BudgetNote = null;
-            budgetItemDTO.CreateDate = DateTime.Now;
-            budgetItemDTO.CreateUserId = "HPF";
-            budgetItemDTO.CreateAppName = "HPF";
-            budgetItemDTO.ChangeLastDate = DateTime.Now;
-            budgetItemDTO.ChangeLastAppName = "HPF";
-            budgetItemDTO.ChangeLastUserId = "HPF";
-            budgetItemCollection.Add(budgetItemDTO);
-            
+            BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();
+            if (status == "TRUE")
+            {
+                BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
+                budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
+                budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
+                budgetItemDTO.BudgetNote = null;
+                budgetItemDTO.CreateDate = DateTime.Now;
+                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateAppName = "HPF";
+                budgetItemDTO.ChangeLastDate = DateTime.Now;
+                budgetItemDTO.ChangeLastAppName = "HPF";
+                budgetItemDTO.ChangeLastUserId = "HPF";
+                budgetItemCollection.Add(budgetItemDTO);
+                //
+                budgetItemDTO = new BudgetItemDTO();
+                budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
+                budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
+                budgetItemDTO.BudgetNote = null;
+                budgetItemDTO.CreateDate = DateTime.Now;
+                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateAppName = "HPF";
+                budgetItemDTO.ChangeLastDate = DateTime.Now;
+                budgetItemDTO.ChangeLastAppName = "HPF";
+                budgetItemDTO.ChangeLastUserId = "HPF";
+                budgetItemCollection.Add(budgetItemDTO);
+            }
+            else
+            { 
+            }
             return budgetItemCollection;
         }
 
-        private OutcomeItemDTOCollection SetOutcomeItemCollection()
+        private OutcomeItemDTOCollection SetOutcomeItemCollection(string status)
         {
             OutcomeItemDTOCollection outcomeItemCollection = new OutcomeItemDTOCollection();
-            for (int i = 0; i < 1; i++)
+            if (status == "TRUE")
             {
-                OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();
-                outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");
-                outcomeItemDTO.FcId = Convert.ToInt32("1350076");
-                outcomeItemDTO.NonprofitreferralKeyNum = "Test";
-                outcomeItemDTO.ExtRefOtherName = "Test";
-                outcomeItemDTO.OutcomeDt = DateTime.Now;
-                outcomeItemDTO.CreateDate = DateTime.Now;                
-                outcomeItemDTO.CreateUserId = "HPF";
-                outcomeItemDTO.CreateAppName = "HPF";
-                outcomeItemDTO.ChangeLastDate = DateTime.Now;
-                outcomeItemDTO.ChangeLastAppName = "HPF";
-                outcomeItemDTO.ChangeLastUserId = "HPF";
-                outcomeItemCollection.Add(outcomeItemDTO);
+                for (int i = 0; i < 1; i++)
+                {
+                    OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();
+                    outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");
+                    outcomeItemDTO.FcId = Convert.ToInt32("1350076");
+                    outcomeItemDTO.NonprofitreferralKeyNum = "Test";
+                    outcomeItemDTO.ExtRefOtherName = "Test";
+                    outcomeItemDTO.OutcomeDt = DateTime.Now;
+                    outcomeItemDTO.CreateDate = DateTime.Now;
+                    outcomeItemDTO.CreateUserId = "HPF";
+                    outcomeItemDTO.CreateAppName = "HPF";
+                    outcomeItemDTO.ChangeLastDate = DateTime.Now;
+                    outcomeItemDTO.ChangeLastAppName = "HPF";
+                    outcomeItemDTO.ChangeLastUserId = "HPF";
+                    outcomeItemCollection.Add(outcomeItemDTO);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();                    
+                    outcomeItemDTO.FcId = Convert.ToInt32("1350076");
+                    outcomeItemDTO.NonprofitreferralKeyNum = "Test";
+                    outcomeItemDTO.ExtRefOtherName = "Test";
+                    outcomeItemDTO.OutcomeDt = DateTime.Now;
+                    outcomeItemDTO.CreateDate = DateTime.Now;
+                    outcomeItemDTO.CreateUserId = "HPF";
+                    outcomeItemDTO.CreateAppName = "HPF";
+                    outcomeItemDTO.ChangeLastDate = DateTime.Now;
+                    outcomeItemDTO.ChangeLastAppName = "HPF";
+                    outcomeItemDTO.ChangeLastUserId = "HPF";
+                    outcomeItemCollection.Add(outcomeItemDTO);
+                }
             }
             return outcomeItemCollection;
         }
 
-        private CaseLoanDTOCollection SetCaseLoanCollection()
+        private CaseLoanDTOCollection SetCaseLoanCollection(string status)
         {
             CaseLoanDTOCollection caseLoanCollection = new CaseLoanDTOCollection();
-            for (int i = 0; i < 1; i++)
+            if (status == "TRUE")
             {
-                CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
-                caseLoanDTO.LoanDelinqStatusCd = "30-59";
-                caseLoanDTO.ServicerId = Convert.ToInt32("1");
-                caseLoanDTO.AcctNum = "Test";
-                caseLoanDTO.CreateDate = DateTime.Now;
-                caseLoanDTO.CreateUserId = "HPF";
-                caseLoanDTO.CreateAppName = "HPF";
-                caseLoanDTO.ChangeLastDate = DateTime.Now;
-                caseLoanDTO.ChangeLastAppName = "HPF";
-                caseLoanDTO.ChangeLastUserId = "HPF";
-                caseLoanCollection.Add(caseLoanDTO);
+                for (int i = 0; i < 1; i++)
+                {
+                    CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
+                    caseLoanDTO.ServicerId = Convert.ToInt32("1");
+                    caseLoanDTO.AcctNum = "Test";
+                    caseLoanDTO.Loan1st2nd = "1st";
+                    caseLoanDTO.MortgageTypeCd = "";
+                    caseLoanDTO.ArmLoanInd = "";
+                    caseLoanDTO.TermLengthCd = "";
+                    caseLoanDTO.LoanDelinqStatusCd = "30-59";
+                    caseLoanDTO.InterestRate = 1;
+                    caseLoanDTO.CreateDate = DateTime.Now;
+                    caseLoanDTO.CreateUserId = "HPF";
+                    caseLoanDTO.CreateAppName = "HPF";
+                    caseLoanDTO.ChangeLastDate = DateTime.Now;
+                    caseLoanDTO.ChangeLastAppName = "HPF";
+                    caseLoanDTO.ChangeLastUserId = "HPF";
+                    caseLoanCollection.Add(caseLoanDTO);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
+                    caseLoanDTO.ServicerId = Convert.ToInt32("1");
+                    caseLoanDTO.AcctNum = "Test";
+                    caseLoanDTO.Loan1st2nd = "1st";
+                    caseLoanDTO.MortgageTypeCd = "";
+                    caseLoanDTO.ArmLoanInd = "";
+                    caseLoanDTO.TermLengthCd = "";
+                    caseLoanDTO.LoanDelinqStatusCd = "30-59";
+                    caseLoanDTO.InterestRate = 1;
+                    caseLoanDTO.CreateDate = DateTime.Now;
+                    caseLoanDTO.CreateUserId = "HPF";
+                    caseLoanDTO.CreateAppName = "HPF";
+                    caseLoanDTO.ChangeLastDate = DateTime.Now;
+                    caseLoanDTO.ChangeLastAppName = "HPF";
+                    caseLoanDTO.ChangeLastUserId = "HPF";
+                    caseLoanCollection.Add(caseLoanDTO);
+                }
             }
             return caseLoanCollection;
         }
 
-        private BudgetSetDTO SetBudgetSet()
+        private BudgetSetDTO SetBudgetSet(string status)
         {
             BudgetSetDTO budgetSetDTO = new BudgetSetDTO();
-            budgetSetDTO.BudgetSetDt = Convert.ToDateTime("12/12/2009");
-            budgetSetDTO.CreateDate = DateTime.Now;
-            budgetSetDTO.CreateUserId = "HPF";
-            budgetSetDTO.CreateAppName = "HPF";
-            budgetSetDTO.ChangeLastDate = DateTime.Now;
-            budgetSetDTO.ChangeLastAppName = "HPF";
-            budgetSetDTO.ChangeLastUserId = "HPF";
+            if (status == "TRUE")
+            {
+                budgetSetDTO.BudgetSetDt = Convert.ToDateTime("12/12/2009");
+                budgetSetDTO.CreateDate = DateTime.Now;
+                budgetSetDTO.CreateUserId = "HPF";
+                budgetSetDTO.CreateAppName = "HPF";
+                budgetSetDTO.ChangeLastDate = DateTime.Now;
+                budgetSetDTO.ChangeLastAppName = "HPF";
+                budgetSetDTO.ChangeLastUserId = "HPF";
+            }
             return budgetSetDTO;
         }
 
-        private ForeclosureCaseSetDTO SetForeclosureCaseSet()
+        private ActivityLogDTOCollection SetActivityLogCollection(string status)
         {
+            ActivityLogDTOCollection activityLogCollection = new ActivityLogDTOCollection();
+            if (status == "TRUE")
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    ActivityLogDTO activityLog = new ActivityLogDTO();
+                    activityLog.ActivityCd = "Test";
+                    activityLog.ActivityDt = DateTime.Now;
+                    activityLog.CreateDate = DateTime.Now;
+                    activityLog.CreateUserId = "HPF";
+                    activityLog.CreateAppName = "HPF";
+                    activityLog.ChangeLastDate = DateTime.Now;
+                    activityLog.ChangeLastAppName = "HPF";
+                    activityLog.ChangeLastUserId = "HPF";
+                    activityLogCollection.Add(activityLog);
+                }
+            }
+            return activityLogCollection;
+        }
+
+        private ForeclosureCaseSetDTO SetForeclosureCaseSet(string status)
+        {            
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase();
-            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection();
-            foreclosureCaseSet.Outcome = SetOutcomeItemCollection();
-            foreclosureCaseSet.BudgetSet = SetBudgetSet();
-            foreclosureCaseSet.BudgetItems = SetBudgetItemCollection();
-            foreclosureCaseSet.BudgetAssets = SetBudgetAssetCollection();
+            if (status == "TRUE")
+            {
+                foreclosureCaseSet.ForeclosureCase = SetForeclosureCase(status);
+                foreclosureCaseSet.CaseLoans = SetCaseLoanCollection(status);
+                foreclosureCaseSet.Outcome = SetOutcomeItemCollection(status);
+                foreclosureCaseSet.BudgetSet = SetBudgetSet(status);
+                foreclosureCaseSet.BudgetItems = SetBudgetItemCollection(status);
+                foreclosureCaseSet.BudgetAssets = SetBudgetAssetCollection(status);
+                foreclosureCaseSet.ActivityLog = SetActivityLogCollection(status);
+            }
+            else
+            {
+            }
             return foreclosureCaseSet;
         }
+        #endregion
+
         #region AppForeclosureCaseSearch Test
         /// <summary>
         ///A test for Empty Search Criteria provided by User

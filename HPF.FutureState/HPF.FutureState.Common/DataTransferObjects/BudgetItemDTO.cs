@@ -13,11 +13,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int BudgetSetId { get; set; }
 
-        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Complete", MessageTemplate = "Required!")]
         public int BudgetSubcategoryId { get; set; }
 
-        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
-        public decimal BudgetItemAmt { get; set; }
+        [RangeValidator(0, RangeBoundaryType.Exclusive, double.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
+        [RangeValidator(0, RangeBoundaryType.Exclusive, double.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Complete", MessageTemplate = "Required!")]
+        public double BudgetItemAmt { get; set; }
 
         public string BudgetNote { get; set; }       
     }

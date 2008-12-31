@@ -921,7 +921,7 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetItemId = ConvertToInt(reader["budget_item_id"]);
                         item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
                         item.BudgetSubcategoryId = ConvertToInt(reader["budget_subcategory_id"]);
-                        item.BudgetItemAmt = ConvertToDecimal(reader["budget_item_amt"]);
+                        item.BudgetItemAmt = ConvertToDouble(reader["budget_item_amt"]);
                         item.BudgetNote = ConvertToString(reader["budget_note"]);
                         results.Add(item);
                     }                    
@@ -975,7 +975,7 @@ namespace HPF.FutureState.DataAccess
                             item.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
                             item.CurrentLoanBalanceAmt = ConvertToDecimal(reader["current_loan_balance_amt"]);
                             item.OrigLoanAmt = ConvertToDecimal(reader["orig_loan_amt"]);
-                            item.InterestRate = ConvertToDecimal(reader["interest_rate"]);
+                            item.InterestRate = ConvertToDouble(reader["interest_rate"]);
                             item.OriginatingLenderName = ConvertToString(reader["originating_lender_name"]);
                             item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUS_num"]);
                             item.OrigMortgageCoName = ConvertToString(reader["orig_mortgage_co_name"]);
