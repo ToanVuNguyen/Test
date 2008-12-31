@@ -153,8 +153,9 @@
                 BorderColor="Gray" BorderWidth="1px">
                 <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
-                    Width="2500px" 
-                    onrowdatabound="grvForeClosureCaseSearch_RowDataBound">
+                    Width="2500px"  SelectedRowStyle-BackColor="Yellow" 
+                    onrowdatabound="grvForeClosureCaseSearch_RowDataBound" 
+                    onselectedindexchanged="grvForeClosureCaseSearch_SelectedIndexChanged">
                     <RowStyle BackColor="#EFF3FB" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -162,6 +163,7 @@
                     <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <EditRowStyle BackColor="#2461BF" />
                     <AlternatingRowStyle BackColor="White" />
+                    <SelectedRowStyle BackColor="YellowGreen" />
                     <Columns>
                         <asp:BoundField DataField="CaseID" HeaderText="Case ID"  />
                         <asp:BoundField DataField="AgencyCaseID" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Center" />
@@ -221,7 +223,7 @@
         <asp:PlaceHolder ID="phPages"  runat="server"></asp:PlaceHolder>
         <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  " Visible="false"></asp:LinkButton>
         <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>" Visible="false"></asp:LinkButton>
-        <asp:Label ID="lblTemp" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
         </td>
         
     </tr>

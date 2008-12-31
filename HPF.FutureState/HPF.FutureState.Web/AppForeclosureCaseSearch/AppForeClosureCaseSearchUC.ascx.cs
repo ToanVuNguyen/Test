@@ -90,9 +90,14 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
             try
             {
+                string textchange="";
                 appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
+                if (txtFirstName.Text != string.Empty)
+                {
+                    textchange = Replace1Char(txtFirstName.Text, "*", "%");
+                }
                 appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : txtLastName.Text;
-                appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : txtFirstName.Text;
+                appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchange;
                 appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text);
                 appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text;
                 appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text;
@@ -222,6 +227,25 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             int pagenum = int.Parse(e.CommandName);
             BindGrvForeClosureCaseSearch(pagenum);
 
+        }
+        string Replace1Char(string mystring, string oldchar, string newchar)
+        {
+            int StartIndex = mystring.IndexOf(oldchar);
+            if (StartIndex == -1) return mystring;
+            string mystring1, mystring2;
+            mystring1 = mystring.Substring(0, StartIndex);
+            if (StartIndex + 1 == mystring.Length)
+                return mystring1 + "%";
+            else
+            {
+                mystring2 = mystring.Substring(StartIndex + 1, mystring.Length);
+                return (mystring1 + "%" + mystring2);
+            }
+        }
+
+        protected void grvForeClosureCaseSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int t = 0;
         }
 
 
