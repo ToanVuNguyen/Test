@@ -52,19 +52,14 @@ namespace HPF.FutureState.Web.HPFWebControls
             Controls.Add(uc);
             UserControlVirtualPath = virtualPath;
             UserControlID = id;
+
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            LoadUserControl(UserControlVirtualPath, UserControlID);
-        }
-        protected override void Render(HtmlTextWriter writer)
-        {
             if (DesignMode)
                 return;
-            base.Render(writer);
-        }
-        
-        
+            LoadUserControl(UserControlVirtualPath, UserControlID);
+        }                
     }
 }
