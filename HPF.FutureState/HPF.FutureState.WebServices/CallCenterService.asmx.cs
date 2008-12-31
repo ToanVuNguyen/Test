@@ -32,6 +32,7 @@ namespace HPF.FutureState.WebServices
             try
             {
                 if (IsAuthenticated())//Authentication checking
+                //if (true)
                 {                    
                     CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);                                        
                     string sCallLogID = "HPF_" + CallLogBL.Instance.InsertCallLog(callLogDTO);
@@ -148,25 +149,33 @@ namespace HPF.FutureState.WebServices
                 int.TryParse(sourceObject.CallId, out id);
                 destObject.CallId = id;
             }
-            destObject.CallCenterID = sourceObject.CallCenterID;
-            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
-            destObject.StartDate = sourceObject.StartDate;
-            destObject.EndDate = sourceObject.EndDate;
-            destObject.DNIS = sourceObject.DNIS;
+
+            destObject.AuthorizedInd = sourceObject.AuthorizedInd;
             destObject.CallCenter = sourceObject.CallCenter;
             destObject.CallSourceCd = sourceObject.CallSourceCd;
-            destObject.ReasonToCall = sourceObject.ReasonToCall;
-            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
-            destObject.FirstName = sourceObject.FirstName;
-            destObject.LastName = sourceObject.LastName;
-            destObject.ServicerId = sourceObject.ServicerId;
-            destObject.OtherServicerName = sourceObject.OtherServicerName;
-            destObject.PropZipFull9 = sourceObject.PropZipFull9;
-            destObject.PrevAgencyId = sourceObject.PrevAgencyId;
-            destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
-            destObject.ScreenRout = sourceObject.ScreenRout;
+            destObject.CallCenterID = sourceObject.CallCenterID;
+            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
+            destObject.CcCallKey = sourceObject.CcCallKey;
+            destObject.DNIS = sourceObject.DNIS;
+            destObject.EndDate = sourceObject.EndDate;
             destObject.FinalDispoCd = sourceObject.FinalDispoCd;
+            destObject.FirstName = sourceObject.FirstName;
+            destObject.HomeownerInd = sourceObject.HomeownerInd;
+            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
+            destObject.LastName = sourceObject.LastName;
+            destObject.LoanDelinqStatusCd = sourceObject.LoanDelinqStatusCd;           
+            destObject.OtherServicerName = sourceObject.OtherServicerName;
+            destObject.PowerOfAttorneyInd = sourceObject.PowerOfAttorneyInd;
+            destObject.PropZipFull9 = sourceObject.PropZipFull9;
+            destObject.PrevAgencyId = sourceObject.PrevAgencyId;            
+            destObject.ReasonToCall = sourceObject.ReasonToCall;
+            destObject.StartDate = sourceObject.StartDate;
+            destObject.ServicerId = sourceObject.ServicerId;
+            destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
+            destObject.SelectedCounselor = sourceObject.SelectedCounselor;
+            destObject.ScreenRout = sourceObject.ScreenRout;
             destObject.TransNumber = sourceObject.TransNumber;
+
             destObject.CreateDate = sourceObject.CreateDate;
             destObject.CreateUserId = sourceObject.CreateUserId;
             destObject.CreateAppName = sourceObject.CreateAppName;
@@ -182,26 +191,33 @@ namespace HPF.FutureState.WebServices
             CallLogWSDTO destObject = new CallLogWSDTO();
             if (sourceObject.CallId != 0)
                 destObject.CallId = "HPF_" + Convert.ToString(sourceObject.CallId);
-            
-            destObject.CallCenterID = sourceObject.CallCenterID;
-            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
-            destObject.StartDate = sourceObject.StartDate;
-            destObject.EndDate = sourceObject.EndDate;
-            destObject.DNIS = sourceObject.DNIS;
+
+            destObject.AuthorizedInd = sourceObject.AuthorizedInd;
             destObject.CallCenter = sourceObject.CallCenter;
             destObject.CallSourceCd = sourceObject.CallSourceCd;
-            destObject.ReasonToCall = sourceObject.ReasonToCall;
-            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
+            destObject.CallCenterID = sourceObject.CallCenterID;
+            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
+            destObject.CcCallKey = sourceObject.CcCallKey;
+            destObject.DNIS = sourceObject.DNIS;
+            destObject.EndDate = sourceObject.EndDate;
+            destObject.FinalDispoCd = sourceObject.FinalDispoCd;
             destObject.FirstName = sourceObject.FirstName;
+            destObject.HomeownerInd = sourceObject.HomeownerInd;
+            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
             destObject.LastName = sourceObject.LastName;
-            destObject.ServicerId = sourceObject.ServicerId;
+            destObject.LoanDelinqStatusCd = sourceObject.LoanDelinqStatusCd;
             destObject.OtherServicerName = sourceObject.OtherServicerName;
+            destObject.PowerOfAttorneyInd = sourceObject.PowerOfAttorneyInd;
             destObject.PropZipFull9 = sourceObject.PropZipFull9;
             destObject.PrevAgencyId = sourceObject.PrevAgencyId;
+            destObject.ReasonToCall = sourceObject.ReasonToCall;
+            destObject.StartDate = sourceObject.StartDate;
+            destObject.ServicerId = sourceObject.ServicerId;
             destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
+            destObject.SelectedCounselor = sourceObject.SelectedCounselor;
             destObject.ScreenRout = sourceObject.ScreenRout;
-            destObject.FinalDispoCd = sourceObject.FinalDispoCd;
             destObject.TransNumber = sourceObject.TransNumber;
+
             destObject.CreateDate = sourceObject.CreateDate;
             destObject.CreateUserId = sourceObject.CreateUserId;
             destObject.CreateAppName = sourceObject.CreateAppName;
