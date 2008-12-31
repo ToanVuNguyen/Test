@@ -170,8 +170,75 @@ namespace HPF.FutureState.BusinessLogic
                 ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
 
 
-            
+
         }
+        #region Fuctions check validate to app foreclosure case
+        ///<summary>
+        ///1.AgencyCaseID request alpha numberic 
+        ///2.ForclosureCaseID request numberic
+        ///3.LoanNumber request alpha numberic
+        ///4.PropertyZip request 5 digit
+        ///5.Last4SSN request 4 digit
+        /// </summary>
+        Collection<string> AppRequireFieldValidation(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            string agencyCaseID = searchCriteria.AgencyCaseID;
+            int foreclosureCase=searchCriteria.ForeclosureCaseID;
+            string loanNumber=searchCriteria.LoanNumber;
+            string propertyZip = searchCriteria.PropertyZip;
+            string last4SSN=searchCriteria.Last4SSN;
+            Collection<string> msgAppForeclosureCaseSearch = new Collection<string>();
+            RequireAppAgencyCaseID(agencyCaseID,ref msgAppForeclosureCaseSearch,"CriteriaValidation");
+            RequireForeclosureCase(foreclosureCase, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
+            RequireLoanNumber(loanNumber, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
+            RequirePropertyZip(propertyZip, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
+            RequireLast4SSN(last4SSN, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
+            if (msgAppForeclosureCaseSearch.Count == 0)
+                return null;
+            return msgAppForeclosureCaseSearch;
+        }
+        void RequireAppAgencyCaseID(string searchCriteria, ref Collection<string> msg,string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }   
+        }
+        void RequireForeclosureCase(int searchCriteria, ref Collection<string> msg, string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<int>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }   
+        }
+        void RequireLoanNumber(string searchCriteria, ref Collection<string> msg, string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }   
+        }
+        void RequirePropertyZip(string searchCriteria, ref Collection<string> msg, string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }   
+        }
+        void RequireLast4SSN(string searchCriteria, ref Collection<string> msg, string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }   
+        }
+
+        #endregion
 
         #region Functions check min request validate
         /// <summary>
