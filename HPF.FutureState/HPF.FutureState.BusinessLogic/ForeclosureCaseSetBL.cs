@@ -299,6 +299,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Check Inactive(Over one year)
         /// <input>datetime</input>
+        /// false: Active
+        /// true: Inactive
         /// <return>bool<return>
         /// </summary>
         private bool CheckInactiveCase(ForeclosureCaseSetDTO foreclosureCaseSet)
@@ -310,7 +312,7 @@ namespace HPF.FutureState.BusinessLogic
             if (foreclosureCase == null)
                 return false;
             DateTime completeDate = foreclosureCase.CompletedDt;
-            if (completeDate == null)
+            if (completeDate == null || completeDate == DateTime.MinValue)
             {
                 return false;
             }
@@ -374,10 +376,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>        
         private bool CheckUnComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            ForeclosureCaseDTO fcCase = GetForeclosureCase(foreclosureCaseSetInput.ForeclosureCase.FcId);
-            //Check case if is copleted(Completed Date != NULL)
-            if (fcCase == null || fcCase.CompletedDt == DateTime.MinValue)
-                return false;            
+            bool caseComplete = CheckForeclosureCaseComplete(foreclosureCaseSetInput);
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSetInput.ForeclosureCase;
             CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
             OutcomeItemDTOCollection outcome = foreclosureCaseSetInput.Outcome;
@@ -386,10 +385,24 @@ namespace HPF.FutureState.BusinessLogic
             bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
             bool rfOutcome = RequireFieldsOutcomeItem(outcome, "Complete");
             bool rfBudget = RequireFieldsBudgetItem(budget, "Complete");
-            if (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget)
+            if (!caseComplete || (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget && caseComplete))
                 return false;
             else
                 return true;                        
+        }
+
+        /// <summary>
+        /// Check Case in Database is NULL or Complete Or Not Complete
+        /// Null = Not Complete => return false
+        /// CompleteDt != null => complete => return true
+        /// </summary>     
+        private bool CheckForeclosureCaseComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        {
+            ForeclosureCaseDTO fcCase = GetForeclosureCase(foreclosureCaseSetInput.ForeclosureCase.FcId);            
+            bool caseComplete = false;
+            if (fcCase != null && fcCase.CompletedDt != DateTime.MinValue)
+                caseComplete = true;
+            return caseComplete;
         }
 
         /// <summary>
@@ -1117,11 +1130,11 @@ namespace HPF.FutureState.BusinessLogic
                 return null;                        
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int fcId = foreclosureCase.FcId;
-            bool isNotComplete = CheckUnComplete(foreclosureCaseSet);            
+            bool isComplete = CheckComplete(foreclosureCaseSet);            
             foreclosureCase.AmiPercentage = int.MinValue;
             foreclosureCase.SummarySentDt = DateTime.Now;
             foreclosureCase.CaseCompleteInd = CASE_COMPLETE_IND_NO;
-            if (isNotComplete == false)
+            if (isComplete == true)
             {
                 foreclosureCase.CompletedDt = SetCompleteDate(fcId);
                 foreclosureCase.CaseCompleteInd = SetCaseCompleteInd(fcId);
@@ -1130,12 +1143,30 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
+        /// Check Misc Error Exception
+        /// Case 1: Cannot Un-complete a Previously Completed Case  
+        /// return TRUE if have Error
+        /// </summary>        
+        private bool CheckComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        {            
+            ForeclosureCaseDTO foreclosureCase = foreclosureCaseSetInput.ForeclosureCase;
+            CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
+            OutcomeItemDTOCollection outcome = foreclosureCaseSetInput.Outcome;
+            BudgetItemDTOCollection budget = foreclosureCaseSetInput.BudgetItems;
+            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Complete");
+            bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
+            bool rfOutcome = RequireFieldsOutcomeItem(outcome, "Complete");
+            bool rfBudget = RequireFieldsBudgetItem(budget, "Complete");
+            return (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget);                
+        }
+
+        /// <summary>
         /// Set value for Complete Date
         /// </summary>
         private DateTime SetCompleteDate(int fcId)
         {
             ForeclosureCaseDTO foreclosureCase = null;
-            if (fcId != int.MinValue)
+            if (fcId != int.MinValue && fcId != 0)
             {
                 foreclosureCase = GetForeclosureCase(fcId);
                 if (foreclosureCase.CompletedDt == DateTime.MinValue)
@@ -1152,7 +1183,7 @@ namespace HPF.FutureState.BusinessLogic
         private string SetCaseCompleteInd(int fcId)
         {
             ForeclosureCaseDTO foreclosureCase = null;
-            if (fcId != int.MinValue)
+            if (fcId != int.MinValue && fcId != 0)
             {
                 foreclosureCase = GetForeclosureCase(fcId);
                 if (foreclosureCase.CaseCompleteInd == CASE_COMPLETE_IND_NO)

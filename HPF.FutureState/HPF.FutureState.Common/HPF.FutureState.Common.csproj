@@ -106,6 +106,7 @@
     <Compile Include="DataTransferObjects\RefCodeItemDTOCollection.cs" />
     <Compile Include="DataTransferObjects\StateDTO.cs" />
     <Compile Include="DataTransferObjects\StateDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\UserDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogInsertRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\BaseResponse.cs" />
