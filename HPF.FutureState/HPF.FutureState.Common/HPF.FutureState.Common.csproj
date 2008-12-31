@@ -169,6 +169,7 @@
     <Compile Include="Utils\Exceptions\MiscProcessingException.cs" />
     <Compile Include="Utils\Exceptions\ProcessingException.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
+    <Compile Include="Utils\HPFSendMail.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
