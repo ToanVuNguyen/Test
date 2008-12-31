@@ -35,7 +35,7 @@ namespace HPF.FutureState.DataAccess
             SqlConnection dbConnection = base.CreateConnection();
             try
             {
-                SqlCommand command = base.CreateCommand("hpf_agency_get_from_agency_id", dbConnection);
+                SqlCommand command = base.CreateCommand("hpf_agency_detail_get", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", AgencyID);
