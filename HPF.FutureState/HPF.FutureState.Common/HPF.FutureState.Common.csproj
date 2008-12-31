@@ -88,6 +88,8 @@
     <Compile Include="DataTransferObjects\ActivityLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\DuplicatedCaseLoanDTO.cs" />
+    <Compile Include="DataTransferObjects\DuplicatedCaseLoanDTOCollection.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTO.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
