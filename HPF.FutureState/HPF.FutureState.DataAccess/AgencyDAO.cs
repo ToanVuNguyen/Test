@@ -31,7 +31,7 @@ namespace HPF.FutureState.DataAccess
 
         public string GetAgencyName(int AgencyID)
         {
-            string returnString;
+            string returnString=string.Empty;
             SqlConnection dbConnection = base.CreateConnection();
             try
             {
