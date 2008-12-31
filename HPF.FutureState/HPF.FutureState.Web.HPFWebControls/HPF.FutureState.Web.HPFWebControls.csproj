@@ -49,7 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabControl.cs" />
     <Compile Include="UserControlLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TabControl.css">
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
