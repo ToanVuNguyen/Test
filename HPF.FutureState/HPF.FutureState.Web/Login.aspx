@@ -38,9 +38,7 @@
             </tr>
             <tr>
                 <td align="center" colspan="2">
-                    <asp:Button ID="btn_login" runat="server" Text="Log In" BackColor="White" 
-                        BorderColor="White" CssClass="sidelinks" EnableTheming="True" 
-                        onclick="btn_login_Click" />
+                    <asp:Button ID="btn_login" runat="server" Text="Log In" class="MyButton" onclick="btn_login_Click" />
                 </td>
             </tr>
         </table>
