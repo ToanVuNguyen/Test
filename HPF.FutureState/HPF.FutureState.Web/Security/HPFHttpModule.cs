@@ -33,7 +33,7 @@ namespace HPF.FutureState.Web.Security
         {
             if (application.User != null)
             {
-                application.Context.User = HPFWebSecurity.CreateUserPrincipal(application.User.Identity);
+                application.Context.User = new HPFWebSecurity().CreateUserPrincipal(application.User.Identity);
             }
         }        
 

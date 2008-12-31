@@ -33,7 +33,7 @@ namespace HPF.FutureState.Web.Security
             return SecurityBL.Instance.WebUserLogin(userName, password);            
         }
 
-        public static UserPrincipal CreateUserPrincipal(IIdentity identity)
+        public UserPrincipal CreateUserPrincipal(IIdentity identity)
         {
             var uId = new UserIdentity
             {
