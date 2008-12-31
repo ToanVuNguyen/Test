@@ -18,7 +18,7 @@ using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 {
 
-    public partial class AppForeClosureCaseSearch : System.Web.UI.UserControl
+    public partial class AppForeClosureCaseSearchUC : System.Web.UI.UserControl
     {
         protected int PageSize
         {
@@ -153,6 +153,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (Exception ex)
             {
+                lblErrorMessage.Text = ex.Message;
             }
 
 
@@ -161,8 +162,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            lblErrorMessage.Text = "";
             BindGrvForeClosureCaseSearch(1);
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+            if (totalpage > 10) lblErrorMessage.Text = @"There are greater than 500 case results are found based on 
+                        the search criteria,Please defined search criteria and resubmitted";
             GeneratePages(totalpage);
         }
 
@@ -218,6 +222,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 phPages.Controls.Add(myLinkBtn);
                 Literal lit = new Literal();
                 lit.Text = "&nbsp;&nbsp;";
+                if (i == this.PageNum)
+                    myLinkBtn.CssClass = "PageChoose";
                 phPages.Controls.Add(lit);
             }
         }
@@ -225,6 +231,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         void myLinkBtn_Command(object sender, CommandEventArgs e)
         {
             int pagenum = int.Parse(e.CommandName);
+            
             BindGrvForeClosureCaseSearch(pagenum);
 
         }

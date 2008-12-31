@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppForeClosureCaseSearchUC.ascx.cs"
-    Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearch" %>
+    Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC" %>
 <%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>
@@ -23,7 +23,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="6">
+        <td colspan="6" style="font-weight: bold;font-size: 12px;">
             Search Criteria:
         </td>
     </tr>
@@ -119,7 +119,7 @@
             &nbsp;
         </td>
         <td  class="Control">
-            <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click" />
+            <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"  CssClass="MyButton"/>
         </td>
     </tr>
     <tr>
@@ -145,6 +145,11 @@
             <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
         </td>
         
+    </tr>
+    <tr>
+    <td colspan="6">
+    <asp:Label ID="lblErrorMessage"  CssClass="ErrorMessage" runat="server"></asp:Label>
+    </td>
     </tr>
     <tr>
         <td colspan="6">

@@ -11,7 +11,7 @@
 namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
     
     
-    public partial class AppForeClosureCaseSearch {
+    public partial class AppForeClosureCaseSearchUC {
         
         /// <summary>
         /// txtSSN control.
@@ -165,6 +165,15 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
         
         /// <summary>
         /// panForeClosureCaseSearch control.
