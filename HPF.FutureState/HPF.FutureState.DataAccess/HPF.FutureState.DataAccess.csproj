@@ -63,7 +63,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SQLScripts\HPF_DB_Script.txt" />
+    <None Include="SQLScripts\HPF_DB_Script_Install.sql" />
+    <None Include="SQLScripts\HPF_DB_Script_Upgrade.sql" />
+    <None Include="SQLScripts\InitData.sql" />
+    <Content Include="SQLScripts\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WebServices\" />
