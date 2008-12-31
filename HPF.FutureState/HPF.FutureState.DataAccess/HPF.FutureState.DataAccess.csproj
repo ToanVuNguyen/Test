@@ -63,7 +63,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SQLScripts\" />
+    <Content Include="SQLScripts\HPF_DB_Script.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="WebServices\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
