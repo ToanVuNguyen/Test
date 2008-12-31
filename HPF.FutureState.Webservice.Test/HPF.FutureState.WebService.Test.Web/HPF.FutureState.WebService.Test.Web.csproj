@@ -77,6 +77,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HPFWebServiceProxies\AgencyServiceProxy.cs" />
     <Compile Include="HPFWebServiceProxies\CallCenterServiceProxy.cs" />
     <Compile Include="InsertCallLog.aspx.cs">
       <DependentUpon>InsertCallLog.aspx</DependentUpon>
@@ -128,9 +129,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< .mine
+    <Content Include="App_Data\ForeclosureCaseSet.xml" />
+=======
     <Content Include="BudgetItem.aspx" />
     <Content Include="CaseLoan.aspx" />
+>>>>>>> .r497
     <Content Include="Default.aspx" />
+    <Content Include="ForeclosureCaseSet.xml" />
     <Content Include="InsertCallLog.aspx" />
     <Content Include="Outcome.aspx" />
     <Content Include="RetrieveCallLog.aspx" />
@@ -146,7 +152,6 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
     <Folder Include="Styles\Images\" />
   </ItemGroup>
