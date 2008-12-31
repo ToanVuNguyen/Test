@@ -1565,8 +1565,18 @@ namespace HPF.FutureState.BusinessLogic
                 result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             else
             {
-                throw new DataValidationException();
+                throw new DataValidationException("Please choose search criteria.");
             }
+            Collection<string> ErrorMess = AppRequireFieldValidation(searchCriteria);
+
+            if (ErrorMess != null)
+            {
+                ThrowMissingRequiredFieldsException(ErrorMess);
+            }
+            else {
+                result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
+            }
+            
             return result;
         }
         /// <summary>
