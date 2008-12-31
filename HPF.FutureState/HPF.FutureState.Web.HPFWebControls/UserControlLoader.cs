@@ -10,14 +10,14 @@ using System.Web.UI.WebControls;
 namespace HPF.FutureState.Web.HPFWebControls
 {
     [ToolboxData("<{0}:UserControlLoader runat=server></{0}:UserControlLoader>")]
-    public class UserControlLoader :Control
+    public class UserControlLoader : Control
     {
-        public string UserControlURL
+        public string UserControlVirtualPath
         {
             get
             {
-                string s = ViewState["UserControlURL"] as string;
-                return ((s == null) ? string.Empty : s);
+                var s = ViewState["UserControlURL"] as string;
+                return (s ?? string.Empty);
             }
             set
             {
@@ -29,8 +29,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         {
             get
             {
-                string s = ViewState["UserControlID"] as string;
-                return ((s == null) ? string.Empty : s);
+                var s = ViewState["UserControlID"] as string;
+                return (s ?? string.Empty);
             }
             set
             {
@@ -38,29 +38,25 @@ namespace HPF.FutureState.Web.HPFWebControls
             }
         }
         /// <summary>
-        /// Load UserControl by control URL and control ID 
+        /// Load UserControl by control virtualPath and control id 
         /// </summary>
-        /// <param name="URL"></param>
-        /// <param name="ID"></param>
-        public void LoadUC(string URL,string ID)
+        /// <param name="virtualPath"></param>
+        /// <param name="id"></param>
+        public void LoadUserControl(string virtualPath, string id)
         {
-            this.Controls.Clear();
-            if (URL == string.Empty || ID == string.Empty)
+            if (virtualPath == string.Empty || id == string.Empty)
                 return;
-            var uc = Page.LoadControl(URL);
-            uc.ID = ID;
-            this.Controls.Add(uc);
-            if (UserControlURL == string.Empty)
-            {
-                UserControlURL = URL;
-                UserControlID = ID;
-            }
-            
+            var uc = Page.LoadControl(virtualPath);
+            uc.ID = id;
+            Controls.Clear();
+            Controls.Add(uc);
+            UserControlVirtualPath = virtualPath;
+            UserControlID = id;
         }
-        
+
         protected override void OnLoad(EventArgs e)
         {
-            LoadUC(UserControlURL, UserControlID);
+            LoadUserControl(UserControlVirtualPath, UserControlID);
         }
         protected override void Render(HtmlTextWriter writer)
         {
