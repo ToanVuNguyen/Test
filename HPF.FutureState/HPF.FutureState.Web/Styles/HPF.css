@@ -42,6 +42,16 @@ p
     color: #2271A0;
     font-size: 10px;
     font-weight: bold;
+    
+}
+.MyButton
+{
+	background-color:White;
+	border-color:White;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #2271A0;
+    font-size: 10px;
+    font-weight: bold;
 }
 .baseline
 {
@@ -55,6 +65,7 @@ td
     font-size: 11px;
     color: #000000;
 }
+
 .sidelinks2
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -84,6 +95,7 @@ h2
     color: #2271A0;
     font-weight: bold;
 }
+
 a
 {
     color: #000000;
