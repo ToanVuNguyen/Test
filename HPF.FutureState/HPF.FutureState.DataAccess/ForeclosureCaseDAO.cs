@@ -334,9 +334,9 @@ namespace HPF.FutureState.DataAccess
         {
             AppForeclosureCaseSearchResultDTOCollection results = new AppForeclosureCaseSearchResultDTOCollection();
             var dbConnection = CreateConnection();
-            var command = new SqlCommand("hpf_foreclosure_case_search_app", dbConnection);
-
-            var sqlParam = new SqlParameter[14];
+            var command = new SqlCommand("hpf_foreclosure_case_search_app_dynamic", dbConnection);
+            string whereclause = AppGenerateWhereClause(searchCriteria);
+            var sqlParam = new SqlParameter[15];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
             sqlParam[1] = new SqlParameter("@pi_fname", searchCriteria.FirstName);
             sqlParam[2] = new SqlParameter("@pi_lname", searchCriteria.LastName);
@@ -351,6 +351,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[11] = new SqlParameter("@pi_pagesize", searchCriteria.PageSize);
             sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
             sqlParam[13] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
+            sqlParam[14] = new SqlParameter("@whereclause", whereclause);
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             try
@@ -516,6 +517,27 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+        ///<summary>
+        ///
+
+        private string AppGenerateWhereClause( AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            StringBuilder whereClause = new StringBuilder();
+            whereClause.Append((searchCriteria.Last4SSN == null) ? "" : " AND(borrower_last4_SSN = @pi_last4SSN  OR co_borrower_last4_SSN = @pi_last4SSN)");
+            whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname  OR co_borrower_fname like @pi_fname)");
+            whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname  OR co_borrower_lname like @pi_lname)");
+            whereClause.Append((searchCriteria.ForeclosureCaseID ==-1) ? "" : "( AND f.fc_id = @pi_fc_id)");
+            whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "( AND l.acct_num  like @pi_loannum)");
+            whereClause.Append((searchCriteria.PropertyZip == null) ? "" : "( AND f.prop_zip = @pi_propzip)");
+            whereClause.Append((searchCriteria.PropertyState == null) ? "" : "( AND f.prop_state_cd = @pi_propstate )");
+            whereClause.Append((searchCriteria.Agency == -1) ? "" : " AND (f.agency_id=@pi_agencyid )");
+            whereClause.Append((searchCriteria.AgencyCaseID == null) ? "" : " AND (f.agency_case_num=@pi_agencycaseid)");
+            whereClause.Append((searchCriteria.Duplicates == null) ? "" : " AND (f.duplicate_ind = @pi_duplicate )");
+            whereClause.Append((searchCriteria.Program == -1) ? "" : " AND(f.program_id= @pi_programid)");
+            return whereClause.ToString();
+        }
+
+
     }
 }
 
