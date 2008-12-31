@@ -52,17 +52,22 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
-
-            //if (!RequireFieldsValidation(foreclosureCaseSet))
-            //    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD);            
-
+           
+            Collection<string> exDetailCollection = RequireFieldsValidation(foreclosureCaseSet);
+            if (exDetailCollection != null && exDetailCollection.Count > 0)
+            {
+                ThrowMissingRequiredFieldsException(exDetailCollection);
+            }
+            
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.FcId != 0)
-            {
-                //if (!CheckValidCode(foreclosureCaseSet))
-                //    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_CODE);
-
+            {                
+                exDetailCollection = CheckValidCode(foreclosureCaseSet);
+                if (exDetailCollection != null && exDetailCollection.Count > 0)
+                {
+                    ThrowInvalidCodeException(exDetailCollection);
+                }
                 ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             }
             else
@@ -1414,6 +1419,31 @@ namespace HPF.FutureState.BusinessLogic
             return AgencyDAO.Instance.GetAgencyName(agencyID);
         }
 
+        #region Throw Detail Exception
+        private void ThrowMissingRequiredFieldsException(Collection<string> collection)
+        {
+            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD);            
+            foreach (string obj in collection)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.Message = obj;
+                pe.ExceptionMessages.Add(em);
+            }
+            throw pe;
+        }
+
+        private void ThrowInvalidCodeException(Collection<string> collection)
+        {
+            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_CODE);
+            foreach (string obj in collection)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.Message = obj;
+                pe.ExceptionMessages.Add(em);
+            }
+            throw pe;
+        }
+
         private void ThrowInvalidFCIdForAgencyException(int fcId)
         {
             ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);
@@ -1438,6 +1468,8 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
+        #endregion
+
         #endregion
 
         #region AppForeclosureCaseSearch
