@@ -112,9 +112,12 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
-            
-            if (CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase))
-                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_DUPLICATE_FORECLOSURE_CASE);
+            DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase);
+            if (collection != null)
+            {
+                ThrowDuplicateCaseException(collection);
+            }
+                
             
             if (MiscErrorException(foreclosureCaseSet))
                 throw new MiscProcessingException(ErrorMessages.MISC_PROCESSING_EXCEPTION);
@@ -334,8 +337,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Check Duplicated Fore Closure Case
         /// </summary>
-        bool CheckDuplicateCase(ForeclosureCaseDTO foreclosureCase)
-        {
+        DuplicatedCaseLoanDTOCollection CheckDuplicateCase(ForeclosureCaseDTO foreclosureCase)
+        {            
             if (foreclosureCase.FcId != 0)
                 return ForeclosureCaseSetDAO.CreateInstance().CheckDuplicate(foreclosureCase.FcId);
             else
@@ -1263,9 +1266,9 @@ namespace HPF.FutureState.BusinessLogic
             return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
         }
 
-        private string GetAgencyName(int AgencyID)
+        private string GetAgencyName(int agencyID)
         {
-            return AgencyDAO.Instance.GetAgencyName(AgencyID);
+            return AgencyDAO.Instance.GetAgencyName(agencyID);
         }
 
         private void ThrowInvalidFCIdForAgencyException(int fcId)
@@ -1276,6 +1279,20 @@ namespace HPF.FutureState.BusinessLogic
             em.Message = string.Format("The case belongs to Agency: {0}, Counsellor: {1}, Contact number: {2}, email: {3}", GetAgencyName(fcCase.AgencyId), fcCase.CounselorFname + ", " + fcCase.CounselorLname, fcCase.CounselorPhone, fcCase.CounselorEmail);
             pe.ExceptionMessages.Add(em);
 
+            throw pe;
+        }
+
+        private void ThrowDuplicateCaseException(DuplicatedCaseLoanDTOCollection collection)
+        {
+            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_DUPLICATE_FORECLOSURE_CASE);
+            foreach(DuplicatedCaseLoanDTO obj in collection)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6},Counselor Phone & Extension: {7}, Counselor Email: {8} "
+                            , obj.LoanNumber, obj.ServicerName, obj.BorrowerFirstName, obj.BorrowerLastName
+                            , obj.AgencyName, obj.AgencyCaseNumber, obj.CounselorFullName, obj.CounselorPhone, obj.CounselorEmail);
+                pe.ExceptionMessages.Add(em);
+            }
             throw pe;
         }
         #endregion
