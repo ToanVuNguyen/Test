@@ -214,7 +214,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
                         callLogDTO.SelectedAgencyId = ConvertToString(reader["selected_agency_id"]);
                         callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
-                        callLogDTO.FinalDispoCd = ConvertToInt(reader["final_dispo_cd"]);
+                        callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
                         callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);                        
                         callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
                         callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
