@@ -9,6 +9,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using System;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
+using System.Data;
 
 namespace HPF.FutureState.UnitTest.BusinessLogic
 {
@@ -779,17 +780,49 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckValidCodeTestSuccess()
+        public void CheckValidCodeAllPass()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();
             Collection<string> expected = null; // TODO: Initialize to an appropriate value
             Collection<string> actual;
             actual = target.CheckValidCode(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
         }
 
-        
+        /// <summary>
+        ///A test for CheckValidCode
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckValidCodeForeclosureCaseNotPass()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeFalse();
+            Collection<string> expected = null; // TODO: Initialize to an appropriate value
+            Collection<string> actual;
+            actual = target.CheckValidCode(foreclosureCaseSet);
+            Assert.AreNotEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///A test for CheckValidCode
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckValidCodeCaseLoanNotPass()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
+            foreclosureCaseSet.CaseLoans = SetCaseLoanCodeFalse();
+            Collection<string> expected = null; // TODO: Initialize to an appropriate value
+            Collection<string> actual;
+            actual = target.CheckValidCode(foreclosureCaseSet);
+            Assert.AreNotEqual(expected, actual);
+        }
+                
         /// <summary>
         ///A test for InsertForeclosureCaseSet
         ///</summary>
@@ -799,7 +832,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            target.InsertForeclosureCaseSet(foreclosureCaseSet);            
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            target.InsertForeclosureCaseSet(foreclosureCaseSet);
+            int fcId = GetForeclosureCaseId();
+            string expected = "Acency Case Num Test";
+            ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
+            string actual = fcCase.AgencyCaseNum;
+            DeleteForeclosureCase(fcId);
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>
@@ -811,7 +851,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-             target.UpdateForeclosureCaseSet(foreclosureCaseSet);
+            target.InsertForeclosureCaseSet(foreclosureCaseSet);
+            int fcId = GetForeclosureCaseId();
+            foreclosureCaseSet.ForeclosureCase.FcId = fcId;
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            target.UpdateForeclosureCaseSet(foreclosureCaseSet);
+            string expected = "Acency Case Num Test";
+            ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
+            string actual = fcCase.AgencyCaseNum;
+            DeleteForeclosureCase(fcId);
+            Assert.AreEqual(expected, actual);
         }        
 
         /// <summary>
@@ -843,12 +892,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.BorrowerLname = "Test";
             foreclosureCase.PrimaryContactNo = "Test";
             foreclosureCase.ContactAddr1 = "Test";
-            foreclosureCase.ContactCity = "Test";
-            foreclosureCase.ContactStateCd = "";
+            foreclosureCase.ContactCity = "Test";            
             foreclosureCase.ContactZip = "12345";
             foreclosureCase.PropAddr1 = "Test";
-            foreclosureCase.PropCity = "Test";
-            foreclosureCase.PropStateCd = "";
+            foreclosureCase.PropCity = "Test";            
             foreclosureCase.PropZip = "12345";
             foreclosureCase.OwnerOccupiedInd = "Test";
             foreclosureCase.FundingConsentInd = "Test";
@@ -869,6 +916,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ChangeLastAppName = "HPF";
             foreclosureCase.ChangeLastUserId = "HPF";
             foreclosureCase.AgencyClientNum = "";
+            foreclosureCase.ContactStateCd = "";
+            foreclosureCase.PropStateCd = "";
             if (status == "TRUE")
             {
                 foreclosureCase.CompletedDt = Convert.ToDateTime("12/12/2007");
@@ -1032,8 +1081,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.ServicerId = Convert.ToInt32("1");
                     caseLoanDTO.AcctNum = "Test";
                     caseLoanDTO.Loan1st2nd = "1st";
-                    caseLoanDTO.MortgageTypeCd = "";
-                    caseLoanDTO.ArmLoanInd = "";
+                    caseLoanDTO.MortgageTypeCd = "";                    
                     caseLoanDTO.TermLengthCd = "";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 1;
@@ -1054,8 +1102,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.ServicerId = Convert.ToInt32("1");
                     caseLoanDTO.AcctNum = "Test";
                     caseLoanDTO.Loan1st2nd = "1st";
-                    caseLoanDTO.MortgageTypeCd = "";
-                    caseLoanDTO.ArmLoanInd = "";
+                    caseLoanDTO.MortgageTypeCd = "";                    
                     caseLoanDTO.TermLengthCd = "";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 1;
@@ -1145,6 +1192,60 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.ActivityLog = SetActivityLogCollection(status);            
             return foreclosureCaseSet;
         }
+
+        private ForeclosureCaseDTO SetForeclosureCaseCodeTrue()
+        {
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+            foreclosureCase.IncomeEarnersCd = "1";
+            foreclosureCase.CaseSourceCd = "Faith Community";
+            foreclosureCase.RaceCd = "2";
+            foreclosureCase.HouseholdCd = "SINGL";            
+            foreclosureCase.DfltReason1stCd = "17";
+            foreclosureCase.DfltReason2ndCd = "18";
+            foreclosureCase.HudTerminationReasonCd = "1";
+            foreclosureCase.HudOutcomeCd = "3";
+            foreclosureCase.CounselingDurationCd = "";            
+            foreclosureCase.SummarySentOtherCd = "Phone";            
+            foreclosureCase.MilitaryServiceCd = "ACTV";
+            foreclosureCase.ContactZip = "12345";
+            foreclosureCase.PropZip = "12345";
+            return foreclosureCase;
+        }
+
+        private ForeclosureCaseDTO SetForeclosureCaseCodeFalse()
+        {
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+            foreclosureCase.IncomeEarnersCd = "ABC";
+            foreclosureCase.CaseSourceCd = "Faith Community";
+            foreclosureCase.RaceCd = "2";
+            foreclosureCase.HouseholdCd = "123";
+            foreclosureCase.DfltReason1stCd = "17";
+            foreclosureCase.DfltReason2ndCd = "18";
+            foreclosureCase.HudTerminationReasonCd = "1";
+            foreclosureCase.HudOutcomeCd = "3";
+            foreclosureCase.CounselingDurationCd = "";
+            foreclosureCase.SummarySentOtherCd = "Phone";
+            foreclosureCase.MilitaryServiceCd = "ACTV";
+            foreclosureCase.ContactZip = "1145";
+            foreclosureCase.PropZip ="1145";
+            return foreclosureCase;
+        }
+
+        private CaseLoanDTOCollection SetCaseLoanCodeFalse()
+        {
+            CaseLoanDTOCollection caseLoanCollection = new CaseLoanDTOCollection();                        
+            CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
+            caseLoanDTO.MortgageTypeCd = "ARM";                
+            caseLoanDTO.TermLengthCd = "10";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";                
+            caseLoanCollection.Add(caseLoanDTO);
+            caseLoanDTO = new CaseLoanDTO();
+            caseLoanDTO.MortgageTypeCd = "FIXED";
+            caseLoanDTO.TermLengthCd = "5";
+            caseLoanDTO.LoanDelinqStatusCd = "ABC";
+            caseLoanCollection.Add(caseLoanDTO);    
+            return caseLoanCollection;
+        }
         #endregion
 
         #region Utility
@@ -1161,6 +1262,31 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 try
                 {
                     result = int.Parse(reader["fc_id"].ToString());
+                }
+                catch (Exception ex)
+                {
+                    dbConnection.Close();
+                }
+                break;
+            }
+            dbConnection.Close();
+
+            return result;
+        }
+
+        static private string GetAgencyCaseNum(int fcId)
+        {
+            string result = string.Empty;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand("SELECT agency_case_num FROM foreclosure_case WHERE fc_id =" + fcId + "", dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                try
+                {
+                    result = reader["agency_case_num"].ToString();
                 }
                 catch (Exception ex)
                 {
@@ -1233,6 +1359,141 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             dbConnection.Close();
         }
 
+        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        {
+            ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            try
+            {
+                var command = new SqlCommand("SELECT * FROM foreclosure_case WHERE fc_id =" + fcId + "", dbConnection);                
+
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        #region set ForeclosureCase value
+                        returnObject.FcId = int.Parse(reader["fc_id"].ToString());
+                        returnObject.ActionItemsNotes = (reader["action_items_notes"].ToString());
+                        returnObject.AgencyCaseNum = (reader["agency_case_num"].ToString());
+                        returnObject.AgencyClientNum = (reader["agency_client_num"].ToString());
+                        returnObject.AgencyId = int.Parse(reader["agency_id"].ToString());
+                        returnObject.AgencyMediaConsentInd = (reader["agency_media_consent_ind"].ToString());
+                        returnObject.AgencySuccessStoryInd = (reader["agency_success_story_ind"].ToString());
+                        returnObject.AmiPercentage = int.Parse(reader["AMI_percentage"].ToString());
+                        returnObject.AssignedCounselorIdRef = (reader["counselor_id_ref"].ToString());
+                        returnObject.BankruptcyAttorney = (reader["bankruptcy_attorney"].ToString());
+                        returnObject.BankruptcyInd = (reader["bankruptcy_ind"].ToString());
+                        returnObject.BankruptcyPmtCurrentInd = (reader["bankruptcy_pmt_current_ind"].ToString());
+                        returnObject.BorrowerDisabledInd = (reader["borrower_disabled_ind"].ToString());                        
+                        returnObject.BorrowerEducLevelCompletedCd = (reader["borrower_educ_level_completed_cd"].ToString());
+                        returnObject.BorrowerFname = (reader["borrower_fname"].ToString());
+                        returnObject.BorrowerLname = (reader["borrower_lname"].ToString());
+                        returnObject.BorrowerMaritalStatusCd = (reader["borrower_marital_status_cd"].ToString());
+                        returnObject.BorrowerLast4Ssn = (reader["borrower_last4_SSN"].ToString());
+                        returnObject.BorrowerMname = (reader["borrower_mname"].ToString());
+                        returnObject.BorrowerOccupationCd = (reader["borrower_occupation"].ToString());
+                        returnObject.BorrowerPreferredLangCd = (reader["borrower_preferred_lang_cd"].ToString());
+                        returnObject.BorrowerSsn = (reader["borrower_ssn"].ToString());
+                        returnObject.CallId = int.Parse(reader["call_id"].ToString());
+                        returnObject.CaseCompleteInd = (reader["case_complete_ind"].ToString());
+                        returnObject.ChangeLastAppName = (reader["chg_lst_app_name"].ToString());                        
+                        returnObject.ChangeLastUserId = (reader["chg_lst_user_id"].ToString());
+                        returnObject.CoBorrowerDisabledInd = (reader["co_borrower_disabled_ind"].ToString());                        
+                        returnObject.CoBorrowerFname = (reader["co_borrower_fname"].ToString());
+                        returnObject.CoBorrowerLname = (reader["co_borrower_lname"].ToString());
+                        returnObject.CoBorrowerLast4Ssn = (reader["co_borrower_last4_SSN"].ToString());
+                        returnObject.CoBorrowerMname = (reader["co_borrower_mname"].ToString());
+                        returnObject.CoBorrowerOccupationCd = (reader["co_borrower_occupation"].ToString());
+                        returnObject.CoBorrowerSsn = (reader["co_borrower_ssn"].ToString());                        
+                        returnObject.ContactAddr1 = (reader["contact_addr1"].ToString());
+                        returnObject.ContactAddr2 = (reader["contact_addr2"].ToString());
+                        returnObject.ContactCity = (reader["contact_city"].ToString());
+                        returnObject.ContactedSrvcrRecentlyInd = (reader["contacted_srvcr_recently_ind"].ToString());
+                        returnObject.ContactStateCd = (reader["contact_state_cd"].ToString());
+                        returnObject.ContactZip = (reader["contact_zip"].ToString());
+                        returnObject.ContactZipPlus4 = (reader["contact_zip_plus4"].ToString());
+                        returnObject.CounselingDurationCd = (reader["counseling_duration_cd"].ToString());
+                        returnObject.CounselorFname = (reader["counselor_fname"].ToString());
+                        returnObject.CounselorLname = (reader["counselor_lname"].ToString());
+                        returnObject.CounselorPhone = (reader["counselor_phone"].ToString());
+                        returnObject.CounselorExt = (reader["counselor_ext"].ToString());
+                        returnObject.CounselorEmail = (reader["counselor_email"].ToString());
+                        returnObject.CreateAppName = (reader["create_app_name"].ToString());                        
+                        returnObject.CreateUserId = (reader["create_user_id"].ToString());
+                        returnObject.DfltReason1stCd = (reader["dflt_reason_1st_cd"].ToString());
+                        returnObject.DfltReason2ndCd = (reader["dflt_reason_2nd_cd"].ToString());
+                        returnObject.DiscussedSolutionWithSrvcrInd = (reader["discussed_solution_with_srvcr_ind"].ToString());
+                        returnObject.DoNotCallInd = (reader["do_not_call_ind"].ToString());
+                        returnObject.DuplicateInd = (reader["duplicate_ind"].ToString());
+                        returnObject.Email1 = (reader["email_1"].ToString());
+                        returnObject.Email2 = (reader["email_2"].ToString());
+                        returnObject.FcSaleDateSetInd = (reader["fc_sale_date_set_ind"].ToString());
+                        returnObject.FcNoticeReceiveInd = (reader["fc_notice_received_ind"].ToString());
+                        returnObject.FollowupNotes = (reader["followup_notes"].ToString());
+                        returnObject.ForSaleInd = (reader["for_sale_ind"].ToString());
+                        returnObject.FundingConsentInd = (reader["funding_consent_ind"].ToString());
+                        returnObject.GenderCd = (reader["gender_cd"].ToString());
+                        returnObject.HasWorkoutPlanInd = (reader["has_workout_plan_ind"].ToString());
+                        returnObject.HispanicInd = (reader["hispanic_ind"].ToString());
+                        returnObject.HomeCurrentMarketValue = decimal.Parse(reader["home_current_market_value"].ToString());
+                        returnObject.HomePurchasePrice = decimal.Parse(reader["home_purchase_price"].ToString());
+                        returnObject.HomePurchaseYear = int.Parse(reader["home_purchase_year"].ToString());
+                        returnObject.HomeSalePrice = decimal.Parse(reader["home_sale_price"].ToString());
+                        returnObject.HouseholdCd = (reader["household_cd"].ToString());
+                        returnObject.HpfMediaCandidateInd = (reader["hpf_media_candidate_ind"].ToString());
+                        returnObject.HpfNetworkCandidateInd = (reader["hpf_network_candidate_ind"].ToString());
+                        returnObject.HpfSuccessStoryInd = (reader["hpf_success_story_ind"].ToString());
+                        returnObject.HudOutcomeCd = (reader["hud_outcome_cd"].ToString());                        
+                        returnObject.HudTerminationReasonCd = (reader["hud_termination_reason_cd"].ToString());
+                        returnObject.IncomeEarnersCd = (reader["income_earners_cd"].ToString());                        
+                        returnObject.LoanDfltReasonNotes = (reader["loan_dflt_reason_notes"].ToString());
+                        returnObject.MilitaryServiceCd = (reader["military_service_cd"].ToString());
+                        returnObject.MotherMaidenLname = (reader["mother_maiden_lname"].ToString());
+                        returnObject.NeverBillReasonCd = (reader["never_bill_reason_cd"].ToString());
+                        returnObject.NeverPayReasonCd = (reader["never_pay_reason_cd"].ToString());
+                        returnObject.OccupantNum = byte.Parse(reader["occupant_num"].ToString());
+                        returnObject.OptOutNewsletterInd = (reader["opt_out_newsletter_ind"].ToString());
+                        returnObject.OptOutSurveyInd = (reader["opt_out_survey_ind"].ToString());
+                        returnObject.OwnerOccupiedInd = (reader["owner_occupied_ind"].ToString());
+                        returnObject.PrimaryContactNo = (reader["primary_contact_no"].ToString());
+                        returnObject.PrimaryResidenceInd = (reader["primary_residence_ind"].ToString());
+                        returnObject.PrimResEstMktValue = decimal.Parse(reader["prim_res_est_mkt_value"].ToString());
+                        returnObject.ProgramId = int.Parse(reader["program_id"].ToString());
+                        returnObject.PropAddr1 = (reader["prop_addr1"].ToString());
+                        returnObject.PropAddr2 = (reader["prop_addr2"].ToString());
+                        returnObject.PropCity = (reader["prop_city"].ToString());
+                        returnObject.PropStateCd = (reader["prop_state_cd"].ToString());
+                        returnObject.PropZip = (reader["prop_zip"].ToString());
+                        returnObject.PropertyCd = (reader["property_cd"].ToString());
+                        returnObject.PropZipPlus4 = (reader["prop_zip_plus_4"].ToString());
+                        returnObject.RaceCd = (reader["race_cd"].ToString());
+                        returnObject.RealtyCompany = (reader["realty_company"].ToString());
+                        returnObject.SecondContactNo = (reader["second_contact_no"].ToString());
+                        returnObject.ServicerConsentInd = (reader["servicer_consent_ind"].ToString());
+                        returnObject.SrvcrWorkoutPlanCurrentInd = (reader["srvcr_workout_plan_current_ind"].ToString());                        
+                        returnObject.SummarySentOtherCd = (reader["summary_sent_other_cd"].ToString());                        
+                        returnObject.WorkedWithAnotherAgencyInd = (reader["worked_with_another_agency_ind"].ToString());
+                        #endregion
+                    }
+                    reader.Close();
+                }
+                else
+                    returnObject = null;
+
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return returnObject;
+        }
         #endregion
         #region AppForeclosureCaseSearch Test
         /// <summary>

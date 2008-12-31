@@ -398,33 +398,32 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[26];
+                var sqlParam = new SqlParameter[25];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", caseLoan.OtherServicerName);
                 sqlParam[3] = new SqlParameter("@pi_acct_num", caseLoan.AcctNum);
                 sqlParam[4] = new SqlParameter("@pi_loan_1st_2nd_cd", caseLoan.Loan1st2nd);
-                sqlParam[5] = new SqlParameter("@pi_mortgage_type_cd", caseLoan.MortgageTypeCd);
-                sqlParam[6] = new SqlParameter("@pi_arm_loan_ind", caseLoan.ArmLoanInd);
-                sqlParam[7] = new SqlParameter("@pi_arm_reset_ind", caseLoan.ArmResetInd);
-                sqlParam[8] = new SqlParameter("@pi_term_length_cd", caseLoan.TermLengthCd);
-                sqlParam[9] = new SqlParameter("@pi_loan_delinq_status_cd", caseLoan.LoanDelinqStatusCd);
-                sqlParam[10] = new SqlParameter("@pi_current_loan_balance_amt", caseLoan.CurrentLoanBalanceAmt);
-                sqlParam[11] = new SqlParameter("@pi_orig_loan_amt", caseLoan.OrigLoanAmt);
-                sqlParam[12] = new SqlParameter("@pi_interest_rate", caseLoan.InterestRate);
-                sqlParam[13] = new SqlParameter("@pi_Originating_Lender_Name", caseLoan.OriginatingLenderName);
-                sqlParam[14] = new SqlParameter("@pi_orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
-                sqlParam[15] = new SqlParameter("@pi_Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
-                sqlParam[16] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
-                sqlParam[17] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
-                sqlParam[18] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
-                sqlParam[19] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
-                sqlParam[20] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
-                sqlParam[21] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
-                sqlParam[22] = new SqlParameter("@pi_create_app_name", caseLoan.CreateAppName);
-                sqlParam[23] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
-                sqlParam[24] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
-                sqlParam[25] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
+                sqlParam[5] = new SqlParameter("@pi_mortgage_type_cd", caseLoan.MortgageTypeCd);                
+                sqlParam[6] = new SqlParameter("@pi_arm_reset_ind", caseLoan.ArmResetInd);
+                sqlParam[7] = new SqlParameter("@pi_term_length_cd", caseLoan.TermLengthCd);
+                sqlParam[8] = new SqlParameter("@pi_loan_delinq_status_cd", caseLoan.LoanDelinqStatusCd);
+                sqlParam[9] = new SqlParameter("@pi_current_loan_balance_amt", caseLoan.CurrentLoanBalanceAmt);
+                sqlParam[10] = new SqlParameter("@pi_orig_loan_amt", caseLoan.OrigLoanAmt);
+                sqlParam[11] = new SqlParameter("@pi_interest_rate", caseLoan.InterestRate);
+                sqlParam[12] = new SqlParameter("@pi_Originating_Lender_Name", caseLoan.OriginatingLenderName);
+                sqlParam[13] = new SqlParameter("@pi_orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
+                sqlParam[14] = new SqlParameter("@pi_Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
+                sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
+                sqlParam[16] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
+                sqlParam[17] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
+                sqlParam[18] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
+                sqlParam[19] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
+                sqlParam[20] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
+                sqlParam[21] = new SqlParameter("@pi_create_app_name", caseLoan.CreateAppName);
+                sqlParam[22] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
+                sqlParam[23] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
+                sqlParam[24] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
@@ -448,30 +447,29 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[23];
+                var sqlParam = new SqlParameter[22];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", caseLoan.FcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", caseLoan.OtherServicerName);
                 sqlParam[3] = new SqlParameter("@pi_acct_num", caseLoan.AcctNum);
                 sqlParam[4] = new SqlParameter("@pi_loan_1st_2nd_cd", caseLoan.Loan1st2nd);
-                sqlParam[5] = new SqlParameter("@pi_mortgage_type_cd", caseLoan.MortgageTypeCd);
-                sqlParam[6] = new SqlParameter("@pi_arm_loan_ind", caseLoan.ArmLoanInd);
-                sqlParam[7] = new SqlParameter("@pi_arm_reset_ind", caseLoan.ArmResetInd);
-                sqlParam[8] = new SqlParameter("@pi_term_length_cd", caseLoan.TermLengthCd);
-                sqlParam[9] = new SqlParameter("@pi_loan_delinq_status_cd", caseLoan.LoanDelinqStatusCd);
-                sqlParam[10] = new SqlParameter("@pi_current_loan_balance_amt", caseLoan.CurrentLoanBalanceAmt);
-                sqlParam[11] = new SqlParameter("@pi_orig_loan_amt", caseLoan.OrigLoanAmt);
-                sqlParam[12] = new SqlParameter("@pi_interest_rate", caseLoan.InterestRate);
-                sqlParam[13] = new SqlParameter("@pi_Originating_Lender_Name", caseLoan.OriginatingLenderName);
-                sqlParam[14] = new SqlParameter("@pi_orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
-                sqlParam[15] = new SqlParameter("@pi_Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
-                sqlParam[16] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
-                sqlParam[17] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
-                sqlParam[18] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
-                sqlParam[19] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
-                sqlParam[20] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
-                sqlParam[21] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
-                sqlParam[22] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
+                sqlParam[5] = new SqlParameter("@pi_mortgage_type_cd", caseLoan.MortgageTypeCd);                
+                sqlParam[6] = new SqlParameter("@pi_arm_reset_ind", caseLoan.ArmResetInd);
+                sqlParam[7] = new SqlParameter("@pi_term_length_cd", caseLoan.TermLengthCd);
+                sqlParam[8] = new SqlParameter("@pi_loan_delinq_status_cd", caseLoan.LoanDelinqStatusCd);
+                sqlParam[9] = new SqlParameter("@pi_current_loan_balance_amt", caseLoan.CurrentLoanBalanceAmt);
+                sqlParam[10] = new SqlParameter("@pi_orig_loan_amt", caseLoan.OrigLoanAmt);
+                sqlParam[11] = new SqlParameter("@pi_interest_rate", caseLoan.InterestRate);
+                sqlParam[12] = new SqlParameter("@pi_Originating_Lender_Name", caseLoan.OriginatingLenderName);
+                sqlParam[13] = new SqlParameter("@pi_orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
+                sqlParam[14] = new SqlParameter("@pi_Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
+                sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
+                sqlParam[16] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
+                sqlParam[17] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
+                sqlParam[18] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
+                sqlParam[19] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
+                sqlParam[20] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
+                sqlParam[21] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -973,10 +971,8 @@ namespace HPF.FutureState.DataAccess
                             item.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                             item.AcctNum = ConvertToString(reader["acct_num"]);
                             item.Loan1st2nd = ConvertToString(reader["loan_1st_2nd_cd"]);
-                            item.MortgageTypeCd = ConvertToString(reader["mortgage_type_cd"]);
-                            item.ArmLoanInd = ConvertToString(reader["arm_loan_ind"]);
-                            item.ArmResetInd = ConvertToString(reader["arm_reset_ind"]);
-                            item.TermLengthCd = ConvertToString(reader["term_length_cd"]);
+                            item.MortgageTypeCd = ConvertToString(reader["mortgage_type_cd"]);                            
+                            item.ArmResetInd = ConvertToString(reader["arm_reset_ind"]);                            
                             item.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
                             item.CurrentLoanBalanceAmt = ConvertToDecimal(reader["current_loan_balance_amt"]);
                             item.OrigLoanAmt = ConvertToDecimal(reader["orig_loan_amt"]);

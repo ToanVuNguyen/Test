@@ -27,10 +27,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Loan1st2nd { get; set; }
 
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
-        public string MortgageTypeCd { get; set; }
-
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
-        public string ArmLoanInd { get; set; }
+        public string MortgageTypeCd { get; set; }        
 
         public string ArmResetInd { get; set; }
 
@@ -44,7 +41,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public decimal OrigLoanAmt { get; set; }
 
-        [RangeValidator(0, RangeBoundaryType.Exclusive, double.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public double InterestRate { get; set; }
 
         public string OriginatingLenderName { get; set; }

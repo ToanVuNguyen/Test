@@ -120,7 +120,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         protected static string ConvertToString(object obj)
         {
-            if (null != obj)
+            if (null != obj && System.DBNull.Value != obj)
             {
                 return obj.ToString();
             }

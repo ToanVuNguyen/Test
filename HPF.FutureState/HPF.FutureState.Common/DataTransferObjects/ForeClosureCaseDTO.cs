@@ -296,8 +296,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string MilitaryServiceCd { get; set; }
 
-        [DefaultValue(double.MinValue)]
-        [RangeValidator(0, RangeBoundaryType.Exclusive, double.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
         public double HouseholdGrossAnnualIncomeAmt{ get; set; }
 
         public string LoanList { get; set; }
