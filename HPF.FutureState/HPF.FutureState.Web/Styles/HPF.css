@@ -240,3 +240,5 @@ a:hover
     color: red;
 }
 
+.PageChoose{  font-weight:bold; font-size:xx-large;}
+.ErrorMessage{color:Red;}
