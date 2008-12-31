@@ -12,7 +12,7 @@ using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
-
+using System.Collections.ObjectModel;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -53,15 +53,15 @@ namespace HPF.FutureState.BusinessLogic
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
-            if (!RequireFieldsValidation(foreclosureCaseSet))
-                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD);            
+            //if (!RequireFieldsValidation(foreclosureCaseSet))
+            //    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD);            
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.FcId != 0)
             {
-                if (!CheckValidCode(foreclosureCaseSet))
-                    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_CODE);
+                //if (!CheckValidCode(foreclosureCaseSet))
+                //    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_CODE);
 
                 ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             }
@@ -177,112 +177,128 @@ namespace HPF.FutureState.BusinessLogic
         /// 4: Min request validate of Case Loan Collection
         /// 5: Min request validate of Activity Log
         /// </summary>
-        bool RequireFieldsValidation(ForeclosureCaseSetDTO foreclosureCaseSet)
+        Collection<string> RequireFieldsValidation(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            try
-            {
-                ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
-                BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;
-                OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
-                CaseLoanDTOCollection caseLoanItem = foreclosureCaseSet.CaseLoans;
-                ActivityLogDTOCollection activityLogItem = foreclosureCaseSet.ActivityLog;
-                bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Min Request Validate");
-                bool rfbudgetItem = RequireFieldsBudgetItem(budgetItem, "Min Request Validate");
-                bool rfoutcomeItem = RequireFieldsOutcomeItem(outcomeItem, "Min Request Validate");
-                bool rfcaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, "Min Request Validate");
-                bool rfactivityLogItem = RequireFieldsActivityLogItem(activityLogItem, "Min Request Validate");
-
-                return (rfForeclosureCase && rfbudgetItem && rfoutcomeItem && rfcaseLoanItem && rfForeclosureCase && rfactivityLogItem);                  
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }            
+            ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
+            BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;
+            OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
+            CaseLoanDTOCollection caseLoanItem = foreclosureCaseSet.CaseLoans;
+            ActivityLogDTOCollection activityLogItem = foreclosureCaseSet.ActivityLog;
+            Collection<string> msgFcCaseSet = new Collection<string>();
+            RequireFieldsForeclosureCase(foreclosureCase, ref msgFcCaseSet, "Min Request Validate");
+            RequireFieldsBudgetItem(budgetItem, ref msgFcCaseSet, "Min Request Validate");
+            RequireFieldsOutcomeItem(outcomeItem, ref msgFcCaseSet, "Min Request Validate");
+            RequireFieldsCaseLoanItem(caseLoanItem, ref msgFcCaseSet, "Min Request Validate");
+            RequireFieldsActivityLogItem(activityLogItem, ref msgFcCaseSet, "Min Request Validate");
+            if (msgFcCaseSet.Count == 0)
+                return null;
+            return msgFcCaseSet;                     
         }
 
         /// <summary>
         /// Min request validate the fore closure case set
         /// 1: Min request validate of Fore Closure Case
-        /// <return>bool</return>
+        /// <return>Collection Message Error</return>
         /// </summary>
-        bool RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
-        {
+        void RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase,ref Collection<string> fcCaseSetMsg, string ruleSet)
+        {            
             ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
-            return (validationResults.IsValid);                
+            foreach (ValidationResult result in validationResults)
+            {
+                fcCaseSetMsg.Add(result.Key + " is required");
+            }            
         }
 
         /// <summary>
         /// Min request validate the fore closure case set
         /// 2:  Min request validate of Budget Item Collection
-        /// <return>bool</return>
+        /// <return>Collection Message Error</return>
         /// </summary>
-        bool RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
+        void RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, ref Collection<string> fcCaseSetMsg, string ruleSet)
         {
             if (budgetItemDTOCollection == null)            
-                return false;                        
-            foreach (BudgetItemDTO item in budgetItemDTOCollection)
+                return ;            
+            for (int i = 0; i < budgetItemDTOCollection.Count; i++)
             {
+                BudgetItemDTO item = budgetItemDTOCollection[i];
                 ValidationResults validationResults = HPFValidator.Validate<BudgetItemDTO>(item, ruleSet);
-                if (!validationResults.IsValid)                    
-                    return false;                    
-            }
-            return true;                        
+                if (!validationResults.IsValid)
+                {
+                    foreach (ValidationResult result in validationResults)
+                    {
+                        fcCaseSetMsg.Add(result.Key + " " + (i + 1) + " is required");
+                    }
+                }
+            }            
         }
 
         /// <summary>
         /// Min request validate the fore closure case set
         /// 3:  Min request validate of Outcome Item Collection
-        /// <return>bool</return>
+        /// <return>Collection Message Error</return>
         /// </summary>
-        bool RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
+        void RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection,ref Collection<string> fcCaseSetMsg, string ruleSet)
         {
             if (outcomeItemDTOCollection == null)
-                return false;            
-            foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
+                return;            
+            for (int i = 0; i < outcomeItemDTOCollection.Count; i++)
             {
+                OutcomeItemDTO item = outcomeItemDTOCollection[i];
                 ValidationResults validationResults = HPFValidator.Validate<OutcomeItemDTO>(item, ruleSet);
-                if (!validationResults.IsValid)                
-                    return false;                
-            }
-            return true;                        
+                if (!validationResults.IsValid)
+                {
+                    foreach (ValidationResult result in validationResults)
+                    {
+                        fcCaseSetMsg.Add(result.Key + " " + (i + 1) + " is required");
+                    }
+                }
+            }            
         }
 
         /// <summary>
         /// Min request validate the fore closure case set
         /// 4:  Min request validate of Case Loan Collection
-        /// <return>bool</return>
-        /// </summary>
-        bool RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection, string ruleSet)
+        /// <return>Collection Message Error</return>
+        /// </summary>       
+        void RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,ref Collection<string> fcCaseSetMsg, string ruleSet)
         {
             if (caseLoanDTOCollection == null)
-                return false;            
-            foreach (CaseLoanDTO item in caseLoanDTOCollection)
+                return;
+            Collection<string> caseLoanMessage = new Collection<string>();
+            for (int i = 0; i < caseLoanDTOCollection.Count; i++)
             {
-                ValidationResults validationResults = HPFValidator.Validate<CaseLoanDTO>(item, ruleSet);                    
+                CaseLoanDTO item = caseLoanDTOCollection[i];
+                ValidationResults validationResults = HPFValidator.Validate<CaseLoanDTO>(item, ruleSet);
                 if (!validationResults.IsValid)
-                    return false;
-            }
-            return true;            
+                {
+                    foreach (ValidationResult result in validationResults)
+                    {
+                        fcCaseSetMsg.Add(result.Key + " " + (i + 1) + " is required");
+                    }
+                }
+            }         
         }
-
         /// <summary>
         /// Min request validate the fore closure case set
         /// 5:  Min request validate of Activity Log Collection
-        /// <return>bool</return>
+        /// <return>Collection Message Error</return>
         /// </summary>
-        bool RequireFieldsActivityLogItem(ActivityLogDTOCollection activityLogDTOCollection, string ruleSet)
+        void RequireFieldsActivityLogItem(ActivityLogDTOCollection activityLogDTOCollection,ref Collection<string> fcCaseSetMsg, string ruleSet)
         {
             if (activityLogDTOCollection == null)
-                return true;            
-            foreach (ActivityLogDTO item in activityLogDTOCollection)
+                return;            
+            for (int i = 0; i < activityLogDTOCollection.Count; i++)
             {
+                ActivityLogDTO item = activityLogDTOCollection[i];
                 ValidationResults validationResults = HPFValidator.Validate<ActivityLogDTO>(item, ruleSet);
                 if (!validationResults.IsValid)
                 {
-                    return false;
+                    foreach (ValidationResult result in validationResults)
+                    {
+                        fcCaseSetMsg.Add(result.Key + " " + (i + 1) + " is required");
+                    }
                 }
-            }
-            return true;            
+            }            
         }
         #endregion
 
@@ -381,10 +397,10 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
             OutcomeItemDTOCollection outcome = foreclosureCaseSetInput.Outcome;
             BudgetItemDTOCollection budget = foreclosureCaseSetInput.BudgetItems;
-            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Complete");
-            bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
-            bool rfOutcome = RequireFieldsOutcomeItem(outcome, "Complete");
-            bool rfBudget = RequireFieldsBudgetItem(budget, "Complete");
+            bool rfForeclosureCase = CompleteFieldsForeclosureCase(foreclosureCase, "Complete");
+            bool rfCaseLoan = CompleteFieldsCaseLoanItem(caseLoan, "Complete");
+            bool rfOutcome = CompleteFieldsOutcomeItem(outcome, "Complete");
+            bool rfBudget = CompleteFieldsBudgetItem(budget, "Complete");
             if (!caseComplete || (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget && caseComplete))
                 return false;
             else
@@ -422,6 +438,67 @@ namespace HPF.FutureState.BusinessLogic
                 }
             }
             return (count > 1);                
+        }
+
+        /// <summary>
+        /// Complete validate the fore closure case        
+        /// <return>bool</return>
+        /// </summary>
+        bool CompleteFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
+            return (validationResults.IsValid);
+        }
+
+        /// <summary>
+        /// Complete validate the Budget Item
+        /// <return>bool</return>
+        /// </summary>
+        bool CompleteFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
+        {
+            if (budgetItemDTOCollection == null)
+                return false;
+            foreach (BudgetItemDTO item in budgetItemDTOCollection)
+            {
+                ValidationResults validationResults = HPFValidator.Validate<BudgetItemDTO>(item, ruleSet);
+                if (!validationResults.IsValid)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Complete validate the Out Come      
+        /// <return>bool</return>
+        /// </summary>
+        bool CompleteFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
+        {
+            if (outcomeItemDTOCollection == null)
+                return false;
+            foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
+            {
+                ValidationResults validationResults = HPFValidator.Validate<OutcomeItemDTO>(item, ruleSet);
+                if (!validationResults.IsValid)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Complete validate the Case Loan
+        /// <return>bool</return>
+        /// </summary>
+        bool CompleteFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection, string ruleSet)
+        {
+            if (caseLoanDTOCollection == null)
+                return false;
+            foreach (CaseLoanDTO item in caseLoanDTOCollection)
+            {
+                ValidationResults validationResults = HPFValidator.Validate<CaseLoanDTO>(item, ruleSet);
+                if (!validationResults.IsValid)
+                    return false;
+            }
+            return true;
         }
         #endregion
 
@@ -989,17 +1066,20 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>ForeclosureCaseSetDTO</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private Collection<string> CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             if (foreclosureCaseSet == null)
-                return false;            
+                return null;            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
-            bool forclosureValid = CheckValidCodeForForclosureCase(foreclosureCase);
-            bool caseLoanValid = CheckValidCodeForCaseLoan(caseLoanCollection);
-            bool combinationValid = CheckValidCombinationStateCdAndZip(foreclosureCase);
-            bool zipCodeValid = CheckValidZipCode(foreclosureCase);
-            return (forclosureValid && caseLoanValid && combinationValid && zipCodeValid);
+            Collection<string> msgFcCaseSet = new Collection<string>();
+            CheckValidCodeForForclosureCase(foreclosureCase, ref msgFcCaseSet);
+            CheckValidCodeForCaseLoan(caseLoanCollection, ref msgFcCaseSet);
+            CheckValidCombinationStateCdAndZip(foreclosureCase, ref msgFcCaseSet);
+            CheckValidZipCode(foreclosureCase, ref msgFcCaseSet);
+            if(msgFcCaseSet.Count == 0)
+                return null;
+            return msgFcCaseSet;
         }
 
         /// <summary>
@@ -1007,35 +1087,57 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>Foreclosurecase</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckValidCodeForForclosureCase(ForeclosureCaseDTO forclosureCase)
+        private void CheckValidCodeForForclosureCase(ForeclosureCaseDTO forclosureCase, ref Collection<string> msgFcCaseSet)
         {
             ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
-            if (forclosureCase == null)
-                return false;
-            return (referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd)
-                && referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd)
-                && referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd)
-                && referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd)
-                && referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd)
-                && referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd)
-                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd)
-                && referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd)
-                && referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd)
-                && referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd)
-                && referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd)
-                && referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd)
-                && referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd)
-                && referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd)
-                && referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd)
-                && referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd)
-                && referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd)
-                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd)
-                && referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd)
-                && referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd)
-                && referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd)
-                && referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd)
-                //&& referenceCode.Validate(ReferenceCode.In, forclosureCase.IntakeCreditBureauCd)
-                );            
+            if(forclosureCase == null)
+                return;
+            if(!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
+                msgFcCaseSet.Add("IncomeEarnersCd is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
+                msgFcCaseSet.Add("CaseResourceCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
+                msgFcCaseSet.Add("RaceCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
+                msgFcCaseSet.Add("HouseholdCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
+                msgFcCaseSet.Add("NeverBillReasonCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
+                msgFcCaseSet.Add("NeverPayReasonCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
+                msgFcCaseSet.Add("DfltReason1stCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
+                msgFcCaseSet.Add("DfltReason2ndCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
+                msgFcCaseSet.Add("HUDTerminationReasonCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
+                msgFcCaseSet.Add("HUDOutcomeCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
+                msgFcCaseSet.Add("CounselingDurarionCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
+                msgFcCaseSet.Add("GenderCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
+                msgFcCaseSet.Add("ContactStateCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
+                msgFcCaseSet.Add("PropStateCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
+                msgFcCaseSet.Add("BorrowerEducLevelCompletedCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
+                msgFcCaseSet.Add("BorrowerMaritalStatusCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
+                msgFcCaseSet.Add("BorrowerPreferredLangCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
+                msgFcCaseSet.Add("BorrowerOccupationCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
+                msgFcCaseSet.Add("CoBorrowerOccupationCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
+                msgFcCaseSet.Add("SummarySentOtherCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
+                msgFcCaseSet.Add("PropertyCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
+                msgFcCaseSet.Add("MilitaryServiceCode is bad code data");
+            if(!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
+                msgFcCaseSet.Add("IntakeCreditBureauCode is bad code data");
         }
 
         /// <summary>
@@ -1043,23 +1145,21 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>CaseLoanDTOCollection</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckValidCodeForCaseLoan(CaseLoanDTOCollection caseLoanCollection)
+        private void CheckValidCodeForCaseLoan(CaseLoanDTOCollection caseLoanCollection, ref Collection<string> msgFcCaseSet)
         {
             ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
             if (caseLoanCollection == null)
-                return false;
-            foreach (CaseLoanDTO caseLoan in caseLoanCollection)
+                return;
+            for (int i = 0; i < caseLoanCollection.Count; i++)
             {
-                if (
-                    !referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd)
-                    || !referenceCode.Validate(ReferenceCode.TermLengthCode, caseLoan.TermLengthCd)
-                    || !referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd)
-                    )
-                {
-                    return false;
-                }
-            }
-            return true;
+                CaseLoanDTO caseLoan = caseLoanCollection[i];
+                if (!referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd))
+                    msgFcCaseSet.Add("MortgageTypeCode " + i + " is bad code data");
+                if (!referenceCode.Validate(ReferenceCode.TermLengthCode, caseLoan.TermLengthCd))
+                    msgFcCaseSet.Add("TermLengthCode " + i + " is bad code data");
+                if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd))
+                    msgFcCaseSet.Add("LoanDelinqStatusCode " + i + "  is bad code data");
+            }                
         }
 
         /// <summary>
@@ -1067,13 +1167,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>ForeclosureCaseDTO</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckValidCombinationStateCdAndZip(ForeclosureCaseDTO forclosureCase)
+        private void CheckValidCombinationStateCdAndZip(ForeclosureCaseDTO forclosureCase, ref Collection<string> msgFcCaseSet)
         {
             GeoCodeRefDTOCollection geoCodeRefCollection = GeoCodeRefDAO.Instance.GetGeoCodeRef();
             bool contactValid = false;
             bool propertyValid = false;
             if (geoCodeRefCollection == null)
-                return true;            
+                return;            
             foreach (GeoCodeRefDTO item in geoCodeRefCollection)
             {
                 contactValid = CombinationContactValid(forclosureCase, item);
@@ -1086,7 +1186,10 @@ namespace HPF.FutureState.BusinessLogic
                 if (propertyValid == true)
                     break;
             }            
-            return (contactValid && propertyValid);                
+            if(contactValid == false)
+                msgFcCaseSet.Add("Combination StateCode and Zipcode is invalid");
+            if(propertyValid == false)
+                msgFcCaseSet.Add("Combination StateCode and Zipcode is invalid");
         }
 
         /// <summary>
@@ -1114,9 +1217,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>ForeclosureCaseDTO</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
+        private void CheckValidZipCode(ForeclosureCaseDTO forclosureCase,ref Collection<string> msgFcCaseSet)
         {
-            return (forclosureCase.ContactZip.Length == 5 && forclosureCase.PropZip.Length == 5);  
+            if (forclosureCase.ContactZip.Length != 5)
+                msgFcCaseSet.Add("ContactZip is invalid");
+            if (forclosureCase.PropZip.Length != 5)
+                msgFcCaseSet.Add("PropZip is invalid");            
         }
         #endregion
 
@@ -1130,8 +1236,8 @@ namespace HPF.FutureState.BusinessLogic
                 return null;                        
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int fcId = foreclosureCase.FcId;
-            bool isComplete = CheckComplete(foreclosureCaseSet);            
-            foreclosureCase.AmiPercentage = int.MinValue;
+            bool isComplete = CheckComplete(foreclosureCaseSet);
+            foreclosureCase.AmiPercentage = CalculateAmiPercentage();
             foreclosureCase.SummarySentDt = DateTime.Now;
             foreclosureCase.CaseCompleteInd = CASE_COMPLETE_IND_NO;
             if (isComplete == true)
@@ -1143,9 +1249,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
-        /// Check Misc Error Exception
-        /// Case 1: Cannot Un-complete a Previously Completed Case  
-        /// return TRUE if have Error
+        /// Check Data Input is Complete
         /// </summary>        
         private bool CheckComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {            
@@ -1153,10 +1257,10 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
             OutcomeItemDTOCollection outcome = foreclosureCaseSetInput.Outcome;
             BudgetItemDTOCollection budget = foreclosureCaseSetInput.BudgetItems;
-            bool rfForeclosureCase = RequireFieldsForeclosureCase(foreclosureCase, "Complete");
-            bool rfCaseLoan = RequireFieldsCaseLoanItem(caseLoan, "Complete");
-            bool rfOutcome = RequireFieldsOutcomeItem(outcome, "Complete");
-            bool rfBudget = RequireFieldsBudgetItem(budget, "Complete");
+            bool rfForeclosureCase = CompleteFieldsForeclosureCase(foreclosureCase, "Complete");
+            bool rfCaseLoan = CompleteFieldsCaseLoanItem(caseLoan, "Complete");
+            bool rfOutcome = CompleteFieldsOutcomeItem(outcome, "Complete");
+            bool rfBudget = CompleteFieldsBudgetItem(budget, "Complete");
             return (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget);                
         }
 
@@ -1192,6 +1296,14 @@ namespace HPF.FutureState.BusinessLogic
                     return foreclosureCase.CaseCompleteInd;
             }
             return CASE_COMPLETE_IND_YES;
+        }
+
+        /// <summary>
+        /// Set value for AmiPercentage
+        /// </summary>
+        private int CalculateAmiPercentage()
+        {
+            return 0;
         }
 
         /// <summary>

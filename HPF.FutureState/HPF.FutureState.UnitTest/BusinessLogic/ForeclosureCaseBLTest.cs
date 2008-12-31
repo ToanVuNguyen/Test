@@ -7,6 +7,9 @@ using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using System.Collections;
 using HPF.FutureState.Common.Utils.Exceptions;
 using System;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using System.Collections.ObjectModel;
+
 namespace HPF.FutureState.UnitTest.BusinessLogic
 {
     
@@ -761,30 +764,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsValidationTestSuccess()
+        public void RequireFieldsValidationTest()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value            
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            Collection<string> expected = null; // TODO: Initialize to an appropriate value
+            Collection<string> actual;
             actual = target.RequireFieldsValidation(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
         }
-
-        /// <summary>
-        ///A test for RequireFieldsValidation
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsValidationTestFail()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value            
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.RequireFieldsValidation(foreclosureCaseSet);
-            Assert.AreEqual(expected, actual);
-        }   
 
         /// <summary>
         ///A test for CheckValidCode
@@ -794,11 +782,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckValidCodeTestSuccess()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = SetForeclosureCase("TRUE");
-            foreclosureCaseSet.CaseLoans = SetCaseLoanCollection("TRUE");
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
+            Collection<string> expected = null; // TODO: Initialize to an appropriate value
+            Collection<string> actual;
             actual = target.CheckValidCode(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
         }
@@ -1062,7 +1048,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             }
             else
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
                     caseLoanDTO.ServicerId = Convert.ToInt32("1");
@@ -1134,9 +1120,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    ActivityLogDTO activityLog = new ActivityLogDTO();
-                    activityLog.ActivityCd = "Test";
-                    activityLog.ActivityDt = DateTime.Now;
+                    ActivityLogDTO activityLog = new ActivityLogDTO();                   
                     activityLog.CreateDate = DateTime.Now;
                     activityLog.CreateUserId = "HPF";
                     activityLog.CreateAppName = "HPF";

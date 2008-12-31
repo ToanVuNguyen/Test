@@ -30,8 +30,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string AgencyClientNum { get; set; }
 
-        [DateTimeRangeValidator("0001-01-01T00:00:00", "9999-12-31T00:00:00", Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
-        [DateTimeRangeValidator("0001-01-01T00:00:00", "9999-12-31T00:00:00", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
+        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Ruleset = "Complete", MessageTemplate = "Required!")]
         public DateTime IntakeDt { get; set; }
 
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
