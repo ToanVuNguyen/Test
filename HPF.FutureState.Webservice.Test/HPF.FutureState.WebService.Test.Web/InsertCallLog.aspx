@@ -26,8 +26,8 @@
         
         <asp:TableRow ID="TableRow3" runat="server">
             <asp:TableCell ID="TableCell5" runat="server">
-         <asp:Label ID="Label3" runat="server" Text="Start Date"></asp:Label>
-         </asp:TableCell>
+                <asp:Label ID="Label3" runat="server" Text="Start Date"></asp:Label>
+             </asp:TableCell>
             <asp:TableCell ID="TableCell6" runat="server">
             <asp:Calendar ID="txtStartDate" runat="server" Font-Size="Small"></asp:Calendar>
             </asp:TableCell>
@@ -114,10 +114,6 @@
             </asp:TableCell>
         </asp:TableRow>
         
-        <asp:TableRow ID="TableRow13" runat="server">
-           
-        </asp:TableRow>
-        
         <asp:TableRow ID="TableRow14" runat="server">
             <asp:TableCell ID="TableCell27" runat="server">
             <asp:Label ID="Label14" runat="server" Text="Other Servicer Name"></asp:Label>
@@ -133,10 +129,7 @@
                 <asp:TextBox ID="txtPropZipFull9" runat="server" Width="128px"></asp:TextBox>            
             </asp:TableCell> 
         </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow15" runat="server">
-                                  
-        </asp:TableRow>
+
         
         <asp:TableRow ID="TableRow16" runat="server">
             <asp:TableCell ID="TableCell31" runat="server">
@@ -165,16 +158,12 @@
             </asp:TableCell>  
             
             <asp:TableCell ID="TableCell37" runat="server">
-            <asp:Label ID="Label19" runat="server" Text="Final Dispo Cd"></asp:Label>
+            
             </asp:TableCell>
             <asp:TableCell ID="TableCell38" runat="server">
-                <asp:TextBox ID="FinalDispoCd" runat="server" Width="128px"></asp:TextBox>
+                
             
             </asp:TableCell>         
-            
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow19" runat="server">
             
         </asp:TableRow>
         
@@ -196,10 +185,6 @@
             </asp:TableCell>
         </asp:TableRow>
         
-        <asp:TableRow ID="TableRow21" runat="server">
-            
-        </asp:TableRow>
-        
         <asp:TableRow ID="TableRow22" runat="server">
             <asp:TableCell ID="TableCell43" runat="server">
             <asp:Label ID="Label22" runat="server" Text="Loan Delinq Status Cd"></asp:Label>
@@ -216,10 +201,6 @@
                 <asp:TextBox ID="txtSelectedCounselor" runat="server" Width="128px"></asp:TextBox>
             
             </asp:TableCell>
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow23" runat="server">
-            
         </asp:TableRow>
         
         <asp:TableRow ID="TableRow24" runat="server">
@@ -256,23 +237,22 @@
     </asp:Table>
     <br />
     <br />
-        <asp:Button ID="btnSearch" runat="server" Text="Save call log" onclick="btnSearch_Click" />  <asp:Label ID="lblResult" runat="server" Text="New Call Log ID: "></asp:Label>
+        <asp:Button ID="btnSave" runat="server" Text="Save call log" onclick="btnSave_Click" />  <asp:Label ID="lblResult" runat="server" Text="New Call Log ID: "></asp:Label>
     <br />
     
     
-    <asp:Button ID="btnGenerateTestData" runat="server" Text="Generate test data" 
-        onclick="btnGenerateTestData_Click" />
-    <asp:Button ID="btnDeleteTestData" runat="server" Text="Delete test data" 
-            onclick="btnDeleteTestData_Click" /> 
-        <asp:Button ID="btnCheck" runat="server" onclick="btnCheck_Click" 
-            Text="Finalize Testing" />
-        <br />
-    <asp:ListBox ID="lstMessage" runat="server" Height="245px" Width="500px"></asp:ListBox>
+    
+    <asp:ListBox ID="lstMessage" runat="server" Height="245px" Width="500px" Visible ="false"></asp:ListBox>
+    
+    <asp:GridView ID="grdvResult" runat="server" Visible ="true" >
+    </asp:GridView>
+    
     </ContentTemplate>
+    
+    
     </asp:UpdatePanel>
     
-<asp:GridView ID="grdvResult" runat="server" >
-</asp:GridView>
+
 <br />
 <br />
 </asp:Content>
