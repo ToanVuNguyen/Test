@@ -24,8 +24,8 @@ namespace HPF.FutureState.Web
     {       
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
-                UserControlLoader1.LoadUC("AppForeclosureCaseSearch//AppForeClosureCaseSearch.ascx", "abc");            
+            //if(!IsPostBack)
+            //    UserControlLoader1.LoadUC("AppForeclosureCaseSearch//AppForeClosureCaseSearch.ascx", "abc");            
         }
 
         
