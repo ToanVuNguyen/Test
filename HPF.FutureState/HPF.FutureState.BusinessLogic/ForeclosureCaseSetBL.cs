@@ -172,73 +172,7 @@ namespace HPF.FutureState.BusinessLogic
 
 
         }
-        #region Fuctions check validate to app foreclosure case
-        ///<summary>
-        ///1.AgencyCaseID request alpha numberic 
-        ///2.ForclosureCaseID request numberic
-        ///3.LoanNumber request alpha numberic
-        ///4.PropertyZip request 5 digit
-        ///5.Last4SSN request 4 digit
-        /// </summary>
-        Collection<string> AppRequireFieldValidation(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
-        {
-            string agencyCaseID = searchCriteria.AgencyCaseID;
-            int foreclosureCase=searchCriteria.ForeclosureCaseID;
-            string loanNumber=searchCriteria.LoanNumber;
-            string propertyZip = searchCriteria.PropertyZip;
-            string last4SSN=searchCriteria.Last4SSN;
-            Collection<string> msgAppForeclosureCaseSearch = new Collection<string>();
-            RequireAppAgencyCaseID(agencyCaseID,ref msgAppForeclosureCaseSearch,"CriteriaValidation");
-            RequireForeclosureCase(foreclosureCase, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
-            RequireLoanNumber(loanNumber, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
-            RequirePropertyZip(propertyZip, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
-            RequireLast4SSN(last4SSN, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
-            if (msgAppForeclosureCaseSearch.Count == 0)
-                return null;
-            return msgAppForeclosureCaseSearch;
-        }
-        void RequireAppAgencyCaseID(string searchCriteria, ref Collection<string> msg,string ruleset)
-        {
-            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
-            foreach (ValidationResult result in validationResults)
-            {
-                msg.Add(result.Message);
-            }   
-        }
-        void RequireForeclosureCase(int searchCriteria, ref Collection<string> msg, string ruleset)
-        {
-            ValidationResults validationResults = HPFValidator.Validate<int>(searchCriteria, ruleset);
-            foreach (ValidationResult result in validationResults)
-            {
-                msg.Add(result.Message);
-            }   
-        }
-        void RequireLoanNumber(string searchCriteria, ref Collection<string> msg, string ruleset)
-        {
-            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
-            foreach (ValidationResult result in validationResults)
-            {
-                msg.Add(result.Message);
-            }   
-        }
-        void RequirePropertyZip(string searchCriteria, ref Collection<string> msg, string ruleset)
-        {
-            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
-            foreach (ValidationResult result in validationResults)
-            {
-                msg.Add(result.Message);
-            }   
-        }
-        void RequireLast4SSN(string searchCriteria, ref Collection<string> msg, string ruleset)
-        {
-            ValidationResults validationResults = HPFValidator.Validate<string>(searchCriteria, ruleset);
-            foreach (ValidationResult result in validationResults)
-            {
-                msg.Add(result.Message);
-            }   
-        }
-
-        #endregion
+        
 
         #region Functions check min request validate
         /// <summary>
@@ -1583,24 +1517,58 @@ namespace HPF.FutureState.BusinessLogic
         public AppForeclosureCaseSearchResultDTOCollection AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             AppForeclosureCaseSearchResultDTOCollection result = new AppForeclosureCaseSearchResultDTOCollection();
-            if (ValidateSearchCriteria(searchCriteria))
-                result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
-            else
+            Collection<string> ErrorMess = AppRequireFieldValidation(searchCriteria);
+            if (!ValidateSearchCriteria(searchCriteria))
             {
                 throw new DataValidationException("Please choose search criteria.");
             }
-            Collection<string> ErrorMess = AppRequireFieldValidation(searchCriteria);
-
             if (ErrorMess != null)
             {
-                ThrowMissingRequiredFieldsException(ErrorMess);
+               
+                AppThrowMissingRequiredFieldsException(ErrorMess);
             }
-            else {
-                result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
-            }
-            
+            result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             return result;
         }
+        private void AppThrowMissingRequiredFieldsException(Collection<string> collection)
+        {
+            ProcessingException pe = new ProcessingException();
+            foreach (string obj in collection)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.Message = obj;
+                pe.ExceptionMessages.Add(em);
+            }
+            throw pe;
+        }
+
+        #region Functions check validate to app foreclosure case
+        ///<summary>
+        ///1.AgencyCaseID request alpha numberic 
+        ///2.ForclosureCaseID request numberic
+        ///3.LoanNumber request alpha numberic
+        ///4.PropertyZip request 5 digit
+        ///5.Last4SSN request 4 digit
+        /// </summary>
+        Collection<string> AppRequireFieldValidation(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+           
+            Collection<string> msgAppForeclosureCaseSearch = new Collection<string>();
+            RequireAppForeclosureCase(searchCriteria, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
+            if (msgAppForeclosureCaseSearch.Count == 0)
+                return null;
+            return msgAppForeclosureCaseSearch;
+        }
+        void RequireAppForeclosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria, ref Collection<string> msg, string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }
+        }
+
+        #endregion
         /// <summary>
         /// Get Program Name and Program ID to display in DDLB
         /// </summary>
