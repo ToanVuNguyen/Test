@@ -108,7 +108,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="userName">Username</param>
         /// <returns>UserDTO</returns>
         public UserDTO GetWebUser(string userName)
-        {
+        {            
             return new UserDTO {UserRole = "Admin", FirstName = "First", LastName = "Last"};
         }
 
