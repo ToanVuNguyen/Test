@@ -22,6 +22,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         /// <summary>
         /// Tab controls 
         /// </summary>
+        
         public Collection<Tab> Tabs
         {
             get
@@ -30,7 +31,11 @@ namespace HPF.FutureState.Web.HPFWebControls
                 return tabs;
             }
         }
-        
+        public string SelectedTab
+        {
+            get { return (string)ViewState["Selected"]; }
+            set { ViewState["Selected"]= value; }
+        }
         /// <summary>
         /// Occurs when User click a tab 
         /// </summary>
