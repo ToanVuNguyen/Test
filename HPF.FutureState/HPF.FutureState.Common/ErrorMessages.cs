@@ -17,7 +17,6 @@ namespace HPF.FutureState.Common
         public const string PROCESSING_EXCEPTION_INVALID_FC_ID = "Invalid Foreclosure Case ID";
         public const string PROCESSING_EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID = "Case with pair of Agency Case Number and Agency ID is not in Database";
         public const string PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD = "Missing required fields";
-        public const string PROCESSING_EXCEPTION_INVALID_CODE = "Invalid code";
         public const string MISC_PROCESSING_EXCEPTION = "Miscellaneous processing exception";
 
         private static readonly Dictionary<int, string> errorMessageDict = new Dictionary<int, string>();
