@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.Configuration;
 
 using System.Linq;
-
+using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
-
+using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.WebServices
 {
     /// <summary>
@@ -75,18 +75,17 @@ namespace HPF.FutureState.WebServices
             //            
             try
             {
-                if (IsAuthenticated())//Authentication checking
+                if (true)//IsAuthenticated()//Authentication checking
                 {
                     CallLogDTO callLogDTO = null;
-                    var callLogId = ValidateCallLogID(request);
-                    if (callLogId != int.MinValue)
+                    bool validCallLodId = ValidateCallLogID(request);
+                    if (validCallLodId)
                     {
-                        callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
-                    }
-                    else
-                    {
-                        response.Messages.AddExceptionMessage(0, "No data found");
-                        response.Status = ResponseStatus.Warning;
+                        int callLogId = GetCallLogID(request);
+                        if (callLogId != 0)
+                        {
+                            callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
+                        }                       
                     }
                     //
                     if (callLogDTO != null)
@@ -96,9 +95,9 @@ namespace HPF.FutureState.WebServices
                         response.Status = ResponseStatus.Success;
                     }
                     else
-                    {
-                        response.Messages.AddExceptionMessage(0, "No data found");
+                    {                        
                         response.Status = ResponseStatus.Warning;
+                        response.Messages.AddExceptionMessage(0, "No data found");
                     }
                 }
             }
@@ -128,12 +127,25 @@ namespace HPF.FutureState.WebServices
             return response;
         }
 
-        private static int ValidateCallLogID(CallLogRetrieveRequest request)
+        private bool ValidateCallLogID(CallLogRetrieveRequest request)
         {
-            var callLogId = int.MinValue;
+            ValidationResults validationResults = HPFValidator.Validate<CallLogRetrieveRequest>(request);
+            if (!validationResults.IsValid)
+            {
+                DataValidationException dataValidationException = new DataValidationException();                
+                dataValidationException.ExceptionMessages.AddExceptionMessage(0, "CallLogId is invalid");                
+                throw dataValidationException;
+            }
+            return true;
+        }
+
+        private int GetCallLogID(CallLogRetrieveRequest request)
+        {
+            int callLogId = 0;
             if (request.callLogId != string.Empty)
             {
-                callLogId = Convert.ToInt32(request.callLogId);
+                string sCallLogId = request.callLogId.Replace("HPF_","");
+                callLogId = Convert.ToInt32(sCallLogId);
             }
             return callLogId;
         }
