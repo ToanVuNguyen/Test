@@ -11,10 +11,7 @@
     </div>
     <hpf:TabControl ID="TabControl1" runat="server" />
     <br />    
-    <asp:Label ID="txt_Tab" runat="server" Text="Label"></asp:Label>
     <br />
-    <asp:Button ID="Button1" runat="server" Text="Button" 
-        onclick="Button1_Click1" />
 
 
     </div>    
