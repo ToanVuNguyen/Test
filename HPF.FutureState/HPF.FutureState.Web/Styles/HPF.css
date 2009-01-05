@@ -42,13 +42,12 @@ p
     color: #2271A0;
     font-size: 10px;
     font-weight: bold;
-    
 }
 .MyButton
 {
-	background-color:White;
-	border-color:White;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+    background-color: White;
+    border-color: White;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     color: #2271A0;
     font-size: 10px;
     font-weight: bold;
@@ -221,19 +220,37 @@ h2
     font-weight: bold;
     color: #8FC4F6;
 }
+.NoUnderLine
+{
+    text-decoration: none;
+}
 .UnderLine
 {
-    text-decoration:underline;
+    text-decoration: underline;
 }
-.UnderLine:visited
+.UnderLine:active
 {
-    color: red;
+    color: orange;
+    font-weight: bold;
 }
-
+.PageChoose
+{
+    color:orange;
+    font-weight: bold;
+    text-decoration:none;
+    
+}
 .SiteBar
 {
-	background-color:#60A5DE;
+    background-color: #60A5DE;
 }
 
-.PageChoose{  font-weight:bold; font-size:xx-large;}
-.ErrorMessage{color:Red;}
+
+.ErrorMessage
+{
+    color: Red;
+}
+
+.SelectedRowStyle{background-color: yellow;}
+.AlternatingRowStyle{background-color: white;}
+.RowStyle{background-color:#EFF3FB;}
