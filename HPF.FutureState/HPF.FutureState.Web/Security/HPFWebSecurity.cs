@@ -41,10 +41,10 @@ namespace HPF.FutureState.Web.Security
                 IsAuthenticated = identity.IsAuthenticated,
                 AuthenticationType = identity.AuthenticationType
             };
-            var user = SecurityBL.Instance.GetWebUser(uId.UserID);
-            uId.Roles = user.UserRole;
-            uId.DisplayName = user.FirstName + "," + user.LastName;
-            uId.Email = user.Email;
+            ////var user = SecurityBL.Instance.GetWebUser(uId.UserID);
+            //uId.Roles = user.UserRole;
+            //uId.DisplayName = user.FirstName + "," + user.LastName;
+            //uId.Email = user.Email;
             //
             return new UserPrincipal(uId);
         }

@@ -34,7 +34,36 @@ namespace HPF.FutureState.Web
 
         void tabControl_TabClick(object sender, HPF.FutureState.Web.HPFWebControls.TabControlEventArgs e)
         {
-            lbl_selected.Text = e.SelectedTabID;
+            string UCLOCATION = "ForeclosureCaseDetail\\";
+            switch (e.SelectedTabID)
+            { 
+                case "caseDetail":
+                    UserControlLoader.LoadUserControl(UCLOCATION+"CaseDetail.ascx", "ucCaseDetail");
+                    break;
+                case "caseLoan":
+                    UserControlLoader.LoadUserControl(UCLOCATION+"CaseLoan.ascx", "ucCaseLoan");
+                    break;
+                case "budget":
+                    UserControlLoader.LoadUserControl(UCLOCATION + "Budget.ascx", "ucBudget");
+                    break;
+                case "outcome":
+                    UserControlLoader.LoadUserControl(UCLOCATION + "Outcome.ascx", "ucOutcome");
+                    break;
+                case "accounting":
+                    UserControlLoader.LoadUserControl(UCLOCATION + "Accounting.ascx", "ucAccounting");
+                    break;
+                case "activityLog":
+                    UserControlLoader.LoadUserControl(UCLOCATION + "ActivityLog.ascx", "ucActivityLog");
+                    break;
+                case "caseFollowUp":
+                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseFollowUp.ascx", "ucCaseFollowUp");
+                    break;
+                case "audit":
+                    UserControlLoader.LoadUserControl(UCLOCATION + "Audit.ascx", "ucAudit");
+                    break;
+
+            }
+            
         }
     }
 }

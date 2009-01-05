@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AppForeclosureCaseDetailPage.aspx.cs" Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="Untitled Page" %>
-<%@ Register assembly="HPF.FutureState.Web.HPFWebControls" namespace="HPF.FutureState.Web.HPFWebControls" tagprefix="cc1" %>
+<%@ Register assembly="HPF.FutureState.Web.HPFWebControls" namespace="HPF.FutureState.Web.HPFWebControls" tagprefix="HPF" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <table style="width:100%;" >
         <tr>
@@ -62,13 +62,14 @@
         </tr>
         <tr>
             <td colspan="6">
-                <cc1:TabControl ID="tabControl" runat="server">
-                </cc1:TabControl>
+                <HPF:TabControl ID="tabControl" runat="server">
+                </HPF:TabControl>
             </td>
         </tr>
         <tr>
             <td colspan="6">
-                <asp:Label ID="lbl_selected" runat="server" Text="Label"></asp:Label>
+                <HPF:UserControlLoader ID="UserControlLoader" runat="server">
+                </HPF:UserControlLoader>
             </td>
         </tr>
     </table>

@@ -107,6 +107,62 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ForeclosureCaseDetail\Accounting.ascx.cs">
+      <DependentUpon>Accounting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Accounting.ascx.designer.cs">
+      <DependentUpon>Accounting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\ActivityLog.ascx.cs">
+      <DependentUpon>ActivityLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\ActivityLog.ascx.designer.cs">
+      <DependentUpon>ActivityLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Audit.ascx.cs">
+      <DependentUpon>Audit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Audit.ascx.designer.cs">
+      <DependentUpon>Audit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Budget.ascx.cs">
+      <DependentUpon>Budget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Budget.ascx.designer.cs">
+      <DependentUpon>Budget.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\CaseDetail.ascx.cs">
+      <DependentUpon>CaseDetail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\CaseDetail.ascx.designer.cs">
+      <DependentUpon>CaseDetail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\CaseFollowUp.ascx.cs">
+      <DependentUpon>CaseFollowUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\CaseFollowUp.ascx.designer.cs">
+      <DependentUpon>CaseFollowUp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\CaseLoan.ascx.cs">
+      <DependentUpon>CaseLoan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\CaseLoan.ascx.designer.cs">
+      <DependentUpon>CaseLoan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Outcome.ascx.cs">
+      <DependentUpon>Outcome.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\Outcome.ascx.designer.cs">
+      <DependentUpon>Outcome.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -134,6 +190,14 @@
     <Content Include="ChangePassword.aspx" />
     <Content Include="Common\FixedHeaderGrid.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="ForeclosureCaseDetail\Accounting.ascx" />
+    <Content Include="ForeclosureCaseDetail\ActivityLog.ascx" />
+    <Content Include="ForeclosureCaseDetail\Audit.ascx" />
+    <Content Include="ForeclosureCaseDetail\Budget.ascx" />
+    <Content Include="ForeclosureCaseDetail\CaseDetail.ascx" />
+    <Content Include="ForeclosureCaseDetail\CaseFollowUp.ascx" />
+    <Content Include="ForeclosureCaseDetail\CaseLoan.ascx" />
+    <Content Include="ForeclosureCaseDetail\Outcome.ascx" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\HPF.js" />
     <Content Include="Site.Master" />
