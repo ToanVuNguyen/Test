@@ -120,6 +120,7 @@ h2
     font-size: 13px;
     font-weight: bold;
     height: 29;
+     z-index:100;
 }
 
 #sddm td a
@@ -132,6 +133,7 @@ h2
     text-align: center;
     text-decoration: none;
     width: auto;
+    
 }
 
 
@@ -145,6 +147,8 @@ h2
     text-align: center;
     text-decoration: none;
     width: auto;
+   
+  
 }
 .TopMenuMouseOver
 {
@@ -205,6 +209,11 @@ h2
 {
     position: relative;
     top: expression(offsetParent.scrollTop);
+    font-family:Tahoma;
+    font-size:12px;
+    z-index:80;
+   
+   
 }
 .ScrollTable
 {
@@ -213,6 +222,8 @@ h2
     height: 300px;
     overflow: auto;
     margin: 0;
+    z-index:70;
+   
 }
 .GridViewStyle
 {
@@ -258,4 +269,4 @@ h2
 
 .SelectedRowStyle{background-color: yellow;}
 .AlternatingRowStyle{background-color: white;}
-.RowStyle{background-color:#EFF3FB;}
+.RowStyle{background-color:#EFF3FB; font-family:Tahoma; font-size:12px;}
