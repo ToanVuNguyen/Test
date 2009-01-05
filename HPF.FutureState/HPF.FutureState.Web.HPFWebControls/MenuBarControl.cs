@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -51,10 +57,33 @@ namespace HPF.FutureState.Web.HPFWebControls
         {
             var menuBar = GetMenuBar();
             //Render Menu
+            writer.Write("<table id='sddm'>");
+            writer.Write("<tr>");
             foreach (var menu in menuBar)
             {
-                
+                writer.Write("<td>");
+                //dont have child
+                if (menu.Count == 0)
+                    writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"MenuMouseOver(this)\" onmouseout=\"MenuMouseLeave(this)\">{2}</a>", menu.Url, menu.Id, menu.Title);
+                else
+                {
+                    writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"mopen('{2}','{3}')\" onmouseout=\"mclosetime()\">{4}</a>", menu.Url, menu.Id,"m"+menu.Id,menu.Id,menu.Title);
+                    writer.Write("<table id=\"{0}\">", "m" + menu.Id);
+                    foreach (var submenu in menu)
+                    {
+                        writer.Write("<tr>");
+                            writer.Write("<td onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\" >");
+                                writer.Write("<a href=\"{0}\">{1}</a>",submenu.Url,submenu.Title);
+                            writer.Write("</td>");
+                        writer.Write("</tr>");
+                    }
+                    writer.Write("</table>");
+                }
+                writer.Write("</td>");
+
             }
+            writer.Write("</tr>");
+            writer.Write("</table>");
         }
 
         private MenuBar GetMenuBar()
@@ -72,6 +101,19 @@ namespace HPF.FutureState.Web.HPFWebControls
                 menuBar.EnabledMenu(enabledMenuId);
             }
             return menuBar;
+        }
+        protected override void OnLoad(System.EventArgs e)
+        {
+            //Add CSS to client page
+            string includeTemplate = "<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
+            string includeLocation = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HPF.FutureState.Web.HPFWebControls.MenuBarControl.css");
+            LiteralControl include = new LiteralControl(String.Format(includeTemplate, includeLocation));
+            Page.Header.Controls.Add(include);
+            
+            //Add JavaScript to client page
+            string resourceName = "HPF.FutureState.Web.HPFWebControls.MenuBarControl.js";
+            ClientScriptManager cs = this.Page.ClientScript;
+            cs.RegisterClientScriptResource(this.GetType(), resourceName);
         }
     }
 }

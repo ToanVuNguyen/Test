@@ -39,7 +39,10 @@ namespace HPF.FutureState.Web.HPFWebControls
         {
             _ChildMenus.Remove(id);
         }
-
+        public int Count
+        {
+            get { return _ChildMenus.Count; }
+        }
         /// <summary>
         /// Find a child menu by menuId
         /// </summary>

@@ -1,0 +1,84 @@
+﻿#sddm
+{
+    margin: 0;
+    padding: 0;
+    z-index: 30;
+}
+
+#sddm td
+{
+    margin: 0;
+    padding: 0;
+    font-family: Tahoma;
+    font-size: 13px;
+    font-weight: bold;
+    height: 29;
+}
+
+#sddm td a
+{
+    display: block;
+    margin: 0 1 0 0;
+    padding: 6 6;
+    background: transparent;
+    color: #FFF;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+}
+
+
+.TopMenu
+{
+    display: block;
+    margin: 0 1 0 0;
+    padding: 6 6;
+    background: transparent;
+    color: #FFF;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+}
+.TopMenuMouseOver
+{
+    background: #49A3FF;
+}
+
+
+
+#sddm table
+{
+    position: absolute;
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    background: #8FC4F6;
+    border: 1px solid #000;
+    width: auto;
+}
+#sddm table tr td
+{
+    height: 20px;
+    width: 100%;
+}
+#sddm table tr td a
+{
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 5 10;
+    width: auto;
+    white-space: nowrap;
+    text-align: left;
+    text-decoration: none;
+    background: #8FC4F6;
+    color: #fff;
+    font: 11 Tahoma;
+    height: 11;
+}
+
+#sddm table tr td a:hover
+{
+    background: #49A3FF;
+    color: #fff;
+}
