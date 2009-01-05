@@ -90,7 +90,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
             try
             {
-                string textchange="";
+                string textchange = "";
                 appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
                 if (txtFirstName.Text != string.Empty)
                 {
@@ -108,11 +108,26 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
                 appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
                 appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
+
+                panForeClosureCaseSearch.Visible = true;
+                lbl1.Visible = false;
+                lbl2.Visible = false;
+                lblMaxRow.Visible = false;
+                lblMinRow.Visible = false;
+                lblTotalRowNum.Visible = false;
+                lbtnFirst.Visible = false;
+                lbtnLast.Visible = false;
+                lbtnNext.Visible = false;
+                lbtnPrev.Visible = false;
+                phPages.Visible = false;
+
                 appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
                 var temp = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 grvForeClosureCaseSearch.DataSource = temp;
                 grvForeClosureCaseSearch.DataBind();
                 this.TotalRowNum = temp.SearchResultCount;
+
+
                 if (this.TotalRowNum != 0)
                 {
                     lbl1.Visible = true;
@@ -124,6 +139,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     lbtnLast.Visible = true;
                     lbtnNext.Visible = true;
                     lbtnPrev.Visible = true;
+                    phPages.Visible = true;
 
                     int MinRow = (this.PageSize * (PageNum - 1) + 1);
                     int MaxRow = PageNum * this.PageSize;
@@ -134,6 +150,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                         lblMaxRow.Text = this.TotalRowNum.ToString();
                     else lblMaxRow.Text = MaxRow.ToString();
                     lblTemp.Text = "1";
+                    double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+                    GeneratePages(totalpage);
+
+
                 }
                 else
                 {
@@ -147,13 +167,30 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     lbtnNext.Visible = false;
                     lbtnPrev.Visible = false;
 
+
                 }
 
 
             }
+            
+            catch (ProcessingException ex)
+            {
+
+                for (int i = 0; i < ex.ExceptionMessages.Count; i++)
+                {
+                    panForeClosureCaseSearch.Visible = false;
+                    lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
+                    lblErrorMessage.Text += " <br>";
+                }
+
+                this.TotalRowNum = 0;
+            }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                panForeClosureCaseSearch.Visible = false;
+                lblErrorMessage.Text += ex.Message;
+                lblErrorMessage.Text += " <br>";
+                this.TotalRowNum = 0;
             }
 
 
@@ -216,14 +253,17 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 LinkButton myLinkBtn = new LinkButton();
                 myLinkBtn.ID = i.ToString();
                 myLinkBtn.Text = i.ToString();
-                myLinkBtn.CssClass = "UnderLine";
+
+                if (i == this.PageNum)
+                    myLinkBtn.CssClass = "PageChoose";
+                else
+                    myLinkBtn.CssClass = "UnderLine";
                 myLinkBtn.CommandName = i.ToString();
                 myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
                 phPages.Controls.Add(myLinkBtn);
                 Literal lit = new Literal();
                 lit.Text = "&nbsp;&nbsp;";
-                if (i == this.PageNum)
-                    myLinkBtn.CssClass = "PageChoose";
+
                 phPages.Controls.Add(lit);
             }
         }
@@ -231,7 +271,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         void myLinkBtn_Command(object sender, CommandEventArgs e)
         {
             int pagenum = int.Parse(e.CommandName);
-            
+            this.PageNum = pagenum;
+
             BindGrvForeClosureCaseSearch(pagenum);
 
         }
@@ -249,10 +290,21 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 return (mystring1 + "%" + mystring2);
             }
         }
-
-        protected void grvForeClosureCaseSearch_SelectedIndexChanged(object sender, EventArgs e)
+        protected void grvForeClosureCaseSearch_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            int t = 0;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
+                    if (e.Row.RowState == DataControlRowState.Alternate)
+                    {
+                        e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
+                    }
+                    else
+                    {
+                        e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
+                    }
+
+            }
         }
 
 
