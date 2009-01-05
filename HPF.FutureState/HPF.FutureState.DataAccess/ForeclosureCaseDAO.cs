@@ -526,10 +526,10 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.Last4SSN == null) ? "" : " AND(borrower_last4_SSN = @pi_last4SSN  OR co_borrower_last4_SSN = @pi_last4SSN)");
             whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname  OR co_borrower_fname like @pi_fname)");
             whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname  OR co_borrower_lname like @pi_lname)");
-            whereClause.Append((searchCriteria.ForeclosureCaseID ==-1) ? "" : "( AND f.fc_id = @pi_fc_id)");
-            whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "( AND l.acct_num  like @pi_loannum)");
-            whereClause.Append((searchCriteria.PropertyZip == null) ? "" : "( AND f.prop_zip = @pi_propzip)");
-            whereClause.Append((searchCriteria.PropertyState == null) ? "" : "( AND f.prop_state_cd = @pi_propstate )");
+            whereClause.Append((searchCriteria.ForeclosureCaseID ==-1) ? "" : "AND ( f.fc_id = @pi_fc_id)");
+            whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "AND( l.acct_num  = @pi_loannum)");
+            whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND( f.prop_zip = @pi_propzip)");
+            whereClause.Append((searchCriteria.PropertyState == null) ? "" : " AND (f.prop_state_cd = @pi_propstate )");
             whereClause.Append((searchCriteria.Agency == -1) ? "" : " AND (f.agency_id=@pi_agencyid )");
             whereClause.Append((searchCriteria.AgencyCaseID == null) ? "" : " AND (f.agency_case_num=@pi_agencycaseid)");
             whereClause.Append((searchCriteria.Duplicates == null) ? "" : " AND (f.duplicate_ind = @pi_duplicate )");
