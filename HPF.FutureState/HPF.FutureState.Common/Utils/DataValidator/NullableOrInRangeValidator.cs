@@ -11,7 +11,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation.Configuration;
 namespace HPF.FutureState.Common.Utils.DataValidator
 {
     [ConfigurationElementType(typeof(CustomValidatorData))]
-    public class NullableOrInRangeValidator:Validator
+    public class NullableOrInRangeValidator : Validator
     {
 
         string _range;
@@ -51,9 +51,10 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             bool isValid = false;
             string stringToValidate;
             stringToValidate = string.Empty;
-            
-            if (objectToValidate != null && objectToValidate.ToString() !="-1" )
-                stringToValidate = objectToValidate.ToString();
+
+            if (objectToValidate != null)
+                if (objectToValidate.ToString() != "-1")
+                    stringToValidate = objectToValidate.ToString();
 
             if (stringToValidate == null || stringToValidate == string.Empty)
                 isValid = _nullable;
@@ -70,7 +71,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
         }
 
-        
+
     }
 
 }
