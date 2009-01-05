@@ -173,7 +173,7 @@
                     <SelectedRowStyle CssClass="SelectedRowStyle"  />
                     <Columns>
                         <asp:BoundField DataField="CaseID" HeaderText="Case ID"  />
-                        
+                        <%--<asp:HyperLinkField DataTextField="CaseID" HeaderText="Case ID" />--%>
                         <asp:BoundField DataField="AgencyCaseID" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Center" />
                         <asp:TemplateField HeaderText="Counseled">
                         <ItemTemplate>
