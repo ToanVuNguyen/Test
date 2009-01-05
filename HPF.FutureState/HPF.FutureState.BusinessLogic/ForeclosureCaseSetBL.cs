@@ -1009,7 +1009,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (OutcomeItemDTO item in itemCollection)
             {
                 if (outcomeItem.OutcomeTypeId == item.OutcomeTypeId
-                    && outcomeItem.OutcomeDt == item.OutcomeDt
+                    && outcomeItem.OutcomeDt.Date == item.OutcomeDt.Date
                     && outcomeItem.NonprofitreferralKeyNum == item.NonprofitreferralKeyNum
                     && outcomeItem.ExtRefOtherName == item.ExtRefOtherName)
                     return true;
@@ -1020,7 +1020,10 @@ namespace HPF.FutureState.BusinessLogic
         #endregion
 
         #region Functions check for update Case Loan
-        // <summary>                
+        /// <summary>      
+        /// Check exist of a caseLoan
+        /// base on fcId, ServicerId, Accnum
+        /// If exist return true; vs return false
         /// </summary>
         /// <param name>CaseLoanDTO, caseLoanCollection</param>
         /// <returns>bool</returns>
@@ -1036,6 +1039,10 @@ namespace HPF.FutureState.BusinessLogic
             return false;
         }
 
+        // <summary>               
+        /// </summary>
+        /// <param name></param>
+        /// <returns>bool</returns>
         private bool CheckCaseLoanUpdate(CaseLoanDTO caseLoan, CaseLoanDTOCollection caseLoanCollection)
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
@@ -1065,6 +1072,13 @@ namespace HPF.FutureState.BusinessLogic
             return true;
         }
 
+        /// <summary>
+        /// Check data input with database
+        /// If input not exist in database (use CheckCaseLoan() to check)
+        /// add caseLoan into caseLoanCollection to insert
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
         private CaseLoanDTOCollection CheckCaseLoanForInsert(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
@@ -1091,15 +1105,20 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;   
         }
 
+        /// <summary>
+        /// Check data database with input
+        /// If database not exist in data input (use CheckCaseLoan() to check)
+        /// add caseLoan into caseLoanCollection to delete
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
         private CaseLoanDTOCollection CheckCaseLoanForDelete(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
             //Compare CAseLoanItem input with Case Loan DB
-            if (caseLoanCollectionDB != null)
-            {
-                return null;
-            }
+            if (caseLoanCollectionDB != null)            
+                return null;            
             foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
             {
                 bool isChanged = CheckCaseLoan(itemDB, caseLoanCollection);
@@ -1111,14 +1130,16 @@ namespace HPF.FutureState.BusinessLogic
             return caseLoanNew;   
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name></param>
+        /// <returns></returns>
         private CaseLoanDTOCollection CheckCaseLoanForUpdate(ForeclosureCaseSetDAO foreClosureCaseSetDAO,CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
-            if (caseLoanCollectionDB == null)
-            {
-                return null;
-            }
+            if (caseLoanCollectionDB == null)            
+                return null;            
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
                 bool isChanged = CheckCaseLoanUpdate(item, caseLoanCollectionDB);
