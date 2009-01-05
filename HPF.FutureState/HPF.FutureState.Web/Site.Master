@@ -33,7 +33,7 @@
                         Home</a>
                     </td>
                     <td >
-                        <a href="#" id="Case" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)" style="width:130">
+                        <a href="../AppForeClosureCaseSearchPage.aspx" id="Case" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)" style="width:130">
                         Foreclosure Case</a>
                     </td>
                     <td>
