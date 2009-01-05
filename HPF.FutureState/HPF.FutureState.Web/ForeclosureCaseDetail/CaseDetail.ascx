@@ -3,7 +3,7 @@
 <table style="width:100%;">
     <tr>
         <td>
-            <table style="width:100%;">
+            <table style="width:100%; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8FC4F6;">
             <tr>
                 <td colspan=3 align="right">
                     <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" />
