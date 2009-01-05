@@ -41,229 +41,229 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Label lbl_Address2;
         
         /// <summary>
-        /// lbl_Address3 control.
+        /// lbl_City control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address3;
+        protected global::System.Web.UI.WebControls.Label lbl_City;
         
         /// <summary>
-        /// lbl_Address4 control.
+        /// lbl_StateZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address4;
+        protected global::System.Web.UI.WebControls.Label lbl_StateZip;
         
         /// <summary>
-        /// lbl_Address5 control.
+        /// lbl_PrimaryResidence control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address5;
+        protected global::System.Web.UI.WebControls.Label lbl_PrimaryResidence;
         
         /// <summary>
-        /// lbl_Address6 control.
+        /// lbl_OwnerOccupied control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address6;
+        protected global::System.Web.UI.WebControls.Label lbl_OwnerOccupied;
         
         /// <summary>
-        /// lbl_Address7 control.
+        /// lbl_PropertyCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address7;
+        protected global::System.Web.UI.WebControls.Label lbl_PropertyCode;
         
         /// <summary>
-        /// lbl_Address8 control.
+        /// lbl_NumberOfOccupants control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address8;
+        protected global::System.Web.UI.WebControls.Label lbl_NumberOfOccupants;
         
         /// <summary>
-        /// lbl_Address9 control.
+        /// lbl_PurchaseYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address9;
+        protected global::System.Web.UI.WebControls.Label lbl_PurchaseYear;
         
         /// <summary>
-        /// lbl_Address10 control.
+        /// lbl_PurchasePrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address10;
+        protected global::System.Web.UI.WebControls.Label lbl_PurchasePrice;
         
         /// <summary>
-        /// lbl_Address11 control.
+        /// lbl_CurrentMarketValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address11;
+        protected global::System.Web.UI.WebControls.Label lbl_CurrentMarketValue;
         
         /// <summary>
-        /// lbl_Address12 control.
+        /// lbl_ForSaleIndicator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address12;
+        protected global::System.Web.UI.WebControls.Label lbl_ForSaleIndicator;
         
         /// <summary>
-        /// lbl_Address13 control.
+        /// lbl_RealtyCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address13;
+        protected global::System.Web.UI.WebControls.Label lbl_RealtyCompany;
         
         /// <summary>
-        /// lbl_Address14 control.
+        /// lbl_HomeAskingPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address14;
+        protected global::System.Web.UI.WebControls.Label lbl_HomeAskingPrice;
         
         /// <summary>
-        /// lbl_Address15 control.
+        /// lbl_PrimaryRes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address15;
+        protected global::System.Web.UI.WebControls.Label lbl_PrimaryRes;
         
         /// <summary>
-        /// lbl_Address16 control.
+        /// lbl_FirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address16;
+        protected global::System.Web.UI.WebControls.Label lbl_FirstName;
         
         /// <summary>
-        /// lbl_Address17 control.
+        /// lbl_MidName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address17;
+        protected global::System.Web.UI.WebControls.Label lbl_MidName;
         
         /// <summary>
-        /// lbl_Address18 control.
+        /// lbl_LastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address18;
+        protected global::System.Web.UI.WebControls.Label lbl_LastName;
         
         /// <summary>
-        /// lbl_Address19 control.
+        /// lbl_DOB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address19;
+        protected global::System.Web.UI.WebControls.Label lbl_DOB;
         
         /// <summary>
-        /// lbl_Address20 control.
+        /// lbl_Last4SSN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address20;
+        protected global::System.Web.UI.WebControls.Label lbl_Last4SSN;
         
         /// <summary>
-        /// lbl_Address21 control.
+        /// lbl_PrimaryContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address21;
+        protected global::System.Web.UI.WebControls.Label lbl_PrimaryContact;
         
         /// <summary>
-        /// lbl_Address22 control.
+        /// lbl_SecondaryContact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address22;
+        protected global::System.Web.UI.WebControls.Label lbl_SecondaryContact;
         
         /// <summary>
-        /// lbl_Address23 control.
+        /// lbl_PrimaryEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address23;
+        protected global::System.Web.UI.WebControls.Label lbl_PrimaryEmail;
         
         /// <summary>
-        /// lbl_Address24 control.
+        /// lbl_SecondaryEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address24;
+        protected global::System.Web.UI.WebControls.Label lbl_SecondaryEmail;
         
         /// <summary>
-        /// lbl_Address25 control.
+        /// lbl_Gender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address25;
+        protected global::System.Web.UI.WebControls.Label lbl_Gender;
         
         /// <summary>
-        /// lbl_Address26 control.
+        /// lbl_Mother control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address26;
+        protected global::System.Web.UI.WebControls.Label lbl_Mother;
         
         /// <summary>
-        /// lbl_Address27 control.
+        /// lbl_Disabled control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address27;
+        protected global::System.Web.UI.WebControls.Label lbl_Disabled;
         
         /// <summary>
         /// lbl_Address28 control.
@@ -275,157 +275,157 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Label lbl_Address28;
         
         /// <summary>
-        /// lbl_Address29 control.
+        /// lbl_Ethnicity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address29;
+        protected global::System.Web.UI.WebControls.Label lbl_Ethnicity;
         
         /// <summary>
-        /// lbl_Address30 control.
+        /// lbl_PreferedLanguage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address30;
+        protected global::System.Web.UI.WebControls.Label lbl_PreferedLanguage;
         
         /// <summary>
-        /// lbl_Address31 control.
+        /// lbl_EducationLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address31;
+        protected global::System.Web.UI.WebControls.Label lbl_EducationLevel;
         
         /// <summary>
-        /// lbl_Address32 control.
+        /// lbl_MaritalStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address32;
+        protected global::System.Web.UI.WebControls.Label lbl_MaritalStatus;
         
         /// <summary>
-        /// lbl_Address33 control.
+        /// lbl_Occupation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address33;
+        protected global::System.Web.UI.WebControls.Label lbl_Occupation;
         
         /// <summary>
-        /// lbl_Address34 control.
+        /// lbl_MilitaryService control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address34;
+        protected global::System.Web.UI.WebControls.Label lbl_MilitaryService;
         
         /// <summary>
-        /// lbl_Address35 control.
+        /// lbl_CoFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address35;
+        protected global::System.Web.UI.WebControls.Label lbl_CoFirstName;
         
         /// <summary>
-        /// lbl_Address36 control.
+        /// lbl_CoMidName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address36;
+        protected global::System.Web.UI.WebControls.Label lbl_CoMidName;
         
         /// <summary>
-        /// lbl_Address37 control.
+        /// lbl_CoLastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address37;
+        protected global::System.Web.UI.WebControls.Label lbl_CoLastName;
         
         /// <summary>
-        /// lbl_Address38 control.
+        /// lbl_CoDOB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address38;
+        protected global::System.Web.UI.WebControls.Label lbl_CoDOB;
         
         /// <summary>
-        /// lbl_Address39 control.
+        /// lbl_CoLast4SSN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address39;
+        protected global::System.Web.UI.WebControls.Label lbl_CoLast4SSN;
         
         /// <summary>
-        /// lbl_Address40 control.
+        /// lbl_CoDisabled control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address40;
+        protected global::System.Web.UI.WebControls.Label lbl_CoDisabled;
         
         /// <summary>
-        /// lbl_Address41 control.
+        /// lbl_CoOccupation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address41;
+        protected global::System.Web.UI.WebControls.Label lbl_CoOccupation;
         
         /// <summary>
-        /// lbl_Address42 control.
+        /// lbl_ContactAdd1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address42;
+        protected global::System.Web.UI.WebControls.Label lbl_ContactAdd1;
         
         /// <summary>
-        /// lbl_Address43 control.
+        /// lbl_ContactAdd2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address43;
+        protected global::System.Web.UI.WebControls.Label lbl_ContactAdd2;
         
         /// <summary>
-        /// lbl_Address44 control.
+        /// lbl_ContactCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address44;
+        protected global::System.Web.UI.WebControls.Label lbl_ContactCity;
         
         /// <summary>
-        /// lbl_Address45 control.
+        /// lbl_ContactStateZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Address45;
+        protected global::System.Web.UI.WebControls.Label lbl_ContactStateZip;
         
         /// <summary>
         /// btn_Save0 control.
