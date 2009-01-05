@@ -60,16 +60,24 @@
                 Bank of America</asp:Label>
             </td>
         </tr>
+        
         <tr>
             <td colspan="6">
-                <HPF:TabControl ID="tabControl" runat="server">
-                </HPF:TabControl>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6">
-                <HPF:UserControlLoader ID="UserControlLoader" runat="server">
-                </HPF:UserControlLoader>
+                <table cellpadding="0" cellspacing= "0">
+                    <tr>
+                        <td>
+                            <HPF:TabControl ID="tabControl" runat="server">
+                            </HPF:TabControl>        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  style="border:solid 1px #8FC4F6">
+                            <HPF:UserControlLoader  ID="UserControlLoader" runat="server">
+                            </HPF:UserControlLoader>
+                        </td>
+                    </tr>
+                </table>
+                
             </td>
         </tr>
     </table>
