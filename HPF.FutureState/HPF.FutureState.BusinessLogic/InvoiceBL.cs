@@ -40,7 +40,7 @@ namespace HPF.FutureState.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public InvoiceCaseDTOCollection SearchInvoice(InvoiceSearchCriterialDTO criterial)
+        public InvoiceDTOCollection SearchInvoice(InvoiceSearchCriterialDTO criterial)
         {
             throw new NotImplementedException();
         }
