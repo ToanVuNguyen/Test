@@ -27,14 +27,15 @@
                 <td align="right" class="sidelinks2">
                     User Name:</td>
                 <td align="left">
-                    <asp:TextBox ID="txt_username" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txt_username" runat="server" CssClass="Text"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks2">
                     Password:</td>
                 <td align="left">
-                    <asp:TextBox ID="txt_password" runat="server" TextMode="Password"></asp:TextBox></td>
+                    <asp:TextBox ID="txt_password" runat="server" TextMode="Password" 
+                        CssClass="Text"></asp:TextBox></td>
             </tr>
             <tr>
                 <td align="center" colspan="2">
