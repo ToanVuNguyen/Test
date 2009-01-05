@@ -43,6 +43,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         }
         protected override void OnLoad(EventArgs e)
         {
+            if (DesignMode)
+                return;
             this.Controls.Clear();
             foreach (Tab i in Tabs)
             {
