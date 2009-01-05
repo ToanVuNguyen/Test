@@ -43,6 +43,18 @@ namespace HPF.FutureState.Web.HPFWebControls
         }
         protected override void OnLoad(EventArgs e)
         {
+            this.Controls.Clear();
+            foreach (Tab i in Tabs)
+            {
+                LinkButton link = GetTab(i.ID, i.Title);
+                if (ViewState["Selected"] != null)
+                {
+                    string selectedID = ViewState["Selected"] as string;
+                    if(selectedID==i.ID)
+                        link.Attributes.Add("class", "TabSelected");
+                }
+                this.Controls.Add(link);
+            }
             //Add CSS to client page
             string includeTemplate ="<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
             string includeLocation = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HPF.FutureState.Web.HPFWebControls.TabControl.css");
@@ -82,6 +94,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         {
             LinkButton selectedTab = (LinkButton)sender;
             selectedTab.Attributes.Add("class", "TabSelected");
+            ViewState["Selected"] = selectedTab.ID;
             foreach (LinkButton t in this.Controls)
                 if (t.ID != selectedTab.ID)
                     t.Attributes.Add("class", "Tab");
@@ -93,12 +106,13 @@ namespace HPF.FutureState.Web.HPFWebControls
 
             writer.Write("<table id='Container'");
                 writer.WriteBeginTag("<tr>");
-                    foreach (LinkButton i in this.Controls)
-                    {
-                        writer.Write("<td align='center'>");
-                            i.RenderControl(writer);
-                        writer.Write("</td>");
-                    }
+                    foreach (var i in this.Controls)
+                        if(i is LinkButton)
+                        {
+                            writer.Write("<td align='center'>");
+                               ((LinkButton)i).RenderControl(writer);
+                            writer.Write("</td>");
+                        }
                 writer.Write("</tr>");
                 writer.Write("</table>");
         }
