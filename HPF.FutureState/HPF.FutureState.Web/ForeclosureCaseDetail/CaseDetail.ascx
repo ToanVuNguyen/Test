@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseDetail.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.ForeclosureCaseDetail" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+
 <table style="width:100%;">
     <tr>
         <td>
@@ -378,11 +379,489 @@
     </tr>
     <tr>
         <td>
-            &nbsp;</td>
+            <hr /></td>
     </tr>
     <tr>
         <td>
             &nbsp;</td>
+    </tr>
+    <tr>
+        <td>
+            <table class="style1">
+                <colgroup>
+                <col width="20%" />
+                <col width=""20%" />
+                <col width="30%" />
+                <col width="30%" />
+                </colgroup>
+                <tr>
+                     <td align="right" >
+                                    <h1>Case Status:</h1></td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" >
+                                    <h1>Case Financials:</h1></td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                <tr>
+                     <td align="right" class="sidelinks">
+                                    Duplicate:</td>
+                  <td>
+                                                <asp:DropDownList ID="ddlDuplicate" runat="server">
+                                                </asp:DropDownList>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Household Type*:</td>
+                    <td>
+                                    <asp:Label ID="lblHouseholdType" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Agency:</td>
+                  <td>
+                                                <asp:DropDownList ID="ddlAgency" runat="server">
+                                                </asp:DropDownList>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Household Gross Annual Income*:</td>
+                    <td>
+                                    <asp:Label ID="lblAnnualIncome" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Agency Case*:</td>
+                  <td>
+                                    <asp:Label ID="lblAgencyCase" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Income Earner Code*:</td>
+                    <td>
+                                    <asp:Label ID="lblEarnerCode" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Agency Client#:</td>
+                  <td>
+                                    <asp:Label ID="lblAgencyClient" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    AMI Percentage*:</td>
+                    <td>
+                                    <asp:Label ID="lblAMIPercentage" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Counselor*:</td>
+                  <td>
+                                    <asp:Label ID="lblCounselor" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Discussed Solution w/Servicer*:</td>
+                    <td>
+                                    <asp:Label ID="lblWServicer" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Phone &amp; Ext.*:</td>
+                  <td>
+                                    <asp:Label ID="lblPhoneExt" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Worked w/Another Agency*:</td>
+                    <td>
+                                    <asp:Label ID="lblAnotherAgency" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Counselor Email*:</td>
+                  <td>
+                                    <asp:Label ID="CounselorEmail" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Contacted Servicer Recently*:</td>
+                    <td>
+                                    <asp:Label ID="lblSevicerRecently" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Program*:</td>
+                  <td>
+                                    <asp:Label ID="lblProgram" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Has Workout Plan*:</td>
+                    <td>
+                                    <asp:Label ID="lblWorkoutPlan" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Intake Date*:</td>
+                  <td>
+                                    <asp:Label ID="lblIntakeDate" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Workout Plan Current*:</td>
+                    <td>
+                                    <asp:Label ID="lblPlanCurrent" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Complete Date*:</td>
+                  <td>
+                                    <asp:Label ID="lblCompleteDate" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Intake Credit Scores*:</td>
+                    <td>
+                                    <asp:Label ID="lblCreditScores" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Counselling Duration*:</td>
+                  <td>
+                                    <asp:Label ID="lblCounsellingDuration" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Intake Credit Bureau*:</td>
+                    <td>
+                                    <asp:Label ID="lblCreditBureau" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                
+                <tr>
+                    <td  align="right" >
+                        <h1>Case Summary :</h1></td>
+                    <td>
+                        &nbsp;</td>
+                    <td align="right">
+                         <h1>Foreclosure Notice :</h1></td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Summary Sent Date*:</td>
+                  <td>
+                                    <asp:Label ID="lblSentDate" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Foreclosure Notice Received*:</td>
+                    <td>
+                                    <asp:Label ID="lblNoticeReceived" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Summary Sent Other*:</td>
+                  <td>
+                                    <asp:Label ID="lblSentOrther" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Foreclosure Date Set*:</td>
+                    <td>
+                                    <asp:Label ID="lblDateSet" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Summary Sent Other Date*:</td>
+                  <td>
+                                    <asp:Label ID="lblOtherDate" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                 <tr>
+                     <td align="right" >
+                                    <h1>Consent:</h1></td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" >
+                                    <h1>Bankruptcy:</h1></td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                  <tr>
+                     <td align="right" class="sidelinks">
+                                    Servicer Consent*:</td>
+                  <td>
+                                    <asp:Label ID="lblServicerConsent" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Bankruptcy Indicator*:</td>
+                    <td>
+                                    <asp:Label ID="lblBankruptcy" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Funding Consent*:</td>
+                  <td>
+                                    <asp:Label ID="lblFundingConsent" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Bankruptcy Attomey*:</td>
+                    <td>
+                                    <asp:Label ID="lblBankruptcyAttomey" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                  <td>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    Bankcruptcy Payments Current Indicator:</td>
+                    <td>
+                                    <asp:Label ID="lblCurrentIndicator" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                 <tr>
+                     <td align="right" >
+                                    <h1>Default Reason:</h1></td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" >
+                                    <h1>HUD:</h1></td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Primary Default Reason*:</td>
+                  <td>
+                                    <asp:Label ID="lblDefaultReason" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    HUD Termination Reason*:</td>
+                    <td>
+                                    <asp:Label ID="lblTerminationReason" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    Secondary Default Reason*:</td>
+                  <td>
+                                    <asp:Label ID="lblSDefaultReason" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                    <td align="right" class="sidelinks">
+                                    HUD Termination Date*:</td>
+                    <td>
+                                    <asp:Label ID="lblTerminationDate" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" class="sidelinks">
+                                    HUD Outcome*:</td>
+                    <td>
+                                    <asp:Label ID="lblHUDOutcome" runat="server" CssClass="Text"></asp:Label>
+                                </td>
+                </tr>
+                
+                 <tr>
+                     <td align="right" class="sidelinks" colspan="4">
+                                    <hr /></td>
+                </tr>
+                
+                 <tr>
+                     <td colspan="4">
+                     
+                         <table  width="100%">
+                             <colgroup>
+                             <col width="25%" />
+                             <col width="80%" />
+                             
+                             </colgroup>
+                             <tr>
+                                 <td  align="right">
+                                     <h1>Counselor Notes:</h1></td>
+                                 <td>
+                                     &nbsp;</td>
+                             </tr>
+                             <tr>
+                                 <td align="right" class="sidelinks" style="vertical-align:top">
+                                     Loan Default Reason Notes:</td>
+                                 <td class="Control">
+                                     <asp:TextBox ID="txtReasonNote" runat="server" Rows="3" Width="100%" Height="56px" 
+                                         TextMode="MultiLine"></asp:TextBox>
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td align="right" class="sidelinks" style="vertical-align:top">
+                                     Action Item Notes:</td>
+                                 <td class="Control">
+                                     <asp:TextBox ID="txtItemNotes" runat="server" Rows="3" Width="100%" Height="56px" TextMode="MultiLine"></asp:TextBox>
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td align="right" class="sidelinks" style="vertical-align:top">
+                                     FollowUp Notes:</td>
+                                 <td class="Control">
+                                     <asp:TextBox ID="txtControl" runat="server" Rows="3" Width="100%" Height="56px" 
+                                         TextMode="MultiLine"></asp:TextBox>
+                                 </td>
+                             </tr>
+                         </table>
+                     
+                     </td>
+                </tr>
+                 <tr>
+                     <td colspan="4">
+                                    <hr /></td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks" >
+                                    &nbsp;</td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+                 <tr>
+                     <td colspan="4" class="style7">
+                                    <table  width="100%">
+                                        <colgroup>
+                                        <col width="15%" />
+                                        <col width="15%" />
+                                        <col width="20%"/>
+                                        <col width="15%" />
+                                        <col width="20%" />
+                                        <col width="15%"/>
+                                        </colgroup>
+                                        <tr>
+                                            <td align="right" >
+                                                <h1>Opt In/Out:</h1></td>
+                                            <td>
+                                                &nbsp;</td>
+                                            <td align="right"> 
+                                                <h1>Media Candidate:</h1></td>
+                                            <td>
+                                                &nbsp;</td>
+                                            <td align="right">
+                                                <h1>Success Story:</h1></td>
+                                            <td>
+                                                &nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"  class="sidelinks">
+                                                Do Not Call*:</td>
+                                            <td  class="Control">
+                                                <asp:DropDownList ID="ddlNotCall" runat="server" Width="100%">
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td align="right"  class="sidelinks">
+                                                Agency Media Interest:</td>
+                                            <td>
+                                    <asp:Label ID="lblMediaInterest" runat="server" CssClass="Text" ></asp:Label>
+                                            </td>
+                                            <td align="right"  class="sidelinks">
+                                                Agency Success Story:</td>
+                                            <td>
+                                    <asp:Label ID="lblSuccessStory" runat="server"  CssClass="Text"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"  class="sidelinks">
+                                                News Letter*:</td>
+                                            <td class="Control">
+                                                <asp:DropDownList ID="ddlNewsLetter" runat="server" Width="100%" >
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td align="right" class="sidelinks" >
+                                                HPF Media Condirmation:</td>
+                                            <td class="Control">
+                                                <asp:DropDownList ID="ddlMediaCondirmation" runat="server" Width="100%">
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td align="right"  class="sidelinks">
+                                                HPF Success Story:</td>
+                                            <td class="Control">
+                                                <asp:DropDownList ID="ddlSuccessStory" runat="server" Width="100%">
+                                                </asp:DropDownList>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"  class="sidelinks">
+                                                Survey*:</td>
+                                            <td class="Control">
+                                                <asp:DropDownList ID="ddlServey" runat="server"  Width="100%">
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td align="right" >
+                                                &nbsp;</td>
+                                            <td class="Control">
+                                                &nbsp;</td>
+                                            <td align="right" >
+                                                &nbsp;</td>
+                                            <td class="Control">
+                                                &nbsp;</td>
+                                        </tr>
+                                    </table>
+                                    </td>
+                </tr>
+                 <tr>
+                     <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                  <td>
+                                    &nbsp;</td>
+                    <td align="right" class="sidelinks">
+                                    &nbsp;</td>
+                    <td>
+                                    &nbsp;</td>
+                </tr>
+            </table>
+        </td>
     </tr>
     <tr>
         <td align="right">
