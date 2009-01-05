@@ -1131,6 +1131,8 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
+        /// With each data in CaseLoan input
+        /// Compare it with caseLoan in database
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
