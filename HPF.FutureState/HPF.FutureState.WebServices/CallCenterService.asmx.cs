@@ -77,7 +77,6 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    CallLogWSDTO callLogWSDTO = null;
                     CallLogDTO callLogDTO = null;
                     var callLogId = ValidateCallLogID(request);
                     if (callLogId != int.MinValue)
@@ -92,7 +91,7 @@ namespace HPF.FutureState.WebServices
                     //
                     if (callLogDTO != null)
                     {
-                        callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
+                        CallLogWSDTO callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
                         response.CallLog = callLogWSDTO;
                         response.Status = ResponseStatus.Success;
                     }
