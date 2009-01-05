@@ -111,8 +111,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         protected override void Render(HtmlTextWriter writer)
         {
 
-            writer.Write("<table id='Container'");
-                writer.WriteBeginTag("<tr>");
+            writer.Write("<table id='Container'>");
+                writer.Write("<tr>");
                     foreach (var i in this.Controls)
                         if(i is LinkButton)
                         {
