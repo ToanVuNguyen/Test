@@ -47,8 +47,8 @@
         </td>
         <td class="Control">
             <asp:DropDownList ID="ddlDup" runat="server">
-                <asp:ListItem Value='Y'>Y</asp:ListItem>
-                <asp:ListItem Value='N'>N</asp:ListItem>
+                <asp:ListItem Value='Y'>Yes</asp:ListItem>
+                <asp:ListItem Value='N'>No</asp:ListItem>
                 <asp:ListItem Selected="True" Value=''></asp:ListItem>
             </asp:DropDownList>
         </td>
