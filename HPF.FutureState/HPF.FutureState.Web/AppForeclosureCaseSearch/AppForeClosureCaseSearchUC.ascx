@@ -23,26 +23,26 @@
         </td>
     </tr>
     <tr>
-        <td colspan="6" style="font-weight: bold;font-size: 12px;">
-            Search Criteria:
+        <td colspan="6" >
+            <h1>Search Criteria:</h1>
         </td>
     </tr>
     <tr>
-        <td class="Title">
+        <td align="right" class="sidelinks" >
             Last 4 or SSN:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtSSN" runat="server"></asp:TextBox>
             
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Agency Case ID:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtAgencyCaseID" runat="server"></asp:TextBox>
           
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Duplicate:
         </td>
         <td class="Control">
@@ -55,20 +55,20 @@
         </td>
     </tr>
     <tr>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Last Name:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Loan Number:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtLoanNum" runat="server"></asp:TextBox>
           
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Agency:
         </td>
         <td class="Control">
@@ -77,20 +77,20 @@
         </td>
     </tr>
     <tr>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             First Name:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Property Zip:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtPropertyZip" runat="server"></asp:TextBox>
            
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Program:
         </td>
         <td class="Control">
@@ -99,7 +99,7 @@
         </td>
     </tr>
     <tr>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Foreclosure Case ID:
         </td>
         <td class="Control">
@@ -109,7 +109,7 @@
            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>--%>
            
         </td>
-        <td class="Title">
+        <td align="right" class="sidelinks">
             Property State:
         </td>
         <td class="Control">

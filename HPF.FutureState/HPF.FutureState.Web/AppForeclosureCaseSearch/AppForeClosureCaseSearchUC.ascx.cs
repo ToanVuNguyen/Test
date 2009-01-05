@@ -62,7 +62,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlPropertyState.DataTextField = "StateName";
             ddlPropertyState.DataSource = stateCollection;
             ddlPropertyState.DataBind();
-            ddlPropertyState.Items.FindByText("ALL").Selected = true;
+            //ddlPropertyState.Items.FindByText("ALL").Selected = true;
         }
         protected void BindDDLAgency()
         {
@@ -90,14 +90,21 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
             try
             {
-                string textchange = "";
+                string textchangeFirstName = "";
+                string textchangeLastName = "";
                 appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
                 if (txtFirstName.Text != string.Empty)
                 {
-                    textchange = Replace1Char(txtFirstName.Text, "*", "%");
+                    textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
+                    textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
                 }
-                appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : txtLastName.Text;
-                appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchange;
+                if (txtLastName.Text != string.Empty)
+                {
+                    textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
+                    textchangeLastName = Replace1Char(textchangeLastName, "*", "%");
+                }
+                appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
+                appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
                 appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
                 appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text.Trim();
                 appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text.Trim();
@@ -110,16 +117,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
 
                 panForeClosureCaseSearch.Visible = true;
-                lbl1.Visible = false;
-                lbl2.Visible = false;
-                lblMaxRow.Visible = false;
-                lblMinRow.Visible = false;
-                lblTotalRowNum.Visible = false;
-                lbtnFirst.Visible = false;
-                lbtnLast.Visible = false;
-                lbtnNext.Visible = false;
-                lbtnPrev.Visible = false;
-                phPages.Visible = false;
+                ManageControls(false);
 
                 appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
                 var temp = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
@@ -130,17 +128,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
                 if (this.TotalRowNum != 0)
                 {
-                    lbl1.Visible = true;
-                    lbl2.Visible = true;
-                    lblMaxRow.Visible = true;
-                    lblMinRow.Visible = true;
-                    lblTotalRowNum.Visible = true;
-                    lbtnFirst.Visible = true;
-                    lbtnLast.Visible = true;
-                    lbtnNext.Visible = true;
-                    lbtnPrev.Visible = true;
-                    phPages.Visible = true;
-
+                    ManageControls(true);
                     int MinRow = (this.PageSize * (PageNum - 1) + 1);
                     int MaxRow = PageNum * this.PageSize;
                     lblTotalRowNum.Text = this.TotalRowNum.ToString();
@@ -157,22 +145,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
                 else
                 {
-                    lbl1.Visible = false;
-                    lbl2.Visible = false;
-                    lblMaxRow.Visible = false;
-                    lblMinRow.Visible = false;
-                    lblTotalRowNum.Visible = false;
-                    lbtnFirst.Visible = false;
-                    lbtnLast.Visible = false;
-                    lbtnNext.Visible = false;
-                    lbtnPrev.Visible = false;
-
-
+                    ManageControls(false);
                 }
-
-
             }
-            
             catch (ProcessingException ex)
             {
 
@@ -192,11 +167,21 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 lblErrorMessage.Text += " <br>";
                 this.TotalRowNum = 0;
             }
-
-
         }
 
-
+        protected void ManageControls(bool isEnable)
+        {
+            lbl1.Visible = isEnable;
+            lbl2.Visible = isEnable;
+            lblMaxRow.Visible = isEnable;
+            lblMinRow.Visible = isEnable;
+            lblTotalRowNum.Visible = isEnable;
+            lbtnFirst.Visible = isEnable;
+            lbtnLast.Visible = isEnable;
+            lbtnNext.Visible = isEnable;
+            lbtnPrev.Visible = isEnable;
+            phPages.Visible = isEnable;
+        }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             lblErrorMessage.Text = "";
@@ -280,13 +265,16 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             int StartIndex = mystring.IndexOf(oldchar);
             if (StartIndex == -1) return mystring;
-            string mystring1, mystring2;
+            string mystring1 = null; 
+            string mystring2=null;
             mystring1 = mystring.Substring(0, StartIndex);
+            
             if (StartIndex + 1 == mystring.Length)
                 return mystring1 + "%";
             else
             {
-                mystring2 = mystring.Substring(StartIndex + 1, mystring.Length);
+                mystring2 = mystring.Substring(StartIndex + 1, mystring.Length-1);
+                if (StartIndex == 0) return ("%" + mystring2);
                 return (mystring1 + "%" + mystring2);
             }
         }
@@ -295,14 +283,14 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-                    if (e.Row.RowState == DataControlRowState.Alternate)
-                    {
-                        e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-                    }
-                    else
-                    {
-                        e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-                    }
+                if (e.Row.RowState == DataControlRowState.Alternate)
+                {
+                    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
+                }
+                else
+                {
+                    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
+                }
 
             }
         }
