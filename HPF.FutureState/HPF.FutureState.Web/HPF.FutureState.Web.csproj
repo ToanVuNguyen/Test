@@ -79,13 +79,6 @@
     <Compile Include="AppForeClosureCaseSearchPage.aspx.designer.cs">
       <DependentUpon>AppForeClosureCaseSearchPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx.cs">
-      <DependentUpon>AppForeClosureCaseSearch.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx.designer.cs">
-      <DependentUpon>AppForeClosureCaseSearch.ascx</DependentUpon>
-    </Compile>
     <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx.cs">
       <DependentUpon>AppForeClosureCaseSearchUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -137,7 +130,6 @@
   <ItemGroup>
     <Content Include="AppForeclosureCaseDetailPage.aspx" />
     <Content Include="AppForeClosureCaseSearchPage.aspx" />
-    <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearch.ascx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="Common\FixedHeaderGrid.ascx" />
@@ -197,6 +189,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
