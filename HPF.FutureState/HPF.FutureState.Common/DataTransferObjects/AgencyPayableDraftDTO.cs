@@ -18,7 +18,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 return ForclosureCaseDrafts.Count;
             }
         }
-        public double TotalAmout
+        public double TotalAmount
         {
             get
             {

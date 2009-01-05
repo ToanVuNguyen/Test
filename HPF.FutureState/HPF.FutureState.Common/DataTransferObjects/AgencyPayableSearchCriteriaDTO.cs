@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public enum CustomBoolean { None = -1, No = 0, Yes = 1 }        
+    public enum CustomBoolean { None = 0, Y = 1, N = 2 }        
 
     [Serializable]
     public class AgencyPayableSearchCriteriaDTO
