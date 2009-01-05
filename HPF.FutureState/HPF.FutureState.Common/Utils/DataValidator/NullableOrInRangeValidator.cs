@@ -11,7 +11,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation.Configuration;
 namespace HPF.FutureState.Common.Utils.DataValidator
 {
     [ConfigurationElementType(typeof(CustomValidatorData))]
-    public class NullableOrInRangeValidator:Validator<String>
+    public class NullableOrInRangeValidator:Validator
     {
 
         string _range;
@@ -28,10 +28,34 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             get { return "Field is invalid."; }
         }
 
-        protected override void DoValidate(string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
+        //protected override void DoValidate(string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
+        //{
+        //    bool isValid = false;
+        //    if (objectToValidate == null || objectToValidate == string.Empty)
+        //        isValid = _nullable;
+        //    else
+        //    {
+        //        //the InRange pattern is supposed to be [...]
+        //        _range = _range.Insert(1, @"^");
+        //        Regex exp = new Regex(_range);
+        //        _range = _range.Remove(1, 1);
+
+        //        isValid = !exp.IsMatch(objectToValidate); //exp.Match(objectToValidate).Success;
+        //    }
+        //    if (!isValid)
+        //        LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
+        //}
+
+        protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = false;
-            if (objectToValidate == null || objectToValidate == string.Empty)
+            string stringToValidate;
+            stringToValidate = string.Empty;
+            
+            if (objectToValidate != null && objectToValidate.ToString() !="-1" )
+                stringToValidate = objectToValidate.ToString();
+
+            if (stringToValidate == null || stringToValidate == string.Empty)
                 isValid = _nullable;
             else
             {
@@ -40,11 +64,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 Regex exp = new Regex(_range);
                 _range = _range.Remove(1, 1);
 
-                isValid = !exp.IsMatch(objectToValidate); //exp.Match(objectToValidate).Success;
+                isValid = !exp.IsMatch(stringToValidate); //exp.Match(objectToValidate).Success;
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
         }
+
         
     }
 
