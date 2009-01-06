@@ -71,6 +71,15 @@ namespace HPF.FutureState.BusinessLogic
             result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             return result;
         }
+        /// <summary>
+        /// Get ForeclosureCase to display on the detail page
+        /// </summary>
+        /// <param name="fcId">Foreclosure Case ID</param>
+        /// <returns>ForeclosureCaseDTO , null for not found</returns>
+        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        {
+            return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
+        }
         private void AppThrowMissingRequiredFieldsException(Collection<string> collection)
         {
             ProcessingException pe = new ProcessingException();
