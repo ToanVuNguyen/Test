@@ -66,6 +66,7 @@
     <Compile Include="BusinessLogicInterface\IForeclosureCaseBL.cs" />
     <Compile Include="BusinessLogicInterface\IRefCodeItemBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
+    <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
     <Compile Include="DataTransferObjects\AgencyDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyDTOCollection.cs" />
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTO.cs" />
@@ -114,6 +115,8 @@
     <Compile Include="DataTransferObjects\InvoiceDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceDTOCollection.cs" />
     <Compile Include="DataTransferObjects\InvoiceSearchCriterialDTO.cs" />
+    <Compile Include="DataTransferObjects\MenuSecurityDTO.cs" />
+    <Compile Include="DataTransferObjects\MenuSecurityDTOCollection.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ProgramDTO.cs" />
@@ -146,6 +149,7 @@
     <Compile Include="DataTransferObjects\WSUserDTO.cs" />
     <Compile Include="ErrorMessages.cs" />
     <Compile Include="BusinessLogicInterface\IReferenceCodeValidatorBL.cs" />
+    <Compile Include="HPFApplicationName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceCode.cs" />
     <Compile Include="Utils\DataValidator\HPFValidator.cs" />

@@ -26,5 +26,32 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [XmlIgnore]
         public string ChangeLastAppName { get; set; }
+
+        /// <summary>
+        /// Set Insert tracking information
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="appName"></param>
+        public void SetInsertTrackingInformation(string userId, string appName)
+        {
+            CreateUserId = userId;
+            CreateDate = DateTime.Today;
+            CreateAppName = appName;
+            ChangeLastDate = DateTime.Today;
+            ChangeLastUserId = userId;
+            ChangeLastAppName = appName;
+        }
+
+        /// <summary>
+        /// Set update tracking information
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="appName"></param>
+        public void SetUpdateTrackingInformation(string userId, string appName)
+        {
+            ChangeLastDate = DateTime.Today;
+            ChangeLastUserId = userId;
+            ChangeLastAppName = appName;
+        }
     }
 }

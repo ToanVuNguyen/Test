@@ -1,15 +1,5 @@
-﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 using HPF.FutureState.BusinessLogic;
 
 namespace HPF.FutureState.Web.Security
@@ -35,18 +25,33 @@ namespace HPF.FutureState.Web.Security
 
         public UserPrincipal CreateUserPrincipal(IIdentity identity)
         {
-            var uId = new UserIdentity
-            {
-                UserID = identity.Name,
-                IsAuthenticated = identity.IsAuthenticated,
-                AuthenticationType = identity.AuthenticationType
-            };
+            var uId = CreateUserIdentity(identity);
+            AssignUserInformation(uId);
+            AssignMenuSecurity(uId);            
+            return new UserPrincipal(uId);
+        }
+
+        private static UserIdentity CreateUserIdentity(IIdentity identity)
+        {
+            return new UserIdentity
+                       {
+                           UserID = identity.Name,
+                           IsAuthenticated = identity.IsAuthenticated,
+                           AuthenticationType = identity.AuthenticationType
+                       };
+        }
+
+        private static void AssignMenuSecurity(UserIdentity uId)
+        {
+            
+        }
+
+        private static void AssignUserInformation(UserIdentity uId)
+        {
             var user = SecurityBL.Instance.GetWebUser(uId.UserID);
             uId.Roles = user.UserRole;
             uId.DisplayName = user.FirstName + "," + user.LastName;
             uId.Email = user.Email;
-            //
-            return new UserPrincipal(uId);
         }
     }
 }
