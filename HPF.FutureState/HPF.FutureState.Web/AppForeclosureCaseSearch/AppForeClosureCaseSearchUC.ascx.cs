@@ -57,7 +57,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindDDLState()
         {
-            StateDTOCollection stateCollection = ForeclosureCaseSetBL.Instance.GetState();
+            StateDTOCollection stateCollection = LookupDataBL.Instance.GetState();
             ddlPropertyState.DataValueField = "StateName";
             ddlPropertyState.DataTextField = "StateName";
             ddlPropertyState.DataSource = stateCollection;
@@ -66,7 +66,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindDDLAgency()
         {
-            AgencyDTOCollection agencyCollection = ForeclosureCaseSetBL.Instance.GetAgency();
+            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
@@ -75,7 +75,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindDDLProgram()
         {
-            ProgramDTOCollection programCollection = ForeclosureCaseSetBL.Instance.GetProgram();
+            ProgramDTOCollection programCollection = LookupDataBL.Instance.GetProgram();
             ddlProgram.DataValueField = "ProgramID";
             ddlProgram.DataTextField = "ProgramName";
             ddlProgram.DataSource = programCollection;
@@ -120,7 +120,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 ManageControls(false);
 
                 appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
-                var temp = ForeclosureCaseSetBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
+                var temp = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 grvForeClosureCaseSearch.DataSource = temp;
                 grvForeClosureCaseSearch.DataBind();
                 this.TotalRowNum = temp.SearchResultCount;
