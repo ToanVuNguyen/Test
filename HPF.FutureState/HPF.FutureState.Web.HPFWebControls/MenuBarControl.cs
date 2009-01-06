@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace HPF.FutureState.Web.HPFWebControls
 {    
     [ToolboxData("<{0}:MenuBarControl runat=server></{0}:MenuBarControl>")]
     public class MenuBarControl : Control
     {
-        public List<string> _disabledMenus;
+        private readonly List<string> _disabledMenus;
 
-        public List<string> _enabledMenus;
+        private readonly List<string> _enabledMenus;
 
         public string XmlMenuFile
         {
