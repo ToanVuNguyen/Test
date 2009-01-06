@@ -33,8 +33,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         /// <param name="xmlFile"></param>
         public void Load(string xmlFile)
         {
-
-            XDocument doc = XDocument.Load(@"D:\HPF\24-12-2008\Implementation\Source Code\HPF.FutureState\HPF.FutureState.Web.HPFWebControls\MenuExample.xml");
+            XDocument doc = XDocument.Load(xmlFile);
             var menus = from menu in doc.Descendants("Menu")
                         select new Menu
                         {
@@ -59,12 +58,7 @@ namespace HPF.FutureState.Web.HPFWebControls
                 AddMenu(menu);
             }
             
-            //Menu Home = new Menu { Id = "Home", Title = "Home", Url = "", Enabled = true };
-            //AddMenu(Home);
-            //Menu Accounting = new Menu { Id = "Accounting", Title = "Accounting", Url = "#", Enabled = true };
-            //Accounting.AddMenuItem(new MenuItem { Id = "Siny", Title = "Siny", Url = "#", Enabled = true });
-            //Accounting.AddMenuItem(new MenuItem { Id = "Siny1", Title = "Siny1", Url = "#", Enabled = false });
-            //AddMenu(Accounting);
+            
         }
 
         /// <summary>

@@ -64,20 +64,33 @@ namespace HPF.FutureState.Web.HPFWebControls
                 writer.Write("<td>");
                 //dont have child
                 if (menu.Count == 0)
-                    writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"MenuMouseOver(this)\" onmouseout=\"MenuMouseLeave(this)\">{2}</a>", menu.Url, menu.Id, menu.Title);
+                {
+                    if(menu.Enabled)
+                        writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"MenuMouseOver(this)\" onmouseout=\"MenuMouseLeave(this)\">{2}</a>", menu.Url, menu.Id, menu.Title);
+                    else
+                        writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:pointer; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
+                }
                 else
                 {
-                    writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"mopen('{2}','{3}')\" onmouseout=\"mclosetime()\">{4}</a>", menu.Url, menu.Id,"m"+menu.Id,menu.Id,menu.Title);
-                    writer.Write("<table id=\"{0}\">", "m" + menu.Id);
-                    foreach (var submenu in menu)
+                    if (menu.Enabled)
                     {
-                        writer.Write("<tr>");
+                        writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"mopen('{2}','{3}')\" onmouseout=\"mclosetime()\">{4}</a>", menu.Url, menu.Id, "m" + menu.Id, menu.Id, menu.Title);
+                        writer.Write("<table id=\"{0}\">", "m" + menu.Id);
+                        foreach (var submenu in menu)
+                        {
+                            writer.Write("<tr>");
                             writer.Write("<td onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\" >");
-                                writer.Write("<a href=\"{0}\">{1}</a>",submenu.Url,submenu.Title);
-                            writer.Write("</td>");
-                        writer.Write("</tr>");
+                            if (submenu.Enabled)
+                                writer.Write("<a href=\"{0}\">{1}</a>", submenu.Url, submenu.Title);
+                            else
+                                writer.Write("<a style=\"position: relative;display: block; margin: 0; padding: 5 10; width: auto; white-space: nowrap; text-align: left; text-decoration: none; background: #8FC4F6;  color:Gray; cursor:default; font: 11 Tahoma; height: 11;\">{0}</a>", submenu.Title); writer.Write("</td>");
+                            writer.Write("</tr>");
+                        }
+                        writer.Write("</table>");
                     }
-                    writer.Write("</table>");
+                    else
+                        writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:default; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
+                    
                 }
                 writer.Write("</td>");
 
