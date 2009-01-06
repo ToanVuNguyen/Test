@@ -19,7 +19,7 @@ namespace HPF.FutureState.BusinessLogic
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
         const int NUMBER_OF_ERROR_APP_SEARCH_CRITERIA = 11;
-        const string LOAN_1ST_2ND = "1ST";
+        const string LOAN_1ST = "1ST";
         const string INCOME = "1";
         const string EXPENSES = "2";
         const string CASE_COMPLETE_IND_YES = "Y";
@@ -399,6 +399,8 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckUnComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             bool caseComplete = CheckForeclosureCaseComplete(foreclosureCaseSetInput);
+            if (!caseComplete)
+                return false;
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSetInput.ForeclosureCase;
             CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
             OutcomeItemDTOCollection outcome = foreclosureCaseSetInput.Outcome;
@@ -407,7 +409,7 @@ namespace HPF.FutureState.BusinessLogic
             bool rfCaseLoan = CompleteFieldsCaseLoanItem(caseLoan, "Complete");
             bool rfOutcome = CompleteFieldsOutcomeItem(outcome, "Complete");
             bool rfBudget = CompleteFieldsBudgetItem(budget, "Complete");
-            if (!caseComplete || (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget && caseComplete))
+            if (rfForeclosureCase && rfCaseLoan && rfOutcome && rfBudget && caseComplete)
                 return false;
             else
                 return true;                        
@@ -438,7 +440,7 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
             foreach (CaseLoanDTO item in caseLoan)
             {
-                if (item.Loan1st2nd.ToUpper() == LOAN_1ST_2ND)
+                if (item.Loan1st2nd.ToUpper() == LOAN_1ST)
                 {
                     count = count + 1;
                 }
@@ -1351,21 +1353,27 @@ namespace HPF.FutureState.BusinessLogic
             return outcomeItemNew;
         }
 
+        /// <summary>
+        /// Add value HPF-Auto for Budget Set
+        /// </summary>
         private BudgetSetDTO BudgetSetHPAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
             if (foreclosureCaseSet == null)
                 return null;
-            BudgetSetDTO budgetSet = foreclosureCaseSet.BudgetSet;
+            BudgetSetDTO budgetSet = new BudgetSetDTO();
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;            
             decimal totalIncome = decimal.MinValue;
             decimal totalExpenses = decimal.MinValue;
             decimal totalAssest = decimal.MinValue;
 
+            if (budgetAssetCollection == null && budgetItemCollection == null)
+                return null;
+
             if (budgetAssetCollection != null)
                 totalAssest = CalculateTotalAssets(budgetAssetCollection, totalAssest);
             if (budgetItemCollection!= null)
-                CalculateTotalExpenseAndIncome(foreClosureCaseSetDAO, budgetItemCollection, ref totalIncome, ref totalExpenses);
+                CalculateTotalExpenseAndIncome(foreClosureCaseSetDAO, budgetItemCollection, ref totalIncome, ref totalExpenses);                        
 
             budgetSet.TotalAssets = totalAssest;
             budgetSet.TotalExpenses = totalExpenses;
@@ -1374,6 +1382,9 @@ namespace HPF.FutureState.BusinessLogic
             return budgetSet;
         }
 
+        /// <summary>
+        /// Calculate Total Assets
+        /// </summary>
         private decimal CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, decimal totalAssest)
         {
             //Calculate totalAssest
@@ -1389,6 +1400,9 @@ namespace HPF.FutureState.BusinessLogic
             return totalAssest;
         }
 
+        /// <summary>
+        /// Calculate Total Expense And Income
+        /// </summary>
         private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref decimal totalIncome, ref decimal totalExpenses)
         {
             //Calculate totalExpenses, totalIncome
