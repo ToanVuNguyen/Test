@@ -1385,7 +1385,14 @@ namespace HPF.FutureState.BusinessLogic
             budgetSet.TotalAssets = totalAssest;
             budgetSet.TotalExpenses = totalExpenses;
             budgetSet.TotalIncome = totalIncome;
-            budgetSet.BudgetSetDt = DateTime.Now;            
+            budgetSet.BudgetSetDt = DateTime.Now;
+            
+            budgetSet.CreateDate = DateTime.Now;
+            budgetSet.CreateUserId = foreclosureCaseSet.ForeclosureCase.CreateUserId;
+            budgetSet.CreateAppName = foreclosureCaseSet.ForeclosureCase.CreateAppName;
+            budgetSet.ChangeLastDate = DateTime.Now;
+            budgetSet.ChangeLastAppName = foreclosureCaseSet.ForeclosureCase.ChangeLastAppName;
+            budgetSet.ChangeLastUserId = foreclosureCaseSet.ForeclosureCase.ChangeLastUserId;
             return budgetSet;
         }
 
