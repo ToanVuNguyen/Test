@@ -32,21 +32,21 @@
             Last 4 or SSN:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text2" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
             
         </td>
         <td align="right" class="sidelinks">
             Agency Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text2"></asp:TextBox>
+            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text"></asp:TextBox>
           
         </td>
         <td align="right" class="sidelinks">
             Duplicate:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text2">
+            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text">
                 <asp:ListItem Selected="True" Value=''></asp:ListItem>
                 <asp:ListItem Value='Y'>Yes</asp:ListItem>
                 <asp:ListItem Value='N'>No</asp:ListItem>
@@ -59,20 +59,21 @@
             Last Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text2" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text" 
+                Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Loan Number:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text2"></asp:TextBox>
+            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text"></asp:TextBox>
           
         </td>
         <td align="right" class="sidelinks">
             Agency:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlAgency" runat="server" Width="100px" CssClass="Text2">
+            <asp:DropDownList ID="ddlAgency" runat="server" Width="100px" CssClass="Text">
             </asp:DropDownList>
         </td>
     </tr>
@@ -81,20 +82,21 @@
             First Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text2" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text" 
+                Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property Zip:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text2"></asp:TextBox>
+            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text"></asp:TextBox>
            
         </td>
         <td align="right" class="sidelinks">
             Program:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlProgram" runat="server" Width="100px" CssClass="Text2">
+            <asp:DropDownList ID="ddlProgram" runat="server" Width="100px" CssClass="Text">
             </asp:DropDownList>
         </td>
     </tr>
@@ -103,7 +105,8 @@
             Foreclosure Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" 
+                Width="140px" CssClass="Text"></asp:TextBox>
            <%--<cc1:PropertyProxyValidator ID="txtForeclosureCaseIDCheckValidator" runat="server" 
            PropertyName="ForeclosureCaseID" RulesetName="Default" ControlToValidate="txtForeclosureCaseID" 
            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>--%>
@@ -113,7 +116,8 @@
             Property State:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="100px">
+            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="100px" 
+                CssClass="Text">
             </asp:DropDownList>
         </td>
         <td>
