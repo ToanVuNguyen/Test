@@ -32,7 +32,7 @@
             Last 4 or SSN:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text2"></asp:TextBox>
+            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text2" Width="140px"></asp:TextBox>
             
         </td>
         <td align="right" class="sidelinks">
@@ -59,7 +59,7 @@
             Last Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text2"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text2" Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Loan Number:
@@ -81,7 +81,7 @@
             First Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text2"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text2" Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property Zip:
@@ -103,7 +103,7 @@
             Foreclosure Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10"></asp:TextBox>
+            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" Width="140px"></asp:TextBox>
            <%--<cc1:PropertyProxyValidator ID="txtForeclosureCaseIDCheckValidator" runat="server" 
            PropertyName="ForeclosureCaseID" RulesetName="Default" ControlToValidate="txtForeclosureCaseID" 
            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>--%>
