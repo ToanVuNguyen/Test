@@ -34,7 +34,8 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())//Authentication checking
                 //if (true)
                 {                    
-                    CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);                                        
+                    CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);
+                    base.SetDefaultValues(callLogDTO);
                     string sCallLogID = "HPF_" + CallLogBL.Instance.InsertCallLog(callLogDTO);
                     response.CallLogID = sCallLogID;
                     response.Status = ResponseStatus.Success;                                        
@@ -238,6 +239,8 @@ namespace HPF.FutureState.WebServices
 
             return destObject;
         }
+
+
     }
 
 
