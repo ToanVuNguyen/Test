@@ -34,6 +34,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         private void BindData()
         {
+            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+            ForeclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
+
             if (ForeclosureCase == null)
                 return;
             //Property
@@ -66,7 +69,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblMother.Text = ForeclosureCase.MotherMaidenLname;
             lblDisabled.Text = ForeclosureCase.BorrowerDisabledInd;
             lblRace.Text = ForeclosureCase.RaceCd;
-            //lblEthnicity.Text = ForeclosureCase.b
+            lblEthnicity.Text = ForeclosureCase.HispanicInd;
             lblPreferedLanguage.Text = ForeclosureCase.BorrowerPreferredLangCd;
             lblEducationLevel.Text = ForeclosureCase.BorrowerEducLevelCompletedCd;
             lblMaritalStatus.Text = ForeclosureCase.BorrowerMaritalStatusCd;
@@ -85,6 +88,70 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblContactAdd2.Text = ForeclosureCase.ContactAddr2;
             lblContactCity.Text = ForeclosureCase.ContactCity;
             lblContactStateZip.Text = ForeclosureCase.ContactStateCd +","+ ForeclosureCase.ContactZip;
+            //case status
+            ddlDuplicate.SelectedItem.Value = ForeclosureCase.DuplicateInd;
+            ddlAgency.SelectedItem.Value = ForeclosureCase.AgencyId.ToString();
+            lblAgencyCase.Text = ForeclosureCase.AgencyCaseNum;
+            lblAgencyClient.Text = ForeclosureCase.AgencyClientNum;
+            lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
+            lblPhoneExt.Text = ForeclosureCase.CounselorPhone + " " + ForeclosureCase.CounselorExt;
+            lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
+            lblProgram.Text = ForeclosureCase.ProgramId.ToString();
+            lblIntakeDate.Text = ForeclosureCase.IntakeDt.ToString();
+            lblCompleteDate.Text = ForeclosureCase.CompletedDt.ToString();
+            lblCounsellingDuration.Text = ForeclosureCase.CounselingDurationCd.ToString();
+            lblSourceCode.Text = ForeclosureCase.CaseSourceCd;
+            //case summary
+            lblSentDate.Text = ForeclosureCase.SummarySentDt.ToString();
+            lblSentOrther.Text = ForeclosureCase.SummarySentOtherCd;
+            lblOtherDate.Text = ForeclosureCase.SummarySentOtherDt.ToString();
+            //consent
+            lblServicerConsent.Text = ForeclosureCase.ServicerConsentInd;
+            lblFundingConsent.Text = ForeclosureCase.FundingConsentInd;
+            //default reason
+            lblDefaultReason.Text = ForeclosureCase.DfltReason1stCd;
+            lblSDefaultReason.Text = ForeclosureCase.DfltReason2ndCd;
+            //case financial
+            lblHouseholdType.Text = ForeclosureCase.HouseholdCd;
+            lblAnnualIncome.Text = ForeclosureCase.HouseholdGrossAnnualIncomeAmt.ToString();
+            lblEarnerCode.Text = ForeclosureCase.IncomeEarnersCd;
+            lblAMIPercentage.Text = ForeclosureCase.AmiPercentage.ToString();
+            lblWServicer.Text = ForeclosureCase.DiscussedSolutionWithSrvcrInd;
+            lblAnotherAgency.Text = ForeclosureCase.WorkedWithAnotherAgencyInd;
+            lblSevicerRecently.Text = ForeclosureCase.ContactedSrvcrRecentlyInd;
+            lblWorkoutPlan.Text = ForeclosureCase.WorkedWithAnotherAgencyInd;
+            lblPlanCurrent.Text = ForeclosureCase.SrvcrWorkoutPlanCurrentInd;
+            lblCreditScores.Text = ForeclosureCase.IntakeCreditScore;
+            lblCreditBureau.Text = ForeclosureCase.IntakeCreditBureauCd;
+            //foreclosure notice
+            
+            //lblNoticeReceived.Text=ForeclosureCase.
+            lblDateSet.Text = ForeclosureCase.FcSaleDateSetInd;
+            //bankcruptcy
+            lblBankruptcy.Text = ForeclosureCase.BankruptcyInd;
+            lblBankruptcyAttomey.Text = ForeclosureCase.BankruptcyAttorney;
+            lblCurrentIndicator.Text = ForeclosureCase.BankruptcyPmtCurrentInd;
+            //HUD
+            lblTerminationReason.Text = ForeclosureCase.HudOutcomeCd;
+            lblTerminationDate.Text = ForeclosureCase.HudTerminationDt.ToString();
+            lblHUDOutcome.Text = ForeclosureCase.HudOutcomeCd;
+            //couselor notes
+            txtReasonNote.Text= ForeclosureCase.DfltReason1stCd;
+            txtItemNotes.Text = ForeclosureCase.ActionItemsNotes;
+            txtFollowUpNotes.Text = ForeclosureCase.FollowupNotes;
+            //Opt In/Out
+            ddlNotCall.SelectedItem.Value = ForeclosureCase.DoNotCallInd;
+            ddlNewsLetter.SelectedItem.Value = ForeclosureCase.OptOutNewsletterInd;
+            ddlServey.SelectedItem.Value = ForeclosureCase.OptOutSurveyInd;
+            //media cadidate
+            lblMediaInterest.Text = ForeclosureCase.AgencyMediaConsentInd;
+            ddlMediaCondirmation.SelectedItem.Value = ForeclosureCase.HpfMediaCandidateInd;
+            //success story
+            lblSuccessStory.Text = ForeclosureCase.AgencySuccessStoryInd;
+            ddlSuccessStory.SelectedItem.Value = ForeclosureCase.HpfSuccessStoryInd;
+            
+
+
         }
         protected override void OnLoad(EventArgs e)
         {

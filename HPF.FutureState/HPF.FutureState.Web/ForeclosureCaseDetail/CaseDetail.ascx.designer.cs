@@ -536,13 +536,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Label lblAnotherAgency;
         
         /// <summary>
-        /// CounselorEmail control.
+        /// lblCounselorEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CounselorEmail;
+        protected global::System.Web.UI.WebControls.Label lblCounselorEmail;
         
         /// <summary>
         /// lblSevicerRecently control.
@@ -624,6 +624,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCreditBureau;
+        
+        /// <summary>
+        /// lblSourceCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSourceCode;
         
         /// <summary>
         /// lblSentDate control.
@@ -779,13 +788,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.TextBox txtItemNotes;
         
         /// <summary>
-        /// txtControl control.
+        /// txtFollowUpNotes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtControl;
+        protected global::System.Web.UI.WebControls.TextBox txtFollowUpNotes;
         
         /// <summary>
         /// ddlNotCall control.

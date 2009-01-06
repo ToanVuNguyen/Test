@@ -484,7 +484,7 @@
                      <td align="right" class="sidelinks">
                                     Counselor Email*:</td>
                   <td>
-                                    <asp:Label ID="CounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
+                                    <asp:Label ID="lblCounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
                                 </td>
                     <td align="right" class="sidelinks">
                                     Contacted Servicer Recently*:</td>
@@ -538,6 +538,18 @@
                                     Intake Credit Bureau*:</td>
                     <td>
                                     <asp:Label ID="lblCreditBureau" runat="server" CssClass="Text">Yes</asp:Label>
+                                </td>
+                </tr>
+                <tr>
+                     <td align="right" class="sidelinks">
+                                    Case Source Code*:</td>
+                  <td>
+                                    <asp:Label ID="lblSourceCode" runat="server" CssClass="Text">Newspaper/ads</asp:Label>
+                                </td>
+                    <td >
+                                    </td>
+                    <td>
+                                   
                                 </td>
                 </tr>
                 
@@ -749,7 +761,7 @@
                                  <td align="right" class="sidelinks" style="vertical-align:top">
                                      FollowUp Notes:</td>
                                  <td class="Control">
-                                     <asp:TextBox ID="txtControl" runat="server" Rows="3" Width="100%" Height="56px" 
+                                     <asp:TextBox ID="txtFollowUpNotes" runat="server" Rows="3" Width="100%" Height="56px" 
                                          TextMode="MultiLine" CssClass="Text"></asp:TextBox>
                                  </td>
                              </tr>
