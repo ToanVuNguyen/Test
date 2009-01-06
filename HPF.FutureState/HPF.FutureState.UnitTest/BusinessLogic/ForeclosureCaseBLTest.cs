@@ -1002,7 +1002,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("900.08");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1015,7 +1015,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300.05");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1084,7 +1084,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.MortgageTypeCd = "";                    
                     caseLoanDTO.TermLengthCd = "";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
-                    caseLoanDTO.InterestRate = 1;
+                    caseLoanDTO.InterestRate = 100;
                     caseLoanDTO.CreateDate = DateTime.Now;
                     caseLoanDTO.CreateUserId = "HPF";
                     caseLoanDTO.CreateAppName = "HPF";
