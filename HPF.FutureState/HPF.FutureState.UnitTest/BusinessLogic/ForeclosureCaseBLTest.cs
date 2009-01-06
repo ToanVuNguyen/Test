@@ -1504,7 +1504,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ExpectedException(typeof(ProcessingException))]
         public void EmptySearchCriteriaProvided()
         {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             //empty Search criteria, default value of interger is -1 and string is null
             AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = -1, Program = -1 };
             target.AppSearchforeClosureCase(criteria);
