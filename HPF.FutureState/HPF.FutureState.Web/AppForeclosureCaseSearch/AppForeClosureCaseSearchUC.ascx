@@ -3,8 +3,6 @@
 <%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>
-<%@ Register Src="~/Common/FixedHeaderGrid.ascx" TagName="FixedHeaderGrid"
-    TagPrefix="uc1" %>
 
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
