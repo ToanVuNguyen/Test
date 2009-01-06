@@ -1534,7 +1534,7 @@ namespace HPF.FutureState.BusinessLogic
             Collection<string> ErrorMess = AppRequireFieldValidation(searchCriteria);
             if (!ValidateSearchCriteria(searchCriteria))
             {
-                throw new DataValidationException("Please choose search criteria.");
+                throw new DataValidationException("Please choose argument(s) for at least one search option");
             }
             if (ErrorMess != null)
             {
