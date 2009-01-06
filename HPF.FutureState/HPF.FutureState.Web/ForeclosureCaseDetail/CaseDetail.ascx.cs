@@ -10,6 +10,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
@@ -17,7 +19,19 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                BindDDLAgency();
+            }
+        }
+        protected void BindDDLAgency()
+        {
+            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+            ddlAgency.DataValueField = "AgencyID";
+            ddlAgency.DataTextField = "AgencyName";
+            ddlAgency.DataSource = agencyCollection;
+            ddlAgency.DataBind();
+            ddlAgency.Items.FindByText("ALL").Selected = true;
         }
     }
 }
