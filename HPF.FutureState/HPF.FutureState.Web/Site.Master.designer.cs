@@ -23,6 +23,15 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.HtmlControls.HtmlForm mainform;
         
         /// <summary>
+        /// MenuBarControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HPF.FutureState.Web.HPFWebControls.MenuBarControl MenuBarControl;
+        
+        /// <summary>
         /// ContentPlaceHolderMain control.
         /// </summary>
         /// <remarks>

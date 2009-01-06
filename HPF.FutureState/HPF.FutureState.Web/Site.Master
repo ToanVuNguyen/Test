@@ -1,5 +1,8 @@
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="HPF.FutureState.Web.Site" %>
 
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="HPF" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head runat="server">
@@ -7,9 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
 <META NAME="Content-Language" CONTENT="english">
-
-
-<script language="JavaScript" type="text/JavaScript" src="Scripts/HPF.js"></script>
 <link href="Styles/HPF.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -26,126 +26,8 @@
         </tr>
         <tr> 
           <td background="Styles/Images/topnavbg.jpg">
-            <table id="sddm" >
-                <tr>
-                    <td >
-                        <a href="#"  onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)" >
-                        Home</a>
-                    </td>
-                    <td >
-                        <a href="../AppForeClosureCaseSearchPage.aspx" id="Case" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)" style="width:130">
-                        Foreclosure Case</a>
-                    </td>
-                    <td>
-                        <a href="#" id="Billing" onmouseover="mopen('mBilling','Billing')" onmouseout="mclosetime()">
-                        Accounting</a>
-                        <table id="mBilling" >
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Funding Source Invoices</a>        
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Agency Accounts Payable</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    
-                    <td >
-                        <a href="#" id="Reports" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
-                        Reports</a>
-                        
-                    </td>
-                    <td >
-                        <a href="ChangePassword.aspx" style="width:135" 
-                            onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
-                        Change Password</a>
-                    </td>
-                    <td >
-                        <a href="#" id="Admin" onmouseover="mopen('mAdmin','Admin')" onmouseout="mclosetime()">
-                        Admin</a>
-                        <table id="mAdmin">
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Agency</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Funding Sources</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Servicer</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Rates</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Programs</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">General Codes</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Budget Categories</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Outcomes</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">User</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">WS User</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Call Center</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Congressional Districts</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Area Median Income</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td onmouseover="mcancelclosetime()" onmouseout="mclosetime()" >
-                                    <a href="#">Geocode Reference</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    
-                    <td >
-                        <a href="/Logout.aspx" onmouseover="MenuMouseOver(this)" onmouseout="MenuMouseLeave(this)">
-                        Logout</a>
-                    </td>
-                </tr>
-            </table>
+              <HPF:MenuBarControl ID="MenuBarControl" runat="server" XmlMenuFile="~/Common/Menu/MenuBar.xml">
+              </HPF:MenuBarControl>
           </td>
         </tr>
       </table></td>
