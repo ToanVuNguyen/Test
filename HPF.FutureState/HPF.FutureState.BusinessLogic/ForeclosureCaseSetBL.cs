@@ -25,6 +25,8 @@ namespace HPF.FutureState.BusinessLogic
         const string CASE_COMPLETE_IND_YES = "Y";
         const string CASE_COMPLETE_IND_NO = "N";
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
+        ForeclosureCaseSetDAO foreClosureCaseSetDAO;
+            
         /// <summary>
         /// Singleton
         /// </summary>
@@ -50,6 +52,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
         public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
+            foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            foreClosureCaseSetDAO.Begin();
+
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
            
@@ -140,7 +145,7 @@ namespace HPF.FutureState.BusinessLogic
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-            if (fcCase.AgencyCaseNum == null || fcCase.AgencyId == 0)
+            if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty || fcCase.AgencyId == 0)
                 throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID);
 
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
@@ -364,9 +369,9 @@ namespace HPF.FutureState.BusinessLogic
         private DuplicatedCaseLoanDTOCollection CheckDuplicateCase(ForeclosureCaseDTO foreclosureCase)
         {            
             if (foreclosureCase.FcId != 0)
-                return ForeclosureCaseSetDAO.CreateInstance().CheckDuplicate(foreclosureCase.FcId);
+                return foreClosureCaseSetDAO.CheckDuplicate(foreclosureCase.FcId);
             else
-                return ForeclosureCaseSetDAO.CreateInstance().CheckDuplicate(foreclosureCase.AgencyId, foreclosureCase.AgencyCaseNum);
+                return foreClosureCaseSetDAO.CheckDuplicate(foreclosureCase.AgencyId, foreclosureCase.AgencyCaseNum);
         }
 
         /// <summary>
@@ -374,7 +379,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         bool CheckExistingAgencyIdAndCaseNumber(int agencyId, string caseNumner)
         {
-            return ForeclosureCaseSetDAO.CreateInstance().CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
+            return foreClosureCaseSetDAO.CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
         #region Functions Check MiscError
@@ -516,10 +521,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private void UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            
             try
             {
-                foreClosureCaseSetDAO.Begin();
+            
                 ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
                 CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
                 OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
@@ -586,10 +591,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            var foreClosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+           
             try
             {
-                foreClosureCaseSetDAO.Begin();
+              
                 ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
                 CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
                 OutcomeItemDTOCollection outcomeItemCollection = OutcomeHPAuto(foreclosureCaseSet);
@@ -1360,7 +1365,9 @@ namespace HPF.FutureState.BusinessLogic
         {            
             if (foreclosureCaseSet == null)
                 return null;
+
             BudgetSetDTO budgetSet = new BudgetSetDTO();
+
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;            
             decimal totalIncome = decimal.MinValue;
