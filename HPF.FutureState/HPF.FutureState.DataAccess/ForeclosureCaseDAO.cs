@@ -50,7 +50,7 @@ namespace HPF.FutureState.DataAccess
             SqlConnection dbConnection = base.CreateConnection();
             try
             {                
-                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_fcid", dbConnection);
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_detail_get", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
