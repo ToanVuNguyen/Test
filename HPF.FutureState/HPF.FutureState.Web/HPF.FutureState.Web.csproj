@@ -93,13 +93,6 @@
     <Compile Include="ChangePassword.aspx.designer.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Common\FixedHeaderGrid.ascx.cs">
-      <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Common\FixedHeaderGrid.ascx.designer.cs">
-      <DependentUpon>FixedHeaderGrid.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -197,7 +190,6 @@
     <Content Include="AppForeClosureCaseSearchPage.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="ChangePassword.aspx" />
-    <Content Include="Common\FixedHeaderGrid.ascx" />
     <Content Include="Common\Menu\MenuBar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
