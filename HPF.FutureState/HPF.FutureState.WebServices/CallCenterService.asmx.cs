@@ -75,7 +75,7 @@ namespace HPF.FutureState.WebServices
             //            
             try
             {
-                if (true)//IsAuthenticated()//Authentication checking
+                if (IsAuthenticated())//Authentication checking
                 {
                     CallLogDTO callLogDTO = null;
                     bool validCallLodId = ValidateCallLogID(request);
