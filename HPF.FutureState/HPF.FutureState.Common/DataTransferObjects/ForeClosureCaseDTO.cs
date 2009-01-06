@@ -297,7 +297,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string MilitaryServiceCd { get; set; }
 
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
-        public double HouseholdGrossAnnualIncomeAmt{ get; set; }
+        public decimal HouseholdGrossAnnualIncomeAmt{ get; set; }
 
         public string LoanList { get; set; }
 

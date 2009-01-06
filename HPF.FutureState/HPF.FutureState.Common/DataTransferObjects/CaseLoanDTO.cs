@@ -42,7 +42,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public decimal OrigLoanAmt { get; set; }
 
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
-        public double InterestRate { get; set; }
+        public decimal InterestRate { get; set; }
 
         public string OriginatingLenderName { get; set; }
 
