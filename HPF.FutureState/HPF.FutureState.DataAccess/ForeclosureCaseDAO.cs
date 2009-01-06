@@ -91,7 +91,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.BorrowerMname = ConvertToString(reader["borrower_mname"]);
                         returnObject.BorrowerOccupationCd = ConvertToString(reader["borrower_occupation"]);
                         returnObject.BorrowerPreferredLangCd = ConvertToString(reader["borrower_preferred_lang_cd"]);
-                        returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
+                        //returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
 
                         returnObject.CallId = ConvertToInt(reader["call_id"]);
                         returnObject.CaseCompleteInd = ConvertToString(reader["case_complete_ind"]);
@@ -105,7 +105,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.CoBorrowerLast4Ssn = ConvertToString(reader["co_borrower_last4_SSN"]);
                         returnObject.CoBorrowerMname = ConvertToString(reader["co_borrower_mname"]);
                         returnObject.CoBorrowerOccupationCd = ConvertToString(reader["co_borrower_occupation"]);
-                        returnObject.CoBorrowerSsn = ConvertToString(reader["co_borrower_ssn"]);
+                        //returnObject.CoBorrowerSsn = ConvertToString(reader["co_borrower_ssn"]);
                         returnObject.CompletedDt = ConvertToDateTime(reader["completed_dt"]);
                         returnObject.ContactAddr1 = ConvertToString(reader["contact_addr1"]);
                         returnObject.ContactAddr2 = ConvertToString(reader["contact_addr2"]);
