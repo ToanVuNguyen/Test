@@ -85,23 +85,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblContactAdd2.Text = ForeclosureCase.ContactAddr2;
             lblContactCity.Text = ForeclosureCase.ContactCity;
             lblContactStateZip.Text = ForeclosureCase.ContactStateCd +","+ ForeclosureCase.ContactZip;
-
-
-            if (!IsPostBack)
-            {
-                BindDDLAgency();
-            }
-
-
-
         }
-
-        protected void PageLoad(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-
+            if(!IsPostBack)
+                BindDDLAgency();
         }
-
-
         protected void BindDDLAgency()
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();

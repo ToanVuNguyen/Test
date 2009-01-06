@@ -408,7 +408,7 @@
                      <td align="right" class="sidelinks">
                                     Duplicate:</td>
                   <td>
-                                                <asp:DropDownList ID="ddlDuplicate" runat="server">
+                                                <asp:DropDownList ID="ddlDuplicate" runat="server" CssClass="Text">
                                                  <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
@@ -423,7 +423,7 @@
                      <td align="right" class="sidelinks">
                                     Agency:</td>
                   <td>
-                                                <asp:DropDownList ID="ddlAgency" runat="server">
+                                                <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text">
                                                 </asp:DropDownList>
                                 </td>
                     <td align="right" class="sidelinks">
@@ -734,14 +734,15 @@
                                      Loan Default Reason Notes:</td>
                                  <td class="Control">
                                      <asp:TextBox ID="txtReasonNote" runat="server" Rows="3" Width="100%" Height="56px" 
-                                         TextMode="MultiLine"></asp:TextBox>
+                                         TextMode="MultiLine" CssClass="Text"></asp:TextBox>
                                  </td>
                              </tr>
                              <tr>
                                  <td align="right" class="sidelinks" style="vertical-align:top">
                                      Action Item Notes:</td>
                                  <td class="Control">
-                                     <asp:TextBox ID="txtItemNotes" runat="server" Rows="3" Width="100%" Height="56px" TextMode="MultiLine"></asp:TextBox>
+                                     <asp:TextBox ID="txtItemNotes" runat="server" Rows="3" Width="100%" 
+                                         Height="56px" TextMode="MultiLine" CssClass="Text"></asp:TextBox>
                                  </td>
                              </tr>
                              <tr>
@@ -749,7 +750,7 @@
                                      FollowUp Notes:</td>
                                  <td class="Control">
                                      <asp:TextBox ID="txtControl" runat="server" Rows="3" Width="100%" Height="56px" 
-                                         TextMode="MultiLine"></asp:TextBox>
+                                         TextMode="MultiLine" CssClass="Text"></asp:TextBox>
                                  </td>
                              </tr>
                          </table>
@@ -799,7 +800,7 @@
                                             <td align="right"  class="sidelinks">
                                                 Do Not Call*:</td>
                                             <td  class="Control">
-                                                <asp:DropDownList ID="ddlNotCall" runat="server" >
+                                                <asp:DropDownList ID="ddlNotCall" runat="server" CssClass="Text" >
                                                  <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
@@ -819,7 +820,7 @@
                                             <td align="right"  class="sidelinks">
                                                 News Letter*:</td>
                                             <td class="Control">
-                                                <asp:DropDownList ID="ddlNewsLetter" runat="server"  >
+                                                <asp:DropDownList ID="ddlNewsLetter" runat="server" CssClass="Text"  >
                                                  <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
@@ -827,7 +828,7 @@
                                             <td align="right" class="sidelinks" >
                                                 HPF Media Condirmation:</td>
                                             <td class="Control">
-                                                <asp:DropDownList ID="ddlMediaCondirmation" runat="server" >
+                                                <asp:DropDownList ID="ddlMediaCondirmation" runat="server" CssClass="Text" >
                                                  <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
@@ -835,7 +836,7 @@
                                             <td align="right"  class="sidelinks">
                                                 HPF Success Story:</td>
                                             <td class="Control">
-                                                <asp:DropDownList ID="ddlSuccessStory" runat="server" >
+                                                <asp:DropDownList ID="ddlSuccessStory" runat="server" CssClass="Text" >
                                                 <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
@@ -845,7 +846,7 @@
                                             <td align="right"  class="sidelinks">
                                                 Survey*:</td>
                                             <td class="Control">
-                                                <asp:DropDownList ID="ddlServey" runat="server" >
+                                                <asp:DropDownList ID="ddlServey" runat="server" CssClass="Text" >
                                                  <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
