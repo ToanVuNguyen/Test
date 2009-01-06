@@ -53,6 +53,7 @@
     background: #8FC4F6;
     border: 1px solid #000;
     width: auto;
+    z-index:500;
 }
 #sddm table tr td
 {
