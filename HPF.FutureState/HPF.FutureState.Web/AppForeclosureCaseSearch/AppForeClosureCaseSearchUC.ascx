@@ -32,21 +32,21 @@
             Last 4 or SSN:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtSSN" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text2"></asp:TextBox>
             
         </td>
         <td align="right" class="sidelinks">
             Agency Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtAgencyCaseID" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text2"></asp:TextBox>
           
         </td>
         <td align="right" class="sidelinks">
             Duplicate:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlDup" runat="server">
+            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text2">
                 <asp:ListItem Selected="True" Value=''></asp:ListItem>
                 <asp:ListItem Value='Y'>Yes</asp:ListItem>
                 <asp:ListItem Value='N'>No</asp:ListItem>
@@ -59,20 +59,20 @@
             Last Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text2"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Loan Number:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLoanNum" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text2"></asp:TextBox>
           
         </td>
         <td align="right" class="sidelinks">
             Agency:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlAgency" runat="server" Width="100px">
+            <asp:DropDownList ID="ddlAgency" runat="server" Width="100px" CssClass="Text2">
             </asp:DropDownList>
         </td>
     </tr>
@@ -81,20 +81,20 @@
             First Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text2"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property Zip:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtPropertyZip" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text2"></asp:TextBox>
            
         </td>
         <td align="right" class="sidelinks">
             Program:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlProgram" runat="server" Width="100px">
+            <asp:DropDownList ID="ddlProgram" runat="server" Width="100px" CssClass="Text2">
             </asp:DropDownList>
         </td>
     </tr>
@@ -189,7 +189,7 @@
                         <asp:BoundField DataField="Last4SSN" HeaderText="SSN" />
                         <asp:TemplateField HeaderText="Co-Borrower">
                             <ItemTemplate>
-                                <asp:Label ID="lblCoBorrowerName" runat="server" Text='<%#Eval("CoborrowerFirstName")+","+Eval("CoborrowerLastName") %>'></asp:Label>
+                                <asp:Label ID="lblCoBorrowerName" runat="server" Text='<%#Eval("CoborrowerFirstName")+" "+Eval("CoborrowerLastName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="SSN" />
@@ -232,6 +232,7 @@
         <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  " Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
         <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
         <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
+        <asp:Label ID="lblTemp1" runat="server" Text="" Visible="false"></asp:Label>
         </td>
         
     </tr>

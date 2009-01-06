@@ -137,9 +137,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     if (MaxRow > this.TotalRowNum)
                         lblMaxRow.Text = this.TotalRowNum.ToString();
                     else lblMaxRow.Text = MaxRow.ToString();
-                    lblTemp.Text = "1";
+                    //lblTemp.Text = "1";
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
                     GeneratePages(totalpage);
+                    lblTemp.Text = "1";
 
 
                 }
@@ -213,18 +214,39 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             {
                 case "First":
                     this.PageNum = 1;
+                    lbtnFirst.Enabled = false;
+                    lbtnPrev.Enabled = false;
                     break;
                 case "Last":
                     this.PageNum = Convert.ToInt16(totalpage);
+                    lbtnLast.Enabled = false;
+                    lbtnNext.Enabled = false;
                     if (totalpage > 10) totalpage = 10;
                     break;
                 case "Next":
                     this.PageNum = Convert.ToInt16(this.PageNum) + 1;
+                    lbtnFirst.Enabled = true;
+                    lbtnLast.Enabled = true;
+                    lbtnPrev.Enabled = true;
                     if (this.PageNum > 10) this.PageNum = 10;
+                    if (this.PageNum == totalpage)
+                    {
+                        lbtnNext.Enabled = false;
+                        lbtnLast.Enabled = false;
+                    }
+
                     break;
                 case "Prev":
                     this.PageNum = Convert.ToInt16(this.PageNum) - 1;
-                    if (this.PageNum < 1) this.PageNum = 1;
+                    lbtnFirst.Enabled = true;
+                    lbtnLast.Enabled = true;
+                    lbtnNext.Enabled = true;
+                    if (this.PageNum < 1||this.PageNum==1)
+                    {
+                        this.PageNum = 1;
+                        lbtnPrev.Enabled = false;
+                        lbtnFirst.Enabled = false;
+                    }
                     break;
             }
             BindGrvForeClosureCaseSearch(this.PageNum);
@@ -239,10 +261,17 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 myLinkBtn.ID = i.ToString();
                 myLinkBtn.Text = i.ToString();
 
-                if (i == this.PageNum)
+                if (i == this.PageNum || (i == 1 && this.PageNum == 0))
+                {
                     myLinkBtn.CssClass = "PageChoose";
+                    myLinkBtn.Enabled = false;
+
+                }
                 else
+                {
                     myLinkBtn.CssClass = "UnderLine";
+
+                }
                 myLinkBtn.CommandName = i.ToString();
                 myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
                 phPages.Controls.Add(myLinkBtn);
@@ -255,9 +284,23 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
         void myLinkBtn_Command(object sender, CommandEventArgs e)
         {
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
             this.PageNum = pagenum;
-
+            lbtnFirst.Enabled = true;
+            lbtnLast.Enabled = true;
+            lbtnNext.Enabled = true;
+            lbtnPrev.Enabled = true;
+            if (pagenum == 1)
+            {
+                lbtnFirst.Enabled = false;
+                lbtnPrev.Enabled = false;
+            }
+            if (pagenum == totalpage)
+            {
+                lbtnLast.Enabled = false;
+                lbtnNext.Enabled = false;
+            }
             BindGrvForeClosureCaseSearch(pagenum);
 
         }
@@ -265,34 +308,34 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             int StartIndex = mystring.IndexOf(oldchar);
             if (StartIndex == -1) return mystring;
-            string mystring1 = null; 
-            string mystring2=null;
+            string mystring1 = null;
+            string mystring2 = null;
             mystring1 = mystring.Substring(0, StartIndex);
-            
+
             if (StartIndex + 1 == mystring.Length)
                 return mystring1 + "%";
             else
             {
-                mystring2 = mystring.Substring(StartIndex + 1, mystring.Length-1);
+                mystring2 = mystring.Substring(StartIndex + 1, mystring.Length - 1);
                 if (StartIndex == 0) return ("%" + mystring2);
                 return (mystring1 + "%" + mystring2);
             }
         }
         protected void grvForeClosureCaseSearch_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-                if (e.Row.RowState == DataControlRowState.Alternate)
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-                }
-                else
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-                }
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
+            //    if (e.Row.RowState == DataControlRowState.Alternate)
+            //    {
+            //        e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
+            //    }
+            //    else
+            //    {
+            //        e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
+            //    }
 
-            }
+            //}
         }
 
 
