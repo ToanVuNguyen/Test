@@ -1071,9 +1071,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <return>bool<return>
         /// </summary>
         private Collection<string> CheckValidCode(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            if (foreclosureCaseSet == null)
-                return null;            
+        {                     
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             Collection<string> msgFcCaseSet = new Collection<string>();
@@ -1235,9 +1233,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Add value HPF-Auto for ForclosureCase        
         /// </summary>
         private ForeclosureCaseDTO ForclosureCaseHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {            
-            if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                return null;                        
+        {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int fcId = foreclosureCase.FcId;
             bool isComplete = CheckComplete(foreclosureCaseSet);
@@ -1315,7 +1311,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private OutcomeItemDTOCollection OutcomeHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet == null || foreclosureCaseSet.Outcome == null)            
+            if (foreclosureCaseSet.Outcome == null)            
                 return null;            
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemOld = foreclosureCaseSet.Outcome;            
@@ -1332,9 +1328,6 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private BudgetSetDTO BudgetSetHPAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
-            if (foreclosureCaseSet == null)
-                return null;
-
             BudgetSetDTO budgetSet = new BudgetSetDTO();
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
