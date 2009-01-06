@@ -449,24 +449,39 @@ namespace HPF.FutureState.DataAccess
         public StateDTOCollection AppGetState()
         {
             StateDTOCollection result = new StateDTOCollection();
-            var dbConnection = CreateConnection();
-            var command = new SqlCommand("hpf_state_get", dbConnection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Connection = dbConnection;
+            
+            
+            RefCodeItemDTOCollection refcodeitems = RefCodeItemDAO.Instance.GetRefCodeItem();
+
+            StateDTO itemdefault = new StateDTO();
+            itemdefault.StateName = "ALL";
+            result.Add(itemdefault);
+            foreach (RefCodeItemDTO refcodeitem in refcodeitems)
+                {
+                        StateDTO item = new StateDTO();
+                        item.StateName = refcodeitem.Code;
+                        result.Add(item);
+                }
+            
+            
+            //var dbConnection = CreateConnection();
+            //var command = new SqlCommand("hpf_state_get", dbConnection);
+            //command.CommandType = CommandType.StoredProcedure;
+            //command.Connection = dbConnection;
             try
             {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        StateDTO item = new StateDTO();
-                        item.StateName = ConvertToString(reader["prop_state_cd"]);
-                        result.Add(item);
-                    }
-                    reader.Close();
-                }
+                //dbConnection.Open();
+                //var reader = command.ExecuteReader();
+                //if (reader.HasRows)
+                //{
+                //    while (reader.Read())
+                //    {
+                //        StateDTO item = new StateDTO();
+                //        item.StateName = ConvertToString(reader["prop_state_cd"]);
+                //        result.Add(item);
+                //    }
+                //    reader.Close();
+                //}
             }
             catch (Exception ex)
             {
@@ -474,7 +489,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
-                dbConnection.Close();
+                //dbConnection.Close();
             }
             return result;
         }
