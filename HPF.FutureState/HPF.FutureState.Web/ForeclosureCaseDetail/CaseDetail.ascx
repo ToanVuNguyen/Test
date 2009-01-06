@@ -4,7 +4,7 @@
 <table style="width:100%;">
     <tr>
         <td>
-            <table style="width:100%; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8FC4F6;">
+            <table style="width:100%; border-bottom-style: none;">
             <tr>
                 <td colspan=3 align="right">
                     <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" />
@@ -12,7 +12,7 @@
             </tr>
                 <tr>
                     <td style="vertical-align: top">
-                        <table style="width:100%;">
+                        <table style="width:100%; border-bottom-style:none;">
                             <tr>
                                 <td colspan="2">
                                     <h1>Property:</h1></td>
@@ -379,7 +379,7 @@
     </tr>
     <tr>
         <td>
-            <hr /></td>
+            <hr  style="color:#8FC4F6; border-style:solid; border-width=1px"/></td>
     </tr>
     <tr>
         <td>
@@ -709,7 +709,7 @@
                 
                  <tr>
                      <td align="right" class="sidelinks" colspan="4">
-                                    <hr /></td>
+                                    <hr  style="color:#8FC4F6; border-style:solid; border-width=1px"/></td>
                 </tr>
                 
                  <tr>
@@ -756,7 +756,7 @@
                 </tr>
                  <tr>
                      <td colspan="4">
-                                    <hr /></td>
+                                    <hr  style="color:#8FC4F6; border-style:solid; border-width=1px"/></td>
                 </tr>
                  <tr>
                      <td align="right" class="sidelinks" >
@@ -797,7 +797,7 @@
                                             <td align="right"  class="sidelinks">
                                                 Do Not Call*:</td>
                                             <td  class="Control">
-                                                <asp:DropDownList ID="ddlNotCall" runat="server" Width="100%">
+                                                <asp:DropDownList ID="ddlNotCall" runat="server" >
                                                 </asp:DropDownList>
                                             </td>
                                             <td align="right"  class="sidelinks">
@@ -821,13 +821,13 @@
                                             <td align="right" class="sidelinks" >
                                                 HPF Media Condirmation:</td>
                                             <td class="Control">
-                                                <asp:DropDownList ID="ddlMediaCondirmation" runat="server" Width="100%">
+                                                <asp:DropDownList ID="ddlMediaCondirmation" runat="server" >
                                                 </asp:DropDownList>
                                             </td>
                                             <td align="right"  class="sidelinks">
                                                 HPF Success Story:</td>
                                             <td class="Control">
-                                                <asp:DropDownList ID="ddlSuccessStory" runat="server" Width="100%">
+                                                <asp:DropDownList ID="ddlSuccessStory" runat="server" >
                                                 </asp:DropDownList>
                                             </td>
                                         </tr>

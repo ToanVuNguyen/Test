@@ -47,11 +47,9 @@ p
 .Text
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    color:Black;
+    color: Black;
     font-size: 10px;
     padding-left: 10px;
-    
-    
 }
 .MyButton
 {
@@ -73,7 +71,7 @@ td
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
     color: #000000;
-	margin-left: 320px;
+    margin-left: 320px;
 }
 
 .sidelinks2
@@ -122,7 +120,7 @@ h2
     font-size: 13px;
     font-weight: bold;
     height: 29;
-     z-index:100;
+    z-index: 100;
 }
 
 #sddm td a
@@ -135,7 +133,6 @@ h2
     text-align: center;
     text-decoration: none;
     width: auto;
-    
 }
 
 
@@ -149,8 +146,6 @@ h2
     text-align: center;
     text-decoration: none;
     width: auto;
-   
-  
 }
 .TopMenuMouseOver
 {
@@ -206,20 +201,25 @@ h2
 {
     text-align: left;
     padding-left: 10px;
-    vertical-align:top;
+    vertical-align: top;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    color:Black;
+    color: Black;
     font-size: 10px;
+}
+.Text2
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: Black;
+    font-size: 12px;
+    padding-left: 10px;
 }
 .FixedHeader
 {
     position: relative;
     top: expression(offsetParent.scrollTop);
-    font-family:Tahoma;
-    font-size:12px;
-    z-index:80;
-   
-   
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    z-index: 80;
 }
 .ScrollTable
 {
@@ -228,8 +228,7 @@ h2
     height: 300px;
     overflow: auto;
     margin: 0;
-    z-index:70;
-   
+    z-index: 70;
 }
 .GridViewStyle
 {
@@ -257,10 +256,9 @@ h2
 }
 .PageChoose
 {
-    color:orange;
+    color: orange;
     font-weight: bold;
-    text-decoration:none;
-    
+    text-decoration: none;
 }
 .SiteBar
 {
@@ -273,6 +271,17 @@ h2
     color: Red;
 }
 
-.SelectedRowStyle{background-color: yellow;}
-.AlternatingRowStyle{background-color: white;}
-.RowStyle{background-color:#EFF3FB; font-family:Tahoma; font-size:12px;}
+.SelectedRowStyle
+{
+    background-color: yellow;
+}
+.AlternatingRowStyle
+{
+    background-color: white;
+}
+.RowStyle
+{
+    background-color: #EFF3FB;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
