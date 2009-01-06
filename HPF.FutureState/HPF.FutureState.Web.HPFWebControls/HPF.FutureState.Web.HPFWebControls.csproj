@@ -64,7 +64,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MenuBarControl.css" />
     <EmbeddedResource Include="MenuBarControl.js" />
-    <Content Include="MenuExample.xml" />
+    <Content Include="MenuExample.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

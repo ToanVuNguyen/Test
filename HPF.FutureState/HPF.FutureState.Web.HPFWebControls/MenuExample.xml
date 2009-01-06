@@ -3,13 +3,13 @@
   <Menu Id="Home" Title="Home" Url="" Enabled="True">    
   </Menu>
   <Menu Id="Accounting" Title="Accounting" Url="" Enabled="True">
-    <MenuItem Id="" Title="Funding source Invoices" Url="" Enabled="True"/>
-    <MenuItem Id="" Title="Agency account payables" Url="" Enabled="True"/>    
+    <MenuItem Id="a" Title="Funding source Invoices" Url="" Enabled="True"/>
+    <MenuItem Id="b" Title="Agency account payables" Url="" Enabled="True"/>    
   </Menu>
   <Menu Id="Admin" Title="Admin" Url="" Enabled="True">
-    <MenuItem Id="" Title="Agency" Url="" Enabled="True"/>
-    <MenuItem Id="" Title="Funding source" Url="" Enabled="True"/>
-    <MenuItem Id="" Title="Servicer" Url="" Enabled="True"/>
-    <MenuItem Id="" Title="Rates" Url="" Enabled="True"/>
+    <MenuItem Id="c" Title="Agency" Url="" Enabled="True"/>
+    <MenuItem Id="d" Title="Funding source" Url="" Enabled="True"/>
+    <MenuItem Id="e" Title="Servicer" Url="" Enabled="True"/>
+    <MenuItem Id="f" Title="Rates" Url="" Enabled="True"/>
   </Menu>
 </MenuBar>
