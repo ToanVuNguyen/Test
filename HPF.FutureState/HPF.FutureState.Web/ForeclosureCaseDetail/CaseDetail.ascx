@@ -595,7 +595,7 @@
                                     <asp:Label ID="lblSentOrther" runat="server" CssClass="Text">Fax</asp:Label>
                                 </td>
                     <td align="right" class="sidelinks">
-                                    Foreclosure Date Set*:</td>
+                                    Foreclosure Sale Date Set*:</td>
                     <td>
                                     <asp:Label ID="lblDateSet" runat="server" CssClass="Text">Yes</asp:Label>
                                 </td>
@@ -842,6 +842,7 @@
                                                 HPF Media Condirmation:</td>
                                             <td class="Control">
                                                 <asp:DropDownList ID="ddlMediaCondirmation" runat="server" CssClass="Text" >
+                                                 <asp:ListItem Value="NULL" Text=""></asp:ListItem>
                                                  <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>
@@ -850,6 +851,7 @@
                                                 HPF Success Story:</td>
                                             <td class="Control">
                                                 <asp:DropDownList ID="ddlSuccessStory" runat="server" CssClass="Text" >
+                                                <asp:ListItem Value="NULL" Text=""></asp:ListItem>
                                                 <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                                 <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                                 </asp:DropDownList>

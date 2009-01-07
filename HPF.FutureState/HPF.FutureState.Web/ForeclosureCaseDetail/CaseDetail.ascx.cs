@@ -96,8 +96,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             //case status
             ddlDuplicate.SelectedValue = ForeclosureCase.DuplicateInd;
             if (ForeclosureCase.DuplicateInd == "Y")
-                ddlDuplicate.SelectedItem.Text = "Yes";
-            else ddlDuplicate.SelectedItem.Text = "No";
+                ddlDuplicate.SelectedIndex = 0;
+            else ddlDuplicate.SelectedIndex = 1;
             ddlAgency.SelectedValue = ForeclosureCase.AgencyId.ToString();
             lblAgencyCase.Text = ForeclosureCase.AgencyCaseNum;
             lblAgencyClient.Text = ForeclosureCase.AgencyClientNum;
@@ -132,8 +132,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCreditScores.Text = ForeclosureCase.IntakeCreditScore;
             lblCreditBureau.Text = ForeclosureCase.IntakeCreditBureauCd;
             //foreclosure notice
-            
-            //lblNoticeReceived.Text=ForeclosureCase.
+
+            lblNoticeReceived.Text = ForeclosureCase.FcSaleDate.ToShortDateString();
             lblDateSet.Text = ForeclosureCase.FcSaleDateSetInd;
             //bankcruptcy
             lblBankruptcy.Text = ForeclosureCase.BankruptcyInd;
@@ -164,11 +164,20 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblMediaInterest.Text = ForeclosureCase.AgencyMediaConsentInd;
             ddlMediaCondirmation.SelectedValue = ForeclosureCase.HpfMediaCandidateInd;
             if (ForeclosureCase.HpfMediaCandidateInd == "Y")
-                ddlMediaCondirmation.SelectedItem.Text = "Yes";
-            else ddlMediaCondirmation.SelectedItem.Text = "No";
+                ddlMediaCondirmation.SelectedIndex = 1;//yes
+            else
+                if (ForeclosureCase.HpfMediaCandidateInd == "N")
+                    ddlMediaCondirmation.SelectedIndex = 2;//no
+                else ddlMediaCondirmation.SelectedIndex = 0;//blank
             //success story
             lblSuccessStory.Text = ForeclosureCase.AgencySuccessStoryInd;
             ddlSuccessStory.SelectedItem.Value = ForeclosureCase.HpfSuccessStoryInd;
+            if (ForeclosureCase.HpfSuccessStoryInd == "Y")
+                ddlSuccessStory.SelectedIndex = 1;//yes
+            else
+                if (ForeclosureCase.HpfSuccessStoryInd == "N")
+                    ddlSuccessStory.SelectedIndex = 2;//no
+                else ddlSuccessStory.SelectedIndex = 0;//blank
             BindDDLAgency(ForeclosureCase.AgencyId.ToString());
 
         }
@@ -190,9 +199,38 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAgency.SelectedValue = agencyname;
         }
 
+        protected void UpdateForecloseCase()
+        {
+            //case status
+            ForeclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
+            ForeclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
+            //couselor notes
+            ForeclosureCase.DfltReason1stCd = txtReasonNote.Text;
+            ForeclosureCase.ActionItemsNotes = txtItemNotes.Text;
+            ForeclosureCase.FollowupNotes = txtFollowUpNotes.Text;
+            //Opt In/Out
+            ForeclosureCase.DoNotCallInd = ddlNotCall.SelectedItem.Value;
+            ForeclosureCase.OptOutNewsletterInd = ddlNewsLetter.SelectedItem.Value;
+            ForeclosureCase.OptOutSurveyInd = ddlServey.SelectedItem.Value;
+            //media cadidate
+            ForeclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
+            //success story
+            ForeclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
+            try
+            {
+                ForeclosureCaseBL.Instance.UpdateForeclosureCase(ForeclosureCase);
+               
+            }
+            catch(Exception ex)
+            {
+            }
+            
+        }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
 
+            UpdateForecloseCase();
+           
         }
 
     }
