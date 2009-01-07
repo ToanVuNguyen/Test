@@ -60,6 +60,11 @@
                 Bank of America</asp:Label>
             </td>
         </tr>
+        <tr>
+        <td>
+        <asp:Label ID="lblErrorMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>
+        </td>
+        </tr>
         
         <tr>
             <td colspan="6">
