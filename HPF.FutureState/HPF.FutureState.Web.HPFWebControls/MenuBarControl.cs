@@ -49,6 +49,8 @@ namespace HPF.FutureState.Web.HPFWebControls
 
         protected override void Render(HtmlTextWriter writer)
         {
+            if (DesignMode)
+                return;
             var menuBar = GetMenuBar();
             //Render Menu
             writer.Write("<table id='sddm'>");
@@ -111,6 +113,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         }
         protected override void OnLoad(System.EventArgs e)
         {
+            if (DesignMode)
+                return;
             //Add CSS to client page
             string includeTemplate = "<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
             string includeLocation = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HPF.FutureState.Web.HPFWebControls.MenuBarControl.css");
