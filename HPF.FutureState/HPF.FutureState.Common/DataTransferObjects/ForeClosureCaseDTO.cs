@@ -303,6 +303,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string IntakeCreditScore { get; set; }
 
-        public string IntakeCreditBureauCd { get; set; }        
+        public string IntakeCreditBureauCd { get; set; }
+        public DateTime FcSaleDate { get; set; }
     }
 }
