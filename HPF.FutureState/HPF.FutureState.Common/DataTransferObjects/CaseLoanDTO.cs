@@ -56,7 +56,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CurrentServicerNameTbd { get; set; }
 
-        public string FreddieLoanNum { get; set; }    
+        public string InvestorLoanNum { get; set; }    
 
     }
 }
