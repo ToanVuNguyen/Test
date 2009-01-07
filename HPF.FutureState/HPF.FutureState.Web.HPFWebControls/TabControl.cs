@@ -110,7 +110,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         }
         protected override void Render(HtmlTextWriter writer)
         {
-
+            if (DesignMode)
+                return;
             writer.Write("<table id='Container'>");
                 writer.Write("<tr>");
                     foreach (var i in this.Controls)
