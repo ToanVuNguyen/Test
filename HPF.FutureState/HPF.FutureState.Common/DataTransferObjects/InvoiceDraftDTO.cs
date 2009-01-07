@@ -17,11 +17,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 return ForeclosureCaseDrafts.Count;
             }
         }
-        public double TotalAmount
+        public decimal TotalAmount
         {
             get
             {
-                double total = 0;
+                decimal total = 0;
                 foreach (ForeclosureCaseDraftDTO fc in ForeclosureCaseDrafts)
                     total += fc.Amount;
 
