@@ -13,14 +13,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int FcId { get; set; }
 
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Complete", MessageTemplate = "Required!")]        
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Min Request Validate", MessageTemplate = "Required!")]        
         public int ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
 
-        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Ruleset = "Min Request Validate", MessageTemplate = "Required!")]        
         public string AcctNum { get; set; }
 
         [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]

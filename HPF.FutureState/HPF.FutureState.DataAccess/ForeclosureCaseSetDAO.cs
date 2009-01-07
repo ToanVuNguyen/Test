@@ -1153,7 +1153,8 @@ namespace HPF.FutureState.DataAccess
                         {
                             var item = new OutcomeTypeDTO();                            
                             item.OutcomeTypeID = ConvertToInt(reader["outcome_type_id"]);
-                            item.OutcomeTypeName = ConvertToString(reader["outcome_type_name"]);                            
+                            item.OutcomeTypeName = ConvertToString(reader["outcome_type_name"]);
+                            item.PayableInd = ConvertToString(reader["payable_ind"]);
                             results.Add(item);
                         }
                         reader.Close();

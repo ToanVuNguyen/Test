@@ -26,6 +26,7 @@ namespace HPF.FutureState.BusinessLogic
         const string CASE_COMPLETE_IND_NO = "N";
         const string RULESET_MIN_REQUIRE_FIELD = "Min Request Validate";
         const string RULESET_COMPLETE = "Complete";
+        const string PAYABLE_IND = "Y";
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
             
@@ -369,13 +370,15 @@ namespace HPF.FutureState.BusinessLogic
         /// Check Misc Error Exception
         /// Case 1: Cannot Un-complete a Previously Completed Case
         /// Case 2: Two First Mortgages Not Allowed in a Case 
+        /// Case 3: Cannot resubmit the case complete without billable outcome
         /// return TRUE if have Error
         /// </summary>
         private bool MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             bool case1 = CheckUnComplete(foreclosureCaseSet);
             bool case2 = CheckFirstMortgages(foreclosureCaseSet);
-            return (case1 || case2);
+            bool case3 = CheckBillableOutCome(foreclosureCaseSet);
+            return (case1 || case2 || case3);
         }
 
         /// <summary>
@@ -425,6 +428,38 @@ namespace HPF.FutureState.BusinessLogic
             return (count > 1);                
         }
 
+        /// <summary>
+        /// Check Misc Error Exception
+        /// Case 3: Cannot resubmit the case complete without billable outcome        
+        /// return TRUE if have Error
+        /// </summary>
+        private bool CheckBillableOutCome(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        {
+            bool caseComplete = CheckComplete(foreclosureCaseSetInput);
+            if (!caseComplete)
+                return false;
+            OutcomeItemDTOCollection outcome = foreclosureCaseSetInput.Outcome;
+            foreach(OutcomeItemDTO item in outcome)
+            {
+                bool isBillable = CheckBillableOutcome(item);
+                if (!isBillable)
+                    return true;
+            }
+            return false;
+        }
+
+
+        private bool CheckBillableOutcome(OutcomeItemDTO outcome)
+        {
+            OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();
+            int outcomeTypeId = outcome.OutcomeTypeId;
+            foreach (OutcomeTypeDTO item in outcomeType)
+            {
+                if (item.OutcomeTypeID == outcomeTypeId && item.PayableInd == PAYABLE_IND)
+                    return true;
+            }
+            return false;
+        }
         /// <summary>
         /// Complete validate the fore closure case        
         /// <return>bool</return>
@@ -498,8 +533,7 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
-            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
-            ActivityLogDTOCollection activityLogCollection = foreclosureCaseSet.ActivityLog;
+            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;            
             //Insert table Foreclosure_Case
             //Return Fc_id
             int fcId = UpdateForeClosureCase(foreclosureCaseSetDAO, foreclosureCase);
@@ -530,9 +564,6 @@ namespace HPF.FutureState.BusinessLogic
             //Check for Insert Case Loan
             caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);                
             InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollection, fcId);
-
-            //Insert table ActivityLog
-            InsertActivityLog(foreclosureCaseSetDAO, activityLogCollection, fcId);
         }
         
         /// <summary>
@@ -551,41 +582,31 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-           
-           
-              
-                ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
-                CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
-                OutcomeItemDTOCollection outcomeItemCollection = OutcomeHPAuto(foreclosureCaseSet);
-                BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
-                BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
-                BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
-                ActivityLogDTOCollection activityLogCollection = foreclosureCaseSet.ActivityLog;
-                //Insert table Foreclosure_Case
-                //Return Fc_id
-                int fcId = InsertForeclosureCase(foreclosureCaseSetDAO, foreclosureCase);
+            ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
+            CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
+            OutcomeItemDTOCollection outcomeItemCollection = OutcomeHPAuto(foreclosureCaseSet);
+            BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;            
+            //Insert table Foreclosure_Case
+            //Return Fc_id
+            int fcId = InsertForeclosureCase(foreclosureCaseSetDAO, foreclosureCase);
 
-                //Insert table Case Loan
-                InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+            //Insert table Case Loan
+            InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollection, fcId);
 
-                //Insert Table Outcome Item
-                InsertOutcomeItem(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+            //Insert Table Outcome Item
+            InsertOutcomeItem(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
 
-                //Insert Table Budget Set
-                //Return Budget Set Id
-                int budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
+            //Insert Table Budget Set
+            //Return Budget Set Id
+            int budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
 
-                //Insert Table Budget Item
-                InsertbudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
+            //Insert Table Budget Item
+            InsertbudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
 
-                //Insert table Budget Asset
-                InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
-
-                //Insert table ActivityLog
-                InsertActivityLog(foreclosureCaseSetDAO, activityLogCollection, fcId);
-            
-                
-            
+            //Insert table Budget Asset
+            InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);            
         }
         #endregion
 
@@ -687,21 +708,7 @@ namespace HPF.FutureState.BusinessLogic
                     foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
                 }
             }
-        }
-
-        /// <summary>
-        /// Insert ActivityLog
-        /// </summary>
-        private static void InsertActivityLog(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ActivityLogDTOCollection activityLogCollection, int fcId)
-        {
-            if (activityLogCollection != null)
-            {
-                foreach (ActivityLogDTO items in activityLogCollection)
-                {
-                    foreClosureCaseSetDAO.InsertActivityLog(items, fcId);
-                }
-            }
-        }
+        }        
 
         /// <summary>
         /// Update CaseLoan
@@ -1402,7 +1409,7 @@ namespace HPF.FutureState.BusinessLogic
                 outcomeItemNew.Add(item);
             }                        
             return outcomeItemNew;
-        }
+        }        
 
         /// <summary>
         /// Add value HPF-Auto for Budget Set

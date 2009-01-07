@@ -13,8 +13,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int BudgetSetId { get; set; }
 
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Min Request Validate", MessageTemplate = "Required!")]
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Complete", MessageTemplate = "Required!")]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Min Request Validate", MessageTemplate = "Required!")]        
         public int BudgetSubcategoryId { get; set; }
 
         public decimal BudgetItemAmt { get; set; }
