@@ -16,11 +16,18 @@ namespace HPF.FutureState.Web.HPFWebControls
         public string Url { get; set; }
 
         private bool enabled = true;
-
+        
         public bool Enabled
         {
             get { return enabled; }
             set { enabled = value; }
+        }
+        private bool visibled = true;
+
+        public bool Visibled
+        {
+            get { return visibled; }
+            set { visibled = value; }
         }
 
         private readonly Dictionary<string, BaseMenu> _ChildMenus;
