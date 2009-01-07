@@ -2,7 +2,7 @@
 {
     public class MenuItemSecurity
     {
-        public string Id { get; set; }
+        public string Target { get; set; }
 
         public char Permission { get; set; }
     }

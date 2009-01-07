@@ -47,21 +47,21 @@ namespace HPF.FutureState.Web.Security
         /// <summary>
         /// Add MenuItemSecurity
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="target"></param>
         /// <param name="permission"></param>
-        public void AddMenuItemSecurity(string id, char permission)
+        public void AddMenuItemSecurity(string target, char permission)
         {
-            MenuItemSecurityList.Add(new MenuItemSecurity {Id = id, Permission = permission});
+            MenuItemSecurityList.Add(new MenuItemSecurity {Target = target, Permission = permission});
         }
 
         /// <summary>
         /// Check current user read permission
         /// </summary>
-        /// <param name="menuItemId"></param>
+        /// <param name="menuItemTarget"></param>
         /// <returns></returns>
-        public bool CanRead(string menuItemId)
+        public bool CanRead(string menuItemTarget)
         {
-            var item = GetMenuItem(menuItemId);
+            var item = GetMenuItem(menuItemTarget);
             if (item != null)
             {
                 return item.Permission == 'R';
@@ -72,11 +72,11 @@ namespace HPF.FutureState.Web.Security
         /// <summary>
         /// Check current user update permission
         /// </summary>
-        /// <param name="menuItemId"></param>
+        /// <param name="menuItemTarget"></param>
         /// <returns></returns>
-        public bool CanUpdate(string menuItemId)
+        public bool CanUpdate(string menuItemTarget)
         {
-            var item = GetMenuItem(menuItemId);
+            var item = GetMenuItem(menuItemTarget);
             if (item != null)
             {
                 return item.Permission == 'U';
@@ -85,13 +85,13 @@ namespace HPF.FutureState.Web.Security
         }
 
         /// <summary>
-        /// Get MenuItemSecurity by menuItemId
+        /// Get MenuItemSecurity by target
         /// </summary>
-        /// <param name="menuItemId">MenuItem Id</param>
+        /// <param name="target">MenuItem target</param>
         /// <returns></returns>
-        private MenuItemSecurity GetMenuItem(string menuItemId)
+        private MenuItemSecurity GetMenuItem(string target)
         {
-            return MenuItemSecurityList.GetMenuItem(menuItemId);
+            return MenuItemSecurityList.GetMenuItem(target);
         }
     }
 }

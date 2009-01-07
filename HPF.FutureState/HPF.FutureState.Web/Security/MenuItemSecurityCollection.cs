@@ -18,11 +18,11 @@ namespace HPF.FutureState.Web.Security
         /// <summary>
         /// Get MenuItemSecurity by menuId
         /// </summary>
-        /// <param name="id">MenuItem Id</param>
+        /// <param name="target">MenuItem Id</param>
         /// <returns></returns>
-        public MenuItemSecurity GetMenuItem(string id)
+        public MenuItemSecurity GetMenuItem(string target)
         {
-            return this.SingleOrDefault(item => item.Id == id);
+            return this.SingleOrDefault(item => item.Target == target);
         }
     }
 }

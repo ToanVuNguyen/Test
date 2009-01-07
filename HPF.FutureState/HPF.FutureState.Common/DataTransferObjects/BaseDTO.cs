@@ -12,8 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         [XmlIgnore]
         public DateTime CreateDate { get; set; }
-
-        [XmlIgnore]
+        
         public string CreateUserId { get; set; }
 
         [XmlIgnore]
@@ -21,8 +20,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [XmlIgnore]
         public DateTime ChangeLastDate { get; set; }
-
-        [XmlIgnore]
+        
         public string ChangeLastUserId { get; set; }
 
         [XmlIgnore]
