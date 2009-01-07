@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -66,12 +67,60 @@ namespace HPF.FutureState.DataAccess
         #endregion
 
         #region Searching Create Draft
-        public InvoiceDTOCollection SearchInvoice(InvoiceSearchCriterialDTO searchCriterial)
+        public List<InvoiceSearchResultDTO> SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            throw new NotImplementedException();
+            List<InvoiceSearchResultDTO> invoices = null;
+           
+            try
+            {
+                dbConnection = base.CreateConnection();
+                SqlCommand command = base.CreateCommand("hpf_invoice_search", dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[3];
+                sqlParam[0] = new SqlParameter("@pi_funding_source_id", searchCriteria.FundingSourceId);
+                sqlParam[1] = new SqlParameter("@pi_start_dt", searchCriteria.PeriodStart);
+                sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.PeriodEnd);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    invoices = new List<InvoiceSearchResultDTO>();
+                    while (reader.Read())
+                    {
+                        InvoiceSearchResultDTO invoice = new InvoiceSearchResultDTO();
+                        
+                        invoice.FundingSourceId = ConvertToInt(reader["funding_source_id"]);
+                        invoice.FundingSourceName = ConvertToString(reader["funding_source_name"]);
+                        invoice.InvoiceBillAmt = ConvertToDecimal(reader["invoice_bill_amt"]);                                                
+                        invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);                        
+                        invoice.InvoiceId = ConvertToInt(reader["Invoice_id"]);
+                        invoice.InvoicePeriod = ConvertToString(reader["invoice_dt"]);
+                        invoice.InvoicePmtAmt = ConvertToDecimal(reader["invoice_pmt_amt"]);
+                        invoice.StatusCd = ConvertToString(reader["status_cd"]);
+
+                        invoices.Add(invoice);                           
+                    }
+                    reader.Close();
+                }                
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return invoices;
         }
 
-        public InvoiceDraftDTOCollection CreateInvoiceDraft(InvoiceSearchCriterialDTO searchCriterial)
+        public InvoiceDraftDTOCollection CreateInvoiceDraft(InvoiceSearchCriteriaDTO searchCriterial)
         {
             throw new NotImplementedException();
         }
