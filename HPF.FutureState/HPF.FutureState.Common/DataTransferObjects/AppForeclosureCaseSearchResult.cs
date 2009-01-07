@@ -9,6 +9,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public string CaseID { get; set; }
         public string AgencyCaseID { get; set; }
+        public string AgencyCaseNum { get; set; }
         public string Counseled { get; set; }
         public DateTime CaseDate { get; set; }
         public string BorrowerFirstName { get; set; }
