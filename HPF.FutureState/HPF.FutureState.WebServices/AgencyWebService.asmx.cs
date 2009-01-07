@@ -58,10 +58,13 @@ namespace HPF.FutureState.WebServices
                 response.Messages.AddExceptionMessage(0, "Data access error.");
                 ExceptionProcessor.HandleException(Ex);
             }            
-            catch (ProcessingException Ex)
+            catch (DuplicateException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages = Ex.ExceptionMessages;
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(0, Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (Exception Ex)
