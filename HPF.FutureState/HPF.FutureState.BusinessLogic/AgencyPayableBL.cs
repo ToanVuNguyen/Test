@@ -30,12 +30,53 @@ namespace HPF.FutureState.BusinessLogic
 
         public bool InsertAgencyPayable(AgencyPayableDraftDTO agencyPayableDraft)
         {
-            throw new NotImplementedException();
+            if (agencyPayableDraft == null)
+                return true;
+            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();            
+            try
+            {                
+                agencyPayableDAO.Begin();
+                AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
+                agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
+                agencyPayable.PaymentDate = DateTime.Now;
+                agencyPayable.PayamentCode = "";
+                agencyPayable.StatusCode = "";
+                agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
+                agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
+                agencyPayable.PaymentComment = "";
+                agencyPayable.AccountLinkTBD = "";
+                agencyPayable.AgencyPayablePaymentAmount = 0;
+                //Insert Agency Payable
+                int agencyPayableId = 0;
+                agencyPayableId = InsertAgencyPayable(agencyPayableDAO, agencyPayable);
+                //Insert Acency Payable Case
+                ForeclosureCaseDraftDTOCollection fCaseDrafColection = agencyPayableDraft.ForclosureCaseDrafts;
+                foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)
+                {
+                    AgencyPayableCaseDTO agencyPayableCase = new AgencyPayableCaseDTO();
+                    agencyPayableCase.ForeclosureCaseId = fCaseDraf.ForeclosureCaseId;
+                    agencyPayableCase.AgencyPayableId = agencyPayableId;
+                    agencyPayableCase.PaymentDate = DateTime.Now;
+                    agencyPayableCase.PaymentAmount = fCaseDraf.Amount;
+                    agencyPayableCase.NFMCDiffererencePaidIndicator = "";
+                    InserAgencyPayableCase(agencyPayableDAO, agencyPayableCase);
+                }
+                agencyPayableDAO.Commit();
+            }
+            catch (Exception)
+            {
+                agencyPayableDAO.Cancel();
+                throw;
+            }
+            return true;
         }
 
-        public bool InsertAgencyPayable(AgencyPayableDTO agencyPayable)
+        public int InsertAgencyPayable(AgencyPayableDAO agencyPayableDAO, AgencyPayableDTO agencyPayable)
         {
-            throw new NotImplementedException();
+            int agencyPayableId = int.MinValue;
+            if (agencyPayable != null)                
+                agencyPayableId= agencyPayableDAO.InsertAgencyPayable(agencyPayable);
+            return agencyPayableId;
         }
 
         /// <summary>
@@ -43,9 +84,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="agencyPayableDraft"></param>
         /// <returns></returns>
-        public bool InserAgencyPayableCase(AgencyPayableCaseDTO agencyPayableCase)
+        public void InserAgencyPayableCase(AgencyPayableDAO agencyPayableDAO, AgencyPayableCaseDTO agencyPayableCase)
         {
-            throw new NotImplementedException();            
+            agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
         }
 
         public bool UpdateAgencyPayable(AgencyPayableDTO agencyPayable)
@@ -78,9 +119,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
-        public AgencyPayableDTOCollection CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        public AgencyPayableDraftDTO CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
-            throw new NotImplementedException();
+            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();
+            return agencyPayableDAO.CreateDraftAgencyPayable(agencyPayableCriteria);
         }
     }
 }

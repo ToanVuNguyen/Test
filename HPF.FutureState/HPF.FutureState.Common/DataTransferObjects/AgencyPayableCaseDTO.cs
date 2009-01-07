@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int ForeclosureCaseId { get; set; }
         public int AgencyPayableId { get; set; }
         public DateTime PaymentDate { get; set; }
-        public double PaymentAmount { get; set; }
+        public decimal PaymentAmount { get; set; }
         public string NFMCDiffererencePaidIndicator { get; set; }
     }
 }
