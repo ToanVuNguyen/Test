@@ -323,19 +323,19 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void grvForeClosureCaseSearch_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-            //    if (e.Row.RowState == DataControlRowState.Alternate)
-            //    {
-            //        e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-            //    }
-            //    else
-            //    {
-            //        e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-            //    }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
+                if (e.Row.RowState == DataControlRowState.Alternate)
+                {
+                    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
+                }
+                else
+                {
+                    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
+                }
 
-            //}
+            }
         }
 
 
