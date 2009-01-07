@@ -364,6 +364,7 @@ namespace HPF.FutureState.DataAccess
                     {
                         AppForeclosureCaseSearchResultDTO item = new AppForeclosureCaseSearchResultDTO();
                         item.CaseID = ConvertToString(reader["fc_id"]);
+                        item.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         item.AgencyCaseID = ConvertToString(reader["agency_id"]);
                         item.CaseCompleteDate = ConvertToDateTime(reader["completed_dt"]);
                         item.CaseDate = ConvertToDateTime(reader["intake_dt"]);
