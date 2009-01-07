@@ -60,7 +60,7 @@ namespace HPF.FutureState.BusinessLogic
                 foreclosureCaseSetDAO.Begin();
 
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                    throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
+                    throw new DataValidationException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
                 List<string> exDetailCollection = RequireFieldsValidation(foreclosureCaseSet);
                 if (exDetailCollection != null && exDetailCollection.Count > 0)
@@ -120,7 +120,7 @@ namespace HPF.FutureState.BusinessLogic
         private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
             if (MiscErrorException(foreclosureCaseSet))
-                throw new MiscProcessingException(ErrorMessages.MISC_PROCESSING_EXCEPTION);
+                throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
             
             UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -134,7 +134,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             
             if (MiscErrorException(foreclosureCaseSet))
-                throw new MiscProcessingException(ErrorMessages.MISC_PROCESSING_EXCEPTION);
+                throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
             
             InsertForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -144,10 +144,10 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty || fcCase.AgencyId == 0)
-                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID);
+                throw new DataValidationException(ErrorMessages.EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID);
 
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
-                throw new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID);
+                throw new DataValidationException(ErrorMessages.EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID);
             
             ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -1516,7 +1516,7 @@ namespace HPF.FutureState.BusinessLogic
         #region Throw Detail Exception
         private void ThrowMissingRequiredFieldsException(List<string> collection)
         {
-            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_MISSING_REQUIRED_FIELD);            
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISSING_REQUIRED_FIELD);            
             foreach (string obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
@@ -1528,7 +1528,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private void ThrowInvalidCodeException(List<string> collection)
         {
-            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_CODE);
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_CODE);
             foreach (string obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
@@ -1540,7 +1540,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private void ThrowInvalidFCIdForAgencyException(int fcId)
         {
-            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
             ExceptionMessage em = new ExceptionMessage();
             em.Message = string.Format("The case belongs to Agency: {0}, Counsellor: {1}, Contact number: {2}, email: {3}", GetAgencyName(fcCase.AgencyId), fcCase.CounselorFname + ", " + fcCase.CounselorLname, fcCase.CounselorPhone, fcCase.CounselorEmail);
@@ -1551,7 +1551,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private void ThrowDuplicateCaseException(DuplicatedCaseLoanDTOCollection collection)
         {
-            ProcessingException pe = new ProcessingException(ErrorMessages.PROCESSING_EXCEPTION_DUPLICATE_FORECLOSURE_CASE);
+            DuplicateException pe = new DuplicateException(ErrorMessages.EXCEPTION_DUPLICATE_FORECLOSURE_CASE);
             foreach(DuplicatedCaseLoanDTO obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
