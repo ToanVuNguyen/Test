@@ -960,7 +960,7 @@ namespace HPF.FutureState.BusinessLogic
                         || caseLoan.OrginalLoanNum != item.OrginalLoanNum
                         || caseLoan.FdicNcusNumCurrentServicerTbd != item.FdicNcusNumCurrentServicerTbd
                         || caseLoan.CurrentServicerNameTbd != item.CurrentServicerNameTbd
-                        || caseLoan.FreddieLoanNum != item.FreddieLoanNum
+                        || caseLoan.InvestorLoanNum != item.InvestorLoanNum
                         )
                         return false;
                 }                
