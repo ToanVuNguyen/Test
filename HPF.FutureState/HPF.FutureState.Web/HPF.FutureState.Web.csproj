@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="AppForeclosureCaseDetailPage.aspx.cs">
       <DependentUpon>AppForeclosureCaseDetailPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AppForeclosureCaseDetailPage.aspx.designer.cs">
       <DependentUpon>AppForeclosureCaseDetailPage.aspx</DependentUpon>

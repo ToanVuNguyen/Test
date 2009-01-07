@@ -38,7 +38,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         public bool WebUserLogin(string userName, string password)
         {
-            return SecurityDAO.Instance.AdminUserLogin(userName, password);
+            return SecurityDAO.Instance.WebUserLogin(userName, password);
         }
 
         /// <summary>

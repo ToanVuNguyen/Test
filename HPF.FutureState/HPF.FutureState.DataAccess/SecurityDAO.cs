@@ -36,7 +36,7 @@ namespace HPF.FutureState.DataAccess
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool AdminUserLogin(string userName, string password)
+        public bool WebUserLogin(string userName, string password)
         {
             if (userName == "Admin" && password == "")
                 return true;

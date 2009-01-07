@@ -62,6 +62,14 @@ namespace HPF.FutureState.Web.HPFWebControls
         }
 
         /// <summary>
+        /// Load menu from database
+        /// </summary>
+        public void LoadFromDatabase()
+        {
+            
+        }
+
+        /// <summary>
         /// Enabled Menu by menu id
         /// </summary>
         /// <param name="id"></param>

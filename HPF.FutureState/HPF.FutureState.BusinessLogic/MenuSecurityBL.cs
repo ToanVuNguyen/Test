@@ -8,6 +8,22 @@ namespace HPF.FutureState.BusinessLogic
 {
     public class MenuSecurityBL : IMenuSecurityBL
     {
+        private static readonly MenuSecurityBL instance = new MenuSecurityBL();
+        /// <summary>
+        /// Singleton
+        /// </summary>
+        public static MenuSecurityBL Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        protected MenuSecurityBL()
+        {            
+        }
+
         #region IMenuSecurityBL Members
 
         public Common.DataTransferObjects.MenuSecurityDTOCollection GetMenuSecurityList(string userId)
