@@ -44,13 +44,13 @@
     <ContactAddr2></ContactAddr2>
     <ContactCity></ContactCity>
     <ContactStateCd></ContactStateCd>
-    <ContactZip></ContactZip>
+    <ContactZip>12345</ContactZip>
     <ContactZipPlus4></ContactZipPlus4>
     <PropAddr1></PropAddr1>
     <PropAddr2></PropAddr2>
     <PropCity></PropCity>
     <PropStateCd></PropStateCd>
-    <PropZip></PropZip>
+    <PropZip>12345</PropZip>
     <PropZipPlus4></PropZipPlus4>
     <BankruptcyInd></BankruptcyInd>
     <BankruptcyAttorney></BankruptcyAttorney>
@@ -119,11 +119,11 @@
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum</AcctNum>
       <Loan1st2nd>1st</Loan1st2nd>
-      <MortgageTypeCd>test</MortgageTypeCd>
+      <MortgageTypeCd>HYBARM</MortgageTypeCd>
       <ArmLoanInd>Y</ArmLoanInd>
       <ArmResetInd>Y</ArmResetInd>
-      <TermLengthCd>test</TermLengthCd>
-      <LoanDelinqStatusCd>test</LoanDelinqStatusCd>
+      <TermLengthCd>3</TermLengthCd>
+      <LoanDelinqStatusCd>CUR</LoanDelinqStatusCd>
       <CurrentLoanBalanceAmt>100</CurrentLoanBalanceAmt>
       <OrigLoanAmt>100</OrigLoanAmt>
       <InterestRate>10</InterestRate>
@@ -142,11 +142,11 @@
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum</AcctNum>
       <Loan1st2nd>2nd</Loan1st2nd>
-      <MortgageTypeCd>test</MortgageTypeCd>
+      <MortgageTypeCd>HYBARM</MortgageTypeCd>
       <ArmLoanInd>Y</ArmLoanInd>
       <ArmResetInd>Y</ArmResetInd>
-      <TermLengthCd>test</TermLengthCd>
-      <LoanDelinqStatusCd>test</LoanDelinqStatusCd>
+      <TermLengthCd>5</TermLengthCd>
+      <LoanDelinqStatusCd>30-59</LoanDelinqStatusCd>
       <CurrentLoanBalanceAmt>100</CurrentLoanBalanceAmt>
       <OrigLoanAmt>100</OrigLoanAmt>
       <InterestRate>10</InterestRate>
