@@ -4,7 +4,8 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
@@ -12,7 +13,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         [XmlIgnore]
         public DateTime CreateDate { get; set; }
-        
+
+        [Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator(MessageTemplate = "Create User ID is required", Ruleset = "Min Request Validate")]
+        //[RequiredWhenInsertUpdateValidator("insert", true, false, MessageTemplate = "Create User ID is required", Ruleset = "Min Request Validate")]
         public string CreateUserId { get; set; }
 
         [XmlIgnore]
@@ -20,7 +23,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [XmlIgnore]
         public DateTime ChangeLastDate { get; set; }
-        
+
+        //[RequiredWhenInsertUpdateValidator("update", false, true, MessageTemplate = "Last change User ID is required", Ruleset = "Min Request Validate")]
+        [Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator(MessageTemplate = "Last change User ID is required", Ruleset = "Min Request Validate")]
         public string ChangeLastUserId { get; set; }
 
         [XmlIgnore]
@@ -46,6 +51,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         /// <param name="userId"></param>        
         public void SetUpdateTrackingInformation(string userId)
         {
+
             ChangeLastDate = DateTime.Today;
             ChangeLastUserId = userId;
             ChangeLastAppName = GetApplicationName();
