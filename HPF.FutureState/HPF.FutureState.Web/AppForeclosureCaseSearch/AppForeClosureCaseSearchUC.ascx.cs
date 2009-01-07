@@ -149,7 +149,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     ManageControls(false);
                 }
             }
-            catch (ProcessingException ex)
+            catch (DataValidationException ex)
             {
 
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
