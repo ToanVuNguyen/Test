@@ -82,7 +82,7 @@ namespace HPF.FutureState.BusinessLogic
         }
         public int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
-            return ForeclosureCaseSetDAO.CreateInstance().UpdateForeclosureCase(foreclosureCase);
+            return ForeclosureCaseDAO.CreateInstance().InsertAppForeclosureCase(foreclosureCase);
         }
         private void AppThrowMissingRequiredFieldsException(Collection<string> collection)
         {
