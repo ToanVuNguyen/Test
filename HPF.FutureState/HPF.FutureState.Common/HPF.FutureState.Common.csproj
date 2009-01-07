@@ -114,11 +114,13 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceCaseDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceCaseDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\InvoiceCaseSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceDraftDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceDraftDTOCollection.cs" />
     <Compile Include="DataTransferObjects\InvoiceDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceDTOCollection.cs" />
-    <Compile Include="DataTransferObjects\InvoiceSearchCriterialDTO.cs" />
+    <Compile Include="DataTransferObjects\InvoiceSearchCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\InvoiceSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\MenuSecurityDTO.cs" />
     <Compile Include="DataTransferObjects\MenuSecurityDTOCollection.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />
@@ -172,9 +174,6 @@
     <Compile Include="Utils\Exceptions\ExceptionFactory.cs" />
     <Compile Include="Utils\Exceptions\ExceptionMessageCollection.cs" />
     <Compile Include="Utils\Exceptions\ExceptionProcessor.cs" />
-    <Compile Include="Utils\Exceptions\FatalException.cs" />
-    <Compile Include="Utils\Exceptions\MiscProcessingException.cs" />
-    <Compile Include="Utils\Exceptions\ProcessingException.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
     <Compile Include="Utils\HPFSendMail.cs" />
   </ItemGroup>
