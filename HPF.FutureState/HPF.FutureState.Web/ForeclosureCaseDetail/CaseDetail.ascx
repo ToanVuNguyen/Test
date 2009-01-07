@@ -7,7 +7,8 @@
             <table style="width:100%; border-bottom-style: none;">
             <tr>
                 <td colspan=3 align="right">
-                    <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" />
+                    <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" 
+                        onclick="btn_Save_Click" />
                 </td>
             </tr>
                 <tr>
@@ -891,7 +892,7 @@
     <tr>
         <td align="right">
                     <asp:Button ID="btn_Save0" runat="server" Text="Save" 
-                CssClass="MyButton" />
+                CssClass="MyButton" onclick="btn_Save_Click" />
                 </td>
     </tr>
 </table>

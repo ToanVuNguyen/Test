@@ -89,22 +89,25 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblContactCity.Text = ForeclosureCase.ContactCity;
             lblContactStateZip.Text = ForeclosureCase.ContactStateCd +","+ ForeclosureCase.ContactZip;
             //case status
-            ddlDuplicate.SelectedItem.Value = ForeclosureCase.DuplicateInd;
-            ddlAgency.SelectedItem.Value = ForeclosureCase.AgencyId.ToString();
+            ddlDuplicate.SelectedValue = ForeclosureCase.DuplicateInd;
+            if (ForeclosureCase.DuplicateInd == "Y")
+                ddlDuplicate.SelectedItem.Text = "Yes";
+            else ddlDuplicate.SelectedItem.Text = "No";
+            ddlAgency.SelectedValue = ForeclosureCase.AgencyId.ToString();
             lblAgencyCase.Text = ForeclosureCase.AgencyCaseNum;
             lblAgencyClient.Text = ForeclosureCase.AgencyClientNum;
             lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
             lblPhoneExt.Text = ForeclosureCase.CounselorPhone + " " + ForeclosureCase.CounselorExt;
             lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
             lblProgram.Text = ForeclosureCase.ProgramId.ToString();
-            lblIntakeDate.Text = ForeclosureCase.IntakeDt.ToString();
-            lblCompleteDate.Text = ForeclosureCase.CompletedDt.ToString();
+            lblIntakeDate.Text = ForeclosureCase.IntakeDt.ToShortDateString();
+            lblCompleteDate.Text = ForeclosureCase.CompletedDt.ToShortDateString();
             lblCounsellingDuration.Text = ForeclosureCase.CounselingDurationCd.ToString();
             lblSourceCode.Text = ForeclosureCase.CaseSourceCd;
             //case summary
-            lblSentDate.Text = ForeclosureCase.SummarySentDt.ToString();
+            lblSentDate.Text = ForeclosureCase.SummarySentDt.ToShortDateString();
             lblSentOrther.Text = ForeclosureCase.SummarySentOtherCd;
-            lblOtherDate.Text = ForeclosureCase.SummarySentOtherDt.ToString();
+            lblOtherDate.Text = ForeclosureCase.SummarySentOtherDt.ToShortDateString();
             //consent
             lblServicerConsent.Text = ForeclosureCase.ServicerConsentInd;
             lblFundingConsent.Text = ForeclosureCase.FundingConsentInd;
@@ -133,39 +136,60 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCurrentIndicator.Text = ForeclosureCase.BankruptcyPmtCurrentInd;
             //HUD
             lblTerminationReason.Text = ForeclosureCase.HudOutcomeCd;
-            lblTerminationDate.Text = ForeclosureCase.HudTerminationDt.ToString();
+            lblTerminationDate.Text = ForeclosureCase.HudTerminationDt.ToShortDateString();
             lblHUDOutcome.Text = ForeclosureCase.HudOutcomeCd;
             //couselor notes
             txtReasonNote.Text= ForeclosureCase.DfltReason1stCd;
             txtItemNotes.Text = ForeclosureCase.ActionItemsNotes;
             txtFollowUpNotes.Text = ForeclosureCase.FollowupNotes;
             //Opt In/Out
-            ddlNotCall.SelectedItem.Value = ForeclosureCase.DoNotCallInd;
-            ddlNewsLetter.SelectedItem.Value = ForeclosureCase.OptOutNewsletterInd;
-            ddlServey.SelectedItem.Value = ForeclosureCase.OptOutSurveyInd;
+            ddlNotCall.SelectedValue = ForeclosureCase.DoNotCallInd;
+            if (ForeclosureCase.DoNotCallInd == "Y")
+                ddlNotCall.SelectedItem.Text = "Yes";
+            else ddlNotCall.SelectedItem.Text = "No";
+            ddlNewsLetter.SelectedValue = ForeclosureCase.OptOutNewsletterInd;
+            if (ForeclosureCase.OptOutNewsletterInd == "Y")
+                ddlNewsLetter.SelectedItem.Text = "Yes";
+            else ddlNewsLetter.SelectedItem.Text = "No";
+            ddlServey.SelectedValue = ForeclosureCase.OptOutSurveyInd;
+            if (ForeclosureCase.OptOutSurveyInd == "Y")
+                ddlServey.SelectedItem.Text = "Yes";
+            else ddlServey.SelectedItem.Text = "No";
             //media cadidate
             lblMediaInterest.Text = ForeclosureCase.AgencyMediaConsentInd;
-            ddlMediaCondirmation.SelectedItem.Value = ForeclosureCase.HpfMediaCandidateInd;
+            ddlMediaCondirmation.SelectedValue = ForeclosureCase.HpfMediaCandidateInd;
+            if (ForeclosureCase.HpfMediaCandidateInd == "Y")
+                ddlMediaCondirmation.SelectedItem.Text = "Yes";
+            else ddlMediaCondirmation.SelectedItem.Text = "No";
             //success story
             lblSuccessStory.Text = ForeclosureCase.AgencySuccessStoryInd;
             ddlSuccessStory.SelectedItem.Value = ForeclosureCase.HpfSuccessStoryInd;
-            
-
+            BindDDLAgency(ForeclosureCase.AgencyId.ToString());
 
         }
         protected override void OnLoad(EventArgs e)
         {
-            if(!IsPostBack)
-                BindDDLAgency();
+            if (!IsPostBack)
+            {
+                
+                BindData();
+            }
         }
-        protected void BindDDLAgency()
+        protected void BindDDLAgency(string agencyname)
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+            AgencyDTO item=agencyCollection[0];
+            agencyCollection.Remove(item);
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
-            ddlAgency.Items.FindByText("ALL").Selected = true;
+            ddlAgency.SelectedValue = agencyname;
+        }
+
+        protected void btn_Save_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
