@@ -1067,7 +1067,8 @@ namespace HPF.FutureState.BusinessLogic
         {                     
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
-            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;            
+            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+            OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             List<string> msgFcCaseSet =  new List<string>();
             List<string> msgFcCase = CheckValidCodeForForclosureCase(foreclosureCase);
             if (msgFcCase != null && msgFcCase.Count != 0)
@@ -1088,6 +1089,10 @@ namespace HPF.FutureState.BusinessLogic
             List<string> msgProgramId = CheckValidProgramId(foreclosureCase);
             if (msgProgramId != null && msgProgramId.Count != 0)
                 msgFcCaseSet.AddRange(msgProgramId);
+
+            List<string> msgOutcomeTypeId  = CheckValidOutcomeTypeId(outcomeItemCollection);
+            if (msgOutcomeTypeId != null && msgOutcomeTypeId.Count != 0)
+                msgFcCaseSet.AddRange(msgOutcomeTypeId);
 
             List<string> msgBudgetSubId = CheckValidBudgetSubcategoryId(budgetItemCollection);
             if (msgBudgetSubId != null && msgBudgetSubId.Count != 0)
@@ -1281,7 +1286,7 @@ namespace HPF.FutureState.BusinessLogic
                 BudgetItemDTO item =  budgetItem[i];
                 bool isValid = CheckBudgetSubcategory(item);
                 if(!isValid)
-                    msgFcCaseSet.Add("Budget item " + (i+1)+ "is invalid BudgetSubcategoryId");
+                    msgFcCaseSet.Add("Budget item " + (i+1)+ " is invalid BudgetSubcategoryId");
             }
             return msgFcCaseSet;
         }
@@ -1293,6 +1298,36 @@ namespace HPF.FutureState.BusinessLogic
             foreach(BudgetSubcategoryDTO item in budgetSubcategoryCollection)
             {
                 if (item.BudgetSubcategoryID == budgetSubId)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check valid Outcome Type Id
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private List<string> CheckValidOutcomeTypeId(OutcomeItemDTOCollection outcomeItem)
+        {
+            List<string> msgFcCaseSet = new List<string>();
+            for (int i = 0; i < outcomeItem.Count; i++)
+            {
+                OutcomeItemDTO item = outcomeItem[i];
+                bool isValid = CheckOutcomeType(item);
+                if (!isValid)
+                    msgFcCaseSet.Add("Outcome item " + (i + 1) + " is invalid OutcomeTypeId");
+            }
+            return msgFcCaseSet;
+        }
+
+        private bool CheckOutcomeType(OutcomeItemDTO outcomeItem)
+        {
+            OutcomeTypeDTOCollection outcomeTypeCollection = foreclosureCaseSetDAO.GetOutcomeType();
+            int outcomeTypeId = outcomeItem.OutcomeTypeId;
+            foreach (OutcomeTypeDTO item in outcomeTypeCollection)
+            {
+                if (item.OutcomeTypeID == outcomeTypeId)
                     return true;
             }
             return false;
@@ -1435,14 +1470,8 @@ namespace HPF.FutureState.BusinessLogic
             budgetSet.TotalAssets = totalAssest;
             budgetSet.TotalExpenses = totalExpenses;
             budgetSet.TotalIncome = totalIncome;
-            budgetSet.BudgetSetDt = DateTime.Now;
+            budgetSet.BudgetSetDt = DateTime.Now;          
             
-            budgetSet.CreateDate = DateTime.Now;
-            budgetSet.CreateUserId = foreclosureCaseSet.ForeclosureCase.CreateUserId;
-            budgetSet.CreateAppName = foreclosureCaseSet.ForeclosureCase.CreateAppName;
-            budgetSet.ChangeLastDate = DateTime.Now;
-            budgetSet.ChangeLastAppName = foreclosureCaseSet.ForeclosureCase.ChangeLastAppName;
-            budgetSet.ChangeLastUserId = foreclosureCaseSet.ForeclosureCase.ChangeLastUserId;
             return budgetSet;
         }
 

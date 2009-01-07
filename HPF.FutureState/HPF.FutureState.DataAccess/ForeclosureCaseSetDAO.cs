@@ -1110,15 +1110,14 @@ namespace HPF.FutureState.DataAccess
                     var reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
+                        results = new ProgramDTOCollection();
                         while (reader.Read())
                         {
-                            var item = new ProgramDTO();
+                            var item = new ProgramDTO();                            
+                            item.ProgramID = ConvertToString(reader["program_id"]);
+                            item.ProgramName = ConvertToString(reader["program_name"]);
                             if (item.ProgramID != "-1")
-                            {
-                                item.ProgramID = ConvertToString(reader["program_id"]);
-                                item.ProgramName = ConvertToString(reader["program_name"]);
-                            }
-                            results.Add(item);
+                                results.Add(item);
                         }
                         reader.Close();
                     }
@@ -1149,6 +1148,7 @@ namespace HPF.FutureState.DataAccess
                     var reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
+                        results = new OutcomeTypeDTOCollection();
                         while (reader.Read())
                         {
                             var item = new OutcomeTypeDTO();                            
@@ -1186,6 +1186,7 @@ namespace HPF.FutureState.DataAccess
                     var reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
+                        results = new BudgetSubcategoryDTOCollection();
                         while (reader.Read())
                         {
                             var item = new BudgetSubcategoryDTO();
