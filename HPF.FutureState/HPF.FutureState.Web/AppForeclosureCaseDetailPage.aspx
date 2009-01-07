@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AppForeclosureCaseDetailPage.aspx.cs" Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AppForeclosureCaseDetailPage.aspx.cs" Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="App Forclosure Case Detail" %>
 <%@ Register assembly="HPF.FutureState.Web.HPFWebControls" namespace="HPF.FutureState.Web.HPFWebControls" tagprefix="HPF" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <table style="width:100%;" >
