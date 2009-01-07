@@ -3,6 +3,11 @@
 
 <table style="width:100%;">
     <tr>
+    <td>
+    <asp:Label ID="lblMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>
+    </td>
+    </tr>
+    <tr>
         <td>
             <table style="width:100%; border-bottom-style: none;">
             <tr>

@@ -65,6 +65,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblMidName.Text = ForeclosureCase.BorrowerMname;
             lblLastName.Text = ForeclosureCase.BorrowerLname;
             lblDOB.Text = ForeclosureCase.BorrowerDob.ToShortDateString();
+            if(ForeclosureCase.BorrowerLast4Ssn!=string.Empty)
             lblLast4SSN.Text = "XXX-XX-" + ForeclosureCase.BorrowerLast4Ssn;
             lblPrimaryContact.Text = ForeclosureCase.PrimaryContactNo;
             lblSecondaryContact.Text = ForeclosureCase.SecondContactNo;
@@ -85,6 +86,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCoMidName.Text = ForeclosureCase.CoBorrowerMname;
             lblCoLastName.Text = ForeclosureCase.CoBorrowerLname;
             lblCoDOB.Text = ForeclosureCase.CoBorrowerDob.ToShortDateString();
+            if(ForeclosureCase.CoBorrowerLast4Ssn!=string.Empty)
             lblCoLast4SSN.Text = "XXX-XX-" + ForeclosureCase.CoBorrowerLast4Ssn;
             lblCoDisabled.Text = ForeclosureCase.CoBorrowerDisabledInd;
             lblCoOccupation.Text = ForeclosureCase.CoBorrowerOccupationCd;
@@ -219,10 +221,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                 ForeclosureCaseBL.Instance.UpdateForeclosureCase(ForeclosureCase);
-               
+                lblMessage.Text = "Save foreclosure case succesful";
             }
             catch(Exception ex)
             {
+                lblMessage.Text = ex.Message;
             }
             
         }
