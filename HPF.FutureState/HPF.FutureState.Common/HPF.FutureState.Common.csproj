@@ -149,7 +149,6 @@
     <Compile Include="DataTransferObjects\WSUserDTO.cs" />
     <Compile Include="ErrorMessages.cs" />
     <Compile Include="BusinessLogicInterface\IReferenceCodeValidatorBL.cs" />
-    <Compile Include="HPFApplicationName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReferenceCode.cs" />
     <Compile Include="Utils\DataValidator\HPFValidator.cs" />

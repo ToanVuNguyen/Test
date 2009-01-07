@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -30,28 +31,31 @@ namespace HPF.FutureState.Common.DataTransferObjects
         /// <summary>
         /// Set Insert tracking information
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="appName"></param>
-        public void SetInsertTrackingInformation(string userId, string appName)
+        /// <param name="userId"></param>        
+        public void SetInsertTrackingInformation(string userId)
         {
             CreateUserId = userId;
             CreateDate = DateTime.Today;
-            CreateAppName = appName;
+            CreateAppName = GetApplicationName();
             ChangeLastDate = DateTime.Today;
             ChangeLastUserId = userId;
-            ChangeLastAppName = appName;
+            ChangeLastAppName = GetApplicationName();
         }
 
         /// <summary>
         /// Set update tracking information
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="appName"></param>
-        public void SetUpdateTrackingInformation(string userId, string appName)
+        /// <param name="userId"></param>        
+        public void SetUpdateTrackingInformation(string userId)
         {
             ChangeLastDate = DateTime.Today;
             ChangeLastUserId = userId;
-            ChangeLastAppName = appName;
+            ChangeLastAppName = GetApplicationName();
+        }
+
+        private static string GetApplicationName()
+        {
+            return ConfigurationManager.AppSettings["HPFApplicationName"];
         }
     }
 }
