@@ -14,6 +14,15 @@ namespace HPF.FutureState.WebService.Test.Web {
     public partial class SaveForeclosureCase {
         
         /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+        
+        /// <summary>
         /// Table1 control.
         /// </summary>
         /// <remarks>
@@ -4388,13 +4397,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell216;
         
         /// <summary>
-        /// TextBox108 control.
+        /// txtActionItemsNotes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox108;
+        protected global::System.Web.UI.WebControls.TextBox txtActionItemsNotes;
         
         /// <summary>
         /// TableRow55 control.
@@ -4433,13 +4442,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell218;
         
         /// <summary>
-        /// TextBox109 control.
+        /// txtFollowupNotes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox109;
+        protected global::System.Web.UI.WebControls.TextBox txtFollowupNotes;
         
         /// <summary>
         /// TableCell219 control.
@@ -4469,13 +4478,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableCell TableCell220;
         
         /// <summary>
-        /// TextBox110 control.
+        /// txtAgencySuccessStory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox110;
+        protected global::System.Web.UI.WebControls.TextBox txtAgencySuccessStory;
         
         /// <summary>
         /// TableRow56 control.
@@ -4557,5 +4566,113 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox112;
+        
+        /// <summary>
+        /// Label115 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label115;
+        
+        /// <summary>
+        /// grdvCaseLoan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdvCaseLoan;
+        
+        /// <summary>
+        /// Label116 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label116;
+        
+        /// <summary>
+        /// grdvBudgetItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdvBudgetItem;
+        
+        /// <summary>
+        /// Label113 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label113;
+        
+        /// <summary>
+        /// grdvBudgetAsset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdvBudgetAsset;
+        
+        /// <summary>
+        /// Label117 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label117;
+        
+        /// <summary>
+        /// grdvActivityLog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdvActivityLog;
+        
+        /// <summary>
+        /// Label118 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label118;
+        
+        /// <summary>
+        /// grdvOutcomeItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdvOutcomeItem;
+        
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        
+        /// <summary>
+        /// grdvMessages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdvMessages;
     }
 }
