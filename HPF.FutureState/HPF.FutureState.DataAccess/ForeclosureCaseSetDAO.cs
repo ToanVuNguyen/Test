@@ -417,7 +417,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
                 sqlParam[16] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
                 sqlParam[17] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
-                sqlParam[18] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
+                sqlParam[18] = new SqlParameter("@pi_investor_loan_num", caseLoan.InvestorLoanNum);
                 sqlParam[19] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
                 sqlParam[20] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
                 sqlParam[21] = new SqlParameter("@pi_create_app_name", caseLoan.CreateAppName);
@@ -466,7 +466,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
                 sqlParam[16] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
                 sqlParam[17] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
-                sqlParam[18] = new SqlParameter("@pi_freddie_loan_num", caseLoan.FreddieLoanNum);
+                sqlParam[18] = new SqlParameter("@pi_investor_loan_num", caseLoan.InvestorLoanNum);
                 sqlParam[19] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
                 sqlParam[20] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
                 sqlParam[21] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
@@ -983,7 +983,7 @@ namespace HPF.FutureState.DataAccess
                             item.OrginalLoanNum = ConvertToString(reader["orginal_loan_num"]);
                             item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["FDIC_NCUS_num_current_servicer_TBD"]);
                             item.CurrentServicerNameTbd = ConvertToString(reader["current_servicer_name_TBD"]);
-                            item.FreddieLoanNum = ConvertToString(reader["freddie_loan_num"]);
+                            item.InvestorLoanNum = ConvertToString(reader["investor_loan_num"]);
                             item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                             item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
                             item.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
