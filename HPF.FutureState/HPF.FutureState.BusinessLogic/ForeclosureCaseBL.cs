@@ -86,7 +86,7 @@ namespace HPF.FutureState.BusinessLogic
         }
         private void AppThrowMissingRequiredFieldsException(Collection<string> collection)
         {
-            ProcessingException pe = new ProcessingException();
+            DataValidationException pe = new DataValidationException();
             foreach (string obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
