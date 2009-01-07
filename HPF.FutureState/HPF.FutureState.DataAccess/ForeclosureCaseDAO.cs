@@ -194,6 +194,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.SummarySentOtherDt = ConvertToDateTime(reader["summary_sent_other_dt"]);
 
                         returnObject.WorkedWithAnotherAgencyInd = ConvertToString(reader["worked_with_another_agency_ind"]);
+                        returnObject.FcSaleDate = ConvertToDateTime(reader["fc_sale_dt"]);
                         #endregion
                     }
                     reader.Close();
@@ -528,7 +529,7 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.Program == -1) ? "" : " AND(f.program_id= @pi_programid)");
             return whereClause.ToString();
         }
-
+       
 
     }
 }
