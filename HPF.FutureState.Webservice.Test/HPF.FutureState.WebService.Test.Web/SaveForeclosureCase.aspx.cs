@@ -35,7 +35,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 Session[SessionVariables.CASE_LOAN_COLLECTION] = Util.ParseCaseLoanDTO(xdoc);
                 Session[SessionVariables.BUDGET_ASSET_COLLECTION] = Util.ParseBudgetAssetDTO(xdoc);
                 Session[SessionVariables.BUDGET_ITEM_COLLECTION] = Util.ParseBudgetItemDTO(xdoc);
-                Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
+                //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
                 Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = Util.ParseOutcomeItemDTO(xdoc);
                 Session[SessionVariables.FORECLOSURE_CASE] = Util.ParseForeclosureCaseDTO(xdoc);
 
@@ -43,7 +43,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvOutcomeItemBinding();
                 grdvBudgetItemBinding();
                 grdvBudgetAssetBinding();
-                grdvActivityLogBinding();
+                //grdvActivityLogBinding();
                 ForeclosureCaseToForm((ForeclosureCaseDTO)Session[SessionVariables.FORECLOSURE_CASE]);
 
             }
@@ -1033,7 +1033,7 @@ namespace HPF.FutureState.WebService.Test.Web
             ForeclosureCaseInsertRequest request = new ForeclosureCaseInsertRequest();
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
-            fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
+            //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
             fcCaseSet.BudgetItems = ((List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
             fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();

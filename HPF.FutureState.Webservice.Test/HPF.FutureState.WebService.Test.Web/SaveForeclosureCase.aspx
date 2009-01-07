@@ -1214,7 +1214,7 @@
     </asp:GridView>
     <br />
     
-    <asp:Label ID="Label117" runat="server" Text="Activity Log"></asp:Label>
+    <asp:Label ID="Label117" runat="server" Text="Activity Log" Visible ="false" ></asp:Label>
     <br />
     <asp:GridView ID="grdvActivityLog" runat="server" 
         ShowFooter = "true" 
@@ -1223,7 +1223,8 @@
         OnRowCancelingEdit = "grdvActivityLog_RowCancelEditing"
         onrowupdating="grdvActivityLog_RowUpdating"
         onrowcommand="grdvActivityLogRowCommand" 
-        onrowdeleting="grdvActivityLog_RowDeleting">
+        onrowdeleting="grdvActivityLog_RowDeleting"
+        visible = "false" >
         <Columns>
             <asp:TemplateField HeaderText="Edit" ShowHeader="False">
                 <EditItemTemplate>
