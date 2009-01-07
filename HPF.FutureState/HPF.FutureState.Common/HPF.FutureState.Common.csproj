@@ -73,6 +73,10 @@
     <Compile Include="DataTransferObjects\AgencyPayableCaseDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyPayableCaseDTOCollection.cs" />
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BudgetSubcategoryDTO.cs" />
+    <Compile Include="DataTransferObjects\BudgetSubcategoryDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\OutcomeTypeDTO.cs" />
+    <Compile Include="DataTransferObjects\OutcomeTypeDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDraftDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDraftDTOCollection.cs" />
     <Compile Include="DataTransferObjects\AgencyPayableDTO.cs" />

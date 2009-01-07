@@ -1091,8 +1091,118 @@ namespace HPF.FutureState.DataAccess
                 }
             }
             return results;
-        }   
+        }
 
+        /// <summary>
+        /// Get ID and Name from table Program
+        /// </summary>
+        /// <returns>ProgramDTOCollection contains all Program </returns>
+        public ProgramDTOCollection GetProgram()
+        {
+            ProgramDTOCollection results = HPFCacheManager.Instance.GetData<ProgramDTOCollection>("program");
+            if (results == null)
+            {
+                var command = new SqlCommand("hpf_program_get", this.dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                try
+                {
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var item = new ProgramDTO();
+                            if (item.ProgramID != "-1")
+                            {
+                                item.ProgramID = ConvertToString(reader["program_id"]);
+                                item.ProgramName = ConvertToString(reader["program_name"]);
+                            }
+                            results.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add("program", results);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }                
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Get ID and Name from table OutcomeType
+        /// </summary>
+        /// <returns>ProgramDTOCollection contains all Program </returns>
+        public OutcomeTypeDTOCollection GetOutcomeType()
+        {
+            OutcomeTypeDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeTypeDTOCollection>("outcomeType");
+            if (results == null)
+            {
+                var command = new SqlCommand("hpf_outcome_type_get", this.dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                try
+                {
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var item = new OutcomeTypeDTO();                            
+                            item.OutcomeTypeID = ConvertToInt(reader["outcome_type_id"]);
+                            item.OutcomeTypeName = ConvertToString(reader["outcome_type_name"]);                            
+                            results.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add("outcomeType", results);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Get ID and Name from table OutcomeType
+        /// </summary>
+        /// <returns>ProgramDTOCollection contains all Program </returns>
+        public BudgetSubcategoryDTOCollection GetBudgetSubcategory()
+        {
+            BudgetSubcategoryDTOCollection results = HPFCacheManager.Instance.GetData<BudgetSubcategoryDTOCollection>("budgetSubcategory");
+            if (results == null)
+            {
+                var command = new SqlCommand("hpf_budget_subcategory_get", this.dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                try
+                {
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var item = new BudgetSubcategoryDTO();
+                            item.BudgetSubcategoryID = ConvertToInt(reader["budget_subcategory_id"]);
+                            item.BudgetSubcategoryName = ConvertToString(reader["budget_subcategory_name"]);                            
+                            results.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add("budgetSubcategory", results);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+            }
+            return results;
+        }
 
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {
@@ -1129,8 +1239,7 @@ namespace HPF.FutureState.DataAccess
         {
             DuplicatedCaseLoanDTOCollection returnCollection = null;
             try
-            {
-                
+            {                
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection, trans);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];            
@@ -1216,7 +1325,7 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             return returnCollection;
-        }        
+        }       
     }
 }
 

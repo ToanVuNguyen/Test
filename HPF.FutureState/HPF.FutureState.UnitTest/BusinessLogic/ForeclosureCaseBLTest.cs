@@ -6,11 +6,12 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using System.Collections;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.DataAccess;
 using System;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
 using System.Data;
-
+using System.Collections.Generic;
 namespace HPF.FutureState.UnitTest.BusinessLogic
 {
     
@@ -695,8 +696,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.InsertForeclosureCaseSet(foreclosureCase);
             foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
             bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;            
-            actual = target.CheckInactiveCase(foreclosureCase);
+            bool actual;
+            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
             int fcId = GetForeclosureCaseId();
             DeleteForeclosureCase(fcId);
             Assert.AreEqual(expected, actual);
@@ -717,7 +718,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.CheckInactiveCase(foreclosureCase);
+            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
             int fcId = GetForeclosureCaseId();
             DeleteForeclosureCase(fcId);
             Assert.AreEqual(expected, actual);
@@ -737,7 +738,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.CheckInactiveCase(foreclosureCase);
+            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
             int fcId = GetForeclosureCaseId();
             DeleteForeclosureCase(fcId);
             Assert.AreEqual(expected, actual);
@@ -755,7 +756,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                                    
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.CheckInactiveCase(foreclosureCase);            
+            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);            
             Assert.AreEqual(expected, actual);
         }       
         #endregion
@@ -769,8 +770,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            Collection<string> expected = null; // TODO: Initialize to an appropriate value
-            Collection<string> actual;
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
             actual = target.RequireFieldsValidation(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
         }
@@ -781,13 +782,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckValidCodeAllPass()
-        {
+        {            
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();
-            Collection<string> expected = null; // TODO: Initialize to an appropriate value
-            Collection<string> actual;
-            actual = target.CheckValidCode(foreclosureCaseSet);
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
+            actual = target.CheckValidCode(foreclosureCaseSet);            
             Assert.AreEqual(expected, actual);            
         }
 
@@ -801,8 +802,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeFalse();
-            Collection<string> expected = null; // TODO: Initialize to an appropriate value
-            Collection<string> actual;
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
             actual = target.CheckValidCode(foreclosureCaseSet);
             Assert.AreNotEqual(expected, actual);
         }
@@ -817,8 +818,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.CaseLoans = SetCaseLoanCodeFalse();
-            Collection<string> expected = null; // TODO: Initialize to an appropriate value
-            Collection<string> actual;
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
             actual = target.CheckValidCode(foreclosureCaseSet);
             Assert.AreNotEqual(expected, actual);
         }
