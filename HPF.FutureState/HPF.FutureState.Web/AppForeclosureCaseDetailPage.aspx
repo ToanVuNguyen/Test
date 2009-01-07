@@ -8,18 +8,18 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lbl_HpfID" runat="server" Text="100987654" CssClass="Text"></asp:Label>
+                <asp:Label ID="lblHpfID" runat="server" Text="100987654" CssClass="Text"></asp:Label>
             </td>
             <td align="right" class="sidelinks" >
                 Agency Name:</td>
             <td>
-                <asp:Label ID="lbl_AgencyName" runat="server" Text="Money Management Inc." 
+                <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." 
                     CssClass="Text"></asp:Label>
             </td>
             <td align="right" class="sidelinks">
               Countselor*:  </td>
             <td>
-                <asp:Label ID="lbl_Counselor" runat="server" CssClass="Text">Amada - Huggenkiss</asp:Label>
+                <asp:Label ID="lblCounselor" runat="server" CssClass="Text">Amada - Huggenkiss</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" 
@@ -28,14 +28,14 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lbl_Borrower" runat="server" CssClass="Text">Ivan A Mustang</asp:Label>
+                <asp:Label ID="lblBorrower" runat="server" CssClass="Text">Ivan A Mustang</asp:Label>
             </td>
             <td colspan="2">
                 &nbsp;</td>
             <td align="right" class="sidelinks">
                 Phone & Ext:</td>
             <td>
-                <asp:Label ID="lbl_Phone" runat="server" CssClass="Text">877-123-1234 x55432</asp:Label>
+                <asp:Label ID="lblPhone" runat="server" CssClass="Text">877-123-1234 x55432</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btn_Print0" runat="server" CssClass="MyButton" 
@@ -44,19 +44,19 @@
         </tr>
         <tr>
             <td>
-                <asp:Label ID="lbl_PropertyAddress" runat="server" CssClass="Text">Yourtown, MN 55416</asp:Label>
+                <asp:Label ID="lblPropertyAddress" runat="server" CssClass="Text">Yourtown, MN 55416</asp:Label>
             </td>
             <td colspan="2">
                 &nbsp;</td>
             <td align="right" class="sidelinks">
                 Counselor Email:</td>
             <td colspan="2">
-                <asp:Label ID="lbl_CounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
+                <asp:Label ID="lblCounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
             </td>
         </tr>
         <tr>
             <td colspan="6">
-                <asp:Label ID="lbl_LoanList" runat="server" CssClass="Text">1298494593 - Citibank; 554587876 - 
+                <asp:Label ID="lblLoanList" runat="server" CssClass="Text">1298494593 - Citibank; 554587876 - 
                 Bank of America</asp:Label>
             </td>
         </tr>

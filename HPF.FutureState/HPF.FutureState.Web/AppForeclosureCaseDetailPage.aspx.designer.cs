@@ -14,31 +14,31 @@ namespace HPF.FutureState.Web {
     public partial class AppForeclosureCaseDetailPage {
         
         /// <summary>
-        /// lbl_HpfID control.
+        /// lblHpfID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_HpfID;
+        protected global::System.Web.UI.WebControls.Label lblHpfID;
         
         /// <summary>
-        /// lbl_AgencyName control.
+        /// lblAgencyName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_AgencyName;
+        protected global::System.Web.UI.WebControls.Label lblAgencyName;
         
         /// <summary>
-        /// lbl_Counselor control.
+        /// lblCounselor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Counselor;
+        protected global::System.Web.UI.WebControls.Label lblCounselor;
         
         /// <summary>
         /// btn_Print control.
@@ -50,22 +50,22 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Button btn_Print;
         
         /// <summary>
-        /// lbl_Borrower control.
+        /// lblBorrower control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Borrower;
+        protected global::System.Web.UI.WebControls.Label lblBorrower;
         
         /// <summary>
-        /// lbl_Phone control.
+        /// lblPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_Phone;
+        protected global::System.Web.UI.WebControls.Label lblPhone;
         
         /// <summary>
         /// btn_Print0 control.
@@ -77,31 +77,31 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Button btn_Print0;
         
         /// <summary>
-        /// lbl_PropertyAddress control.
+        /// lblPropertyAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_PropertyAddress;
+        protected global::System.Web.UI.WebControls.Label lblPropertyAddress;
         
         /// <summary>
-        /// lbl_CounselorEmail control.
+        /// lblCounselorEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_CounselorEmail;
+        protected global::System.Web.UI.WebControls.Label lblCounselorEmail;
         
         /// <summary>
-        /// lbl_LoanList control.
+        /// lblLoanList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_LoanList;
+        protected global::System.Web.UI.WebControls.Label lblLoanList;
         
         /// <summary>
         /// tabControl control.

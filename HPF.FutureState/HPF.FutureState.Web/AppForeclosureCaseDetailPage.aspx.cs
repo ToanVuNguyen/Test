@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Xml.Linq;
+using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.Web
 {
@@ -22,6 +24,7 @@ namespace HPF.FutureState.Web
             tabControl.TabClick += new HPF.FutureState.Web.HPFWebControls.TabControlEventHandler(tabControl_TabClick);
             if (!IsPostBack)
             {
+                BindData();
                 tabControl.AddTab("caseDetail", "Case Detail");
                 tabControl.AddTab("caseLoan", "Case Loan(s)");
                 tabControl.AddTab("budget", "Budget(s)");
@@ -33,6 +36,33 @@ namespace HPF.FutureState.Web
                 tabControl.SelectedTab = "caseDetail";
                 UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
             }
+        }
+        private void BindData()
+        {
+            if (Request.QueryString["CaseID"] == null)
+                return;
+            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+            ForeclosureCaseDTO ForeclosureCase;
+
+            try
+            {
+                ForeclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
+                lblHpfID.Text = ForeclosureCase.FcId.ToString();
+                lblBorrower.Text = ForeclosureCase.BorrowerFname + " " + ForeclosureCase.BorrowerMname + " " + ForeclosureCase.BorrowerLname;
+                lblPropertyAddress.Text = ForeclosureCase.PropAddr1;
+                lblLoanList.Text = ForeclosureCase.LoanList;
+                lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
+                lblPhone.Text = ForeclosureCase.CounselorPhone + "-" + ForeclosureCase.CounselorExt;
+                lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
+                //lblAgencyName.Text = ForeclosureCase.a
+            }
+            catch
+            { 
+
+            }
+            
+
+
         }
 
         void tabControl_TabClick(object sender, HPF.FutureState.Web.HPFWebControls.TabControlEventArgs e)
