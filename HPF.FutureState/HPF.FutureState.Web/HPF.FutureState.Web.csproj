@@ -156,6 +156,13 @@
     <Compile Include="ForeclosureCaseDetail\Outcome.ascx.designer.cs">
       <DependentUpon>Outcome.ascx</DependentUpon>
     </Compile>
+    <Compile Include="FundingSourceInvoiceSearch.aspx.cs">
+      <DependentUpon>FundingSourceInvoiceSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FundingSourceInvoiceSearch.aspx.designer.cs">
+      <DependentUpon>FundingSourceInvoiceSearch.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -202,6 +209,7 @@
     <Content Include="ForeclosureCaseDetail\CaseFollowUp.ascx" />
     <Content Include="ForeclosureCaseDetail\CaseLoan.ascx" />
     <Content Include="ForeclosureCaseDetail\Outcome.ascx" />
+    <Content Include="FundingSourceInvoiceSearch.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="Scripts\HPF.js" />
