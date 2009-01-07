@@ -191,44 +191,53 @@ namespace HPF.FutureState.UnitTest.DataAccess
         public void CheckExistingAgencyIdAndCaseNumberTest_Exist()
         {
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int agency_id = 2; // TODO: Initialize to an appropriate value
             string agency_case_number = "644186";
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
+            target.Commit();
         }
 
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_NonExist()
         {
+           
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int agency_id = 2; // TODO: Initialize to an appropriate value
             string agency_case_number = "644187";
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
+            target.Commit();
         }
 
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_InvalidAgencyID()
         {
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int agency_id = -1; // TODO: Initialize to an appropriate value
             string agency_case_number = "644187";
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
+            target.Commit();
         }
 
         [TestMethod()]
         public void CheckExistingAgencyIdAndCaseNumberTest_InvalidCaseNumber()
         {
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int agency_id = -1; // TODO: Initialize to an appropriate value
             string agency_case_number = "644#$87";
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = target.CheckExistingAgencyIdAndCaseNumber(agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
+            target.Commit();
         }
         #endregion
 
@@ -275,11 +284,12 @@ namespace HPF.FutureState.UnitTest.DataAccess
             CheckDuplicate_PreTest();
 
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int fc_id = 181; // TODO: Initialize to an appropriate value              
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = (target.CheckDuplicate(fc_id) == null) ? false : true; 
             Assert.AreEqual(expected, actual);
-
+            target.Commit();
             CheckDuplicate_PostTest();
         }
 
@@ -289,26 +299,27 @@ namespace HPF.FutureState.UnitTest.DataAccess
             CheckDuplicate_PreTest();
 
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int fc_id = -1; // TODO: Initialize to an appropriate value              
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = (target.CheckDuplicate(fc_id) == null) ? false : true; //, agency_id, agency_case_number);
             Assert.AreEqual(expected, actual);
-
+            target.Commit();
             CheckDuplicate_PostTest();
         }
         [TestMethod()]
         public void CheckDuplicateTest_Exist_FromAgencyIDandAgency_Case_Number()
         {
             CheckDuplicate_PreTest();
-
-            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             
+            ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+            target.Begin();
             int agency_id = 2;
             string agency_case_number = "644186";
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true;;
             Assert.AreEqual(expected, actual);
-
+            target.Commit();
             CheckDuplicate_PostTest();
         }
         [TestMethod()]
@@ -317,13 +328,13 @@ namespace HPF.FutureState.UnitTest.DataAccess
             CheckDuplicate_PreTest();
 
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
-
+            target.Begin();
             int agency_id = 2;
             string agency_case_number = "644404";
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true; ;
             Assert.AreEqual(expected, actual);
-
+            target.Commit();
             CheckDuplicate_PostTest();
         }
 
@@ -333,13 +344,13 @@ namespace HPF.FutureState.UnitTest.DataAccess
             CheckDuplicate_PreTest();
 
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
-
+            target.Begin();
             int agency_id = -2;
             string agency_case_number = "644404";
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true; ;
             Assert.AreEqual(expected, actual);
-
+            target.Commit();
             CheckDuplicate_PostTest();
         }
 
@@ -349,13 +360,13 @@ namespace HPF.FutureState.UnitTest.DataAccess
             CheckDuplicate_PreTest();
 
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
-
+            target.Begin();
             int agency_id = 2;
             string agency_case_number = "64asd04";
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual = (target.CheckDuplicate(agency_id, agency_case_number) == null) ? false : true; ;
             Assert.AreEqual(expected, actual);
-
+            target.Commit();
             CheckDuplicate_PostTest();
         }
 
