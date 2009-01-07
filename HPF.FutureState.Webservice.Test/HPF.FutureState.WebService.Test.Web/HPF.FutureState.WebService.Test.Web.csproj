@@ -56,6 +56,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityLog.aspx.cs">
+      <DependentUpon>ActivityLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ActivityLog.aspx.designer.cs">
+      <DependentUpon>ActivityLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BudgetAsset.aspx.cs">
+      <DependentUpon>BudgetAsset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BudgetAsset.aspx.designer.cs">
+      <DependentUpon>BudgetAsset.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BudgetItem.aspx.cs">
       <DependentUpon>BudgetItem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -120,6 +134,7 @@
     <Compile Include="SearchForeclosureCase.aspx.designer.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SessionVariables.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -127,14 +142,13 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< .mine
-    <Content Include="App_Data\ForeclosureCaseSet.xml" />
-=======
+    <Content Include="ActivityLog.aspx" />
+    <Content Include="BudgetAsset.aspx" />
     <Content Include="BudgetItem.aspx" />
     <Content Include="CaseLoan.aspx" />
->>>>>>> .r497
     <Content Include="Default.aspx" />
     <Content Include="ForeclosureCaseSet.xml" />
     <Content Include="InsertCallLog.aspx" />
@@ -152,6 +166,7 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
     <Folder Include="Styles\Images\" />
   </ItemGroup>
