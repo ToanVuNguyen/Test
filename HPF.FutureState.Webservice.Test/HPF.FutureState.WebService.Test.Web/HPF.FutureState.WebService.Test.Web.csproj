@@ -56,34 +56,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityLog.aspx.cs">
-      <DependentUpon>ActivityLog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ActivityLog.aspx.designer.cs">
-      <DependentUpon>ActivityLog.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BudgetAsset.aspx.cs">
-      <DependentUpon>BudgetAsset.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BudgetAsset.aspx.designer.cs">
-      <DependentUpon>BudgetAsset.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="BudgetItem.aspx.cs">
-      <DependentUpon>BudgetItem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="BudgetItem.aspx.designer.cs">
-      <DependentUpon>BudgetItem.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CaseLoan.aspx.cs">
-      <DependentUpon>CaseLoan.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CaseLoan.aspx.designer.cs">
-      <DependentUpon>CaseLoan.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -100,19 +72,7 @@
     <Compile Include="InsertCallLog.aspx.designer.cs">
       <DependentUpon>InsertCallLog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Outcome.aspx.cs">
-      <DependentUpon>Outcome.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Outcome.aspx.designer.cs">
-      <DependentUpon>Outcome.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="RetrieveCallLog.aspx.cs">
       <DependentUpon>RetrieveCallLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -145,22 +105,13 @@
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ActivityLog.aspx" />
-    <Content Include="BudgetAsset.aspx" />
-    <Content Include="BudgetItem.aspx" />
-    <Content Include="CaseLoan.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="ForeclosureCaseSet.xml" />
     <Content Include="InsertCallLog.aspx" />
-    <Content Include="Outcome.aspx" />
     <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SaveForeclosureCase.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="Site.Master" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
