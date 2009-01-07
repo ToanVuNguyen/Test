@@ -57,7 +57,7 @@ namespace HPF.FutureState.Web
                 lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
                 lblAgencyName.Text = GetAgencyName(ForeclosureCase.AgencyId);
             }
-            catch (ProcessingException ex)
+            catch (DataValidationException ex)
             {
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
