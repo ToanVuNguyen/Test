@@ -80,6 +80,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
         }
+        public int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        {
+            return ForeclosureCaseSetDAO.CreateInstance().UpdateForeclosureCase(foreclosureCase);
+        }
         private void AppThrowMissingRequiredFieldsException(Collection<string> collection)
         {
             ProcessingException pe = new ProcessingException();
