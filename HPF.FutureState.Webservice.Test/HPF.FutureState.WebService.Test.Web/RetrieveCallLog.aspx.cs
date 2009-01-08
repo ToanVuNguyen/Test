@@ -33,11 +33,9 @@ namespace HPF.FutureState.WebService.Test.Web
                          
             CallLogWSDTO callLogWSDTO = callLogRetrieveResponse.CallLog;           
             
-            lbl_Status.Text = callLogRetrieveResponse.Status.ToString();
-            if (lbl_Status.Text != "Success" && lbl_Status.Text != "Warning")
-            {
-                lbl_Message.Text = callLogRetrieveResponse.Messages[0].Message.ToString();
-            }
+            lbl_Status.Text = callLogRetrieveResponse.Status.ToString();            
+            lbl_Message.Text = callLogRetrieveResponse.Messages[0].Message.ToString();
+            
             if (callLogWSDTO != null)
             {
                 ArrayList a = new ArrayList();
