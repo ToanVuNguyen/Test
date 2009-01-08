@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CallLogWSDTO>
+  <CallId ></CallId>
+  <CallCenterID ></CallCenterID>
+  <CcAgentIdKey >CcAgentIdKey</CcAgentIdKey>
+  <StartDate ></StartDate>
+  <EndDate ></EndDate>
+  <DNIS >DNIS</DNIS>
+  <CallCenter ></CallCenter>
+  <CallSourceCd >CallSourceCd</CallSourceCd>
+  <ReasonToCall >ReasonToCall</ReasonToCall>
+  <LoanAccountNumber >LoanAccountNumber</LoanAccountNumber>
+  <FirstName >FirstName</FirstName>
+  <LastName >LastName</LastName>
+  <ServicerId >1</ServicerId>
+  <OtherServicerName >OtherServicerName</OtherServicerName>
+  <PropZipFull9 >123456789</PropZipFull9>
+  <PrevAgencyId >PrevAgencyId</PrevAgencyId>
+  <SelectedAgencyId >SelectedAgencyId</SelectedAgencyId>
+  <ScreenRout >ScreenRout</ScreenRout>
+  <FinalDispoCd >FinalDispoCd</FinalDispoCd>
+  <TransNumber >TransNumber</TransNumber>
+  <CcCallKey >CcCallKey</CcCallKey>
+  <LoanDelinqStatusCd >12345678912345</LoanDelinqStatusCd>
+  <SelectedCounselor >SelectedCounselor</SelectedCounselor>
+  <HomeownerInd >Y</HomeownerInd>
+  <PowerOfAttorneyInd >Y</PowerOfAttorneyInd>
+  <AuthorizedInd >Y</AuthorizedInd>
+  <CreateUserId>CallCenter1</CreateUserId>
+  <ChangeLastUserId>CallCenter1</ChangeLastUserId>
+</CallLogWSDTO>
