@@ -81,7 +81,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayableCase.ChangeLastDate));
                 sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableCase.ChangeLastUserId);
                 sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableCase.ChangeLastAppName);
-                sqlParam[9] = new SqlParameter("@pi_NFMC_difference_paid_ind", agencyPayableCase.NFMCDiffererencePaidIndicator);
+                sqlParam[10] = new SqlParameter("@pi_NFMC_difference_paid_ind", agencyPayableCase.NFMCDiffererencePaidIndicator);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -186,12 +186,12 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayableCriteria.AgencyId);
-                sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodStartDate);
-                sqlParam[2] = new SqlParameter("@pi_end_dt", agencyPayableCriteria.PeriodEndDate);
-                sqlParam[3] = new SqlParameter("@pi_case_completed_ind", agencyPayableCriteria.CaseComplete);
-                sqlParam[4] = new SqlParameter("@pi_servicer_consent_ind", agencyPayableCriteria.ServicerConsent);
-                sqlParam[5] = new SqlParameter("@pi_funding_consent_ind", agencyPayableCriteria.FundingConsent);
-                sqlParam[6] = new SqlParameter("@pi_loan_1st_2nd_cd", agencyPayableCriteria.LoanIndicator);
+                sqlParam[1] = new SqlParameter("@pi_start_dt", "N'"+agencyPayableCriteria.PeriodStartDate.ToShortDateString()+"'");
+                sqlParam[2] = new SqlParameter("@pi_end_dt", "N'"+agencyPayableCriteria.PeriodEndDate.ToShortDateString()+"'");
+                sqlParam[3] = new SqlParameter("@pi_case_completed_ind", (agencyPayableCriteria.CaseComplete==CustomBoolean.None)?"U":agencyPayableCriteria.CaseComplete.ToString());
+                sqlParam[4] = new SqlParameter("@pi_servicer_consent_ind", (agencyPayableCriteria.ServicerConsent == CustomBoolean.None) ? "U" : agencyPayableCriteria.ServicerConsent.ToString());
+                sqlParam[5] = new SqlParameter("@pi_funding_consent_ind", (agencyPayableCriteria.FundingConsent == CustomBoolean.None) ? "U" : agencyPayableCriteria.FundingConsent.ToString());
+                sqlParam[6] = new SqlParameter("@pi_loan_1st_2nd_cd", agencyPayableCriteria.LoanIndicator == string.Empty ? "U": agencyPayableCriteria.LoanIndicator.ToString());
                 sqlParam[7] = new SqlParameter("@pi_max_number_cases", agencyPayableCriteria.MaxNumberOfCase);                
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;           
