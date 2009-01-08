@@ -981,8 +981,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
             actual = target.MiscErrorException(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);
         }
