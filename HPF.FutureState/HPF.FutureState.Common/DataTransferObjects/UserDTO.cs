@@ -10,6 +10,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int CCRCUserId { get; set; }
         public string UserName { get; set; }
+        private string _Password=string.Empty;
+
+        public string Password
+        {
+            get { return _Password; }
+            set { _Password = value; }
+        }
+        
         public char IsActivate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
