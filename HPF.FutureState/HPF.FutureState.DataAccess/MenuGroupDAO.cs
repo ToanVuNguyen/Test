@@ -50,6 +50,8 @@ namespace HPF.FutureState.DataAccess
                         menuGroup.GroupName = ConvertToString(reader["group_name"]);
                         menuGroup.GroupSortOrder = ConvertToInt(reader["group_sort_order"]);
                         menuGroup.GroupTarget = ConvertToString(reader["group_target"]);
+                        //if (menuGroup.GroupTarget == "#" && menuGroup.MenuItemList.Count == 0)
+                        //    continue;
                         result.Add(menuGroup);
                     }
                 }
