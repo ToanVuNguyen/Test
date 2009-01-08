@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml.Serialization;
+
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
@@ -11,15 +11,12 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     public class CallLogWSDTO : BaseDTO
     {
         #region property
-        [XmlIgnore]
         public string CallId { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         public int CallCenterID { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         [StringLengthValidator(55, Ruleset = "Default", MessageTemplate = "AgencyId's Maximum length is 55 characters")]
         public string CcAgentIdKey { get; set; }
 
@@ -30,12 +27,10 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public DateTime EndDate { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         [StringLengthValidator(10, Ruleset = "Default", MessageTemplate = "DNIS's Maximum length is 10 characters")]
         public string DNIS { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         [StringLengthValidator(4, Ruleset = "Default", MessageTemplate = "CallCenter's Maximum length is 4 characters")]
         public string CallCenter { get; set; }
 
@@ -78,7 +73,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string SelectedAgencyId { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         [StringLengthValidator(2000, Ruleset = "Default", MessageTemplate = "ScreenRout's Maximum length is 2000 characters")]
         public string ScreenRout { get; set; }
 
@@ -87,12 +81,10 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string FinalDispoCd { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         [StringLengthValidator(12, Ruleset = "Default", MessageTemplate = "TransNumber's Maximum length is 12 characters")]
         public string TransNumber { get; set; }
 
         [IgnoreNulls()]
-        [XmlIgnore]
         [StringLengthValidator(18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
         public string CcCallKey { get; set; }
 
