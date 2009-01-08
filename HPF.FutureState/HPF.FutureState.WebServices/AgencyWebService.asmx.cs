@@ -35,7 +35,7 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())//Authentication checking
                 //if (true)
                 {
-                    SetDefaultValues(request.ForeclosureCaseSet);
+                    
                     ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
                     response.Status = ResponseStatus.Success;
                 }
@@ -76,19 +76,6 @@ namespace HPF.FutureState.WebServices
             return response;
         }
 
-        private void SetDefaultValues(ForeclosureCaseSetDTO fcCaseSet)
-        {
-            base.SetDefaultValues(fcCaseSet.ForeclosureCase);
-            foreach (BudgetAssetDTO obj in fcCaseSet.BudgetAssets)
-                base.SetDefaultValues(obj);
-            foreach (BudgetItemDTO obj in fcCaseSet.BudgetItems)
-                base.SetDefaultValues(obj);
-            foreach (OutcomeItemDTO obj in fcCaseSet.Outcome)
-                base.SetDefaultValues(obj);
-            foreach (ActivityLogDTO obj in fcCaseSet.ActivityLog)
-                base.SetDefaultValues(obj);
-            foreach (CaseLoanDTO obj in fcCaseSet.CaseLoans)
-                base.SetDefaultValues(obj);
-        }                
+                 
     }
 }

@@ -77,14 +77,6 @@ namespace HPF.FutureState.WebServices
             return response;
         }        
 
-        protected void SetDefaultValues(BaseDTO baseDTO)
-        {
-            baseDTO.ChangeLastAppName = "Test data";
-            baseDTO.ChangeLastDate = DateTime.Now;
-            baseDTO.ChangeLastUserId = "Test data";
-            baseDTO.CreateAppName = "Test data";
-            baseDTO.CreateDate = DateTime.Now;
-            baseDTO.CreateUserId = "Test data";
-        }
+       
     }
 }
