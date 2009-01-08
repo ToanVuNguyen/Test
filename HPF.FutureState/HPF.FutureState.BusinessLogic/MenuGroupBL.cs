@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.DataAccess;
+using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class MenuSecurityBL : IMenuSecurityBL
+    public class MenuGroupBL:IMenuGroupBL
     {
-        private static readonly MenuSecurityBL instance = new MenuSecurityBL();
+        private static readonly MenuGroupBL instance = new MenuGroupBL();
         /// <summary>
         /// Singleton
         /// </summary>
-        public static MenuSecurityBL Instance
+        public static MenuGroupBL Instance
         {
             get
             {
@@ -21,17 +22,14 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        protected MenuSecurityBL()
-        {            
-        }
-
-        #region IMenuSecurityBL Members
-
-        public Common.DataTransferObjects.MenuSecurityDTOCollection GetMenuSecurityList(int userId)
+        protected MenuGroupBL()
         {
-            return MenuSecurityDAO.Instance.GetMenuSecurityListByUserID(userId);
         }
-
+        #region IMenuGroupBL Members
+        public MenuGroupDTOCollection GetMenuGroupCollectionByUserID(int userId)
+        {
+            return MenuGroupDAO.Instance.GetMenuGroupCollectionByUserID(userId);
+        }
         #endregion
     }
 }
