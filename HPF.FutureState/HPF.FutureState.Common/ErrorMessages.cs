@@ -20,12 +20,12 @@ namespace HPF.FutureState.Common
         public const string EXCEPTION_MISCELLANEOUS = "Miscellaneous processing exception" ;
         public const string EXCEPTION_INVALID_CODE = "Invalid code";
 
-        private static readonly Dictionary<int, string> errorMessageDict = new Dictionary<int, string>();
+        private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
-        public static string GetExceptionMessage(int exceptionId)
+        public static string GetExceptionMessage(string exceptionId)
         {
             LoadErrorMessageDict();
-            return null;
+            return errorMessageDict[exceptionId];
         }
 
         private static void LoadErrorMessageDict()

@@ -37,13 +37,24 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             return CreateValidator<T>(ruleSet).Validate(target);
         }
 
-        public static ExceptionMessageCollection ValidateToExceptionMessage<T>(T target)
+        public static ExceptionMessageCollection ValidateToGetExceptionMessage<T>(T target)
         {
             var results = CreateValidator<T>().Validate(target);
+            return CreateFriendlyExceptionMessage(results);
+        }
+
+        public static ExceptionMessageCollection ValidateToGetExceptionMessage<T>(T target, string ruleSet)
+        {
+            var results = CreateValidator<T>(ruleSet).Validate(target);
+            return CreateFriendlyExceptionMessage(results);
+        }
+
+        private static ExceptionMessageCollection CreateFriendlyExceptionMessage(ValidationResults results)
+        {
             var exceptionMessages = new ExceptionMessageCollection();
             foreach (var result in results)
             {
-                exceptionMessages.AddExceptionMessage(Convert.ToInt32(result.Tag), FriendlyMessageTranslate(result));
+                exceptionMessages.AddExceptionMessage(result.Tag, FriendlyMessageTranslate(result));
             }
             return exceptionMessages;
         }
@@ -55,7 +66,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         /// <returns></returns>
         private static string FriendlyMessageTranslate(ValidationResult result)
         {
-            return ErrorMessages.GetExceptionMessage(Convert.ToInt32(result.Tag));
+            return ErrorMessages.GetExceptionMessage(result.Tag);
         }
 
     }
