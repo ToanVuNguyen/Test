@@ -57,7 +57,7 @@ namespace HPF.FutureState.DataAccess
                     {
                         MenuSecurityDTO menuSecurity = new MenuSecurityDTO();
                         menuSecurity.Permission= ConvertToString(reader["permission_value"])[0];
-                        menuSecurity.Target = ConvertToString(reader["target"]);
+                        menuSecurity.Target = ConvertToString(reader["item_target"]);
                         result.Add(menuSecurity);
                     }
                 }
