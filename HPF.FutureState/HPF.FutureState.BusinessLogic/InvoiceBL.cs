@@ -28,17 +28,7 @@ namespace HPF.FutureState.BusinessLogic
         public bool InsertInvoice(InvoiceDraftDTO invoiceDraft)
         {
             throw new NotImplementedException();
-        }
-
-        public bool InsertInvoice(InvoiceDTO invoice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool InsertInvoiceCase(InvoiceCaseDTO invoiceCase)
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         public InvoiceDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO criterial)
         {
