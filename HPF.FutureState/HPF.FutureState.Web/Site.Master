@@ -26,7 +26,7 @@
         </tr>
         <tr> 
           <td background="Styles/Images/topnavbg.jpg">
-              <HPF:MenuBarControl ID="MenuBarControl" runat="server" XmlMenuFile="~/Common/Menu/MenuBar.xml">
+              <HPF:MenuBarControl ID="MenuBarControl" runat="server">
               </HPF:MenuBarControl>
           </td>
         </tr>

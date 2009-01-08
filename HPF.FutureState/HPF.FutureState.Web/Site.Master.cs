@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.Web
 {
@@ -17,7 +18,8 @@ namespace HPF.FutureState.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //Admin
+            MenuBarControl.UserId = HPFWebSecurity.CurrentIdentity.UserId;
         }
     }
 }
