@@ -39,16 +39,16 @@ namespace HPF.FutureState.BusinessLogic
                 AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
                 agencyPayable.PaymentDate = DateTime.Now;
-                agencyPayable.PayamentCode = "";
-                agencyPayable.StatusCode = "";
+                //agencyPayable.PayamentCode = "";
+                //agencyPayable.StatusCode = "";
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
-                agencyPayable.PaymentComment = "";
-                agencyPayable.AccountLinkTBD = "";
+                //agencyPayable.PaymentComment = "";
+                //agencyPayable.AccountLinkTBD = "";
                 agencyPayable.AgencyPayablePaymentAmount = 0;
                 //Insert Agency Payable
                 int agencyPayableId = 0;
-                agencyPayableId = InsertAgencyPayable(agencyPayableDAO, agencyPayable);
+                agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable);
                 //Insert Acency Payable Case
                 ForeclosureCaseDraftDTOCollection fCaseDrafColection = agencyPayableDraft.ForclosureCaseDrafts;
                 foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)
@@ -59,7 +59,7 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.PaymentAmount = fCaseDraf.Amount;
                     agencyPayableCase.NFMCDiffererencePaidIndicator = "";
-                    InserAgencyPayableCase(agencyPayableDAO, agencyPayableCase);
+                    agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
                 }
                 agencyPayableDAO.Commit();
             }
@@ -71,38 +71,7 @@ namespace HPF.FutureState.BusinessLogic
             return true;
         }
 
-        public int InsertAgencyPayable(AgencyPayableDAO agencyPayableDAO, AgencyPayableDTO agencyPayable)
-        {
-            int agencyPayableId = int.MinValue;
-            if (agencyPayable != null)                
-                agencyPayableId= agencyPayableDAO.InsertAgencyPayable(agencyPayable);
-            return agencyPayableId;
-        }
-
-        /// <summary>
-        /// Insert AgencyPayableCase with agencyPayableDraft provided
-        /// </summary>
-        /// <param name="agencyPayableDraft"></param>
-        /// <returns></returns>
-        public void InserAgencyPayableCase(AgencyPayableDAO agencyPayableDAO, AgencyPayableCaseDTO agencyPayableCase)
-        {
-            agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
-        }
-
-        public bool UpdateAgencyPayable(AgencyPayableDTO agencyPayable)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Update AgencyPayableCase with agencyPayableCase provided
-        /// </summary>
-        /// <param name="agencyPayableCase"></param>
-        /// <returns></returns>
-        public bool UpdateAgencyPayableCase(AgencyPayableCaseDTO agencyPayableCase)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         /// <summary>
         /// Search and get put the list for AgencyPayable
