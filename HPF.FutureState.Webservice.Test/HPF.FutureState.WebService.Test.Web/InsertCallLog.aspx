@@ -233,6 +233,20 @@
                 <asp:TextBox ID="txtFinalDispoCd" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>          
         </asp:TableRow>
+        <asp:TableRow ID="TableRow2" runat="server">
+            <asp:TableCell ID="TableCell53" runat="server">
+            <asp:Label ID="Label19" runat="server" Text="Create User ID"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell54" runat="server">
+                <asp:TextBox ID="txtCreateUserId" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell>   
+            <asp:TableCell ID="TableCell55" runat="server">
+            <asp:Label ID="Label27" runat="server" Text="Last change User ID"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell56" runat="server">
+                <asp:TextBox ID="txtLastChangeUserId" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell>          
+        </asp:TableRow>
                 
     </asp:Table>
     <br />

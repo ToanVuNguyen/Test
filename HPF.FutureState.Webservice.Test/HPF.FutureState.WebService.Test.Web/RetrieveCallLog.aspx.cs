@@ -23,13 +23,18 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            CallCenterService callCenterService = new CallCenterService();
+            CallCenterService proxy = new CallCenterService();
+
+            AuthenticationInfo ai = new AuthenticationInfo();
+            ai.UserName = "admin";
+            ai.Password = "admin";
+            proxy.AuthenticationInfoValue = ai;
 
             CallLogRetrieveRequest callLogRetrieveRequest = new CallLogRetrieveRequest();
             callLogRetrieveRequest.callLogId = txt_CallLogId.Text;
 
             CallLogRetrieveResponse callLogRetrieveResponse = new CallLogRetrieveResponse();
-            callLogRetrieveResponse = callCenterService.RetrieveCallLog(callLogRetrieveRequest);
+            callLogRetrieveResponse = proxy.RetrieveCallLog(callLogRetrieveRequest);
                          
             CallLogWSDTO callLogWSDTO = callLogRetrieveResponse.CallLog;           
             

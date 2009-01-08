@@ -27,18 +27,15 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             ForeclosureCaseSearchRequest request = new ForeclosureCaseSearchRequest();
 
-            request.SearchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+            request.SearchCriteria = GetSearchCriteria();
 
-            
-            request.SearchCriteria.AgencyCaseNumber = (txtAgencyCaseNumber.Text.Trim() == string.Empty)? null : txtAgencyCaseNumber.Text.Trim() ;
-            request.SearchCriteria.FirstName = (txtFirstName.Text.Trim() == string.Empty) ? null : txtFirstName.Text.Trim();
-            request.SearchCriteria.LastName = (txtLastName.Text.Trim() == string.Empty) ? null : txtLastName.Text.Trim();
-            request.SearchCriteria.Last4_SSN = (txtLast4SSN.Text.Trim() == string.Empty) ? null : txtLast4SSN.Text.Trim();
-            request.SearchCriteria.PropertyZip = (txtPropertyZip.Text.Trim() == string.Empty) ? null : txtPropertyZip.Text.Trim();
-            request.SearchCriteria.LoanNumber = (txtLoanNumber.Text.Trim() == string.Empty) ? null : txtLoanNumber.Text.Trim();
 
             CallCenterService proxy = new CallCenterService();
-            
+            AuthenticationInfo ai = new AuthenticationInfo();
+            ai.UserName = "admin";
+            ai.Password = "admin";
+            proxy.AuthenticationInfoValue = ai;
+
             ForeclosureCaseSearchResponse response = proxy.SearchForeclosureCase(request);
 
             if (response.Status == ResponseStatus.Success)
@@ -49,6 +46,20 @@ namespace HPF.FutureState.WebService.Test.Web
 
             lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
             
+        }
+
+        private ForeclosureCaseSearchCriteriaDTO GetSearchCriteria()
+        {
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+
+            searchCriteria.AgencyCaseNumber = (txtAgencyCaseNumber.Text.Trim() == string.Empty) ? null : txtAgencyCaseNumber.Text.Trim();
+            searchCriteria.FirstName = (txtFirstName.Text.Trim() == string.Empty) ? null : txtFirstName.Text.Trim();
+            searchCriteria.LastName = (txtLastName.Text.Trim() == string.Empty) ? null : txtLastName.Text.Trim();
+            searchCriteria.Last4_SSN = (txtLast4SSN.Text.Trim() == string.Empty) ? null : txtLast4SSN.Text.Trim();
+            searchCriteria.PropertyZip = (txtPropertyZip.Text.Trim() == string.Empty) ? null : txtPropertyZip.Text.Trim();
+            searchCriteria.LoanNumber = (txtLoanNumber.Text.Trim() == string.Empty) ? null : txtLoanNumber.Text.Trim();
+
+            return searchCriteria;
         }
     }
 }

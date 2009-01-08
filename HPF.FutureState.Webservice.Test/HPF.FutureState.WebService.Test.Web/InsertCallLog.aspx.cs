@@ -81,8 +81,9 @@ namespace HPF.FutureState.WebService.Test.Web
             txtServiceID.Text = aCallLogWS.ServicerId.ToString(); //"1";
             txtStartDate.SelectedDate = aCallLogWS.StartDate; //DateTime.Now;
             txtTransNumber.Text = aCallLogWS.TransNumber; //"TransNumber" + _pageloadno.ToString();
-            
 
+            txtLastChangeUserId.Text = aCallLogWS.ChangeLastUserId;
+            txtCreateUserId.Text = aCallLogWS.CreateUserId;
         }
 
         private CallLogWSDTO FormToCallLogWSDTO()
@@ -115,6 +116,8 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.ServicerId = Util.ConvertToInt(txtServiceID.Text.Trim());
             aWSCallLog.StartDate = txtStartDate.SelectedDate;
             aWSCallLog.TransNumber = txtTransNumber.Text.Trim();
+            aWSCallLog.CreateUserId = txtCreateUserId.Text.Trim();
+            aWSCallLog.ChangeLastUserId = txtLastChangeUserId.Text.Trim();
 
             #endregion
 
@@ -124,9 +127,16 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void btnSave_Click(object sender, EventArgs e)
         {
             CallLogInsertRequest request = new CallLogInsertRequest();
+            
             CallLogWSDTO aWSCallLog = FormToCallLogWSDTO();
 
             CallCenterService proxy = new CallCenterService();
+
+            
+            AuthenticationInfo ai = new AuthenticationInfo();
+            ai.UserName = "admin";
+            ai.Password = "admin";
+            proxy.AuthenticationInfoValue = ai;
 
             request.CallLog = aWSCallLog;
             CallLogInsertResponse response = proxy.SaveCallLog(request);
