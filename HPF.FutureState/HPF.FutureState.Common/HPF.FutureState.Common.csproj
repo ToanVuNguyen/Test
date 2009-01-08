@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{571F09A2-386F-42DD-9E7E-B58F8983E368}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="BusinessLogicInterface\ICallLogBL.cs" />
     <Compile Include="BusinessLogicInterface\IForeclosureCaseBL.cs" />
+    <Compile Include="BusinessLogicInterface\IMenuGroupBL.cs" />
     <Compile Include="BusinessLogicInterface\IRefCodeItemBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
@@ -75,6 +76,10 @@
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\MenuGroupDTO.cs" />
+    <Compile Include="DataTransferObjects\MenuGroupDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\MenuItemDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\MenuItemDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeTypeDTO.cs" />
     <Compile Include="DataTransferObjects\OutcomeTypeDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDraftDTO.cs" />

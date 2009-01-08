@@ -5,9 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public class MenuSecurityDTO : BaseDTO
+    public class MenuGroupDTOCollection:BaseDTOCollection<MenuGroupDTO>
     {
-        public string Target { get; set; }
-        public char Permission { get; set; }
     }
 }

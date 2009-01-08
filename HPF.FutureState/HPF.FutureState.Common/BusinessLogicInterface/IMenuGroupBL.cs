@@ -6,13 +6,14 @@ using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.Common.BusinessLogicInterface
 {
-    public interface IMenuSecurityBL
+    public interface IMenuGroupBL
     {
         /// <summary>
         /// Get List of MenuSecurity
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        MenuSecurityDTOCollection GetMenuSecurityList(int userId);
+        MenuGroupDTOCollection GetMenuGroupCollectionByUserID(int userId);
     }
+    
 }
