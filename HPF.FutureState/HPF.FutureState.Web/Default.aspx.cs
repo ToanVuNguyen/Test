@@ -18,14 +18,14 @@ using HPF.FutureState.Web.HPFWebControls;
 
 
 
+
 namespace HPF.FutureState.Web
 {
     public partial class Default : System.Web.UI.Page
     {       
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
+            UserDTO user = SecurityBL.Instance.GetWebUser("admin");
         }
 
         
