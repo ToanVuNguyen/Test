@@ -38,6 +38,13 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public bool WebUserLogin(string userName, string password)
         {
+            //Not complete
+            //Get user and compare with the password.
+
+            //UserDTO user = GetWebUser(userName);
+            //if (user == null)
+            //    return false;
+            
             if (userName == "Admin" && password == "")
                 return true;
             return false;
@@ -115,6 +122,63 @@ namespace HPF.FutureState.DataAccess
             }
 
             return wsUser;
+        }
+        /// <summary>
+        /// get Web user from table CCRC_User
+        /// </summary>
+        /// <param name="userName">Username to login</param>
+        /// <returns>UserDTO object if user exists in database, null for non-exists</returns>
+        UserDTO GetWebUser(string userName)
+        {
+            UserDTO webUser = null;
+            var dbConnection = CreateConnection();
+            //Add store here
+            var command = CreateSPCommand("hpf_web_user_get_from_username", dbConnection);
+
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_username", userName);
+            //</Parameter>            
+            try
+            {
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    webUser = new UserDTO();
+                    while (reader.Read())
+                    {
+                        webUser.CCRCUserId = ConvertToString(reader["ccrc_user_id"]);
+                        webUser.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        webUser.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        webUser.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        webUser.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        webUser.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        webUser.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        webUser.Email = ConvertToString(reader["email"]);
+                        webUser.FirstName = ConvertToString(reader["fname"]);
+                        webUser.IsActivate = ConvertToBool(reader["active_ind"]);
+                        webUser.LastLogin = ConvertToDateTime(reader["last_login_dt"]);
+                        webUser.LastName = ConvertToString(reader["lname"]);
+                        webUser.Phone = ConvertToString(reader["phone"]);
+                        webUser.UserName = ConvertToString(reader["user_login_id"]);
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return webUser;
         }
         #endregion
     }
