@@ -295,7 +295,7 @@
             </asp:TableCell>                       
         </asp:TableRow>      
 
-<asp:TableRow ID="TableRow20" runat="server">
+        <asp:TableRow ID="TableRow20" runat="server">
             <asp:TableCell ID="TableCell77" runat="server">
                 <asp:Label ID="Label39" runat="server" Text="email 1"></asp:Label>             
             </asp:TableCell>
@@ -801,19 +801,32 @@
         </asp:TableRow>   
         <asp:TableRow ID="TableRow56" runat="server">
             <asp:TableCell ID="TableCell221" runat="server">
-                <asp:Label ID="Label111" runat="server" Text="Agency case number"></asp:Label>             
+                <asp:Label ID="Label111" runat="server" Text="Create User ID"></asp:Label>             
             </asp:TableCell>
             <asp:TableCell ID="TableCell222" runat="server">
-                <asp:TextBox ID="TextBox111" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCreateUserID" runat="server"></asp:TextBox>
             </asp:TableCell>
             <asp:TableCell ID="TableCell223" runat="server">
-                <asp:Label ID="Label112" runat="server" Text="Agency case number"></asp:Label>             
+                <asp:Label ID="Label112" runat="server" Text="Change Last User ID"></asp:Label>             
             </asp:TableCell>
             <asp:TableCell ID="TableCell224" runat="server">
-                <asp:TextBox ID="TextBox112" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtChangeLastUserID" runat="server"></asp:TextBox>
             </asp:TableCell>                       
         </asp:TableRow>   
-                  
+        <asp:TableRow ID="TableRow57" runat="server">
+            <asp:TableCell ID="TableCell225" runat="server">
+                <asp:Label ID="Label119" runat="server" Text="FC Sale Date"></asp:Label>             
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell226" runat="server">
+                <asp:TextBox ID="txtFcSaleDate" runat="server"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell227" runat="server">
+                
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell228" runat="server">
+                
+            </asp:TableCell>                       
+        </asp:TableRow>                  
     </asp:Table>
     
         
@@ -1016,24 +1029,14 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Freddie loan num" >  
                 <EditItemTemplate>
-                    <asp:TextBox ID="txtFreddieLoanNum" runat="server" Text='<%# Eval("FreddieLoanNum") %>'></asp:TextBox>
+                    <asp:TextBox ID="txtFreddieLoanNum" runat="server" Text='<%# Eval("InvestorLoanNum") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <FooterTemplate>
                     <asp:TextBox ID="txtFreddieLoanNum" runat="server"></asp:TextBox> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label19" runat="server" Text='<%# Bind("FreddieLoanNum") %>'></asp:Label>
+                    <asp:Label ID="Label19" runat="server" Text='<%# Bind("InvestorLoanNum") %>'></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Arm Loan ID" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtArmLoanInd" runat="server" Text='<%# Eval("ArmLoanInd") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtArmLoanInd" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label20" runat="server" Text='<%# Bind("ArmLoanInd") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField>            
             <asp:TemplateField HeaderText="FCID" >  
                 <EditItemTemplate>
                     <asp:TextBox ID="txtFcId" runat="server" Text='<%# Eval("FcId") %>'></asp:TextBox>

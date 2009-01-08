@@ -32,12 +32,12 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 XDocument xdoc = XDocument.Load(filename);
 
-                Session[SessionVariables.CASE_LOAN_COLLECTION] = Util.ParseCaseLoanDTO(xdoc);
-                Session[SessionVariables.BUDGET_ASSET_COLLECTION] = Util.ParseBudgetAssetDTO(xdoc);
-                Session[SessionVariables.BUDGET_ITEM_COLLECTION] = Util.ParseBudgetItemDTO(xdoc);
+                Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO(xdoc);
+                Session[SessionVariables.BUDGET_ASSET_COLLECTION] = AgencyHelper.ParseBudgetAssetDTO(xdoc);
+                Session[SessionVariables.BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseBudgetItemDTO(xdoc);
                 //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
-                Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = Util.ParseOutcomeItemDTO(xdoc);
-                Session[SessionVariables.FORECLOSURE_CASE] = Util.ParseForeclosureCaseDTO(xdoc);
+                Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = AgencyHelper.ParseOutcomeItemDTO(xdoc);
+                Session[SessionVariables.FORECLOSURE_CASE] = AgencyHelper.ParseForeclosureCaseDTO(xdoc);
 
                 grdvCaseLoanBinding();
                 grdvOutcomeItemBinding();
@@ -121,7 +121,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.HomePurchaseYear = Util.ConvertToInt(txtHomePurchaseYear.Text.Trim());
             fcCase.HomeSalePrice = Util.ConvertToDecimal(txtHomeSalePrice.Text.Trim());
             fcCase.HouseholdCd = txtHouseholdCd.Text.Trim();
-            fcCase.HouseholdGrossAnnualIncomeAmt = Util.ConvertToDouble(txtHousholdGrossAnnualIncomeAmt.Text.Trim());
+            fcCase.HouseholdGrossAnnualIncomeAmt = Util.ConvertToDecimal(txtHousholdGrossAnnualIncomeAmt.Text.Trim());
             fcCase.HpfMediaCandidateInd = txtHpfMediaCandidateInd.Text.Trim();
             fcCase.HpfNetworkCandidateInd = txtHpfNetworkCandidateInd.Text.Trim();
             fcCase.HpfSuccessStoryInd = txtHpfSuccessStoryInd.Text.Trim();
@@ -162,7 +162,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.SummarySentOtherCd = txtSummarySentOtherCd.Text.Trim();
             fcCase.SummarySentOtherDt = Util.ConvertToDateTime(txtSummarySentOtherDt.Text.Trim());
             fcCase.WorkedWithAnotherAgencyInd = txtWorkedWithAnotherAgencyInd.Text.Trim();
-
+            fcCase.FcSaleDate = Util.ConvertToDateTime(txtFcSaleDate.Text.Trim());
             
 
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
@@ -285,6 +285,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherCd.Text = fcCase.SummarySentOtherCd.ToString();
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
+                txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
             }
         }
        
@@ -437,15 +438,15 @@ namespace HPF.FutureState.WebService.Test.Web
             #endregion
 
             caseLoan.AcctNum = txtAccNum.Text.Trim();
-            caseLoan.ArmLoanInd = txtArmLoanInd.Text.Trim();
+            //caseLoan.ArmLoanInd = txtArmLoanInd.Text.Trim();
             caseLoan.ArmResetInd = txtArmResetInd.Text.Trim();
             caseLoan.CaseLoanId = Util.ConvertToInt(txtCaseLoanId.Text.Trim());
             caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDecimal(txtCurrentLoanBalanceAmt.Text.Trim());
             caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
             caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
-            caseLoan.FreddieLoanNum = txtFreddieLoanNum.Text.Trim();
+            caseLoan.InvestorLoanNum = txtFreddieLoanNum.Text.Trim();
             caseLoan.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
-            caseLoan.InterestRate = Util.ConvertToDouble(txtInterestRate.Text.Trim());
+            caseLoan.InterestRate = Util.ConvertToDecimal(txtInterestRate.Text.Trim());
             caseLoan.Loan1st2nd = txtLoan1st2nd.Text.Trim();
             caseLoan.LoanDelinqStatusCd = txtLoanDelinqCd.Text.Trim();
             caseLoan.MortgageTypeCd = txtMorgageTypeCode.Text.Trim();
@@ -496,7 +497,7 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtBudgetItemSetId = (TextBox)row.FindControl("txtBudgetItemSetId");
 
             BudgetItemDTO budgetItem = new BudgetItemDTO();
-            budgetItem.BudgetItemAmt = Util.ConvertToDouble(txtBudgetItemAmt.Text.Trim());
+            budgetItem.BudgetItemAmt = Util.ConvertToDecimal(txtBudgetItemAmt.Text.Trim());
             budgetItem.BudgetNote = txtBudgetNote.Text.Trim();
             budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
             budgetItem.BudgetItemId = Util.ConvertToInt(txtBudgetItemId.Text.Trim());
@@ -910,6 +911,8 @@ namespace HPF.FutureState.WebService.Test.Web
             outcomeItem.OutcomeItemId = Util.ConvertToInt(txtOutcomeItemId.Text.Trim());
             outcomeItem.OutcomeSetId = Util.ConvertToInt(txtOutcomeSetId.Text.Trim());
             outcomeItem.OutcomeTypeId = Util.ConvertToInt(txtOutcomeTypeId.Text.Trim());
+            
+            
             return outcomeItem;
         }
 
@@ -1028,6 +1031,35 @@ namespace HPF.FutureState.WebService.Test.Web
 
         }
 
+        private void SetTrackingInformation(ForeclosureCaseSetDTO fcCaseSet)
+        {
+            string createUserId = txtCreateUserID.Text.Trim();
+            string changeLastUserId = txtChangeLastUserID.Text.Trim();
+            fcCaseSet.ForeclosureCase.CreateUserId = createUserId;
+            fcCaseSet.ForeclosureCase.ChangeLastUserId = changeLastUserId;
+
+            foreach (BudgetAssetDTO obj in fcCaseSet.BudgetAssets)
+            {
+                obj.CreateUserId = createUserId;
+                obj.ChangeLastUserId = changeLastUserId;
+            }
+            foreach (BudgetItemDTO obj in fcCaseSet.BudgetItems)
+            {
+                obj.CreateUserId = createUserId;
+                obj.ChangeLastUserId = changeLastUserId;
+            }
+            foreach (OutcomeItemDTO obj in fcCaseSet.Outcome)
+            {
+                obj.CreateUserId = createUserId;
+                obj.ChangeLastUserId = changeLastUserId;
+            }            
+            foreach (CaseLoanDTO obj in fcCaseSet.CaseLoans)
+            {
+                obj.CreateUserId = createUserId;
+                obj.ChangeLastUserId = changeLastUserId;
+            }
+            
+        }
         private ForeclosureCaseInsertRequest CreateForeclosureCaseInsertRequest()
         {
             ForeclosureCaseInsertRequest request = new ForeclosureCaseInsertRequest();

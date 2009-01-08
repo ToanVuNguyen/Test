@@ -20,6 +20,7 @@ namespace HPF.FutureState.WebService.Test.Web
         public static string ACTIVITY_LOG_COLLECTION = "ActivityLogCollection";
         public static string OUTCOME_ITEM_COLLECTION = "OutcomeItemCollection";
         public static string FORECLOSURE_CASE = "ForeclosureCase";
+        public static string CALLLOG_WS = "CallLogWS";
 
     }
 }

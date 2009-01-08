@@ -109,6 +109,9 @@
     <HouseholdGrossAnnualIncomeAmt></HouseholdGrossAnnualIncomeAmt>
     <LoanList></LoanList>
     <IntakeCreditScore></IntakeCreditScore>
+    <FcSaleDate></FcSaleDate>
+    <CreateUserId>Agency1</CreateUserId>
+    <ChangeLastUserId>Agency1</ChangeLastUserId>
   <IntakeCreditBureauCd></IntakeCreditBureauCd>
   </ForeclosureCase>
   <CaseLoanSet>
@@ -133,7 +136,9 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <FdicNcusNumCurrentServicerTbd>test</FdicNcusNumCurrentServicerTbd>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <FreddieLoanNum>test</FreddieLoanNum>
+      <InvestorLoanNum>test</InvestorLoanNum>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </CaseLoan>
     <CaseLoan>
       <CaseLoanId>2</CaseLoanId>
@@ -156,7 +161,9 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <FdicNcusNumCurrentServicerTbd>test</FdicNcusNumCurrentServicerTbd>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <FreddieLoanNum>test</FreddieLoanNum>
+      <InvestorLoanNum>test</InvestorLoanNum>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </CaseLoan>
     <CaseLoan>
       <CaseLoanId>3</CaseLoanId>
@@ -179,7 +186,9 @@
       <OrginalLoanNum></OrginalLoanNum>
       <FdicNcusNumCurrentServicerTbd></FdicNcusNumCurrentServicerTbd>
       <CurrentServicerNameTbd></CurrentServicerNameTbd>
-      <FreddieLoanNum></FreddieLoanNum>
+      <InvestorLoanNum></InvestorLoanNum>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </CaseLoan>
   </CaseLoanSet>
   <OutcomeSet>
@@ -192,6 +201,8 @@
       <OutcomeDeletedDt >10/10/2009</OutcomeDeletedDt>
       <NonprofitreferralKeyNum ></NonprofitreferralKeyNum>
       <ExtRefOtherName ></ExtRefOtherName>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </OutcomeItem>
   </OutcomeSet>
   <BudgetAssetSet>
@@ -200,6 +211,8 @@
       <BudgetSetId ></BudgetSetId>
       <AssetName></AssetName>
       <AssetValue></AssetValue>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </BudgetAsset>
   </BudgetAssetSet>
   <BudgetItemSet>
@@ -209,6 +222,8 @@
       <BudgetSubcategoryId>1</BudgetSubcategoryId>
       <BudgetItemAmt>100</BudgetItemAmt>
       <BudgetNote></BudgetNote>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </BudgetItem>
   </BudgetItemSet>
   <ActivityLogSet>
@@ -218,6 +233,8 @@
       <ActivityCd>1</ActivityCd>
       <ActivityDt>11/11/2008</ActivityDt>
       <ActivityNote></ActivityNote>
+      <CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
     </ActivityLog>
   </ActivityLogSet>
 </ForeclosureCaseSet>  
