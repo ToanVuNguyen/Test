@@ -71,7 +71,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         /// <returns></returns>
         private static string FriendlyMessageTranslate(ValidationResult result)
         {
-            return ErrorMessages.GetExceptionMessage(result.Tag);
+            return ErrorMessages.GetExceptionMessageCombined(result.Tag);
         }
 
     }

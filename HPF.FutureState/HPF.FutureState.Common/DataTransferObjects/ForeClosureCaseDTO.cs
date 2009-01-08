@@ -30,41 +30,41 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = "P-WS-SFC-00103", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public DateTime IntakeDt { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00300", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string IncomeEarnersCd { get; set; }
 
         [NotNullValidator(Tag = "P-WS-SFC-00104", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string CaseSourceCd{ get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00301", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string RaceCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00302", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HouseholdCd { get; set; }
 
         public string NeverBillReasonCd { get; set; }
 
         public string NeverPayReasonCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00303", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string DfltReason1stCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00304", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string DfltReason2ndCd { get; set; }
 
         public string HudTerminationReasonCd { get; set; }
 
         public DateTime HudTerminationDt { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00305", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HudOutcomeCd { get; set; }
 
         public int AmiPercentage { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00306", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string CounselingDurationCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00307", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string GenderCd { get; set; }
 
         [NotNullValidator(Tag = "P-WS-SFC-00105", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
@@ -81,7 +81,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string BorrowerLast4Ssn { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00308", Ruleset = "Complete", MessageTemplate = "Required!")]
         public DateTime BorrowerDob { get; set; }
 
         public string CoBorrowerFname { get; set; }
@@ -137,7 +137,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string PropZipPlus4 { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00309", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string BankruptcyInd { get; set; }
 
         public string BankruptcyAttorney { get; set; }
@@ -152,14 +152,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string BorrowerOccupationCd { get; set; }
 
-        public string CoBorrowerOccupationCd { get; set; }        
+        public string CoBorrowerOccupationCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00310", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HispanicInd { get; set; }
 
         public string DuplicateInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00311", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string FcNoticeReceiveInd { get; set; }
 
         public string CaseCompleteInd { get; set; }
@@ -190,13 +190,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime SummarySentDt { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00312", Ruleset = "Complete", MessageTemplate = "Required!")]
         public byte OccupantNum { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00313", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string LoanDfltReasonNotes { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00314", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string ActionItemsNotes { get; set; }
 
         public string FollowupNotes { get; set; }
@@ -220,22 +220,19 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 
         public string CounselorExt { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00315", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string DiscussedSolutionWithSrvcrInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00316", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string WorkedWithAnotherAgencyInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00317", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string ContactedSrvcrRecentlyInd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00318", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HasWorkoutPlanInd { get; set; }
 
         public string SrvcrWorkoutPlanCurrentInd { get; set; }
-
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
-        public string FcSaleDateSetInd { get; set; }
         
         public string OptOutNewsletterInd { get; set; }
 
@@ -265,7 +262,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string MilitaryServiceCd { get; set; }
 
-        [NotNullValidator(Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "W-WS-SFC-00320", Ruleset = "Complete", MessageTemplate = "Required!")]
         public decimal HouseholdGrossAnnualIncomeAmt{ get; set; }
 
         public string LoanList { get; set; }

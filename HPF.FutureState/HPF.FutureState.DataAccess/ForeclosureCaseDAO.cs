@@ -131,9 +131,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.DuplicateInd = ConvertToString(reader["duplicate_ind"]);
 
                         returnObject.Email1 = ConvertToString(reader["email_1"]);
-                        returnObject.Email2 = ConvertToString(reader["email_2"]);
-
-                        returnObject.FcSaleDateSetInd = ConvertToString(reader["fc_sale_date_set_ind"]);
+                        returnObject.Email2 = ConvertToString(reader["email_2"]);                        
                         returnObject.FcNoticeReceiveInd = ConvertToString(reader["fc_notice_received_ind"]);
                         returnObject.FollowupNotes = ConvertToString(reader["followup_notes"]);
                         returnObject.ForSaleInd = ConvertToString(reader["for_sale_ind"]);

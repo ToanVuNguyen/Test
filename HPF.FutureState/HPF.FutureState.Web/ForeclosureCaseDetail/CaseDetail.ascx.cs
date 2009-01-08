@@ -137,8 +137,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCreditBureau.Text = foreclosureCase.IntakeCreditBureauCd;
             //foreclosure notice
 
-            lblNoticeReceived.Text = foreclosureCase.FcSaleDate.ToShortDateString();
-            lblDateSet.Text = foreclosureCase.FcSaleDateSetInd;
+            lblNoticeReceived.Text = foreclosureCase.FcSaleDate.ToShortDateString();            
             //bankcruptcy
             lblBankruptcy.Text = foreclosureCase.BankruptcyInd;
             lblBankruptcyAttomey.Text = foreclosureCase.BankruptcyAttorney;

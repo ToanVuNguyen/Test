@@ -1539,7 +1539,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.DuplicateInd = (reader["duplicate_ind"].ToString());
                         returnObject.Email1 = (reader["email_1"].ToString());
                         returnObject.Email2 = (reader["email_2"].ToString());
-                        returnObject.FcSaleDateSetInd = (reader["fc_sale_date_set_ind"].ToString());
+                        
                         returnObject.FcNoticeReceiveInd = (reader["fc_notice_received_ind"].ToString());
                         returnObject.FollowupNotes = (reader["followup_notes"].ToString());
                         returnObject.ForSaleInd = (reader["for_sale_ind"].ToString());
