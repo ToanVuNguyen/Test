@@ -23,7 +23,19 @@ namespace HPF.FutureState.Web.HPFWebControls
                 ViewState["XmlMenuFile"] = value;
             }
         }
-
+        public int UserId
+        {
+            get
+            {
+                if(ViewState["UserId"]!=null)
+                    return int.Parse(ViewState["UserId"].ToString());
+                return -1;
+            }
+            set
+            {
+                ViewState["UserId"] = value;
+            }
+        }
         public MenuBarControl()
         {
             _disabledMenus = new List<string>();
@@ -55,42 +67,43 @@ namespace HPF.FutureState.Web.HPFWebControls
             //Render Menu
             writer.Write("<table id='sddm'>");
             writer.Write("<tr>");
-            foreach (var menu in menuBar)
-            {
-                writer.Write("<td>");
-                //dont have child
-                if (menu.Count == 0)
+            
+                foreach (var menu in menuBar)
                 {
-                    if(menu.Enabled)
-                        writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"MenuMouseOver(this)\" onmouseout=\"MenuMouseLeave(this)\">{2}</a>", menu.Url, menu.Id, menu.Title);
-                    else
-                        writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:pointer; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
-                }
-                else
-                {
-                    if (menu.Enabled)
+                    writer.Write("<td>");
+                    //dont have child
+                    if (menu.Count == 0)
                     {
-                        writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"mopen('{2}','{3}')\" onmouseout=\"mclosetime()\">{4}</a>", menu.Url, menu.Id, "m" + menu.Id, menu.Id, menu.Title);
-                        writer.Write("<table id=\"{0}\">", "m" + menu.Id);
-                        foreach (var submenu in menu)
-                        {
-                            writer.Write("<tr>");
-                            writer.Write("<td onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\" >");
-                            if (submenu.Enabled)
-                                writer.Write("<a href=\"{0}\">{1}</a>", submenu.Url, submenu.Title);
-                            else
-                                writer.Write("<a style=\"position: relative;display: block; margin: 0; padding: 5 10; width: auto; white-space: nowrap; text-align: left; text-decoration: none; background: #8FC4F6;  color:Gray; cursor:default; font: 11 Tahoma; height: 11;\">{0}</a>", submenu.Title); writer.Write("</td>");
-                            writer.Write("</tr>");
-                        }
-                        writer.Write("</table>");
+                        if (menu.Enabled)
+                            writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"MenuMouseOver(this)\" onmouseout=\"MenuMouseLeave(this)\">{2}</a>", menu.Url, menu.Id, menu.Title);
+                        else
+                            writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:pointer; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
                     }
                     else
-                        writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:default; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
-                    
-                }
-                writer.Write("</td>");
+                    {
+                        if (menu.Enabled)
+                        {
+                            writer.Write("<a href=\"{0}\" id=\"{1}\" onmouseover=\"mopen('{2}','{3}')\" onmouseout=\"mclosetime()\">{4}</a>", menu.Url, menu.Id, "m" + menu.Id, menu.Id, menu.Title);
+                            writer.Write("<table id=\"{0}\">", "m" + menu.Id);
+                            foreach (var submenu in menu)
+                            {
+                                writer.Write("<tr>");
+                                writer.Write("<td onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\" >");
+                                if (submenu.Enabled)
+                                    writer.Write("<a href=\"{0}\">{1}</a>", submenu.Url, submenu.Title);
+                                else
+                                    writer.Write("<a style=\"position: relative;display: block; margin: 0; padding: 5 10; width: auto; white-space: nowrap; text-align: left; text-decoration: none; background: #8FC4F6;  color:Gray; cursor:default; font: 11 Tahoma; height: 11;\">{0}</a>", submenu.Title); writer.Write("</td>");
+                                writer.Write("</tr>");
+                            }
+                            writer.Write("</table>");
+                        }
+                        else
+                            writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:default; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
 
-            }
+                    }
+                    writer.Write("</td>");
+
+                }
             writer.Write("</tr>");
             writer.Write("</table>");
         }
@@ -98,7 +111,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         private MenuBar GetMenuBar()
         {
             var menuBar = new MenuBar();
-            menuBar.Load(Page.MapPath(XmlMenuFile));
+           // menuBar.Load(Page.MapPath(XmlMenuFile));
+            menuBar.LoadFromDatabase(UserId);
             //Disabled menu
             foreach (var disabledMenuId in _disabledMenus)
             {
