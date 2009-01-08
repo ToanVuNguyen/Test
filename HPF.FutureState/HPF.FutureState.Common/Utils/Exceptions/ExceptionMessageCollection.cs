@@ -25,5 +25,13 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                 Message = message
             });
         }
+
+        public void AddExceptionMessage(string message)
+        {
+            Add(new ExceptionMessage
+            {                
+                Message = message
+            });
+        }
     }
 }

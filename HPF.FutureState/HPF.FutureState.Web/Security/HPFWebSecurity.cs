@@ -35,7 +35,7 @@ namespace HPF.FutureState.Web.Security
         {
             return new UserIdentity
                        {
-                           UserID = identity.Name,
+                           LoginName = identity.Name,
                            IsAuthenticated = identity.IsAuthenticated,
                            AuthenticationType = identity.AuthenticationType
                        };
@@ -43,15 +43,20 @@ namespace HPF.FutureState.Web.Security
 
         private static void AssignMenuSecurity(UserIdentity uId)
         {
-            //var list = MenuSecurityBL.Instance.GetMenuSecurityList(uId.UserID);            
+            var menuSecurityList = MenuSecurityBL.Instance.GetMenuSecurityList(uId.UserId);
+            foreach (var menuSecurity in menuSecurityList)
+            {
+                uId.AddMenuItemSecurity(menuSecurity.Target, menuSecurity.Permission);
+            }
         }
 
         private static void AssignUserInformation(UserIdentity uId)
         {
-            var user = SecurityBL.Instance.GetWebUser(uId.UserID);
+            var user = SecurityBL.Instance.GetWebUser(uId.LoginName);
             uId.Roles = user.UserRole;
             uId.DisplayName = user.FirstName + "," + user.LastName;
             uId.Email = user.Email;
+            uId.UserId = user.CCRCUserId;
         }
     }
 }

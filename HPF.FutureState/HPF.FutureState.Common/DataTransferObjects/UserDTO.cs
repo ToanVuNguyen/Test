@@ -8,7 +8,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class UserDTO : BaseDTO
     {
 
-        public string CCRCUserId { get; set; }
+        public int CCRCUserId { get; set; }
         public string UserName { get; set; }
         public char IsActivate { get; set; }
         public string FirstName { get; set; }

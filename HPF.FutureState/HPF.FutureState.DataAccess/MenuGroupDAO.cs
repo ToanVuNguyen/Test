@@ -27,21 +27,7 @@ namespace HPF.FutureState.DataAccess
         {
             
         }
-        /// <summary>
-        /// Check if menuGroup has been added to MenuGroupDTOCollection or not ?
-        /// </summary>
-        /// <param name="result">MenuGroupDTOCollection contains menubar base on userid</param>
-        /// <param name="menuGroup">new MenuGroupDTO</param>
-        /// <returns>-1 for nonexist, else return the index of menugroup in collection</returns>
-        private int CheckExists(MenuGroupDTOCollection result,MenuGroupDTO menuGroup)
-        {
-            if(result==null)
-                return -1;
-            for(int i =0;i<result.Count;i++)
-                if(result[i].GroupId==menuGroup.GroupId)
-                    return i ;
-            return -1;
-        }
+        
         /// <summary>
         /// Get the menu bar by userId
         /// </summary>
@@ -83,19 +69,17 @@ namespace HPF.FutureState.DataAccess
                         menuItem.ItemTarget = ConvertToString(reader["item_target"]);
                         menuItem.PermissionValue = ConvertToString(reader["permission_value"])[0];
                         menuItem.Visible = ConvertToBool(reader["visibled"]);
-                        
-                        int index =CheckExists(result,menuGroup);
-                        
-                        //MenuGroup Non exists
-                        if(index==-1)
+                        //
+                        var oldMenuGroup = result.FindMenuGroupDTO(menuGroup.GroupId);
+                        if (oldMenuGroup!=null)
+                        {
+                            oldMenuGroup.MenuItemList.Add(menuItem);
+                        }
+                        else
                         {
                             menuGroup.MenuItemList.Add(menuItem);
                             result.Add(menuGroup);
-                        }
-                        else// MenuGroup already exists in Collection
-                        {
-                            result[index].MenuItemList.Add(menuItem);
-                        }
+                        }                        
                     }
                 }
             }

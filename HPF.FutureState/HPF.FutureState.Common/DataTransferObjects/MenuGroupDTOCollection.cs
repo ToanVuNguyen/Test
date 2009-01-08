@@ -7,5 +7,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class MenuGroupDTOCollection:BaseDTOCollection<MenuGroupDTO>
     {
+        public MenuGroupDTO FindMenuGroupDTO(int groupId)
+        {
+            return this.SingleOrDefault(item => item.GroupId == groupId);
+        }
     }
 }

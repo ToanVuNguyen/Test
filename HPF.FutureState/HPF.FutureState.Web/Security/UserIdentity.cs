@@ -5,7 +5,9 @@ namespace HPF.FutureState.Web.Security
 {
     public class UserIdentity : IIdentity
     {
-        public string UserID { get; set; }
+        public int UserId { get; set; }
+
+        public string LoginName { get; set; }
 
         public string DisplayName { get; set; }
 
@@ -29,7 +31,7 @@ namespace HPF.FutureState.Web.Security
 
         public string Name
         {
-            get { return UserID; }
+            get { return LoginName; }
         }
 
         #endregion

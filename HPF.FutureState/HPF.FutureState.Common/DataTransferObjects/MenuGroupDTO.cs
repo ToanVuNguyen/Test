@@ -11,7 +11,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string GroupName { get; set; }
         public int GroupSortOrder { get; set; }
         public string GroupTarget { get; set; }
-        public MenuItemDTOCollection MenuItemList { get; set; }
+
+        public MenuItemDTOCollection MenuItemList { get; private set; }
+
         public MenuGroupDTO()
         {
             MenuItemList = new MenuItemDTOCollection();
