@@ -44,10 +44,9 @@ namespace HPF.FutureState.Web.Security
         private static void AssignMenuSecurity(UserIdentity uId)
         {
             var menuSecurityList = MenuSecurityBL.Instance.GetMenuSecurityList(uId.UserId);
-            foreach (var menuSecurity in menuSecurityList)
-            {
-                uId.AddMenuItemSecurity(menuSecurity.Target, menuSecurity.Permission);
-            }
+            if (menuSecurityList != null)
+                foreach (var menuSecurity in menuSecurityList)
+                    uId.AddMenuItemSecurity(menuSecurity.Target, menuSecurity.Permission);
         }
 
         private static void AssignUserInformation(UserIdentity uId)
