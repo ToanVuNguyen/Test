@@ -169,6 +169,8 @@
     <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\NullableOrInRangeValidator.cs" />
     <Compile Include="Utils\DataValidator\NullableOrInRangeValidatorAttribute.cs" />
+    <Compile Include="Utils\DataValidator\RequiredObjectValidator.cs" />
+    <Compile Include="Utils\DataValidator\RequiredObjectValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\StringRequiredValidator.cs" />
     <Compile Include="Utils\DataValidator\StringRequiredValidatorAttribute.cs" />
     <Compile Include="Utils\Exceptions\AuthenticationException.cs" />
