@@ -18,12 +18,12 @@ namespace HPF.FutureState.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            txt_username.Text = "Admin";            
+                        
         }
 
         protected void btn_login_Click(object sender, EventArgs e)
         {
-            if (HPFWebSecurity.IsAuthenticated(txt_username.Text, txt_password.Text))
+            if (HPFWebSecurity.IsAuthenticated(txt_username.Text, string.Empty))
                 FormsAuthentication.RedirectFromLoginPage(txt_username.Text, false);
             else
                 lb_message.Text = "Login failed.";

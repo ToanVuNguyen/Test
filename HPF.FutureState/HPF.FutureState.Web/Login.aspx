@@ -27,7 +27,7 @@
                 <td align="right" class="sidelinks2">
                     User Name:</td>
                 <td align="left">
-                    <asp:TextBox ID="txt_username" runat="server" CssClass="Text"></asp:TextBox>
+                    <asp:TextBox ID="txt_username" runat="server" CssClass="Text">Admin</asp:TextBox>
                 </td>
             </tr>
             <tr>
