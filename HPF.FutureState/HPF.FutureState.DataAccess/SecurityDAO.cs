@@ -128,7 +128,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="userName">Username to login</param>
         /// <returns>UserDTO object if user exists in database, null for non-exists</returns>
-        UserDTO GetWebUser(string userName)
+        public UserDTO GetWebUser(string userName)
         {
             UserDTO webUser = null;
             var dbConnection = CreateConnection();
@@ -160,7 +160,7 @@ namespace HPF.FutureState.DataAccess
                         webUser.CreateUserId = ConvertToString(reader["create_user_id"]);
                         webUser.Email = ConvertToString(reader["email"]);
                         webUser.FirstName = ConvertToString(reader["fname"]);
-                        webUser.IsActivate = ConvertToBool(reader["active_ind"]);
+                        webUser.IsActivate = ConvertToString(reader["active_ind"])[0];
                         webUser.LastLogin = ConvertToDateTime(reader["last_login_dt"]);
                         webUser.LastName = ConvertToString(reader["lname"]);
                         webUser.Phone = ConvertToString(reader["phone"]);
