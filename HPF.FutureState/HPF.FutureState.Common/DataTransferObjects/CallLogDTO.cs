@@ -11,19 +11,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
 
         #region property
+
+        
         public int CallId { get; set; }
 
-        [IgnoreNulls()]
+        
         public int CallCenterID { get; set; }
 
         [IgnoreNulls()]
         [StringLengthValidator(55, Ruleset = "Default", MessageTemplate = "AgencyId's Maximum length is 55 characters")]
         public string CcAgentIdKey { get; set; }
 
-        [IgnoreNulls()]
+        //[NotNullValidator(Ruleset = "Default", MessageTemplate = "Start date is required")]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "Start date is required")]
         public DateTime StartDate { get; set; }
 
-        [IgnoreNulls()]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "End date is required")]
         public DateTime EndDate { get; set; }
 
         [IgnoreNulls()]
@@ -84,8 +87,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringLengthValidator(12, Ruleset = "Default", MessageTemplate = "TransNumber's Maximum length is 12 characters")]
         public string TransNumber { get; set; }
 
-        [IgnoreNulls()]
-        [StringLengthValidator(18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
+        
+        [StringLengthValidator(1, 18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
         public string CcCallKey { get; set; }
 
         [IgnoreNulls()]
