@@ -121,7 +121,7 @@ namespace HPF.FutureState.BusinessLogic
         private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
-            if (listException != null && listException.Count > 0)
+            if (exceptionList != null && exceptionList.Count > 0)
                 ThrowMiscException(exceptionList);
 
             //if (MiscErrorException(foreclosureCaseSet))
@@ -139,7 +139,7 @@ namespace HPF.FutureState.BusinessLogic
             }
 
             List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
-            if (listException != null && listException.Count > 0)
+            if (exceptionList != null && exceptionList.Count > 0)
                 ThrowMiscException(exceptionList);
 
             InsertForeclosureCaseSet(foreclosureCaseSet);
