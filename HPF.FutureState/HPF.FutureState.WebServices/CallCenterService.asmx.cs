@@ -78,7 +78,7 @@ namespace HPF.FutureState.WebServices
             var response = new CallLogRetrieveResponse();
             //            
             try
-            {
+            {                
                 if (IsAuthenticated())//Authentication checking
                 {
                     CallLogDTO callLogDTO = null;
@@ -95,7 +95,7 @@ namespace HPF.FutureState.WebServices
                     if (callLogDTO != null)
                     {
                         CallLogWSDTO callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
-                        response.CallLog = callLogWSDTO;
+                        response.CallLog = callLogWSDTO;                        
                         response.Status = ResponseStatus.Success;
                     }
                     else
@@ -209,11 +209,11 @@ namespace HPF.FutureState.WebServices
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
             destObject.CallCenter = sourceObject.CallCenter;
-            destObject.CallSourceCd = sourceObject.CallSourceCd;
-            destObject.CallCenterID = sourceObject.CallCenterID;
-            destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
+            //destObject.CallSourceCd = sourceObject.CallSourceCd;
+            //destObject.CallCenterID = sourceObject.CallCenterID;
+            //destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
             destObject.CcCallKey = sourceObject.CcCallKey;
-            destObject.DNIS = sourceObject.DNIS;
+            //destObject.DNIS = sourceObject.DNIS;
             destObject.EndDate = sourceObject.EndDate;
             destObject.FinalDispoCd = sourceObject.FinalDispoCd;
             destObject.FirstName = sourceObject.FirstName;
@@ -230,9 +230,8 @@ namespace HPF.FutureState.WebServices
             destObject.ServicerId = sourceObject.ServicerId;
             destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
             destObject.SelectedCounselor = sourceObject.SelectedCounselor;
-            destObject.ScreenRout = sourceObject.ScreenRout;
-            destObject.TransNumber = sourceObject.TransNumber;
-
+            //destObject.ScreenRout = sourceObject.ScreenRout;
+            //destObject.TransNumber = sourceObject.TransNumber;
             destObject.CreateDate = sourceObject.CreateDate;
             destObject.CreateUserId = sourceObject.CreateUserId;
             destObject.CreateAppName = sourceObject.CreateAppName;

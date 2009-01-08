@@ -24,24 +24,9 @@ namespace HPF.FutureState.Common.Utils.DataValidator
 
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
-            bool isValid = (objectToValidate == null);
+            bool isValid = (objectToValidate != null);
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
-        }
-        //protected override void DoValidate // (string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
-        //{
-        //    bool isValid = false;
-        //    if (objectToValidate == null || objectToValidate == string.Empty)
-        //        isValid = _nullable;
-        //    else
-        //    {
-        //        string pattern = "^\\d{" + _numberOfDigits + "}$";
-        //        Regex exp = new Regex(pattern);
-
-        //        isValid = exp.Match(objectToValidate).Success;
-        //    }
-        //    if (!isValid)
-        //        LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
-        //}
+        }        
     }
 }
