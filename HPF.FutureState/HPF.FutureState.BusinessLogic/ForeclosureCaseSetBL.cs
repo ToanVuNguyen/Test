@@ -119,7 +119,11 @@ namespace HPF.FutureState.BusinessLogic
         #region functions to serve SaveForeclosureCaseSet
 
         private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {            
+        {
+            List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
+            if (listException != null && listException.Count > 0)
+                ThrowMiscException(exceptionList);
+
             //if (MiscErrorException(foreclosureCaseSet))
             //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
             
@@ -133,10 +137,11 @@ namespace HPF.FutureState.BusinessLogic
             {
                 ThrowDuplicateCaseException(collection);
             }
-            
-            //if (MiscErrorException(foreclosureCaseSet))
-            //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
-            
+
+            List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
+            if (listException != null && listException.Count > 0)
+                ThrowMiscException(exceptionList);
+
             InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
@@ -1566,6 +1571,19 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
+
+        private void ThrowMiscException(List<string> exceptionList)
+        {
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
+            foreach (string obj in exceptionList)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.Message = obj;
+                pe.ExceptionMessages.Add(em);
+            }
+            throw pe;
+        }
+
         #endregion
 
         #endregion
