@@ -41,11 +41,10 @@ namespace HPF.FutureState.DataAccess
             //Not complete
             //Get user and compare with the password.
 
-            //UserDTO user = GetWebUser(userName);
-            //if (user == null)
-            //    return false;
-            
-            if (userName == "Admin" && password == "")
+            UserDTO user = GetWebUser(userName);
+            if (user == null)
+                return false;
+            if (user.UserName.ToLower() == userName.ToLower() && user.Password == password)
                 return true;
             return false;
         }

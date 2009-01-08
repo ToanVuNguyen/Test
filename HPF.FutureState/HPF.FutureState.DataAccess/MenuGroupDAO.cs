@@ -27,18 +27,57 @@ namespace HPF.FutureState.DataAccess
         {
             
         }
-        
+        public MenuGroupDTOCollection GetMenuGroupCollection()
+        {
+            MenuGroupDTOCollection result = null;
+            var dbConnection = CreateConnection();
+
+            var command = CreateSPCommand("hpf_menu_group_get", dbConnection);
+            
+            try
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    result = new MenuGroupDTOCollection();
+                    while (reader.Read())
+                    {
+                        MenuGroupDTO menuGroup = new MenuGroupDTO();
+                        menuGroup.GroupId = ConvertToInt(reader["menu_group_id"]);
+                        menuGroup.GroupName = ConvertToString(reader["group_name"]);
+                        menuGroup.GroupSortOrder = ConvertToInt(reader["group_sort_order"]);
+                        menuGroup.GroupTarget = ConvertToString(reader["group_target"]);
+                        result.Add(menuGroup);
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
+
+
         /// <summary>
         /// Get the menu bar by userId
         /// </summary>
         /// <param name="userId">ccrc_userid</param>
         /// <returns>Menu Tree for user</returns>
         public MenuGroupDTOCollection GetMenuGroupCollectionByUserID(int userId)
-        { 
-            MenuGroupDTOCollection result = null;
+        {
+            MenuGroupDTOCollection result = GetMenuGroupCollection();
             var dbConnection = CreateConnection();
             
-            var command = CreateSPCommand("hpf_menu_group_get_from_userid", dbConnection);
+            var command = CreateSPCommand("hpf_menu_bar_permission", dbConnection);
 
             //<Parameter>
             var sqlParam = new SqlParameter[1];
@@ -53,7 +92,6 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    result=new MenuGroupDTOCollection();
                     while (reader.Read())
                     {
                         MenuGroupDTO menuGroup = new MenuGroupDTO();

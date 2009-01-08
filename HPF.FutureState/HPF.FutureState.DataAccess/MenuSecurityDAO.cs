@@ -37,7 +37,7 @@ namespace HPF.FutureState.DataAccess
             MenuSecurityDTOCollection result = null;
             var dbConnection = CreateConnection();
             //Add store here
-            var command = CreateSPCommand("hpf_menu_security_list_get", dbConnection);
+            var command = CreateSPCommand("hpf_menu_security_get", dbConnection);
 
             //<Parameter>
             var sqlParam = new SqlParameter[1];
