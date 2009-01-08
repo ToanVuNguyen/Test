@@ -535,7 +535,7 @@ namespace HPF.FutureState.DataAccess
         {
             var dbConnection = CreateConnection();
             dbConnection.Open();
-            var command = CreateSPCommand("hpf_foreclosure_case_insert_app", dbConnection);
+            var command = CreateSPCommand("hpf_foreclosure_case_update_app", dbConnection);
             //<Parameter>
             try
             {
