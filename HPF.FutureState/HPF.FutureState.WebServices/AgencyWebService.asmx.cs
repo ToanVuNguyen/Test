@@ -49,7 +49,11 @@ namespace HPF.FutureState.WebServices
             catch (DataValidationException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages = Ex.ExceptionMessages;
+                //response.Messages = Ex.ExceptionMessages;
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(0, Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (DataAccessException Ex)
