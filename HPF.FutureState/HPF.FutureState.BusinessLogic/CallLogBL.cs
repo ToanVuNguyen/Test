@@ -41,7 +41,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>return a calllog id after inserting</returns>
         public int InsertCallLog(CallLogDTO aCallLog)
         {
-            
+            aCallLog.SetInsertTrackingInformation(aCallLog.CreateUserId);
+
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
             if (!validationResults.IsValid)
@@ -56,21 +57,11 @@ namespace HPF.FutureState.BusinessLogic
 
             }
 
-            GenerateDefaultValue(aCallLog);
+
             return CallLogDAO.Instance.InsertCallLog(aCallLog);
 
             
         }
-
-        private void GenerateDefaultValue(CallLogDTO aCallLog)
-        {
-            aCallLog.ChangeLastAppName = "Test data";
-            aCallLog.ChangeLastDate = DateTime.Now;
-            aCallLog.ChangeLastUserId = "Test data";
-            aCallLog.CreateAppName = "Test data";
-            aCallLog.CreateDate = DateTime.Now;
-            aCallLog.CreateUserId = "Test data";
-        }       
 
         /// <summary>
         /// Get a CallLog by CallLogId
