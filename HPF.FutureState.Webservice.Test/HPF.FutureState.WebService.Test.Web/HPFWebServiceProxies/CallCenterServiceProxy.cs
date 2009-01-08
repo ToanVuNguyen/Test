@@ -1010,6 +1010,36 @@ namespace HPF.Webservice.CallCenter
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
     public partial class BaseDTO
     {
+
+        private string createUserIdField;
+
+        private string changeLastUserIdField;
+
+        /// <remarks/>
+        public string CreateUserId
+        {
+            get
+            {
+                return this.createUserIdField;
+            }
+            set
+            {
+                this.createUserIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ChangeLastUserId
+        {
+            get
+            {
+                return this.changeLastUserIdField;
+            }
+            set
+            {
+                this.changeLastUserIdField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -1057,7 +1087,7 @@ namespace HPF.Webservice.CallCenter
 
         private string screenRoutField;
 
-        private int finalDispoCdField;
+        private string finalDispoCdField;
 
         private string transNumberField;
 
@@ -1308,7 +1338,7 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public int FinalDispoCd
+        public string FinalDispoCd
         {
             get
             {
