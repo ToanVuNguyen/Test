@@ -53,7 +53,7 @@ namespace HPF.FutureState.WebServices
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (DataValidationException Ex)
@@ -62,19 +62,19 @@ namespace HPF.FutureState.WebServices
                 if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
                     response.Messages = Ex.ExceptionMessages;
                 else
-                    response.Messages.AddExceptionMessage(0, Ex.Message);
+                    response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (Exception Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             return response;

@@ -24,7 +24,7 @@ namespace HPF.FutureState.BusinessLogic
         const string EXPENSES = "2";
         const string CASE_COMPLETE_IND_YES = "Y";
         const string CASE_COMPLETE_IND_NO = "N";
-        const string RULESET_MIN_REQUIRE_FIELD = "Min Request Validate";
+        const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
         const string RULESET_COMPLETE = "Complete";
         const string PAYABLE_IND = "Y";
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
@@ -63,7 +63,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                     throw new DataValidationException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
-                List<string> exDetailCollection = RequireFieldsValidation(foreclosureCaseSet);
+                List<string> exDetailCollection = CheckRequireForPartial(foreclosureCaseSet);
                 if (exDetailCollection != null && exDetailCollection.Count > 0)
                 {
                     ThrowMissingRequiredFieldsException(exDetailCollection);
@@ -101,12 +101,11 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
             if (!validationResults.IsValid)
-            {
-                int i =0;
+            {                
                 DataValidationException dataValidationException = new DataValidationException();
                 foreach (ValidationResult result in validationResults)
                 {
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(++i, result.Message);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(result.Message);
                 }
                 throw dataValidationException;
 
@@ -119,11 +118,7 @@ namespace HPF.FutureState.BusinessLogic
         #region functions to serve SaveForeclosureCaseSet
 
         private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
-            if (exceptionList != null && exceptionList.Count > 0)
-                ThrowMiscException(exceptionList);
-
+        {            
             //if (MiscErrorException(foreclosureCaseSet))
             //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
             
@@ -137,11 +132,10 @@ namespace HPF.FutureState.BusinessLogic
             {
                 ThrowDuplicateCaseException(collection);
             }
-
-            List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
-            if (exceptionList != null && exceptionList.Count > 0)
-                ThrowMiscException(exceptionList);
-
+            
+            //if (MiscErrorException(foreclosureCaseSet))
+            //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
+            
             InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
@@ -211,7 +205,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 3: Min request validate of Outcome Item Collection
         /// 4: Min request validate of Case Loan Collection        
         /// </summary>
-        private List<string> RequireFieldsValidation(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private List<string> CheckRequireForPartial(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             return ValidationFieldByRuleSet(foreclosureCaseSet, RULESET_MIN_REQUIRE_FIELD);
         }
@@ -222,13 +216,23 @@ namespace HPF.FutureState.BusinessLogic
         /// <return>Collection Message Error</return>
         /// </summary>
         private List<string> RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
-        {            
-            ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
+        {
+            ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
             List<string> msgFcCaseSet = new List<string>();
-            foreach (ValidationResult result in validationResults)
+            if (ex != null)
             {
-                msgFcCaseSet.Add(result.Key + " is required");
+                foreach (ExceptionMessage msg in ex)
+                {
+                    //string strMsg = msg.ExceptionId + "--" + msg.Message;
+                    //msgFcCaseSet.Add(strMsg);
+                }
             }
+            //ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
+            //List<string> msgFcCaseSet = new List<string>();
+            //foreach (ValidationResult result in validationResults)
+            //{
+            //   msgFcCaseSet.Add(result.Key + " is required");
+            //}
             return msgFcCaseSet;
         }
 
@@ -978,10 +982,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                foreach (CaseLoanDTO itemInput in caseLoanCollection)
-                {
-                    caseLoanNew.Add(itemInput);
-                }
+                caseLoanNew = caseLoanCollection;                
             }
             return caseLoanNew;   
         }
@@ -1339,20 +1340,20 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>        
         private bool CheckComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            bool isRequireField = CheckRequireField(foreclosureCaseSetInput);
-            bool isCompleteField = CheckMoreFieldComplete(foreclosureCaseSetInput);
+            bool isRequireField = CheckRequireFieldPartial(foreclosureCaseSetInput);
+            bool isCompleteField = CheckRequireFieldForComplete(foreclosureCaseSetInput);
             return (isRequireField && isCompleteField);
         }
 
-        private bool CheckRequireField(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        private bool CheckRequireFieldPartial(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            List<string> msgError = RequireFieldsValidation(foreclosureCaseSetInput);
+            List<string> msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, RULESET_MIN_REQUIRE_FIELD);
             if (msgError == null || msgError.Count == 0)
                 return true;
             return false;
         }
 
-        private bool CheckMoreFieldComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        private bool CheckRequireFieldForComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             List<string> msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, RULESET_COMPLETE);
             if (msgError == null || msgError.Count == 0)
@@ -1571,19 +1572,6 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
-
-        private void ThrowMiscException(List<string> exceptionList)
-        {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
-            foreach (string obj in exceptionList)
-            {
-                ExceptionMessage em = new ExceptionMessage();
-                em.Message = obj;
-                pe.ExceptionMessages.Add(em);
-            }
-            throw pe;
-        }
-
         #endregion
 
         #endregion

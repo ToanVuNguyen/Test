@@ -46,12 +46,11 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
             if (!validationResults.IsValid)
-            {
-                int i = 0;
+            {                
                 DataValidationException dataValidationException = new DataValidationException();
                 foreach (ValidationResult result in validationResults)
                 {
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(++i, result.Message);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(result.Message);
                 }
                 throw dataValidationException;
 

@@ -14,8 +14,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public DateTime CreateDate { get; set; }
 
-        [Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator(MessageTemplate = "Create User ID is required", Ruleset = "Min Request Validate")]
-        //[RequiredWhenInsertUpdateValidator("insert", true, false, MessageTemplate = "Create User ID is required", Ruleset = "Min Request Validate")]
+        [Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator(MessageTemplate = "Create User ID is required", Ruleset = "RequirePartialValidate")]
+        //[RequiredWhenInsertUpdateValidator("insert", true, false, MessageTemplate = "Create User ID is required", Ruleset = "RequirePartialValidate")]
         public string CreateUserId { get; set; }
 
         [XmlIgnore]
@@ -24,8 +24,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public DateTime ChangeLastDate { get; set; }
 
-        //[RequiredWhenInsertUpdateValidator("update", false, true, MessageTemplate = "Last change User ID is required", Ruleset = "Min Request Validate")]
-        [Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator(MessageTemplate = "Last change User ID is required", Ruleset = "Min Request Validate")]
+        //[RequiredWhenInsertUpdateValidator("update", false, true, MessageTemplate = "Last change User ID is required", Ruleset = "RequirePartialValidate")]
+        [Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator(Tag = "P-WS-SFC-00125", MessageTemplate = "Last change User ID is required", Ruleset = "RequirePartialValidate")]
         public string ChangeLastUserId { get; set; }
 
         [XmlIgnore]

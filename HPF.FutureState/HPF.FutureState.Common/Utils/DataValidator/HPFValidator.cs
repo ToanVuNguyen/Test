@@ -54,7 +54,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             var exceptionMessages = new ExceptionMessageCollection();
             foreach (var result in results)
             {
-                exceptionMessages.AddExceptionMessage(result.Tag, FriendlyMessageTranslate(result));
+                if (result.Tag != null)
+                {
+                    exceptionMessages.AddExceptionMessage(FriendlyMessageTranslate(result));
+                    continue;
+                }
+                exceptionMessages.AddExceptionMessage(result.Message);                
             }
             return exceptionMessages;
         }

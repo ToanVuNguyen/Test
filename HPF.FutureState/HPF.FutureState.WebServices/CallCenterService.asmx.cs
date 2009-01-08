@@ -45,7 +45,7 @@ namespace HPF.FutureState.WebServices
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (DataValidationException Ex)
@@ -54,19 +54,19 @@ namespace HPF.FutureState.WebServices
                 if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
                     response.Messages = Ex.ExceptionMessages;
                 else
-                    response.Messages.AddExceptionMessage(0, Ex.Message);
+                    response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages.AddExceptionMessage(0, "Data access error.");
+                response.Messages.AddExceptionMessage("Data access error.");
                 ExceptionProcessor.HandleException(Ex);
             } 
             catch(Exception Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             return response;
@@ -102,14 +102,14 @@ namespace HPF.FutureState.WebServices
                     else
                     {                        
                         response.Status = ResponseStatus.Warning;
-                        response.Messages.AddExceptionMessage(0, "No data found");
+                        response.Messages.AddExceptionMessage("No data found");
                     }
                 }
             }
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (DataValidationException Ex)
@@ -121,12 +121,12 @@ namespace HPF.FutureState.WebServices
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                response.Messages.AddExceptionMessage(0, "Data access error.");
+                response.Messages.AddExceptionMessage("Data access error.");
                 ExceptionProcessor.HandleException(Ex);
             }
             catch (Exception Ex)
             {
-                response.Messages.AddExceptionMessage(0, Ex.Message);
+                response.Messages.AddExceptionMessage(Ex.Message);
                 ExceptionProcessor.HandleException(Ex);
             }
             return response;
@@ -138,7 +138,7 @@ namespace HPF.FutureState.WebServices
             if (!validationResults.IsValid)
             {
                 DataValidationException dataValidationException = new DataValidationException();                
-                dataValidationException.ExceptionMessages.AddExceptionMessage(0, "CallLogId is invalid");                
+                dataValidationException.ExceptionMessages.AddExceptionMessage("CallLogId is invalid");                
                 throw dataValidationException;
             }
             return true;

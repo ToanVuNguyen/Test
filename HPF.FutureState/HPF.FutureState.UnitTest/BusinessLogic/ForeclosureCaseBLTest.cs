@@ -880,7 +880,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             List<string> expected = null; // TODO: Initialize to an appropriate value
             List<string> actual;
-            actual = target.RequireFieldsValidation(foreclosureCaseSet);
+            actual = target.CheckRequireForPartial(foreclosureCaseSet);
             Assert.AreEqual(expected, actual);            
         }
 
