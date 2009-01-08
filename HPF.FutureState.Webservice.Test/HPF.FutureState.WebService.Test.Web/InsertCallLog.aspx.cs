@@ -44,16 +44,10 @@ namespace HPF.FutureState.WebService.Test.Web
                 Create_CallCenter_TestData();
             }
 
-            al = Get_CallCenterID();
-            //if (al.Count > 0)
-            //{
-                aCallLogWS.CallCenterID = Util.ConvertToInt(al[0].ToString().Trim());
-                aCallLogWS.CallCenter = al[1].ToString();
-                //txtCallCenterID.Text = al[0].ToString();
-                //txtCallCenterID.Enabled = false;
-                //txtCallCenter.Text = al[1].ToString();
-                //txtCallCenter.Enabled = false;
-            //}
+            al = Get_CallCenterID();            
+            aCallLogWS.CallCenterID = Util.ConvertToInt(al[0].ToString().Trim());
+            aCallLogWS.CallCenter = al[1].ToString();
+           
 
             txtCallCenterID.Text = aCallLogWS.CallCenterID.ToString();
             txtCallCenter.Text = aCallLogWS.CallCenter;
