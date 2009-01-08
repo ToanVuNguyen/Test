@@ -32,8 +32,7 @@ namespace HPF.FutureState.WebServices
             var response = new ForeclosureCaseInsertResponse();
             try
             {
-                if (IsAuthenticated())//Authentication checking
-                //if (true)
+                if (IsAuthenticated())//Authentication checking                
                 {
                     
                     ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);

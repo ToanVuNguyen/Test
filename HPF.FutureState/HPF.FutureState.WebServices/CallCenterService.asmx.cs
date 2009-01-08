@@ -32,7 +32,6 @@ namespace HPF.FutureState.WebServices
             try
             {
                 if (IsAuthenticated())//Authentication checking
-                //if (true)
                 {                    
                     CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);
                     
