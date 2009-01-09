@@ -76,6 +76,7 @@
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\InvoiceSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTO.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTOCollection.cs" />
     <Compile Include="DataTransferObjects\MenuItemDTOCollection.cs" />
