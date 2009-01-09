@@ -37,15 +37,25 @@ namespace HPF.FutureState.BusinessLogic
             {                
                 agencyPayableDAO.Begin();
                 AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
+                //-----------
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
+                agencyPayable.AgencyName = "";
                 agencyPayable.PaymentDate = DateTime.Now;
-                //agencyPayable.PayamentCode = "";
-                //agencyPayable.StatusCode = "";
+                agencyPayable.PayamentCode = "";
+                agencyPayable.StatusCode = "";
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
-                //agencyPayable.PaymentComment = "";
-                //agencyPayable.AccountLinkTBD = "";
+                agencyPayable.PaymentComment = "";
+                agencyPayable.AccountLinkTBD = "";
                 agencyPayable.AgencyPayablePaymentAmount = 0;
+                //----------- agency_payable (base)
+                agencyPayable.ChangeLastAppName = "";
+                agencyPayable.ChangeLastDate = DateTime.Now;
+                agencyPayable.ChangeLastUserId = "";
+                agencyPayable.CreateAppName = "";
+                agencyPayable.CreateDate = DateTime.Now;
+                agencyPayable.CreateUserId = "";
+                //-----------
                 //Insert Agency Payable
                 int agencyPayableId = 0;
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable);
@@ -59,7 +69,15 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.PaymentAmount = fCaseDraf.Amount;
                     agencyPayableCase.NFMCDiffererencePaidIndicator = "";
+                    //----------- agency_payable (base)
+                    agencyPayableCase.ChangeLastAppName = "";
+                    agencyPayableCase.ChangeLastDate = DateTime.Now;
+                    agencyPayableCase.ChangeLastUserId = "";
+                    agencyPayableCase.CreateAppName = "";
+                    agencyPayableCase.CreateDate = DateTime.Now;
+                    agencyPayableCase.CreateUserId = "";
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
+      
                 }
                 agencyPayableDAO.Commit();
             }
