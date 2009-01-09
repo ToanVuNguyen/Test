@@ -276,10 +276,10 @@
                 <asp:TextBox CssClass="Text" ID="txtCreateUserId" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>   
             <asp:TableCell ID="TableCell55" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label27" runat="server" Text="Last change User ID"></asp:Label>
+            <asp:Label CssClass="sidelinks" ID="Label27" runat="server" Text="Last change User ID" Visible="false" ></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell56" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtLastChangeUserId" runat="server" Width="128px"></asp:TextBox>           
+                <asp:TextBox CssClass="Text" ID="txtLastChangeUserId" runat="server" Width="128px" Visible = "false" ></asp:TextBox>           
             </asp:TableCell>          
         </asp:TableRow>
                 
@@ -309,4 +309,7 @@
 
 <br />
 <br />
+</div>
+</div>
+    </div>
 </asp:Content>

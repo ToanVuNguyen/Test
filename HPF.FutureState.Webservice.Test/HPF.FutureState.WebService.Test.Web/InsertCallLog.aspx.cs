@@ -22,13 +22,13 @@ namespace HPF.FutureState.WebService.Test.Web
         public static int _pageloadno = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            txtCallCenterID.Enabled = false;
+            txtCallCenter.Enabled = false;
 
             if (!IsPostBack)
             {
                 _pageloadno++;
-                string filename = MapPath(ConfigurationManager.AppSettings["CallLogWSDTOXML"]);
-                lblResult.Text = filename;
+                string filename = MapPath(ConfigurationManager.AppSettings["CallLogWSDTOXML"]);                
                 XDocument xdoc = XDocument.Load(filename);
                 Session[SessionVariables.CALLLOG_WS] = CallCenterHelper.ParseCallLogWSDTO(xdoc);
                 CallLogWSDTOToForm((CallLogWSDTO)Session[SessionVariables.CALLLOG_WS]);
@@ -139,9 +139,6 @@ namespace HPF.FutureState.WebService.Test.Web
             if (response.Status == ResponseStatus.Success)
             {
                 lblResult.Text = response.CallLogID;
-                _pageloadno++;
-                lstMessage.Items.Add("page load: " + _pageloadno);
-                //CallLogWSDTOToForm();
 
                 grdvResult.DataSource = response.Messages;
                 grdvResult.DataBind();
