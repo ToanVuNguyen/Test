@@ -67,9 +67,9 @@ namespace HPF.FutureState.DataAccess
         #endregion
 
         #region Searching Create Draft
-        public List<InvoiceSearchResultDTO> SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
+        public InvoiceSearchResultDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            List<InvoiceSearchResultDTO> invoices = null;
+            InvoiceSearchResultDTOCollection invoices = null;
            
             try
             {
@@ -90,7 +90,7 @@ namespace HPF.FutureState.DataAccess
 
                 if (reader.HasRows)
                 {
-                    invoices = new List<InvoiceSearchResultDTO>();
+                    invoices = new InvoiceSearchResultDTOCollection();
                     while (reader.Read())
                     {
                         InvoiceSearchResultDTO invoice = new InvoiceSearchResultDTO();
