@@ -3,7 +3,11 @@
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 <div style="text-align:left"><h1>Search Foreclosure Case</h1></div>
     
-<div style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF">
+
+<asp:Table ID="Table1" runat="server">
+        <asp:TableRow>
+            <asp:TableCell ColumnSpan="2">
+            <div style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF">
     <table align="center">
         <tr>
             <td align="center" class="sidelinks" colspan="2">
@@ -33,7 +37,10 @@
     
     </div>
     <br />
-<asp:Table ID="Table1" runat="server">
+            </asp:TableCell>
+            
+        </asp:TableRow>
+        
         <asp:TableRow ID="TableRow1" runat="server">
             <asp:TableCell ID="TableCell1" runat="server">
                 <asp:Label ID="Label1" runat="server" Text="Agency case number" CssClass="sidelinks"></asp:Label>

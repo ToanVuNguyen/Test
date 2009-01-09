@@ -37,7 +37,7 @@
     
     <tr>
     <td class="sidelinks">
-    Call Log ID: 
+        Call Log ID: 
     </td>
     <td>
     <asp:TextBox ID="txt_CallLogId" runat="server" CssClass="Text"></asp:TextBox>
@@ -57,7 +57,15 @@
         <td class="Text"><asp:Label ID="lbl_Message" runat="server" Text=""></asp:Label></td>
     </tr>
     </table>
-        <asp:GridView ID="gv_results" runat="server">
+        <asp:GridView ID="gv_results" runat="server" CellPadding="4" 
+            ForeColor="#333333" GridLines="None">
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <RowStyle BackColor="#EFF3FB" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
         </asp:GridView>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server">
         </asp:ObjectDataSource>

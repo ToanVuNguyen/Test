@@ -3,8 +3,6 @@
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <div style="text-align:left"><h1>Insert CallLog</h1></div>
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
     <div style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF">
     <table align="center">
         <tr>
@@ -35,8 +33,8 @@
     
     </div>
     <br />
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
+
+    
     <asp:Table ID="Table1" runat="server">
         
         
@@ -290,13 +288,18 @@
     
     <asp:ListBox ID="lstMessage" runat="server" Height="245px" Width="500px" Visible ="false"></asp:ListBox>
     
-    <asp:GridView ID="grdvResult" runat="server" Visible ="true" >
+    <asp:GridView ID="grdvResult" runat="server" CellPadding="4" 
+        ForeColor="#333333" GridLines="None" >
+        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <RowStyle BackColor="#EFF3FB" />
+        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <EditRowStyle BackColor="#2461BF" />
+        <AlternatingRowStyle BackColor="White" />
     </asp:GridView>
     
-    </ContentTemplate>
-    
-    
-    </asp:UpdatePanel>
+   
     
 
 <br />
