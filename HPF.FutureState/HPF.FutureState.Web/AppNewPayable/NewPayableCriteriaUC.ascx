@@ -87,7 +87,7 @@
         <td class="sidelinks" align="right">
             Max Number of Cases:</td>
         <td>
-            <asp:TextBox ID="txtMaxNumberCase" runat="server" CssClass="Text" ></asp:TextBox>
+            <asp:TextBox ID="txtMaxNumberCase" runat="server" CssClass="Text" MaxLength="6" ></asp:TextBox>
         </td>
         <td>
             &nbsp;</td>
@@ -101,9 +101,18 @@
             1<sup>st</sup> 2<sup>nd </sup>Indicator:</td>
         <td>
             <asp:DropDownList ID="ddlIndicator" runat="server" CssClass="Text">
+            <asp:ListItem Value="" Text=""></asp:ListItem>
+            <asp:ListItem Value="1st" Text="1st Mortgage"></asp:ListItem>
+            <asp:ListItem Value="2nd" Text="2nd Mortgate"></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
             &nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="5">
+           <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text="" ></asp:Label>
+           
+           </td>
     </tr>
 </table>
