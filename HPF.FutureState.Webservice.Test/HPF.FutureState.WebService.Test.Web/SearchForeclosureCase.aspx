@@ -2,45 +2,44 @@
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 <div style="text-align:left"><h1>Search Foreclosure Case</h1></div>
-    
+
+<table style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF" width="100%">
+    <tr>
+        <td align="left">
+            <table>
+                <tr>
+                    <td align="center" class="sidelinks" colspan="2">
+                        Authentication Info</td>
+                </tr>
+                <tr>
+                    <td align="right">
+            
+            <asp:Label CssClass="sidelinks"  ID="Label28" runat="server" Text="Username" ></asp:Label>
+                    </td>
+                    <td>
+            <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+            <asp:Label CssClass="sidelinks" ID="Label29" runat="server" Text="Password"></asp:Label>
+                    </td>
+                    <td>
+            <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
+            
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+        </td>
+        </tr>
+        </table>
+    <div>
+    <table>
+    <br />    
 
 <asp:Table ID="Table1" runat="server">
-        <asp:TableRow>
-            <asp:TableCell ColumnSpan="2">
-            <div style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF">
-    <table align="center">
-        <tr>
-            <td align="center" class="sidelinks" colspan="2">
-                Authentication Info</td>
-        </tr>
-        <tr>
-            <td align="right">
-    
-    <asp:Label CssClass="sidelinks"  ID="Label28" runat="server" Text="Username" ></asp:Label>
-            </td>
-            <td>
-    <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-    <asp:Label CssClass="sidelinks" ID="Label29" runat="server" Text="Password"></asp:Label>
-            </td>
-            <td>
-    <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
-    
-            </td>
-        </tr>
-    </table>
-    <br />
-    <br />
-    
-    </div>
-    <br />
-            </asp:TableCell>
-            
-        </asp:TableRow>
-        
         <asp:TableRow ID="TableRow1" runat="server">
             <asp:TableCell ID="TableCell1" runat="server">
                 <asp:Label ID="Label1" runat="server" Text="Agency case number" CssClass="sidelinks"></asp:Label>
