@@ -34,9 +34,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         private void BindData(int caseid)
         {
+            
             if (caseid == null)
                 return;
-            
+            try
+            {
+
+         
             foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
 
             if (foreclosureCase == null)
@@ -184,6 +188,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     ddlSuccessStory.SelectedIndex = 2;//no
                 else ddlSuccessStory.SelectedIndex = 0;//blank
             BindDDLAgency(foreclosureCase.AgencyId.ToString());
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
 
         }
         protected override void OnLoad(EventArgs e)
