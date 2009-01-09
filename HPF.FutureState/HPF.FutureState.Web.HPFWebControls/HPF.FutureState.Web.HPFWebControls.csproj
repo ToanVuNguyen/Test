@@ -59,16 +59,6 @@
     <EmbeddedResource Include="MenuBarControl.css" />
     <EmbeddedResource Include="MenuBarControl.js" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
-      <Project>{C707A0BC-1832-46D4-A9BF-3B38B09625EF}</Project>
-      <Name>HPF.FutureState.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HPF.FutureState.Common\HPF.FutureState.Common.csproj">
-      <Project>{571F09A2-386F-42DD-9E7E-B58F8983E368}</Project>
-      <Name>HPF.FutureState.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
