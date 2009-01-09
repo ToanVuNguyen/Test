@@ -57,7 +57,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             try
             {
-                InitialTransaction();
+                InitiateTransaction();
 
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                     throw new DataValidationException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
@@ -100,7 +100,7 @@ namespace HPF.FutureState.BusinessLogic
             foreclosureCaseSetDAO.Commit();
         }
 
-        private void InitialTransaction()
+        private void InitiateTransaction()
         {
             foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
             foreclosureCaseSetDAO.Begin();
@@ -240,10 +240,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (ExceptionMessage msg in ex)
                 {
-                    //string strMsg = msg.ExceptionId + "--" + msg.Message;
-                    //msgFcCaseSet.Add(strMsg);
+                    msgFcCaseSet.Add(msg.Message);
                 }
-
             }
             #region Check OtherFields
             if(foreclosureCase.CoBorrowerFname == null && foreclosureCase.CoBorrowerLname != null)
@@ -1109,54 +1107,54 @@ namespace HPF.FutureState.BusinessLogic
         {
             ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
             List<string> msgFcCaseSet = new List<string>();
-            if(forclosureCase == null)
+            if (forclosureCase == null)
                 return null;
-            if(!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
-                msgFcCaseSet.Add("IncomeEarnersCd is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
-                msgFcCaseSet.Add("CaseResourceCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
-                msgFcCaseSet.Add("RaceCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
-                msgFcCaseSet.Add("HouseholdCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
-                msgFcCaseSet.Add("NeverBillReasonCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
-                msgFcCaseSet.Add("NeverPayReasonCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
-                msgFcCaseSet.Add("DfltReason1stCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
-                msgFcCaseSet.Add("DfltReason2ndCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
-                msgFcCaseSet.Add("HUDTerminationReasonCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
-                msgFcCaseSet.Add("HUDOutcomeCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
-                msgFcCaseSet.Add("CounselingDurarionCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
-                msgFcCaseSet.Add("GenderCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
-                msgFcCaseSet.Add("ContactStateCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
-                msgFcCaseSet.Add("PropStateCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
-                msgFcCaseSet.Add("BorrowerEducLevelCompletedCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
-                msgFcCaseSet.Add("BorrowerMaritalStatusCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
-                msgFcCaseSet.Add("BorrowerPreferredLangCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
-                msgFcCaseSet.Add("BorrowerOccupationCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
-                msgFcCaseSet.Add("CoBorrowerOccupationCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
-                msgFcCaseSet.Add("SummarySentOtherCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
-                msgFcCaseSet.Add("PropertyCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
-                msgFcCaseSet.Add("MilitaryServiceCode is bad code data");
-            if(!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
-                msgFcCaseSet.Add("IntakeCreditBureauCode is bad code data");
+            if (!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00200"));
+            if (!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00201"));
+            if (!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00202"));
+            if (!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00203"));
+            if (!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
+                msgFcCaseSet.Add("An invalid code was provided for NeverBillReasonCd.");
+            if (!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
+                msgFcCaseSet.Add("An invalid code was provided for NeverPayReasonCd.");
+            if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00204"));
+            if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00205"));
+            if (!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00206"));
+            if (!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00207"));
+            if (!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00208"));
+            if (!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00209"));
+            if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00210"));
+            if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00211"));
+            if (!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00212"));
+            if (!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00213"));
+            if (!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00214"));
+            if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
+                msgFcCaseSet.Add("An invalid code was provided for BorrowerOccupationCd.");
+            if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
+                msgFcCaseSet.Add("An invalid code was provided for CoBorrowerOccupationCd.");
+            if (!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00215"));
+            if (!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00216"));
+            if (!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00217"));
+            if (!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
+                msgFcCaseSet.Add("An invalid code was provided for IntakeCreditBureauCd.");
             return msgFcCaseSet;
         }
 
@@ -1278,6 +1276,8 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckValidBudgetSubcategoryId(BudgetItemDTOCollection budgetItem)
         {
             List<string> msgFcCaseSet = new List<string>();
+            if (budgetItem == null)
+                return null;
             for (int i = 0; i < budgetItem.Count; i++)
             { 
                 BudgetItemDTO item =  budgetItem[i];
@@ -1308,6 +1308,8 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckValidOutcomeTypeId(OutcomeItemDTOCollection outcomeItem)
         {
             List<string> msgFcCaseSet = new List<string>();
+            if (outcomeItem == null)
+                return null;
             for (int i = 0; i < outcomeItem.Count; i++)
             {
                 OutcomeItemDTO item = outcomeItem[i];
