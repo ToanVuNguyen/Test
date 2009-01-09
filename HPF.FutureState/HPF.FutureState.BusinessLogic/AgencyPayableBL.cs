@@ -24,7 +24,6 @@ namespace HPF.FutureState.BusinessLogic
 
         protected AgencyPayableBL()
         {
-            
 
         }
 
