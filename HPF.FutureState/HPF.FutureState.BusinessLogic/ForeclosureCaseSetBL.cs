@@ -243,13 +243,38 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.Add(msg.Message);
                 }
             }
+            if(ruleSet == RULESET_MIN_REQUIRE_FIELD)
+                CheckOtherFieldFCaseForPartial(foreclosureCase, msgFcCaseSet);
+            return msgFcCaseSet;
+        }
+
+        private static void CheckOtherFieldFCaseForPartial(ForeclosureCaseDTO foreclosureCase, List<string> msgFcCaseSet)
+        {
             #region Check OtherFields
-            if(foreclosureCase.CoBorrowerFname == null && foreclosureCase.CoBorrowerLname != null)
+            //-----CoBorrowerFname, CoBorrowerLname
+            if (foreclosureCase.CoBorrowerFname == null && foreclosureCase.CoBorrowerLname != null)
                 msgFcCaseSet.Add("A CoBorrowerFname is required to save a foreclosure case.");
             else if (foreclosureCase.CoBorrowerFname != null && foreclosureCase.CoBorrowerLname == null)
                 msgFcCaseSet.Add("A CoBorrowerLname is required to save a foreclosure case.");
-            #endregion            
-            return msgFcCaseSet;
+            //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
+            if (foreclosureCase.BankruptcyAttorney != null && foreclosureCase.BankruptcyInd != "Y")
+                msgFcCaseSet.Add("BankruptcyInd value should be Y.");
+            if (foreclosureCase.BankruptcyInd == "Y" && foreclosureCase.BankruptcyAttorney == null)
+                msgFcCaseSet.Add("A BankruptcyAttorney is required to save a foreclosure case.");
+            if (foreclosureCase.BankruptcyInd == "Y" && foreclosureCase.BankruptcyPmtCurrentInd == null)
+                msgFcCaseSet.Add("A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
+            //-----SummarySentOtherCd, SummarySentOtherDt
+            if (foreclosureCase.SummarySentOtherCd == null && foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
+                msgFcCaseSet.Add("A SummarySentOtherCd is required to save a foreclosure case.");
+            else if (foreclosureCase.SummarySentOtherCd != null && foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
+                msgFcCaseSet.Add("A SummarySentOtherDt is required to save a foreclosure case.");
+            //-----SrvcrWorkoutPlanCurrentInd
+            if (foreclosureCase.SrvcrWorkoutPlanCurrentInd == null && foreclosureCase.HasWorkoutPlanInd != null)
+                msgFcCaseSet.Add("A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
+            //-----HomeSalePrice
+            if (foreclosureCase.ForSaleInd == "Y" && foreclosureCase.HomeSalePrice == 0)
+                msgFcCaseSet.Add("A HomeSalePrice is required to save a foreclosure case.");
+            #endregion
         }
 
         /// <summary>
@@ -287,6 +312,7 @@ namespace HPF.FutureState.BusinessLogic
             if (outcomeItemDTOCollection == null)
                 return null;
             List<string> msgFcCaseSet = new List<string>();
+            int outComeTypeId = FindOutcomeTypeIdWithOutcomeTypeNameIsExternalReferral();
             for (int i = 0; i < outcomeItemDTOCollection.Count; i++)
             {
                 OutcomeItemDTO item = outcomeItemDTOCollection[i];
@@ -298,8 +324,22 @@ namespace HPF.FutureState.BusinessLogic
                         msgFcCaseSet.Add(result.Key + " " + (i + 1) + " is required");
                     }
                 }
+                if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+                    CheckOtherFieldOutcomeItemForPartial(msgFcCaseSet, outComeTypeId, i, item);
             }
             return msgFcCaseSet;
+        }
+
+        private static void CheckOtherFieldOutcomeItemForPartial(List<string> msgFcCaseSet, int outComeTypeId, int i, OutcomeItemDTO item)
+        {
+            if (item.OutcomeTypeId == outComeTypeId && item.NonprofitreferralKeyNum == null)
+            {
+                msgFcCaseSet.Add("An NonprofitreferralKeyNum " + (i + 1) + " is required");
+            }
+            if (item.OutcomeTypeId == outComeTypeId && item.ExtRefOtherName == null)
+            {
+                msgFcCaseSet.Add("An ExtRefOtherName " + (i + 1) + " is required");
+            }
         }
 
         /// <summary>
@@ -311,6 +351,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (caseLoanDTOCollection == null)
                 return null;
+            int servicerId = FindServicerIDWithServicerIsOther();
             List<string> msgFcCaseSet = new List<string>();
             for (int i = 0; i < caseLoanDTOCollection.Count; i++)
             {
@@ -323,9 +364,43 @@ namespace HPF.FutureState.BusinessLogic
                         msgFcCaseSet.Add(result.Key + " " + (i + 1) + " is required");
                     }
                 }
+                if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+                    CheckOtherFieldCaseLoanForPartial(servicerId, msgFcCaseSet, i, item);
             }
             return msgFcCaseSet;
-        }       
+        }
+
+        private static void CheckOtherFieldCaseLoanForPartial(int servicerId, List<string> msgFcCaseSet, int i, CaseLoanDTO item)
+        {
+            if (item.ServicerId == servicerId && item.OtherServicerName == null)
+            {
+                msgFcCaseSet.Add("An OtherServicerName " + (i + 1) + " is required");
+            }
+        }
+
+        private int FindServicerIDWithServicerIsOther()
+        {
+            ServicerDTOCollection serviers = foreclosureCaseSetDAO.GetServicer();
+            foreach(ServicerDTO item in serviers)
+            {
+                string servicerName = item.ServicerName.ToUpper().Trim();
+                if (servicerName == "OTHER (LENDER NAME IN NOTES)")
+                    return item.ServicerID;
+            }
+            return 0;
+        }
+
+        private int FindOutcomeTypeIdWithOutcomeTypeNameIsExternalReferral()
+        {
+            OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();
+            foreach (OutcomeTypeDTO item in outcomeType)
+            {
+                string OutcomeTypeName = item.OutcomeTypeName.ToUpper().Trim();
+                if (OutcomeTypeName == "EXTERNAL REFERAL")
+                    return item.OutcomeTypeID;
+            }
+            return 0;
+        }
         #endregion
 
         /// <summary>
@@ -407,17 +482,19 @@ namespace HPF.FutureState.BusinessLogic
         {
             List<string> msgFcCaseSet = new List<string>();
             List<string> msgCase1 = CheckUnComplete(foreclosureCaseSet);
-            if (msgCase1 != null || msgCase1.Count > 0)
+            if (msgCase1 != null && msgCase1.Count != 0)
                 msgFcCaseSet.AddRange(msgCase1);
 
             List<string> msgCase2 = CheckFirstMortgages(foreclosureCaseSet);
-            if (msgCase2 != null || msgCase2.Count > 0)
+            if (msgCase2 != null && msgCase2.Count != 0)
                 msgFcCaseSet.AddRange(msgCase2);
 
             List<string> msgCase3 = CheckBillableOutCome(foreclosureCaseSet);
-            if (msgCase3 != null || msgCase3.Count > 0)
+            if (msgCase3 != null && msgCase3.Count != 0)
                 msgFcCaseSet.AddRange(msgCase3);
 
+            if (msgFcCaseSet.Count == 0)
+                return null;
             return msgFcCaseSet;
         }
 
@@ -1257,6 +1334,8 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckValidProgramId(ForeclosureCaseDTO forclosureCase)
         {
             ProgramDTOCollection programCollection = foreclosureCaseSetDAO.GetProgram();
+            if (programCollection == null)
+                return null;
             int programId = forclosureCase.ProgramId;
             List<string> msgFcCaseSet = new List<string>();
             foreach (ProgramDTO item in programCollection)
@@ -1291,6 +1370,8 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckBudgetSubcategory(BudgetItemDTO budgetItem)
         {
             BudgetSubcategoryDTOCollection budgetSubcategoryCollection = foreclosureCaseSetDAO.GetBudgetSubcategory();
+            if (budgetSubcategoryCollection == null)
+                return true;
             int budgetSubId = budgetItem.BudgetSubcategoryId;
             foreach(BudgetSubcategoryDTO item in budgetSubcategoryCollection)
             {
@@ -1323,6 +1404,8 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckOutcomeType(OutcomeItemDTO outcomeItem)
         {
             OutcomeTypeDTOCollection outcomeTypeCollection = foreclosureCaseSetDAO.GetOutcomeType();
+            if (outcomeTypeCollection == null)
+                return true;
             int outcomeTypeId = outcomeItem.OutcomeTypeId;
             foreach (OutcomeTypeDTO item in outcomeTypeCollection)
             {

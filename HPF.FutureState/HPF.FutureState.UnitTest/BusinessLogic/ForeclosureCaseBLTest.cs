@@ -881,21 +881,43 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }       
         #endregion
 
+        #region CheckRequireField
         /// <summary>
         ///A test for RequireFieldsValidation
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void RequireFieldsValidationTest()
+        public void RequireFieldsValidationPass()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
             List<string> expected = null; // TODO: Initialize to an appropriate value
             List<string> actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);
-            Assert.AreEqual(expected, actual);            
+            target.RollbackTransaction();
+            Assert.AreEqual(expected, actual);
         }
 
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void RequireFieldsValidationNotPass()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
+            actual = target.CheckRequireForPartial(foreclosureCaseSet);
+            target.RollbackTransaction();
+            Assert.AreNotEqual(expected, actual);
+        }
+        #endregion
+
+        #region CheckValidCode
         /// <summary>
         ///A test for CheckValidCode
         ///</summary>
@@ -908,7 +930,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();
             List<string> expected = null; // TODO: Initialize to an appropriate value
             List<string> actual;
-            actual = target.CheckValidCode(foreclosureCaseSet);            
+            InsertGeoCodeRef();
+            target.InitiateTransaction();
+            actual = target.CheckValidCode(foreclosureCaseSet);
+            target.CompleteTransaction();
+            DeleteGeoCodeRef(GetGeoCodeRefId());
             Assert.AreEqual(expected, actual);            
         }
 
@@ -924,7 +950,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeFalse();
             List<string> expected = null; // TODO: Initialize to an appropriate value
             List<string> actual;
+            target.InitiateTransaction();
             actual = target.CheckValidCode(foreclosureCaseSet);
+            target.CompleteTransaction();
             Assert.AreNotEqual(expected, actual);
         }
 
@@ -940,10 +968,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.CaseLoans = SetCaseLoanCodeFalse();
             List<string> expected = null; // TODO: Initialize to an appropriate value
             List<string> actual;
+            target.InitiateTransaction();
             actual = target.CheckValidCode(foreclosureCaseSet);
+            target.CompleteTransaction();
             Assert.AreNotEqual(expected, actual);
         }
-                
+        #endregion
+        
         /// <summary>
         ///A test for InsertForeclosureCaseSet
         ///</summary>
@@ -954,7 +985,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            target.InitiateTransaction();
             target.InsertForeclosureCaseSet(foreclosureCaseSet);
+            target.CompleteTransaction();
             int fcId = GetForeclosureCaseId();
             string expected = "Acency Case Num Test";
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
@@ -972,11 +1005,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
             target.InsertForeclosureCaseSet(foreclosureCaseSet);
+            target.CompleteTransaction();
             int fcId = GetForeclosureCaseId();
             foreclosureCaseSet.ForeclosureCase.FcId = fcId;
             foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            target.InitiateTransaction();
             target.UpdateForeclosureCaseSet(foreclosureCaseSet);
+            target.CompleteTransaction();
             string expected = "Acency Case Num Test";
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
             string actual = fcCase.AgencyCaseNum;
@@ -995,7 +1032,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             List<string> expected = null; // TODO: Initialize to an appropriate value
             List<string> actual;
+            target.InitiateTransaction();
             actual = target.MiscErrorException(foreclosureCaseSet);
+            target.CompleteTransaction();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1045,7 +1084,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             }
             else
             {
-                
+                foreclosureCase.BankruptcyInd = "Y";
             }
             return foreclosureCase;
         }
@@ -1330,6 +1369,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.MilitaryServiceCd = "ACTV";
             foreclosureCase.ContactZip = "12345";
             foreclosureCase.PropZip = "12345";
+            foreclosureCase.ContactStateCd = "AL";
+            foreclosureCase.PropStateCd = "AL";
+            foreclosureCase.ProgramId = 101;
             return foreclosureCase;
         }
 
@@ -1461,6 +1503,67 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             dbConnection.Close();
         }
 
+        static private void InsertGeoCodeRef()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);          
+            dbConnection.Open();
+            try
+            {
+                var command = new SqlCommand("INSERT INTO geocode_ref(zip_code, state_abbr, zip_type) VALUES ('12345', 'AL', 'Y')", dbConnection);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
+        }
+
+        static private int GetGeoCodeRefId()
+        {
+            int result = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand("SELECT geocode_ref_id FROM geocode_ref WHERE zipcode = '12345' AND state_abbr = 'TE' AND zip_type = 'Y'", dbConnection);
+            dbConnection.Open();
+            try
+            {
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    result = int.Parse(reader["budget_set_id"].ToString());
+                }                
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
+            return result;
+        }
+
+        static private int DeleteGeoCodeRef(int refId)
+        {
+            int result = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand("DELETE FROM geocode_ref WHERE geocode_ref_id = " + refId + "", dbConnection);
+            dbConnection.Open();
+            try
+            {
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    result = int.Parse(reader["fc_id"].ToString());
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
+            return result;
+        }
+        
         static private void DeleteForeclosureCase(int fcId)
         {            
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);

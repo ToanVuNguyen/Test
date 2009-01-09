@@ -1170,7 +1170,7 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
-        /// Get ID and Name from table OutcomeType
+        /// Get ID and Name from table Budget Subcategory
         /// </summary>
         /// <returns>ProgramDTOCollection contains all Program </returns>
         public BudgetSubcategoryDTOCollection GetBudgetSubcategory()
@@ -1197,6 +1197,43 @@ namespace HPF.FutureState.DataAccess
                         reader.Close();
                     }
                     HPFCacheManager.Instance.Add("budgetSubcategory", results);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Get ID and Name from table Servicer
+        /// </summary>
+        /// <returns>ProgramDTOCollection contains all Program </returns>
+        public ServicerDTOCollection GetServicer()
+        {
+            ServicerDTOCollection results = HPFCacheManager.Instance.GetData<ServicerDTOCollection>("servicer");
+            if (results == null)
+            {
+                var command = new SqlCommand("hpf_servicer_get", this.dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                try
+                {
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        results = new ServicerDTOCollection();
+                        while (reader.Read())
+                        {
+                            var item = new ServicerDTO();
+                            item.ServicerID = ConvertToInt(reader["servicer_id"]);
+                            item.ServicerName = ConvertToString(reader["servicer_name"]);
+                            results.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add("servicer", results);
                 }
                 catch (Exception ex)
                 {
