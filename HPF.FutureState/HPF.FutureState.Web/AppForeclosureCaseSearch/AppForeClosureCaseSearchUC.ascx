@@ -158,7 +158,7 @@
         <td colspan="6">
             <%--<uc1:FixedHeaderGrid ID="grvForeClosureCaseSearch" runat="server" />--%>
             <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Visible="false">
+                BorderColor="Gray" BorderWidth="1px" Visible="false" Width="100%">
                 <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="2500px"  SelectedRowStyle-BackColor="Yellow" 
