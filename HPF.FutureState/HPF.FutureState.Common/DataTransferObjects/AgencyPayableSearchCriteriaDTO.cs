@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     public enum CustomBoolean { None = 0, Y = 1, N = 2 }        
@@ -16,6 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public CustomBoolean CaseComplete { get; set; }
         public CustomBoolean ServicerConsent { get; set; }
         public CustomBoolean FundingConsent { get; set; }
+        [NullableOrInRangeValidator(true, "[0-9]", MessageTemplate = "Max Number Of Case: Only numeric characters allowed", Ruleset = "CriteriaValidation")]
         public int MaxNumberOfCase { get; set; }
         public string LoanIndicator { get; set; }
     }
