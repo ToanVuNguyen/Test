@@ -1,95 +1,115 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SearchForeclosureCase.aspx.cs" Inherits="HPF.FutureState.WebService.Test.Web.SearchForeclosureCase"%>
-<asp:Content ID="ContentHeader" ContentPlaceHolderID="ContentPlaceHolderHeader" runat="server">
-</asp:Content>
-<asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderBody" runat="server">
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SearchForeclosureCase.aspx.cs" Inherits="HPF.FutureState.WebService.Test.Web.SearchForeclosureCase" Title="HPF Webservice Test Application - Search Foreclosure Case"%>
 
-
+<asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
+<div style="text-align:left"><h1>Search Foreclosure Case</h1></div>
+    
+<div style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF">
+    <table align="center">
+        <tr>
+            <td align="center" class="sidelinks" colspan="2">
+                Authentication Info</td>
+        </tr>
+        <tr>
+            <td align="right">
+    
+    <asp:Label CssClass="sidelinks"  ID="Label28" runat="server" Text="Username" ></asp:Label>
+            </td>
+            <td>
+    <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+    <asp:Label CssClass="sidelinks" ID="Label29" runat="server" Text="Password"></asp:Label>
+            </td>
+            <td>
+    <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
+    
+            </td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    
+    </div>
+    <br />
 <asp:Table ID="Table1" runat="server">
-
-        <asp:TableRow ID="TableRow7" runat="server">
-            <asp:TableCell ID="TableCell57" runat="server">
-                <asp:Label ID="Label28" runat="server" Text="Username"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell58" runat="server">
-                <asp:TextBox ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-            
-            <asp:TableCell ID="TableCell59" runat="server">
-                <asp:Label ID="Label29" runat="server" Text="Password"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell60" runat="server">
-                <asp:TextBox ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
-        
         <asp:TableRow ID="TableRow1" runat="server">
             <asp:TableCell ID="TableCell1" runat="server">
-                <asp:Label ID="Label1" runat="server" Text="Agency case number"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Agency case number" CssClass="sidelinks"></asp:Label>
              
              </asp:TableCell>
             <asp:TableCell ID="TableCell2" runat="server">
-            <asp:TextBox ID="txtAgencyCaseNumber" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtAgencyCaseNumber" runat="server" CssClass="Text"></asp:TextBox>
             
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow ID="TableRow2" runat="server">
          <asp:TableCell ID="TableCell3" runat="server">
-            <asp:Label ID="Label2" runat="server" Text="First name"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="First name" CssClass="sidelinks"></asp:Label>
          
          </asp:TableCell>
             <asp:TableCell ID="TableCell4" runat="server">
-                <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtFirstName" runat="server" CssClass="Text"></asp:TextBox>
             
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow ID="TableRow3" runat="server">
          <asp:TableCell ID="TableCell5" runat="server">
-         <asp:Label ID="Label3" runat="server" Text="Last name"></asp:Label>
+         <asp:Label ID="Label3" runat="server" Text="Last name" CssClass="sidelinks"></asp:Label>
          </asp:TableCell>
             <asp:TableCell ID="TableCell6" runat="server">
-<asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
+<asp:TextBox ID="txtLastName" runat="server" CssClass="Text"></asp:TextBox>
             
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow ID="TableRow4" runat="server">
          <asp:TableCell ID="TableCell7" runat="server">
-         <asp:Label ID="Label4" runat="server" Text="Loan number"></asp:Label>
+         <asp:Label ID="Label4" runat="server" Text="Loan number" CssClass="sidelinks"></asp:Label>
          </asp:TableCell>
             <asp:TableCell ID="TableCell8" runat="server">
-<asp:TextBox ID="txtLoanNumber" runat="server"></asp:TextBox>
+<asp:TextBox ID="txtLoanNumber" runat="server" CssClass="Text"></asp:TextBox>
             
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow ID="TableRow5" runat="server">
          <asp:TableCell ID="TableCell9" runat="server">
-         <asp:Label ID="Label5" runat="server" Text="Property Zip"></asp:Label>
+         <asp:Label ID="Label5" runat="server" Text="Property Zip" CssClass="sidelinks"></asp:Label>
          </asp:TableCell>
             <asp:TableCell ID="TableCell10" runat="server">
-<asp:TextBox ID="txtPropertyZip" runat="server"></asp:TextBox>
+<asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text"></asp:TextBox>
             
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow ID="TableRow6" runat="server">
             <asp:TableCell ID="TableCell11" runat="server">
-            <asp:Label ID="Label6" runat="server" Text="last 4 ssn"></asp:Label>
+            <asp:Label ID="Label6" runat="server" Text="last 4 ssn" CssClass="sidelinks"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell12" runat="server">
-                <asp:TextBox ID="txtLast4SSN" runat="server" Width="128px"></asp:TextBox>
+                <asp:TextBox ID="txtLast4SSN" runat="server"  CssClass="Text"></asp:TextBox>
             
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
     <br />
     <asp:Label ID="Label7" runat="server" Font-Bold="True" 
-        Text="Test data: PropZip - 12345; last 4 ssn - 1234"></asp:Label>
+        Text="Test data: PropZip - 12345; last 4 ssn - 1234" CssClass="Text"></asp:Label>
     <br />
 <asp:Button ID="btnSearch" runat="server" onclick="BtnSearch_Click" 
-    Text="Search Foreclosure Case" />
+    Text="Search Foreclosure Case" CssClass="MyButton" />
     <br />
-<asp:Label ID="lblResult" runat="server" Text="Rows found: "></asp:Label>
+<asp:Label ID="lblResult" runat="server" Text="Rows found: " CssClass="Text"></asp:Label>
 <br />
     
-<asp:GridView ID="grdvResult" runat="server" >
+<asp:GridView ID="grdvResult" runat="server" CssClass="GridViewStyle" 
+        CellPadding="4" ForeColor="#333333" GridLines="None">
+    <RowStyle BackColor="#EFF3FB" />
+    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+    <EditRowStyle BackColor="#2461BF" />
+    <AlternatingRowStyle BackColor="White" />
 </asp:GridView>
 <br />
 <br />

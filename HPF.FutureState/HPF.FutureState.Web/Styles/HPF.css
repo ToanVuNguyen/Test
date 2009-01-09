@@ -153,42 +153,7 @@ h2
 
 
 
-#sddm table
-{
-    position: absolute;
-    visibility: hidden;
-    margin: 0;
-    padding: 0;
-    background: #8FC4F6;
-    border: 1px solid #000;
-    width: auto;
-}
-#sddm table tr td
-{
-    height: 20px;
-    width: 100%;
-}
-#sddm table tr td a
-{
-    position: relative;
-    display: block;
-    margin: 0;
-    padding: 5 10;
-    width: auto;
-    white-space: nowrap;
-    text-align: left;
-    text-decoration: none;
-    background: #8FC4F6;
-    color: #fff;
-    font: 11 Tahoma;
-    height: 11;
-}
 
-#sddm table tr td a:hover
-{
-    background: #49A3FF;
-    color: #fff;
-}
 
 .Title
 {

@@ -1,8 +1,7 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master"  AutoEventWireup="true" CodeBehind="SaveForeclosureCase.aspx.cs" Inherits="HPF.FutureState.WebService.Test.Web.SaveForeclosureCase" %>
-<asp:Content ID="ContentHeader" ContentPlaceHolderID="ContentPlaceHolderHeader" runat="server">
-</asp:Content>
-<asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderBody" runat="server">
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master"  AutoEventWireup="true" CodeBehind="SaveForeclosureCase.aspx.cs" Inherits="HPF.FutureState.WebService.Test.Web.SaveForeclosureCase" Title="HPF Webservice Test Application - Save Foreclosure Case" %>
 
+<asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
+    
     <asp:Button ID="btnSave" runat="server" Text="Save Foreclosure Case" 
     onclick="btnSave_Click" />
     
