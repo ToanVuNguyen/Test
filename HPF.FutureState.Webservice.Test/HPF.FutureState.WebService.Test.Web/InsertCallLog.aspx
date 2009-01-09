@@ -8,6 +8,23 @@
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
     <asp:Table ID="Table1" runat="server">
+        
+        <asp:TableRow ID="TableRow4" runat="server">
+            <asp:TableCell ID="TableCell57" runat="server">
+                <asp:Label ID="Label28" runat="server" Text="Username"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell58" runat="server">
+                <asp:TextBox ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
+            </asp:TableCell>
+            
+            <asp:TableCell ID="TableCell59" runat="server">
+                <asp:Label ID="Label29" runat="server" Text="Password"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell60" runat="server">
+                <asp:TextBox ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
+            </asp:TableCell>
+        </asp:TableRow>
+        
         <asp:TableRow ID="TableRow1" runat="server">
             <asp:TableCell ID="TableCell1" runat="server">
                 <asp:Label ID="Label1" runat="server" Text="Call Center ID"></asp:Label>

@@ -10,6 +10,23 @@
     <form id="form1" runat="server">
     <div>
     <table>
+    
+    <tr>
+        <td>
+            <asp:Label ID="Label28" runat="server" Text="Username"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
+        </td>
+        
+        <td>
+            <asp:Label ID="Label29" runat="server" Text="Password"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
+        </td>
+    </tr>
+    
     <tr>
     <td>
     Call Log ID: 

@@ -27,7 +27,8 @@ namespace HPF.FutureState.WebService.Test.Web
             if (!IsPostBack)
             {
                 _pageloadno++;
-                string filename = ConfigurationManager.AppSettings["CallLogWSDTOXML"];
+                string filename = MapPath(ConfigurationManager.AppSettings["CallLogWSDTOXML"]);
+                lblResult.Text = filename;
                 XDocument xdoc = XDocument.Load(filename);
                 Session[SessionVariables.CALLLOG_WS] = CallCenterHelper.ParseCallLogWSDTO(xdoc);
                 CallLogWSDTOToForm((CallLogWSDTO)Session[SessionVariables.CALLLOG_WS]);
@@ -128,8 +129,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
             
             AuthenticationInfo ai = new AuthenticationInfo();
-            ai.UserName = "admin";
-            ai.Password = "admin";
+            ai.UserName = txtUsername.Text.Trim();
+            ai.Password = txtPassword.Text.Trim();
             proxy.AuthenticationInfoValue = ai;
 
             request.CallLog = aWSCallLog;

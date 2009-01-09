@@ -32,8 +32,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
             CallCenterService proxy = new CallCenterService();
             AuthenticationInfo ai = new AuthenticationInfo();
-            ai.UserName = "admin";
-            ai.Password = "admin";
+            ai.UserName = txtUsername.Text.Trim();
+            ai.Password = txtPassword.Text.Trim();
             proxy.AuthenticationInfoValue = ai;
 
             ForeclosureCaseSearchResponse response = proxy.SearchForeclosureCase(request);
