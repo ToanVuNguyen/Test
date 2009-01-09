@@ -662,13 +662,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Label lblSentDate;
         
         /// <summary>
-        /// lblNoticeReceived control.
+        /// lblDateSet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoticeReceived;
+        protected global::System.Web.UI.WebControls.Label lblDateSet;
         
         /// <summary>
         /// lblSentOrther control.
@@ -680,13 +680,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Label lblSentOrther;
         
         /// <summary>
-        /// lblDateSet control.
+        /// lblNoticeReceived control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDateSet;
+        protected global::System.Web.UI.WebControls.Label lblNoticeReceived;
         
         /// <summary>
         /// lblOtherDate control.

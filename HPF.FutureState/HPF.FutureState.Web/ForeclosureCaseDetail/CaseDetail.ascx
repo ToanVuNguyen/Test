@@ -588,7 +588,7 @@
                     <td align="right" class="sidelinks">
                                     Foreclosure Notice Received*:</td>
                     <td>
-                                    <asp:Label ID="lblNoticeReceived" runat="server" CssClass="Text">09/25/2008</asp:Label>
+                                    <asp:Label ID="lblDateSet" runat="server" CssClass="Text">Yes</asp:Label>
                                 </td>
                 </tr>
                  <tr>
@@ -598,9 +598,9 @@
                                     <asp:Label ID="lblSentOrther" runat="server" CssClass="Text">Fax</asp:Label>
                                 </td>
                     <td align="right" class="sidelinks">
-                                    Foreclosure Sale Date Set*:</td>
+                                    Foreclosure Sale Date*:</td>
                     <td>
-                                    <asp:Label ID="lblDateSet" runat="server" CssClass="Text">Yes</asp:Label>
+                                    <asp:Label ID="lblNoticeReceived" runat="server" CssClass="Text">09/25/2008</asp:Label>
                                 </td>
                 </tr>
                  <tr>
