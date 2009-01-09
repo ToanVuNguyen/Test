@@ -6,6 +6,8 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
+using System.Collections.Generic;
+
 namespace HPF.FutureState.DataAccess
 {
     public class CallLogDAO : BaseDAO
@@ -242,6 +244,72 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
             return callLogDTO;
-        }       
+        }
+
+        public List<string> CheckValidForeignKey(CallLogDTO aCallLog)
+        {
+            List<string> errorList = new List<string>();
+
+            SqlConnection dbConnection = CreateConnection();
+            SqlCommand command = CreateSPCommand("hpf_call_check_foreign_key", dbConnection);
+            
+
+            int isValidCallCenterID = 1;
+            int isValidCCAgentIdKey = 1;
+            int isValidPrevAgencyId = 1;
+            int isValidSelectedAgencyId = 1;
+            int isValidServicerId = 1;
+
+            #region parameters
+            //<Parameter>
+            SqlParameter[] sqlParam = new SqlParameter[6];
+            sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
+            //sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);
+            sqlParam[1] = new SqlParameter("@pi_prev_agency_id", aCallLog.PrevAgencyId);
+            //sqlParam[3] = new SqlParameter("@pi_selected_agency_id", aCallLog.SelectedAgencyId);
+            sqlParam[2] = new SqlParameter("@pi_servicer_id", aCallLog.ServicerId);
+
+            sqlParam[3] = new SqlParameter("@po_call_center_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            //sqlParam[6] = new SqlParameter("@po_cc_agent_id_key", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            sqlParam[4] = new SqlParameter("@po_prev_agency_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            //sqlParam[8] = new SqlParameter("@po_selected_agency_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            sqlParam[5] = new SqlParameter("@po_servicer_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+
+            #endregion
+
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+                //var reader = command.ExecuteReader();
+                
+                        isValidCallCenterID = ConvertToInt(sqlParam[3].Value);
+                        //isValidCCAgentIdKey = ConvertToInt(sqlParam[6].Value);
+                        isValidPrevAgencyId = ConvertToInt(sqlParam[4].Value);
+                        //isValidSelectedAgencyId = ConvertToInt(sqlParam[8].Value);
+                        isValidServicerId = ConvertToInt(sqlParam[5].Value);                        
+               
+
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            if (isValidCallCenterID < 1) errorList.Add("Call Center ID is not valid");
+            //if (isValidCCAgentIdKey < 1) errorList.Add("CC Agent ID is not valid");
+            if (isValidPrevAgencyId < 1) errorList.Add("Prev Agent ID is not valid");
+            //if (isValidSelectedAgencyId < 1) errorList.Add("Selected Agent ID is not valid");
+            if (isValidServicerId < 1) errorList.Add("Servicer ID is not valid");
+            
+            return errorList;
+
+        }
     }
 }
