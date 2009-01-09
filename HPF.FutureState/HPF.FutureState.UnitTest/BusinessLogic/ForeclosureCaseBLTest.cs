@@ -799,7 +799,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDAndCompleteDateTrue()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitialTransaction();            
+            target.InitiateTransaction();            
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
             target.InsertForeclosureCaseSet(foreclosureCase);
             target.CompleteTransaction();
@@ -825,7 +825,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDAndCompleteDateFalse()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitialTransaction();
+            target.InitiateTransaction();
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
             target.InsertForeclosureCaseSet(foreclosureCase);
             target.CompleteTransaction();
@@ -851,7 +851,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitialTransaction();
+            target.InitiateTransaction();
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("FALSE");// TODO: Initialize to an appropriate value                        
             target.InsertForeclosureCaseSet(foreclosureCase);
             target.CompleteTransaction();
