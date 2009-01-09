@@ -35,19 +35,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void BindData(int caseid)
         {
             
-            if (caseid == null)
-                return;
+            //if (caseid==null)
+            //    return;
             try
             {
-
-         
             foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
 
             if (foreclosureCase == null)
                 return;
             //Top area
-            
-
             //Property
             lblAddress1.Text = foreclosureCase.PropAddr1;
             lblAddress2.Text=foreclosureCase.PropAddr2;
@@ -197,8 +193,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected override void OnLoad(EventArgs e)
         {
+
+            try
+            {
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
             BindData(caseid);
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
 
         }
         protected void BindDDLAgency(string agencyname)
@@ -251,10 +255,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
-
             UpdateForecloseCase();
-            
-           
         }
 
     }
