@@ -119,6 +119,9 @@ namespace HPF.FutureState.BusinessLogic
 
         private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
+            List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
+            if (exceptionList != null && exceptionList.Count > 0)
+                ThrowMiscException(exceptionList);
             //if (MiscErrorException(foreclosureCaseSet))
             //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
             
@@ -133,9 +136,9 @@ namespace HPF.FutureState.BusinessLogic
                 ThrowDuplicateCaseException(collection);
             }
             
-            //if (MiscErrorException(foreclosureCaseSet))
-            //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
-            
+            List<string> exceptionList = MiscErrorException(foreclosureCaseSet);
+            if (exceptionList != null && exceptionList.Count > 0)
+                ThrowMiscException(exceptionList);
             InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
@@ -223,9 +226,16 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (ExceptionMessage msg in ex)
                 {
-                    msgFcCaseSet.Add(msg.Message);
+                    //string strMsg = msg.ExceptionId + "--" + msg.Message;
+                    //msgFcCaseSet.Add(strMsg);
                 }
-            }            
+            }
+            //ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
+            //List<string> msgFcCaseSet = new List<string>();
+            //foreach (ValidationResult result in validationResults)
+            //{
+            //   msgFcCaseSet.Add(result.Key + " is required");
+            //}
             return msgFcCaseSet;
         }
 
@@ -1087,51 +1097,51 @@ namespace HPF.FutureState.BusinessLogic
             if(forclosureCase == null)
                 return null;
             if(!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00200"));
+                msgFcCaseSet.Add("IncomeEarnersCd is bad code data");
             if(!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00201"));
+                msgFcCaseSet.Add("CaseResourceCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00202"));
+                msgFcCaseSet.Add("RaceCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00203"));
+                msgFcCaseSet.Add("HouseholdCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
-                msgFcCaseSet.Add("An invalid code was provided for NeverBillReasonCd.");
+                msgFcCaseSet.Add("NeverBillReasonCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
-                msgFcCaseSet.Add("An invalid code was provided for NeverPayReasonCd.");
+                msgFcCaseSet.Add("NeverPayReasonCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00204"));
+                msgFcCaseSet.Add("DfltReason1stCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00205"));
+                msgFcCaseSet.Add("DfltReason2ndCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00206"));
+                msgFcCaseSet.Add("HUDTerminationReasonCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00207"));
+                msgFcCaseSet.Add("HUDOutcomeCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00208"));
+                msgFcCaseSet.Add("CounselingDurarionCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00209"));
+                msgFcCaseSet.Add("GenderCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00210"));
+                msgFcCaseSet.Add("ContactStateCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00211"));
+                msgFcCaseSet.Add("PropStateCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00212"));
+                msgFcCaseSet.Add("BorrowerEducLevelCompletedCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00213"));
+                msgFcCaseSet.Add("BorrowerMaritalStatusCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00214"));
+                msgFcCaseSet.Add("BorrowerPreferredLangCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
-                msgFcCaseSet.Add("An invalid code was provided for BorrowerOccupationCd.");
+                msgFcCaseSet.Add("BorrowerOccupationCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
-                msgFcCaseSet.Add("An invalid code was provided for CoBorrowerOccupationCd.");
+                msgFcCaseSet.Add("CoBorrowerOccupationCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00215"));
+                msgFcCaseSet.Add("SummarySentOtherCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00216"));
+                msgFcCaseSet.Add("PropertyCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00217"));
+                msgFcCaseSet.Add("MilitaryServiceCode is bad code data");
             if(!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
-                msgFcCaseSet.Add("An invalid code was provided for IntakeCreditBureauCd.");
+                msgFcCaseSet.Add("IntakeCreditBureauCode is bad code data");
             return msgFcCaseSet;
         }
 
@@ -1253,8 +1263,6 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckValidBudgetSubcategoryId(BudgetItemDTOCollection budgetItem)
         {
             List<string> msgFcCaseSet = new List<string>();
-            if (budgetItem == null)
-                return null;
             for (int i = 0; i < budgetItem.Count; i++)
             { 
                 BudgetItemDTO item =  budgetItem[i];
@@ -1266,7 +1274,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         private bool CheckBudgetSubcategory(BudgetItemDTO budgetItem)
-        {            
+        {
             BudgetSubcategoryDTOCollection budgetSubcategoryCollection = foreclosureCaseSetDAO.GetBudgetSubcategory();
             int budgetSubId = budgetItem.BudgetSubcategoryId;
             foreach(BudgetSubcategoryDTO item in budgetSubcategoryCollection)
@@ -1285,8 +1293,6 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckValidOutcomeTypeId(OutcomeItemDTOCollection outcomeItem)
         {
             List<string> msgFcCaseSet = new List<string>();
-            if (outcomeItem == null)
-                return null;
             for (int i = 0; i < outcomeItem.Count; i++)
             {
                 OutcomeItemDTO item = outcomeItem[i];
@@ -1565,6 +1571,17 @@ namespace HPF.FutureState.BusinessLogic
                 em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6},Counselor Phone & Extension: {7}, Counselor Email: {8} "
                             , obj.LoanNumber, obj.ServicerName, obj.BorrowerFirstName, obj.BorrowerLastName
                             , obj.AgencyName, obj.AgencyCaseNumber, obj.CounselorFullName, obj.CounselorPhone, obj.CounselorEmail);
+                pe.ExceptionMessages.Add(em);
+            }
+            throw pe;
+        }
+        private void ThrowMiscException(List<string> exceptionList)
+        {
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
+            foreach (string obj in exceptionList)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.Message = obj;
                 pe.ExceptionMessages.Add(em);
             }
             throw pe;
