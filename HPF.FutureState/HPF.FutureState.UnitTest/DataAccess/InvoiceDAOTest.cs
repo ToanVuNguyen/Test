@@ -107,7 +107,7 @@ namespace HPF.FutureState.UnitTest
             expected.Add(1);
             expected.Add(2);
 
-            List<InvoiceSearchResultDTO> results;
+            InvoiceSearchResultDTOCollection results;
             results = target.SearchInvoice(searchCriteria);
             List<int> actual = new List<int>();
             actual.Add(results[0].FundingSourceId);
