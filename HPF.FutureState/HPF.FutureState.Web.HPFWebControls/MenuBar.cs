@@ -5,10 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml;
-using HPF.FutureState.BusinessLogic;
-using HPF.FutureState.Common.DataTransferObjects;
-
-
 namespace HPF.FutureState.Web.HPFWebControls
 {
     public class MenuBar: IEnumerable<Menu>
@@ -67,32 +63,32 @@ namespace HPF.FutureState.Web.HPFWebControls
         /// <summary>
         /// Load menu from database
         /// </summary>
-        public void LoadFromDatabase(int userID)
-        {
-            MenuGroupDTOCollection menuBar = MenuGroupBL.Instance.GetMenuGroupCollectionByUserID(userID);
-            if (menuBar == null)
-            {
-                AddMenu(new Menu { Title = string.Empty, Enabled=false, Id="invisible" });
-                return;
-            }
+        //public void LoadFromDatabase(int userID)
+        //{
+        //    MenuGroupDTOCollection menuBar = MenuGroupBL.Instance.GetMenuGroupCollectionByUserID(userID);
+        //    if (menuBar == null)
+        //    {
+        //        AddMenu(new Menu { Title = string.Empty, Enabled=false, Id="invisible" });
+        //        return;
+        //    }
             
-            Menu menu=null;
-            foreach(MenuGroupDTO menuGroup in menuBar)
-            {
-                menu = new Menu { Id = menuGroup.GroupId.ToString(), Title = menuGroup.GroupName, Url = menuGroup.GroupTarget, Visibled = true };
-                if (menuGroup.MenuItemList.Count==0&&menuGroup.GroupTarget=="#")
-                    menu.Enabled = false;
-                foreach (MenuItemDTO menuItem in menuGroup.MenuItemList)
-                {
-                    if (menuItem.Visible)
-                    {
-                        MenuItem item = new MenuItem { Id = menuItem.ItemId.ToString(), Title = menuItem.ItemName, Url = menuItem.ItemTarget, Visibled = menuItem.Visible };
-                        menu.AddMenuItem(item);
-                    }
-                }
-                AddMenu(menu);
-            }
-        }
+        //    Menu menu=null;
+        //    foreach(MenuGroupDTO menuGroup in menuBar)
+        //    {
+        //        menu = new Menu { Id = menuGroup.GroupId.ToString(), Title = menuGroup.GroupName, Url = menuGroup.GroupTarget, Visibled = true };
+        //        if (menuGroup.MenuItemList.Count==0&&menuGroup.GroupTarget=="#")
+        //            menu.Enabled = false;
+        //        foreach (MenuItemDTO menuItem in menuGroup.MenuItemList)
+        //        {
+        //            if (menuItem.Visible)
+        //            {
+        //                MenuItem item = new MenuItem { Id = menuItem.ItemId.ToString(), Title = menuItem.ItemName, Url = menuItem.ItemTarget, Visibled = menuItem.Visible };
+        //                menu.AddMenuItem(item);
+        //            }
+        //        }
+        //        AddMenu(menu);
+        //    }
+        //}
 
         /// <summary>
         /// Enabled Menu by menu id

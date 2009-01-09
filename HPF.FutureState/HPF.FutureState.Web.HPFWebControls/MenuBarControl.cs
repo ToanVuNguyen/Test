@@ -111,8 +111,8 @@ namespace HPF.FutureState.Web.HPFWebControls
         private MenuBar GetMenuBar()
         {
             var menuBar = new MenuBar();
-           // menuBar.Load(Page.MapPath(XmlMenuFile));
-            menuBar.LoadFromDatabase(UserId);
+            menuBar.Load(Page.MapPath(XmlMenuFile));
+            
             //Disabled menu
             foreach (var disabledMenuId in _disabledMenus)
             {
