@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.DataAccess;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -30,9 +31,9 @@ namespace HPF.FutureState.BusinessLogic
             throw new NotImplementedException();
         }        
 
-        public InvoiceDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO criterial)
+        public InvoiceSearchResultDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO criterial)
         {
-            throw new NotImplementedException();
+            return InvoiceDAO.CreateInstance().SearchInvoice(criterial);
         }
 
         public InvoiceDraftDTOCollection CreateInvoiceDraft(InvoiceSearchCriteriaDTO criteria)
