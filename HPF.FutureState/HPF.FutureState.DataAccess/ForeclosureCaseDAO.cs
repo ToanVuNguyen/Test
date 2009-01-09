@@ -529,7 +529,7 @@ namespace HPF.FutureState.DataAccess
         }
         ///summary      
         ///
-        public int InsertAppForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        public int UpdateAppForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             var dbConnection = CreateConnection();
             dbConnection.Open();
