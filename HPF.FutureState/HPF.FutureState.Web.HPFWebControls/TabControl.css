@@ -1,0 +1,44 @@
+﻿#Container
+{
+	background-color:White;	
+}
+
+#Container tr td a:hover
+{
+	
+	background-color: #49A3FF;
+}
+.TabSelected
+{
+	position: relative;
+    display: block;
+    margin: 0;
+    padding: 5 10;
+    width: auto;
+    white-space: nowrap;
+    text-align: left;
+    text-decoration: none;
+    border:solid 1px #8FC4F6;
+    font: 11 Tahoma;
+    height: 11;
+	background-color:White;
+	color:Black;
+	
+}
+
+.Tab
+{
+	position: relative;
+    display: block;
+    margin: 0;
+    padding: 5 10;
+    width: auto;
+    white-space: nowrap;
+    text-align: left;
+    text-decoration: none;
+    background: #8FC4F6;
+    border:solid 1px #8FC4F6;
+    color: #fff;
+    font: 11 Tahoma;
+    height: 11;
+}
