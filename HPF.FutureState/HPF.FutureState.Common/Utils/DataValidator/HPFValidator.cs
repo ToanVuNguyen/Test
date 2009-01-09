@@ -56,7 +56,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             {
                 if (result.Tag != null)
                 {
-                    exceptionMessages.AddExceptionMessage(FriendlyMessageTranslate(result));
+                    exceptionMessages.AddExceptionMessage(result.Tag, FriendlyMessageTranslate(result.Tag));
                     continue;
                 }
                 exceptionMessages.AddExceptionMessage(result.Message);                
@@ -65,13 +65,13 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         }
 
         /// <summary>
-        /// Translate a validation result to a friendly message
+        /// Translate a validation errorCode to a friendly message
         /// </summary>
-        /// <param name="result"></param>
+        /// <param name="errorCode"></param>
         /// <returns></returns>
-        private static string FriendlyMessageTranslate(ValidationResult result)
+        private static string FriendlyMessageTranslate(string errorCode)
         {
-            return ErrorMessages.GetExceptionMessageCombined(result.Tag);
+            return ErrorMessages.GetExceptionMessageCombined(errorCode);
         }
 
     }

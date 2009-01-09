@@ -31,7 +31,9 @@ namespace HPF.FutureState.Common
         public static string GetExceptionMessageCombined(string exceptionId)
         {
             LoadErrorMessageDict();
-            return exceptionId + "--" + errorMessageDict[exceptionId];
+            if (errorMessageDict.ContainsKey(exceptionId))
+                return exceptionId + "--" + errorMessageDict[exceptionId];            
+                return "0000--Unknow Error.";
         }
 
         private static void LoadErrorMessageDict()
