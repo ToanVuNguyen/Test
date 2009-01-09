@@ -98,6 +98,13 @@
     <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx.designer.cs">
       <DependentUpon>AppForeClosureCaseSearchUC.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx.cs">
+      <DependentUpon>AppFundingSourceInvoices.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx.designer.cs">
+      <DependentUpon>AppFundingSourceInvoices.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppNewPayable\NewAgencyPayableResultsUC.ascx.cs">
       <DependentUpon>NewAgencyPayableResultsUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -236,6 +243,7 @@
     <Content Include="AppForeclosureCaseDetailPage.aspx" />
     <Content Include="AppForeClosureCaseSearchPage.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
+    <Content Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx" />
     <Content Include="AppNewPayable\NewAgencyPayableResultsUC.ascx" />
     <Content Include="AppNewPayable\NewPayableCriteriaUC.ascx" />
     <Content Include="ChangePassword.aspx" />
