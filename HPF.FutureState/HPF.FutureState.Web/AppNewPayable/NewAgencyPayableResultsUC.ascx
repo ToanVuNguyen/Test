@@ -30,7 +30,8 @@
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td >
-            <asp:Button ID="btnRemoveMarkedCases" runat="server" Text="Remove Marked Cases" Width="150px" CssClass="MyButton" />
+            <asp:Button ID="btnRemoveMarkedCases" runat="server" Text="Remove Marked Cases" 
+                Width="150px" CssClass="MyButton" onclick="btnRemoveMarkedCases_Click" />
         </td>
     </tr>
     <tr>
@@ -62,6 +63,11 @@
             &nbsp;</td>
     </tr>
     <tr>
+        <td colspan="5">
+        <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text=""></asp:Label>
+        </td>
+    </tr>
+    <tr>
         <td class="sidelinks" colspan="5" >
             Invoice Items:</td>
       
@@ -81,13 +87,14 @@
         <Columns>
         <asp:TemplateField>
         <HeaderTemplate>
-        <asp:CheckBox ID="chkHeaderCaseID" runat="server" />
+        <asp:CheckBox ID="chkHeaderCaseID" runat="server" OnCheckedChanged="chkHeaderCaseIDCheck" AutoPostBack="true" />
         </HeaderTemplate>
         <ItemTemplate>
         <asp:CheckBox ID="chkCaseID" runat="server"  />
         </ItemTemplate>
         </asp:TemplateField>
         <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Left" />
+        
         <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Left" />
         <asp:BoundField DataField="CompletedDate" HeaderText="Complete Dt" ItemStyle-HorizontalAlign="Left" />
         <asp:BoundField DataField="Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="Left"/>
@@ -96,6 +103,15 @@
         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" ItemStyle-HorizontalAlign="Left" />
         </Columns>
         </asp:GridView>
+        <table>
+        <tr>
+        <td>Total Cases:</td>
+        <td><asp:Label ID="lblTotalCasesFooter" runat="server"></asp:Label></td>
+        <td></td>
+        <td>Invoice Total:</td>
+        <td><asp:Label ID="lblInvoiceTotalFooter" runat="server"></asp:Label></td>
+        </tr>
+        </table>
         </asp:Panel>    
         
         </td>
@@ -119,7 +135,8 @@
                     <td >
                         <asp:Button ID="btnGeneratePayable" runat="server" Text="Generate Payable"  
                             CssClass="MyButton" Width="120px" onclick="btnGeneratePayable_Click"/>
-&nbsp;<asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton" Width="120px" />
+&nbsp;<asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton" 
+                            Width="120px" onclick="btnCancelPayable_Click" />
                     </td>
                 </tr>
             </table>

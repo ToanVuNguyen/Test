@@ -77,6 +77,15 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.Label lblPeriodEnd;
         
         /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        
+        /// <summary>
         /// panInvoiceItems control.
         /// </summary>
         /// <remarks>
@@ -93,6 +102,24 @@ namespace HPF.FutureState.Web.AppNewPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grvInvoiceItems;
+        
+        /// <summary>
+        /// lblTotalCasesFooter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalCasesFooter;
+        
+        /// <summary>
+        /// lblInvoiceTotalFooter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvoiceTotalFooter;
         
         /// <summary>
         /// btnGeneratePayable control.
