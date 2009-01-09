@@ -7,7 +7,6 @@ using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.DataAccess;
 using System.Collections;
 using HPF.FutureState.Common.Utils.Exceptions;
-using HPF.FutureState.DataAccess;
 using System;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
@@ -797,17 +796,23 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckInactiveCaseWithFcIDAndCompleteDate()
+        public void CheckInactiveCaseWithFcIDAndCompleteDateTrue()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            target.InitialTransaction();            
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
             target.InsertForeclosureCaseSet(foreclosureCase);
+            target.CompleteTransaction();
             foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
+            ForeclosureCaseDTO fCase = SetForeclosureCase("TRUE");
+            fCase.FcId = GetForeclosureCaseId();
+            fCase.CompletedDt = Convert.ToDateTime("12/12/2007");
+            UpdateForeclosureCase(fCase);
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
             int fcId = GetForeclosureCaseId();
-            DeleteForeclosureCase(fcId);
+            DeleteForeclosureCase(fcId);            
             Assert.AreEqual(expected, actual);
         }
 
@@ -817,13 +822,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckActiveCaseWithFcIDAndCompleteDate()
+        public void CheckInactiveCaseWithFcIDAndCompleteDateFalse()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            target.InitialTransaction();
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
-            foreclosureCase.ForeclosureCase.CompletedDt = Convert.ToDateTime("12/12/2009");
             target.InsertForeclosureCaseSet(foreclosureCase);
+            target.CompleteTransaction();
             foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
+            ForeclosureCaseDTO fCase = SetForeclosureCase("TRUE");
+            fCase.FcId = GetForeclosureCaseId();
+            fCase.CompletedDt = Convert.ToDateTime("12/12/2008");
+            UpdateForeclosureCase(fCase);
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
@@ -841,9 +851,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            target.InitialTransaction();
             ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("FALSE");// TODO: Initialize to an appropriate value                        
             target.InsertForeclosureCaseSet(foreclosureCase);
-            foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
+            target.CompleteTransaction();
+            foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();            
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
@@ -1193,7 +1205,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.MortgageTypeCd = "";                    
                     caseLoanDTO.TermLengthCd = "";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
-                    caseLoanDTO.InterestRate = 100;
+                    caseLoanDTO.InterestRate = 10;
                     caseLoanDTO.CreateDate = DateTime.Now;
                     caseLoanDTO.CreateUserId = "HPF";
                     caseLoanDTO.CreateAppName = "HPF";
@@ -1364,22 +1376,20 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             var command = new SqlCommand("SELECT MAX(Fc_id) as fc_id FROM foreclosure_case", dbConnection);
             dbConnection.Open();
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                try
+                var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
                     result = int.Parse(reader["fc_id"].ToString());
+                    break;
                 }
-                catch (Exception ex)
-                {
-                    dbConnection.Close();
-                }
-                break;
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
             }
             dbConnection.Close();
-
             return result;
         }
 
@@ -1431,6 +1441,24 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             dbConnection.Close();
 
             return result;
+        }
+
+        static private void UpdateForeclosureCase(ForeclosureCaseDTO fCase)
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            int fcId = fCase.FcId;
+            DateTime completeDt = fCase.CompletedDt;
+            dbConnection.Open();
+            try
+            {
+                var command = new SqlCommand("UPDATE foreclosure_case SET completed_dt = '" + completeDt + "' WHERE fc_id = " + fcId + "", dbConnection);
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
         }
 
         static private void DeleteForeclosureCase(int fcId)

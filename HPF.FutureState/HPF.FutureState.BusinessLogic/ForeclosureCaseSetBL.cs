@@ -57,8 +57,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             try
             {
-                foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
-                foreclosureCaseSetDAO.Begin();
+                InitialTransaction();
 
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                     throw new DataValidationException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
@@ -82,13 +81,29 @@ namespace HPF.FutureState.BusinessLogic
                 else
                     ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
 
-                foreclosureCaseSetDAO.Commit();
+                CompleteTransaction();
             }
             catch (Exception)
             {
-                foreclosureCaseSetDAO.Cancel();
+                RollbackTransaction();
                 throw;
             }            
+        }
+
+        private void RollbackTransaction()
+        {
+            foreclosureCaseSetDAO.Cancel();
+        }
+
+        private void CompleteTransaction()
+        {
+            foreclosureCaseSetDAO.Commit();
+        }
+
+        private void InitialTransaction()
+        {
+            foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            foreclosureCaseSetDAO.Begin();
         }
 
         /// <summary>
@@ -170,7 +185,6 @@ namespace HPF.FutureState.BusinessLogic
                 ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
         }
         
-
         #region Functions check min request validate
         private List<string> ValidationFieldByRuleSet(ForeclosureCaseSetDTO foreclosureCaseSet, string ruleSet)
         {
@@ -193,7 +207,7 @@ namespace HPF.FutureState.BusinessLogic
 
             List<string> msgCaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, ruleSet);
             if (msgCaseLoanItem != null && msgCaseLoanItem.Count != 0)
-                msgCaseLoanItem.AddRange(msgFcCase);
+                msgCaseLoanItem.AddRange(msgFcCase);            
 
             if (msgFcCaseSet.Count == 0)
                 return null;
@@ -211,7 +225,7 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckRequireForPartial(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             return ValidationFieldByRuleSet(foreclosureCaseSet, RULESET_MIN_REQUIRE_FIELD);
-        }
+        }       
         
         /// <summary>
         /// Min request validate the fore closure case set
@@ -229,13 +243,14 @@ namespace HPF.FutureState.BusinessLogic
                     //string strMsg = msg.ExceptionId + "--" + msg.Message;
                     //msgFcCaseSet.Add(strMsg);
                 }
+
             }
-            //ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
-            //List<string> msgFcCaseSet = new List<string>();
-            //foreach (ValidationResult result in validationResults)
-            //{
-            //   msgFcCaseSet.Add(result.Key + " is required");
-            //}
+            #region Check OtherFields
+            if(foreclosureCase.CoBorrowerFname == null && foreclosureCase.CoBorrowerLname != null)
+                msgFcCaseSet.Add("A CoBorrowerFname is required to save a foreclosure case.");
+            else if (foreclosureCase.CoBorrowerFname != null && foreclosureCase.CoBorrowerLname == null)
+                msgFcCaseSet.Add("A CoBorrowerLname is required to save a foreclosure case.");
+            #endregion            
             return msgFcCaseSet;
         }
 
@@ -1447,7 +1462,9 @@ namespace HPF.FutureState.BusinessLogic
             budgetSet.TotalAssets = totalAssest;
             budgetSet.TotalExpenses = totalExpenses;
             budgetSet.TotalIncome = totalIncome;
-            budgetSet.BudgetSetDt = DateTime.Now;          
+            budgetSet.BudgetSetDt = DateTime.Now;
+
+            budgetSet.CreateUserId = foreclosureCaseSet.ForeclosureCase.CreateUserId;
             
             return budgetSet;
         }
