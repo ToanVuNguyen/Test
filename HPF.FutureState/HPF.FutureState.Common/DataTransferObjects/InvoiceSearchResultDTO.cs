@@ -15,6 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public decimal InvoiceBillAmt { get; set; }
         public string StatusCd { get; set; }
         public string InvoiceComment { get; set; }
+        public DateTime InvoiceDate { get; set; }
 
     }
 }
