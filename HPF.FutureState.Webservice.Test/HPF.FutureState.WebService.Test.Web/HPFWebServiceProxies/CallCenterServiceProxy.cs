@@ -452,20 +452,20 @@ namespace HPF.Webservice.CallCenter
     public partial class ExceptionMessage
     {
 
-        private int exceptionIdField;
+        private string errorCodeField;
 
         private string messageField;
 
         /// <remarks/>
-        public int ExceptionId
+        public string ErrorCode
         {
             get
             {
-                return this.exceptionIdField;
+                return this.errorCodeField;
             }
             set
             {
-                this.exceptionIdField = value;
+                this.errorCodeField = value;
             }
         }
 
