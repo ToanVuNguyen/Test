@@ -61,6 +61,17 @@ namespace HPF.FutureState.BusinessLogic
             AgencyDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetAgency();
             return result;
         }
+        /// <summary>
+        /// Get Funding Source ID and Funding Source Name to display in DDLB
+        /// </summary>
+        /// <returns>FundingSourceDTOCollection containts all FundingSource</returns>
+        public FundingSourceDTOCollection GetFundingSource()
+        {
+            FundingSourceDTOCollection result = InvoiceDAO.CreateInstance().AppGetFundingSource();
+            return result;
+
+        }
+
 
     }
 }
