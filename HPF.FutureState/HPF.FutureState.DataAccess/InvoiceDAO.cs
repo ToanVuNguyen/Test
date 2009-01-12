@@ -94,16 +94,15 @@ namespace HPF.FutureState.DataAccess
                     while (reader.Read())
                     {
                         InvoiceSearchResultDTO invoice = new InvoiceSearchResultDTO();
-                        
                         invoice.FundingSourceId = ConvertToInt(reader["funding_source_id"]);
                         invoice.FundingSourceName = ConvertToString(reader["funding_source_name"]);
                         invoice.InvoiceBillAmt = ConvertToDecimal(reader["invoice_bill_amt"]);                                                
                         invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);                        
                         invoice.InvoiceId = ConvertToInt(reader["Invoice_id"]);
-                        invoice.InvoicePeriod = ConvertToString(reader["invoice_dt"]);
+                        invoice.InvoicePeriod = ConvertToString(reader["invoice_period"]);
                         invoice.InvoicePmtAmt = ConvertToDecimal(reader["invoice_pmt_amt"]);
                         invoice.StatusCd = ConvertToString(reader["status_cd"]);
-
+                        invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
                         invoices.Add(invoice);                           
                     }
                     reader.Close();
@@ -125,5 +124,43 @@ namespace HPF.FutureState.DataAccess
             throw new NotImplementedException();
         }
         #endregion
+        /// <summary>
+        /// Get Funding Source to bind on DDLB
+        /// </summary>
+        /// <returns></returns>
+        public FundingSourceDTOCollection AppGetFundingSource()
+        {
+            FundingSourceDTOCollection result = new FundingSourceDTOCollection();
+
+            var dbConnection = CreateConnection();
+            var command = new SqlCommand("hpf_funding_source_get", dbConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = dbConnection;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var item = new FundingSourceDTO();
+                        item.FundingSourceID = ConvertToInt(reader["funding_source_id"]);
+                        item.FundingSourceName = ConvertToString(reader["funding_source_name"]);
+                        result.Add(item);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
     }
 }
