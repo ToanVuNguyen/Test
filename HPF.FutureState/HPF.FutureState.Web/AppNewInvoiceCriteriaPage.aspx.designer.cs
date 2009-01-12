@@ -11,15 +11,15 @@
 namespace HPF.FutureState.Web {
     
     
-    public partial class FundingSourceInvoiceSearch {
+    public partial class AppNewInvoicePage {
         
         /// <summary>
-        /// form1 control.
+        /// AppNewInvoice1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::HPF.FutureState.Web.AppNewInvoice.AppNewInvoice AppNewInvoice1;
     }
 }

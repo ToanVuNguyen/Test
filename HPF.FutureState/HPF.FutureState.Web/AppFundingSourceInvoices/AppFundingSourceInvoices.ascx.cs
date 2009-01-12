@@ -64,11 +64,13 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 lblErrorMessage.Text = ex.Message;
                 lblErrorMessage.Visible = true;
+                ExceptionProcessor.HandleException(ex);
             }
             catch (DataException ex)
             {
                 lblErrorMessage.Text = ex.Message;
                 lblErrorMessage.Visible = true;
+                ExceptionProcessor.HandleException(ex);
             }
             
         }

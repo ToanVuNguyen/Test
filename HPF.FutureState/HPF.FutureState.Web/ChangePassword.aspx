@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="HPF.FutureState.Web.ChagePassword" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="HPF.FutureState.Web.ChagePassword" Title="Change Password" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <div align="center" style="width: 100%">
         <table style="width:32%; background-color: #60A5DE; height: 105px;">

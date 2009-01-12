@@ -112,6 +112,20 @@
     <Compile Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx.designer.cs">
       <DependentUpon>AppFundingSourceInvoices.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AppNewInvoiceCriteriaPage.aspx.cs">
+      <DependentUpon>AppNewInvoiceCriteriaPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppNewInvoiceCriteriaPage.aspx.designer.cs">
+      <DependentUpon>AppNewInvoiceCriteriaPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.cs">
+      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.designer.cs">
+      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppNewPayable\NewAgencyPayableResultsUC.ascx.cs">
       <DependentUpon>NewAgencyPayableResultsUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -252,6 +266,8 @@
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="AppFundingSourceInvoicesPage.aspx" />
     <Content Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx" />
+    <Content Include="AppNewInvoiceCriteriaPage.aspx" />
+    <Content Include="AppNewInvoice\AppNewInvoice.ascx" />
     <Content Include="AppNewPayable\NewAgencyPayableResultsUC.ascx" />
     <Content Include="AppNewPayable\NewPayableCriteriaUC.ascx" />
     <Content Include="ChangePassword.aspx" />

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FundingSourceInvoiceSearch.aspx.cs" Inherits="HPF.FutureState.Web.FundingSourceInvoiceSearch" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FundingSourceInvoiceSearch.aspx.cs" Inherits="HPF.FutureState.Web.FundingSourceInvoiceSearch" MasterPageFile="~/Site.Master"  Title="Funding Source Invoice Search"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
