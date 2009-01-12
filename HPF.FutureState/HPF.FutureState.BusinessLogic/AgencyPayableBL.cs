@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Text;
-
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
+using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Common.Utils.Exceptions;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using HPF.FutureState.Common;
+using System.Collections.ObjectModel;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -38,13 +44,10 @@ namespace HPF.FutureState.BusinessLogic
                 AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
                 //-----------
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
-                agencyPayable.AgencyName = "";
-                agencyPayable.PaymentDate = DateTime.Now;
-                agencyPayable.PayamentCode = "";
-                agencyPayable.StatusCode = "";
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
-                agencyPayable.PaymentComment = "";
+                // don't know much about that fields
+                agencyPayable.PayamentCode = "";
                 agencyPayable.AccountLinkTBD = "";
                 agencyPayable.AgencyPayablePaymentAmount = 0;
                 //----------- agency_payable (base)
@@ -68,6 +71,11 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.PaymentAmount = fCaseDraf.Amount;
                     agencyPayableCase.NFMCDiffererencePaidIndicator = "";
+                    //-------------
+                    agencyPayableCase.AgencyName = "";
+                    agencyPayableCase.PaymentDate = DateTime.Now;
+                    agencyPayableCase.StatusCode = "";
+                    agencyPayableCase.PaymentComment = "";
                     //----------- agency_payable (base)
                     agencyPayableCase.ChangeLastAppName = "";
                     agencyPayableCase.ChangeLastDate = DateTime.Now;
@@ -87,8 +95,20 @@ namespace HPF.FutureState.BusinessLogic
             }
             return true;
         }
-
-       
+        ///<summary>
+        ///
+        /// </summary>
+        protected void NewPayableThrowMissingRequiredFieldsException(Collection<string> collection)
+        {
+            DataValidationException exception = new DataValidationException();
+            foreach (string item in collection)
+            {
+                ExceptionMessage ex = new ExceptionMessage();
+                ex.Message=item;
+                exception.ExceptionMessages.Add(ex);
+            }
+            throw exception;
+        }
 
         /// <summary>
         /// Search and get put the list for AgencyPayable
@@ -97,7 +117,15 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         public AgencyPayableDTOCollection SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
-            throw new NotImplementedException();
+
+            AgencyPayableDTOCollection result = new AgencyPayableDTOCollection();
+            Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
+            if (ErrorMess != null)
+            {
+                NewPayableThrowMissingRequiredFieldsException(ErrorMess);
+            }
+            result = AgencyPayableDAO.CreateInstance().SearchAgencyPayable(agencyPayableCriteria);
+            return result;
         }
 
         /// <summary>
@@ -105,10 +133,42 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
-        public AgencyPayableDraftDTO CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+
+       
+        public AgencyPayableDraftDTOCollection CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
-            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();
-            return agencyPayableDAO.CreateDraftAgencyPayable(agencyPayableCriteria);
+            AgencyPayableDraftDTOCollection result = new AgencyPayableDraftDTOCollection();
+            Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
+            if (ErrorMess != null)
+            {
+                NewPayableThrowMissingRequiredFieldsException(ErrorMess);
+            }
+            result = AgencyPayableDAO.CreateInstance().CreateDraftAgencyPayable(agencyPayableCriteria);
+            return result;
         }
+        ///<summary>
+        ///Check validator of Period Start :date
+        ///Check validator of Period End :date
+        ///Check validator of Max number of cases :number
+        ///<param name="searchCriteria"></param>
+        Collection<string> NewPayabeCriteriaRequireFieldValidation(AgencyPayableSearchCriteriaDTO searchCriteria)
+        {
+
+            Collection<string> msgAppForeclosureCaseSearch = new Collection<string>();
+            RequireNewPayableCriteria(searchCriteria, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
+            if (msgAppForeclosureCaseSearch.Count == 0)
+                return null;
+            return msgAppForeclosureCaseSearch;
+        }
+        void RequireNewPayableCriteria(AgencyPayableSearchCriteriaDTO searchCriteria, ref Collection<string> msg, string ruleset)
+        {
+            ValidationResults validationResults = HPFValidator.Validate<AgencyPayableSearchCriteriaDTO>(searchCriteria, ruleset);
+            foreach (ValidationResult result in validationResults)
+            {
+                msg.Add(result.Message);
+            }
+        }
+
+
     }
 }
