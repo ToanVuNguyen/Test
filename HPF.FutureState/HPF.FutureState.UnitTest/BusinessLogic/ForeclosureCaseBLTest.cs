@@ -892,8 +892,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             target.InitiateTransaction();
-            List<string> expected = null; // TODO: Initialize to an appropriate value
-            List<string> actual;
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);
             target.RollbackTransaction();
             Assert.AreEqual(expected, actual);
@@ -909,8 +909,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value
             target.InitiateTransaction();
-            List<string> expected = null; // TODO: Initialize to an appropriate value
-            List<string> actual;
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);
             target.RollbackTransaction();
             Assert.AreNotEqual(expected, actual);
@@ -928,8 +928,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();
-            List<string> expected = null; // TODO: Initialize to an appropriate value
-            List<string> actual;
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
             InsertGeoCodeRef();
             target.InitiateTransaction();
             actual = target.CheckValidCode(foreclosureCaseSet);
@@ -948,8 +948,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeFalse();
-            List<string> expected = null; // TODO: Initialize to an appropriate value
-            List<string> actual;
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
             target.InitiateTransaction();
             actual = target.CheckValidCode(foreclosureCaseSet);
             target.CompleteTransaction();
@@ -966,8 +966,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.CaseLoans = SetCaseLoanCodeFalse();
-            List<string> expected = null; // TODO: Initialize to an appropriate value
-            List<string> actual;
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
             target.InitiateTransaction();
             actual = target.CheckValidCode(foreclosureCaseSet);
             target.CompleteTransaction();
@@ -1030,8 +1030,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            List<string> expected = null; // TODO: Initialize to an appropriate value
-            List<string> actual;
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
             target.InitiateTransaction();
             actual = target.MiscErrorException(foreclosureCaseSet);
             target.CompleteTransaction();

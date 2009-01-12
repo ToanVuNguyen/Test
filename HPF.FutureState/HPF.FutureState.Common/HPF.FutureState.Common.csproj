@@ -68,7 +68,6 @@
     <Compile Include="BusinessLogicInterface\IRefCodeItemBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
-    <Compile Include="CallCenterDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyDTOCollection.cs" />
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTO.cs" />
@@ -77,6 +76,7 @@
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CallCenterDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
     <Compile Include="DataTransferObjects\InvoiceSearchResultDTOCollection.cs" />

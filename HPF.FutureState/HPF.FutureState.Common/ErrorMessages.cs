@@ -89,6 +89,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add("ERR216","An invalid code was provided for PropertyCd.");
                 errorMessageDict.Add("ERR217","An invalid code was provided for MilitaryServiceCd.");
 
+                errorMessageDict.Add("ERR250", "Neither a HPF FcId nor an AgencyCaseNum was provided. Please provide an AgencyCaseNum for new cases and both and AgencyCaseNum and HPF FcId are required for updates to existing cases.");
+                errorMessageDict.Add("ERR251", "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
+                errorMessageDict.Add("ERR252", "An invalid AgencyID was provided for the Corresponding FcId.  Your agency does not own this foreclosure case. ");                
+                errorMessageDict.Add("ERR254", "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
                 errorMessageDict.Add("ERR255", "A previously completed case cannot become uncompleted. An update was submitted without all fields required to compleg.");
                 errorMessageDict.Add("ERR256", "Only one loan can be designated as '1st'.");
                 
