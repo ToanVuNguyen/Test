@@ -141,9 +141,6 @@ h2
     height: 300px;
     overflow: auto;
     margin: 0;
-    z-index: 70;
-	top: 8px;
-	left: -97px;
 }
 .GridViewStyle
 {
