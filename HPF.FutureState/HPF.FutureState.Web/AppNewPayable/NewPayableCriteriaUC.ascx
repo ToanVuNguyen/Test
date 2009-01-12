@@ -46,6 +46,7 @@
             Period Start:</td>
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Text="1/1/2003"> </asp:TextBox>
+            
         </td>
         <td class="sidelinks" align="right">
             Servicer Consent:</td>
@@ -112,7 +113,10 @@
     <tr>
         <td colspan="5">
            <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text="" ></asp:Label>
-           
+           <asp:RangeValidator ID="txtPeriodStartRangeValidator" runat="server"  Display="Dynamic" ErrorMessage="Input correct format date." ControlToValidate="txtPeriodStart" MinimumValue="1/1/1900" Type="Date"></asp:RangeValidator>
+           <asp:RequiredFieldValidator ID="txtPeriodStartRFV" runat="server" Display="Dynamic" ErrorMessage="Must input value"  ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
+           <asp:RangeValidator ID="txtPeriodEndRangeValidator" runat="server" Display="Dynamic" ErrorMessage="Input correct format date" ControlToValidate="txtPeriodEnd" MinimumValue="1/1/1900" Type="Date"></asp:RangeValidator>
+           <%--<asp:RegularExpressionValidator ID="txtPeriodEndRegularExp" runat="server" Display="Dynamic" ErrorMessage="" ValidationExpression="^\d[1]$" ControlToValidate="txtPeriodEnd" ></asp:RegularExpressionValidator>--%>
            </td>
     </tr>
 </table>
