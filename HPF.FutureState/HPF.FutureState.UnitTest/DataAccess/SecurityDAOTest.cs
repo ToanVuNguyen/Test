@@ -108,8 +108,10 @@ namespace HPF.FutureState.UnitTest.DataAccess
         public void GetWSUserSuccessCaseTest()
         {
             SecurityDAO_Accessor target = new SecurityDAO_Accessor();
-            string userName = "utest_user1";
-            string password = "utest_user1";
+            //string userName = "utest_user1";
+            //string password = "utest_user1";
+            string userName = "agency";
+            string password = "agency";
             int userID = getUserID("utest_user1");
             
             WSUserDTO actual = target.GetWSUser(userName, password);

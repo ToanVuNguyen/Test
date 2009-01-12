@@ -24,6 +24,7 @@ namespace HPF.FutureState.WebServices
     // [System.Web.Script.Services.ScriptService]
     public class CallCenterService : BaseCallCenterWebService
     {
+        #region ICallCenterBL implementation
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
         public CallLogInsertResponse SaveCallLog(CallLogInsertRequest request)
@@ -34,7 +35,8 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())//Authentication checking
                 {                    
                     CallLogDTO callLogDTO = ConvertToCallLogDTO(request.CallLog);
-                    
+                    callLogDTO.CallCenterID = base.CallCenterID;
+                    //callLogDTO.CallCenter = base.CallCenterName;
                     
                     string sCallLogID = "HPF_" + CallLogBL.Instance.InsertCallLog(callLogDTO);
                     response.CallLogID = sCallLogID;
@@ -130,7 +132,9 @@ namespace HPF.FutureState.WebServices
             }
             return response;
         }
+#endregion
 
+        #region private
         private bool ValidateCallLogID(CallLogRetrieveRequest request)
         {
             ValidationResults validationResults = HPFValidator.Validate<CallLogRetrieveRequest>(request);
@@ -241,7 +245,8 @@ namespace HPF.FutureState.WebServices
 
             return destObject;
         }
-
+#endregion
+        
 
     }
 

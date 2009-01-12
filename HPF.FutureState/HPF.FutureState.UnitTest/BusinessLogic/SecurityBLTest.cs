@@ -126,13 +126,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void WSUserLoginSuccessTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            string userName = "utest_user2";
-            string password = "utest_user2";
+            //string userName = "utest_user2";
+            //string password = "utest_user2";
+            //string userName = "utest_user1";
+            //string password = "utest_user1";
+            string userName = "agency";
+            string password = "agency";
             WSType wsType = WSType.Agency;
 
             bool expected = true;
             bool actual;
-            actual = target.WSUserLogin(userName, password, wsType);
+            WSUserDTO user = target.WSUserLogin(userName, password, wsType);
+            actual = ((user != null) && (user.LoginUsername == userName));
             Assert.AreEqual(expected, actual);            
         }
        
@@ -149,7 +154,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             bool expected = false;
             bool actual;
-            actual = target.WSUserLogin(userName, password, wsType);
+            WSUserDTO user = target.WSUserLogin(userName, password, wsType);
+            actual = ((user != null) && (user.LoginUsername == userName));
             Assert.AreEqual(expected, actual);
         }
 
@@ -166,7 +172,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             bool expected = false;
             bool actual;
-            actual = target.WSUserLogin(userName, password, wsType);
+            WSUserDTO user = target.WSUserLogin(userName, password, wsType);
+            actual = ((user != null) && (user.LoginUsername == userName));
             Assert.AreEqual(expected, actual);
         }
 
@@ -183,7 +190,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             bool expected = false;
             bool actual;
-            actual = target.WSUserLogin(userName, password, wsType);
+            WSUserDTO user = target.WSUserLogin(userName, password, wsType);
+            actual = ((user != null) && (user.LoginUsername == userName));
             Assert.AreEqual(expected, actual);
         }
 
@@ -200,7 +208,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             bool expected = false;
             bool actual;
-            actual = target.WSUserLogin(userName, password, wsType);
+            WSUserDTO user = target.WSUserLogin(userName, password, wsType);
+            actual = ((user != null) && (user.LoginUsername == userName));
             Assert.AreEqual(expected, actual);
         }
 

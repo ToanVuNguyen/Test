@@ -253,11 +253,11 @@ namespace HPF.FutureState.DataAccess
             SqlConnection dbConnection = CreateConnection();
             SqlCommand command = CreateSPCommand("hpf_call_check_foreign_key", dbConnection);
             
-
+            
             int isValidCallCenterID = 1;
-            int isValidCCAgentIdKey = 1;
+            //int isValidCCAgentIdKey = 1;
             int isValidPrevAgencyId = 1;
-            int isValidSelectedAgencyId = 1;
+            //int isValidSelectedAgencyId = 1;
             int isValidServicerId = 1;
 
             #region parameters

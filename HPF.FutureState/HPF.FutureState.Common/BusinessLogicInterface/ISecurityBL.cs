@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// <param name="password">Password</param>
         /// <param name="wsType">Service type</param>
         /// <returns></returns>
-        bool WSUserLogin(string userName, string password, WSType wsType);
+        WSUserDTO WSUserLogin(string userName, string password, WSType wsType);
 
         /// <summary>
         /// Add a new Webservice User to the system

@@ -47,8 +47,49 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="userName">Username</param>
         /// <param name="password">Password</param>
         /// <param name="wsType">Service type</param>
-        /// <returns></returns>
-        public bool WSUserLogin(string userName, string password, WSType wsType)
+        //public bool WSUserLogin(string userName, string password, WSType wsType)
+        //{
+        //    //This function does not have transaction.
+        //    try
+        //    {
+        //        WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
+
+        //        if (user == null || user.ActiveInd == string.Empty || user.ActiveInd == "" || user.ActiveInd.ToUpper().CompareTo("N") == 0)
+        //            return false;
+        //        switch (wsType)
+        //        {
+        //            case WSType.Agency:
+        //                if (user.AgencyId != 0)
+        //                    return true;
+        //                break;
+        //            case WSType.CallCenter:
+        //                if (user.CallCenterId != 0)
+        //                    return true;
+        //                break;
+        //            case WSType.Any:
+        //                if (user.AgencyId != 0 && user.CallCenterId != 0)
+        //                    return true;
+        //                break;
+        //            default:
+        //                return false;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+
+        //    return false;
+        //}
+
+        /// <summary>
+        /// Web Service User Login
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <param name="password">Password</param>
+        /// <param name="wsType">Service type</param>
+        /// <returns>WSUserDTO if login successfully</returns>
+        public WSUserDTO WSUserLogin(string userName, string password, WSType wsType)
         {
             //This function does not have transaction.
             try
@@ -56,32 +97,33 @@ namespace HPF.FutureState.BusinessLogic
                 WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
 
                 if (user == null || user.ActiveInd == string.Empty || user.ActiveInd == "" || user.ActiveInd.ToUpper().CompareTo("N") == 0)
-                    return false;                
+                    return null;
                 switch (wsType)
                 {
                     case WSType.Agency:
                         if (user.AgencyId != 0)
-                            return true;
+                            return user;
                         break;
                     case WSType.CallCenter:
                         if (user.CallCenterId != 0)
-                            return true;
+                            return user;
                         break;
                     case WSType.Any:
                         if (user.AgencyId != 0 && user.CallCenterId != 0)
-                            return true;
+                            return user;
                         break;
                     default:
-                        return false;
+                        return null;
                 }
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
 
-            return false;
+            return null;
         }
+
 
         /// <summary>
         /// Add a new Webservice User to the system
@@ -112,6 +154,10 @@ namespace HPF.FutureState.BusinessLogic
             return SecurityDAO.Instance.GetWebUser(userName);
         }
 
+        public CallCenterDTO GetCallCenter(int callCenterId)
+        {
+            return SecurityDAO.Instance.GetCallCenter(callCenterId);
+        }
         #endregion
     }
 }

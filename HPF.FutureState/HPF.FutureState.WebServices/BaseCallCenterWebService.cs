@@ -19,10 +19,17 @@ namespace HPF.FutureState.WebServices
 {
     public class BaseCallCenterWebService : BaseWebService
     {
+        protected int CallCenterID { get; set; }
+        //protected string CallCenterName { get; set; }
         protected override bool IsAuthenticated()
         {
-            if (SecurityBL.Instance.WSUserLogin(Authentication.UserName, Authentication.Password, WSType.CallCenter))
+            WSUserDTO user = SecurityBL.Instance.WSUserLogin(Authentication.UserName, Authentication.Password, WSType.CallCenter);
+            if (user != null)
+            {
+                CallCenterID = user.CallCenterId;
+                
                 return true;
+            }
             throw new AuthenticationException(ErrorMessages.AUTHENTICATION_ERROR_MSG);
         }
 
@@ -30,9 +37,9 @@ namespace HPF.FutureState.WebServices
         /// Get Current CallCenterId
         /// </summary>
         /// <returns></returns>
-        protected int GetCallCenterId()
+        protected CallCenterDTO GetCallCenterInfo(int callCenterId)
         {
-            return SecurityBL.Instance.GetWSUser(Authentication.UserName).CallCenterId;
+            return SecurityBL.Instance.GetCallCenter(callCenterId);
         }
     }
 }

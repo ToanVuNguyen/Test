@@ -179,6 +179,45 @@ namespace HPF.FutureState.DataAccess
 
             return webUser;
         }
+        
+        public CallCenterDTO GetCallCenter(int callCenterId)
+        {
+            CallCenterDTO callCenter = new CallCenterDTO();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_call_center_get", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_call_center_id", callCenterId);                
+            //</Parameter>            
+            try
+            {
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    
+                    if (reader.Read())
+                    {
+                        callCenter.CallCenterID = ConvertToInt(reader["call_center_id"]);
+                        callCenter.CallCenterName = ConvertToString(reader["call_center_name"]);
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return callCenter;
+        }
         #endregion
     }
 }
