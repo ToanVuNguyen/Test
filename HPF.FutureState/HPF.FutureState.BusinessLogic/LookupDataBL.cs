@@ -71,6 +71,16 @@ namespace HPF.FutureState.BusinessLogic
             return result;
 
         }
+        /// <summary>
+        /// Get Servicer Name from FundingSourceId
+        /// </summary>
+        /// <param name="fundingSourceId"></param>
+        /// <returns></returns>
+        public ServicerDTOCollection GetServicerByFundingSourceId(int fundingSourceId)
+        {
+            ServicerDTOCollection result = InvoiceDAO.CreateInstance().AppGetServicerByFundingSourceId(fundingSourceId);
+            return result;
+        }
 
 
     }
