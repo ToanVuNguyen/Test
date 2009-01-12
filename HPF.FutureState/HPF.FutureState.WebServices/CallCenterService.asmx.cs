@@ -94,7 +94,7 @@ namespace HPF.FutureState.WebServices
                     //
                     if (callLogDTO != null)
                     {
-                        CallLogWSDTO callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
+                        CallLogWSReturnDTO callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
                         response.CallLog = callLogWSDTO;                        
                         response.Status = ResponseStatus.Success;
                     }
@@ -201,9 +201,9 @@ namespace HPF.FutureState.WebServices
             return destObject;
         }
 
-        private CallLogWSDTO ConvertToCallLogWSDTO(CallLogDTO sourceObject )
+        private CallLogWSReturnDTO ConvertToCallLogWSDTO(CallLogDTO sourceObject )
         {
-            CallLogWSDTO destObject = new CallLogWSDTO();
+            CallLogWSReturnDTO destObject = new CallLogWSReturnDTO();
             if (sourceObject.CallId != 0)
                 destObject.CallId = "HPF_" + Convert.ToString(sourceObject.CallId);
 

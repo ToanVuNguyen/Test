@@ -147,6 +147,7 @@
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseRequest.cs">
       <SubType>Code</SubType>
     </Compile>

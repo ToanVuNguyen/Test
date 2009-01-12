@@ -130,7 +130,7 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion
 
-        #region functions to serve SaveForeclosureCaseSet
+        #region Functions to serve SaveForeclosureCaseSet
 
         private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
@@ -239,7 +239,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 foreach (ExceptionMessage msg in ex)
                 {
-                    msgFcCaseSet.Add(msg.Message);
+                    string msgCombine = msg.ErrorCode +"--"+ msg.Message;
+                    msgFcCaseSet.Add(msgCombine);
                 }
             }
             if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
@@ -582,7 +583,7 @@ namespace HPF.FutureState.BusinessLogic
                     count = count + 1;                
             }
             if(count > 1)
-                msgFcCaseSet.Add("Have " + count + " Loan_1st_2nd with 1st value");
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR256"));
             if (caseComplete && count == 0)
                 msgFcCaseSet.Add("Must have Loan_1st_2nd with 1st value");
             return msgFcCaseSet;
@@ -1222,49 +1223,49 @@ namespace HPF.FutureState.BusinessLogic
             if (forclosureCase == null)
                 return null;
             if (!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00200"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR200"));
             if (!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00201"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR201"));
             if (!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00202"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR202"));
             if (!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00203"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR203"));
             if (!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
                 msgFcCaseSet.Add("An invalid code was provided for NeverBillReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
                 msgFcCaseSet.Add("An invalid code was provided for NeverPayReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00204"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR204"));
             if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00205"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR205"));
             if (!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00206"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR206"));
             if (!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00207"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR207"));
             if (!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00208"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR208"));
             if (!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00209"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR209"));
             if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00210"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR210"));
             if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00211"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR211"));
             if (!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00212"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR212"));
             if (!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00213"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR213"));
             if (!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00214"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR214"));
             if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
                 msgFcCaseSet.Add("An invalid code was provided for BorrowerOccupationCd.");
             if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
                 msgFcCaseSet.Add("An invalid code was provided for CoBorrowerOccupationCd.");
             if (!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00215"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR215"));
             if (!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00216"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR216"));
             if (!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
-                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("P-WS-SFC-00217"));
+                msgFcCaseSet.Add(ErrorMessages.GetExceptionMessageCombined("ERR217"));
             if (!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
                 msgFcCaseSet.Add("An invalid code was provided for IntakeCreditBureauCd.");
             return msgFcCaseSet;
@@ -1556,6 +1557,12 @@ namespace HPF.FutureState.BusinessLogic
             foreclosureCase.AmiPercentage = CalculateAmiPercentage();
             foreclosureCase.SummarySentDt = DateTime.Now;
             foreclosureCase.CaseCompleteInd = CASE_COMPLETE_IND_NO;
+            if (foreclosureCase.OptOutNewsletterInd == null)
+                foreclosureCase.OptOutNewsletterInd = "N";
+            if (foreclosureCase.OptOutSurveyInd == null)
+                foreclosureCase.OptOutSurveyInd = "N";
+            if (foreclosureCase.DoNotCallInd == null)
+                foreclosureCase.DoNotCallInd = "N";
             if (isComplete == true)
             {
                 foreclosureCase.CompletedDt = GetCompleteDate(fcId);

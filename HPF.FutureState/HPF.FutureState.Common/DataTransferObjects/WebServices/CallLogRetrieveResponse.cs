@@ -9,6 +9,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     [Serializable]
     public class CallLogRetrieveResponse : BaseResponse
     {
-        public CallLogWSDTO CallLog { get; set; }        
+        public CallLogWSReturnDTO CallLog { get; set; }        
     }
 }

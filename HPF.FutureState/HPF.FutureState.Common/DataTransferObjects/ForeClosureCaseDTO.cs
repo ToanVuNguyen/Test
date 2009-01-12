@@ -12,65 +12,65 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {        
         public int FcId { get; set; }
 
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = "P-WS-SFC-00100", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = "ERR100", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public int AgencyId { get; set; }
 
         public DateTime CompletedDt { get; set; }
 
         public int CallId { get; set; }
 
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = "P-WS-SFC-00101", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = "ERR101", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public int ProgramId { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00102", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR102", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string AgencyCaseNum { get; set; }
 
         public string AgencyClientNum { get; set; }
 
-        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = "P-WS-SFC-00103", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = "ERR103", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public DateTime IntakeDt { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00300", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN300", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string IncomeEarnersCd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00104", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR104", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string CaseSourceCd{ get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00301", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN301", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string RaceCd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00302", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN302", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HouseholdCd { get; set; }
 
         public string NeverBillReasonCd { get; set; }
 
         public string NeverPayReasonCd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00303", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN303", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string DfltReason1stCd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00304", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN304", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string DfltReason2ndCd { get; set; }
 
         public string HudTerminationReasonCd { get; set; }
 
         public DateTime HudTerminationDt { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00305", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN305", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HudOutcomeCd { get; set; }
 
         public int AmiPercentage { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00306", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN306", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string CounselingDurationCd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00307", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN307", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string GenderCd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00105", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR105", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string BorrowerFname { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00106", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR106", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string BorrowerLname { get; set; }
 
         public string BorrowerMname { get; set; }
@@ -81,7 +81,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string BorrowerLast4Ssn { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00308", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN308", Ruleset = "Complete", MessageTemplate = "Required!")]
         public DateTime BorrowerDob { get; set; }
 
         public string CoBorrowerFname { get; set; }
@@ -96,7 +96,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime CoBorrowerDob { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00107", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR107", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string PrimaryContactNo { get; set; }
 
         public string SecondContactNo { get; set; }
@@ -105,39 +105,39 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string Email2 { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00108", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR108", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string ContactAddr1 { get; set; }
 
         public string ContactAddr2 { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00109", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR109", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string ContactCity { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00110", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR110", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string ContactStateCd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00111", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR111", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string ContactZip { get; set; }
 
         public string ContactZipPlus4 { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00112", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR112", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string PropAddr1 { get; set; }
 
         public string PropAddr2 { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00113", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR113", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string PropCity { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00114", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR114", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string PropStateCd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00115", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR115", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string PropZip { get; set; }
 
         public string PropZipPlus4 { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00309", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN309", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string BankruptcyInd { get; set; }
 
         public string BankruptcyAttorney { get; set; }
@@ -154,20 +154,20 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CoBorrowerOccupationCd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00310", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN310", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HispanicInd { get; set; }
 
         public string DuplicateInd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00311", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN311", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string FcNoticeReceiveInd { get; set; }
 
         public string CaseCompleteInd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00116", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR116", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string FundingConsentInd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00117", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR117", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string ServicerConsentInd { get; set; }
 
         public string AgencyMediaConsentInd { get; set; }
@@ -190,46 +190,46 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime SummarySentDt { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00312", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN312", Ruleset = "Complete", MessageTemplate = "Required!")]
         public byte OccupantNum { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00313", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN313", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string LoanDfltReasonNotes { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00314", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN314", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string ActionItemsNotes { get; set; }
 
         public string FollowupNotes { get; set; }
         
         public decimal PrimResEstMktValue { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00118", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR118", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string AssignedCounselorIdRef{ get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00119", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR119", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string CounselorFname { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00120", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR120", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string CounselorLname { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00121", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR121", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string CounselorEmail { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00122", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR122", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string CounselorPhone { get; set; }
                 
         public string CounselorExt { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00315", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN315", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string DiscussedSolutionWithSrvcrInd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00316", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN316", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string WorkedWithAnotherAgencyInd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00317", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN317", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string ContactedSrvcrRecentlyInd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00318", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN318", Ruleset = "Complete", MessageTemplate = "Required!")]
         public string HasWorkoutPlanInd { get; set; }
 
         public string SrvcrWorkoutPlanCurrentInd { get; set; }
@@ -240,10 +240,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         public string DoNotCallInd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00123", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR123", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string OwnerOccupiedInd { get; set; }
 
-        [NotNullValidator(Tag = "P-WS-SFC-00124", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = "ERR124", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
         public string PrimaryResidenceInd { get; set; }
         
         public string RealtyCompany { get; set; }
@@ -262,7 +262,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string MilitaryServiceCd { get; set; }
 
-        [NotNullValidator(Tag = "W-WS-SFC-00320", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = "WARN319", Ruleset = "Complete", MessageTemplate = "Required!")]
         public decimal HouseholdGrossAnnualIncomeAmt{ get; set; }
 
         public string LoanList { get; set; }
