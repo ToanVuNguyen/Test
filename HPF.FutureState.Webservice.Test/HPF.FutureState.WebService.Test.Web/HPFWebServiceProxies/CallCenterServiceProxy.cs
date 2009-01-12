@@ -1003,6 +1003,7 @@ namespace HPF.Webservice.CallCenter
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseWSDTO))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogWSReturnDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogWSDTO))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -1039,6 +1040,316 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.changeLastUserIdField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class CallLogWSReturnDTO : BaseDTO
+    {
+
+        private string callIdField;
+
+        private System.DateTime startDateField;
+
+        private System.DateTime endDateField;
+
+        private string callCenterField;
+
+        private string reasonToCallField;
+
+        private string loanAccountNumberField;
+
+        private string firstNameField;
+
+        private string lastNameField;
+
+        private int servicerIdField;
+
+        private string otherServicerNameField;
+
+        private string propZipFull9Field;
+
+        private int prevAgencyIdField;
+
+        private string selectedAgencyIdField;
+
+        private string finalDispoCdField;
+
+        private string ccCallKeyField;
+
+        private string loanDelinqStatusCdField;
+
+        private string selectedCounselorField;
+
+        private string homeownerIndField;
+
+        private string powerOfAttorneyIndField;
+
+        private string authorizedIndField;
+
+        /// <remarks/>
+        public string CallId
+        {
+            get
+            {
+                return this.callIdField;
+            }
+            set
+            {
+                this.callIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public System.DateTime StartDate
+        {
+            get
+            {
+                return this.startDateField;
+            }
+            set
+            {
+                this.startDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public System.DateTime EndDate
+        {
+            get
+            {
+                return this.endDateField;
+            }
+            set
+            {
+                this.endDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CallCenter
+        {
+            get
+            {
+                return this.callCenterField;
+            }
+            set
+            {
+                this.callCenterField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ReasonToCall
+        {
+            get
+            {
+                return this.reasonToCallField;
+            }
+            set
+            {
+                this.reasonToCallField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanAccountNumber
+        {
+            get
+            {
+                return this.loanAccountNumberField;
+            }
+            set
+            {
+                this.loanAccountNumberField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string FirstName
+        {
+            get
+            {
+                return this.firstNameField;
+            }
+            set
+            {
+                this.firstNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LastName
+        {
+            get
+            {
+                return this.lastNameField;
+            }
+            set
+            {
+                this.lastNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public int ServicerId
+        {
+            get
+            {
+                return this.servicerIdField;
+            }
+            set
+            {
+                this.servicerIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string OtherServicerName
+        {
+            get
+            {
+                return this.otherServicerNameField;
+            }
+            set
+            {
+                this.otherServicerNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PropZipFull9
+        {
+            get
+            {
+                return this.propZipFull9Field;
+            }
+            set
+            {
+                this.propZipFull9Field = value;
+            }
+        }
+
+        /// <remarks/>
+        public int PrevAgencyId
+        {
+            get
+            {
+                return this.prevAgencyIdField;
+            }
+            set
+            {
+                this.prevAgencyIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SelectedAgencyId
+        {
+            get
+            {
+                return this.selectedAgencyIdField;
+            }
+            set
+            {
+                this.selectedAgencyIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string FinalDispoCd
+        {
+            get
+            {
+                return this.finalDispoCdField;
+            }
+            set
+            {
+                this.finalDispoCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CcCallKey
+        {
+            get
+            {
+                return this.ccCallKeyField;
+            }
+            set
+            {
+                this.ccCallKeyField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanDelinqStatusCd
+        {
+            get
+            {
+                return this.loanDelinqStatusCdField;
+            }
+            set
+            {
+                this.loanDelinqStatusCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SelectedCounselor
+        {
+            get
+            {
+                return this.selectedCounselorField;
+            }
+            set
+            {
+                this.selectedCounselorField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string HomeownerInd
+        {
+            get
+            {
+                return this.homeownerIndField;
+            }
+            set
+            {
+                this.homeownerIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PowerOfAttorneyInd
+        {
+            get
+            {
+                return this.powerOfAttorneyIndField;
+            }
+            set
+            {
+                this.powerOfAttorneyIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AuthorizedInd
+        {
+            get
+            {
+                return this.authorizedIndField;
+            }
+            set
+            {
+                this.authorizedIndField = value;
             }
         }
     }
@@ -1452,10 +1763,10 @@ namespace HPF.Webservice.CallCenter
     public partial class CallLogRetrieveResponse : BaseResponse
     {
 
-        private CallLogWSDTO callLogField;
+        private CallLogWSReturnDTO callLogField;
 
         /// <remarks/>
-        public CallLogWSDTO CallLog
+        public CallLogWSReturnDTO CallLog
         {
             get
             {
