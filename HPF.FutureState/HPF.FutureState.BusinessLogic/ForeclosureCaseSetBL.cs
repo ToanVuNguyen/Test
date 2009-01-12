@@ -235,8 +235,8 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseDTO>(foreclosureCase, ruleSet);            
-            if (ex != null)
+            ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
+            if (ex != null && ex.Count != 0)
             {
                 msgFcCaseSet.Add(ex);
             }
@@ -251,7 +251,9 @@ namespace HPF.FutureState.BusinessLogic
 
         private static ExceptionMessageCollection CheckOtherFieldFCaseForPartial(ForeclosureCaseDTO foreclosureCase)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();            
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (foreclosureCase == null)
+                return null;
             //-----CoBorrowerFname, CoBorrowerLname
             if (foreclosureCase.CoBorrowerFname == null && foreclosureCase.CoBorrowerLname != null)
                 msgFcCaseSet.AddExceptionMessage("A CoBorrowerFname is required to save a foreclosure case.");
@@ -287,21 +289,15 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
         {
-            if (budgetItemDTOCollection == null)            
-                return null;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            for (int i = 0; i < budgetItemDTOCollection.Count; i++)
+            if (budgetItemDTOCollection == null)
+                msgFcCaseSet.AddExceptionMessage("WARN335", ErrorMessages.GetExceptionMessageCombined("WARN335"));
+            foreach (BudgetItemDTO item in budgetItemDTOCollection)
             {
-                BudgetItemDTO item = budgetItemDTOCollection[i];
-                ValidationResults validationResults = HPFValidator.Validate<BudgetItemDTO>(item, ruleSet);
-                if (!validationResults.IsValid)
-                {
-                    foreach (ValidationResult result in validationResults)
-                    {
-                        msgFcCaseSet.AddExceptionMessage(result.Key + " " + (i + 1) + " is required");
-                    }
-                }
-            }
+                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<BudgetItemDTO>(item, ruleSet);
+                if (ex != null && ex.Count != 0)
+                    return ex;
+            }           
             return msgFcCaseSet;
         }
 
@@ -312,9 +308,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
         {
-            if (outcomeItemDTOCollection == null)
-                return null;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (outcomeItemDTOCollection == null)
+                msgFcCaseSet.AddExceptionMessage("An Outcome is required to save a foreclosure case.");            
             int outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
             for (int i = 0; i < outcomeItemDTOCollection.Count; i++)
             {
@@ -356,28 +352,30 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>       
         private ExceptionMessageCollection RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,string ruleSet)
         {
-            if (caseLoanDTOCollection == null)
-                return null;
-            int servicerId = FindServicerIDWithNameIsOther();
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            for (int i = 0; i < caseLoanDTOCollection.Count; i++)
+            if (caseLoanDTOCollection == null)
+                msgFcCaseSet.AddExceptionMessage("ERR126", ErrorMessages.GetExceptionMessageCombined("ERR126"));
+            int servicerId = FindServicerIDWithNameIsOther();            
+            foreach (CaseLoanDTO item in caseLoanDTOCollection)
             {
-                CaseLoanDTO item = caseLoanDTOCollection[i];
-                ValidationResults validationResults = HPFValidator.Validate<CaseLoanDTO>(item, ruleSet);
-                if (!validationResults.IsValid)
+                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<CaseLoanDTO>(item, ruleSet);
+                if (ex != null && ex.Count != 0)
                 {
-                    foreach (ValidationResult result in validationResults)
-                    {
-                        msgFcCaseSet.AddExceptionMessage(result.Key + " " + (i + 1) + " is required");
-                    }
+                    msgFcCaseSet.Add(ex);
+                    break;
                 }
-                if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+            }  
+            
+            if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+            {
+                for (int i = 0; i < caseLoanDTOCollection.Count; i++)
                 {
+                    CaseLoanDTO item = caseLoanDTOCollection[i];
                     ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId, i, item);
                     if (msgOther != null)
                         msgFcCaseSet.Add(msgOther);
                 }
-            }
+            }            
             return msgFcCaseSet;
         }
 

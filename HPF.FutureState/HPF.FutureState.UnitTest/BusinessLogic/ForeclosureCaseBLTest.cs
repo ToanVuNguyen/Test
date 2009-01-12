@@ -881,6 +881,23 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }       
         #endregion
 
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CompleteValidation()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
+            bool expected = false; // TODO: Initialize to an appropriate value
+            bool actual;
+            actual = target.CheckComplete(foreclosureCaseSet);
+            target.RollbackTransaction();
+            Assert.AreEqual(expected, actual);
+        }
+        
         #region CheckRequireField
         /// <summary>
         ///A test for RequireFieldsValidation
@@ -1161,8 +1178,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
-                budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-                budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("900.08");
+                //budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
+                //budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("900.08");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1174,8 +1191,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 //
                 budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
-                budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-                budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300.05");
+                //budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
+                //budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300.05");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1259,9 +1276,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 for (int i = 0; i < 3; i++)
                 {
                     CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
-                    caseLoanDTO.ServicerId = Convert.ToInt32("1");
+                    caseLoanDTO.ServicerId = Convert.ToInt32("12982");
                     caseLoanDTO.AcctNum = "Test";
-                    caseLoanDTO.Loan1st2nd = "1st";
+                    //caseLoanDTO.Loan1st2nd = "1st";
                     caseLoanDTO.MortgageTypeCd = "";                    
                     caseLoanDTO.TermLengthCd = "";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
