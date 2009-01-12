@@ -132,6 +132,8 @@ h2
     top: expression(offsetParent.scrollTop);
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
+     background-color:#507CD1;
+     color:White;
   
 }
 .ScrollTable
