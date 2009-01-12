@@ -9,6 +9,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class BaseDTOCollection<T> : Collection<T>
     {
-
+        public void Add(Collection<T> collection)
+        {
+            if (collection == null) return;
+            foreach (var col in collection)
+            {
+                Add(col);
+            }
+        }
     }
 }

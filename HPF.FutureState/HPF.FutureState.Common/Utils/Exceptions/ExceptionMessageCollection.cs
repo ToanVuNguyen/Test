@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.Common.Utils.Exceptions
 {
-    public class ExceptionMessageCollection : Collection<ExceptionMessage>
+    public class ExceptionMessageCollection : BaseDTOCollection<ExceptionMessage>
     {      
         public void AddExceptionMessage(string message)
         {
