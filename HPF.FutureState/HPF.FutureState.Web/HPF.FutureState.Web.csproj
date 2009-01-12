@@ -77,6 +77,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx.cs">
+      <DependentUpon>AgencyAccountsPayableUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx.designer.cs">
+      <DependentUpon>AgencyAccountsPayableUC.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppForeclosureCaseDetailPage.aspx.cs">
       <DependentUpon>AppForeclosureCaseDetailPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -259,8 +266,16 @@
     <Compile Include="NewAgencyPayableResults.aspx.designer.cs">
       <DependentUpon>NewAgencyPayableResults.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AgencyAccountsPayable.aspx.cs">
+      <DependentUpon>AgencyAccountsPayable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgencyAccountsPayable.aspx.designer.cs">
+      <DependentUpon>AgencyAccountsPayable.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
     <Content Include="AppForeclosureCaseDetailPage.aspx" />
     <Content Include="AppForeClosureCaseSearchPage.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
@@ -304,6 +319,7 @@
     <Content Include="Styles\Images\topnavbg.jpg" />
     <Content Include="NewPayableCriteria.aspx" />
     <Content Include="NewAgencyPayableResults.aspx" />
+    <Content Include="AgencyAccountsPayable.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
@@ -342,6 +358,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
