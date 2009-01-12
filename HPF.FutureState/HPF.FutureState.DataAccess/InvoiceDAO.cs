@@ -7,6 +7,7 @@ using System.Data;
 
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -130,35 +131,82 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public FundingSourceDTOCollection AppGetFundingSource()
         {
-            FundingSourceDTOCollection result = new FundingSourceDTOCollection();
-
-            var dbConnection = CreateConnection();
-            var command = new SqlCommand("hpf_funding_source_get", dbConnection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Connection = dbConnection;
-            try
+            FundingSourceDTOCollection result = HPFCacheManager.Instance.GetData<FundingSourceDTOCollection>("fundingSource");
+            if (result == null)
             {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
+                result = new FundingSourceDTOCollection();
+                var dbConnection = CreateConnection();
+                var command = new SqlCommand("hpf_funding_source_get", dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Connection = dbConnection;
+                try
                 {
-                    while (reader.Read())
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        var item = new FundingSourceDTO();
-                        item.FundingSourceID = ConvertToInt(reader["funding_source_id"]);
-                        item.FundingSourceName = ConvertToString(reader["funding_source_name"]);
-                        result.Add(item);
+                        while (reader.Read())
+                        {
+                            var item = new FundingSourceDTO();
+                            item.FundingSourceID = ConvertToInt(reader["funding_source_id"]);
+                            item.FundingSourceName = ConvertToString(reader["funding_source_name"]);
+                            result.Add(item);
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
+                    HPFCacheManager.Instance.Add("fundingSource", result);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
                 }
             }
-            catch (Exception ex)
+            return result;
+        }
+
+        public ServicerDTOCollection AppGetServicerByFundingSourceId(int fundingSourceId)
+        {
+            
+            ServicerDTOCollection result = HPFCacheManager.Instance.GetData<ServicerDTOCollection>("servicerCollection");
+            if (result == null)
             {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-            finally
-            {
-                dbConnection.Close();
+                result = new ServicerDTOCollection();
+                var dbConnection = CreateConnection();
+                var command = new SqlCommand("hpf_servicer_get", dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Connection = dbConnection;
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_funding_source_id", fundingSourceId);
+                command.Parameters.AddRange(sqlParam);
+                try
+                {
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var item = new ServicerDTO();
+                            item.ServicerID = ConvertToInt(reader["servicer_id"]);
+                            item.ServicerName = ConvertToString(reader["servicer_name"]);
+                            result.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add("servicerCollection", result);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
             }
             return result;
         }
