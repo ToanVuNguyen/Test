@@ -64,11 +64,13 @@ namespace HPF.FutureState.Web
                     lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
                     lblErrorMessage.Text += " <br>";
                 }
+                ExceptionProcessor.HandleException(ex);
 
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Text += ex.Message;
+                ExceptionProcessor.HandleException(ex);
             }
            
 
