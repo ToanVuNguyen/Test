@@ -36,7 +36,7 @@ namespace HPF.FutureState.WebService.Test.Web
             CallLogRetrieveResponse callLogRetrieveResponse = new CallLogRetrieveResponse();
             callLogRetrieveResponse = proxy.RetrieveCallLog(callLogRetrieveRequest);
                          
-            CallLogWSDTO callLogWSDTO = callLogRetrieveResponse.CallLog;           
+            CallLogWSReturnDTO callLogWSDTO = callLogRetrieveResponse.CallLog;           
             
             lbl_Status.Text = callLogRetrieveResponse.Status.ToString();
             if (lbl_Status.Text != "Success")
