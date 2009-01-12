@@ -50,6 +50,24 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices {
         protected global::System.Web.UI.WebControls.Button btnRefreshList;
         
         /// <summary>
+        /// lblInvoiceList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvoiceList;
+        
+        /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        
+        /// <summary>
         /// panForeClosureCaseSearch control.
         /// </summary>
         /// <remarks>
@@ -59,13 +77,13 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices {
         protected global::System.Web.UI.WebControls.Panel panForeClosureCaseSearch;
         
         /// <summary>
-        /// grvForeClosureCaseSearch control.
+        /// grvFundingSourceInvoices control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grvForeClosureCaseSearch;
+        protected global::System.Web.UI.WebControls.GridView grvFundingSourceInvoices;
         
         /// <summary>
         /// btnNewInvoice control.
