@@ -29,6 +29,19 @@
             
                     </td>
                 </tr>
+                <tr>
+                    <td align="right">
+            <asp:Label CssClass="sidelinks" ID="Label8" runat="server" Text="User type"></asp:Label>
+                    </td>
+                    <td>
+            <asp:DropDownList runat="server" ID="ddlUserType">
+            <asp:ListItem>Both</asp:ListItem>
+            <asp:ListItem>Agency</asp:ListItem>
+            <asp:ListItem>Call Center</asp:ListItem>
+            </asp:DropDownList>
+            
+                    </td>
+                </tr>
             </table>
             <br />
             <br />

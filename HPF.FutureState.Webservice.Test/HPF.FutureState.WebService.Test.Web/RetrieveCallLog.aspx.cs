@@ -24,6 +24,9 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
             CallCenterService proxy = new CallCenterService();
+            
+
+            
 
             AuthenticationInfo ai = new AuthenticationInfo();
             ai.UserName = txtUsername.Text.Trim();
@@ -37,6 +40,7 @@ namespace HPF.FutureState.WebService.Test.Web
             callLogRetrieveResponse = proxy.RetrieveCallLog(callLogRetrieveRequest);
                          
             CallLogWSReturnDTO callLogWSDTO = callLogRetrieveResponse.CallLog;           
+
             
             lbl_Status.Text = callLogRetrieveResponse.Status.ToString();
             if (lbl_Status.Text != "Success")
