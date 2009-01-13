@@ -436,6 +436,33 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// update Foreclosure Case only
+        /// update Duplicate_Ind field only
+        /// </summary>
+        /// <param name="fcid">id of foreclosure case</param>
+        /// <param name="ind">Y or N</param>
+        public void UpdateFcCase_DuplicateIndicator(int fcid, string ind)
+        {
+            //throw NotImplementedException;
+            var command = CreateCommand("hpf_foreclosure_case_update_duplicate", this.dbConnection);
+            try
+            {
+                var sqlParam = new SqlParameter[2];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcid);
+                sqlParam[1] = new SqlParameter("@pi_duplicate_ind", ind);
+
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
+
+        /// <summary>
         /// Insert a Case Loan to database.
         /// </summary>
         /// <param name="caseLoan">CaseLoanDTO</param>

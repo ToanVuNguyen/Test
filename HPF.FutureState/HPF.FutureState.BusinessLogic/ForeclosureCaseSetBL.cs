@@ -158,7 +158,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 //Update Duplicate_ind for fcCase
                 //not implemented yet
-
+                UpdateFcCase_DuplicateIndicator(foreclosureCaseSet.ForeclosureCase.FcId, "Y");
                 //Throw Duplicate Exception
                 ThrowDuplicateCaseException(collection);
             }
@@ -1798,7 +1798,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private void UpdateFcCase_DuplicateIndicator(int fcid, string ind)
         {
-            //foreclosureCaseSetDAO.
+            foreclosureCaseSetDAO.UpdateFcCase_DuplicateIndicator(fcid, ind);
         }
 
         #region Throw Detail Exception
