@@ -7,6 +7,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
     public class ForeclosureCaseSaveResponse : BaseResponse
     {
-
+        public int FcId { get; set; }
     }
 }

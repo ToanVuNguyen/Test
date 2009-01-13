@@ -35,7 +35,7 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())//Authentication checking                
                 {
                     
-                    ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
+                    response.FcId = ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
                     response.Status = ResponseStatus.Success;
                 }
             }
