@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+
 using System.ComponentModel;
 
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
     public class ForeclosureCaseDTO : BaseDTO
     {        
+        private const string RULE_SET_LENGTH = "Length";
         public int FcId { get; set; }
 
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = "ERR100", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
@@ -23,6 +26,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int ProgramId { get; set; }
 
         [NotNullValidator(Tag = "ERR102", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NullableOrStringLengthValidator(false , 30, Ruleset = RULE_SET_LENGTH)]
         public string AgencyCaseNum { get; set; }
 
         public string AgencyClientNum { get; set; }
