@@ -144,8 +144,8 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         private void ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {            
-            DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet.ForeclosureCase);
+        {
+            DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
             if (collection != null)
             {
                 ThrowDuplicateCaseException(collection);
@@ -479,12 +479,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Check Duplicated Fore Closure Case
         /// </summary>
-        private DuplicatedCaseLoanDTOCollection CheckDuplicateCase(ForeclosureCaseDTO foreclosureCase)
-        {            
-            if (foreclosureCase.FcId > 0)
-                return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.FcId);
-            else
-                return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.AgencyId, foreclosureCase.AgencyCaseNum);
+        private DuplicatedCaseLoanDTOCollection CheckDuplicateCase(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCaseSet);
+            //if (foreclosureCase.FcId > 0)
+            //    return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.FcId);
+            //else
+            //    return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.AgencyId, foreclosureCase.AgencyCaseNum);
         }
 
         /// <summary>
@@ -1733,7 +1734,8 @@ namespace HPF.FutureState.BusinessLogic
         #region Throw Detail Exception
         private void ThrowMissingRequiredFieldsException(ExceptionMessageCollection collection)
         {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISSING_REQUIRED_FIELD);            
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISSING_REQUIRED_FIELD);
+            pe.ExceptionMessages = collection;
             //foreach (string obj in collection)
             //{
             //    ExceptionMessage em = new ExceptionMessage();
@@ -1746,6 +1748,7 @@ namespace HPF.FutureState.BusinessLogic
         private void ThrowInvalidCodeException(ExceptionMessageCollection collection)
         {
             DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_CODE);
+            pe.ExceptionMessages = collection;
             //foreach (string obj in collection)
             //{
             //    ExceptionMessage em = new ExceptionMessage();
@@ -1782,6 +1785,7 @@ namespace HPF.FutureState.BusinessLogic
         private void ThrowMiscException(ExceptionMessageCollection exceptionList)
         {
             DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
+            pe.ExceptionMessages = exceptionList;
             //foreach (string obj in exceptionList)
             //{
             //    ExceptionMessage em = new ExceptionMessage();
