@@ -170,44 +170,41 @@ namespace HPF.FutureState.DataAccess
 
         public ServicerDTOCollection AppGetServicerByFundingSourceId(int fundingSourceId)
         {
-            
-            ServicerDTOCollection result = HPFCacheManager.Instance.GetData<ServicerDTOCollection>("servicerCollection");
-            if (result == null)
+
+            ServicerDTOCollection result = new ServicerDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = new SqlCommand("hpf_servicer_get", dbConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = dbConnection;
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_funding_source_id", fundingSourceId);
+            command.Parameters.AddRange(sqlParam);
+            try
             {
-                result = new ServicerDTOCollection();
-                var dbConnection = CreateConnection();
-                var command = new SqlCommand("hpf_servicer_get", dbConnection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Connection = dbConnection;
-                SqlParameter[] sqlParam = new SqlParameter[1];
-                sqlParam[0] = new SqlParameter("@pi_funding_source_id", fundingSourceId);
-                command.Parameters.AddRange(sqlParam);
-                try
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    dbConnection.Open();
-                    var reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var item = new ServicerDTO();
-                            item.ServicerID = ConvertToInt(reader["servicer_id"]);
-                            item.ServicerName = ConvertToString(reader["servicer_name"]);
-                            result.Add(item);
-                        }
-                        reader.Close();
+                        var item = new ServicerDTO();
+                        item.ServicerID = ConvertToInt(reader["servicer_id"]);
+                        item.ServicerName = ConvertToString(reader["servicer_name"]);
+                        result.Add(item);
                     }
-                    HPFCacheManager.Instance.Add("servicerCollection", result);
+                    reader.Close();
                 }
-                catch (Exception ex)
-                {
-                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-                }
-                finally
-                {
-                    dbConnection.Close();
-                }
+        
             }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            
             return result;
         }
     }
