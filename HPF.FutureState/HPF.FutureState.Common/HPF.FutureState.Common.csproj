@@ -77,6 +77,7 @@
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallCenterDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
     <Compile Include="DataTransferObjects\InvoiceSearchResultDTOCollection.cs" />
