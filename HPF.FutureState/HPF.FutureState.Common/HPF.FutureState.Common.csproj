@@ -151,14 +151,8 @@
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTO.cs" />
-    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseRequest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataTransferObjects\WebServices\ForeClosureCaseResponse.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseInsertRequest.cs" />
-    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseInsertResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSaveRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSaveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseWSDTO.cs" />

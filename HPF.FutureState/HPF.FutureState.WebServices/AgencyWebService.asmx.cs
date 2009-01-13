@@ -27,9 +27,9 @@ namespace HPF.FutureState.WebServices
     {
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public ForeclosureCaseInsertResponse SaveForeclosureCase(ForeclosureCaseInsertRequest request)
+        public ForeclosureCaseSaveResponse SaveForeclosureCase(ForeclosureCaseSaveRequest request)
         {
-            var response = new ForeclosureCaseInsertResponse();
+            var response = new ForeclosureCaseSaveResponse();
             try
             {
                 if (IsAuthenticated())//Authentication checking                
