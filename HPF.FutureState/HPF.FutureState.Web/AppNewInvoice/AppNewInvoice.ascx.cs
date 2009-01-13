@@ -22,7 +22,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
                 FundingSourceDatabind();
+                ProgramDatabind();
+            }
         }
         private void FundingSourceDatabind()
         {
@@ -33,8 +36,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.DataBind();
             dropFundingSource.Items.FindByText("ALL").Selected = true;
         }
-
-        void dropFundingSource_SelectedIndexChanged(object sender, EventArgs e)
+        private void ProgramDatabind()
+        {
+            ProgramDTOCollection programCollection = LookupDataBL.Instance.GetProgram();
+            dropProgram.DataValueField = "ProgramID";
+            dropProgram.DataTextField = "ProgramName";
+            dropProgram.DataSource = programCollection;
+            dropProgram.DataBind();
+            dropProgram.Items.FindByText("ALL").Selected = true;
+        }
+        protected void dropFundingSource_SelectedIndexChanged1(object sender, EventArgs e)
         {
             if (int.Parse(dropFundingSource.SelectedValue) == -1)
                 return;
@@ -49,6 +60,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             lst_FundingSourceGroup.DataSource = servicers;
             lst_FundingSourceGroup.DataBind();
+            
         }
     }
 }

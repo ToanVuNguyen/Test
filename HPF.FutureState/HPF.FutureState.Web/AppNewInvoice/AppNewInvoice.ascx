@@ -18,7 +18,7 @@
             &nbsp;
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
                 AutoPostBack="True" 
-                onselectedindexchanged="dropFundingSource_SelectedIndexChanged">
+                onselectedindexchanged="dropFundingSource_SelectedIndexChanged1">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
@@ -26,6 +26,10 @@
             Case Completed:</td>
         <td>
             <asp:DropDownList ID="dropCaseCompleted" runat="server" CssClass="Text">
+                <asp:ListItem Selected="True" Value="0">Not Selected
+                </asp:ListItem>
+                <asp:ListItem Value="1">Yes</asp:ListItem>
+                <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
@@ -37,16 +41,31 @@
         <td>
             &nbsp;</td>
         <td colspan="4" rowspan="3">
-            <asp:DataList ID="lst_FundingSourceGroup" runat="server" Height="40px">
+            <div style="height:60px; overflow:auto;border:solid 1px #8FC4F6">
+            
+            <asp:DataList ID="lst_FundingSourceGroup" runat="server" Width="100%" 
+                CellPadding="4" ForeColor="#333333" CssClass="Text">
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <AlternatingItemStyle BackColor="White" />
+                <ItemStyle BorderColor="#8FC4F6" BorderStyle="Solid" BorderWidth="1px" 
+                    BackColor="#EFF3FB" />
+                <SelectedItemStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%#Eval("ServicerName") %>'></asp:Label>
                 </ItemTemplate>
             </asp:DataList>
+            
+            </div>
         </td>
         <td align="right" class="sidelinks">
             Already Billed:</td>
         <td>
             <asp:DropDownList ID="dropAlreadyBilled" runat="server" CssClass="Text">
+                <asp:ListItem Selected="True" Value="0">Not Selected
+                </asp:ListItem>
+                <asp:ListItem Value="1">Yes</asp:ListItem>
+                <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
@@ -60,6 +79,10 @@
             Servicer Consent:</td>
         <td>
             <asp:DropDownList ID="dropServicerConsent" runat="server" CssClass="Text">
+                <asp:ListItem Selected="True" Value="0">Not Selected
+                </asp:ListItem>
+                <asp:ListItem Value="1">Yes</asp:ListItem>
+                <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
@@ -83,7 +106,7 @@
             &nbsp;
             Program:</td>
         <td colspan="4">
-            <asp:DropDownList ID="dropCaseCompleted0" runat="server" CssClass="Text">
+            <asp:DropDownList ID="dropProgram" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
@@ -135,14 +158,18 @@
             Duplicates:</td>
         <td colspan="4">
             <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
+                <asp:ListItem Selected="True" Value="0">Not Selected
+                </asp:ListItem>
+                <asp:ListItem Value="1">Yes</asp:ListItem>
+                <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
-            &nbsp;</td>
+            </td>
         <td>
-            &nbsp;</td>
+            </td>
         <td>
-            &nbsp;</td>
+            </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
@@ -246,3 +273,5 @@
             &nbsp;</td>
     </tr>
 </table>
+</ContentTemplate>
+                
