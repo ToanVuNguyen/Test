@@ -16,7 +16,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime PeriodStartDate { get; set; }
         public DateTime PeriodEndDate { get; set; }
         public decimal PaymentAmount { get; set; }
-      
+        public DateTime PaymentDate { get; set; }
         public int AgencyPayableId { get; set; }
         public string NFMCDiffererencePaidIndicator { get; set; }
     }
