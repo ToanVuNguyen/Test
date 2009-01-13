@@ -104,30 +104,39 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.Label lblMessage;
         
         /// <summary>
-        /// txtPeriodStartRangeValidator control.
+        /// reqtxtPeriodStart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator txtPeriodStartRangeValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtPeriodStart;
         
         /// <summary>
-        /// txtPeriodStartRFV control.
+        /// reqtxtPeriodEnd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator txtPeriodStartRFV;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtPeriodEnd;
         
         /// <summary>
-        /// txtPeriodEndRangeValidator control.
+        /// cmptxtPeriodStart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator txtPeriodEndRangeValidator;
+        protected global::System.Web.UI.WebControls.CompareValidator cmptxtPeriodStart;
+        
+        /// <summary>
+        /// cmptxtPeriodEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmptxtPeriodEnd;
     }
 }

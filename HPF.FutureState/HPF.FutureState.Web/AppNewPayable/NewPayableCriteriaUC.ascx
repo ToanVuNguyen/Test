@@ -113,10 +113,11 @@
     <tr>
         <td colspan="5">
            <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text="" ></asp:Label>
-           <asp:RangeValidator ID="txtPeriodStartRangeValidator" runat="server"  Display="Dynamic" ErrorMessage="Input correct format date." ControlToValidate="txtPeriodStart" MinimumValue="1/1/1900" Type="Date"></asp:RangeValidator>
-           <asp:RequiredFieldValidator ID="txtPeriodStartRFV" runat="server" Display="Dynamic" ErrorMessage="Must input value"  ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
-           <asp:RangeValidator ID="txtPeriodEndRangeValidator" runat="server" Display="Dynamic" ErrorMessage="Input correct format date" ControlToValidate="txtPeriodEnd" MinimumValue="1/1/1900" Type="Date"></asp:RangeValidator>
-           <%--<asp:RegularExpressionValidator ID="txtPeriodEndRegularExp" runat="server" Display="Dynamic" ErrorMessage="" ValidationExpression="^\d[1]$" ControlToValidate="txtPeriodEnd" ></asp:RegularExpressionValidator>--%>
+           <asp:RequiredFieldValidator ID="reqtxtPeriodStart"  Display="Dynamic" runat="server" ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
+    <asp:RequiredFieldValidator ID="reqtxtPeriodEnd" Display="Dynamic"  runat="server" ErrorMessage="Must input date" ControlToValidate="txtPeriodEnd"></asp:RequiredFieldValidator>
+    <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodStart" ValueToCompare="1/1/1900" Operator="GreaterThan"></asp:CompareValidator>
+    <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan"></asp:CompareValidator>
+   
            </td>
     </tr>
 </table>
