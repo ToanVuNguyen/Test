@@ -81,7 +81,17 @@ namespace HPF.FutureState.BusinessLogic
             ServicerDTOCollection result = InvoiceDAO.CreateInstance().AppGetServicerByFundingSourceId(fundingSourceId);
             return result;
         }
-
+        public RefCodeItemDTOCollection GetRefCode(string refCodeSetName)
+        {
+            RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
+            var items = from codeItem in refCodeItemCollection
+                        where codeItem.RefCodeSetName == refCodeSetName
+                                     select codeItem;
+            RefCodeItemDTOCollection result = new RefCodeItemDTOCollection();
+            foreach (var item in items)
+                result.Add(item);
+            return result;
+        }
 
     }
 }
