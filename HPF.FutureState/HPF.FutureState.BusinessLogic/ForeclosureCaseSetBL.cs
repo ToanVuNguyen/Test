@@ -19,14 +19,15 @@ namespace HPF.FutureState.BusinessLogic
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
        
-        const string LOAN_1ST = "1ST";
-        const string INCOME = "1";
-        const string EXPENSES = "2";
-        const string CASE_COMPLETE_IND_YES = "Y";
-        const string CASE_COMPLETE_IND_NO = "N";
-        const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
-        const string RULESET_COMPLETE = "Complete";
-        const string PAYABLE_IND = "Y";
+        private const string LOAN_1ST = "1ST";
+        private const string INCOME = "1";
+        private const string EXPENSES = "2";
+        private const string CASE_COMPLETE_IND_YES = "Y";
+        private const string CASE_COMPLETE_IND_NO = "N";
+        private const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
+        private const string RULESET_COMPLETE = "Complete";
+        private const string RULESET_LENGTH = "Length";
+        private const string PAYABLE_IND = "Y";        
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
             
@@ -499,6 +500,37 @@ namespace HPF.FutureState.BusinessLogic
             return foreclosureCaseSetDAO.CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
+        #region Check Max Length
+        private ExceptionMessageCollection CheckMaxLength(ForeclosureCaseSetDTO fCaseSet)
+        {
+            ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, RULESET_LENGTH);
+            ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, RULESET_LENGTH);
+            if (msgBudgetAsset.Count != 0)
+                ex.Add(msgBudgetAsset);
+            if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.BorrowerDob))
+                ex.AddExceptionMessage("Age of the Borrower must be >=12 and <=110");
+            if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
+                ex.AddExceptionMessage("Age of the Co_borrower must be >=12 and <=110");
+            return ex;
+        }   
+
+        /// <summary>
+        /// Check MaxLength for budgetAsset
+        /// </summary>
+        private ExceptionMessageCollection RequireFieldsBudgetAsset(BudgetAssetDTOCollection budgetAssetDTOCollection, string ruleSet)
+        {
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (budgetAssetDTOCollection == null)
+                return null;
+            foreach (BudgetAssetDTO item in budgetAssetDTOCollection)
+            {
+                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<BudgetAssetDTO>(item, ruleSet);
+                if (ex != null && ex.Count != 0)
+                    return ex;
+            }
+            return msgFcCaseSet;
+        }
+        #endregion
         #region CheckDateOfBirth
         private bool CheckDateOfBirth(DateTime dateOfBirth)
         {
