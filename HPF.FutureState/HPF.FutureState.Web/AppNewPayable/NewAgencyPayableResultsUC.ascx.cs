@@ -12,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.Web.AppNewPayable
 {
@@ -59,29 +60,34 @@ namespace HPF.FutureState.Web.AppNewPayable
             string indicator = Request.QueryString["indicator"].ToString();
 
             agencyPayableSearchCriteria.AgencyId = agencyid;
-            if (casecomplete == "Y")
-                agencyPayableSearchCriteria.CaseComplete = CustomBoolean.Y;
-            if (casecomplete == "N")
-                agencyPayableSearchCriteria.CaseComplete = CustomBoolean.N;
-            else agencyPayableSearchCriteria.CaseComplete = CustomBoolean.None;
+            agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
+            //if (casecomplete == "Y")
+            //    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.Y;
+            //if (casecomplete == "N")
+            //    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.N;
+            //else agencyPayableSearchCriteria.CaseComplete = CustomBoolean.None;
 
             agencyPayableSearchCriteria.PeriodStartDate = periodstartdate;
-            if (servicerconsent == "Y")
-                agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.Y;
-            if (servicerconsent == "N")
-                agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.N;
-            else
-                agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.None;
+            agencyPayableSearchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), servicerconsent);
+            //if (servicerconsent == "Y")
+            //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.Y;
+            //if (servicerconsent == "N")
+            //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.N;
+            //else
+            //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.None;
             agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
-            if (fundingconsent == "Y")
-                agencyPayableSearchCriteria.FundingConsent = CustomBoolean.Y;
-            if (fundingconsent == "Y")
-                agencyPayableSearchCriteria.FundingConsent = CustomBoolean.N;
-            else
-                agencyPayableSearchCriteria.FundingConsent = CustomBoolean.None;
+
+            agencyPayableSearchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), fundingconsent);
+            //if (fundingconsent == "Y")
+            //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.Y;
+            //if (fundingconsent == "Y")
+            //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.N;
+            //else
+            //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.None;
 
             agencyPayableSearchCriteria.MaxNumberOfCase = maxnumbercase;
             agencyPayableSearchCriteria.LoanIndicator = indicator;
+            
             return agencyPayableSearchCriteria;
         }
         protected void BindGridView()
@@ -102,26 +108,31 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
-                grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
-                this.FCDraftCol = agencyPayableDraftDTO.ForclosureCaseDrafts;
-                grvInvoiceItems.DataBind();
-
-                lblAgency.Text = agencyPayableSearchCriteria.AgencyId.ToString();
-                lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
-                lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
-                lblTotalAmount.Text = agencyPayableDraftDTO.TotalAmount.ToString();
-                lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
-                lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
-                decimal total = 0;
-                foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
+                if (agencyPayableDraftDTO != null)
                 {
-                    total = +item.Amount;
+                    grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
+                    this.FCDraftCol = agencyPayableDraftDTO.ForclosureCaseDrafts;
+                    grvInvoiceItems.DataBind();
+
+                    lblAgency.Text = agencyPayableSearchCriteria.AgencyId.ToString();
+                    lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
+                    lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
+                    lblTotalAmount.Text = agencyPayableDraftDTO.TotalAmount.ToString();
+                    lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
+                    lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
+                    decimal total = 0;
+                    foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
+                    {
+                        total = +item.Amount;
+                    }
+                    lblInvoiceTotalFooter.Text = total.ToString();
                 }
-                lblInvoiceTotalFooter.Text = total.ToString();
+                else lblMessage.Text = "no data";
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
             }
         }
 
@@ -147,17 +158,20 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+                
             }
         }
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
-            int rownum;
-            foreach (GridViewRow row in grvInvoiceItems.Rows)
+            int rownum,i;
+            for(i=grvInvoiceItems.Rows.Count;i==0;i--)
+            //foreach (GridViewRow row in grvInvoiceItems.Rows)
             {
-                CheckBox chkdel = (CheckBox)row.FindControl("chkCaseID");
+                CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
                 if (chkdel.Checked == true)
                 {
-                    rownum = row.RowIndex;
+                    rownum = grvInvoiceItems.Rows[i].RowIndex;
                     ForeclosureCaseDraftDTO agency = this.FCDraftCol[rownum];
                     this.FCDraftCol.Remove(agency);
                 }
