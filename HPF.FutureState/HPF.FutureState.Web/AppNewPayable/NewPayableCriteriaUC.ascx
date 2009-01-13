@@ -28,9 +28,10 @@
             Case Completed:</td>
         <td>
             <asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text">
+             <asp:ListItem Value="None" Text=""></asp:ListItem>
             <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="No"></asp:ListItem>
-            <asp:ListItem Value="" Text=""></asp:ListItem>
+            
             
             </asp:DropDownList>
         </td>
@@ -52,9 +53,9 @@
             Servicer Consent:</td>
         <td>
             <asp:DropDownList ID="ddlServicerConsent" runat="server" CssClass="Text">
+            <asp:ListItem Value="None" Text=""></asp:ListItem>
             <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="No"></asp:ListItem>
-            <asp:ListItem Value="" Text=""></asp:ListItem>
             
             </asp:DropDownList>
         </td>
@@ -71,9 +72,10 @@
             Funding Consent:</td>
         <td>
             <asp:DropDownList ID="ddlFundingConsent" runat="server" CssClass="Text">
+             <asp:ListItem Value="None" Text=""></asp:ListItem>
             <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="No"></asp:ListItem>
-            <asp:ListItem Value="" Text=""></asp:ListItem>
+           
             
             </asp:DropDownList>
         </td>
@@ -102,7 +104,7 @@
             1<sup>st</sup> 2<sup>nd </sup>Indicator:</td>
         <td>
             <asp:DropDownList ID="ddlIndicator" runat="server" CssClass="Text">
-            <asp:ListItem Value="" Text=""></asp:ListItem>
+            <asp:ListItem Value="None" Text=""></asp:ListItem>
             <asp:ListItem Value="1st" Text="1st Mortgage"></asp:ListItem>
             <asp:ListItem Value="2nd" Text="2nd Mortgate"></asp:ListItem>
             </asp:DropDownList>

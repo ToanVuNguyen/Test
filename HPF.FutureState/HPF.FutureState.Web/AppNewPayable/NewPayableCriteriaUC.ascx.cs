@@ -97,12 +97,12 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     lblMessage.Text += ex.ExceptionMessages[i].Message;
                 }
-                ExceptionProcessor.HandleException(ex);
+                //ExceptionProcessor.HandleException(ex);
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                //ExceptionProcessor.HandleException(ex);
                 
             }
         }
