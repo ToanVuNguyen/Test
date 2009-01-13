@@ -4,7 +4,7 @@
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <div style="text-align:left"><h1>Insert CallLog</h1></div>
     <table style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF" width="100%">
-    <tr>
+        <tr>
         <td align="left">
             <table>
                 <tr>
@@ -35,14 +35,25 @@
             <br />
         </td>
         </tr>
-        </table>
+    </table>
     <div>
-    <table>
+    
     <br />
 
     
     <asp:Table ID="Table1" runat="server">
         
+        <asp:TableRow ID="TableRow4" runat="server">
+            <asp:TableCell ID="TableCell57" runat="server">
+                <asp:Label CssClass="sidelinks" ID="Label30" runat="server" Text="Select file"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell58" runat="server" ColumnSpan="2">
+                <asp:FileUpload ID="fileUpload" runat="server"  />                
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell59" runat="server" ColumnSpan="2">
+                <asp:Button id="UploadBtn" Text="Read File" OnClick="UploadBtn_Click" runat="server" Width="105px" />
+            </asp:TableCell>
+        </asp:TableRow>
         
         <asp:TableRow ID="TableRow1" runat="server">
             <asp:TableCell ID="TableCell1" runat="server">

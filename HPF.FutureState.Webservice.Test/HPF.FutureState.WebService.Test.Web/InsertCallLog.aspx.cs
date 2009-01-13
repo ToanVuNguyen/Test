@@ -10,6 +10,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Xml;
+using System.Collections.Generic;
 
 using System.Data.SqlClient;
 
@@ -27,13 +29,34 @@ namespace HPF.FutureState.WebService.Test.Web
 
             if (!IsPostBack)
             {
-                _pageloadno++;
-                string filename = MapPath(ConfigurationManager.AppSettings["CallLogWSDTOXML"]);                
-                XDocument xdoc = XDocument.Load(filename);
-                Session[SessionVariables.CALLLOG_WS] = CallCenterHelper.ParseCallLogWSDTO(xdoc);
-                CallLogWSDTOToForm((CallLogWSDTO)Session[SessionVariables.CALLLOG_WS]);
+                LoadDefaultCallLogWSDTO();
             }
             
+        }
+
+        private void LoadDefaultCallLogWSDTO()
+        {
+            string filename = MapPath(ConfigurationManager.AppSettings["CallLogWSDTOXML"]);
+            XDocument xdoc = GetXmlDocument(filename);
+            BindToForm(xdoc);
+        }
+
+        private void BindToForm(XDocument xdoc)
+        {
+            Session[SessionVariables.CALLLOG_WS] = CallCenterHelper.ParseCallLogWSDTO(xdoc);
+            CallLogWSDTOToForm((CallLogWSDTO)Session[SessionVariables.CALLLOG_WS]);
+        }
+
+        private static XDocument GetXmlDocument(string filename)
+        {
+            XDocument xdoc = XDocument.Load(filename);
+            return xdoc;
+        }
+
+        private static XDocument GetXmlDocument(XmlReader xmlreader)
+        {
+            XDocument xdoc = XDocument.Load(xmlreader);
+            return xdoc;
         }
 
         private void CallLogWSDTOToForm(CallLogWSDTO aCallLogWS)
@@ -191,6 +214,50 @@ namespace HPF.FutureState.WebService.Test.Web
             return al;
         }
 
-       
+        protected void UploadBtn_Click(object sender, EventArgs e)
+        {
+            grdvResult.Visible = false;
+            try
+            {
+                if (fileUpload.HasFile)
+                {
+                    XmlReader xmlReader = new XmlTextReader(fileUpload.FileContent);
+                    XDocument xdoc = GetXmlDocument(xmlReader);
+                    BindToForm(xdoc);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                List<ExceptionMessage> exList = new List<ExceptionMessage>();
+                em.Message = "Invalid XML format";
+                exList.Add(em);
+                em = new ExceptionMessage();
+                em.Message = "Default Call Log is loaded";
+                exList.Add(em);
+                grdvResult.DataSource = exList;
+                grdvResult.DataBind();
+                grdvResult.Visible = true;
+
+                ClearControls();
+
+                LoadDefaultCallLogWSDTO();
+
+            }
+            
+        }
+
+        private void ClearControls()
+        {
+            foreach (Control item in Page.Controls)
+            {
+                if (item.GetType() == typeof(TextBox))
+                    ((TextBox)item).Text = "";
+            }
+        }
     }
 }
