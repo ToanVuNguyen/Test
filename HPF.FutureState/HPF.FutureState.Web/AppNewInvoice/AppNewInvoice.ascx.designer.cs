@@ -14,6 +14,42 @@ namespace HPF.FutureState.Web.AppNewInvoice {
     public partial class AppNewInvoice {
         
         /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
+        
+        /// <summary>
+        /// RegularExpressionValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
+        
+        /// <summary>
+        /// RegularExpressionValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
+        
+        /// <summary>
         /// dropFundingSource control.
         /// </summary>
         /// <remarks>
@@ -32,13 +68,13 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::System.Web.UI.WebControls.DropDownList dropCaseCompleted;
         
         /// <summary>
-        /// Button1 control.
+        /// btnDraftNewInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnDraftNewInvoice;
         
         /// <summary>
         /// lst_FundingSourceGroup control.
@@ -86,13 +122,13 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::System.Web.UI.WebControls.DropDownList dropProgram;
         
         /// <summary>
-        /// dropMaxNoCase control.
+        /// txtMaxNumberofCases control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropMaxNoCase;
+        protected global::System.Web.UI.WebControls.TextBox txtMaxNumberofCases;
         
         /// <summary>
         /// txtPeriodStart control.
@@ -158,13 +194,13 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::System.Web.UI.WebControls.DropDownList dropRace;
         
         /// <summary>
-        /// dropCity control.
+        /// txtCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropCity;
+        protected global::System.Web.UI.WebControls.TextBox txtCity;
         
         /// <summary>
         /// dropEthnicity control.

@@ -25,6 +25,11 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 FundingSourceDatabind();
                 ProgramDatabind();
+                GenderDatabind();
+                RaceDatabind();
+                IndicatorDatabind();
+                HouseholdDatabind();
+                StateDatabind();
             }
         }
         private void FundingSourceDatabind()
@@ -45,6 +50,46 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropProgram.DataBind();
             dropProgram.Items.FindByText("ALL").Selected = true;
         }
+        private void GenderDatabind()
+        {
+            RefCodeItemDTOCollection genderCollection = LookupDataBL.Instance.GetRefCode("Gender code");
+            dropGender.DataValueField = "Code";
+            dropGender.DataTextField = "CodeDesc";
+            dropGender.DataSource = genderCollection;
+            dropGender.DataBind();
+        }
+        private void RaceDatabind()
+        {
+            RefCodeItemDTOCollection raceCollection = LookupDataBL.Instance.GetRefCode("Race code");
+            dropRace.DataValueField = "Code";
+            dropRace.DataTextField = "CodeDesc";
+            dropRace.DataSource = raceCollection;
+            dropRace.DataBind();
+        }
+        private void IndicatorDatabind()
+        {
+            RefCodeItemDTOCollection indicatorCollection = LookupDataBL.Instance.GetRefCode("Loan 1st 2nd");
+            dropIndicators.DataValueField = "Code";
+            dropIndicators.DataTextField = "CodeDesc";
+            dropIndicators.DataSource = indicatorCollection;
+            dropIndicators.DataBind();
+        }
+        private void HouseholdDatabind()
+        {
+            RefCodeItemDTOCollection householdCollection = LookupDataBL.Instance.GetRefCode("Household code");
+            dropHouseholdCode.DataValueField = "Code";
+            dropHouseholdCode.DataTextField = "CodeDesc";
+            dropHouseholdCode.DataSource = householdCollection;
+            dropHouseholdCode.DataBind();
+        }
+        private void StateDatabind()
+        {
+            RefCodeItemDTOCollection stateCollection = LookupDataBL.Instance.GetRefCode("State");
+            dropState.DataValueField = "Code";
+            dropState.DataTextField = "CodeDesc";
+            dropState.DataSource = stateCollection;
+            dropState.DataBind();
+        }
         protected void dropFundingSource_SelectedIndexChanged1(object sender, EventArgs e)
         {
             if (int.Parse(dropFundingSource.SelectedValue) == -1)
@@ -61,6 +106,47 @@ namespace HPF.FutureState.Web.AppNewInvoice
             lst_FundingSourceGroup.DataSource = servicers;
             lst_FundingSourceGroup.DataBind();
             
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
+            searchCriteria.FundingSourceId = int.Parse(dropFundingSource.SelectedValue);
+            searchCriteria.ProgramId = int.Parse(dropProgram.SelectedValue);
+            try
+            {
+                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+            }
+            catch
+            {
+                searchCriteria.PeriodEnd = DateTime.MinValue;
+            }
+            try
+            {
+                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+            }
+            catch
+            {
+                searchCriteria.PeriodStart = DateTime.MinValue;
+            }
+            searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
+            searchCriteria.Gender = dropGender.SelectedValue;
+            searchCriteria.Race = dropRace.SelectedValue;
+            //searchCriteria.Ethnicity = dropEthnicity.SelectedValue;
+            searchCriteria.Age.Min = int.Parse(txtAgeMin.Text);
+            searchCriteria.Age.Max = int.Parse(txtAgeMax.Text);
+            searchCriteria.HouseholdGrossAnnualIncome.Min = int.Parse(txtIncomeMin.Text);
+            searchCriteria.HouseholdGrossAnnualIncome.Max = int.Parse(txtIncomeMax.Text);
+            searchCriteria.CompleteCase = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropCaseCompleted.SelectedValue);
+            searchCriteria.AlreadyBill = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropAlreadyBilled.SelectedValue);
+            searchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropServicerConsent.SelectedValue);
+            searchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropFundingConsent.SelectedValue);
+            searchCriteria.MaxNumOfCases = int.Parse(txtMaxNumberofCases.Text);
+            searchCriteria.LoanIndicator = dropIndicators.SelectedValue;
+            searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
+            searchCriteria.City = txtCity.Text;
+            searchCriteria.State = dropState.SelectedValue;
+
         }
     }
 }

@@ -7,8 +7,18 @@
         </td>
     </tr>
     <tr>
+        <td colspan="8">
+            &nbsp;
+            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMin" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Age Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMax" ID="RegularExpressionValidator2" Display="Dynamic" runat="server" ErrorMessage="Age Max: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtIncomeMin" ID="RegularExpressionValidator3" Display="Dynamic" runat="server" ErrorMessage="Household Income Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtIncomeMax" ID="RegularExpressionValidator4" Display="Dynamic" runat="server" ErrorMessage="Household Income Max: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+        </td>
+    </tr>
+    <tr>
         <td class="sidelinks" colspan="8">
-            Primary Selection Criteria:</td>
+            Primary Selection Criteria:
+            </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
@@ -33,8 +43,8 @@
             </asp:DropDownList>
         </td>
         <td>
-            <asp:Button ID="Button1" runat="server" CssClass="MyButton" 
-                Text="Draft New Invoice" Width="120px" />
+            <asp:Button ID="btnDraftNewInvoice" runat="server" CssClass="MyButton" 
+                Text="Draft New Invoice" Width="120px" onclick="Button1_Click" />
         </td>
     </tr>
     <tr>
@@ -47,8 +57,7 @@
                 CellPadding="4" ForeColor="#333333" CssClass="Text">
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <AlternatingItemStyle BackColor="White" />
-                <ItemStyle BorderColor="#8FC4F6" BorderStyle="Solid" BorderWidth="1px" 
-                    BackColor="#EFF3FB" />
+                <ItemStyle  BackColor="#EFF3FB" />
                 <SelectedItemStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <ItemTemplate>
@@ -96,6 +105,10 @@
             Funding Consent:</td>
         <td>
             <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
+                <asp:ListItem Selected="True" Value="0">Not Selected
+                </asp:ListItem>
+                <asp:ListItem Value="1">Yes</asp:ListItem>
+                <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
@@ -113,8 +126,7 @@
             &nbsp;
             Max Number of Cases:</td>
         <td>
-            <asp:DropDownList ID="dropMaxNoCase" runat="server" CssClass="Text">
-            </asp:DropDownList>
+            <asp:TextBox ID="txtMaxNumberofCases" runat="server" CssClass="Text"></asp:TextBox>
         </td>
         <td>
             &nbsp;</td>
@@ -211,8 +223,7 @@
         <td align="right" class="sidelinks">
             City:</td>
         <td colspan="2">
-            <asp:DropDownList ID="dropCity" runat="server" CssClass="Text">
-            </asp:DropDownList>
+            <asp:TextBox ID="txtCity" runat="server" CssClass="Text"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -273,5 +284,5 @@
             &nbsp;</td>
     </tr>
 </table>
-</ContentTemplate>
+
                 
