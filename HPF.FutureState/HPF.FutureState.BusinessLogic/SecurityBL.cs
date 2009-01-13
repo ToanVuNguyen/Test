@@ -41,6 +41,11 @@ namespace HPF.FutureState.BusinessLogic
             return SecurityDAO.Instance.WebUserLogin(userName, password);
         }
 
+        public bool WebUserChangePassword(string userName, string oldPassword, string confirmPassword)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Web Service User Login
         /// </summary>
