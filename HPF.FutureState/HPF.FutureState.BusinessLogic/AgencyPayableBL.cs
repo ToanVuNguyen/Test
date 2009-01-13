@@ -84,6 +84,7 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.CreateAppName = "";
                     agencyPayableCase.CreateDate = DateTime.Now;
                     agencyPayableCase.CreateUserId = "";
+                    //agencyPayableCase.SetInsertTrackingInformation();
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
       
                 }
@@ -116,10 +117,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
-        public AgencyPayableDTOCollection SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        public AgencyPayableDTO SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
 
-            AgencyPayableDTOCollection result = new AgencyPayableDTOCollection();
+            AgencyPayableDTO result = new AgencyPayableDTO();
             Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
             if (ErrorMess != null)
             {
@@ -136,9 +137,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
 
        
-        public AgencyPayableDraftDTOCollection CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        public AgencyPayableDraftDTO CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
-            AgencyPayableDraftDTOCollection result = new AgencyPayableDraftDTOCollection();
+            AgencyPayableDraftDTO result = new AgencyPayableDraftDTO();
             Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
             if (ErrorMess != null)
             {
