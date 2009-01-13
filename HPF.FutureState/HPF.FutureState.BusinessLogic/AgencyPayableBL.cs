@@ -50,6 +50,8 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.PayamentCode = "";
                 agencyPayable.AccountLinkTBD = "";
                 agencyPayable.AgencyPayablePaymentAmount = 0;
+                agencyPayable.StatusCode = "";
+                agencyPayable.PaymentComment = "";
                 //----------- agency_payable (base)
                 agencyPayable.ChangeLastAppName = "";
                 agencyPayable.ChangeLastDate = DateTime.Now;
@@ -74,8 +76,7 @@ namespace HPF.FutureState.BusinessLogic
                     //-------------
                     agencyPayableCase.AgencyName = "";
                     agencyPayableCase.PaymentDate = DateTime.Now;
-                    agencyPayableCase.StatusCode = "";
-                    agencyPayableCase.PaymentComment = "";
+                   
                     //----------- agency_payable (base)
                     agencyPayableCase.ChangeLastAppName = "";
                     agencyPayableCase.ChangeLastDate = DateTime.Now;
