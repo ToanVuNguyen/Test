@@ -2,6 +2,7 @@
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Configuration;
 
+using System.Text;
 namespace HPF.FutureState.Common.Utils.DataValidator
 {
     [ConfigurationElementType(typeof(CustomValidatorData))]
@@ -24,11 +25,16 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = false;
+            
             if (objectToValidate == null || objectToValidate.Trim() == string.Empty)
+            {
                 isValid = _nullable;
+                if (!isValid) MessageTemplate = "Required";
+            }
             else
             {
-                isValid = (objectToValidate.Trim().Length == _length);
+                isValid = (objectToValidate.Trim().Length <= _length);
+                if (!isValid) MessageTemplate = "Maximum length is " + _length.ToString();
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
