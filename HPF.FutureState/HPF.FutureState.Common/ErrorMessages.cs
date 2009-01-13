@@ -91,11 +91,16 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add("ERR250", "Neither a HPF FcId nor an AgencyCaseNum was provided. Please provide an AgencyCaseNum for new cases and both and AgencyCaseNum and HPF FcId are required for updates to existing cases.");
                 errorMessageDict.Add("ERR251", "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
-                errorMessageDict.Add("ERR252", "An invalid AgencyID was provided for the Corresponding FcId.  Your agency does not own this foreclosure case. ");                
+                errorMessageDict.Add("ERR252", "An invalid AgencyID was provided for the Corresponding FcId.  Your agency does not own this foreclosure case. ");
+                errorMessageDict.Add("ERR253", "Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
+                                                +"Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
+                                                +"Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} for the case without an {12} "
+                                                +"Last Outcome: {13} ");                
                 errorMessageDict.Add("ERR254", "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
                 errorMessageDict.Add("ERR255", "A previously completed case cannot become uncompleted. An update was submitted without all fields required to compleg.");
                 errorMessageDict.Add("ERR256", "Only one loan can be designated as '1st'.");
                 
+
                 errorMessageDict.Add("WARN300","An IncomeEarnersCd is required to complete a foreclosure case.");
                 errorMessageDict.Add("WARN301","A RaceCd is required to complete a foreclosure case.");
                 errorMessageDict.Add("WARN302","A HouseholdCd is required to complete a foreclosure case.");
