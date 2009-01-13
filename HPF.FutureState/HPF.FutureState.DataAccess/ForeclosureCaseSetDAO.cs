@@ -1283,6 +1283,7 @@ namespace HPF.FutureState.DataAccess
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];            
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                //sqlParam[1]
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -1330,6 +1331,7 @@ namespace HPF.FutureState.DataAccess
                 SqlParameter[] sqlParam = new SqlParameter[2];
                 sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
                 sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
+                //sqlParam[2] =
                 //</Parameter>
 
                 command.Parameters.AddRange(sqlParam);
@@ -1364,7 +1366,67 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             return returnCollection;
-        }       
+        }
+
+        public DuplicatedCaseLoanDTOCollection CheckDuplicate(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            DuplicatedCaseLoanDTOCollection returnCollection = null;
+            try
+            {
+                ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection, trans);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[4];
+                sqlParam[0] = new SqlParameter("@pi_agency_case_num", fcCase.AgencyCaseNum);
+                sqlParam[1] = new SqlParameter("@pi_agency_id", fcCase.AgencyId);
+                sqlParam[2] = new SqlParameter("@pi_fc_id", NullableInteger(fcCase.FcId));
+                sqlParam[3] = new SqlParameter("@pi_where_str", GenerateCheckDupeWhereClause(foreclosureCaseSet));
+                    //</Parameter>
+
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    returnCollection = new DuplicatedCaseLoanDTOCollection();
+                    while (reader.Read())
+                    {
+                        DuplicatedCaseLoanDTO obj = new DuplicatedCaseLoanDTO();
+                        obj.LoanNumber = ConvertToString(reader["Acct_num"]);
+                        obj.FcID = ConvertToInt(reader["FC_ID"]);
+                        obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
+                        obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
+                        obj.AgencyName = ConvertToString(reader["Agency_Name"]);
+                        obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
+                        obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
+                        obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                        obj.CounselorFullName = ConvertToString(reader["counselor_fname"]) + ", " + ConvertToString(reader["counselor_lname"]);
+                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]) + " - Ext: " + ConvertToString(reader["counselor_ext"]);
+                        obj.ServicerName = ConvertToString(reader["Servicer_Name"]);
+
+                        returnCollection.Add(obj);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return returnCollection;
+        }
+
+        private string GenerateCheckDupeWhereClause(ForeclosureCaseSetDTO fcCaseSet)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
+            {
+                sb.Append(string.Format("(acct_num = ''{0}'' and servicer_id = ''{1}'') or", item.AcctNum, item.ServicerId));
+            }
+            sb.Append("(1 = 1)");
+            return sb.ToString();
+        }
     }
 }
 

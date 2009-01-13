@@ -236,9 +236,15 @@ namespace HPF.FutureState.DataAccess
         {
             if (datetime == null || datetime == DateTime.MinValue)
                 return SqlDateTime.Null;
-            else
-                return datetime;
+            return datetime;
             
+        }
+
+        protected static SqlInt32 NullableInteger(int intValue)
+        {
+            if (intValue == 0 || intValue == int.MinValue)
+                return SqlInt32.Null;
+            return intValue;
         }
         #endregion
     }
