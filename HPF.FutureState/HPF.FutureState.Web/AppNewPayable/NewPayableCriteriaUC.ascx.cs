@@ -56,27 +56,30 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSearchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-                if (ddlCaseCompleted.SelectedValue == "N")
-                    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.N;
-                if (ddlCaseCompleted.SelectedValue == "Y")
-                    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.Y;
-                else agencyPayableSearchCriteria.CaseComplete = CustomBoolean.None;
+                agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean),ddlCaseCompleted.SelectedValue.ToString());
+                //if (ddlCaseCompleted.SelectedValue == "N")
+                //    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.N;
+                //if (ddlCaseCompleted.SelectedValue == "Y")
+                //    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.Y;
+                //else agencyPayableSearchCriteria.CaseComplete = CustomBoolean.None;
 
                 agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
-                
-                if (ddlServicerConsent.SelectedValue == "Y")
-                    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.Y;
-                if (ddlServicerConsent.SelectedValue == "N")
-                    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.N;
-                else agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.None;
+
+                agencyPayableSearchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlServicerConsent.SelectedValue.ToString());
+                //if (ddlServicerConsent.SelectedValue == "Y")
+                //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.Y;
+                //if (ddlServicerConsent.SelectedValue == "N")
+                //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.N;
+                //else agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.None;
 
                 agencyPayableSearchCriteria.PeriodEndDate = Convert.ToDateTime(txtPeriodEnd.Text.Trim());
 
-                if (ddlFundingConsent.SelectedValue == "Y")
-                    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.Y;
-                if (ddlFundingConsent.SelectedValue == "N")
-                    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.N;
-                else agencyPayableSearchCriteria.FundingConsent = CustomBoolean.None;
+                agencyPayableSearchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlFundingConsent.SelectedValue.ToString());
+                //if (ddlFundingConsent.SelectedValue == "Y")
+                //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.Y;
+                //if (ddlFundingConsent.SelectedValue == "N")
+                //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.N;
+                //else agencyPayableSearchCriteria.FundingConsent = CustomBoolean.None;
                 if (txtMaxNumberCase.Text != string.Empty)
                     agencyPayableSearchCriteria.MaxNumberOfCase = int.Parse(txtMaxNumberCase.Text.Trim());
                 else agencyPayableSearchCriteria.MaxNumberOfCase = 500;
