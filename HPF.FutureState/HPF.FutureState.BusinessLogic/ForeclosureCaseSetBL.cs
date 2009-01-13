@@ -70,6 +70,12 @@ namespace HPF.FutureState.BusinessLogic
                     ThrowMissingRequiredFieldsException(exDetailCollection);
                 }
 
+                exDetailCollection = CheckMaxLength(foreclosureCaseSet);
+                if (exDetailCollection != null && exDetailCollection.Count > 0)
+                {
+                    ThrowMaxLengthException(exDetailCollection);
+                }
+
                 ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
                 exDetailCollection = CheckValidCode(foreclosureCaseSet);
@@ -140,8 +146,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList != null && exceptionList.Count > 0)
                 ThrowMiscException(exceptionList);
-            //if (MiscErrorException(foreclosureCaseSet))
-            //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
+            
             
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -151,6 +156,10 @@ namespace HPF.FutureState.BusinessLogic
             DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
             if (collection != null)
             {
+                //Update Duplicate_ind for fcCase
+                //not implemented yet
+
+                //Throw Duplicate Exception
                 ThrowDuplicateCaseException(collection);
             }
             
@@ -531,6 +540,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
         #endregion
+        
         #region CheckDateOfBirth
         private bool CheckDateOfBirth(DateTime dateOfBirth)
         {
@@ -1786,7 +1796,19 @@ namespace HPF.FutureState.BusinessLogic
             return AgencyDAO.Instance.GetAgencyName(agencyID);
         }
 
+        private void UpdateFcCase_DuplicateIndicator(int fcid, string ind)
+        {
+            //foreclosureCaseSetDAO.
+        }
+
         #region Throw Detail Exception
+        private void ThrowMaxLengthException(ExceptionMessageCollection collection)
+        {
+            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_CODE);
+            pe.ExceptionMessages = collection;            
+            throw pe;
+        }
+
         private void ThrowMissingRequiredFieldsException(ExceptionMessageCollection collection)
         {
             DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISSING_REQUIRED_FIELD);
@@ -1830,6 +1852,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach(DuplicatedCaseLoanDTO obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
+                em.ErrorCode = "abcd";
                 em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6},Counselor Phone & Extension: {7}, Counselor Email: {8} "
                             , obj.LoanNumber, obj.ServicerName, obj.BorrowerFirstName, obj.BorrowerLastName
                             , obj.AgencyName, obj.AgencyCaseNumber, obj.CounselorFullName, obj.CounselorPhone, obj.CounselorEmail);
