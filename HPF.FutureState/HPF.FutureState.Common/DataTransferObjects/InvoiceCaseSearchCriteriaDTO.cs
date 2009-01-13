@@ -5,10 +5,10 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public struct NumberRange
+    public class NumberRange
     {
-        int Min;
-        int Max;
+        public int Min{get;set;}
+        public int Max { get; set; }
     }
     public class InvoiceCaseSearchCriteriaDTO
     {
