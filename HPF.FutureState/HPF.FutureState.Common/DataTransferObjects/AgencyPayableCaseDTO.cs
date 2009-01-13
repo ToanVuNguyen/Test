@@ -8,11 +8,16 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AgencyPayableCaseDTO: BaseDTO
     {
-        public int AgencyPayableCaseId { get; set; }
+        //public int AgencyPayableCaseId { get; set; }
+        //public int AgencyId { get; set; }
+        public string AgencyName { get; set; }
         public int ForeclosureCaseId { get; set; }
-        public int AgencyPayableId { get; set; }
-        public DateTime PaymentDate { get; set; }
+        
+        public DateTime PeriodStartDate { get; set; }
+        public DateTime PeriodEndDate { get; set; }
         public decimal PaymentAmount { get; set; }
+      
+        public int AgencyPayableId { get; set; }
         public string NFMCDiffererencePaidIndicator { get; set; }
     }
 }
