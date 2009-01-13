@@ -496,6 +496,22 @@ namespace HPF.FutureState.BusinessLogic
             return foreclosureCaseSetDAO.CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
+        #region CheckDateOfBirth
+        private bool CheckDateOfBirth(DateTime dateOfBirth)
+        {
+            int systemYear = DateTime.Now.Year;
+            if (dateOfBirth != null && dateOfBirth != DateTime.MinValue)
+            {
+                int yearOfBirth = dateOfBirth.Year;
+                int calculateYear = systemYear - yearOfBirth;
+                if(calculateYear >= 12 && calculateYear <= 100)
+                    return true;
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
         #region Functions Check MiscError
         /// <summary>
         /// Check Misc Error Exception
@@ -625,7 +641,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Update the Fore Closure Case
         /// </summary>
-        private void UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
@@ -653,16 +669,21 @@ namespace HPF.FutureState.BusinessLogic
             UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);   
          
             //Check for Delete Case Loan
-            CaseLoanDTOCollection caseLoanCollecionNew = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+            CaseLoanDTOCollection caseLoanCollecionNew = null;
+            caseLoanCollecionNew = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, fcId);
             DeleteCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);  
           
             //Check for Update Case Loan
+            caseLoanCollecionNew = null;
             caseLoanCollecionNew = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, fcId);                
             UpdateCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);  
           
             //Check for Insert Case Loan
-            caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);                
-            InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+            caseLoanCollecionNew = null;
+            caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+            InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew, fcId);
+
+            return fcId;
         }
         
         /// <summary>
@@ -680,7 +701,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert the Fore Closure Case
         /// </summary>
-        private void InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
@@ -706,7 +727,9 @@ namespace HPF.FutureState.BusinessLogic
             InsertBudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
 
             //Insert table Budget Asset
-            InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);            
+            InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
+
+            return fcId;
         }
         #endregion
 
@@ -836,7 +859,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private static void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
         {
-            if (caseLoanCollecion != null)
+            if (caseLoanCollecion != null && caseLoanCollecion.Count != 0)
             {
                 foreach (CaseLoanDTO items in caseLoanCollecion)
                 {
@@ -994,10 +1017,8 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
             //Compare OutcomeItem input with OutcomeItem DB
-            if (outcomeItemCollectionDB == null)
-            {
-                return null;
-            }
+            if (outcomeItemCollectionDB == null)            
+                return null;            
             foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
             {
                 bool isDeleted = CheckOutcomeItem(itemDB, outcomeItemCollectionInput);
@@ -1041,8 +1062,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (caseLoan.FcId == item.FcId
-                    && caseLoan.ServicerId == item.ServicerId
+                if (caseLoan.FcId == item.FcId                    
                     && caseLoan.AcctNum == item.AcctNum)
                     return true;
             }
@@ -1057,7 +1077,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (caseLoan.FcId == item.FcId && caseLoan.ServicerId == item.ServicerId && caseLoan.AcctNum == item.AcctNum)
+                if (caseLoan.FcId == item.FcId && caseLoan.AcctNum == item.AcctNum)
                 {
                     if (caseLoan.OtherServicerName != item.OtherServicerName
                         || caseLoan.Loan1st2nd != item.Loan1st2nd
@@ -1124,7 +1144,7 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
             //Compare CAseLoanItem input with Case Loan DB
-            if (caseLoanCollectionDB != null)            
+            if (caseLoanCollectionDB == null)            
                 return null;            
             foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
             {

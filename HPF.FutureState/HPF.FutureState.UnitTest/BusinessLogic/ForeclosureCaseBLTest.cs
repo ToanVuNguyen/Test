@@ -582,7 +582,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             TestContext.WriteLine("This test is not implemented yet");
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            
+            target.InitiateTransaction();
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
@@ -596,6 +596,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 Assert.AreEqual(expected, pe.GetType());
             }
+            target.CompleteTransaction();
         }
         #endregion
 
@@ -886,6 +887,23 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckBorrowerDOB()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
+            DateTime borrowerDob = Convert.ToDateTime("2000/04/02");
+            target.InitiateTransaction();
+            bool expected = true; // TODO: Initialize to an appropriate value
+            bool actual = true;
+            actual = target.CheckDateOfBirth(borrowerDob);
+            target.RollbackTransaction();
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CompleteValidation()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
@@ -1028,6 +1046,125 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int fcId = GetForeclosureCaseId();
             foreclosureCaseSet.ForeclosureCase.FcId = fcId;
             foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            #region CaseLoan
+            CaseLoanDTOCollection caseLoanCollection = new CaseLoanDTOCollection();
+            CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
+            caseLoanDTO.FcId = fcId;
+            caseLoanDTO.ServicerId = Convert.ToInt32("1");
+            caseLoanDTO.AcctNum = "CSC";
+            caseLoanDTO.Loan1st2nd = "2st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = "CSC";
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            caseLoanCollection.Add(caseLoanDTO);
+            //2
+            caseLoanDTO = new CaseLoanDTO();
+            caseLoanDTO.FcId = fcId;
+            caseLoanDTO.ServicerId = Convert.ToInt32("1");
+            caseLoanDTO.AcctNum = "CSC";
+            caseLoanDTO.Loan1st2nd = "1st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = "CSC";
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            caseLoanCollection.Add(caseLoanDTO);
+            foreclosureCaseSet.CaseLoans = caseLoanCollection;
+            #endregion
+            #region Outcome
+            OutcomeItemDTOCollection outcomeItemCollection = new OutcomeItemDTOCollection();
+            OutcomeItemDTO outcomeItemDTO = new OutcomeItemDTO();
+            outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");
+            outcomeItemDTO.NonprofitreferralKeyNum = "CSC";
+            outcomeItemDTO.ExtRefOtherName = "CSC";
+            outcomeItemDTO.OutcomeDt = DateTime.Now;
+            outcomeItemDTO.CreateDate = DateTime.Now;
+            outcomeItemDTO.CreateUserId = "HPF";
+            outcomeItemDTO.CreateAppName = "HPF";
+            outcomeItemDTO.ChangeLastDate = DateTime.Now;
+            outcomeItemDTO.ChangeLastAppName = "HPF";
+            outcomeItemDTO.ChangeLastUserId = "HPF";
+            outcomeItemCollection.Add(outcomeItemDTO);
+            //2
+            outcomeItemDTO = new OutcomeItemDTO();
+            outcomeItemDTO.OutcomeTypeId = Convert.ToInt32("1");
+            outcomeItemDTO.NonprofitreferralKeyNum = "HPF";
+            outcomeItemDTO.ExtRefOtherName = "HPF";
+            outcomeItemDTO.OutcomeDt = DateTime.Now;
+            outcomeItemDTO.CreateDate = DateTime.Now;
+            outcomeItemDTO.CreateUserId = "HPF";
+            outcomeItemDTO.CreateAppName = "HPF";
+            outcomeItemDTO.ChangeLastDate = DateTime.Now;
+            outcomeItemDTO.ChangeLastAppName = "HPF";
+            outcomeItemDTO.ChangeLastUserId = "HPF";
+            outcomeItemCollection.Add(outcomeItemDTO);
+            foreclosureCaseSet.Outcome = outcomeItemCollection;
+            #endregion
+            #region BudgetItem
+            BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();
+            BudgetItemDTO budgetItemDTO = new BudgetItemDTO();            
+            budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
+            budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("1000");
+            budgetItemDTO.BudgetNote = null;
+            budgetItemDTO.CreateDate = DateTime.Now;
+            budgetItemDTO.CreateUserId = "CSC";
+            budgetItemDTO.CreateAppName = "HPF";
+            budgetItemDTO.ChangeLastDate = DateTime.Now;
+            budgetItemDTO.ChangeLastAppName = "HPF";
+            budgetItemDTO.ChangeLastUserId = "HPF";
+            budgetItemCollection.Add(budgetItemDTO);
+            //
+            budgetItemDTO = new BudgetItemDTO();            
+            budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
+            budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300");
+            budgetItemDTO.BudgetNote = null;
+            budgetItemDTO.CreateDate = DateTime.Now;
+            budgetItemDTO.CreateUserId = "HPF";
+            budgetItemDTO.CreateAppName = "HPF";
+            budgetItemDTO.ChangeLastDate = DateTime.Now;
+            budgetItemDTO.ChangeLastAppName = "HPF";
+            budgetItemDTO.ChangeLastUserId = "HPF";
+            budgetItemCollection.Add(budgetItemDTO);
+            foreclosureCaseSet.BudgetItems = budgetItemCollection;
+            #endregion
+            #region BudgetAsset
+            BudgetAssetDTOCollection budgetAssetCollection = new BudgetAssetDTOCollection();
+            BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
+            budgetAsset.BudgetSetId = Convert.ToInt32("900");
+            budgetAsset.AssetName = "CSC";
+            budgetAsset.AssetValue = Convert.ToDecimal("506");
+            budgetAsset.CreateDate = DateTime.Now;
+            budgetAsset.CreateUserId = "HPF";
+            budgetAsset.CreateAppName = "HPF";
+            budgetAsset.ChangeLastDate = DateTime.Now;
+            budgetAsset.ChangeLastAppName = "HPF";
+            budgetAsset.ChangeLastUserId = "HPF";
+            budgetAssetCollection.Add(budgetAsset);
+            //2
+            budgetAsset = new BudgetAssetDTO();
+            budgetAsset.BudgetSetId = Convert.ToInt32("299");
+            budgetAsset.AssetName = "CSC";
+            budgetAsset.AssetValue = Convert.ToDecimal("350");
+            budgetAsset.CreateDate = DateTime.Now;
+            budgetAsset.CreateUserId = "HPF";
+            budgetAsset.CreateAppName = "HPF";
+            budgetAsset.ChangeLastDate = DateTime.Now;
+            budgetAsset.ChangeLastAppName = "HPF";
+            budgetAsset.ChangeLastUserId = "HPF";
+            budgetAssetCollection.Add(budgetAsset);
+            #endregion
             target.InitiateTransaction();
             target.UpdateForeclosureCaseSet(foreclosureCaseSet);
             target.CompleteTransaction();
@@ -1149,7 +1286,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             if (status == "TRUE")
             {
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
-                budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
+                //budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
                 //budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
                 budgetItemDTO.BudgetNote = null;
@@ -1162,7 +1299,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemCollection.Add(budgetItemDTO);
                 //
                 budgetItemDTO = new BudgetItemDTO();
-                budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
+                //budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
                 //budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
                 budgetItemDTO.BudgetNote = null;
@@ -1256,9 +1393,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 {
                     CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
                     caseLoanDTO.ServicerId = Convert.ToInt32("1");
-                    caseLoanDTO.AcctNum = "Test";
+                    caseLoanDTO.AcctNum = "HPF";
                     caseLoanDTO.Loan1st2nd = "1st";
-                    caseLoanDTO.MortgageTypeCd = "";                    
+                    caseLoanDTO.MortgageTypeCd = "10";                    
                     caseLoanDTO.TermLengthCd = "";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 10;
