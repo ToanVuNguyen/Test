@@ -38,7 +38,7 @@ namespace HPF.FutureState.WebServices
                     callLogDTO.CallCenterID = base.CallCenterID;
                     //callLogDTO.CallCenter = base.CallCenterName;
                     
-                    string sCallLogID = "HPF_" + CallLogBL.Instance.InsertCallLog(callLogDTO);
+                    string sCallLogID = "HPF" + CallLogBL.Instance.InsertCallLog(callLogDTO);
                     response.CallLogID = sCallLogID;
                     response.Status = ResponseStatus.Success;                                        
                 }
@@ -152,7 +152,7 @@ namespace HPF.FutureState.WebServices
             int callLogId = 0;
             if (request.callLogId != string.Empty)
             {
-                string sCallLogId = request.callLogId.Replace("HPF_","");
+                string sCallLogId = request.callLogId.Replace("HPF","");
                 callLogId = Convert.ToInt32(sCallLogId);
             }
             return callLogId;
@@ -163,7 +163,7 @@ namespace HPF.FutureState.WebServices
             CallLogDTO destObject = new CallLogDTO();
             if (sourceObject.CallId != null)
             {
-                sourceObject.CallId = sourceObject.CallId.Replace("HPF_", "");
+                sourceObject.CallId = sourceObject.CallId.Replace("HPF", "");
                 int id = 0;
                 int.TryParse(sourceObject.CallId, out id);
                 destObject.CallId = id;
@@ -209,7 +209,7 @@ namespace HPF.FutureState.WebServices
         {
             CallLogWSReturnDTO destObject = new CallLogWSReturnDTO();
             if (sourceObject.CallId != 0)
-                destObject.CallId = "HPF_" + Convert.ToString(sourceObject.CallId);
+                destObject.CallId = "HPF" + Convert.ToString(sourceObject.CallId);
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
             destObject.CallCenter = sourceObject.CallCenter;

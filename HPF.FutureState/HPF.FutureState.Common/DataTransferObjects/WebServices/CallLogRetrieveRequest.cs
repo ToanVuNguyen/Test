@@ -9,7 +9,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     public class CallLogRetrieveRequest
     {
         string _callLogId = null;
-        [RegexValidator(@"^HPF_\d", Ruleset = "Default", MessageTemplate="CallLogId is invalid")]
+        [RegexValidator(@"^HPF\d", Ruleset = "Default", MessageTemplate="CallLogId is invalid")]
         public string callLogId 
         { 
             get{ return _callLogId;} 
