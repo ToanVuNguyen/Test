@@ -53,8 +53,9 @@ namespace HPF.FutureState.BusinessLogic
         /// Save a ForeclosureCase
         /// </summary>
         /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
-        public void SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        public int SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
+            int fcid = 0;
             try
             {
                 InitiateTransaction();
@@ -75,11 +76,11 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     ThrowInvalidCodeException(exDetailCollection);
                 }
-
+                
                 if (fcCase.FcId > 0)
-                    ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+                    fcid = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
                 else
-                    ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+                    fcid = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
 
                 CompleteTransaction();
             }
@@ -87,7 +88,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 RollbackTransaction();
                 throw;
-            }            
+            }
+            return fcid;         
         }
 
         private void RollbackTransaction()
@@ -132,7 +134,7 @@ namespace HPF.FutureState.BusinessLogic
 
         #region Functions to serve SaveForeclosureCaseSet
 
-        private void ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList != null && exceptionList.Count > 0)
@@ -140,10 +142,10 @@ namespace HPF.FutureState.BusinessLogic
             //if (MiscErrorException(foreclosureCaseSet))
             //    throw new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
             
-            UpdateForeclosureCaseSet(foreclosureCaseSet);
+            return UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private void ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
             if (collection != null)
@@ -154,10 +156,10 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList != null && exceptionList.Count > 0)
                 ThrowMiscException(exceptionList);
-            InsertForeclosureCaseSet(foreclosureCaseSet);
+            return InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private void ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {                        
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
@@ -167,11 +169,12 @@ namespace HPF.FutureState.BusinessLogic
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
                 throw new DataValidationException(ErrorMessages.EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID);
             
-            ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+            return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private void ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
+
             ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;            
 
             if (!CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
@@ -180,9 +183,9 @@ namespace HPF.FutureState.BusinessLogic
             }
 
             if (CheckInactiveCase(foreclosureCaseSet.ForeclosureCase.FcId))                
-                ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
+                return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
             else
-                ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
+                return ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
         }
         
         #region Functions check min request validate
