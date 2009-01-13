@@ -115,7 +115,6 @@
     <Compile Include="DataTransferObjects\DuplicatedCaseLoanDTOCollection.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTO.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTOCollection.cs" />
-    <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSearchResult.cs">
       <SubType>Code</SubType>
