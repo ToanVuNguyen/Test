@@ -86,6 +86,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.None;
 
             agencyPayableSearchCriteria.MaxNumberOfCase = maxnumbercase;
+            //if (indicator == "") indicator = null;
             agencyPayableSearchCriteria.LoanIndicator = indicator;
             
             return agencyPayableSearchCriteria;
@@ -108,7 +109,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
-                if (agencyPayableDraftDTO != null)
+                if (agencyPayableDraftDTO.ForclosureCaseDrafts != null)
                 {
                     grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
                     this.FCDraftCol = agencyPayableDraftDTO.ForclosureCaseDrafts;
@@ -132,7 +133,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                //ExceptionProcessor.HandleException(ex);
             }
         }
 
@@ -158,21 +159,18 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                //ExceptionProcessor.HandleException(ex);
                 
             }
         }
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
-            int rownum,i;
-            for(i=grvInvoiceItems.Rows.Count;i==0;i--)
-            //foreach (GridViewRow row in grvInvoiceItems.Rows)
+            for(int i=grvInvoiceItems.Rows.Count-1;i>=0;i--)
             {
                 CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
                 if (chkdel.Checked == true)
                 {
-                    rownum = grvInvoiceItems.Rows[i].RowIndex;
-                    ForeclosureCaseDraftDTO agency = this.FCDraftCol[rownum];
+                    ForeclosureCaseDraftDTO agency = this.FCDraftCol[i];
                     this.FCDraftCol.Remove(agency);
                 }
             }
