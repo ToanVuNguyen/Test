@@ -107,12 +107,12 @@ namespace HPF.FutureState.DataAccess
             {
                 var sqlParam = new SqlParameter[16];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayable.AgencyId);
-                sqlParam[1] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayable.AgencyPayableCases[0].PaymentDate));
+                sqlParam[1] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayable.PaymentDate));
                 sqlParam[2] = new SqlParameter("@pi_pmt_cd", agencyPayable.PayamentCode);
-                sqlParam[3] = new SqlParameter("@pi_status_cd", agencyPayable.AgencyPayableCases[0].StatusCode);
+                sqlParam[3] = new SqlParameter("@pi_status_cd", agencyPayable.StatusCode);
                 sqlParam[4] = new SqlParameter("@pi_period_start_dt", NullableDateTime(agencyPayable.PeriodStartDate));
                 sqlParam[5] = new SqlParameter("@pi_period_end_dt", NullableDateTime(agencyPayable.PeriodEndDate));
-                sqlParam[6] = new SqlParameter("@pi_pmt_comment", agencyPayable.AgencyPayableCases[0].PaymentComment);
+                sqlParam[6] = new SqlParameter("@pi_pmt_comment", agencyPayable.PaymentComment);
                 sqlParam[7] = new SqlParameter("@pi_accounting_link_TBD", agencyPayable.AccountLinkTBD);
                 sqlParam[8] = new SqlParameter("@pi_create_dt", NullableDateTime(agencyPayable.CreateDate));
                 sqlParam[9] = new SqlParameter("@pi_create_user_id", agencyPayable.CreateUserId);
@@ -194,12 +194,12 @@ namespace HPF.FutureState.DataAccess
                         AgencyPayableCaseDTO item = new AgencyPayableCaseDTO();
                         item.AgencyName = ConvertToString(reader["agency_name"]);
                         item.AgencyPayableId = ConvertToInt(reader["agency_payable_id"]);
-                        item.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
+                        result.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         item.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
                         item.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
                         item.PaymentAmount = ConvertToDecimal(reader["pmt_amt"]);
-                        item.PaymentComment = ConvertToString(reader["pmt_comment"]);
-                        item.StatusCode=ConvertToString(reader["status_cd"]);
+                        result.PaymentComment = ConvertToString(reader["pmt_comment"]);
+                        result.StatusCode=ConvertToString(reader["status_cd"]);
                         agencyPayableCaseDTOCollection.Add(item);
                     }
                     reader.Close();
