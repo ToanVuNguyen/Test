@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HPF.FutureState.Common.Utils.DataValidator;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
 namespace HPF.FutureState.Common.DataTransferObjects
@@ -9,6 +10,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class BudgetItemDTO : BaseDTO
     {
+        private const string RULE_SET_LENGTH = "Length";
+
         public int BudgetItemId { get; set; }
 
         public int BudgetSetId { get; set; }
@@ -19,6 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NotNullValidator(Ruleset = "RequirePartialValidate", MessageTemplate = "Required!", Tag="WARN337")]
         public decimal BudgetItemAmt { get; set; }
 
+        [NullableOrStringLengthValidator(true, 100, Ruleset = RULE_SET_LENGTH)]
         public string BudgetNote { get; set; }       
     }
 }
