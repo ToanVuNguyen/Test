@@ -27,7 +27,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
 
         protected override string DefaultMessageTemplate
         {
-            get { return "InTake day is incorrect."; }
+            get { return "Field is invalid"; }
         }
 
         protected override void DoValidate(String objectToValidate, object currentTarget, string key, ValidationResults validationResults)
