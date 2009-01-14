@@ -32,26 +32,53 @@ namespace HPF.FutureState.BusinessLogic
             throw new NotImplementedException();
         }
 
-        private bool ValidateCriteria(InvoiceSearchCriteriaDTO criteria,out string returnMessage)
+        public bool ValidateInvoiceCriteria(InvoiceSearchCriteriaDTO criteria,out string returnMessage)
         {
             returnMessage = "";
             if (criteria.PeriodStart == DateTime.MinValue)
-                returnMessage += "Wrong input on Period Start; ";
+                returnMessage += "Period Start:Wrong DateTime format; ";
             if (criteria.PeriodEnd == DateTime.MinValue)
-                returnMessage += "Wrong input on Period End; ";
+                returnMessage += "Period End:Wrong DateTime format; ";
             if ((criteria.PeriodStart > criteria.PeriodEnd)&&returnMessage=="")
                 returnMessage += "Period Start can not larger than Period End; ";
             return (returnMessage == "");
         }
-        public InvoiceSearchResultDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO criterial)
+        public bool ValidateInvoiceCaseCriteria(InvoiceCaseSearchCriteriaDTO criteria, out string returnMessage)
+        {
+            returnMessage = "";
+            if (criteria.PeriodStart == DateTime.MinValue)
+                returnMessage += "Period Start:Wrong DateTime format; ";
+            if (criteria.PeriodEnd == DateTime.MinValue)
+                returnMessage += "Period End:Wrong DateTime format; ";
+            if ((criteria.PeriodStart > criteria.PeriodEnd) && returnMessage == "")
+                returnMessage += "Period Start can not larger than Period End; ";
+            return (returnMessage == "");
+        }
+        public InvoiceSearchResultDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
             InvoiceSearchResultDTOCollection result = null;
             string returnMessage;
-            if (ValidateCriteria(criterial, out returnMessage) == false)
+            if (ValidateInvoiceCriteria(searchCriteria, out returnMessage) == false)
                 throw new DataValidationException(returnMessage);
             try
             {
-                result = InvoiceDAO.CreateInstance().SearchInvoice(criterial);
+                result = InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+        public ForeclosureCaseDraftDTOCollection InvoiceCaseSearch(InvoiceCaseSearchCriteriaDTO searchCriteria)
+        {
+            ForeclosureCaseDraftDTOCollection result = null;
+            string returnMessage;
+            if (ValidateInvoiceCaseCriteria(searchCriteria, out returnMessage) == false)
+                throw new DataValidationException(returnMessage);
+            try
+            {
+                result = InvoiceDAO.CreateInstance().InvoiceCaseSearch(searchCriteria);
             }
             catch (Exception ex)
             {
