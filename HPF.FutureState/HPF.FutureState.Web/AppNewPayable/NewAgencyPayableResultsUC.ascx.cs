@@ -69,22 +69,11 @@ namespace HPF.FutureState.Web.AppNewPayable
 
             agencyPayableSearchCriteria.PeriodStartDate = periodstartdate;
             agencyPayableSearchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), servicerconsent);
-            //if (servicerconsent == "Y")
-            //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.Y;
-            //if (servicerconsent == "N")
-            //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.N;
-            //else
-            //    agencyPayableSearchCriteria.ServicerConsent = CustomBoolean.None;
+           
             agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
 
             agencyPayableSearchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), fundingconsent);
-            //if (fundingconsent == "Y")
-            //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.Y;
-            //if (fundingconsent == "Y")
-            //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.N;
-            //else
-            //    agencyPayableSearchCriteria.FundingConsent = CustomBoolean.None;
-
+           
             agencyPayableSearchCriteria.MaxNumberOfCase = maxnumbercase;
             //if (indicator == "") indicator = null;
             agencyPayableSearchCriteria.LoanIndicator = indicator;
@@ -98,11 +87,15 @@ namespace HPF.FutureState.Web.AppNewPayable
             decimal total = 0;
             foreach (var item in this.FCDraftCol)
             {
-                total = +item.Amount;
+                total += item.Amount;
             }
+            
             lblInvoiceTotalFooter.Text = total.ToString();
             lblTotalCasesFooter.Text = this.FCDraftCol.Count.ToString();
-
+            lblTotalAmount.Text = total.ToString();
+            lblTotalCases.Text = this.FCDraftCol.Count.ToString();
+            
+            
         }
         protected void DisplayNewAgencyPayableResult(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {
@@ -124,9 +117,12 @@ namespace HPF.FutureState.Web.AppNewPayable
                     decimal total = 0;
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                     {
-                        total = +item.Amount;
+                        //test
+                        item.Amount = 10;
+                        total +=item.Amount;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
+                    lblTotalAmount.Text = total.ToString();
                 }
                 else lblMessage.Text = "no data";
             }
@@ -153,6 +149,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                 agencyPayableSearchCriteria = GetCriteria();
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
                 agencyPayableDraftDTO.ForclosureCaseDrafts = this.FCDraftCol;
+                agencyPayableDraftDTO.TotalAmount = decimal.Parse(lblTotalAmount.Text.ToString());
+                agencyPayableDraftDTO.TotalCases = this.FCDraftCol.Count;
                 AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
                 lblMessage.Text = "Generate succesfull.";
             }
@@ -175,12 +173,12 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
             }
             BindGridView();
-
-        }
+}
 
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
-            Response.Redirect("NewPayableCriteria.aspx");
+            string query = "?agencyid="+lblAgency.Text.ToString();
+            Response.Redirect("NewPayableCriteria.aspx"+query);
         }
 
 
