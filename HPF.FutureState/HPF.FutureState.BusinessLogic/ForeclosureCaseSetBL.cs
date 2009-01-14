@@ -78,7 +78,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (exceptionList != null && exceptionList.Count > 0)
                     ThrowDataValidationException(exceptionList);
 
-                exceptionList = CheckMaxLength(foreclosureCaseSet);
+                exceptionList = CheckInvalidFormatData(foreclosureCaseSet);
                 if (exceptionList != null && exceptionList.Count > 0)
                     ThrowDataValidationException(exceptionList);
 
@@ -526,8 +526,8 @@ namespace HPF.FutureState.BusinessLogic
             return foreclosureCaseSetDAO.CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
 
-        #region Check Max Length
-        private ExceptionMessageCollection CheckMaxLength(ForeclosureCaseSetDTO fCaseSet)
+        #region Check Invalid Format Data
+        private ExceptionMessageCollection CheckInvalidFormatData(ForeclosureCaseSetDTO fCaseSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             //Special character
@@ -733,7 +733,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
+            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseHPAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
@@ -793,7 +793,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            ForeclosureCaseDTO foreclosureCase = ForclosureCaseHPAuto(foreclosureCaseSet);
+            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseHPAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = OutcomeHPAuto(foreclosureCaseSet);
             BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
@@ -1655,20 +1655,14 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Add value HPF-Auto for ForclosureCase        
         /// </summary>
-        private ForeclosureCaseDTO ForclosureCaseHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private ForeclosureCaseDTO ForeclosureCaseHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int fcId = foreclosureCase.FcId;
             bool isComplete = CheckComplete(foreclosureCaseSet);
             foreclosureCase.AmiPercentage = CalculateAmiPercentage();
             foreclosureCase.SummarySentDt = DateTime.Now;
-            foreclosureCase.CaseCompleteInd = CASE_COMPLETE_IND_NO;
-            if (foreclosureCase.OptOutNewsletterInd == null)
-                foreclosureCase.OptOutNewsletterInd = "N";
-            if (foreclosureCase.OptOutSurveyInd == null)
-                foreclosureCase.OptOutSurveyInd = "N";
-            if (foreclosureCase.DoNotCallInd == null)
-                foreclosureCase.DoNotCallInd = "N";
+            foreclosureCase.CaseCompleteInd = CASE_COMPLETE_IND_NO;            
             if (isComplete == true)
             {
                 foreclosureCase.CompletedDt = GetCompleteDate(fcId);

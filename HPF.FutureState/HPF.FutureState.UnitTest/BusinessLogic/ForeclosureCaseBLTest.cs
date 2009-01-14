@@ -929,7 +929,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.InitiateTransaction();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
-            actual = target.CheckMaxLength(foreclosureCaseSet);
+            actual = target.CheckInvalidFormatData(foreclosureCaseSet);
             target.RollbackTransaction();
             Assert.AreEqual(expected, actual);
         }
@@ -961,6 +961,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "";
             target.InitiateTransaction();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;

@@ -22,26 +22,26 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, Ruleset = RULE_SET_LENGTH)]
         public string OtherServicerName { get; set; }
 
-        [NotNullValidator(Tag = "ERR128", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = "ERR128", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, Ruleset = RULE_SET_LENGTH)]
         public string AcctNum { get; set; }
 
-        [NotNullValidator(Tag = "WARN320", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = "WARN320", Ruleset = "Complete", MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string Loan1st2nd { get; set; }
 
-        [NotNullValidator(Tag = "WARN321", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = "WARN321", Ruleset = "Complete", MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string MortgageTypeCd { get; set; }
 
         [NullableOrStringLengthValidator(true, 1, Ruleset = RULE_SET_LENGTH)]
         public string ArmResetInd { get; set; }
 
-        [NotNullValidator(Tag = "WARN322", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = "WARN322", Ruleset = "Complete", MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string TermLengthCd { get; set; }
 
-        [NotNullValidator(Tag = "WARN323", Ruleset = "Complete", MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = "WARN323", Ruleset = "Complete", MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string LoanDelinqStatusCd { get; set; }
 
