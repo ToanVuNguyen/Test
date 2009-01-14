@@ -45,16 +45,30 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         public void Commit()
         {
-            trans.Commit();
-            dbConnection.Close();
+            try
+            {
+                trans.Commit();
+                dbConnection.Close();
+            }
+            catch (Exception)
+            {
+                
+            }
         }
         /// <summary>
         /// Cancel work
         /// </summary>
         public void Cancel()
         {
-            trans.Rollback();
-            dbConnection.Close();
+            try
+            {
+                trans.Rollback();
+                dbConnection.Close();
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         /// <summary>
