@@ -57,7 +57,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             try
             {
-                InvoiceSearchResultDTOCollection searchResult = InvoiceBL.Instance.SearchInvoice(searchCriteria);
+                InvoiceSearchResultDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
                 grvFundingSourceInvoices.DataSource = searchResult;
                 grvFundingSourceInvoices.DataBind();
             }

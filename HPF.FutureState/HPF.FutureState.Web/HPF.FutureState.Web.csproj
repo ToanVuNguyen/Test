@@ -134,12 +134,19 @@
     <Compile Include="AppNewInvoiceCriteriaPage.aspx.designer.cs">
       <DependentUpon>AppNewInvoiceCriteriaPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.cs">
-      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+    <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.cs">
+      <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.designer.cs">
-      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+    <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.designer.cs">
+      <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AppNewInvoice\NewInvoiceResults.ascx.cs">
+      <DependentUpon>NewInvoiceResults.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppNewInvoice\NewInvoiceResults.ascx.designer.cs">
+      <DependentUpon>NewInvoiceResults.ascx</DependentUpon>
     </Compile>
     <Compile Include="AppNewPayable\NewAgencyPayableResultsUC.ascx.cs">
       <DependentUpon>NewAgencyPayableResultsUC.ascx</DependentUpon>
@@ -246,6 +253,13 @@
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NewInvoiceResultPage.aspx.cs">
+      <DependentUpon>NewInvoiceResultPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewInvoiceResultPage.aspx.designer.cs">
+      <DependentUpon>NewInvoiceResultPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\HPFHttpModule.cs" />
     <Compile Include="Security\HPFWebSecurity.cs" />
@@ -290,7 +304,8 @@
     <Content Include="AppFundingSourceInvoicesPage.aspx" />
     <Content Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx" />
     <Content Include="AppNewInvoiceCriteriaPage.aspx" />
-    <Content Include="AppNewInvoice\AppNewInvoice.ascx" />
+    <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
+    <Content Include="AppNewInvoice\NewInvoiceResults.ascx" />
     <Content Include="AppNewPayable\NewAgencyPayableResultsUC.ascx" />
     <Content Include="AppNewPayable\NewPayableCriteriaUC.ascx" />
     <Content Include="ChangePassword.aspx" />
@@ -309,6 +324,7 @@
     <Content Include="FundingSourceInvoiceSearch.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
+    <Content Include="NewInvoiceResultPage.aspx" />
     <Content Include="Scripts\HPF.js" />
     <Content Include="Site.Master" />
     <Content Include="Styles\HPF.css" />
