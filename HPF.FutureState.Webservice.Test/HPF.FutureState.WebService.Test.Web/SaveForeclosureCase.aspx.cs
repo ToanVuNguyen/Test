@@ -28,25 +28,33 @@ namespace HPF.FutureState.WebService.Test.Web
 
             if (!IsPostBack)
             {
-                string filename = ConfigurationManager.AppSettings["ForeclosureCaseSetXML"];
-
-                XDocument xdoc = XDocument.Load(filename);
-
-                Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO(xdoc);
-                Session[SessionVariables.BUDGET_ASSET_COLLECTION] = AgencyHelper.ParseBudgetAssetDTO(xdoc);
-                Session[SessionVariables.BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseBudgetItemDTO(xdoc);
-                //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
-                Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = AgencyHelper.ParseOutcomeItemDTO(xdoc);
-                Session[SessionVariables.FORECLOSURE_CASE] = AgencyHelper.ParseForeclosureCaseDTO(xdoc);
-
-                grdvCaseLoanBinding();
-                grdvOutcomeItemBinding();
-                grdvBudgetItemBinding();
-                grdvBudgetAssetBinding();
-                //grdvActivityLogBinding();
-                ForeclosureCaseToForm((ForeclosureCaseDTO)Session[SessionVariables.FORECLOSURE_CASE]);
+                LoadDefaultFcCase();
 
             }
+        }
+
+        private void LoadDefaultFcCase()
+        {
+            string filename = ConfigurationManager.AppSettings["ForeclosureCaseSetXML"];
+            XDocument xdoc = GetXmlDocument(filename);
+            BindToForm(xdoc);
+        }
+
+        private void BindToForm(XDocument xdoc)
+        {
+            Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO(xdoc);
+            Session[SessionVariables.BUDGET_ASSET_COLLECTION] = AgencyHelper.ParseBudgetAssetDTO(xdoc);
+            Session[SessionVariables.BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseBudgetItemDTO(xdoc);
+            //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
+            Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = AgencyHelper.ParseOutcomeItemDTO(xdoc);
+            Session[SessionVariables.FORECLOSURE_CASE] = AgencyHelper.ParseForeclosureCaseDTO(xdoc);
+
+            grdvCaseLoanBinding();
+            grdvOutcomeItemBinding();
+            grdvBudgetItemBinding();
+            grdvBudgetAssetBinding();
+            //grdvActivityLogBinding();
+            ForeclosureCaseToForm((ForeclosureCaseDTO)Session[SessionVariables.FORECLOSURE_CASE]);
         }
 
         private ForeclosureCaseDTO FormToForeclosureCase()
@@ -1072,6 +1080,64 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCaseSet.Outcome = ((List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
             request.ForeclosureCaseSet = fcCaseSet;
             return request;
+        }
+
+        private static XDocument GetXmlDocument(string filename)
+        {
+            XDocument xdoc = XDocument.Load(filename);
+            return xdoc;
+        }
+
+        private static XDocument GetXmlDocument(XmlReader xmlreader)
+        {
+            XDocument xdoc = XDocument.Load(xmlreader);
+            return xdoc;
+        }
+
+        protected void UploadBtn_Click(object sender, EventArgs e)
+        {
+            grdvMessages.Visible = false;
+            try
+            {
+                if (fileUpload.HasFile)
+                {
+                    XmlReader xmlReader = new XmlTextReader(fileUpload.FileContent);
+                    XDocument xdoc = GetXmlDocument(xmlReader);
+                    BindToForm(xdoc);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                List<ExceptionMessage> exList = new List<ExceptionMessage>();
+                em.Message = "Invalid XML format";
+                exList.Add(em);
+                em = new ExceptionMessage();
+                em.Message = "Default fcCase is loaded";
+                exList.Add(em);
+                grdvMessages.DataSource = exList;
+                grdvMessages.DataBind();
+                grdvMessages.Visible = true;
+
+                //ClearControls();
+
+                LoadDefaultFcCase();
+
+            }
+
+        }
+
+        private void ClearControls()
+        {
+            foreach (Control item in Page.Controls)
+            {
+                if (item.GetType() == typeof(TextBox))
+                    ((TextBox)item).Text = "";
+            }
         }
     }
 }

@@ -2,6 +2,63 @@
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     
+    <div style="text-align:left"><h1>Insert CallLog</h1></div>
+    <table style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF" width="100%">
+        <tr>
+        <td align="left">
+            <table>
+                <tr>
+                    <td align="center" class="sidelinks" colspan="2">
+                        Authentication Info</td>
+                </tr>
+                <tr>
+                    <td align="right">
+            
+            <asp:Label CssClass="sidelinks"  ID="Label120" runat="server" Text="Username" ></asp:Label>
+                    </td>
+                    <td>
+            <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+            <asp:Label CssClass="sidelinks" ID="Label121" runat="server" Text="Password"></asp:Label>
+                    </td>
+                    <td>
+            <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
+            
+                    </td>
+                </tr>
+                
+            </table>
+            <br />
+            <br />
+        </td>
+        </tr>
+    </table>
+    <div>
+    
+     <table style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF" width="100%">
+        <tr>
+        <td align="left">
+            <table>
+                <tr>
+                    <td align="center" class="sidelinks">
+                        Select file: <asp:FileUpload ID="fileUpload" runat="server"  />
+                    </td>
+                    <td>
+                        <asp:Button id="UploadBtn" Text="Read File" OnClick="UploadBtn_Click" runat="server" Width="105px" />
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+        </td>
+        </tr>
+    </table>
+    
+    <br />
+    
     <asp:Button ID="btnSave" runat="server" Text="Save Foreclosure Case" 
     onclick="btnSave_Click" />
     
