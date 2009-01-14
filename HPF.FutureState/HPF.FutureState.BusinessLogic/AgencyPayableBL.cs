@@ -11,6 +11,8 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using HPF.FutureState.Common;
 using System.Collections.ObjectModel;
+using HPF.FutureState.Web.Security;
+
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -48,18 +50,13 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
                 // don't know much about that fields
                 agencyPayable.PayamentCode = "";
-                agencyPayable.AccountLinkTBD = "";
-                agencyPayable.AgencyPayablePaymentAmount = 0;
-                agencyPayable.StatusCode = "";
-                agencyPayable.PaymentComment = "";
-                //----------- agency_payable (base)
-                agencyPayable.ChangeLastAppName = "";
-                agencyPayable.ChangeLastDate = DateTime.Now;
-                agencyPayable.ChangeLastUserId = "";
-                agencyPayable.CreateAppName = "";
-                agencyPayable.CreateDate = DateTime.Now;
-                agencyPayable.CreateUserId = "";
-                //-----------
+                //agencyPayable.AccountLinkTBD = "";
+                //agencyPayable.TotalCases = agencyPayableDraft.TotalCases;
+                agencyPayable.AgencyPayablePaymentAmount = agencyPayableDraft.TotalAmount;
+                agencyPayable.StatusCode = "ACTIVE";
+                //agencyPayable.PaymentComment = "";
+               
+                agencyPayable.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
                 //Insert Agency Payable
                 int agencyPayableId = 0;
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable);
@@ -76,15 +73,9 @@ namespace HPF.FutureState.BusinessLogic
                     //-------------
                     agencyPayableCase.AgencyName = "";
                     agencyPayableCase.PaymentDate = DateTime.Now;
-                   
-                    //----------- agency_payable (base)
-                    agencyPayableCase.ChangeLastAppName = "";
-                    agencyPayableCase.ChangeLastDate = DateTime.Now;
-                    agencyPayableCase.ChangeLastUserId = "";
-                    agencyPayableCase.CreateAppName = "";
-                    agencyPayableCase.CreateDate = DateTime.Now;
-                    agencyPayableCase.CreateUserId = "";
-                    //agencyPayableCase.SetInsertTrackingInformation();
+                    agencyPayableCase.NFMCDifferenceEligibleInd = "N";
+                    agencyPayableCase.NFMCDifferenceInd = "N";
+                    agencyPayableCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
       
                 }
@@ -117,10 +108,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
-        public AgencyPayableDTO SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        public AgencyPayableDTOCollection SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
 
-            AgencyPayableDTO result = new AgencyPayableDTO();
+            AgencyPayableDTOCollection result = new AgencyPayableDTOCollection();
             Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
             if (ErrorMess != null)
             {
