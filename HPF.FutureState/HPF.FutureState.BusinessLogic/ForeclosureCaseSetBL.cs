@@ -21,21 +21,6 @@ namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
-       
-        private const string LOAN_1ST = "1ST";
-        private const string INCOME = "1";
-        private const string EXPENSES = "2";
-        private const string CASE_COMPLETE_IND_YES = "Y";
-        private const string CASE_COMPLETE_IND_NO = "N";
-        private const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
-        private const string RULESET_COMPLETE = "Complete";
-        private const string RULESET_LENGTH = "Length";
-        private const string PAYABLE_IND = "Y"; 
-   
-        private const string DUPLICATE_YES = "Y";
-        private const string DUPLICATE_NO = "N";
-        private const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
-        private const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
 
@@ -160,18 +145,18 @@ namespace HPF.FutureState.BusinessLogic
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
             fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
             if (collection != null && collection.Count > 0)
-            {                
-                fcCase.DuplicateInd = DUPLICATE_YES;
+            {
+                fcCase.DuplicateInd = Constant.DUPLICATE_YES;
                 WarningMessage = CreateDuplicateCaseWarning(collection);
             }
             else
             {
-                if (dbFcCase.DuplicateInd.ToUpper().Equals(DUPLICATE_YES.ToUpper()))
-                    fcCase.DuplicateInd = DUPLICATE_NO;
-                if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(NEVER_BILL_REASON_CODE_DUPE))
+                if (dbFcCase.DuplicateInd.ToUpper().Equals(Constant.DUPLICATE_YES.ToUpper()))
+                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;
+                if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
                     fcCase.NeverBillReasonCd = null;
-                
-                if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(NEVER_PAY_REASON_CODE_DUPE))
+
+                if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
                     fcCase.NeverPayReasonCd = null;
                 WarningMessage = null;
             }
@@ -267,7 +252,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection CheckRequireForPartial(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            return ValidationFieldByRuleSet(foreclosureCaseSet, RULESET_MIN_REQUIRE_FIELD);
+            return ValidationFieldByRuleSet(foreclosureCaseSet, Constant.RULESET_MIN_REQUIRE_FIELD);
         }       
         
         /// <summary>
@@ -283,7 +268,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 msgFcCaseSet.Add(ex);
             }
-            if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+            if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
                 ExceptionMessageCollection msgOther = CheckOtherFieldFCaseForPartial(foreclosureCase);
                 if (msgOther != null)
@@ -366,7 +351,7 @@ namespace HPF.FutureState.BusinessLogic
                         msgFcCaseSet.AddExceptionMessage(result.Key + " " + (i + 1) + " is required");
                     }
                 }
-                if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+                if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
                 {
                     ExceptionMessageCollection msgOthers = CheckOtherFieldOutcomeItemForPartial(outComeTypeId, i, item);
                     if (msgOthers != null)
@@ -407,9 +392,9 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.Add(ex);
                     break;
                 }
-            }  
-            
-            if (ruleSet == RULESET_MIN_REQUIRE_FIELD)
+            }
+
+            if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
                 for (int i = 0; i < caseLoanDTOCollection.Count; i++)
                 {
@@ -533,10 +518,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             //Special character
-            ValidationResults resuls = HPFValidator.Validate<ForeclosureCaseDTO>(fCaseSet.ForeclosureCase, RULESET_LENGTH);
-            
-            ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, RULESET_LENGTH);
-            ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, RULESET_LENGTH);
+            ValidationResults resuls = HPFValidator.Validate<ForeclosureCaseDTO>(fCaseSet.ForeclosureCase, Constant.RULESET_LENGTH);
+
+            ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, Constant.RULESET_LENGTH);
+            ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);
             if (ex != null)
                 msgFcCaseSet.Add(ex);
             if (msgBudgetAsset.Count != 0)
@@ -646,11 +631,11 @@ namespace HPF.FutureState.BusinessLogic
             if (!caseComplete)
                 return null;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection msgRequire = ValidationFieldByRuleSet(foreclosureCaseSetInput, RULESET_MIN_REQUIRE_FIELD);
+            ExceptionMessageCollection msgRequire = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
             if (msgRequire != null && msgRequire.Count > 0)
                 msgFcCaseSet.Add(msgRequire);
 
-            ExceptionMessageCollection msgComplete = ValidationFieldByRuleSet(foreclosureCaseSetInput, RULESET_COMPLETE);
+            ExceptionMessageCollection msgComplete = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
             if (msgComplete != null && msgComplete.Count > 0)
                 msgFcCaseSet.Add(msgComplete);
 
@@ -683,7 +668,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             foreach (CaseLoanDTO item in caseLoan)
             {
-                if (item.Loan1st2nd.ToUpper() == LOAN_1ST)                
+                if (item.Loan1st2nd.ToUpper() == Constant.LOAN_1ST)                
                     count = count + 1;                
             }
             if(count > 1)
@@ -722,7 +707,7 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();            
             foreach (OutcomeTypeDTO item in outcomeType)
             {
-                if (item.OutcomeTypeID == outcome.OutcomeTypeId && item.PayableInd == PAYABLE_IND)
+                if (item.OutcomeTypeID == outcome.OutcomeTypeId && item.PayableInd == Constant.PAYABLE_IND)
                     return true;
             }
             return false;
@@ -1586,7 +1571,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckRequireFieldPartial(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, RULESET_MIN_REQUIRE_FIELD);
+            ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
             if (msgError == null || msgError.Count == 0)
                 return true;
             return false;
@@ -1597,7 +1582,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckRequireFieldForComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, RULESET_COMPLETE);
+            ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
             if (msgError == null || msgError.Count == 0)
                 return true;
             return false;
@@ -1613,7 +1598,7 @@ namespace HPF.FutureState.BusinessLogic
                 return false;
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (item.Loan1st2nd == LOAN_1ST)
+                if (item.Loan1st2nd == Constant.LOAN_1ST)
                     return true;
             }
             return false;
@@ -1664,7 +1649,7 @@ namespace HPF.FutureState.BusinessLogic
             bool isComplete = CheckComplete(foreclosureCaseSet);
             foreclosureCase.AmiPercentage = CalculateAmiPercentage();
             foreclosureCase.SummarySentDt = DateTime.Now;
-            foreclosureCase.CaseCompleteInd = CASE_COMPLETE_IND_NO;            
+            foreclosureCase.CaseCompleteInd = Constant.CASE_COMPLETE_IND_NO;            
             if (isComplete == true)
             {
                 foreclosureCase.CompletedDt = GetCompleteDate(fcId);
@@ -1699,12 +1684,12 @@ namespace HPF.FutureState.BusinessLogic
             if (fcId != int.MinValue && fcId > 0)
             {
                 foreclosureCase = GetForeclosureCase(fcId);
-                if (foreclosureCase.CaseCompleteInd == CASE_COMPLETE_IND_NO)
-                    return CASE_COMPLETE_IND_YES;
+                if (foreclosureCase.CaseCompleteInd == Constant.CASE_COMPLETE_IND_NO)
+                    return Constant.CASE_COMPLETE_IND_YES;
                 else
                     return foreclosureCase.CaseCompleteInd;
             }
-            return CASE_COMPLETE_IND_YES;
+            return Constant.CASE_COMPLETE_IND_YES;
         }
 
         /// <summary>
@@ -1799,9 +1784,9 @@ namespace HPF.FutureState.BusinessLogic
                 string budgetCode = BuggetCategoryCode(foreClosureCaseSetDAO, item.BudgetSubcategoryId);
                 if (budgetCode != null)
                 {
-                    if (budgetCode == INCOME)
+                    if (budgetCode == Constant.INCOME)
                         totalIncome += (decimal)item.BudgetItemAmt;
-                    else if (budgetCode == EXPENSES)
+                    else if (budgetCode == Constant.EXPENSES)
                         totalExpenses += (decimal)item.BudgetItemAmt;
                 }
             }
