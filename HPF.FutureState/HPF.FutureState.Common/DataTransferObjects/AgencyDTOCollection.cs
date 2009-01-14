@@ -7,5 +7,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class AgencyDTOCollection:BaseDTOCollection<AgencyDTO>
     {
+
     }
 }

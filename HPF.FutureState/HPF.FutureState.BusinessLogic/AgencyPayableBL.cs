@@ -154,7 +154,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgAppForeclosureCaseSearch;
         }
         void RequireNewPayableCriteria(AgencyPayableSearchCriteriaDTO searchCriteria, ref Collection<string> msg, string ruleset)
-        {
+        {            
             ValidationResults validationResults = HPFValidator.Validate<AgencyPayableSearchCriteriaDTO>(searchCriteria, ruleset);
             foreach (ValidationResult result in validationResults)
             {

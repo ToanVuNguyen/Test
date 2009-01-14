@@ -37,13 +37,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             if (!IsPostBack)
             {
-                BindDDLProgram();
-                BindDDLState();
-                BindDDLAgency();
+                BindProgramDropdownlist();
+                BindStateDropdownlist();
+                BindAgencyDropdownlist();
 
             }
             else
@@ -55,16 +53,17 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
             }
         }
-        protected void BindDDLState()
+        protected void BindStateDropdownlist()
         {
             StateDTOCollection stateCollection = LookupDataBL.Instance.GetState();
+            //Bind data
             ddlPropertyState.DataValueField = "StateName";
             ddlPropertyState.DataTextField = "StateName";
             ddlPropertyState.DataSource = stateCollection;
             ddlPropertyState.DataBind();
             //ddlPropertyState.Items.FindByText("ALL").Selected = true;
         }
-        protected void BindDDLAgency()
+        protected void BindAgencyDropdownlist()
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
             ddlAgency.DataValueField = "AgencyID";
@@ -73,7 +72,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlAgency.DataBind();
             ddlAgency.Items.FindByText("ALL").Selected = true;
         }
-        protected void BindDDLProgram()
+        protected void BindProgramDropdownlist()
         {
             ProgramDTOCollection programCollection = LookupDataBL.Instance.GetProgram();
             ddlProgram.DataValueField = "ProgramID";
@@ -83,48 +82,22 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlProgram.Items.FindByText("ALL").Selected = true;
         }
 
+        ///
         protected void BindGrvForeClosureCaseSearch(int PageNum)
-        {
-
-
-            AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
+        {            
             try
             {
-                string textchangeFirstName = "";
-                string textchangeLastName = "";
-                appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
-                if (txtFirstName.Text != string.Empty)
-                {
-                    textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
-                    textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
-                }
-                if (txtLastName.Text != string.Empty)
-                {
-                    textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
-                    textchangeLastName = Replace1Char(textchangeLastName, "*", "%");
-                }
-                appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
-                appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
-                appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
-                appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text.Trim();
-                appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text.Trim();
-                appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty ? null : txtPropertyZip.Text.Trim();
-                appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
-                appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
-                appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
-                appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
-                appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
-                appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
-
                 panForeClosureCaseSearch.Visible = true;
                 ManageControls(false);
-
-                appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
+                //
+                var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
+                //
                 var temp = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
+                //Bind search result
                 grvForeClosureCaseSearch.DataSource = temp;
                 grvForeClosureCaseSearch.DataBind();
                 this.TotalRowNum = temp.SearchResultCount;
-
+                //
 
                 if (this.TotalRowNum != 0)
                 {
@@ -141,8 +114,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
                     GeneratePages(totalpage);
                     lblTemp.Text = "1";
-
-
                 }
                 else
                 {
@@ -157,9 +128,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     panForeClosureCaseSearch.Visible = false;
                     lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
                     lblErrorMessage.Text += " <br>";
-                }
-
+                }                
                 this.TotalRowNum = 0;
+                ExceptionProcessor.HandleException(ex);
             }
             catch (Exception ex)
             {
@@ -167,9 +138,43 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 lblErrorMessage.Text += ex.Message;
                 lblErrorMessage.Text += " <br>";
                 this.TotalRowNum = 0;
+                ExceptionProcessor.HandleException(ex);
             }
         }
 
+        private AppForeclosureCaseSearchCriteriaDTO GetAppForeclosureCaseSearchCriteriaDTO(int PageNum)
+        {
+            var appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
+
+            string textchangeFirstName = "";
+            string textchangeLastName = "";
+            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
+            if (txtFirstName.Text != string.Empty)
+            {
+                textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
+                textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
+            }
+            if (txtLastName.Text != string.Empty)
+            {
+                textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
+                textchangeLastName = Replace1Char(textchangeLastName, "*", "%");
+            }
+            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
+            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
+            appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
+            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty ? null : txtPropertyZip.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
+            appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
+            appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
+            appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
+            appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
+            appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
+            appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
+            return appForeclosureCaseSearchCriteriaDTO;
+        }
+       
         protected void ManageControls(bool isEnable)
         {
             lbl1.Visible = isEnable;
@@ -190,6 +195,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             if (totalpage > 10) lblErrorMessage.Text = @"There are greater than 500 case results are found based on 
                         the search criteria,Please defined search criteria and resubmitted";
+            //
             GeneratePages(totalpage);
         }
 
@@ -251,6 +257,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             BindGrvForeClosureCaseSearch(this.PageNum);
         }
+
         void GeneratePages(double totalpage)
         {
             if (totalpage > 10) totalpage = 10;
@@ -287,10 +294,12 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
             this.PageNum = pagenum;
+            
             lbtnFirst.Enabled = true;
             lbtnLast.Enabled = true;
             lbtnNext.Enabled = true;
             lbtnPrev.Enabled = true;
+            
             if (pagenum == 1)
             {
                 lbtnFirst.Enabled = false;
@@ -301,6 +310,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 lbtnLast.Enabled = false;
                 lbtnNext.Enabled = false;
             }
+
             BindGrvForeClosureCaseSearch(pagenum);
 
         }

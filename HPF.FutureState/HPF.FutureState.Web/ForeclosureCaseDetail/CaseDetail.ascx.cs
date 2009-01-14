@@ -43,6 +43,19 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             if (foreclosureCase == null)
                 return;
+            
+            BindForeclosureCaseDetail();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+
+            }
+
+        }
+
+        private void BindForeclosureCaseDetail()
+        {
             //Top area
             //Property
             lblAddress1.Text = foreclosureCase.PropAddr1;
@@ -183,14 +196,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (foreclosureCase.HpfSuccessStoryInd == "N")
                     ddlSuccessStory.SelectedIndex = 2;//no
                 else ddlSuccessStory.SelectedIndex = 0;//blank
-            BindDDLAgency(foreclosureCase.AgencyId.ToString());
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-            }
-
+            BindAgencyDropdownlist(foreclosureCase.AgencyId.ToString());
         }
+
         protected override void OnLoad(EventArgs e)
         {
 
@@ -205,7 +213,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
 
         }
-        protected void BindDDLAgency(string agencyname)
+        protected void BindAgencyDropdownlist(string agencyname)
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
             AgencyDTO item=agencyCollection[0];

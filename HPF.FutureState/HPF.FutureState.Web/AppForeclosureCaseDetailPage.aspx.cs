@@ -43,19 +43,12 @@ namespace HPF.FutureState.Web
             if (Request.QueryString["CaseID"] == null)
                 return;
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-            ForeclosureCaseDTO ForeclosureCase;
 
             try
             {
-                ForeclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
-                lblHpfID.Text = ForeclosureCase.FcId.ToString();
-                lblBorrower.Text = ForeclosureCase.BorrowerFname + " " + ForeclosureCase.BorrowerMname + " " + ForeclosureCase.BorrowerLname;
-                lblPropertyAddress.Text = ForeclosureCase.PropAddr1;
-                lblLoanList.Text = ForeclosureCase.LoanList;
-                lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
-                lblPhone.Text = ForeclosureCase.CounselorPhone + "-" + ForeclosureCase.CounselorExt;
-                lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
-                lblAgencyName.Text = GetAgencyName(ForeclosureCase.AgencyId);
+                var ForeclosureCase = GetForeclosureCase(caseid);
+                //
+                BindForeclosureCaseToUI(ForeclosureCase);
             }
             catch (DataValidationException ex)
             {
@@ -75,9 +68,29 @@ namespace HPF.FutureState.Web
            
 
         }
+
+        private void BindForeclosureCaseToUI(ForeclosureCaseDTO ForeclosureCase)
+        {
+            lblHpfID.Text = ForeclosureCase.FcId.ToString();
+            lblBorrower.Text = ForeclosureCase.BorrowerFname + " " + ForeclosureCase.BorrowerMname + " " + ForeclosureCase.BorrowerLname;
+            lblPropertyAddress.Text = ForeclosureCase.PropAddr1;
+            lblLoanList.Text = ForeclosureCase.LoanList;
+            lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
+            lblPhone.Text = ForeclosureCase.CounselorPhone + "-" + ForeclosureCase.CounselorExt;
+            lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
+            lblAgencyName.Text = GetAgencyName(ForeclosureCase.AgencyId);
+        }
+
+        private ForeclosureCaseDTO GetForeclosureCase(int caseid)
+        {
+            var ForeclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
+            return ForeclosureCase;
+        }
+
         protected String GetAgencyName(int agencyID)
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+
             AgencyDTO item = agencyCollection[0];
             agencyCollection.Remove(item);
             foreach (var i in agencyCollection)
