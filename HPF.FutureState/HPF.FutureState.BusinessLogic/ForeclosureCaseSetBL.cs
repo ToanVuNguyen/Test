@@ -15,6 +15,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -542,9 +543,31 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage("Age of the Borrower must be >=12 and <=110");
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
                 msgFcCaseSet.AddExceptionMessage("Age of the Co_borrower must be >=12 and <=110");
+            if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerFname))
+                msgFcCaseSet.AddExceptionMessage("BorrowerFnamemust not include the following characters:!@#$%^*(){}|:;?><567890");
+            if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerLname))
+                msgFcCaseSet.AddExceptionMessage("BorrowerLname not include the following characters:!@#$%^*(){}|:;?><567890");
+            if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerFname))
+                msgFcCaseSet.AddExceptionMessage("CoBorrowerFname not include the following characters:!@#$%^*(){}|:;?><567890");
+            if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerLname))
+                msgFcCaseSet.AddExceptionMessage("CoBorrowerLname not include the following characters:!@#$%^*(){}|:;?><567890");
+            if (msgFcCaseSet.Count == 0)
+                return null;
             return msgFcCaseSet;
-        }   
+        }
 
+        /// <summary>
+        /// Check Special characrer in Name
+        /// </summary>
+        private bool CheckSpecialCharacrer(string s)
+        {
+            if (s == null || s == string.Empty)
+                return true;
+            Regex regex = new Regex(@"[!@#$%^*(){}|:;?><567890]");
+            if (regex.IsMatch(s))
+                return false;
+            return true;
+        }
         /// <summary>
         /// Check MaxLength for budgetAsset
         /// </summary>

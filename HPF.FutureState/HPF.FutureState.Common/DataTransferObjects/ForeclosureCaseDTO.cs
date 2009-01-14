@@ -7,6 +7,7 @@ using System.ComponentModel;
 
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using HPF.FutureState.Common.Utils.DataValidator;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
@@ -84,8 +85,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string GenderCd { get; set; }
 
-        [NotNullValidator(Tag = "ERR105", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(false, 30, Ruleset = RULE_SET_LENGTH)]
+        [NotNullValidator(Tag = "ERR105", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]        
+        [NullableOrStringLengthValidator(false, 30, Ruleset = RULE_SET_LENGTH)]        
         public string BorrowerFname { get; set; }
 
         [NotNullValidator(Tag = "ERR106", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]
@@ -315,13 +316,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 1, Ruleset = RULE_SET_LENGTH)]
         public string SrvcrWorkoutPlanCurrentInd { get; set; }
         
-        [NullableOrStringLengthValidator(false, 1, Ruleset = RULE_SET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 1, Ruleset = RULE_SET_LENGTH)]
         public string OptOutNewsletterInd { get; set; }
         
-        [NullableOrStringLengthValidator(false, 1, Ruleset = RULE_SET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 1, Ruleset = RULE_SET_LENGTH)]
         public string OptOutSurveyInd { get; set; }
         
-        [NullableOrStringLengthValidator(false, 1, Ruleset = RULE_SET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 1, Ruleset = RULE_SET_LENGTH)]
         public string DoNotCallInd { get; set; }
 
         [NotNullValidator(Tag = "ERR123", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]

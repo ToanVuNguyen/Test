@@ -915,6 +915,24 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.RollbackTransaction();
             Assert.AreEqual(expected, actual);
         }
+
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckMaxLengthTest()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
+            target.InitiateTransaction();
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual;
+            actual = target.CheckMaxLength(foreclosureCaseSet);
+            target.RollbackTransaction();
+            Assert.AreEqual(expected, actual);
+        }
         
         #region CheckRequireField
         /// <summary>
@@ -925,7 +943,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void RequireFieldsValidationPass()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value            
             target.InitiateTransaction();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
@@ -1201,37 +1219,36 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ProgramId = Convert.ToInt32("1");
             foreclosureCase.AgencyCaseNum = "Test";
             foreclosureCase.IntakeDt = Convert.ToDateTime("12/12/2007");
-            foreclosureCase.CaseSourceCd = "";
+            foreclosureCase.CaseSourceCd = "HPF";
             foreclosureCase.BorrowerFname = "Test";
             foreclosureCase.BorrowerLname = "Test";
-            foreclosureCase.PrimaryContactNo = "Test";
+            foreclosureCase.PrimaryContactNo = "Y";
             foreclosureCase.ContactAddr1 = "Test";
             foreclosureCase.ContactCity = "Test";            
             foreclosureCase.ContactZip = "12345";
             foreclosureCase.PropAddr1 = "Test";
             foreclosureCase.PropCity = "Test";            
             foreclosureCase.PropZip = "12345";
-            foreclosureCase.OwnerOccupiedInd = "Test";
-            foreclosureCase.FundingConsentInd = "Test";
-            foreclosureCase.ServicerConsentInd = "Test";
+            foreclosureCase.OwnerOccupiedInd = "Y";
+            foreclosureCase.FundingConsentInd = "Y";
+            foreclosureCase.ServicerConsentInd = "Y";
             foreclosureCase.AssignedCounselorIdRef = "Test";
             foreclosureCase.CounselorFname = "Test";
             foreclosureCase.CounselorLname = "Test";
             foreclosureCase.CounselorEmail = "Test";
             foreclosureCase.CounselorPhone = "Test";
-            foreclosureCase.OptOutNewsletterInd = "Test";
-            foreclosureCase.OptOutSurveyInd = "Test";
-            foreclosureCase.DoNotCallInd = "Test";
-            foreclosureCase.PrimaryResidenceInd = "Test";
+            foreclosureCase.OptOutNewsletterInd = "N";
+            foreclosureCase.DoNotCallInd = "N";
+            foreclosureCase.PrimaryResidenceInd = "Y";
             foreclosureCase.CreateDate = DateTime.Now;
             foreclosureCase.CreateUserId = "HPF";
             foreclosureCase.CreateAppName = "HPF";
             foreclosureCase.ChangeLastDate = DateTime.Now;
             foreclosureCase.ChangeLastAppName = "HPF";
             foreclosureCase.ChangeLastUserId = "HPF";
-            foreclosureCase.AgencyClientNum = "";
-            foreclosureCase.ContactStateCd = "";
-            foreclosureCase.PropStateCd = "";
+            foreclosureCase.AgencyClientNum = "HPF";
+            foreclosureCase.ContactStateCd = "HPF";
+            foreclosureCase.PropStateCd = "HPF";
             if (status == "TRUE")
             {
                 foreclosureCase.CompletedDt = Convert.ToDateTime("12/12/2007");
@@ -1252,7 +1269,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 {
                     BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
                     budgetAsset.BudgetSetId = Convert.ToInt32("76156");
-                    budgetAsset.AssetName = "Test";
+                    budgetAsset.AssetName = "01234567890123456789012345678901234567890123456789";
                     budgetAsset.AssetValue = Convert.ToDecimal("30.65");
                     budgetAsset.CreateDate = DateTime.Now;
                     budgetAsset.CreateUserId = "HPF";
@@ -1396,7 +1413,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.AcctNum = "HPF";
                     caseLoanDTO.Loan1st2nd = "1st";
                     caseLoanDTO.MortgageTypeCd = "10";                    
-                    caseLoanDTO.TermLengthCd = "";
+                    caseLoanDTO.TermLengthCd = "HPF";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 10;
                     caseLoanDTO.CreateDate = DateTime.Now;
@@ -1416,8 +1433,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.ServicerId = Convert.ToInt32("12982");
                     caseLoanDTO.AcctNum = "Test";
                     //caseLoanDTO.Loan1st2nd = "1st";
-                    caseLoanDTO.MortgageTypeCd = "";                    
-                    caseLoanDTO.TermLengthCd = "";
+                    caseLoanDTO.MortgageTypeCd = "HPF";                    
+                    caseLoanDTO.TermLengthCd = "HPF";
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 1;
                     caseLoanDTO.CreateDate = DateTime.Now;
@@ -1518,7 +1535,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.DfltReason2ndCd = "18";
             foreclosureCase.HudTerminationReasonCd = "1";
             foreclosureCase.HudOutcomeCd = "3";
-            foreclosureCase.CounselingDurationCd = "";            
+            foreclosureCase.CounselingDurationCd = "HPF";            
             foreclosureCase.SummarySentOtherCd = "Phone";            
             foreclosureCase.MilitaryServiceCd = "ACTV";
             foreclosureCase.ContactZip = "12345";
@@ -1540,7 +1557,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.DfltReason2ndCd = "18";
             foreclosureCase.HudTerminationReasonCd = "1";
             foreclosureCase.HudOutcomeCd = "3";
-            foreclosureCase.CounselingDurationCd = "";
+            foreclosureCase.CounselingDurationCd = "HPF";
             foreclosureCase.SummarySentOtherCd = "Phone";
             foreclosureCase.MilitaryServiceCd = "ACTV";
             foreclosureCase.ContactZip = "1145";
