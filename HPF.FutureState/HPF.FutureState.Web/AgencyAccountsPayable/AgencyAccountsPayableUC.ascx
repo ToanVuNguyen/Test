@@ -1,22 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AgencyAccountsPayableUC.ascx.cs" Inherits="HPF.FutureState.Web.AgencyAccountsPayable.AgencyAccountsPayableUC" %>
 
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-    .style1
-    {
-        height: 24px;
-    }
-    .style2
-    {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: #2271A0;
-        font-size: 11px;
-        font-weight: bold;
-        padding-left: 10px;
-        height: 24px;
-    }
-</style>
-<table width="100%">
+
+<table width="90%">
+    <colgroup>
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="20%" />
+    <col width="50%" />
+    </colgroup>
     <tr>
         <td colspan="5" class="Header">
             Agency Accounts Payable page</td>
@@ -37,17 +30,18 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td class="style1">
+        <td >
             </td>
-        <td class="style1">
+        <td>
             </td>
-        <td class="style2"  align="right">
+        <td  class="sidelinks" align="right">
             Period End:</td>
-        <td class="style1">
-            <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100"></asp:TextBox>
+        <td >
+            <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100" CssClass="Text"></asp:TextBox>
         </td>
-        <td class="style1">
-            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List"  Width="100px" CssClass="MyButton"/>
+        <td >
+            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List"  
+                Width="100px" CssClass="MyButton" onclick="btnRefreshList_Click"/>
         </td>
     </tr>
     <tr>
@@ -55,23 +49,41 @@
     <asp:Label ID="lblMessage" runat="server" Text=""  CssClass="ErrorMessage" ></asp:Label>
     <asp:RequiredFieldValidator ID="reqtxtPeriodStart"  Display="Dynamic" runat="server" ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
     <asp:RequiredFieldValidator ID="reqtxtPeriodEnd" Display="Dynamic"  runat="server" ErrorMessage="Must input date" ControlToValidate="txtPeriodEnd"></asp:RequiredFieldValidator>
-    <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodStart" ValueToCompare="1/1/1900" Operator="GreaterThan"></asp:CompareValidator>
-    <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan"></asp:CompareValidator>
+    <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodStart" ValueToCompare="1/1/1900" Operator="GreaterThan" Type="Date"></asp:CompareValidator>
+    <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan" Type="Date"></asp:CompareValidator>
     </td></tr><tr>
         <td colspan="5" class="sidelinks" >
             Invoice List:</td></tr><tr>
         <td colspan="4">
-        <asp:Panel ID="panInvoiceList" runat="server"  CssClass="ScrollTable">
-        <asp:GridView ID="grvInvoiceList" runat="server"  BorderStyle="None" Width="100%"  AutoGenerateColumns="false">
+        <asp:Panel ID="panInvoiceList" runat="server"  CssClass="ScrollTable" Width="840px">
+        <asp:GridView ID="grvInvoiceList" runat="server"  BorderStyle="None" Width="100%"  
+                AutoGenerateColumns="false" onrowdatabound="grvInvoiceList_RowDataBound" 
+                ondatabound="grvInvoiceList_DataBound">
         <HeaderStyle CssClass="FixedHeader" />
+        <AlternatingRowStyle CssClass="AlternatingRowStyle" />
+        <RowStyle CssClass="RowStyle" />
+        <Columns>
+        <asp:BoundField HeaderText="Agency" DataField="AgencyName" />
+        <asp:BoundField HeaderText="Payable#" DataField="AgencyPayableId" />
+        <asp:BoundField HeaderText="Payable Dt" DataField="PaymentDate" DataFormatString="{0:d}" />
+        <asp:TemplateField HeaderText="Payable Period">
+        <ItemTemplate >
+        <asp:Label ID="lblPayablePeriod" runat="server" Text='<%#Eval("PeriodStartDate","{0:d}")+" - "+Eval("PeriodEndDate","{0:d}") %>'></asp:Label>
+        </ItemTemplate>
+        </asp:TemplateField>
+        <asp:BoundField HeaderText="Amount" DataField="TotalAmount" />
+       <asp:BoundField HeaderText="Status" DataField="StatusCode" />
+        <asp:BoundField HeaderText="Comments" DataField="PaymentComment" />
+        </Columns>
         </asp:GridView>
         </asp:Panel>
         </td>
         <td>
-            <table >
+            <table style="vertical-align:top;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="100px" CssClass="MyButton" />
+                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="100px" 
+                            CssClass="MyButton" onclick="btnNewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +93,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable"  CssClass="MyButton" Width="100px" />
+                        <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable"  
+                            CssClass="MyButton" Width="100px" onclick="btnCancelPayable_Click" />
                     </td>
                 </tr>
             </table>
