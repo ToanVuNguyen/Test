@@ -167,13 +167,12 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
-        public AgencyPayableDTO SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        public AgencyPayableDTOCollection SearchAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
-            AgencyPayableDTO results = new AgencyPayableDTO();
-           
+            AgencyPayableDTOCollection result = new AgencyPayableDTOCollection();           
             var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_agency_search", dbConnection);
-            var sqlParam = new SqlParameter[2];
+            var command = CreateSPCommand("hpf_agency_payable_search", dbConnection);
+            var sqlParam = new SqlParameter[3];
             try
             {
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayableCriteria.AgencyId);
@@ -186,25 +185,21 @@ namespace HPF.FutureState.DataAccess
                 if (reader.HasRows)
                 {
                     AgencyPayableCaseDTOCollection agencyPayableCaseDTOCollection = new AgencyPayableCaseDTOCollection();
-                    results.AgencyId = agencyPayableCriteria.AgencyId;
-                    results.PeriodStartDate = agencyPayableCriteria.PeriodStartDate;
-                    results.PeriodEndDate = agencyPayableCriteria.PeriodEndDate;
+                    
                     while (reader.Read())
                     {
-                        AgencyPayableCaseDTO item = new AgencyPayableCaseDTO();
-                        item.AgencyName = ConvertToString(reader["agency_name"]);
-                        item.AgencyPayableId = ConvertToInt(reader["agency_payable_id"]);
+                        AgencyPayableDTO results = new AgencyPayableDTO();           
+                        results.AgencyName = ConvertToString(reader["agency_name"]);
+                        results.AgencyPayableId = ConvertToInt(reader["agency_payable_id"]);
                         results.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
-                        item.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
-                        item.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
-                        item.PaymentAmount = ConvertToDecimal(reader["pmt_amt"]);
+                        results.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
+                        results.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
+                        results.TotalAmount = ConvertToDecimal(reader["agency_payable_pmt_amt"]);
                         results.PaymentComment = ConvertToString(reader["pmt_comment"]);
                         results.StatusCode=ConvertToString(reader["status_cd"]);
-                        agencyPayableCaseDTOCollection.Add(item);
+                        result.Add(results);
                     }
                     reader.Close();
-                    results.AgencyPayableCases= agencyPayableCaseDTOCollection;
-                    
                 }
                 
                 
@@ -217,7 +212,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            return results;
+            return result;
         }
 
         /// <summary>
@@ -229,25 +224,27 @@ namespace HPF.FutureState.DataAccess
         {
             AgencyPayableDraftDTO results = new AgencyPayableDraftDTO();
             var dbConnection = CreateConnection();
+            
             var command = CreateSPCommand("hpf_agency_payable_search_draft",dbConnection);            
             var sqlParam = new SqlParameter[8];
+            ForeclosureCaseDraftDTOCollection fCaseDraftCollection = new ForeclosureCaseDraftDTOCollection();
             try
             {
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayableCriteria.AgencyId);
-                sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodEndDate);
+                sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodStartDate);
                 sqlParam[2] = new SqlParameter("@pi_end_dt", agencyPayableCriteria.PeriodEndDate);
                 sqlParam[3] = new SqlParameter("@pi_case_completed_ind", (agencyPayableCriteria.CaseComplete==CustomBoolean.None)?null:agencyPayableCriteria.CaseComplete.ToString());
                 sqlParam[4] = new SqlParameter("@pi_servicer_consent_ind", (agencyPayableCriteria.ServicerConsent == CustomBoolean.None) ? null : agencyPayableCriteria.ServicerConsent.ToString());
                 sqlParam[5] = new SqlParameter("@pi_funding_consent_ind", (agencyPayableCriteria.FundingConsent == CustomBoolean.None) ? null : agencyPayableCriteria.FundingConsent.ToString());
-                sqlParam[6] = new SqlParameter("@pi_loan_1st_2nd_cd", agencyPayableCriteria.LoanIndicator == string.Empty ? null: agencyPayableCriteria.LoanIndicator.ToString());
+                sqlParam[6] = new SqlParameter("@pi_loan_1st_2nd_cd", agencyPayableCriteria.LoanIndicator == CustomBoolean.None.ToString()? null: agencyPayableCriteria.LoanIndicator.ToString());
                 sqlParam[7] = new SqlParameter("@pi_max_number_cases",agencyPayableCriteria.MaxNumberOfCase);                
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;           
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
+
                 if (reader.HasRows)
-                {
-                    ForeclosureCaseDraftDTOCollection fCaseDraftCollection = new ForeclosureCaseDraftDTOCollection();
+                {                    
                     results.AgencyId = agencyPayableCriteria.AgencyId;
                     results.PeriodStartDate = agencyPayableCriteria.PeriodStartDate;
                     results.PeriodEndDate = agencyPayableCriteria.PeriodEndDate;
@@ -263,11 +260,9 @@ namespace HPF.FutureState.DataAccess
                         item.BorrowerName = ConvertToString(reader["borrower_name"]);                            
                         fCaseDraftCollection.Add(item);                        
                     }                    
-                    reader.Close();
-                    results.ForclosureCaseDrafts = fCaseDraftCollection;
-                    
+                    reader.Close();                                        
                 }
-                
+                results.ForclosureCaseDrafts = fCaseDraftCollection;
             }
             catch (Exception ex)
             {
