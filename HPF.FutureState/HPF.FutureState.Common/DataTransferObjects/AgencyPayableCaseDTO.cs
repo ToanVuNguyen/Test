@@ -19,5 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime PaymentDate { get; set; }
         public int AgencyPayableId { get; set; }
         public string NFMCDiffererencePaidIndicator { get; set; }
+        public string NFMCDifferenceEligibleInd{get;set;}
+        public string NFMCDifferenceInd { get; set; }
     }
 }
