@@ -13,6 +13,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
+using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -82,6 +83,7 @@ namespace HPF.FutureState.BusinessLogic
         }
         public int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
+            foreclosureCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
             return ForeclosureCaseDAO.CreateInstance().UpdateAppForeclosureCase(foreclosureCase);
         }
         private void AppThrowMissingRequiredFieldsException(Collection<string> collection)
