@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             get
             {
-                return ForeclosureCaseDrafts.Count;
+                return ForeclosureCaseDrafts==null?0:ForeclosureCaseDrafts.Count;
             }
         }
         public decimal TotalAmount
@@ -22,6 +22,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get
             {
                 decimal total = 0;
+                if (ForeclosureCaseDrafts == null)
+                    return total;
                 foreach (ForeclosureCaseDraftDTO fc in ForeclosureCaseDrafts)
                     total += fc.Amount;
 

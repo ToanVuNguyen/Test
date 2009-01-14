@@ -10,9 +10,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int Min{get;set;}
         public int Max { get; set; }
     }
+    public class DoubleRange
+    {
+        public Double Min { get; set; }
+        public Double Max { get; set; }
+    }
     public class InvoiceCaseSearchCriteriaDTO
     {
-        public int FundingSourceId { get; set; }
+        public string FundingSourceId { get; set; }
         public int ServicerId { get; set; }
         public int ProgramId { get; set; }
         public DateTime PeriodStart { get; set; }
@@ -26,11 +31,16 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanIndicator { get; set; }
         public string Gender { get; set; }
         public string Race { get; set; }
-        public CustomBoolean Ethnicity { get; set; }
+        public CustomBoolean Hispanic { get; set; }
         public NumberRange Age { get; set; }
-        public NumberRange HouseholdGrossAnnualIncome { get; set; }
+        public DoubleRange HouseholdGrossAnnualIncome { get; set; }
         public string HouseholdCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public InvoiceCaseSearchCriteriaDTO()
+        {
+            Age = new NumberRange();
+            HouseholdGrossAnnualIncome = new DoubleRange();
+        }
     }
 }
