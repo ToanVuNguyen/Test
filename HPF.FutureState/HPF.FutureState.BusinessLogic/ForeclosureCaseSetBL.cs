@@ -158,7 +158,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 //Update Duplicate_ind for fcCase
                 //not implemented yet
-                UpdateFcCase_DuplicateIndicator(foreclosureCaseSet.ForeclosureCase.FcId, "Y");
+                //UpdateFcCase_DuplicateIndicator(foreclosureCaseSet.ForeclosureCase.FcId, "Y");
                 //Throw Duplicate Exception
                 ThrowDuplicateCaseException(collection);
             }
@@ -173,10 +173,10 @@ namespace HPF.FutureState.BusinessLogic
         {                        
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-            if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty || fcCase.AgencyId == 0)
+            if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty)
                 throw new DataValidationException(ErrorMessages.EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID);
-
-            if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
+            
+            if (fcCase.AgencyId == 0 || CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
                 throw new DataValidationException(ErrorMessages.EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID);
             
             return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
@@ -186,7 +186,7 @@ namespace HPF.FutureState.BusinessLogic
         {
 
             ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;            
-
+            //check fcid in db or not
             if (!CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
             {
                 ThrowInvalidFCIdForAgencyException(fc.FcId);
@@ -461,9 +461,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             DateTime currentDate = DateTime.Now;
             DateTime backOneYear = DateTime.MinValue;            
-            ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);
-            if (foreclosureCase == null)
-                return false;
+            ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);            
             DateTime completeDate = foreclosureCase.CompletedDt;
             if (completeDate == null || completeDate == DateTime.MinValue)
             {
@@ -512,15 +510,21 @@ namespace HPF.FutureState.BusinessLogic
         #region Check Max Length
         private ExceptionMessageCollection CheckMaxLength(ForeclosureCaseSetDTO fCaseSet)
         {
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            //Special character
+            ValidationResults resuls = HPFValidator.Validate<ForeclosureCaseDTO>(fCaseSet.ForeclosureCase, RULESET_LENGTH);
+            
             ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, RULESET_LENGTH);
             ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, RULESET_LENGTH);
+            if (ex != null)
+                msgFcCaseSet.Add(ex);
             if (msgBudgetAsset.Count != 0)
-                ex.Add(msgBudgetAsset);
+                msgFcCaseSet.Add(msgBudgetAsset);
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.BorrowerDob))
-                ex.AddExceptionMessage("Age of the Borrower must be >=12 and <=110");
+                msgFcCaseSet.AddExceptionMessage("Age of the Borrower must be >=12 and <=110");
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
-                ex.AddExceptionMessage("Age of the Co_borrower must be >=12 and <=110");
-            return ex;
+                msgFcCaseSet.AddExceptionMessage("Age of the Co_borrower must be >=12 and <=110");
+            return msgFcCaseSet;
         }   
 
         /// <summary>
