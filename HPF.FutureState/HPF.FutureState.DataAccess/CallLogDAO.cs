@@ -199,6 +199,8 @@ namespace HPF.FutureState.DataAccess
                     callLogDTO = new CallLogDTO();
                     while (reader.Read())
                     {
+                        #region set value
+
                         callLogDTO.CallId = ConvertToInt(reader["call_id"]);
                         callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
                         callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
@@ -230,6 +232,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
                         callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
                         callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
+                        #endregion
                     }
                     reader.Close();
                 }
@@ -311,5 +314,83 @@ namespace HPF.FutureState.DataAccess
             return errorList;
 
         }
+
+        public CallCenterDTO GetCallCenter(CallLogDTO aCallLog)
+        {
+            CallCenterDTO callCenter = null;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_call_center_get", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    callCenter = new CallCenterDTO();
+                    if (reader.Read())
+                    {
+                        callCenter.CallCenterID = aCallLog.CallCenterID;
+                        callCenter.CallCenterName = ConvertToString(reader["call_center_name"]);
+                    }
+                    reader.Close();
+                }
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return callCenter;
+        }
+
+        public ServicerDTO GetServicer(CallLogDTO aCallLog)
+        {
+            ServicerDTO servicer = null;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_servicer_get", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_servicer_id", aCallLog.ServicerId);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    servicer = new ServicerDTO();
+                    if (reader.Read())
+                    {
+                        servicer.ServicerID = aCallLog.ServicerId;
+                        servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                    }
+                    reader.Close();
+                }
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return servicer;
+
+        }
+        
     }
 }

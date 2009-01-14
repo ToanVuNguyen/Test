@@ -59,18 +59,22 @@ namespace HPF.FutureState.BusinessLogic
 
             List<string> errorList = CheckValidCodeForCallLog(aCallLog);
             if (errorList != null && errorList.Count > 0)
-            {
                 AddDataValidationException(dataValidationException, errorList);
-            }
 
             errorList = CheckForeignKey(aCallLog);
             if (errorList != null && errorList.Count > 0)
-            {
                 AddDataValidationException(dataValidationException, errorList);
-            }
 
             if (aCallLog.StartDate > aCallLog.EndDate)
                 dataValidationException.ExceptionMessages.AddExceptionMessage("Start date must < End date");
+
+            errorList = CheckDependingCallCenter(aCallLog);
+            if (errorList != null && errorList.Count > 0)
+                AddDataValidationException(dataValidationException, errorList);
+
+            errorList = CheckDependingServicer(aCallLog);
+            if (errorList != null && errorList.Count > 0)
+                AddDataValidationException(dataValidationException, errorList);
 
             if (dataValidationException.ExceptionMessages.Count > 0)
                 throw dataValidationException;
@@ -114,6 +118,42 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckForeignKey(CallLogDTO aCallLog)
         {
             return CallLogDAO.Instance.CheckValidForeignKey(aCallLog);
+        }
+
+        private List<string> CheckDependingCallCenter(CallLogDTO aCallLog)
+        {
+            CallCenterDTO callCenter = CallLogDAO.Instance.GetCallCenter(aCallLog);
+            if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
+            {
+                aCallLog.CallCenter = callCenter.CallCenterName;
+                return null;
+            }
+            
+            if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty) || (aCallLog.CallCenter.Trim().Length <= 4))
+            {               
+                return null;
+            }
+
+            List<string> errorList = new List<string>();
+            errorList.Add("Call center max length is 4");
+            return errorList;
+            
+        }
+
+        private List<string> CheckDependingServicer(CallLogDTO aCallLog)
+        {
+            ServicerDTO servicer = CallLogDAO.Instance.GetServicer(aCallLog);
+            if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))            
+                return null;
+
+            if ((aCallLog.OtherServicerName == null) 
+                || (aCallLog.OtherServicerName.Trim() == string.Empty) 
+                || (aCallLog.OtherServicerName.Trim().Length <= 50))
+                return null;
+
+            List<string> errorList = new List<string>();
+            errorList.Add("Other servicer name max length is 50");
+            return errorList;
         }
 
         private void AddDataValidationException(DataValidationException pe, List<string> errorList)

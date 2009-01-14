@@ -21,5 +21,8 @@ namespace HPF.FutureState.Common
         public const string DUPLICATE_NO = "N";
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
+
+        public const string CALL_CENTER_OTHER = "OTHER";
+        public const string SERVICER_OTHER = "Other (lender name in notes)";
     }
 }

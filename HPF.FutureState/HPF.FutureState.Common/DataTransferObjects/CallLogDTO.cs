@@ -34,7 +34,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string DNIS { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(4, Ruleset = "Default", MessageTemplate = "CallCenter's Maximum length is 4 characters")]
+        //[StringLengthValidator(4, Ruleset = "Default", MessageTemplate = "CallCenter's Maximum length is 4 characters")]
         public string CallCenter { get; set; }        
 
         [IgnoreNulls()]
@@ -61,7 +61,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int ServicerId { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(50, Ruleset = "Default", MessageTemplate = "OtherServicerName's Maximum length is 50 characters")]
+        //[StringLengthValidator(50, Ruleset = "Default", MessageTemplate = "OtherServicerName's Maximum length is 50 characters")]
         public string OtherServicerName { get; set; }
 
         [IgnoreNulls()]

@@ -498,7 +498,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private DuplicatedCaseLoanDTOCollection CheckDuplicateCase(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCaseSet);
+            return foreclosureCaseSetDAO.GetDuplicatedCases(foreclosureCaseSet);
             //if (foreclosureCase.FcId > 0)
             //    return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.FcId);
             //else

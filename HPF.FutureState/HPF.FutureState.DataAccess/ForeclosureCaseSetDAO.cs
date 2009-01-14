@@ -1289,116 +1289,9 @@ namespace HPF.FutureState.DataAccess
             }
             return returnValue;
 
-        }
+        }        
 
-        /// <summary>        
-        /// Check if there are any active Foreclosure case in DB which are different from current FC_Case
-        /// </summary>
-        /// <param name="fc_id">id of current FC_Case</param>       
-        /// <returns>true if another FC_Case with the same acct_num and servicer_id exists in db, otherwise false</returns>
-        public DuplicatedCaseLoanDTOCollection CheckDuplicate(int fcId)
-        {
-            DuplicatedCaseLoanDTOCollection returnCollection = null;
-            try
-            {                
-                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection, trans);
-                //<Parameter>
-                SqlParameter[] sqlParam = new SqlParameter[1];            
-                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
-                //sqlParam[1]
-                //</Parameter>
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-            
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    returnCollection = new DuplicatedCaseLoanDTOCollection();
-                    while (reader.Read())
-                    {
-                        DuplicatedCaseLoanDTO obj = new DuplicatedCaseLoanDTO();
-                        obj.LoanNumber = ConvertToString(reader["Acct_num"]);
-                        obj.FcID = ConvertToInt(reader["FC_ID"]);
-                        obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
-                        obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
-                        obj.AgencyName = ConvertToString(reader["Agency_Name"]);
-                        obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
-                        obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
-                        obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        obj.CounselorFName = ConvertToString(reader["counselor_fname"]);
-                        obj.CounselorLName = ConvertToString(reader["counselor_lname"]);
-                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]);
-                        obj.CounselorExt = ConvertToString(reader["counselor_ext"]);
-                        obj.ServicerName = ConvertToString(reader["servicer_name"]);
-                        obj.PropertyZip = ConvertToString(reader["prop_zip"]);
-                        obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
-                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_cd"]);                       
-
-                        returnCollection.Add(obj);
-                    }
-                }
-                reader.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            return returnCollection;
-        }
-
-        public DuplicatedCaseLoanDTOCollection CheckDuplicate(int agency_id, string agency_case_number)
-        {
-            DuplicatedCaseLoanDTOCollection returnCollection = null;
-            try
-            {
-                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection, trans);
-                //<Parameter>
-                SqlParameter[] sqlParam = new SqlParameter[2];
-                sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
-                sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
-                //sqlParam[2] =
-                //</Parameter>
-
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-            
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    returnCollection = new DuplicatedCaseLoanDTOCollection();
-                    while (reader.Read())
-                    {
-                        DuplicatedCaseLoanDTO obj = new DuplicatedCaseLoanDTO();
-                        obj.LoanNumber = ConvertToString(reader["Acct_num"]);
-                        obj.FcID = ConvertToInt(reader["FC_ID"]);
-                        obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
-                        obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
-                        obj.AgencyName = ConvertToString(reader["Agency_Name"]);
-                        obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
-                        obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
-                        obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        obj.CounselorFName = ConvertToString(reader["counselor_fname"]);
-                        obj.CounselorLName = ConvertToString(reader["counselor_lname"]);
-                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]);
-                        obj.CounselorExt = ConvertToString(reader["counselor_ext"]);
-                        obj.ServicerName = ConvertToString(reader["servicer_name"]);
-                        obj.PropertyZip = ConvertToString(reader["prop_zip"]);
-                        obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
-                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_cd"]);
-
-                        returnCollection.Add(obj);
-                    }
-                }
-                reader.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            return returnCollection;
-        }
-
-        public DuplicatedCaseLoanDTOCollection CheckDuplicate(ForeclosureCaseSetDTO foreclosureCaseSet)
+        public DuplicatedCaseLoanDTOCollection GetDuplicatedCases(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DuplicatedCaseLoanDTOCollection returnCollection = null;
             try
@@ -1410,7 +1303,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[0] = new SqlParameter("@pi_agency_case_num", fcCase.AgencyCaseNum);
                 sqlParam[1] = new SqlParameter("@pi_agency_id", fcCase.AgencyId);
                 sqlParam[2] = new SqlParameter("@pi_fc_id", NullableInteger(fcCase.FcId));
-                sqlParam[3] = new SqlParameter("@pi_where_str", GenerateCheckDupeWhereClause(foreclosureCaseSet));
+                sqlParam[3] = new SqlParameter("@pi_where_str", GenerateGetDuplicatedCaseWhereClause(foreclosureCaseSet));
                     //</Parameter>
 
                 command.Parameters.AddRange(sqlParam);
@@ -1452,7 +1345,7 @@ namespace HPF.FutureState.DataAccess
             return returnCollection;
         }
 
-        private string GenerateCheckDupeWhereClause(ForeclosureCaseSetDTO fcCaseSet)
+        private string GenerateGetDuplicatedCaseWhereClause(ForeclosureCaseSetDTO fcCaseSet)
         {
             StringBuilder sb = new StringBuilder();
             foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
