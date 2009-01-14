@@ -17,6 +17,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 return ForclosureCaseDrafts.Count;
             }
+            set { int totalcases = value; }
         }
         public decimal TotalAmount
         {
@@ -27,6 +28,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     total += fc.Amount;
 
                 return total;
+            }
+            set {
+                decimal totalamount = value;
             }
         }
         public ForeclosureCaseDraftDTOCollection ForclosureCaseDrafts { get; set; }
