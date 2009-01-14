@@ -86,40 +86,40 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TableRow TableRow1;
         
         /// <summary>
-        /// TableCell1 control.
+        /// TableCell35 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell1;
+        protected global::System.Web.UI.WebControls.TableCell TableCell35;
         
         /// <summary>
-        /// Label1 control.
+        /// Label18 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label Label18;
         
         /// <summary>
-        /// TableCell2 control.
+        /// TableCell36 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell2;
+        protected global::System.Web.UI.WebControls.TableCell TableCell36;
         
         /// <summary>
-        /// txtCallCenterID control.
+        /// txtScreenRout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCallCenterID;
+        protected global::System.Web.UI.WebControls.TextBox txtScreenRout;
         
         /// <summary>
         /// TableCell3 control.
@@ -200,7 +200,7 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar txtStartDate;
+        protected global::System.Web.UI.WebControls.TextBox txtStartDate;
         
         /// <summary>
         /// TableCell7 control.
@@ -236,7 +236,7 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar txtEndDate;
+        protected global::System.Web.UI.WebControls.TextBox txtEndDate;
         
         /// <summary>
         /// TableRow6 control.
@@ -759,42 +759,6 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableRow TableRow18;
-        
-        /// <summary>
-        /// TableCell35 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell35;
-        
-        /// <summary>
-        /// Label18 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label18;
-        
-        /// <summary>
-        /// TableCell36 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell TableCell36;
-        
-        /// <summary>
-        /// txtScreenRout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtScreenRout;
         
         /// <summary>
         /// TableCell37 control.

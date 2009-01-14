@@ -65,12 +65,19 @@
         
         
         <asp:TableRow ID="TableRow1" runat="server">
-            <asp:TableCell ID="TableCell1" runat="server">
+            <%--<asp:TableCell ID="TableCell1" runat="server">
                 <asp:Label CssClass="sidelinks" ID="Label1" runat="server" Text="Call Center ID"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell2" runat="server">
                 <asp:TextBox CssClass="Text" ID="txtCallCenterID" runat="server" Width="128px"></asp:TextBox>
+            </asp:TableCell>--%>
+            
+            <asp:TableCell ID="TableCell35" runat="server">
+            <asp:Label CssClass="sidelinks" ID="Label18" runat="server" Text="Screen Rout"></asp:Label>
             </asp:TableCell>
+            <asp:TableCell ID="TableCell36" runat="server">
+                <asp:TextBox CssClass="Text" ID="txtScreenRout" runat="server" Width="128px"></asp:TextBox>            
+            </asp:TableCell>  
             
             <asp:TableCell ID="TableCell3" runat="server">
                 <asp:Label CssClass="sidelinks" ID="Label2" runat="server" Text="CC Agency Id"></asp:Label>
@@ -85,14 +92,14 @@
                 <asp:Label CssClass="sidelinks" ID="Label3" runat="server" Text="Start Date"></asp:Label>
              </asp:TableCell>
             <asp:TableCell ID="TableCell6" runat="server">
-            <asp:Calendar ID="txtStartDate" runat="server" Font-Size="Small"></asp:Calendar>
+            <asp:TextBox CssClass="Text" ID="txtStartDate" runat="server" Width="128px" ></asp:TextBox>
             </asp:TableCell>
             
             <asp:TableCell ID="TableCell7" runat="server">
                 <asp:Label CssClass="sidelinks" ID="Label4" runat="server" Text="End Date"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell8" runat="server">
-                <asp:Calendar ID="txtEndDate" runat="server" Font-Size="Small"></asp:Calendar>
+                <asp:TextBox CssClass="Text" ID="txtEndDate" runat="server" Width="128px" ></asp:TextBox>
             </asp:TableCell>
             
         </asp:TableRow>
@@ -206,12 +213,7 @@
         
         
         <asp:TableRow ID="TableRow18" runat="server">
-            <asp:TableCell ID="TableCell35" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label18" runat="server" Text="Screen Rout"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell36" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtScreenRout" runat="server" Width="128px"></asp:TextBox>            
-            </asp:TableCell>  
+            
             
             <asp:TableCell ID="TableCell37" runat="server">
             

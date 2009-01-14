@@ -24,9 +24,6 @@ namespace HPF.FutureState.WebService.Test.Web
         public static int _pageloadno = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtCallCenterID.Enabled = false;
-            txtCallCenter.Enabled = false;
-
             if (!IsPostBack)
             {
                 LoadDefaultCallLogWSDTO();
@@ -73,14 +70,14 @@ namespace HPF.FutureState.WebService.Test.Web
             aCallLogWS.CallCenter = al[1].ToString();
            
 
-            txtCallCenterID.Text = aCallLogWS.CallCenterID.ToString();
+            //txtCallCenterID.Text = aCallLogWS.CallCenterID.ToString();
             txtCallCenter.Text = aCallLogWS.CallCenter;
             txtAuthorizedInd.Text = aCallLogWS.AuthorizedInd;
             txtCallSourceCd.Text = aCallLogWS.CallSourceCd;
             txtCcAgentIdKey.Text = aCallLogWS.CcAgentIdKey; //"CCAgentIdKey" + _pageloadno.ToString();
             txtCcCallKey.Text = aCallLogWS.CcCallKey; //"CcCallKey" + _pageloadno.ToString();
             txtDNIS.Text = aCallLogWS.DNIS; //"DNIS" + _pageloadno.ToString();
-            txtEndDate.SelectedDate = aCallLogWS.EndDate;
+            txtEndDate.Text = aCallLogWS.EndDate.ToString();
             txtFinalDispoCd.Text = aCallLogWS.FinalDispoCd; //"FinalDispoCd" + _pageloadno.ToString();
             txtFirstName.Text = aCallLogWS.FirstName; //"FirstName" + _pageloadno.ToString();
             txtHomeownerInd.Text = aCallLogWS.HomeownerInd; //"Y";
@@ -97,7 +94,7 @@ namespace HPF.FutureState.WebService.Test.Web
             txtSelectedAgencyId.Text = aCallLogWS.SelectedAgencyId; //"SelectedAgencyId" + _pageloadno.ToString();
             txtSelectedCounselor.Text = aCallLogWS.SelectedCounselor; //"SelectedCounselor" + _pageloadno.ToString();
             txtServiceID.Text = aCallLogWS.ServicerId.ToString(); //"1";
-            txtStartDate.SelectedDate = aCallLogWS.StartDate; //DateTime.Now;
+            txtStartDate.Text = aCallLogWS.StartDate.ToString(); //DateTime.Now;
             txtTransNumber.Text = aCallLogWS.TransNumber; //"TransNumber" + _pageloadno.ToString();
 
             txtLastChangeUserId.Text = aCallLogWS.ChangeLastUserId;
@@ -111,12 +108,12 @@ namespace HPF.FutureState.WebService.Test.Web
             #region set value
             aWSCallLog.AuthorizedInd = txtAuthorizedInd.Text.Trim();
             aWSCallLog.CallCenter = txtCallCenter.Text.Trim();            
-            aWSCallLog.CallCenterID = Util.ConvertToInt(txtCallCenterID.Text.Trim());
+            //aWSCallLog.CallCenterID = Util.ConvertToInt(txtCallCenterID.Text.Trim());
             aWSCallLog.CallSourceCd = txtCallSourceCd.Text.Trim();
             aWSCallLog.CcCallKey = txtCcCallKey.Text.Trim();
             aWSCallLog.CcAgentIdKey = txtCcAgentIdKey.Text.Trim();            
             aWSCallLog.DNIS = txtDNIS.Text.Trim();
-            aWSCallLog.EndDate = txtEndDate.SelectedDate;
+            aWSCallLog.EndDate = Util.ConvertToDateTime(txtEndDate.Text.Trim());
             aWSCallLog.FinalDispoCd = txtFinalDispoCd.Text.Trim();            
             aWSCallLog.FirstName = txtFirstName.Text.Trim();
             aWSCallLog.HomeownerInd = txtHomeownerInd.Text.Trim();
@@ -132,7 +129,7 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.SelectedAgencyId = txtSelectedAgencyId.Text.Trim();
             aWSCallLog.SelectedCounselor = txtSelectedCounselor.Text.Trim();
             aWSCallLog.ServicerId = Util.ConvertToInt(txtServiceID.Text.Trim());
-            aWSCallLog.StartDate = txtStartDate.SelectedDate;
+            aWSCallLog.StartDate = Util.ConvertToDateTime(txtStartDate.Text.Trim());
             aWSCallLog.TransNumber = txtTransNumber.Text.Trim();
             aWSCallLog.CreateUserId = txtCreateUserId.Text.Trim();
             aWSCallLog.ChangeLastUserId = txtLastChangeUserId.Text.Trim();
