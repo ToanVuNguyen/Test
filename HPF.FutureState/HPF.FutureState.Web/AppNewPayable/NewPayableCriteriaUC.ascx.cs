@@ -37,6 +37,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataSource = agencyCollection;
+            if(Request.QueryString["agency"].ToString()!="-1")
+            ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
             ddlAgency.DataBind();
         }
         protected void GetDefaultPeriodStartEnd()
