@@ -162,6 +162,11 @@
     <Compile Include="ErrorMessages.cs" />
     <Compile Include="BusinessLogicInterface\IReferenceCodeValidatorBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ReferenceCode.cs" />
     <Compile Include="Utils\DataValidator\HPFValidator.cs" />
     <Compile Include="Utils\DataValidator\InTakeDateValidator.cs" />
@@ -186,8 +191,15 @@
     <Compile Include="Utils\Exceptions\ExceptionFactory.cs" />
     <Compile Include="Utils\Exceptions\ExceptionMessageCollection.cs" />
     <Compile Include="Utils\Exceptions\ExceptionProcessor.cs" />
+    <Compile Include="Utils\Exceptions\HPFTextExceptionFormatter.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
     <Compile Include="Utils\HPFSendMail.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
