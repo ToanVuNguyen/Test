@@ -45,12 +45,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string LoanDelinqStatusCd { get; set; }
 
-        public decimal CurrentLoanBalanceAmt { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double CurrentLoanBalanceAmt { get; set; }
 
-        public decimal OrigLoanAmt { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double OrigLoanAmt { get; set; }
 
         [NotNullValidator(Tag = "WARN324", Ruleset = "Complete", MessageTemplate = "Required!")]
-        public decimal InterestRate { get; set; }
+        [RangeValidator(-99.999, RangeBoundaryType.Inclusive, 99.999, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double InterestRate { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, Ruleset = RULE_SET_LENGTH)]
         public string OriginatingLenderName { get; set; }

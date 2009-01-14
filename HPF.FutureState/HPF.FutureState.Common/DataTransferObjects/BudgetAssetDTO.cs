@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HPF.FutureState.Common.Utils.DataValidator;
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
@@ -18,6 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, Ruleset = RULE_SET_LENGTH)]
         public string AssetName { get; set; }
 
-        public decimal AssetValue { get; set; }          
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double AssetValue { get; set; }          
     }
 }

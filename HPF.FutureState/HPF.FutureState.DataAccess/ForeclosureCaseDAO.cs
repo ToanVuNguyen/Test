@@ -141,10 +141,10 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.HasWorkoutPlanInd = ConvertToString(reader["has_workout_plan_ind"]);
                         returnObject.HispanicInd = ConvertToString(reader["hispanic_ind"]);
-                        returnObject.HomeCurrentMarketValue = ConvertToDecimal(reader["home_current_market_value"]);
-                        returnObject.HomePurchasePrice = ConvertToDecimal(reader["home_purchase_price"]);
+                        returnObject.HomeCurrentMarketValue = ConvertToDouble(reader["home_current_market_value"]);
+                        returnObject.HomePurchasePrice = ConvertToDouble(reader["home_purchase_price"]);
                         returnObject.HomePurchaseYear = ConvertToInt(reader["home_purchase_year"]);
-                        returnObject.HomeSalePrice = ConvertToDecimal(reader["home_sale_price"]);
+                        returnObject.HomeSalePrice = ConvertToDouble(reader["home_sale_price"]);
                         returnObject.HouseholdCd = ConvertToString(reader["household_cd"]);
                         returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);
                         returnObject.HpfNetworkCandidateInd = ConvertToString(reader["hpf_network_candidate_ind"]);
@@ -171,7 +171,7 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.PrimaryContactNo = ConvertToString(reader["primary_contact_no"]);
                         returnObject.PrimaryResidenceInd = ConvertToString(reader["primary_residence_ind"]);
-                        returnObject.PrimResEstMktValue = ConvertToDecimal(reader["prim_res_est_mkt_value"]);
+                        returnObject.PrimResEstMktValue = ConvertToDouble(reader["prim_res_est_mkt_value"]);
                         returnObject.ProgramId = ConvertToInt(reader["program_id"]);
                         returnObject.PropAddr1 = ConvertToString(reader["prop_addr1"]);
                         returnObject.PropAddr2 = ConvertToString(reader["prop_addr2"]);

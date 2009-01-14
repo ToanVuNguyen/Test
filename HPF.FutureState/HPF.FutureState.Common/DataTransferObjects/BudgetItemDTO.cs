@@ -20,7 +20,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int BudgetSubcategoryId { get; set; }
 
         [NotNullValidator(Ruleset = "RequirePartialValidate", MessageTemplate = "Required!", Tag="WARN337")]
-        public decimal BudgetItemAmt { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double BudgetItemAmt { get; set; }
 
         [NullableOrStringLengthValidator(true, 100, Ruleset = RULE_SET_LENGTH)]
         public string BudgetNote { get; set; }       

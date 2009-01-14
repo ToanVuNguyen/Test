@@ -185,10 +185,10 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.HasWorkoutPlanInd = ConvertToString(reader["has_workout_plan_ind"]);
                         returnObject.HispanicInd = ConvertToString(reader["hispanic_ind"]);
-                        returnObject.HomeCurrentMarketValue = ConvertToDecimal(reader["home_current_market_value"]);
-                        returnObject.HomePurchasePrice = ConvertToDecimal(reader["home_purchase_price"]);
+                        returnObject.HomeCurrentMarketValue = ConvertToDouble(reader["home_current_market_value"]);
+                        returnObject.HomePurchasePrice = ConvertToDouble(reader["home_purchase_price"]);
                         returnObject.HomePurchaseYear = ConvertToInt(reader["home_purchase_year"]);
-                        returnObject.HomeSalePrice = ConvertToDecimal(reader["home_sale_price"]);
+                        returnObject.HomeSalePrice = ConvertToDouble(reader["home_sale_price"]);
                         returnObject.HouseholdCd = ConvertToString(reader["household_cd"]);
                         returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);
                         returnObject.HpfNetworkCandidateInd = ConvertToString(reader["hpf_network_candidate_ind"]);
@@ -215,7 +215,7 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.PrimaryContactNo = ConvertToString(reader["primary_contact_no"]);
                         returnObject.PrimaryResidenceInd = ConvertToString(reader["primary_residence_ind"]);
-                        returnObject.PrimResEstMktValue = ConvertToDecimal(reader["prim_res_est_mkt_value"]);
+                        returnObject.PrimResEstMktValue = ConvertToDouble(reader["prim_res_est_mkt_value"]);
                         returnObject.ProgramId = ConvertToInt(reader["program_id"]);
                         returnObject.PropAddr1 = ConvertToString(reader["prop_addr1"]);
                         returnObject.PropAddr2 = ConvertToString(reader["prop_addr2"]);
@@ -903,7 +903,7 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetAssetId = ConvertToInt(reader["budget_asset_id"]);
                         item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
                         item.AssetName = ConvertToString(reader["asset_name"]);
-                        item.AssetValue = ConvertToDecimal(reader["asset_value"]);
+                        item.AssetValue = ConvertToDouble(reader["asset_value"]);
                         results.Add(item);
                     }                    
                 }
@@ -946,7 +946,7 @@ namespace HPF.FutureState.DataAccess
                         item.BudgetItemId = ConvertToInt(reader["budget_item_id"]);
                         item.BudgetSetId = ConvertToInt(reader["budget_set_id"]);
                         item.BudgetSubcategoryId = ConvertToInt(reader["budget_subcategory_id"]);
-                        //item.BudgetItemAmt = ConvertToDouble(reader["budget_item_amt"]);
+                        item.BudgetItemAmt = ConvertToDouble(reader["budget_item_amt"]);
                         item.BudgetNote = ConvertToString(reader["budget_note"]);
                         results.Add(item);
                     }                    
@@ -996,9 +996,9 @@ namespace HPF.FutureState.DataAccess
                             item.MortgageTypeCd = ConvertToString(reader["mortgage_type_cd"]);                            
                             item.ArmResetInd = ConvertToString(reader["arm_reset_ind"]);                            
                             item.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
-                            item.CurrentLoanBalanceAmt = ConvertToDecimal(reader["current_loan_balance_amt"]);
-                            item.OrigLoanAmt = ConvertToDecimal(reader["orig_loan_amt"]);
-                            //item.InterestRate = ConvertToDouble(reader["interest_rate"]);
+                            item.CurrentLoanBalanceAmt = ConvertToDouble(reader["current_loan_balance_amt"]);
+                            item.OrigLoanAmt = ConvertToDouble(reader["orig_loan_amt"]);
+                            item.InterestRate = ConvertToDouble(reader["interest_rate"]);
                             item.OriginatingLenderName = ConvertToString(reader["originating_lender_name"]);
                             item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUS_num"]);
                             item.OrigMortgageCoName = ConvertToString(reader["orig_mortgage_co_name"]);

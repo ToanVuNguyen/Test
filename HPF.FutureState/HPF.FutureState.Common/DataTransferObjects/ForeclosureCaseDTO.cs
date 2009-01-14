@@ -272,7 +272,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 8000, Ruleset = RULE_SET_LENGTH)]
         public string FollowupNotes { get; set; }
         
-        public decimal PrimResEstMktValue { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double PrimResEstMktValue { get; set; }
 
         [StringRequiredValidator(Tag = "ERR118", Ruleset = "RequirePartialValidate", MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, Ruleset = RULE_SET_LENGTH)]
@@ -342,19 +343,23 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 1, Ruleset = RULE_SET_LENGTH)]
         public string ForSaleInd { get; set; }
 
-        public decimal HomeSalePrice { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double HomeSalePrice { get; set; }
 
-        public int HomePurchaseYear { get; set; }        
-        
-        public decimal HomePurchasePrice { get; set; }
+        public int HomePurchaseYear { get; set; }
 
-        public decimal HomeCurrentMarketValue { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double HomePurchasePrice { get; set; }
+
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double HomeCurrentMarketValue { get; set; }
         
         [NullableOrStringLengthValidator(true, 15, Ruleset = RULE_SET_LENGTH)]
         public string MilitaryServiceCd { get; set; }
 
         [NotNullValidator(Tag = "WARN319", Ruleset = "Complete", MessageTemplate = "Required!")]
-        public decimal HouseholdGrossAnnualIncomeAmt{ get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        public double HouseholdGrossAnnualIncomeAmt{ get; set; }
         
         [NullableOrStringLengthValidator(true, 50, Ruleset = RULE_SET_LENGTH)]
         public string LoanList { get; set; }

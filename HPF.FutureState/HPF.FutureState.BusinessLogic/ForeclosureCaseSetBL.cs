@@ -518,8 +518,6 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             //Special character
-            ValidationResults resuls = HPFValidator.Validate<ForeclosureCaseDTO>(fCaseSet.ForeclosureCase, Constant.RULESET_LENGTH);
-
             ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, Constant.RULESET_LENGTH);
             ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);
             if (ex != null)
@@ -1725,10 +1723,10 @@ namespace HPF.FutureState.BusinessLogic
             BudgetSetDTO budgetSet = new BudgetSetDTO();
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
-            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;            
-            decimal totalIncome = decimal.MinValue;
-            decimal totalExpenses = decimal.MinValue;
-            decimal totalAssest = decimal.MinValue;
+            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+            double totalIncome = 0;
+            double totalExpenses = 0;
+            double totalAssest = 0;
 
             if (budgetAssetCollection == null && budgetItemCollection == null)
                 return null;
@@ -1751,12 +1749,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Calculate Total Assets
         /// </summary>
-        private decimal CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, decimal totalAssest)
+        private double CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, double totalAssest)
         {
             //Calculate totalAssest
             if (budgetAssetCollection == null)
             {
-                return decimal.MinValue;
+                return 0;
             }
             totalAssest = 0;
             foreach (BudgetAssetDTO item in budgetAssetCollection)
@@ -1769,13 +1767,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Calculate Total Expense And Income
         /// </summary>
-        private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref decimal totalIncome, ref decimal totalExpenses)
+        private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref double totalIncome, ref double totalExpenses)
         {
             //Calculate totalExpenses, totalIncome
             if (budgetItemCollection == null)
             {
-                totalIncome = decimal.MinValue;
-                totalExpenses = decimal.MinValue;
+                totalIncome = 0;
+                totalExpenses = 0;
             }
             totalIncome = 0;
             totalExpenses = 0;
@@ -1785,9 +1783,9 @@ namespace HPF.FutureState.BusinessLogic
                 if (budgetCode != null)
                 {
                     if (budgetCode == Constant.INCOME)
-                        totalIncome += (decimal)item.BudgetItemAmt;
+                        totalIncome += (double)item.BudgetItemAmt;
                     else if (budgetCode == Constant.EXPENSES)
-                        totalExpenses += (decimal)item.BudgetItemAmt;
+                        totalExpenses += (double)item.BudgetItemAmt;
                 }
             }
             

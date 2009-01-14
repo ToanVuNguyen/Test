@@ -883,6 +883,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
+            foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("99999999999999.99");
             target.InitiateTransaction();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
@@ -1092,7 +1093,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();
             BudgetItemDTO budgetItemDTO = new BudgetItemDTO();            
             budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-            budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("1000");
+            budgetItemDTO.BudgetItemAmt = Convert.ToDouble("1000");
             budgetItemDTO.BudgetNote = null;
             budgetItemDTO.CreateDate = DateTime.Now;
             budgetItemDTO.CreateUserId = "CSC";
@@ -1104,7 +1105,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //
             budgetItemDTO = new BudgetItemDTO();            
             budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-            budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300");
+            budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300");
             budgetItemDTO.BudgetNote = null;
             budgetItemDTO.CreateDate = DateTime.Now;
             budgetItemDTO.CreateUserId = "HPF";
@@ -1120,7 +1121,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
             budgetAsset.BudgetSetId = Convert.ToInt32("900");
             budgetAsset.AssetName = "CSC";
-            budgetAsset.AssetValue = Convert.ToDecimal("506");
+            budgetAsset.AssetValue = Convert.ToDouble("506");
             budgetAsset.CreateDate = DateTime.Now;
             budgetAsset.CreateUserId = "HPF";
             budgetAsset.CreateAppName = "HPF";
@@ -1132,7 +1133,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             budgetAsset = new BudgetAssetDTO();
             budgetAsset.BudgetSetId = Convert.ToInt32("299");
             budgetAsset.AssetName = "CSC";
-            budgetAsset.AssetValue = Convert.ToDecimal("350");
+            budgetAsset.AssetValue = Convert.ToDouble("350");
             budgetAsset.CreateDate = DateTime.Now;
             budgetAsset.CreateUserId = "HPF";
             budgetAsset.CreateAppName = "HPF";
@@ -1228,7 +1229,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
                     budgetAsset.BudgetSetId = Convert.ToInt32("76156");
                     budgetAsset.AssetName = "01234567890123456789012345678901234567890123456789";
-                    budgetAsset.AssetValue = Convert.ToDecimal("30.65");
+                    budgetAsset.AssetValue = Convert.ToDouble("30.65");
                     budgetAsset.CreateDate = DateTime.Now;
                     budgetAsset.CreateUserId = "HPF";
                     budgetAsset.CreateAppName = "HPF";
@@ -1243,7 +1244,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
                 budgetAsset.BudgetSetId = Convert.ToInt32("76156");
                 budgetAsset.AssetName = "Test";
-                budgetAsset.AssetValue = Convert.ToDecimal("30.65");
+                budgetAsset.AssetValue = Convert.ToDouble("30.65");
                 budgetAsset.CreateDate = DateTime.Now;
                 budgetAsset.CreateUserId = "HPF";
                 budgetAsset.CreateAppName = "HPF";
@@ -1810,10 +1811,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.GenderCd = (reader["gender_cd"].ToString());
                         returnObject.HasWorkoutPlanInd = (reader["has_workout_plan_ind"].ToString());
                         returnObject.HispanicInd = (reader["hispanic_ind"].ToString());
-                        returnObject.HomeCurrentMarketValue = decimal.Parse(reader["home_current_market_value"].ToString());
-                        returnObject.HomePurchasePrice = decimal.Parse(reader["home_purchase_price"].ToString());
+                        returnObject.HomeCurrentMarketValue = double.Parse(reader["home_current_market_value"].ToString());
+                        returnObject.HomePurchasePrice = double.Parse(reader["home_purchase_price"].ToString());
                         returnObject.HomePurchaseYear = int.Parse(reader["home_purchase_year"].ToString());
-                        returnObject.HomeSalePrice = decimal.Parse(reader["home_sale_price"].ToString());
+                        returnObject.HomeSalePrice = double.Parse(reader["home_sale_price"].ToString());
                         returnObject.HouseholdCd = (reader["household_cd"].ToString());
                         returnObject.HpfMediaCandidateInd = (reader["hpf_media_candidate_ind"].ToString());
                         returnObject.HpfNetworkCandidateInd = (reader["hpf_network_candidate_ind"].ToString());
@@ -1832,7 +1833,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.OwnerOccupiedInd = (reader["owner_occupied_ind"].ToString());
                         returnObject.PrimaryContactNo = (reader["primary_contact_no"].ToString());
                         returnObject.PrimaryResidenceInd = (reader["primary_residence_ind"].ToString());
-                        returnObject.PrimResEstMktValue = decimal.Parse(reader["prim_res_est_mkt_value"].ToString());
+                        returnObject.PrimResEstMktValue = double.Parse(reader["prim_res_est_mkt_value"].ToString());
                         returnObject.ProgramId = int.Parse(reader["program_id"].ToString());
                         returnObject.PropAddr1 = (reader["prop_addr1"].ToString());
                         returnObject.PropAddr2 = (reader["prop_addr2"].ToString());
