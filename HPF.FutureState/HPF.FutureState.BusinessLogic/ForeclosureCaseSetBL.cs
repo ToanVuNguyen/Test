@@ -156,6 +156,9 @@ namespace HPF.FutureState.BusinessLogic
 
             DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
+            ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fcCase.FcId);
+            fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
+            fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
             if (collection != null && collection.Count > 0)
             {                
                 fcCase.DuplicateInd = DUPLICATE_YES;
@@ -163,12 +166,11 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                
-                ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fcCase.FcId);
                 if (dbFcCase.DuplicateInd.ToUpper().Equals(DUPLICATE_YES.ToUpper()))
                     fcCase.DuplicateInd = DUPLICATE_NO;
                 if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(NEVER_BILL_REASON_CODE_DUPE))
                     fcCase.NeverBillReasonCd = null;
+                
                 if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(NEVER_PAY_REASON_CODE_DUPE))
                     fcCase.NeverPayReasonCd = null;
                 WarningMessage = null;

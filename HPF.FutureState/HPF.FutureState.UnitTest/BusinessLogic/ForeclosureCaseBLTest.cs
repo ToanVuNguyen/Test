@@ -27,7 +27,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         private TestContext testContextInstance;
         string[][] criterias;
-        ForeclosureCaseSearchCriteriaDTO searchCriteria;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -52,40 +51,40 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
-            command.CommandText = "update foreclosure_case" + 
-                                    " set loan_list = 'abc123, abc124, def123, def1234'" +
-                                    ", prop_zip = '66666'" +
-                                    ", borrower_last4_SSN = '1234'" +
-                                    " where fc_id = 23";
-            command.ExecuteNonQuery();
+            //var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            //dbConnection.Open();
+            //var command = new SqlCommand();
+            //command.Connection = dbConnection;
+            //command.CommandText = "update foreclosure_case" + 
+            //                        " set loan_list = 'abc123, abc124, def123, def1234'" +
+            //                        ", prop_zip = '66666'" +
+            //                        ", borrower_last4_SSN = '1234'" +
+            //                        " where fc_id = 23";
+            //command.ExecuteNonQuery();
 
-            command.CommandText = "insert dbo.geocode_ref (zip_code, zip_type, city_name, city_type, county_name, county_FIPS, state_name, state_abbr, state_FIPS, MSA_code, area_code, time_zone, utc, dst, latitude, longitude) values	('12345', 'A', 'city_name', 'c', 'county_name','CFIPS' , 'state_name', 'AB', 'FI', 'MSAC', 'area_code', 'time_zone', 1.5, 'A', 'latitude', 'longitude')";
-            command.ExecuteNonQuery();
-            dbConnection.Close();
+            //command.CommandText = "insert dbo.geocode_ref (zip_code, zip_type, city_name, city_type, county_name, county_FIPS, state_name, state_abbr, state_FIPS, MSA_code, area_code, time_zone, utc, dst, latitude, longitude) values	('12345', 'A', 'city_name', 'c', 'county_name','CFIPS' , 'state_name', 'AB', 'FI', 'MSAC', 'area_code', 'time_zone', 1.5, 'A', 'latitude', 'longitude')";
+            //command.ExecuteNonQuery();
+            //dbConnection.Close();
         }
         //
         //Use ClassCleanup to run code after all tests in a class have run
         [ClassCleanup()]
         public static void MyClassCleanup()
         {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand();
-            dbConnection.Open();
-            command.Connection = dbConnection;
-            command.CommandText = "update foreclosure_case" + 
-                                    " set loan_list = null" +
-                                    ", prop_zip = null" +
-                                    ", borrower_last4_SSN = null" +
-                                    " where fc_id = 23";
-            command.ExecuteNonQuery();
+            //var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            //var command = new SqlCommand();
+            //dbConnection.Open();
+            //command.Connection = dbConnection;
+            //command.CommandText = "update foreclosure_case" + 
+            //                        " set loan_list = null" +
+            //                        ", prop_zip = null" +
+            //                        ", borrower_last4_SSN = null" +
+            //                        " where fc_id = 23";
+            //command.ExecuteNonQuery();
 
-            command.CommandText = "delete dbo.geocode_ref where zip_code = '12345'";
-            command.ExecuteNonQuery();            
-            dbConnection.Close();
+            //command.CommandText = "delete dbo.geocode_ref where zip_code = '12345'";
+            //command.ExecuteNonQuery();            
+            //dbConnection.Close();
         }
         //
         //Use TestInitialize to run code before running each test
@@ -123,166 +122,158 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         #region SearchForeclosureCase
         [TestMethod()]
-        public void Test_Null_All()
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void SearchFcCase_PropZip_Successful()
         {
-            try
-            {
-                PerformTest(0);
-            }
-            catch (DataValidationException dve)
-            {
-                var expected = new DataValidationException();
-                Assert.AreEqual(expected.GetType(), dve.GetType());
-            }
-        }
+            string prop_zip = "11155";
+            #region generate test data
+            string sql = "Insert into Agency "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int agencyID = GetAgencyID();
 
-        [TestMethod()]
-        public void Test_Invalid_PropZip1()
-        {
-            try
-            {
-                PerformTest(1);
-            }
-            catch (DataValidationException dve)
-            {
-                var expected = new DataValidationException();
-                Assert.AreEqual(expected.GetType(), dve.GetType());
-            }
-            //TestContext.WriteLine(criterias[1][5]);
-        }
+            sql = "Insert into Servicer "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int servicerID = GetServicerID();
 
-        [TestMethod()]
-        public void Test_Invalid_PropZip2()
-        {
-            try
-            {
-                PerformTest(2);
-            }
-            catch (DataValidationException dve)
-            {
-                var expected = new DataValidationException();
-                Assert.AreEqual(expected.GetType(), dve.GetType());
-            }
-        }
+            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
+            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
 
-        [TestMethod()]
-        public void Test_Valid_PropZip()
-        {
-            PerformTest(3);
-            //TestContext.WriteLine(criterias[3][5]);
-        }
+            fcCase.AgencyId = agencyID;
+            fcCase.PropZip = prop_zip;
+            
+            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
+            {
+                item.Loan1st2nd = "2nd";
+                item.ServicerId = servicerID;
+            }
+            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
 
-        [TestMethod()]
-        public void Test_InValid_AgencyNumber()
-        {
-            try
-            {
-                PerformTest(4);
-            }
-            catch (DataValidationException dve)
-            {
-                var expected = new DataValidationException();
-                Assert.AreEqual(expected.GetType(), dve.GetType());
-            }
-        }
-        [TestMethod()]
-        public void Test_Valid_AgencyNumber()
-        {
-            PerformTest(5);
-            //TestContext.WriteLine(criterias[5][0]);
-        }
-        [TestMethod()]
-        public void Test_Invalid_SSN1()
-        {
-            try
-            {
-                PerformTest(6);
-            }
-            catch (DataValidationException dve)
-            {
-                var expected = new DataValidationException();
-                Assert.AreEqual(expected.GetType(), dve.GetType());
-            }
-            //TestContext.WriteLine(criterias[6][4]);
-        }
-        [TestMethod()]
-        public void Test_Invalid_SSN2()
-        {
-            try
-            {
-                PerformTest(7);
-            }
-            catch (DataValidationException dve)
-            {
-                var expected = new DataValidationException();
-                Assert.AreEqual(expected.GetType(), dve.GetType());
-            }
-        }
-
-        [TestMethod()]
-        public void Test_Valid_SSN()
-        {
-            PerformTest(8);
-            //TestContext.WriteLine(criterias[8][4]);
-        }
-
-        [TestMethod()]
-        public void Test_Valid_LoanNumber()
-        {
-            PerformTest(9);
-            //TestContext.WriteLine(criterias[8][4]);
-        }
-        [TestMethod()]
-        public void SearchForeclosureCaseSuccessTest_MatchAllCriteria()
-        {
-            PerformTest(10);                     
-        }
-
-        private void PerformTest(int index)
-        {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+            target.InitiateTransaction();
+            target.InsertForeclosureCaseSet(fcCaseSet);
+            target.CompleteTransaction();
+            #endregion
 
-            string[] criteria = criterias[index];
-            searchCriteria.AgencyCaseNumber = criteria[0];
-            searchCriteria.FirstName = criteria[1];
-            searchCriteria.LastName = criteria[2];
-            searchCriteria.Last4_SSN = criteria[3];
-            searchCriteria.LoanNumber = criteria[4];
-            searchCriteria.PropertyZip = criteria[5];
-
-            int expected = int.Parse(criteria[6]);  // expect an fc_id to be returned
-            int actual = 0;
-            ForeclosureCaseSearchResult results = target.SearchForeclosureCase(searchCriteria, 50);
-
-            if (results != null)
-            {
-                    if (results.Count == 0)
-                    {
-                        TestContext.WriteLine("There are no objects found");
-                    }
-                    else
-                    {
-                        ForeclosureCaseWSDTO retObj = results[0];//target.SearchForeclosureCase(searchCriteria, 50)[0];
-                        
-                        actual = retObj.FcId;
-                        Assert.AreEqual(expected, actual);
-                        TestContext.WriteLine("Foreclosurecase ID: {0}", retObj.FcId);
-                    }
-            }
-            else
-            {
-                TestContext.WriteLine("Object return is null");
-            }
+            int fcId = GetForeclosureCaseId();
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+            searchCriteria.PropertyZip = prop_zip;
+            
+            int expected = fcId;
+            int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
+            
+            #region delete test data
+            DeleteForeclosureCase(fcId);
+            sql = "Delete from Agency where Agency_Id = " + agencyID;
+            ExecuteSql(sql);
+            sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            #endregion
+            Assert.AreEqual(expected, actual);  
+            TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ",expected, actual));
         }
-        private void DisplayWarningMessage(ForeclosureCaseSearchResult results)
+        [TestMethod()]
+        public void SearchFcCase_PropZip_Fail()
         {
-            //foreach (ExceptionMessage ex in results.Messages.ExceptionMessages)
-            //{
-            //    TestContext.WriteLine(string.Format("Warning id: {0} - {1}", ex.ExceptionId, ex.Message));
-            //}
+            string prop_zip = "11155";
+            #region generate test data
+            string sql = "Insert into Agency "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int agencyID = GetAgencyID();
 
+            sql = "Insert into Servicer "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int servicerID = GetServicerID();
+
+            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
+            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
+
+            fcCase.AgencyId = agencyID;
+            fcCase.PropZip = prop_zip;
+
+            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
+            {
+                item.Loan1st2nd = "2nd";
+                item.ServicerId = servicerID;
+            }
+            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
+
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
+            target.InsertForeclosureCaseSet(fcCaseSet);
+            target.CompleteTransaction();
+            #endregion
+
+            int fcId = GetForeclosureCaseId();
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+            searchCriteria.PropertyZip = prop_zip;
+
+            int expected = 2; //number of cases returned
+            int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
+
+            #region delete test data
+            DeleteForeclosureCase(fcId);
+            sql = "Delete from Agency where Agency_Id = " + agencyID;
+            ExecuteSql(sql);
+            sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            #endregion
+            Assert.AreNotEqual(expected, actual);
+            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found",expected, actual));
         }
+
+        private void ExecuteSql(string sql)
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = sql;
+            command.ExecuteNonQuery();           
+            dbConnection.Close();
+        }
+
+        private int GetAgencyID()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand("SELECT Max(Agency_ID) FROM Agency", dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+
+        private int GetServicerID()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            var command = new SqlCommand("SELECT Max(Servicer_ID) FROM Servicer", dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+        
         #endregion
 
         [TestMethod()]
@@ -384,41 +375,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             
         }
 
-        #region CheckValidFCIdForAgency
-
-        [TestMethod()]
-        public void CheckValidFCIdForAgencyTest_Success()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
-            int fc_id = 23; // TODO: Initialize to an appropriate value
-            int agency_id = 2;
-            bool expected = true; // TODO: Initialize to an appropriate value
-            //bool actual = target.CheckValidFCIdForAgency(fc_id, agency_id);
-            //Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void CheckValidFCIdForAgencyTest_Fail()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
-            int fc_id = 23; // TODO: Initialize to an appropriate value
-            int agency_id = 3;
-            bool expected = false; // TODO: Initialize to an appropriate value
-            //bool actual = target.CheckValidFCIdForAgency(fc_id, agency_id);
-            //Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void CheckValidFCIdForAgencyTest_NullCase()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
-            int fc_id = -1; // TODO: Initialize to an appropriate value
-            int agency_id = 3;
-            bool expected = false; // TODO: Initialize to an appropriate value
-            //bool actual = target.CheckValidFCIdForAgency(fc_id, agency_id);
-            //Assert.AreEqual(expected, actual);
-        }
-        #endregion
+       
 
         #region ProcessInsertUpdateWithForeclosureCaseId
         [TestMethod]
@@ -1632,6 +1589,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return result;
         }
 
+        
+
+        
         static private int GetBudgetSetId(int fcId)
         {
             int result = 0;
