@@ -18,8 +18,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerLastName { get; set; }
         public string AgencyName { get; set; }
         public string AgencyCaseNumber { get; set; }
-        public string CounselorFullName { get; set; }
+        public string CounselorFName { get; set; }
+        public string CounselorLName { get; set; }
         public string CounselorPhone { get; set; }
+        public string CounselorExt { get; set; }
         public string CounselorEmail { get; set; }
+        public string PropertyZip { get; set; }
+        public DateTime OutcomeDt { get; set; }
+        public string OutcomeTypeCode { get; set; }
     }
 }

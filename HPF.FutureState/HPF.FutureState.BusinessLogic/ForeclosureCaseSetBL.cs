@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Data.SqlTypes;
+
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
@@ -27,10 +29,17 @@ namespace HPF.FutureState.BusinessLogic
         private const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
         private const string RULESET_COMPLETE = "Complete";
         private const string RULESET_LENGTH = "Length";
-        private const string PAYABLE_IND = "Y";        
+        private const string PAYABLE_IND = "Y"; 
+   
+        private const string DUPLICATE_YES = "Y";
+        private const string DUPLICATE_NO = "N";
+        private const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
+        private const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
-            
+
+        public DuplicateException WarningMessage { get; set; }
+    
         /// <summary>
         /// Singleton
         /// </summary>
@@ -64,25 +73,19 @@ namespace HPF.FutureState.BusinessLogic
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                     throw new DataValidationException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
 
-                ExceptionMessageCollection exDetailCollection = CheckRequireForPartial(foreclosureCaseSet);
-                if (exDetailCollection != null && exDetailCollection.Count > 0)
-                {
-                    ThrowMissingRequiredFieldsException(exDetailCollection);
-                }
+                ExceptionMessageCollection exceptionList = CheckRequireForPartial(foreclosureCaseSet);
+                if (exceptionList != null && exceptionList.Count > 0)
+                    ThrowDataValidationException(exceptionList);
 
-                exDetailCollection = CheckMaxLength(foreclosureCaseSet);
-                if (exDetailCollection != null && exDetailCollection.Count > 0)
-                {
-                    ThrowMaxLengthException(exDetailCollection);
-                }
+                exceptionList = CheckMaxLength(foreclosureCaseSet);
+                if (exceptionList != null && exceptionList.Count > 0)
+                    ThrowDataValidationException(exceptionList);
 
                 ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-                exDetailCollection = CheckValidCode(foreclosureCaseSet);
-                if (exDetailCollection != null && exDetailCollection.Count > 0)
-                {
-                    ThrowInvalidCodeException(exDetailCollection);
-                }
+                exceptionList = CheckValidCode(foreclosureCaseSet);
+                if (exceptionList != null && exceptionList.Count > 0)
+                    ThrowDataValidationException(exceptionList);
                 
                 if (fcCase.FcId > 0)
                     fcid = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
@@ -98,6 +101,8 @@ namespace HPF.FutureState.BusinessLogic
             }
             return fcid;         
         }
+
+       
 
         private void RollbackTransaction()
         {
@@ -143,10 +148,30 @@ namespace HPF.FutureState.BusinessLogic
 
         private int ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
+
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList != null && exceptionList.Count > 0)
-                ThrowMiscException(exceptionList);
-            
+                ThrowDataValidationException(exceptionList);
+
+            DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
+            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
+            if (collection != null && collection.Count > 0)
+            {                
+                fcCase.DuplicateInd = DUPLICATE_YES;
+                WarningMessage = CreateDuplicateCaseWarning(collection);
+            }
+            else
+            {
+                
+                ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fcCase.FcId);
+                if (dbFcCase.DuplicateInd.ToUpper().Equals(DUPLICATE_YES.ToUpper()))
+                    fcCase.DuplicateInd = DUPLICATE_NO;
+                if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(NEVER_BILL_REASON_CODE_DUPE))
+                    fcCase.NeverBillReasonCd = null;
+                if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(NEVER_PAY_REASON_CODE_DUPE))
+                    fcCase.NeverPayReasonCd = null;
+                WarningMessage = null;
+            }
             
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -154,18 +179,14 @@ namespace HPF.FutureState.BusinessLogic
         private int ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
-            if (collection != null)
+            if (collection != null && collection.Count > 0)
             {
-                //Update Duplicate_ind for fcCase
-                //not implemented yet
-                //UpdateFcCase_DuplicateIndicator(foreclosureCaseSet.ForeclosureCase.FcId, "Y");
-                //Throw Duplicate Exception
                 ThrowDuplicateCaseException(collection);
             }
             
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList != null && exceptionList.Count > 0)
-                ThrowMiscException(exceptionList);
+                ThrowDataValidationException(exceptionList);
             return InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
@@ -173,11 +194,11 @@ namespace HPF.FutureState.BusinessLogic
         {                        
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-            if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty)
-                throw new DataValidationException(ErrorMessages.EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID);
+            if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty || fcCase.AgencyId == 0)
+                ThrowDataValidationException("ERR250");
             
-            if (fcCase.AgencyId == 0 || CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
-                throw new DataValidationException(ErrorMessages.EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID);
+            if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
+                ThrowDataValidationException("ERR254");                            
             
             return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -185,18 +206,24 @@ namespace HPF.FutureState.BusinessLogic
         private int ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
 
-            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;            
+            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
+            
             //check fcid in db or not
-            if (!CheckValidFCIdForAgency(fc.FcId, fc.AgencyId))
-            {
-                ThrowInvalidFCIdForAgencyException(fc.FcId);
-            }
+            ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fc.FcId);
+            if (dbFcCase == null)
+                ThrowDataValidationException("ERR251");
+
+            //check valid fcCase for Agency
+            if (dbFcCase.AgencyId != fc.AgencyId)
+                ThrowDataValidationException("ERR252");
 
             if (CheckInactiveCase(foreclosureCaseSet.ForeclosureCase.FcId))                
                 return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
             else
                 return ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
         }
+
+        
         
         #region Functions check min request validate
         private ExceptionMessageCollection ValidationFieldByRuleSet(ForeclosureCaseSetDTO foreclosureCaseSet, string ruleSet)
@@ -439,16 +466,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             return 0;
         }
-        #endregion
-
-        /// <summary>
-        /// Check if ForeclosureCase with fcId and agencyId exists or not
-        /// </summary>
-        private bool CheckValidFCIdForAgency(int fcId, int agencyId)
-        {
-            ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
-            return (fcCase != null && agencyId == fcCase.AgencyId);
-        }
+        #endregion              
 
         /// <summary>
         /// Check Inactive(Over one year)
@@ -1806,42 +1824,23 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         #region Throw Detail Exception
-        private void ThrowMaxLengthException(ExceptionMessageCollection collection)
+
+        private void ThrowDataValidationException(string errorCode)
         {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_CODE);
-            pe.ExceptionMessages = collection;            
-            throw pe;
+            DataValidationException ex = new DataValidationException();
+            ex.ExceptionMessages.AddExceptionMessage(errorCode, ErrorMessages.GetExceptionMessage(errorCode));
+            throw ex;
         }
 
-        private void ThrowMissingRequiredFieldsException(ExceptionMessageCollection collection)
+        private void ThrowDataValidationException(ExceptionMessageCollection exDetailCollection)
         {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISSING_REQUIRED_FIELD);
-            pe.ExceptionMessages = collection;
-            //foreach (string obj in collection)
-            //{
-            //    ExceptionMessage em = new ExceptionMessage();
-            //    em.Message = obj;
-            //    pe.ExceptionMessages.Add(em);
-            //}
-            throw pe;
-        }
-
-        private void ThrowInvalidCodeException(ExceptionMessageCollection collection)
-        {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_CODE);
-            pe.ExceptionMessages = collection;
-            //foreach (string obj in collection)
-            //{
-            //    ExceptionMessage em = new ExceptionMessage();
-            //    em.Message = obj;
-            //    pe.ExceptionMessages.Add(em);
-            //}
-            throw pe;
+            DataValidationException ex = new DataValidationException(exDetailCollection);
+            throw ex;
         }
 
         private void ThrowInvalidFCIdForAgencyException(int fcId)
         {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID);
+            DataValidationException pe = new DataValidationException();
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
             ExceptionMessage em = new ExceptionMessage();
             em.Message = string.Format("The case belongs to Agency: {0}, Counsellor: {1}, Contact number: {2}, email: {3}", GetAgencyName(fcCase.AgencyId), fcCase.CounselorFname + ", " + fcCase.CounselorLname, fcCase.CounselorPhone, fcCase.CounselorEmail);
@@ -1850,32 +1849,37 @@ namespace HPF.FutureState.BusinessLogic
             throw pe;
         }
 
+        private DuplicateException CreateDuplicateCaseWarning(DuplicatedCaseLoanDTOCollection collection)
+        {
+            DuplicateException de = new DuplicateException();
+            foreach (DuplicatedCaseLoanDTO obj in collection)
+            {
+                ExceptionMessage em = new ExceptionMessage();
+                em.ErrorCode = "WARNING";
+                em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6} {7},Counselor Phone {8} - Ext: {9}, Counselor Email: {10} "
+                            , obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
+                            , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorEmail, obj.CounselorEmail);
+                de.ExceptionMessages.Add(em);
+            }
+            return de;
+            
+        }
+
         private void ThrowDuplicateCaseException(DuplicatedCaseLoanDTOCollection collection)
         {
-            DuplicateException pe = new DuplicateException(ErrorMessages.EXCEPTION_DUPLICATE_FORECLOSURE_CASE);
+            DuplicateException pe = new DuplicateException();
             foreach(DuplicatedCaseLoanDTO obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
-                em.ErrorCode = "abcd";
-                em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6},Counselor Phone & Extension: {7}, Counselor Email: {8} "
-                            , obj.LoanNumber, obj.ServicerName, obj.BorrowerFirstName, obj.BorrowerLastName
-                            , obj.AgencyName, obj.AgencyCaseNumber, obj.CounselorFullName, obj.CounselorPhone, obj.CounselorEmail);
+                em.ErrorCode = "ERR253";
+                em.Message = string.Format(ErrorMessages.GetExceptionMessage(em.ErrorCode)
+                            , obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
+                            , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorExt, obj.CounselorEmail, obj.OutcomeDt, obj.OutcomeTypeCode);
                 pe.ExceptionMessages.Add(em);
             }
             throw pe;
         }
-        private void ThrowMiscException(ExceptionMessageCollection exceptionList)
-        {
-            DataValidationException pe = new DataValidationException(ErrorMessages.EXCEPTION_MISCELLANEOUS);
-            pe.ExceptionMessages = exceptionList;
-            //foreach (string obj in exceptionList)
-            //{
-            //    ExceptionMessage em = new ExceptionMessage();
-            //    em.Message = obj;
-            //    pe.ExceptionMessages.Add(em);
-            //}
-            throw pe;
-        }
+      
         #endregion
 
         #endregion

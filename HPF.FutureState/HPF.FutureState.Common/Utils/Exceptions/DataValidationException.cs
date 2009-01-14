@@ -14,7 +14,13 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         public DataValidationException()
         {
             Init();
-        }       
+        }
+
+
+        public DataValidationException(ExceptionMessageCollection exceptionCollection)
+        {
+            ExceptionMessages = exceptionCollection;
+        }
 
         public DataValidationException(string message)
             : base(message)

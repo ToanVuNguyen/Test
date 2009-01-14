@@ -1323,16 +1323,19 @@ namespace HPF.FutureState.DataAccess
                         obj.LoanNumber = ConvertToString(reader["Acct_num"]);
                         obj.FcID = ConvertToInt(reader["FC_ID"]);
                         obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
-
-                        //obj.AgencyID = ConvertToInt(reader["Agency_ID"]);
                         obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
                         obj.AgencyName = ConvertToString(reader["Agency_Name"]);
                         obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
                         obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
                         obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        obj.CounselorFullName = ConvertToString(reader["counselor_fname"]) + ", " + ConvertToString(reader["counselor_lname"]);
-                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]) + " - Ext: " + ConvertToString(reader["counselor_ext"]);
-                        obj.ServicerName = ConvertToString(reader["Servicer_Name"]);                        
+                        obj.CounselorFName = ConvertToString(reader["counselor_fname"]);
+                        obj.CounselorLName = ConvertToString(reader["counselor_lname"]);
+                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                        obj.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                        obj.ServicerName = ConvertToString(reader["servicer_name"]);
+                        obj.PropertyZip = ConvertToString(reader["prop_zip"]);
+                        obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_cd"]);                       
 
                         returnCollection.Add(obj);
                     }
@@ -1377,9 +1380,14 @@ namespace HPF.FutureState.DataAccess
                         obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
                         obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
                         obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        obj.CounselorFullName = ConvertToString(reader["counselor_fname"]) + ", " + ConvertToString(reader["counselor_lname"]);
-                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]) + " - Ext: " + ConvertToString(reader["counselor_ext"]);
-                        obj.ServicerName = ConvertToString(reader["Servicer_Name"]);
+                        obj.CounselorFName = ConvertToString(reader["counselor_fname"]);
+                        obj.CounselorLName = ConvertToString(reader["counselor_lname"]);
+                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                        obj.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                        obj.ServicerName = ConvertToString(reader["servicer_name"]);
+                        obj.PropertyZip = ConvertToString(reader["prop_zip"]);
+                        obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_cd"]);
 
                         returnCollection.Add(obj);
                     }
@@ -1426,9 +1434,14 @@ namespace HPF.FutureState.DataAccess
                         obj.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
                         obj.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
                         obj.CounselorEmail = ConvertToString(reader["counselor_email"]);
-                        obj.CounselorFullName = ConvertToString(reader["counselor_fname"]) + ", " + ConvertToString(reader["counselor_lname"]);
-                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]) + " - Ext: " + ConvertToString(reader["counselor_ext"]);
-                        obj.ServicerName = ConvertToString(reader["Servicer_Name"]);
+                        obj.CounselorFName = ConvertToString(reader["counselor_fname"]);
+                        obj.CounselorLName = ConvertToString(reader["counselor_lname"]);
+                        obj.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                        obj.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                        obj.ServicerName = ConvertToString(reader["servicer_name"]);
+                        obj.PropertyZip = ConvertToString(reader["prop_zip"]);
+                        obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_cd"]);
 
                         returnCollection.Add(obj);
                     }

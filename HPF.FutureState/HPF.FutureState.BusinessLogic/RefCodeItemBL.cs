@@ -28,7 +28,7 @@ namespace HPF.FutureState.BusinessLogic
             
         }
 
-        #region Implementation of ICallLogBL     
+       
 
         /// <summary>
         /// Get a Get Ref Code Item
@@ -39,6 +39,6 @@ namespace HPF.FutureState.BusinessLogic
         {
             return RefCodeItemDAO.Instance.GetRefCodeItem();
         }
-        #endregion        
+            
     }
 }
