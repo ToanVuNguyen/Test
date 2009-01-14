@@ -17,7 +17,7 @@
             <asp:Label CssClass="sidelinks"  ID="Label28" runat="server" Text="Username" ></asp:Label>
                     </td>
                     <td>
-            <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="admin" Width="128px"></asp:TextBox>
+            <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="other" Width="128px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -25,13 +25,17 @@
             <asp:Label CssClass="sidelinks" ID="Label29" runat="server" Text="Password"></asp:Label>
                     </td>
                     <td>
-            <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="admin" Width="128px"></asp:TextBox>
+            <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="other" Width="128px"></asp:TextBox>
             
                     </td>
                 </tr>
                 
             </table>
+            admin/admin -> both rights
             <br />
+            callcenter/callcenter -> call center right
+            <br />
+            other/other ->call center but OTHER type
             <br />
         </td>
         </tr>

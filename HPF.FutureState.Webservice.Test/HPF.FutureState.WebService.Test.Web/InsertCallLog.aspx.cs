@@ -28,7 +28,6 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 LoadDefaultCallLogWSDTO();
             }
-            
         }
 
         private void LoadDefaultCallLogWSDTO()
@@ -58,18 +57,6 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void CallLogWSDTOToForm(CallLogWSDTO aCallLogWS)
         {
-            ArrayList al = Get_CallCenterID();
-
-            if (al.Count == 0)
-            {
-                Create_CallCenter_TestData();
-            }
-
-            al = Get_CallCenterID();            
-            aCallLogWS.CallCenterID = Util.ConvertToInt(al[0].ToString().Trim());
-            aCallLogWS.CallCenter = al[1].ToString();
-           
-
             //txtCallCenterID.Text = aCallLogWS.CallCenterID.ToString();
             txtCallCenter.Text = aCallLogWS.CallCenter;
             txtAuthorizedInd.Text = aCallLogWS.AuthorizedInd;
@@ -173,43 +160,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
         }
 
-        private void Create_CallCenter_TestData()
-        {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
-
-            command.CommandText = "Insert Into Call_Center(call_center_name, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                   " values ('aaaaa', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
-            command.ExecuteNonQuery();
-        }
-
-        private ArrayList Get_CallCenterID()
-        {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
-            ArrayList al = new ArrayList();
-            int id = 0;
-            command.CommandText = "Select Max(call_center_id), call_center_name from call_center Group by call_center_name";
-            var reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                reader.Read();                
-                var obj = reader.GetValue(0);
-                
-                id = 0;
-                int.TryParse(obj.ToString(), out id);
-                al.Add(id);
-                al.Add(reader.GetString(1));                
-            }
-            reader.Close();
-            dbConnection.Close();
-
-            return al;
-        }
+        
 
         protected void UploadBtn_Click(object sender, EventArgs e)
         {
