@@ -10,16 +10,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class BudgetAssetDTO : BaseDTO
     {
-        private const string RULE_SET_LENGTH = "Length";
-
         public int BudgetAssetId { get; set; }
 
         public int BudgetSetId { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, Ruleset = RULE_SET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, Ruleset = Constant.RULESET_LENGTH)]
         public string AssetName { get; set; }
 
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = RULE_SET_LENGTH)]
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
         public double AssetValue { get; set; }          
     }
 }

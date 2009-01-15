@@ -107,7 +107,6 @@ namespace HPF.FutureState.WebServices
                             callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
                         }
                     }
-                    //
                     if (callLogDTO != null)
                     {
                         CallLogWSReturnDTO callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
@@ -117,7 +116,7 @@ namespace HPF.FutureState.WebServices
                     else
                     {
                         response.Status = ResponseStatus.Warning;
-                        response.Messages.AddExceptionMessage("No data found");
+                        response.Messages.AddExceptionMessage("Call Log Id does not exist");
                     }
                 }
             }
@@ -150,11 +149,17 @@ namespace HPF.FutureState.WebServices
         #region private
         private bool ValidateCallLogID(CallLogRetrieveRequest request)
         {
+            DataValidationException dataValidationException = new DataValidationException();
+            request.callLogId = request.callLogId.Trim();
+            if (request.callLogId == null || request.callLogId == string.Empty)
+            {
+                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Log Id is required");
+                throw dataValidationException;
+            }
             ValidationResults validationResults = HPFValidator.Validate<CallLogRetrieveRequest>(request);
             if (!validationResults.IsValid)
             {
-                DataValidationException dataValidationException = new DataValidationException();
-                dataValidationException.ExceptionMessages.AddExceptionMessage("CallLogId is invalid");
+                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Log Id is invalid");
                 throw dataValidationException;
             }
             return true;
@@ -166,7 +171,16 @@ namespace HPF.FutureState.WebServices
             if (request.callLogId != string.Empty)
             {
                 string sCallLogId = request.callLogId.Replace("HPF", "");
-                callLogId = Convert.ToInt32(sCallLogId);
+                try
+                {
+                    callLogId = Convert.ToInt32(sCallLogId);
+                }
+                catch
+                {
+                    DataValidationException dataValidationException = new DataValidationException();
+                    dataValidationException.ExceptionMessages.AddExceptionMessage("Call Log Id is invalid");
+                    throw dataValidationException;
+                }
             }
             return callLogId;
         }

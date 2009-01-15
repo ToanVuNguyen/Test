@@ -319,7 +319,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (budgetItemDTOCollection == null)
-                msgFcCaseSet.AddExceptionMessage("WARN335", ErrorMessages.GetExceptionMessageCombined("WARN335"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN335, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN335));
             foreach (BudgetItemDTO item in budgetItemDTOCollection)
             {
                 ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<BudgetItemDTO>(item, ruleSet);
@@ -382,7 +382,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (caseLoanDTOCollection == null)
-                msgFcCaseSet.AddExceptionMessage("ERR126", ErrorMessages.GetExceptionMessageCombined("ERR126"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR126, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR126));
             int servicerId = FindServicerIDWithNameIsOther();            
             foreach (CaseLoanDTO item in caseLoanDTOCollection)
             {
@@ -1314,49 +1314,49 @@ namespace HPF.FutureState.BusinessLogic
             if (forclosureCase == null)
                 return null;
             if (!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
-                msgFcCaseSet.AddExceptionMessage("ERR200", ErrorMessages.GetExceptionMessageCombined("ERR200"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR200, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR200));
             if (!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
-                msgFcCaseSet.AddExceptionMessage("ERR201", ErrorMessages.GetExceptionMessageCombined("ERR201"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR201, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR201));
             if (!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
-                msgFcCaseSet.AddExceptionMessage("ERR202", ErrorMessages.GetExceptionMessageCombined("ERR202"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR202, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR202));
             if (!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
-                msgFcCaseSet.AddExceptionMessage("ERR203", ErrorMessages.GetExceptionMessageCombined("ERR203"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR203, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR203));
             if (!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
                 msgFcCaseSet.AddExceptionMessage("An invalid code was provided for NeverBillReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
                 msgFcCaseSet.AddExceptionMessage("An invalid code was provided for NeverPayReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
-                msgFcCaseSet.AddExceptionMessage("ERR204", ErrorMessages.GetExceptionMessageCombined("ERR204"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR204, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR204));
             if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
-                msgFcCaseSet.AddExceptionMessage("ERR205", ErrorMessages.GetExceptionMessageCombined("ERR205"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR205, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR205));
             if (!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
-                msgFcCaseSet.AddExceptionMessage("ERR206", ErrorMessages.GetExceptionMessageCombined("ERR206"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR206, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR206));
             if (!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
-                msgFcCaseSet.AddExceptionMessage("ERR207", ErrorMessages.GetExceptionMessageCombined("ERR207"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR207, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR207));
             if (!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
-                msgFcCaseSet.AddExceptionMessage("ERR208", ErrorMessages.GetExceptionMessageCombined("ERR208"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR208, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR208));
             if (!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
-                msgFcCaseSet.AddExceptionMessage("ERR209", ErrorMessages.GetExceptionMessageCombined("ERR209"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR209, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR209));
             if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
-                msgFcCaseSet.AddExceptionMessage("ERR210", ErrorMessages.GetExceptionMessageCombined("ERR210"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR210, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR210));
             if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
-                msgFcCaseSet.AddExceptionMessage("ERR211", ErrorMessages.GetExceptionMessageCombined("ERR211"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR211, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR211));
             if (!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
-                msgFcCaseSet.AddExceptionMessage("ERR212", ErrorMessages.GetExceptionMessageCombined("ERR212"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR212, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR212));
             if (!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
-                msgFcCaseSet.AddExceptionMessage("ERR213", ErrorMessages.GetExceptionMessageCombined("ERR213"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR213, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR213));
             if (!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
-                msgFcCaseSet.AddExceptionMessage("ERR214", ErrorMessages.GetExceptionMessageCombined("ERR214"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR214, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR214));
             if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
                 msgFcCaseSet.AddExceptionMessage("An invalid code was provided for BorrowerOccupationCd.");
             if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
                 msgFcCaseSet.AddExceptionMessage("An invalid code was provided for CoBorrowerOccupationCd.");
             if (!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
-                msgFcCaseSet.AddExceptionMessage("ERR215", ErrorMessages.GetExceptionMessageCombined("ERR215"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR215, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR215));
             if (!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
-                msgFcCaseSet.AddExceptionMessage("ERR216", ErrorMessages.GetExceptionMessageCombined("ERR216"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR216, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR216));
             if (!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
-                msgFcCaseSet.AddExceptionMessage("ERR217", ErrorMessages.GetExceptionMessageCombined("ERR217"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR217));
             if (!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
                 msgFcCaseSet.AddExceptionMessage("An invalid code was provided for IntakeCreditBureauCd.");
             return msgFcCaseSet;
