@@ -99,9 +99,8 @@ namespace HPF.FutureState.BusinessLogic
             //if (!referenceCode.Validate(ReferenceCode.CallSourceCode, aCallLog.CallSourceCd))
             //    errorList.Add("Call source code is not valid");
 
-            //not implemented
-            //if (!referenceCode.Validate(ReferenceCode.FinalDispoCd, aCallLog.FinalDispoCd))
-            //    errorList.Add("FinalDispoCd code is not valid");
+            if (!referenceCode.Validate(ReferenceCode.FinalDispoCd, aCallLog.FinalDispoCd))
+                errorList.Add("FinalDispoCd code is not valid");
 
             if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, aCallLog.LoanDelinqStatusCd))
                 errorList.Add("Loan Delinq status code is not valid");

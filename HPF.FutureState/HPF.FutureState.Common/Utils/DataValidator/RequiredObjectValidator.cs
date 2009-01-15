@@ -25,8 +25,25 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = false;
-            if (objectToValidate.GetType() == typeof(DateTime))// (new DateTime()).GetType())
-                isValid = ((objectToValidate != null) && ((DateTime)objectToValidate != DateTime.MinValue));
+            if (objectToValidate.GetType() == typeof(DateTime))
+            {
+                isValid = true;
+                if (objectToValidate == null)
+                {
+                    isValid = false;
+                    MessageTemplate = key + " is required";
+                }
+                else 
+                {
+                    DateTime dt;
+                    DateTime.TryParse(objectToValidate.ToString() ,out dt);
+                    if (dt == DateTime.MinValue)
+                    {
+                        isValid = false;
+                        MessageTemplate = key + " is invalid";
+                    }
+                }
+            }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
         }        

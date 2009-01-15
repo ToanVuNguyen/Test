@@ -36,9 +36,15 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         {
             bool isValid = false;
             if (objectToValidate == null || objectToValidate.Trim() == string.Empty)
+            {
                 isValid = _nullable;
+                if (!isValid) MessageTemplate = key + " is required";
+            }
             else
+            {
                 isValid = (objectToValidate.ToUpper().Equals(_YesIndicator) || objectToValidate.ToUpper().Equals(_NoIndicator));
+                if (!isValid) MessageTemplate = key + " must be either Y or N";
+            }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
 

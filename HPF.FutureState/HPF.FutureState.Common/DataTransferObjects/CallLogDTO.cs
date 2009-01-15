@@ -79,8 +79,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringLengthValidator(2000, Ruleset = "Default", MessageTemplate = "ScreenRout's Maximum length is 2000 characters")]
         public string ScreenRout { get; set; }
 
-        [IgnoreNulls()]
-        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "FinalDispoCd's Maximum length is 15 characters")]
+        
+        [NullableOrStringLengthValidator(false, 15, Ruleset = "Default")]
         public string FinalDispoCd { get; set; }
 
         [IgnoreNulls()]
@@ -88,7 +88,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string TransNumber { get; set; }
 
         
-        [NullableOrStringLengthValidator(false, 18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
+        [NullableOrStringLengthValidator(false, 18, Ruleset = "Default")]
         public string CcCallKey { get; set; }
 
         [IgnoreNulls()]
@@ -100,15 +100,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string SelectedCounselor { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "HomeownerInd must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string HomeownerInd { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "PowerOfAttorneyInd  must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string PowerOfAttorneyInd { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "AuthorizedInd  must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string AuthorizedInd { get; set; }
 
         #endregion        

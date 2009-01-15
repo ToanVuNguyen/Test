@@ -30,7 +30,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private string ConvertRefCodeToString(ReferenceCode refCode)
         {
-            string[] refCodeName = new string[41] 
+            string[] refCodeName = new string[42] 
             { "Activity code",
               "Agency code",
               "Agency Payable - Status code",
@@ -46,7 +46,7 @@ namespace HPF.FutureState.BusinessLogic
               "Credit burreau code",
               "Default reason code",
               "Education code",
-              "Export format code",
+              "Export format code",              
               "Gender code",
               "Household code",
               "HUD outcome code",
@@ -71,7 +71,8 @@ namespace HPF.FutureState.BusinessLogic
               "State",
               "Summary sent other code",
               "System activity code",
-              "Term length code"
+              "Term length code",
+              "Final Disposition Code"
             };
 
             return refCodeName[(int)refCode];
