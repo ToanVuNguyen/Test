@@ -1,15 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseDetail.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.ForeclosureCaseDetail" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
-<asp:Panel style="width:100%;  border-bottom-style:solid; border-width:1px; border-color:#8FC4F6"  ID="panMessage" runat="server" Visible="false">
-<asp:Label ID="lblMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>
-</asp:Panel>
 <table style="width:100%;">
    <tr>
         <td>
             <table style="width:100%; border-bottom-style: none;">
             <tr>
-                <td colspan="3" align="right">
+                <td colspan="2" align="left">
+                <asp:Label ID="lblMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>                
+                </td>
+                <td align="right">
                     <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" 
                         onclick="btn_Save_Click" />
                 </td>

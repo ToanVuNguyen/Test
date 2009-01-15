@@ -12,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 
 
@@ -19,19 +20,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
     public partial class ForeclosureCaseDetail : System.Web.UI.UserControl
     {
-        private ForeclosureCaseDTO _ForeclosureCase;
-        public ForeclosureCaseDTO foreclosureCase
-        {
-
-            get
-            {
-                return _ForeclosureCase;
-            }
-            set
-            {
-                _ForeclosureCase = value;
-            }
-        }
         private void BindData(int caseid)
         {
             
@@ -39,7 +27,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             //    return;
             try
             {
-            foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
+            ForeclosureCaseDTO  foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
 
             if (foreclosureCase == null)
                 return;
@@ -58,6 +46,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             //Top area
             //Property
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             lblAddress1.Text = foreclosureCase.PropAddr1;
             lblAddress2.Text=foreclosureCase.PropAddr2;
             lblCity.Text=foreclosureCase.PropCity;
@@ -210,6 +199,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
             }
 
         }
@@ -227,6 +217,30 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void UpdateForecloseCase()
         {
+            //get update datacollection from UI
+            ForeclosureCaseDTO foreclosureCase = GetUpdateInfo();
+            try
+            {
+                int fcid=ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
+                BindData(fcid);
+                lblMessage.Text = "Save foreclosure case succesfull";
+            }
+            
+            catch(Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+                
+            }
+            
+        }
+        /// <summary>
+        /// get update info from UI
+        /// </summary>
+        /// <returns></returns>
+        private ForeclosureCaseDTO GetUpdateInfo()
+        {
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             //case status
             foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
             foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
@@ -239,27 +253,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             foreclosureCase.OptOutNewsletterInd = ddlNewsLetter.SelectedItem.Value;
             foreclosureCase.OptOutSurveyInd = ddlServey.SelectedItem.Value;
             //media cadidate
-            if(ddlMediaCondirmation.SelectedValue=="") foreclosureCase.HpfMediaCandidateInd=null;
+            if (ddlMediaCondirmation.SelectedValue == "") foreclosureCase.HpfMediaCandidateInd = null;
             else
-            foreclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
+                foreclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
             //success story
             if (ddlSuccessStory.SelectedValue == "") foreclosureCase.HpfSuccessStoryInd = null;
             else
-            foreclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
-            try
-            {
-                int fcid=ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                BindData(fcid);
-                panMessage.Visible = true;
-                lblMessage.Text = "Save foreclosure case succesfull";
-            }
-            
-            catch(Exception ex)
-            {
-                panMessage.Visible = true;
-                lblMessage.Text = ex.Message;
-            }
-            
+                foreclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
+            return foreclosureCase;
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
