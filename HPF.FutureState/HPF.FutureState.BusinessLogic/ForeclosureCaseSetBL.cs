@@ -1855,9 +1855,14 @@ namespace HPF.FutureState.BusinessLogic
             {
                 ExceptionMessage em = new ExceptionMessage();
                 em.ErrorCode = "ERR253";
-                em.Message = string.Format(ErrorMessages.GetExceptionMessage(em.ErrorCode)
+                //string s = ErrorMessages.GetExceptionMessage(em.ErrorCode);
+                em.Message = string.Format("Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
+                                              + "Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
+                                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} for the case without an {12} "
+                                              + "Last Outcome: {13} "
                             , obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
-                            , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorExt, obj.CounselorEmail, obj.OutcomeDt, obj.OutcomeTypeCode);
+                            , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorExt
+                            , obj.CounselorEmail, obj.OutcomeDt, obj.OutcomeTypeCode);
                 pe.ExceptionMessages.Add(em);
             }
             throw pe;
