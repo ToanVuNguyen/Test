@@ -16,7 +16,11 @@ namespace HPF.FutureState.BusinessLogic
             string refCodeName = ConvertRefCodeToString(refCode);
             if (refCodeItemCollection == null)
                 return true;
-            foreach (RefCodeItemDTO items in refCodeItemCollection)
+            List<RefCodeItemDTO> refCodeItem = refCodeItemCollection.ToList<RefCodeItemDTO>();
+            refCodeItem = refCodeItem.Where(refCodeDTO => refCodeDTO.RefCodeSetName == refCodeName).ToList();
+            if (refCodeItem == null)
+                return true;
+            foreach (RefCodeItemDTO items in refCodeItem)
             {
                 if (value == null || value == string.Empty || (value == items.Code && refCodeName.ToUpper() == items.RefCodeSetName.ToUpper() ))
                     return true;
