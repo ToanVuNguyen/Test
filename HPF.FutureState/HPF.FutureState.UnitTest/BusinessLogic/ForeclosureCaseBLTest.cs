@@ -123,7 +123,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #region SearchForeclosureCase
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void SearchFcCase_PropZip_Successful()
+        public void SearchFcCase_PropZip_Successfull()
         {
             string prop_zip = "11155";
             #region generate test data
@@ -228,6 +228,129 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found",expected, actual));
         }
+
+        [TestMethod()]
+        public void SearchFcCase_PropZip_Null()
+        {
+            string prop_zip = "11155";
+            #region generate test data
+            string sql = "Insert into Agency "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int agencyID = GetAgencyID();
+
+            sql = "Insert into Servicer "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int servicerID = GetServicerID();
+
+            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
+            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
+
+            fcCase.AgencyId = agencyID;
+            fcCase.PropZip = prop_zip;
+
+            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
+            {
+                item.Loan1st2nd = "2nd";
+                item.ServicerId = servicerID;
+            }
+            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
+
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
+            target.InsertForeclosureCaseSet(fcCaseSet);
+            target.CompleteTransaction();
+            #endregion
+
+            int fcId = GetForeclosureCaseId();
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+            searchCriteria.PropertyZip = null;
+
+            DataValidationException expected = new DataValidationException();
+            try
+            {
+                target.SearchForeclosureCase(searchCriteria, 50);
+            }
+            catch (DataValidationException actual)
+            {
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
+            }
+            finally
+            {
+                #region delete test data
+                DeleteForeclosureCase(fcId);
+                sql = "Delete from Agency where Agency_Id = " + agencyID;
+                ExecuteSql(sql);
+                sql = "Delete from Servicer where Servicer_id = " + servicerID;
+                ExecuteSql(sql);
+                #endregion
+            }
+            
+            
+        }
+
+
+        [TestMethod()]
+        public void SearchFcCase_SSN_Successfull()
+        {
+            string prop_zip = "11155";
+            string ssn = "1234";
+            #region generate test data
+            string sql = "Insert into Agency "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int agencyID = GetAgencyID();
+
+            sql = "Insert into Servicer "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
+            int servicerID = GetServicerID();
+
+            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
+            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
+
+            fcCase.AgencyId = agencyID;
+            fcCase.PropZip = prop_zip;
+            fcCase.BorrowerLast4Ssn = ssn;
+
+            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
+            {
+                item.Loan1st2nd = "2nd";
+                item.ServicerId = servicerID;
+            }
+            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
+
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            target.InitiateTransaction();
+            target.InsertForeclosureCaseSet(fcCaseSet);
+            target.CompleteTransaction();
+            #endregion
+
+            int fcId = GetForeclosureCaseId();
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
+            searchCriteria.PropertyZip = prop_zip;
+            searchCriteria.Last4_SSN = ssn;
+
+            int expected = fcId; //number of cases returned
+            int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
+
+            #region delete test data
+            DeleteForeclosureCase(fcId);
+            sql = "Delete from Agency where Agency_Id = " + agencyID;
+            ExecuteSql(sql);
+            sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            #endregion
+            Assert.AreEqual(expected, actual);
+            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
+        }
+
 
         private void ExecuteSql(string sql)
         {
