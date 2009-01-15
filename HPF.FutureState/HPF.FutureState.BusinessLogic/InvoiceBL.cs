@@ -6,7 +6,7 @@ using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
-using HPF.FutureState.Web.Security;
+//using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -41,7 +41,7 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.InvoicePaymentAmount = (double)invoiceDraft.TotalAmount;
                 invoice.FundingSourceId = int.Parse(invoiceDraft.FundingSourceId);
                 invoice.StatusCode = "ACTIVE";
-                invoice.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                //invoice.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 //Insert Invoice
                 int invoiceId = -1;
                 invoiceId = invoiceDAO.InserInvoice(invoice);
@@ -53,7 +53,7 @@ namespace HPF.FutureState.BusinessLogic
                     invoiceCase.InvoiceId = invoiceId;
                     invoiceCase.InvoiceCasePaymentAmount = (double)fCaseDraf.Amount;
                     invoiceCase.ForeclosureCaseId = fCaseDraf.ForeclosureCaseId;
-                    invoiceCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    //invoiceCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     invoiceDAO.InsertInvoiceCase(invoiceCase);
                 }
                 invoiceDAO.Commit();
