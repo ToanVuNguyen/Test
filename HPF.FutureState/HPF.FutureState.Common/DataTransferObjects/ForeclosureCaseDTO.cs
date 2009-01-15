@@ -216,9 +216,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringRequiredValidator(Tag = ErrorMessages.WARN311, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 1, Ruleset = Constant.RULESET_LENGTH)]
         public string FcNoticeReceiveInd { get; set; }
-        
-        [NullableOrStringLengthValidator(true, 1, Ruleset = Constant.RULESET_LENGTH)]
-        public string CaseCompleteInd { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR116, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 1, Ruleset = Constant.RULESET_LENGTH)]
@@ -229,13 +226,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ServicerConsentInd { get; set; }
         
         [NullableOrStringLengthValidator(true, 1, Ruleset = Constant.RULESET_LENGTH)]
-        public string AgencyMediaConsentInd { get; set; }
+        public string AgencyMediaInterestInd { get; set; }
         
         [NullableOrStringLengthValidator(true, 1, Ruleset = Constant.RULESET_LENGTH)]
         public string HpfMediaCandidateInd { get; set; }
-        
-        [NullableOrStringLengthValidator(true, 1, Ruleset = Constant.RULESET_LENGTH)]
-        public string HpfNetworkCandidateInd { get; set; }
         
         [NullableOrStringLengthValidator(true, 1, Ruleset = Constant.RULESET_LENGTH)]
         public string HpfSuccessStoryInd { get; set; }

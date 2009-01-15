@@ -177,7 +177,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ddlServey.SelectedItem.Text = "Yes";
             else ddlServey.SelectedItem.Text = "No";
             //media cadidate
-            lblMediaInterest.Text = foreclosureCase.AgencyMediaConsentInd;
+            lblMediaInterest.Text = foreclosureCase.AgencyMediaInterestInd;
             
             ddlMediaCondirmation.SelectedValue = foreclosureCase.HpfMediaCandidateInd;
             if (foreclosureCase.HpfMediaCandidateInd == "Y")

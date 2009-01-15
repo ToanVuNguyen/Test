@@ -1617,7 +1617,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.DfltReason2ndCd = "18";
             foreclosureCase.HudTerminationReasonCd = "1";
             foreclosureCase.HudOutcomeCd = "3";
-            foreclosureCase.CounselingDurationCd = "HPF";            
+            foreclosureCase.CounselingDurationCd = "<30 minutes";            
             foreclosureCase.SummarySentOtherCd = "Phone";            
             foreclosureCase.MilitaryServiceCd = "ACTV";
             foreclosureCase.ContactZip = "12345";
@@ -1876,7 +1876,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.AgencyCaseNum = (reader["agency_case_num"].ToString());
                         returnObject.AgencyClientNum = (reader["agency_client_num"].ToString());
                         returnObject.AgencyId = int.Parse(reader["agency_id"].ToString());
-                        returnObject.AgencyMediaConsentInd = (reader["agency_media_consent_ind"].ToString());
+                        returnObject.AgencyMediaInterestInd = (reader["agency_media_consent_ind"].ToString());
                         returnObject.AgencySuccessStoryInd = (reader["agency_success_story_ind"].ToString());
                         returnObject.AmiPercentage = int.Parse(reader["AMI_percentage"].ToString());
                         returnObject.AssignedCounselorIdRef = (reader["counselor_id_ref"].ToString());
@@ -1893,8 +1893,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.BorrowerOccupationCd = (reader["borrower_occupation"].ToString());
                         returnObject.BorrowerPreferredLangCd = (reader["borrower_preferred_lang_cd"].ToString());
                         //returnObject.BorrowerSsn = (reader["borrower_ssn"].ToString());
-                        returnObject.CallId = int.Parse(reader["call_id"].ToString());
-                        returnObject.CaseCompleteInd = (reader["case_complete_ind"].ToString());
+                        returnObject.CallId = int.Parse(reader["call_id"].ToString());                        
                         returnObject.ChangeLastAppName = (reader["chg_lst_app_name"].ToString());                        
                         returnObject.ChangeLastUserId = (reader["chg_lst_user_id"].ToString());
                         returnObject.CoBorrowerDisabledInd = (reader["co_borrower_disabled_ind"].ToString());                        
@@ -1939,8 +1938,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.HomePurchaseYear = int.Parse(reader["home_purchase_year"].ToString());
                         returnObject.HomeSalePrice = double.Parse(reader["home_sale_price"].ToString());
                         returnObject.HouseholdCd = (reader["household_cd"].ToString());
-                        returnObject.HpfMediaCandidateInd = (reader["hpf_media_candidate_ind"].ToString());
-                        returnObject.HpfNetworkCandidateInd = (reader["hpf_network_candidate_ind"].ToString());
+                        returnObject.HpfMediaCandidateInd = (reader["hpf_media_candidate_ind"].ToString());                        
                         returnObject.HpfSuccessStoryInd = (reader["hpf_success_story_ind"].ToString());
                         returnObject.HudOutcomeCd = (reader["hud_outcome_cd"].ToString());                        
                         returnObject.HudTerminationReasonCd = (reader["hud_termination_reason_cd"].ToString());

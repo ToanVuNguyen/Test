@@ -318,7 +318,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (budgetItemDTOCollection == null)
+            if (budgetItemDTOCollection == null || budgetItemDTOCollection.Count < 1)
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN335, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN335));
             foreach (BudgetItemDTO item in budgetItemDTOCollection)
             {
@@ -337,7 +337,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (outcomeItemDTOCollection == null)
+            if (outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1)
                 msgFcCaseSet.AddExceptionMessage("An Outcome is required to save a foreclosure case.");            
             int outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
             for (int i = 0; i < outcomeItemDTOCollection.Count; i++)
@@ -381,7 +381,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (caseLoanDTOCollection == null)
+            if (caseLoanDTOCollection == null || caseLoanDTOCollection.Count < 1)
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR126, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR126));
             int servicerId = FindServicerIDWithNameIsOther();            
             foreach (CaseLoanDTO item in caseLoanDTOCollection)
@@ -559,7 +559,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsBudgetAsset(BudgetAssetDTOCollection budgetAssetDTOCollection, string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (budgetAssetDTOCollection == null)
+            if (budgetAssetDTOCollection == null || budgetAssetDTOCollection.Count < 1)
                 return null;
             foreach (BudgetAssetDTO item in budgetAssetDTOCollection)
             {
@@ -1092,7 +1092,7 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
             //Compare OutcomeItem input with OutcomeItem DB
-            if (outcomeItemCollectionDB == null)            
+            if (outcomeItemCollectionDB == null || outcomeItemCollectionDB.Count < 1)   
                 return null;            
             foreach (OutcomeItemDTO itemDB in outcomeItemCollectionDB)
             {
@@ -1219,7 +1219,7 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
             //Compare CAseLoanItem input with Case Loan DB
-            if (caseLoanCollectionDB == null)            
+            if (caseLoanCollectionDB == null || caseLoanCollectionDB.Count < 1) 
                 return null;            
             foreach (CaseLoanDTO itemDB in caseLoanCollectionDB)
             {
@@ -1242,7 +1242,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
-            if (caseLoanCollectionDB == null)            
+            if (caseLoanCollectionDB == null || caseLoanCollectionDB.Count < 1)  
                 return null;            
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
@@ -1371,7 +1371,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (caseLoanCollection == null)
+            if (caseLoanCollection == null || caseLoanCollection.Count < 1)
                 return null;
             for (int i = 0; i < caseLoanCollection.Count; i++)
             {
@@ -1397,7 +1397,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             bool contactValid = false;
             bool propertyValid = false;
-            if (geoCodeRefCollection == null)
+            if (geoCodeRefCollection == null || geoCodeRefCollection.Count < 1)
                 return null;            
             foreach (GeoCodeRefDTO item in geoCodeRefCollection)
             {
@@ -1461,7 +1461,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidProgramId(ForeclosureCaseDTO forclosureCase)
         {
             ProgramDTOCollection programCollection = foreclosureCaseSetDAO.GetProgram();
-            if (programCollection == null)
+            if (programCollection == null || programCollection.Count < 1)
                 return null;
             int programId = forclosureCase.ProgramId;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
@@ -1482,7 +1482,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidBudgetSubcategoryId(BudgetItemDTOCollection budgetItem)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (budgetItem == null)
+            if (budgetItem == null || budgetItem.Count < 1)
                 return null;
             for (int i = 0; i < budgetItem.Count; i++)
             { 
@@ -1497,7 +1497,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckBudgetSubcategory(BudgetItemDTO budgetItem)
         {
             BudgetSubcategoryDTOCollection budgetSubcategoryCollection = foreclosureCaseSetDAO.GetBudgetSubcategory();
-            if (budgetSubcategoryCollection == null)
+            if (budgetSubcategoryCollection == null || budgetSubcategoryCollection.Count < 1)
                 return true;
             int budgetSubId = budgetItem.BudgetSubcategoryId;
             foreach(BudgetSubcategoryDTO item in budgetSubcategoryCollection)
@@ -1516,7 +1516,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidOutcomeTypeId(OutcomeItemDTOCollection outcomeItem)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (outcomeItem == null)
+            if (outcomeItem == null || outcomeItem.Count < 1)
                 return null;
             for (int i = 0; i < outcomeItem.Count; i++)
             {
@@ -1531,7 +1531,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckOutcomeType(OutcomeItemDTO outcomeItem)
         {
             OutcomeTypeDTOCollection outcomeTypeCollection = foreclosureCaseSetDAO.GetOutcomeType();
-            if (outcomeTypeCollection == null)
+            if (outcomeTypeCollection == null || outcomeTypeCollection.Count < 1)
                 return true;
             int outcomeTypeId = outcomeItem.OutcomeTypeId;
             foreach (OutcomeTypeDTO item in outcomeTypeCollection)
@@ -1570,7 +1570,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckRequireFieldPartial(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
-            if (msgError == null || msgError.Count == 0)
+            if (msgError == null || msgError.Count < 1)
                 return true;
             return false;
         }
@@ -1581,7 +1581,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckRequireFieldForComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            if (msgError == null || msgError.Count == 0)
+            if (msgError == null || msgError.Count < 0)
                 return true;
             return false;
         }
@@ -1592,7 +1592,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckCaseLoanHaveOne1st(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSetInput.CaseLoans;
-            if (caseLoanCollection == null)
+            if (caseLoanCollection == null || caseLoanCollection.Count < 1)
                 return false;
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
@@ -1608,7 +1608,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckOutcomeHavePayable(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             OutcomeItemDTOCollection outcomeCollection = foreclosureCaseSetInput.Outcome;
-            if (outcomeCollection == null)
+            if (outcomeCollection == null || outcomeCollection.Count < 1)
                 return false;
             foreach (OutcomeItemDTO item in outcomeCollection)
             {
@@ -1624,7 +1624,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
-            if (budgetItemCollection == null)
+            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
                 return false;
             int subCatId = FindSubCatWithNameIsMortgage();
             foreach (BudgetItemDTO item in budgetItemCollection)
@@ -1646,12 +1646,10 @@ namespace HPF.FutureState.BusinessLogic
             int fcId = foreclosureCase.FcId;
             bool isComplete = CheckComplete(foreclosureCaseSet);
             foreclosureCase.AmiPercentage = CalculateAmiPercentage();
-            foreclosureCase.SummarySentDt = DateTime.Now;
-            foreclosureCase.CaseCompleteInd = Constant.CASE_COMPLETE_IND_NO;            
+            foreclosureCase.SummarySentDt = DateTime.Now;            
             if (isComplete == true)
             {
                 foreclosureCase.CompletedDt = GetCompleteDate(fcId);
-                foreclosureCase.CaseCompleteInd = GetCaseCompleteInd(fcId);
             }
             return foreclosureCase;
         }        
@@ -1671,24 +1669,7 @@ namespace HPF.FutureState.BusinessLogic
                     return foreclosureCase.CompletedDt;
             }
             return DateTime.Now;
-        }
-
-        /// <summary>
-        /// Set value for Case Complete Indicator
-        /// </summary>
-        private string GetCaseCompleteInd(int fcId)
-        {
-            ForeclosureCaseDTO foreclosureCase = null;
-            if (fcId != int.MinValue && fcId > 0)
-            {
-                foreclosureCase = GetForeclosureCase(fcId);
-                if (foreclosureCase.CaseCompleteInd == Constant.CASE_COMPLETE_IND_NO)
-                    return Constant.CASE_COMPLETE_IND_YES;
-                else
-                    return foreclosureCase.CaseCompleteInd;
-            }
-            return Constant.CASE_COMPLETE_IND_YES;
-        }
+        }      
 
         /// <summary>
         /// Set value for AmiPercentage
@@ -1703,7 +1684,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private OutcomeItemDTOCollection OutcomeHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (foreclosureCaseSet.Outcome == null)            
+            if (foreclosureCaseSet.Outcome == null || foreclosureCaseSet.Outcome.Count < 1)  
                 return null;            
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemOld = foreclosureCaseSet.Outcome;            
@@ -1728,7 +1709,7 @@ namespace HPF.FutureState.BusinessLogic
             double totalExpenses = 0;
             double totalAssest = 0;
 
-            if (budgetAssetCollection == null && budgetItemCollection == null)
+            if ((budgetAssetCollection == null || budgetAssetCollection.Count < 1) && (budgetItemCollection == null || budgetItemCollection.Count < 1))
                 return null;
 
             if (budgetAssetCollection != null)
@@ -1752,7 +1733,7 @@ namespace HPF.FutureState.BusinessLogic
         private double CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, double totalAssest)
         {
             //Calculate totalAssest
-            if (budgetAssetCollection == null)
+            if (budgetAssetCollection == null || budgetAssetCollection.Count < 1)
             {
                 return 0;
             }
@@ -1770,7 +1751,7 @@ namespace HPF.FutureState.BusinessLogic
         private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref double totalIncome, ref double totalExpenses)
         {
             //Calculate totalExpenses, totalIncome
-            if (budgetItemCollection == null)
+            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
             {
                 totalIncome = 0;
                 totalExpenses = 0;
@@ -1794,7 +1775,7 @@ namespace HPF.FutureState.BusinessLogic
         private string BuggetCategoryCode(ForeclosureCaseSetDAO foreClosureCaseSetDAO, int subCategoryId)
         {
             BudgetDTOCollection budgetCollection = foreClosureCaseSetDAO.GetBudget();
-            if (budgetCollection == null)
+            if (budgetCollection == null || budgetCollection.Count < 1)
                 return null;            
             foreach (BudgetDTO item in budgetCollection)
             {

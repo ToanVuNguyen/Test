@@ -73,7 +73,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         returnObject.AgencyClientNum = ConvertToString(reader["agency_client_num"]);
                         returnObject.AgencyId = ConvertToInt(reader["agency_id"]);
-                        returnObject.AgencyMediaConsentInd = ConvertToString(reader["agency_media_consent_ind"]);
+                        returnObject.AgencyMediaInterestInd = ConvertToString(reader["agency_media_consent_ind"]);
                         returnObject.AgencySuccessStoryInd = ConvertToString(reader["agency_success_story_ind"]);
                         returnObject.AmiPercentage = ConvertToInt(reader["AMI_percentage"]);
                         returnObject.AssignedCounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
@@ -93,8 +93,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.BorrowerPreferredLangCd = ConvertToString(reader["borrower_preferred_lang_cd"]);
                         //returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
 
-                        returnObject.CallId = ConvertToInt(reader["call_id"]);
-                        returnObject.CaseCompleteInd = ConvertToString(reader["case_complete_ind"]);
+                        returnObject.CallId = ConvertToInt(reader["call_id"]);                        
                         returnObject.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         returnObject.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                         returnObject.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
@@ -146,8 +145,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.HomePurchaseYear = ConvertToInt(reader["home_purchase_year"]);
                         returnObject.HomeSalePrice = ConvertToDouble(reader["home_sale_price"]);
                         returnObject.HouseholdCd = ConvertToString(reader["household_cd"]);
-                        returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);
-                        returnObject.HpfNetworkCandidateInd = ConvertToString(reader["hpf_network_candidate_ind"]);
+                        returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);                        
                         returnObject.HpfSuccessStoryInd = ConvertToString(reader["hpf_success_story_ind"]);
                         returnObject.HudOutcomeCd = ConvertToString(reader["hud_outcome_cd"]);
                         returnObject.HudTerminationDt = ConvertToDateTime(reader["hud_termination_dt"]);

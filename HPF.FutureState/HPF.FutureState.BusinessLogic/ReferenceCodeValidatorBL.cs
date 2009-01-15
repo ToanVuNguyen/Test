@@ -14,13 +14,12 @@ namespace HPF.FutureState.BusinessLogic
         {
             RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
             string refCodeName = ConvertRefCodeToString(refCode);
-            if (refCodeItemCollection == null)
+            if (refCodeItemCollection == null || refCodeItemCollection.Count < 1)
                 return true;
-            List<RefCodeItemDTO> refCodeItem = refCodeItemCollection.ToList<RefCodeItemDTO>();
-            refCodeItem = refCodeItem.Where(refCodeDTO => refCodeDTO.RefCodeSetName == refCodeName).ToList();
-            if (refCodeItem == null)
+            RefCodeItemDTOCollection refCodeItemCollectionByCode = refCodeItemCollection.GetRefCodeItemByRefCode(refCodeName);
+            if (refCodeItemCollectionByCode == null || refCodeItemCollectionByCode.Count < 1)
                 return true;
-            foreach (RefCodeItemDTO items in refCodeItem)
+            foreach (RefCodeItemDTO items in refCodeItemCollectionByCode)
             {
                 if (value == null || value == string.Empty || (value == items.Code && refCodeName.ToUpper() == items.RefCodeSetName.ToUpper() ))
                     return true;
