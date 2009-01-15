@@ -218,13 +218,6 @@ namespace HPF.FutureState.WebServices
             destObject.SelectedCounselor = sourceObject.SelectedCounselor;
             //destObject.ScreenRout = sourceObject.ScreenRout;
             //destObject.TransNumber = sourceObject.TransNumber;
-            destObject.CreateDate = sourceObject.CreateDate;
-            destObject.CreateUserId = sourceObject.CreateUserId;
-            destObject.CreateAppName = sourceObject.CreateAppName;
-            destObject.ChangeLastDate = sourceObject.ChangeLastDate;
-            destObject.ChangeLastUserId = sourceObject.ChangeLastUserId;
-            destObject.ChangeLastAppName = sourceObject.ChangeLastAppName;
-
             return destObject;
         }
         #endregion

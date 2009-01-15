@@ -8,7 +8,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
 namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {
-    public class CallLogWSReturnDTO : BaseDTO
+    public class CallLogWSReturnDTO
     {
         #region property
         public string CallId { get; set; }                
