@@ -23,10 +23,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CcAgentIdKey { get; set; }
 
         //[NotNullValidator(Ruleset = "Default", MessageTemplate = "Start date is required")]
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "Start date is required")]
+        [RequiredObjectValidator(Ruleset = "Default")]
         public DateTime StartDate { get; set; }
 
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "End date is required")]
+        [RequiredObjectValidator(Ruleset = "Default")]
         public DateTime EndDate { get; set; }
 
         [IgnoreNulls()]

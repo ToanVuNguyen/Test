@@ -28,10 +28,11 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             if (objectToValidate.GetType() == typeof(DateTime))
             {
                 isValid = true;
-                if (objectToValidate == null)
+                //with DateTime type, a null value is equal to DateTime.MinValue
+                if ((DateTime)objectToValidate == DateTime.MinValue)
                 {
                     isValid = false;
-                    MessageTemplate = key + " is required";
+                    MessageTemplate = key + " is invalid";
                 }
                 else 
                 {
