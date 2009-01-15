@@ -22,40 +22,10 @@ namespace HPF.FutureState.DataAccess
         protected AgencyPayableDAO()
         { 
         }
-
-        #region Share functions
         public static AgencyPayableDAO CreateInstance()
         {
             return new AgencyPayableDAO();
         }
-
-        /// <summary>
-        /// Begin working
-        /// </summary>
-        public void Begin()
-        {
-            dbConnection = CreateConnection();
-            dbConnection.Open();
-            trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-        }
-
-        /// <summary>
-        /// Commit work.
-        /// </summary>
-        public void Commit()
-        {
-            trans.Commit();
-            dbConnection.Close();
-        }
-        /// <summary>
-        /// Cancel work
-        /// </summary>
-        public void Cancel()
-        {
-            trans.Rollback();
-            dbConnection.Close();
-        }
-        #endregion
 
         # region Insert
                 
@@ -84,7 +54,6 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[10] = new SqlParameter("@pi_NFMC_difference_paid_ind", agencyPayableCase.NFMCDiffererencePaidIndicator);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = this.trans;
                 command.ExecuteNonQuery();
             }
@@ -124,7 +93,6 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[15] = new SqlParameter("@po_agency_payable_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = this.trans;
                 command.ExecuteNonQuery();
                 agencyPayable.AgencyPayableId = ConvertToInt(sqlParam[15].Value);
@@ -239,7 +207,6 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[6] = new SqlParameter("@pi_loan_1st_2nd_cd", agencyPayableCriteria.LoanIndicator == CustomBoolean.None.ToString()? null: agencyPayableCriteria.LoanIndicator.ToString());
                 sqlParam[7] = new SqlParameter("@pi_max_number_cases",agencyPayableCriteria.MaxNumberOfCase);                
                 command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;           
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
 
