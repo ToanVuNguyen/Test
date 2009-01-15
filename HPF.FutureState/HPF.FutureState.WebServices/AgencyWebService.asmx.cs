@@ -198,7 +198,7 @@ namespace HPF.FutureState.WebServices
             destObject.CallSourceCd = sourceObject.CallSourceCd;
             //destObject.CallCenterID = sourceObject.CallCenterID;
             //destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
-            destObject.CcCallKey = sourceObject.CcCallKey;
+            //destObject.CcCallKey = sourceObject.CcCallKey;
             //destObject.DNIS = sourceObject.DNIS;
             destObject.EndDate = sourceObject.EndDate;
             destObject.FinalDispoCd = sourceObject.FinalDispoCd;
