@@ -194,8 +194,8 @@ namespace HPF.FutureState.WebServices
                 destObject.CallId = "HPF" + Convert.ToString(sourceObject.CallId);
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
-            destObject.CallCenter = sourceObject.CallCenter;
-            //destObject.CallSourceCd = sourceObject.CallSourceCd;
+            //destObject.CallCenter = sourceObject.CallCenter;
+            destObject.CallSourceCd = sourceObject.CallSourceCd;
             //destObject.CallCenterID = sourceObject.CallCenterID;
             //destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
             destObject.CcCallKey = sourceObject.CcCallKey;
