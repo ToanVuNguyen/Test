@@ -118,6 +118,7 @@ namespace HPF.FutureState.BusinessLogic
         void RequireAppForeclosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria, ref Collection<string> msg, string ruleset)
         {
             ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, ruleset);
+            // ExceptionMessageCollection validationResults = HPFValidator.ValidateToGetExceptionMessage<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, ruleset);
             foreach (ValidationResult result in validationResults)
             {
                 msg.Add(result.Message);
