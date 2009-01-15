@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime PeriodStartDate { get; set; }
         public DateTime PeriodEndDate { get; set; }
         
-        public string PayamentCode { get; set; }
+        //public string PayamentCode { get; set; }
         public string AccountLinkTBD { get; set; }
         public decimal AgencyPayablePaymentAmount { get; set; }
         //public int TotalCases { get; set; }
