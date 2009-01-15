@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public class InvoiceDraftDTO
+    public class InvoiceDraftDTO:BaseDTO
     {
         public string FundingSourceId { get; set; }
         public DateTime PeriodStartDate { get; set; }

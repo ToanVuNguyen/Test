@@ -41,7 +41,12 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.InvoicePaymentAmount = (double)invoiceDraft.TotalAmount;
                 invoice.FundingSourceId = int.Parse(invoiceDraft.FundingSourceId);
                 invoice.StatusCode = "ACTIVE";
-                //invoice.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                invoice.ChangeLastAppName = invoiceDraft.ChangeLastAppName;
+                invoice.ChangeLastDate = invoiceDraft.ChangeLastDate;
+                invoice.ChangeLastUserId = invoiceDraft.ChangeLastUserId;
+                invoice.CreateAppName = invoiceDraft.CreateAppName;
+                invoice.CreateDate = invoiceDraft.CreateDate;
+                invoice.CreateUserId = invoiceDraft.CreateUserId;
                 //Insert Invoice
                 int invoiceId = -1;
                 invoiceId = invoiceDAO.InserInvoice(invoice);

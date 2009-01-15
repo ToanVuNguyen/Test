@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.Web.AppNewInvoice
 {
@@ -118,6 +119,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             try
             {
+                invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 //insert invoice to the database
                 InvoiceBL.Instance.InsertInvoice(invoiceDraft);
                 lblErrorMessage.Text = "Insert Invoice successful.";
