@@ -18,10 +18,7 @@ namespace HPF.FutureState.Web.AppNewPayable
 {
     public partial class NewAgencyPayableResultsUC : System.Web.UI.UserControl
     {
-
-        AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
-        //ForeclosureCaseDraftDTOCollection fcDraftCol;
-        AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+        //store ForeclosureCaseDraftDTOCollection
         ForeclosureCaseDraftDTOCollection FCDraftCol
         {
             get
@@ -33,81 +30,74 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
+            //get search criteria.
+            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             agencyPayableSearchCriteria = GetCriteria();
             if (!IsPostBack)
             {
+                //display all info match criteria to gridview
                 DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
             }
-           
-
         }
+        /// <summary>
+        /// get all criteria from view state and put them into AgencyPayableSearchCriteriaDTO
+        /// </summary>
+        /// <returns>AgencyPayableSearchCriteriaDTO</returns>
         protected AgencyPayableSearchCriteriaDTO GetCriteria()
         {
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             int agencyid = int.Parse(Request.QueryString["agencyid"].ToString());
             string casecomplete = Request.QueryString["casecomplete"].ToString();
-
             DateTime periodenddate = Convert.ToDateTime(Request.QueryString["periodenddate"].ToString());
-
             string servicerconsent = Request.QueryString["servicerconsent"].ToString();
-
             DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
-
             string fundingconsent = Request.QueryString["fundingconsent"].ToString();
             int maxnumbercase = int.Parse(Request.QueryString["maxnumbercase"].ToString());
             string indicator = Request.QueryString["indicator"].ToString();
-
             agencyPayableSearchCriteria.AgencyId = agencyid;
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
-            //if (casecomplete == "Y")
-            //    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.Y;
-            //if (casecomplete == "N")
-            //    agencyPayableSearchCriteria.CaseComplete = CustomBoolean.N;
-            //else agencyPayableSearchCriteria.CaseComplete = CustomBoolean.None;
-
             agencyPayableSearchCriteria.PeriodStartDate = periodstartdate;
             agencyPayableSearchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), servicerconsent);
-           
             agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
-
             agencyPayableSearchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), fundingconsent);
-           
             agencyPayableSearchCriteria.MaxNumberOfCase = maxnumbercase;
-            //if (indicator == "") indicator = null;
             agencyPayableSearchCriteria.LoanIndicator = indicator;
-            
             return agencyPayableSearchCriteria;
         }
+        /// <summary>
+        /// 
+        /// </summary>
         protected void BindGridView()
         {
             grvInvoiceItems.DataSource = this.FCDraftCol;
             grvInvoiceItems.DataBind();
             decimal total = 0;
+            //calculate the total amount of ForeclosureCaseDraftDTOCollection
             foreach (var item in this.FCDraftCol)
             {
                 total += item.Amount;
             }
-            
+            //add the values you just calculate to lable in UI
             lblInvoiceTotalFooter.Text = total.ToString();
             lblTotalCasesFooter.Text = this.FCDraftCol.Count.ToString();
             lblTotalAmount.Text = total.ToString();
             lblTotalCases.Text = this.FCDraftCol.Count.ToString();
-            
-            
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="agencyPayableSearchCriteria"></param>
         protected void DisplayNewAgencyPayableResult(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {
             try
             {
+                AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
                 if (agencyPayableDraftDTO.ForclosureCaseDrafts != null)
                 {
                     grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
                     this.FCDraftCol = agencyPayableDraftDTO.ForclosureCaseDrafts;
                     grvInvoiceItems.DataBind();
-
                     lblAgency.Text = agencyPayableSearchCriteria.AgencyId.ToString();
                     lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
                     lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
@@ -115,6 +105,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
                     lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
                     decimal total = 0;
+                    //calculate total amount of cases - search data match  search criteria.
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                     {
                         //test
@@ -129,10 +120,14 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                //ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex);
             }
         }
-
+        /// <summary>
+        /// manage all check boxes in gridview row when check change in checkbox header
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void chkHeaderCaseIDCheck(object sender, EventArgs e)
         {
             CheckBox chkdelall = (CheckBox)grvInvoiceItems.HeaderRow.FindControl("chkHeaderCaseID");
@@ -142,10 +137,17 @@ namespace HPF.FutureState.Web.AppNewPayable
                 chkdel.Checked = chkdelall.Checked;
             }
         }
+        /// <summary>
+        /// save data in gridview to suitable tables.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnGeneratePayable_Click(object sender, EventArgs e)
         {
             try
             {
+                AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
+                AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
                 agencyPayableSearchCriteria = GetCriteria();
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
                 agencyPayableDraftDTO.ForclosureCaseDrafts = this.FCDraftCol;
@@ -157,10 +159,16 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                //ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex);
                 
             }
         }
+        /// <summary>
+        /// occur when you click on RemoveMarkedCases button
+        /// clear check row from gridview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
             for(int i=grvInvoiceItems.Rows.Count-1;i>=0;i--)
@@ -174,13 +182,15 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             BindGridView();
 }
-
+        /// <summary>
+        /// return NewPayableCriteria page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
             string query = "?agencyid="+lblAgency.Text.ToString();
             Response.Redirect("NewPayableCriteria.aspx"+query);
         }
-
-
     }
 }
