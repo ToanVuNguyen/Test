@@ -155,7 +155,7 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 grdvResult.DataSource = response.Messages;
                 grdvResult.DataBind();
-
+                grdvResult.Visible = true;
             }
 
         }

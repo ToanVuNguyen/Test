@@ -9,9 +9,15 @@ namespace HPF.FutureState.Common.Utils.DataValidator
 {
     public class YesNoIndicatorValidatorAttribute : ValidatorAttribute
     {
+        bool _nullable;
+        public YesNoIndicatorValidatorAttribute(bool nullable)
+        {
+            _nullable = nullable;
+        }
+
         protected override Validator DoCreateValidator(Type targetType)
         {
-            return new YesNoIndicatorValidator();
+            return new YesNoIndicatorValidator(_nullable);
         }
     }
 }

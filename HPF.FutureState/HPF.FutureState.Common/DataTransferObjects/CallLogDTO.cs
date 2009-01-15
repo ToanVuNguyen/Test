@@ -88,7 +88,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string TransNumber { get; set; }
 
         
-        [StringLengthValidator(1, 18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
+        [NullableOrStringLengthValidator(false, 18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
         public string CcCallKey { get; set; }
 
         [IgnoreNulls()]
@@ -100,15 +100,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string SelectedCounselor { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(Ruleset = "Default", MessageTemplate = "HomeownerInd must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "HomeownerInd must be either Y or N")]
         public string HomeownerInd { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(Ruleset = "Default", MessageTemplate = "PowerOfAttorneyInd  must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "PowerOfAttorneyInd  must be either Y or N")]
         public string PowerOfAttorneyInd { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(Ruleset = "Default", MessageTemplate = "AuthorizedInd  must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "AuthorizedInd  must be either Y or N")]
         public string AuthorizedInd { get; set; }
 
         #endregion        

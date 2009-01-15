@@ -51,31 +51,29 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (ValidationResult result in validationResults)
                 {
                     dataValidationException.ExceptionMessages.AddExceptionMessage(result.Message);
-                }                
+                }
+                throw dataValidationException;
             }
 
             List<string> errorList = CheckValidCodeForCallLog(aCallLog);
             if (errorList != null && errorList.Count > 0)
-                AddDataValidationException(dataValidationException, errorList);
+                ThrowDataValidationException(errorList);
 
             errorList = CheckForeignKey(aCallLog);
             if (errorList != null && errorList.Count > 0)
-                AddDataValidationException(dataValidationException, errorList);
+                ThrowDataValidationException(errorList);
 
             if (aCallLog.StartDate > aCallLog.EndDate)
                 dataValidationException.ExceptionMessages.AddExceptionMessage("Start date must < End date");
 
             errorList = CheckDependingCallCenter(aCallLog);
             if (errorList != null && errorList.Count > 0)
-                AddDataValidationException(dataValidationException, errorList);
+                ThrowDataValidationException(errorList);
 
             errorList = CheckDependingServicer(aCallLog);
             if (errorList != null && errorList.Count > 0)
-                AddDataValidationException(dataValidationException, errorList);
-
-            if (dataValidationException.ExceptionMessages.Count > 0)
-                throw dataValidationException;
-
+                ThrowDataValidationException(errorList);
+           
             return CallLogDAO.Instance.InsertCallLog(aCallLog);
 
             
@@ -114,12 +112,26 @@ namespace HPF.FutureState.BusinessLogic
 
         private List<string> CheckForeignKey(CallLogDTO aCallLog)
         {
-            return CallLogDAO.Instance.CheckValidForeignKey(aCallLog);
+            Dictionary<string, int> idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
+            int callCenterID = idList["CallCenterID"];
+            //int isValidCCAgentIdKey = 1;
+            int prevAgencyID = idList["PrevAgencyID"];
+            //int isValidSelectedAgencyId = 1;
+            int servicerID = idList["ServicerID"]; 
+            List<string> errorList = new List<string>();
+            if (aCallLog.CallCenterID != callCenterID)
+                errorList.Add("CallCenterID does not exist");
+            if (aCallLog.PrevAgencyId != prevAgencyID)
+                errorList.Add("prevAgencyID does not exist");
+            if (aCallLog.ServicerId != servicerID)
+                errorList.Add("ServicerId does not exist");
+            return errorList;
         }
 
         private List<string> CheckDependingCallCenter(CallLogDTO aCallLog)
         {
             CallCenterDTO callCenter = CallLogDAO.Instance.GetCallCenter(aCallLog);
+            
             if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
             {
                 aCallLog.CallCenter = callCenter.CallCenterName;
@@ -153,14 +165,16 @@ namespace HPF.FutureState.BusinessLogic
             return errorList;
         }
 
-        private void AddDataValidationException(DataValidationException pe, List<string> errorList)
-        {             
+        private void ThrowDataValidationException(List<string> errorList)
+        {
+            DataValidationException pe = new DataValidationException();
             foreach (string obj in errorList)
             {
                 ExceptionMessage em = new ExceptionMessage();
                 em.Message = obj;
                 pe.ExceptionMessages.Add(em);
-            }            
+            }
+            throw pe;
         }
 
     }

@@ -13,10 +13,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
     {
         const string _YesIndicator = "Y";
         const string _NoIndicator = "N";
-        public YesNoIndicatorValidator()
+
+        bool _nullable;
+        public YesNoIndicatorValidator(bool nullable)
             : base(null, null)
         {
-            
+            _nullable = nullable;
         }
 
         public YesNoIndicatorValidator(string messageTemplate, string tag)
@@ -33,7 +35,10 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(String objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = false;
-            isValid = (objectToValidate.ToUpper().Equals(_YesIndicator) || objectToValidate.ToUpper().Equals(_NoIndicator));
+            if (objectToValidate == null || objectToValidate.Trim() == string.Empty)
+                isValid = _nullable;
+            else
+                isValid = (objectToValidate.ToUpper().Equals(_YesIndicator) || objectToValidate.ToUpper().Equals(_NoIndicator));
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
 

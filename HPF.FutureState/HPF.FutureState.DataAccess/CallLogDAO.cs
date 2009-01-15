@@ -249,19 +249,19 @@ namespace HPF.FutureState.DataAccess
             return callLogDTO;
         }
 
-        public List<string> CheckValidForeignKey(CallLogDTO aCallLog)
+        public Dictionary<string, int> GetForeignKey(CallLogDTO aCallLog)
         {
-            List<string> errorList = new List<string>();
+            Dictionary<string, int> idList = new Dictionary<string, int>();
 
             SqlConnection dbConnection = CreateConnection();
             SqlCommand command = CreateSPCommand("hpf_call_check_foreign_key", dbConnection);
             
             
-            int isValidCallCenterID = 1;
+            int callCenterID = 1;
             //int isValidCCAgentIdKey = 1;
-            int isValidPrevAgencyId = 1;
+            int prevAgencyID = 1;
             //int isValidSelectedAgencyId = 1;
-            int isValidServicerId = 1;
+            int servicerID = 1;
 
             #region parameters
             //<Parameter>
@@ -288,11 +288,11 @@ namespace HPF.FutureState.DataAccess
                 command.ExecuteNonQuery();
                 //var reader = command.ExecuteReader();
                 
-                        isValidCallCenterID = ConvertToInt(sqlParam[3].Value);
+                        callCenterID = ConvertToInt(sqlParam[3].Value);
                         //isValidCCAgentIdKey = ConvertToInt(sqlParam[6].Value);
-                        isValidPrevAgencyId = ConvertToInt(sqlParam[4].Value);
+                        prevAgencyID = ConvertToInt(sqlParam[4].Value);
                         //isValidSelectedAgencyId = ConvertToInt(sqlParam[8].Value);
-                        isValidServicerId = ConvertToInt(sqlParam[5].Value);                        
+                        servicerID = ConvertToInt(sqlParam[5].Value);                        
                
 
             }
@@ -305,13 +305,15 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
 
-            if (isValidCallCenterID < 1) errorList.Add("Call Center ID is not valid");
+            //if (callCenterID < 1) errorList.Add("Call Center ID is not valid");
             //if (isValidCCAgentIdKey < 1) errorList.Add("CC Agent ID is not valid");
-            if (isValidPrevAgencyId < 1) errorList.Add("Prev Agent ID is not valid");
+            //if (prevAgencyID < 1) errorList.Add("Prev Agent ID is not valid");
             //if (isValidSelectedAgencyId < 1) errorList.Add("Selected Agent ID is not valid");
-            if (isValidServicerId < 1) errorList.Add("Servicer ID is not valid");
-            
-            return errorList;
+            //if (servicerID < 1) errorList.Add("Servicer ID is not valid");
+            idList.Add("CallCenterID",callCenterID);
+            idList.Add("PrevAgencyID", prevAgencyID);
+            idList.Add("ServicerID", servicerID);
+            return idList;
 
         }
 

@@ -98,15 +98,15 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string SelectedCounselor { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(Ruleset = "Default", MessageTemplate = "HomeownerInd must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "HomeownerInd must be either Y or N")]
         public string HomeownerInd { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(Ruleset = "Default", MessageTemplate = "PowerOfAttorneyInd  must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "PowerOfAttorneyInd  must be either Y or N")]
         public string PowerOfAttorneyInd { get; set; }
 
         [IgnoreNulls()]
-        [YesNoIndicatorValidator(Ruleset = "Default", MessageTemplate = "AuthorizedInd  must be either Y or N")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "AuthorizedInd  must be either Y or N")]
         public string AuthorizedInd { get; set; }
 
         #endregion           

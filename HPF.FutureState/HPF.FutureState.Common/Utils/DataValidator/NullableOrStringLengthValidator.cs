@@ -29,12 +29,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             if (objectToValidate == null || objectToValidate.Trim() == string.Empty)
             {
                 isValid = _nullable;
-                if (!isValid) MessageTemplate = "Required";
+                if (!isValid) MessageTemplate = key + " is required";
             }
             else
             {
                 isValid = (objectToValidate.Trim().Length <= _length);
-                if (!isValid) MessageTemplate = "Maximum length is " + _length.ToString();
+                if (!isValid) MessageTemplate = key + "max length is " + _length.ToString();
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
