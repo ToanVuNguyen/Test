@@ -61,7 +61,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblAddress1.Text = foreclosureCase.PropAddr1;
             lblAddress2.Text=foreclosureCase.PropAddr2;
             lblCity.Text=foreclosureCase.PropCity;
-            lblStateZip.Text=foreclosureCase.PropStateCd+","+foreclosureCase.PropZip;
+            lblStateZip.Text=foreclosureCase.PropStateCd+" - "+foreclosureCase.PropZip+" - "+foreclosureCase.PropZipPlus4;
             lblPrimaryResidence.Text = foreclosureCase.PrimaryResidenceInd;
             lblOwnerOccupied.Text = foreclosureCase.OwnerOccupiedInd;
             lblPropertyCode.Text = foreclosureCase.PropertyCd;
