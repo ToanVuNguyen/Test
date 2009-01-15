@@ -115,7 +115,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         returnObject.AgencyClientNum = ConvertToString(reader["agency_client_num"]);
                         returnObject.AgencyId = ConvertToInt(reader["agency_id"]);
-                        returnObject.AgencyMediaInterestInd = ConvertToString(reader["agency_media_consent_ind"]);
+                        returnObject.AgencyMediaInterestInd= ConvertToString(reader["agency_media_interest_ind"]);
                         returnObject.AgencySuccessStoryInd = ConvertToString(reader["agency_success_story_ind"]);
                         returnObject.AmiPercentage = ConvertToInt(reader["AMI_percentage"]);
                         returnObject.AssignedCounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
