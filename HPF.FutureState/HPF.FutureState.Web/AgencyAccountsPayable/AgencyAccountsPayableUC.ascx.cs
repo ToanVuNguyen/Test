@@ -19,7 +19,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
 {
     public partial class AgencyAccountsPayableUC : System.Web.UI.UserControl
     {
-        int rownum
+        //row number of selected row.
+        protected int rownum
         {
             get { return (int)ViewState["rownum"]; }
             set { ViewState["rownum"] = value; }
@@ -28,12 +29,14 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             if (!IsPostBack)
             {
-                BindDllAgency();
+                BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
-               
             }
         }
-        protected void BindDllAgency()
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void BindAgencyDropDownList()
         { 
          AgencyDTOCollection agencyCollection= LookupDataBL.Instance.GetAgency();
          ddlAgency.DataSource = agencyCollection;
@@ -41,26 +44,35 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
          ddlAgency.DataValueField = "AgencyID";
          ddlAgency.DataBind();
         }
-        
+        /// <summary>
+        /// Bind search data into gridview
+        /// </summary>
         protected void BindGrvInvoiceList()
         {
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
+                //get search criteria to AgencyPayableSearchCriteriaDTO
                 searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
                 searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
                 searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
+                //get search data match that search collection
                 agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
+                //bind search data to gridview
                 grvInvoiceList.DataSource = agency;
                 grvInvoiceList.DataBind();
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                //ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex);
             }
         }
+        /// <summary>
+        /// get default period start:1st\prior month\year
+        /// get default period end: lastday\prior month\year
+        /// </summary>
         protected void SetDefaultPeriodStartEnd()
         {
             DateTime today = DateTime.Today;
@@ -76,13 +88,22 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             lblMessage.Text = "";
             BindGrvInvoiceList();
         }
-
+        /// <summary>
+        /// go to New payable criteria.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnNewPayable_Click(object sender, EventArgs e)
         {
             string query="?agency="+ddlAgency.SelectedValue;
             Response.Redirect("NewPayableCriteria.aspx"+query);
         }
-
+        /// <summary>
+        ///click: highlight selected row
+        ///dblclick: un-highlight selected row
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected  void grvInvoiceList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -100,7 +121,11 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 
             }
         }
-
+        /// <summary>
+        /// update statuscode, payment comment.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
@@ -119,7 +144,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                //ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex);
             }
         }
 
