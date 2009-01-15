@@ -2,10 +2,12 @@
 <MenuBar>
   <Menu Id="Home" Title="Home" Url="default.aspx" Enabled="True">    
   </Menu>
-  <Menu Id="searchCase" Title="Search Foreclosure Case" Url="SearchForeclosureCase.aspx" Enabled="True">
+  <Menu Id="searchCase" Title="Search FcCase" Url="SearchForeclosureCase.aspx" Enabled="True">
   </Menu>
-  <Menu Id="insertCallLog" Title="Insert Call Log" Url="InsertCallLog.aspx" Enabled="True">
+  <Menu Id="insertCallLog" Title="Insert Call" Url="InsertCallLog.aspx" Enabled="True">
   </Menu>
-  <Menu Id="retrieveCallLog" Title="Retrieve Call Log" Url="RetrieveCallLog.aspx" Enabled="True">
+  <Menu Id="retrieveCallLog" Title="Retrieve Call" Url="RetrieveCallLog.aspx" Enabled="True">
+  </Menu>
+  <Menu Id="saveCase" Title="Save FcCase" Url="SaveForeclosureCase.aspx" Enabled="True">
   </Menu>
 </MenuBar>

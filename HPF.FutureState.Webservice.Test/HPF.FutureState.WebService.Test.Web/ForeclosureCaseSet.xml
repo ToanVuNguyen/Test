@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ForeclosureCaseSet>
   <ForeclosureCase>
-    <FcId></FcId>
     <AgencyId>1</AgencyId>
-    <CompletedDt></CompletedDt>
     <CallId></CallId>
     <ProgramId>1</ProgramId>
     <AgencyCaseNum>1234</AgencyCaseNum>
@@ -13,14 +11,11 @@
     <CaseSourceCd></CaseSourceCd>
     <RaceCd></RaceCd>
     <HouseholdCd></HouseholdCd>
-    <NeverBillReasonCd></NeverBillReasonCd>
-    <NeverPayReasonCd></NeverPayReasonCd>
     <DfltReason1stCd></DfltReason1stCd>
     <DfltReason2ndCd></DfltReason2ndCd>
     <HudTerminationReasonCd></HudTerminationReasonCd>
     <HudTerminationDt>10/10/2008</HudTerminationDt>
     <HudOutcomeCd></HudOutcomeCd>
-    <AmiPercentage></AmiPercentage>
     <CounselingDurationCd></CounselingDurationCd>
     <GenderCd></GenderCd>
     <BorrowerFname></BorrowerFname>
@@ -28,13 +23,11 @@
     <BorrowerMname></BorrowerMname>
     <MotherMaidenLname></MotherMaidenLname>
     <BorrowerSsn></BorrowerSsn>
-    <BorrowerLast4Ssn></BorrowerLast4Ssn>
     <BorrowerDob></BorrowerDob>
     <CoBorrowerFname></CoBorrowerFname>
     <CoBorrowerLname></CoBorrowerLname>
     <CoBorrowerMname></CoBorrowerMname>
     <CoBorrowerSsn></CoBorrowerSsn>
-    <CoBorrowerLast4Ssn></CoBorrowerLast4Ssn>
     <CoBorrowerDob></CoBorrowerDob>
     <PrimaryContactNo></PrimaryContactNo>
     <SecondContactNo></SecondContactNo>
@@ -61,21 +54,15 @@
     <BorrowerOccupationCd></BorrowerOccupationCd>
     <CoBorrowerOccupationCd></CoBorrowerOccupationCd>
     <HispanicInd></HispanicInd>
-    <DuplicateInd></DuplicateInd>
     <FcNoticeReceiveInd></FcNoticeReceiveInd>
-    <CaseCompleteInd></CaseCompleteInd>
     <FundingConsentInd></FundingConsentInd>
     <ServicerConsentInd></ServicerConsentInd>
     <AgencyMediaConsentInd></AgencyMediaConsentInd>
-    <HpfMediaCandidateInd></HpfMediaCandidateInd>
-    <HpfNetworkCandidateInd></HpfNetworkCandidateInd>
-    <HpfSuccessStoryInd></HpfSuccessStoryInd>
     <AgencySuccessStoryInd></AgencySuccessStoryInd>
     <BorrowerDisabledInd></BorrowerDisabledInd>
     <CoBorrowerDisabledInd></CoBorrowerDisabledInd>
     <SummarySentOtherCd></SummarySentOtherCd>
     <SummarySentOtherDt>10/10/2008</SummarySentOtherDt>
-    <SummarySentDt>10/10/2008</SummarySentDt>
     <OccupantNum></OccupantNum>
     <LoanDfltReasonNotes></LoanDfltReasonNotes>
     <ActionItemsNotes></ActionItemsNotes>
@@ -92,7 +79,6 @@
     <ContactedSrvcrRecentlyInd></ContactedSrvcrRecentlyInd>
     <HasWorkoutPlanInd></HasWorkoutPlanInd>
     <SrvcrWorkoutPlanCurrentInd></SrvcrWorkoutPlanCurrentInd>
-    <FcSaleDateSetInd></FcSaleDateSetInd>
     <OptOutNewsletterInd></OptOutNewsletterInd>
     <OptOutSurveyInd></OptOutSurveyInd>
     <DoNotCallInd></DoNotCallInd>
@@ -107,7 +93,6 @@
     <HomeCurrentMarketValue></HomeCurrentMarketValue>
     <MilitaryServiceCd></MilitaryServiceCd>
     <HouseholdGrossAnnualIncomeAmt></HouseholdGrossAnnualIncomeAmt>
-    <LoanList></LoanList>
     <IntakeCreditScore></IntakeCreditScore>
     <FcSaleDate></FcSaleDate>
     <CreateUserId>Agency1</CreateUserId>
@@ -116,8 +101,8 @@
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>
-      <CaseLoanId>1</CaseLoanId>
-      <FcId>1</FcId>
+      <!--<CaseLoanId>1</CaseLoanId>
+      <FcId>1</FcId>-->
       <ServicerId>1</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum</AcctNum>
@@ -136,13 +121,13 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <FdicNcusNumCurrentServicerTbd>test</FdicNcusNumCurrentServicerTbd>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <InvestorLoanNum>test</InvestorLoanNum>
+      <!--<InvestorLoanNum>test</InvestorLoanNum>
       <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>-->
     </CaseLoan>
     <CaseLoan>
-      <CaseLoanId>2</CaseLoanId>
-      <FcId>2</FcId>
+      <!--<CaseLoanId>2</CaseLoanId>
+      <FcId>2</FcId>-->
       <ServicerId>2</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum</AcctNum>
@@ -161,13 +146,13 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <FdicNcusNumCurrentServicerTbd>test</FdicNcusNumCurrentServicerTbd>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <InvestorLoanNum>test</InvestorLoanNum>
+      <!--<InvestorLoanNum>test</InvestorLoanNum>
       <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId> -->
     </CaseLoan>
     <CaseLoan>
-      <CaseLoanId>3</CaseLoanId>
-      <FcId>3</FcId>
+      <!--<CaseLoanId>3</CaseLoanId>
+      <FcId>3</FcId>-->
       <ServicerId>2</ServicerId>
       <OtherServicerName ></OtherServicerName>
       <AcctNum></AcctNum>
@@ -186,44 +171,47 @@
       <OrginalLoanNum></OrginalLoanNum>
       <FdicNcusNumCurrentServicerTbd></FdicNcusNumCurrentServicerTbd>
       <CurrentServicerNameTbd></CurrentServicerNameTbd>
-      <InvestorLoanNum></InvestorLoanNum>
+      <!--<InvestorLoanNum></InvestorLoanNum>
       <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>-->
     </CaseLoan>
   </CaseLoanSet>
   <OutcomeSet>
     <OutcomeItem>
+      
+      <OutcomeTypeId >1</OutcomeTypeId>
+      <NonprofitreferralKeyNum ></NonprofitreferralKeyNum>
+      <ExtRefOtherName ></ExtRefOtherName>
+      <!--<CreateUserId>Agency1</CreateUserId>
+      <ChangeLastUserId>Agency1</ChangeLastUserId>
       <OutcomeItemId>1</OutcomeItemId>
       <FcId ></FcId>
       <OutcomeSetId ></OutcomeSetId>
-      <OutcomeTypeId >1</OutcomeTypeId>      
       <OutcomeDt >10/10/2008</OutcomeDt>
-      <OutcomeDeletedDt >10/10/2009</OutcomeDeletedDt>
-      <NonprofitreferralKeyNum ></NonprofitreferralKeyNum>
-      <ExtRefOtherName ></ExtRefOtherName>
-      <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
+      <OutcomeDeletedDt >10/10/2009</OutcomeDeletedDt>-->
     </OutcomeItem>
   </OutcomeSet>
   <BudgetAssetSet>
     <BudgetAsset>
-      <BudgetAssetId>1</BudgetAssetId>
-      <BudgetSetId ></BudgetSetId>
+      
       <AssetName></AssetName>
       <AssetValue></AssetValue>
-      <CreateUserId>Agency1</CreateUserId>
+      <!--<CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId>
+      <BudgetAssetId>1</BudgetAssetId>
+      <BudgetSetId ></BudgetSetId>-->
     </BudgetAsset>
   </BudgetAssetSet>
   <BudgetItemSet>
     <BudgetItem>
-      <BudgetItemId>1</BudgetItemId>
-      <BudgetSetId></BudgetSetId>
+      
       <BudgetSubcategoryId>1</BudgetSubcategoryId>
       <BudgetItemAmt>100</BudgetItemAmt>
       <BudgetNote></BudgetNote>
-      <CreateUserId>Agency1</CreateUserId>
+      <!--<CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId>
+      <BudgetItemId>1</BudgetItemId>
+      <BudgetSetId></BudgetSetId>-->
     </BudgetItem>
   </BudgetItemSet>
   <ActivityLogSet>

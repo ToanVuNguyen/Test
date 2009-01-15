@@ -67,7 +67,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.AgencyId = Util.ConvertToInt(txtAgencyID.Text.Trim());
             fcCase.AgencyMediaConsentInd = txtAgencyMediaConsentInd.Text.Trim();
             fcCase.AgencySuccessStoryInd = txtAgencySuccessStory.Text.Trim();
-            fcCase.AmiPercentage = Util.ConvertToInt(txtAMIPercentage.Text.Trim());
+            //fcCase.AmiPercentage = Util.ConvertToInt(txtAMIPercentage.Text.Trim());
             fcCase.AssignedCounselorIdRef = txtAssignedCounselorIDRef.Text.Trim();
             fcCase.BankruptcyAttorney = txtBankruptcyAttorney.Text.Trim();
             fcCase.BankruptcyInd = txtBankruptcyInd.Text.Trim();
@@ -76,7 +76,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.BorrowerDob = Util.ConvertToDateTime(txtBorrowerDOB.Text.Trim());
             fcCase.BorrowerEducLevelCompletedCd = txtBorrowerEducLevelCompletedInd.Text.Trim();
             fcCase.BorrowerFname = txtBorrowerFName.Text.Trim();
-            fcCase.BorrowerLast4Ssn = txtBorrowerLast4SSN.Text.Trim();
+            //fcCase.BorrowerLast4Ssn = txtBorrowerLast4SSN.Text.Trim();
             fcCase.BorrowerLname = txtBorrowerLName.Text.Trim();
             fcCase.BorrowerMaritalStatusCd = txtBorrowerMaritalStatusCd.Text.Trim();
             fcCase.BorrowerMname = txtBorrowerMName.Text.Trim();
@@ -84,17 +84,17 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.BorrowerPreferredLangCd = txtBorrowerPreferedLangCd.Text.Trim();
             fcCase.BorrowerSsn = txtBorrowerSSN.Text.Trim();
             fcCase.CallId = Util.ConvertToInt(txtCallID.Text.Trim());
-            fcCase.CaseCompleteInd = txtCaseCompleteInd.Text.Trim();
+            //fcCase.CaseCompleteInd = txtCaseCompleteInd.Text.Trim();
             fcCase.CaseSourceCd = txtCaseSourceCd.Text.Trim();
             fcCase.CoBorrowerDisabledInd = txtCoBorrowerDisabledInd.Text.Trim();
             fcCase.CoBorrowerDob = Util.ConvertToDateTime(txtCoBorrowerDOB.Text.Trim());
             fcCase.CoBorrowerFname = txtCoBorrowerFName.Text.Trim();
-            fcCase.CoBorrowerLast4Ssn = txtCoBorrowerLast4SSN.Text.Trim();
+            //fcCase.CoBorrowerLast4Ssn = txtCoBorrowerLast4SSN.Text.Trim();
             fcCase.CoBorrowerLname = txtCoBorrowerLName.Text.Trim();
             fcCase.CoBorrowerMname = txtCoBorrowerMName.Text.Trim();
             fcCase.CoBorrowerOccupationCd = txtCoBorrowerOccupationCd.Text.Trim();
             fcCase.CoBorrowerSsn = txtCoBorrowerSSN.Text.Trim();
-            fcCase.CompletedDt = Util.ConvertToDateTime(txtCompletedDt.Text.Trim());
+            //fcCase.CompletedDt = Util.ConvertToDateTime(txtCompletedDt.Text.Trim());
             fcCase.ContactAddr1 = txtContactAddress1.Text.Trim();
             fcCase.ContactAddr2 = txtContactAddress2.Text.Trim();
             fcCase.ContactCity = txtContactCity.Text.Trim();
@@ -112,27 +112,27 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.DfltReason2ndCd = txtDfltReason2ndCd.Text.Trim();
             fcCase.DiscussedSolutionWithSrvcrInd = txtDiscussedSolutionWithSrvcrInd.Text.Trim();
             fcCase.DoNotCallInd = txtDoNotCallInd.Text.Trim();
-            fcCase.DuplicateInd = txtDuplicateInd.Text.Trim();
+            //fcCase.DuplicateInd = txtDuplicateInd.Text.Trim();
             fcCase.Email1 = txtEmail1.Text.Trim();
             fcCase.Email2 = txtEmail2.Text.Trim();
-            fcCase.FcId = Util.ConvertToInt(txtFcID.Text.Trim());
+            //fcCase.FcId = Util.ConvertToInt(txtFcID.Text.Trim());
             fcCase.FcNoticeReceiveInd = txtFcNoticeReceivedInd.Text.Trim();
-            fcCase.FcSaleDateSetInd = txtFcSaleDateSetInd.Text.Trim();
+            //fcCase.FcSaleDateSetInd = txtFcSaleDateSetInd.Text.Trim();
             fcCase.FollowupNotes = txtFollowupNotes.Text.Trim();
             fcCase.ForSaleInd = txtForSaleInd.Text.Trim();
             fcCase.FundingConsentInd = txtFundingConsentInd.Text.Trim();
             fcCase.GenderCd = txtGenderCd.Text.Trim();
             fcCase.HasWorkoutPlanInd = txtHasWorkoutPlanInd.Text.Trim();
             fcCase.HispanicInd = txtHispanicInd.Text.Trim();
-            fcCase.HomeCurrentMarketValue = Util.ConvertToDecimal(txtHomeCurMktValue.Text.Trim());
-            fcCase.HomePurchasePrice = Util.ConvertToDecimal(txtHomePurchasePrice.Text.Trim());
+            fcCase.HomeCurrentMarketValue = Util.ConvertToDouble(txtHomeCurMktValue.Text.Trim());
+            fcCase.HomePurchasePrice = Util.ConvertToDouble(txtHomePurchasePrice.Text.Trim());
             fcCase.HomePurchaseYear = Util.ConvertToInt(txtHomePurchaseYear.Text.Trim());
-            fcCase.HomeSalePrice = Util.ConvertToDecimal(txtHomeSalePrice.Text.Trim());
+            fcCase.HomeSalePrice = Util.ConvertToDouble(txtHomeSalePrice.Text.Trim());
             fcCase.HouseholdCd = txtHouseholdCd.Text.Trim();
-            fcCase.HouseholdGrossAnnualIncomeAmt = Util.ConvertToDecimal(txtHousholdGrossAnnualIncomeAmt.Text.Trim());
-            fcCase.HpfMediaCandidateInd = txtHpfMediaCandidateInd.Text.Trim();
-            fcCase.HpfNetworkCandidateInd = txtHpfNetworkCandidateInd.Text.Trim();
-            fcCase.HpfSuccessStoryInd = txtHpfSuccessStoryInd.Text.Trim();
+            fcCase.HouseholdGrossAnnualIncomeAmt = Util.ConvertToDouble(txtHousholdGrossAnnualIncomeAmt.Text.Trim());
+            //fcCase.HpfMediaCandidateInd = txtHpfMediaCandidateInd.Text.Trim();
+            //fcCase.HpfNetworkCandidateInd = txtHpfNetworkCandidateInd.Text.Trim();
+            //fcCase.HpfSuccessStoryInd = txtHpfSuccessStoryInd.Text.Trim();
             fcCase.HudOutcomeCd = txtHudOutcomeCd.Text.Trim();
             fcCase.HudTerminationDt = Util.ConvertToDateTime(txtHudTerminationDt.Text.Trim());
             fcCase.HudTerminationReasonCd = txtHudTerminationReasonCd.Text.Trim();
@@ -141,18 +141,18 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.IntakeCreditScore = txtIntakeCreditScore.Text.Trim();
             fcCase.IntakeDt = Util.ConvertToDateTime(txtIntakeDt.Text.Trim());
             fcCase.LoanDfltReasonNotes = txtLoanDfltReasonNotes.Text.Trim();
-            fcCase.LoanList = txtLoanList.Text.Trim();
+            //fcCase.LoanList = txtLoanList.Text.Trim();
             fcCase.MilitaryServiceCd = txtMilitaryServiceCd.Text.Trim();
             fcCase.MotherMaidenLname = txtMotherMaidenLName.Text.Trim();
-            fcCase.NeverBillReasonCd = txtNeverBillReasonCd.Text.Trim();
-            fcCase.NeverPayReasonCd = txtNeverPayReasonCd.Text.Trim();
+            //fcCase.NeverBillReasonCd = txtNeverBillReasonCd.Text.Trim();
+            //fcCase.NeverPayReasonCd = txtNeverPayReasonCd.Text.Trim();
             fcCase.OccupantNum = Util.ConvertToByte(txtOccupantNum.Text.Trim());
             fcCase.OptOutNewsletterInd = txtOptOutNewsletterInd.Text.Trim();
             fcCase.OptOutSurveyInd = txtOptOutSurveyInd.Text.Trim();
             fcCase.OwnerOccupiedInd = txtOwnerOccupiedInd.Text.Trim();
             fcCase.PrimaryContactNo = txtPrimaryContactNo.Text.Trim();
             fcCase.PrimaryResidenceInd = txtPrimaryResidenceInd.Text.Trim();
-            fcCase.PrimResEstMktValue = Util.ConvertToDecimal(txtPrimResEstMktValue.Text.Trim());
+            fcCase.PrimResEstMktValue = Util.ConvertToDouble(txtPrimResEstMktValue.Text.Trim());
             fcCase.ProgramId = Util.ConvertToInt(txtProgramID.Text.Trim());
             fcCase.PropAddr1 = txtPropertyAddress1.Text.Trim();
             fcCase.PropAddr2 = txtPropertyAddress2.Text.Trim();
@@ -166,7 +166,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.SecondContactNo = txtSecondContactNo.Text.Trim();
             fcCase.ServicerConsentInd = txtServicerConsentInd.Text.Trim();
             fcCase.SrvcrWorkoutPlanCurrentInd = txtSrvcrWorkoutPlanInd.Text.Trim();
-            fcCase.SummarySentDt = Util.ConvertToDateTime(txtSummarySentDt.Text.Trim());
+            //fcCase.SummarySentDt = Util.ConvertToDateTime(txtSummarySentDt.Text.Trim());
             fcCase.SummarySentOtherCd = txtSummarySentOtherCd.Text.Trim();
             fcCase.SummarySentOtherDt = Util.ConvertToDateTime(txtSummarySentOtherDt.Text.Trim());
             fcCase.WorkedWithAnotherAgencyInd = txtWorkedWithAnotherAgencyInd.Text.Trim();
@@ -190,7 +190,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtAgencyID.Text = fcCase.AgencyId.ToString();
                 txtAgencyMediaConsentInd.Text = fcCase.AgencyMediaConsentInd.ToString();
                 txtAgencySuccessStory.Text = fcCase.AgencySuccessStoryInd.ToString();
-                txtAMIPercentage.Text = fcCase.AmiPercentage.ToString();
+                //txtAMIPercentage.Text = fcCase.AmiPercentage.ToString();
                 txtAssignedCounselorIDRef.Text = fcCase.AssignedCounselorIdRef.ToString();
                 txtBankruptcyAttorney.Text = fcCase.BankruptcyAttorney.ToString();
                 txtBankruptcyInd.Text = fcCase.BankruptcyInd.ToString();
@@ -199,7 +199,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtBorrowerDOB.Text = fcCase.BorrowerDob.ToString();
                 txtBorrowerEducLevelCompletedInd.Text = fcCase.BorrowerEducLevelCompletedCd.ToString();
                 txtBorrowerFName.Text = fcCase.BorrowerFname.ToString();
-                txtBorrowerLast4SSN.Text = fcCase.BorrowerLast4Ssn.ToString();
+                //txtBorrowerLast4SSN.Text = fcCase.BorrowerLast4Ssn.ToString();
                 txtBorrowerLName.Text = fcCase.BorrowerLname.ToString();
                 txtBorrowerMaritalStatusCd.Text = fcCase.BorrowerMaritalStatusCd.ToString();
                 txtBorrowerMName.Text = fcCase.BorrowerMname.ToString();
@@ -207,17 +207,17 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtBorrowerPreferedLangCd.Text = fcCase.BorrowerPreferredLangCd.ToString();
                 txtBorrowerSSN.Text = fcCase.BorrowerSsn.ToString();
                 txtCallID.Text = fcCase.CallId.ToString();
-                txtCaseCompleteInd.Text = fcCase.CaseCompleteInd.ToString();
+                //txtCaseCompleteInd.Text = fcCase.CaseCompleteInd.ToString();
                 txtCaseSourceCd.Text = fcCase.CaseSourceCd.ToString();
                 txtCoBorrowerDisabledInd.Text = fcCase.CoBorrowerDisabledInd.ToString();
                 txtCoBorrowerDOB.Text = fcCase.CoBorrowerDob.ToString();
                 txtCoBorrowerFName.Text = fcCase.CoBorrowerFname.ToString();
-                txtCoBorrowerLast4SSN.Text = fcCase.CoBorrowerLast4Ssn.ToString();
+                //txtCoBorrowerLast4SSN.Text = fcCase.CoBorrowerLast4Ssn.ToString();
                 txtCoBorrowerLName.Text = fcCase.CoBorrowerLname.ToString();
                 txtCoBorrowerMName.Text = fcCase.CoBorrowerMname.ToString();
                 txtCoBorrowerOccupationCd.Text = fcCase.CoBorrowerOccupationCd.ToString();
                 txtCoBorrowerSSN.Text = fcCase.CoBorrowerSsn.ToString();
-                txtCompletedDt.Text = fcCase.CompletedDt.ToString();
+                //txtCompletedDt.Text = fcCase.CompletedDt.ToString();
                 txtContactAddress1.Text = fcCase.ContactAddr1.ToString();
                 txtContactAddress2.Text = fcCase.ContactAddr2.ToString();
                 txtContactCity.Text = fcCase.ContactCity.ToString();
@@ -235,12 +235,12 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtDfltReason2ndCd.Text = fcCase.DfltReason2ndCd.ToString();
                 txtDiscussedSolutionWithSrvcrInd.Text = fcCase.DiscussedSolutionWithSrvcrInd.ToString();
                 txtDoNotCallInd.Text = fcCase.DoNotCallInd.ToString();
-                txtDuplicateInd.Text = fcCase.DuplicateInd.ToString();
+                //txtDuplicateInd.Text = fcCase.DuplicateInd.ToString();
                 txtEmail1.Text = fcCase.Email1.ToString();
                 txtEmail2.Text = fcCase.Email2.ToString();
-                txtFcID.Text = fcCase.FcId.ToString();
+                //txtFcID.Text = fcCase.FcId.ToString();
                 txtFcNoticeReceivedInd.Text = fcCase.FcNoticeReceiveInd.ToString();
-                txtFcSaleDateSetInd.Text = fcCase.FcSaleDateSetInd.ToString();
+                //txtFcSaleDateSetInd.Text = fcCase.FcSaleDateSetInd.ToString();
                 txtFollowupNotes.Text = fcCase.FollowupNotes.ToString();
                 txtForSaleInd.Text = fcCase.ForSaleInd.ToString();
                 txtFundingConsentInd.Text = fcCase.FundingConsentInd.ToString();
@@ -253,9 +253,9 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtHomeSalePrice.Text = fcCase.HomeSalePrice.ToString();
                 txtHouseholdCd.Text = fcCase.HouseholdCd.ToString();
                 txtHousholdGrossAnnualIncomeAmt.Text = fcCase.HouseholdGrossAnnualIncomeAmt.ToString();
-                txtHpfMediaCandidateInd.Text = fcCase.HpfMediaCandidateInd.ToString();
-                txtHpfNetworkCandidateInd.Text = fcCase.HpfNetworkCandidateInd.ToString();
-                txtHpfSuccessStoryInd.Text = fcCase.HpfSuccessStoryInd.ToString();
+                //txtHpfMediaCandidateInd.Text = fcCase.HpfMediaCandidateInd.ToString();
+                //txtHpfNetworkCandidateInd.Text = fcCase.HpfNetworkCandidateInd.ToString();
+                //txtHpfSuccessStoryInd.Text = fcCase.HpfSuccessStoryInd.ToString();
                 txtHudOutcomeCd.Text = fcCase.HudOutcomeCd.ToString();
                 txtHudTerminationDt.Text = fcCase.HudTerminationDt.ToString();
                 txtHudTerminationReasonCd.Text = fcCase.HudTerminationReasonCd.ToString();
@@ -264,11 +264,11 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtIntakeCreditScore.Text = fcCase.IntakeCreditScore.ToString();
                 txtIntakeDt.Text = fcCase.IntakeDt.ToString();
                 txtLoanDfltReasonNotes.Text = fcCase.LoanDfltReasonNotes.ToString();
-                txtLoanList.Text = fcCase.LoanList.ToString();
+                //txtLoanList.Text = fcCase.LoanList.ToString();
                 txtMilitaryServiceCd.Text = fcCase.MilitaryServiceCd.ToString();
                 txtMotherMaidenLName.Text = fcCase.MotherMaidenLname.ToString();
-                txtNeverBillReasonCd.Text = fcCase.NeverBillReasonCd.ToString();
-                txtNeverPayReasonCd.Text = fcCase.NeverPayReasonCd.ToString();
+                //txtNeverBillReasonCd.Text = fcCase.NeverBillReasonCd.ToString();
+                //txtNeverPayReasonCd.Text = fcCase.NeverPayReasonCd.ToString();
                 txtOccupantNum.Text = fcCase.OccupantNum.ToString();
                 txtOptOutNewsletterInd.Text = fcCase.OptOutNewsletterInd.ToString();
                 txtOptOutSurveyInd.Text = fcCase.OptOutSurveyInd.ToString();
@@ -289,7 +289,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSecondContactNo.Text = fcCase.SecondContactNo.ToString();
                 txtServicerConsentInd.Text = fcCase.ServicerConsentInd.ToString();
                 txtSrvcrWorkoutPlanInd.Text = fcCase.SrvcrWorkoutPlanCurrentInd.ToString();
-                txtSummarySentDt.Text = fcCase.SummarySentDt.ToString();
+                //txtSummarySentDt.Text = fcCase.SummarySentDt.ToString();
                 txtSummarySentOtherCd.Text = fcCase.SummarySentOtherCd.ToString();
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
@@ -423,14 +423,14 @@ namespace HPF.FutureState.WebService.Test.Web
 
             #region retrieve controls from gridview
             TextBox txtAccNum = (TextBox)row.FindControl("txtAccNum");
-            TextBox txtArmLoanInd = (TextBox)row.FindControl("txtArmLoanInd");
+            //TextBox txtArmLoanInd = (TextBox)row.FindControl("txtArmLoanInd");
             TextBox txtArmResetInd = (TextBox)row.FindControl("txtArmResetInd");
-            TextBox txtCaseLoanId = (TextBox)row.FindControl("txtCaseLoanId");
+            //TextBox txtCaseLoanId = (TextBox)row.FindControl("txtCaseLoanId");
             TextBox txtCurrentLoanBalanceAmt = (TextBox)row.FindControl("txtCurrentLoanBalanceAmt");
             TextBox txtCurrentServiceNameTBD = (TextBox)row.FindControl("txtCurrentServiceNameTBD");
             TextBox txtFDICNCUANum = (TextBox)row.FindControl("txtFDICNCUANum");
-            TextBox txtFreddieLoanNum = (TextBox)row.FindControl("txtFreddieLoanNum");
-            TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
+            //TextBox txtFreddieLoanNum = (TextBox)row.FindControl("txtFreddieLoanNum");
+            //TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
             TextBox txtInterestRate = (TextBox)row.FindControl("txtInterestRate");
             TextBox txtLoan1st2nd = (TextBox)row.FindControl("txtLoan1st2nd");
             TextBox txtLoanDelinqCd = (TextBox)row.FindControl("txtLoanDelinqCd");
@@ -448,19 +448,19 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.AcctNum = txtAccNum.Text.Trim();
             //caseLoan.ArmLoanInd = txtArmLoanInd.Text.Trim();
             caseLoan.ArmResetInd = txtArmResetInd.Text.Trim();
-            caseLoan.CaseLoanId = Util.ConvertToInt(txtCaseLoanId.Text.Trim());
-            caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDecimal(txtCurrentLoanBalanceAmt.Text.Trim());
+            //caseLoan.CaseLoanId = Util.ConvertToInt(txtCaseLoanId.Text.Trim());
+            caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDouble(txtCurrentLoanBalanceAmt.Text.Trim());
             caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
             caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
-            caseLoan.InvestorLoanNum = txtFreddieLoanNum.Text.Trim();
-            caseLoan.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
-            caseLoan.InterestRate = Util.ConvertToDecimal(txtInterestRate.Text.Trim());
+            //caseLoan.InvestorLoanNum = txtFreddieLoanNum.Text.Trim();
+            //caseLoan.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
+            caseLoan.InterestRate = Util.ConvertToDouble(txtInterestRate.Text.Trim());
             caseLoan.Loan1st2nd = txtLoan1st2nd.Text.Trim();
             caseLoan.LoanDelinqStatusCd = txtLoanDelinqCd.Text.Trim();
             caseLoan.MortgageTypeCd = txtMorgageTypeCode.Text.Trim();
             caseLoan.OrginalLoanNum = txtOrigLoanNum.Text.Trim();
             caseLoan.OriginatingLenderName = txtOrigLenderName.Text.Trim();
-            caseLoan.OrigLoanAmt = Util.ConvertToDecimal(txtOrigLoanAmt.Text.Trim());
+            caseLoan.OrigLoanAmt = Util.ConvertToDouble(txtOrigLoanAmt.Text.Trim());
             caseLoan.OrigMortgageCoFdicNcusNum = txtOrigMorgageNum.Text.Trim();
             caseLoan.OrigMortgageCoName = txtOrigMotgateConName.Text.Trim();
             caseLoan.OtherServicerName = txtOtherServiceName.Text.Trim();
@@ -501,15 +501,15 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtBudgetItemAmt = (TextBox)row.FindControl("txtBudgetItemAmt");
             TextBox txtBudgetNote = (TextBox)row.FindControl("txtBudgetNote");
             TextBox txtBudgetSubcategoryId = (TextBox)row.FindControl("txtBudgetSubcategoryId");
-            TextBox txtBudgetItemId = (TextBox)row.FindControl("txtBudgetItemId");
-            TextBox txtBudgetItemSetId = (TextBox)row.FindControl("txtBudgetItemSetId");
+            //TextBox txtBudgetItemId = (TextBox)row.FindControl("txtBudgetItemId");
+            //TextBox txtBudgetItemSetId = (TextBox)row.FindControl("txtBudgetItemSetId");
 
             BudgetItemDTO budgetItem = new BudgetItemDTO();
-            budgetItem.BudgetItemAmt = Util.ConvertToDecimal(txtBudgetItemAmt.Text.Trim());
+            budgetItem.BudgetItemAmt = Util.ConvertToDouble(txtBudgetItemAmt.Text.Trim());
             budgetItem.BudgetNote = txtBudgetNote.Text.Trim();
             budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
-            budgetItem.BudgetItemId = Util.ConvertToInt(txtBudgetItemId.Text.Trim());
-            budgetItem.BudgetSetId = Util.ConvertToInt(txtBudgetItemSetId.Text.Trim());
+            //budgetItem.BudgetItemId = Util.ConvertToInt(txtBudgetItemId.Text.Trim());
+            //budgetItem.BudgetSetId = Util.ConvertToInt(txtBudgetItemSetId.Text.Trim());
             return budgetItem;
         }
         
@@ -638,14 +638,14 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             TextBox txtAssetName = (TextBox)row.FindControl("txtAssetName");
             TextBox txtAssetValue = (TextBox)row.FindControl("txtAssetValue");
-            TextBox txtBudgetAssetID = (TextBox)row.FindControl("txtBudgetAssetID");
-            TextBox txtBudgetID = (TextBox)row.FindControl("txtBudgetID");
+            //TextBox txtBudgetAssetID = (TextBox)row.FindControl("txtBudgetAssetID");
+            //TextBox txtBudgetID = (TextBox)row.FindControl("txtBudgetID");
 
             BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
             budgetAsset.AssetName = txtAssetName.Text.Trim();
-            budgetAsset.AssetValue = Util.ConvertToDecimal(txtAssetValue.Text.Trim());
-            budgetAsset.BudgetAssetId = Util.ConvertToInt(txtBudgetAssetID.Text.Trim());
-            budgetAsset.BudgetSetId = Util.ConvertToInt(txtBudgetID.Text.Trim());
+            budgetAsset.AssetValue = Util.ConvertToDouble(txtAssetValue.Text.Trim());
+            //budgetAsset.BudgetAssetId = Util.ConvertToInt(txtBudgetAssetID.Text.Trim());
+            //budgetAsset.BudgetSetId = Util.ConvertToInt(txtBudgetID.Text.Trim());
             return budgetAsset;
         }
         protected void grdvBudgetAsset_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
@@ -902,22 +902,22 @@ namespace HPF.FutureState.WebService.Test.Web
         private OutcomeItemDTO RowToOutcomeItemDTO(GridViewRow row)
         {
             TextBox txtExtRefOtherName = (TextBox)row.FindControl("txtExtRefOtherName");
-            TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
+            //TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
             TextBox txtNonprofitreferralKeyNum = (TextBox)row.FindControl("txtNonprofitreferralKeyNum");
-            TextBox txtOutcomeDeletedDt = (TextBox)row.FindControl("txtOutcomeDeletedDt");
-            TextBox txtOutcomeDt = (TextBox)row.FindControl("txtOutcomeDt");
-            TextBox txtOutcomeItemId = (TextBox)row.FindControl("txtOutcomeItemId");
-            TextBox txtOutcomeSetId = (TextBox)row.FindControl("txtOutcomeSetId");
+            //TextBox txtOutcomeDeletedDt = (TextBox)row.FindControl("txtOutcomeDeletedDt");
+            //TextBox txtOutcomeDt = (TextBox)row.FindControl("txtOutcomeDt");
+            //TextBox txtOutcomeItemId = (TextBox)row.FindControl("txtOutcomeItemId");
+            //TextBox txtOutcomeSetId = (TextBox)row.FindControl("txtOutcomeSetId");
             TextBox txtOutcomeTypeId = (TextBox)row.FindControl("txtOutcomeTypeId");
 
             OutcomeItemDTO outcomeItem = new OutcomeItemDTO();
             outcomeItem.ExtRefOtherName = txtExtRefOtherName.Text.Trim();
-            outcomeItem.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
+            //outcomeItem.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
             outcomeItem.NonprofitreferralKeyNum = txtNonprofitreferralKeyNum.Text.Trim();
-            outcomeItem.OutcomeDeletedDt = Util.ConvertToDateTime(txtOutcomeDeletedDt.Text.Trim());
-            outcomeItem.OutcomeDt = Util.ConvertToDateTime(txtOutcomeDt.Text.Trim());
-            outcomeItem.OutcomeItemId = Util.ConvertToInt(txtOutcomeItemId.Text.Trim());
-            outcomeItem.OutcomeSetId = Util.ConvertToInt(txtOutcomeSetId.Text.Trim());
+            //outcomeItem.OutcomeDeletedDt = Util.ConvertToDateTime(txtOutcomeDeletedDt.Text.Trim());
+            //outcomeItem.OutcomeDt = Util.ConvertToDateTime(txtOutcomeDt.Text.Trim());
+            //outcomeItem.OutcomeItemId = Util.ConvertToInt(txtOutcomeItemId.Text.Trim());
+            //outcomeItem.OutcomeSetId = Util.ConvertToInt(txtOutcomeSetId.Text.Trim());
             outcomeItem.OutcomeTypeId = Util.ConvertToInt(txtOutcomeTypeId.Text.Trim());
             
             
@@ -1019,9 +1019,16 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            ForeclosureCaseInsertRequest request = CreateForeclosureCaseInsertRequest();
-            ForeclosureCaseInsertResponse response;
+            ForeclosureCaseSaveRequest request = CreateForeclosureCaseSaveRequest();
+            ForeclosureCaseSaveResponse response;
+
+            AuthenticationInfo ai = new AuthenticationInfo();
+            ai.UserName = txtUsername.Text.Trim();
+            ai.Password = txtPassword.Text.Trim();
+            
             AgencyWebService proxy = new AgencyWebService();
+            proxy.AuthenticationInfoValue = ai;
+
             response = proxy.SaveForeclosureCase(request);
             if (response.Status != ResponseStatus.Success)
             {
@@ -1068,9 +1075,9 @@ namespace HPF.FutureState.WebService.Test.Web
             }
             
         }
-        private ForeclosureCaseInsertRequest CreateForeclosureCaseInsertRequest()
+        private ForeclosureCaseSaveRequest CreateForeclosureCaseSaveRequest()
         {
-            ForeclosureCaseInsertRequest request = new ForeclosureCaseInsertRequest();
+            ForeclosureCaseSaveRequest request = new ForeclosureCaseSaveRequest();
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();

@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-using HPF.Webservice.CallCenter;
+using HPF.Webservice.Agency;
 namespace HPF.FutureState.WebService.Test.Web
 {
     public partial class RetrieveCallLog : System.Web.UI.Page
@@ -23,7 +23,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void btn_Submit_Click(object sender, EventArgs e)
         {
-            CallCenterService proxy = new CallCenterService();
+            AgencyWebService proxy = new AgencyWebService();
             
 
             
