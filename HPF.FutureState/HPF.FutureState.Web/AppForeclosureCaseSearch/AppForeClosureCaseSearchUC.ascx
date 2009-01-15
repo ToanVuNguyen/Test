@@ -26,20 +26,19 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" >
-            Last 4 or SSN:
+       <td align="right" class="sidelinks">
+            Loan Number:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
-            
+            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
-            Agency Case ID:
+            Foreclosure Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text"></asp:TextBox>
-          
+            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10"></asp:TextBox>
         </td>
+      
         <td align="right" class="sidelinks">
             Duplicate:
         </td>
@@ -48,23 +47,23 @@
                 <asp:ListItem Selected="True" Value=''></asp:ListItem>
                 <asp:ListItem Value='Y'>Yes</asp:ListItem>
                 <asp:ListItem Value='N'>No</asp:ListItem>
-                
             </asp:DropDownList>
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
-            Last Name:
+        <td align="right" class="sidelinks" >
+            Last 4 or SSN:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text" 
-                Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
+            
         </td>
-        <td align="right" class="sidelinks">
-            Loan Number:
+    
+       <td align="right" class="sidelinks">
+            Agency Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text"></asp:TextBox>
           
         </td>
         <td align="right" class="sidelinks">
@@ -77,18 +76,18 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            First Name:
+            Last Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text" 
+            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text" 
                 Width="140px"></asp:TextBox>
         </td>
+      
         <td align="right" class="sidelinks">
             Property Zip:
         </td>
         <td class="Control">
             <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text"></asp:TextBox>
-           
         </td>
         <td align="right" class="sidelinks">
             Program:
@@ -99,16 +98,13 @@
         </td>
     </tr>
     <tr>
+       
         <td align="right" class="sidelinks">
-            Foreclosure Case ID:
+            First Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" 
-                Width="140px" CssClass="Text"></asp:TextBox>
-           <%--<cc1:PropertyProxyValidator ID="txtForeclosureCaseIDCheckValidator" runat="server" 
-           PropertyName="ForeclosureCaseID" RulesetName="Default" ControlToValidate="txtForeclosureCaseID" 
-           SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>--%>
-           
+            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text" 
+                Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property State:
@@ -118,47 +114,33 @@
                 CssClass="Text">
             </asp:DropDownList>
         </td>
-        <td>
-            &nbsp;
+        <td class="sidelinks" align="right">
+            Servicer:
+        </td>
+        <td class="Control" >
+          <asp:DropDownList ID="ddlServicer" runat="server" Width="100px" CssClass="Text"></asp:DropDownList>  
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+         <asp:Label ID="lblErrorMessage"  CssClass="ErrorMessage" runat="server" ></asp:Label>
+         <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
         </td>
         <td  class="Control">
-            <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"  CssClass="MyButton"/>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-           
+        <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"  CssClass="MyButton"/>
         </td>
         
     </tr>
-     <tr>
-        <td colspan="6">
-        <cc1:PropertyProxyValidator ID="txtSSNCheckValidator" runat="server" PropertyName="Last4SSN" 
-            RulesetName="Default" ControlToValidate="txtSSN"  Display="Dynamic"
-            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator> 
-            <cc1:PropertyProxyValidator ID="txtAgencyCaseIDCheckValidator" runat="server" PropertyName="AgencyCaseID" 
-            RulesetName="Default" ControlToValidate="txtAgencyCaseID"  Display="Dynamic"
-            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
-             <cc1:PropertyProxyValidator ID="txtLoanNumCheckValidator" runat="server" PropertyName="LoanNumber" 
-            RulesetName="Default" ControlToValidate="txtLoanNum"  Display="Dynamic"
-            SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
-            <cc1:PropertyProxyValidator ID="txtPropertyZipCheckValidator" runat="server" Display="Dynamic"
-            PropertyName="PropertyZip" RulesetName="Default" ControlToValidate="txtPropertyZip"
-             SourceTypeName="HPF.FutureState.Common.DataTransferObjects.AppForeclosureCaseSearchCriteriaDTO"></cc1:PropertyProxyValidator>
-            <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
-        </td>
-        
-    </tr>
+    
     <tr>
-    <td colspan="6">
-    <asp:Label ID="lblErrorMessage"  CssClass="ErrorMessage" runat="server"></asp:Label>
+    <td colspan="6" class="sidelinks">
+    Invoice list:
     </td>
     </tr>
     <tr>
         <td colspan="6">
-            <%--<uc1:FixedHeaderGrid ID="grvForeClosureCaseSearch" runat="server" />--%>
             <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Visible="false" Width="100%">
+                BorderColor="Gray" BorderWidth="1px" Visible="false" >
                 <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="2500px"  SelectedRowStyle-BackColor="Yellow" 
@@ -174,7 +156,6 @@
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle"  />
                     <Columns>
-                        <%--<asp:BoundField DataField="CaseID" HeaderText="Case ID"  />--%>
                         <asp:HyperLinkField DataTextField="CaseID" DataNavigateUrlFields="CaseID" DataNavigateUrlFormatString="../AppForeclosureCaseDetailPage.aspx?CaseID={0}" HeaderText="Case ID" />
                         <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Center" />
                         <asp:TemplateField HeaderText="Counseled">
@@ -195,14 +176,15 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="SSN" />
-                        <asp:BoundField DataField="PropertyAddress" HeaderText="Property Address" />
-                        <asp:BoundField DataField="PropertyCity" HeaderText="Property City" />
-                        <asp:BoundField DataField="PropertyState" HeaderText="Property State" />
-                        <asp:BoundField DataField="PropertyZip" HeaderText="Property Zip" />
+                        <asp:TemplateField  HeaderText="Property Address">
+                        <ItemTemplate>
+                        <asp:Label ID="lblPropertyAddress" runat="server" Text='<%#Eval("PropertyAddress")+","+Eval("PropertyCity")+","+Eval("PropertyState")+","+Eval("PropertyZip") %>'></asp:Label>
+                        </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="AgencyName" HeaderText="Agency Name" />
                         <asp:TemplateField HeaderText="Agent Name">
                         <ItemTemplate>
-                        <asp:Label ID="lblAgentName" runat="server" Text='<%#Eval("AgentFirstName")+","+Eval("AgentLastName") %>'></asp:Label>
+                        <asp:Label ID="lblAgentName" runat="server" Text='<%#Eval("AgentFirstName")+" "+Eval("AgentLastName") %>'></asp:Label>
                         </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="AgentPhone" HeaderText="Agent Phone" />
@@ -234,7 +216,7 @@
         <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  " Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
         <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
         <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
-        <asp:Label ID="lblTemp1" runat="server" Text="" Visible="false"></asp:Label>
+        <%--<input type="hidden" id="hidflag" value="" />--%>
         </td>
         
     </tr>
