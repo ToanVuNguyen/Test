@@ -3,32 +3,32 @@
   <ForeclosureCase>
     <AgencyId>1</AgencyId>
     <CallId>CallId</CallId>
-    <ProgramId>1</ProgramId>
-    <AgencyCaseNum>1234</AgencyCaseNum>
+    <ProgramId>101</ProgramId>
+    <AgencyCaseNum>123456</AgencyCaseNum>
     <AgencyClientNum>AgencyClientNum</AgencyClientNum>
     <IntakeDt>10/10/2008</IntakeDt>
-    <IncomeEarnersCd>IncomeEarnersCd</IncomeEarnersCd>
-    <CaseSourceCd>CaseSourceCd</CaseSourceCd>
-    <RaceCd>RaceCd</RaceCd>
-    <HouseholdCd>HouseholdCd</HouseholdCd>
-    <DfltReason1stCd>DfltReason1stCd</DfltReason1stCd>
-    <DfltReason2ndCd>DfltReason2ndCd</DfltReason2ndCd>
-    <HudTerminationReasonCd>HudTerminationReasonCd</HudTerminationReasonCd>
+    <IncomeEarnersCd>1</IncomeEarnersCd>
+    <CaseSourceCd>Faith Community</CaseSourceCd>
+    <RaceCd>2</RaceCd>
+    <HouseholdCd>SINGL</HouseholdCd>
+    <DfltReason1stCd>17</DfltReason1stCd>
+    <DfltReason2ndCd>18</DfltReason2ndCd>
+    <HudTerminationReasonCd>1</HudTerminationReasonCd>
     <HudTerminationDt>10/10/2008</HudTerminationDt>
-    <HudOutcomeCd>HudOutcomeCd</HudOutcomeCd>
-    <CounselingDurationCd>CounselingDurationCd</CounselingDurationCd>
-    <GenderCd>GenderCd</GenderCd>
+    <HudOutcomeCd>3</HudOutcomeCd>
+    <CounselingDurationCd>31-60 minutes</CounselingDurationCd>
+    <GenderCd>Female</GenderCd>
     <BorrowerFname>BorrowerFname</BorrowerFname>
     <BorrowerLname>BorrowerLname</BorrowerLname>
     <BorrowerMname>BorrowerMname</BorrowerMname>
     <MotherMaidenLname>MotherMaidenLname</MotherMaidenLname>
-    <BorrowerSsn>BorrowerSsn</BorrowerSsn>
-    <BorrowerDob>10/10/2008</BorrowerDob>
+    <BorrowerSsn>123456789</BorrowerSsn>
+    <BorrowerDob>10/10/1990</BorrowerDob>
     <CoBorrowerFname>CoBorrowerFname</CoBorrowerFname>
     <CoBorrowerLname>CoBorrowerLname</CoBorrowerLname>
     <CoBorrowerMname>CoBorrowerMname</CoBorrowerMname>
-    <CoBorrowerSsn>CoBorrowerSsn</CoBorrowerSsn>
-    <CoBorrowerDob>10/10/2008</CoBorrowerDob>
+    <CoBorrowerSsn>123456789</CoBorrowerSsn>
+    <CoBorrowerDob>10/10/1990</CoBorrowerDob>
     <PrimaryContactNo>PrimaryContactNo</PrimaryContactNo>
     <SecondContactNo>SecondContactNo</SecondContactNo>
     <Email1>Email1</Email1>
@@ -36,16 +36,16 @@
     <ContactAddr1>ContactAddr1</ContactAddr1>
     <ContactAddr2>ContactAddr2</ContactAddr2>
     <ContactCity>ContactCity</ContactCity>
-    <ContactStateCd>ContactStateCd</ContactStateCd>
+    <ContactStateCd>AL</ContactStateCd>
     <ContactZip>12345</ContactZip>
     <ContactZipPlus4></ContactZipPlus4>
     <PropAddr1>PropAddr1</PropAddr1>
     <PropAddr2>PropAddr2</PropAddr2>
     <PropCity>PropCity</PropCity>
-    <PropStateCd>PropStateCd</PropStateCd>
+    <PropStateCd>AL</PropStateCd>
     <PropZip>12345</PropZip>
-    <PropZipPlus4>PropZipPlus4</PropZipPlus4>
-    <BankruptcyInd>BankruptcyInd</BankruptcyInd>
+    <PropZipPlus4>1234</PropZipPlus4>
+    <BankruptcyInd>Y</BankruptcyInd>
     <BankruptcyAttorney>BankruptcyAttorney</BankruptcyAttorney>
     <BankruptcyPmtCurrentInd></BankruptcyPmtCurrentInd>
     <BorrowerEducLevelCompletedCd></BorrowerEducLevelCompletedCd>
@@ -83,7 +83,7 @@
     <OptOutSurveyInd></OptOutSurveyInd>
     <DoNotCallInd></DoNotCallInd>
     <OwnerOccupiedInd>Y</OwnerOccupiedInd>
-    <PrimaryResidenceInd></PrimaryResidenceInd>
+    <PrimaryResidenceInd>Y</PrimaryResidenceInd>
     <RealtyCompany></RealtyCompany>
     <PropertyCd></PropertyCd>
     <ForSaleInd></ForSaleInd>
@@ -155,7 +155,7 @@
       <FcId>3</FcId>-->
       <ServicerId>2</ServicerId>
       <OtherServicerName ></OtherServicerName>
-      <AcctNum></AcctNum>
+      <AcctNum>12345</AcctNum>
       <Loan1st2nd>2nd</Loan1st2nd>
       <MortgageTypeCd></MortgageTypeCd>
       <ArmLoanInd></ArmLoanInd>
