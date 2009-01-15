@@ -6,7 +6,7 @@ using System.Text;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
-    public class AgencyPayableDraftDTO
+    public class AgencyPayableDraftDTO:BaseDTO
     {
         public int AgencyId { get; set; }        
         public DateTime PeriodStartDate { get; set; }
