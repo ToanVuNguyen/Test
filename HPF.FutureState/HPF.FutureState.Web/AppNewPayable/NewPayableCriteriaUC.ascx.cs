@@ -31,7 +31,6 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void BindDDLAgency()
         {
             AgencyDTOCollection agencyCollection=LookupDataBL.Instance.GetAgency();
-
             AgencyDTO item = agencyCollection[0];
             agencyCollection.Remove(item);
             ddlAgency.DataTextField = "AgencyName";
