@@ -24,7 +24,15 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             if (!IsPostBack)
             {
                 BindDataToDDLB();
+                SetUpDefaultValue();    
             }
+        }
+        private void SetUpDefaultValue()
+        {
+            //var temp = new InvoiceSearchResultDTOCollection();
+            //temp.Add(new InvoiceSearchResultDTO());
+            //grvFundingSourceInvoices.DataSource = temp;
+            //grvFundingSourceInvoices.DataBind();
         }
         private void BindDataToDDLB()
         {
@@ -97,7 +105,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
         protected void grvFundingSourceInvoices_DataBound(object sender, EventArgs e)
         {
-            panForeClosureCaseSearch.Visible = true;
+            
             lblInvoiceList.Visible = true;
             lblErrorMessage.Visible = false;
         }

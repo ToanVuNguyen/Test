@@ -63,7 +63,7 @@
     <tr>
         <td colspan="5" rowspan="17">
             <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Width="830" Visible="false">
+                BorderColor="Gray" BorderWidth="1px" Width="800" Visible="true">
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="100%"  SelectedRowStyle-BackColor="Yellow" 
