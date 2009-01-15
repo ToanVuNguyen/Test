@@ -44,13 +44,11 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
-                
                 //agencyPayable.AccountLinkTBD = "";
                 //agencyPayable.TotalCases = agencyPayableDraft.TotalCases;
+                //agencyPayable.CreateDate = DateTime.Now;
                 agencyPayable.AgencyPayablePaymentAmount = agencyPayableDraft.TotalAmount;
                 agencyPayable.StatusCode = "ACTIVE";
-                //agencyPayable.PaymentComment = "";
-               // agencyPayable.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
                 //Insert Agency Payable
                 int agencyPayableId = 0;
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable);
@@ -69,7 +67,6 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.NFMCDifferenceEligibleInd = "N";
                     agencyPayableCase.NFMCDifferenceInd = "N";
-                    //agencyPayableCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
                 }
                // agencyPayableDAO.Commit();
