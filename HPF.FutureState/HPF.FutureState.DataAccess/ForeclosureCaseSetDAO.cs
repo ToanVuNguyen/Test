@@ -1344,11 +1344,14 @@ namespace HPF.FutureState.DataAccess
         private string GenerateGetDuplicatedCaseWhereClause(ForeclosureCaseSetDTO fcCaseSet)
         {
             StringBuilder sb = new StringBuilder();
+            string orString = " or ";
             foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
             {
-                sb.Append(string.Format(" (acct_num = '{0}' and CL.servicer_id = {1}) or ", item.AcctNum, item.ServicerId));
+                sb.Append(string.Format(" (acct_num = '{0}' and CL.servicer_id = {1})", item.AcctNum, item.ServicerId));
+                sb.Append(orString);
             }
-            sb.Append("(1 = 1)");
+            
+            sb.Remove(sb.Length - orString.Length, orString.Length);
             return sb.ToString();
         }
     }
