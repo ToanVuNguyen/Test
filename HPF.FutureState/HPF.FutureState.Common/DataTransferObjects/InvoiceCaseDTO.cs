@@ -17,5 +17,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string InDisputeIndicator { get; set; }
         public string RebuildIndicator { get; set; }
         public int IntentToPayFlagBTD { get; set; }
+        public int ForeclosureCaseId { get; set; }
     }
 }

@@ -56,13 +56,74 @@ namespace HPF.FutureState.DataAccess
         #endregion
 
         #region Insert
-        public bool InsertInvoiceCase(InvoiceCaseDTO invoiceCase)
+        public void InsertInvoiceCase(InvoiceCaseDTO invoiceCase)
         {
-            throw new NotImplementedException();
+            var command = new SqlCommand("hpf_invoice_case_insert", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[14];
+                sqlParam[0] = new SqlParameter("@pi_fc_id",invoiceCase.ForeclosureCaseId );
+                sqlParam[1] = new SqlParameter("@pi_Invoice_id", invoiceCase.InvoiceId);
+                sqlParam[2] = new SqlParameter("@pi_pmt_reject_reason_cd", invoiceCase.PaymentRejectReasonCode);
+                sqlParam[3] = new SqlParameter("@pi_invoice_case_pmt_amt", invoiceCase.InvoiceCasePaymentAmount);
+                sqlParam[4] = new SqlParameter("@pi_invoice_case_bill_amt", invoiceCase.InvoiceCaseBillAmount);
+                sqlParam[5] = new SqlParameter("@pi_in_dispute_ind", invoiceCase.InDisputeIndicator);
+                sqlParam[6] = new SqlParameter("@pi_rebill_ind", invoiceCase.RebuildIndicator);
+                sqlParam[7] = new SqlParameter("@pi_intent_to_pay_flg_TBD", invoiceCase.IntentToPayFlagBTD);
+                sqlParam[8] = new SqlParameter("@pi_create_dt", NullableDateTime(invoiceCase.CreateDate));
+                sqlParam[9] = new SqlParameter("@pi_create_user_id", invoiceCase.CreateUserId);
+                sqlParam[10] = new SqlParameter("@pi_create_app_name", invoiceCase.CreateAppName);
+                sqlParam[11] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(invoiceCase.ChangeLastDate));
+                sqlParam[12] = new SqlParameter("@pi_chg_lst_user_id", invoiceCase.ChangeLastUserId);
+                sqlParam[13] = new SqlParameter("@pi_chg_lst_app_name", invoiceCase.CreateAppName);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
         }
-        public bool InserInvoice(InvoiceDTO invoice)
+        public int InserInvoice(InvoiceDTO invoice)
         {
-            throw new NotImplementedException();
+            var command = new SqlCommand("hpf_invoice_insert", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[16];
+                sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoice.FundingSourceId);
+                sqlParam[1] = new SqlParameter("@pi_invoice_dt", NullableDateTime(invoice.InvoiceDate));
+                sqlParam[2] = new SqlParameter("@pi_period_start_dt", NullableDateTime(invoice.PeriodStartDate));
+                sqlParam[3] = new SqlParameter("@pi_period_end_dt", NullableDateTime(invoice.PeriodEndDate));
+                sqlParam[4] = new SqlParameter("@pi_invoice_pmt_amt", invoice.InvoicePaymentAmount);
+                sqlParam[5] = new SqlParameter("@pi_invoice_bill_amt", invoice.InvoiceBillAmount);
+                sqlParam[6] = new SqlParameter("@pi_status_cd", invoice.StatusCode);
+                sqlParam[7] = new SqlParameter("@pi_invoice_comment", invoice.InvoiceComment);
+                sqlParam[8] = new SqlParameter("@pi_accounting_link_TBD", invoice.AccountingLinkBTD);
+                sqlParam[9] = new SqlParameter("@pi_create_dt", NullableDateTime(invoice.CreateDate));
+                sqlParam[10] = new SqlParameter("@pi_create_user_id", invoice.CreateUserId);
+                sqlParam[11] = new SqlParameter("@pi_create_app_name", invoice.CreateAppName);
+                sqlParam[12] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(invoice.ChangeLastDate));
+                sqlParam[13] = new SqlParameter("@pi_chg_lst_user_id", invoice.ChangeLastUserId);
+                sqlParam[14] = new SqlParameter("@pi_chg_lst_app_name", invoice.ChangeLastAppName);
+                sqlParam[15] = new SqlParameter("@po_Invoice_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+                invoice.InvoiceId = ConvertToInt(sqlParam[15].Value);
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return invoice.InvoiceId;
+            
         }
 
         #endregion

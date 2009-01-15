@@ -41,7 +41,12 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.DataBind();
             dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
             dropFundingSource.Items.Insert(0, new ListItem("Not Selected", "-1"));
-            //dropFundingSource_SelectedIndexChanged1(new object(),new EventArgs());
+            if (Session["fundingSourceId"] != null)
+            {
+                string fundingSourceId = Session["fundingSourceId"].ToString();
+                dropFundingSource.Items.FindByValue(fundingSourceId).Selected = true;
+                dropFundingSource_SelectedIndexChanged1(new object(),new EventArgs());
+            }
         }
         private void ProgramDatabind()
         {

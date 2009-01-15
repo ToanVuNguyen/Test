@@ -21,7 +21,9 @@
         <td align="right" class="sidelinks">
             Period Start:</td>
         <td>
-            <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"  ControlToValidate="txtPeriodStart"
+                CssClass="ErrorMessage" ErrorMessage="Period Start is required; "></asp:RequiredFieldValidator>
         </td>
         <td class="style1">
             &nbsp;</td>
@@ -36,7 +38,9 @@
         <td align="right" class="sidelinks">
             Period End:</td>
         <td>
-            <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"  ControlToValidate="txtPeriodEnd"
+                CssClass="ErrorMessage" ErrorMessage="Period End is required; "></asp:RequiredFieldValidator>
         </td>
         <td class="style1">
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 
@@ -75,7 +79,7 @@
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle"  />
                     <Columns>
-                        <asp:BoundField DataField="FundingSourceId" HeaderText="Funding Source" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="FundingSourceName" HeaderText="Funding Source" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="InvoiceId" HeaderText="Invoice#" />
                         <asp:TemplateField HeaderText="Invoice Date">
                             <ItemTemplate>
@@ -97,7 +101,7 @@
         </td>
         <td height="20" width="120">
             <asp:Button ID="btnNewInvoice" runat="server" CssClass="MyButton" 
-                Text="New Invoice" Width="120px" />
+                Text="New Invoice" Width="120px" onclick="btnNewInvoice_Click" />
         </td>
     </tr>
     <tr>

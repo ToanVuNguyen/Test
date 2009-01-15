@@ -6,6 +6,7 @@ using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
+using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -27,9 +28,41 @@ namespace HPF.FutureState.BusinessLogic
         {            
         }
 
-        public bool InsertInvoice(InvoiceDraftDTO invoiceDraft)
+        public void InsertInvoice(InvoiceDraftDTO invoiceDraft)
         {
-            throw new NotImplementedException();
+            InvoiceDAO invoiceDAO = InvoiceDAO.CreateInstance();
+            try
+            {
+                invoiceDAO.Begin();
+                InvoiceDTO invoice = new InvoiceDTO();
+                //-----------
+                invoice.PeriodStartDate = invoiceDraft.PeriodStartDate;
+                invoice.PeriodEndDate = invoiceDraft.PeriodEndDate;
+                invoice.InvoicePaymentAmount = (double)invoiceDraft.TotalAmount;
+                invoice.FundingSourceId = int.Parse(invoiceDraft.FundingSourceId);
+                invoice.StatusCode = "ACTIVE";
+                invoice.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                //Insert Invoice
+                int invoiceId = -1;
+                invoiceId = invoiceDAO.InserInvoice(invoice);
+                //Insert Invoice Case
+                ForeclosureCaseDraftDTOCollection fCaseDrafColection = invoiceDraft.ForeclosureCaseDrafts;
+                foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)
+                {
+                    InvoiceCaseDTO invoiceCase = new InvoiceCaseDTO();
+                    invoiceCase.InvoiceId = invoiceId;
+                    invoiceCase.InvoiceCasePaymentAmount = (double)fCaseDraf.Amount;
+                    invoiceCase.ForeclosureCaseId = fCaseDraf.ForeclosureCaseId;
+                    invoiceCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    invoiceDAO.InsertInvoiceCase(invoiceCase);
+                }
+                invoiceDAO.Commit();
+            }
+            catch (Exception ex)
+            {
+                invoiceDAO.Cancel();
+                throw (ex) ;
+            }
         }
 
         public bool ValidateInvoiceCriteria(InvoiceSearchCriteriaDTO criteria,out string returnMessage)
@@ -87,9 +120,14 @@ namespace HPF.FutureState.BusinessLogic
             return result;
         }
 
-        public InvoiceDraftDTOCollection CreateInvoiceDraft(InvoiceSearchCriteriaDTO criteria)
+        public InvoiceDraftDTO CreateInvoiceDraft(InvoiceCaseSearchCriteriaDTO searchCriteria)
         {
-            throw new NotImplementedException();
+            InvoiceDraftDTO invoiceDraft = new InvoiceDraftDTO();
+            invoiceDraft.FundingSourceId = searchCriteria.FundingSourceId;
+            invoiceDraft.PeriodEndDate = searchCriteria.PeriodEnd;
+            invoiceDraft.PeriodStartDate = searchCriteria.PeriodStart;
+            invoiceDraft.ForeclosureCaseDrafts = this.InvoiceCaseSearch(searchCriteria);
+            return invoiceDraft;
         }
     }
 }

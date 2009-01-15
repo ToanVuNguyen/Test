@@ -33,7 +33,9 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             dropFundingSource.DataTextField = "FundingSourceName";
             dropFundingSource.DataSource = fundingSourceCollection;
             dropFundingSource.DataBind();
-            dropFundingSource.Items.FindByText("ALL").Selected = true;
+            //dropFundingSource.Items.FindByText("ALL").Selected = true;
+            //for test only
+            dropFundingSource.Items.FindByText("5").Selected = true;
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
@@ -110,6 +112,12 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 if (date == "1/1/0001")
                     lblInvoice.Text = "N/A";
             }
+        }
+
+        protected void btnNewInvoice_Click(object sender, EventArgs e)
+        {
+            Session["fundingSourceId"] = dropFundingSource.SelectedValue;
+            Response.Redirect("AppNewInvoiceCriteriaPage.aspx");
         }
     }
 }

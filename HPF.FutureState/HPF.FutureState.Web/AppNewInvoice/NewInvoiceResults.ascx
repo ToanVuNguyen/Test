@@ -1,11 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewInvoiceResults.ascx.cs" Inherits="HPF.FutureState.Web.AppNewInvoice.NewInvoiceResults" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-    .style1
-    {
-        height: 17px;
-    }
-</style>
 <table style="width:100%;">
     <tr>
         <td colspan="6">
@@ -14,17 +8,18 @@
     <tr>
         <td align="right" class="sidelinks">
             Funding Source:</td>
-        <td class="style1">
+        <td >
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="right" class="sidelinks" colspan="2">
             Total Cases:</td>
-        <td class="style1">
+        <td >
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td class="style1">
+        <td >
             <asp:Button ID="btnRemoveMarkedCases" runat="server" CssClass="MyButton" 
-                Text="Remove Marked Cases" Width="150px" />
+                Text="Remove Marked Cases" Width="150px" 
+                onclick="btnRemoveMarkedCases_Click" />
         </td>
     </tr>
     <tr>
@@ -49,7 +44,7 @@
         <td>
             <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td colspan="2">
+        <td colspan="2" align="center">
             &nbsp;</td>
         <td>
             &nbsp;</td>
@@ -57,8 +52,14 @@
             &nbsp;</td>
     </tr>
     <tr>
+        <td align="left"  colspan="6">
+            <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage" 
+                Visible="False"></asp:Label>
+        </td>
+    </tr>
+    <tr>
         <td align="left" class="sidelinks">
-            Invoice Items:</td>
+            Invoice Items:          Invoice Items:</td>
         <td>
             &nbsp;</td>
         <td colspan="2">
@@ -88,7 +89,7 @@
                     <Columns>
                         <asp:TemplateField>
                             <HeaderTemplate>
-                                <asp:CheckBox runat="server" ID="chkCheckAll" />
+                                <asp:CheckBox runat="server" AutoPostBack="true"  OnCheckedChanged="chkHeaderCaseIDCheck"   ID="chkCheckAll" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:CheckBox runat="server" ID="chkCaseSelected" />
@@ -117,7 +118,7 @@
     <tr>
         <td align="right" class="sidelinks" colspan="3">
             <asp:Button ID="btnGenerateInvoice" runat="server" CssClass="MyButton" 
-                Text="Generate Invoice" Width="150px" />
+                Text="Generate Invoice" Width="150px" onclick="btnGenerateInvoice_Click" />
         </td>
         <td colspan="3">
             <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" 

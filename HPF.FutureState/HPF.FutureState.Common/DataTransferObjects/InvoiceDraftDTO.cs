@@ -31,5 +31,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
         public ForeclosureCaseDraftDTOCollection ForeclosureCaseDrafts { get; set; }
+        public InvoiceDraftDTO()
+        {
+            ForeclosureCaseDrafts = new ForeclosureCaseDraftDTOCollection();
+        }
     }
 }

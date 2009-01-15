@@ -18,20 +18,44 @@ namespace HPF.FutureState.Web.AppNewInvoice
 {
     public partial class NewInvoiceResults : System.Web.UI.UserControl
     {
+        InvoiceDraftDTO invoiceDraft =null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["searchCriteria"] == null)
-                return;
-            InvoiceCaseSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceCaseSearchCriteriaDTO;
-            InvoiceDraftDTO invoiceDraft = new InvoiceDraftDTO();
-            invoiceDraft.FundingSourceId = searchCriteria.FundingSourceId;
-            invoiceDraft.PeriodEndDate = searchCriteria.PeriodEnd;
-            invoiceDraft.PeriodStartDate = searchCriteria.PeriodStart;
-            //perform case search
-            invoiceDraft.ForeclosureCaseDrafts = InvoiceBL.Instance.InvoiceCaseSearch(searchCriteria);
-            InvoiceDraftDataBind(invoiceDraft);
+            if (!IsPostBack)
+            {
+                if (Session["searchCriteria"] == null)
+                    return;
+                InvoiceCaseSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceCaseSearchCriteriaDTO;
+                //Get the Invoice Case Draft
+                try
+                {
+                    invoiceDraft= InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
+                }
+                catch (DataException ex)
+                {
+                    lblErrorMessage.Text = ex.Message;
+                    lblErrorMessage.Visible = true;
+                    ExceptionProcessor.HandleException(ex);
+                }
+                Session["invoiceDraft"] = invoiceDraft;
+                InvoiceDraftDataBind();
+            }
+            else
+                if(Session["invoiceDraft"]!=null)
+                    invoiceDraft = (InvoiceDraftDTO)Session["invoiceDraft"];
         }
-        private void InvoiceDraftDataBind(InvoiceDraftDTO invoiceDraft)
+
+        protected void chkHeaderCaseIDCheck(object sender, EventArgs e)
+        {
+            CheckBox headerCheckbox = (CheckBox)sender;
+            foreach (GridViewRow row in grvNewInvoiceResults.Rows)
+            {
+                CheckBox chkSelected = (CheckBox)row.FindControl("chkCaseSelected");
+                if (chkSelected != null)
+                    chkSelected.Checked = headerCheckbox.Checked;
+            }
+        }
+        private void InvoiceDraftDataBind()
         {
             if (Session["fundingSource"] != null)
                 lblFundingSource.Text = Session["fundingSource"].ToString();
@@ -41,6 +65,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             lblTotalAmount.Text = "$" + invoiceDraft.TotalAmount;
             grvNewInvoiceResults.DataSource = invoiceDraft.ForeclosureCaseDrafts;
             grvNewInvoiceResults.DataBind();
+            lblErrorMessage.Visible = false;
         }
 
         protected void grvNewInvoiceResults_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -59,6 +84,52 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void grvNewInvoiceResults_DataBound(object sender, EventArgs e)
         {
             grvNewInvoiceResults.Visible = true;
+        }
+
+        protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
+        {
+            if (invoiceDraft == null)
+                return;
+            for (int i = grvNewInvoiceResults.Rows.Count - 1; i >= 0; i--)
+            {
+                if (grvNewInvoiceResults.Rows[i] is GridViewRow)
+                {
+                    GridViewRow row = grvNewInvoiceResults.Rows[i];
+                    CheckBox chkSelected = (CheckBox)row.FindControl("chkCaseSelected");
+                    if (chkSelected != null)
+                        if (chkSelected.Checked == true)
+                        {
+                            //remove from the grid and remove from the collection 
+                            invoiceDraft.ForeclosureCaseDrafts.RemoveAt(row.RowIndex);
+                        }
+                }
+            }
+            Session["invoiceDraft"] = invoiceDraft;
+            InvoiceDraftDataBind();
+        }
+
+        protected void btnGenerateInvoice_Click(object sender, EventArgs e)
+        {
+            if (invoiceDraft.ForeclosureCaseDrafts.Count == 0)
+            {
+                lblErrorMessage.Text = "There must be at least one Invoice Item to generate an invoice.";
+                lblErrorMessage.Visible = true;
+                return;
+            }
+            try
+            {
+                //insert invoice to the database
+                InvoiceBL.Instance.InsertInvoice(invoiceDraft);
+                lblErrorMessage.Text = "Insert Invoice successful.";
+                lblErrorMessage.Visible = true;
+            }
+            catch(Exception ex)
+            {
+                lblErrorMessage.Visible = true;
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
+            
         }
     }
 }
