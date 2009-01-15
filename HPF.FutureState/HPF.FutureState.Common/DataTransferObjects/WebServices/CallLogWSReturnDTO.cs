@@ -17,11 +17,11 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public DateTime StartDate { get; set; }
 
         [IgnoreNulls()]
-        public DateTime EndDate { get; set; }        
+        public DateTime EndDate { get; set; }                
 
         [IgnoreNulls()]
-        [StringLengthValidator(4, Ruleset = "Default", MessageTemplate = "CallCenter's Maximum length is 4 characters")]
-        public string CallCenter { get; set; }        
+        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "CallResource's Maximum length is 15 characters")]
+        public string CallSourceCd { get; set; }
 
         [IgnoreNulls()]
         [StringLengthValidator(75, Ruleset = "Default", MessageTemplate = " ReasonToCall's Maximum length is 75 characters")]
@@ -59,11 +59,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         [IgnoreNulls()]
         [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "FinalDispoCd's Maximum length is 15 characters")]
-        public string FinalDispoCd { get; set; }        
-
-        [IgnoreNulls()]
-        [StringLengthValidator(18, Ruleset = "Default", MessageTemplate = "CcCallKey's Maximum length is 18 characters")]
-        public string CcCallKey { get; set; }
+        public string FinalDispoCd { get; set; }                
 
         [IgnoreNulls()]
         [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "LoanDelinqStatusCd's Maximum length is 15 characters")]
