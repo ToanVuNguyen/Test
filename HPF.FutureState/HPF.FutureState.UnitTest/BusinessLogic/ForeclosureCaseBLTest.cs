@@ -1876,7 +1876,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.AgencyCaseNum = (reader["agency_case_num"].ToString());
                         returnObject.AgencyClientNum = (reader["agency_client_num"].ToString());
                         returnObject.AgencyId = int.Parse(reader["agency_id"].ToString());
-                        returnObject.AgencyMediaInterestInd = (reader["agency_media_consent_ind"].ToString());
+                        returnObject.AgencyMediaInterestInd = (reader["agency_media_interest_ind"].ToString());
                         returnObject.AgencySuccessStoryInd = (reader["agency_success_story_ind"].ToString());
                         returnObject.AmiPercentage = int.Parse(reader["AMI_percentage"].ToString());
                         returnObject.AssignedCounselorIdRef = (reader["counselor_id_ref"].ToString());

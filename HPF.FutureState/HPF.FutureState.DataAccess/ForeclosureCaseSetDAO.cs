@@ -328,7 +328,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[59] = new SqlParameter("@pi_fc_notice_received_ind", foreclosureCase.FcNoticeReceiveInd);
                 sqlParam[60] = new SqlParameter("@pi_funding_consent_ind", foreclosureCase.FundingConsentInd);
                 sqlParam[61] = new SqlParameter("@pi_servicer_consent_ind", foreclosureCase.ServicerConsentInd);
-                sqlParam[62] = new SqlParameter("@pi_agency_media_consent_ind", foreclosureCase.AgencyMediaInterestInd);
+                sqlParam[62] = new SqlParameter("@pi_agency_media_interest_ind", foreclosureCase.AgencyMediaInterestInd);
                 sqlParam[63] = new SqlParameter("@pi_agency_success_story_ind", foreclosureCase.AgencySuccessStoryInd);
                 sqlParam[64] = new SqlParameter("@pi_borrower_disabled_ind", foreclosureCase.BorrowerDisabledInd);
                 sqlParam[65] = new SqlParameter("@pi_co_borrower_disabled_ind", foreclosureCase.CoBorrowerDisabledInd);
@@ -789,7 +789,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[61] = new SqlParameter("@pi_fc_notice_received_ind", foreclosureCase.FcNoticeReceiveInd);
                 sqlParam[62] = new SqlParameter("@pi_funding_consent_ind", foreclosureCase.FundingConsentInd);
                 sqlParam[63] = new SqlParameter("@pi_servicer_consent_ind", foreclosureCase.ServicerConsentInd);
-                sqlParam[64] = new SqlParameter("@pi_agency_media_consent_ind", foreclosureCase.AgencyMediaInterestInd);
+                sqlParam[64] = new SqlParameter("@pi_agency_media_interest_ind", foreclosureCase.AgencyMediaInterestInd);
                 sqlParam[65] = new SqlParameter("@pi_agency_success_story_ind", foreclosureCase.AgencySuccessStoryInd);
                 sqlParam[66] = new SqlParameter("@pi_borrower_disabled_ind", foreclosureCase.BorrowerDisabledInd);
                 sqlParam[67] = new SqlParameter("@pi_co_borrower_disabled_ind", foreclosureCase.CoBorrowerDisabledInd);
