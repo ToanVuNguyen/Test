@@ -111,7 +111,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
 
         protected void btnGenerateInvoice_Click(object sender, EventArgs e)
         {
-            if (invoiceDraft.ForeclosureCaseDrafts.Count == 0)
+            if (invoiceDraft.ForeclosureCaseDrafts==null||invoiceDraft.ForeclosureCaseDrafts.Count == 0)
             {
                 lblErrorMessage.Text = "There must be at least one Invoice Item to generate an invoice.";
                 lblErrorMessage.Visible = true;

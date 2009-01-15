@@ -58,7 +58,12 @@ namespace HPF.FutureState.BusinessLogic
                     invoiceCase.InvoiceId = invoiceId;
                     invoiceCase.InvoiceCasePaymentAmount = (double)fCaseDraf.Amount;
                     invoiceCase.ForeclosureCaseId = fCaseDraf.ForeclosureCaseId;
-                    //invoiceCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    invoiceCase.ChangeLastAppName = invoiceDraft.ChangeLastAppName;
+                    invoiceCase.ChangeLastDate = invoiceDraft.ChangeLastDate;
+                    invoiceCase.ChangeLastUserId = invoiceDraft.ChangeLastUserId;
+                    invoiceCase.CreateAppName = invoiceDraft.CreateAppName;
+                    invoiceCase.CreateDate = invoiceDraft.CreateDate;
+                    invoiceCase.CreateUserId = invoiceDraft.CreateUserId;
                     invoiceDAO.InsertInvoiceCase(invoiceCase);
                 }
                 invoiceDAO.Commit();
