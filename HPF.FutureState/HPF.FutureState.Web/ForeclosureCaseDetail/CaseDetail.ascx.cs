@@ -13,8 +13,7 @@ using System.Xml.Linq;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
-
-
+using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
@@ -22,7 +21,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         protected override void OnLoad(EventArgs e)
         {
-
             try
             {
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
@@ -198,8 +196,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 else ddlSuccessStory.SelectedIndex = 0;//blank
             BindAgencyDropdownlist(foreclosureCase.AgencyId.ToString());
         }
-
-     
         protected void BindAgencyDropdownlist(string agencyname)
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
@@ -218,18 +214,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ForeclosureCaseDTO foreclosureCase = GetUpdateInfo();
             try
             {
+                foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 int fcid=ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
                 BindDetailCaseData(fcid);
                 lblMessage.Text = "Save foreclosure case succesfull";
             }
-            
             catch(Exception ex)
             {
                 lblMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex);
-                
             }
-            
         }
         /// <summary>
         /// get update info from UI
@@ -263,6 +257,5 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             UpdateForecloseCase();
         }
-
     }
 }
