@@ -34,28 +34,22 @@ namespace HPF.FutureState.BusinessLogic
         {
 
         }
-
         public bool InsertAgencyPayable(AgencyPayableDraftDTO agencyPayableDraft)
         {
-            if (agencyPayableDraft == null)
-                return true;
             AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();            
             try
             {                
-                agencyPayableDAO.Begin();
+                //agencyPayableDAO.Begin();
                 AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
-                //-----------
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
-                // don't know much about that fields
                 agencyPayable.PayamentCode = "";
                 //agencyPayable.AccountLinkTBD = "";
                 //agencyPayable.TotalCases = agencyPayableDraft.TotalCases;
                 agencyPayable.AgencyPayablePaymentAmount = agencyPayableDraft.TotalAmount;
                 agencyPayable.StatusCode = "ACTIVE";
                 //agencyPayable.PaymentComment = "";
-               
                 agencyPayable.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
                 //Insert Agency Payable
                 int agencyPayableId = 0;
@@ -77,19 +71,18 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.NFMCDifferenceInd = "N";
                     agencyPayableCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
-      
                 }
-                agencyPayableDAO.Commit();
+               // agencyPayableDAO.Commit();
             }
             catch (Exception)
             {
-                agencyPayableDAO.Cancel();
+                //agencyPayableDAO.Cancel();
                 throw;
             }
             return true;
         }
         ///<summary>
-        ///
+        ///get exception messages.
         /// </summary>
         protected void NewPayableThrowMissingRequiredFieldsException(Collection<string> collection)
         {
