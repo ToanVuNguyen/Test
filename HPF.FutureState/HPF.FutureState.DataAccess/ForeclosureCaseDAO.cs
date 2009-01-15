@@ -12,7 +12,7 @@ namespace HPF.FutureState.DataAccess
 {
     public class ForeclosureCaseDAO : BaseDAO
     {
-        
+
         protected ForeclosureCaseDAO()
         {
 
@@ -23,7 +23,7 @@ namespace HPF.FutureState.DataAccess
             return new ForeclosureCaseDAO();
         }
 
-        
+
         public CaseLoanDTO GetExistingCaseLoan(CaseLoanDTO caseLoan)
         {
             return null;
@@ -49,7 +49,7 @@ namespace HPF.FutureState.DataAccess
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
             SqlConnection dbConnection = base.CreateConnection();
             try
-            {                
+            {
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_detail_get", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
@@ -73,7 +73,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         returnObject.AgencyClientNum = ConvertToString(reader["agency_client_num"]);
                         returnObject.AgencyId = ConvertToInt(reader["agency_id"]);
-                        returnObject.AgencyMediaInterestInd = ConvertToString(reader["agency_media_consent_ind"]);
+                        returnObject.AgencyMediaConsentInd = ConvertToString(reader["agency_media_interest_ind"]);
                         returnObject.AgencySuccessStoryInd = ConvertToString(reader["agency_success_story_ind"]);
                         returnObject.AmiPercentage = ConvertToInt(reader["AMI_percentage"]);
                         returnObject.AssignedCounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
@@ -93,7 +93,8 @@ namespace HPF.FutureState.DataAccess
                         returnObject.BorrowerPreferredLangCd = ConvertToString(reader["borrower_preferred_lang_cd"]);
                         //returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
 
-                        returnObject.CallId = ConvertToInt(reader["call_id"]);                        
+                        returnObject.CallId = ConvertToInt(reader["call_id"]);
+                        //returnObject.CaseCompleteInd = ConvertToString(reader["case_complete_ind"]);
                         returnObject.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         returnObject.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                         returnObject.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
@@ -130,7 +131,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.DuplicateInd = ConvertToString(reader["duplicate_ind"]);
 
                         returnObject.Email1 = ConvertToString(reader["email_1"]);
-                        returnObject.Email2 = ConvertToString(reader["email_2"]);                        
+                        returnObject.Email2 = ConvertToString(reader["email_2"]);
                         returnObject.FcNoticeReceiveInd = ConvertToString(reader["fc_notice_received_ind"]);
                         returnObject.FollowupNotes = ConvertToString(reader["followup_notes"]);
                         returnObject.ForSaleInd = ConvertToString(reader["for_sale_ind"]);
@@ -145,7 +146,8 @@ namespace HPF.FutureState.DataAccess
                         returnObject.HomePurchaseYear = ConvertToInt(reader["home_purchase_year"]);
                         returnObject.HomeSalePrice = ConvertToDouble(reader["home_sale_price"]);
                         returnObject.HouseholdCd = ConvertToString(reader["household_cd"]);
-                        returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);                        
+                        returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);
+                        //returnObject.HpfNetworkCandidateInd = ConvertToString(reader["hpf_network_candidate_ind"]);
                         returnObject.HpfSuccessStoryInd = ConvertToString(reader["hpf_success_story_ind"]);
                         returnObject.HudOutcomeCd = ConvertToString(reader["hud_outcome_cd"]);
                         returnObject.HudTerminationDt = ConvertToDateTime(reader["hud_termination_dt"]);
@@ -223,7 +225,7 @@ namespace HPF.FutureState.DataAccess
             ForeclosureCaseSearchResult results = new ForeclosureCaseSearchResult();
             SqlConnection dbConnection = base.CreateConnection();
             try
-            {                
+            {
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_search_ws", dbConnection);
                 string whereClause = GenerateWhereClause(searchCriteria);
                 //<Parameter>
@@ -311,8 +313,8 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.Last4_SSN == null) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : " AND loan_list like @pi_loan_number");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND prop_zip = @pi_prop_zip");
-           
-            return whereClause.ToString();        
+
+            return whereClause.ToString();
         }
 
         private string GetCounseledProperty(DateTime completedDt)
@@ -464,7 +466,7 @@ namespace HPF.FutureState.DataAccess
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
             }
-           
+
             return result;
         }
 
@@ -509,13 +511,13 @@ namespace HPF.FutureState.DataAccess
         ///<summary>
         ///
 
-        private string AppGenerateWhereClause( AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        private string AppGenerateWhereClause(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             StringBuilder whereClause = new StringBuilder();
             whereClause.Append((searchCriteria.Last4SSN == null) ? "" : " AND(borrower_last4_SSN = @pi_last4SSN  OR co_borrower_last4_SSN = @pi_last4SSN)");
             whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname  OR co_borrower_fname like @pi_fname)");
             whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname  OR co_borrower_lname like @pi_lname)");
-            whereClause.Append((searchCriteria.ForeclosureCaseID ==-1) ? "" : "AND ( f.fc_id = @pi_fc_id)");
+            whereClause.Append((searchCriteria.ForeclosureCaseID == -1) ? "" : "AND ( f.fc_id = @pi_fc_id)");
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "AND( l.acct_num  = @pi_loannum)");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND( f.prop_zip = @pi_propzip)");
             whereClause.Append((searchCriteria.PropertyState == null) ? "" : " AND (f.prop_state_cd = @pi_propstate )");
@@ -557,12 +559,13 @@ namespace HPF.FutureState.DataAccess
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-            finally {
+            finally
+            {
                 dbConnection.Close();
             }
             return foreclosureCase.FcId;
         }
-       
+
 
     }
 }
