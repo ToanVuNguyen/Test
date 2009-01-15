@@ -20,37 +20,48 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
     public partial class ForeclosureCaseDetail : System.Web.UI.UserControl
     {
-        private void BindData(int caseid)
+        protected override void OnLoad(EventArgs e)
         {
-            
-            //if (caseid==null)
-            //    return;
+
             try
             {
-            ForeclosureCaseDTO  foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
-
-            if (foreclosureCase == null)
-                return;
-            
-            BindForeclosureCaseDetail();
+                int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+                BindDetailCaseData(caseid);
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-
+                ExceptionProcessor.HandleException(ex);
             }
 
         }
+        private void BindDetailCaseData(int caseid)
+        {
+            try
+            {
+            ForeclosureCaseDTO  foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
+            if (foreclosureCase == null)
+                return;
+            BindForeclosureCaseDetail(foreclosureCase);
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
 
-        private void BindForeclosureCaseDetail()
+        }
+        private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
         {
             //Top area
             //Property
-            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             lblAddress1.Text = foreclosureCase.PropAddr1;
             lblAddress2.Text=foreclosureCase.PropAddr2;
             lblCity.Text=foreclosureCase.PropCity;
-            lblStateZip.Text=foreclosureCase.PropStateCd+" - "+foreclosureCase.PropZip+" - "+foreclosureCase.PropZipPlus4;
+            if (foreclosureCase.PropZipPlus4 != null)
+                lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
+            else
+                lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip;    
             lblPrimaryResidence.Text = foreclosureCase.PrimaryResidenceInd;
             lblOwnerOccupied.Text = foreclosureCase.OwnerOccupiedInd;
             lblPropertyCode.Text = foreclosureCase.PropertyCd;
@@ -188,21 +199,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             BindAgencyDropdownlist(foreclosureCase.AgencyId.ToString());
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-
-            try
-            {
-            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-            BindData(caseid);
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
-            }
-
-        }
+     
         protected void BindAgencyDropdownlist(string agencyname)
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
@@ -222,7 +219,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                 int fcid=ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                BindData(fcid);
+                BindDetailCaseData(fcid);
                 lblMessage.Text = "Save foreclosure case succesfull";
             }
             
