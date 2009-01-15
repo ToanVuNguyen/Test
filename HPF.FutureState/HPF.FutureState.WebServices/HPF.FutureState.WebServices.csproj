@@ -78,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgencyWebService.asmx" />
-    <Content Include="CallCenterService.asmx" />
+    <Content Include="CallCenterWebService.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -93,8 +93,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AuthenticationInfo.cs" />
-    <Compile Include="CallCenterService.asmx.cs">
-      <DependentUpon>CallCenterService.asmx</DependentUpon>
+    <Compile Include="CallCenterWebService.asmx.cs">
+      <DependentUpon>CallCenterWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BaseWebService.cs">
