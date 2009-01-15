@@ -1346,7 +1346,7 @@ namespace HPF.FutureState.DataAccess
             StringBuilder sb = new StringBuilder();
             foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
             {
-                sb.Append(string.Format("(acct_num = ''{0}'' and servicer_id = ''{1}'') or", item.AcctNum, item.ServicerId));
+                sb.Append(string.Format(" (acct_num = '{0}' and CL.servicer_id = {1}) or ", item.AcctNum, item.ServicerId));
             }
             sb.Append("(1 = 1)");
             return sb.ToString();
