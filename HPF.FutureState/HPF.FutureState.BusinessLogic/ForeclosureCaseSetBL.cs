@@ -1388,6 +1388,8 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.AddExceptionMessage("An invalid code was provided for TermLengthCode " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd))
                     msgFcCaseSet.AddExceptionMessage("An invalid code was provided for LoanDelinqStatusCode " + (i + 1));
+                if(!CheckValidServicerId(caseLoan.ServicerId))
+                    msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for ServicerId " + (i + 1));
             }
             return msgFcCaseSet;  
         }
@@ -1468,9 +1470,22 @@ namespace HPF.FutureState.BusinessLogic
         {
             string agencyName = foreclosureCaseSetDAO.GetAgencyName(forclosureCase.AgencyId);
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if(agencyName == null)
+            if (agencyName == null || agencyName == string.Empty)
                 msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for AgencyId");            
             return msgFcCaseSet;
+        }
+
+        /// <summary>
+        /// Check valid AgencyId
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckValidServicerId(int servicerId)
+        {
+            string servicerName = foreclosureCaseSetDAO.GetServicerName(servicerId);
+            if (servicerName == null || servicerName == string.Empty)
+                return false;
+            return true;
         }
 
         /// <summary>

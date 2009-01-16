@@ -1297,6 +1297,42 @@ namespace HPF.FutureState.DataAccess
             return returnString;
         }
 
+        public string GetServicerName(int servicerId)
+        {
+            string returnString = string.Empty;
+            try
+            {
+                SqlCommand command = base.CreateCommand("hpf_servicer_get", this.dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_servicer_id", servicerId);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        returnString = ConvertToString(reader["servicer_name"]);
+                    }
+                    reader.Close();
+                }
+                else
+                    reader.Close();
+                returnString = string.Empty;
+
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return returnString;
+        }
+
         public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
         {
             bool returnValue = true;
