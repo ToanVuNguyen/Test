@@ -30,7 +30,34 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 IndicatorDatabind();
                 HouseholdDatabind();
                 StateDatabind();
+                DDLBDataBind();
             }
+        }
+        private void DDLBDataBind()
+        {
+            AddBlankToDDLB(dropDuplicates);
+            AddBlankToDDLB(dropHispanic);
+            AddBlankToDDLB(dropCaseCompleted);
+            AddBlankToDDLB(dropAlreadyBilled);
+            AddBlankToDDLB(dropServicerConsent);
+            AddBlankToDDLB(dropFundingConsent);
+            //set default value for DDLB
+            dropDuplicates.SelectedIndex = 2;
+            dropCaseCompleted.SelectedIndex = 1;
+            dropAlreadyBilled.SelectedIndex = 2;
+            dropServicerConsent.SelectedIndex = 1;
+            dropFundingConsent.SelectedIndex = 1;
+            dropIndicators.SelectedIndex = 1;
+            dropGender.SelectedIndex = 0;
+            dropRace.SelectedIndex = 0;
+            dropHispanic.SelectedIndex = 0;
+            dropHouseholdCode.SelectedIndex = 0;
+            dropState.SelectedIndex = 0;
+
+        }
+        private void AddBlankToDDLB(DropDownList temp)
+        {
+            temp.Items.Insert(0,new ListItem(" ", "0"));
         }
         private void FundingSourceDatabind()
         {
@@ -40,7 +67,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.DataSource = fundingSourceCollection;
             dropFundingSource.DataBind();
             dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
-            dropFundingSource.Items.Insert(0, new ListItem("Not Selected", "-1"));
+            dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
             if (Session["fundingSourceId"] != null)
             {
                 string fundingSourceId = Session["fundingSourceId"].ToString();
@@ -64,7 +91,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropGender.DataTextField = "CodeDesc";
             dropGender.DataSource = genderCollection;
             dropGender.DataBind();
-            dropGender.Items.Insert(0, new ListItem("Not Selected", "-1"));
+            dropGender.Items.Insert(0, new ListItem(" ", "-1"));
             dropGender.SelectedIndex = 0;
         }
         private void RaceDatabind()
@@ -74,7 +101,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropRace.DataTextField = "CodeDesc";
             dropRace.DataSource = raceCollection;
             dropRace.DataBind();
-            dropRace.Items.Insert(0, new ListItem("Not Selected", "-1"));
+            dropRace.Items.Insert(0, new ListItem(" ", "-1"));
             dropRace.SelectedIndex = 0;
         }
         private void IndicatorDatabind()
@@ -84,7 +111,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropIndicators.DataTextField = "CodeDesc";
             dropIndicators.DataSource = indicatorCollection;
             dropIndicators.DataBind();
-            dropIndicators.Items.Insert(0, new ListItem("Not Selected", "-1"));
+            dropIndicators.Items.Insert(0, new ListItem(" ", "-1"));
             dropIndicators.SelectedIndex = 1;
             
         }
@@ -95,7 +122,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropHouseholdCode.DataTextField = "CodeDesc";
             dropHouseholdCode.DataSource = householdCollection;
             dropHouseholdCode.DataBind();
-            dropHouseholdCode.Items.Insert(0, new ListItem("Not Selected", "-1"));
+            dropHouseholdCode.Items.Insert(0, new ListItem(" ", "-1"));
             dropHouseholdCode.SelectedIndex = 0;
         }
         private void StateDatabind()
@@ -105,13 +132,17 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropState.DataTextField = "CodeDesc";
             dropState.DataSource = stateCollection;
             dropState.DataBind();
-            dropState.Items.Insert(0, new ListItem("Not Selected", "-1"));
+            dropState.Items.Insert(0, new ListItem(" ", "-1"));
             dropState.SelectedIndex = 0;
         }
         protected void dropFundingSource_SelectedIndexChanged1(object sender, EventArgs e)
         {
             if (int.Parse(dropFundingSource.SelectedValue) == -1)
+            {
+                lst_FundingSourceGroup.DataSource = null;
+                lst_FundingSourceGroup.DataBind();
                 return;
+            }
             ServicerDTOCollection servicers = null;
             try
             {

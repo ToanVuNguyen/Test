@@ -52,7 +52,7 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="left"  colspan="6">
+        <td align="left"  colspan="6" class="ErrorMessage">
             <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage" 
                 Visible="False"></asp:Label>
         </td>
@@ -122,7 +122,7 @@
         </td>
         <td colspan="3">
             <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" 
-                Text="Cancel Invoice" Width="150px" />
+                Text="Cancel Invoice" Width="150px" onclick="btnCancel_Click" />
         </td>
     </tr>
 </table>

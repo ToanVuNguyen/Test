@@ -33,7 +33,6 @@ namespace HPF.FutureState.BusinessLogic
             InvoiceDAO invoiceDAO = InvoiceDAO.CreateInstance();
             try
             {
-                invoiceDAO.Begin();
                 InvoiceDTO invoice = new InvoiceDTO();
                 //-----------
                 invoice.PeriodStartDate = invoiceDraft.PeriodStartDate;
@@ -66,11 +65,10 @@ namespace HPF.FutureState.BusinessLogic
                     invoiceCase.CreateUserId = invoiceDraft.CreateUserId;
                     invoiceDAO.InsertInvoiceCase(invoiceCase);
                 }
-                invoiceDAO.Commit();
+                
             }
             catch (Exception ex)
             {
-                invoiceDAO.Cancel();
                 throw (ex) ;
             }
         }
@@ -89,6 +87,8 @@ namespace HPF.FutureState.BusinessLogic
         public bool ValidateInvoiceCaseCriteria(InvoiceCaseSearchCriteriaDTO criteria, out string returnMessage)
         {
             returnMessage = "";
+            if(criteria.FundingSourceId=="-1")
+                returnMessage += "FundingSource is required; ";
             if (criteria.PeriodStart == DateTime.MinValue)
                 returnMessage += "Period Start:Wrong DateTime format; ";
             if (criteria.PeriodEnd == DateTime.MinValue)

@@ -41,9 +41,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             dropFundingSource.DataTextField = "FundingSourceName";
             dropFundingSource.DataSource = fundingSourceCollection;
             dropFundingSource.DataBind();
-            //dropFundingSource.Items.FindByText("ALL").Selected = true;
-            //for test only
-            dropFundingSource.Items.FindByText("5").Selected = true;
+            dropFundingSource.Items.FindByText("ALL").Selected = true;
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {

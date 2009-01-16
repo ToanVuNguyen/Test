@@ -7,9 +7,10 @@
         </td>
     </tr>
     <tr>
-        <td colspan="8">
-            &nbsp;
-            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMin" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Age Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+        <td colspan="8" class="ErrorMessage">
+            &nbsp;If Case Completed set to &#39;No&#39; then Period Start and Period End will not be 
+            used for the search.<br />
+&nbsp;<asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMin" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Age Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
             <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMax" ID="RegularExpressionValidator2" Display="Dynamic" runat="server" ErrorMessage="Age Max: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
             <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtIncomeMin" ID="RegularExpressionValidator3" Display="Dynamic" runat="server" ErrorMessage="Household Income Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
             <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtIncomeMax" ID="RegularExpressionValidator4" Display="Dynamic" runat="server" ErrorMessage="Household Income Max: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
@@ -41,8 +42,6 @@
             Case Completed:</td>
         <td>
             <asp:DropDownList ID="dropCaseCompleted" runat="server" CssClass="Text">
-                <asp:ListItem Selected="True" Value="0">Not Selected
-                </asp:ListItem>
                 <asp:ListItem Value="1">Yes</asp:ListItem>
                 <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
@@ -76,8 +75,6 @@
             Already Billed:</td>
         <td>
             <asp:DropDownList ID="dropAlreadyBilled" runat="server" CssClass="Text">
-                <asp:ListItem Selected="True" Value="0">Not Selected
-                </asp:ListItem>
                 <asp:ListItem Value="1">Yes</asp:ListItem>
                 <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
@@ -93,8 +90,6 @@
             Servicer Consent:</td>
         <td>
             <asp:DropDownList ID="dropServicerConsent" runat="server" CssClass="Text">
-                <asp:ListItem Selected="True" Value="0">Not Selected
-                </asp:ListItem>
                 <asp:ListItem Value="1">Yes</asp:ListItem>
                 <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
@@ -110,8 +105,6 @@
             Funding Consent:</td>
         <td>
             <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
-                <asp:ListItem Selected="True" Value="0">Not Selected
-                </asp:ListItem>
                 <asp:ListItem Value="1">Yes</asp:ListItem>
                 <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
@@ -175,8 +168,6 @@
             Duplicates:</td>
         <td colspan="4">
             <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
-                <asp:ListItem Selected="True" Value="0">Not Selected
-                </asp:ListItem>
                 <asp:ListItem Value="1">Yes</asp:ListItem>
                 <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
@@ -236,8 +227,6 @@
             Hispanic:</td>
         <td colspan="4">
             <asp:DropDownList ID="dropHispanic" runat="server" CssClass="Text">
-                <asp:ListItem Selected="True" Value="0">Not Selected
-                </asp:ListItem>
                 <asp:ListItem Value="1">Yes</asp:ListItem>
                 <asp:ListItem Value="2">No</asp:ListItem>
             </asp:DropDownList>
