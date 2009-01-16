@@ -187,8 +187,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR252, "An invalid AgencyID was provided for the Corresponding FcId.  Your agency does not own this foreclosure case. ");
                 errorMessageDict.Add(ERR253, "Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
                                               +"Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
-                                              +"Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} for the case without an {12} "
-                                              +"Last Outcome: {13} ");                
+                                              +"Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
+                                              +"Last Outcome: {12} ");                
                 errorMessageDict.Add(ERR254, "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
                 errorMessageDict.Add(ERR255, "A previously completed case cannot become uncompleted. An update was submitted without all fields required to compleg.");
                 errorMessageDict.Add(ERR256, "Only one loan can be designated as '1st'.");

@@ -11,7 +11,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         public ExceptionMessageCollection ExceptionMessages { get; set; }
         public DuplicateException()
         {
-            
+            Init();
         }
 
         public DuplicateException(string message)
