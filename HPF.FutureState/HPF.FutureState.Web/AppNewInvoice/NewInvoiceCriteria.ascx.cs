@@ -31,7 +31,18 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 HouseholdDatabind();
                 StateDatabind();
                 DDLBDataBind();
+                GetDefaultPeriodStartEnd();
             }
+        }
+        protected void GetDefaultPeriodStartEnd()
+        {
+            DateTime today = DateTime.Today;
+            int priormonth = today.AddMonths(-1).Month;
+            int year = today.AddMonths(-1).Year;
+            txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
+            int daysinmonth = DateTime.DaysInMonth(year, priormonth);
+            txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
+
         }
         private void DDLBDataBind()
         {

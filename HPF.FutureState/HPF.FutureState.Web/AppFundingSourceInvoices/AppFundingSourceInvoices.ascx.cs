@@ -27,12 +27,18 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 SetUpDefaultValue();    
             }
         }
+        /// <summary>
+        /// Default page display "All" funding sources and start from today - 6 months and now
+        /// </summary>
         private void SetUpDefaultValue()
         {
-            //var temp = new InvoiceSearchResultDTOCollection();
-            //temp.Add(new InvoiceSearchResultDTO());
-            //grvFundingSourceInvoices.DataSource = temp;
-            //grvFundingSourceInvoices.DataBind();
+            InvoiceSearchCriteriaDTO defaultSearchCriteria = new InvoiceSearchCriteriaDTO();
+            defaultSearchCriteria.FundingSourceId = -1;
+            defaultSearchCriteria.PeriodStart = DateTime.Today.AddMonths(-6);
+            defaultSearchCriteria.PeriodEnd = DateTime.Today;
+            txtPeriodStart.Text = defaultSearchCriteria.PeriodStart.ToShortDateString();
+            txtPeriodEnd.Text = defaultSearchCriteria.PeriodEnd.ToShortDateString();
+            InvoiceSearch(defaultSearchCriteria);
         }
         private void BindDataToDDLB()
         {
@@ -63,6 +69,12 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 searchCriteria.PeriodStart = DateTime.MinValue;
             }
+            InvoiceSearch(searchCriteria);
+            
+        }
+
+        private void InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
+        {
             try
             {
                 InvoiceSearchResultDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
@@ -81,7 +93,6 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 lblErrorMessage.Visible = true;
                 ExceptionProcessor.HandleException(ex);
             }
-            
         }
 
         protected void grvFundingSourceInvoices_RowCreated(object sender, GridViewRowEventArgs e)
