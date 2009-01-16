@@ -102,6 +102,7 @@
         <asp:BoundField DataField="ServicerName" HeaderText="Servicer" ItemStyle-HorizontalAlign="Left"/>
         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" ItemStyle-HorizontalAlign="Left" />
         </Columns>
+        <EmptyDataTemplate>There is no data match</EmptyDataTemplate>
         </asp:GridView>
         <table>
         <tr>
