@@ -75,10 +75,11 @@
        <asp:BoundField HeaderText="Status" DataField="StatusCode" />
         <asp:BoundField HeaderText="Comments" DataField="PaymentComment" />
         </Columns>
+        <EmptyDataTemplate> There is no data match.</EmptyDataTemplate>
         </asp:GridView>
         </asp:Panel>
         </td>
-        <td>
+        <td  valign="top">
             <table style="vertical-align:top;">
                 <tr>
                     <td>
