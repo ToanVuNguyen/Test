@@ -103,14 +103,7 @@ namespace HPF.FutureState.BusinessLogic
             string returnMessage;
             if (ValidateInvoiceCriteria(searchCriteria, out returnMessage) == false)
                 throw new DataValidationException(returnMessage);
-            try
-            {
-                result = InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            result = InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
             return result;
         }
         public ForeclosureCaseDraftDTOCollection InvoiceCaseSearch(InvoiceCaseSearchCriteriaDTO searchCriteria)
@@ -119,14 +112,7 @@ namespace HPF.FutureState.BusinessLogic
             string returnMessage;
             if (ValidateInvoiceCaseCriteria(searchCriteria, out returnMessage) == false)
                 throw new DataValidationException(returnMessage);
-            try
-            {
-                result = InvoiceDAO.CreateInstance().InvoiceCaseSearch(searchCriteria);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            result = InvoiceDAO.CreateInstance().InvoiceCaseSearch(searchCriteria);
             return result;
         }
 

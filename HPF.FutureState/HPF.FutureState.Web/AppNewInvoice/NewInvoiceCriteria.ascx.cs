@@ -61,7 +61,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void FundingSourceDatabind()
         {
-            FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
+            FundingSourceDTOCollection fundingSourceCollection = null;
+            try
+            {
+                fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
             dropFundingSource.DataValueField = "FundingSourceID";
             dropFundingSource.DataTextField = "FundingSourceName";
             dropFundingSource.DataSource = fundingSourceCollection;
@@ -77,7 +86,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void ProgramDatabind()
         {
-            ProgramDTOCollection programCollection = LookupDataBL.Instance.GetProgram();
+            ProgramDTOCollection programCollection = null;
+            try
+            {
+                programCollection = LookupDataBL.Instance.GetProgram();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
             dropProgram.DataValueField = "ProgramID";
             dropProgram.DataTextField = "ProgramName";
             dropProgram.DataSource = programCollection;
@@ -86,7 +104,17 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void GenderDatabind()
         {
-            RefCodeItemDTOCollection genderCollection = LookupDataBL.Instance.GetRefCode("Gender code");
+            RefCodeItemDTOCollection genderCollection = null;
+            try
+            {
+                genderCollection = LookupDataBL.Instance.GetRefCode("Gender code");
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
+            
             dropGender.DataValueField = "Code";
             dropGender.DataTextField = "CodeDesc";
             dropGender.DataSource = genderCollection;
@@ -96,7 +124,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void RaceDatabind()
         {
-            RefCodeItemDTOCollection raceCollection = LookupDataBL.Instance.GetRefCode("Race code");
+            RefCodeItemDTOCollection raceCollection = null;
+            try
+            {
+                raceCollection = LookupDataBL.Instance.GetRefCode("Race code");
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
             dropRace.DataValueField = "Code";
             dropRace.DataTextField = "CodeDesc";
             dropRace.DataSource = raceCollection;
@@ -106,7 +143,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void IndicatorDatabind()
         {
-            RefCodeItemDTOCollection indicatorCollection = LookupDataBL.Instance.GetRefCode("Loan 1st 2nd");
+            RefCodeItemDTOCollection indicatorCollection = null;
+            try
+            {
+                indicatorCollection = LookupDataBL.Instance.GetRefCode("Loan 1st 2nd");
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
             dropIndicators.DataValueField = "Code";
             dropIndicators.DataTextField = "CodeDesc";
             dropIndicators.DataSource = indicatorCollection;
@@ -117,7 +163,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void HouseholdDatabind()
         {
-            RefCodeItemDTOCollection householdCollection = LookupDataBL.Instance.GetRefCode("Household code");
+            RefCodeItemDTOCollection householdCollection = null;
+            try
+            {
+                householdCollection = LookupDataBL.Instance.GetRefCode("Household code");
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
             dropHouseholdCode.DataValueField = "Code";
             dropHouseholdCode.DataTextField = "CodeDesc";
             dropHouseholdCode.DataSource = householdCollection;
@@ -127,7 +182,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         private void StateDatabind()
         {
-            RefCodeItemDTOCollection stateCollection = LookupDataBL.Instance.GetRefCode("State");
+            RefCodeItemDTOCollection stateCollection = null;
+            try
+            {
+                stateCollection = LookupDataBL.Instance.GetRefCode("State");
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
             dropState.DataValueField = "Code";
             dropState.DataTextField = "CodeDesc";
             dropState.DataSource = stateCollection;
@@ -154,7 +218,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             lst_FundingSourceGroup.DataSource = servicers;
             lst_FundingSourceGroup.DataBind();
-            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
