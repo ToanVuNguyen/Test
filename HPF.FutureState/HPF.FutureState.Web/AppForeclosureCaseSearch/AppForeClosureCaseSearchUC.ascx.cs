@@ -88,9 +88,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             {
                 panForeClosureCaseSearch.Visible = true;
                 ManageControls(false);
-                //
+                //get search criteria
                 var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
-                //
+                //get search info match search criteria
                 var temp = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 //Bind search result
                 grvForeClosureCaseSearch.DataSource = temp;
@@ -101,6 +101,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 if (this.TotalRowNum != 0)
                 {
                     ManageControls(true);
+                    lbtnFirst.Visible = false;
+                    lbtnPrev.Visible = false;
                     int MinRow = (this.PageSize * (PageNum - 1) + 1);
                     int MaxRow = PageNum * this.PageSize;
                     lblTotalRowNum.Text = this.TotalRowNum.ToString();
@@ -111,6 +113,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     else lblMaxRow.Text = MaxRow.ToString();
                     //lblTemp.Text = "1";
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+                    if (totalpage == 1)
+                    {
+                        lbtnFirst.Visible = false;
+                        lbtnLast.Visible = false;
+                        lbtnPrev.Visible = false;
+                        lbtnNext.Visible = false;
+                    }
                     GeneratePages(totalpage);
                     lblTemp.Text = "1";
                 }
