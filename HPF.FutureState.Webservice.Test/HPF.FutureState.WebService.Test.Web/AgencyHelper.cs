@@ -30,7 +30,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
                                //CreateUserId = obj.Element("CreateUserId").Value,                                                               
                                ArmResetInd = obj.Element("ArmResetInd").Value,
-                               //CaseLoanId = Util.ConvertToInt(obj.Element("CaseLoanId").Value),
+                               CaseLoanId = Util.ConvertToInt(obj.Element("CaseLoanId").Value),
                                CurrentLoanBalanceAmt = Util.ConvertToDouble(obj.Element("CurrentLoanBalanceAmt").Value),
                                CurrentServicerNameTbd = obj.Element("CurrentServicerNameTbd").Value,
                                FdicNcusNumCurrentServicerTbd = obj.Element("FdicNcusNumCurrentServicerTbd").Value,
@@ -65,7 +65,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("OutcomeItem")
                            select new OutcomeItemDTO
                            {
-                               //OutcomeItemId = Util.ConvertToInt(obj.Element("OutcomeItemId").Value),
+                               OutcomeItemId = Util.ConvertToInt(obj.Element("OutcomeTypeId").Value),
                                ExtRefOtherName = obj.Element("ExtRefOtherName").Value,
                                //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
                                NonprofitreferralKeyNum = obj.Element("NonprofitreferralKeyNum").Value,
@@ -91,7 +91,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("BudgetAsset")
                            select new BudgetAssetDTO
                            {
-                               //BudgetAssetId = Util.ConvertToInt(obj.Element("BudgetAssetId").Value),
+                               BudgetAssetId = Util.ConvertToInt(obj.Element("BudgetAssetId").Value),
                                //BudgetSetId = Util.ConvertToInt(obj.Element("BudgetSetId").Value),
                                AssetName = obj.Element("AssetName").Value,
                                AssetValue = Util.ConvertToDouble(obj.Element("AssetValue").Value),
@@ -114,7 +114,7 @@ namespace HPF.FutureState.WebService.Test.Web
                            select new BudgetItemDTO
                            {
                                BudgetItemAmt = Util.ConvertToDouble(obj.Element("BudgetItemAmt").Value),
-                               //BudgetItemId = Util.ConvertToInt(obj.Element("BudgetSetId").Value),
+                               BudgetItemId = Util.ConvertToInt(obj.Element("BudgetItemId").Value),
                                BudgetNote = obj.Element("BudgetNote").Value,
                                //BudgetSetId = Util.ConvertToInt(obj.Element("BudgetSetId").Value),
                                BudgetSubcategoryId = Util.ConvertToInt(obj.Element("BudgetSubcategoryId").Value),

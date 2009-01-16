@@ -329,6 +329,7 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvCaseLoan_RowEditing(object sender, GridViewEditEventArgs e)
         {
             grdvCaseLoan.EditIndex = e.NewEditIndex;
+            
             grdvCaseLoanBinding();
              
         }
@@ -446,12 +447,13 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtOtherServiceName = (TextBox)row.FindControl("txtOtherServiceName");
             TextBox txtServicerId = (TextBox)row.FindControl("txtServicerId");
             TextBox txtTermLengthCd = (TextBox)row.FindControl("txtTermLengthCd");
+            Label lblCaseLoanId = (Label)row.FindControl("lblCaseLoanId");
             #endregion
 
             caseLoan.AcctNum = txtAccNum.Text.Trim();
             //caseLoan.ArmLoanInd = txtArmLoanInd.Text.Trim();
             caseLoan.ArmResetInd = txtArmResetInd.Text.Trim();
-            //caseLoan.CaseLoanId = Util.ConvertToInt(txtCaseLoanId.Text.Trim());
+            caseLoan.CaseLoanId = Util.ConvertToInt(lblCaseLoanId.Text.Trim());
             caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDouble(txtCurrentLoanBalanceAmt.Text.Trim());
             caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
             caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
@@ -507,6 +509,7 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtBudgetNote = (TextBox)row.FindControl("txtBudgetNote");
             TextBox txtBudgetSubcategoryId = (TextBox)row.FindControl("txtBudgetSubcategoryId");
             //TextBox txtBudgetItemId = (TextBox)row.FindControl("txtBudgetItemId");
+            Label lblBudgetItemId = (Label)row.FindControl("lblBudgetItemId");
             //TextBox txtBudgetItemSetId = (TextBox)row.FindControl("txtBudgetItemSetId");
 
             BudgetItemDTO budgetItem = new BudgetItemDTO();
@@ -515,8 +518,8 @@ namespace HPF.FutureState.WebService.Test.Web
             budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
 
             budgetItem.CreateUserId = txtCreateUserID.Text.Trim();
-            budgetItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();            
-            //budgetItem.BudgetItemId = Util.ConvertToInt(txtBudgetItemId.Text.Trim());
+            budgetItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            budgetItem.BudgetItemId = Util.ConvertToInt(lblBudgetItemId.Text.Trim());
             //budgetItem.BudgetSetId = Util.ConvertToInt(txtBudgetItemSetId.Text.Trim());
             return budgetItem;
         }
@@ -648,14 +651,15 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtAssetValue = (TextBox)row.FindControl("txtAssetValue");
             //TextBox txtBudgetAssetID = (TextBox)row.FindControl("txtBudgetAssetID");
             //TextBox txtBudgetID = (TextBox)row.FindControl("txtBudgetID");
+            Label lblBudgetAssetID = (Label)row.FindControl("lblBudgetAssetID");
 
             BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
             budgetAsset.AssetName = txtAssetName.Text.Trim();
             budgetAsset.AssetValue = Util.ConvertToDouble(txtAssetValue.Text.Trim());
             budgetAsset.CreateUserId = txtCreateUserID.Text.Trim();
             budgetAsset.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
-            //budgetAsset.BudgetAssetId = Util.ConvertToInt(txtBudgetAssetID.Text.Trim());
-            //budgetAsset.BudgetSetId = Util.ConvertToInt(txtBudgetID.Text.Trim());
+            budgetAsset.BudgetAssetId = Util.ConvertToInt(lblBudgetAssetID.Text.Trim());
+            //budgetAsset.BudgetSetId = Util.ConvertToInt(txtBudgetSetID.Text.Trim());
             return budgetAsset;
         }
         protected void grdvBudgetAsset_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
@@ -919,6 +923,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //TextBox txtOutcomeItemId = (TextBox)row.FindControl("txtOutcomeItemId");
             //TextBox txtOutcomeSetId = (TextBox)row.FindControl("txtOutcomeSetId");
             TextBox txtOutcomeTypeId = (TextBox)row.FindControl("txtOutcomeTypeId");
+            Label lblOutcomeItemId = (Label)row.FindControl("lblOutcomeItemId");
 
             OutcomeItemDTO outcomeItem = new OutcomeItemDTO();
             outcomeItem.ExtRefOtherName = txtExtRefOtherName.Text.Trim();
@@ -929,10 +934,10 @@ namespace HPF.FutureState.WebService.Test.Web
             outcomeItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             //outcomeItem.OutcomeDeletedDt = Util.ConvertToDateTime(txtOutcomeDeletedDt.Text.Trim());
             //outcomeItem.OutcomeDt = Util.ConvertToDateTime(txtOutcomeDt.Text.Trim());
-            //outcomeItem.OutcomeItemId = Util.ConvertToInt(txtOutcomeItemId.Text.Trim());
+            
             //outcomeItem.OutcomeSetId = Util.ConvertToInt(txtOutcomeSetId.Text.Trim());
             outcomeItem.OutcomeTypeId = Util.ConvertToInt(txtOutcomeTypeId.Text.Trim());
-            
+            outcomeItem.OutcomeItemId = Util.ConvertToInt(lblOutcomeItemId.Text.Trim());
             
             return outcomeItem;
         }

@@ -1105,9 +1105,9 @@
             <asp:TemplateField HeaderText="Case Loan ID" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>
-                </EditItemTemplate>
+                </EditItemTemplate>--%>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtCaseLoanId" runat="server"></asp:TextBox> </FooterTemplate>--%>
+                    <asp:Label ID="lblCaseLoanId" runat="server"></asp:Label> </FooterTemplate>
                 <ItemTemplate>
                     <asp:Label ID="lblCaseLoanId" runat="server" Text='<%# Bind("CaseLoanId") %>'></asp:Label>
                 </ItemTemplate>
@@ -1190,9 +1190,9 @@
             <asp:TemplateField HeaderText="ID" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtBudgetItemId" runat="server" Text='<%# Eval("BudgetItemId") %>'></asp:TextBox>
-                </EditItemTemplate>
+                </EditItemTemplate>--%>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtBudgetItemId" runat="server"></asp:TextBox> </FooterTemplate>--%>
+                    <asp:Label ID="lblBudgetItemId" runat="server"></asp:Label> </FooterTemplate>
                 <ItemTemplate>
                     <asp:Label ID="lblBudgetItemId" runat="server" Text='<%# Bind("BudgetItemId") %>'></asp:Label>
                 </ItemTemplate>
@@ -1261,11 +1261,11 @@
             <asp:TemplateField HeaderText="Budget Asset ID" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtServicerId" runat="server" Text='<%# Eval("BudgetAssetId") %>'></asp:TextBox>
-                </EditItemTemplate>
+                </EditItemTemplate>--%>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtServicerId" runat="server"></asp:TextBox> </FooterTemplate>--%>
+                    <asp:Label ID="lblBudgetAssetId" runat="server"></asp:Label> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("BudgetAssetId") %>'></asp:Label>
+                    <asp:Label ID="lblBudgetAssetId" runat="server" Text='<%# Bind("BudgetAssetId") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>            
@@ -1465,9 +1465,9 @@
             <asp:TemplateField HeaderText="ID" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtOutcomeItemId" runat="server" Text='<%# Eval("OutcomeItemId") %>'></asp:TextBox>
-                </EditItemTemplate>
+                </EditItemTemplate>--%>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtOutcomeItemId" runat="server"></asp:TextBox> </FooterTemplate>--%>
+                    <asp:Label ID="lblOutcomeItemId" runat="server"></asp:Label> </FooterTemplate>
                 <ItemTemplate>
                     <asp:Label ID="lblOutcomeItemId" runat="server" Text='<%# Bind("OutcomeItemId") %>'></asp:Label>
                 </ItemTemplate>
