@@ -35,7 +35,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void LoadDefaultFcCase()
         {
-            string filename = ConfigurationManager.AppSettings["ForeclosureCaseSetXML"];
+            string filename = MapPath(ConfigurationManager.AppSettings["ForeclosureCaseSetXML"]);
             XDocument xdoc = GetXmlDocument(filename);
             BindToForm(xdoc);
         }
@@ -467,6 +467,8 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.ServicerId = Util.ConvertToInt(txtServicerId.Text.Trim());
             caseLoan.TermLengthCd = txtTermLengthCd.Text.Trim();
 
+            caseLoan.CreateUserId = txtCreateUserID.Text.Trim();
+            caseLoan.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             return caseLoan;
 
         }
@@ -508,6 +510,9 @@ namespace HPF.FutureState.WebService.Test.Web
             budgetItem.BudgetItemAmt = Util.ConvertToDouble(txtBudgetItemAmt.Text.Trim());
             budgetItem.BudgetNote = txtBudgetNote.Text.Trim();
             budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
+
+            budgetItem.CreateUserId = txtCreateUserID.Text.Trim();
+            budgetItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();            
             //budgetItem.BudgetItemId = Util.ConvertToInt(txtBudgetItemId.Text.Trim());
             //budgetItem.BudgetSetId = Util.ConvertToInt(txtBudgetItemSetId.Text.Trim());
             return budgetItem;
@@ -644,6 +649,8 @@ namespace HPF.FutureState.WebService.Test.Web
             BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
             budgetAsset.AssetName = txtAssetName.Text.Trim();
             budgetAsset.AssetValue = Util.ConvertToDouble(txtAssetValue.Text.Trim());
+            budgetAsset.CreateUserId = txtCreateUserID.Text.Trim();
+            budgetAsset.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             //budgetAsset.BudgetAssetId = Util.ConvertToInt(txtBudgetAssetID.Text.Trim());
             //budgetAsset.BudgetSetId = Util.ConvertToInt(txtBudgetID.Text.Trim());
             return budgetAsset;
@@ -914,6 +921,9 @@ namespace HPF.FutureState.WebService.Test.Web
             outcomeItem.ExtRefOtherName = txtExtRefOtherName.Text.Trim();
             //outcomeItem.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
             outcomeItem.NonprofitreferralKeyNum = txtNonprofitreferralKeyNum.Text.Trim();
+
+            outcomeItem.CreateUserId = txtCreateUserID.Text.Trim();
+            outcomeItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             //outcomeItem.OutcomeDeletedDt = Util.ConvertToDateTime(txtOutcomeDeletedDt.Text.Trim());
             //outcomeItem.OutcomeDt = Util.ConvertToDateTime(txtOutcomeDt.Text.Trim());
             //outcomeItem.OutcomeItemId = Util.ConvertToInt(txtOutcomeItemId.Text.Trim());
