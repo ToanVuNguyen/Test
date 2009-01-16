@@ -533,30 +533,33 @@ namespace HPF.FutureState.DataAccess
         {
             var dbConnection = CreateConnection();
             dbConnection.Open();
+            var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
             var command = CreateSPCommand("hpf_foreclosure_case_update_app", dbConnection);
+            command.Transaction = trans;
+            var sqlParam = new SqlParameter[11];
+            sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
+            sqlParam[1] = new SqlParameter("@pi_duplicate_ind", foreclosureCase.DuplicateInd);
+            sqlParam[2] = new SqlParameter("@pi_loan_dflt_reason_notes", foreclosureCase.LoanDfltReasonNotes);
+            sqlParam[3] = new SqlParameter("@pi_action_items_notes", foreclosureCase.ActionItemsNotes);
+            sqlParam[4] = new SqlParameter("@pi_followup_notes", foreclosureCase.FollowupNotes);
+            sqlParam[5] = new SqlParameter("@pi_opt_out_newsletter_ind", foreclosureCase.OptOutNewsletterInd);
+            sqlParam[6] = new SqlParameter("@pi_opt_out_survey_ind", foreclosureCase.OptOutSurveyInd);
+            sqlParam[7] = new SqlParameter("@pi_do_not_call_ind", foreclosureCase.DoNotCallInd);
+            sqlParam[8] = new SqlParameter("@pi_hpf_media_candidate_ind", foreclosureCase.HpfMediaCandidateInd);
+            sqlParam[9] = new SqlParameter("@pi_hpf_success_story_ind", foreclosureCase.HpfSuccessStoryInd);
+            sqlParam[10] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
+            //</Parameter>            
+            command.Parameters.AddRange(sqlParam);
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[11];
-                sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
-                sqlParam[1] = new SqlParameter("@pi_duplicate_ind", foreclosureCase.DuplicateInd);
-                sqlParam[2] = new SqlParameter("@pi_loan_dflt_reason_notes", foreclosureCase.LoanDfltReasonNotes);
-                sqlParam[3] = new SqlParameter("@pi_action_items_notes", foreclosureCase.ActionItemsNotes);
-                sqlParam[4] = new SqlParameter("@pi_followup_notes", foreclosureCase.FollowupNotes);
-                sqlParam[5] = new SqlParameter("@pi_opt_out_newsletter_ind", foreclosureCase.OptOutNewsletterInd);
-                sqlParam[6] = new SqlParameter("@pi_opt_out_survey_ind", foreclosureCase.OptOutSurveyInd);
-                sqlParam[7] = new SqlParameter("@pi_do_not_call_ind", foreclosureCase.DoNotCallInd);
-                sqlParam[8] = new SqlParameter("@pi_hpf_media_candidate_ind", foreclosureCase.HpfMediaCandidateInd);
-                sqlParam[9] = new SqlParameter("@pi_hpf_success_story_ind", foreclosureCase.HpfSuccessStoryInd);
-                sqlParam[10] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
-                //</Parameter>            
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
                 command.ExecuteNonQuery();
                 foreclosureCase.FcId = ConvertToInt(sqlParam[10].Value);
+                trans.Commit();
             }
             catch (Exception Ex)
             {
+                trans.Rollback();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
