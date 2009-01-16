@@ -15,7 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime CreateDate { get; set; }
 
 
-        [StringRequiredValidator(MessageTemplate = "Create User ID is required", Ruleset = "Min Request Validate")]
+        [StringRequiredValidator(MessageTemplate = "Create User ID is required", Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [StringRequiredValidator(MessageTemplate = "Create User ID is required", Ruleset = "Default")]
         public string CreateUserId { get; set; }
 
@@ -26,7 +26,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime ChangeLastDate { get; set; }
 
 
-        [StringRequiredValidator(MessageTemplate = "Last change User ID is required", Ruleset = "Min Request Validate")]
+        [StringRequiredValidator(MessageTemplate = "Last change User ID is required", Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [StringRequiredValidator(MessageTemplate = "Last change User ID is required", Ruleset = "Default")]
         public string ChangeLastUserId { get; set; }
 
