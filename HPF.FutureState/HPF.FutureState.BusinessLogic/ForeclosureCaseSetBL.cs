@@ -183,10 +183,10 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty || fcCase.AgencyId == 0)
-                ThrowDataValidationException("ERR250");
+                ThrowDataValidationException(ErrorMessages.ERR250);
             
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
-                ThrowDataValidationException("ERR254");                            
+                ThrowDataValidationException(ErrorMessages.ERR254);                            
             
             return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -199,11 +199,11 @@ namespace HPF.FutureState.BusinessLogic
             //check fcid in db or not
             ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fc.FcId);
             if (dbFcCase == null)
-                ThrowDataValidationException("ERR251");
+                ThrowDataValidationException(ErrorMessages.ERR251);
 
             //check valid fcCase for Agency
             if (dbFcCase.AgencyId != fc.AgencyId)
-                ThrowDataValidationException("ERR252");
+                ThrowDataValidationException(ErrorMessages.ERR252);
 
             if (CheckInactiveCase(foreclosureCaseSet.ForeclosureCase.FcId))                
                 return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
@@ -920,7 +920,7 @@ namespace HPF.FutureState.BusinessLogic
         private static void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
         {
             if (caseLoanCollecion != null)
-            {
+            {                
                 foreach (CaseLoanDTO items in caseLoanCollecion)
                 {
                     items.SetUpdateTrackingInformation(items.ChangeLastUserId);
