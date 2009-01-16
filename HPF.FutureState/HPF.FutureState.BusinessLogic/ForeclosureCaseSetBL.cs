@@ -1285,6 +1285,10 @@ namespace HPF.FutureState.BusinessLogic
             if (msgZip != null && msgZip.Count != 0)
                 msgFcCaseSet.Add(msgZip);
 
+            ExceptionMessageCollection msgAgencyId = CheckValidAgencyId(foreclosureCase);
+            if (msgAgencyId != null && msgAgencyId.Count != 0)
+                msgFcCaseSet.Add(msgAgencyId);
+
             ExceptionMessageCollection msgProgramId = CheckValidProgramId(foreclosureCase);
             if (msgProgramId != null && msgProgramId.Count != 0)
                 msgFcCaseSet.Add(msgProgramId);
@@ -1376,12 +1380,14 @@ namespace HPF.FutureState.BusinessLogic
             for (int i = 0; i < caseLoanCollection.Count; i++)
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
+                if (!referenceCode.Validate(ReferenceCode.Loan1st2nd, caseLoan.Loan1st2nd))
+                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for Loan1st2nd " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd))
-                    msgFcCaseSet.AddExceptionMessage("MortgageTypeCode " + (i + 1) + " is bad code data");
+                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for MortgageTypeCode " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.TermLengthCode, caseLoan.TermLengthCd))
-                    msgFcCaseSet.AddExceptionMessage("TermLengthCode " + (i + 1) + " is bad code data");
+                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for TermLengthCode " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd))
-                    msgFcCaseSet.AddExceptionMessage("LoanDelinqStatusCode " + (i + 1) + "  is bad code data");
+                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for LoanDelinqStatusCode " + (i + 1));
             }
             return msgFcCaseSet;  
         }
@@ -1447,9 +1453,23 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (forclosureCase.ContactZip.Length != 5)
-                msgFcCaseSet.AddExceptionMessage("ContactZip is invalid");
+                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for ContactZip");
             if (forclosureCase.PropZip.Length != 5)
-                msgFcCaseSet.AddExceptionMessage("PropZip is invalid");
+                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for PropZip");
+            return msgFcCaseSet;
+        }
+
+        /// <summary>
+        /// Check valid AgencyId
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private ExceptionMessageCollection CheckValidAgencyId(ForeclosureCaseDTO forclosureCase)
+        {
+            string agencyName = foreclosureCaseSetDAO.GetAgencyName(forclosureCase.AgencyId);
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if(agencyName == null)
+                msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for AgencyId");            
             return msgFcCaseSet;
         }
 
@@ -1470,7 +1490,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (item.ProgramID == programId.ToString())
                     return null;
             }
-            msgFcCaseSet.AddExceptionMessage("ProgramId is invalid");
+            msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for ProgramId");
             return msgFcCaseSet;
         }
 
@@ -1489,7 +1509,7 @@ namespace HPF.FutureState.BusinessLogic
                 BudgetItemDTO item =  budgetItem[i];
                 bool isValid = CheckBudgetSubcategory(item);
                 if(!isValid)
-                    msgFcCaseSet.AddExceptionMessage("Budget item " + (i+1)+ " is invalid BudgetSubcategoryId");
+                    msgFcCaseSet.AddExceptionMessage("Budget item " + (i + 1) + " was provided invalid BudgetSubcategoryId");
             }
             return msgFcCaseSet;
         }
@@ -1523,7 +1543,7 @@ namespace HPF.FutureState.BusinessLogic
                 OutcomeItemDTO item = outcomeItem[i];
                 bool isValid = CheckOutcomeType(item);
                 if (!isValid)
-                    msgFcCaseSet.AddExceptionMessage("Outcome item " + (i + 1) + " is invalid OutcomeTypeId");
+                    msgFcCaseSet.AddExceptionMessage("Outcome item " + (i + 1) + " was provided invalid OutcomeTypeId");
             }
             return msgFcCaseSet;
         }

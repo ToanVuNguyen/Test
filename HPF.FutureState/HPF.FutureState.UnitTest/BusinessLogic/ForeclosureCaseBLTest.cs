@@ -946,6 +946,25 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
 
         /// <summary>
+        ///A test for CheckInactiveCase with FcId without CompleteDate
+        ///Case True
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckAgencyId()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO foreclosureCase = SetForeclosureCase("FALSE");
+            foreclosureCase.AgencyId = 2;
+            ExceptionMessageCollection actual;
+            target.InitiateTransaction();
+            actual = target.CheckValidAgencyId(foreclosureCase);
+            target.CompleteTransaction();
+            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
         ///A test for CheckInactiveCase without FcId
         ///Case True
         ///</summary>
