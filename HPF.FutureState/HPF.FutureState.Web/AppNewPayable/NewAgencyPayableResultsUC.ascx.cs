@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.Web.AppNewPayable
 {
@@ -150,9 +151,14 @@ namespace HPF.FutureState.Web.AppNewPayable
                 AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
                 agencyPayableSearchCriteria = GetCriteria();
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
+                for (int i = 0; i < this.FCDraftCol.Count; i++)
+                {
+                    this.FCDraftCol[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                }
                 agencyPayableDraftDTO.ForclosureCaseDrafts = this.FCDraftCol;
                 agencyPayableDraftDTO.TotalAmount = decimal.Parse(lblTotalAmount.Text.ToString());
                 agencyPayableDraftDTO.TotalCases = this.FCDraftCol.Count;
+                agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
                 lblMessage.Text = "Generate succesfull.";
             }
@@ -189,7 +195,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
-            string query = "?agencyid="+lblAgency.Text.ToString();
+            string query = "?agency="+lblAgency.Text.Trim().ToString();
             Response.Redirect("NewPayableCriteria.aspx"+query);
         }
     }
