@@ -61,7 +61,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlPropertyState.DataTextField = "StateName";
             ddlPropertyState.DataSource = stateCollection;
             ddlPropertyState.DataBind();
-            //ddlPropertyState.Items.FindByText("ALL").Selected = true;
         }
         protected void BindAgencyDropdownlist()
         {
@@ -122,10 +121,12 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (DataValidationException ex)
             {
-
+                panForeClosureCaseSearch.Visible = false;
+                lblErrorMessage.Text += ex.Message;
+                lblErrorMessage.Text += "<br>";
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
-                    panForeClosureCaseSearch.Visible = false;
+                   
                     lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
                     lblErrorMessage.Text += " <br>";
                 }                

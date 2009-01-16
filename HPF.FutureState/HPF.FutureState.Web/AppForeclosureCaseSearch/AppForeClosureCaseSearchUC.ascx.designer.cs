@@ -14,6 +14,33 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
     public partial class AppForeClosureCaseSearchUC {
         
         /// <summary>
+        /// txtLoanNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLoanNum;
+        
+        /// <summary>
+        /// txtForeclosureCaseID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtForeclosureCaseID;
+        
+        /// <summary>
+        /// ddlDup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDup;
+        
+        /// <summary>
         /// txtSSN control.
         /// </summary>
         /// <remarks>
@@ -32,33 +59,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.TextBox txtAgencyCaseID;
         
         /// <summary>
-        /// ddlDup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDup;
-        
-        /// <summary>
-        /// txtLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
-        /// <summary>
-        /// txtLoanNum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLoanNum;
-        
-        /// <summary>
         /// ddlAgency control.
         /// </summary>
         /// <remarks>
@@ -68,13 +68,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.DropDownList ddlAgency;
         
         /// <summary>
-        /// txtFirstName control.
+        /// txtLastName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
+        protected global::System.Web.UI.WebControls.TextBox txtLastName;
         
         /// <summary>
         /// txtPropertyZip control.
@@ -95,13 +95,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.DropDownList ddlProgram;
         
         /// <summary>
-        /// txtForeclosureCaseID control.
+        /// txtFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtForeclosureCaseID;
+        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
         
         /// <summary>
         /// ddlPropertyState control.
@@ -113,49 +113,22 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.DropDownList ddlPropertyState;
         
         /// <summary>
-        /// btnSearch control.
+        /// ddlServicer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.DropDownList ddlServicer;
         
         /// <summary>
-        /// txtSSNCheckValidator control.
+        /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtSSNCheckValidator;
-        
-        /// <summary>
-        /// txtAgencyCaseIDCheckValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtAgencyCaseIDCheckValidator;
-        
-        /// <summary>
-        /// txtLoanNumCheckValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtLoanNumCheckValidator;
-        
-        /// <summary>
-        /// txtPropertyZipCheckValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet.PropertyProxyValidator txtPropertyZipCheckValidator;
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
         
         /// <summary>
         /// RegularExpressionValidator1 control.
@@ -167,13 +140,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
-        /// lblErrorMessage control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
         /// panForeClosureCaseSearch control.
@@ -291,14 +264,5 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTemp;
-        
-        /// <summary>
-        /// lblTemp1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTemp1;
     }
 }

@@ -8,9 +8,9 @@
 
 <table width="100%">
     <colgroup>
+        <col width="15%" />
+        <col width="15%" />
         <col width="20%" />
-        <col width="15%" />
-        <col width="15%" />
         <col width="15%" />
         <col width="10%" />
         <col width="25%" />
@@ -36,7 +36,7 @@
             Foreclosure Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10"></asp:TextBox>
+            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10"  CssClass="Text"></asp:TextBox>
         </td>
       
         <td align="right" class="sidelinks">
