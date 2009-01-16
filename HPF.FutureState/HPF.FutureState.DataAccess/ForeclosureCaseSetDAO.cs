@@ -1286,8 +1286,10 @@ namespace HPF.FutureState.DataAccess
                     reader.Close();
                 }
                 else
+                {
                     reader.Close();
                     returnString = string.Empty;
+                }
 
             }
             catch (Exception Ex)
@@ -1322,8 +1324,10 @@ namespace HPF.FutureState.DataAccess
                     reader.Close();
                 }
                 else
+                {
                     reader.Close();
-                returnString = string.Empty;
+                    returnString = string.Empty;
+                }
 
             }
             catch (Exception Ex)
