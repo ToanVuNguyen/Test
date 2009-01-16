@@ -37,7 +37,7 @@ namespace HPF.FutureState.BusinessLogic
                 //-----------
                 invoice.PeriodStartDate = invoiceDraft.PeriodStartDate;
                 invoice.PeriodEndDate = invoiceDraft.PeriodEndDate;
-                invoice.InvoicePaymentAmount = (double)invoiceDraft.TotalAmount;
+                invoice.InvoiceBillAmount = (double)invoiceDraft.TotalAmount;
                 invoice.FundingSourceId = int.Parse(invoiceDraft.FundingSourceId);
                 invoice.StatusCode = "ACTIVE";
                 invoice.ChangeLastAppName = invoiceDraft.ChangeLastAppName;
@@ -45,6 +45,7 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.ChangeLastUserId = invoiceDraft.ChangeLastUserId;
                 invoice.CreateAppName = invoiceDraft.CreateAppName;
                 invoice.CreateDate = invoiceDraft.CreateDate;
+                invoice.InvoiceDate = invoice.CreateDate;
                 invoice.CreateUserId = invoiceDraft.CreateUserId;
                 //Insert Invoice
                 int invoiceId = -1;
