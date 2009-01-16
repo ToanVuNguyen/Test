@@ -13,7 +13,6 @@ using HPF.FutureState.Common;
 using System.Collections.ObjectModel;
 
 
-
 namespace HPF.FutureState.BusinessLogic
 {
     public class AgencyPayableBL: BaseBusinessLogic
@@ -39,17 +38,15 @@ namespace HPF.FutureState.BusinessLogic
             AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();            
             try
             {                
-                //agencyPayableDAO.Begin();
                 AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
+                agencyPayable.SetInsertTrackingInformation(agencyPayableDraft.CreateUserId);
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
                 //agencyPayable.AccountLinkTBD = "";
                 //agencyPayable.TotalCases = agencyPayableDraft.TotalCases;
-                //agencyPayable.CreateDate = DateTime.Now;
                 agencyPayable.AgencyPayablePaymentAmount = agencyPayableDraft.TotalAmount;
                 agencyPayable.StatusCode = "ACTIVE";
-                //Insert Agency Payable
                 int agencyPayableId = 0;
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable);
                 //Insert Acency Payable Case
@@ -57,23 +54,20 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)
                 {
                     AgencyPayableCaseDTO agencyPayableCase = new AgencyPayableCaseDTO();
+                    agencyPayableCase.SetInsertTrackingInformation(fCaseDraf.CreateUserId);
                     agencyPayableCase.ForeclosureCaseId = fCaseDraf.ForeclosureCaseId;
                     agencyPayableCase.AgencyPayableId = agencyPayableId;
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.PaymentAmount = fCaseDraf.Amount;
-                    agencyPayableCase.NFMCDiffererencePaidIndicator = "";
-                    //-------------
                     agencyPayableCase.AgencyName = "";
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.NFMCDifferenceEligibleInd = "N";
-                    agencyPayableCase.NFMCDifferenceInd = "N";
+                    agencyPayableCase.NFMCDiffererencePaidInd= "N";
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
                 }
-               // agencyPayableDAO.Commit();
             }
             catch (Exception)
             {
-                //agencyPayableDAO.Cancel();
                 throw;
             }
             return true;
