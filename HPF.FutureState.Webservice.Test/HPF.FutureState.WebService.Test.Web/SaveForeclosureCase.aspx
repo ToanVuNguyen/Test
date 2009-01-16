@@ -65,13 +65,14 @@
     <br />
     <table >
         <tr>
-            <%--<td>
+            <td>
                 <asp:Label CssClass = "sidelinks" ID="Label1" runat="server" Text="FCID"></asp:Label>             
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtFcID" runat="server"></asp:TextBox>
-            </td>--%>
-            
+            </td>
+        </tr>
+        <tr>            
             <td>
                 <asp:Label CssClass = "sidelinks" ID="Label5" runat="server" Text="Agency ID"></asp:Label>             
             </td>

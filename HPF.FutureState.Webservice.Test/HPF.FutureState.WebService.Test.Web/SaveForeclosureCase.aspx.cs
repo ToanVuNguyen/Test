@@ -115,7 +115,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //fcCase.DuplicateInd = txtDuplicateInd.Text.Trim();
             fcCase.Email1 = txtEmail1.Text.Trim();
             fcCase.Email2 = txtEmail2.Text.Trim();
-            //fcCase.FcId = Util.ConvertToInt(txtFcID.Text.Trim());
+            fcCase.FcId = Util.ConvertToInt(txtFcID.Text.Trim());
             fcCase.FcNoticeReceiveInd = txtFcNoticeReceivedInd.Text.Trim();
             //fcCase.FcSaleDateSetInd = txtFcSaleDateSetInd.Text.Trim();
             fcCase.FollowupNotes = txtFollowupNotes.Text.Trim();
@@ -295,6 +295,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
                 txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
+                txtCreateUserID.Text = fcCase.CreateUserId.ToString();
+                txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
             }
         }
        

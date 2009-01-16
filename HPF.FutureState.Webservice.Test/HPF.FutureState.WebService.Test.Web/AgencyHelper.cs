@@ -272,7 +272,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                CreateUserId = obj.Element("CreateUserId").Value
                                
                            };
-                return objs.ToList<ForeclosureCaseDTO>()[0];
+                ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];
+                return fcCase;
             }
             catch (NullReferenceException ex)
             {
