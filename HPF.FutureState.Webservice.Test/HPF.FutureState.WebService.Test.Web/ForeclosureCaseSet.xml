@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ForeclosureCaseSet>
   <ForeclosureCase>
-    <AgencyId>1</AgencyId>
+    <AgencyId>2</AgencyId>
     <CallId>CallId</CallId>
     <ProgramId>101</ProgramId>
     <AgencyCaseNum>123456</AgencyCaseNum>
@@ -101,8 +101,8 @@
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>
-      <!--<CaseLoanId>1</CaseLoanId>
-      <FcId>1</FcId>-->
+      <CaseLoanId>1</CaseLoanId>
+      <!--<FcId>1</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum</AcctNum>
@@ -126,8 +126,8 @@
       <ChangeLastUserId>Agency1</ChangeLastUserId>-->
     </CaseLoan>
     <CaseLoan>
-      <!--<CaseLoanId>2</CaseLoanId>
-      <FcId>2</FcId>-->
+      <CaseLoanId>2</CaseLoanId>
+      <!--<FcId>2</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum</AcctNum>
@@ -151,8 +151,8 @@
       <ChangeLastUserId>Agency1</ChangeLastUserId> -->
     </CaseLoan>
     <CaseLoan>
-      <!--<CaseLoanId>3</CaseLoanId>
-      <FcId>3</FcId>-->
+      <CaseLoanId>3</CaseLoanId>
+      <!--<FcId>3</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName ></OtherServicerName>
       <AcctNum>12345</AcctNum>
@@ -177,8 +177,7 @@
     </CaseLoan>
   </CaseLoanSet>
   <OutcomeSet>
-    <OutcomeItem>
-      
+    <OutcomeItem>      
       <OutcomeTypeId >1</OutcomeTypeId>
       <NonprofitreferralKeyNum ></NonprofitreferralKeyNum>
       <ExtRefOtherName ></ExtRefOtherName>
@@ -193,24 +192,24 @@
   </OutcomeSet>
   <BudgetAssetSet>
     <BudgetAsset>
-      
+      <BudgetAssetId>1</BudgetAssetId>
       <AssetName></AssetName>
       <AssetValue></AssetValue>
       <!--<CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId>
-      <BudgetAssetId>1</BudgetAssetId>
+      
       <BudgetSetId ></BudgetSetId>-->
     </BudgetAsset>
   </BudgetAssetSet>
   <BudgetItemSet>
     <BudgetItem>
-      
+      <BudgetItemId>1</BudgetItemId>
       <BudgetSubcategoryId>1</BudgetSubcategoryId>
       <BudgetItemAmt>100</BudgetItemAmt>
       <BudgetNote></BudgetNote>
       <!--<CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId>
-      <BudgetItemId>1</BudgetItemId>
+      
       <BudgetSetId></BudgetSetId>-->
     </BudgetItem>
   </BudgetItemSet>
