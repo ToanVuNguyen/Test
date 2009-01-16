@@ -65,7 +65,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.AgencyCaseNum = txtAgencyCaseNumber.Text.Trim();
             fcCase.AgencyClientNum = txtAgencyClientNumber.Text.Trim();
             fcCase.AgencyId = Util.ConvertToInt(txtAgencyID.Text.Trim());
-            fcCase.AgencyMediaConsentInd = txtAgencyMediaConsentInd.Text.Trim();
+            fcCase.AgencyMediaInterestInd = txtAgencyMediaConsentInd.Text.Trim();
             fcCase.AgencySuccessStoryInd = txtAgencySuccessStory.Text.Trim();
             //fcCase.AmiPercentage = Util.ConvertToInt(txtAMIPercentage.Text.Trim());
             fcCase.AssignedCounselorIdRef = txtAssignedCounselorIDRef.Text.Trim();
@@ -171,7 +171,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.SummarySentOtherDt = Util.ConvertToDateTime(txtSummarySentOtherDt.Text.Trim());
             fcCase.WorkedWithAnotherAgencyInd = txtWorkedWithAnotherAgencyInd.Text.Trim();
             fcCase.FcSaleDate = Util.ConvertToDateTime(txtFcSaleDate.Text.Trim());
-            
+            fcCase.CreateUserId = txtCreateUserID.Text.Trim();
 
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
 
@@ -188,7 +188,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtAgencyCaseNumber.Text = fcCase.AgencyCaseNum.ToString();
                 txtAgencyClientNumber.Text = fcCase.AgencyClientNum.ToString();
                 txtAgencyID.Text = fcCase.AgencyId.ToString();
-                txtAgencyMediaConsentInd.Text = fcCase.AgencyMediaConsentInd.ToString();
+                txtAgencyMediaConsentInd.Text = fcCase.AgencyMediaInterestInd.ToString();
                 txtAgencySuccessStory.Text = fcCase.AgencySuccessStoryInd.ToString();
                 //txtAMIPercentage.Text = fcCase.AmiPercentage.ToString();
                 txtAssignedCounselorIDRef.Text = fcCase.AssignedCounselorIdRef.ToString();

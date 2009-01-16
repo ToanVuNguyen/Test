@@ -162,7 +162,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                AgencyCaseNum = obj.Element("AgencyCaseNum").Value,
                                AgencyClientNum = obj.Element("AgencyClientNum").Value,
                                AgencyId = Util.ConvertToInt(obj.Element("AgencyId").Value),
-                               AgencyMediaConsentInd = obj.Element("AgencyMediaConsentInd").Value,
+                               AgencyMediaInterestInd = obj.Element("AgencyMediaConsentInd").Value,
                                AgencySuccessStoryInd = obj.Element("AgencySuccessStoryInd").Value,
                                //AmiPercentage = Util.ConvertToInt(obj.Element("AmiPercentage").Value),
                                AssignedCounselorIdRef = obj.Element("AssignedCounselorIdRef").Value,
@@ -268,7 +268,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                SummarySentOtherCd = obj.Element("SummarySentOtherCd").Value,
                                SummarySentOtherDt = Util.ConvertToDateTime(obj.Element("SummarySentOtherDt").Value),
                                WorkedWithAnotherAgencyInd = obj.Element("WorkedWithAnotherAgencyInd").Value,
-                               ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
+                               ChangeLastUserId = obj.Element("ChangeLastUserId").Value,                               
                                CreateUserId = obj.Element("CreateUserId").Value
                                
                            };
