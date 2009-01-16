@@ -1403,7 +1403,7 @@ namespace HPF.FutureState.DataAccess
                         obj.ServicerName = ConvertToString(reader["servicer_name"]);
                         obj.PropertyZip = ConvertToString(reader["prop_zip"]);
                         obj.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
-                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_cd"]);
+                        obj.OutcomeTypeCode = ConvertToString(reader["outcome_type_name"]);
 
                         returnCollection.Add(obj);
                     }
