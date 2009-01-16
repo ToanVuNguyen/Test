@@ -11,14 +11,7 @@ namespace HPF.FutureState.DataAccess
 {
     public class AgencyPayableDAO: BaseDAO
     {
-        # region Private variables
-        private SqlConnection dbConnection;
-        /// <summary>
-        /// Share transaction for AgencyPayableCase and AgencyPayable
-        /// </summary>
-        private SqlTransaction trans;
-        #endregion
-
+       
         protected AgencyPayableDAO()
         { 
         }
@@ -36,31 +29,43 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public void InsertAgencyPayableCase(AgencyPayableCaseDTO agencyPayableCase)
         {
-            var command = CreateCommand("hpf_agency_payable_case_insert", this.dbConnection);
+            var dbConnection = CreateConnection();
+            SqlTransaction trans = null;
+            var command = CreateSPCommand("hpf_agency_payable_case_insert",dbConnection);       
             //<Parameter>
+            var sqlParam = new SqlParameter[12];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", agencyPayableCase.ForeclosureCaseId);
+            sqlParam[1] = new SqlParameter("@pi_agency_payable_id", agencyPayableCase.AgencyPayableId);
+            sqlParam[2] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayableCase.PaymentDate));
+            sqlParam[3] = new SqlParameter("@pi_pmt_amt", agencyPayableCase.PaymentAmount);
+            sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(agencyPayableCase.CreateDate));
+            sqlParam[5] = new SqlParameter("@pi_create_user_id", agencyPayableCase.CreateUserId);
+            sqlParam[6] = new SqlParameter("@pi_create_app_name", agencyPayableCase.CreateAppName);
+            sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayableCase.ChangeLastDate));
+            sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableCase.ChangeLastUserId);
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableCase.ChangeLastAppName);
+            sqlParam[10] = new SqlParameter("@pi_NFMC_difference_paid_ind", agencyPayableCase.NFMCDiffererencePaidInd);
+            sqlParam[11] = new SqlParameter("@pi_NFMC_difference_eligible_ind ", agencyPayableCase.NFMCDifferenceEligibleInd);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);            
             try
             {
-                var sqlParam = new SqlParameter[11];
-                sqlParam[0] = new SqlParameter("@pi_fc_id", agencyPayableCase.ForeclosureCaseId);
-                sqlParam[1] = new SqlParameter("@pi_agency_payable_id", agencyPayableCase.AgencyPayableId);
-                sqlParam[2] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayableCase.PaymentDate));
-                sqlParam[3] = new SqlParameter("@pi_pmt_amt", agencyPayableCase.PaymentAmount);
-                sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(agencyPayableCase.CreateDate));
-                sqlParam[5] = new SqlParameter("@pi_create_user_id", agencyPayableCase.CreateUserId);
-                sqlParam[6] = new SqlParameter("@pi_create_app_name", agencyPayableCase.CreateAppName);
-                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayableCase.ChangeLastDate));
-                sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableCase.ChangeLastUserId);
-                sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableCase.ChangeLastAppName);
-                sqlParam[10] = new SqlParameter("@pi_NFMC_difference_paid_ind", agencyPayableCase.NFMCDiffererencePaidIndicator);
-                //</Parameter>
-                command.Parameters.AddRange(sqlParam);
-                command.Transaction = this.trans;
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+                command.Transaction = trans;                                
                 command.ExecuteNonQuery();
+                trans.Commit();
             }
             catch (Exception Ex)
             {
+                trans.Rollback();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }         
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            
         }
 
         /// <summary>
@@ -70,36 +75,45 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public int InsertAgencyPayable(AgencyPayableDTO agencyPayable)
         {
-            var command = new SqlCommand("hpf_agency_payable_insert", this.dbConnection);
+            var dbConnection = CreateConnection();
+            SqlTransaction trans = null;
+            var command = CreateSPCommand("hpf_agency_payable_insert", dbConnection);
             //<Parameter>
+            var sqlParam = new SqlParameter[15];
+            sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayable.AgencyId);
+            sqlParam[1] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayable.PaymentDate));
+            //sqlParam[2] = new SqlParameter("@pi_pmt_cd", agencyPayable.PayamentCode);
+            sqlParam[2] = new SqlParameter("@pi_status_cd", agencyPayable.StatusCode);
+            sqlParam[3] = new SqlParameter("@pi_period_start_dt", NullableDateTime(agencyPayable.PeriodStartDate));
+            sqlParam[4] = new SqlParameter("@pi_period_end_dt", NullableDateTime(agencyPayable.PeriodEndDate));
+            sqlParam[5] = new SqlParameter("@pi_pmt_comment", agencyPayable.PaymentComment);
+            sqlParam[6] = new SqlParameter("@pi_accounting_link_TBD", agencyPayable.AccountLinkTBD);
+            sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(agencyPayable.CreateDate));
+            sqlParam[8] = new SqlParameter("@pi_create_user_id", agencyPayable.CreateUserId);
+            sqlParam[9] = new SqlParameter("@pi_create_app_name", agencyPayable.CreateAppName);
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayable.ChangeLastDate));
+            sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", agencyPayable.ChangeLastUserId);
+            sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", agencyPayable.ChangeLastAppName);
+            sqlParam[13] = new SqlParameter("@pi_agency_payable_pmt_amt", agencyPayable.AgencyPayablePaymentAmount);
+            sqlParam[14] = new SqlParameter("@po_agency_payable_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
             try
             {
-                var sqlParam = new SqlParameter[15];
-                sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayable.AgencyId);
-                sqlParam[1] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayable.PaymentDate));
-                //sqlParam[2] = new SqlParameter("@pi_pmt_cd", agencyPayable.PayamentCode);
-                sqlParam[2] = new SqlParameter("@pi_status_cd", agencyPayable.StatusCode);
-                sqlParam[3] = new SqlParameter("@pi_period_start_dt", NullableDateTime(agencyPayable.PeriodStartDate));
-                sqlParam[4] = new SqlParameter("@pi_period_end_dt", NullableDateTime(agencyPayable.PeriodEndDate));
-                sqlParam[5] = new SqlParameter("@pi_pmt_comment", agencyPayable.PaymentComment);
-                sqlParam[6] = new SqlParameter("@pi_accounting_link_TBD", agencyPayable.AccountLinkTBD);
-                sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(agencyPayable.CreateDate));
-                sqlParam[8] = new SqlParameter("@pi_create_user_id", agencyPayable.CreateUserId);
-                sqlParam[9] = new SqlParameter("@pi_create_app_name", agencyPayable.CreateAppName);
-                sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayable.ChangeLastDate));
-                sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", agencyPayable.ChangeLastUserId);
-                sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", agencyPayable.ChangeLastAppName);
-                sqlParam[13] = new SqlParameter("@pi_agency_payable_pmt_amt", agencyPayable.AgencyPayablePaymentAmount);
-                sqlParam[14] = new SqlParameter("@po_agency_payable_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-                //</Parameter>
-                command.Parameters.AddRange(sqlParam);
-                command.Transaction = this.trans;
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+                command.Transaction = trans;                                
                 command.ExecuteNonQuery();
                 agencyPayable.AgencyPayableId = ConvertToInt(sqlParam[14].Value);
+                trans.Commit();
             }
             catch (Exception Ex)
             {
+                trans.Rollback();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally {
+                dbConnection.Close();
             }
             return agencyPayable.AgencyPayableId;
         }
@@ -143,11 +157,11 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[3];
             try
             {
+                
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayableCriteria.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodStartDate);
                 sqlParam[2] = new SqlParameter("@pi_end_dt", agencyPayableCriteria.PeriodEndDate);
                 command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
