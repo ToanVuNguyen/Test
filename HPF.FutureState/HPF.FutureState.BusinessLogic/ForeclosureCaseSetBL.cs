@@ -171,7 +171,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 ThrowDuplicateCaseException(collection);
             }
-            
+            foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_NO;
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList != null && exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
