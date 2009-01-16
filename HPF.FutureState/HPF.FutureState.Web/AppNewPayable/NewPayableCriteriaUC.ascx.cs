@@ -20,6 +20,7 @@ namespace HPF.FutureState.Web.AppNewPayable
 {
     public partial class NewPayableCriteriaUC : System.Web.UI.UserControl
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -30,15 +31,23 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         protected void BindDDLAgency()
         {
-            AgencyDTOCollection agencyCollection=LookupDataBL.Instance.GetAgency();
-            AgencyDTO item = agencyCollection[0];
-            agencyCollection.Remove(item);
-            ddlAgency.DataTextField = "AgencyName";
-            ddlAgency.DataValueField = "AgencyID";
-            ddlAgency.DataSource = agencyCollection;
-            if(Request.QueryString["agency"].ToString()!="-1")
-            ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
-            ddlAgency.DataBind();
+            try
+            {
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                AgencyDTO item = agencyCollection[0];
+                agencyCollection.Remove(item);
+                ddlAgency.DataTextField = "AgencyName";
+                ddlAgency.DataValueField = "AgencyID";
+                ddlAgency.DataSource = agencyCollection;
+                if (Request.QueryString["agency"].ToString() != "-1")
+                    ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
+                ddlAgency.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
         }
         /// <summary>
         /// get default periodstart:1st/priormonth/year
