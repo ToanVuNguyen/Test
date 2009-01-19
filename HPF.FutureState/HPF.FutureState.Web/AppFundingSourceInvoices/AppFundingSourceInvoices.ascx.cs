@@ -111,7 +111,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
             }
         }
-
+        /// <summary>
+        /// Show the gridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grvFundingSourceInvoices_DataBound(object sender, EventArgs e)
         {
             
@@ -130,7 +134,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                     lblInvoice.Text = "N/A";
             }
         }
-
+        /// <summary>
+        /// forward fundingSourceId to next Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnNewInvoice_Click(object sender, EventArgs e)
         {
             Session["fundingSourceId"] = dropFundingSource.SelectedValue;
