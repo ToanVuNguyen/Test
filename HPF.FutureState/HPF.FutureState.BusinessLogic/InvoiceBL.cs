@@ -27,15 +27,32 @@ namespace HPF.FutureState.BusinessLogic
         protected InvoiceBL()
         {            
         }
+        private InvoiceDAO invoiceDAO;
+        private void RollbackTransaction()
+        {
+            invoiceDAO.CancelTransaction();
+        }
+
+        private void CompleteTransaction()
+        {
+            invoiceDAO.CommitTransaction();
+        }
+
+        private void InitiateTransaction()
+        {
+            invoiceDAO = InvoiceDAO.CreateInstance();
+            invoiceDAO.BeginTransaction();
+        }
         /// <summary>
         /// InsertInvoice and Invoice-Case to the database
         /// </summary>
         /// <param name="invoiceDraft">InvoiceDraft contains Invoice and Invoice Case info</param>
         public void InsertInvoice(InvoiceDraftDTO invoiceDraft)
         {
-            InvoiceDAO invoiceDAO = InvoiceDAO.CreateInstance();
+
             try
             {
+                InitiateTransaction();
                 InvoiceDTO invoice = new InvoiceDTO();
                 //-----------
                 invoice.PeriodStartDate = invoiceDraft.PeriodStartDate;
@@ -69,10 +86,12 @@ namespace HPF.FutureState.BusinessLogic
                     invoiceCase.CreateUserId = invoiceDraft.CreateUserId;
                     invoiceDAO.InsertInvoiceCase(invoiceCase);
                 }
+                CompleteTransaction();
                 
             }
             catch (Exception ex)
             {
+                RollbackTransaction();
                 throw (ex) ;
             }
         }

@@ -26,6 +26,44 @@ namespace HPF.FutureState.DataAccess
             return new InvoiceDAO();
         }
 
+        public void BeginTransaction()
+        {
+            dbConnection = CreateConnection();
+            dbConnection.Open();
+            trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+        }
+
+        /// <summary>
+        /// Commit work.
+        /// </summary>
+        public void CommitTransaction()
+        {
+            try
+            {
+                trans.Commit();
+                dbConnection.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        /// <summary>
+        /// Cancel work
+        /// </summary>
+        public void CancelTransaction()
+        {
+            try
+            {
+                trans.Rollback();
+                dbConnection.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
 
         #region Insert
         /// <summary>
@@ -34,9 +72,7 @@ namespace HPF.FutureState.DataAccess
         /// <param name="invoiceCase">InvoiceCaseDTO</param>
         public void InsertInvoiceCase(InvoiceCaseDTO invoiceCase)
         {
-            dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_invoice_case_insert",dbConnection);
-            SqlTransaction invoiceTrans = null;
             //<Parameter>
             var sqlParam = new SqlParameter[14];
             sqlParam[0] = new SqlParameter("@pi_fc_id", invoiceCase.ForeclosureCaseId);
@@ -57,21 +93,12 @@ namespace HPF.FutureState.DataAccess
             //</Parameter>
             try
             {
-                dbConnection.Open();
-                invoiceTrans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-                command.Transaction = invoiceTrans;
+                command.Transaction = trans;
                 command.ExecuteNonQuery();
-                invoiceTrans.Commit();
             }
             catch (Exception Ex)
             {
-                if (invoiceTrans != null)
-                    invoiceTrans.Rollback();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
             }
         }
         /// <summary>
@@ -81,9 +108,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>Invoice ID</returns>
         public int InsertInvoice(InvoiceDTO invoice)
         {
-            dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_invoice_insert",dbConnection);
-            SqlTransaction invoiceTrans = null;
             //<Parameter>
             var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoice.FundingSourceId);
@@ -106,25 +131,15 @@ namespace HPF.FutureState.DataAccess
             command.Parameters.AddRange(sqlParam);
             try
             {
-                dbConnection.Open();
-                invoiceTrans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-                command.Transaction = invoiceTrans;
+                command.Transaction = trans;
                 command.ExecuteNonQuery();
-                invoiceTrans.Commit();
                 invoice.InvoiceId = ConvertToInt(sqlParam[15].Value);
             }
             catch (Exception Ex)
             {
-                if (invoiceTrans != null)
-                    invoiceTrans.Rollback();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-            finally
-            {
-                dbConnection.Close();
-            }
             return invoice.InvoiceId;
-            
         }
 
         #endregion

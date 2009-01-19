@@ -38,7 +38,6 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public bool WebUserLogin(string userName, string password)
         {
-            //Not complete
             //Get user and compare with the password.
 
             UserDTO user = GetWebUser(userName);
@@ -152,6 +151,7 @@ namespace HPF.FutureState.DataAccess
                     {
                         webUser.HPFUserId = ConvertToInt(reader["hpf_user_id"]);
                         webUser.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        webUser.Password = ConvertToString(reader["password"]);
                         webUser.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                         webUser.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
                         webUser.CreateAppName = ConvertToString(reader["create_app_name"]);
@@ -169,7 +169,6 @@ namespace HPF.FutureState.DataAccess
             }
             catch (Exception Ex)
             {
-                dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
@@ -178,6 +177,55 @@ namespace HPF.FutureState.DataAccess
             }
 
             return webUser;
+        }
+        /// <summary>
+        /// Update user DTO
+        /// </summary>
+        /// <param name="webUser">UserDTO</param>
+        public void UpdateWebUser(UserDTO webUser)
+        {
+            var dbConnection = CreateConnection();
+            //Add store here
+            var command = CreateSPCommand("hpf_hpf_user_update", dbConnection);
+            SqlTransaction trans = null;
+            //<Parameter>
+            var sqlParam = new SqlParameter[15];
+            sqlParam[0] = new SqlParameter("@pi_user_login_id",webUser.UserName);
+            sqlParam[1] = new SqlParameter("@pi_password",webUser.Password);
+            sqlParam[2] = new SqlParameter("@pi_active_ind",webUser.IsActivate);
+            sqlParam[3] = new SqlParameter("@pi_user_role_str_tbd", webUser.UserRole);
+            sqlParam[4] = new SqlParameter("@pi_fname",webUser.FirstName); 
+            sqlParam[5] = new SqlParameter("@pi_lname",webUser.LastName);
+            sqlParam[6] = new SqlParameter("@pi_email" ,webUser.Email);
+            sqlParam[7] = new SqlParameter("@pi_phone" ,webUser.Phone);
+            sqlParam[8] = new SqlParameter("@pi_last_login_dt",NullableDateTime(webUser.LastLogin));
+            sqlParam[9] = new SqlParameter("@pi_create_dt",NullableDateTime(webUser.CreateDate));
+            sqlParam[10] = new SqlParameter("@pi_create_user_id",webUser.CreateUserId); 
+            sqlParam[11] = new SqlParameter("@pi_create_app_name",webUser.CreateAppName);
+            sqlParam[12] = new SqlParameter("@pi_chg_lst_dt",NullableDateTime(webUser.ChangeLastDate));
+            sqlParam[13] = new SqlParameter("@pi_chg_lst_user_id",webUser.ChangeLastUserId); 
+            sqlParam[14] = new SqlParameter("@pi_chg_lst_app_name",webUser.ChangeLastAppName);
+            
+            //</Parameter>            
+            try
+            {
+                dbConnection.Open();
+                command.Parameters.AddRange(sqlParam);
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                trans.Commit();
+            }
+            catch (Exception Ex)
+            {
+                if(trans!=null)
+                    trans.Rollback();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
         }
         
         public CallCenterDTO GetCallCenter(int callCenterId)

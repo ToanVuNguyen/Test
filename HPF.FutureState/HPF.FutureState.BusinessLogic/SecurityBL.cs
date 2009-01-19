@@ -7,6 +7,8 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
 
+
+
 namespace HPF.FutureState.BusinessLogic
 {
     public class SecurityBL : BaseBusinessLogic, ISecurityBL
@@ -43,7 +45,16 @@ namespace HPF.FutureState.BusinessLogic
 
         public bool WebUserChangePassword(string userName, string oldPassword, string confirmPassword)
         {
-            throw new System.NotImplementedException();
+            UserDTO currentUser = SecurityDAO.Instance.GetWebUser(userName);
+            currentUser.SetInsertTrackingInformation(currentUser.HPFUserId.ToString());
+            if (currentUser.Password.ToLower() == oldPassword.ToLower())
+            {
+                currentUser.Password = confirmPassword;
+                SecurityDAO.Instance.UpdateWebUser(currentUser);
+            }
+            else
+                throw new DataValidationException("Wrong old password.");
+            return true;
         }
 
         /// <summary>
