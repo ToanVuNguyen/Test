@@ -24,5 +24,10 @@ namespace HPF.FutureState.Common
         public const string SERVICER_OTHER = "OTHER (LENDER NAME IN NOTES)";
         public const string SUB_CATEGORY_NAME_MORTGAGE = "MORTGAGE";
         public const string OUTCOME_TYPE_NAME = "EXTERNAL REFERAL";
+        public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";
+        public const string HPF_CACHE_PROGRAM = "PROGRAM";
+        public const string HPF_CACHE_SERVICER = "SERVICER";
+
+
     }
 }

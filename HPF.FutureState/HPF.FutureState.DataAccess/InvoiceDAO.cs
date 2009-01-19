@@ -8,6 +8,7 @@ using System.Data;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -218,7 +219,7 @@ namespace HPF.FutureState.DataAccess
             {
                 result = new FundingSourceDTOCollection();
                 var dbConnection = CreateConnection();
-                var command = new SqlCommand("hpf_funding_source_get", dbConnection);
+                var command = new SqlCommand(Constant.HPF_CACHE_FUNDING_SOURCE, dbConnection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Connection = dbConnection;
                 try
@@ -236,7 +237,7 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add("fundingSource", result);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_FUNDING_SOURCE, result);
                 }
                 catch (Exception ex)
                 {
@@ -256,7 +257,6 @@ namespace HPF.FutureState.DataAccess
         /// <returns>SErvicerDTOCollection</returns>
         public ServicerDTOCollection AppGetServicerByFundingSourceId(int fundingSourceId)
         {
-
             ServicerDTOCollection result = new ServicerDTOCollection();
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_servicer_get", dbConnection);

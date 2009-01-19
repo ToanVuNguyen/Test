@@ -10,6 +10,7 @@ using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
 using System.Data.SqlTypes;
 using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -1120,7 +1121,7 @@ namespace HPF.FutureState.DataAccess
             ProgramDTOCollection results = HPFCacheManager.Instance.GetData<ProgramDTOCollection>("program");
             if (results == null)
             {
-                var command = new SqlCommand("hpf_program_get", this.dbConnection);
+                var command = new SqlCommand(Constant.HPF_CACHE_PROGRAM, this.dbConnection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = this.trans;
                 try
@@ -1139,7 +1140,7 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add("program", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_PROGRAM, results);
                 }
                 catch (Exception ex)
                 {
@@ -1230,11 +1231,10 @@ namespace HPF.FutureState.DataAccess
         /// <returns>ProgramDTOCollection contains all Program </returns>
         public ServicerDTOCollection GetServicer()
         {
-            ServicerDTOCollection results = HPFCacheManager.Instance.GetData<ServicerDTOCollection>("servicer");
+            ServicerDTOCollection results = HPFCacheManager.Instance.GetData<ServicerDTOCollection>(Constant.HPF_CACHE_SERVICER);
             if (results == null)
             {
-                var command = new SqlCommand("hpf_servicer_get", this.dbConnection);
-                command.CommandType = CommandType.StoredProcedure;
+                var command = CreateSPCommand("hpf_servicer_get", this.dbConnection);
                 command.Transaction = this.trans;
                 try
                 {
@@ -1251,7 +1251,7 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add("servicer", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_SERVICER, results);
                 }
                 catch (Exception ex)
                 {

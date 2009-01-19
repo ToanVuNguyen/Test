@@ -30,10 +30,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 IndicatorDatabind();
                 HouseholdDatabind();
                 StateDatabind();
-                GetDefaultPeriodStartEnd();
-                AddBlank();
+                SetDefaultPeriodStartEnd();
+                AddBlankToYesNoDropDownList();
                 if (Session["searchCriteria"] != null)
-                    SetSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
+                    RestoreSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
                 else
                     SetDefaultValueForDropDownList();
             }
@@ -43,10 +43,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// Restore search Criteria from Session when user click cancel Invoice 
         /// </summary>
         /// <param name="searchCriteria"></param>
-        private void SetSearchCriterial(InvoiceCaseSearchCriteriaDTO searchCriteria)
+        private void RestoreSearchCriterial(InvoiceCaseSearchCriteriaDTO searchCriteria)
         {
             dropFundingSource.Items.FindByValue(searchCriteria.FundingSourceId).Selected = true;
-            dropFundingSource_SelectedIndexChanged1(new object(), new EventArgs());
+            GetServicerList();
             dropProgram.Items.FindByValue(searchCriteria.ProgramId.ToString()).Selected = true;
             txtPeriodStart.Text = searchCriteria.PeriodStart.ToShortDateString();
             txtPeriodEnd.Text = searchCriteria.PeriodEnd.ToShortDateString();
@@ -73,7 +73,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// <summary>
         /// Follow the business rule on the use-case ,Period Start = now - 1 month,Period End = now 
         /// </summary>
-        protected void GetDefaultPeriodStartEnd()
+        protected void SetDefaultPeriodStartEnd()
         {
             DateTime today = DateTime.Today;
             txtPeriodStart.Text = (today.AddMonths(-1)).ToShortDateString();
@@ -100,7 +100,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// <summary>
         /// Add Blank to DDLB for yes/no/nochoice DDLB
         /// </summary>
-        private void AddBlank()
+        private void AddBlankToYesNoDropDownList()
         {
             AddBlankToDDLB(dropDuplicates);
             AddBlankToDDLB(dropHispanic);
@@ -109,6 +109,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             AddBlankToDDLB(dropServicerConsent);
             AddBlankToDDLB(dropFundingConsent);
         }
+        /// <summary>
+        /// insert a blank to dropdowlist at index 0
+        /// </summary>
+        /// <param name="temp"></param>
         private void AddBlankToDDLB(DropDownList temp)
         {
             temp.Items.Insert(0,new ListItem(" ", "0"));
@@ -136,7 +140,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 string fundingSourceId = Session["fundingSourceId"].ToString();
                 dropFundingSource.Items.FindByValue(fundingSourceId).Selected = true;
-                dropFundingSource_SelectedIndexChanged1(new object(),new EventArgs());
+                GetServicerList();
             }
         }
         private void ProgramDatabind()
@@ -249,6 +253,11 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         protected void dropFundingSource_SelectedIndexChanged1(object sender, EventArgs e)
         {
+            GetServicerList();
+        }
+
+        private void GetServicerList()
+        {
             if (int.Parse(dropFundingSource.SelectedValue) == -1)
             {
                 lst_FundingSourceGroup.DataSource = null;
@@ -275,23 +284,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void DraftNewInvoice_Click(object sender, EventArgs e)
         {
             InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
-            
-            try
-            {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-            }
-            catch
-            {
-                searchCriteria.PeriodEnd = DateTime.MinValue;
-            }
-            try
-            {
-                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
-            }
-            catch
-            {
-                searchCriteria.PeriodStart = DateTime.MinValue;
-            }
+
+            GetDateTime(searchCriteria);
             searchCriteria.FundingSourceId = dropFundingSource.SelectedValue;
             searchCriteria.ProgramId = int.Parse(dropProgram.SelectedValue);
             searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
@@ -311,15 +305,41 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
             searchCriteria.City = txtCity.Text;
             searchCriteria.State = dropState.SelectedValue;
-            string errorMessage;
-            if(InvoiceBL.Instance.ValidateInvoiceCaseCriteria(searchCriteria,out errorMessage)==false)
+            try
             {
-                lblErrorMessage.Text = errorMessage;
-                return;
+                if (InvoiceBL.Instance.ValidateInvoiceCaseCriteria(searchCriteria))
+                {
+                    Session["searchCriteria"] = searchCriteria;
+                    Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
+                    Response.Redirect("NewInvoiceResultPage.aspx");
+                }
             }
-            Session["searchCriteria"] = searchCriteria;
-            Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
-            Response.Redirect("NewInvoiceResultPage.aspx");
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
+
+        }
+
+        private void GetDateTime(InvoiceCaseSearchCriteriaDTO searchCriteria)
+        {
+            try
+            {
+                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+            }
+            catch
+            {
+                searchCriteria.PeriodEnd = DateTime.MinValue;
+            }
+            try
+            {
+                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+            }
+            catch
+            {
+                searchCriteria.PeriodStart = DateTime.MinValue;
+            }
         }
 
         
