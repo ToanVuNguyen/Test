@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.Utils.Exceptions
 {
-    public class DataValidationException : Exception
+    public class DataValidationException : HPFException
     {
 
         public ExceptionMessageCollection ExceptionMessages { get; set; }

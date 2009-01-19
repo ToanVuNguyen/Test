@@ -19,6 +19,8 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                     return new DuplicateException(originalException.Message, originalException);
                 case "DataValidationException":
                     return new DataValidationException(originalException.Message, originalException);
+                case "HPFException":
+                    return new HPFException(originalException.Message, originalException);                    
                 default: throw new Exception("ExceptionTypeName is not supported.");
             }                        
         }

@@ -76,7 +76,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             this.Writer.WriteLine(line);
 
             string separator = new string('-', line.Length);
-
+            
             this.Writer.WriteLine(separator);
         }
 
@@ -88,13 +88,21 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         /// value will be null when writing the outer-most exception.</param>
         protected override void WriteException(Exception exceptionToFormat, Exception outerException)
         {
+            if (exceptionToFormat is HPFException)
+            {
+                var ex = exceptionToFormat as HPFException;
+                writer.WriteLine("Application Name : {0}", ex.ApplicationName);
+                writer.WriteLine("User Name : {0}", ex.UserName);
+                writer.WriteLine("Agency Id : {0}", ex.AgencyId);
+                writer.WriteLine("CallCenter Id : {0}", ex.AgencyId);
+            }
             if (outerException != null)
             {
                 this.innerDepth++;
                 this.Indent();
                 string temp = Resources.InnerException;
                 string separator = new string('-', temp.Length);
-                this.Writer.WriteLine(temp);
+                this.Writer.WriteLine(temp);                
                 this.Indent();
                 this.Writer.WriteLine(separator);
 
@@ -102,7 +110,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                 this.innerDepth--;
             }
             else
-            {
+            {                
                 base.WriteException(exceptionToFormat, outerException);
             }
         }
@@ -112,7 +120,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         /// </summary>
         /// <param name="utcNow">The current time.</param>
         protected override void WriteDateTime(DateTime utcNow)
-        {
+        {            
             DateTime localTime = utcNow.ToLocalTime();
             string localTimeString = localTime.ToString("G", DateTimeFormatInfo.InvariantInfo);
 
@@ -125,7 +133,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         /// </summary>
         /// <param name="exceptionType">The <see cref="Type"/> of the exception.</param>
         protected override void WriteExceptionType(Type exceptionType)
-        {
+        {                     
             IndentAndWriteLine(Resources.TypeString, exceptionType.AssemblyQualifiedName);
         }
 

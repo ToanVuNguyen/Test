@@ -16,8 +16,43 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         /// <param name="exception">Exception</param>
         /// <returns>True: Rethrow, False: do nothing</returns>
         public static bool HandleException(Exception exception)
-        {
+        {                 
             return ExceptionPolicy.HandleException(exception, policyName);
+        }
+
+        public static bool HandleException(Exception exception, string userName, string agencyId, string callCenterId)
+        {
+            var hpfException = GetHpfException(exception, userName, agencyId, callCenterId);
+            return ExceptionPolicy.HandleException(hpfException, policyName);
+        }
+
+        public static bool HandleException(Exception exception, string userName)
+        {
+            var hpfException = GetHpfException(exception, userName, "", "");
+            return ExceptionPolicy.HandleException(hpfException, policyName);
+        }
+
+        private static HPFException GetHpfException(Exception exception, string userName, string agencyId, string callCenterId)
+        {
+            var hpfException = GetHpfException(exception);
+            hpfException.UserName = userName;
+            hpfException.AgencyId = agencyId;
+            hpfException.CallCenterId = callCenterId;
+            return hpfException;
+        }
+
+        private static HPFException GetHpfException(Exception exception)
+        {
+            HPFException hpfException;
+            if (exception is HPFException)
+            {
+                hpfException = (HPFException)exception;                
+            }
+            else
+            {
+                hpfException = Wrap<HPFException>(exception);                
+            }
+            return hpfException;
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.Utils.Exceptions
 {
-    public class DataAccessException : Exception
+    public class DataAccessException : HPFException
     {
         public DataAccessException()
         {
@@ -28,7 +28,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         public DataAccessException(string message, Exception innerException)
             : base(message,innerException)
         {
-
+            
         }
     }
 }
