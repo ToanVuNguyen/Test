@@ -33,8 +33,7 @@
         <td colspan="4">
             &nbsp;
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
-                AutoPostBack="True" 
-                onselectedindexchanged="dropFundingSource_SelectedIndexChanged1">
+                AutoPostBack="True">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
@@ -48,7 +47,7 @@
         </td>
         <td>
             <asp:Button ID="btnDraftNewInvoice" runat="server" CssClass="MyButton" 
-                Text="Draft New Invoice" Width="120px" onclick="Button1_Click" />
+                Text="Draft New Invoice" Width="120px" onclick="DraftNewInvoice_Click" />
         </td>
     </tr>
     <tr>

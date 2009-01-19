@@ -30,28 +30,60 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 IndicatorDatabind();
                 HouseholdDatabind();
                 StateDatabind();
-                DDLBDataBind();
                 GetDefaultPeriodStartEnd();
+                AddBlank();
+                if (Session["searchCriteria"] != null)
+                    SetSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
+                else
+                    SetDefaultValueForDDLB();
             }
+            dropFundingSource.SelectedIndexChanged += new EventHandler(dropFundingSource_SelectedIndexChanged1);    
         }
+        /// <summary>
+        /// Restore search Criteria from Session when user click cancel Invoice 
+        /// </summary>
+        /// <param name="searchCriteria"></param>
+        private void SetSearchCriterial(InvoiceCaseSearchCriteriaDTO searchCriteria)
+        {
+            dropFundingSource.Items.FindByValue(searchCriteria.FundingSourceId).Selected = true;
+            dropFundingSource_SelectedIndexChanged1(new object(), new EventArgs());
+            dropProgram.Items.FindByValue(searchCriteria.ProgramId.ToString()).Selected = true;
+            txtPeriodStart.Text = searchCriteria.PeriodStart.ToShortDateString();
+            txtPeriodEnd.Text = searchCriteria.PeriodEnd.ToShortDateString();
+            
+            dropGender.Items.FindByValue(searchCriteria.Gender).Selected = true;
+            dropRace.Items.FindByValue(searchCriteria.Race).Selected = true;
+            
+            txtAgeMin.Text = searchCriteria.Age.Min == int.MinValue ? "" : searchCriteria.Age.Min.ToString();
+            txtAgeMax.Text = searchCriteria.Age.Max == int.MinValue ? "" : searchCriteria.Age.Max.ToString();
+            txtIncomeMin.Text = searchCriteria.HouseholdGrossAnnualIncome.Min == double.MinValue ? "" : searchCriteria.HouseholdGrossAnnualIncome.Min.ToString();
+            txtIncomeMax.Text = searchCriteria.HouseholdGrossAnnualIncome.Max == double.MinValue ? "" : searchCriteria.HouseholdGrossAnnualIncome.Max.ToString();
+            dropHispanic.Items[(int)searchCriteria.Hispanic].Selected = true; ;
+            dropDuplicates.Items[(int)searchCriteria.Duplicate].Selected = true; ;
+            dropCaseCompleted.Items[(int)searchCriteria.CompleteCase].Selected = true; ;
+            dropAlreadyBilled.Items[(int)searchCriteria.AlreadyBill].Selected = true; ;
+            dropServicerConsent.Items[(int)searchCriteria.ServicerConsent].Selected = true; ;
+            dropFundingConsent.Items[(int)searchCriteria.FundingConsent].Selected = true; ;
+            txtMaxNumberofCases.Text = searchCriteria.MaxNumOfCases == int.MinValue ? "" : searchCriteria.MaxNumOfCases.ToString();
+            dropIndicators.Items.FindByValue(searchCriteria.LoanIndicator.ToString()).Selected = true;
+            dropHouseholdCode.Items.FindByValue(searchCriteria.HouseholdCode).Selected = true;
+            txtCity.Text = searchCriteria.City;
+            dropState.Items.FindByValue(searchCriteria.State).Selected = true;
+        }
+        /// <summary>
+        /// Follow the business rule on the use-case ,Period Start = now - 1 month,Period End = now 
+        /// </summary>
         protected void GetDefaultPeriodStartEnd()
         {
             DateTime today = DateTime.Today;
-            int priormonth = today.AddMonths(-1).Month;
-            int year = today.AddMonths(-1).Year;
-            txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
-            int daysinmonth = DateTime.DaysInMonth(year, priormonth);
-            txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
-
+            txtPeriodStart.Text = (today.AddMonths(-1)).ToShortDateString();
+            txtPeriodEnd.Text = today.ToShortDateString();
         }
-        private void DDLBDataBind()
+        /// <summary>
+        /// Set default Value if there's no searchCriteria store in the session
+        /// </summary>
+        private void SetDefaultValueForDDLB()
         {
-            AddBlankToDDLB(dropDuplicates);
-            AddBlankToDDLB(dropHispanic);
-            AddBlankToDDLB(dropCaseCompleted);
-            AddBlankToDDLB(dropAlreadyBilled);
-            AddBlankToDDLB(dropServicerConsent);
-            AddBlankToDDLB(dropFundingConsent);
             //set default value for DDLB
             dropDuplicates.SelectedIndex = 2;
             dropCaseCompleted.SelectedIndex = 1;
@@ -64,7 +96,18 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropHispanic.SelectedIndex = 0;
             dropHouseholdCode.SelectedIndex = 0;
             dropState.SelectedIndex = 0;
-
+        }
+        /// <summary>
+        /// Add Blank to DDLB for yes/no/nochoice DDLB
+        /// </summary>
+        private void AddBlank()
+        {
+            AddBlankToDDLB(dropDuplicates);
+            AddBlankToDDLB(dropHispanic);
+            AddBlankToDDLB(dropCaseCompleted);
+            AddBlankToDDLB(dropAlreadyBilled);
+            AddBlankToDDLB(dropServicerConsent);
+            AddBlankToDDLB(dropFundingConsent);
         }
         private void AddBlankToDDLB(DropDownList temp)
         {
@@ -88,7 +131,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.DataBind();
             dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
             dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
-            if (Session["fundingSourceId"] != null)
+            //first time
+            if (Session["fundingSourceId"] != null && Session["searchCriteria"]==null)
             {
                 string fundingSourceId = Session["fundingSourceId"].ToString();
                 dropFundingSource.Items.FindByValue(fundingSourceId).Selected = true;
@@ -111,7 +155,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropProgram.DataTextField = "ProgramName";
             dropProgram.DataSource = programCollection;
             dropProgram.DataBind();
-            dropProgram.Items.FindByText("ALL").Selected = true;
         }
         private void GenderDatabind()
         {
@@ -131,7 +174,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropGender.DataSource = genderCollection;
             dropGender.DataBind();
             dropGender.Items.Insert(0, new ListItem(" ", "-1"));
-            dropGender.SelectedIndex = 0;
         }
         private void RaceDatabind()
         {
@@ -150,7 +192,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropRace.DataSource = raceCollection;
             dropRace.DataBind();
             dropRace.Items.Insert(0, new ListItem(" ", "-1"));
-            dropRace.SelectedIndex = 0;
         }
         private void IndicatorDatabind()
         {
@@ -169,8 +210,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropIndicators.DataSource = indicatorCollection;
             dropIndicators.DataBind();
             dropIndicators.Items.Insert(0, new ListItem(" ", "-1"));
-            dropIndicators.SelectedIndex = 1;
-            
         }
         private void HouseholdDatabind()
         {
@@ -189,7 +228,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropHouseholdCode.DataSource = householdCollection;
             dropHouseholdCode.DataBind();
             dropHouseholdCode.Items.Insert(0, new ListItem(" ", "-1"));
-            dropHouseholdCode.SelectedIndex = 0;
         }
         private void StateDatabind()
         {
@@ -208,7 +246,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropState.DataSource = stateCollection;
             dropState.DataBind();
             dropState.Items.Insert(0, new ListItem(" ", "-1"));
-            dropState.SelectedIndex = 0;
         }
         protected void dropFundingSource_SelectedIndexChanged1(object sender, EventArgs e)
         {
@@ -230,8 +267,12 @@ namespace HPF.FutureState.Web.AppNewInvoice
             lst_FundingSourceGroup.DataSource = servicers;
             lst_FundingSourceGroup.DataBind();
         }
-
-        protected void Button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Draft new Invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void DraftNewInvoice_Click(object sender, EventArgs e)
         {
             InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
             
