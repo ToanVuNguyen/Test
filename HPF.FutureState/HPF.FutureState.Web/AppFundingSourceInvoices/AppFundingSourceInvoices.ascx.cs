@@ -23,7 +23,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             if (!IsPostBack)
             {
-                BindDataToDDLB();
+                GetFundingSourceList();
                 SetUpDefaultValue();    
             }
         }
@@ -40,7 +40,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             txtPeriodEnd.Text = defaultSearchCriteria.PeriodEnd.ToShortDateString();
             InvoiceSearch(defaultSearchCriteria);
         }
-        private void BindDataToDDLB()
+        private void GetFundingSourceList()
         {
             FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
             dropFundingSource.DataValueField = "FundingSourceID";

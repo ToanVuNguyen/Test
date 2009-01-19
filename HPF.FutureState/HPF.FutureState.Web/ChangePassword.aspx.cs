@@ -44,6 +44,7 @@ namespace HPF.FutureState.Web
             catch (Exception ex)
             {
                 lbl_status.Text = ex.Message;
+                lbl_status.Visible = true;
                 ExceptionProcessor.HandleException(ex);
             }
         }

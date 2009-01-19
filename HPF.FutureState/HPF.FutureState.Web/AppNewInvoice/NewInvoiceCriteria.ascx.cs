@@ -35,7 +35,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 if (Session["searchCriteria"] != null)
                     SetSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
                 else
-                    SetDefaultValueForDDLB();
+                    SetDefaultValueForDropDownList();
             }
             dropFundingSource.SelectedIndexChanged += new EventHandler(dropFundingSource_SelectedIndexChanged1);    
         }
@@ -82,7 +82,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// <summary>
         /// Set default Value if there's no searchCriteria store in the session
         /// </summary>
-        private void SetDefaultValueForDDLB()
+        private void SetDefaultValueForDropDownList()
         {
             //set default value for DDLB
             dropDuplicates.SelectedIndex = 2;

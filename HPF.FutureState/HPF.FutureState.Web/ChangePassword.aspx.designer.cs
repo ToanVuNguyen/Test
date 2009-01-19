@@ -41,15 +41,6 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword txt_confirmnewpassword;
         
         /// <summary>
-        /// lbl_status control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_status;
-        
-        /// <summary>
         /// btn_chagepassword control.
         /// </summary>
         /// <remarks>
@@ -66,5 +57,14 @@ namespace HPF.FutureState.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_cancel;
+        
+        /// <summary>
+        /// lbl_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_status;
     }
 }
