@@ -100,17 +100,20 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringLengthValidator(40, Ruleset = "Default", MessageTemplate = "Selected Counselor's maximum length is 40 characters")]
         public string SelectedCounselor { get; set; }
 
+        string _homeownerInd;
         [IgnoreNulls()]
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
-        public string HomeownerInd { get; set; }
+        public string HomeownerInd { get { return _homeownerInd; } set { _homeownerInd = value.ToUpper(); } }
 
+        string _powerOfAttorneyInd;
         [IgnoreNulls()]
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
-        public string PowerOfAttorneyInd { get; set; }
-
+        public string PowerOfAttorneyInd { get { return _powerOfAttorneyInd; } set { _powerOfAttorneyInd = value.ToUpper(); } }
+        
+        string _authorizedInd;
         [IgnoreNulls()]
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
-        public string AuthorizedInd { get; set; }
+        public string AuthorizedInd { get { return _authorizedInd; } set { _authorizedInd = value.ToUpper(); } }
 
         #endregion        
     }

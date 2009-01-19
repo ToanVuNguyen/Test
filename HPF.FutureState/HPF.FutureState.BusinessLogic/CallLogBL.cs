@@ -130,6 +130,7 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckDependingCallCenter(CallLogDTO aCallLog)
         {
             CallCenterDTO callCenter = CallLogDAO.Instance.GetCallCenter(aCallLog);
+            List<string> errorList = new List<string>();
             
             if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
             {
@@ -137,12 +138,15 @@ namespace HPF.FutureState.BusinessLogic
                 return null;
             }
             
-            if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty) || (aCallLog.CallCenter.Trim().Length <= 4))
-            {               
-                return null;
+            if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty))
+            {
+                errorList.Add("Call center is required");
+                return errorList;
             }
 
-            List<string> errorList = new List<string>();
+            if (aCallLog.CallCenter.Trim().Length <= 4)
+                return null;
+
             errorList.Add("Call center max length is 4");
             return errorList;
             
@@ -151,15 +155,21 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> CheckDependingServicer(CallLogDTO aCallLog)
         {
             ServicerDTO servicer = CallLogDAO.Instance.GetServicer(aCallLog);
+            List<string> errorList = new List<string>();
+
             if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))            
                 return null;
 
             if ((aCallLog.OtherServicerName == null) 
-                || (aCallLog.OtherServicerName.Trim() == string.Empty) 
-                || (aCallLog.OtherServicerName.Trim().Length <= 50))
+                || (aCallLog.OtherServicerName.Trim() == string.Empty))
+            {
+                errorList.Add("Other servicer name is required");
+                return errorList;
+            }
+
+            if (aCallLog.OtherServicerName.Trim().Length <= 50)
                 return null;
 
-            List<string> errorList = new List<string>();
             errorList.Add("Other servicer name max length is 50");
             return errorList;
         }

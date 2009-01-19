@@ -65,14 +65,16 @@
     <td height="9" class="SiteBar"></td>
   </tr>
   <tr>
-    <td height="44" valign="top" background="Styles/Images/basebg2.jpg">    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td height="26" class="baseline">&nbsp;&nbsp;© Copyright 2008 Homeownership Preservation 
-            Foundation. All Rights Reserved.</td>
-        <td align="right" class="baseline">
-            Design by HPF Team&nbsp;&nbsp;</td>
-      </tr>
-    </table></td>
+    <td height="44" valign="top" background="Styles/Images/basebg2.jpg">    
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td height="26" class="baseline">&nbsp;&nbsp;© Copyright 2008 Homeownership Preservation 
+                    Foundation. All Rights Reserved.</td>
+                <td align="right" class="baseline">
+                    Design by HPF Team - <asp:Label ID="lblVersion" runat="server" Text="Version: "></asp:Label></td>
+            </tr>            
+        </table>        
+    </td>
   </tr>
 </table>
 </form>

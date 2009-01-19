@@ -17,7 +17,7 @@ namespace HPF.FutureState.WebService.Test.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblVersion.Text = "Version: " + ConfigurationManager.AppSettings["BuildVersion"];
         }
     }
 }
