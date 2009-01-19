@@ -103,8 +103,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NullableOrStringLengthValidator(true, 4, "Borrower Last 4 SSN", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerLast4Ssn { get; set; }
-
-        [StringRequiredValidator(Tag = ErrorMessages.WARN308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        
+        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.WARN308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public DateTime BorrowerDob { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Co-Borrower F Name",  Ruleset = Constant.RULESET_LENGTH)]
@@ -250,7 +250,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime SummarySentDt { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = ErrorMessages.WARN312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public byte OccupantNum { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN313, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]

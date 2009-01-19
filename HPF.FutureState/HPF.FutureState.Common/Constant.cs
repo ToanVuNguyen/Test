@@ -21,6 +21,8 @@ namespace HPF.FutureState.Common
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
 
         public const string CALL_CENTER_OTHER = "OTHER";
-        public const string SERVICER_OTHER = "Other (lender name in notes)";
+        public const string SERVICER_OTHER = "OTHER (LENDER NAME IN NOTES)";
+        public const string SUB_CATEGORY_NAME_MORTGAGE = "MORTGAGE";
+        public const string OUTCOME_TYPE_NAME = "EXTERNAL REFERAL";
     }
 }

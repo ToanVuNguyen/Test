@@ -38,11 +38,11 @@ namespace HPF.FutureState.WebServices
                 {
                     
                     response.FcId = ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
-                    if (ForeclosureCaseSetBL.Instance.WarningMessage != null)
+                    if (ForeclosureCaseSetBL.Instance.WarningMessage != null && ForeclosureCaseSetBL.Instance.WarningMessage.Count != 0)
                     {
                         response.Status = ResponseStatus.Warning;
-                        response.Messages = ForeclosureCaseSetBL.Instance.WarningMessage.ExceptionMessages;
-                    }
+                        response.Messages = ForeclosureCaseSetBL.Instance.WarningMessage;
+                    }                    
                     else
                         response.Status = ResponseStatus.Success;
                 }
