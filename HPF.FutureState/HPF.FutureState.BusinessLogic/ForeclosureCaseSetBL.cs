@@ -448,7 +448,7 @@ namespace HPF.FutureState.BusinessLogic
             BudgetSubcategoryDTOCollection budgetSubCat = foreclosureCaseSetDAO.GetBudgetSubcategory();
             foreach (BudgetSubcategoryDTO item in budgetSubCat)
             {
-                string budgetSubName = item.BudgetSubcategoryName.ToUpper().Trim();
+                string budgetSubName = ConvertStringToUpper(item.BudgetSubcategoryName);
                 if (budgetSubName == "MORTGATE")
                     return item.BudgetSubcategoryID;
             }
@@ -522,7 +522,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);
             if (ex != null)
                 msgFcCaseSet.Add(ex);
-            if (msgBudgetAsset.Count != 0)
+            if (msgBudgetAsset != null || msgBudgetAsset.Count < 1)
                 msgFcCaseSet.Add(msgBudgetAsset);
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.BorrowerDob))
                 msgFcCaseSet.AddExceptionMessage("Age of the Borrower must be >=12 and <=110");
@@ -553,6 +553,7 @@ namespace HPF.FutureState.BusinessLogic
                 return false;
             return true;
         }
+
         /// <summary>
         /// Check MaxLength for budgetAsset
         /// </summary>
@@ -569,9 +570,11 @@ namespace HPF.FutureState.BusinessLogic
             }
             return msgFcCaseSet;
         }
-        #endregion
+
         
-        #region CheckDateOfBirth
+        /// <summary>
+        /// Check Old between 12 and 110
+        /// </summary>
         private bool CheckDateOfBirth(DateTime dateOfBirth)
         {
             int systemYear = DateTime.Now.Year;
@@ -579,20 +582,21 @@ namespace HPF.FutureState.BusinessLogic
             {
                 int yearOfBirth = dateOfBirth.Year;
                 int calculateYear = systemYear - yearOfBirth;
-                if(calculateYear >= 12 && calculateYear <= 100)
+                if (calculateYear >= 12 && calculateYear <= 110)
                     return true;
                 return false;
             }
             return true;
-        }
-        #endregion
+        }        
+        #endregion       
 
         #region Functions Check MiscError
         /// <summary>
         /// Check Misc Error Exception
         /// Case 1: Cannot Un-complete a Previously Completed Case
-        /// Case 2: Two First Mortgages Not Allowed in a Case 
+        /// Case 2: Two First Mortgages Not Allowed in a Case AND Case Loan must have atleast 1st (If case completed)
         /// Case 3: Cannot resubmit the case complete without billable outcome
+        /// Case 4: Budget Item must have atleast 1 budget_item = 'Mortgage Amount'.(If case completed)
         /// return TRUE if have Error
         /// </summary>
         private ExceptionMessageCollection MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
@@ -603,16 +607,20 @@ namespace HPF.FutureState.BusinessLogic
             bool caseComplete = CheckForeclosureCaseComplete(fcId);
 
             ExceptionMessageCollection msgCase1 = CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete);
-            if (msgCase1 != null && msgCase1.Count != 0)
+            if (msgCase1 != null || msgCase1.Count < 1) 
                 msgFcCaseSet.Add(msgCase1);
 
             ExceptionMessageCollection msgCase2 = CheckFirstMortgages(foreclosureCaseSet, caseComplete);
-            if (msgCase2 != null && msgCase2.Count != 0)
+            if (msgCase2 != null || msgCase2.Count < 1)
                 msgFcCaseSet.Add(msgCase2);
 
             ExceptionMessageCollection msgCase3 = CheckBillableOutCome(foreclosureCaseSet, caseComplete);
-            if (msgCase3 != null && msgCase3.Count != 0)
+            if (msgCase3 != null || msgCase3.Count < 1)
                 msgFcCaseSet.Add(msgCase3);
+
+            ExceptionMessageCollection msgCase4 = CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete);
+            if (msgCase4 != null || msgCase4.Count < 1)
+                msgFcCaseSet.Add(msgCase4);
 
             if (msgFcCaseSet.Count == 0)
                 return null;
@@ -670,7 +678,7 @@ namespace HPF.FutureState.BusinessLogic
                     count = count + 1;                
             }
             if(count > 1)
-                msgFcCaseSet.AddExceptionMessage("ERR256", ErrorMessages.GetExceptionMessageCombined("ERR256"));
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR256, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR256));
             if (caseComplete && count == 0)
                 msgFcCaseSet.AddExceptionMessage("Must have Loan_1st_2nd with 1st value");
             return msgFcCaseSet;
@@ -705,11 +713,21 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();            
             foreach (OutcomeTypeDTO item in outcomeType)
             {
-                if (item.OutcomeTypeID == outcome.OutcomeTypeId && item.PayableInd == Constant.PAYABLE_IND)
+                if (item.OutcomeTypeID == outcome.OutcomeTypeId && ConvertStringToUpper(item.PayableInd) == Constant.PAYABLE_IND)
                     return true;
             }
             return false;
-        }        
+        }
+
+        private ExceptionMessageCollection CheckMortgageBudgetItem(ForeclosureCaseSetDTO foreclosureCaseSetInput, bool caseComplete)
+        {
+            if (!caseComplete)
+                return null;
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (!CheckBudgetItemHaveMortgage(foreclosureCaseSetInput))
+                msgFcCaseSet.AddExceptionMessage("BudgetItem must exist and it must have atleast 1 budget_item = 'Mortgage Amount'");
+            return msgFcCaseSet;            
+        }
         #endregion
 
         #region Function Update Fore Closure Case Set
@@ -970,7 +988,11 @@ namespace HPF.FutureState.BusinessLogic
         private bool IsBudgetItemsDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetCollectionInput, int fcId)
         {
             BudgetItemDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetItemSet(fcId);
-            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
+            if ((budgetCollectionInput != null && budgetCollectionDB == null) || (budgetCollectionInput == null && budgetCollectionDB != null))
+                return true;            
+            if (budgetCollectionDB != null && budgetCollectionInput != null && budgetCollectionDB.Count != budgetCollectionInput.Count)
+                return true;
+            if (budgetCollectionDB != null && budgetCollectionInput != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
                 foreach (BudgetItemDTO budgetItem in budgetCollectionInput)
                 {
@@ -990,7 +1012,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (budgetItemInput.BudgetSubcategoryId == budgetItemDB.BudgetSubcategoryId
                     && budgetItemInput.BudgetItemAmt == budgetItemDB.BudgetItemAmt
-                    && budgetItemInput.BudgetNote == budgetItemDB.BudgetNote)
+                    && ConvertStringToUpper(budgetItemInput.BudgetNote) == ConvertStringToUpper(budgetItemDB.BudgetNote))
                     return true;
             }
             return false;
@@ -1005,8 +1027,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>true: if have difference</returns>
         private bool IsBudgetAssetDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetCollectionInput, int fcId)
         {
-            BudgetAssetDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetAssetSet(fcId);
-            if (budgetCollectionDB != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
+            BudgetAssetDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetAssetSet(fcId);            
+            if ((budgetCollectionInput != null && budgetCollectionDB == null) || (budgetCollectionInput == null && budgetCollectionDB != null))
+                return true;
+            if (budgetCollectionDB != null && budgetCollectionInput != null && budgetCollectionDB.Count != budgetCollectionInput.Count)
+                return true;
+            if (budgetCollectionDB != null && budgetCollectionInput != null && budgetCollectionDB.Count == budgetCollectionInput.Count)
             {
                 foreach (BudgetAssetDTO budgetAssetInput in budgetCollectionInput)
                 {
@@ -1042,8 +1068,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             bool budgetItem = IsBudgetItemsDifference(foreClosureCaseSetDAO, budgetItemCollection, fcId);
             bool budgetAsset = IsBudgetAssetDifference(foreClosureCaseSetDAO, budgetAssetCollection, fcId);
-            return (budgetItem || budgetItem);
-                
+            return (budgetItem || budgetItem);                
         }
         #endregion
 
@@ -1071,10 +1096,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             else
             {
-                foreach (OutcomeItemDTO itemInput in outcomeItemCollectionInput)
-                {
-                    outcomeItemNew.Add(itemInput);
-                }
+                outcomeItemNew = outcomeItemCollectionInput;
             }
             return outcomeItemNew;   
         }
@@ -1116,8 +1138,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (outcomeItem.OutcomeTypeId == item.OutcomeTypeId
                     && outcomeItem.OutcomeDt.Date == item.OutcomeDt.Date
-                    && outcomeItem.NonprofitreferralKeyNum == item.NonprofitreferralKeyNum
-                    && outcomeItem.ExtRefOtherName == item.ExtRefOtherName)
+                    && ConvertStringToUpper(outcomeItem.NonprofitreferralKeyNum) == ConvertStringToUpper(item.NonprofitreferralKeyNum)
+                    && ConvertStringToUpper(outcomeItem.ExtRefOtherName) == ConvertStringToUpper(item.ExtRefOtherName))
                     return true;
             }
             return false;
@@ -1128,7 +1150,7 @@ namespace HPF.FutureState.BusinessLogic
         #region Functions check for update Case Loan
         /// <summary>      
         /// Check exist of a caseLoan
-        /// base on fcId, ServicerId, Accnum
+        /// base on fcId, Accnum
         /// If exist return true; vs return false
         /// </summary>
         /// <param name>CaseLoanDTO, caseLoanCollection</param>
@@ -1137,39 +1159,39 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (caseLoan.FcId == item.FcId                    
-                    && caseLoan.AcctNum == item.AcctNum)
+                if (caseLoan.FcId == item.FcId
+                    && ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
                     return true;
             }
             return false;
         }
 
-        // <summary>               
-        /// </summary>
+        /// <summary>                       
         /// <param name></param>
         /// <returns>bool</returns>
+        /// </summary>
         private bool CheckCaseLoanUpdate(CaseLoanDTO caseLoan, CaseLoanDTOCollection caseLoanCollection)
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
                 if (caseLoan.FcId == item.FcId && caseLoan.AcctNum == item.AcctNum)
                 {
-                    if (caseLoan.OtherServicerName != item.OtherServicerName
-                        || caseLoan.Loan1st2nd != item.Loan1st2nd
-                        || caseLoan.MortgageTypeCd != item.MortgageTypeCd                        
-                        || caseLoan.ArmResetInd != item.ArmResetInd
-                        || caseLoan.TermLengthCd != item.TermLengthCd
-                        || caseLoan.LoanDelinqStatusCd != item.LoanDelinqStatusCd
+                    if (ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName)
+                        || ConvertStringToUpper(caseLoan.Loan1st2nd) != ConvertStringToUpper(item.Loan1st2nd)
+                        || ConvertStringToUpper(caseLoan.MortgageTypeCd) != ConvertStringToUpper(item.MortgageTypeCd)                        
+                        || ConvertStringToUpper(caseLoan.ArmResetInd) != ConvertStringToUpper(item.ArmResetInd)
+                        || ConvertStringToUpper(caseLoan.TermLengthCd) != ConvertStringToUpper(item.TermLengthCd)
+                        || ConvertStringToUpper(caseLoan.LoanDelinqStatusCd) != ConvertStringToUpper(item.LoanDelinqStatusCd)
                         || caseLoan.CurrentLoanBalanceAmt != item.CurrentLoanBalanceAmt
                         || caseLoan.OrigLoanAmt != item.OrigLoanAmt
                         || caseLoan.InterestRate != item.InterestRate
-                        || caseLoan.OriginatingLenderName != item.OriginatingLenderName
-                        || caseLoan.OrigMortgageCoFdicNcusNum != item.OrigMortgageCoFdicNcusNum
-                        || caseLoan.OrigMortgageCoName != item.OrigMortgageCoName
-                        || caseLoan.OrginalLoanNum != item.OrginalLoanNum
-                        || caseLoan.FdicNcusNumCurrentServicerTbd != item.FdicNcusNumCurrentServicerTbd
-                        || caseLoan.CurrentServicerNameTbd != item.CurrentServicerNameTbd
-                        || caseLoan.InvestorLoanNum != item.InvestorLoanNum
+                        || ConvertStringToUpper(caseLoan.OriginatingLenderName) != ConvertStringToUpper(item.OriginatingLenderName)
+                        || ConvertStringToUpper(caseLoan.OrigMortgageCoFdicNcusNum) != ConvertStringToUpper(item.OrigMortgageCoFdicNcusNum)
+                        || ConvertStringToUpper(caseLoan.OrigMortgageCoName) != ConvertStringToUpper(item.OrigMortgageCoName)
+                        || ConvertStringToUpper(caseLoan.OrginalLoanNum) != ConvertStringToUpper(item.OrginalLoanNum)
+                        || ConvertStringToUpper(caseLoan.FdicNcusNumCurrentServicerTbd) != ConvertStringToUpper(item.FdicNcusNumCurrentServicerTbd)
+                        || ConvertStringToUpper(caseLoan.CurrentServicerNameTbd) != ConvertStringToUpper(item.CurrentServicerNameTbd)
+                        || ConvertStringToUpper(caseLoan.InvestorLoanNum) != item.InvestorLoanNum
                         )
                         return false;
                 }                
@@ -1905,8 +1927,19 @@ namespace HPF.FutureState.BusinessLogic
       
         #endregion
 
+        #region Utility
+        private string ConvertStringToUpper(string s)
+        {
+            if (s == null || s == string.Empty)
+                return s;
+            else            
+                s = s.ToUpper().Trim();
+            return s;
+        }
         #endregion
 
-        
+        #endregion
+
+
     }
 }
