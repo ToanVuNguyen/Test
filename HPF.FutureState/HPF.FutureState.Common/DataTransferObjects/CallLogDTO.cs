@@ -57,7 +57,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "Last Name's maximum length is 30 characters")]
         public string LastName { get; set; }
 
-        [IgnoreNulls()]
+        
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be type of Integer")]
         public int ServicerId { get; set; }
 
         [IgnoreNulls()]
@@ -68,7 +69,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringLengthValidator(9, Ruleset = "Default", MessageTemplate = "Prop Zip's maximum length is 9 characters")]
         public string PropZipFull9 { get; set; }
         
-        [IgnoreNulls()]
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be type of Integer")]
         public int PrevAgencyId { get; set; }
 
         [IgnoreNulls()]
