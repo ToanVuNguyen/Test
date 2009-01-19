@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
         public double BudgetItemAmt { get; set; }
 
-        [NullableOrStringLengthValidator(true, 100, Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 100, "Budget Note", Ruleset = Constant.RULESET_LENGTH)]
         public string BudgetNote { get; set; }       
     }
 }

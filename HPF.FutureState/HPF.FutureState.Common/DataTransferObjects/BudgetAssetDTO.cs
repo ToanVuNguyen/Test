@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int BudgetSetId { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Asset Name", Ruleset = Constant.RULESET_LENGTH)]
         public string AssetName { get; set; }
 
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]

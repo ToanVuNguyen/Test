@@ -10,17 +10,19 @@ namespace HPF.FutureState.Common.Utils.DataValidator
     {
         int _length;
         bool _nullable;
-        public NullableOrStringLengthValidator(bool nullable, int length)
+        string _fieldName;
+        public NullableOrStringLengthValidator(bool nullable, int length, string fieldName)
             : base(null, null)
         {
             _nullable = nullable;
-            _length = length;            
+            _length = length;
+            _fieldName = fieldName;
         }
 
         protected override string DefaultMessageTemplate
         {
             get { return "Field is invalid."; }
-        }
+        }       
 
         protected override void DoValidate(string objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
@@ -29,12 +31,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             if (objectToValidate == null || objectToValidate.Trim() == string.Empty)
             {
                 isValid = _nullable;
-                if (!isValid) MessageTemplate = key + " is required";
+                if (!isValid) MessageTemplate = _fieldName + " is required";
             }
             else
             {
                 isValid = (objectToValidate.Trim().Length <= _length);
-                if (!isValid) MessageTemplate = key + "max length is " + _length.ToString();
+                if (!isValid) MessageTemplate = _fieldName + "max length is " + _length.ToString();
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);

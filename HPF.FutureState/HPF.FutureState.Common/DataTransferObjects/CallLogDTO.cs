@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int CallCenterID { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(55, Ruleset = "Default", MessageTemplate = "AgencyId's Maximum length is 55 characters")]
+        [StringLengthValidator(55, Ruleset = "Default", MessageTemplate = "Agency Id's maximum length is 55 characters")]
         public string CcAgentIdKey { get; set; }
 
         //[NotNullValidator(Ruleset = "Default", MessageTemplate = "Start date is required")]
@@ -30,7 +30,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime EndDate { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(10, Ruleset = "Default", MessageTemplate = "DNIS's Maximum length is 10 characters")]
+        [StringLengthValidator(10, Ruleset = "Default", MessageTemplate = "DNIS's maximum length is 10 characters")]
         public string DNIS { get; set; }
 
         [IgnoreNulls()]
@@ -38,23 +38,23 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CallCenter { get; set; }        
 
         [IgnoreNulls()]
-        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "CallResource's Maximum length is 15 characters")]
+        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "Call Resource's maximum length is 15 characters")]
         public string CallSourceCd { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(75, Ruleset = "Default", MessageTemplate = " ReasonToCall's Maximum length is 75 characters")]
+        [StringLengthValidator(75, Ruleset = "Default", MessageTemplate = " Reason To Call's maximum length is 75 characters")]
         public string ReasonToCall { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "AccountNumber's Maximum length is 30 characters")]
+        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "Account Number's maximum length is 30 characters")]
         public string LoanAccountNumber { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "FirstName's Maximum length is 30 characters")]
+        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "First Name's maximum length is 30 characters")]
         public string FirstName { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "LastName's Maximum length is 30 characters")]
+        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "Last Name's maximum length is 30 characters")]
         public string LastName { get; set; }
 
         [IgnoreNulls()]
@@ -65,38 +65,38 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string OtherServicerName { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(9, Ruleset = "Default", MessageTemplate = "PropZip's Maximum length is 9 characters")]
+        [StringLengthValidator(9, Ruleset = "Default", MessageTemplate = "Prop Zip's maximum length is 9 characters")]
         public string PropZipFull9 { get; set; }
         
         [IgnoreNulls()]
         public int PrevAgencyId { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(20, Ruleset = "Default", MessageTemplate = "SelectedAgencyId's Maximum length is 20 characters")]
+        [StringLengthValidator(20, Ruleset = "Default", MessageTemplate = "Selected Agency Id's maximum length is 20 characters")]
         public string SelectedAgencyId { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(2000, Ruleset = "Default", MessageTemplate = "ScreenRout's Maximum length is 2000 characters")]
+        [StringLengthValidator(2000, Ruleset = "Default", MessageTemplate = "Screen Rout's maximum length is 2000 characters")]
         public string ScreenRout { get; set; }
 
         
-        [NullableOrStringLengthValidator(false, 15, Ruleset = "Default")]
+        [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default")]
         public string FinalDispoCd { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(12, Ruleset = "Default", MessageTemplate = "TransNumber's Maximum length is 12 characters")]
+        [StringLengthValidator(12, Ruleset = "Default", MessageTemplate = "Trans Number's maximum length is 12 characters")]
         public string TransNumber { get; set; }
 
         
-        [NullableOrStringLengthValidator(false, 18, Ruleset = "Default")]
+        [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default")]
         public string CcCallKey { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "LoanDelinqStatusCd's Maximum length is 15 characters")]
+        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "LoanDelinqStatusCd's maximum length is 15 characters")]
         public string LoanDelinqStatusCd { get; set; }
 
         [IgnoreNulls()]
-        [StringLengthValidator(40, Ruleset = "Default", MessageTemplate = "SelectedCounselor's Maximum length is 40 characters")]
+        [StringLengthValidator(40, Ruleset = "Default", MessageTemplate = "Selected Counselor's maximum length is 40 characters")]
         public string SelectedCounselor { get; set; }
 
         [IgnoreNulls()]

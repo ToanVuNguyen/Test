@@ -12,20 +12,22 @@ namespace HPF.FutureState.Common.Utils.DataValidator
     {
         int _length;
         bool _nullable;
+        string _fieldName;
 
         /// <summary>
         /// Attribute for validator
         /// </summary>
         /// <param name="nullable">String to validate is allowed to be null or not</param>
         /// <param name="numberOfDigits">Length of the String to validate</param>
-        public NullableOrStringLengthValidatorAttribute(bool nullable, int length)            
+        public NullableOrStringLengthValidatorAttribute(bool nullable, int length, string fieldName)            
         {
             _nullable = nullable;
             _length = length;
+            _fieldName = fieldName;
         }
         protected override Validator DoCreateValidator(Type targetType)
         {
-            return new NullableOrStringLengthValidator(_nullable, _length);
+            return new NullableOrStringLengthValidator(_nullable, _length, _fieldName);
         }
     }
 }
