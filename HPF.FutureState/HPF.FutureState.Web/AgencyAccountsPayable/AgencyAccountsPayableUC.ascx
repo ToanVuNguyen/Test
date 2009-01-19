@@ -71,7 +71,7 @@
         <asp:Label ID="lblPayablePeriod" runat="server" Text='<%#Eval("PeriodStartDate","{0:d}")+" - "+Eval("PeriodEndDate","{0:d}") %>'></asp:Label>
         </ItemTemplate>
         </asp:TemplateField>
-        <asp:BoundField HeaderText="Amount" DataField="TotalAmount" />
+        <asp:BoundField HeaderText="Amount" DataField="TotalAmount" DataFormatString="{0:C}" />
        <asp:BoundField HeaderText="Status" DataField="StatusCode" />
         <asp:BoundField HeaderText="Comments" DataField="PaymentComment" />
         </Columns>
@@ -94,8 +94,10 @@
                 </tr>
                 <tr>
                     <td>
+                        <span onclick="return confirm('Do you really want to cancel the payable')">
                         <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable"  
                             CssClass="MyButton" Width="100px" onclick="btnCancelPayable_Click" />
+                            </span>
                     </td>
                 </tr>
             </table>

@@ -26,12 +26,13 @@ namespace HPF.FutureState.Web.AppNewPayable
             { return (ForeclosureCaseDraftDTOCollection)ViewState["fcDraftCol"]; }
             set
             {
-                ViewState["fcDraftCol"] = value;  
+                ViewState["fcDraftCol"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             //get search criteria.
+
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             agencyPayableSearchCriteria = GetCriteria();
             if (!IsPostBack)
@@ -66,7 +67,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             return agencyPayableSearchCriteria;
         }
         /// <summary>
-        /// 
+        /// bind search data match search criteria into gridview
         /// </summary>
         protected void BindGridView()
         {
@@ -79,9 +80,9 @@ namespace HPF.FutureState.Web.AppNewPayable
                 total += item.Amount;
             }
             //add the values you just calculate to lable in UI
-            lblInvoiceTotalFooter.Text = total.ToString();
+            lblInvoiceTotalFooter.Text = String.Format("{0:c}",total);
             lblTotalCasesFooter.Text = this.FCDraftCol.Count.ToString();
-            lblTotalAmount.Text = total.ToString();
+            lblTotalAmount.Text = String.Format("{0:c}", total);
             lblTotalCases.Text = this.FCDraftCol.Count.ToString();
         }
         /// <summary>
@@ -99,7 +100,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                     grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
                     this.FCDraftCol = agencyPayableDraftDTO.ForclosureCaseDrafts;
                     grvInvoiceItems.DataBind();
-                    lblAgency.Text = agencyPayableSearchCriteria.AgencyId.ToString();
+                    AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
+                    lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
                     lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
                     lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
                     lblTotalAmount.Text = agencyPayableDraftDTO.TotalAmount.ToString();
@@ -111,7 +113,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     {
                         //test
                         item.Amount = 10;
-                        total +=item.Amount;
+                        total += item.Amount;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
                     lblTotalAmount.Text = total.ToString();
@@ -166,7 +168,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 lblMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex);
-                
+
             }
         }
         /// <summary>
@@ -177,7 +179,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
-            for(int i=grvInvoiceItems.Rows.Count-1;i>=0;i--)
+            for (int i = grvInvoiceItems.Rows.Count - 1; i >= 0; i--)
             {
                 CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
                 if (chkdel.Checked == true)
@@ -187,7 +189,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
             }
             BindGridView();
-}
+        }
         /// <summary>
         /// return NewPayableCriteria page.
         /// </summary>
@@ -195,8 +197,17 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
-            string query = "?agency="+lblAgency.Text.Trim().ToString();
-            Response.Redirect("NewPayableCriteria.aspx"+query);
+            AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
+            string query = GetQueryString(criteria);
+            Response.Redirect("NewPayableCriteria.aspx" + query);
+        }
+        private string GetQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
+        {
+            string query = "?agencyid=" + agencyPayableSearchCriteria.AgencyId + "&casecomplete=" + agencyPayableSearchCriteria.CaseComplete
+                + "&periodenddate=" + agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString() + "&servicerconsent=" + agencyPayableSearchCriteria.ServicerConsent
+                + "&periodstartdate=" + agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString() + "&fundingconsent=" + agencyPayableSearchCriteria.FundingConsent
+                + "&maxnumbercase=" + agencyPayableSearchCriteria.MaxNumberOfCase + "&indicator=" + agencyPayableSearchCriteria.LoanIndicator;
+            return query;
         }
     }
 }

@@ -60,7 +60,8 @@
             </asp:DropDownList>
         </td>
         <td>
-            &nbsp;</td>
+           </asp:Label>
+           </td>
     </tr>
     <tr>
         <td class="sidelinks" align="right">

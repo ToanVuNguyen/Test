@@ -60,13 +60,20 @@ namespace HPF.FutureState.BusinessLogic
         {
             AppForeclosureCaseSearchResultDTOCollection result = new AppForeclosureCaseSearchResultDTOCollection();
             Collection<string> ErrorMess = AppRequireFieldValidation(searchCriteria);
+            //ExceptionMessageCollection ErrorMess = HPFValidator.ValidateToGetExceptionMessage<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, "CriteriaValidation");
             if (!ValidateSearchCriteria(searchCriteria))
             {
-                throw new DataValidationException("Please choose argument(s) for at least one search option");
+                ExceptionMessage ex = new ExceptionMessage();
+                ex.Message = "Please choose argument(s) for at least one search option";
+                DataValidationException pe = new DataValidationException();
+                pe.ExceptionMessages.Add(ex);
+                throw pe;
+                //throw new DataValidationException("Please choose argument(s) for at least one search option");
+                
             }
             if (ErrorMess != null)
             {
-
+                
                 AppThrowMissingRequiredFieldsException(ErrorMess);
             }
             result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
@@ -97,6 +104,12 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
+        //private void AppThrowMissingRequiredFieldsException(ExceptionMessageCollection collection)
+        //{
+        //    DataValidationException pe = new DataValidationException();
+        //    pe.ExceptionMessages.Add(collection);
+        //    throw pe;
+        //}
 
         #region Functions check validate to app foreclosure case
         ///<summary>

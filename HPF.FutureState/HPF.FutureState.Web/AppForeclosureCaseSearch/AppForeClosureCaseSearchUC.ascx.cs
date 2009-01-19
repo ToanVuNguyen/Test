@@ -20,6 +20,14 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
     public partial class AppForeClosureCaseSearchUC : System.Web.UI.UserControl
     {
+        protected AppForeclosureCaseSearchCriteriaDTO SearchCriteria
+        {
+            get
+            {
+                return (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
+            }
+            set { AppForeclosureCaseSearchCriteriaDTO searchcriteria = value; }
+        }
         protected int PageSize
         {
             get { return (int.Parse(ConfigurationManager.AppSettings["pagesize"])); }
@@ -42,6 +50,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindProgramDropdownlist();
                 BindStateDropdownlist();
                 BindAgencyDropdownlist();
+                ReBindSearchCriteria();
 
             }
             else
@@ -51,6 +60,26 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
                     GeneratePages(totalpage);
                 }
+            }
+        }
+        protected void ReBindSearchCriteria()
+        {
+            if (Session["searchcriteria"] != null)
+            {
+                AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
+                txtLastName.Text = searchcriteria.LastName;
+                txtFirstName.Text = searchcriteria.FirstName;
+                txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
+                if (searchcriteria.ForeclosureCaseID.ToString() == "-1")
+                    txtForeclosureCaseID.Text = "";
+                txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
+                txtLoanNum.Text = searchcriteria.LoanNumber;
+                txtPropertyZip.Text = searchcriteria.PropertyZip;
+                txtSSN.Text = searchcriteria.Last4SSN;
+                ddlAgency.SelectedValue = searchcriteria.Agency.ToString();
+                ddlDup.SelectedValue = searchcriteria.Duplicates;
+                ddlProgram.SelectedValue = searchcriteria.Program.ToString();
+                ddlPropertyState.SelectedValue = searchcriteria.PropertyState;
             }
         }
         protected void BindStateDropdownlist()
@@ -78,12 +107,16 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlProgram.DataTextField = "ProgramName";
             ddlProgram.DataSource = programCollection;
             ddlProgram.DataBind();
+            //selected item of drop down list : all
             ddlProgram.Items.FindByText("ALL").Selected = true;
         }
 
-        ///
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PageNum"></param>
         protected void BindGrvForeClosureCaseSearch(int PageNum)
-        {            
+        {
             try
             {
                 panForeClosureCaseSearch.Visible = true;
@@ -101,8 +134,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 if (this.TotalRowNum != 0)
                 {
                     ManageControls(true);
-                    lbtnFirst.Visible = false;
-                    lbtnPrev.Visible = false;
+                    grvForeClosureCaseSearch.Visible = true;
+                    lbtnFirst.Enabled = false;
+                    lbtnPrev.Enabled = false;
                     int MinRow = (this.PageSize * (PageNum - 1) + 1);
                     int MaxRow = PageNum * this.PageSize;
                     lblTotalRowNum.Text = this.TotalRowNum.ToString();
@@ -115,10 +149,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
                     if (totalpage == 1)
                     {
-                        lbtnFirst.Visible = false;
-                        lbtnLast.Visible = false;
-                        lbtnPrev.Visible = false;
-                        lbtnNext.Visible = false;
+                        lbtnFirst.Enabled = false;
+                        lbtnLast.Enabled = false;
+                        lbtnPrev.Enabled = false;
+                        lbtnNext.Enabled = false;
                     }
                     GeneratePages(totalpage);
                     lblTemp.Text = "1";
@@ -130,15 +164,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (DataValidationException ex)
             {
-                panForeClosureCaseSearch.Visible = false;
-                lblErrorMessage.Text += ex.Message;
-                lblErrorMessage.Text += "<br>";
+                //lblErrorMessage.Text += ex.Message;
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
-                   
+                    panForeClosureCaseSearch.Visible = false;
                     lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
                     lblErrorMessage.Text += " <br>";
-                }                
+                }
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex);
             }
@@ -184,7 +216,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
             return appForeclosureCaseSearchCriteriaDTO;
         }
-       
+
         protected void ManageControls(bool isEnable)
         {
             lbl1.Visible = isEnable;
@@ -200,6 +232,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            Session["searchcriteria"] = GetAppForeclosureCaseSearchCriteriaDTO(1);
             lblErrorMessage.Text = "";
             BindGrvForeClosureCaseSearch(1);
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
@@ -257,7 +290,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     lbtnFirst.Enabled = true;
                     lbtnLast.Enabled = true;
                     lbtnNext.Enabled = true;
-                    if (this.PageNum < 1||this.PageNum==1)
+                    if (this.PageNum < 1 || this.PageNum == 1)
                     {
                         this.PageNum = 1;
                         lbtnPrev.Enabled = false;
@@ -304,12 +337,12 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
             this.PageNum = pagenum;
-            
+
             lbtnFirst.Enabled = true;
             lbtnLast.Enabled = true;
             lbtnNext.Enabled = true;
             lbtnPrev.Enabled = true;
-            
+
             if (pagenum == 1)
             {
                 lbtnFirst.Enabled = false;

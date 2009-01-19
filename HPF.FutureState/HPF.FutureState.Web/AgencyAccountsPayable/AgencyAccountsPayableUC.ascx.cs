@@ -31,6 +31,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
+                BindGrvInvoiceList(DateTime.Now, DateTime.Now.AddMonths(-6));
             }
         }
         /// <summary>
@@ -47,7 +48,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// <summary>
         /// Bind search data into gridview
         /// </summary>
-        protected void BindGrvInvoiceList()
+        protected void BindGrvInvoiceList(DateTime periodStart,DateTime periodEnd)
         {
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
@@ -55,8 +56,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 //get search criteria to AgencyPayableSearchCriteriaDTO
                 searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-                searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
-                searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
+                searchCriteria.PeriodEndDate = periodEnd;
+                searchCriteria.PeriodStartDate = periodStart;
                 //get search data match that search collection
                 agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
                 //bind search data to gridview
@@ -86,7 +87,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            BindGrvInvoiceList();
+            DateTime periodStart, periodEnd;
+            periodStart = DateTime.Parse(txtPeriodStart.Text);
+            periodEnd = DateTime.Parse(txtPeriodEnd.Text);
+            BindGrvInvoiceList(periodStart,periodEnd);
         }
         /// <summary>
         /// go to New payable criteria.

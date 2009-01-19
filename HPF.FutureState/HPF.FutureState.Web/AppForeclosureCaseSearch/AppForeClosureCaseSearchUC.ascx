@@ -145,7 +145,6 @@
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="2500px"  SelectedRowStyle-BackColor="Yellow" 
                     onrowdatabound="grvForeClosureCaseSearch_RowDataBound" 
-                   
                     onrowcreated="grvForeClosureCaseSearch_RowCreated">
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

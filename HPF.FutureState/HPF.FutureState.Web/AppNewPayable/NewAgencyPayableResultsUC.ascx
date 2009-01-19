@@ -97,7 +97,7 @@
         
         <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Left" />
         <asp:BoundField DataField="CompletedDate" HeaderText="Complete Dt" ItemStyle-HorizontalAlign="Left" />
-        <asp:BoundField DataField="Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="Left"/>
+        <asp:BoundField DataField="Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="Left" DataFormatString="{0:C}"/>
         <asp:BoundField DataField="AccountLoanNumber" HeaderText="Loan Num" ItemStyle-HorizontalAlign="Left"/>
         <asp:BoundField DataField="ServicerName" HeaderText="Servicer" ItemStyle-HorizontalAlign="Left"/>
         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" ItemStyle-HorizontalAlign="Left" />
@@ -119,7 +119,7 @@
     </tr>
     <tr>
         <td>
-            &nbsp;</td>
+            </td>
         <td>
             &nbsp;</td>
         <td>

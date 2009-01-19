@@ -20,15 +20,35 @@ namespace HPF.FutureState.Web.AppNewPayable
 {
     public partial class NewPayableCriteriaUC : System.Web.UI.UserControl
     {
+
         
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                
                 BindDDLAgency();
                 GetDefaultPeriodStartEnd();
+                CancelDisplayCriteria();
             }
+           
         }
+        protected void CancelDisplayCriteria()
+        {
+            if (Request.QueryString["periodenddate"]!=null)
+            {
+                txtPeriodEnd.Text = Request.QueryString["periodenddate"].ToString();
+                txtPeriodStart.Text = Request.QueryString["periodstartdate"].ToString();
+                ddlCaseCompleted.SelectedValue = Request.QueryString["casecomplete"].ToString();
+                ddlServicerConsent.SelectedValue = Request.QueryString["servicerconsent"].ToString();
+                ddlFundingConsent.SelectedValue = Request.QueryString["fundingconsent"].ToString();
+                txtMaxNumberCase.Text = Request.QueryString["maxnumbercase"].ToString();
+                ddlIndicator.SelectedValue = Request.QueryString["indicator"].ToString();
+                ddlAgency.SelectedValue = Request.QueryString["agencyid"].ToString();
+            }
+            
+        }
+
         protected void BindDDLAgency()
         {
             try
@@ -39,8 +59,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                 ddlAgency.DataTextField = "AgencyName";
                 ddlAgency.DataValueField = "AgencyID";
                 ddlAgency.DataSource = agencyCollection;
-                if (Request.QueryString["agency"].ToString() != "-1")
-                    ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
                 ddlAgency.DataBind();
             }
             catch (Exception ex)
@@ -55,12 +73,15 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// </summary>
         protected void GetDefaultPeriodStartEnd()
         {
-            DateTime today=DateTime.Today;
-            int priormonth=today.AddMonths(-1).Month;
-            int year = today.AddMonths(-1).Year;
-            txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
-            int daysinmonth = DateTime.DaysInMonth(year, priormonth);
-            txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
+            if (Request.QueryString["periodenddate"]==null)
+            {
+                DateTime today = DateTime.Today;
+                int priormonth = today.AddMonths(-1).Month;
+                int year = today.AddMonths(-1).Year;
+                txtPeriodStart.Text = today.AddMonths(-1).ToShortDateString();
+                int daysinmonth = DateTime.DaysInMonth(year, priormonth);
+                txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
+            }
 
         }
         /// <summary>

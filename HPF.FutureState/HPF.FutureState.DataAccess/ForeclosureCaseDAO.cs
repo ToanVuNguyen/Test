@@ -7,6 +7,7 @@ using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -476,37 +477,39 @@ namespace HPF.FutureState.DataAccess
         /// <returns>AgencyDTOCollection contains all Agency </returns>
         public AgencyDTOCollection AppGetAgency()
         {
-            AgencyDTOCollection result = new AgencyDTOCollection();
-
-            var dbConnection = CreateConnection();
-            var command = new SqlCommand("hpf_agency_get", dbConnection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Connection = dbConnection;
-            try
-            {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
+            //AgencyDTOCollection results = HPFCacheManager.Instance.GetData<AgencyDTOCollection>("refAgency");
+            AgencyDTOCollection results = new AgencyDTOCollection();
+                var dbConnection = CreateConnection();
+                var command = new SqlCommand("hpf_agency_get", dbConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Connection = dbConnection;
+                try
                 {
-                    while (reader.Read())
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        var item = new AgencyDTO();
-                        item.AgencyID = ConvertToString(reader["agency_id"]);
-                        item.AgencyName = ConvertToString(reader["agency_name"]);
-                        result.Add(item);
+                        while (reader.Read())
+                        {
+                            var item = new AgencyDTO();
+                            item.AgencyID = ConvertToString(reader["agency_id"]);
+                            item.AgencyName = ConvertToString(reader["agency_name"]);
+                            results.Add(item);
+                        }
+                        reader.Close();
+                        //HPFCacheManager.Instance.Add("refAgency", results);
                     }
-                    reader.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return result;
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            
+            return results;
         }
         ///<summary>
         ///
