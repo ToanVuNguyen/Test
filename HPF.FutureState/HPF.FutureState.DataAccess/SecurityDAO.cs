@@ -150,7 +150,7 @@ namespace HPF.FutureState.DataAccess
                     webUser = new UserDTO();
                     while (reader.Read())
                     {
-                        webUser.CCRCUserId = ConvertToInt(reader["hpf_user_id"]);
+                        webUser.HPFUserId = ConvertToInt(reader["hpf_user_id"]);
                         webUser.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         webUser.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                         webUser.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);

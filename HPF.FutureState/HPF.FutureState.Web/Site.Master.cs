@@ -20,6 +20,7 @@ namespace HPF.FutureState.Web
         {
             //Admin
             MenuBarControl.UserId = HPFWebSecurity.CurrentIdentity.UserId;
+            lblUserName.Text = HPFWebSecurity.CurrentIdentity.DisplayName;
         }
     }
 }

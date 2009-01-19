@@ -54,8 +54,11 @@ namespace HPF.FutureState.Web.Security
             var user = SecurityBL.Instance.GetWebUser(uId.LoginName);
             uId.Roles = user.UserRole;
             uId.DisplayName = user.FirstName + "," + user.LastName;
+            if (user.FirstName == "" || user.LastName == "")
+                uId.DisplayName= uId.DisplayName.Replace(",", " ");
+
             uId.Email = user.Email;
-            uId.UserId = user.CCRCUserId;
+            uId.UserId = user.HPFUserId;
         }
     }
 }
