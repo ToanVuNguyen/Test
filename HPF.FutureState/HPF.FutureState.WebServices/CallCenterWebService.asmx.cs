@@ -56,7 +56,7 @@ namespace HPF.FutureState.WebServices
                     response.Messages = Ex.ExceptionMessages;
                 else
                     response.Messages.AddExceptionMessage(Ex.Message);
-                //ExceptionProcessor.HandleException(Ex);
+                ExceptionProcessor.HandleException(Ex);
             }
             catch (DataAccessException Ex)
             {
