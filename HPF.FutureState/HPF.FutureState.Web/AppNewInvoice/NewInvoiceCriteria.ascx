@@ -18,7 +18,16 @@
             <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPeriodStart" CssClass="ErrorMessage" runat="server" ErrorMessage="Period Start is required; " Display="Dynamic" ></asp:RequiredFieldValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPeriodEnd" CssClass="ErrorMessage" runat="server" ErrorMessage="Period End is required; " Display="Dynamic" ></asp:RequiredFieldValidator>
+            <asp:RangeValidator ID="RangeValidator1" runat="server" 
+                ControlToValidate="txtAgeMin" CssClass="ErrorMessage" 
+                ErrorMessage="Age Min: Max of 3 numbers; " MaximumValue="100" MinimumValue="1" 
+                Type="Integer"></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator2" runat="server" 
+                ControlToValidate="txtAgeMax" CssClass="ErrorMessage" 
+                ErrorMessage="Age Max: Max of 3 numbers; " MaximumValue="100" MinimumValue="1" 
+                Type="Integer"></asp:RangeValidator>
         </td>
+        
         
     </tr>
     <tr>
