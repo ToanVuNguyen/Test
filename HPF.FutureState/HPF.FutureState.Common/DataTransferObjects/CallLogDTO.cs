@@ -17,9 +17,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         
         public int CallCenterID { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(55, Ruleset = "Default", MessageTemplate = "Agency Id's maximum length is 55 characters")]
+        
+        [NullableOrStringLengthValidator(true, 55, "Cc Agent Id Key", Ruleset = "Default")]
         public string CcAgentIdKey { get; set; }
 
         //[NotNullValidator(Ruleset = "Default", MessageTemplate = "Start date is required")]
@@ -29,32 +28,27 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RequiredObjectValidator(Ruleset = "Default")]
         public DateTime EndDate { get; set; }
 
-        [IgnoreNulls()]
-        [StringLengthValidator(10, Ruleset = "Default", MessageTemplate = "DNIS's maximum length is 10 characters")]
+        [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default")]
         public string DNIS { get; set; }
 
         [IgnoreNulls()]
         //[StringLengthValidator(4, Ruleset = "Default", MessageTemplate = "CallCenter's Maximum length is 4 characters")]
         public string CallCenter { get; set; }        
-
-        [IgnoreNulls()]
-        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "Call Resource's maximum length is 15 characters")]
+        
+        [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]
         public string CallSourceCd { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(75, Ruleset = "Default", MessageTemplate = " Reason To Call's maximum length is 75 characters")]
+        
+        [NullableOrStringLengthValidator(true, 75, "Reason To Call", Ruleset = "Default")]
         public string ReasonToCall { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "Account Number's maximum length is 30 characters")]
+        
+        [NullableOrStringLengthValidator(true, 30, "Loan Account Number", Ruleset = "Default")]
         public string LoanAccountNumber { get; set; }
 
-        [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "First Name's maximum length is 30 characters")]
+        
+        [NullableOrStringLengthValidator(true, 10, "First name", Ruleset = "Default")]
         public string FirstName { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(30, Ruleset = "Default", MessageTemplate = "Last Name's maximum length is 30 characters")]
+        
+        [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default")]
         public string LastName { get; set; }
 
         
@@ -64,54 +58,47 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [IgnoreNulls()]
         //[StringLengthValidator(50, Ruleset = "Default", MessageTemplate = "OtherServicerName's Maximum length is 50 characters")]
         public string OtherServicerName { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(9, Ruleset = "Default", MessageTemplate = "Prop Zip's maximum length is 9 characters")]
+                
+        [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default")]
         public string PropZipFull9 { get; set; }
         
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be type of Integer")]
         public int PrevAgencyId { get; set; }
 
-        [IgnoreNulls()]
-        [StringLengthValidator(20, Ruleset = "Default", MessageTemplate = "Selected Agency Id's maximum length is 20 characters")]
+        
+        [NullableOrStringLengthValidator(true, 20, "Selected Agency Id", Ruleset = "Default")]
         public string SelectedAgencyId { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(2000, Ruleset = "Default", MessageTemplate = "Screen Rout's maximum length is 2000 characters")]
+                
+        [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default")]
         public string ScreenRout { get; set; }
 
         
         [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default")]
         public string FinalDispoCd { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(12, Ruleset = "Default", MessageTemplate = "Trans Number's maximum length is 12 characters")]
+        
+        [NullableOrStringLengthValidator(true, 10, "Trans Number", Ruleset = "Default")]
         public string TransNumber { get; set; }
 
         
         [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default")]
         public string CcCallKey { get; set; }
 
-        [IgnoreNulls()]
-        [StringLengthValidator(15, Ruleset = "Default", MessageTemplate = "LoanDelinqStatusCd's maximum length is 15 characters")]
+        
+        [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
         public string LoanDelinqStatusCd { get; set; }
-
-        [IgnoreNulls()]
-        [StringLengthValidator(40, Ruleset = "Default", MessageTemplate = "Selected Counselor's maximum length is 40 characters")]
+               
+        [NullableOrStringLengthValidator(true, 40, "Selected Counselor", Ruleset = "Default")]
         public string SelectedCounselor { get; set; }
 
-        string _homeownerInd;
-        [IgnoreNulls()]
+        string _homeownerInd;        
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string HomeownerInd { get { return _homeownerInd; } set { _homeownerInd = value.ToUpper(); } }
 
-        string _powerOfAttorneyInd;
-        [IgnoreNulls()]
+        string _powerOfAttorneyInd;        
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string PowerOfAttorneyInd { get { return _powerOfAttorneyInd; } set { _powerOfAttorneyInd = value.ToUpper(); } }
         
-        string _authorizedInd;
-        [IgnoreNulls()]
+        string _authorizedInd;        
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string AuthorizedInd { get { return _authorizedInd; } set { _authorizedInd = value.ToUpper(); } }
 
