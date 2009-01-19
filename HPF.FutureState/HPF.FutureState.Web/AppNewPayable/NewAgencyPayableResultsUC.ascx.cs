@@ -82,7 +82,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             //add the values you just calculate to lable in UI
             lblInvoiceTotalFooter.Text = String.Format("{0:c}",total);
             lblTotalCasesFooter.Text = this.FCDraftCol.Count.ToString();
-            lblTotalAmount.Text = String.Format("{0:c}", total);
+            lblTotalAmount.Text = total.ToString();
             lblTotalCases.Text = this.FCDraftCol.Count.ToString();
         }
         /// <summary>

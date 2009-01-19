@@ -37,7 +37,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();            
             try
-            {                
+            {
+                agencyPayableDAO.BeginTran();
                 AgencyPayableDTO agencyPayable = new AgencyPayableDTO();
                 agencyPayable.SetInsertTrackingInformation(agencyPayableDraft.CreateUserId);
                 agencyPayable.AgencyId = agencyPayableDraft.AgencyId;
@@ -64,10 +65,13 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.NFMCDifferenceEligibleInd = "N";
                     agencyPayableCase.NFMCDiffererencePaidInd= "N";
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
+                    
                 }
+                agencyPayableDAO.CommitTran();
             }
             catch (Exception)
             {
+                agencyPayableDAO.RollbackTran();
                 throw;
             }
             return true;

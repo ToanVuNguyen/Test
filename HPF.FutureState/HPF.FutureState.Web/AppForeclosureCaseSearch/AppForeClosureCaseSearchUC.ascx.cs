@@ -32,7 +32,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             get { return (int.Parse(ConfigurationManager.AppSettings["pagesize"])); }
         }
-
         protected double TotalRowNum
         {
             get { return Convert.ToDouble(ViewState["totalrownum"]); }
@@ -51,7 +50,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindStateDropdownlist();
                 BindAgencyDropdownlist();
                 ReBindSearchCriteria();
-
             }
             else
             {
