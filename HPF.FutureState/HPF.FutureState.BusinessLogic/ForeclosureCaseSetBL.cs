@@ -1912,12 +1912,13 @@ namespace HPF.FutureState.BusinessLogic
             foreach(DuplicatedCaseLoanDTO obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
-                em.ErrorCode = "ERR253";
-                //string s = ErrorMessages.GetExceptionMessage(em.ErrorCode);
-                em.Message = string.Format("Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
-                                              + "Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
-                                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
-                                              + "Last Outcome: {12} "
+                em.ErrorCode = ErrorMessages.ERR253;
+                //string s = "Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
+                //                              + "Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
+                //                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
+                //                              + "Last Outcome: {12} ";
+                //string s = ;
+                em.Message = string.Format(ErrorMessages.GetExceptionMessage(em.ErrorCode)
                             , obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
                             , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorExt
                             , obj.CounselorEmail, obj.OutcomeDt, obj.OutcomeTypeCode);
