@@ -24,6 +24,7 @@ namespace HPF.FutureState.WebService.Test.Web
         public static int _pageloadno = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnSave.Focus();
             if (!IsPostBack)
             {
                 LoadDefaultCallLogWSDTO();

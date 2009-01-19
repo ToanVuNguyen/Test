@@ -51,7 +51,7 @@
                         Select file: <asp:FileUpload ID="fileUpload" runat="server"  />
                     </td>
                     <td>
-                        <asp:Button id="UploadBtn" Text="Read File" OnClick="UploadBtn_Click" runat="server" Width="105px" />
+                        <asp:Button id="UploadBtn" Text="Read File" OnClick="UploadBtn_Click" runat="server" Width="105px" TabIndex="1000" />
                     </td>
                 </tr>
             </table>
@@ -313,7 +313,7 @@
     </asp:Table>
     <br />
     <br />
-        <asp:Button ID="btnSave" runat="server" Text="Save call log" onclick="btnSave_Click" />  <asp:Label CssClass="sidelinks" ID="lblResult" runat="server" Text="New Call Log ID: "></asp:Label>
+        <asp:Button ID="btnSave" runat="server" Text="Save call log" onclick="btnSave_Click" TabIndex="1" />  <asp:Label CssClass="sidelinks" ID="lblResult" runat="server" Text="New Call Log ID: "></asp:Label>
     <br />
     
     
