@@ -729,7 +729,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_AgencyCaseNumber_Pass()
         {
             string prop_zip = "11155";
-            string agency_case_number = "Test data";
+            string agency_case_number = "123321";
             #region generate test data
             #region insert FK
             string sql = "Insert into Agency "
@@ -769,7 +769,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
-            searchCriteria.FirstName = agency_case_number;
+            searchCriteria.AgencyCaseNumber = agency_case_number;
 
             int expected = fcId; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
@@ -782,15 +782,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ExecuteSql(sql);
             #endregion
             Assert.AreEqual(expected, actual);
-            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
+            TestContext.WriteLine(string.Format("Expected: {0} found - Actual: {1} found", expected, actual));
         }
 
         [TestMethod()]
         public void SearchFcCase_AgencyCaseNumber_Fail()
         {
             string prop_zip = "11155";
-            string first_name = "Test data";
+            string agency_case_number = "123321";
             #region generate test data
+            #region insert FK
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
@@ -802,13 +803,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
             int servicerID = GetServicerID();
-
+            #endregion
             ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
             ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
             fcCase.AgencyId = agencyID;
             fcCase.PropZip = prop_zip;
-            fcCase.BorrowerFname = first_name;
+            fcCase.AgencyCaseNum = agency_case_number;
+
 
             foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
             {
@@ -819,6 +820,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             target.InitiateTransaction();
+
+
             target.InsertForeclosureCaseSet(fcCaseSet);
             target.CompleteTransaction();
             #endregion
@@ -826,7 +829,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
-            searchCriteria.FirstName = "1235afdasdf";
+            searchCriteria.AgencyCaseNumber = "123421";
 
             int expected = 1; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
@@ -846,8 +849,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_AgencyCaseNumber_Invalid()
         {
             string prop_zip = "11155";
-            string first_name = "Test data";
+            string agency_case_number = "123321";
             #region generate test data
+            #region insert FK
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
@@ -859,13 +863,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
             int servicerID = GetServicerID();
-
+            #endregion
             ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
             ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
             fcCase.AgencyId = agencyID;
             fcCase.PropZip = prop_zip;
-            fcCase.BorrowerFname = first_name;
+            fcCase.AgencyCaseNum = agency_case_number;
+
 
             foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
             {
@@ -876,14 +880,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             target.InitiateTransaction();
+
+
             target.InsertForeclosureCaseSet(fcCaseSet);
             target.CompleteTransaction();
             #endregion
 
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.FirstName = "@#$%";
             searchCriteria.PropertyZip = prop_zip;
+            searchCriteria.AgencyCaseNumber = "asdfgds";
 
             DataValidationException expected = new DataValidationException(); //number of cases returned
             try
@@ -892,9 +898,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             }
             catch (DataValidationException actual)
             {
-                Assert.AreEqual(expected.GetType(), actual.GetType());
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
-
+                Assert.AreEqual(expected.GetType(), actual.GetType());              
             }
             finally
             {
