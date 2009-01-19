@@ -28,6 +28,10 @@ namespace HPF.FutureState.DataAccess
 
 
         #region Insert
+        /// <summary>
+        /// Insert an Invoice-Case to the database
+        /// </summary>
+        /// <param name="invoiceCase">InvoiceCaseDTO</param>
         public void InsertInvoiceCase(InvoiceCaseDTO invoiceCase)
         {
             dbConnection = CreateConnection();
@@ -70,7 +74,12 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
         }
-        public int InserInvoice(InvoiceDTO invoice)
+        /// <summary>
+        /// InsertInvoice to the database
+        /// </summary>
+        /// <param name="invoice">InvoiceDTO</param>
+        /// <returns>Invoice ID</returns>
+        public int InsertInvoice(InvoiceDTO invoice)
         {
             dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_invoice_insert",dbConnection);
@@ -121,6 +130,11 @@ namespace HPF.FutureState.DataAccess
         #endregion
 
         #region Searching Create Draft
+        /// <summary>
+        /// Search invoice 
+        /// </summary>
+        /// <param name="searchCriteria">Invoice searchCriteria</param>
+        /// <returns>InvoiceSearchResultDTOCollection</returns>
         public InvoiceSearchResultDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
         {
             InvoiceSearchResultDTOCollection invoices = null;
@@ -267,7 +281,7 @@ namespace HPF.FutureState.DataAccess
         /// Search Invoice Draft
         /// </summary>
         /// <param name="searchCriteria">InvoiceCaseSearchCriteriaDTO</param>
-        /// <returns></returns>
+        /// <returns>ForeclosureCaseDraftDTOCollection</returns>
         public ForeclosureCaseDraftDTOCollection InvoiceCaseSearch(InvoiceCaseSearchCriteriaDTO searchCriteria)
         {
             ForeclosureCaseDraftDTOCollection invoices = null;

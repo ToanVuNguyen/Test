@@ -27,7 +27,10 @@ namespace HPF.FutureState.BusinessLogic
         protected InvoiceBL()
         {            
         }
-
+        /// <summary>
+        /// InsertInvoice and Invoice-Case to the database
+        /// </summary>
+        /// <param name="invoiceDraft">InvoiceDraft contains Invoice and Invoice Case info</param>
         public void InsertInvoice(InvoiceDraftDTO invoiceDraft)
         {
             InvoiceDAO invoiceDAO = InvoiceDAO.CreateInstance();
@@ -49,7 +52,7 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.CreateUserId = invoiceDraft.CreateUserId;
                 //Insert Invoice
                 int invoiceId = -1;
-                invoiceId = invoiceDAO.InserInvoice(invoice);
+                invoiceId = invoiceDAO.InsertInvoice(invoice);
                 //Insert Invoice Case
                 ForeclosureCaseDraftDTOCollection fCaseDrafColection = invoiceDraft.ForeclosureCaseDrafts;
                 foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)
@@ -73,7 +76,12 @@ namespace HPF.FutureState.BusinessLogic
                 throw (ex) ;
             }
         }
-
+        /// <summary>
+        /// Validate criteria for Invoice Search 
+        /// </summary>
+        /// <param name="criteria">searchCriteria</param>
+        /// <param name="returnMessage">Error Message</param>
+        /// <returns>True if ok and false if fail</returns>
         public bool ValidateInvoiceCriteria(InvoiceSearchCriteriaDTO criteria,out string returnMessage)
         {
             returnMessage = "";
@@ -85,6 +93,12 @@ namespace HPF.FutureState.BusinessLogic
                 returnMessage += "Period Start can not larger than Period End; ";
             return (returnMessage == "");
         }
+        /// <summary>
+        /// Validate criteria for Invoice Search Case
+        /// </summary>
+        /// <param name="criteria">searchCriteria</param>
+        /// <param name="returnMessage">Error Message</param>
+        /// <returns>True if ok and false if fail</returns>
         public bool ValidateInvoiceCaseCriteria(InvoiceCaseSearchCriteriaDTO criteria, out string returnMessage)
         {
             returnMessage = "";
@@ -96,6 +110,10 @@ namespace HPF.FutureState.BusinessLogic
                 returnMessage += "Period End:Wrong DateTime format; ";
             if ((criteria.PeriodStart > criteria.PeriodEnd) && returnMessage == "")
                 returnMessage += "Period Start can not larger than Period End; ";
+            if(criteria.Age.Min>criteria.Age.Max&& criteria.Age.Max!=int.MinValue)
+                returnMessage += "AgeMin can not larger than AgeMax; ";
+            if(criteria.HouseholdGrossAnnualIncome.Min>criteria.HouseholdGrossAnnualIncome.Max&&criteria.HouseholdGrossAnnualIncome.Max!=double.MinValue)
+                returnMessage += "GrossAnnualIncome Min can not larger than GrossAnnualIncome Max; ";
             return (returnMessage == "");
         }
         public InvoiceSearchResultDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
