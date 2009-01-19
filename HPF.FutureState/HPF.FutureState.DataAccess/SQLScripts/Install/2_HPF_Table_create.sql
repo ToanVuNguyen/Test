@@ -1,9 +1,9 @@
 -- =============================================
--- Create date: 07 Jan 2009
+-- Create date: 16 Jan 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
---		Apply database changes on:  07 Jan 2009
+--		Apply database changes on:  17 Jan 2009
 --		Refer to file "DB Track changes.xls"
 -- =============================================
 USE HPF
@@ -82,8 +82,8 @@ GO
 
 
 
-CREATE TABLE ccrc_user (
-  ccrc_user_id INTEGER  NOT NULL   IDENTITY ,
+CREATE TABLE hpf_user (
+  hpf_user_id INTEGER  NOT NULL   IDENTITY ,
   user_login_id VARCHAR(30)    ,
   active_ind VARCHAR(1)    ,
   user_role_str_TBD VARCHAR(30)    ,
@@ -98,7 +98,7 @@ CREATE TABLE ccrc_user (
   chg_lst_dt DATETIME  NOT NULL  ,
   chg_lst_user_id VARCHAR(30)  NOT NULL  ,
   chg_lst_app_name VARCHAR(20)  NOT NULL    ,
-PRIMARY KEY(ccrc_user_id));
+PRIMARY KEY(hpf_user_id));
 GO
 
 
@@ -333,17 +333,10 @@ PRIMARY KEY(invoice_payment_id)  ,
     REFERENCES funding_source(funding_source_id));
 GO
 
-
-CREATE INDEX payment_FKIndex1 ON invoice_payment (funding_source_id);
-GO
-
-
-
 CREATE TABLE Invoice (
   Invoice_id INTEGER  NOT NULL   IDENTITY ,
   funding_source_id INTEGER  NOT NULL  ,
   invoice_dt DATETIME    ,
-  invoice_cd VARCHAR(15)    ,
   status_cd VARCHAR(15)    ,
   period_start_dt DATETIME    ,
   period_end_dt DATETIME    ,
@@ -399,22 +392,17 @@ CREATE TABLE menu_item (
   item_name VARCHAR(50)  NOT NULL  ,
   item_sort_order INTEGER  NOT NULL  ,
   item_target VARCHAR(200)      ,
+  visibled bit NULL,
 PRIMARY KEY(menu_item_id)  ,
   FOREIGN KEY(menu_group_id)
     REFERENCES menu_group(menu_group_id));
 GO
 
 
-CREATE INDEX menu_item_FKIndex1 ON menu_item (menu_group_id);
-GO
-
-
-
 CREATE TABLE agency_payable (
   agency_payable_id INTEGER  NOT NULL   IDENTITY ,
   agency_id INTEGER  NOT NULL  ,
   pmt_dt DATETIME    ,
-  pmt_cd VARCHAR(15)    ,
   status_cd VARCHAR(15)    ,
   period_start_dt DATETIME    ,
   period_end_dt DATETIME    ,
@@ -431,11 +419,6 @@ PRIMARY KEY(agency_payable_id)  ,
   FOREIGN KEY(agency_id)
     REFERENCES Agency(agency_id));
 GO
-
-
-CREATE INDEX agency_payment_FKIndex1 ON agency_payable (agency_id);
-GO
-
 
 
 CREATE TABLE call (
@@ -477,11 +460,6 @@ PRIMARY KEY(call_id)  ,
 GO
 
 
-CREATE INDEX call_FKIndex1 ON call (call_center_id);
-GO
-
-
-
 CREATE TABLE budget_subcategory (
   budget_subcategory_id INTEGER  NOT NULL   IDENTITY ,
   budget_category_id INTEGER  NOT NULL  ,
@@ -500,12 +478,6 @@ PRIMARY KEY(budget_subcategory_id)  ,
     REFERENCES budget_category(budget_category_id));
 GO
 
-
-CREATE INDEX budget_subcategory_FKIndex1 ON budget_subcategory (budget_category_id);
-GO
-
-
-
 CREATE TABLE funding_source_group (
   funding_source_id INTEGER  NOT NULL  ,
   servicer_id INTEGER  NOT NULL  ,
@@ -523,13 +495,6 @@ PRIMARY KEY(funding_source_id, servicer_id)    ,
   FOREIGN KEY(servicer_id)
     REFERENCES servicer(servicer_id));
 GO
-
-
-CREATE INDEX funding_source_has_servicer_FKIndex1 ON funding_source_group (funding_source_id);
-GO
-CREATE INDEX funding_source_has_servicer_FKIndex2 ON funding_source_group (servicer_id);
-GO
-
 
 
 CREATE TABLE funding_source_rate (
@@ -553,14 +518,6 @@ PRIMARY KEY(funding_source_rate_id)    ,
     REFERENCES program(program_id));
 GO
 
-
-CREATE INDEX funding_source_rate_FKIndex1 ON funding_source_rate (funding_source_id);
-GO
-CREATE INDEX funding_source_rate_FKIndex2 ON funding_source_rate (program_id);
-GO
-
-
-
 CREATE TABLE agency_rate (
   agency_rate_id INTEGER  NOT NULL   IDENTITY ,
   program_id INTEGER  NOT NULL  ,
@@ -583,13 +540,6 @@ PRIMARY KEY(agency_rate_id)    ,
 GO
 
 
-CREATE INDEX agent_rate_FKIndex1 ON agency_rate (agency_id);
-GO
-CREATE INDEX agency_rate_FKIndex2 ON agency_rate (program_id);
-GO
-
-
-
 CREATE TABLE menu_security (
   menu_security_id INTEGER  NOT NULL   IDENTITY ,
   ccrc_user_id INTEGER  NOT NULL  ,
@@ -601,13 +551,6 @@ PRIMARY KEY(menu_security_id)    ,
   FOREIGN KEY(ccrc_user_id)
     REFERENCES ccrc_user(ccrc_user_id));
 GO
-
-
-CREATE INDEX menu_security_FKIndex1 ON menu_security (menu_item_id);
-GO
-CREATE INDEX menu_security_FKIndex2 ON menu_security (ccrc_user_id);
-GO
-
 
 
 CREATE TABLE ws_user (
@@ -629,13 +572,6 @@ PRIMARY KEY(ws_user_id)    ,
   FOREIGN KEY(agency_id)
     REFERENCES Agency(agency_id));
 GO
-
-
-CREATE INDEX ws_user_FKIndex1 ON ws_user (call_center_id);
-GO
-CREATE INDEX ws_user_FKIndex2 ON ws_user (agency_id);
-GO
-
 
 
 CREATE TABLE foreclosure_case (
@@ -700,13 +636,11 @@ CREATE TABLE foreclosure_case (
   hispanic_ind VARCHAR(1)    ,
   duplicate_ind VARCHAR(1)    ,
   fc_notice_received_ind VARCHAR(1)    ,
-  case_complete_ind VARCHAR(1)    ,
   completed_dt DATETIME    ,
   funding_consent_ind VARCHAR(1)  NOT NULL  ,
   servicer_consent_ind VARCHAR(1)  NOT NULL  ,
-  agency_media_consent_ind VARCHAR(1)    ,
+  agency_media_interest_ind VARCHAR(1)    ,
   hpf_media_candidate_ind VARCHAR(1)    ,
-  hpf_network_candidate_ind VARCHAR(1)    ,
   hpf_success_story_ind VARCHAR(1)    ,
   agency_success_story_ind VARCHAR(1)    ,
   borrower_disabled_ind VARCHAR(1)    ,
@@ -730,8 +664,8 @@ CREATE TABLE foreclosure_case (
   contacted_srvcr_recently_ind VARCHAR(1)    ,
   has_workout_plan_ind VARCHAR(1)    ,
   srvcr_workout_plan_current_ind VARCHAR(1)    ,
-  opt_out_newsletter_ind VARCHAR(1)  NOT NULL  ,
-  opt_out_survey_ind VARCHAR(1)  NOT NULL  ,
+  opt_out_newsletter_ind VARCHAR(1)  NOT NULL,
+  opt_out_survey_ind VARCHAR(1)  NOT NULL ,
   do_not_call_ind VARCHAR(1)  NOT NULL  ,
   owner_occupied_ind VARCHAR(1)  NOT NULL  ,
   primary_residence_ind VARCHAR(1)  NOT NULL  ,
@@ -800,15 +734,6 @@ PRIMARY KEY(invoice_case_id)      ,
 GO
 
 
-CREATE INDEX invoice_session_FKIndex1 ON invoice_case (Invoice_id);
-GO
-CREATE INDEX invoice_case_FKIndex2 ON invoice_case (invoice_payment_id);
-GO
-CREATE INDEX invoice_case_FKIndex3 ON invoice_case (fc_id);
-GO
-
-
-
 CREATE TABLE activity_log (
   activity_log_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
@@ -825,11 +750,6 @@ PRIMARY KEY(activity_log_id)  ,
   FOREIGN KEY(fc_id)
     REFERENCES foreclosure_case(fc_id));
 GO
-
-
-CREATE INDEX activity_log_FKIndex1 ON activity_log (fc_id);
-GO
-
 
 
 CREATE TABLE budget_set (
@@ -849,11 +769,6 @@ PRIMARY KEY(budget_set_id)  ,
   FOREIGN KEY(fc_id)
     REFERENCES foreclosure_case(fc_id));
 GO
-
-
-CREATE INDEX budget_FKIndex1 ON budget_set (fc_id);
-GO
-
 
 
 CREATE TABLE case_audit (
@@ -882,11 +797,6 @@ PRIMARY KEY(case_audit_id)  ,
   FOREIGN KEY(fc_id)
     REFERENCES foreclosure_case(fc_id));
 GO
-
-
-CREATE INDEX foreclosure_case_audit_FKIndex1 ON case_audit (fc_id);
-GO
-
 
 
 CREATE TABLE case_loan (
@@ -922,11 +832,6 @@ PRIMARY KEY(case_loan_id)  ,
 GO
 
 
-CREATE INDEX session_Loan_FKIndex1 ON case_loan (fc_id);
-GO
-
-
-
 CREATE TABLE case_post_counseling_status (
   case_post_counseling_status_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
@@ -952,11 +857,6 @@ PRIMARY KEY(case_post_counseling_status_id)  ,
 GO
 
 
-CREATE INDEX case_followup_status_FKIndex1 ON case_post_counseling_status (fc_id);
-GO
-
-
-
 CREATE TABLE outcome_item (
   outcome_item_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
@@ -979,20 +879,14 @@ PRIMARY KEY(outcome_item_id)    ,
 GO
 
 
-CREATE INDEX outcome_FKIndex2 ON outcome_item (outcome_type_id);
-GO
-CREATE INDEX outcome_item_FKIndex2 ON outcome_item (fc_id);
-GO
-
-
-
 CREATE TABLE agency_payable_case (
   agency_payable_case_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
   agency_payable_id INTEGER  NOT NULL  ,
   pmt_dt DATETIME    ,
   pmt_amt NUMERIC(15,2)    ,
-  NFMC_difference_paid_ind VARCHAR(1)    ,
+  NFMC_difference_paid_ind VARCHAR(1)    NOT NULL,
+  NFMC_difference_eligible_ind varchar(1) Not NULL,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -1004,12 +898,6 @@ PRIMARY KEY(agency_payable_case_id)    ,
     REFERENCES agency_payable(agency_payable_id),
   FOREIGN KEY(fc_id)
     REFERENCES foreclosure_case(fc_id));
-GO
-
-
-CREATE INDEX foreclosure_case_has_agency_payment_FKIndex2 ON agency_payable_case (agency_payable_id);
-GO
-CREATE INDEX agency_payable_case_FKIndex2 ON agency_payable_case (fc_id);
 GO
 
 
@@ -1034,13 +922,6 @@ PRIMARY KEY(budget_item_id, budget_set_id)    ,
 GO
 
 
-CREATE INDEX budget_item_FKIndex1 ON budget_item (budget_set_id);
-GO
-CREATE INDEX budget_item_FKIndex2 ON budget_item (budget_subcategory_id);
-GO
-
-
-
 CREATE TABLE budget_asset (
   budget_asset_id INTEGER  NOT NULL   IDENTITY ,
   budget_set_id INTEGER  NOT NULL  ,
@@ -1057,10 +938,21 @@ PRIMARY KEY(budget_asset_id)  ,
     REFERENCES budget_set(budget_set_id));
 GO
 
-
-CREATE INDEX budget_asset_FKIndex1 ON budget_asset (budget_set_id);
+IF EXISTS (SELECT name from sys.indexes
+             WHERE name = N'ws_user_login_username_UK')
+    DROP INDEX ws_user_login_username_UK ON ws_user;
+GO
+CREATE UNIQUE INDEX ws_user_login_username_UK
+    ON ws_user(login_username);
 GO
 
-
-
-
+/****** Object:  Index [IX_foreclosure_case_Complete_dt_Agency_id]    Script Date: 01/16/2009 14:01:05 ******/
+DROP INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] WITH ( ONLINE = OFF )
+GO
+USE [hpf]
+GO
+CREATE NONCLUSTERED INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] 
+(
+	[completed_dt] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO

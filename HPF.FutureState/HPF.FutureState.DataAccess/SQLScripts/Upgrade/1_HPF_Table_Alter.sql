@@ -1,153 +1,78 @@
 -- =============================================
--- Create date: 07 Jan 2009
+-- Create date: 16 Jan 2009
 -- Project : HPF 
 -- Build 
--- Description:	Apply database changes on: 07 Jan 2009
+-- Description:	Apply database changes on: 15 Jan 2009
 --		Refer to file "DB Track changes.xls"
 -- =============================================
-
 USE HPF
 GO
-CREATE TABLE menu_group	
-(menu_group_id		int	not null,
-group_name			varchar(50)	not null,
-group_sort_order	int	not null,
-group_target		varchar(200)	null,
-PRIMARY KEY(menu_group_id)
-)
+
+ALTER TABLE agency_payable_case 
+ADD NFMC_difference_eligible_ind varchar(1) Not NULL;
+ALTER TABLE agency_payable_case 
+ALTER COLUMN NFMC_difference_paid_ind varchar(1) NOT NULL;
+
+IF EXISTS (SELECT name from sys.indexes
+             WHERE name = N'ws_user_login_username_UK')
+    DROP INDEX ws_user_login_username_UK ON ws_user;
+GO
+CREATE UNIQUE INDEX ws_user_login_username_UK
+    ON ws_user(login_username);
 GO
 
-CREATE TABLE menu_item	
-(menu_item_id	integer	not null,	
-menu_group_id	integer	not null,	
-item_name	varchar(50)	not null,	
-item_sort_order	integer	not null,	
-item_target	varchar(200)	null,
--- visibled	bit null,
-PRIMARY KEY(menu_item_id),
-FOREIGN KEY(menu_group_id) REFERENCES menu_group(menu_group_id)
-)
-GO
-CREATE TABLE menu_security	
-(menu_security_id	integer	not null,
-	ccrc_user_id	integer	not null,	
-	menu_item_id	integer	not null,	
-	permission_value	char(1)	not null,
-PRIMARY KEY(menu_security_id),
-FOREIGN KEY(menu_item_id) REFERENCES menu_item(menu_item_id)
-)
-GO
+ALTER TABLE foreclosure_case DROP COLUMN case_complete_ind;
+ALTER TABLE foreclosure_case ADD agency_media_interest_ind VARCHAR(1) NULL;
 
-CREATE TABLE change_audit	
-(	change_audit_id	int	not null IDENTITY ,
-	audit_dt		datetime	not null,
-	audit_table		varchar(50)	not null,	
-	audit_record_key	int		not null,
-	audit_col_name	varchar(50)	not null,
-	audit_old_value	varchar(8000)	not null,
-	audit_new_value	varchar(8000)	not null,	
-	create_dt		datetime	not null,
-	create_user_id	varchar(15)	not null,	
-	create_app_name	varchar(20)	not null,	
-PRIMARY KEY(change_audit_id)
-)
-GO
-DELETE FROM Call;
-DROP INDEX call_FKIndex1 ;
-DROP INDEX IFK_Rel_34 ;
+DISABLE TRIGGER trg_foreclosure_case_update_audit ON foreclosure_case;
+DISABLE TRIGGER trg_foreclosure_case_update ON foreclosure_case;
+UPDATE foreclosure_case SET agency_media_interest_ind = agency_media_consent_ind ;
+ENABLE TRIGGER trg_foreclosure_case_update_audit ON foreclosure_case;
+ENABLE TRIGGER trg_foreclosure_case_update ON foreclosure_case;
 
-ALTER TABLE call
-ALTER COLUMN call_center_id	int	Not Null;
-ALTER TABLE call
-ALTER COLUMN start_dt	datetime	Not Null;
-ALTER TABLE call
-ALTER COLUMN end_dt	datetime	Not Null;
-ALTER TABLE call
-ALTER COLUMN cc_call_key	varchar(18)	Not Null;
+ALTER TABLE foreclosure_case DROP COLUMN agency_media_consent_ind;
+ALTER TABLE foreclosure_case DROP COLUMN hpf_network_candidate_ind;
 
-CREATE INDEX call_FKIndex1 ON call (call_center_id);
+ALTER TABLE agency_payable DROP COLUMN pmt_cd;
+ALTER TABLE invoice DROP COLUMN invoice_cd; 
+
+CREATE TABLE hpf_user (
+  hpf_user_id INTEGER  NOT NULL   IDENTITY ,
+  user_login_id VARCHAR(30)    ,
+  password varchar(128) NULL ,
+  active_ind VARCHAR(1)    ,
+  user_role_str_TBD VARCHAR(30)    ,
+  fname VARCHAR(30)    ,
+  lname VARCHAR(30)    ,
+  email VARCHAR(50)    ,
+  phone VARCHAR(20)    ,
+  last_login_dt DATETIME    ,
+  create_dt DATETIME  NOT NULL  ,
+  create_user_id VARCHAR(30)  NOT NULL  ,
+  create_app_name VARCHAR(20)  NOT NULL  ,
+  chg_lst_dt DATETIME  NOT NULL  ,
+  chg_lst_user_id VARCHAR(30)  NOT NULL  ,
+  chg_lst_app_name VARCHAR(20)  NOT NULL    ,
+PRIMARY KEY(hpf_user_id));
 GO
 
-ALTER TABLE case_loan
-ADD investor_loan_num varchar(30) null;
+INSERT INTO HPF_user( user_login_id,active_ind,user_role_str_TBD,fname,lname,email,phone,last_login_dt,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)
+SELECT user_login_id,active_ind,user_role_str_TBD,fname,lname,email,phone,last_login_dt,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name
+FROM CCRC_USER;
 
-UPDATE case_loan SET investor_loan_num = freddie_loan_num;
+DROP TABLE CCRC_USER;
 
-ALTER TABLE case_loan
-DROP COLUMN freddie_loan_num;
+ALTER TABLE MENU_ITEM ADD Visibled bit NULL;
 
-ALTER TABLE activity_log ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE activity_log ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE Agency ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE Agency ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE agency_payable ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE agency_payable ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE agency_payable_case ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE agency_payable_case ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE agency_rate ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE agency_rate ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE Area_Median_Income ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE Area_Median_Income ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_asset ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_asset ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_category ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_category ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_item ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_item ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_set ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_set ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_subcategory ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE budget_subcategory ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE call ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE call ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE call_center ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE call_center ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE case_audit ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE case_audit ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE case_loan ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE case_loan ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE case_post_counseling_status ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE case_post_counseling_status ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE ccrc_user ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE ccrc_user ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE change_audit ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE foreclosure_case ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE foreclosure_case ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE funding_source ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE funding_source ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE funding_source_group ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE funding_source_group ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE funding_source_rate ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE funding_source_rate ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE Invoice ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE Invoice ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE invoice_case ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE invoice_case ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE invoice_payment ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE invoice_payment ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE outcome_item ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE outcome_item ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE outcome_type ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE outcome_type ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE program ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE program ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE ref_code_item ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE ref_code_item ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE servicer ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE servicer ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE system_activity_log ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE system_activity_log ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE ws_user ALTER COLUMN create_user_id VARCHAR(30) NOT NULL;
-ALTER TABLE ws_user ALTER COLUMN chg_lst_user_id VARCHAR(30) NOT NULL;
+-- "Add ref_code_item Marital Status, Payment code , Payment Reject Reason Code, Never Bill Reason Code, Never Pay Reason Code, Agency Payable Status, Invoice Status, Final Disposition"
 
-UPDATE foreclosure_case 
-SET counselor_id_ref = 'TEMP DATA' WHERE counselor_id_ref IS NULL;
-
-ALTER TABLE foreclosure_case ALTER COLUMN counselor_id_ref varchar(30) NOT NULL;
-ALTER TABLE foreclosure_case ADD fc_sale_dt DATETIME NULL;
-
-ALTER TABLE funding_source ADD funding_source_abbrev VARCHAR(10) NULL;
-UPDATE funding_source SET funding_source_abbrev = funding_source_name;
-ALTER TABLE funding_source ALTER COLUMN funding_source_abbrev VARCHAR(10) NOT NULL;
-
-ALTER TABLE foreclosure_case DROP COLUMN fc_sale_date_set_ind;
+/****** Object:  Index [IX_foreclosure_case_Complete_dt_Agency_id]    Script Date: 01/16/2009 14:01:05 ******/
+DROP INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] WITH ( ONLINE = OFF )
+GO
+USE [hpf]
+GO
+CREATE NONCLUSTERED INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] 
+(
+	[completed_dt] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
