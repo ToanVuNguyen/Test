@@ -719,16 +719,16 @@
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtFcSaleDateSetInd" runat="server"></asp:TextBox>
-            </td>--%>
+            </td>
             <td>
                 <asp:Label CssClass = "sidelinks" ID="Label90" runat="server" Text="Opt out newsletter ind."></asp:Label>             
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtOptOutNewsletterInd" runat="server"></asp:TextBox>
-            </td>                       
+            </td>--%>
         </tr>   
         <tr>
-            <td>
+            <%--<td>
                 <asp:Label CssClass = "sidelinks" ID="Label91" runat="server" Text="Opt out survey ind."></asp:Label>             
             </td>
             <td>
@@ -739,7 +739,7 @@
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtDoNotCallInd" runat="server"></asp:TextBox>
-            </td>                       
+            </td>                       --%>
         </tr>   
         <tr>
             <td>

@@ -31,6 +31,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 LoadDefaultFcCase();
 
             }
+
+            
         }
 
         private void LoadDefaultFcCase()
@@ -111,7 +113,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.DfltReason1stCd = txtDfltReason1stCd.Text.Trim();
             fcCase.DfltReason2ndCd = txtDfltReason2ndCd.Text.Trim();
             fcCase.DiscussedSolutionWithSrvcrInd = txtDiscussedSolutionWithSrvcrInd.Text.Trim();
-            fcCase.DoNotCallInd = txtDoNotCallInd.Text.Trim();
+            //fcCase.DoNotCallInd = txtDoNotCallInd.Text.Trim();
             //fcCase.DuplicateInd = txtDuplicateInd.Text.Trim();
             fcCase.Email1 = txtEmail1.Text.Trim();
             fcCase.Email2 = txtEmail2.Text.Trim();
@@ -147,8 +149,8 @@ namespace HPF.FutureState.WebService.Test.Web
             //fcCase.NeverBillReasonCd = txtNeverBillReasonCd.Text.Trim();
             //fcCase.NeverPayReasonCd = txtNeverPayReasonCd.Text.Trim();
             fcCase.OccupantNum = Util.ConvertToByte(txtOccupantNum.Text.Trim());
-            fcCase.OptOutNewsletterInd = txtOptOutNewsletterInd.Text.Trim();
-            fcCase.OptOutSurveyInd = txtOptOutSurveyInd.Text.Trim();
+            //fcCase.OptOutNewsletterInd = txtOptOutNewsletterInd.Text.Trim();
+            //fcCase.OptOutSurveyInd = txtOptOutSurveyInd.Text.Trim();
             fcCase.OwnerOccupiedInd = txtOwnerOccupiedInd.Text.Trim();
             fcCase.PrimaryContactNo = txtPrimaryContactNo.Text.Trim();
             fcCase.PrimaryResidenceInd = txtPrimaryResidenceInd.Text.Trim();
@@ -235,7 +237,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtDfltReason1stCd.Text = fcCase.DfltReason1stCd.ToString();
                 txtDfltReason2ndCd.Text = fcCase.DfltReason2ndCd.ToString();
                 txtDiscussedSolutionWithSrvcrInd.Text = fcCase.DiscussedSolutionWithSrvcrInd.ToString();
-                txtDoNotCallInd.Text = fcCase.DoNotCallInd.ToString();
+                //txtDoNotCallInd.Text = fcCase.DoNotCallInd.ToString();
                 //txtDuplicateInd.Text = fcCase.DuplicateInd.ToString();
                 txtEmail1.Text = fcCase.Email1.ToString();
                 txtEmail2.Text = fcCase.Email2.ToString();
@@ -271,8 +273,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 //txtNeverBillReasonCd.Text = fcCase.NeverBillReasonCd.ToString();
                 //txtNeverPayReasonCd.Text = fcCase.NeverPayReasonCd.ToString();
                 txtOccupantNum.Text = fcCase.OccupantNum.ToString();
-                txtOptOutNewsletterInd.Text = fcCase.OptOutNewsletterInd.ToString();
-                txtOptOutSurveyInd.Text = fcCase.OptOutSurveyInd.ToString();
+                //txtOptOutNewsletterInd.Text = fcCase.OptOutNewsletterInd.ToString();
+                //txtOptOutSurveyInd.Text = fcCase.OptOutSurveyInd.ToString();
                 txtOwnerOccupiedInd.Text = fcCase.OwnerOccupiedInd.ToString();
                 txtPrimaryContactNo.Text = fcCase.PrimaryContactNo.ToString();
                 txtPrimaryResidenceInd.Text = fcCase.PrimaryResidenceInd.ToString();
@@ -330,14 +332,16 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             grdvCaseLoan.EditIndex = e.NewEditIndex;
             
-            grdvCaseLoanBinding();
+            //grdvCaseLoanBinding();
+            RefreshAllGrids();
              
         }
 
         protected void grdvCaseLoan_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
         {
             grdvCaseLoan.EditIndex = -1;
-            grdvCaseLoanBinding();
+            //grdvCaseLoanBinding();
+            RefreshAllGrids();
         }
 
         protected void grdvCaseLoan_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -360,7 +364,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
 
                 grdvCaseLoan.EditIndex = -1;
-                grdvCaseLoanBinding();
+                //grdvCaseLoanBinding();
+                RefreshAllGrids();
             }
             else
             {
@@ -383,11 +388,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 else
                 {
                     caseLoans.RemoveAt(index);
-                    Session[SessionVariables.CASE_LOAN_COLLECTION] = caseLoans;
+                    if (caseLoans.Count > 0)
+                        Session[SessionVariables.CASE_LOAN_COLLECTION] = caseLoans;
+                    else
+                        Session[SessionVariables.CASE_LOAN_COLLECTION] = null;
                 }
                     
                 grdvCaseLoan.EditIndex = -1;
-                grdvCaseLoanBinding();
+                RefreshAllGrids();
+                //grdvCaseLoanBinding();
             }
             else
             {
@@ -415,7 +424,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 caseLoans.Add(caseLoan);
                 Session[SessionVariables.CASE_LOAN_COLLECTION] = caseLoans;
-                grdvCaseLoanBinding();
+                //grdvCaseLoanBinding();
+                RefreshAllGrids();
             } 
 
         }
@@ -527,7 +537,8 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvBudgetItem_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
         {
             grdvBudgetItem.EditIndex = -1;
-            grdvBudgetItemBinding();
+            //grdvBudgetItemBinding();
+            RefreshAllGrids();
 
         }
 
@@ -551,7 +562,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 budgetItems.Add(budgetItem);
                 Session[SessionVariables.BUDGET_ITEM_COLLECTION] = budgetItems;
-                grdvBudgetItemBinding();
+                //grdvBudgetItemBinding();
+                RefreshAllGrids();
             } 
 
         }
@@ -571,11 +583,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 else
                 {
                     budgetItems.RemoveAt(index);
-                    Session[SessionVariables.BUDGET_ITEM_COLLECTION] = budgetItems;
+                    if (budgetItems.Count > 0)
+                        Session[SessionVariables.BUDGET_ITEM_COLLECTION] = budgetItems;
+                    else
+                        Session[SessionVariables.BUDGET_ITEM_COLLECTION] = null;
                 }
 
                 grdvBudgetItem.EditIndex = -1;
-                grdvBudgetItemBinding();
+                RefreshAllGrids();
+                //grdvBudgetItemBinding();
             }
             else
             {
@@ -586,7 +602,8 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvBudgetItem_RowEditing(object sender, GridViewEditEventArgs e)
         {
             grdvBudgetItem.EditIndex = e.NewEditIndex;
-            grdvBudgetItemBinding();
+            //grdvBudgetItemBinding();
+            RefreshAllGrids();
 
         }
 
@@ -610,7 +627,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
 
                 grdvBudgetItem.EditIndex = -1;
-                grdvBudgetItemBinding();
+                //grdvBudgetItemBinding();
+                RefreshAllGrids();
             }
             else
             {
@@ -665,7 +683,8 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvBudgetAsset_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
         {
             grdvBudgetAsset.EditIndex = -1;
-            grdvBudgetAssetBinding();
+            //grdvBudgetAssetBinding();
+            RefreshAllGrids();
 
         }
 
@@ -689,7 +708,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 budgetAssets.Add(budgetAsset);
                 Session[SessionVariables.BUDGET_ASSET_COLLECTION] = budgetAssets;
-                grdvBudgetAssetBinding();
+                //grdvBudgetAssetBinding();
+                RefreshAllGrids();
             } 
         }
 
@@ -708,11 +728,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 else
                 {
                     budgetAssets.RemoveAt(index);
-                    Session[SessionVariables.BUDGET_ASSET_COLLECTION] = budgetAssets;
+                    if (budgetAssets.Count > 0)
+                        Session[SessionVariables.BUDGET_ASSET_COLLECTION] = budgetAssets;
+                    else
+                        Session[SessionVariables.BUDGET_ASSET_COLLECTION] = null;
                 }
 
                 grdvBudgetAsset.EditIndex = -1;
-                grdvBudgetAssetBinding();
+                RefreshAllGrids();
+                //grdvBudgetAssetBinding();
             }
             else
             {
@@ -723,7 +747,8 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvBudgetAsset_RowEditing(object sender, GridViewEditEventArgs e)
         {
             grdvBudgetAsset.EditIndex = e.NewEditIndex;
-            grdvBudgetAssetBinding();
+            //grdvBudgetAssetBinding();
+            RefreshAllGrids();
         }
 
         protected void grdvBudgetAsset_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -746,7 +771,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
 
                 grdvBudgetAsset.EditIndex = -1;
-                grdvBudgetAssetBinding();
+                //grdvBudgetAssetBinding();
+                RefreshAllGrids();
             }
             else
             {
@@ -899,8 +925,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvOutcomeItem.DataSource = outcomeItems;
                 grdvOutcomeItem.DataBind();
             }
-            else
-            {
+            else                    
+            {   
                 outcomeItems = new List<OutcomeItemDTO>();
                 outcomeItems.Add(new OutcomeItemDTO());
                 grdvOutcomeItem.DataSource = outcomeItems;
@@ -946,7 +972,8 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvOutcomeItem_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
         {
             grdvOutcomeItem.EditIndex = -1;
-            grdvOutcomeItemBinding();
+            //grdvOutcomeItemBinding();
+            RefreshAllGrids();
         }
 
         protected void grdvOutcomeItemRowCommand(object sender, GridViewCommandEventArgs e)
@@ -969,7 +996,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 outcomeItems.Add(outcomeItem);
                 Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = outcomeItems;
-                grdvOutcomeItemBinding();
+                //grdvOutcomeItemBinding();
+                RefreshAllGrids();
             } 
         }
 
@@ -988,11 +1016,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 else
                 {
                     outcomeItems.RemoveAt(index);
-                    Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = outcomeItems;
+                    if (outcomeItems.Count != 0)
+                        Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = outcomeItems;
+                    else
+                        Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = null;
                 }
 
                 grdvOutcomeItem.EditIndex = -1;
-                grdvOutcomeItemBinding();
+                RefreshAllGrids();
+                //grdvOutcomeItemBinding();
             }
             else
             {
@@ -1003,7 +1035,8 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void grdvOutcomeItem_RowEditing(object sender, GridViewEditEventArgs e)
         {
             grdvOutcomeItem.EditIndex = e.NewEditIndex;
-            grdvOutcomeItemBinding();
+            //grdvOutcomeItemBinding();
+            RefreshAllGrids();
         }
 
         protected void grdvOutcomeItem_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -1026,7 +1059,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
 
                 grdvOutcomeItem.EditIndex = -1;
-                grdvOutcomeItemBinding();
+                //grdvOutcomeItemBinding();
+                RefreshAllGrids();
             }
             else
             {
@@ -1174,6 +1208,18 @@ namespace HPF.FutureState.WebService.Test.Web
                 if (item.GetType() == typeof(TextBox))
                     ((TextBox)item).Text = "";
             }
+        }
+
+        private void RefreshAllGrids()
+        {
+            //if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] == null)
+                grdvBudgetAssetBinding();
+            //if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] == null)
+                grdvBudgetItemBinding();
+            //if (Session[SessionVariables.CASE_LOAN_COLLECTION] == null)
+                grdvCaseLoanBinding();
+            //if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] == null)
+                grdvOutcomeItemBinding();
         }
     }
 }
