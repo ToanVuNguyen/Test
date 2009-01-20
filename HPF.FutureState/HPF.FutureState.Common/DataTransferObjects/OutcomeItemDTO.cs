@@ -18,7 +18,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int OutcomeSetId { get; set; }
 
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]        
-        public int OutcomeTypeId { get; set; }  
+        public int OutcomeTypeId { get; set; }
+
+        public string OutcomeTypeName { get; set; }
 
         public DateTime OutcomeDt { get; set; }  
 

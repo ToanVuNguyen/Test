@@ -113,6 +113,8 @@ namespace HPF.FutureState.Common
         public const string WARN336 = "WARN336";
         public const string WARN337 = "WARN337";
         //
+        public const string ERR600 = "ERR600";
+        public const string ERR601 = "ERR601";
         public const string ERR999 = "ERR999";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();

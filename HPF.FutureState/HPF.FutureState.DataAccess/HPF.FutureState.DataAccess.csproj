@@ -57,6 +57,7 @@
     <Compile Include="InvoiceDAO.cs" />
     <Compile Include="MenuGroupDAO.cs" />
     <Compile Include="MenuSecurityDAO.cs" />
+    <Compile Include="OutcomeItemDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseDAO.cs" />
     <Compile Include="RefCodeItemtDAO.cs" />

@@ -120,7 +120,7 @@ namespace HPF.FutureState.WebServices
             destObject.ChangeLastDate = sourceObject.ChangeLastDate;
             destObject.ChangeLastUserId = sourceObject.ChangeLastUserId;
             destObject.ChangeLastAppName = sourceObject.ChangeLastAppName;
-
+            destObject.WorkingUserId = sourceObject.WorkingUserId;
             return destObject;
         }
         
