@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountingBL.cs" />
     <Compile Include="AgencyPayableBL.cs" />
     <Compile Include="BaseBusinessLogic.cs" />
     <Compile Include="CallLogBL.cs" />
