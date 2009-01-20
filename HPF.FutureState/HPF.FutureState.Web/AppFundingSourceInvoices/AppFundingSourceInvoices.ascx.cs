@@ -14,19 +14,33 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 
 
 namespace HPF.FutureState.Web.AppFundingSourceInvoices
 {
     public partial class AppFundingSourceInvoices : System.Web.UI.UserControl
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            ApplySecurity();
             if (!IsPostBack)
             {
                 GetFundingSourceList();
                 SetUpDefaultValue();    
+            }
+        }
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+            }
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            {
+                btnNewInvoice.Enabled = false;
+                btnCancelInvoice.Enabled = false;
             }
         }
         /// <summary>

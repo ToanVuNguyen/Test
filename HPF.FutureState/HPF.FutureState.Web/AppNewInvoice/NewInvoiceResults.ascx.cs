@@ -14,6 +14,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.Web.AppNewInvoice
 {
@@ -22,6 +23,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         InvoiceDraftDTO invoiceDraft =null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            ApplySecurity();
             if (!IsPostBack)
             {
                 if (Session["searchCriteria"] == null)
@@ -45,7 +47,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 if(Session["invoiceDraft"]!=null)
                     invoiceDraft = (InvoiceDraftDTO)Session["invoiceDraft"];
         }
-
+        /// <summary>
+        /// Only the user with Accouting Edit permission can view this page
+        /// </summary>
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+            }
+        }
         protected void chkHeaderCaseIDCheck(object sender, EventArgs e)
         {
             CheckBox headerCheckbox = (CheckBox)sender;

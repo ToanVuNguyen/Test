@@ -176,6 +176,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ForeclosureCaseDetail\Accounting.ascx.cs">
       <DependentUpon>Accounting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -306,6 +313,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Default.aspx" />
+    <Content Include="ErrorPage.aspx" />
     <Content Include="ForeclosureCaseDetail\Accounting.ascx" />
     <Content Include="ForeclosureCaseDetail\ActivityLog.ascx" />
     <Content Include="ForeclosureCaseDetail\Audit.ascx" />

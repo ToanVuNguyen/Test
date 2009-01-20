@@ -13,6 +13,8 @@ using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 
 
 namespace HPF.FutureState.Web.AppNewInvoice
@@ -21,6 +23,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ApplySecurity();
             if (!IsPostBack)
             {
                 FundingSourceDatabind();
@@ -38,6 +41,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     SetDefaultValueForDropDownList();
             }
             dropFundingSource.SelectedIndexChanged += new EventHandler(dropFundingSource_SelectedIndexChanged1);    
+        }
+        /// <summary>
+        /// Only the user with Accouting Edit permission can view this page
+        /// </summary>
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+            }
         }
         /// <summary>
         /// Restore search Criteria from Session when user click cancel Invoice 

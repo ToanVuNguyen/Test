@@ -73,6 +73,7 @@ namespace HPF.FutureState.Common
         public const string ERR254 = "ERR254";
         public const string ERR255 = "ERR255";
         public const string ERR256 = "ERR256";
+        
         public const string WARN300 = "WARN300";
         public const string WARN301 = "WARN301";
         public const string WARN302 = "WARN302";
@@ -111,7 +112,8 @@ namespace HPF.FutureState.Common
         public const string WARN335 = "WARN335";
         public const string WARN336 = "WARN336";
         public const string WARN337 = "WARN337";
-
+        //
+        public const string ERR999 = "ERR999";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
@@ -233,6 +235,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN335, "A Budget is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN336, "A BudgetSubcategoryID is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN337, "A BudgetItemAmt is required on all loans to complete a foreclosure case.");
+                
+                //
+                errorMessageDict.Add(ERR999, "You don't have permission to access this page.");
 
             }
         }
