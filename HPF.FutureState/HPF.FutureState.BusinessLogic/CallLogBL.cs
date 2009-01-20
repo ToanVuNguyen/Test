@@ -40,7 +40,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>return a calllog id after inserting</returns>
         public int InsertCallLog(CallLogDTO aCallLog)
         {
-            aCallLog.SetInsertTrackingInformation(aCallLog.CreateUserId);
+            aCallLog.SetInsertTrackingInformation(aCallLog.WorkingUserId);
 
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
