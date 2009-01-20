@@ -18,6 +18,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive,Tag=ErrorMessages.ERR127, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]        
         public int ServicerId { get; set; }
 
+        public string ServicerName { get; set; }
+
         [NullableOrStringLengthValidator(true, 50, "Other Servicer Name", Ruleset = Constant.RULESET_LENGTH)]
         public string OtherServicerName { get; set; }
 
