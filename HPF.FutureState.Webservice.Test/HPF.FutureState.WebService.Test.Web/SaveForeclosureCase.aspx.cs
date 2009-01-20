@@ -297,6 +297,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
                 txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
+                txtWorkingUserID = fcCase.CreateUserId.ToString();
                 //txtCreateUserID.Text = fcCase.CreateUserId.ToString();
                 //txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
             }
@@ -1131,30 +1132,18 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             ForeclosureCaseSaveRequest request = new ForeclosureCaseSaveRequest();
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
-
-            //= txtWorkingUserID.Text.Trim();
+            fcCaseSet.WorkingUserID = txtWorkingUserID.Text.Trim();
 
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
-            SetTrackingInformation(fcCaseSet.BudgetAssets);
             fcCaseSet.BudgetItems = ((List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
-            SetTrackingInformation(fcCaseSet.BudgetItems);
             fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
-            SetTrackingInformation(fcCaseSet.CaseLoans);
             fcCaseSet.Outcome = ((List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
-            SetTrackingInformation(fcCaseSet.Outcome);
+            
             request.ForeclosureCaseSet = fcCaseSet;
             return request;
-        }
-        private void SetTrackingInformation(BaseDTO[] objList)
-        {
-            foreach (BaseDTO item in objList)
-            {
-                item.CreateUserId = txtCreateUserID.Text.Trim();
-                item.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
-            }
-        }
+        }        
         private static XDocument GetXmlDocument(string filename)
         {
             XDocument xdoc = XDocument.Load(filename);
