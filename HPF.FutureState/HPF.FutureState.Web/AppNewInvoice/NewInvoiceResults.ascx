@@ -103,7 +103,7 @@
                                 <asp:Label ID="lblCompleteDate" runat="server"> </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Amount" HeaderText="Amount" />
+                        <asp:BoundField DataField="Amount" DataFormatString="{0:C}" HeaderText="Amount" />
                         <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" />
                         <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
                         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />

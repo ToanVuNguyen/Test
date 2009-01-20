@@ -85,8 +85,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
             var items = from codeItem in refCodeItemCollection
-                        where codeItem.RefCodeSetName == refCodeSetName
-                                     select codeItem;
+                        where codeItem.RefCodeSetName.ToLower() == refCodeSetName.ToLower()
+                        select codeItem;
             RefCodeItemDTOCollection result = new RefCodeItemDTOCollection();
             foreach (var item in items)
                 result.Add(item);

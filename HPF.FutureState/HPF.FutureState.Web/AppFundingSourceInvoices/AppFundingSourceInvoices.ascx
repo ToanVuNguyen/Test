@@ -87,8 +87,8 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" />
-                        <asp:BoundField DataField="InvoiceBillAmt" HeaderText="Invoice Amount" />
-                        <asp:BoundField DataField="InvoicePmtAmt" HeaderText="Payment Amount" />
+                        <asp:BoundField DataField="InvoiceBillAmt" DataFormatString="{0:C}" HeaderText="Invoice Amount" />
+                        <asp:BoundField DataField="InvoicePmtAmt" DataFormatString="{0:C}" HeaderText="Payment Amount" />
                         <asp:BoundField DataField="StatusCd" HeaderText="Invoice Status" />
                         <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" />
                     </Columns>
