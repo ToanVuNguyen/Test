@@ -214,12 +214,12 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public FundingSourceDTOCollection AppGetFundingSource()
         {
-            FundingSourceDTOCollection result = HPFCacheManager.Instance.GetData<FundingSourceDTOCollection>("fundingSource");
+            FundingSourceDTOCollection result = HPFCacheManager.Instance.GetData<FundingSourceDTOCollection>(Constant.HPF_CACHE_FUNDING_SOURCE);
             if (result == null)
             {
                 result = new FundingSourceDTOCollection();
                 var dbConnection = CreateConnection();
-                var command = new SqlCommand(Constant.HPF_CACHE_FUNDING_SOURCE, dbConnection);
+                var command = new SqlCommand("hpf_funding_source_get", dbConnection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Connection = dbConnection;
                 try
