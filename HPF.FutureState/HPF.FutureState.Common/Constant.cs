@@ -34,5 +34,9 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_BUDGET_CATEGORY_CODE = "BUDGETCATEGORYCODE";
         public const string HPF_CACHE_BUDGET_SUBCATEGORY = "BUDGETSUBCATEGORY";
         public const string MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE = "AppFundingSourceInvoicesPage.aspx";
+        public const string MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE = "AgencyAccountsPayable.aspx";
+        public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL = "AppForeClosureCaseSearchPage.aspx";
+
+
     }
 }
