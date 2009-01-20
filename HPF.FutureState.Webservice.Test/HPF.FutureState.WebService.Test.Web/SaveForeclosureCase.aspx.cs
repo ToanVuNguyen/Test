@@ -297,7 +297,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
                 txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
-                txtWorkingUserID = fcCase.CreateUserId.ToString();
+                txtWorkingUserID.Text = fcCase.CreateUserId.ToString();
                 //txtCreateUserID.Text = fcCase.CreateUserId.ToString();
                 //txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
             }
