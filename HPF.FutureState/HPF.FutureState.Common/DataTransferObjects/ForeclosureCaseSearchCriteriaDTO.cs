@@ -90,6 +90,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     {
                         _loanNumber = _loanNumber.Replace(item.Value, "%");
                     }
+
+                    _loanNumber = _loanNumber.Insert(0, "%");
+                    _loanNumber = _loanNumber.Insert(_loanNumber.Length , "%");
                 }
             }
         }
