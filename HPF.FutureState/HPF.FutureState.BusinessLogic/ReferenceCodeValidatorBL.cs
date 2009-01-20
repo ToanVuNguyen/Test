@@ -21,7 +21,7 @@ namespace HPF.FutureState.BusinessLogic
                 return true;
             foreach (RefCodeItemDTO items in refCodeItemCollectionByCode)
             {
-                if (value == null || value == string.Empty || (value == items.Code && refCodeName.ToUpper() == items.RefCodeSetName.ToUpper() ))
+                if (value == null || value == string.Empty || (value == items.Code && refCodeName.ToUpper().Trim() == items.RefCodeSetName.ToUpper().Trim() ))
                     return true;
             }  
             return false;
@@ -44,7 +44,7 @@ namespace HPF.FutureState.BusinessLogic
               "Counseling summary format code",
               "Credit burreau code",
               "Default reason code",
-              "Education code",
+              "Education level completed code",
               "Export format code",              
               "Gender code",
               "Household code",

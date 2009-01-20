@@ -1368,7 +1368,7 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR210, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR210));
             if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR211, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR211));
-            if (!referenceCode.Validate(ReferenceCode.EducationCode, forclosureCase.BorrowerEducLevelCompletedCd))
+            if (!referenceCode.Validate(ReferenceCode.EducationLevelCompletedCode, forclosureCase.BorrowerEducLevelCompletedCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR212, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR212));
             if (!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR213, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR213));

@@ -21,7 +21,7 @@ namespace HPF.FutureState.Common
         CounselingSummaryFormatCode = 11,
         CreditBurreauCode = 12,
         DefaultReasonCode = 13,
-        EducationCode = 14,
+        EducationLevelCompletedCode = 14,
         ExportFormatCode = 15,
         GenderCode = 16,
         HouseholdCode = 17,

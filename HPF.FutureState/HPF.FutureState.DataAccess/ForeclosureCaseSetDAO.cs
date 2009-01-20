@@ -418,7 +418,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[13] = new SqlParameter("@pi_orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
                 sqlParam[14] = new SqlParameter("@pi_Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
                 sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
-                sqlParam[16] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
+                sqlParam[16] = new SqlParameter("@pi_current_servicer_FDIC_NCUS_num", caseLoan.FdicNcusNumCurrentServicerTbd);
                 sqlParam[17] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
                 sqlParam[18] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
                 sqlParam[19] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
@@ -493,7 +493,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[13] = new SqlParameter("@pi_orig_mortgage_co_FDIC_NCUS_num", caseLoan.OrigMortgageCoFdicNcusNum);
                 sqlParam[14] = new SqlParameter("@pi_Orig_mortgage_co_name", caseLoan.OrigMortgageCoName);
                 sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", caseLoan.OrginalLoanNum);
-                sqlParam[16] = new SqlParameter("@pi_FDIC_NCUS_Num_current_servicer_TBD", caseLoan.FdicNcusNumCurrentServicerTbd);
+                sqlParam[16] = new SqlParameter("@pi_current_servicer_FDIC_NCUS_num", caseLoan.FdicNcusNumCurrentServicerTbd);
                 sqlParam[17] = new SqlParameter("@pi_Current_Servicer_Name_TBD", caseLoan.CurrentServicerNameTbd);
                 sqlParam[18] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
                 sqlParam[19] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
@@ -1000,7 +1000,7 @@ namespace HPF.FutureState.DataAccess
                             item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUS_num"]);
                             item.OrigMortgageCoName = ConvertToString(reader["orig_mortgage_co_name"]);
                             item.OrginalLoanNum = ConvertToString(reader["orginal_loan_num"]);
-                            item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["FDIC_NCUS_num_current_servicer_TBD"]);
+                            item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["current_servicer_FDIC_NCUS_num"]);
                             item.CurrentServicerNameTbd = ConvertToString(reader["current_servicer_name_TBD"]);
                             item.InvestorLoanNum = ConvertToString(reader["investor_loan_num"]);
                             item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
