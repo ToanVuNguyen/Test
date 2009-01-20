@@ -1085,18 +1085,26 @@ namespace HPF.FutureState.WebService.Test.Web
             response = proxy.SaveForeclosureCase(request);
             if (response.Status != ResponseStatus.Success)
             {
-                lblMessage.Text = "Message: ";
-                grdvMessages.Visible = true;
-                grdvMessages.DataSource = response.Messages;
-                grdvMessages.DataBind();
+                if (response.Status == ResponseStatus.Warning)
+                {
+                    lblMessage.Text = "Congratulation - New FcId is " + response.FcId;                    
+                    grdvMessages.Visible = true;
+                    grdvMessages.DataSource = response.Messages;
+                    grdvMessages.DataBind();
+                }
+                else
+                {
+                    lblMessage.Text = "Error Message: ";
+                    grdvMessages.Visible = true;
+                    grdvMessages.DataSource = response.Messages;
+                    grdvMessages.DataBind();
+                }
             }
             else
-            {
-                grdvMessages.Visible = false;
-                lblMessage.Text = "Congratulation - New FcId is " + response.FcId; 
+            {                
+                    grdvMessages.Visible = false;
+                    lblMessage.Text = "Congratulation - New FcId is " + response.FcId;                
             }
-                
-
         }
 
         private void SetTrackingInformation(ForeclosureCaseSetDTO fcCaseSet)
@@ -1136,10 +1144,25 @@ namespace HPF.FutureState.WebService.Test.Web
 
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
-            fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
-            fcCaseSet.BudgetItems = ((List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
-            fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
-            fcCaseSet.Outcome = ((List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
+            if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
+                fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
+            else
+                fcCaseSet.BudgetAssets = null;
+
+            if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
+                fcCaseSet.BudgetItems = ((List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
+            else
+                fcCaseSet.BudgetItems = null;
+
+            if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
+                fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
+            else
+                fcCaseSet.CaseLoans = null;
+
+            if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
+                fcCaseSet.Outcome = ((List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
+            else
+                fcCaseSet.Outcome = null;
             
             request.ForeclosureCaseSet = fcCaseSet;
             return request;
