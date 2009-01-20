@@ -94,10 +94,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        [NullableOrDigitsRequriedValidator(false, 5, MessageTemplate = "Property Zip: is not null and must be 5 alpha - numeric characters", Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(false, 5, MessageTemplate = "Property Zip must be numeric and contain 5 digits", Ruleset = "Default")]
         public string PropertyZip { get; set; }
 
-        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be 4 alpha - numeric characters", Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be numeric and contain 4 digits", Ruleset = "Default")]
         public string Last4_SSN { get; set; }
 
     }
