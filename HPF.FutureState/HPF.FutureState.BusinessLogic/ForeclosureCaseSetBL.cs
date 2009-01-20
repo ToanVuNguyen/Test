@@ -552,13 +552,13 @@ namespace HPF.FutureState.BusinessLogic
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
                 msgFcCaseSet.AddExceptionMessage("Age of the Co_borrower must be >=12 and <=110");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerFname))
-                msgFcCaseSet.AddExceptionMessage("BorrowerFnamemust not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("BorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerLname))
-                msgFcCaseSet.AddExceptionMessage("BorrowerLname not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("BorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerFname))
-                msgFcCaseSet.AddExceptionMessage("CoBorrowerFname not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("CoBorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerLname))
-                msgFcCaseSet.AddExceptionMessage("CoBorrowerLname not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("CoBorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (msgFcCaseSet.Count == 0)
                 return null;
             return msgFcCaseSet;
