@@ -36,7 +36,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             else
             {
                 isValid = (objectToValidate.Trim().Length <= _length);
-                if (!isValid) MessageTemplate = _fieldName + "max length is " + _length.ToString();
+                if (!isValid) MessageTemplate = _fieldName + "'s max length is " + _length.ToString();
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);

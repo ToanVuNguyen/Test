@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int BudgetSubcategoryId { get; set; }
 
         [NotNullValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!", Tag = ErrorMessages.WARN337)]
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "BudgetItemAmt must be numeric(15,2)")]
         public double BudgetItemAmt { get; set; }
 
         [NullableOrStringLengthValidator(true, 100, "Budget Note", Ruleset = Constant.RULESET_LENGTH)]

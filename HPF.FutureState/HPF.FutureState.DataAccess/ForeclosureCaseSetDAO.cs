@@ -1121,7 +1121,7 @@ namespace HPF.FutureState.DataAccess
             ProgramDTOCollection results = HPFCacheManager.Instance.GetData<ProgramDTOCollection>(Constant.HPF_CACHE_PROGRAM);
             if (results == null)
             {
-                var command = new SqlCommand(Constant.HPF_CACHE_PROGRAM, this.dbConnection);
+                var command = new SqlCommand("hpf_program_get", this.dbConnection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = this.trans;
                 try
@@ -1297,6 +1297,38 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }            
             return returnString;
+        }
+
+        public bool GetCall(int callID)
+        {
+            bool results = false;
+            try
+            {
+                SqlCommand command = base.CreateCommand("hpf_call_get", this.dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_call_id", callID);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    results = true;
+                    reader.Close();
+                }
+                else
+                {
+                    reader.Close();                    
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return results;
         }
 
         public string GetServicerName(int servicerId)

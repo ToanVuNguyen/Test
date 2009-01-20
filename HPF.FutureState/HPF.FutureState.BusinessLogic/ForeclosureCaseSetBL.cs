@@ -1348,6 +1348,10 @@ namespace HPF.FutureState.BusinessLogic
             if (msgBudgetSubId != null && msgBudgetSubId.Count != 0)
                 msgFcCaseSet.Add(msgBudgetSubId);
 
+            ExceptionMessageCollection msgCallId = CheckValidCallId(foreclosureCase);
+            if (msgCallId != null && msgCallId.Count != 0)
+                msgFcCaseSet.Add(msgCallId);
+
             if(msgFcCaseSet.Count == 0)
                 return null;
             return msgFcCaseSet;
@@ -1519,6 +1523,22 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (agencyName == null || agencyName == string.Empty)
                 msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for AgencyId");            
+            return msgFcCaseSet;
+        }
+
+        /// <summary>
+        /// Check valid Call Id
+        /// <input>ForeclosureCaseDTO</input>
+        /// <return>bool<return>
+        /// </summary>
+        private ExceptionMessageCollection CheckValidCallId(ForeclosureCaseDTO forclosureCase)
+        {
+            if (forclosureCase.CallId == 0)
+                return null;
+            bool isCall = foreclosureCaseSetDAO.GetCall(forclosureCase.CallId);
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            if (!isCall)
+                msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for CallId");
             return msgFcCaseSet;
         }
 

@@ -46,14 +46,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Code", Ruleset = Constant.RULESET_LENGTH)]
         public string LoanDelinqStatusCd { get; set; }
 
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CurrentLoanBalanceAmt must be numeric(15,2)")]
         public double CurrentLoanBalanceAmt { get; set; }
 
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "OrigLoanAmt must be numeric(15,2)")]
         public double OrigLoanAmt { get; set; }
 
         [NotNullValidator(Tag = ErrorMessages.WARN324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        [RangeValidator(-99.999, RangeBoundaryType.Inclusive, 99.999, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
+        [RangeValidator(-99.999, RangeBoundaryType.Inclusive, 99.999, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InterestRate must be numeric(5,3)")]
         public double InterestRate { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "Originating Lender Name", Ruleset = Constant.RULESET_LENGTH)]

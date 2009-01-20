@@ -24,7 +24,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 RefCodeItemDTOCollection refCodeList = new RefCodeItemDTOCollection();
                 foreach (var item in this)
                 {
-                    if (item.RefCodeSetName == refCode)
+                    if (item.RefCodeSetName.ToUpper().Trim() == refCode.ToUpper().Trim())
                         refCodeList.Add(item);
                 }
                 _RefCodeItemList.Add(refCode, refCodeList);
