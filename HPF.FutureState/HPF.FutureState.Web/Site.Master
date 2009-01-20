@@ -74,7 +74,7 @@
         <td height="26" class="baseline">&nbsp;&nbsp;© Copyright 2008 Homeownership Preservation 
             Foundation. All Rights Reserved.</td>
         <td align="right" class="baseline">
-            Design by HPF Team&nbsp;&nbsp;</td>
+            Design by HPF Team&nbsp;&nbsp;<br /><asp:Label ID="lblVersion" runat=server Text=""></asp:Label>&nbsp;&nbsp;</td>
       </tr>
     </table></td>
   </tr>
