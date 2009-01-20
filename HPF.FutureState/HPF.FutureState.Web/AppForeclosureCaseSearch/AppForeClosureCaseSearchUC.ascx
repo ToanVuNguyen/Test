@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppForeClosureCaseSearchUC.ascx.cs"
-    Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC" %>
+    Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC"  %>
 <%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>
@@ -145,7 +145,8 @@
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="2500px"  SelectedRowStyle-BackColor="Yellow" 
                     onrowdatabound="grvForeClosureCaseSearch_RowDataBound" 
-                    onrowcreated="grvForeClosureCaseSearch_RowCreated">
+                    onrowcreated="grvForeClosureCaseSearch_RowCreated" 
+                    onselectedindexchanged="grvForeClosureCaseSearch_SelectedIndexChanged">
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />

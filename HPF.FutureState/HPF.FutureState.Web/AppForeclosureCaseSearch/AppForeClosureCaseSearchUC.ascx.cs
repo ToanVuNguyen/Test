@@ -126,7 +126,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //Bind search result
                 grvForeClosureCaseSearch.DataSource = temp;
                 grvForeClosureCaseSearch.DataBind();
-                this.TotalRowNum = temp.SearchResultCount;
+                
+                //selected gridview row
+                //for(int i=0;i<grvForeClosureCaseSearch.Rows.Count;i++)
+                //{
+                //grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick", ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch,"Select$"+1));
+                //}
+                    this.TotalRowNum = temp.SearchResultCount;
                 //
 
                 if (this.TotalRowNum != 0)
@@ -377,6 +383,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
+                
                 if (e.Row.RowState == DataControlRowState.Alternate)
                 {
                     e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
@@ -387,6 +394,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
 
             }
+        }
+
+        protected void grvForeClosureCaseSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

@@ -14,6 +14,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.Web.AppNewPayable
 {
@@ -32,13 +33,20 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void Page_Load(object sender, EventArgs e)
         {
             //get search criteria.
-
+            ApplySecurity();
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             agencyPayableSearchCriteria = GetCriteria();
             if (!IsPostBack)
             {
                 //display all info match criteria to gridview
                 DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
+            }
+        }
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
             }
         }
         /// <summary>

@@ -14,6 +14,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
@@ -23,6 +24,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             try
             {
+               // ApplySecurity();
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
                 BindDetailCaseData(caseid);
             }
@@ -33,6 +35,17 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
 
         }
+        //private void ApplySecurity()
+        //{
+        //    if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+        //    {
+        //        Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+        //    }
+        //    if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+        //    {
+        //        btn_Save.Enabled = false;
+        //    }
+        //}
         private void BindDetailCaseData(int caseid)
         {
             try
