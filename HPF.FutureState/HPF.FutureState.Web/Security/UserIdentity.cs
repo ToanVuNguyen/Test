@@ -61,12 +61,12 @@ namespace HPF.FutureState.Web.Security
         /// </summary>
         /// <param name="menuItemTarget"></param>
         /// <returns></returns>
-        public bool CanRead(string menuItemTarget)
+        public bool CanView(string menuItemTarget)
         {
             var item = GetMenuItem(menuItemTarget);
             if (item != null)
             {
-                return item.Permission == 'R';
+                return item.Permission == 'R' || item.Permission == 'W';
             }
             return false;
         }
@@ -76,7 +76,7 @@ namespace HPF.FutureState.Web.Security
         /// </summary>
         /// <param name="menuItemTarget"></param>
         /// <returns></returns>
-        public bool CanUpdate(string menuItemTarget)
+        public bool CanEdit(string menuItemTarget)
         {
             var item = GetMenuItem(menuItemTarget);
             if (item != null)
