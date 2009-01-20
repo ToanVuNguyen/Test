@@ -225,6 +225,10 @@ namespace HPF.FutureState.BusinessLogic
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;           
             
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            ExceptionMessageCollection msgCaseSet = RequireFieldsForeclosureCaseSet(foreclosureCaseSet, ruleSet);
+            if (msgCaseSet != null && msgCaseSet.Count != 0)
+                msgFcCaseSet.Add(msgCaseSet);
+
             ExceptionMessageCollection msgFcCase = RequireFieldsForeclosureCase(foreclosureCase, ruleSet);
             if (msgFcCase != null && msgFcCase.Count != 0)
                 msgFcCaseSet.Add(msgFcCase);
@@ -256,8 +260,24 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckRequireForPartial(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             return ValidationFieldByRuleSet(foreclosureCaseSet, Constant.RULESET_MIN_REQUIRE_FIELD);
-        }       
-        
+        }
+
+        /// <summary>
+        /// Min request validate the fore closure case set
+        /// 0: Check Create UserID and Change Last User ID
+        /// <return>Collection Message Error</return>
+        /// </summary>
+        private ExceptionMessageCollection RequireFieldsForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCase, string ruleSet)
+        {
+            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseSetDTO>(foreclosureCase, ruleSet);
+            if (ex != null && ex.Count != 0)
+            {
+                msgFcCaseSet.Add(ex);
+            }           
+            return msgFcCaseSet;
+        }
+
         /// <summary>
         /// Min request validate the fore closure case set
         /// 1: Min request validate of Fore Closure Case
@@ -280,33 +300,33 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private static ExceptionMessageCollection CheckOtherFieldFCaseForPartial(ForeclosureCaseDTO foreclosureCase)
+        private ExceptionMessageCollection CheckOtherFieldFCaseForPartial(ForeclosureCaseDTO foreclosureCase)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (foreclosureCase == null)
                 return null;
             //-----CoBorrowerFname, CoBorrowerLname
-            if (foreclosureCase.CoBorrowerFname == null && foreclosureCase.CoBorrowerLname != null)
+            if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) == null && ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) != null)
                 msgFcCaseSet.AddExceptionMessage("A CoBorrowerFname is required to save a foreclosure case.");
-            else if (foreclosureCase.CoBorrowerFname != null && foreclosureCase.CoBorrowerLname == null)
+            else if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) != null && ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) == null)
                 msgFcCaseSet.AddExceptionMessage("A CoBorrowerLname is required to save a foreclosure case.");
             //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
-            if (foreclosureCase.BankruptcyAttorney != null && foreclosureCase.BankruptcyInd != "Y")
+            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null && ConvertStringEmptyToNull(foreclosureCase.BankruptcyInd.ToUpper().Trim()) != Constant.BANKRUPTCY_IND_YES)
                 msgFcCaseSet.AddExceptionMessage("BankruptcyInd value should be Y.");
-            if (foreclosureCase.BankruptcyInd == "Y" && foreclosureCase.BankruptcyAttorney == null)
+            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyInd.ToUpper().Trim()) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) == null)
                 msgFcCaseSet.AddExceptionMessage("A BankruptcyAttorney is required to save a foreclosure case.");
-            if (foreclosureCase.BankruptcyInd == "Y" && foreclosureCase.BankruptcyPmtCurrentInd == null)
+            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyInd.ToUpper().Trim()) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyPmtCurrentInd) == null)
                 msgFcCaseSet.AddExceptionMessage("A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
             //-----SummarySentOtherCd, SummarySentOtherDt
-            if (foreclosureCase.SummarySentOtherCd == null && foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
+            if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null && foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
                 msgFcCaseSet.AddExceptionMessage("A SummarySentOtherCd is required to save a foreclosure case.");
-            else if (foreclosureCase.SummarySentOtherCd != null && foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
+            else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null && foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
                 msgFcCaseSet.AddExceptionMessage("A SummarySentOtherDt is required to save a foreclosure case.");
             //-----SrvcrWorkoutPlanCurrentInd
-            if (foreclosureCase.SrvcrWorkoutPlanCurrentInd == null && foreclosureCase.HasWorkoutPlanInd != null)
+            if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null && ConvertStringEmptyToNull(foreclosureCase.HasWorkoutPlanInd) != null)
                 msgFcCaseSet.AddExceptionMessage("A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
             //-----HomeSalePrice
-            if (foreclosureCase.ForSaleInd == "Y" && foreclosureCase.HomeSalePrice == 0)
+            if (ConvertStringEmptyToNull(foreclosureCase.ForSaleInd.ToUpper().Trim()) == Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == 0)
                 msgFcCaseSet.AddExceptionMessage("A HomeSalePrice is required to save a foreclosure case.");
             if (msgFcCaseSet.Count == 0)
                 return null;
@@ -364,10 +384,10 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private static ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int outComeTypeId, int i, OutcomeItemDTO item)
+        private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int outComeTypeId, int i, OutcomeItemDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.OutcomeTypeId == outComeTypeId && (item.NonprofitreferralKeyNum == null && item.ExtRefOtherName == null))
+            if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != 0 && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
             {
                 msgFcCaseSet.AddExceptionMessage("An NonprofitreferralKeyNum or ExtRefOtherName " + (i + 1) + " is required");
             }            
@@ -410,10 +430,10 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private static ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int servicerId, int i, CaseLoanDTO item)
+        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int servicerId, int i, CaseLoanDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.ServicerId == servicerId && item.OtherServicerName == null)
+            if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
             {
                 msgFcCaseSet.AddExceptionMessage("An OtherServicerName " + (i + 1) + " is required");
             }
@@ -1940,6 +1960,13 @@ namespace HPF.FutureState.BusinessLogic
                 return s;
             else            
                 s = s.ToUpper().Trim();
+            return s;
+        }
+
+        private string ConvertStringEmptyToNull(string s)
+        {
+            if (s == null || s == string.Empty)
+                return null;            
             return s;
         }
         #endregion

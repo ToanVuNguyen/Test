@@ -14,7 +14,8 @@ namespace HPF.FutureState.Common
         public const string RULESET_COMPLETE = "Complete";
         public const string RULESET_LENGTH = "Length";
         public const string PAYABLE_IND = "Y";
-
+        public const string BANKRUPTCY_IND_YES = "Y";
+        public const string FORSALE_IND_YES = "Y";
         public const string DUPLICATE_YES = "Y";
         public const string DUPLICATE_NO = "N";
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
