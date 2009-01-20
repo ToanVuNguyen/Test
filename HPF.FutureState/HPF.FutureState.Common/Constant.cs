@@ -27,7 +27,10 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";
         public const string HPF_CACHE_PROGRAM = "PROGRAM";
         public const string HPF_CACHE_SERVICER = "SERVICER";
-
-
+        public const string HPF_CACHE_CASE_LOAN = "CASELOAN";
+        public const string HPF_CACHE_OUTCOME_ITEM = "OUTCOMEITEM";
+        public const string HPF_CACHE_OUTCOME_TYPE = "OUTCOMETYPE";
+        public const string HPF_CACHE_BUDGET_CATEGORY_CODE = "BUDGETCATEGORYCODE";
+        public const string HPF_CACHE_BUDGET_SUBCATEGORY = "BUDGETSUBCATEGORY";
     }
 }

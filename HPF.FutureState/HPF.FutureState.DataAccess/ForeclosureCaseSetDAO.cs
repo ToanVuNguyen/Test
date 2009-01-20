@@ -964,7 +964,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>OutcomeItemDTOCollection</returns>
         public CaseLoanDTOCollection GetCaseLoanCollection(int fcId)
         {
-            CaseLoanDTOCollection results = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>("caseLoanItem");
+            CaseLoanDTOCollection results = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>(Constant.HPF_CACHE_CASE_LOAN);
             if (results == null)
             {                
                 var command = new SqlCommand("hpf_case_loan_get", this.dbConnection);
@@ -1010,7 +1010,7 @@ namespace HPF.FutureState.DataAccess
                         }                        
                     }
                     reader.Close();
-                    HPFCacheManager.Instance.Add("caseLoanItem", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_CASE_LOAN, results);
                 }
                 catch (Exception Ex)
                 {
@@ -1027,7 +1027,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>OutcomeItemDTOCollection</returns>
         public OutcomeItemDTOCollection GetOutcomeItemCollection(int fcId)
         {
-            OutcomeItemDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>("outcomeItem");
+            OutcomeItemDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>(Constant.HPF_CACHE_OUTCOME_ITEM);
             if (results == null)
             {                
                 var command = new SqlCommand("hpf_outcome_item_get", this.dbConnection);
@@ -1061,7 +1061,7 @@ namespace HPF.FutureState.DataAccess
                         }                        
                     }
                     reader.Close();
-                    HPFCacheManager.Instance.Add("outcomeItem", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_OUTCOME_ITEM, results);
                 }
                 catch (Exception Ex)
                 {
@@ -1078,7 +1078,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>OutcomeItemDTOCollection</returns>
         public BudgetDTOCollection GetBudget()
         {
-            BudgetDTOCollection results = HPFCacheManager.Instance.GetData<BudgetDTOCollection>("budget");
+            BudgetDTOCollection results = HPFCacheManager.Instance.GetData<BudgetDTOCollection>(Constant.HPF_CACHE_BUDGET_CATEGORY_CODE);
             if (results == null)
             {
                 var command = new SqlCommand("hpf_view_budget_category_code", this.dbConnection);
@@ -1102,7 +1102,7 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add("budget", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_BUDGET_CATEGORY_CODE, results);
                 }
                 catch (Exception Ex)
                 {
@@ -1118,7 +1118,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>ProgramDTOCollection contains all Program </returns>
         public ProgramDTOCollection GetProgram()
         {
-            ProgramDTOCollection results = HPFCacheManager.Instance.GetData<ProgramDTOCollection>("program");
+            ProgramDTOCollection results = HPFCacheManager.Instance.GetData<ProgramDTOCollection>(Constant.HPF_CACHE_PROGRAM);
             if (results == null)
             {
                 var command = new SqlCommand(Constant.HPF_CACHE_PROGRAM, this.dbConnection);
@@ -1156,7 +1156,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>ProgramDTOCollection contains all Program </returns>
         public OutcomeTypeDTOCollection GetOutcomeType()
         {
-            OutcomeTypeDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeTypeDTOCollection>("outcomeType");
+            OutcomeTypeDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeTypeDTOCollection>(Constant.HPF_CACHE_OUTCOME_TYPE);
             if (results == null)
             {
                 var command = new SqlCommand("hpf_outcome_type_get", this.dbConnection);
@@ -1178,7 +1178,7 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add("outcomeType", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_OUTCOME_TYPE, results);
                 }
                 catch (Exception ex)
                 {
@@ -1194,7 +1194,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>ProgramDTOCollection contains all Program </returns>
         public BudgetSubcategoryDTOCollection GetBudgetSubcategory()
         {
-            BudgetSubcategoryDTOCollection results = HPFCacheManager.Instance.GetData<BudgetSubcategoryDTOCollection>("budgetSubcategory");
+            BudgetSubcategoryDTOCollection results = HPFCacheManager.Instance.GetData<BudgetSubcategoryDTOCollection>(Constant.HPF_CACHE_BUDGET_SUBCATEGORY);
             if (results == null)
             {
                 var command = new SqlCommand("hpf_budget_subcategory_get", this.dbConnection);
@@ -1215,7 +1215,7 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add("budgetSubcategory", results);
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_BUDGET_SUBCATEGORY, results);
                 }
                 catch (Exception ex)
                 {
