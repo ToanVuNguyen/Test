@@ -66,7 +66,7 @@ namespace HPF.FutureState.Web.Security
             var item = GetMenuItem(menuItemTarget);
             if (item != null)
             {
-                return item.Permission == 'R' || item.Permission == 'W';
+                return item.Permission == 'R' || item.Permission == 'U';
             }
             return false;
         }

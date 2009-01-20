@@ -61,12 +61,12 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Insert Into Invoice(funding_source_id, invoice_cd, period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (1, 'aaaaa', '1/1/2008', '6/1/2008', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
+            command.CommandText = "Insert Into Invoice(funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
+                                    " values (1,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
             command.ExecuteNonQuery();
 
-            command.CommandText = "Insert Into Invoice(funding_source_id,invoice_cd, period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (2, 'bbbbb', '1/1/2008', '6/1/2008', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
+            command.CommandText = "Insert Into Invoice(funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
+                                    " values (2,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
@@ -79,10 +79,10 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Delete Invoice where funding_source_id = 1 and invoice_cd = 'aaaaa'";
+            command.CommandText = "Delete Invoice where funding_source_id = 1 and period_start_dt='1/1/2107' and period_end_dt='1/1/2108'";
             command.ExecuteNonQuery();
 
-            command.CommandText = command.CommandText = "Delete Invoice where funding_source_id = 2 and invoice_cd = 'bbbbb'";
+            command.CommandText = command.CommandText = "Delete Invoice where funding_source_id = 2 and period_start_dt='1/1/2107' and period_end_dt='1/1/2108'";
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
@@ -98,10 +98,9 @@ namespace HPF.FutureState.UnitTest
         {
             InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO(); // TODO: Initialize to an appropriate value
-            searchCriteria.FundingSourceId = 1;
-            searchCriteria.PeriodStart = new DateTime(2008, 01, 01);
-            searchCriteria.PeriodEnd = new DateTime(2008, 06, 01);
-            
+            searchCriteria.FundingSourceId = -1;
+            searchCriteria.PeriodStart = new DateTime(2107, 01, 01);
+            searchCriteria.PeriodEnd = new DateTime(2108, 02, 01);
 
             List<int> expected = new List<int>();
             expected.Add(1);
@@ -112,7 +111,8 @@ namespace HPF.FutureState.UnitTest
             List<int> actual = new List<int>();
             actual.Add(results[0].FundingSourceId);
             actual.Add(results[1].FundingSourceId);
-            Assert.AreEqual(expected, actual);
+            for (int i = 0; i < 2; i++)
+                Assert.AreEqual(expected[i], actual[i]);
             
         }
     }
