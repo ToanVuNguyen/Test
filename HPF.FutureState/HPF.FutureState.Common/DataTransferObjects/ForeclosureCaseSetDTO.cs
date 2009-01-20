@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using HPF.FutureState.Common.Utils.DataValidator;
+
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
@@ -21,5 +24,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public OutcomeItemDTOCollection Outcome { get; set; }
 
         public ActivityLogDTOCollection ActivityLog { get; set; }
+
+        [NullableOrStringLengthValidator(false, 30, "Working User ID", Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
+        public string WorkingUserID { get; set; }
     }
 }

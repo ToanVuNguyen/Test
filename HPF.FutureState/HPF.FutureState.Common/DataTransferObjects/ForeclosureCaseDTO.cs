@@ -319,11 +319,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string DoNotCallInd { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR123, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(false, 1, "Owner Occupied Ind", Ruleset = Constant.RULESET_LENGTH)]
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string OwnerOccupiedInd { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR124, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(false, 1, "Primary Residence Ind", Ruleset = Constant.RULESET_LENGTH)]
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string PrimaryResidenceInd { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "Realty Company", Ruleset = Constant.RULESET_LENGTH)]

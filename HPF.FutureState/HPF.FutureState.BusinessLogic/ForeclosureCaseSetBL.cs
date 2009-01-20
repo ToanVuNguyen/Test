@@ -23,6 +23,7 @@ namespace HPF.FutureState.BusinessLogic
     {
         private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
+        private string _workingUserID;
 
         //public DuplicateException WarningMessage { get; set; }
 
@@ -64,6 +65,8 @@ namespace HPF.FutureState.BusinessLogic
                 ExceptionMessageCollection exceptionList = CheckRequireForPartial(foreclosureCaseSet);
                 if (exceptionList != null && exceptionList.Count > 0)
                     ThrowDataValidationException(exceptionList);
+
+                _workingUserID = foreclosureCaseSet.WorkingUserID;
 
                 exceptionList = CheckInvalidFormatData(foreclosureCaseSet);
                 if (exceptionList != null && exceptionList.Count > 0)
@@ -783,9 +786,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Update foreclosureCase
         /// </summary>
-        private static int UpdateForeClosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
+        private int UpdateForeClosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
-            foreclosureCase.SetUpdateTrackingInformation(foreclosureCase.ChangeLastUserId);
+            foreclosureCase.SetUpdateTrackingInformation(_workingUserID);
             int fcId = foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
             return fcId;
         }
@@ -848,13 +851,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget Asset
         /// </summary>
-        private static void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int budget_set_id)
+        private void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int budget_set_id)
         {
             if (budgetAssetCollection != null)
             {
                 foreach (BudgetAssetDTO items in budgetAssetCollection)
                 {
-                    items.SetInsertTrackingInformation(items.CreateUserId);
+                    items.SetInsertTrackingInformation(_workingUserID);
                     foreClosureCaseSetDAO.InsertBudgetAsset(items, budget_set_id);
                 }
             }
@@ -863,13 +866,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget Item
         /// </summary>
-        private static void InsertBudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int budget_set_id)
+        private void InsertBudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int budget_set_id)
         {
             if (budgetItemCollection != null)
             {
                 foreach (BudgetItemDTO items in budgetItemCollection)
                 {
-                    items.SetInsertTrackingInformation(items.CreateUserId);
+                    items.SetInsertTrackingInformation(_workingUserID);
                     foreClosureCaseSetDAO.InsertBudgetItem(items, budget_set_id);
                 }
             }
@@ -878,12 +881,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget Set
         /// </summary>
-        private static int InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int fcId)
+        private int InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int fcId)
         {
             int budget_set_id = int.MinValue;
             if(budgetSet != null)
             {
-                budgetSet.SetInsertTrackingInformation(budgetSet.CreateUserId);
+                budgetSet.SetInsertTrackingInformation(_workingUserID);
                 budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
             }
             return budget_set_id;
@@ -892,12 +895,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert ForeclosureCase
         /// </summary>
-        private static int InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
+        private int InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
             int fcId = int.MinValue;
             if(foreclosureCase != null)
             {
-                foreclosureCase.SetInsertTrackingInformation(foreclosureCase.CreateUserId);
+                foreclosureCase.SetInsertTrackingInformation(_workingUserID);
                 fcId  = foreClosureCaseSetDAO.InsertForeclosureCase(foreclosureCase);
             }
             return fcId;
@@ -906,13 +909,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert OutcomeItem
         /// </summary>
-        private static void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int fcId)
+        private void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int fcId)
         {
             if (outcomeItemCollection != null)
             {
                 foreach (OutcomeItemDTO items in outcomeItemCollection)
                 {
-                    items.SetInsertTrackingInformation(items.CreateUserId);
+                    items.SetInsertTrackingInformation(_workingUserID);
                     foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
                 }
             }
@@ -921,13 +924,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert CaseLoan
         /// </summary>
-        private static void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
         {
             if (caseLoanCollection != null)
             {
                 foreach (CaseLoanDTO items in caseLoanCollection)
                 {
-                    items.SetInsertTrackingInformation(items.CreateUserId);
+                    items.SetInsertTrackingInformation(_workingUserID);
                     foreClosureCaseSetDAO.InsertCaseLoan(items, fcId);
                 }
             }
@@ -936,13 +939,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Update CaseLoan
         /// </summary>
-        private static void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
+        private void UpdateCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
         {
             if (caseLoanCollecion != null)
             {                
                 foreach (CaseLoanDTO items in caseLoanCollecion)
                 {
-                    items.SetUpdateTrackingInformation(items.ChangeLastUserId);
+                    items.SetUpdateTrackingInformation(_workingUserID);
                     foreClosureCaseSetDAO.UpdateCaseLoan(items);
                 }
             }
@@ -951,7 +954,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Delete CaseLoan
         /// </summary>
-        private static void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
+        private void DeleteCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollecion)
         {
             if (caseLoanCollecion != null && caseLoanCollecion.Count != 0)
             {
@@ -965,12 +968,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Update Outcome
         /// </summary>
-        private static void UpdateOutcome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeCollecion)
+        private void UpdateOutcome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeCollecion)
         {
             if (outcomeCollecion != null)
             {
                 foreach (OutcomeItemDTO items in outcomeCollecion)
                 {
+                    items.SetUpdateTrackingInformation(_workingUserID);
                     foreClosureCaseSetDAO.UpdateOutcomeItem(items);
                 }
             }
