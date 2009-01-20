@@ -29,7 +29,6 @@ namespace HPF.Webservice.CallCenter
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseDTO))]
-
     public partial class CallCenterService : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
@@ -1023,6 +1022,8 @@ namespace HPF.Webservice.CallCenter
 
         private string authorizedIndField;
 
+        private string workingUserIdField;
+
         /// <remarks/>
         public string CallId
         {
@@ -1358,6 +1359,19 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.authorizedIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string WorkingUserId
+        {
+            get
+            {
+                return this.workingUserIdField;
+            }
+            set
+            {
+                this.workingUserIdField = value;
             }
         }
     }

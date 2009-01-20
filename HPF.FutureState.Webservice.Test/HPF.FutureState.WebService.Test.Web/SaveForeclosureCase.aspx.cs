@@ -173,8 +173,8 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.SummarySentOtherDt = Util.ConvertToDateTime(txtSummarySentOtherDt.Text.Trim());
             fcCase.WorkedWithAnotherAgencyInd = txtWorkedWithAnotherAgencyInd.Text.Trim();
             fcCase.FcSaleDate = Util.ConvertToDateTime(txtFcSaleDate.Text.Trim());
-            fcCase.CreateUserId = txtCreateUserID.Text.Trim();
-            fcCase.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            //fcCase.CreateUserId = txtCreateUserID.Text.Trim();
+            //fcCase.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
 
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
 
@@ -297,8 +297,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
                 txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
-                txtCreateUserID.Text = fcCase.CreateUserId.ToString();
-                txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
+                //txtCreateUserID.Text = fcCase.CreateUserId.ToString();
+                //txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
             }
         }
        
@@ -482,8 +482,8 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.ServicerId = Util.ConvertToInt(txtServicerId.Text.Trim());
             caseLoan.TermLengthCd = txtTermLengthCd.Text.Trim();
 
-            caseLoan.CreateUserId = txtCreateUserID.Text.Trim();
-            caseLoan.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            //caseLoan.CreateUserId = txtCreateUserID.Text.Trim();
+            //caseLoan.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             return caseLoan;
 
         }
@@ -527,8 +527,8 @@ namespace HPF.FutureState.WebService.Test.Web
             budgetItem.BudgetNote = txtBudgetNote.Text.Trim();
             budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
 
-            budgetItem.CreateUserId = txtCreateUserID.Text.Trim();
-            budgetItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            //budgetItem.CreateUserId = txtCreateUserID.Text.Trim();
+            //budgetItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             budgetItem.BudgetItemId = Util.ConvertToInt(lblBudgetItemId.Text.Trim());
             //budgetItem.BudgetSetId = Util.ConvertToInt(txtBudgetItemSetId.Text.Trim());
             return budgetItem;
@@ -674,8 +674,8 @@ namespace HPF.FutureState.WebService.Test.Web
             BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
             budgetAsset.AssetName = txtAssetName.Text.Trim();
             budgetAsset.AssetValue = Util.ConvertToDouble(txtAssetValue.Text.Trim());
-            budgetAsset.CreateUserId = txtCreateUserID.Text.Trim();
-            budgetAsset.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            //budgetAsset.CreateUserId = txtCreateUserID.Text.Trim();
+            //budgetAsset.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             budgetAsset.BudgetAssetId = Util.ConvertToInt(lblBudgetAssetID.Text.Trim());
             //budgetAsset.BudgetSetId = Util.ConvertToInt(txtBudgetSetID.Text.Trim());
             return budgetAsset;
@@ -956,8 +956,8 @@ namespace HPF.FutureState.WebService.Test.Web
             //outcomeItem.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
             outcomeItem.NonprofitreferralKeyNum = txtNonprofitreferralKeyNum.Text.Trim();
 
-            outcomeItem.CreateUserId = txtCreateUserID.Text.Trim();
-            outcomeItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            //outcomeItem.CreateUserId = txtCreateUserID.Text.Trim();
+            //outcomeItem.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
             //outcomeItem.OutcomeDeletedDt = Util.ConvertToDateTime(txtOutcomeDeletedDt.Text.Trim());
             //outcomeItem.OutcomeDt = Util.ConvertToDateTime(txtOutcomeDt.Text.Trim());
             
@@ -1100,8 +1100,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void SetTrackingInformation(ForeclosureCaseSetDTO fcCaseSet)
         {
-            string createUserId = txtCreateUserID.Text.Trim();
-            string changeLastUserId = txtChangeLastUserID.Text.Trim();
+            string createUserId = txtWorkingUserID.Text.Trim();  //txtCreateUserID.Text.Trim();
+            string changeLastUserId = txtWorkingUserID.Text.Trim();// txtChangeLastUserID.Text.Trim();
             fcCaseSet.ForeclosureCase.CreateUserId = createUserId;
             fcCaseSet.ForeclosureCase.ChangeLastUserId = changeLastUserId;
 
@@ -1131,6 +1131,9 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             ForeclosureCaseSaveRequest request = new ForeclosureCaseSaveRequest();
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
+
+            //= txtWorkingUserID.Text.Trim();
+
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();

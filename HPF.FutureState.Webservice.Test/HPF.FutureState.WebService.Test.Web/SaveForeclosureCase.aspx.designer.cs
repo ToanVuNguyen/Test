@@ -1760,31 +1760,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label111;
         
         /// <summary>
-        /// txtCreateUserID control.
+        /// txtWorkingUserID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreateUserID;
-        
-        /// <summary>
-        /// Label112 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label112;
-        
-        /// <summary>
-        /// txtChangeLastUserID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtChangeLastUserID;
+        protected global::System.Web.UI.WebControls.TextBox txtWorkingUserID;
         
         /// <summary>
         /// Label115 control.

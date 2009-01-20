@@ -864,17 +864,17 @@
         </tr>   
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label111" runat="server" Text="Create User ID"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label111" runat="server" Text="Working User ID"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtCreateUserID" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtWorkingUserID" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <%--<td>
                 <asp:Label CssClass = "sidelinks" ID="Label112" runat="server" Text="Change Last User ID"></asp:Label>             
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtChangeLastUserID" runat="server"></asp:TextBox>
-            </td>                       
+            </td>--%>                       
         </tr>   
         <tr>
              
