@@ -39,7 +39,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         }
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
-        [NullableOrDigitsRequriedValidator(true, 5, MessageTemplate = "Property Zip: Only 5 numeric characters allowed", Ruleset = "CriteriaValidation")]
+        [NullableOrDigitsRequriedValidator(true, 5, "Property Zip", Ruleset = "CriteriaValidation")]
         public string PropertyZip { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
@@ -55,7 +55,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Duplicates { get; set; }
 
         [NotNullValidator(Ruleset = "AppSearchRequireCriteria")]
-        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last4SSN: Only 4 numeric characters allowed", Ruleset = "CriteriaValidation")]
+        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = "CriteriaValidation")]
         public string Last4SSN { get; set; }
 
         public int PageSize { get; set; }

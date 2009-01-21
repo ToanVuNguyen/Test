@@ -16,10 +16,13 @@ namespace HPF.FutureState.Common.Utils.DataValidator
     {
         int _numberOfDigits;
         bool _nullable;
-        public NullableOrDigitsRequriedValidator(bool nullable, int numberOfDigits):base(null, null)
+        string _fieldName;
+        public NullableOrDigitsRequriedValidator(bool nullable, int numberOfDigits, string fieldName)
+            : base(null, null)
         {
             _nullable = nullable;
             _numberOfDigits = numberOfDigits;
+            _fieldName = fieldName;
         }
 
         protected override string DefaultMessageTemplate
@@ -31,13 +34,17 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         {
             bool isValid = false;
             if (objectToValidate == null || objectToValidate == string.Empty)
+            {
                 isValid = _nullable;
+                if (!isValid) MessageTemplate = _fieldName + " is required";
+            }
             else
             {
                 string pattern = "^\\d{" + _numberOfDigits + "}$";
                 Regex exp = new Regex(pattern);
 
                 isValid = exp.Match(objectToValidate).Success;
+                if (!isValid) MessageTemplate = string.Format("{0} must be numeric and contain {1} digits", _fieldName, _numberOfDigits);
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);

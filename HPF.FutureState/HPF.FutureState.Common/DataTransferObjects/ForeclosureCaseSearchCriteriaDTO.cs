@@ -26,7 +26,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         string _firstName = null;
         [IgnoreNulls(Ruleset = "Default")]
-        [StringLengthValidator(0, 30, MessageTemplate = "First Name: Max Length is 30 characters", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "First Name", Ruleset="Default")]
         public string FirstName
         {
             get { return _firstName; }
@@ -46,9 +46,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        string _lastName = null;
-        [IgnoreNulls(Ruleset = "Default")]
-        [StringLengthValidator(0, 30, MessageTemplate = "Last Name: Max Length is 30 characters", Ruleset = "Default")]
+        string _lastName = null;        
+        [NullableOrStringLengthValidator(true, 30, "Last Name", Ruleset="Default")]
         public string LastName
         {
             get { return _lastName; }
@@ -68,39 +67,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        string _loanNumber = null;
+
+        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Loan Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
         public string LoanNumber
         {
-            get { return _loanNumber; }
-            set
-            {
-                if (value != null)
-                {
-                    _loanNumber = value;
-                    Regex exp = new Regex(@"[^a-zA-Z0-9*]");
-                    MatchCollection matches = exp.Matches(_loanNumber);
-                    foreach (Match item in matches)
-                    {
-                        _loanNumber = _loanNumber.Replace(item.Value, string.Empty);
-                    }
-
-                    exp = new Regex(@"[*]");
-                    matches = exp.Matches(_loanNumber);
-                    foreach (Match item in matches)
-                    {
-                        _loanNumber = _loanNumber.Replace(item.Value, "%");
-                    }
-
-                    _loanNumber = _loanNumber.Insert(0, "%");
-                    _loanNumber = _loanNumber.Insert(_loanNumber.Length , "%");
-                }
-            }
+            get;
+            set;
         }
 
-        [NullableOrDigitsRequriedValidator(false, 5, MessageTemplate = "Property Zip must be numeric and contain 5 digits", Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(false, 5, "Property Zip",  Ruleset = "Default")]
         public string PropertyZip { get; set; }
 
-        [NullableOrDigitsRequriedValidator(true, 4, MessageTemplate = "Last 4 SSN must be numeric and contain 4 digits", Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN" , Ruleset = "Default")]
         public string Last4_SSN { get; set; }
 
     }
