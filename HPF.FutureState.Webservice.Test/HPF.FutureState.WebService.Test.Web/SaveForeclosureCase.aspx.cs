@@ -1086,19 +1086,12 @@ namespace HPF.FutureState.WebService.Test.Web
             if (response.Status != ResponseStatus.Success)
             {
                 if (response.Status == ResponseStatus.Warning)
-                {
                     lblMessage.Text = "Congratulation - New FcId is " + response.FcId;                    
-                    grdvMessages.Visible = true;
-                    grdvMessages.DataSource = response.Messages;
-                    grdvMessages.DataBind();
-                }
                 else
-                {
-                    lblMessage.Text = "Error Message: ";
-                    grdvMessages.Visible = true;
-                    grdvMessages.DataSource = response.Messages;
-                    grdvMessages.DataBind();
-                }
+                    lblMessage.Text = "Error Message: ";                    
+                grdvMessages.Visible = true;
+                grdvMessages.DataSource = response.Messages;
+                grdvMessages.DataBind();
             }
             else
             {                
