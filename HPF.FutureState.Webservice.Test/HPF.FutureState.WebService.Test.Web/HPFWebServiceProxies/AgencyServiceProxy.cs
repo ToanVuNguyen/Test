@@ -1553,6 +1553,8 @@ namespace HPF.Webservice.Agency
 
         private System.DateTime budgetSetDtField;
 
+        private double totalSurplusField;
+
         /// <remarks/>
         public int BudgetSetId
         {
@@ -1628,6 +1630,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.budgetSetDtField = value;
+            }
+        }
+
+        /// <remarks/>
+        public double TotalSurplus
+        {
+            get
+            {
+                return this.totalSurplusField;
+            }
+            set
+            {
+                this.totalSurplusField = value;
             }
         }
     }
@@ -1804,6 +1819,8 @@ namespace HPF.Webservice.Agency
 
         private int outcomeTypeIdField;
 
+        private string outcomeTypeNameField;
+
         private System.DateTime outcomeDtField;
 
         private System.DateTime outcomeDeletedDtField;
@@ -1861,6 +1878,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.outcomeTypeIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string OutcomeTypeName
+        {
+            get
+            {
+                return this.outcomeTypeNameField;
+            }
+            set
+            {
+                this.outcomeTypeNameField = value;
             }
         }
 
