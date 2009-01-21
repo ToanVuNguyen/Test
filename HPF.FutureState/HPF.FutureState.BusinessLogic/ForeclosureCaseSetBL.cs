@@ -785,7 +785,7 @@ namespace HPF.FutureState.BusinessLogic
             //if not exist, insert new
             OutcomeItemDTOCollection outcomeCollecionNew = null;
             outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
-            InsertOutcomeItem(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+            InsertOutcomeItem(foreclosureCaseSetDAO, outcomeCollecionNew, fcId);
 
             //check outcome item DB with outcome item input
             //if not exit, update outcome_deleted_dt = today()
