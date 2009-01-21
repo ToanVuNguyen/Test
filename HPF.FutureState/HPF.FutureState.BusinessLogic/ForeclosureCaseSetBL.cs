@@ -650,6 +650,13 @@ namespace HPF.FutureState.BusinessLogic
             if (msgCase4 != null && msgCase4.Count != 0)
                 msgFcCaseSet.Add(msgCase4);
 
+            if(caseComplete && (msgCase1 != null || msgCase2 != null || msgCase3 != null || msgCase4 != null) )
+            {
+                ExceptionMessage msg = new ExceptionMessage();
+                msg.ErrorCode = ErrorMessages.ERR0255;
+                msg.Message = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255);
+                msgFcCaseSet.Insert(0,msg);
+            }
             if (msgFcCaseSet.Count == 0)
                 return null;
             return msgFcCaseSet;
@@ -671,7 +678,9 @@ namespace HPF.FutureState.BusinessLogic
             if (msgComplete != null && msgComplete.Count > 0 && caseComplete)            
                 msgFcCaseSet.Add(msgComplete);
             if (msgComplete != null && msgComplete.Count > 0)                            
-                WarningMessage.Add(msgComplete);            
+                WarningMessage.Add(msgComplete);
+            if (msgFcCaseSet.Count == 0)
+                return null;
             return msgFcCaseSet;
         }
 
@@ -710,6 +719,8 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0256, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0256));
             if (caseComplete && count == 0)
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have Loan_1st_2nd with 1st value");
+            if (msgFcCaseSet.Count == 0)
+                return null;
             return msgFcCaseSet;
         }
 
@@ -733,6 +744,8 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have OutcomeItem with billable value");
             if (!isBillable)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0326, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0326));
+            if (msgFcCaseSet.Count == 0)
+                return null;
             return msgFcCaseSet;
         }
 
@@ -757,6 +770,8 @@ namespace HPF.FutureState.BusinessLogic
                 WarningMessage.AddExceptionMessage("UNKNOWN", "To be complete, a budget_item must exist and it must have atleast 1 budget_item = 'Mortgage Amount'.");
             if (foreclosureCaseSetInput.BudgetItems == null || foreclosureCaseSetInput.BudgetItems.Count < 1)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
+            if (msgFcCaseSet.Count == 0)
+                return null;
             return msgFcCaseSet;            
         }
         #endregion
