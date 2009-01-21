@@ -58,7 +58,6 @@ namespace HPF.FutureState.DataAccess
             }
             catch (Exception Ex)
             {
-                dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
@@ -125,7 +124,6 @@ namespace HPF.FutureState.DataAccess
             }
             catch (Exception Ex)
             {
-                dbConnection.Close();
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
