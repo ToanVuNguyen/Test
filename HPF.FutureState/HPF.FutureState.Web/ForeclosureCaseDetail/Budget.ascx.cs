@@ -17,7 +17,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            
+        }
 
+        protected void lstIncomes_ItemCreated(object sender, DataListItemEventArgs e)
+        {
+            GridView grvIncome = e.Item.FindControl("grvIncome") as GridView;
+            if (grvIncome != null)
+            { 
+                grvIncome.DataSource = e.Item.DataItem ; //as something ;
+                grvIncome.DataBind();
+            }
         }
     }
 }

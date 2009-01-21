@@ -25,6 +25,16 @@ h1
     font-variant: normal;
     text-decoration: none;
 }
+h3
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #2271A0;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-decoration: none;
+}
 p
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
