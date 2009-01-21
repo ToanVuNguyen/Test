@@ -6,6 +6,8 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 
+using HPF.FutureState.Common.Utils.Exceptions;
+
 namespace HPF.FutureState.UnitTest
 {
     
@@ -116,9 +118,109 @@ namespace HPF.FutureState.UnitTest
             {
                 ClearTestData(aCallLog);
             }
-
         }
 
+        [TestMethod]
+        public void InsertCallLogTest_MissingRequiredField()
+        {
+            CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            try
+            {
+                SetCallLogTestData(aCallLog);
+                aCallLog.CcCallKey = null;
+                target.InsertCallLog(aCallLog);                                               
+            }
+            catch (DataValidationException actual)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                ShowException(actual);
+                ClearTestData(aCallLog);
+            }
+        }
+
+        [TestMethod]
+        public void InsertCallLogTest_InvalidForeignKey()
+        {
+            CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            try
+            {
+                SetCallLogTestData(aCallLog);
+                aCallLog.PrevAgencyId = 9999999;
+                aCallLog.ServicerId = 999999;
+                aCallLog.CallCenterID = 9999999;
+                target.InsertCallLog(aCallLog);
+            }
+            catch (DataValidationException actual)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                ShowException(actual);
+                ClearTestData(aCallLog);
+            }
+        }
+
+        [TestMethod]
+        public void InsertCallLogTest_InvalidCode()
+        {
+            CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            try
+            {
+                SetCallLogTestData(aCallLog);
+                aCallLog.FinalDispoCd = "InvalidCd";
+                target.InsertCallLog(aCallLog);
+            }
+            catch (DataValidationException actual)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                ShowException(actual);
+                ClearTestData(aCallLog);
+            }
+        }
+
+        [TestMethod]
+        public void InsertCallLogTest_InvalidIndicator()
+        {
+            //12982
+            CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            try
+            {
+                SetCallLogTestData(aCallLog);
+                aCallLog.HomeownerInd = "s";
+                target.InsertCallLog(aCallLog);
+            }
+            catch (DataValidationException actual)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                ShowException(actual);
+                ClearTestData(aCallLog);
+            }
+        }
+        [TestMethod]
+        public void InsertCallLogTest_InvalidDataLength()
+        {
+            CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            try
+            {
+                SetCallLogTestData(aCallLog);
+                aCallLog.CcCallKey = "Invalid CcCallKey will be longer than 18 characters";
+                target.InsertCallLog(aCallLog);
+            }
+            catch (DataValidationException actual)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                ShowException(actual);
+                ClearTestData(aCallLog);
+            }
+        }
         #region helper
         private void SetCallLogTestData(CallLogDTO aCallLog)
         {
@@ -141,10 +243,11 @@ namespace HPF.FutureState.UnitTest
             aCallLog.StartDate = new DateTime(2008, 10, 10);
             aCallLog.EndDate = DateTime.Now;
             aCallLog.CcCallKey = "12345";
-            aCallLog.FinalDispoCd = "test";
+            aCallLog.FinalDispoCd = "CALL4MORTGCO";
             aCallLog.PrevAgencyId = GetAgencyID();
             aCallLog.ServicerId = GetServicerID();
             aCallLog.CallCenterID = GetCallCenterID();
+            aCallLog.WorkingUserId = "WorkingUserId";
 
             aCallLog.SetInsertTrackingInformation("Unit test");
 
@@ -156,7 +259,7 @@ namespace HPF.FutureState.UnitTest
             ExecuteSql(s);
             s = "Delete from Agency where agency_id = " + aCallLog.PrevAgencyId;
             ExecuteSql(s);
-            s = "Delete from CallCenter where call_center_id = " + aCallLog.CallCenterID;
+            s = "Delete from Call_Center where call_center_id = " + aCallLog.CallCenterID;
             ExecuteSql(s);
             s = "Delete from Servicer where servicer_id = " + aCallLog.ServicerId;
             ExecuteSql(s);
@@ -239,6 +342,11 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = sql;
             command.ExecuteNonQuery();
             dbConnection.Close();
+        }
+        private void ShowException(DataValidationException ex)
+        {
+            foreach (ExceptionMessage em in ex.ExceptionMessages)
+                TestContext.WriteLine(em.Message);
         }
         #endregion
         #endregion

@@ -24,10 +24,10 @@ namespace HPF.FutureState.Common.Utils.DataValidator
 
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
-            bool isValid = false;
+            bool isValid = true;
             if (objectToValidate.GetType() == typeof(DateTime))
             {
-                isValid = true;
+                
                 //with DateTime type, a null value is equal to DateTime.MinValue
                 if ((DateTime)objectToValidate == DateTime.MinValue)
                 {
