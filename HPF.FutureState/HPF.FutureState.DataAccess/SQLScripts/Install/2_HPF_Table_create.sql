@@ -1,5 +1,5 @@
 -- =============================================
--- Create date: 16 Jan 2009
+-- Create date: 21 Jan 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
@@ -600,13 +600,13 @@ CREATE TABLE foreclosure_case (
   borrower_lname VARCHAR(30)  NOT NULL  ,
   borrower_mname VARCHAR(30)    ,
   mother_maiden_lname VARCHAR(30)    ,
-  borrower_ssn VARCHAR(9)    ,
+  borrower_ssn VARCHAR(255)    ,
   borrower_last4_SSN VARCHAR(4)    ,
   borrower_DOB DATETIME    ,
   co_borrower_fname VARCHAR(30)    ,
   co_borrower_lname VARCHAR(30)    ,
   co_borrower_mname VARCHAR(30)    ,
-  co_borrower_ssn VARCHAR(9)    ,
+  co_borrower_ssn VARCHAR(255)    ,
   co_borrower_last4_SSN VARCHAR(4)    ,
   co_borrower_DOB DATETIME    ,
   primary_contact_no VARCHAR(20)  NOT NULL  ,
@@ -817,7 +817,7 @@ CREATE TABLE case_loan (
   orig_mortgage_co_FDIC_NCUS_num VARCHAR(20)    ,
   orig_mortgage_co_name VARCHAR(50)    ,
   orginal_loan_num VARCHAR(30)    ,
-  FDIC_NCUS_num_current_servicer_TBD VARCHAR(30)    ,
+  current_servicer_FDIC_NCUS_num VARCHAR(30)    ,
   current_servicer_name_TBD VARCHAR(30)    ,
   investor_loan_num VARCHAR(30)    ,
   create_dt DATETIME  NOT NULL  ,
@@ -955,4 +955,9 @@ CREATE NONCLUSTERED INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[
 (
 	[completed_dt] ASC
 )WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+ALTER TABLE foreclosure_case WITH CHECK ADD  CONSTRAINT [FK_call_id] FOREIGN KEY(call_id) REFERENCES call(call_id)
+GO
+ALTER TABLE case_loan WITH CHECK ADD  CONSTRAINT [FK_loan_servicer_id] FOREIGN KEY(servicer_id) REFERENCES servicer(servicer_id)
 GO
