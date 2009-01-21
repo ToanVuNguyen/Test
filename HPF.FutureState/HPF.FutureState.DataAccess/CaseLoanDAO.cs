@@ -65,11 +65,10 @@ namespace HPF.FutureState.DataAccess
                         item.OrigLoanAmt = ConvertToDouble(reader["orig_loan_amt"]);
                         item.InterestRate = ConvertToDouble(reader["interest_rate"]);
                         item.OriginatingLenderName = ConvertToString(reader["originating_lender_name"]);
-                        item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUS_num"]);
+                        item.OrigMortgageCoFdicNcusNum = ConvertToString(reader["orig_mortgage_co_FDIC_NCUA_num"]);
                         item.OrigMortgageCoName = ConvertToString(reader["orig_mortgage_co_name"]);
                         item.OrginalLoanNum = ConvertToString(reader["orginal_loan_num"]);
-                        item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["current_servicer_FDIC_NCUS_num"]);
-                        item.CurrentServicerNameTbd = ConvertToString(reader["current_servicer_name_TBD"]);
+                        item.FdicNcusNumCurrentServicerTbd = ConvertToString(reader["current_servicer_FDIC_NCUA_num"]);                        
                         item.InvestorLoanNum = ConvertToString(reader["investor_loan_num"]);
                         item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);

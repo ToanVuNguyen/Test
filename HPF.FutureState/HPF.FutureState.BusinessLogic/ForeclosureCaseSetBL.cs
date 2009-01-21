@@ -1221,8 +1221,7 @@ namespace HPF.FutureState.BusinessLogic
                         || ConvertStringToUpper(caseLoan.OrigMortgageCoFdicNcusNum) != ConvertStringToUpper(item.OrigMortgageCoFdicNcusNum)
                         || ConvertStringToUpper(caseLoan.OrigMortgageCoName) != ConvertStringToUpper(item.OrigMortgageCoName)
                         || ConvertStringToUpper(caseLoan.OrginalLoanNum) != ConvertStringToUpper(item.OrginalLoanNum)
-                        || ConvertStringToUpper(caseLoan.FdicNcusNumCurrentServicerTbd) != ConvertStringToUpper(item.FdicNcusNumCurrentServicerTbd)
-                        || ConvertStringToUpper(caseLoan.CurrentServicerNameTbd) != ConvertStringToUpper(item.CurrentServicerNameTbd)
+                        || ConvertStringToUpper(caseLoan.FdicNcusNumCurrentServicerTbd) != ConvertStringToUpper(item.FdicNcusNumCurrentServicerTbd)                        
                         || ConvertStringToUpper(caseLoan.InvestorLoanNum) != item.InvestorLoanNum
                         )
                         return false;

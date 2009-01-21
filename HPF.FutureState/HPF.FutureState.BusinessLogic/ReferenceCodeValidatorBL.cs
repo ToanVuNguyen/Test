@@ -21,7 +21,7 @@ namespace HPF.FutureState.BusinessLogic
                 return true;
             foreach (RefCodeItemDTO items in refCodeItemCollectionByCode)
             {
-                if (value == null || value == string.Empty || (value == items.Code && refCodeName.ToUpper().Trim() == items.RefCodeSetName.ToUpper().Trim() ))
+                if (value == null || value == string.Empty || (value.ToUpper().Trim() == items.Code.ToUpper().Trim() && refCodeName.ToUpper().Trim() == items.RefCodeSetName.ToUpper().Trim()))
                     return true;
             }  
             return false;

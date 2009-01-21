@@ -69,10 +69,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string OrginalLoanNum { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "FdicNcusNum Current Servicer Tbd", Ruleset = Constant.RULESET_LENGTH)]
-        public string FdicNcusNumCurrentServicerTbd { get; set; }
-
-        [NullableOrStringLengthValidator(true, 30, "Current Servicer Name Tbd", Ruleset = Constant.RULESET_LENGTH)]
-        public string CurrentServicerNameTbd { get; set; }
+        public string FdicNcusNumCurrentServicerTbd { get; set; }        
 
         [NullableOrStringLengthValidator(true, 30, "Investor Loan Number", Ruleset = Constant.RULESET_LENGTH)]
         public string InvestorLoanNum { get; set; }    
