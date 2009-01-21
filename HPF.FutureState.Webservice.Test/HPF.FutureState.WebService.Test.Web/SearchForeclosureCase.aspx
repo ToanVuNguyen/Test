@@ -111,9 +111,7 @@
         </asp:TableRow>
     </asp:Table>
     <br />
-    <asp:Label ID="Label7" runat="server" Font-Bold="True" 
-        Text="Test data: PropZip - 12345; last 4 ssn - 1234" CssClass="Text"></asp:Label>
-    <br />
+   
 <asp:Button ID="btnSearch" runat="server" onclick="BtnSearch_Click" 
     Text="Search Foreclosure Case" CssClass="MyButton" />
     <br />

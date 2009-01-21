@@ -347,15 +347,6 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TextBox txtLast4SSN;
         
         /// <summary>
-        /// Label7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
-        
-        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
