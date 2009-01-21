@@ -309,12 +309,12 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(" AND case_loan.servicer_id = servicer.servicer_id");
             whereClause.Append(" AND case_loan.loan_1st_2nd_cd = '1st'");
             whereClause.Append((searchCriteria.AgencyCaseNumber == null) ? "" : " AND agency_case_num = @pi_agency_case_num");
-            whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_borrower_fname OR co_borrower_fname like @pi_borrower_fname)");
-            whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_borrower_lname OR co_borrower_lname like @pi_borrower_lname)");
+            whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')");
+            whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_borrower_lname  ESCAPE '/' OR co_borrower_lname like @pi_borrower_lname  ESCAPE '/')");
             whereClause.Append((searchCriteria.Last4_SSN == null) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : " AND case_loan.acct_num = @pi_loan_number");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND prop_zip = @pi_prop_zip");
-
+            
             return whereClause.ToString();
         }
 

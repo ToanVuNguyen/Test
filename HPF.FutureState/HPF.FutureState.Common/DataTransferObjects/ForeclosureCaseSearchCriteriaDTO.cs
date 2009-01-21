@@ -24,8 +24,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         }
 
-        string _firstName = null;
-        [IgnoreNulls(Ruleset = "Default")]
+        string _firstName = null;        
         [NullableOrStringLengthValidator(true, 30, "First Name", Ruleset="Default")]
         public string FirstName
         {
@@ -35,13 +34,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 if (value != null)
                 {
                     _firstName = value;
+                    _firstName = ProcessSQLSpecialCharacter(_firstName);
                     Regex exp = new Regex(@"[*]");
                     MatchCollection matches = exp.Matches(_firstName);
                     foreach (Match item in matches)
                     {
                         _firstName = _firstName.Replace(item.Value, "%");
                     }
-
+                    
                 }
             }
         }
@@ -56,6 +56,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 if (value != null)
                 {
                     _lastName = value;
+                    _firstName = ProcessSQLSpecialCharacter(_firstName);
                     Regex exp = new Regex(@"[*]");
                     MatchCollection matches = exp.Matches(_lastName);
                     foreach (Match item in matches)
@@ -81,5 +82,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN" , Ruleset = "Default")]
         public string Last4_SSN { get; set; }
 
+        private string ProcessSQLSpecialCharacter(string sInput)
+        {
+            sInput = sInput.Replace("%", "/%");
+            sInput = sInput.Replace("_", "/_");
+            sInput = sInput.Replace("[", "/[");
+            return sInput;
+        }
     }
 }

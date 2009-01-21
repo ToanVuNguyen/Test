@@ -62,6 +62,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         private static string GetApplicationName()
         {
             return ConfigurationManager.AppSettings["HPFApplicationName"];
-        }
+        }        
     }
 }
