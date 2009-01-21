@@ -10,6 +10,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class BudgetItemDTOCollection : BaseDTOCollection<BudgetItemDTO>
     {
+        public string BudgetCategory { get; set; }
          
     }
 }

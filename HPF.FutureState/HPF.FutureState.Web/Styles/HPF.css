@@ -146,6 +146,14 @@ h2
      color:White;
   
 }
+.NormalHeader
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+     background-color:#507CD1;
+     color:White;
+  
+}
 .ScrollTable
 {
     position: relative;
@@ -157,6 +165,9 @@ h2
 .GridViewStyle
 {
     border-top-style: none;
+    border-bottom-style: none;
+    border-left-style:none;
+    border-right-style:none;
 }
 .Header
 {
@@ -209,3 +220,19 @@ h2
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
 }
+.CellBorderRight
+{
+	border-top: solid 1px gray;
+	border-bottom-style : none;
+	border-left-style: none;
+	}
+	.CellBorderLeft
+{	border-top: solid 1px gray;
+	border-bottom-style : none;
+	border-right-style: none;
+	}
+.TextBoldCell
+{
+	font-weight:bold;
+	
+	}

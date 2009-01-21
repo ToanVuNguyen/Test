@@ -5,8 +5,16 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public class BudgetDetailDTOCollection:BaseDTOCollection<BudgetDetailDTO>
+    public class BudgetDetailDTOCollection:BaseDTOCollection<BudgetItemDTOCollection>
     {
-
+        public int IndexOf(string budgetCategory)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].BudgetCategory.ToLower() == budgetCategory.ToLower())
+                    return i;
+            }
+            return -1;
+        }
     }
 }

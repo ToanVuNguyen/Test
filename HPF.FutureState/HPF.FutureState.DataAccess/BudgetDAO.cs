@@ -36,6 +36,9 @@ namespace HPF.FutureState.DataAccess
             BudgetSetDTOCollection result = null;
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_budget_set_get", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", caseId);
+            command.Parameters.AddRange(sqlParam);
             try
             {
                 dbConnection.Open();
@@ -66,5 +69,59 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+        /// <summary>
+        /// Get BudgetDetailDTO from 2 recordset retun by SP.
+        /// </summary>
+        /// <param name="budgetSetId">BudgetSet ID</param>
+        /// <returns>BudgetDetailDTO contains 2 collections: BugetItem and BudgetAsset</returns>
+        public BudgetDetailDTO GetBudgetDetail(int budgetSetId)
+        {
+            BudgetDetailDTO result = null;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_budget_detail_get", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_budget_set_id", budgetSetId);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    result = new  BudgetDetailDTO();
+                    BudgetItemDTOCollection budgetItemCollection = new BudgetItemDTOCollection();
+                    while (reader.Read())
+                    {
+                        BudgetItemDTO budgetItem = new BudgetItemDTO();
+                        budgetItem.BudgetCategory = ConvertToString(reader["budget_category"]);
+                        budgetItem.BudgetSubCategory = ConvertToString(reader["budget_subcategory"]);
+                        budgetItem.BudgetItemAmt = ConvertToDouble(reader["budget_item_amt"]);
+                        budgetItem.BudgetNote = ConvertToString(reader["budget_note"]);
+                        budgetItemCollection.Add(budgetItem);
+                    }
+                    result.BudgetItemCollection = budgetItemCollection;
+                    reader.NextResult();
+                    BudgetAssetDTOCollection budgetAssetCollection = new BudgetAssetDTOCollection();
+                    while (reader.Read())
+                    {
+                        BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
+                        budgetAsset.AssetName = ConvertToString(reader["asset_name"]);
+                        budgetAsset.AssetValue = ConvertToDouble(reader["asset_value"]);
+                        budgetAssetCollection.Add(budgetAsset);
+                    }
+                    result.BudgetAssetCollection = budgetAssetCollection;
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
+
     }
 }

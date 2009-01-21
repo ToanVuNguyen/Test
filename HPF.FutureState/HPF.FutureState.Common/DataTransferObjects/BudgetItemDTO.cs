@@ -23,6 +23,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public double BudgetItemAmt { get; set; }
 
         [NullableOrStringLengthValidator(true, 100, "Budget Note", Ruleset = Constant.RULESET_LENGTH)]
-        public string BudgetNote { get; set; }       
+        public string BudgetNote { get; set; }
+
+        public string BudgetCategory { get; set; }
+
+        public string BudgetSubCategory { get; set; }
     }
 }

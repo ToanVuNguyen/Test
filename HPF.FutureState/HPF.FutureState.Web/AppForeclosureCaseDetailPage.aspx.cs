@@ -89,14 +89,22 @@ namespace HPF.FutureState.Web
 
         protected String GetAgencyName(int agencyID)
         {
-            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
-
-            AgencyDTO item = agencyCollection[0];
-            agencyCollection.Remove(item);
-            foreach (var i in agencyCollection)
+            try
             {
-                if (i.AgencyID == agencyID.ToString())
-                    return i.AgencyName;
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                AgencyDTO item = agencyCollection[0];
+                agencyCollection.Remove(item);
+                foreach (var i in agencyCollection)
+                {
+                    if (i.AgencyID == agencyID.ToString())
+                        return i.AgencyName;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex);
             }
             return string.Empty;
         }
