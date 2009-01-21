@@ -24,5 +24,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public double TotalAssets { get; set; }
 
         public DateTime BudgetSetDt { get; set; }
+        public double TotalSurplus { get; set; }
     }
 }
