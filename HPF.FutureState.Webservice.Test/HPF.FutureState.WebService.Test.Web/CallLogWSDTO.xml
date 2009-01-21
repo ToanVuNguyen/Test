@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <CallLogWSDTO>
   <CallId ></CallId>
   <CallCenterID >71</CallCenterID>
@@ -18,8 +18,8 @@
   <PrevAgencyId >2</PrevAgencyId>
   <SelectedAgencyId >SelectedAgencyId</SelectedAgencyId>
   <ScreenRout >ScreenRout</ScreenRout>
-  <FinalDispoCd >FinalDispoCd</FinalDispoCd>
-  <TransNumber >TransNumber</TransNumber>
+  <FinalDispoCd >THIRDPARTY</FinalDispoCd>
+  <TransNumber >0123456789</TransNumber>
   <CcCallKey >CcCallKey</CcCallKey>
   <LoanDelinqStatusCd >120+</LoanDelinqStatusCd>
   <SelectedCounselor >SelectedCounselor</SelectedCounselor>
