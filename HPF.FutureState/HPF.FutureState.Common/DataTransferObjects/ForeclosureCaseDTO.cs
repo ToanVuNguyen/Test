@@ -15,39 +15,39 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public int FcId { get; set; }
 
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR100, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR0100, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int AgencyId { get; set; }
 
         public DateTime CompletedDt { get; set; }
 
         public int CallId { get; set; }
 
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int ProgramId { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR102, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0102, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Agency Case Number", Ruleset = Constant.RULESET_LENGTH)]
         public string AgencyCaseNum { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Agency Client Number", Ruleset = Constant.RULESET_LENGTH)]
         public string AgencyClientNum { get; set; }
 
-        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.ERR103, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.ERR0103, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public DateTime IntakeDt { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN300, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0300, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Income Earner Code", Ruleset = Constant.RULESET_LENGTH)]
         public string IncomeEarnersCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR104, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0104, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 15, "Case Source Code", Ruleset = Constant.RULESET_LENGTH)]
         public string CaseSourceCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN301, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0301, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Race Code", Ruleset = Constant.RULESET_LENGTH)]
         public string RaceCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN302, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0302, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Household Code", Ruleset = Constant.RULESET_LENGTH)]
         public string HouseholdCd { get; set; }
 
@@ -57,11 +57,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Never Pay Reason Code", Ruleset = Constant.RULESET_LENGTH)]
         public string NeverPayReasonCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN303, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0303, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Default Reason 1st Code", Ruleset = Constant.RULESET_LENGTH)]
         public string DfltReason1stCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN304, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0304, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Default Reason 2nd Code", Ruleset = Constant.RULESET_LENGTH)]
         public string DfltReason2ndCd { get; set; }
 
@@ -70,25 +70,25 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime HudTerminationDt { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN305, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0305, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Hud Outcome code", Ruleset = Constant.RULESET_LENGTH)]
         public string HudOutcomeCd { get; set; }
 
         public int AmiPercentage { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN306, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0306, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Counseling Duration Code", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselingDurationCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN307, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0307, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Gender Code", Ruleset = Constant.RULESET_LENGTH)]
         public string GenderCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR105, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0105, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Borrower First Name", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerFname { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR106, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0106, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Borrower Last Name", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerLname { get; set; }
 
@@ -104,7 +104,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 4, "Borrower Last 4 SSN", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerLast4Ssn { get; set; }
         
-        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.WARN308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.WARN0308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public DateTime BorrowerDob { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Co-Borrower F Name",  Ruleset = Constant.RULESET_LENGTH)]
@@ -124,7 +124,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime CoBorrowerDob { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR107, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0107, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 20, "Primary Contact Number", Ruleset = Constant.RULESET_LENGTH)]
         public string PrimaryContactNo { get; set; }
 
@@ -137,51 +137,51 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "Email 2", Ruleset = Constant.RULESET_LENGTH)]
         public string Email2 { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR108, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0108, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 50, "Contact Address 1", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactAddr1 { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "Contact Address 2", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactAddr2 { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR109, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0109, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Contact City", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactCity { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR110, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0110, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 15, "Contact State Code", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactStateCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR111, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0111, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 5, "Contact Zip", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactZip { get; set; }
 
         [NullableOrStringLengthValidator(true, 4, "Contact Zip Plus 4", Ruleset = Constant.RULESET_LENGTH)]
         public string ContactZipPlus4 { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR112, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0112, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 50, "Prop Address 1", Ruleset = Constant.RULESET_LENGTH)]
         public string PropAddr1 { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "Prop Address 2", Ruleset = Constant.RULESET_LENGTH)]
         public string PropAddr2 { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR113, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0113, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Prop City", Ruleset = Constant.RULESET_LENGTH)]
         public string PropCity { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR114, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0114, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 15, "Prop State Code", Ruleset = Constant.RULESET_LENGTH)]
         public string PropStateCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR115, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0115, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 5, "Prop Zip", Ruleset = Constant.RULESET_LENGTH)]
         public string PropZip { get; set; }
 
         [NullableOrStringLengthValidator(true, 4, "Prop Zip Plus 4", Ruleset = Constant.RULESET_LENGTH)]
         public string PropZipPlus4 { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN309, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0309, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string BankruptcyInd { get; set; }
 
@@ -206,22 +206,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "CoBorrower Occupation Code", Ruleset = Constant.RULESET_LENGTH)]
         public string CoBorrowerOccupationCd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN310, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0310, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string HispanicInd { get; set; }
 
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string DuplicateInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN311, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0311, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string FcNoticeReceiveInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR116, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0116, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string FundingConsentInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR117, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0117, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string ServicerConsentInd { get; set; }
 
@@ -250,14 +250,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime SummarySentDt { get; set; }
 
-        [NotNullValidator(Tag = ErrorMessages.WARN312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = ErrorMessages.WARN0312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         public byte OccupantNum { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN313, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0313, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 8000, "Loan Default Reason Notes", Ruleset = Constant.RULESET_LENGTH)]
         public string LoanDfltReasonNotes { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN314, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0314, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 8000, "Action Items Notes", Ruleset = Constant.RULESET_LENGTH)]
         public string ActionItemsNotes { get; set; }
 
@@ -267,42 +267,42 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "PrimResEstMktValue must be numeric(15,2)")]
         public double PrimResEstMktValue { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR118, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0118, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Assigned Counselor Id Referrence", Ruleset = Constant.RULESET_LENGTH)]
         public string AssignedCounselorIdRef { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR119, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0119, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Counselor F Name", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorFname { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR120, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0120, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Counselor L name", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorLname { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR121, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0121, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 50, "Counselor Email", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorEmail { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR122, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0122, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 20, "Counselor Phone", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorPhone { get; set; }
 
         [NullableOrStringLengthValidator(true, 20, "Counselor Ext", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorExt { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN315, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0315, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string DiscussedSolutionWithSrvcrInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN316, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0316, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string WorkedWithAnotherAgencyInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN317, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0317, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string ContactedSrvcrRecentlyInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN318, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.WARN0318, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string HasWorkoutPlanInd { get; set; }
 
@@ -318,11 +318,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string DoNotCallInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR123, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0123, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string OwnerOccupiedInd { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR124, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [StringRequiredValidator(Tag = ErrorMessages.ERR0124, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string PrimaryResidenceInd { get; set; }
 
@@ -349,7 +349,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Military Service Cd", Ruleset = Constant.RULESET_LENGTH)]
         public string MilitaryServiceCd { get; set; }
 
-        [NotNullValidator(Tag = ErrorMessages.WARN319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [NotNullValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HouseholdGrossAnnualIncomeAmt must be numeric(15,2)")]
         public double HouseholdGrossAnnualIncomeAmt { get; set; }
 
