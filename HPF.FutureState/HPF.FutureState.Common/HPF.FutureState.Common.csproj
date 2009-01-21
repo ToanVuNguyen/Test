@@ -81,6 +81,8 @@
     <Compile Include="DataTransferObjects\AgencyPayableDraftDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BillingInfoDTO.cs" />
     <Compile Include="DataTransferObjects\BillingInfoDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BudgetDetailDTO.cs" />
+    <Compile Include="DataTransferObjects\BudgetDetailDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTO.cs" />
     <Compile Include="DataTransferObjects\BudgetSubcategoryDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallCenterDTO.cs" />
