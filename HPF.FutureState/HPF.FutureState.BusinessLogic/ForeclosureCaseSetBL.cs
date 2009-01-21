@@ -225,13 +225,13 @@ namespace HPF.FutureState.BusinessLogic
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;           
             
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection msgCaseSet = RequireFieldsForeclosureCaseSet(foreclosureCaseSet, ruleSet);
-            if (msgCaseSet != null && msgCaseSet.Count != 0)
-                msgFcCaseSet.Add(msgCaseSet);
-
             ExceptionMessageCollection msgFcCase = RequireFieldsForeclosureCase(foreclosureCase, ruleSet);
             if (msgFcCase != null && msgFcCase.Count != 0)
                 msgFcCaseSet.Add(msgFcCase);
+
+            ExceptionMessageCollection msgCaseSet = RequireFieldsForeclosureCaseSet(foreclosureCaseSet, ruleSet);
+            if (msgCaseSet != null && msgCaseSet.Count != 0)
+                msgFcCaseSet.Add(msgCaseSet);
 
             ExceptionMessageCollection msgBudgetItem = RequireFieldsBudgetItem(budgetItem, ruleSet);
             if (msgBudgetItem != null && msgBudgetItem.Count != 0)
@@ -307,27 +307,27 @@ namespace HPF.FutureState.BusinessLogic
                 return null;
             //-----CoBorrowerFname, CoBorrowerLname
             if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) == null && ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) != null)
-                msgFcCaseSet.AddExceptionMessage("A CoBorrowerFname is required to save a foreclosure case.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A CoBorrowerFname is required to save a foreclosure case.");
             else if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) != null && ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) == null)
-                msgFcCaseSet.AddExceptionMessage("A CoBorrowerLname is required to save a foreclosure case.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A CoBorrowerLname is required to save a foreclosure case.");
             //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
-            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null && ConvertStringEmptyToNull(foreclosureCase.BankruptcyInd.ToUpper().Trim()) != Constant.BANKRUPTCY_IND_YES)
-                msgFcCaseSet.AddExceptionMessage("BankruptcyInd value should be Y.");
-            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyInd.ToUpper().Trim()) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) == null)
-                msgFcCaseSet.AddExceptionMessage("A BankruptcyAttorney is required to save a foreclosure case.");
-            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyInd.ToUpper().Trim()) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyPmtCurrentInd) == null)
-                msgFcCaseSet.AddExceptionMessage("A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
+            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null && ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) != Constant.BANKRUPTCY_IND_YES)
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BankruptcyInd value should be Y.");
+            if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) == null)
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A BankruptcyAttorney is required to save a foreclosure case.");
+            if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyPmtCurrentInd) == null)
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
             //-----SummarySentOtherCd, SummarySentOtherDt
             if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null && foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
-                msgFcCaseSet.AddExceptionMessage("A SummarySentOtherCd is required to save a foreclosure case.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A SummarySentOtherCd is required to save a foreclosure case.");
             else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null && foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
-                msgFcCaseSet.AddExceptionMessage("A SummarySentOtherDt is required to save a foreclosure case.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A SummarySentOtherDt is required to save a foreclosure case.");
             //-----SrvcrWorkoutPlanCurrentInd
             if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null && ConvertStringEmptyToNull(foreclosureCase.HasWorkoutPlanInd) != null)
-                msgFcCaseSet.AddExceptionMessage("A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
             //-----HomeSalePrice
-            if (ConvertStringEmptyToNull(foreclosureCase.ForSaleInd.ToUpper().Trim()) == Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == 0)
-                msgFcCaseSet.AddExceptionMessage("A HomeSalePrice is required to save a foreclosure case.");
+            if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.ForSaleInd)) == Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == 0)
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A HomeSalePrice is required to save a foreclosure case.");
             if (msgFcCaseSet.Count == 0)
                 return null;
             return msgFcCaseSet;
@@ -361,35 +361,38 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1)
-                msgFcCaseSet.AddExceptionMessage("An Outcome is required to save a foreclosure case.");            
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Missing Outcome item. At least one Outcome item is required to save a foreclosure case.");            
             int outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
-            for (int i = 0; i < outcomeItemDTOCollection.Count; i++)
+            foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
             {
-                OutcomeItemDTO item = outcomeItemDTOCollection[i];
-                ValidationResults validationResults = HPFValidator.Validate<OutcomeItemDTO>(item, ruleSet);
-                if (!validationResults.IsValid)
+                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<OutcomeItemDTO>(item, ruleSet);
+                if (ex != null && ex.Count != 0)
                 {
-                    foreach (ValidationResult result in validationResults)
-                    {
-                        msgFcCaseSet.AddExceptionMessage(result.Key + " " + (i + 1) + " is required");
-                    }
+                    msgFcCaseSet.Add(ex);
+                    break;
                 }
-                if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
+            }            
+            if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
+            {
+                foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
                 {
-                    ExceptionMessageCollection msgOthers = CheckOtherFieldOutcomeItemForPartial(outComeTypeId, i, item);
+                    ExceptionMessageCollection msgOthers = CheckOtherFieldOutcomeItemForPartial(outComeTypeId, item);
                     if (msgOthers != null)
+                    {
                         msgFcCaseSet.Add(msgOthers);
+                        break;
+                    }
                 }
             }
             return msgFcCaseSet;
         }
 
-        private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int outComeTypeId, int i, OutcomeItemDTO item)
+        private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int outComeTypeId, OutcomeItemDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != 0 && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
             {
-                msgFcCaseSet.AddExceptionMessage("An NonprofitreferralKeyNum or ExtRefOtherName " + (i + 1) + " is required");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An NonprofitreferralKeyNum or ExtRefOtherName is required");
             }            
             if(msgFcCaseSet.Count == 0)
                 return null;
@@ -419,23 +422,25 @@ namespace HPF.FutureState.BusinessLogic
 
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
-                for (int i = 0; i < caseLoanDTOCollection.Count; i++)
-                {
-                    CaseLoanDTO item = caseLoanDTOCollection[i];
-                    ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId, i, item);
+                foreach (CaseLoanDTO item in caseLoanDTOCollection)
+                {                    
+                    ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId,item);
                     if (msgOther != null)
+                    {
                         msgFcCaseSet.Add(msgOther);
+                        break;
+                    }
                 }
             }            
             return msgFcCaseSet;
         }
 
-        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int servicerId, int i, CaseLoanDTO item)
+        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int servicerId, CaseLoanDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
             {
-                msgFcCaseSet.AddExceptionMessage("An OtherServicerName " + (i + 1) + " is required");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An OtherServicerName is required");
             }
             if (msgFcCaseSet.Count == 0)
                 return null;
@@ -460,7 +465,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (OutcomeTypeDTO item in outcomeType)
             {
                 string outcomeTypeName = ConvertStringToUpper(item.OutcomeTypeName);
-                if (outcomeTypeName == Constant.OUTCOME_TYPE_NAME)
+                if (outcomeTypeName == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
                     return item.OutcomeTypeID;
             }
             return 0;
@@ -548,17 +553,17 @@ namespace HPF.FutureState.BusinessLogic
             if (msgBudgetAsset != null && msgBudgetAsset.Count > 0)
                 msgFcCaseSet.Add(msgBudgetAsset);
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.BorrowerDob))
-                msgFcCaseSet.AddExceptionMessage("Age of the Borrower must be >=12 and <=110");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Age of the Borrower must be >=12 and <=110");
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
-                msgFcCaseSet.AddExceptionMessage("Age of the Co_borrower must be >=12 and <=110");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Age of the Co_borrower must be >=12 and <=110");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerFname))
-                msgFcCaseSet.AddExceptionMessage("BorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerLname))
-                msgFcCaseSet.AddExceptionMessage("BorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerFname))
-                msgFcCaseSet.AddExceptionMessage("CoBorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "CoBorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerLname))
-                msgFcCaseSet.AddExceptionMessage("CoBorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "CoBorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (msgFcCaseSet.Count == 0)
                 return null;
             return msgFcCaseSet;
@@ -700,11 +705,11 @@ namespace HPF.FutureState.BusinessLogic
                     count = count + 1;                
             }
             if(count == 0)
-                WarningMessage.AddExceptionMessage("To be complete, atleast 1 mortgage with loan_1st_2nd_cd = '1st' is required.");
+                WarningMessage.AddExceptionMessage("UNKNOWN", "To be complete, atleast 1 mortgage with loan_1st_2nd_cd = '1st' is required.");
             if(count > 1)
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0256, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0256));
             if (caseComplete && count == 0)
-                msgFcCaseSet.AddExceptionMessage("Must have Loan_1st_2nd with 1st value");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have Loan_1st_2nd with 1st value");
             return msgFcCaseSet;
         }
 
@@ -725,9 +730,9 @@ namespace HPF.FutureState.BusinessLogic
                 if (isBillable) break;
             }
             if (!isBillable && caseComplete)
-                msgFcCaseSet.AddExceptionMessage("Must have OutcomeItem with billable value");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have OutcomeItem with billable value");
             if (!isBillable)
-                WarningMessage.AddExceptionMessage("To be complete, atleast 1 outcome with a payable_ind = 'Y' is required.");
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0326, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0326));
             return msgFcCaseSet;
         }
 
@@ -747,9 +752,9 @@ namespace HPF.FutureState.BusinessLogic
         {            
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (!CheckBudgetItemHaveMortgage(foreclosureCaseSetInput) && caseComplete)
-                msgFcCaseSet.AddExceptionMessage("BudgetItem must exist and it must have atleast 1 budget_item = 'Mortgage Amount'");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetItem must exist and it must have atleast 1 budget_item = 'Mortgage Amount'");
             if(!CheckBudgetItemHaveMortgage(foreclosureCaseSetInput))
-                WarningMessage.AddExceptionMessage(" To be complete, a budget_item must exist and it must have atleast 1 budget_item = 'Mortgage Amount'.");
+                WarningMessage.AddExceptionMessage("UNKNOWN", "To be complete, a budget_item must exist and it must have atleast 1 budget_item = 'Mortgage Amount'.");
             if (foreclosureCaseSetInput.BudgetItems == null || foreclosureCaseSetInput.BudgetItems.Count < 1)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
             return msgFcCaseSet;            
@@ -1379,9 +1384,9 @@ namespace HPF.FutureState.BusinessLogic
             if (!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0203, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0203));
             if (!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for NeverBillReasonCd.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverBillReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for NeverPayReasonCd.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverPayReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0204, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0204));
             if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
@@ -1405,9 +1410,9 @@ namespace HPF.FutureState.BusinessLogic
             if (!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0214, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0214));
             if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for BorrowerOccupationCd.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for BorrowerOccupationCd.");
             if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for CoBorrowerOccupationCd.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for CoBorrowerOccupationCd.");
             if (!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0215, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0215));
             if (!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
@@ -1415,7 +1420,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0217));
             if (!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for IntakeCreditBureauCd.");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for IntakeCreditBureauCd.");
             return msgFcCaseSet;
         }
 
@@ -1434,15 +1439,15 @@ namespace HPF.FutureState.BusinessLogic
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
                 if (!referenceCode.Validate(ReferenceCode.Loan1st2nd, caseLoan.Loan1st2nd))
-                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for Loan1st2nd " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for Loan1st2nd " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd))
-                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for MortgageTypeCode " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for MortgageTypeCode " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.TermLengthCode, caseLoan.TermLengthCd))
-                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for TermLengthCode " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for TermLengthCode " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd))
-                    msgFcCaseSet.AddExceptionMessage("An invalid code was provided for LoanDelinqStatusCode " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for LoanDelinqStatusCode " + (i + 1));
                 if(!CheckValidServicerId(caseLoan.ServicerId))
-                    msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for ServicerId " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId " + (i + 1));
             }
             return msgFcCaseSet;  
         }
@@ -1473,9 +1478,9 @@ namespace HPF.FutureState.BusinessLogic
                     break;
             }            
             if(contactValid == false)
-                msgFcCaseSet.AddExceptionMessage("Combination ContactStateCode and ContactZipCode is invalid");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Combination ContactStateCode and ContactZipCode is invalid");
             if(propertyValid == false)
-                msgFcCaseSet.AddExceptionMessage("Combination PropertyStateCode and PropertyZipcode is invalid");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Combination PropertyStateCode and PropertyZipcode is invalid");
             return msgFcCaseSet;
         }
 
@@ -1508,9 +1513,9 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (forclosureCase.ContactZip.Length != 5)
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for ContactZip");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for ContactZip");
             if (forclosureCase.PropZip.Length != 5)
-                msgFcCaseSet.AddExceptionMessage("An invalid code was provided for PropZip");
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for PropZip");
             return msgFcCaseSet;
         }
 
@@ -1524,7 +1529,7 @@ namespace HPF.FutureState.BusinessLogic
             string agencyName = foreclosureCaseSetDAO.GetAgencyName(forclosureCase.AgencyId);
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (agencyName == null || agencyName == string.Empty)
-                msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for AgencyId");            
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for AgencyId");            
             return msgFcCaseSet;
         }
 
@@ -1574,7 +1579,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (item.ProgramID == programId.ToString())
                     return null;
             }
-            msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for ProgramId");
+            msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ProgramId");
             return msgFcCaseSet;
         }
 
@@ -1593,7 +1598,7 @@ namespace HPF.FutureState.BusinessLogic
                 BudgetItemDTO item =  budgetItem[i];
                 bool isValid = CheckBudgetSubcategory(item);
                 if(!isValid)
-                    msgFcCaseSet.AddExceptionMessage("Budget item " + (i + 1) + " was provided invalid BudgetSubcategoryId");
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Budget item " + (i + 1) + " was provided invalid BudgetSubcategoryId");
             }
             return msgFcCaseSet;
         }
@@ -1627,7 +1632,7 @@ namespace HPF.FutureState.BusinessLogic
                 OutcomeItemDTO item = outcomeItem[i];
                 bool isValid = CheckOutcomeType(item);
                 if (!isValid)
-                    msgFcCaseSet.AddExceptionMessage("Outcome item " + (i + 1) + " was provided invalid OutcomeTypeId");
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Outcome item " + (i + 1) + " was provided invalid OutcomeTypeId");
             }
             return msgFcCaseSet;
         }
