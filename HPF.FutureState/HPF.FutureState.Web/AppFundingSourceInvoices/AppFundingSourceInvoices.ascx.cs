@@ -160,44 +160,44 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
         protected void btnCancelInvoice_Click(object sender, EventArgs e)
         {
-            lblErrorMessage.Visible = false;
-            if (grvFundingSourceInvoices.SelectedIndex== -1)
-                return;
-            if (Session["searchResult"] == null)
-                return;
-            InvoiceDTOCollection searchResult = Session["searchResult"] as InvoiceDTOCollection;
-            InvoiceDTO invoice = searchResult[grvFundingSourceInvoices.SelectedRow.DataItemIndex];
-            if(invoice.InvoicePaymentAmount>0)
-            {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessage("WARN0550");
-                lblErrorMessage.Visible = true;
-                return;
-            }
-            try
-            {
-                string cancelCode = LookupDataBL.Instance.GetRefCode("invoice status code")[1].Code;
-                if (invoice.StatusCode == cancelCode)
-                {
-                    lblErrorMessage.Text = "This Invoice has been Cancel";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-                //Update to Database
-                invoice.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                invoice.StatusCode = cancelCode;
+        //    lblErrorMessage.Visible = false;
+        //    if (grvFundingSourceInvoices.SelectedIndex== -1)
+        //        return;
+        //    if (Session["searchResult"] == null)
+        //        return;
+        //    InvoiceDTOCollection searchResult = Session["searchResult"] as InvoiceDTOCollection;
+        //    InvoiceDTO invoice = searchResult[grvFundingSourceInvoices.SelectedRow.DataItemIndex];
+        //    if(invoice.InvoicePaymentAmount>0)
+        //    {
+        //        lblErrorMessage.Text = ErrorMessages.GetExceptionMessage("WARN0550");
+        //        lblErrorMessage.Visible = true;
+        //        return;
+        //    }
+        //    try
+        //    {
+        //        string cancelCode = LookupDataBL.Instance.GetRefCode("invoice status code")[1].Code;
+        //        if (invoice.StatusCode == cancelCode)
+        //        {
+        //            lblErrorMessage.Text = "This Invoice has been Cancel";
+        //            lblErrorMessage.Visible = true;
+        //            return;
+        //        }
+        //        //Update to Database
+        //        invoice.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+        //        invoice.StatusCode = cancelCode;
             
-                InvoiceBL.Instance.UpdateInvoice(invoice);
-                if (Session["invoiceSearchCriteria"] == null)
-                    return;
-                InvoiceSearchCriteriaDTO searchCriteria = Session["invoiceSearchCriteria"] as InvoiceSearchCriteriaDTO;
-                InvoiceSearch(searchCriteria);
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+        //        InvoiceBL.Instance.UpdateInvoice(invoice);
+        //        if (Session["invoiceSearchCriteria"] == null)
+        //            return;
+        //        InvoiceSearchCriteriaDTO searchCriteria = Session["invoiceSearchCriteria"] as InvoiceSearchCriteriaDTO;
+        //        InvoiceSearch(searchCriteria);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblErrorMessage.Text = ex.Message;
+        //        lblErrorMessage.Visible = true;
+        //        ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+        //    }
         }
     }
 }

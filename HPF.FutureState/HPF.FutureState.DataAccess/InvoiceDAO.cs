@@ -213,12 +213,13 @@ namespace HPF.FutureState.DataAccess
                         invoice.InvoiceBillAmount = ConvertToDouble(reader["invoice_bill_amt"]);                                                
                         invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);                        
                         invoice.InvoiceId = ConvertToInt(reader["Invoice_id"]);
-                        invoice.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
-                        invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
+                        //invoice.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
+                        //invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
+                        invoice.InvoicePeriod = ConvertToString(reader["invoice_period"]);
                         invoice.InvoicePaymentAmount= ConvertToDouble(reader["invoice_pmt_amt"]);
                         invoice.StatusCode = ConvertToString(reader["status_cd"]);
                         invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
-                        invoice.InvoicePeriod = invoice.PeriodStartDate.ToShortDateString() + "-" + invoice.PeriodEndDate.ToShortDateString();
+                        //invoice.InvoicePeriod = invoice.PeriodStartDate.ToShortDateString() + "-" + invoice.PeriodEndDate.ToShortDateString();
                         invoices.Add(invoice);                           
                     }
                     reader.Close();
