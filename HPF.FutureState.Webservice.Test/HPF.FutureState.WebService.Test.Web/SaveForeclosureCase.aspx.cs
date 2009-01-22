@@ -466,7 +466,7 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.ArmResetInd = txtArmResetInd.Text.Trim();
             caseLoan.CaseLoanId = Util.ConvertToInt(lblCaseLoanId.Text.Trim());
             caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDouble(txtCurrentLoanBalanceAmt.Text.Trim());
-            caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
+            //caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
             caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
             //caseLoan.InvestorLoanNum = txtFreddieLoanNum.Text.Trim();
             //caseLoan.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
@@ -1135,7 +1135,7 @@ namespace HPF.FutureState.WebService.Test.Web
             ForeclosureCaseSaveRequest request = new ForeclosureCaseSaveRequest();
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
             fcCaseSet.WorkingUserID = txtWorkingUserID.Text.Trim();
-
+            
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)

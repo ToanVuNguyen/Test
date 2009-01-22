@@ -32,7 +32,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                ArmResetInd = obj.Element("ArmResetInd").Value,
                                CaseLoanId = Util.ConvertToInt(obj.Element("CaseLoanId").Value),
                                CurrentLoanBalanceAmt = Util.ConvertToDouble(obj.Element("CurrentLoanBalanceAmt").Value),
-                               CurrentServicerNameTbd = obj.Element("CurrentServicerNameTbd").Value,
+                               //CurrentServicerNameTbd = obj.Element("CurrentServicerNameTbd").Value,
                                FdicNcusNumCurrentServicerTbd = obj.Element("FdicNcusNumCurrentServicerTbd").Value,
                                //InvestorLoanNum = obj.Element("InvestorLoanNum").Value,
                                //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
