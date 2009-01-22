@@ -180,7 +180,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                BorrowerOccupationCd = obj.Element("BorrowerOccupationCd").Value,
                                BorrowerPreferredLangCd = obj.Element("BorrowerPreferredLangCd").Value,
                                BorrowerSsn = obj.Element("BorrowerSsn").Value,
-                               CallId = Util.ConvertToInt(obj.Element("CallId").Value),
+                               CallId = obj.Element("CallId").Value,
                                //CaseCompleteInd = obj.Element("CaseCompleteInd").Value,
                                CaseSourceCd = obj.Element("CaseSourceCd").Value,
                                CoBorrowerDisabledInd = obj.Element("CoBorrowerDisabledInd").Value,

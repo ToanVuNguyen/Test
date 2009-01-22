@@ -2047,7 +2047,7 @@ namespace HPF.Webservice.Agency
 
         private System.DateTime completedDtField;
 
-        private int callIdField;
+        private string callIdField;
 
         private int programIdField;
 
@@ -2295,7 +2295,7 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public int CallId
+        public string CallId
         {
             get
             {

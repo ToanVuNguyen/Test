@@ -85,7 +85,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.BorrowerOccupationCd = txtBorrowerOccupationCd.Text.Trim();
             fcCase.BorrowerPreferredLangCd = txtBorrowerPreferedLangCd.Text.Trim();
             fcCase.BorrowerSsn = txtBorrowerSSN.Text.Trim();
-            fcCase.CallId = Util.ConvertToInt(txtCallID.Text.Trim());
+            fcCase.CallId = txtCallID.Text.Trim();
             //fcCase.CaseCompleteInd = txtCaseCompleteInd.Text.Trim();
             fcCase.CaseSourceCd = txtCaseSourceCd.Text.Trim();
             fcCase.CoBorrowerDisabledInd = txtCoBorrowerDisabledInd.Text.Trim();

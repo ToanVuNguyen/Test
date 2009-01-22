@@ -2,7 +2,7 @@
 <ForeclosureCaseSet>
   <ForeclosureCase>
     <AgencyId>2</AgencyId>
-    <CallId>CallId</CallId>
+    <CallId>HPF</CallId>
     <ProgramId>101</ProgramId>
     <AgencyCaseNum>123456</AgencyCaseNum>
     <AgencyClientNum>AgencyClientNum</AgencyClientNum>
@@ -53,8 +53,8 @@
     <BorrowerPreferredLangCd></BorrowerPreferredLangCd>
     <BorrowerOccupationCd></BorrowerOccupationCd>
     <CoBorrowerOccupationCd></CoBorrowerOccupationCd>
-    <HispanicInd></HispanicInd>
-    <FcNoticeReceiveInd></FcNoticeReceiveInd>
+    <HispanicInd>Y</HispanicInd>
+    <FcNoticeReceiveInd>Y</FcNoticeReceiveInd>
     <FundingConsentInd>Y</FundingConsentInd>
     <ServicerConsentInd>Y</ServicerConsentInd>
     <AgencyMediaConsentInd></AgencyMediaConsentInd>
@@ -64,7 +64,7 @@
     <SummarySentOtherCd>Fax</SummarySentOtherCd>
     <SummarySentOtherDt>10/10/2008</SummarySentOtherDt>
     <OccupantNum></OccupantNum>
-    <LoanDfltReasonNotes></LoanDfltReasonNotes>
+    <LoanDfltReasonNotes>abc</LoanDfltReasonNotes>
     <ActionItemsNotes></ActionItemsNotes>
     <FollowupNotes></FollowupNotes>
     <PrimResEstMktValue></PrimResEstMktValue>
@@ -74,11 +74,11 @@
     <CounselorEmail>CounselorEmail</CounselorEmail>
     <CounselorPhone>123456789</CounselorPhone>
     <CounselorExt>000</CounselorExt>
-    <DiscussedSolutionWithSrvcrInd></DiscussedSolutionWithSrvcrInd>
-    <WorkedWithAnotherAgencyInd></WorkedWithAnotherAgencyInd>
-    <ContactedSrvcrRecentlyInd></ContactedSrvcrRecentlyInd>
-    <HasWorkoutPlanInd></HasWorkoutPlanInd>
-    <SrvcrWorkoutPlanCurrentInd></SrvcrWorkoutPlanCurrentInd>
+    <DiscussedSolutionWithSrvcrInd>Y</DiscussedSolutionWithSrvcrInd>
+    <WorkedWithAnotherAgencyInd>Y</WorkedWithAnotherAgencyInd>
+    <ContactedSrvcrRecentlyInd>Y</ContactedSrvcrRecentlyInd>
+    <HasWorkoutPlanInd>Y</HasWorkoutPlanInd>
+    <SrvcrWorkoutPlanCurrentInd>Y</SrvcrWorkoutPlanCurrentInd>
     <OptOutNewsletterInd></OptOutNewsletterInd>
     <OptOutSurveyInd></OptOutSurveyInd>
     <DoNotCallInd></DoNotCallInd>
