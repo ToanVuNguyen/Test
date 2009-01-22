@@ -24,11 +24,20 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            ApplySecurity();
-            if (!IsPostBack)
+            try
             {
-                GetFundingSourceList();
-                SetUpDefaultValue();    
+                ApplySecurity();
+                if (!IsPostBack)
+                {
+                    GetFundingSourceList();
+                    SetUpDefaultValue();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Visible = true;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         private void ApplySecurity()
@@ -58,12 +67,14 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         }
         private void GetFundingSourceList()
         {
-            FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
-            dropFundingSource.DataValueField = "FundingSourceID";
-            dropFundingSource.DataTextField = "FundingSourceName";
-            dropFundingSource.DataSource = fundingSourceCollection;
-            dropFundingSource.DataBind();
-            dropFundingSource.Items.FindByText("ALL").Selected = true;
+            
+                FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
+                dropFundingSource.DataValueField = "FundingSourceID";
+                dropFundingSource.DataTextField = "FundingSourceName";
+                dropFundingSource.DataSource = fundingSourceCollection;
+                dropFundingSource.DataBind();
+                dropFundingSource.Items.FindByText("ALL").Selected = true;
+            
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
@@ -101,13 +112,13 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 lblErrorMessage.Text = ex.Message;
                 lblErrorMessage.Visible = true;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (DataException ex)
             {
                 lblErrorMessage.Text = ex.Message;
                 lblErrorMessage.Visible = true;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
 

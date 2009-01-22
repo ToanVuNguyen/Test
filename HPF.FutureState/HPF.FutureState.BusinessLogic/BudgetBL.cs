@@ -39,13 +39,11 @@ namespace HPF.FutureState.BusinessLogic
             if (result.BudgetAssetCollection.Count > 0)
             {
                 //Attach total Asset row in to AssetCollection
+                double sum = 0;
                 foreach (var budgetAsset in result.BudgetAssetCollection)
-                {
-                    double sum = 0;
                     sum += budgetAsset.AssetValue;
-                    BudgetAssetDTO totalRow = new BudgetAssetDTO { AssetValue = sum, AssetName = "Total Assets" };
-                    result.BudgetAssetCollection.Add(totalRow);
-                }
+                BudgetAssetDTO totalRow = new BudgetAssetDTO { AssetValue = sum, AssetName = "Total Assets" };
+                result.BudgetAssetCollection.Add(totalRow);
             }
             return result;
         }

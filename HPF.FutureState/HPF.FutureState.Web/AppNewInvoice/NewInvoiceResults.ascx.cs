@@ -23,29 +23,38 @@ namespace HPF.FutureState.Web.AppNewInvoice
         InvoiceDraftDTO invoiceDraft =null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            ApplySecurity();
-            if (!IsPostBack)
+            try
             {
-                if (Session["searchCriteria"] == null)
-                    return;
-                InvoiceCaseSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceCaseSearchCriteriaDTO;
-                //Get the Invoice Case Draft
-                try
+                ApplySecurity();
+                if (!IsPostBack)
                 {
-                    invoiceDraft= InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
+                    if (Session["searchCriteria"] == null)
+                        return;
+                    InvoiceCaseSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceCaseSearchCriteriaDTO;
+                    //Get the Invoice Case Draft
+                    try
+                    {
+                        invoiceDraft = InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
+                    }
+                    catch (DataException ex)
+                    {
+                        lblErrorMessage.Text = ex.Message;
+                        lblErrorMessage.Visible = true;
+                        ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                    }
+                    Session["invoiceDraft"] = invoiceDraft;
+                    InvoiceDraftDataBind();
                 }
-                catch (DataException ex)
-                {
-                    lblErrorMessage.Text = ex.Message;
-                    lblErrorMessage.Visible = true;
-                    ExceptionProcessor.HandleException(ex);
-                }
-                Session["invoiceDraft"] = invoiceDraft;
-                InvoiceDraftDataBind();
+                else
+                    if (Session["invoiceDraft"] != null)
+                        invoiceDraft = (InvoiceDraftDTO)Session["invoiceDraft"];
             }
-            else
-                if(Session["invoiceDraft"]!=null)
-                    invoiceDraft = (InvoiceDraftDTO)Session["invoiceDraft"];
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Visible = true;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         /// <summary>
         /// Only the user with Accouting Edit permission can view this page
@@ -140,7 +149,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 lblErrorMessage.Visible = true;
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             
         }

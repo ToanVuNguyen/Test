@@ -15,6 +15,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using System.Drawing;
+using HPF.FutureState.Web.Security;
 
 
 
@@ -35,7 +36,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     grvBudgetSet.DataSource = budgetSets;
                     grvBudgetSet.DataBind();
                     if (budgetSets.Count > 0)
+                    {
+                        grvBudgetSet.SelectedIndex = 0;
                         GetBudgetDetail(budgetSets[0].BudgetSetId);
+                    }
                 }
                 else
                 {
@@ -50,7 +54,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -85,6 +89,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 }
                 else
                 {
+                    grvAsset.RowCreated += new GridViewRowEventHandler(grvAsset_RowCreated);
                     grvAsset.DataSource = budgetDetail.BudgetAssetCollection;
                     grvAsset.DataBind();
                 }
@@ -96,7 +101,21 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
+
+        void grvAsset_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            BudgetAssetDTO budgetAsset = e.Row.DataItem as BudgetAssetDTO;
+            if (budgetAsset == null)
+                return;
+            if (budgetAsset.AssetName.ToLower().Contains("total"))
+            {
+                #region Set Style
+                e.Row.Cells[0].CssClass = "TextBoldCell";
+                e.Row.Cells[1].CssClass = "TextBoldCell";
+                #endregion
             }
         }
         protected void lstIncomes_ItemCreated(object sender, DataListItemEventArgs e)
@@ -127,8 +146,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 e.Row.Cells[1].CssClass = "TextBoldCell";
                 e.Row.Cells[2].CssClass = "TextBoldCell";
                 e.Row.Cells[0].BackColor = Color.Transparent;
-                //e.Row.Cells[1].BackColor = Color.Transparent;
-                //e.Row.Cells[2].BackColor = Color.Transparent;
                 e.Row.Cells[3].BackColor = Color.Transparent;
                 #endregion 
             }

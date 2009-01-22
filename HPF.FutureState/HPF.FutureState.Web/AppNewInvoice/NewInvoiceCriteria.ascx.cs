@@ -23,24 +23,33 @@ namespace HPF.FutureState.Web.AppNewInvoice
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ApplySecurity();
-            if (!IsPostBack)
+            try
             {
-                FundingSourceDatabind();
-                ProgramDatabind();
-                GenderDatabind();
-                RaceDatabind();
-                IndicatorDatabind();
-                HouseholdDatabind();
-                StateDatabind();
-                SetDefaultPeriodStartEnd();
-                AddBlankToYesNoDropDownList();
-                if (Session["searchCriteria"] != null)
-                    RestoreSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
-                else
-                    SetDefaultValueForDropDownList();
+                ApplySecurity();
+                if (!IsPostBack)
+                {
+                    FundingSourceDatabind();
+                    ProgramDatabind();
+                    GenderDatabind();
+                    RaceDatabind();
+                    IndicatorDatabind();
+                    HouseholdDatabind();
+                    StateDatabind();
+                    SetDefaultPeriodStartEnd();
+                    AddBlankToYesNoDropDownList();
+                    if (Session["searchCriteria"] != null)
+                        RestoreSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
+                    else
+                        SetDefaultValueForDropDownList();
+                }
+                dropFundingSource.SelectedIndexChanged += new EventHandler(dropFundingSource_SelectedIndexChanged1);
             }
-            dropFundingSource.SelectedIndexChanged += new EventHandler(dropFundingSource_SelectedIndexChanged1);    
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Visible = true;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         /// <summary>
         /// Only the user with Accouting Edit permission can view this page
@@ -140,7 +149,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             dropFundingSource.DataValueField = "FundingSourceID";
             dropFundingSource.DataTextField = "FundingSourceName";
@@ -166,7 +175,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             dropProgram.DataValueField = "ProgramID";
             dropProgram.DataTextField = "ProgramName";
@@ -183,7 +192,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             
             dropGender.DataValueField = "Code";
@@ -202,7 +211,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             dropRace.DataValueField = "Code";
             dropRace.DataTextField = "CodeDesc";
@@ -220,7 +229,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             dropIndicators.DataValueField = "Code";
             dropIndicators.DataTextField = "CodeDesc";
@@ -238,7 +247,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             dropHouseholdCode.DataValueField = "Code";
             dropHouseholdCode.DataTextField = "CodeDesc";
@@ -256,7 +265,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             dropState.DataValueField = "Code";
             dropState.DataTextField = "CodeDesc";
@@ -284,7 +293,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             catch (Exception ex)
             {
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             lst_FundingSourceGroup.DataSource = servicers;
             lst_FundingSourceGroup.DataBind();
@@ -330,7 +339,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
 
         }
