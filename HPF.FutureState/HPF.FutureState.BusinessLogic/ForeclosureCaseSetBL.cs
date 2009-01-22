@@ -1966,8 +1966,8 @@ namespace HPF.FutureState.BusinessLogic
                 ExceptionMessage em = new ExceptionMessage();
                 em.ErrorCode = "WARNING";
                 em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6} {7},Counselor Phone {8} - Ext: {9}, Counselor Email: {10} "
-                            , obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
-                            , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorEmail, obj.CounselorEmail);
+                             , obj.LoanNumber, obj.ServicerName, obj.BorrowerFirstName, obj.BorrowerLastName, obj.AgencyName, obj.AgencyCaseNumber
+                             , obj.CounselorFName, obj.CounselorLName, obj.CounselorPhone, obj.CounselorExt, obj.CounselorEmail);
                 de.Add(em);
             }
             return de;
