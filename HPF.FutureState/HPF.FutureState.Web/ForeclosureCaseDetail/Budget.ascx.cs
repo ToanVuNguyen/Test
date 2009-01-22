@@ -208,5 +208,19 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 }
             }
         }
+
+        protected void grvBudgetSet_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            Label lblSurplus = e.Row.FindControl("lblSurplus") as Label;
+            BudgetSetDTO bud = e.Row.DataItem as BudgetSetDTO;
+            if(lblSurplus!=null)
+                if (bud != null)
+                { 
+                    string curCulture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+                    System.Globalization.NumberFormatInfo currencyFormat = new System.Globalization.CultureInfo(curCulture).NumberFormat;
+                    currencyFormat.CurrencyNegativePattern = 1;
+                    lblSurplus.Text   =  bud.TotalSurplus.ToString("C",currencyFormat);
+                }
+        }
     }
 }

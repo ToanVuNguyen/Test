@@ -11,10 +11,12 @@
 <div style="border-bottom:solid 1 #8FC4F6">
     <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"  
                  Width="100%" Height="90" Visible="true">
-                <asp:GridView ID="grvBudgetSet" runat="server" CellPadding="2" ForeColor="#333333" DataKeyNames="BudgetSetId"
+                <asp:GridView ID="grvBudgetSet" runat="server" CellPadding="2" 
+                    ForeColor="#333333" DataKeyNames="BudgetSetId"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="100%"  SelectedRowStyle-BackColor="Yellow" 
-                    onselectedindexchanged="grvBudgetSet_SelectedIndexChanged">
+                    onselectedindexchanged="grvBudgetSet_SelectedIndexChanged" 
+                    onrowdatabound="grvBudgetSet_RowDataBound">
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -24,7 +26,11 @@
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <Columns>
                         <asp:BoundField DataField="BudgetSetDt" DataFormatString="{0:d}" HeaderText="Budget Date" />
-                        <asp:BoundField DataField="TotalSurplus" DataFormatString="{0:C}" HeaderText="Surplus/Deficit" />
+                        <asp:TemplateField HeaderText="Surplus/Deficit">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSurplus" runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}" HeaderText="Total Income" />
                         <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}" HeaderText="Total Expenses" />
                         <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}" HeaderText="Total Asset" />
