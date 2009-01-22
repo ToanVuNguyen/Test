@@ -131,7 +131,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -175,8 +175,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
-
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>

@@ -72,13 +72,20 @@ namespace HPF.FutureState.Web.AppNewPayable
                 agencyCollection.Remove(item);
                 ddlAgency.DataTextField = "AgencyName";
                 ddlAgency.DataValueField = "AgencyID";
-                ddlAgency.DataSource = agencyCollection;
+                if (Request.QueryString["agency"] != null)
+                {
+                    if (Request.QueryString["agency"] == "-1")
+                        ddlAgency.SelectedIndex = 0 ;
+                    else
+                    ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
+                }
+                    ddlAgency.DataSource = agencyCollection;
                 ddlAgency.DataBind();
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -116,12 +123,12 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     lblMessage.Text += ex.ExceptionMessages[i].Message;
                 }
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
                 
             }
         }

@@ -57,11 +57,11 @@
         <td colspan="4">
         <asp:Panel ID="panInvoiceList" runat="server"  CssClass="ScrollTable" Width="840px">
         <asp:GridView ID="grvInvoiceList" runat="server"  BorderStyle="None" Width="100%"  
-                AutoGenerateColumns="false" onrowdatabound="grvInvoiceList_RowDataBound" 
-                ondatabound="grvInvoiceList_DataBound">
+                AutoGenerateColumns="false" AutoGenerateSelectButton="true"   >
         <HeaderStyle CssClass="FixedHeader" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
         <RowStyle CssClass="RowStyle" />
+        <SelectedRowStyle CssClass="SelectedRowStyle" />
         <Columns>
         <asp:BoundField HeaderText="Agency" DataField="AgencyName" />
         <asp:BoundField HeaderText="Payable#" DataField="AgencyPayableId" />

@@ -12,6 +12,8 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
@@ -46,13 +48,23 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void BindAccounting(int fc_id)
         {
-            AccountingDTO accountinginfo = AccountingBL.Instance.GetAccountingDetailInfo(fc_id);
-            ddlNeverPayReason.SelectedValue = accountinginfo.NerverPayReason;
-            ddlNerverBillReason.SelectedValue = accountinginfo.NeverBillReason;
-            grvBillingInfo.DataSource = accountinginfo.BillingInfo;
-            grvBillingInfo.DataBind();
-            grvPaymentInfo.DataSource = accountinginfo.AgencyPayableCase;
-            grvPaymentInfo.DataBind();
+            try
+            {
+                AccountingDTO accountinginfo = AccountingBL.Instance.GetAccountingDetailInfo(fc_id);
+                ddlNeverPayReason.SelectedValue = accountinginfo.NerverPayReason;
+                ddlNerverBillReason.SelectedValue = accountinginfo.NeverBillReason;
+                grvBillingInfo.DataSource = accountinginfo.BillingInfo;
+                grvBillingInfo.DataBind();
+                grvPaymentInfo.DataSource = accountinginfo.AgencyPayableCase;
+                grvPaymentInfo.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                lblMessage.Text = ex.Message;
+                throw;
+            }
+            
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -67,11 +79,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 string neverbillreason = ddlNerverBillReason.SelectedValue;
                 string neverpayreason = ddlNeverPayReason.SelectedValue;
                 AccountingBL.Instance.UpdateForclosureCase(neverbillreason, neverpayreason, fc_id);
-                
                 lblMessage.Text = "Update Forclosurecase successfull";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 throw;
             }
             

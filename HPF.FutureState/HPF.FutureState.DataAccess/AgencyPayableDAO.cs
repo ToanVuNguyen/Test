@@ -74,7 +74,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public void InsertAgencyPayableCase(AgencyPayableCaseDTO agencyPayableCase)
         {
-            var command = CreateSPCommand("hpf_agency_payable_case_insert",this.dbConnection);
+            var command = CreateSPCommand("hpf_agency_payable_case_insert", this.dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[12];
             sqlParam[0] = new SqlParameter("@pi_fc_id", agencyPayableCase.ForeclosureCaseId);
@@ -93,16 +93,16 @@ namespace HPF.FutureState.DataAccess
             command.Parameters.AddRange(sqlParam);
             try
             {
-                command.Transaction =this.trans;
+                command.Transaction = this.trans;
                 command.ExecuteNonQuery();
-                
+
             }
             catch (Exception Ex)
             {
-                
+
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-           
+
         }
 
         /// <summary>
@@ -138,14 +138,14 @@ namespace HPF.FutureState.DataAccess
                 command.Transaction = this.trans;
                 command.ExecuteNonQuery();
                 agencyPayable.AgencyPayableId = ConvertToInt(sqlParam[14].Value);
-                
+
             }
             catch (Exception Ex)
             {
-               
+
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-         
+
             return agencyPayable.AgencyPayableId;
         }
         #endregion
@@ -162,6 +162,43 @@ namespace HPF.FutureState.DataAccess
             throw new NotImplementedException();
         }
 
+        ///<summary>
+        ///Update Status, Comments when you click Cancel Payments
+        /// </summary>
+        public void CancelAgencyPayable(AgencyPayableDTO agencyPayable)
+        {
+            var dbConnection = CreateConnection();
+            var command =CreateSPCommand("hpf_agency_payable_update", dbConnection);
+            var sqlParam = new SqlParameter[12];
+            sqlParam[0] = new SqlParameter("@pi_agency_payable_id", agencyPayable.AgencyPayableId);
+            sqlParam[1] = new SqlParameter("@pi_status_cd", agencyPayable.StatusCode);
+            sqlParam[2] = new SqlParameter("@pi_pmt_comment", agencyPayable.PaymentComment);
+            //
+            sqlParam[3] = new SqlParameter("@pi_agency_id", null);
+            sqlParam[4] = new SqlParameter("@pi_pmt_dt", null);
+            sqlParam[5] = new SqlParameter("@pi_period_start_dt", null);
+            sqlParam[6] = new SqlParameter("@pi_period_end_dt", null);
+            sqlParam[7] = new SqlParameter("@pi_accounting_link_TBD", null);
+            sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", null);
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", null);
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", null);
+            sqlParam[11] = new SqlParameter("@pi_agency_payable_pmt_amt", null);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
         /// <summary>
         /// Update AgencyPayable with agencyPayable provided
         /// </summary>

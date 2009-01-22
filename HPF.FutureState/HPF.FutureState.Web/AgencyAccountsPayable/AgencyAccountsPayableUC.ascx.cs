@@ -33,7 +33,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
-                BindGrvInvoiceList(DateTime.Now, DateTime.Now.AddMonths(-6));
+                BindGrvInvoiceList(DateTime.Now.AddMonths(-6),DateTime.Now);
             }
         }
         private void ApplySecurity()
@@ -117,29 +117,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             string query="?agency="+ddlAgency.SelectedValue;
             Response.Redirect("NewPayableCriteria.aspx"+query);
         }
-        /// <summary>
-        ///click: highlight selected row
-        ///dblclick: un-highlight selected row
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected  void grvInvoiceList_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-                
-                if (e.Row.RowState == DataControlRowState.Alternate)
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-                }
-                else
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-                }
-                
-            }
-        }
+        
         /// <summary>
         /// update statuscode, payment comment.
         /// </summary>
@@ -155,21 +133,20 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
                 searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
                 agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
-                agency[rownum].StatusCode = "Cancel";
-                agency[rownum].PaymentComment = "Agency didn't complete";
+                int selectedrow = grvInvoiceList.SelectedIndex;
+                agency[selectedrow].StatusCode = "Cancel";
+                agency[selectedrow].PaymentComment = "Agency didn't complete";
+                AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
                 grvInvoiceList.DataSource = agency;
                 grvInvoiceList.DataBind();
+                
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
-
-        protected void grvInvoiceList_DataBound(object sender, EventArgs e)
-        {
-
-        }
+              
     }
 }

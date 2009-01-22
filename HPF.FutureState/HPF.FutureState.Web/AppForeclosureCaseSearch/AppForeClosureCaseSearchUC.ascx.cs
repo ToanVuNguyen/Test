@@ -69,9 +69,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 txtLastName.Text = searchcriteria.LastName;
                 txtFirstName.Text = searchcriteria.FirstName;
                 txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
-                if (searchcriteria.ForeclosureCaseID.ToString() == "-1")
+                if (searchcriteria.ForeclosureCaseID == -1)
                     txtForeclosureCaseID.Text = "";
-                txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
+                else txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
                 txtLoanNum.Text = searchcriteria.LoanNumber;
                 txtPropertyZip.Text = searchcriteria.PropertyZip;
                 txtSSN.Text = searchcriteria.Last4SSN;

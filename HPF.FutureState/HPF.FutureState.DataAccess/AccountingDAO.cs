@@ -153,12 +153,23 @@ namespace HPF.FutureState.DataAccess
         public void UpdateForclosureCase(string NeverBillReason, string NeverPayReason, int Fc_ID)
         {
             var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_foreclosure_case_update_npr_nbr", dbConnection);
+            var command = CreateSPCommand("hpf_foreclosure_case_update_app", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[3];
+            var sqlParam = new SqlParameter[13];
             sqlParam[0] = new SqlParameter("@pi_fc_id", Fc_ID);
             sqlParam[1] = new SqlParameter("@pi_never_pay_reason", NeverPayReason);
             sqlParam[2] = new SqlParameter("@pi_never_bill_reason", NeverBillReason);
+            sqlParam[3] = new SqlParameter("@pi_agency_id",null);
+            sqlParam[4] = new SqlParameter("@pi_duplicate_ind", null);
+            sqlParam[5] = new SqlParameter("@pi_loan_dflt_reason_notes", null);
+            sqlParam[6] = new SqlParameter("@pi_action_items_notes", null);
+            sqlParam[7] = new SqlParameter("@pi_followup_notes", null);
+            sqlParam[8] = new SqlParameter("@pi_opt_out_newsletter_ind", null);
+            sqlParam[9] = new SqlParameter("@pi_opt_out_survey_ind", null);
+            sqlParam[10] = new SqlParameter("@pi_do_not_call_ind", null);
+            sqlParam[11] = new SqlParameter("@pi_hpf_success_story_ind", null);
+            sqlParam[12] = new SqlParameter("@pi_hpf_media_candidate_ind ", null);
+
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             try

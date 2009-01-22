@@ -90,6 +90,21 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw exception;
         }
+        ///<summary>
+        ///
+        /// </summary>
+        public void CancelAgencyPayable(AgencyPayableDTO agencyPayable)
+        {
+            try
+            {
+                AgencyPayableDAO.CreateInstance().CancelAgencyPayable(agencyPayable);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
 
         /// <summary>
         /// Search and get put the list for AgencyPayable
