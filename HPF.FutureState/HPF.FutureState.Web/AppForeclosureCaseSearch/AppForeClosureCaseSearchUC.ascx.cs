@@ -15,6 +15,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Web.Security;
 namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 {
 
@@ -176,7 +177,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     lblErrorMessage.Text += " <br>";
                 }
                 this.TotalRowNum = 0;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
@@ -184,7 +185,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 lblErrorMessage.Text += ex.Message;
                 lblErrorMessage.Text += " <br>";
                 this.TotalRowNum = 0;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
 
