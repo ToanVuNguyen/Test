@@ -71,6 +71,8 @@ namespace HPF.FutureState.BusinessLogic
                 exceptionList = CheckInvalidFormatData(foreclosureCaseSet);
                 if (exceptionList != null && exceptionList.Count > 0)
                     ThrowDataValidationException(exceptionList);
+                else
+                    foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
 
                 ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
@@ -567,6 +569,8 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "CoBorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerLname))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "CoBorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
+            if (!CheckCallID(fCaseSet.ForeclosureCase.CallId))
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid format is provided for CallID");
             if (msgFcCaseSet.Count == 0)
                 return null;
             return msgFcCaseSet;
@@ -618,7 +622,44 @@ namespace HPF.FutureState.BusinessLogic
                 return false;
             }
             return true;
-        }        
+        }
+
+        /// <summary>
+        /// Check invalid Call id and convert Call ID
+        /// </summary>
+        private bool CheckCallID(string callId)
+        {
+            string callID = callId.Trim();
+            if (callID == null || callID == string.Empty)
+                return true;
+            else
+            {
+                if (callID.Length >= 4 && callID.Substring(0, 3).ToUpper() == "HPF")
+                {
+                    try
+                    {
+                        string temp = callID.Substring(3, callID.Length - 3);
+                        int callWSID = int.Parse(temp);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        }
+
+        private ForeclosureCaseSetDTO SplitHPFOfCallId(ForeclosureCaseSetDTO fCaseSet)
+        {
+            string callID = fCaseSet.ForeclosureCase.CallId;
+            if (callID == null || callID == string.Empty)
+                return fCaseSet;
+            else
+                fCaseSet.ForeclosureCase.CallId = callID.Substring(3, callID.Length - 3);                  
+            return fCaseSet;
+        }
         #endregion       
 
         #region Functions Check MiscError
@@ -961,6 +1002,7 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (OutcomeItemDTO items in outcomeItemCollection)
                 {
                     items.SetInsertTrackingInformation(_workingUserID);
+                    items.OutcomeDt = DateTime.Now;
                     foreClosureCaseSetDAO.InsertOutcomeItem(items, fcId);
                 }
             }
@@ -1186,8 +1228,7 @@ namespace HPF.FutureState.BusinessLogic
         {            
             foreach (OutcomeItemDTO item in itemCollection)
             {
-                if (outcomeItem.OutcomeTypeId == item.OutcomeTypeId
-                    && outcomeItem.OutcomeDt.Date == item.OutcomeDt.Date
+                if (outcomeItem.OutcomeTypeId == item.OutcomeTypeId                    
                     && ConvertStringToUpper(outcomeItem.NonprofitreferralKeyNum) == ConvertStringToUpper(item.NonprofitreferralKeyNum)
                     && ConvertStringToUpper(outcomeItem.ExtRefOtherName) == ConvertStringToUpper(item.ExtRefOtherName))
                     return true;
@@ -1557,7 +1598,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection CheckValidCallId(ForeclosureCaseDTO forclosureCase)
         {
-            if (forclosureCase.CallId == 0)
+            if (forclosureCase.CallId == null || forclosureCase.CallId == string.Empty)
                 return null;
             bool isCall = foreclosureCaseSetDAO.GetCall(forclosureCase.CallId);
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();

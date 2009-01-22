@@ -1566,6 +1566,22 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         ///</summary>
         [TestMethod()]
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckCallId()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                        
+            string callId = "HPF1    ";            
+            target.InitiateTransaction();
+            bool expected = true;
+            bool actual = target.CheckCallID(callId);
+            target.RollbackTransaction();
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        ///A test for RequireFieldsValidation
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CompleteValidation()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
@@ -1596,6 +1612,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.RollbackTransaction();
             Assert.AreEqual(expected, actual);
         }
+
         
         #region CheckRequireField
         /// <summary>
@@ -2475,7 +2492,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.BorrowerOccupationCd = (reader["borrower_occupation"].ToString());
                         returnObject.BorrowerPreferredLangCd = (reader["borrower_preferred_lang_cd"].ToString());
                         //returnObject.BorrowerSsn = (reader["borrower_ssn"].ToString());
-                        returnObject.CallId = int.Parse(reader["call_id"].ToString());                        
+                        returnObject.CallId = (reader["call_id"].ToString());                        
                         returnObject.ChangeLastAppName = (reader["chg_lst_app_name"].ToString());                        
                         returnObject.ChangeLastUserId = (reader["chg_lst_user_id"].ToString());
                         returnObject.CoBorrowerDisabledInd = (reader["co_borrower_disabled_ind"].ToString());                        

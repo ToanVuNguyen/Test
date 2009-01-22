@@ -7,6 +7,7 @@ using HPF.FutureState.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using HPF.FutureState.Common.Utils.DataValidator;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
+using System.Xml.Serialization;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
@@ -19,8 +20,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int AgencyId { get; set; }
 
         public DateTime CompletedDt { get; set; }
-
-        public int CallId { get; set; }
+        
+        public string CallId { get; set; }        
 
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int ProgramId { get; set; }

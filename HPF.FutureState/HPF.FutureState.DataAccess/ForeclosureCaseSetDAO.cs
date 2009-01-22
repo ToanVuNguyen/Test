@@ -136,7 +136,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.BorrowerPreferredLangCd = ConvertToString(reader["borrower_preferred_lang_cd"]);
                         //returnObject.BorrowerSsn = ConvertToString(reader["borrower_ssn"]);
 
-                        returnObject.CallId = ConvertToInt(reader["call_id"]);                        
+                        returnObject.CallId = ConvertToString(reader["call_id"]);                        
                         returnObject.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         returnObject.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                         returnObject.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
@@ -1296,7 +1296,7 @@ namespace HPF.FutureState.DataAccess
             return returnString;
         }
 
-        public bool GetCall(int callID)
+        public bool GetCall(string callID)
         {
             bool results = false;
             try
