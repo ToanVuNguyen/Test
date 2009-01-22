@@ -156,12 +156,15 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (dbFcCase.DuplicateInd.ToUpper().Equals(Constant.DUPLICATE_YES.ToUpper()))
                     fcCase.DuplicateInd = Constant.DUPLICATE_NO;
+                else
+                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;
+
                 if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
                     fcCase.NeverBillReasonCd = null;
 
                 if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
                     fcCase.NeverPayReasonCd = null;
-                WarningMessage = null;
+                //WarningMessage = null;
             }
             
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
@@ -650,7 +653,7 @@ namespace HPF.FutureState.BusinessLogic
             if (msgCase4 != null && msgCase4.Count != 0)
                 msgFcCaseSet.Add(msgCase4);
 
-            if(caseComplete && (msgCase1 != null || msgCase2 != null || msgCase3 != null || msgCase4 != null) )
+            if (caseComplete && msgFcCaseSet.Count != 0)
             {
                 ExceptionMessage msg = new ExceptionMessage();
                 msg.ErrorCode = ErrorMessages.ERR0255;
