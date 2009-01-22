@@ -106,7 +106,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 InvoiceDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
                 Session["searchResult"] = searchResult;
-                Session["searchCriteria"] = searchCriteria;
+                Session["invoiceSearchCriteria"] = searchCriteria;
                 grvFundingSourceInvoices.DataSource = searchResult;
                 grvFundingSourceInvoices.DataBind();
             }
@@ -187,9 +187,9 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 invoice.StatusCode = cancelCode;
             
                 InvoiceBL.Instance.UpdateInvoice(invoice);
-                if (Session["searchCriteria"] == null)
+                if (Session["invoiceSearchCriteria"] == null)
                     return;
-                InvoiceSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceSearchCriteriaDTO;
+                InvoiceSearchCriteriaDTO searchCriteria = Session["invoiceSearchCriteria"] as InvoiceSearchCriteriaDTO;
                 InvoiceSearch(searchCriteria);
             }
             catch (Exception ex)
