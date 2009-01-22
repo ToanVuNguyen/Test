@@ -208,6 +208,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
             appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
+            //check num at BL
             appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text.Trim();
