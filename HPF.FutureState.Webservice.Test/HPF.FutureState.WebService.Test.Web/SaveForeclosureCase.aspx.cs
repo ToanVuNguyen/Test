@@ -656,6 +656,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvBudgetAsset.DataSource = budgetAssets;
                 grdvBudgetAsset.DataBind();
 
+                //grdvBudgetAsset.Rows[0].Visible = false;
                 int TotalColumns = grdvBudgetAsset.Rows[0].Cells.Count;
                 grdvBudgetAsset.Rows[0].Cells.Clear();
                 grdvBudgetAsset.Rows[0].Cells.Add(new TableCell());

@@ -47,7 +47,7 @@
     <PropZipPlus4>1234</PropZipPlus4>
     <BankruptcyInd>Y</BankruptcyInd>
     <BankruptcyAttorney>BankruptcyAttorney</BankruptcyAttorney>
-    <BankruptcyPmtCurrentInd></BankruptcyPmtCurrentInd>
+    <BankruptcyPmtCurrentInd>Y</BankruptcyPmtCurrentInd>
     <BorrowerEducLevelCompletedCd></BorrowerEducLevelCompletedCd>
     <BorrowerMaritalStatusCd></BorrowerMaritalStatusCd>
     <BorrowerPreferredLangCd></BorrowerPreferredLangCd>
@@ -61,7 +61,7 @@
     <AgencySuccessStoryInd></AgencySuccessStoryInd>
     <BorrowerDisabledInd></BorrowerDisabledInd>
     <CoBorrowerDisabledInd></CoBorrowerDisabledInd>
-    <SummarySentOtherCd></SummarySentOtherCd>
+    <SummarySentOtherCd>Fax</SummarySentOtherCd>
     <SummarySentOtherDt>10/10/2008</SummarySentOtherDt>
     <OccupantNum></OccupantNum>
     <LoanDfltReasonNotes></LoanDfltReasonNotes>
@@ -105,7 +105,7 @@
       <!--<FcId>1</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
-      <AcctNum>AcctNum</AcctNum>
+      <AcctNum>AcctNum1</AcctNum>
       <Loan1st2nd>1st</Loan1st2nd>
       <MortgageTypeCd>HYBARM</MortgageTypeCd>
       <ArmLoanInd>Y</ArmLoanInd>
@@ -130,7 +130,7 @@
       <!--<FcId>2</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
-      <AcctNum>AcctNum</AcctNum>
+      <AcctNum>AcctNum2</AcctNum>
       <Loan1st2nd>2nd</Loan1st2nd>
       <MortgageTypeCd>HYBARM</MortgageTypeCd>
       <ArmLoanInd>Y</ArmLoanInd>
@@ -149,38 +149,13 @@
       <!--<InvestorLoanNum>test</InvestorLoanNum>
       <CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId> -->
-    </CaseLoan>
-    <CaseLoan>
-      <CaseLoanId>3</CaseLoanId>
-      <!--<FcId>3</FcId>-->
-      <ServicerId>5</ServicerId>
-      <OtherServicerName ></OtherServicerName>
-      <AcctNum>12345</AcctNum>
-      <Loan1st2nd>2nd</Loan1st2nd>
-      <MortgageTypeCd></MortgageTypeCd>
-      <ArmLoanInd></ArmLoanInd>
-      <ArmResetInd></ArmResetInd>
-      <TermLengthCd></TermLengthCd>
-      <LoanDelinqStatusCd></LoanDelinqStatusCd>
-      <CurrentLoanBalanceAmt></CurrentLoanBalanceAmt>
-      <OrigLoanAmt></OrigLoanAmt>
-      <InterestRate></InterestRate>
-      <OriginatingLenderName></OriginatingLenderName>
-      <OrigMortgageCoFdicNcusNum></OrigMortgageCoFdicNcusNum>
-      <OrigMortgageCoName></OrigMortgageCoName>
-      <OrginalLoanNum></OrginalLoanNum>
-      <FdicNcusNumCurrentServicerTbd></FdicNcusNumCurrentServicerTbd>
-      <CurrentServicerNameTbd></CurrentServicerNameTbd>
-      <!--<InvestorLoanNum></InvestorLoanNum>
-      <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>-->
-    </CaseLoan>
+    </CaseLoan>    
   </CaseLoanSet>
   <OutcomeSet>
     <OutcomeItem>      
       <OutcomeTypeId >1</OutcomeTypeId>
-      <NonprofitreferralKeyNum ></NonprofitreferralKeyNum>
-      <ExtRefOtherName ></ExtRefOtherName>
+      <NonprofitreferralKeyNum >NRkeyNum</NonprofitreferralKeyNum>
+      <ExtRefOtherName >ExtName</ExtRefOtherName>
       <!--<CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId>
       <OutcomeItemId>1</OutcomeItemId>
@@ -193,8 +168,8 @@
   <BudgetAssetSet>
     <BudgetAsset>
       <BudgetAssetId>1</BudgetAssetId>
-      <AssetName></AssetName>
-      <AssetValue></AssetValue>
+      <AssetName>nothing</AssetName>
+      <AssetValue>10000</AssetValue>
       <!--<CreateUserId>Agency1</CreateUserId>
       <ChangeLastUserId>Agency1</ChangeLastUserId>
       
@@ -204,7 +179,7 @@
   <BudgetItemSet>
     <BudgetItem>
       <BudgetItemId>1</BudgetItemId>
-      <BudgetSubcategoryId>1</BudgetSubcategoryId>
+      <BudgetSubcategoryId>8</BudgetSubcategoryId>
       <BudgetItemAmt>100</BudgetItemAmt>
       <BudgetNote></BudgetNote>
       <!--<CreateUserId>Agency1</CreateUserId>
