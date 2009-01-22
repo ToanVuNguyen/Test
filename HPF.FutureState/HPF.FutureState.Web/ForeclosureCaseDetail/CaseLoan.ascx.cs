@@ -27,8 +27,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 CaseLoanDTOCollection caseLoanCollection = GetCaseLoan(caseid);
                 if (caseLoanCollection != null)
                 {
+                    lblMessage.Visible = false;
                     dtlCaseLoan.DataSource = caseLoanCollection;
                     dtlCaseLoan.DataBind();
+                }
+                else
+                {
+                    lblMessage.Visible = true;
+                    lblMessage.Text = "No data found";
                 }
             }
             catch (Exception ex)

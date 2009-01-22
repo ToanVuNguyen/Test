@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseLoan.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseLoan" %>
-<div class="sidelinks"> Loan Details:</div>
+<br />
+<div class="sidelinks"><h1>Loan Details:</h1></div>
 <Div style="Height:210px;Overflow:Auto">
+&nbsp;&nbsp;&nbsp;<asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 <asp:DataList ID="dtlCaseLoan" runat="server" Width=100% >        
     <ItemTemplate>
         <tr>
