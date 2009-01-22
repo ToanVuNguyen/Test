@@ -118,11 +118,11 @@ namespace HPF.FutureState.BusinessLogic
             //int isValidSelectedAgencyId = 1;
             int servicerID = idList["ServicerID"]; 
             List<string> errorList = new List<string>();
-            if (aCallLog.CallCenterID != callCenterID)
+            if (callCenterID == 0)
                 errorList.Add("CallCenterID does not exist");
-            if (aCallLog.PrevAgencyId != prevAgencyID)
+            if (prevAgencyID == 0)
                 errorList.Add("prevAgencyID does not exist");
-            if (aCallLog.ServicerId != servicerID)
+            if (servicerID == 0)
                 errorList.Add("ServicerId does not exist");
             return errorList;
         }

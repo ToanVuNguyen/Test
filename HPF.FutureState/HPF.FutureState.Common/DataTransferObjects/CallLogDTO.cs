@@ -23,11 +23,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         
         [XmlIgnore]
-        [RequiredObjectValidator(Ruleset = "Default")]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0351)]
         public DateTime StartDate { get; set; }
 
         [XmlIgnore]
-        [RequiredObjectValidator(Ruleset = "Default")]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0352)]
         public DateTime EndDate { get; set; }
         
         [XmlIgnore]
@@ -80,8 +80,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default")]
         public string ScreenRout { get; set; }
 
-        [XmlIgnore]        
-        [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default")]
+        [XmlIgnore]
+        [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0353)]
         public string FinalDispoCd { get; set; }
 
         [XmlIgnore]        
@@ -89,7 +89,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string TransNumber { get; set; }
 
         [XmlIgnore]        
-        [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0350)]
         public string CcCallKey { get; set; }
 
         [XmlIgnore]        

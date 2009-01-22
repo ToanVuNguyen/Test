@@ -77,10 +77,10 @@ namespace HPF.FutureState.Common
         public const string ERR0255 = "ERR0255";
         public const string ERR0256 = "ERR0256";
 
-        public const string ERR0350 = "ERR0350";
-        public const string ERR0351 = "ERR0351";
-        public const string ERR0352 = "ERR0352";
-        public const string ERR0353 = "ERR0353";
+        public const string ERR0350 = "A CcCallKey is required to save a call.";
+        public const string ERR0351 = "A StartDt is required to save a call.";
+        public const string ERR0352 = "An EndDt is required to save a call.";
+        public const string ERR0353 = "A FinalDispoCd is required to save a call.";
         
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
@@ -122,8 +122,8 @@ namespace HPF.FutureState.Common
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
         //
-        public const string ERR0600 = "ERR0600";
-        public const string ERR0601 = "ERR0601";
+        public const string ERR0600 = "An outcome that already has a Delete Date cannot be deleted.";
+        public const string ERR0601 = "An outcome must have a Delete Date to be reinstated.";
         public const string ERR0999 = "ERR0999";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
