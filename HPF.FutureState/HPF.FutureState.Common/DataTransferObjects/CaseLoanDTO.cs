@@ -35,8 +35,17 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Mortgage Type Code", Ruleset = Constant.RULESET_LENGTH)]
         public string MortgageTypeCd { get; set; }
 
+        private string armResetInd = null;        
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string ArmResetInd { get; set; }
+        public string ArmResetInd
+        {
+            get { return armResetInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    armResetInd = value.ToUpper().Trim();
+            }
+        }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0322, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Term Length Code", Ruleset = Constant.RULESET_LENGTH)]

@@ -181,15 +181,33 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 4, "Prop Zip Plus 4", Ruleset = Constant.RULESET_LENGTH)]
         public string PropZipPlus4 { get; set; }
 
+        private string bankruptcyInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0309, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string BankruptcyInd { get; set; }
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]        
+        public string BankruptcyInd 
+        {   
+            get{return bankruptcyInd;}
+            set 
+            { 
+                if (value != null && value != string.Empty)
+                    bankruptcyInd = value.ToUpper().Trim();
+            } 
+        }
 
         [NullableOrStringLengthValidator(true, 50, "Bankruptcy Attorney", Ruleset = Constant.RULESET_LENGTH)]
         public string BankruptcyAttorney { get; set; }
 
+        private string bankruptcyPmtCurrentInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string BankruptcyPmtCurrentInd { get; set; }
+        public string BankruptcyPmtCurrentInd
+        {
+            get{return bankruptcyPmtCurrentInd;}
+            set
+            {
+                if (value != null && value != string.Empty)                
+                    bankruptcyPmtCurrentInd = value.ToUpper().Trim();                
+            }
+        }
 
         [NullableOrStringLengthValidator(true, 15, "Borrower Educucation Level Completed Code", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerEducLevelCompletedCd { get; set; }
@@ -206,42 +224,141 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "CoBorrower Occupation Code", Ruleset = Constant.RULESET_LENGTH)]
         public string CoBorrowerOccupationCd { get; set; }
 
+        private string hispanicInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0310, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string HispanicInd { get; set; }
+        public string HispanicInd
+        {
+            get{return hispanicInd;}
+            set
+            {
+                if (value != null && value != string.Empty)
+                    hispanicInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string duplicateInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string DuplicateInd { get; set; }
+        public string DuplicateInd
+        {
+            get { return duplicateInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    duplicateInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string fcNoticeReceiveInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0311, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string FcNoticeReceiveInd { get; set; }
+        public string FcNoticeReceiveInd
+        {
+            get { return fcNoticeReceiveInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    fcNoticeReceiveInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string fundingConsentInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0116, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string FundingConsentInd { get; set; }
+        public string FundingConsentInd
+        {
+            get { return fundingConsentInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    fundingConsentInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string servicerConsentInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0117, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string ServicerConsentInd { get; set; }
+        public string ServicerConsentInd
+        {
+            get { return servicerConsentInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    servicerConsentInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string agencyMediaInterestInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string AgencyMediaInterestInd { get; set; }
+        public string AgencyMediaInterestInd
+        {
+            get { return agencyMediaInterestInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    agencyMediaInterestInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string hpfMediaCandidateInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string HpfMediaCandidateInd { get; set; }
+        public string HpfMediaCandidateInd
+        {
+            get { return hpfMediaCandidateInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    hpfMediaCandidateInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string hpfSuccessStoryInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string HpfSuccessStoryInd { get; set; }
+        public string HpfSuccessStoryInd
+        {
+            get { return hpfSuccessStoryInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    hpfSuccessStoryInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string agencySuccessStoryInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string AgencySuccessStoryInd { get; set; }
+        public string AgencySuccessStoryInd
+        {
+            get { return agencySuccessStoryInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    agencySuccessStoryInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string borrowerDisabledInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string BorrowerDisabledInd { get; set; }
+        public string BorrowerDisabledInd
+        {
+            get { return borrowerDisabledInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    borrowerDisabledInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string coBorrowerDisabledInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string CoBorrowerDisabledInd { get; set; }
+        public string CoBorrowerDisabledInd
+        {
+            get { return coBorrowerDisabledInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    coBorrowerDisabledInd = value.ToUpper().Trim();
+            }
+        }
 
         [NullableOrStringLengthValidator(true, 15, "Summary Sent Other Code", Ruleset = Constant.RULESET_LENGTH)]
         public string SummarySentOtherCd { get; set; }
@@ -290,41 +407,131 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 20, "Counselor Ext", Ruleset = Constant.RULESET_LENGTH)]
         public string CounselorExt { get; set; }
 
+        private string discussedSolutionWithSrvcrInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0315, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string DiscussedSolutionWithSrvcrInd { get; set; }
+        public string DiscussedSolutionWithSrvcrInd
+        {
+            get { return discussedSolutionWithSrvcrInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    discussedSolutionWithSrvcrInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string workedWithAnotherAgencyInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0316, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string WorkedWithAnotherAgencyInd { get; set; }
+        public string WorkedWithAnotherAgencyInd
+        {
+            get { return workedWithAnotherAgencyInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    workedWithAnotherAgencyInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string contactedSrvcrRecentlyInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0317, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string ContactedSrvcrRecentlyInd { get; set; }
+        public string ContactedSrvcrRecentlyInd
+        {
+            get { return contactedSrvcrRecentlyInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    contactedSrvcrRecentlyInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string hasWorkoutPlanInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0318, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string HasWorkoutPlanInd { get; set; }
+        public string HasWorkoutPlanInd
+        {
+            get { return hasWorkoutPlanInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    hasWorkoutPlanInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string srvcrWorkoutPlanCurrentInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string SrvcrWorkoutPlanCurrentInd { get; set; }
+        public string SrvcrWorkoutPlanCurrentInd
+        {
+            get { return srvcrWorkoutPlanCurrentInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    srvcrWorkoutPlanCurrentInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string optOutNewsletterInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string OptOutNewsletterInd { get; set; }
+        public string OptOutNewsletterInd
+        {
+            get { return optOutNewsletterInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    optOutNewsletterInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string optOutSurveyInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string OptOutSurveyInd { get; set; }
+        public string OptOutSurveyInd
+        {
+            get { return optOutSurveyInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    optOutSurveyInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string doNotCallInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string DoNotCallInd { get; set; }
+        public string DoNotCallInd
+        {
+            get { return doNotCallInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    doNotCallInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string ownerOccupiedInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0123, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string OwnerOccupiedInd { get; set; }
+        public string OwnerOccupiedInd
+        {
+            get { return ownerOccupiedInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    ownerOccupiedInd = value.ToUpper().Trim();
+            }
+        }
 
+        private string primaryResidenceInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0124, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string PrimaryResidenceInd { get; set; }
+        public string PrimaryResidenceInd
+        {
+            get { return primaryResidenceInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    primaryResidenceInd = value.ToUpper().Trim();
+            }
+        }
 
         [NullableOrStringLengthValidator(true, 50, "Realty Company", Ruleset = Constant.RULESET_LENGTH)]
         public string RealtyCompany { get; set; }
@@ -332,8 +539,17 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Property Code", Ruleset = Constant.RULESET_LENGTH)]
         public string PropertyCd { get; set; }
 
+        private string forSaleInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
-        public string ForSaleInd { get; set; }
+        public string ForSaleInd
+        {
+            get { return forSaleInd; }
+            set
+            {
+                if (value != null && value != string.Empty)
+                    forSaleInd = value.ToUpper().Trim();
+            }
+        }
 
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomeSalePrice must be numeric(15,2)")]
         public double HomeSalePrice { get; set; }
