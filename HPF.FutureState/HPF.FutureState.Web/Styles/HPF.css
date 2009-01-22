@@ -152,6 +152,7 @@ h2
     font-size: 10px;
      background-color:#507CD1;
      color:White;
+     font-weight:bold;
   
 }
 .ScrollTable
@@ -222,12 +223,12 @@ h2
 }
 .CellBorderRight
 {
-	border-top: solid 1px gray;
+	border-top: solid 1px #D4D0C8;
 	border-bottom-style : none;
 	border-left-style: none;
 	}
 	.CellBorderLeft
-{	border-top: solid 1px gray;
+{	border-top: solid 1px #D4D0C8;
 	border-bottom-style : none;
 	border-right-style: none;
 	}
@@ -236,3 +237,18 @@ h2
 	font-weight:bold;
 	
 	}
+#tbTotal
+{
+	border-color:#D4D0C8;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+}
+#tbTotal td
+{
+	border-color: #D4D0C8;
+    border-width: 1px 1px 0 0;
+    border-style: solid;
+    margin: 0;
+    padding: 4px;
+
+}

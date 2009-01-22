@@ -38,7 +38,7 @@
 <h1>Budget Detail</h1>
 <table style="width:100%;">
     <tr>
-        <td style="vertical-align: top">
+        <td style="vertical-align: top" >
             <h3>Income(s):
             </h3>
             <asp:DataList ID="lstIncomes" runat="server" 
@@ -68,7 +68,7 @@
                 </ItemTemplate>
             </asp:DataList>
         </td>
-        <td rowspan="2" style="vertical-align: top">
+        <td rowspan="3" style="vertical-align: top">
             <h3>Asset(s):</h3>
             <asp:Panel ID="panelAsset" runat="server" CssClass="ScrollTable"  
                  Width="300" Height="90" Visible="true">
@@ -92,7 +92,7 @@
         </td>
     </tr>
     <tr>
-        <td style="vertical-align: top">
+        <td style="vertical-align: top" >
                 <h3>Expense(s):</h3>
             <asp:DataList ID="lstExpense" runat="server" onitemcreated="lstExpense_ItemCreated">
                 <ItemTemplate>
@@ -121,6 +121,38 @@
                 </ItemTemplate>
             </asp:DataList>
             
+        </td>
+    </tr>
+    <tr>
+        <td  align="left">
+            <h3>Totals:</h3>
+        </td>
+        </tr>
+        <tr>
+        <td align="center">
+            <div style="width:100%;" >
+            <table width="320" id="tbTotal" cellpadding="0" cellspacing="0" >
+                <tr>
+                    <td  class="NormalHeader"  >
+                        Income Total</td>
+                    <td>
+                        <asp:Label runat="server" ID="lblIncomeTotal" CssClass="Text" Font-Bold="True"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td  class="NormalHeader">
+                        Expense Total</td>
+                    <td>
+                        <asp:Label runat="server" ID="lblExpenseTotal" CssClass="Text" Font-Bold="True"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td class="NormalHeader">
+                        Total Surplus or Deficit</td>
+                    <td>
+                        <asp:Label runat="server" ID="lblSurplusTotal"  CssClass="Text" 
+                            Font-Bold="True"></asp:Label></td>
+                </tr>
+                </table>
+                </div>
         </td>
     </tr>
 </table>

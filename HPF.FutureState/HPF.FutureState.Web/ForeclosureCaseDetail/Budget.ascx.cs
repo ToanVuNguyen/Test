@@ -58,6 +58,24 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
         }
         /// <summary>
+        /// Get total amount of money and Expense
+        /// </summary>
+        /// <param name="budgetItems"></param>
+        /// <returns></returns>
+        private double GetTotalAmount(BudgetDetailDTOCollection budgetItems)
+        {
+            double result = 0;
+            foreach (var itemCollection in budgetItems)
+            {
+                foreach (var item in itemCollection)
+                {
+                    if (item.BudgetSubCategory.ToLower().Contains("total"))
+                        result += item.BudgetItemAmt;
+                }
+            }
+            return result;
+        }
+        /// <summary>
         /// Get budgetDetail and bind on gridview
         /// </summary>
         /// <param name="budgetSetId"></param>
@@ -78,6 +96,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     }
                 }
 
+                
+
+
                 if (budgetDetail.BudgetAssetCollection.Count == 0)
                 {
                     var dummyData = new BudgetAssetDTOCollection();
@@ -97,6 +118,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lstIncomes.DataBind();
                 lstExpense.DataSource = budgetExpenseItem;
                 lstExpense.DataBind();
+                
+                double totalIncome = GetTotalAmount(budgetIncomeItem);
+                double totalExpense = GetTotalAmount(budgetExpenseItem);
+                //DataBind for Total gird
+                string curCulture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+
+                System.Globalization.NumberFormatInfo currencyFormat = new System.Globalization.CultureInfo(curCulture).NumberFormat;
+
+                currencyFormat.CurrencyNegativePattern = 1;
+                lblExpenseTotal.Text = totalExpense.ToString("C",currencyFormat);
+                lblIncomeTotal.Text = totalIncome.ToString("C",currencyFormat);
+                lblSurplusTotal.Text =(totalIncome - totalExpense).ToString("C",currencyFormat);
             }
             catch (Exception ex)
             {
