@@ -20,8 +20,7 @@ using System.Text.RegularExpressions;
 namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseSetBL : BaseBusinessLogic
-    {
-        private static readonly ForeclosureCaseSetBL instance = new ForeclosureCaseSetBL();
+    {        
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
         private string _workingUserID;
 
@@ -36,7 +35,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             get
             {
-                return instance;
+                return new ForeclosureCaseSetBL();
             }
         }
 
@@ -46,7 +45,7 @@ namespace HPF.FutureState.BusinessLogic
 
         }
 
-        #region Implementation of IForclosureCaseBL
+        #region Implementation of IForclosureCaseBL        
 
         /// <summary>
         /// Save a ForeclosureCase
