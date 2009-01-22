@@ -122,6 +122,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         #region SearchForeclosureCase
         #region Prop_Zip
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_PropZip_Pass()
         {
@@ -183,6 +184,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(expected, actual);  
             TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ",expected, actual));
         }
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_PropZip_Fail()
         {
@@ -244,7 +246,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found",expected, actual));
         }
-
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_PropZip_Null()
         {
@@ -316,7 +318,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             
             
         }
-
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_PropZip_Invalid()
         {
@@ -390,6 +392,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
         
         #region SSN
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_SSN_Pass()
         {
@@ -453,8 +456,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             #endregion
             Assert.AreEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
-        }   
-
+        }
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_SSN_Fail()
         {
@@ -518,7 +521,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
-
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_SSN_Invalid()
         {
@@ -594,6 +597,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
 
         #region FirstName
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_FirstName_Pass()
         {
@@ -656,7 +660,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
-
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_FirstName_Fail()
         {
@@ -719,7 +723,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
-
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_FirstName_Invalid()
         {
@@ -793,6 +797,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
 
         #region AgencyCaseNumber
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_AgencyCaseNumber_Pass()
         {
@@ -826,7 +831,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + ", 'phone', 'Y', 'Y'"
                 + ", 'Y', 'Y', 'Y'"
                 + ", 'cfname', 'clname', 'cidref'"
-                + ", '12345', '" + agency_case_number + "'"
+                + ", '" + prop_zip + "', '" + agency_case_number + "'"
                 + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
             #endregion
@@ -854,7 +859,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} found - Actual: {1} found", expected, actual));
         }
-
+        [Ignore]        
         [TestMethod()]
         public void SearchFcCase_AgencyCaseNumber_Fail()
         {
@@ -917,6 +922,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
 
+        [Ignore]
         [TestMethod()]        
         public void SearchFcCase_AgencyCaseNumber_Invalid()
         {
@@ -1034,6 +1040,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
         #endregion
 
+        [Ignore]
         [TestMethod()]
         public void SaveForeclosureCase_MissingRequiredFields()
         {
@@ -1061,6 +1068,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 testContextInstance.WriteLine(expected.Message);
         }
 
+        [Ignore]
         [TestMethod()]
         public void SaveForeclosureCase_BadCode()
         {
@@ -1088,7 +1096,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 testContextInstance.WriteLine(expected.Message);
         }
 
-
+        [Ignore]
         [TestMethod()]
         public void SaveForeclosureCase_NotValidFcIdForAgencyId()
         {
@@ -1317,6 +1325,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
 
         #region ProcessInsertForeclosureCaseSet
+        [Ignore]
         [TestMethod]
         public void ProcessInsertForeclosureCaseSet_Success_Null_FC_CaseSet()
         {
@@ -1371,6 +1380,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             dbConnection.Close();
         }
+        [Ignore]
         [TestMethod]
         public void ProcessInsertForeclosureCaseSet_Success_Duplicated_FC_Case()
         {
@@ -1394,6 +1404,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             CheckDuplicate_PostTest();
         }
 
+        [Ignore]
         [TestMethod]
         public void ProcessInsertForeclosureCaseSet_Success_MiscException()
         {
@@ -1416,7 +1427,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             }
             CheckDuplicate_PostTest();
         }
-
+        [Ignore]
         [TestMethod]
         public void ProcessInsertForeclosureCaseSet_Success()
         {
