@@ -56,7 +56,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 if (value != null)
                 {
                     _lastName = value;
-                    _firstName = ProcessSQLSpecialCharacter(_firstName);
+                    _lastName = ProcessSQLSpecialCharacter(_lastName);
                     Regex exp = new Regex(@"[*]");
                     MatchCollection matches = exp.Matches(_lastName);
                     foreach (Match item in matches)
