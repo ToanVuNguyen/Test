@@ -94,7 +94,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                 writer.WriteLine("Application Name : {0}", ex.ApplicationName);
                 writer.WriteLine("User Name : {0}", ex.UserName);
                 writer.WriteLine("Agency Id : {0}", ex.AgencyId);
-                writer.WriteLine("CallCenter Id : {0}", ex.AgencyId);
+                writer.WriteLine("CallCenter Id : {0}", ex.CallCenterId);
             }
             if (outerException != null)
             {
