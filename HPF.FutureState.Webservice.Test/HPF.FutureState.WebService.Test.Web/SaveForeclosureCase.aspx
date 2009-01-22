@@ -1070,7 +1070,7 @@
                     <asp:Label ID="Label17" runat="server" Text='<%# Bind("FdicNcusNumCurrentServicerTbd") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Current servicer" >  
+            <%--<asp:TemplateField HeaderText="Current servicer" >  
                 <EditItemTemplate>
                     <asp:TextBox ID="txtCurrentServiceNameTBD" runat="server" Text='<%# Eval("CurrentServicerNameTbd") %>'></asp:TextBox>
                 </EditItemTemplate>
@@ -1082,7 +1082,7 @@
                 
             </asp:TemplateField>
             
-            <%--<asp:TemplateField HeaderText="Freddie loan num" >  
+            <asp:TemplateField HeaderText="Freddie loan num" >  
                 <EditItemTemplate>
                     <asp:TextBox ID="txtFreddieLoanNum" runat="server" Text='<%# Eval("InvestorLoanNum") %>'></asp:TextBox>
                 </EditItemTemplate>
