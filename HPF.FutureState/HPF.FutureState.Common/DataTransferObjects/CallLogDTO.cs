@@ -50,7 +50,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanAccountNumber { get; set; }
 
         [XmlIgnore]
-        [NullableOrStringLengthValidator(true, 10, "First name", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "First name", Ruleset = "Default")]
         public string FirstName { get; set; }
 
         [XmlIgnore]
