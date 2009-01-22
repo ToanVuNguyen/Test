@@ -74,6 +74,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 return "No";
             return "";
         }
+        protected void BindDDLAgency(string agencyname)
+        {
+            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+            AgencyDTO item = agencyCollection[0];
+            agencyCollection.Remove(item);
+            ddlAgency.DataValueField = "AgencyID";
+            ddlAgency.DataTextField = "AgencyName";
+            ddlAgency.DataSource = agencyCollection;
+            ddlAgency.DataBind();
+            ddlAgency.SelectedValue = agencyname;
+        }
+
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
         {
             //Top area
@@ -211,8 +223,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (foreclosureCase.HpfSuccessStoryInd == "N")
                     ddlSuccessStory.SelectedIndex = 2;//no
                 else ddlSuccessStory.SelectedIndex = 0;//blank
-            AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
-            agencyCol.GetAgencyName(foreclosureCase.AgencyId);
+            BindDDLAgency(foreclosureCase.AgencyId.ToString());
 
         }
 
