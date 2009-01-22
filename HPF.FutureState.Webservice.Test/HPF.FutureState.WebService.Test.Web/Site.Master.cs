@@ -18,7 +18,7 @@ namespace HPF.FutureState.WebService.Test.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.MaintainScrollPositionOnPostBack = true;
-            lblVersion.Text = "Version: " + ConfigurationManager.AppSettings["BuildVersion"];
+            lblVersion.Text = ConfigurationManager.AppSettings["BuildVersion"];
         }
     }
 }
