@@ -126,50 +126,58 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_PropZip_Pass()
         {
             string prop_zip = "11155";
+            string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             
             int expected = fcId;
             int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
-            
+
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreEqual(expected, actual);  
@@ -179,38 +187,45 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_PropZip_Fail()
         {
             string prop_zip = "11155";
+            string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
@@ -219,10 +234,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreNotEqual(expected, actual);
@@ -233,38 +249,45 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_PropZip_Null()
         {
             string prop_zip = "11155";
+            string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = null;
@@ -282,10 +305,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             finally
             {
                 #region delete test data
-                DeleteForeclosureCase(fcId);
                 sql = "Delete from Agency where Agency_Id = " + agencyID;
                 ExecuteSql(sql);
                 sql = "Delete from Servicer where Servicer_id = " + servicerID;
+                ExecuteSql(sql);
+                sql = "Delete from Foreclosure_case where fc_id = " + fcId;
                 ExecuteSql(sql);
                 #endregion
             }
@@ -297,38 +321,45 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_PropZip_Invalid()
         {
             string prop_zip = "11155";
+            string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = "@#$%";
@@ -347,10 +378,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             finally
             {
                 #region delete test data
-                DeleteForeclosureCase(fcId);
                 sql = "Delete from Agency where Agency_Id = " + agencyID;
                 ExecuteSql(sql);
                 sql = "Delete from Servicer where Servicer_id = " + servicerID;
+                ExecuteSql(sql);
+                sql = "Delete from Foreclosure_case where fc_id = " + fcId;
                 ExecuteSql(sql);
                 #endregion
             }
@@ -363,40 +395,46 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             string prop_zip = "11155";
             string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.BorrowerLast4Ssn = ssn;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.Last4_SSN = ssn;
@@ -405,11 +443,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
             ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
+            ExecuteSql(sql);
+            #endregion
             #endregion
             Assert.AreEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
@@ -420,40 +460,46 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             string prop_zip = "11155";
             string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.BorrowerLast4Ssn = ssn;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.Last4_SSN = "1235";
@@ -462,10 +508,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreNotEqual(expected, actual);
@@ -477,40 +524,46 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             string prop_zip = "11155";
             string ssn = "1234";
+            string agency_case_number = "123451234";
+            string first_name = "Test data";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.BorrowerLast4Ssn = ssn;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "', '" + ssn + ","
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.Last4_SSN = "@#$%";
             searchCriteria.PropertyZip = prop_zip;
@@ -520,7 +573,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 target.SearchForeclosureCase(searchCriteria, 50);
             }
-            catch (DataValidationException actual)
+            catch (Exception actual)
             {
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
@@ -529,10 +582,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             finally
             {
                 #region delete test data
-                DeleteForeclosureCase(fcId);
                 sql = "Delete from Agency where Agency_Id = " + agencyID;
                 ExecuteSql(sql);
                 sql = "Delete from Servicer where Servicer_id = " + servicerID;
+                ExecuteSql(sql);
+                sql = "Delete from Foreclosure_case where fc_id = " + fcId;
                 ExecuteSql(sql);
                 #endregion
             }
@@ -544,44 +598,46 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_FirstName_Pass()
         {
             string prop_zip = "11155";
+            string agency_case_number = "123451234";
             string first_name = "Test data";
             #region generate test data
-            #region insert FK
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
+
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name +"', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "'"
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.BorrowerFname = first_name;
-
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-
-            
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
-            #endregion
-
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+            
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.FirstName = first_name;
@@ -590,10 +646,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreEqual(expected, actual);
@@ -604,53 +661,59 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SearchFcCase_FirstName_Fail()
         {
             string prop_zip = "11155";
-            string first_name = "Test data";
+            string first_name = "something";
+            string agency_case_number = "12123123123"; 
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.BorrowerFname = first_name;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "'"
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.FirstName = "1235afdasdf";
+            //searchCriteria.LastName = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf";
 
             int expected = 1; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreNotEqual(expected, actual);
@@ -662,40 +725,45 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             string prop_zip = "11155";
             string first_name = "Test data";
+            string agency_case_number = "12123123123";
             #region generate test data
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
 
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.BorrowerFname = first_name;
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "'"
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
 
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.FirstName = "@#$%";
             searchCriteria.PropertyZip = prop_zip;
@@ -731,42 +799,43 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             string prop_zip = "11155";
             string agency_case_number = "123321";
             #region generate test data
-            #region insert FK
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
+
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", 'Firstname', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "'"
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.AgencyCaseNum = agency_case_number;
-
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-
-
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
-            #endregion
-
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.AgencyCaseNumber = agency_case_number;
@@ -775,10 +844,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreEqual(expected, actual);
@@ -791,42 +861,43 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             string prop_zip = "11155";
             string agency_case_number = "123321";
             #region generate test data
-            #region insert FK
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
+
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt" 
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", 'Firstname', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "'" 
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.AgencyCaseNum = agency_case_number;
-
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-
-
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
-            #endregion
-
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
+
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.AgencyCaseNumber = "123421";
@@ -835,10 +906,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
             #region delete test data
-            DeleteForeclosureCase(fcId);
             sql = "Delete from Agency where Agency_Id = " + agencyID;
             ExecuteSql(sql);
             sql = "Delete from Servicer where Servicer_id = " + servicerID;
+            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where fc_id = " + fcId;
             ExecuteSql(sql);
             #endregion
             Assert.AreNotEqual(expected, actual);
@@ -851,41 +923,41 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             string prop_zip = "11155";
             string agency_case_number = "123321";
             #region generate test data
-            #region insert FK
             string sql = "Insert into Agency "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int agencyID = GetAgencyID();
 
             sql = "Insert into Servicer "
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            int servicerID = GetServicerID();
+
+            sql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + "(1, 1, '" + DateTime.Now + "'"
+                + ", 'Firstname', 'Lastname', 'pcontactno'"
+                + ", 'address1', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '12345', '" + agency_case_number + "'"
+                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql);
             #endregion
-            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE");
-            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
-            fcCase.AgencyId = agencyID;
-            fcCase.PropZip = prop_zip;
-            fcCase.AgencyCaseNum = agency_case_number;
-
-
-            foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
-            {
-                item.Loan1st2nd = "2nd";
-                item.ServicerId = servicerID;
-            }
-            fcCaseSet.CaseLoans[0].Loan1st2nd = "1st";
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-
-
-            target.InsertForeclosureCaseSet(fcCaseSet);
-            target.CompleteTransaction();
-            #endregion
-
+            int agencyID = GetAgencyID();
+            int servicerID = GetServicerID();
             int fcId = GetForeclosureCaseId();
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
@@ -904,15 +976,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             finally
             {
                 #region delete test data
-                DeleteForeclosureCase(fcId);
                 sql = "Delete from Agency where Agency_Id = " + agencyID;
                 ExecuteSql(sql);
                 sql = "Delete from Servicer where Servicer_id = " + servicerID;
+                ExecuteSql(sql);
+                sql = "Delete from Foreclosure_case where fc_id = " + fcId;
                 ExecuteSql(sql);
                 #endregion
             }
         }
         #endregion
+
+        #region helper
         private void ExecuteSql(string sql)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -957,10 +1032,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             dbConnection.Close();
             return id;
         }
-        
         #endregion
-
-        
 
         [TestMethod()]
         public void SaveForeclosureCase_MissingRequiredFields()
@@ -1226,6 +1298,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             TestContext.WriteLine("This test is not implemented yet");
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             target.InitiateTransaction();
+            target._workingUserID = "HPF";
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
             foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
             foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
@@ -2206,7 +2279,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         private ForeclosureCaseSetDTO SetForeclosureCaseSet(string status)
         {            
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();            
+            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
+            foreclosureCaseSet.WorkingUserID = "test working uID";
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCase(status);
             foreclosureCaseSet.CaseLoans = SetCaseLoanCollection(status);
             foreclosureCaseSet.Outcome = SetOutcomeItemCollection(status);

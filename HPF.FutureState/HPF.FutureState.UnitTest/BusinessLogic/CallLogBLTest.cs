@@ -185,7 +185,7 @@ namespace HPF.FutureState.UnitTest
         [TestMethod]
         public void InsertCallLogTest_InvalidIndicator()
         {
-            //12982
+            
             CallLogBL_Accessor target = new CallLogBL_Accessor();
             CallLogDTO aCallLog = new CallLogDTO();
             try
@@ -205,12 +205,34 @@ namespace HPF.FutureState.UnitTest
         [TestMethod]
         public void InsertCallLogTest_InvalidDataLength()
         {
+            //12982
             CallLogBL_Accessor target = new CallLogBL_Accessor();
             CallLogDTO aCallLog = new CallLogDTO();
             try
             {
                 SetCallLogTestData(aCallLog);
                 aCallLog.CcCallKey = "Invalid CcCallKey will be longer than 18 characters";
+                target.InsertCallLog(aCallLog);
+            }
+            catch (DataValidationException actual)
+            {
+                var expected = new DataValidationException();
+                Assert.AreEqual(expected.GetType(), actual.GetType());
+                ShowException(actual);
+                ClearTestData(aCallLog);
+            }
+        }
+
+        [TestMethod]
+        public void InsertCallLogTest_DependingCallCenter()
+        {
+            //12982 - servicer other
+            CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            try
+            {
+                SetCallLogTestData(aCallLog);
+                aCallLog.CallCenterID = 76;
                 target.InsertCallLog(aCallLog);
             }
             catch (DataValidationException actual)

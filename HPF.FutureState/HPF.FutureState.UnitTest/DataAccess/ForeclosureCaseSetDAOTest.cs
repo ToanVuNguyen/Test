@@ -106,7 +106,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
         public void SearchForeclosureCaseTest()
         {
             ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO() { PropertyZip = "68701", LoanNumber="7661953" };
+//            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO() { PropertyZip = "68701", LoanNumber="7661953", FirstName = "*_Bor_*" };
+            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO() { PropertyZip = "12345", FirstName = "*_Bor_*" };
 
             List<int> expected = new List<int>();            
             expected.Add(23);
