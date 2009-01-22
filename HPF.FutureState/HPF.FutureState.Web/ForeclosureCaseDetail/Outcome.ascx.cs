@@ -47,10 +47,24 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
             OutcomeItemDTOCollection outcomeItems = RetrieveOutcomeItems(caseID);
-            if (outcomeItems != null)
+            if (outcomeItems != null && outcomeItems.Count > 0)
             {
                 grdvOutcomeItems.DataSource = outcomeItems;
                 grdvOutcomeItems.DataBind();
+            }
+            else if (outcomeItems != null && outcomeItems.Count ==0)
+            {                
+                outcomeItems = new OutcomeItemDTOCollection();
+                outcomeItems.Add(new OutcomeItemDTO());
+
+                grdvOutcomeItems.DataSource = outcomeItems;
+                grdvOutcomeItems.DataBind();
+
+                int TotalColumns = grdvOutcomeItems.Rows[0].Cells.Count;
+                grdvOutcomeItems.Rows[0].Cells.Clear();
+                grdvOutcomeItems.Rows[0].Cells.Add(new TableCell());
+                grdvOutcomeItems.Rows[0].Cells[0].ColumnSpan = TotalColumns;
+                grdvOutcomeItems.Rows[0].Cells[0].Text = "No Records Found";
             }
         }
 

@@ -47,7 +47,7 @@ namespace HPF.FutureState.WebServices
                     response = new ForeclosureCaseSearchResponse();
                     response.Results = results;
                     response.SearchResultCount = results.SearchResultCount;
-                    response.Status = ResponseStatus.Success;                                       
+                    response.Status = ResponseStatus.Success;
                 }
             }
             catch (AuthenticationException Ex)

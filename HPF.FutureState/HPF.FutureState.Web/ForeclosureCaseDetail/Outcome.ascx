@@ -49,7 +49,7 @@
                             ItemStyle-Width="200px">            
                             <ItemStyle Width="200px" />
                         </asp:BoundField>
-                        <asp:CommandField ShowSelectButton="True" />
+                        <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
                     <EmptyDataTemplate>
                         There is no data match !
@@ -60,9 +60,9 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Button ID="btnDelete" runat="server" Text="Delete" 
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass = "MyButton"
                 onclick="btnDelete_Click" />
-            <asp:Button ID="btnReinstate" runat="server" Text="Reinstate" 
+            <asp:Button ID="btnReinstate" runat="server" Text="Reinstate" CssClass = "MyButton"
                 onclick="btnReinstate_Click" />
         </td>
         
