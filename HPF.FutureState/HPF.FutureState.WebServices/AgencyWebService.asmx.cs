@@ -36,12 +36,12 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking                
                 {
-                    
-                    response.FcId = ForeclosureCaseSetBL.Instance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
-                    if (ForeclosureCaseSetBL.Instance.WarningMessage != null && ForeclosureCaseSetBL.Instance.WarningMessage.Count != 0)
+                    ForeclosureCaseSetBL workingInstance = ForeclosureCaseSetBL.Instance;
+                    response.FcId = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
+                    if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     {
                         response.Status = ResponseStatus.Warning;
-                        response.Messages = ForeclosureCaseSetBL.Instance.WarningMessage;
+                        response.Messages = workingInstance.WarningMessage;
                     }                    
                     else
                         response.Status = ResponseStatus.Success;
