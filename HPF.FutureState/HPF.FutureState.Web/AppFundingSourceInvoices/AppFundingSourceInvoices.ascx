@@ -116,8 +116,10 @@
     </tr>
     <tr>
         <td height="20" width="120">
-            <asp:Button ID="btnCancelInvoice" runat="server" CssClass="MyButton" 
-                Text="Cancel Invoice" Width="120px" onclick="btnCancelInvoice_Click" />
+            <span onclick="return confirm('Do you really want to cancel the Invoice')">
+                <asp:Button ID="btnCancelInvoice" runat="server" CssClass="MyButton" 
+                    Text="Cancel Invoice" Width="120px" onclick="btnCancelInvoice_Click" />
+            </span>
         </td>
     </tr>
     <tr>
