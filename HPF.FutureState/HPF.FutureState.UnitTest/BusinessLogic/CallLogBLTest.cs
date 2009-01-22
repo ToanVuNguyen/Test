@@ -97,7 +97,7 @@ namespace HPF.FutureState.UnitTest
             actual = target.RetrieveCallLog(callLogId);
             Assert.AreEqual(expected, actual);
         }
-#endregion
+    #endregion
 
         #region Insert CallLog
         [TestMethod]

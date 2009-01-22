@@ -89,6 +89,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test sussess for ReadCallLog
         ///</summary>      
+        [Ignore]
         [TestMethod()]
         public void ReadCallLogTestSuccess()
         {
@@ -102,6 +103,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test fail for ReadCallLog
         ///</summary>                
+        [Ignore]
         [TestMethod()]
         public void ReadCallLogTestFail()
         {
