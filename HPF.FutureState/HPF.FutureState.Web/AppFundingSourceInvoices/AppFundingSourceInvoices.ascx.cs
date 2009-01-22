@@ -104,7 +104,9 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             try
             {
-                InvoiceSearchResultDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
+                InvoiceDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
+                Session["searchResult"] = searchResult;
+                Session["searchCriteria"] = searchCriteria;
                 grvFundingSourceInvoices.DataSource = searchResult;
                 grvFundingSourceInvoices.DataBind();
             }
@@ -122,22 +124,6 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
         }
 
-        protected void grvFundingSourceInvoices_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-                if (e.Row.RowState == DataControlRowState.Alternate)
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-                }
-                else
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-                }
-
-            }
-        }
         /// <summary>
         /// Show the gridView
         /// </summary>
@@ -155,7 +141,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             Label lblInvoice = e.Row.FindControl("lblInvoiceDate") as Label;
             if (lblInvoice != null)
             {
-                string date = (e.Row.DataItem as InvoiceSearchResultDTO).InvoiceDate.ToShortDateString();
+                string date = (e.Row.DataItem as InvoiceDTO).InvoiceDate.ToShortDateString();
                 lblInvoice.Text = date;
                 if (date == "1/1/0001")
                     lblInvoice.Text = "N/A";
@@ -170,6 +156,48 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             Session["fundingSourceId"] = dropFundingSource.SelectedValue;
             Response.Redirect("AppNewInvoiceCriteriaPage.aspx");
+        }
+
+        protected void btnCancelInvoice_Click(object sender, EventArgs e)
+        {
+            lblErrorMessage.Visible = false;
+            if (grvFundingSourceInvoices.SelectedIndex== -1)
+                return;
+            if (Session["searchResult"] == null)
+                return;
+            InvoiceDTOCollection searchResult = Session["searchResult"] as InvoiceDTOCollection;
+            InvoiceDTO invoice = searchResult[grvFundingSourceInvoices.SelectedRow.DataItemIndex];
+            if(invoice.InvoicePaymentAmount>0)
+            {
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessage("WARN0550");
+                lblErrorMessage.Visible = true;
+                return;
+            }
+            try
+            {
+                string cancelCode = LookupDataBL.Instance.GetRefCode("invoice status code")[1].Code;
+                if (invoice.StatusCode == cancelCode)
+                {
+                    lblErrorMessage.Text = "This Invoice has been Cancel";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+                //Update to Database
+                invoice.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                invoice.StatusCode = cancelCode;
+            
+                InvoiceBL.Instance.UpdateInvoice(invoice);
+                if (Session["searchCriteria"] == null)
+                    return;
+                InvoiceSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceSearchCriteriaDTO;
+                InvoiceSearch(searchCriteria);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Visible = true;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
     }
 }

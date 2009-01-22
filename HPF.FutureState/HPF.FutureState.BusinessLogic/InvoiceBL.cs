@@ -96,6 +96,21 @@ namespace HPF.FutureState.BusinessLogic
                 throw (ex) ;
             }
         }
+        public void UpdateInvoice(InvoiceDTO invoice)
+        {
+            InitiateTransaction();
+            try
+            {
+                invoiceDAO.UpdateInvoice(invoice);
+                CompleteTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw (ex);
+            }
+
+        }
         /// <summary>
         /// Validate criteria for Invoice Search 
         /// </summary>
@@ -140,9 +155,9 @@ namespace HPF.FutureState.BusinessLogic
                 throw new DataValidationException(returnMessage);
             return true;
         }
-        public InvoiceSearchResultDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
+        public InvoiceDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            InvoiceSearchResultDTOCollection result = null;
+            InvoiceDTOCollection result = null;
             if (ValidateInvoiceCriteria(searchCriteria))
                 result = InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
             return result;

@@ -143,6 +143,36 @@ namespace HPF.FutureState.DataAccess
             return invoice.InvoiceId;
         }
 
+        public void UpdateInvoice(InvoiceDTO invoice)
+        {
+            var command = CreateSPCommand("hpf_invoice_update", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[13];
+            sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoice.FundingSourceId);
+            sqlParam[1] = new SqlParameter("@pi_invoice_dt", NullableDateTime(invoice.InvoiceDate));
+            sqlParam[2] = new SqlParameter("@pi_period_start_dt", NullableDateTime(invoice.PeriodStartDate));
+            sqlParam[3] = new SqlParameter("@pi_period_end_dt", NullableDateTime(invoice.PeriodEndDate));
+            sqlParam[4] = new SqlParameter("@pi_invoice_pmt_amt", invoice.InvoicePaymentAmount);
+            sqlParam[5] = new SqlParameter("@pi_invoice_bill_amt", invoice.InvoiceBillAmount);
+            sqlParam[6] = new SqlParameter("@pi_status_cd", invoice.StatusCode);
+            sqlParam[7] = new SqlParameter("@pi_invoice_comment", invoice.InvoiceComment);
+            sqlParam[8] = new SqlParameter("@pi_accounting_link_TBD", invoice.AccountingLinkBTD);
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(invoice.ChangeLastDate));
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_user_id", invoice.ChangeLastUserId);
+            sqlParam[11] = new SqlParameter("@pi_chg_lst_app_name", invoice.ChangeLastAppName);
+            sqlParam[12] = new SqlParameter("@pi_Invoice_id", invoice.InvoiceId);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        }
         #endregion
 
         #region Searching Create Draft
@@ -150,10 +180,10 @@ namespace HPF.FutureState.DataAccess
         /// Search invoice 
         /// </summary>
         /// <param name="searchCriteria">Invoice searchCriteria</param>
-        /// <returns>InvoiceSearchResultDTOCollection</returns>
-        public InvoiceSearchResultDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
+        /// <returns>InvoiceDTOCollection</returns>
+        public InvoiceDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            InvoiceSearchResultDTOCollection invoices = null;
+            InvoiceDTOCollection invoices = null;
            
             try
             {
@@ -174,19 +204,21 @@ namespace HPF.FutureState.DataAccess
 
                 if (reader.HasRows)
                 {
-                    invoices = new InvoiceSearchResultDTOCollection();
+                    invoices = new InvoiceDTOCollection();
                     while (reader.Read())
                     {
-                        InvoiceSearchResultDTO invoice = new InvoiceSearchResultDTO();
+                        InvoiceDTO invoice = new InvoiceDTO();
                         invoice.FundingSourceId = ConvertToInt(reader["funding_source_id"]);
                         invoice.FundingSourceName = ConvertToString(reader["funding_source_name"]);
-                        invoice.InvoiceBillAmt = ConvertToDecimal(reader["invoice_bill_amt"]);                                                
+                        invoice.InvoiceBillAmount = ConvertToDouble(reader["invoice_bill_amt"]);                                                
                         invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);                        
                         invoice.InvoiceId = ConvertToInt(reader["Invoice_id"]);
-                        invoice.InvoicePeriod = ConvertToString(reader["invoice_period"]);
-                        invoice.InvoicePmtAmt = ConvertToDecimal(reader["invoice_pmt_amt"]);
-                        invoice.StatusCd = ConvertToString(reader["status_cd"]);
+                        invoice.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
+                        invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
+                        invoice.InvoicePaymentAmount= ConvertToDouble(reader["invoice_pmt_amt"]);
+                        invoice.StatusCode = ConvertToString(reader["status_cd"]);
                         invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
+                        invoice.InvoicePeriod = invoice.PeriodStartDate.ToShortDateString() + "-" + invoice.PeriodEndDate.ToShortDateString();
                         invoices.Add(invoice);                           
                     }
                     reader.Close();
@@ -203,10 +235,7 @@ namespace HPF.FutureState.DataAccess
             return invoices;
         }
 
-        public InvoiceDraftDTOCollection CreateInvoiceDraft(InvoiceSearchCriteriaDTO searchCriterial)
-        {
-            throw new NotImplementedException();
-        }
+        
         #endregion
         /// <summary>
         /// Get Funding Source to bind on DDLB

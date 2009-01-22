@@ -19,7 +19,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string AccountingLinkBTD { get; set; }
         public double InvoicePaymentAmount { get; set; }
         public double InvoiceBillAmount { get; set; }
-
+        public string FundingSourceName { get; set; }
+        public string InvoicePeriod { get; set; }
         public InvoiceCaseDTOCollection InvoiceCases { get; set; }
+
+        
     }
 }

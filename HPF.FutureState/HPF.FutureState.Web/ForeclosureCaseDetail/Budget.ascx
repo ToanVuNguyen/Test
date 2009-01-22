@@ -14,7 +14,7 @@
                 <asp:GridView ID="grvBudgetSet" runat="server" CellPadding="2" 
                     ForeColor="#333333" DataKeyNames="BudgetSetId"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
-                    Width="100%"  SelectedRowStyle-BackColor="Yellow" 
+                    Width="100%"   
                     onselectedindexchanged="grvBudgetSet_SelectedIndexChanged" 
                     onrowdatabound="grvBudgetSet_RowDataBound">
                     <RowStyle CssClass="RowStyle"  />

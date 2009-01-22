@@ -121,6 +121,8 @@ namespace HPF.FutureState.Common
         public const string WARN0335 = "WARN0335";
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
+        public const string WARN0550 = "WARN0550";
+        public const string WARN0551 = "WARN0551";
         //
         public const string ERR0600 = "An outcome that already has a Delete Date cannot be deleted.";
         public const string ERR0601 = "An outcome must have a Delete Date to be reinstated.";
@@ -242,7 +244,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0326, "A billable OutcomeTypeID is required to save a foreclosure case.");
                 errorMessageDict.Add(WARN0327, "A Budget is required to save a foreclosure case.");
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");                
+                errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
+                errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");                
                 
                 //
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");

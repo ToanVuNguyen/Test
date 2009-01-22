@@ -398,8 +398,8 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
             AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { PropertyZip = "66666", Last4SSN = "1234", Agency=-1, ForeclosureCaseID=-1, Program=-1, PageSize=50, PageNum=1,TotalRowNum=0}  ;
             var result = target.AppSearchForeclosureCase(criteria);
-            Assert.AreEqual(result.Count, 5);
-            var expected = new List<string> {"23","181","123", "183", "185"};
+            Assert.AreEqual(3,result.Count);
+            var expected = new List<string> {"181", "183","185"};
             foreach (var actual in result)
             {
                 Assert.AreEqual(actual.LoanList, "abc123, abc124, def123, def1234");
@@ -415,14 +415,14 @@ namespace HPF.FutureState.UnitTest.DataAccess
         public void AppSearchForeclosureCasebyID()
         {
             ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
-            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = 23, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0 };
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = 183, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0 };
             AppForeclosureCaseSearchResultDTOCollection searchResult = target.AppSearchForeclosureCase(criteria);
             Assert.AreEqual(searchResult.Count, 1);
             AppForeclosureCaseSearchResultDTO actual = searchResult[0];
             Assert.AreEqual(actual.LoanList, "abc123, abc124, def123, def1234");
             Assert.AreEqual(actual.PropertyZip, "66666");
             Assert.AreEqual(actual.Last4SSN, "1234");
-            Assert.AreEqual(actual.CaseID, "23");
+            Assert.AreEqual(actual.CaseID, "183");
         }
         #endregion
     }

@@ -89,7 +89,6 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
-    <Compile Include="DataTransferObjects\InvoiceSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTO.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTOCollection.cs" />
     <Compile Include="DataTransferObjects\MenuItemDTOCollection.cs" />
@@ -138,7 +137,6 @@
     <Compile Include="DataTransferObjects\InvoiceDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceDTOCollection.cs" />
     <Compile Include="DataTransferObjects\InvoiceSearchCriteriaDTO.cs" />
-    <Compile Include="DataTransferObjects\InvoiceSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\MenuSecurityDTO.cs" />
     <Compile Include="DataTransferObjects\MenuSecurityDTOCollection.cs" />
     <Compile Include="DataTransferObjects\OutcomeItemDTO.cs" />

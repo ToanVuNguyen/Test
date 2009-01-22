@@ -6,6 +6,10 @@
         width: 34px;
     }
 </style>
+ <asp:ScriptManager runat="server"></asp:ScriptManager>
+ <asp:UpdatePanel runat="server">
+ <ContentTemplate>
+ 
 <table style="width:100%;">
     <tr>
         <td align="center" colspan="6">
@@ -67,9 +71,8 @@
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="100%"  SelectedRowStyle-BackColor="Yellow" 
-                    onrowcreated="grvFundingSourceInvoices_RowCreated" 
                     ondatabound="grvFundingSourceInvoices_DataBound" 
-                    onrowdatabound="grvFundingSourceInvoices_RowDataBound" >
+                    onrowdatabound="grvFundingSourceInvoices_RowDataBound" DataKeyNames="InvoiceId" >
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -87,10 +90,11 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" />
-                        <asp:BoundField DataField="InvoiceBillAmt" DataFormatString="{0:C}" HeaderText="Invoice Amount" />
-                        <asp:BoundField DataField="InvoicePmtAmt" DataFormatString="{0:C}" HeaderText="Payment Amount" />
-                        <asp:BoundField DataField="StatusCd" HeaderText="Invoice Status" />
+                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" HeaderText="Invoice Amount" />
+                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" HeaderText="Payment Amount" />
+                        <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" />
                         <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" />
+                        <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
                     <EmptyDataTemplate>
                     There is no data match !
@@ -113,7 +117,7 @@
     <tr>
         <td height="20" width="120">
             <asp:Button ID="btnCancelInvoice" runat="server" CssClass="MyButton" 
-                Text="Cancel Invoice" Width="120px" />
+                Text="Cancel Invoice" Width="120px" onclick="btnCancelInvoice_Click" />
         </td>
     </tr>
     <tr>
@@ -173,4 +177,5 @@
             &nbsp;</td>
     </tr>
 </table>
-
+</ContentTemplate>
+ </asp:UpdatePanel>
