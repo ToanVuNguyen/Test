@@ -102,9 +102,9 @@ namespace HPF.FutureState.DataAccess
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;   
                 //dbConnection.Open();
                 SqlDataReader reader = command.ExecuteReader();
-
                 if (reader.HasRows)
                 {
                     if (reader.Read())
@@ -236,12 +236,11 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.WorkedWithAnotherAgencyInd = ConvertToString(reader["worked_with_another_agency_ind"]);
                         #endregion
-                    }
-                    reader.Close();
+                    }                    
                 }
                 else
                     returnObject = null;
-
+                reader.Close();
             }
             catch (Exception Ex)
             {

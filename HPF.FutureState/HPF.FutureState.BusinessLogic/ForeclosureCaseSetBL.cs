@@ -366,7 +366,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Missing Outcome item. At least one Outcome item is required to save a foreclosure case.");            
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Missing Outcome item. At least one Outcome item is required to save a foreclosure case.");
             int outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
             foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
             {
@@ -737,7 +737,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);            
             bool caseComplete = false;
-            if (fcCase != null && fcCase.CompletedDt != DateTime.MinValue)
+            if (fcCase != null && fcCase.CompletedDt != DateTime.MinValue && !CheckInactiveCase(fcId))
                 caseComplete = true;
             return caseComplete;
         }
