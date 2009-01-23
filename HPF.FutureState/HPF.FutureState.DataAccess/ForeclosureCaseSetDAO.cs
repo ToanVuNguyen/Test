@@ -90,7 +90,7 @@ namespace HPF.FutureState.DataAccess
         private ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
-            SqlConnection dbConnection = base.CreateConnection();
+            //SqlConnection dbConnection = base.CreateConnection();
             try
             {
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_detail_get", dbConnection);
@@ -102,7 +102,7 @@ namespace HPF.FutureState.DataAccess
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
-                dbConnection.Open();
+                //dbConnection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)
@@ -249,7 +249,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
-                dbConnection.Close();
+                //dbConnection.Close();
             }
             return returnObject;
 

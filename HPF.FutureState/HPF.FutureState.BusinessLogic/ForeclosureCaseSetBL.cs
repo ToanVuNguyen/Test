@@ -22,6 +22,7 @@ namespace HPF.FutureState.BusinessLogic
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {        
         ForeclosureCaseSetDAO foreclosureCaseSetDAO;
+        ForeclosureCaseDTO _dbFcCase = null;
         private string _workingUserID;
 
         //public DuplicateException WarningMessage { get; set; }
@@ -1964,7 +1965,10 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         private ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
-            return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
+            if (_dbFcCase == null || (_dbFcCase != null && _dbFcCase.FcId != fcId))
+                _dbFcCase = foreclosureCaseSetDAO.GetForeclosureCase(fcId);
+
+            return _dbFcCase;
         }
 
         private string GetAgencyName(int agencyID)

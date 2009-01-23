@@ -47,7 +47,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>ForeclosureCase if exists, otherwise: null</returns>
         public ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
-            ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
+            ForeclosureCaseDTO returnObject = HPFCacheManager.Instance.GetData<ForeclosureCaseDTO>(Constant.HPF_CACHE_BUDGET_CATEGORY_CODE);//new ForeclosureCaseDTO();
             SqlConnection dbConnection = base.CreateConnection();
             try
             {
