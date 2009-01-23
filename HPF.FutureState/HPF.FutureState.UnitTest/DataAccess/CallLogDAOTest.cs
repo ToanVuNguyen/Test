@@ -180,6 +180,10 @@ namespace HPF.FutureState.UnitTest
             
             CallLogDTO aCallLog = new CallLogDTO();
             aCallLog.CallCenterID = GetCallCenterID();
+            aCallLog.StartDate = DateTime.Now;
+            aCallLog.EndDate = DateTime.Now;
+            aCallLog.CcCallKey = "abcd";
+            aCallLog.FinalDispoCd = "THIRDPARTY";
             aCallLog.CreateDate = DateTime.Now;
             aCallLog.CreateUserId = "test";
             aCallLog.CreateAppName = "test";
