@@ -101,7 +101,7 @@
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>
-      <CaseLoanId>1</CaseLoanId>
+      <CaseLoanId></CaseLoanId>
       <!--<FcId>1</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
@@ -126,7 +126,7 @@
       <ChangeLastUserId>Agency1</ChangeLastUserId>-->
     </CaseLoan>
     <CaseLoan>
-      <CaseLoanId>2</CaseLoanId>
+      <CaseLoanId></CaseLoanId>
       <!--<FcId>2</FcId>-->
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>

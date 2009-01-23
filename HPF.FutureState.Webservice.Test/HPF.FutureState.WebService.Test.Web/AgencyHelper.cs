@@ -25,7 +25,7 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 var objs = from obj in xdoc.Descendants("CaseLoan")
                            select new CaseLoanDTO
-                           {                               
+                           {                                 
                                AcctNum = obj.Element("AcctNum").Value,
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
                                //CreateUserId = obj.Element("CreateUserId").Value,                                                               
@@ -49,7 +49,14 @@ namespace HPF.FutureState.WebService.Test.Web
                                ServicerId = Util.ConvertToInt(obj.Element("ServicerId").Value),
                                TermLengthCd = obj.Element("TermLengthCd").Value
                            };
-                return objs.ToList<CaseLoanDTO>();
+                int i = 1;
+                List<CaseLoanDTO> list = objs.ToList<CaseLoanDTO>();
+                foreach (var item in list)
+                {
+                    item.CaseLoanId = i;
+                    i++;
+                }
+                return list;
             }
             catch (NullReferenceException ex)
             {
@@ -76,7 +83,14 @@ namespace HPF.FutureState.WebService.Test.Web
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
                                //CreateUserId = obj.Element("CreateUserId").Value
                            };
-                return objs.ToList<OutcomeItemDTO>();
+                int i = 1;
+                List<OutcomeItemDTO> list = objs.ToList<OutcomeItemDTO>();
+                foreach (var item in list)
+                {
+                    item.OutcomeItemId = i;
+                    i++;
+                }
+                return list;
             }
             catch (NullReferenceException ex)
             {
@@ -98,7 +112,14 @@ namespace HPF.FutureState.WebService.Test.Web
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
                                //CreateUserId = obj.Element("CreateUserId").Value,
                            };
-                return objs.ToList<BudgetAssetDTO>();
+                int i = 1;
+                List<BudgetAssetDTO> list = objs.ToList<BudgetAssetDTO>();
+                foreach (var item in list)
+                {
+                    item.BudgetAssetId = i;
+                    i++;
+                }
+                return list;
             }
             catch (NullReferenceException ex)
             {
@@ -121,7 +142,14 @@ namespace HPF.FutureState.WebService.Test.Web
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
                                //CreateUserId = obj.Element("CreateUserId").Value
                            };
-                return objs.ToList<BudgetItemDTO>();
+                int i = 1;
+                List<BudgetItemDTO> list = objs.ToList<BudgetItemDTO>();
+                foreach (var item in list)
+                {
+                    item.BudgetItemId = i;
+                    i++;
+                }
+                return list;
             }
             catch (NullReferenceException ex)
             {
