@@ -87,7 +87,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of a Foreclosure</param>
         /// <returns>ForeclosureCase if exists, otherwise: null</returns>
-        private ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
             //SqlConnection dbConnection = base.CreateConnection();
