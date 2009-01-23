@@ -110,13 +110,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 grvFundingSourceInvoices.DataSource = searchResult;
                 grvFundingSourceInvoices.DataBind();
             }
-            catch (DataValidationException ex)
-            {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
-            }
-            catch (DataException ex)
+            catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
                 lblErrorMessage.Visible = true;
