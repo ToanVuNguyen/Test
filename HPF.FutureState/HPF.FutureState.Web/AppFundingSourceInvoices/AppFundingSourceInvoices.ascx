@@ -6,6 +6,10 @@
         width: 34px;
     }
 </style>
+<asp:ScriptManager runat="server"></asp:ScriptManager>
+<asp:UpdatePanel runat="server">
+<ContentTemplate>
+
  
 <table style="width:100%;">
     <tr>
@@ -176,3 +180,5 @@
             &nbsp;</td>
     </tr>
 </table>
+</ContentTemplate>
+</asp:UpdatePanel>

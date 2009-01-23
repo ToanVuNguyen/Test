@@ -28,9 +28,9 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ApplySecurity();
                 if (!IsPostBack)
                 {
-                    if (Session["searchCriteria"] == null)
+                    if (Session["IvoiceCaseSearchCriteria"] == null)
                         return;
-                    InvoiceCaseSearchCriteriaDTO searchCriteria = Session["searchCriteria"] as InvoiceCaseSearchCriteriaDTO;
+                    InvoiceCaseSearchCriteriaDTO searchCriteria = Session["IvoiceCaseSearchCriteria"] as InvoiceCaseSearchCriteriaDTO;
                     //Get the Invoice Case Draft
                     try
                     {

@@ -37,8 +37,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     StateDatabind();
                     SetDefaultPeriodStartEnd();
                     AddBlankToYesNoDropDownList();
-                    if (Session["searchCriteria"] != null)
-                        RestoreSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["searchCriteria"]);
+                    if (Session["IvoiceCaseSearchCriteria"] != null)
+                        RestoreSearchCriterial((InvoiceCaseSearchCriteriaDTO)Session["IvoiceCaseSearchCriteria"]);
                     else
                         SetDefaultValueForDropDownList();
                 }
@@ -158,7 +158,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
             dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
             //first time
-            if (Session["fundingSourceId"] != null && Session["searchCriteria"]==null)
+            if (Session["fundingSourceId"] != null && Session["IvoiceCaseSearchCriteria"] == null)
             {
                 string fundingSourceId = Session["fundingSourceId"].ToString();
                 dropFundingSource.Items.FindByValue(fundingSourceId).Selected = true;
@@ -331,7 +331,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 if (InvoiceBL.Instance.ValidateInvoiceCaseCriteria(searchCriteria))
                 {
-                    Session["searchCriteria"] = searchCriteria;
+                    Session["IvoiceCaseSearchCriteria"] = searchCriteria;
                     Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
                     Response.Redirect("NewInvoiceResultPage.aspx");
                 }
