@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="DataAccess\ForeclosureCaseSetDAOTest.cs" />
     <Compile Include="DataAccess\InvoiceDAOTest.cs" />
-    <Compile Include="OutcomeItemBLTest.cs" />
+    <Compile Include="BusinessLogic\OutcomeItemBLTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccess\SecurityDAOTest.cs" />
   </ItemGroup>
