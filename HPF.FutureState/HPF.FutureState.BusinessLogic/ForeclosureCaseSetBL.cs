@@ -1249,8 +1249,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (caseLoan.FcId == item.FcId
-                    && ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
+                if (ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
                     return true;
             }
             return false;
@@ -1264,9 +1263,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (caseLoan.FcId == item.FcId && caseLoan.AcctNum == item.AcctNum)
+                if (caseLoan.AcctNum == item.AcctNum)
                 {
-                    if (ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName)
+                    if (caseLoan.ServicerId != item.ServicerId
+                        || ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName)
                         || ConvertStringToUpper(caseLoan.Loan1st2nd) != ConvertStringToUpper(item.Loan1st2nd)
                         || ConvertStringToUpper(caseLoan.MortgageTypeCd) != ConvertStringToUpper(item.MortgageTypeCd)                        
                         || ConvertStringToUpper(caseLoan.ArmResetInd) != ConvertStringToUpper(item.ArmResetInd)
@@ -1360,6 +1360,7 @@ namespace HPF.FutureState.BusinessLogic
                 bool isChanged = CheckCaseLoanUpdate(item, caseLoanCollectionDB);
                 if (!isChanged)
                 {
+                    item.FcId = fcId;
                     caseLoanNew.Add(item);
                 }
             }            
@@ -1832,7 +1833,11 @@ namespace HPF.FutureState.BusinessLogic
                 if (foreclosureCase.CompletedDt == DateTime.MinValue)
                     return DateTime.Now;
                 else
+                {
+                    if(CheckInactiveCase(fcId))
+                        return DateTime.Now;
                     return foreclosureCase.CompletedDt;
+                }
             }
             return DateTime.Now;
         }      
