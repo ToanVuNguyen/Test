@@ -62,40 +62,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            //var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            //dbConnection.Open();
-            //var command = new SqlCommand();
-            //command.Connection = dbConnection;
-            //command.CommandText = "update foreclosure_case" + 
-            //                        " set loan_list = 'abc123, abc124, def123, def1234'" +
-            //                        ", prop_zip = '66666'" +
-            //                        ", borrower_last4_SSN = '1234'" +
-            //                        " where fc_id = 23";
-            //command.ExecuteNonQuery();
-
-            //command.CommandText = "insert dbo.geocode_ref (zip_code, zip_type, city_name, city_type, county_name, county_FIPS, state_name, state_abbr, state_FIPS, MSA_code, area_code, time_zone, utc, dst, latitude, longitude) values	('12345', 'A', 'city_name', 'c', 'county_name','CFIPS' , 'state_name', 'AB', 'FI', 'MSAC', 'area_code', 'time_zone', 1.5, 'A', 'latitude', 'longitude')";
-            //command.ExecuteNonQuery();
-            //dbConnection.Close();
+           
         }
         //
         //Use ClassCleanup to run code after all tests in a class have run
         [ClassCleanup()]
         public static void MyClassCleanup()
         {
-            //var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            //var command = new SqlCommand();
-            //dbConnection.Open();
-            //command.Connection = dbConnection;
-            //command.CommandText = "update foreclosure_case" + 
-            //                        " set loan_list = null" +
-            //                        ", prop_zip = null" +
-            //                        ", borrower_last4_SSN = null" +
-            //                        " where fc_id = 23";
-            //command.ExecuteNonQuery();
-
-            //command.CommandText = "delete dbo.geocode_ref where zip_code = '12345'";
-            //command.ExecuteNonQuery();            
-            //dbConnection.Close();
+            
         }
         //
         //Use TestInitialize to run code before running each test
