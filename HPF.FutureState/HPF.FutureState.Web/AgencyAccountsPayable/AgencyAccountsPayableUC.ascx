@@ -55,9 +55,15 @@
         <td colspan="5" class="sidelinks" >
             Invoice List:</td></tr><tr>
         <td colspan="4">
+        <asp:ScriptManager ID="myscript" runat="server">
+        </asp:ScriptManager>
+        <asp:UpdatePanel ID="myupdatepanel" runat="server">
+        <ContentTemplate>
+       
         <asp:Panel ID="panInvoiceList" runat="server"  CssClass="ScrollTable" Width="840px">
-        <asp:GridView ID="grvInvoiceList" runat="server"  BorderStyle="None" Width="100%"  
-                AutoGenerateColumns="false" AutoGenerateSelectButton="true"   >
+        <asp:GridView ID="grvInvoiceList" runat="server"  BorderStyle="None" Width="100%"   
+                AutoGenerateColumns="false" 
+                onselectedindexchanged="grvInvoiceList_SelectedIndexChanged"   >
         <HeaderStyle CssClass="FixedHeader" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
         <RowStyle CssClass="RowStyle" />
@@ -78,6 +84,8 @@
         <EmptyDataTemplate> There is no data match.</EmptyDataTemplate>
         </asp:GridView>
         </asp:Panel>
+         </ContentTemplate>
+        </asp:UpdatePanel>
         </td>
         <td  valign="top">
             <table style="vertical-align:top;">
@@ -94,10 +102,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <span onclick="return confirm('Do you really want to cancel the payable')">
                         <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable"  
                             CssClass="MyButton" Width="100px" onclick="btnCancelPayable_Click" />
-                            </span>
                     </td>
                 </tr>
             </table>

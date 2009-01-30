@@ -99,7 +99,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 DateTime today = DateTime.Today;
                 int priormonth = today.AddMonths(-1).Month;
                 int year = today.AddMonths(-1).Year;
-                txtPeriodStart.Text = today.AddMonths(-1).ToShortDateString();
+                txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
                 int daysinmonth = DateTime.DaysInMonth(year, priormonth);
                 txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
             }

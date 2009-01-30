@@ -21,6 +21,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
     public partial class AppForeClosureCaseSearchUC : System.Web.UI.UserControl
     {
+        //session store search criteria
         protected AppForeclosureCaseSearchCriteriaDTO SearchCriteria
         {
             get
@@ -29,15 +30,18 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             set { AppForeclosureCaseSearchCriteriaDTO searchcriteria = value; }
         }
+        //total records in one page, get this info from web config
         protected int PageSize
         {
             get { return (int.Parse(ConfigurationManager.AppSettings["pagesize"])); }
         }
+        //total rows of search data
         protected double TotalRowNum
         {
             get { return Convert.ToDouble(ViewState["totalrownum"]); }
             set { ViewState["totalrownum"] = value; }
         }
+        //current page
         protected int PageNum
         {
             get { return Convert.ToInt16(ViewState["pagenum"]); }
@@ -47,9 +51,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             if (!IsPostBack)
             {
+                //Bind data to dropdownlist.
                 BindProgramDropdownlist();
                 BindStateDropdownlist();
                 BindAgencyDropdownlist();
+                //redisplay search criteria when you click on menu item.
                 ReBindSearchCriteria();
             }
             else
@@ -60,11 +66,22 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     GeneratePages(totalpage);
                 }
             }
+            // gridview selected row 
+            if(grvForeClosureCaseSearch.Rows.Count!=0)
+            for(int i=0;i<grvForeClosureCaseSearch.Rows.Count;i++)
+            {
+            grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick",Page.ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch,"Select$"+i));
+            }
+
         }
+        /// <summary>
+        /// Redisplay search criteria.
+        /// </summary>
         protected void ReBindSearchCriteria()
         {
             if (Session["searchcriteria"] != null)
             {
+                //set search control the values from session searchcriteria.               
                 AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
                 txtLastName.Text = searchcriteria.LastName;
                 txtFirstName.Text = searchcriteria.FirstName;
@@ -111,9 +128,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
 
         /// <summary>
-        /// 
+        /// Bind data search result to gridview. Depend on that display pager controls.
         /// </summary>
-        /// <param name="PageNum"></param>
+        /// <param name="PageNum">initial pagenum =1</param>
         protected void BindGrvForeClosureCaseSearch(int PageNum)
         {
             try
@@ -123,25 +140,28 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //get search criteria
                 var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
                 //get search info match search criteria
-                var temp = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
-                //Bind search result
-                grvForeClosureCaseSearch.DataSource = temp;
+                var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
+                //Bind data search result to gridview
+                grvForeClosureCaseSearch.DataSource = searchResult;
                 grvForeClosureCaseSearch.DataBind();
-                
-                //selected gridview row
-                //for(int i=0;i<grvForeClosureCaseSearch.Rows.Count;i++)
-                //{
-                //grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick", ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch,"Select$"+1));
-                //}
-                    this.TotalRowNum = temp.SearchResultCount;
-                //
-
-                if (this.TotalRowNum != 0)
+                //The first time you click search button, page 1 is choose, disable button: << <
+                if (lblTemp.Text != "1")
                 {
-                    ManageControls(true);
-                    grvForeClosureCaseSearch.Visible = true;
                     lbtnFirst.Enabled = false;
                     lbtnPrev.Enabled = false;
+                }
+                this.TotalRowNum = searchResult.SearchResultCount;
+                //there have data search result
+                if (this.TotalRowNum != 0)
+                {
+                    //add to selected row in gridview
+                    for (int i = 0; i < grvForeClosureCaseSearch.Rows.Count; i++)
+                    {
+                        grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch, "Select$" + i));
+                    }
+                    //display pagers controls
+                    ManageControls(true);
+                    grvForeClosureCaseSearch.Visible = true;
                     int MinRow = (this.PageSize * (PageNum - 1) + 1);
                     int MaxRow = PageNum * this.PageSize;
                     lblTotalRowNum.Text = this.TotalRowNum.ToString();
@@ -150,7 +170,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     if (MaxRow > this.TotalRowNum)
                         lblMaxRow.Text = this.TotalRowNum.ToString();
                     else lblMaxRow.Text = MaxRow.ToString();
-                    //lblTemp.Text = "1";
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
                     if (totalpage == 1)
                     {
@@ -159,17 +178,21 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                         lbtnPrev.Enabled = false;
                         lbtnNext.Enabled = false;
                     }
+                    //generate pages
                     GeneratePages(totalpage);
                     lblTemp.Text = "1";
+
                 }
+                //there is no data search result
                 else
                 {
+                    //not display pagers control.
                     ManageControls(false);
                 }
             }
             catch (DataValidationException ex)
             {
-                //lblErrorMessage.Text += ex.Message;
+                //return exception message check input search criteria
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
                     panForeClosureCaseSearch.Visible = false;
@@ -188,7 +211,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
-
+        /// <summary>
+        /// get all search criteria from controls put into AppForeclosureCaseSearchCriteriaDTO
+        /// </summary>
+        /// <param name="PageNum"></param>
+        /// <returns></returns>
         private AppForeclosureCaseSearchCriteriaDTO GetAppForeclosureCaseSearchCriteriaDTO(int PageNum)
         {
             var appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
@@ -196,11 +223,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             string textchangeFirstName = "";
             string textchangeLastName = "";
             appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
+            //replace * by % to search like in fristname
             if (txtFirstName.Text != string.Empty)
             {
                 textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
                 textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
             }
+            //replace * by % to search like in fristname
             if (txtLastName.Text != string.Empty)
             {
                 textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
@@ -208,7 +237,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
             appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
-            //check num at BL
             appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text.Trim();
@@ -222,7 +250,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
             return appForeclosureCaseSearchCriteriaDTO;
         }
-
+        /// <summary>
+        /// display or not display pager controls
+        /// </summary>
+        /// <param name="isEnable"></param>
         protected void ManageControls(bool isEnable)
         {
             lbl1.Visible = isEnable;
@@ -238,46 +269,71 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            //store searchcriteria in session to keep searchcriteria when you click on menu item.
             Session["searchcriteria"] = GetAppForeclosureCaseSearchCriteriaDTO(1);
             lblErrorMessage.Text = "";
+            //Bind search data meet search criteria to gridview, display page 1.
+            lblTemp.Text = " ";
             BindGrvForeClosureCaseSearch(1);
+            //calculate totalpage from search data to display warning message if there are greater than 500 cases.
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            if (totalpage > 10) lblErrorMessage.Text = @"There are greater than 500 case results are found based on 
-                        the search criteria,Please defined search criteria and resubmitted";
+            if (totalpage > 10) lblErrorMessage.Text = @"Cases matched your search criteria, only the first 500 will
+                        be presented. To reduce the number of results, please refine your search criteria.";
+            //every click search button, set 
+            this.PageNum = 0;
+            lbtnLast.Enabled = true;
+            lbtnNext.Enabled = true;
+            
             //
             GeneratePages(totalpage);
         }
-
+        /// <summary>
+        /// display 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void grvForeClosureCaseSearch_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblcounseled = e.Row.FindControl("lblCounseled") as Label;
                 DateTime datecounseled = DateTime.Parse(lblcounseled.Text);
-                DateTime datecompare = DateTime.Today.AddYears(1);
+                //datecompare is early than today 1 year.
+                DateTime datecompare = DateTime.Today.AddYears(-1);
                 int result = DateTime.Compare(datecompare, datecounseled);
-
-                if (result > 0) lblcounseled.Text = ">1 yr";
-                else lblcounseled.Text = "<1 yr";
+                //datecompare is later than datecounseled--> counseled <1 yr
+                if (result > 0) lblcounseled.Text = "<1 yr";
+                //datecompare is earlier than datecounseled--> counseled >1 yr
+                else lblcounseled.Text = ">1 yr";
 
             }
         }
+        /// <summary>
+        /// when click on button:  << < > >>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
         {
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             switch (e.CommandName)
             {
+               // button: <<
                 case "First":
                     this.PageNum = 1;
                     lbtnFirst.Enabled = false;
                     lbtnPrev.Enabled = false;
                     break;
+                // button: >>
                 case "Last":
                     this.PageNum = Convert.ToInt16(totalpage);
                     lbtnLast.Enabled = false;
                     lbtnNext.Enabled = false;
+                    lbtnFirst.Enabled = true;
+                    lbtnPrev.Enabled = true;
                     if (totalpage > 10) totalpage = 10;
                     break;
+                // button: >
                 case "Next":
                     this.PageNum = Convert.ToInt16(this.PageNum) + 1;
                     lbtnFirst.Enabled = true;
@@ -291,6 +347,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     }
 
                     break;
+                // button: <
                 case "Prev":
                     this.PageNum = Convert.ToInt16(this.PageNum) - 1;
                     lbtnFirst.Enabled = true;
@@ -304,9 +361,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     }
                     break;
             }
+            //
             BindGrvForeClosureCaseSearch(this.PageNum);
         }
-
+        /// <summary>
+        /// generate pages
+        /// </summary>
+        /// <param name="totalpage"></param>
         void GeneratePages(double totalpage)
         {
             if (totalpage > 10) totalpage = 10;
@@ -316,7 +377,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 LinkButton myLinkBtn = new LinkButton();
                 myLinkBtn.ID = i.ToString();
                 myLinkBtn.Text = i.ToString();
-
+                //the first time you click searh button or choosen page. disable this page.
                 if (i == this.PageNum || (i == 1 && this.PageNum == 0))
                 {
                     myLinkBtn.CssClass = "PageChoose";
@@ -331,19 +392,24 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 myLinkBtn.CommandName = i.ToString();
                 myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
                 phPages.Controls.Add(myLinkBtn);
+                //add spaces beetween pages link button.
                 Literal lit = new Literal();
                 lit.Text = "&nbsp;&nbsp;";
-
                 phPages.Controls.Add(lit);
             }
         }
-
+        /// <summary>
+        /// when click pages link button 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void myLinkBtn_Command(object sender, CommandEventArgs e)
         {
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
             this.PageNum = pagenum;
 
+            BindGrvForeClosureCaseSearch(pagenum);
             lbtnFirst.Enabled = true;
             lbtnLast.Enabled = true;
             lbtnNext.Enabled = true;
@@ -354,17 +420,24 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 lbtnFirst.Enabled = false;
                 lbtnPrev.Enabled = false;
             }
+            if (totalpage > 10) totalpage = 10;
             if (pagenum == totalpage)
             {
                 lbtnLast.Enabled = false;
                 lbtnNext.Enabled = false;
             }
-
-            BindGrvForeClosureCaseSearch(pagenum);
-
         }
+        /// <summary>
+        /// replace oldchar in mystring by newchar.
+        /// </summary>
+        /// <param name="mystring"></param>
+        /// <param name="oldchar"></param>
+        /// <param name="newchar"></param>
+        /// <returns></returns>
         string Replace1Char(string mystring, string oldchar, string newchar)
         {
+            if (mystring == "" || oldchar == "" || newchar == "")
+                return mystring;
             int StartIndex = mystring.IndexOf(oldchar);
             if (StartIndex == -1) return mystring;
             string mystring1 = null;
@@ -380,29 +453,5 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 return (mystring1 + "%" + mystring2);
             }
         }
-        protected void grvForeClosureCaseSearch_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-                
-                if (e.Row.RowState == DataControlRowState.Alternate)
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-                }
-                else
-                {
-                    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-                }
-
-            }
-        }
-
-        protected void grvForeClosureCaseSearch_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }

@@ -60,7 +60,6 @@
             </asp:DropDownList>
         </td>
         <td>
-           </asp:Label>
            </td>
     </tr>
     <tr>
@@ -76,8 +75,6 @@
              <asp:ListItem Value="None" Text=""></asp:ListItem>
             <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="No"></asp:ListItem>
-           
-            
             </asp:DropDownList>
         </td>
         <td>
@@ -91,7 +88,7 @@
         <td class="sidelinks" align="right">
             Max Number of Cases:</td>
         <td>
-            <asp:TextBox ID="txtMaxNumberCase" runat="server" CssClass="Text" MaxLength="6" ></asp:TextBox>
+            <asp:TextBox ID="txtMaxNumberCase" runat="server" CssClass="Text" MaxLength="6" Width="70px" ></asp:TextBox>
         </td>
         <td>
             &nbsp;</td>

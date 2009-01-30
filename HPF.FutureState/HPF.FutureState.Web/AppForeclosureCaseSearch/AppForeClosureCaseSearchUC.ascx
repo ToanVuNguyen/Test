@@ -124,7 +124,7 @@
     <tr>
         <td colspan="5">
          <asp:Label ID="lblErrorMessage"  CssClass="ErrorMessage" runat="server" ></asp:Label>
-         <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
+         <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d ]*"></asp:RegularExpressionValidator>
         </td>
         <td  class="Control">
         <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"  CssClass="MyButton"/>
@@ -139,22 +139,20 @@
     </tr>
     <tr>
         <td colspan="6">
+            <asp:ScriptManager ID="myscript" runat="server"></asp:ScriptManager>
+            <asp:UpdatePanel ID="myupdatepan" runat="server">
+            <ContentTemplate>
+            
             <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Visible="false" >
-                <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2" ForeColor="#333333"
-                    GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
-                    Width="2500px"  SelectedRowStyle-BackColor="Yellow" 
-                    onrowdatabound="grvForeClosureCaseSearch_RowDataBound" 
-                    onrowcreated="grvForeClosureCaseSearch_RowCreated" 
-                    onselectedindexchanged="grvForeClosureCaseSearch_SelectedIndexChanged">
+                BorderColor="Gray" BorderWidth="1px" Visible="false"  >
+                <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2"
+                    GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle"  
+                    Width="2500px" onrowdatabound="grvForeClosureCaseSearch_RowDataBound" >
                     <RowStyle CssClass="RowStyle"  />
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                    <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <EditRowStyle BackColor="#2461BF" />
+                    <HeaderStyle CssClass="FixedHeader" />
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle"  />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <Columns>
                         <asp:HyperLinkField DataTextField="CaseID" DataNavigateUrlFields="CaseID" DataNavigateUrlFormatString="../AppForeclosureCaseDetailPage.aspx?CaseID={0}" HeaderText="Case ID" />
                         <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Center" />
@@ -201,6 +199,8 @@
                     </EmptyDataTemplate>
                 </asp:GridView>
             </asp:Panel>
+            </ContentTemplate>
+            </asp:UpdatePanel>
         </td>
     </tr>
     <tr>
@@ -216,7 +216,7 @@
         <asp:LinkButton ID="lbtnNext"  CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server" Text=">  " Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
         <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server" Text=">>" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
         <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
-        <%--<input type="hidden" id="hidflag" value="" />--%>
+       
         </td>
         
     </tr>

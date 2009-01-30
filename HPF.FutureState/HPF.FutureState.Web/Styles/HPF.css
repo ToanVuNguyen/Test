@@ -142,8 +142,8 @@ h2
     top: expression(offsetParent.scrollTop);
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
-     background-color:#507CD1;
-     color:White;
+    background-color:#507CD1;
+    color:White;
   
 }
 .NormalHeader
@@ -209,7 +209,7 @@ h2
 
 .SelectedRowStyle
 {
-    background-color: #507CD1;
+    background-color:#8FC4F6;
 }
 .AlternatingRowStyle
 {

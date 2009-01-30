@@ -93,10 +93,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblAddress1.Text = foreclosureCase.PropAddr1;
             lblAddress2.Text = foreclosureCase.PropAddr2;
             lblCity.Text = foreclosureCase.PropCity;
-            if (foreclosureCase.PropZipPlus4 != null)
-                lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
-            else
+            if (foreclosureCase.PropZipPlus4 == null||foreclosureCase.PropZipPlus4=="")
                 lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip;
+            else
+                lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
             lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
             foreclosureCase.OwnerOccupiedInd = DisplayInd(lblOwnerOccupied.Text);
             lblPropertyCode.Text = foreclosureCase.PropertyCd;
@@ -113,9 +113,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblMidName.Text = foreclosureCase.BorrowerMname;
             lblLastName.Text = foreclosureCase.BorrowerLname;
             lblDOB.Text = foreclosureCase.BorrowerDob.ToShortDateString();
-            if (foreclosureCase.BorrowerLast4Ssn != null)
-                lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
-            else lblLast4SSN.Text = "";
+            if (foreclosureCase.BorrowerLast4Ssn == null|| foreclosureCase.BorrowerLast4Ssn=="")
+                lblLast4SSN.Text = "";
+            else lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
             lblPrimaryContact.Text = foreclosureCase.PrimaryContactNo;
             lblSecondaryContact.Text = foreclosureCase.SecondContactNo;
             lblPrimaryEmail.Text = foreclosureCase.Email1;
@@ -135,9 +135,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCoMidName.Text = foreclosureCase.CoBorrowerMname;
             lblCoLastName.Text = foreclosureCase.CoBorrowerLname;
             lblCoDOB.Text = foreclosureCase.CoBorrowerDob.ToShortDateString();
-            if (foreclosureCase.CoBorrowerLast4Ssn != null)
-                lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
-            else lblCoLast4SSN.Text = "";
+            if (foreclosureCase.CoBorrowerLast4Ssn == null||foreclosureCase.CoBorrowerLast4Ssn=="")
+                lblCoLast4SSN.Text = "";
+            else lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
             lblCoDisabled.Text = DisplayInd(foreclosureCase.CoBorrowerDisabledInd);
             lblCoOccupation.Text = foreclosureCase.CoBorrowerOccupationCd;
             //Contact Address

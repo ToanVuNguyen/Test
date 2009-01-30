@@ -149,6 +149,24 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
+        /// myscript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager myscript;
+        
+        /// <summary>
+        /// myupdatepan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel myupdatepan;
+        
+        /// <summary>
         /// panForeClosureCaseSearch control.
         /// </summary>
         /// <remarks>
