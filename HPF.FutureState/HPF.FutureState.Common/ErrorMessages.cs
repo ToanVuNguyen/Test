@@ -206,15 +206,27 @@ namespace HPF.FutureState.Common
         public static string GetExceptionMessage(string exceptionId)
         {
             LoadErrorMessageDict();
-            return errorMessageDict[exceptionId];
+            //            
+            return errorMessageDict[exceptionId];            
+        }
+
+        public static string GetExceptionMessage(string exceptionId, params object[] agrs)
+        {
+            return string.Format(GetExceptionMessage(exceptionId, agrs));
         }
 
         public static string GetExceptionMessageCombined(string exceptionId)
         {
             LoadErrorMessageDict();
+            //
             if (errorMessageDict.ContainsKey(exceptionId))
                 return exceptionId + "--" + errorMessageDict[exceptionId];            
                 return "0000--Unknow Error.";
+        }
+
+        public static string GetExceptionMessageCombined(string exceptionId, params object[] agrs)
+        {
+            return string.Format(GetExceptionMessageCombined(exceptionId, agrs));
         }
 
         private static void LoadErrorMessageDict()
