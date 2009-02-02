@@ -1,81 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HPF.FutureState.Common;
-using HPF.FutureState.Common.DataTransferObjects;
-using HPF.FutureState.Common.BusinessLogicInterface;
+﻿using HPF.FutureState.Common.BusinessLogicInterface;
 
 namespace HPF.FutureState.BusinessLogic
 {
     public class ReferenceCodeValidatorBL : IReferenceCodeValidatorBL
     {
-        public bool Validate(ReferenceCode refCode, string value)
+        public bool Validate(string refCode, string codeValue)
         {
-            RefCodeItemDTOCollection refCodeItemCollection = RefCodeItem.Instance.GetRefCodeItem();
-            string refCodeName = ConvertRefCodeToString(refCode);
+            //Get RefCode
+            var refCodeItemCollection = RefCodeItemBL.Instance.GetRefCodeItems();
             if (refCodeItemCollection == null || refCodeItemCollection.Count < 1)
-                return true;
-            RefCodeItemDTOCollection refCodeItemCollectionByCode = refCodeItemCollection.GetRefCodeItemByRefCode(refCodeName);
+                return false;
+            //Get group of RefCode with same RefCode name.
+            //The group was cached itself in refCodeItemCollection.
+            var refCodeItemCollectionByCode = refCodeItemCollection.GetRefCodeItemsByRefCode(refCode);
             if (refCodeItemCollectionByCode == null || refCodeItemCollectionByCode.Count < 1)
-                return true;
-            foreach (RefCodeItemDTO items in refCodeItemCollectionByCode)
-            {
-                if (value == null || value == string.Empty || (value.ToUpper().Trim() == items.Code.ToUpper().Trim() && refCodeName.ToUpper().Trim() == items.RefCodeSetName.ToUpper().Trim()))
-                    return true;
-            }  
-            return false;
-        }
-
-        private string ConvertRefCodeToString(ReferenceCode refCode)
-        {
-            string[] refCodeName = new string[43] 
-            { "Activity code",
-              "Agency code",
-              "Agency Payable - Status code",
-              "Billing delivery method code",
-              "Budget category code",
-              "Call Center code",
-              "Case follow up outcome code",
-              "Case followup source code",
-              "Case resource code",
-              "Case status code",
-              "Counseling durarion code",
-              "Counseling summary format code",
-              "Credit burreau code",
-              "Default reason code",
-              "Education level completed code",
-              "Export format code",              
-              "Gender code",
-              "Household code",
-              "HUD outcome code",
-              "HUD termination reason code",
-              "Income earners code",
-              "Invoice - Status code",
-              "Invoice code",
-              "Preferred language code",
-              "Loan 1st 2nd",
-              "Loan delinquency status code",
-              "Marital status code",
-              "Military service code",
-              "Mortgage type code",
-              "Never bill reason code",
-              "Never pay reason code",
-              "Occupation code",
-              "Payment code",
-              "Program service code",
-              "Property code",
-              "Race code",
-              "Secure delivery method code",
-              "State",
-              "Summary sent other code",
-              "System activity code",
-              "Term length code",
-              "Final Disposition Code",
-              "call source code"
-            };
-
-            return refCodeName[(int)refCode];
-        }
+                return false;
+            //
+            return refCodeItemCollectionByCode.ContainCode(codeValue);            
+        }        
     }
 }

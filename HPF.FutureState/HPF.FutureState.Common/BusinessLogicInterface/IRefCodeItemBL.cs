@@ -14,7 +14,7 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param></param>
         /// <returns>RefCodeItemDTOCollection</returns>
-        RefCodeItemDTOCollection GetRefCodeItem();
+        RefCodeItemDTOCollection GetRefCodeItems();
         /// <summary>
        
         

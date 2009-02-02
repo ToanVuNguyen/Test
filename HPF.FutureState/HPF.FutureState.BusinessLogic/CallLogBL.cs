@@ -96,13 +96,13 @@ namespace HPF.FutureState.BusinessLogic
             List<string> errorList = new List<string>();
 
                       
-            if (!referenceCode.Validate(ReferenceCode.CallSourceCode, aCallLog.CallSourceCd))
+            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE, aCallLog.CallSourceCd))
                 errorList.Add("Call source code is not valid");
 
-            if (!referenceCode.Validate(ReferenceCode.FinalDispoCd, aCallLog.FinalDispoCd))
+            if (!referenceCode.Validate(ReferenceCode.FINAL_DISPO_CD, aCallLog.FinalDispoCd))
                 errorList.Add("FinalDispoCd code is not valid");
 
-            if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, aCallLog.LoanDelinqStatusCd))
+            if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, aCallLog.LoanDelinqStatusCd))
                 errorList.Add("Loan Delinq status code is not valid");
             
             

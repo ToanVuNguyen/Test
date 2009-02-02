@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -1434,51 +1434,51 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (forclosureCase == null)
                 return null;
-            if (!referenceCode.Validate(ReferenceCode.IncomeEarnersCode, forclosureCase.IncomeEarnersCd))
+            if (!referenceCode.Validate(ReferenceCode.INCOME_EARNERS_CODE, forclosureCase.IncomeEarnersCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0200, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0200));
-            if (!referenceCode.Validate(ReferenceCode.CaseResourceCode, forclosureCase.CaseSourceCd))
+            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE, forclosureCase.CaseSourceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0201, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0201));
-            if (!referenceCode.Validate(ReferenceCode.RaceCode, forclosureCase.RaceCd))
+            if (!referenceCode.Validate(ReferenceCode.RACE_CODE, forclosureCase.RaceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0202, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0202));
-            if (!referenceCode.Validate(ReferenceCode.HouseholdCode, forclosureCase.HouseholdCd))
+            if (!referenceCode.Validate(ReferenceCode.HOUSEHOLD_CODE, forclosureCase.HouseholdCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0203, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0203));
-            if (!referenceCode.Validate(ReferenceCode.NeverBillReasonCode, forclosureCase.NeverBillReasonCd))
+            if (!referenceCode.Validate(ReferenceCode.NEVER_BILL_REASON_CODE, forclosureCase.NeverBillReasonCd))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverBillReasonCd.");
-            if (!referenceCode.Validate(ReferenceCode.NeverPayReasonCode, forclosureCase.NeverPayReasonCd))
+            if (!referenceCode.Validate(ReferenceCode.NEVER_PAY_REASON_CODE, forclosureCase.NeverPayReasonCd))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverPayReasonCd.");
-            if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason1stCd))
+            if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE, forclosureCase.DfltReason1stCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0204, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0204));
-            if (!referenceCode.Validate(ReferenceCode.DefaultReasonCode, forclosureCase.DfltReason2ndCd))
+            if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE, forclosureCase.DfltReason2ndCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0205, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0205));
-            if (!referenceCode.Validate(ReferenceCode.HUDTerminationReasonCode, forclosureCase.HudTerminationReasonCd))
+            if (!referenceCode.Validate(ReferenceCode.HUD_TERMINATION_REASON_CODE, forclosureCase.HudTerminationReasonCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0206, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0206));
-            if (!referenceCode.Validate(ReferenceCode.HUDOutcomeCode, forclosureCase.HudOutcomeCd))
+            if (!referenceCode.Validate(ReferenceCode.HUD_OUTCOME_CODE, forclosureCase.HudOutcomeCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0207, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0207));
-            if (!referenceCode.Validate(ReferenceCode.CounselingDurarionCode, forclosureCase.CounselingDurationCd))
+            if (!referenceCode.Validate(ReferenceCode.COUNSELING_DURARION_CODE, forclosureCase.CounselingDurationCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0208, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0208));
-            if (!referenceCode.Validate(ReferenceCode.GenderCode, forclosureCase.GenderCd))
+            if (!referenceCode.Validate(ReferenceCode.GENDER_CODE, forclosureCase.GenderCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0209, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0209));
-            if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.ContactStateCd))
+            if (!referenceCode.Validate(ReferenceCode.STATE, forclosureCase.ContactStateCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0210, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0210));
-            if (!referenceCode.Validate(ReferenceCode.State, forclosureCase.PropStateCd))
+            if (!referenceCode.Validate(ReferenceCode.STATE, forclosureCase.PropStateCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0211, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0211));
-            if (!referenceCode.Validate(ReferenceCode.EducationLevelCompletedCode, forclosureCase.BorrowerEducLevelCompletedCd))
+            if (!referenceCode.Validate(ReferenceCode.EDUCATION_LEVEL_COMPLETED_CODE, forclosureCase.BorrowerEducLevelCompletedCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0212, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0212));
-            if (!referenceCode.Validate(ReferenceCode.MaritalStatusCode, forclosureCase.BorrowerMaritalStatusCd))
+            if (!referenceCode.Validate(ReferenceCode.MARITAL_STATUS_CODE, forclosureCase.BorrowerMaritalStatusCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0213, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0213));
-            if (!referenceCode.Validate(ReferenceCode.LanguageCode, forclosureCase.BorrowerPreferredLangCd))
+            if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE, forclosureCase.BorrowerPreferredLangCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0214, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0214));
-            if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.BorrowerOccupationCd))
+            if (!referenceCode.Validate(ReferenceCode.OCCUPATION_CODE, forclosureCase.BorrowerOccupationCd))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for BorrowerOccupationCd.");
-            if (!referenceCode.Validate(ReferenceCode.OccupationCode, forclosureCase.CoBorrowerOccupationCd))
+            if (!referenceCode.Validate(ReferenceCode.OCCUPATION_CODE, forclosureCase.CoBorrowerOccupationCd))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for CoBorrowerOccupationCd.");
-            if (!referenceCode.Validate(ReferenceCode.SummarySentOtherCode, forclosureCase.SummarySentOtherCd))
+            if (!referenceCode.Validate(ReferenceCode.SUMMARY_SENT_OTHER_CODE, forclosureCase.SummarySentOtherCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0215, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0215));
-            if (!referenceCode.Validate(ReferenceCode.PropertyCode, forclosureCase.PropertyCd))
+            if (!referenceCode.Validate(ReferenceCode.PROPERTY_CODE, forclosureCase.PropertyCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0216, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0216));
-            if (!referenceCode.Validate(ReferenceCode.MilitaryServiceCode, forclosureCase.MilitaryServiceCd))
+            if (!referenceCode.Validate(ReferenceCode.MILITARY_SERVICE_CODE, forclosureCase.MilitaryServiceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0217));
-            if (!referenceCode.Validate(ReferenceCode.CreditBurreauCode, forclosureCase.IntakeCreditBureauCd))
+            if (!referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE, forclosureCase.IntakeCreditBureauCd))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for IntakeCreditBureauCd.");
             return msgFcCaseSet;
         }
@@ -1497,13 +1497,13 @@ namespace HPF.FutureState.BusinessLogic
             for (int i = 0; i < caseLoanCollection.Count; i++)
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
-                if (!referenceCode.Validate(ReferenceCode.Loan1st2nd, caseLoan.Loan1st2nd))
+                if (!referenceCode.Validate(ReferenceCode.LOAN_1ST_2ND, caseLoan.Loan1st2nd))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for Loan1st2nd " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.MortgageTypeCode, caseLoan.MortgageTypeCd))
+                if (!referenceCode.Validate(ReferenceCode.MORTGAGE_TYPE_CODE, caseLoan.MortgageTypeCd))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for MortgageTypeCode " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.TermLengthCode, caseLoan.TermLengthCd))
+                if (!referenceCode.Validate(ReferenceCode.TERM_LENGTH_CODE, caseLoan.TermLengthCd))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for TermLengthCode " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.LoanDelinquencyStatusCode, caseLoan.LoanDelinqStatusCd))
+                if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, caseLoan.LoanDelinqStatusCd))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for LoanDelinqStatusCode " + (i + 1));
                 if(!CheckValidServicerId(caseLoan.ServicerId))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId " + (i + 1));

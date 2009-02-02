@@ -20,11 +20,17 @@ namespace HPF.FutureState.Common
         public const string DUPLICATE_NO = "N";
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
-
+        //
         public const string CALL_CENTER_OTHER = "OTHER";
         public const string SERVICER_OTHER = "OTHER (LENDER NAME IN NOTES)";
         public const string SUB_CATEGORY_NAME_MORTGAGE = "MORTGAGE";
-        public const string OUTCOME_TYPE_NAME_EXTERNAL_REFERAL = "EXTERNAL REFERAL";
+        public const string OUTCOME_TYPE_NAME_EXTERNAL_REFERAL = "EXTERNAL REFERAL";        
+        public const string MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE = "AppFundingSourceInvoicesPage.aspx";
+        public const string MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE = "AgencyAccountsPayable.aspx";
+        public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_SEARCH = "AppForeClosureCaseSearchPage.aspx";
+        public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL = "AppForeclosureCaseDetailPage.aspx";
+        //
+        public const string HPF_CACHE_REF_CODE_ITEM = "refCodeItem";
         public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";
         public const string HPF_CACHE_PROGRAM = "PROGRAM";
         public const string HPF_CACHE_SERVICER = "SERVICER";
@@ -33,11 +39,5 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_OUTCOME_TYPE = "OUTCOMETYPE";
         public const string HPF_CACHE_BUDGET_CATEGORY_CODE = "BUDGETCATEGORYCODE";
         public const string HPF_CACHE_BUDGET_SUBCATEGORY = "BUDGETSUBCATEGORY";
-        public const string MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE = "AppFundingSourceInvoicesPage.aspx";
-        public const string MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE = "AgencyAccountsPayable.aspx";
-        public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_SEARCH = "AppForeClosureCaseSearchPage.aspx";
-        public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL = "AppForeclosureCaseDetailPage.aspx";
-
-
     }
 }

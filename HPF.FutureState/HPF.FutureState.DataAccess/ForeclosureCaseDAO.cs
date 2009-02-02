@@ -450,7 +450,7 @@ namespace HPF.FutureState.DataAccess
         public StateDTOCollection AppGetState()
         {
             StateDTOCollection result = new StateDTOCollection();
-            RefCodeItemDTOCollection refcodeitems = RefCodeItemDAO.Instance.GetRefCodeItem();
+            RefCodeItemDTOCollection refcodeitems = RefCodeItemDAO.Instance.GetRefCodeItems();
             try
             {
                 StateDTO itemdefault = new StateDTO();

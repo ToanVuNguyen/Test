@@ -13,6 +13,6 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// <param name="refCode"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        bool Validate(ReferenceCode refCode, string value);
+        bool Validate(string refCode, string value);
     }
 }

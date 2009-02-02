@@ -9,13 +9,13 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class RefCodeItem : BaseBusinessLogic, IRefCodeItem
+    public class RefCodeItemBL : BaseBusinessLogic, IRefCodeItem
     {
-        private static readonly RefCodeItem instance = new RefCodeItem();
+        private static readonly RefCodeItemBL instance = new RefCodeItemBL();
         /// <summary>
         /// Singleton
         /// </summary>
-        public static RefCodeItem Instance
+        public static RefCodeItemBL Instance
         {
             get
             {
@@ -23,21 +23,18 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        protected RefCodeItem()
+        protected RefCodeItemBL()
         {
             
         }
-
-       
-
+      
         /// <summary>
-        /// Get a Get Ref Code Item
-        /// </summary>
-        /// <param name="callLogId">CallLogId</param>
+        /// Get a Get Ref Code Items
+        /// </summary>        
         /// <returns></returns>
-        public RefCodeItemDTOCollection GetRefCodeItem()
+        public RefCodeItemDTOCollection GetRefCodeItems()
         {
-            return RefCodeItemDAO.Instance.GetRefCodeItem();
+            return RefCodeItemDAO.Instance.GetRefCodeItems();
         }
             
     }
