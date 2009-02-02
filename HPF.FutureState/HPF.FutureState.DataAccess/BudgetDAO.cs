@@ -55,6 +55,7 @@ namespace HPF.FutureState.DataAccess
                         budgetSet.TotalExpenses = ConvertToDouble(reader["total_expenses"]);
                         budgetSet.TotalAssets = ConvertToDouble(reader["total_assets"]);
                         budgetSet.TotalSurplus = ConvertToDouble(reader["Total_surplus"]);
+                        budgetSet.FcId = caseId;
                         result.Add(budgetSet);
                     }
                 }
