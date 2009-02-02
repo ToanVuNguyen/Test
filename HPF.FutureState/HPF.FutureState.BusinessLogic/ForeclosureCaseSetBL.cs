@@ -25,9 +25,7 @@ namespace HPF.FutureState.BusinessLogic
         ForeclosureCaseDTO _dbFcCase = null;
         private string _workingUserID;
 
-        //public DuplicateException WarningMessage { get; set; }
-
-        public ExceptionMessageCollection WarningMessage { get; set; } 
+        public ExceptionMessageCollection WarningMessage { get; private set; } 
     
         /// <summary>
         /// Singleton
@@ -42,8 +40,8 @@ namespace HPF.FutureState.BusinessLogic
 
         protected ForeclosureCaseSetBL()
         {
-            
 
+            WarningMessage = new ExceptionMessageCollection();
         }
 
         #region Implementation of IForclosureCaseBL        
@@ -51,45 +49,45 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Save a ForeclosureCase
         /// </summary>
-        /// <param name="foreClosureCaseSet">ForeclosureCaseSetDTO</param>
+        /// <param name="foreclosureCaseSet">ForeclosureCaseSetDTO</param>
         public int SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            int fcid = 0;
+            int fcid;
             try
             {
                 InitiateTransaction();
-                WarningMessage = new ExceptionMessageCollection();
+
+                //
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                     throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0998));
 
-                ExceptionMessageCollection exceptionList = CheckRequireForPartial(foreclosureCaseSet);
-                if (exceptionList != null && exceptionList.Count > 0)
-                    ThrowDataValidationException(exceptionList);
+                var exceptionList = CheckRequireForPartial(foreclosureCaseSet);               
 
                 _workingUserID = foreclosureCaseSet.WorkingUserID;
 
-                exceptionList = CheckInvalidFormatData(foreclosureCaseSet);
-                if (exceptionList != null && exceptionList.Count > 0)
-                    ThrowDataValidationException(exceptionList);
-                else
+                var formatDataException = CheckInvalidFormatData(foreclosureCaseSet);
+                exceptionList.Add(formatDataException);
+                //
+                if(formatDataException.Count==0)
                     foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
-
+                //
                 ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-                exceptionList = CheckValidCode(foreclosureCaseSet);
-                if (exceptionList != null && exceptionList.Count > 0)
+                exceptionList.Add(CheckValidCode(foreclosureCaseSet));
+                //
+                if (exceptionList.Count > 0)
                     ThrowDataValidationException(exceptionList);
-                
+                //                
                 if (fcCase.FcId > 0)
                     fcid = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
                 else
                     fcid = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);                
                 CompleteTransaction();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 RollbackTransaction();
-                throw ex;
+                throw;
             }
             return fcid;         
         }
@@ -119,19 +117,16 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
         public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
-            ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
-            ValidationResults validationResults = HPFValidator.Validate<ForeclosureCaseSearchCriteriaDTO>(searchCriteria);
+            var validationResults = HPFValidator.Validate(searchCriteria);
             if (!validationResults.IsValid)
             {                
-                DataValidationException dataValidationException = new DataValidationException();
-                foreach (ValidationResult result in validationResults)
+                var dataValidationException = new DataValidationException();
+                foreach (var result in validationResults)
                 {
                     dataValidationException.ExceptionMessages.AddExceptionMessage(result.Message);
                 }
                 throw dataValidationException;
-
-            }
-            
+            }            
             return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
         }
         #endregion
@@ -140,11 +135,12 @@ namespace HPF.FutureState.BusinessLogic
 
         private int ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
-            ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
-            if (exceptionList != null && exceptionList.Count > 0)
+            var exceptionList = MiscErrorException(foreclosureCaseSet);
+            if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
+            //
+            DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
 
-            DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
             ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fcCase.FcId);
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
@@ -155,18 +151,14 @@ namespace HPF.FutureState.BusinessLogic
                 WarningMessage.Add(CreateDuplicateCaseWarning(collection));
             }
             else
-            {
-                if (dbFcCase.DuplicateInd.ToUpper().Equals(Constant.DUPLICATE_YES.ToUpper()))
-                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;
-                else
-                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;
-
+            {               
+                fcCase.DuplicateInd = Constant.DUPLICATE_NO;
+                //
                 if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
                     fcCase.NeverBillReasonCd = null;
 
                 if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
-                    fcCase.NeverPayReasonCd = null;
-                //WarningMessage = null;
+                    fcCase.NeverPayReasonCd = null;                
             }
             
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
@@ -174,14 +166,14 @@ namespace HPF.FutureState.BusinessLogic
 
         private int ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            DuplicatedCaseLoanDTOCollection collection = CheckDuplicateCase(foreclosureCaseSet);
+            DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
             if (collection != null && collection.Count > 0)
             {
                 ThrowDuplicateCaseException(collection);
             }
             foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_NO;
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
-            if (exceptionList != null && exceptionList.Count > 0)
+            if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
             return InsertForeclosureCaseSet(foreclosureCaseSet);
         }
@@ -190,7 +182,7 @@ namespace HPF.FutureState.BusinessLogic
         {                        
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-            if (fcCase.AgencyCaseNum == null || fcCase.AgencyCaseNum == string.Empty || fcCase.AgencyId == 0)
+            if (string.IsNullOrEmpty(fcCase.AgencyCaseNum) || fcCase.AgencyId == 0)
                 ThrowDataValidationException(ErrorMessages.ERR0250);
             
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
@@ -229,27 +221,18 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItem = foreclosureCaseSet.Outcome;
             BudgetItemDTOCollection budgetItem = foreclosureCaseSet.BudgetItems;           
             
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection msgFcCase = RequireFieldsForeclosureCase(foreclosureCase, ruleSet);
-            if (msgFcCase != null && msgFcCase.Count != 0)
-                msgFcCaseSet.Add(msgFcCase);
-
-            ExceptionMessageCollection msgCaseSet = RequireFieldsForeclosureCaseSet(foreclosureCaseSet, ruleSet);
-            if (msgCaseSet != null && msgCaseSet.Count != 0)
-                msgFcCaseSet.Add(msgCaseSet);
-
-            ExceptionMessageCollection msgCaseLoanItem = RequireFieldsCaseLoanItem(caseLoanItem, ruleSet);
-            if (msgCaseLoanItem != null && msgCaseLoanItem.Count != 0)
-                msgFcCaseSet.Add(msgCaseLoanItem);
-
-            ExceptionMessageCollection msgOutcomeItem = RequireFieldsOutcomeItem(outcomeItem, ruleSet);
-            if (msgOutcomeItem != null && msgOutcomeItem.Count != 0)
-                msgFcCaseSet.Add(msgOutcomeItem);
-
-            ExceptionMessageCollection msgBudgetItem = RequireFieldsBudgetItem(budgetItem, ruleSet);
-            if (msgBudgetItem != null && msgBudgetItem.Count != 0)
-                msgFcCaseSet.Add(msgBudgetItem);
-            
+            var msgFcCaseSet = new ExceptionMessageCollection();
+            //
+            msgFcCaseSet.Add(RequireFieldsForeclosureCase(foreclosureCase, ruleSet));            
+            //
+            msgFcCaseSet.Add(RequireFieldsForeclosureCaseSet(foreclosureCaseSet, ruleSet));
+            //
+            msgFcCaseSet.Add(RequireFieldsCaseLoanItem(caseLoanItem, ruleSet));
+            //
+            msgFcCaseSet.Add(RequireFieldsOutcomeItem(outcomeItem, ruleSet));
+            //
+            msgFcCaseSet.Add(RequireFieldsBudgetItem(budgetItem, ruleSet));
+            //
             return msgFcCaseSet;
         }
 
@@ -272,12 +255,8 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection RequireFieldsForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCase, string ruleSet)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseSetDTO>(foreclosureCase, ruleSet);
-            if (ex != null && ex.Count != 0)
-            {
-                msgFcCaseSet.Add(ex);
-            }           
+            var msgFcCaseSet = new ExceptionMessageCollection
+                                   {HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet)};
             return msgFcCaseSet;
         }
 
@@ -288,49 +267,64 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseDTO>(foreclosureCase, ruleSet);
-            if (ex != null && ex.Count != 0)
-            {
-                msgFcCaseSet.Add(ex);
-            }
+            var msgFcCaseSet = new ExceptionMessageCollection
+                                   {HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet)};
+            //
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
-                ExceptionMessageCollection msgOther = CheckOtherFieldFCaseForPartial(foreclosureCase);
-                if (msgOther != null)
-                    msgFcCaseSet.Add(msgOther);
+                msgFcCaseSet.Add(CheckOtherFieldFCaseForPartial(foreclosureCase));                                
             }
             return msgFcCaseSet;
         }
 
         private ExceptionMessageCollection CheckOtherFieldFCaseForPartial(ForeclosureCaseDTO foreclosureCase)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (foreclosureCase == null)
-                return null;
-            //-----CoBorrowerFname, CoBorrowerLname
-            if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) == null && ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) != null)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A CoBorrowerFname is required to save a foreclosure case.");
-            else if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) != null && ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) == null)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A CoBorrowerLname is required to save a foreclosure case.");
-            //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
-            if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null && ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) != Constant.BANKRUPTCY_IND_YES)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BankruptcyInd value should be Y.");
-            if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) == null)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A BankruptcyAttorney is required to save a foreclosure case.");
-            if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) == Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyPmtCurrentInd) == null)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
-            //-----SummarySentOtherCd, SummarySentOtherDt
-            if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null && foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A SummarySentOtherCd is required to save a foreclosure case.");
-            else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null && foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A SummarySentOtherDt is required to save a foreclosure case.");
-            //-----SrvcrWorkoutPlanCurrentInd
-            if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null && ConvertStringEmptyToNull(foreclosureCase.HasWorkoutPlanInd) != null)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
-            //-----HomeSalePrice
-            if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.ForSaleInd)) == Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == 0)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A HomeSalePrice is required to save a foreclosure case.");            
+            var msgFcCaseSet = new ExceptionMessageCollection();
+            if (foreclosureCase != null)
+            {
+                //-----CoBorrowerFname, CoBorrowerLname
+                if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) == null &&
+                    ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) != null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A CoBorrowerFname is required to save a foreclosure case.");
+                else if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) != null &&
+                         ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A CoBorrowerLname is required to save a foreclosure case.");
+                //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
+                if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null &&
+                    ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) !=
+                    Constant.BANKRUPTCY_IND_YES)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BankruptcyInd value should be Y.");
+                if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) ==
+                    Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A BankruptcyAttorney is required to save a foreclosure case.");
+                if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) ==
+                    Constant.BANKRUPTCY_IND_YES &&
+                    ConvertStringEmptyToNull(foreclosureCase.BankruptcyPmtCurrentInd) == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
+                //-----SummarySentOtherCd, SummarySentOtherDt
+                if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null &&
+                    foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A SummarySentOtherCd is required to save a foreclosure case.");
+                else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null &&
+                         foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A SummarySentOtherDt is required to save a foreclosure case.");
+                //-----SrvcrWorkoutPlanCurrentInd
+                if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null &&
+                    ConvertStringEmptyToNull(foreclosureCase.HasWorkoutPlanInd) != null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
+                //-----HomeSalePrice
+                if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.ForSaleInd)) ==
+                    Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == 0)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
+                                                     "A HomeSalePrice is required to save a foreclosure case.");
+            }
             return msgFcCaseSet;
         }
 
@@ -341,15 +335,16 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (budgetItemDTOCollection == null || budgetItemDTOCollection.Count < 1)
-                return null;
-            foreach (BudgetItemDTO item in budgetItemDTOCollection)
+            var msgFcCaseSet = new ExceptionMessageCollection();
+            if (budgetItemDTOCollection != null || budgetItemDTOCollection.Count > 0)
             {
-                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<BudgetItemDTO>(item, ruleSet);
-                if (ex != null && ex.Count != 0)
-                    return ex;
-            }           
+                foreach (var item in budgetItemDTOCollection)
+                {
+                    var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
+                    if (ex.Count > 0)
+                        return ex;
+                }
+            }
             return msgFcCaseSet;
         }
 
@@ -366,8 +361,8 @@ namespace HPF.FutureState.BusinessLogic
             int outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
             foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
             {
-                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<OutcomeItemDTO>(item, ruleSet);
-                if (ex != null && ex.Count != 0)
+                var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
+                if (ex.Count > 0)
                 {
                     msgFcCaseSet.Add(ex);
                     break;
@@ -378,7 +373,7 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
                 {
                     ExceptionMessageCollection msgOthers = CheckOtherFieldOutcomeItemForPartial(outComeTypeId, item);
-                    if (msgOthers != null)
+                    if (msgOthers.Count > 0)
                     {
                         msgFcCaseSet.Add(msgOthers);
                         break;
@@ -411,8 +406,8 @@ namespace HPF.FutureState.BusinessLogic
             int servicerId = FindServicerIDWithNameIsOther();            
             foreach (CaseLoanDTO item in caseLoanDTOCollection)
             {
-                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<CaseLoanDTO>(item, ruleSet);
-                if (ex != null && ex.Count != 0)
+                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
+                if (ex.Count > 0)
                 {
                     msgFcCaseSet.Add(ex);
                     break;
@@ -424,7 +419,7 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (CaseLoanDTO item in caseLoanDTOCollection)
                 {                    
                     ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId,item);
-                    if (msgOther != null)
+                    if (msgOther.Count > 0)
                     {
                         msgFcCaseSet.Add(msgOther);
                         break;
@@ -436,7 +431,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int servicerId, CaseLoanDTO item)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            var msgFcCaseSet = new ExceptionMessageCollection();
             if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
             {
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An OtherServicerName is required");
@@ -446,11 +441,10 @@ namespace HPF.FutureState.BusinessLogic
 
         private int FindServicerIDWithNameIsOther()
         {
-            ServicerDTOCollection serviers = foreclosureCaseSetDAO.GetServicer();
-            foreach(ServicerDTO item in serviers)
-            {
-                string servicerName = ConvertStringToUpper(item.ServicerName);
-                if (servicerName == Constant.SERVICER_OTHER)
+            var serviers = foreclosureCaseSetDAO.GetServicer();
+            foreach(var item in serviers)
+            {                
+                if (item.ServicerName.ToUpper().Trim() == Constant.SERVICER_OTHER)
                     return item.ServicerID;
             }
             return 0;
@@ -460,9 +454,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();
             foreach (OutcomeTypeDTO item in outcomeType)
-            {
-                string outcomeTypeName = ConvertStringToUpper(item.OutcomeTypeName);
-                if (outcomeTypeName == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
+            {                
+                if (item.OutcomeTypeName.ToUpper().Trim() == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
                     return item.OutcomeTypeID;
             }
             return 0;
@@ -472,9 +465,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             BudgetSubcategoryDTOCollection budgetSubCat = foreclosureCaseSetDAO.GetBudgetSubcategory();
             foreach (BudgetSubcategoryDTO item in budgetSubCat)
-            {
-                string budgetSubName = ConvertStringToUpper(item.BudgetSubcategoryName);
-                if (budgetSubName == Constant.SUB_CATEGORY_NAME_MORTGAGE)
+            {                
+                if (item.BudgetSubcategoryName.ToUpper().Trim() == Constant.SUB_CATEGORY_NAME_MORTGAGE)
                     return item.BudgetSubcategoryID;
             }
             return 0;
@@ -498,36 +490,29 @@ namespace HPF.FutureState.BusinessLogic
             {
                 return false;
             }
+            //Check leap year
+            if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))
+            {
+                backOneYear = currentDate.AddDays(-367);
+            }
             else
             {
-                //Check leap year
-                if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))
-                {
-                    backOneYear = currentDate.AddDays(-367);
-                }
-                else
-                {
-                    backOneYear = currentDate.AddDays(-366);
-                }
-                //
-                if (backOneYear < completeDate)
-                {
-                    return false;
-                }                
-                return true;                
+                backOneYear = currentDate.AddDays(-366);
             }
+            //
+            if (backOneYear < completeDate)
+            {
+                return false;
+            }                
+            return true;
         }      
 
         /// <summary>
         /// Check Duplicated Fore Closure Case
         /// </summary>
-        private DuplicatedCaseLoanDTOCollection CheckDuplicateCase(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private DuplicatedCaseLoanDTOCollection GetDuplicateCases(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            return foreclosureCaseSetDAO.GetDuplicatedCases(foreclosureCaseSet);
-            //if (foreclosureCase.FcId > 0)
-            //    return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.FcId);
-            //else
-            //    return foreclosureCaseSetDAO.CheckDuplicate(foreclosureCase.AgencyId, foreclosureCase.AgencyCaseNum);
+            return foreclosureCaseSetDAO.GetDuplicatedCases(foreclosureCaseSet);            
         }
 
         /// <summary>
@@ -544,11 +529,11 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             //Special character
             ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, Constant.RULESET_LENGTH);
-            ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);
-            if (ex != null)
-                msgFcCaseSet.Add(ex);
-            if (msgBudgetAsset != null && msgBudgetAsset.Count > 0)
-                msgFcCaseSet.Add(msgBudgetAsset);
+            ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);            
+            msgFcCaseSet.Add(ex);
+            //            
+            msgFcCaseSet.Add(msgBudgetAsset);
+            //
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.BorrowerDob))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Age of the Borrower must be >=12 and <=110");
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
@@ -571,7 +556,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckSpecialCharacrer(string s)
         {
-            if (s == null || s == string.Empty)
+            if (string.IsNullOrEmpty(s))
                 return true;
             Regex regex = new Regex(@"[!@#$%^*(){}|:;?><567890]");
             if (regex.IsMatch(s))
@@ -584,26 +569,25 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection RequireFieldsBudgetAsset(BudgetAssetDTOCollection budgetAssetDTOCollection, string ruleSet)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (budgetAssetDTOCollection == null || budgetAssetDTOCollection.Count < 1)
-                return null;
-            foreach (BudgetAssetDTO item in budgetAssetDTOCollection)
+            var msgFcCaseSet = new ExceptionMessageCollection();
+            //
+            foreach (var item in budgetAssetDTOCollection)
             {
-                ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage<BudgetAssetDTO>(item, ruleSet);
-                if (ex != null && ex.Count != 0)
-                    return ex;
+                var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
+                msgFcCaseSet.Add(ex);
             }
+            //
             return msgFcCaseSet;
         }
 
-        
+
         /// <summary>
         /// Check Old between 12 and 110
         /// </summary>
         private bool CheckDateOfBirth(DateTime dateOfBirth)
         {
             int systemYear = DateTime.Now.Year;
-            if (dateOfBirth != null && dateOfBirth != DateTime.MinValue)
+            if (dateOfBirth != DateTime.MinValue)
             {
                 int yearOfBirth = dateOfBirth.Year;
                 int calculateYear = systemYear - yearOfBirth;
@@ -622,32 +606,28 @@ namespace HPF.FutureState.BusinessLogic
             string callID = callId.Trim();
             if (callID == null || callID == string.Empty)
                 return true;
-            else
-            {
-                if (callID.Length >= 4 && callID.Substring(0, 3).ToUpper() == "HPF")
+            if (callID.Length >= 4 && callID.Substring(0, 3).ToUpper() == "HPF")
+            {                
+                try
                 {
-                    try
-                    {
-                        string temp = callID.Substring(3, callID.Length - 3);
-                        int callWSID = int.Parse(temp);
-                        return true;
-                    }
-                    catch
-                    {
-                        return false;
-                    }
+                    string temp = callID.Substring(3, callID.Length - 3);
+                    int.Parse(temp);
+                    return true;
                 }
-                return false;
+                catch
+                {
+                    return false;
+                }
             }
+            return false;
         }
 
         private ForeclosureCaseSetDTO SplitHPFOfCallId(ForeclosureCaseSetDTO fCaseSet)
         {
             string callID = fCaseSet.ForeclosureCase.CallId;
-            if (callID == null || callID == string.Empty)
+            if (string.IsNullOrEmpty(callID))
                 return fCaseSet;
-            else
-                fCaseSet.ForeclosureCase.CallId = callID.Substring(3, callID.Length - 3);                  
+            fCaseSet.ForeclosureCase.CallId = callID.Substring(3, callID.Length - 3);
             return fCaseSet;
         }
         #endregion       
@@ -655,40 +635,30 @@ namespace HPF.FutureState.BusinessLogic
         #region Functions Check MiscError
         /// <summary>
         /// Check Misc Error Exception
-        /// Case 1: Cannot Un-complete a Previously Completed Case
-        /// Case 2: Two First Mortgages Not Allowed in a Case AND Case Loan must have atleast 1st (If case completed)
-        /// Case 3: Cannot resubmit the case complete without billable outcome
-        /// Case 4: Budget Item must have atleast 1 budget_item = 'Mortgage Amount'.(If case completed)
-        /// return TRUE if have Error
         /// </summary>
+        /// <param name="foreclosureCaseSet"></param>
+        /// <returns></returns>
         private ExceptionMessageCollection MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-
+            var msgFcCaseSet = new ExceptionMessageCollection();            
             int fcId = foreclosureCaseSet.ForeclosureCase.FcId;
-            bool caseComplete = CheckForeclosureCaseComplete(fcId);
-
-            ExceptionMessageCollection msgCase1 = CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete);
-            if (msgCase1 != null && msgCase1.Count != 0) 
-                msgFcCaseSet.Add(msgCase1);
-
-            ExceptionMessageCollection msgCase2 = CheckFirstMortgages(foreclosureCaseSet, caseComplete);
-            if (msgCase2 != null && msgCase2.Count != 0)
-                msgFcCaseSet.Add(msgCase2);
-
-            ExceptionMessageCollection msgCase3 = CheckBillableOutCome(foreclosureCaseSet, caseComplete);
-            if (msgCase3 != null && msgCase3.Count != 0)
-                msgFcCaseSet.Add(msgCase3);
-
-            ExceptionMessageCollection msgCase4 = CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete);
-            if (msgCase4 != null && msgCase4.Count != 0)
-                msgFcCaseSet.Add(msgCase4);
-
+            bool caseComplete = CheckForeclosureCaseComplete(fcId);            
+            //Cannot Un-complete a Previously Completed Case
+            msgFcCaseSet.Add(CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete));
+            //Two First Mortgages Not Allowed in a Case AND Case Loan must have atleast 1st (If case completed)
+            msgFcCaseSet.Add(CheckFirstMortgages(foreclosureCaseSet, caseComplete));
+            //Cannot resubmit the case complete without billable outcome
+            msgFcCaseSet.Add(CheckBillableOutCome(foreclosureCaseSet, caseComplete));
+            //Budget Item must have atleast 1 budget_item = 'Mortgage Amount'.(If case completed)
+            msgFcCaseSet.Add(CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete));            
+            //
             if (caseComplete && msgFcCaseSet.Count != 0)
             {
-                ExceptionMessage msg = new ExceptionMessage();
-                msg.ErrorCode = ErrorMessages.ERR0255;
-                msg.Message = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255);
+                var msg = new ExceptionMessage
+                              {
+                                  ErrorCode = ErrorMessages.ERR0255,
+                                  Message = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255)
+                              };
                 msgFcCaseSet.Insert(0,msg);
             }            
             return msgFcCaseSet;
@@ -703,14 +673,13 @@ namespace HPF.FutureState.BusinessLogic
         {   
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             ExceptionMessageCollection msgRequire = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
-            if (msgRequire != null && msgRequire.Count > 0 && caseComplete)
+            if (caseComplete)
                 msgFcCaseSet.Add(msgRequire);
-
+            //
             ExceptionMessageCollection msgComplete = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            if (msgComplete != null && msgComplete.Count > 0 && caseComplete)            
-                msgFcCaseSet.Add(msgComplete);
-            if (msgComplete != null && msgComplete.Count > 0)                            
-                WarningMessage.Add(msgComplete);            
+            if (caseComplete)            
+                msgFcCaseSet.Add(msgComplete);            
+            WarningMessage.Add(msgComplete);            
             return msgFcCaseSet;
         }
 
@@ -808,10 +777,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseHPAuto(foreclosureCaseSet);
+            ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
-            BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;            
             //Insert table Foreclosure_Case
@@ -868,10 +837,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseHPAuto(foreclosureCaseSet);
+            ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
-            OutcomeItemDTOCollection outcomeItemCollection = OutcomeHPAuto(foreclosureCaseSet);
-            BudgetSetDTO budgetSet = BudgetSetHPAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);
+            BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;            
             //Insert table Foreclosure_Case
@@ -1787,14 +1756,14 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Add value HPF-Auto for ForclosureCase        
         /// </summary>
-        private ForeclosureCaseDTO ForeclosureCaseHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private ForeclosureCaseDTO AssignForeclosureCaseHPFAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int fcId = foreclosureCase.FcId;
             bool isComplete = CheckComplete(foreclosureCaseSet);
             foreclosureCase.AmiPercentage = CalculateAmiPercentage();
             foreclosureCase.SummarySentDt = DateTime.Now;            
-            if (isComplete == true)
+            if (isComplete)
             {
                 foreclosureCase.CompletedDt = GetCompleteDate(fcId);
             }
@@ -1806,18 +1775,15 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private DateTime GetCompleteDate(int fcId)
         {
-            ForeclosureCaseDTO foreclosureCase = null;
+            ForeclosureCaseDTO foreclosureCase;
             if (fcId != int.MinValue && fcId > 0)
             {
                 foreclosureCase = GetForeclosureCase(fcId);
                 if (foreclosureCase.CompletedDt == DateTime.MinValue)
                     return DateTime.Now;
-                else
-                {
-                    if(CheckInactiveCase(fcId))
-                        return DateTime.Now;
-                    return foreclosureCase.CompletedDt;
-                }
+                if(CheckInactiveCase(fcId))
+                    return DateTime.Now;
+                return foreclosureCase.CompletedDt;
             }
             return DateTime.Now;
         }      
@@ -1833,7 +1799,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Add value HPF-Auto for Outcome
         /// </summary>
-        private OutcomeItemDTOCollection OutcomeHPAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private OutcomeItemDTOCollection AssignOutcomeHPFAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             if (foreclosureCaseSet.Outcome == null || foreclosureCaseSet.Outcome.Count < 1)  
                 return null;            
@@ -1850,7 +1816,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Add value HPF-Auto for Budget Set
         /// </summary>
-        private BudgetSetDTO BudgetSetHPAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseSetDTO foreclosureCaseSet)
+        private BudgetSetDTO AssignBudgetSetHPFAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
             BudgetSetDTO budgetSet = new BudgetSetDTO();
 
@@ -1872,8 +1838,8 @@ namespace HPF.FutureState.BusinessLogic
             budgetSet.TotalExpenses = totalExpenses;
             budgetSet.TotalIncome = totalIncome;
             budgetSet.BudgetSetDt = DateTime.Now;
-
-            budgetSet.CreateUserId = foreclosureCaseSet.ForeclosureCase.CreateUserId;
+            //
+            budgetSet.SetInsertTrackingInformation(_workingUserID);
             
             return budgetSet;
         }
@@ -1900,24 +1866,18 @@ namespace HPF.FutureState.BusinessLogic
         /// Calculate Total Expense And Income
         /// </summary>
         private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref double totalIncome, ref double totalExpenses)
-        {
-            //Calculate totalExpenses, totalIncome
-            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
-            {
-                totalIncome = 0;
-                totalExpenses = 0;
-            }
+        {            
             totalIncome = 0;
             totalExpenses = 0;
-            foreach (BudgetItemDTO item in budgetItemCollection)
+            foreach (var item in budgetItemCollection)
             {
                 string budgetCode = BuggetCategoryCode(foreClosureCaseSetDAO, item.BudgetSubcategoryId);
                 if (budgetCode != null)
                 {
                     if (budgetCode == Constant.INCOME)
-                        totalIncome += (double)item.BudgetItemAmt;
+                        totalIncome += item.BudgetItemAmt;
                     else if (budgetCode == Constant.EXPENSES)
-                        totalExpenses += (double)item.BudgetItemAmt;
+                        totalExpenses += item.BudgetItemAmt;
                 }
             }
             
@@ -1940,7 +1900,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Get Foreclosure case basing on its fc_id
         /// </summary>
-        /// <param name="fc_id">id for a ForeclosureCase</param>
+        /// <param name="fcId">id for a ForeclosureCase</param>
         /// <returns>object of ForeclosureCase </returns>
         private ForeclosureCaseDTO GetForeclosureCase(int fcId)
         {
@@ -1948,16 +1908,6 @@ namespace HPF.FutureState.BusinessLogic
                 _dbFcCase = foreclosureCaseSetDAO.GetForeclosureCase(fcId);
 
             return _dbFcCase;
-        }
-
-        private string GetAgencyName(int agencyID)
-        {
-            return AgencyDAO.Instance.GetAgencyName(agencyID);
-        }
-
-        private void UpdateFcCase_DuplicateIndicator(int fcid, string ind)
-        {
-            foreclosureCaseSetDAO.UpdateFcCase_DuplicateIndicator(fcid, ind);
         }
 
         #region Throw Detail Exception
@@ -1969,24 +1919,13 @@ namespace HPF.FutureState.BusinessLogic
             throw ex;
         }
 
-        private void ThrowDataValidationException(ExceptionMessageCollection exDetailCollection)
+        private static void ThrowDataValidationException(ExceptionMessageCollection exDetailCollection)
         {
-            DataValidationException ex = new DataValidationException(exDetailCollection);
+            var ex = new DataValidationException(exDetailCollection);
             throw ex;
         }
 
-        private void ThrowInvalidFCIdForAgencyException(int fcId)
-        {
-            DataValidationException pe = new DataValidationException();
-            ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
-            ExceptionMessage em = new ExceptionMessage();
-            em.Message = string.Format("The case belongs to Agency: {0}, Counsellor: {1}, Contact number: {2}, email: {3}", GetAgencyName(fcCase.AgencyId), fcCase.CounselorFname + ", " + fcCase.CounselorLname, fcCase.CounselorPhone, fcCase.CounselorEmail);
-            pe.ExceptionMessages.Add(em);
-
-            throw pe;
-        }
-
-        private ExceptionMessageCollection CreateDuplicateCaseWarning(DuplicatedCaseLoanDTOCollection collection)
+        private static ExceptionMessageCollection CreateDuplicateCaseWarning(DuplicatedCaseLoanDTOCollection collection)
         {
             ExceptionMessageCollection de = new ExceptionMessageCollection();
             foreach (DuplicatedCaseLoanDTO obj in collection)
@@ -2002,20 +1941,14 @@ namespace HPF.FutureState.BusinessLogic
             
         }
 
-        private void ThrowDuplicateCaseException(DuplicatedCaseLoanDTOCollection collection)
+        private static void ThrowDuplicateCaseException(DuplicatedCaseLoanDTOCollection collection)
         {
             DuplicateException pe = new DuplicateException();
             foreach(DuplicatedCaseLoanDTO obj in collection)
             {
-                ExceptionMessage em = new ExceptionMessage();
-                em.ErrorCode = ErrorMessages.ERR0253;
-                //string s = "Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
-                //                              + "Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
-                //                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
-                //                              + "Last Outcome: {12} ";
-                //string s = ;
-                em.Message = string.Format(ErrorMessages.GetExceptionMessage(em.ErrorCode)
-                            , obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
+                var em = new ExceptionMessage();
+                em.ErrorCode = ErrorMessages.ERR0253;               
+                em.Message = ErrorMessages.GetExceptionMessage(em.ErrorCode, obj.ServicerName, obj.LoanNumber, obj.PropertyZip, obj.BorrowerFirstName, obj.BorrowerLastName
                             , obj.CounselorFName, obj.CounselorLName, obj.AgencyName, obj.CounselorPhone, obj.CounselorExt
                             , obj.CounselorEmail, obj.OutcomeDt, obj.OutcomeTypeCode);
                 pe.ExceptionMessages.Add(em);
@@ -2028,16 +1961,15 @@ namespace HPF.FutureState.BusinessLogic
         #region Utility
         private string ConvertStringToUpper(string s)
         {
-            if (s == null || s == string.Empty)
+            if (string.IsNullOrEmpty(s))
                 return s;
-            else            
-                s = s.ToUpper().Trim();
+            s = s.ToUpper().Trim();
             return s;
         }
 
         private string ConvertStringEmptyToNull(string s)
         {
-            if (s == null || s == string.Empty)
+            if (string.IsNullOrEmpty(s))
                 return null;            
             return s;
         }
