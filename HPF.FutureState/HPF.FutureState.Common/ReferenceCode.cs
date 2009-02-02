@@ -48,7 +48,8 @@ namespace HPF.FutureState.Common
         SummarySentOtherCode = 38,
         SystemActivityCode = 39,
         TermLengthCode = 40,
-        FinalDispoCd = 41
+        FinalDispoCd = 41,
+        CallSourceCode = 42
         //ContactStateCode = 41,//State code
         //PropStateCode = 42,//State code
         //BorrowerEducLevelCompletedCode = 43, // Education code
