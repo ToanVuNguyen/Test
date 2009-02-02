@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Accounting.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Accounting" %>
+﻿co <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Accounting.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Accounting" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
 <div style="overflow:auto; height:400px;">

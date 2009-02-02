@@ -8,7 +8,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AgencyPayableCaseDTO: BaseDTO
     {
-        //public int AgencyPayableCaseId { get; set; }
         //public int AgencyId { get; set; }
         public string AgencyName { get; set; }
         public int ForeclosureCaseId { get; set; }

@@ -113,7 +113,7 @@ namespace HPF.FutureState.DataAccess
         {
             AccountingDTO results = new AccountingDTO();
             SqlConnection dbConnecion = CreateConnection();
-            SqlCommand command = CreateSPCommand("hpf_foreclosure_case_nbr_npr_get", dbConnecion);
+            SqlCommand command = CreateSPCommand("hpf_foreclosure_case_detail_get", dbConnecion);
             var sqlParam = new SqlParameter[1];
             try
             {

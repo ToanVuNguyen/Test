@@ -29,25 +29,52 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         protected void Page_Load(object sender, EventArgs e)
         {
             ApplySecurity();
+            for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
+            {
+                grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
+            }
+            if (IsPostBack)
+            {
+                //for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
+                //{
+                //    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
+                //}
+                if (grvInvoiceList.Rows.Count == 0)
+                    grvInvoiceList.SelectedIndex = -1;
+                if (grvInvoiceList.SelectedIndex != -1)
+                {
+                    btnCancelPayable.Attributes.Clear();
+                    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
+                }
+                else
+                {
+                    btnCancelPayable.Attributes.Clear();
+                    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
+                }
+            }
+            //for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
+            //{
+            //    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
+            //}
             if (!IsPostBack)
             {
                 BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
                 BindGrvInvoiceList(DateTime.Now.AddMonths(-6), DateTime.Now);
-                for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
-                {
-                    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
-                }
-                if (grvInvoiceList.Rows.Count == 0)
-                    grvInvoiceList.SelectedIndex = -1;
-                if (grvInvoiceList.SelectedIndex != -1)
-                {
-                    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
-                }
-                else
-                {
-                    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
-                }
+                //for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
+                //{
+                //    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
+                //}
+                //if (grvInvoiceList.Rows.Count == 0)
+                //    grvInvoiceList.SelectedIndex = -1;
+                //if (grvInvoiceList.SelectedIndex != -1)
+                //{
+                //    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
+                //}
+                //else
+                //{
+                //    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
+                //}
             }
         }
         private void ApplySecurity()
@@ -158,7 +185,12 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 if (grvInvoiceList.SelectedIndex != -1)
                 {
+                    for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
+                    {
+                        grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
+                    }
                     //
+                    btnCancelPayable.Attributes.Clear();
                     btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
                     //
                     searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
@@ -176,6 +208,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 }
                 else
                 {
+                    btnCancelPayable.Attributes.Clear();
                     btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
                 }
             }
@@ -187,6 +220,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         }
         protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btnCancelPayable.Attributes.Clear();
             btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
         }
     }

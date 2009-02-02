@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AgencyAccountsPayableUC.ascx.cs" Inherits="HPF.FutureState.Web.AgencyAccountsPayable.AgencyAccountsPayableUC" %>
 
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-
+ <asp:ScriptManager ID="myscript" runat="server">
+        </asp:ScriptManager>
+        <asp:UpdatePanel ID="myupdatepanel" runat="server">
+        <ContentTemplate>
 <table width="90%">
     <colgroup>
     <col width="10%" />
@@ -55,10 +58,7 @@
         <td colspan="5" class="sidelinks" >
             Invoice List:</td></tr><tr>
         <td colspan="4">
-        <asp:ScriptManager ID="myscript" runat="server">
-        </asp:ScriptManager>
-        <asp:UpdatePanel ID="myupdatepanel" runat="server">
-        <ContentTemplate>
+       
        
         <asp:Panel ID="panInvoiceList" runat="server"  CssClass="ScrollTable" Width="840px">
         <asp:GridView ID="grvInvoiceList" runat="server"  BorderStyle="None" Width="100%"   
@@ -84,8 +84,7 @@
         <EmptyDataTemplate> There is no data match.</EmptyDataTemplate>
         </asp:GridView>
         </asp:Panel>
-         </ContentTemplate>
-        </asp:UpdatePanel>
+        
         </td>
         <td  valign="top">
             <table style="vertical-align:top;">
@@ -116,3 +115,5 @@
             &nbsp;</td><td>
             &nbsp;</td><td>
             &nbsp;</td></tr></table>
+             </ContentTemplate>
+        </asp:UpdatePanel>
