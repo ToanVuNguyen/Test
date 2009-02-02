@@ -1,6 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseDetail.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.ForeclosureCaseDetail" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
+<style type="text/css">
+    .style1
+    {
+        width: 100%;
+    }
+</style>
+
 <table style="width:100%;">
    <tr>
         <td>
@@ -900,4 +907,13 @@
                 CssClass="MyButton" onclick="btn_Save_Click" />
                 </td>
     </tr>
+    <tr>
+        <td align="right">
+                    &nbsp;</td>
+    </tr>
+     <tr>
+        <td align="right">
+                    </td>
+    </tr>
+   
 </table>
