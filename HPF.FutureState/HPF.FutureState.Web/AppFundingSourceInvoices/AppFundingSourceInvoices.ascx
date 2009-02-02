@@ -1,8 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppFundingSourceInvoices.ascx.cs" Inherits="HPF.FutureState.Web.AppFundingSourceInvoices.AppFundingSourceInvoices" %>
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+
 <asp:ScriptManager runat="server"></asp:ScriptManager>
-<asp:UpdatePanel runat="server">
-<ContentTemplate>
+<%--<asp:UpdatePanel runat="server">
+<ContentTemplate>--%>
 <table style="width:100%;">
     <tr>
         <td align="center" colspan="6">
@@ -42,7 +45,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"  ControlToValidate="txtPeriodEnd"
                 CssClass="ErrorMessage" ErrorMessage="Period End is required; "></asp:RequiredFieldValidator>
         </td>
-        <td class="style1">
+        <td >
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 
                 Text="Refresh List" onclick="btnRefreshList_Click" />
         </td>
@@ -60,8 +63,11 @@
     </tr>
     <tr>
         <td colspan="5" rowspan="17">
-            <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" 
+        <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" 
                  Width="800" Visible="true">
+                 <asp:UpdatePanel runat="server">
+                 <ContentTemplate>
+                 
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="100%"  SelectedRowStyle-BackColor="Yellow" 
@@ -94,7 +100,9 @@
                     There is no data match !
                     </EmptyDataTemplate>
                 </asp:GridView>
-            </asp:Panel>
+                </ContentTemplate>
+                 </asp:UpdatePanel>
+            </cc1:StatefullScrollPanel>
             
         </td>
         <td height="20" width="120">
@@ -173,5 +181,5 @@
             &nbsp;</td>
     </tr>
 </table>
-</ContentTemplate>
-</asp:UpdatePanel>
+<%--</ContentTemplate>
+</asp:UpdatePanel>--%>

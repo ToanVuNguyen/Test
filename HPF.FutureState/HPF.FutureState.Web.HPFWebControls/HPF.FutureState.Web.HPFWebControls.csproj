@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMenu.cs" />
+    <Compile Include="StatefullScrollPanel.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuBar.cs" />
     <Compile Include="MenuBarControl.cs" />
