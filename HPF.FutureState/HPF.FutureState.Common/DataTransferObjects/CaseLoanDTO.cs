@@ -20,11 +20,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string ServicerName { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "Other Servicer Name", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Other Servicer Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0057)]
         public string OtherServicerName { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0128, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(false, 30, "Acct Num", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(false, 30, "Acct Num", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0058)]
         public string AcctNum { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0320, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -35,8 +35,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Mortgage Type Code", Ruleset = Constant.RULESET_LENGTH)]
         public string MortgageTypeCd { get; set; }
 
-        private string armResetInd = null;        
-        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
+        private string armResetInd = null;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0059)]
         public string ArmResetInd
         {
             get { return armResetInd; }
@@ -65,22 +65,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RangeValidator(-99.999, RangeBoundaryType.Inclusive, 99.999, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InterestRate must be numeric(5,3)")]
         public double InterestRate { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "Originating Lender Name", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Originating Lender Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0060)]
         public string OriginatingLenderName { get; set; }
 
-        [NullableOrStringLengthValidator(true, 20, "Original Mortgage Co FdicNcusNum", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 20, "Original Mortgage Co FdicNcusNum", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0061)]
         public string OrigMortgageCoFdicNcusNum { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "Original Mortgage Co Name", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Original Mortgage Co Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0062)]
         public string OrigMortgageCoName { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "Orginal Loan Number", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 30, "Orginal Loan Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0063)]
         public string OrginalLoanNum { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "FdicNcusNum Current Servicer Tbd", Ruleset = Constant.RULESET_LENGTH)]
-        public string FdicNcusNumCurrentServicerTbd { get; set; }        
+        [NullableOrStringLengthValidator(true, 30, "FdicNcusNum Current Servicer Tbd", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0064)]
+        public string FdicNcusNumCurrentServicerTbd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "Investor Loan Number", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 30, "Investor Loan Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0065)]
         public string InvestorLoanNum { get; set; }    
 
     }

@@ -26,10 +26,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime OutcomeDeletedDt { get; set; }
 
-        [NullableOrStringLengthValidator(true, 10, "Nonprofit Referral Key Number", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 10, "Nonprofit Referral Key Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0068)]
         public string NonprofitreferralKeyNum { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "Ext Reference Other Name", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Ext Reference Other Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0069)]
         public string ExtRefOtherName { get; set; }  
     }
 }
