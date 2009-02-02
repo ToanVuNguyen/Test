@@ -96,8 +96,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 DateTime.TryParse(lblOutcomeDeletedDt.Text, out dt);
                 if (dt == null || dt == DateTime.MinValue)
                     lblOutcomeDeletedDt.Text = "";
-                
-
             }
         }
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -114,7 +112,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     grdvOutcomeItemsBinding();                    
                 }
                 else
-                    errorList.Items.Add(ErrorMessages.ERR0600);               
+                    errorList.Items.Add(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0600));               
             }            
         }
 
@@ -126,7 +124,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 string s = ((Label)grdvOutcomeItems.Rows[selectedIdx].FindControl("lblOutcomeDeletedDt")).Text;
                 if (s == null || s == string.Empty)
                 {
-                    errorList.Items.Add(ErrorMessages.ERR0601);
+                    errorList.Items.Add(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0601));
                 }
                 else
                 {
@@ -160,10 +158,5 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             return OutcomeItemBL.Instance.RetrieveOutcomeItems(fcid);
         }
-
-        
-       
-       
-
     }
 }

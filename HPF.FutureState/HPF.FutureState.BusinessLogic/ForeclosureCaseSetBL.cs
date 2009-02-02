@@ -60,7 +60,7 @@ namespace HPF.FutureState.BusinessLogic
                 InitiateTransaction();
                 WarningMessage = new ExceptionMessageCollection();
                 if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                    throw new DataValidationException(ErrorMessages.PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET);
+                    throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0998));
 
                 ExceptionMessageCollection exceptionList = CheckRequireForPartial(foreclosureCaseSet);
                 if (exceptionList != null && exceptionList.Count > 0)

@@ -7,18 +7,7 @@ namespace HPF.FutureState.Common
 {
     public static class ErrorMessages
     {
-        public const string AUTHENTICATION_ERROR_MSG = "Authentication failed, access to web service is denied";
-
-        public const string PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE_SET = "Foreclosure case set is null";
-        public const string PROCESSING_EXCEPTION_NULL_FORECLOSURE_CASE = "Foreclosure case is null";       
-        public const string EXCEPTION_DUPLICATE_FORECLOSURE_CASE = "Duplicate Foreclosure case";        
-        public const string EXCEPTION_INVALID_AGENCY_CASE_NUM_OR_AGENCY_ID= "Either Agency Case Number or Agency ID is invalid";
-        public const string EXCEPTION_EXISTING_AGENCY_CASE_NUM_AND_AGENCY_ID = "Case with pair of Agency Case Number and Agency ID already existed";
-        public const string EXCEPTION_INVALID_FC_ID = "Invalid Foreclosure Case ID";
-        public const string EXCEPTION_INVALID_FC_ID_FOR_AGENCY_ID = "Case with pair of Agency Case Number and Agency ID is not in Database";
-        public const string EXCEPTION_MISSING_REQUIRED_FIELD = "Missing required fields";
-        public const string EXCEPTION_MISCELLANEOUS = "Miscellaneous processing exception" ;
-        public const string EXCEPTION_INVALID_CODE = "Invalid code";
+        public const string AUTHENTICATION_ERROR_MSG = "Authentication failed, access to web service is denied";       
 
         public const string ERR0001 = "ERR0001" ;
         public const string ERR0002 = "ERR0002" ;
@@ -150,10 +139,10 @@ namespace HPF.FutureState.Common
         public const string ERR0255 = "ERR0255";
         public const string ERR0256 = "ERR0256";
 
-        public const string ERR0350 = "A CcCallKey is required to save a call.";
-        public const string ERR0351 = "A StartDt is required to save a call.";
-        public const string ERR0352 = "An EndDt is required to save a call.";
-        public const string ERR0353 = "A FinalDispoCd is required to save a call.";
+        public const string ERR0350 = "ERR0350"; // "A CcCallKey is required to save a call.";
+        public const string ERR0351 = "ERR0351"; //"A StartDt is required to save a call.";
+        public const string ERR0352 = "ERR0352"; //"An EndDt is required to save a call.";
+        public const string ERR0353 = "ERR0353"; //"A FinalDispoCd is required to save a call.";
         
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
@@ -197,8 +186,9 @@ namespace HPF.FutureState.Common
         public const string WARN0550 = "WARN0550";
         public const string WARN0551 = "WARN0551";
         //
-        public const string ERR0600 = "An outcome that already has a Delete Date cannot be deleted.";
-        public const string ERR0601 = "An outcome must have a Delete Date to be reinstated.";
+        public const string ERR0600 = "ERR0600"; 
+        public const string ERR0601 = "ERR0601";
+        public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
@@ -404,9 +394,12 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
 
                 errorMessageDict.Add(WARN0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
-                errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");                
-                
+                errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");
+
+                errorMessageDict.Add(ERR0600, "An outcome that already has a Delete Date cannot be deleted.");
+                errorMessageDict.Add(ERR0601, "An outcome must have a Delete Date to be reinstated.");                
                 //
+                errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");
 
             }
