@@ -307,7 +307,7 @@
     </asp:Table>
     <br />
     <br />
-        <asp:Button ID="btnSave" runat="server" Text="Save call log" onclick="btnSave_Click" TabIndex="1" />  <asp:Label CssClass="sidelinks" ID="lblResult" runat="server" Text="New Call Log ID: "></asp:Label>
+        <asp:Button ID="btnSave" runat="server" Text="Save call log" onclick="btnSave_Click" TabIndex="1" />  <asp:Label CssClass="sidelinks" ID="lblResult" runat="server" Text="Call Log ID: "></asp:Label>
     <br />
     
     
