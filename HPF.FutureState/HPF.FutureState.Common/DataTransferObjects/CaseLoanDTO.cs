@@ -5,14 +5,17 @@ using System.Text;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils.DataValidator;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using System.Xml.Serialization;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
     public class CaseLoanDTO : BaseDTO
     {
+        [XmlIgnore]
         public int CaseLoanId { get; set; }
 
+        [XmlIgnore]
         public int FcId { get; set; }
 
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive,Tag=ErrorMessages.ERR0127, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]        
@@ -80,6 +83,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "FdicNcusNum Current Servicer Tbd", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0064)]
         public string FdicNcusNumCurrentServicerTbd { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 30, "Investor Loan Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0065)]
         public string InvestorLoanNum { get; set; }    
 

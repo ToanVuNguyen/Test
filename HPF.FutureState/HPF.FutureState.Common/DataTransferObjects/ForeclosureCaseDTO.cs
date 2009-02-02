@@ -19,6 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR0100, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int AgencyId { get; set; }
 
+        [XmlIgnore]
         public DateTime CompletedDt { get; set; }
         
         public string CallId { get; set; }        
@@ -52,9 +53,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Household Code", Ruleset = Constant.RULESET_LENGTH)]
         public string HouseholdCd { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 15, "Never Bill Reason Code", Ruleset = Constant.RULESET_LENGTH)]
         public string NeverBillReasonCd { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 15, "Never Pay Reason Code", Ruleset = Constant.RULESET_LENGTH)]
         public string NeverPayReasonCd { get; set; }
 
@@ -75,6 +78,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Hud Outcome code", Ruleset = Constant.RULESET_LENGTH)]
         public string HudOutcomeCd { get; set; }
 
+        [XmlIgnore]
         public int AmiPercentage { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0306, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -102,6 +106,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 9, "Borrower SSN", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0007)]
         public string BorrowerSsn { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 4, "Borrower Last 4 SSN", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0008)]
         public string BorrowerLast4Ssn { get; set; }
         
@@ -120,6 +125,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 9, "Co-Borrower SSN", Ruleset = Constant.RULESET_LENGTH)]
         public string CoBorrowerSsn { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 4, "Co-Borrower Last 4 SSN", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0012)]
         public string CoBorrowerLast4Ssn { get; set; }
 
@@ -237,8 +243,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     hispanicInd = value.ToUpper().Trim();
             }
         }
-
+                
         private string duplicateInd = null;
+        [XmlIgnore]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string DuplicateInd
         {
@@ -300,8 +307,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     agencyMediaInterestInd = value.ToUpper().Trim();
             }
         }
-
+        
         private string hpfMediaCandidateInd = null;
+        [XmlIgnore]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string HpfMediaCandidateInd
         {
@@ -314,6 +322,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string hpfSuccessStoryInd = null;
+        [XmlIgnore]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string HpfSuccessStoryInd
         {
@@ -366,6 +375,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public DateTime SummarySentOtherDt { get; set; }
 
+        [XmlIgnore]
         public DateTime SummarySentDt { get; set; }
 
         [NotNullValidator(Tag = ErrorMessages.WARN0312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -473,6 +483,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string optOutNewsletterInd = null;
+        [XmlIgnore]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string OptOutNewsletterInd
         {
@@ -485,6 +496,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string optOutSurveyInd = null;
+        [XmlIgnore]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string OptOutSurveyInd
         {
@@ -497,6 +509,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string doNotCallInd = null;
+        [XmlIgnore]
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH)]
         public string DoNotCallInd
         {
@@ -571,6 +584,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HouseholdGrossAnnualIncomeAmt must be numeric(15,2)")]
         public double HouseholdGrossAnnualIncomeAmt { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 50, "Loan List", Ruleset = Constant.RULESET_LENGTH)]
         public string LoanList { get; set; }
 
