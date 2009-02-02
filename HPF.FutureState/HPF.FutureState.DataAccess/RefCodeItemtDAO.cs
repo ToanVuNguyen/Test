@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
-using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 namespace HPF.FutureState.DataAccess
 {
