@@ -183,6 +183,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 InvoiceBL.Instance.UpdateInvoice(invoice);
                 if (Session["invoiceSearchCriteria"] == null)
                     return;
+                //search again to refresh the grid
                 InvoiceSearchCriteriaDTO searchCriteria = Session["invoiceSearchCriteria"] as InvoiceSearchCriteriaDTO;
                 InvoiceSearch(searchCriteria);
             }

@@ -6,6 +6,7 @@ using System.Configuration;
 using System;
 using System.Data.SqlClient;
 
+
 namespace HPF.FutureState.UnitTest
 {
     
@@ -102,6 +103,7 @@ namespace HPF.FutureState.UnitTest
             searchCriteria.PeriodStart = new DateTime(2107, 01, 01);
             searchCriteria.PeriodEnd = new DateTime(2108, 02, 01);
 
+            // Search Result's funding source ids 
             List<int> expected = new List<int>();
             expected.Add(1);
             expected.Add(2);
@@ -115,5 +117,86 @@ namespace HPF.FutureState.UnitTest
                 Assert.AreEqual(expected[i], actual[i]);
             
         }
+        /// <summary>
+        ///A test for InsertInvoice
+        ///</summary>
+        [TestMethod()]
+        public void InsertInvoiceTest()
+        {
+            InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
+
+            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = 2, PeriodStartDate=new DateTime(2107,1,1), PeriodEndDate= new DateTime(2108,1,1)};
+            invoice.SetInsertTrackingInformation("1");
+            target.BeginTransaction();
+            int invoiceID = target.InsertInvoice(invoice);
+            target.CommitTransaction();
+
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = "Select funding_source_id from Invoice where Invoice_id="+ invoiceID.ToString();
+            var reader = command.ExecuteReader();
+            if (!reader.HasRows)
+            {
+                dbConnection.Close();
+                reader.Close();
+                Assert.Fail("Insert Invoice Not successful");
+            }
+            reader.Read();
+            Assert.AreEqual(2, int.Parse(reader["funding_source_id"].ToString()));
+            reader.Close();
+            dbConnection.Close();
+        }
+
+        /// <summary>
+        /// Insert Invoice and then insert Invoice case which belongs to the inserted Invoice
+        /// </summary>
+        [TestMethod()]
+        public void InsertInvoiceCaseTest()
+        {
+            InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
+
+            // insert Invoice 
+            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = 2, PeriodStartDate = new DateTime(2107, 1, 1), PeriodEndDate = new DateTime(2108, 1, 1) };
+            invoice.SetInsertTrackingInformation("1");
+            target.BeginTransaction();
+            int invoiceID = -1;
+            invoiceID= target.InsertInvoice(invoice);
+            target.CommitTransaction();
+            if (invoiceID == -1)
+                Assert.Fail("Cannot Insert invoice.");
+
+
+            InvoiceCaseDTO invoiceCase = new InvoiceCaseDTO { InvoiceId = invoiceID, ForeclosureCaseId = 123, InvoiceCasePaymentAmount = 9999 };
+            invoiceCase.SetInsertTrackingInformation("1");
+
+            target.BeginTransaction();
+            target.InsertInvoiceCase(invoiceCase);
+            target.CommitTransaction();
+
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = "Select invoice_case_pmt_amt from invoice_case where Invoice_id="+invoiceID;
+            var reader = command.ExecuteReader();
+
+            if (!reader.HasRows)
+            {
+                dbConnection.Close();
+                reader.Close();
+                Assert.Fail("Insert InvoiceCase fail.");
+            }
+            reader.Read();
+            Assert.AreEqual(9999,double.Parse(reader["invoice_case_pmt_amt"].ToString()));
+            reader.Close();
+            //Delete inserted invoiceCase
+            command.CommandText = "Delete invoice_case where Invoice_id=" + invoiceID.ToString();
+            command.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+
     }
+
 }
