@@ -1,16 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppFundingSourceInvoices.ascx.cs" Inherits="HPF.FutureState.Web.AppFundingSourceInvoices.AppFundingSourceInvoices" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-    .style1
-    {
-        width: 34px;
-    }
-</style>
 <asp:ScriptManager runat="server"></asp:ScriptManager>
 <asp:UpdatePanel runat="server">
 <ContentTemplate>
-
- 
 <table style="width:100%;">
     <tr>
         <td align="center" colspan="6">
@@ -32,8 +24,11 @@
         </td>
         <td class="style1">
             &nbsp;</td>
-        <td>
-            &nbsp;</td>
+        <td rowspan="2" align="center" style="vertical-align: top">
+            <img alt="" src="../Styles/Images/HPFLogo.jpg" 
+                style="width: 55px; height: 55px" /><br />
+            <asp:LinkButton ID="lblPortal" runat="server">Invoices on Portal</asp:LinkButton>
+        </td>
     </tr>
     <tr>
         <td>
@@ -51,8 +46,6 @@
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 
                 Text="Refresh List" onclick="btnRefreshList_Click" />
         </td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks">

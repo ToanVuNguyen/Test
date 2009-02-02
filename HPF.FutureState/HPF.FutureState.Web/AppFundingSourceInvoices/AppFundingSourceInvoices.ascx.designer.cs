@@ -41,6 +41,15 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
+        /// lblPortal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lblPortal;
+        
+        /// <summary>
         /// txtPeriodEnd control.
         /// </summary>
         /// <remarks>
