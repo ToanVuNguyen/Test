@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountingBL.cs" />
+    <Compile Include="ActivityLogBLL.cs" />
     <Compile Include="AgencyPayableBL.cs" />
     <Compile Include="BaseBusinessLogic.cs" />
     <Compile Include="BudgetBL.cs" />
