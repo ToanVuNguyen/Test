@@ -10,8 +10,6 @@ using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.UnitTest
 {
-    
-    
     /// <summary>
     ///This is a test class for CallLogBLTest and is intended
     ///to contain all CallLogBLTest Unit Tests
