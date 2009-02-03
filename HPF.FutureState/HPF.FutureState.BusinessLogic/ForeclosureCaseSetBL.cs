@@ -52,43 +52,31 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="foreclosureCaseSet">ForeclosureCaseSetDTO</param>
         public int SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            int fcid;
-            try
-            {
-                InitiateTransaction();
+            int fcid;            
+            if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
+                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0998));
 
-                //
-                if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
-                    throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0998));
+            var exceptionList = CheckRequireForPartial(foreclosureCaseSet);               
 
-                var exceptionList = CheckRequireForPartial(foreclosureCaseSet);               
+            _workingUserID = foreclosureCaseSet.ForeclosureCase.WorkingUserID;
 
-                _workingUserID = foreclosureCaseSet.ForeclosureCase.WorkingUserID;
+            var formatDataException = CheckInvalidFormatData(foreclosureCaseSet);
+            exceptionList.Add(formatDataException);
+            //
+            if(formatDataException.Count==0)
+                foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
+            //
+            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-                var formatDataException = CheckInvalidFormatData(foreclosureCaseSet);
-                exceptionList.Add(formatDataException);
-                //
-                if(formatDataException.Count==0)
-                    foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
-                //
-                ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
-
-                exceptionList.Add(CheckValidCode(foreclosureCaseSet));
-                //
-                if (exceptionList.Count > 0)
-                    ThrowDataValidationException(exceptionList);
-                //                
-                if (fcCase.FcId > 0)
-                    fcid = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
-                else
-                    fcid = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);                
-                CompleteTransaction();
-            }
-            catch (Exception)
-            {
-                RollbackTransaction();
-                throw;
-            }
+            exceptionList.Add(CheckValidCode(foreclosureCaseSet));
+            //
+            if (exceptionList.Count > 0)
+                ThrowDataValidationException(exceptionList);
+            //                
+            if (fcCase.FcId > 0)
+                fcid = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+            else
+                fcid = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
             return fcid;         
         }
 
@@ -768,41 +756,52 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
-            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;            
-            //Insert table Foreclosure_Case
-            //Return Fc_id
-            int fcId = UpdateForeClosureCase(foreclosureCaseSetDAO, foreclosureCase);
+            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+            int fcId = 0;
+            try
+            {
+                InitiateTransaction();
+                //Insert table Foreclosure_Case
+                //Return Fc_id
+                fcId = UpdateForeClosureCase(foreclosureCaseSetDAO, foreclosureCase);
 
-            //check changed from budgetItem and budget asset
-            //if they are changed, insert new budget set, budget Item and budget asset
-            InsertBudget(foreclosureCaseSetDAO, budgetSet, budgetItemCollection, budgetAssetCollection, fcId);
+                //check changed from budgetItem and budget asset
+                //if they are changed, insert new budget set, budget Item and budget asset
+                InsertBudget(foreclosureCaseSetDAO, budgetSet, budgetItemCollection, budgetAssetCollection, fcId);
 
-            //check outcome item Input with outcome item DB
-            //if not exist, insert new
-            OutcomeItemDTOCollection outcomeCollecionNew = null;
-            outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
-            InsertOutcomeItem(foreclosureCaseSetDAO, outcomeCollecionNew, fcId);
+                //check outcome item Input with outcome item DB
+                //if not exist, insert new
+                OutcomeItemDTOCollection outcomeCollecionNew = null;
+                outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+                InsertOutcomeItem(foreclosureCaseSetDAO, outcomeCollecionNew, fcId);
 
-            //check outcome item DB with outcome item input
-            //if not exit, update outcome_deleted_dt = today()
-            outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, fcId);                
-            UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);   
-         
-            //Check for Delete Case Loan
-            CaseLoanDTOCollection caseLoanCollecionNew = null;
-            caseLoanCollecionNew = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, fcId);
-            DeleteCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);  
-          
-            //Check for Update Case Loan
-            caseLoanCollecionNew = null;
-            caseLoanCollecionNew = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, fcId);                
-            UpdateCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);  
-          
-            //Check for Insert Case Loan
-            caseLoanCollecionNew = null;
-            caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
-            InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew, fcId);
+                //check outcome item DB with outcome item input
+                //if not exit, update outcome_deleted_dt = today()
+                outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+                UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);
 
+                //Check for Delete Case Loan
+                CaseLoanDTOCollection caseLoanCollecionNew = null;
+                caseLoanCollecionNew = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+                DeleteCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);
+
+                //Check for Update Case Loan
+                caseLoanCollecionNew = null;
+                caseLoanCollecionNew = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+                UpdateCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);
+
+                //Check for Insert Case Loan
+                caseLoanCollecionNew = null;
+                caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+                InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew, fcId);
+
+                CompleteTransaction();
+            }
+            catch
+            {
+                RollbackTransaction();
+                throw;
+            }
             return fcId;
         }
         
@@ -828,27 +827,38 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
-            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;            
-            //Insert table Foreclosure_Case
-            //Return Fc_id
-            int fcId = InsertForeclosureCase(foreclosureCaseSetDAO, foreclosureCase);
+            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+            int fcId = 0;
+            try
+            {
+                InitiateTransaction();
+                //Insert table Foreclosure_Case
+                //Return Fc_id
+                fcId = InsertForeclosureCase(foreclosureCaseSetDAO, foreclosureCase);
 
-            //Insert table Case Loan
-            InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+                //Insert table Case Loan
+                InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollection, fcId);
 
-            //Insert Table Outcome Item
-            InsertOutcomeItem(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+                //Insert Table Outcome Item
+                InsertOutcomeItem(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
 
-            //Insert Table Budget Set
-            //Return Budget Set Id
-            int budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
+                //Insert Table Budget Set
+                //Return Budget Set Id
+                int budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
 
-            //Insert Table Budget Item
-            InsertBudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
+                //Insert Table Budget Item
+                InsertBudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
 
-            //Insert table Budget Asset
-            InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
+                //Insert table Budget Asset
+                InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
 
+                CompleteTransaction();
+            }
+            catch
+            {
+                RollbackTransaction();
+                throw;
+            }
             return fcId;
         }
         #endregion
@@ -1403,11 +1413,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!referenceCode.Validate(ReferenceCode.MARITAL_STATUS_CODE, forclosureCase.BorrowerMaritalStatusCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0213, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0213));
             if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE, forclosureCase.BorrowerPreferredLangCd))
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0214, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0214));
-            if (!referenceCode.Validate(ReferenceCode.OCCUPATION_CODE, forclosureCase.BorrowerOccupationCd))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for BorrowerOccupationCd.");
-            if (!referenceCode.Validate(ReferenceCode.OCCUPATION_CODE, forclosureCase.CoBorrowerOccupationCd))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for CoBorrowerOccupationCd.");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0214, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0214));            
             if (!referenceCode.Validate(ReferenceCode.SUMMARY_SENT_OTHER_CODE, forclosureCase.SummarySentOtherCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0215, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0215));
             if (!referenceCode.Validate(ReferenceCode.PROPERTY_CODE, forclosureCase.PropertyCd))
@@ -1520,11 +1526,18 @@ namespace HPF.FutureState.BusinessLogic
         /// <return>bool<return>
         /// </summary>
         private ExceptionMessageCollection CheckValidAgencyId(ForeclosureCaseDTO forclosureCase)
-        {
-            string agencyName = foreclosureCaseSetDAO.GetAgencyName(forclosureCase.AgencyId);
+        {           
+            AgencyDTOCollection agencyCollection = foreclosureCaseSetDAO.GetAgency();
+            if (agencyCollection == null || agencyCollection.Count < 1)
+                return null;
+            int agencyID = forclosureCase.AgencyId;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (agencyName == null || agencyName == string.Empty)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for AgencyId");            
+            foreach (AgencyDTO item in agencyCollection)
+            {
+                if (item.AgencyID == agencyID.ToString())
+                    return null;
+            }
+            msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for AgencyId");
             return msgFcCaseSet;
         }
 
@@ -1550,11 +1563,16 @@ namespace HPF.FutureState.BusinessLogic
         /// <return>bool<return>
         /// </summary>
         private bool CheckValidServicerId(int servicerId)
-        {
-            string servicerName = foreclosureCaseSetDAO.GetServicerName(servicerId);
-            if (servicerName == null || servicerName == string.Empty)
+        {            
+            ServicerDTOCollection servicerCollection = foreclosureCaseSetDAO.GetServicer();
+            if (servicerCollection == null || servicerCollection.Count < 1)
                 return false;
-            return true;
+            foreach (ServicerDTO item in servicerCollection)
+            {
+                if (item.ServicerID == servicerId)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
