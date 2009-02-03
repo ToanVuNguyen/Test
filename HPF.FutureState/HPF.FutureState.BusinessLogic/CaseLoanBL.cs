@@ -33,7 +33,7 @@ namespace HPF.FutureState.BusinessLogic
 
         #region Implementation of ICaseLoanBL
 
-        public CaseLoanDTOCollection RetrieveCaseLoan(int fcId)
+        public CaseLoanDTOCollection RetrieveCaseLoan(int? fcId)
         {
             return CaseLoanDAO.Instance.ReadCaseLoan(fcId);
         }

@@ -91,7 +91,7 @@ namespace HPF.FutureState.Web
             return ForeclosureCase;
         }
 
-        protected String GetAgencyName(int agencyID)
+        protected String GetAgencyName(int? agencyID)
         {
             try
             {

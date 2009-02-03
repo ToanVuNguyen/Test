@@ -13,16 +13,16 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         #region property
         public int CallId { get; set; }
-        public int CallCenterID { get; set; }
+        public int? CallCenterID { get; set; }
 
         [NullableOrStringLengthValidator(true, 55, "Cc Agent Id Key", Ruleset = "Default")]
         public string CcAgentIdKey { get; set; }
         
-        [XmlElement(IsNullable=true)]
+        
         [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0351)]
         public DateTime? StartDate { get; set; }
 
-        [XmlElement(IsNullable = true)]
+        
         [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0352)]
         public DateTime? EndDate { get; set; }
         
@@ -46,7 +46,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default")]
         public string LastName { get; set; }
 
-        [XmlElement(IsNullable = true)]
+        
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be type of Integer")]
         public int? ServicerId { get; set; }
 
@@ -55,7 +55,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default")]
         public string PropZipFull9 { get; set; }
 
-        [XmlElement(IsNullable = true)]
+        
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be type of Integer")]
         public int? PrevAgencyId { get; set; }
 

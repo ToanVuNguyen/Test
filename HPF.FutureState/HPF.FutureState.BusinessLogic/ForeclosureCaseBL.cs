@@ -84,11 +84,11 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fcId">Foreclosure Case ID</param>
         /// <returns>ForeclosureCaseDTO , null for not found</returns>
-        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        public ForeclosureCaseDTO GetForeclosureCase(int? fcId)
         {
             return ForeclosureCaseDAO.CreateInstance().GetForeclosureCase(fcId);
         }
-        public int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        public int? UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             //foreclosureCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
             return ForeclosureCaseDAO.CreateInstance().UpdateAppForeclosureCase(foreclosureCase);

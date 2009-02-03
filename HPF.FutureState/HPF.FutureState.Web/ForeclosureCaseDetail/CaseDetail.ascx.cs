@@ -46,7 +46,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         //        btn_Save.Enabled = false;
         //    }
         //}
-        private void BindDetailCaseData(int caseid)
+        private void BindDetailCaseData(int? caseid)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblFirstName.Text = foreclosureCase.BorrowerFname;
             lblMidName.Text = foreclosureCase.BorrowerMname;
             lblLastName.Text = foreclosureCase.BorrowerLname;
-            lblDOB.Text = foreclosureCase.BorrowerDob.ToShortDateString();
+            lblDOB.Text = foreclosureCase.BorrowerDob.Value.ToShortDateString();
             if (foreclosureCase.BorrowerLast4Ssn == null|| foreclosureCase.BorrowerLast4Ssn=="")
                 lblLast4SSN.Text = "";
             else lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
@@ -134,7 +134,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCoFirstName.Text = foreclosureCase.CoBorrowerFname;
             lblCoMidName.Text = foreclosureCase.CoBorrowerMname;
             lblCoLastName.Text = foreclosureCase.CoBorrowerLname;
-            lblCoDOB.Text = foreclosureCase.CoBorrowerDob.ToShortDateString();
+            lblCoDOB.Text = foreclosureCase.CoBorrowerDob.Value.ToShortDateString();
             if (foreclosureCase.CoBorrowerLast4Ssn == null||foreclosureCase.CoBorrowerLast4Ssn=="")
                 lblCoLast4SSN.Text = "";
             else lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
@@ -157,14 +157,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblPhoneExt.Text = foreclosureCase.CounselorPhone + " " + foreclosureCase.CounselorExt;
             lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
             lblProgram.Text = foreclosureCase.ProgramId.ToString();
-            lblIntakeDate.Text = foreclosureCase.IntakeDt.ToShortDateString();
+            lblIntakeDate.Text = foreclosureCase.IntakeDt.Value.ToShortDateString();
             lblCompleteDate.Text = foreclosureCase.CompletedDt.ToShortDateString();
             lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd.ToString();
             lblSourceCode.Text = foreclosureCase.CaseSourceCd;
             //case summary
             lblSentDate.Text = foreclosureCase.SummarySentDt.ToShortDateString();
             lblSentOrther.Text = foreclosureCase.SummarySentOtherCd;
-            lblOtherDate.Text = foreclosureCase.SummarySentOtherDt.ToShortDateString();
+            lblOtherDate.Text = foreclosureCase.SummarySentOtherDt.Value.ToShortDateString();
             //consent
             lblServicerConsent.Text = DisplayInd(foreclosureCase.ServicerConsentInd);
             lblFundingConsent.Text = DisplayInd(foreclosureCase.FundingConsentInd);
@@ -185,14 +185,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCreditBureau.Text = foreclosureCase.IntakeCreditBureauCd;
             //foreclosure notice
 
-            lblNoticeReceived.Text = foreclosureCase.FcSaleDate.ToShortDateString();
+            lblNoticeReceived.Text = foreclosureCase.FcSaleDate.Value.ToShortDateString();
             //bankcruptcy
             lblBankruptcy.Text = DisplayInd(foreclosureCase.BankruptcyInd);
             lblBankruptcyAttomey.Text = foreclosureCase.BankruptcyAttorney;
             lblCurrentIndicator.Text = DisplayInd(foreclosureCase.BankruptcyPmtCurrentInd);
             //HUD
             lblTerminationReason.Text = foreclosureCase.HudOutcomeCd;
-            lblTerminationDate.Text = foreclosureCase.HudTerminationDt.ToShortDateString();
+            lblTerminationDate.Text = foreclosureCase.HudTerminationDt.Value.ToShortDateString();
             lblHUDOutcome.Text = foreclosureCase.HudOutcomeCd;
             //couselor notes
             txtReasonNote.Text = foreclosureCase.LoanDfltReasonNotes;
@@ -234,7 +234,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                 foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                int fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
+                int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
                 BindDetailCaseData(fcid);
                 lblMessage.Text = "Save foreclosure case succesfull";
             }

@@ -45,7 +45,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of a Foreclosure</param>
         /// <returns>ForeclosureCase if exists, otherwise: null</returns>
-        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        public ForeclosureCaseDTO GetForeclosureCase(int? fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
             SqlConnection dbConnection = base.CreateConnection();
@@ -532,7 +532,7 @@ namespace HPF.FutureState.DataAccess
         }
         ///summary      
         ///
-        public int UpdateAppForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        public int? UpdateAppForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             var dbConnection = CreateConnection();
             dbConnection.Open();

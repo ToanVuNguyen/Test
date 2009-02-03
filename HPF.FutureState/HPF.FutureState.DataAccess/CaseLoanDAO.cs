@@ -29,7 +29,7 @@ namespace HPF.FutureState.DataAccess
             
         }
 
-        public CaseLoanDTOCollection ReadCaseLoan(int fcId)
+        public CaseLoanDTOCollection ReadCaseLoan(int? fcId)
         {
             CaseLoanDTOCollection results = null;
             var dbConnection = CreateConnection();

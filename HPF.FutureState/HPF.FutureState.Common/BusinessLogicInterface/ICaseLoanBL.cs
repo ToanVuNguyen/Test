@@ -13,6 +13,6 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param name="callLogId">fcId</param>
         /// <returns></returns>
-        CaseLoanDTOCollection RetrieveCaseLoan(int fcId);        
+        CaseLoanDTOCollection RetrieveCaseLoan(int? fcId);        
     }
 }

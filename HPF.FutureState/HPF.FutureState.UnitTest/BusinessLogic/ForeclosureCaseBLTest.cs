@@ -1850,7 +1850,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static private void UpdateForeclosureCase(ForeclosureCaseDTO fCase)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            int fcId = fCase.FcId;
+            int? fcId = fCase.FcId;
             DateTime completeDt = fCase.CompletedDt;
             dbConnection.Open();
             try
@@ -1868,7 +1868,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static private void UpdateForeclosureCaseDateMin(ForeclosureCaseDTO fCase)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            int fcId = fCase.FcId;            
+            int? fcId = fCase.FcId;            
             dbConnection.Open();
             try
             {

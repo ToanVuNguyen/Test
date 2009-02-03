@@ -209,7 +209,7 @@ namespace HPF.FutureState.UnitTest
         {
             //12982 - servicer other
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            int oldCallCenterID = aCallLog.CallCenterID;
+            int? oldCallCenterID = aCallLog.CallCenterID;
             try
             {                
                 aCallLog.CallCenterID = 76;

@@ -33,13 +33,13 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="budgetSetId">BudgetSet ID</param>
         /// <returns>BudgetDetailDTO contains 2 collections: BugetItem and BudgetAsset</returns>
-        public BudgetDetailDTO GetBudgetDetail(int budgetSetId)
+        public BudgetDetailDTO GetBudgetDetail(int? budgetSetId)
         {
             BudgetDetailDTO result= BudgetDAO.Instance.GetBudgetDetail(budgetSetId);
             if (result.BudgetAssetCollection.Count > 0)
             {
                 //Attach total Asset row in to AssetCollection
-                double sum = 0;
+                double? sum = 0;
                 foreach (var budgetAsset in result.BudgetAssetCollection)
                     sum += budgetAsset.AssetValue;
                 BudgetAssetDTO totalRow = new BudgetAssetDTO { AssetValue = sum, AssetName = "Total Assets" };
@@ -85,7 +85,7 @@ namespace HPF.FutureState.BusinessLogic
             //Add total row to BudgetItem
             foreach (var budgetGroup in result)
             { 
-                double sum =0;
+                double? sum =0;
                 foreach (var budgetItem in budgetGroup)
                     sum += budgetItem.BudgetItemAmt;
                 BudgetItemDTO totalRow = new BudgetItemDTO { BudgetItemAmt = sum, BudgetSubCategory =  "Total " + budgetGroup.BudgetCategory};

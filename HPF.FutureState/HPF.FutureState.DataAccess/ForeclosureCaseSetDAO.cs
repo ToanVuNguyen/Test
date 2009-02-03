@@ -87,7 +87,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fc_id">id of a Foreclosure</param>
         /// <returns>ForeclosureCase if exists, otherwise: null</returns>
-        public ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        public ForeclosureCaseDTO GetForeclosureCase(int? fcId)
         {
             ForeclosureCaseDTO returnObject = new ForeclosureCaseDTO();
             SqlConnection dbConnection = base.CreateConnection();
@@ -258,7 +258,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="foreclosureCase">ForeclosureCase</param>
         /// <returns>a new Fc_id</returns>
-        public int InsertForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        public int? InsertForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             var command = CreateSPCommand("hpf_foreclosure_case_insert", this.dbConnection);
             //<Parameter>
@@ -393,7 +393,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="caseLoan">CaseLoanDTO</param>
         /// <returns></returns>
-        public void InsertCaseLoan(CaseLoanDTO caseLoan, int fcId)
+        public void InsertCaseLoan(CaseLoanDTO caseLoan, int? fcId)
         {            
             var command = CreateCommand("hpf_case_loan_insert", this.dbConnection);
             //<Parameter>
@@ -444,14 +444,14 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="fcid">id of foreclosure case</param>
         /// <param name="ind">Y or N</param>
-        public void UpdateFcCase_DuplicateIndicator(int fcid, string ind)
+        public void UpdateFcCase_DuplicateIndicator(int? fcId, string ind)
         {
             //throw NotImplementedException;
             var command = CreateCommand("hpf_foreclosure_case_update_duplicate", this.dbConnection);
             try
             {
                 var sqlParam = new SqlParameter[2];
-                sqlParam[0] = new SqlParameter("@pi_fc_id", fcid);
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 sqlParam[1] = new SqlParameter("@pi_duplicate_ind", ind);
 
                 command.Parameters.AddRange(sqlParam);
@@ -542,7 +542,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="outComeItem">OutcomeItemDTO</param>
         /// <returns></returns>
-        public void InsertOutcomeItem(OutcomeItemDTO outcomeItem, int fcId)
+        public void InsertOutcomeItem(OutcomeItemDTO outcomeItem, int? fcId)
         {            
             var command = CreateCommand("hpf_outcome_item_insert", this.dbConnection);
             //<Parameter>
@@ -578,7 +578,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetSet">BudgetSetDTO</param>
         /// <returns></returns>
-        public int InsertBudgetSet(BudgetSetDTO budgetSet, int fcId)
+        public int? InsertBudgetSet(BudgetSetDTO budgetSet, int? fcId)
         {
             var command = new SqlCommand("hpf_budget_set_insert", this.dbConnection);
             //<Parameter>
@@ -616,7 +616,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetItemDTO</param>
         /// <returns></returns>
-        public void InsertBudgetItem(BudgetItemDTO budgetItem, int budgetSetId)
+        public void InsertBudgetItem(BudgetItemDTO budgetItem, int? budgetSetId)
         {            
             var command = CreateCommand("hpf_budget_item_insert", this.dbConnection);
             //<Parameter>
@@ -651,7 +651,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetAssetDTO</param>
         /// <returns></returns>
-        public void InsertBudgetAsset(BudgetAssetDTO budgetAsset, int budgetSetId)
+        public void InsertBudgetAsset(BudgetAssetDTO budgetAsset, int? budgetSetId)
         {            
             var command = CreateCommand("hpf_budget_asset_insert", this.dbConnection);
             //<Parameter>
@@ -685,7 +685,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="ActivityItem">ActivityDTO</param>
         /// <returns></returns>
-        public void InsertActivityLog(ActivityLogDTO activityLog, int fcId)
+        public void InsertActivityLog(ActivityLogDTO activityLog, int? fcId)
         {
             var command = CreateCommand("hpf_activity_log_insert", this.dbConnection);
             //<Parameter>
@@ -720,7 +720,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="foreclosureCase">ForeclosureCase</param>
         /// <returns>a new Fc_id</returns>
-        public int UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
+        public int? UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {            
             var command = CreateSPCommand("hpf_foreclosure_case_update", this.dbConnection);
             //<Parameter>
@@ -877,7 +877,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetItemDTO</param>
         /// <returns></returns>
-        public BudgetAssetDTOCollection GetBudgetAssetSet(int fcId)
+        public BudgetAssetDTOCollection GetBudgetAssetSet(int? fcId)
         {
             BudgetAssetDTOCollection results = new BudgetAssetDTOCollection();
             var dbConnection = CreateConnection();
@@ -924,7 +924,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetItem">BudgetItemDTO</param>
         /// <returns></returns>
-        public BudgetItemDTOCollection GetBudgetItemSet(int fcId)
+        public BudgetItemDTOCollection GetBudgetItemSet(int? fcId)
         {
             BudgetItemDTOCollection results = new BudgetItemDTOCollection();
             var dbConnection = CreateConnection();
@@ -971,7 +971,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name=""></param>
         /// <returns>OutcomeItemDTOCollection</returns>
-        public CaseLoanDTOCollection GetCaseLoanCollection(int fcId)
+        public CaseLoanDTOCollection GetCaseLoanCollection(int? fcId)
         {
             CaseLoanDTOCollection results = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>(Constant.HPF_CACHE_CASE_LOAN);            
             if (results == null)
@@ -1040,7 +1040,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name=""></param>
         /// <returns>OutcomeItemDTOCollection</returns>
-        public OutcomeItemDTOCollection GetOutcomeItemCollection(int fcId)
+        public OutcomeItemDTOCollection GetOutcomeItemCollection(int? fcId)
         {
             OutcomeItemDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>(Constant.HPF_CACHE_OUTCOME_ITEM);            
             if (results == null)
@@ -1347,7 +1347,7 @@ namespace HPF.FutureState.DataAccess
             return results;
         }
 
-        public string GetAgencyName(int AgencyID)
+        public string GetAgencyName(int? AgencyID)
         {
             string returnString = string.Empty;
             try
@@ -1425,7 +1425,7 @@ namespace HPF.FutureState.DataAccess
             return results;
         }
 
-        public string GetServicerName(int servicerId)
+        public string GetServicerName(int? servicerId)
         {
             string returnString = string.Empty;
             try
@@ -1468,7 +1468,7 @@ namespace HPF.FutureState.DataAccess
             return returnString;
         }
 
-        public bool CheckExistingAgencyIdAndCaseNumber(int agency_id, string agency_case_number)
+        public bool CheckExistingAgencyIdAndCaseNumber(int? agency_id, string agency_case_number)
         {
             bool returnValue = true;
             try

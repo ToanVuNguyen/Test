@@ -160,7 +160,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = 23; // TODO: Initialize to an appropriate value
             int expected = 23; // TODO: Initialize to an appropriate value
-            int actual = target.GetForeclosureCase(fc_id).FcId;            
+            int? actual = target.GetForeclosureCase(fc_id).FcId;            
             Assert.AreEqual(expected, actual);
             
         }
@@ -171,7 +171,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
             ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
             int fc_id = 23; // TODO: Initialize to an appropriate value
             int expected = 24; // TODO: Initialize to an appropriate value
-            int actual = target.GetForeclosureCase(fc_id).FcId;
+            int? actual = target.GetForeclosureCase(fc_id).FcId;
             Assert.AreNotEqual(expected, actual);
 
         }

@@ -75,7 +75,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="budgetSetId">BudgetSet ID</param>
         /// <returns>BudgetDetailDTO contains 2 collections: BugetItem and BudgetAsset</returns>
-        public BudgetDetailDTO GetBudgetDetail(int budgetSetId)
+        public BudgetDetailDTO GetBudgetDetail(int? budgetSetId)
         {
             BudgetDetailDTO result = null;
             var dbConnection = CreateConnection();

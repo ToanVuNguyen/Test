@@ -50,11 +50,13 @@ namespace HPF.FutureState.BusinessLogic
         /// Save a ForeclosureCase
         /// </summary>
         /// <param name="foreclosureCaseSet">ForeclosureCaseSetDTO</param>
-        public int SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        public int? SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            int fcid;            
+
+            int? fcId;            
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0998));
+
 
             var exceptionList = CheckRequireForPartial(foreclosureCaseSet);               
 
@@ -68,16 +70,18 @@ namespace HPF.FutureState.BusinessLogic
             //
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
+
             exceptionList.Add(CheckValidCode(foreclosureCaseSet));
             //
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
             //                
             if (fcCase.FcId > 0)
-                fcid = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
+                fcId = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             else
-                fcid = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            return fcid;         
+                fcId = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
+
+            return fcId;         
         }
 
        
@@ -121,7 +125,7 @@ namespace HPF.FutureState.BusinessLogic
 
         #region Functions to serve SaveForeclosureCaseSet
 
-        private int ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int? ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
             var exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList.Count > 0)
@@ -152,7 +156,7 @@ namespace HPF.FutureState.BusinessLogic
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private int ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int? ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
             if (collection != null && collection.Count > 0)
@@ -166,7 +170,7 @@ namespace HPF.FutureState.BusinessLogic
             return InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private int ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int? ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {                        
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
@@ -179,7 +183,7 @@ namespace HPF.FutureState.BusinessLogic
             return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private int ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int? ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
 
             ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
@@ -454,7 +458,7 @@ namespace HPF.FutureState.BusinessLogic
         /// true: Inactive
         /// <return>bool<return>
         /// </summary>
-        private bool CheckInactiveCase(int fcId)
+        private bool CheckInactiveCase(int? fcId)
         {
             DateTime currentDate = DateTime.Now;
             DateTime backOneYear = DateTime.MinValue;            
@@ -492,7 +496,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Check existed AgencyId and Case number
         /// </summary>
-        bool CheckExistingAgencyIdAndCaseNumber(int agencyId, string caseNumner)
+        bool CheckExistingAgencyIdAndCaseNumber(int? agencyId, string caseNumner)
         {
             return foreclosureCaseSetDAO.CheckExistingAgencyIdAndCaseNumber(agencyId, caseNumner);
         }
@@ -558,12 +562,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Check Old between 12 and 110
         /// </summary>
-        private bool CheckDateOfBirth(DateTime dateOfBirth)
+        private bool CheckDateOfBirth(DateTime? dateOfBirth)
         {
             int systemYear = DateTime.Now.Year;
             if (dateOfBirth != DateTime.MinValue)
             {
-                int yearOfBirth = dateOfBirth.Year;
+                int yearOfBirth = dateOfBirth.Value.Year;
                 int calculateYear = systemYear - yearOfBirth;
                 if (calculateYear >= 12 && calculateYear <= 110)
                     return true;
@@ -615,7 +619,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();            
-            int fcId = foreclosureCaseSet.ForeclosureCase.FcId;
+            int? fcId = foreclosureCaseSet.ForeclosureCase.FcId;
             bool caseComplete = CheckForeclosureCaseComplete(fcId);            
             //Cannot Un-complete a Previously Completed Case
             msgFcCaseSet.Add(CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete));
@@ -662,7 +666,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Null = Not Complete => return false
         /// CompleteDt != null => complete => return true
         /// </summary>     
-        private bool CheckForeclosureCaseComplete(int fcId)
+        private bool CheckForeclosureCaseComplete(int? fcId)
         {
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);            
             bool caseComplete = false;
@@ -749,15 +753,16 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Update the Fore Closure Case
         /// </summary>
-        private int UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int? UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
-            int fcId = 0;
+            int? fcId = 0;
             try
             {
                 InitiateTransaction();
@@ -808,11 +813,11 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Update foreclosureCase
         /// </summary>
-        private int UpdateForeClosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
+        private int? UpdateForeClosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
             foreclosureCase.SetUpdateTrackingInformation(_workingUserID);
-            int fcId = foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
-            return fcId;
+            return foreClosureCaseSetDAO.UpdateForeclosureCase(foreclosureCase);
+            
         }
         #endregion
 
@@ -820,15 +825,16 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert the Fore Closure Case
         /// </summary>
-        private int InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private int? InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
-            int fcId = 0;
+            int? fcId = 0;
             try
             {
                 InitiateTransaction();
@@ -844,7 +850,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 //Insert Table Budget Set
                 //Return Budget Set Id
-                int budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
+                int? budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
 
                 //Insert Table Budget Item
                 InsertBudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
@@ -867,14 +873,14 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget
         /// </summary>
-        private void InsertBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
+        private void InsertBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int? fcId)
         {
             bool isInsertBudget = IsInsertBudgetSet(foreClosureCaseSetDAO , budgetItemCollection, budgetAssetCollection, fcId);
             if (isInsertBudget)
             {
                 //Insert Table Budget Set
                 //Return Budget Set Id
-                int budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
+                int? budget_set_id = InsertBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
                 //Insert Table Budget Item
                 InsertBudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
                 //Insert table Budget Asset
@@ -884,7 +890,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget Asset
         /// </summary>
-        private void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int budget_set_id)
+        private void InsertBudgetAsset(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, int? budget_set_id)
         {
             if (budgetAssetCollection != null)
             {
@@ -899,7 +905,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget Item
         /// </summary>
-        private void InsertBudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int budget_set_id)
+        private void InsertBudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int? budget_set_id)
         {
             if (budgetItemCollection != null)
             {
@@ -914,9 +920,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert Budget Set
         /// </summary>
-        private int InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int fcId)
+        private int? InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int? fcId)
         {
-            int budget_set_id = int.MinValue;
+            int? budget_set_id = int.MinValue;
             if(budgetSet != null)
             {
                 budgetSet.SetInsertTrackingInformation(_workingUserID);
@@ -928,9 +934,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert ForeclosureCase
         /// </summary>
-        private int InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
+        private int? InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
-            int fcId = int.MinValue;
+            int? fcId = int.MinValue;
             if(foreclosureCase != null)
             {
                 foreclosureCase.SetInsertTrackingInformation(_workingUserID);
@@ -942,7 +948,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert OutcomeItem
         /// </summary>
-        private void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int fcId)
+        private void InsertOutcomeItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollection, int? fcId)
         {
             if (outcomeItemCollection != null)
             {
@@ -958,7 +964,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Insert CaseLoan
         /// </summary>
-        private void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private void InsertCaseLoan(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int? fcId)
         {
             if (caseLoanCollection != null)
             {
@@ -1024,7 +1030,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetItemDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetItemsDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetCollectionInput, int fcId)
+        private bool IsBudgetItemsDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetCollectionInput, int? fcId)
         {
             BudgetItemDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetItemSet(fcId);
             if ((budgetCollectionInput != null && budgetCollectionDB == null) || (budgetCollectionInput == null && budgetCollectionDB != null))
@@ -1064,7 +1070,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetAssetDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetCollectionInput, int fcId)
+        private bool IsBudgetAssetDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetCollectionInput, int? fcId)
         {
             BudgetAssetDTOCollection budgetCollectionDB = foreClosureCaseSetDAO.GetBudgetAssetSet(fcId);            
             if ((budgetCollectionInput != null && budgetCollectionDB == null) || (budgetCollectionInput == null && budgetCollectionDB != null))
@@ -1103,7 +1109,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection,BudgetAssetDTOCollection, fc_id </param>
         /// <returns>true: if have difference</returns>
-        private bool IsInsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int fcId)
+        private bool IsInsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int? fcId)
         {
             bool budgetItem = IsBudgetItemsDifference(foreClosureCaseSetDAO, budgetItemCollection, fcId);
             bool budgetAsset = IsBudgetAssetDifference(foreClosureCaseSetDAO, budgetAssetCollection, fcId);
@@ -1119,7 +1125,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
+        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int? fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);
@@ -1148,7 +1154,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int fcId)
+        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int? fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
             OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
@@ -1245,7 +1251,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private CaseLoanDTOCollection CheckCaseLoanForInsert(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForInsert(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int? fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);            
@@ -1275,7 +1281,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private CaseLoanDTOCollection CheckCaseLoanForDelete(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForDelete(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, int? fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
@@ -1299,7 +1305,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private CaseLoanDTOCollection CheckCaseLoanForUpdate(ForeclosureCaseSetDAO foreClosureCaseSetDAO,CaseLoanDTOCollection caseLoanCollection, int fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForUpdate(ForeclosureCaseSetDAO foreClosureCaseSetDAO,CaseLoanDTOCollection caseLoanCollection, int? fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
             CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
@@ -1530,7 +1536,7 @@ namespace HPF.FutureState.BusinessLogic
             AgencyDTOCollection agencyCollection = foreclosureCaseSetDAO.GetAgency();
             if (agencyCollection == null || agencyCollection.Count < 1)
                 return null;
-            int agencyID = forclosureCase.AgencyId;
+            int? agencyID = forclosureCase.AgencyId;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             foreach (AgencyDTO item in agencyCollection)
             {
@@ -1562,7 +1568,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>ForeclosureCaseDTO</input>
         /// <return>bool<return>
         /// </summary>
-        private bool CheckValidServicerId(int servicerId)
+        private bool CheckValidServicerId(int? servicerId)
         {            
             ServicerDTOCollection servicerCollection = foreclosureCaseSetDAO.GetServicer();
             if (servicerCollection == null || servicerCollection.Count < 1)
@@ -1585,7 +1591,7 @@ namespace HPF.FutureState.BusinessLogic
             ProgramDTOCollection programCollection = foreclosureCaseSetDAO.GetProgram();
             if (programCollection == null || programCollection.Count < 1)
                 return null;
-            int programId = forclosureCase.ProgramId;
+            int? programId = forclosureCase.ProgramId;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             foreach (ProgramDTO item in programCollection)
             {
@@ -1621,7 +1627,7 @@ namespace HPF.FutureState.BusinessLogic
             BudgetSubcategoryDTOCollection budgetSubcategoryCollection = foreclosureCaseSetDAO.GetBudgetSubcategory();
             if (budgetSubcategoryCollection == null || budgetSubcategoryCollection.Count < 1)
                 return true;
-            int budgetSubId = budgetItem.BudgetSubcategoryId;
+            int? budgetSubId = budgetItem.BudgetSubcategoryId;
             foreach(BudgetSubcategoryDTO item in budgetSubcategoryCollection)
             {
                 if (item.BudgetSubcategoryID == budgetSubId)
@@ -1765,7 +1771,7 @@ namespace HPF.FutureState.BusinessLogic
         private ForeclosureCaseDTO AssignForeclosureCaseHPFAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
-            int fcId = foreclosureCase.FcId;
+            int? fcId = foreclosureCase.FcId;
             bool isComplete = CheckComplete(foreclosureCaseSet);
             foreclosureCase.AmiPercentage = CalculateAmiPercentage();
             foreclosureCase.SummarySentDt = DateTime.Now;            
@@ -1779,7 +1785,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Set value for Complete Date
         /// </summary>
-        private DateTime GetCompleteDate(int fcId)
+        private DateTime GetCompleteDate(int? fcId)
         {
             ForeclosureCaseDTO foreclosureCase;
             if (fcId != int.MinValue && fcId > 0)
@@ -1828,9 +1834,9 @@ namespace HPF.FutureState.BusinessLogic
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
-            double totalIncome = 0;
-            double totalExpenses = 0;
-            double totalAssest = 0;
+            double? totalIncome = 0;
+            double? totalExpenses = 0;
+            double? totalAssest = 0;
 
             if ((budgetAssetCollection == null || budgetAssetCollection.Count < 1) && (budgetItemCollection == null || budgetItemCollection.Count < 1))
                 return null;
@@ -1853,7 +1859,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Calculate Total Assets
         /// </summary>
-        private double CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, double totalAssest)
+        private double? CalculateTotalAssets(BudgetAssetDTOCollection budgetAssetCollection, double? totalAssest)
         {
             //Calculate totalAssest
             if (budgetAssetCollection == null || budgetAssetCollection.Count < 1)
@@ -1871,7 +1877,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Calculate Total Expense And Income
         /// </summary>
-        private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref double totalIncome, ref double totalExpenses)
+        private void CalculateTotalExpenseAndIncome(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, ref double? totalIncome, ref double? totalExpenses)
         {            
             totalIncome = 0;
             totalExpenses = 0;
@@ -1889,7 +1895,7 @@ namespace HPF.FutureState.BusinessLogic
             
         }
 
-        private string BuggetCategoryCode(ForeclosureCaseSetDAO foreClosureCaseSetDAO, int subCategoryId)
+        private string BuggetCategoryCode(ForeclosureCaseSetDAO foreClosureCaseSetDAO, int? subCategoryId)
         {
             BudgetDTOCollection budgetCollection = foreClosureCaseSetDAO.GetBudget();
             if (budgetCollection == null || budgetCollection.Count < 1)
@@ -1908,7 +1914,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fcId">id for a ForeclosureCase</param>
         /// <returns>object of ForeclosureCase </returns>
-        private ForeclosureCaseDTO GetForeclosureCase(int fcId)
+        private ForeclosureCaseDTO GetForeclosureCase(int? fcId)
         {
             if (_dbFcCase == null || (_dbFcCase != null && _dbFcCase.FcId != fcId))
                 _dbFcCase = foreclosureCaseSetDAO.GetForeclosureCase(fcId);

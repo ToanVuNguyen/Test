@@ -12,25 +12,25 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class BudgetSetDTO : BaseDTO
     {
         [XmlIgnore]
-        public int BudgetSetId { get; set; }
+        public int? BudgetSetId { get; set; }
 
         [XmlIgnore]
-        public int FcId { get; set; }
-
-        [XmlIgnore]
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
-        public double TotalIncome { get; set; }
+        public int? FcId { get; set; }
 
         [XmlIgnore]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
-        public double TotalExpenses { get; set; }
+        public double? TotalIncome { get; set; }
 
         [XmlIgnore]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
-        public double TotalAssets { get; set; }
+        public double? TotalExpenses { get; set; }
 
         [XmlIgnore]
-        public DateTime BudgetSetDt { get; set; }
+        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH)]
+        public double? TotalAssets { get; set; }
+
+        [XmlIgnore]
+        public DateTime? BudgetSetDt { get; set; }
 
         [XmlIgnore]
         public double TotalSurplus { get; set; }

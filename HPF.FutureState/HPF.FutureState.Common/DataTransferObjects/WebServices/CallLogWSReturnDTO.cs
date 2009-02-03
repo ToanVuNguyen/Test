@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
@@ -11,10 +12,12 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     public class CallLogWSReturnDTO
     {
         #region property
-        public string CallId { get; set; }                
+        public string CallId { get; set; }
 
+        [XmlElement(IsNullable = true)]
         public DateTime? StartDate { get; set; }
 
+        [XmlElement(IsNullable = true)]
         public DateTime? EndDate { get; set; }                
 
         public string CallSourceCd { get; set; }
@@ -27,12 +30,14 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string LastName { get; set; }
 
+        [XmlElement(IsNullable = true)]
         public int? ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
 
         public string PropZipFull9 { get; set; }
 
+        [XmlElement(IsNullable = true)]
         public int? PrevAgencyId { get; set; }
 
         public string SelectedAgencyId { get; set; }        

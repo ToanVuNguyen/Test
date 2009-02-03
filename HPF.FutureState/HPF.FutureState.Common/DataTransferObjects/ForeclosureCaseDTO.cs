@@ -14,18 +14,21 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ForeclosureCaseDTO : BaseDTO
     {
-        public int FcId { get; set; }
+        [XmlElement(IsNullable = true)]
+        public int? FcId { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR0100, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        public int AgencyId { get; set; }
+        public int? AgencyId { get; set; }
 
         [XmlIgnore]
         public DateTime CompletedDt { get; set; }
         
-        public string CallId { get; set; }        
+        public string CallId { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        public int ProgramId { get; set; }
+        public int? ProgramId { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0102, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Agency Case Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0001)]
@@ -34,8 +37,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Agency Client Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0002)]
         public string AgencyClientNum { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.ERR0103, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        public DateTime IntakeDt { get; set; }
+        public DateTime? IntakeDt { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0300, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Income Earner Code", Ruleset = Constant.RULESET_LENGTH)]
@@ -72,7 +76,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Hud Termination Reason Code", Ruleset = Constant.RULESET_LENGTH)]
         public string HudTerminationReasonCd { get; set; }
 
-        public DateTime HudTerminationDt { get; set; }
+        [XmlElement(IsNullable = true)]
+        public DateTime? HudTerminationDt { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0305, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Hud Outcome code", Ruleset = Constant.RULESET_LENGTH)]
@@ -109,9 +114,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         [NullableOrStringLengthValidator(true, 4, "Borrower Last 4 SSN", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0008)]
         public string BorrowerLast4Ssn { get; set; }
-        
+
+        [XmlElement(IsNullable = true)]
         [DateTimeRangeValidator("0001-01-02T00:00:00", "9999-12-31T00:00:00", Tag = ErrorMessages.WARN0308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        public DateTime BorrowerDob { get; set; }
+        public DateTime? BorrowerDob { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Co-Borrower F Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0009)]
         public string CoBorrowerFname { get; set; }
@@ -129,7 +135,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 4, "Co-Borrower Last 4 SSN", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0012)]
         public string CoBorrowerLast4Ssn { get; set; }
 
-        public DateTime CoBorrowerDob { get; set; }
+        [XmlElement(IsNullable = true)]
+        public DateTime? CoBorrowerDob { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0107, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 20, "Primary Contact Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0013)]
@@ -373,13 +380,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Summary Sent Other Code", Ruleset = Constant.RULESET_LENGTH)]
         public string SummarySentOtherCd { get; set; }
 
-        public DateTime SummarySentOtherDt { get; set; }
+        [XmlElement(IsNullable = true)]
+        public DateTime? SummarySentOtherDt { get; set; }
 
         [XmlIgnore]
         public DateTime SummarySentDt { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [NotNullValidator(Tag = ErrorMessages.WARN0312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        public byte OccupantNum { get; set; }
+        public byte? OccupantNum { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0313, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 8000, "Loan Default Reason Notes", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0038)]
@@ -392,8 +401,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 8000, "Followup Notes", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0040)]
         public string FollowupNotes { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "PrimResEstMktValue must be numeric(15,2)")]
-        public double PrimResEstMktValue { get; set; }
+        public double? PrimResEstMktValue { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0118, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(false, 30, "Assigned Counselor Id Referrence", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0041)]
@@ -566,23 +576,28 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
+        [XmlElement(IsNullable = true)]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomeSalePrice must be numeric(15,2)")]
-        public double HomeSalePrice { get; set; }
+        public double? HomeSalePrice { get; set; }
 
-        public int HomePurchaseYear { get; set; }
+        [XmlElement(IsNullable = true)]
+        public int? HomePurchaseYear { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomePurchasePrice must be numeric(15,2)")]
-        public double HomePurchasePrice { get; set; }
+        public double? HomePurchasePrice { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomeCurrentMarketValue must be numeric(15,2)")]
-        public double HomeCurrentMarketValue { get; set; }
+        public double? HomeCurrentMarketValue { get; set; }
 
         [NullableOrStringLengthValidator(true, 15, "Military Service Cd", Ruleset = Constant.RULESET_LENGTH)]
         public string MilitaryServiceCd { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [NotNullValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HouseholdGrossAnnualIncomeAmt must be numeric(15,2)")]
-        public double HouseholdGrossAnnualIncomeAmt { get; set; }
+        public double? HouseholdGrossAnnualIncomeAmt { get; set; }
 
         [XmlIgnore]
         [NullableOrStringLengthValidator(true, 50, "Loan List", Ruleset = Constant.RULESET_LENGTH)]
@@ -594,7 +609,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Intake Credit Bureau Code", Ruleset = Constant.RULESET_LENGTH)]
         public string IntakeCreditBureauCd { get; set; }
 
-        public DateTime FcSaleDate { get; set; }
+        [XmlElement(IsNullable = true)]
+        public DateTime? FcSaleDate { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0125, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [NullableOrStringLengthValidator(false, 30, "Working User ID", Ruleset = Constant.RULESET_LENGTH)]
