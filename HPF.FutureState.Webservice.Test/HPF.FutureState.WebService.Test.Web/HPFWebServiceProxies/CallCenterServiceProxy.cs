@@ -973,7 +973,7 @@ namespace HPF.Webservice.CallCenter
 
         private string callIdField;
 
-        private int callCenterIDField;
+        private System.Nullable<int> callCenterIDField;
 
         private string ccAgentIdKeyField;
 
@@ -1039,7 +1039,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public int CallCenterID
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> CallCenterID
         {
             get
             {
