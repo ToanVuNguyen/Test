@@ -221,7 +221,8 @@ namespace HPF.FutureState.BusinessLogic
             //
             msgFcCaseSet.Add(RequireFieldsOutcomeItem(outcomeItem, ruleSet));
             //
-            msgFcCaseSet.Add(RequireFieldsBudgetItem(budgetItem, ruleSet));
+            if (ruleSet != Constant.RULESET_MIN_REQUIRE_FIELD)
+                msgFcCaseSet.Add(RequireFieldsBudgetItem(budgetItem, ruleSet));
             //
             return msgFcCaseSet;
         }
