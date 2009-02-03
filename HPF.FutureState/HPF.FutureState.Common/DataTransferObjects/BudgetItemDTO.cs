@@ -5,14 +5,17 @@ using System.Text;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils.DataValidator;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using System.Xml.Serialization;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
     public class BudgetItemDTO : BaseDTO
     {
+        [XmlIgnore]
         public int BudgetItemId { get; set; }
 
+        [XmlIgnore]
         public int BudgetSetId { get; set; }
 
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "BudgetSubcategoryId is required to save this case")]
@@ -27,8 +30,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 100, "Budget Note", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0070)]
         public string BudgetNote { get; set; }
 
+        [XmlIgnore]
         public string BudgetCategory { get; set; }
 
+        [XmlIgnore]
         public string BudgetSubCategory { get; set; }
     }
 }
