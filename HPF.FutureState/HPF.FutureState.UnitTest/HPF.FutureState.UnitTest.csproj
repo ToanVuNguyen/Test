@@ -57,15 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< .working
-<<<<<<< .mine
-    <Compile Include="BusinessLogic\AgencyPayableBLTest.cs" />
-=======
     <Compile Include="DataAccess\BudgetDAOTest.cs" />
->>>>>>> .r1289
-=======
-    <Compile Include="DataAccess\BudgetDAOTest.cs" />
->>>>>>> .merge-right.r1289
     <Compile Include="BusinessLogic\CallLogBLTest.cs" />
     <Compile Include="BusinessLogic\ForeclosureCaseBLTest.cs" />
     <Compile Include="BusinessLogic\SecurityBLTest.cs">
