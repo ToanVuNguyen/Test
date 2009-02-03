@@ -63,7 +63,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 var exceptionList = CheckRequireForPartial(foreclosureCaseSet);               
 
-                _workingUserID = foreclosureCaseSet.WorkingUserID;
+                _workingUserID = foreclosureCaseSet.ForeclosureCase.WorkingUserID;
 
                 var formatDataException = CheckInvalidFormatData(foreclosureCaseSet);
                 exceptionList.Add(formatDataException);
