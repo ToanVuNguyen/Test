@@ -232,20 +232,29 @@ namespace HPF.FutureState.DataAccess
             return returnValue;
         }
 
-        protected static SqlDateTime NullableDateTime(DateTime datetime)
+        #region convert to SQL data type
+        protected static SqlDateTime NullableDateTime(DateTime? value)
         {
-            if (datetime == null || datetime == DateTime.MinValue)
-                return SqlDateTime.Null;
-            return datetime;
-            
+            if (value.HasValue && value.Value >= SqlDateTime.MinValue)
+                return (SqlDateTime)value;
+            return SqlDateTime.Null;
         }
 
-        protected static SqlInt32 NullableInteger(int intValue)
+        protected static SqlInt32 NullableInteger(int? value)
         {
-            if (intValue == 0 || intValue == int.MinValue)
-                return SqlInt32.Null;
-            return intValue;
+            if (value.HasValue && value.Value >= SqlInt32.MinValue)
+                return (SqlInt32)value;
+            return SqlInt32.Null;
         }
+
+        protected static SqlString NullableString(string value)
+        {
+            if (value != null)
+                return (SqlString)value;
+            return SqlString.Null;            
+        }
+        #endregion
+        
         #endregion
     }
 }

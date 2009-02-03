@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common
         public const string AGENCY_PAYABLE_STATUS_CODE = "Agency Payable - Status code";
         public const string BILLING_DELIVERY_METHOD_CODE = "Billing delivery method code";
         public const string BUDGET_CATEGORY_CODE = "Budget category code";
-        public const string CALL_CENTER_CODE = "Call Center code";
+        public const string CALL_SOURCE_CODE = "call source code";
         public const string CASE_FOLLOW_UP_OUTCOME_CODE = "Case follow up outcome code";
         public const string CASE_FOLLOW_UP_SOURCE_CODE = "Case followup source code";
         public const string CASE_RESOURCE_CODE = "Case resource code";

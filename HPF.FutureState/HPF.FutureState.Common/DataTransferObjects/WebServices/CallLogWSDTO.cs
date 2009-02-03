@@ -18,9 +18,9 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string CcAgentIdKey { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string DNIS { get; set; }
 
@@ -36,13 +36,13 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string LastName { get; set; }
 
-        public int ServicerId { get; set; }
+        public int? ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
 
         public string PropZipFull9 { get; set; }
 
-        public int PrevAgencyId { get; set; }
+        public int? PrevAgencyId { get; set; }
 
         public string SelectedAgencyId { get; set; }
 

@@ -31,7 +31,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime OutcomeDt { get; set; }
 
         [XmlIgnore]
-        public DateTime OutcomeDeletedDt { get; set; }
+        public DateTime? OutcomeDeletedDt { get; set; }
 
         [NullableOrStringLengthValidator(true, 10, "Nonprofit Referral Key Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0068)]
         public string NonprofitreferralKeyNum { get; set; }

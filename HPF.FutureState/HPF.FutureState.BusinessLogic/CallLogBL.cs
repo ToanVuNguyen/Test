@@ -96,7 +96,7 @@ namespace HPF.FutureState.BusinessLogic
             List<string> errorList = new List<string>();
 
                       
-            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE, aCallLog.CallSourceCd))
+            if (!referenceCode.Validate(ReferenceCode.CALL_SOURCE_CODE, aCallLog.CallSourceCd))
                 errorList.Add("Call source code is not valid");
 
             if (!referenceCode.Validate(ReferenceCode.FINAL_DISPO_CD, aCallLog.FinalDispoCd))

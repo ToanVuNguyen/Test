@@ -17,13 +17,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NullableOrStringLengthValidator(true, 55, "Cc Agent Id Key", Ruleset = "Default")]
         public string CcAgentIdKey { get; set; }
-
         
+        [XmlElement(IsNullable=true)]
         [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0351)]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0352)]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         
         [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default")]
         public string DNIS { get; set; }
@@ -45,16 +46,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default")]
         public string LastName { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be type of Integer")]
-        public int ServicerId { get; set; }
+        public int? ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
 
         [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default")]
         public string PropZipFull9 { get; set; }
 
+        [XmlElement(IsNullable = true)]
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be type of Integer")]
-        public int PrevAgencyId { get; set; }
+        public int? PrevAgencyId { get; set; }
 
         [NullableOrStringLengthValidator(true, 20, "Selected Agency Id", Ruleset = "Default")]
         public string SelectedAgencyId { get; set; }
@@ -65,7 +68,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0353)]
         public string FinalDispoCd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 10, "Trans Number", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default")]
         public string TransNumber { get; set; }
 
         [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0350)]
