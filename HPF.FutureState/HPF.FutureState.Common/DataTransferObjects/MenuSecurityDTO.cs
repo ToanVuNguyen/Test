@@ -5,6 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class MenuSecurityDTO : BaseDTO
     {
         public string Target { get; set; }

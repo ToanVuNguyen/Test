@@ -5,6 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class MenuGroupDTOCollection:BaseDTOCollection<MenuGroupDTO>
     {
         public MenuGroupDTO FindMenuGroupDTO(int groupId)

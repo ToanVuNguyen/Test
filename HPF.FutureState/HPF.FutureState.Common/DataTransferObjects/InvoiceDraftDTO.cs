@@ -5,6 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class InvoiceDraftDTO:BaseDTO
     {
         public string FundingSourceId { get; set; }

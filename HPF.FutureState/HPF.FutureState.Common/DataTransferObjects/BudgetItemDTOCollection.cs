@@ -8,6 +8,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class BudgetItemDTOCollection : BaseDTOCollection<BudgetItemDTO>
     {
         public string BudgetCategory { get; set; }

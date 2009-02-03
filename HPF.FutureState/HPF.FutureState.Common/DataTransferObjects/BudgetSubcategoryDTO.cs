@@ -5,6 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class BudgetSubcategoryDTO : BaseDTO
     {
         public int BudgetSubcategoryID { get; set; }

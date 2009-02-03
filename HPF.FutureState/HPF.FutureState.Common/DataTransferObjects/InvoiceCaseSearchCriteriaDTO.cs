@@ -15,6 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public Double Min { get; set; }
         public Double Max { get; set; }
     }
+    [Serializable]
     public class InvoiceCaseSearchCriteriaDTO
     {
         public string FundingSourceId { get; set; }

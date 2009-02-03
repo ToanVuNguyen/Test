@@ -18,5 +18,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string RebuildIndicator { get; set; }
         public int IntentToPayFlagBTD { get; set; }
         public int ForeclosureCaseId { get; set; }
+        
+        //For View/Edit Invoice UC
+        public string AgencyCaseNum { get; set; }
+        public string CaseCompleteDate { get; set; }
+        public string LoanNumber { get; set; }
+        public string ServicerName { get; set; }
+        public string BorrowerName { get; set; }
+        public string PaidDate { get; set; }
+        public string InvenstorLoanId { get; set; }
     }
 }
