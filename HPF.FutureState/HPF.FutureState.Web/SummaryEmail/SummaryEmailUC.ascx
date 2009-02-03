@@ -10,7 +10,11 @@
         </td>
     </tr>
     <tr >
-    <td></td>
+    <td>
+    <asp:Label ID="lblMessgage" runat="server" CssClass="ErrorMessage" Text=""></asp:Label>
+    <asp:RequiredFieldValidator ID="reqtxtTo" runat="server" Display="Dynamic" ControlToValidate="txtTo" ErrorMessage="Input email address"></asp:RequiredFieldValidator>
+    <asp:RequiredFieldValidator ID="reqtxtSubject" runat="server" Display="Dynamic" ControlToValidate="txtSubject" ErrorMessage="You have to input subject "></asp:RequiredFieldValidator>
+    </td>
     </tr>
    
     <tr>
@@ -28,7 +32,7 @@
                 </tr>
                 <tr>
                     <td class="sidelinks" align="right">
-                        To:
+                        To*:
                     </td>
                     <td align="left">
                         <asp:TextBox ID="txtTo" runat="server" Width="98%" CssClass="Text" MaxLength="255"></asp:TextBox>
@@ -36,7 +40,7 @@
                 </tr>
                 <tr>
                     <td class="sidelinks" align="right">
-                        Subject:
+                        Subject*:
                     </td>
                     <td align="left">
                         <asp:TextBox ID="txtSubject" runat="server" Width="98%" CssClass="Text" MaxLength="255"></asp:TextBox>
@@ -62,7 +66,8 @@
                         &nbsp;
                     </td>
                     <td align="center">
-                        <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="MyButton" Width="100px" />
+                        <asp:Button ID="btnSend" runat="server" Text="Send" CssClass="MyButton" 
+                            Width="100px" onclick="btnSend_Click" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" Width="100px" OnClientClick="window.close();" />
                     </td>
                 </tr>

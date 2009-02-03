@@ -18,7 +18,9 @@ namespace HPF.FutureState.Web
 {
     public partial class AppForeclosureCaseDetailPage : System.Web.UI.Page
     {
+        
         string UCLOCATION = "ForeclosureCaseDetail\\";
+       
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -47,6 +49,8 @@ namespace HPF.FutureState.Web
             try
             {
                 var ForeclosureCase = GetForeclosureCase(caseid);
+                //store in session to get info for summary email
+                Session["foreclosureInfo"] = ForeclosureCase;
                 //
                 BindForeclosureCaseToUI(ForeclosureCase);
             }
@@ -141,5 +145,12 @@ namespace HPF.FutureState.Web
             }
             
         }
+
+        protected void btnEmailSummary_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EmailSummary.aspx");
+        }
+
+        
     }
 }

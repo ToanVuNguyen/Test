@@ -38,8 +38,8 @@
                 <asp:Label ID="lblPhone" runat="server" CssClass="Text">877-123-1234 x55432</asp:Label>
             </td>
             <td align="center">
-                <asp:Button ID="btn_Print0" runat="server" CssClass="MyButton" 
-                    Text="Email Summary" />
+                <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" 
+                    Text="Email Summary" onclick="btnEmailSummary_Click" />
             </td>
         </tr>
         <tr>
