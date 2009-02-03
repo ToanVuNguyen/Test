@@ -223,9 +223,7 @@ namespace HPF.FutureState.BusinessLogic
             
             var msgFcCaseSet = new ExceptionMessageCollection();
             //
-            msgFcCaseSet.Add(RequireFieldsForeclosureCase(foreclosureCase, ruleSet));            
-            //
-            msgFcCaseSet.Add(RequireFieldsForeclosureCaseSet(foreclosureCaseSet, ruleSet));
+            msgFcCaseSet.Add(RequireFieldsForeclosureCase(foreclosureCase, ruleSet));                        
             //
             msgFcCaseSet.Add(RequireFieldsCaseLoanItem(caseLoanItem, ruleSet));
             //
@@ -246,19 +244,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckRequireForPartial(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             return ValidationFieldByRuleSet(foreclosureCaseSet, Constant.RULESET_MIN_REQUIRE_FIELD);
-        }
-
-        /// <summary>
-        /// Min request validate the fore closure case set
-        /// 0: Check Create UserID and Change Last User ID
-        /// <return>Collection Message Error</return>
-        /// </summary>
-        private ExceptionMessageCollection RequireFieldsForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCase, string ruleSet)
-        {
-            var msgFcCaseSet = new ExceptionMessageCollection
-                                   {HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet)};
-            return msgFcCaseSet;
-        }
+        }      
 
         /// <summary>
         /// Min request validate the fore closure case set
@@ -403,7 +389,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (caseLoanDTOCollection == null || caseLoanDTOCollection.Count < 1)
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0126, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0126));
-            int servicerId = FindServicerIDWithNameIsOther();            
+            int? servicerId = FindServicerIDWithNameIsOther();            
             foreach (CaseLoanDTO item in caseLoanDTOCollection)
             {
                 ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
@@ -429,7 +415,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int servicerId, CaseLoanDTO item)
+        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int? servicerId, CaseLoanDTO item)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
             if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
@@ -439,7 +425,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private int FindServicerIDWithNameIsOther()
+        private int? FindServicerIDWithNameIsOther()
         {
             var serviers = foreclosureCaseSetDAO.GetServicer();
             foreach(var item in serviers)
