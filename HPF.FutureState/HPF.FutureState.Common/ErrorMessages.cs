@@ -130,6 +130,11 @@ namespace HPF.FutureState.Common
         public const string ERR0215 = "ERR0215";
         public const string ERR0216 = "ERR0216";
         public const string ERR0217 = "ERR0217";
+        public const string ERR0218 = "ERR0218";
+        public const string ERR0219 = "ERR0219";
+        public const string ERR0220 = "ERR0220";
+        public const string ERR0221 = "ERR0221";
+        public const string ERR0222 = "ERR0222";
 
         public const string ERR0250 = "ERR0250";
         public const string ERR0251 = "ERR0251";
@@ -138,6 +143,9 @@ namespace HPF.FutureState.Common
         public const string ERR0254 = "ERR0254";
         public const string ERR0255 = "ERR0255";
         public const string ERR0256 = "ERR0256";
+        public const string ERR0257 = "ERR0257";
+        public const string ERR0258 = "ERR0258";
+        //public const string ERR0259 = "ERR0259";
 
         public const string ERR0350 = "ERR0350"; // "A CcCallKey is required to save a call.";
         public const string ERR0351 = "ERR0351"; //"A StartDt is required to save a call.";
@@ -344,6 +352,11 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0215,"An invalid code was provided for SummarySentOtherCd.");
                 errorMessageDict.Add(ERR0216,"An invalid code was provided for PropertyCd.");
                 errorMessageDict.Add(ERR0217,"An invalid code was provided for MilitaryServiceCd.");
+                errorMessageDict.Add(ERR0218, "An invalid code was provided for IntakeCreditBureauCd.");
+                errorMessageDict.Add(ERR0219, "An invalid code was provided for Loan1st2ndCd.");
+                errorMessageDict.Add(ERR0220, "An invalid code was provided for MortgageTypeCd.");
+                errorMessageDict.Add(ERR0221, "An invalid code was provided for TermLengthCd.");
+                errorMessageDict.Add(ERR0222, "An invalid code was provided for LoanDelinqStatusCd.");
 
                 errorMessageDict.Add(ERR0250, "Neither a HPF FcId nor an AgencyCaseNum was provided. Please provide an AgencyCaseNum for new cases and both and AgencyCaseNum and HPF FcId are required for updates to existing cases.");
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
@@ -355,6 +368,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0254, "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
                 errorMessageDict.Add(ERR0255, "A previously completed case cannot become uncompleted. An update was submitted without all fields required to compleg.");
                 errorMessageDict.Add(ERR0256, "Only one loan can be designated as '1st'.");
+                errorMessageDict.Add(ERR0257, "ContactZip must contain 5 numeric digits.");
+                errorMessageDict.Add(ERR0258, "PropZip must contain 5 numberic digits.");
+                //errorMessageDict.Add(ERR0259, "ContactZip and ContactStateCd+D69 must be a valid combinatoncontain 5 numeric digits.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A StartDt is required to save a call.");
