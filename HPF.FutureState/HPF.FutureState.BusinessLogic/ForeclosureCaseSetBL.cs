@@ -1231,8 +1231,10 @@ namespace HPF.FutureState.BusinessLogic
                         || ConvertStringToUpper(caseLoan.OrigMortgageCoFdicNcusNum) != ConvertStringToUpper(item.OrigMortgageCoFdicNcusNum)
                         || ConvertStringToUpper(caseLoan.OrigMortgageCoName) != ConvertStringToUpper(item.OrigMortgageCoName)
                         || ConvertStringToUpper(caseLoan.OrginalLoanNum) != ConvertStringToUpper(item.OrginalLoanNum)
-                        || ConvertStringToUpper(caseLoan.FdicNcusNumCurrentServicerTbd) != ConvertStringToUpper(item.FdicNcusNumCurrentServicerTbd)                        
-                        || ConvertStringToUpper(caseLoan.InvestorLoanNum) != item.InvestorLoanNum
+                        || ConvertStringToUpper(caseLoan.CurrentServicerFdicNcuaNum) != ConvertStringToUpper(item.CurrentServicerFdicNcuaNum)
+                        || ConvertStringToUpper(caseLoan.InvestorLoanNum) != ConvertStringToUpper(item.InvestorLoanNum)
+                        || ConvertStringToUpper(caseLoan.InvestorNum) != ConvertStringToUpper(item.InvestorNum)
+                        || ConvertStringToUpper(caseLoan.InvestorName) != ConvertStringToUpper(item.InvestorName)
                         )
                         return false;
                 }                
@@ -1390,10 +1392,10 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0202, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0202));
             if (!referenceCode.Validate(ReferenceCode.HOUSEHOLD_CODE, forclosureCase.HouseholdCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0203, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0203));
-            if (!referenceCode.Validate(ReferenceCode.NEVER_BILL_REASON_CODE, forclosureCase.NeverBillReasonCd))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverBillReasonCd.");
-            if (!referenceCode.Validate(ReferenceCode.NEVER_PAY_REASON_CODE, forclosureCase.NeverPayReasonCd))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverPayReasonCd.");
+            //if (!referenceCode.Validate(ReferenceCode.NEVER_BILL_REASON_CODE, forclosureCase.NeverBillReasonCd))
+            //    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverBillReasonCd.");
+            //if (!referenceCode.Validate(ReferenceCode.NEVER_PAY_REASON_CODE, forclosureCase.NeverPayReasonCd))
+            //    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverPayReasonCd.");
             if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE, forclosureCase.DfltReason1stCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0204, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0204));
             if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE, forclosureCase.DfltReason2ndCd))

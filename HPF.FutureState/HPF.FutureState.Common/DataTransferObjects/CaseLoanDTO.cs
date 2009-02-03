@@ -80,12 +80,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Orginal Loan Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0063)]
         public string OrginalLoanNum { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "FdicNcusNum Current Servicer Tbd", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0064)]
-        public string FdicNcusNumCurrentServicerTbd { get; set; }
+        [NullableOrStringLengthValidator(true, 30, "Current Servicer FdicNcuaNum", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0064)]
+        public string CurrentServicerFdicNcuaNum { get; set; }
 
         [XmlIgnore]
         [NullableOrStringLengthValidator(true, 30, "Investor Loan Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0065)]
-        public string InvestorLoanNum { get; set; }    
+        public string InvestorLoanNum { get; set; }
+
+        [NullableOrStringLengthValidator(true, 30, "Investor Number", Ruleset = Constant.RULESET_LENGTH)]
+        public string InvestorNum { get; set; }
+
+        [NullableOrStringLengthValidator(true, 30, "Investor Name", Ruleset = Constant.RULESET_LENGTH)]
+        public string InvestorName { get; set; }
 
     }
 }
