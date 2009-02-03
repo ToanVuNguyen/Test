@@ -318,9 +318,9 @@ namespace HPF.Webservice.Agency
 
         private string callIdField;
 
-        private System.DateTime startDateField;
+        private System.Nullable<System.DateTime> startDateField;
 
-        private System.DateTime endDateField;
+        private System.Nullable<System.DateTime> endDateField;
 
         private string callSourceCdField;
 
@@ -332,13 +332,13 @@ namespace HPF.Webservice.Agency
 
         private string lastNameField;
 
-        private int servicerIdField;
+        private System.Nullable<int> servicerIdField;
 
         private string otherServicerNameField;
 
         private string propZipFull9Field;
 
-        private int prevAgencyIdField;
+        private System.Nullable<int> prevAgencyIdField;
 
         private string selectedAgencyIdField;
 
@@ -368,7 +368,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public System.DateTime StartDate
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> StartDate
         {
             get
             {
@@ -381,7 +382,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public System.DateTime EndDate
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> EndDate
         {
             get
             {
@@ -459,7 +461,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public int ServicerId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ServicerId
         {
             get
             {
@@ -498,7 +501,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public int PrevAgencyId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> PrevAgencyId
         {
             get
             {
@@ -1217,10 +1221,6 @@ namespace HPF.Webservice.Agency
     public partial class CaseLoanDTO : BaseDTO
     {
 
-        private int caseLoanIdField;
-
-        private int fcIdField;
-
         private int servicerIdField;
 
         private string servicerNameField;
@@ -1253,35 +1253,11 @@ namespace HPF.Webservice.Agency
 
         private string orginalLoanNumField;
 
-        private string fdicNcusNumCurrentServicerTbdField;
+        private string currentServicerFdicNcuaNumField;
 
-        private string investorLoanNumField;
+        private string investorNumField;
 
-        /// <remarks/>
-        public int CaseLoanId
-        {
-            get
-            {
-                return this.caseLoanIdField;
-            }
-            set
-            {
-                this.caseLoanIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        public int FcId
-        {
-            get
-            {
-                return this.fcIdField;
-            }
-            set
-            {
-                this.fcIdField = value;
-            }
-        }
+        private string investorNameField;
 
         /// <remarks/>
         public int ServicerId
@@ -1492,28 +1468,41 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string FdicNcusNumCurrentServicerTbd
+        public string CurrentServicerFdicNcuaNum
         {
             get
             {
-                return this.fdicNcusNumCurrentServicerTbdField;
+                return this.currentServicerFdicNcuaNumField;
             }
             set
             {
-                this.fdicNcusNumCurrentServicerTbdField = value;
+                this.currentServicerFdicNcuaNumField = value;
             }
         }
 
         /// <remarks/>
-        public string InvestorLoanNum
+        public string InvestorNum
         {
             get
             {
-                return this.investorLoanNumField;
+                return this.investorNumField;
             }
             set
             {
-                this.investorLoanNumField = value;
+                this.investorNumField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string InvestorName
+        {
+            get
+            {
+                return this.investorNameField;
+            }
+            set
+            {
+                this.investorNameField = value;
             }
         }
     }
@@ -1837,9 +1826,9 @@ namespace HPF.Webservice.Agency
 
         private string outcomeTypeNameField;
 
-        private System.DateTime outcomeDtField;
+        private System.Nullable<System.DateTime> outcomeDtField;
 
-        private System.DateTime outcomeDeletedDtField;
+        private System.Nullable<System.DateTime> outcomeDeletedDtField;
 
         private string nonprofitreferralKeyNumField;
 
@@ -1911,7 +1900,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public System.DateTime OutcomeDt
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> OutcomeDt
         {
             get
             {
@@ -1924,7 +1914,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public System.DateTime OutcomeDeletedDt
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> OutcomeDeletedDt
         {
             get
             {
@@ -2061,8 +2052,6 @@ namespace HPF.Webservice.Agency
 
         private int agencyIdField;
 
-        private System.DateTime completedDtField;
-
         private string callIdField;
 
         private int programIdField;
@@ -2081,10 +2070,6 @@ namespace HPF.Webservice.Agency
 
         private string householdCdField;
 
-        private string neverBillReasonCdField;
-
-        private string neverPayReasonCdField;
-
         private string dfltReason1stCdField;
 
         private string dfltReason2ndCdField;
@@ -2094,8 +2079,6 @@ namespace HPF.Webservice.Agency
         private System.DateTime hudTerminationDtField;
 
         private string hudOutcomeCdField;
-
-        private int amiPercentageField;
 
         private string counselingDurationCdField;
 
@@ -2111,8 +2094,6 @@ namespace HPF.Webservice.Agency
 
         private string borrowerSsnField;
 
-        private string borrowerLast4SsnField;
-
         private System.DateTime borrowerDobField;
 
         private string coBorrowerFnameField;
@@ -2122,8 +2103,6 @@ namespace HPF.Webservice.Agency
         private string coBorrowerMnameField;
 
         private string coBorrowerSsnField;
-
-        private string coBorrowerLast4SsnField;
 
         private System.DateTime coBorrowerDobField;
 
@@ -2177,8 +2156,6 @@ namespace HPF.Webservice.Agency
 
         private string hispanicIndField;
 
-        private string duplicateIndField;
-
         private string fcNoticeReceiveIndField;
 
         private string fundingConsentIndField;
@@ -2186,10 +2163,6 @@ namespace HPF.Webservice.Agency
         private string servicerConsentIndField;
 
         private string agencyMediaInterestIndField;
-
-        private string hpfMediaCandidateIndField;
-
-        private string hpfSuccessStoryIndField;
 
         private string agencySuccessStoryIndField;
 
@@ -2200,8 +2173,6 @@ namespace HPF.Webservice.Agency
         private string summarySentOtherCdField;
 
         private System.DateTime summarySentOtherDtField;
-
-        private System.DateTime summarySentDtField;
 
         private byte occupantNumField;
 
@@ -2235,12 +2206,6 @@ namespace HPF.Webservice.Agency
 
         private string srvcrWorkoutPlanCurrentIndField;
 
-        private string optOutNewsletterIndField;
-
-        private string optOutSurveyIndField;
-
-        private string doNotCallIndField;
-
         private string ownerOccupiedIndField;
 
         private string primaryResidenceIndField;
@@ -2263,13 +2228,13 @@ namespace HPF.Webservice.Agency
 
         private double householdGrossAnnualIncomeAmtField;
 
-        private string loanListField;
-
         private string intakeCreditScoreField;
 
         private string intakeCreditBureauCdField;
 
         private System.DateTime fcSaleDateField;
+
+        private string workingUserIDField;
 
         /// <remarks/>
         public int FcId
@@ -2294,19 +2259,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.agencyIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        public System.DateTime CompletedDt
-        {
-            get
-            {
-                return this.completedDtField;
-            }
-            set
-            {
-                this.completedDtField = value;
             }
         }
 
@@ -2428,32 +2380,6 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string NeverBillReasonCd
-        {
-            get
-            {
-                return this.neverBillReasonCdField;
-            }
-            set
-            {
-                this.neverBillReasonCdField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string NeverPayReasonCd
-        {
-            get
-            {
-                return this.neverPayReasonCdField;
-            }
-            set
-            {
-                this.neverPayReasonCdField = value;
-            }
-        }
-
-        /// <remarks/>
         public string DfltReason1stCd
         {
             get
@@ -2515,19 +2441,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.hudOutcomeCdField = value;
-            }
-        }
-
-        /// <remarks/>
-        public int AmiPercentage
-        {
-            get
-            {
-                return this.amiPercentageField;
-            }
-            set
-            {
-                this.amiPercentageField = value;
             }
         }
 
@@ -2623,19 +2536,6 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string BorrowerLast4Ssn
-        {
-            get
-            {
-                return this.borrowerLast4SsnField;
-            }
-            set
-            {
-                this.borrowerLast4SsnField = value;
-            }
-        }
-
-        /// <remarks/>
         public System.DateTime BorrowerDob
         {
             get
@@ -2697,19 +2597,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.coBorrowerSsnField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string CoBorrowerLast4Ssn
-        {
-            get
-            {
-                return this.coBorrowerLast4SsnField;
-            }
-            set
-            {
-                this.coBorrowerLast4SsnField = value;
             }
         }
 
@@ -3052,19 +2939,6 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string DuplicateInd
-        {
-            get
-            {
-                return this.duplicateIndField;
-            }
-            set
-            {
-                this.duplicateIndField = value;
-            }
-        }
-
-        /// <remarks/>
         public string FcNoticeReceiveInd
         {
             get
@@ -3113,32 +2987,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.agencyMediaInterestIndField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string HpfMediaCandidateInd
-        {
-            get
-            {
-                return this.hpfMediaCandidateIndField;
-            }
-            set
-            {
-                this.hpfMediaCandidateIndField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string HpfSuccessStoryInd
-        {
-            get
-            {
-                return this.hpfSuccessStoryIndField;
-            }
-            set
-            {
-                this.hpfSuccessStoryIndField = value;
             }
         }
 
@@ -3204,19 +3052,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.summarySentOtherDtField = value;
-            }
-        }
-
-        /// <remarks/>
-        public System.DateTime SummarySentDt
-        {
-            get
-            {
-                return this.summarySentDtField;
-            }
-            set
-            {
-                this.summarySentDtField = value;
             }
         }
 
@@ -3429,45 +3264,6 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string OptOutNewsletterInd
-        {
-            get
-            {
-                return this.optOutNewsletterIndField;
-            }
-            set
-            {
-                this.optOutNewsletterIndField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string OptOutSurveyInd
-        {
-            get
-            {
-                return this.optOutSurveyIndField;
-            }
-            set
-            {
-                this.optOutSurveyIndField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string DoNotCallInd
-        {
-            get
-            {
-                return this.doNotCallIndField;
-            }
-            set
-            {
-                this.doNotCallIndField = value;
-            }
-        }
-
-        /// <remarks/>
         public string OwnerOccupiedInd
         {
             get
@@ -3611,19 +3407,6 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string LoanList
-        {
-            get
-            {
-                return this.loanListField;
-            }
-            set
-            {
-                this.loanListField = value;
-            }
-        }
-
-        /// <remarks/>
         public string IntakeCreditScore
         {
             get
@@ -3659,6 +3442,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.fcSaleDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string WorkingUserID
+        {
+            get
+            {
+                return this.workingUserIDField;
+            }
+            set
+            {
+                this.workingUserIDField = value;
             }
         }
     }
@@ -3836,8 +3632,6 @@ namespace HPF.Webservice.Agency
 
         private ActivityLogDTO[] activityLogField;
 
-        private string workingUserIDField;
-
         /// <remarks/>
         public ForeclosureCaseDTO ForeclosureCase
         {
@@ -3926,19 +3720,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.activityLogField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string WorkingUserID
-        {
-            get
-            {
-                return this.workingUserIDField;
-            }
-            set
-            {
-                this.workingUserIDField = value;
             }
         }
     }

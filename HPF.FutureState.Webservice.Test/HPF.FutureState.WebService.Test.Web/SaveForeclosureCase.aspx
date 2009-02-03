@@ -864,7 +864,7 @@
         </tr>   
         <tr>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label111" runat="server" Text="Working User ID"></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label111" runat="server" Text="Change last User ID"></asp:Label>             
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtWorkingUserID" runat="server"></asp:TextBox>

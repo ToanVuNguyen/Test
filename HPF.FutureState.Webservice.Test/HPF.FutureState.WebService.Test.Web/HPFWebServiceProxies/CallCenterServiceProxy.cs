@@ -977,9 +977,9 @@ namespace HPF.Webservice.CallCenter
 
         private string ccAgentIdKeyField;
 
-        private System.DateTime startDateField;
+        private System.Nullable<System.DateTime> startDateField;
 
-        private System.DateTime endDateField;
+        private System.Nullable<System.DateTime> endDateField;
 
         private string dNISField;
 
@@ -995,13 +995,13 @@ namespace HPF.Webservice.CallCenter
 
         private string lastNameField;
 
-        private int servicerIdField;
+        private System.Nullable<int> servicerIdField;
 
         private string otherServicerNameField;
 
         private string propZipFull9Field;
 
-        private int prevAgencyIdField;
+        private System.Nullable<int> prevAgencyIdField;
 
         private string selectedAgencyIdField;
 
@@ -1065,7 +1065,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public System.DateTime StartDate
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> StartDate
         {
             get
             {
@@ -1078,7 +1079,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public System.DateTime EndDate
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> EndDate
         {
             get
             {
@@ -1182,7 +1184,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public int ServicerId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ServicerId
         {
             get
             {
@@ -1221,7 +1224,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public int PrevAgencyId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> PrevAgencyId
         {
             get
             {
