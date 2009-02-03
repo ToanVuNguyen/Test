@@ -98,6 +98,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     lblOutcomeDeletedDt.Text = "";
             }
         }
+        
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int selectedIdx = grdvOutcomeItems.SelectedIndex;            
