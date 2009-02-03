@@ -22,7 +22,7 @@ namespace HPF.FutureState.UnitTest
 
 
         private TestContext testContextInstance;
-
+        private CallLogDTO aCallLog;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -56,16 +56,20 @@ namespace HPF.FutureState.UnitTest
         //}
         //
         //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
+        [TestInitialize()]
+        public void MyTestInitialize()
+        {
+            aCallLog = new CallLogDTO();
+            SetCallLogTestData(aCallLog);
+           
+        }
         //
         //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
+        [TestCleanup()]
+        public void MyTestCleanup()
+        {
+            ClearTestData(aCallLog);   
+        }
         //
         #endregion
 
@@ -104,30 +108,20 @@ namespace HPF.FutureState.UnitTest
         public void InsertCallLogTest_Pass()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
-            try
-            {
-                SetCallLogTestData(aCallLog);
-                int actual = target.InsertCallLog(aCallLog);
-                int expected = GetCallLogId();
-                Assert.AreEqual(expected, actual);
+            int actual = target.InsertCallLog(aCallLog);
+            int expected = GetCallLogId();
+            Assert.AreEqual(expected, actual);
 
-                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1}", expected, actual));
-            }
-            catch
-            {
-                ClearTestData(aCallLog);
-            }
+            TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1}", expected, actual));
+           
         }
 
         [TestMethod]
         public void InsertCallLogTest_MissingRequiredField()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
             try
             {
-                SetCallLogTestData(aCallLog);
                 aCallLog.CcCallKey = null;
                 target.InsertCallLog(aCallLog);                                               
             }
@@ -136,7 +130,6 @@ namespace HPF.FutureState.UnitTest
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 ShowException(actual);
-                ClearTestData(aCallLog);
             }
         }
 
@@ -144,10 +137,8 @@ namespace HPF.FutureState.UnitTest
         public void InsertCallLogTest_InvalidForeignKey()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
             try
             {
-                SetCallLogTestData(aCallLog);
                 aCallLog.PrevAgencyId = 9999999;
                 aCallLog.ServicerId = 999999;
                 aCallLog.CallCenterID = 9999999;
@@ -158,7 +149,6 @@ namespace HPF.FutureState.UnitTest
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 ShowException(actual);
-                ClearTestData(aCallLog);
             }
         }
 
@@ -166,10 +156,8 @@ namespace HPF.FutureState.UnitTest
         public void InsertCallLogTest_InvalidCode()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
             try
             {
-                SetCallLogTestData(aCallLog);
                 aCallLog.FinalDispoCd = "InvalidCd";
                 target.InsertCallLog(aCallLog);
             }
@@ -178,7 +166,6 @@ namespace HPF.FutureState.UnitTest
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 ShowException(actual);
-                ClearTestData(aCallLog);
             }
         }
 
@@ -187,10 +174,8 @@ namespace HPF.FutureState.UnitTest
         {
             
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
             try
             {
-                SetCallLogTestData(aCallLog);
                 aCallLog.HomeownerInd = "s";
                 target.InsertCallLog(aCallLog);
             }
@@ -199,7 +184,6 @@ namespace HPF.FutureState.UnitTest
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 ShowException(actual);
-                ClearTestData(aCallLog);
             }
         }
         [TestMethod]
@@ -207,10 +191,8 @@ namespace HPF.FutureState.UnitTest
         {
             //12982
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
             try
             {
-                SetCallLogTestData(aCallLog);
                 aCallLog.CcCallKey = "Invalid CcCallKey will be longer than 18 characters";
                 target.InsertCallLog(aCallLog);
             }
@@ -219,7 +201,6 @@ namespace HPF.FutureState.UnitTest
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 ShowException(actual);
-                ClearTestData(aCallLog);
             }
         }
 
@@ -228,27 +209,29 @@ namespace HPF.FutureState.UnitTest
         {
             //12982 - servicer other
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            CallLogDTO aCallLog = new CallLogDTO();
+            int oldCallCenterID = aCallLog.CallCenterID;
             try
-            {
-                SetCallLogTestData(aCallLog);
+            {                
                 aCallLog.CallCenterID = 76;
                 target.InsertCallLog(aCallLog);
+                
             }
-            catch (DataValidationException actual)
+            catch (Exception actual)
             {
+                aCallLog.CallCenterID = oldCallCenterID;
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
-                ShowException(actual);
-                ClearTestData(aCallLog);
+                ShowException((DataValidationException)actual);
             }
         }
+
         #region helper
         private void SetCallLogTestData(CallLogDTO aCallLog)
         {
+
             string sql = "Insert into Agency "
-                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+               + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+               + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
 
             sql = "Insert into Call_Center "
@@ -260,12 +243,13 @@ namespace HPF.FutureState.UnitTest
                 + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
-            
 
             aCallLog.StartDate = new DateTime(2008, 10, 10);
             aCallLog.EndDate = DateTime.Now;
             aCallLog.CcCallKey = "12345";
-            aCallLog.FinalDispoCd = "CALL4MORTGCO";
+            aCallLog.LoanDelinqStatusCd = "120+";
+            aCallLog.CallSourceCd = "Billboard";
+            aCallLog.FinalDispoCd = "COUNSELORTRANS";
             aCallLog.PrevAgencyId = GetAgencyID();
             aCallLog.ServicerId = GetServicerID();
             aCallLog.CallCenterID = GetCallCenterID();
@@ -284,7 +268,7 @@ namespace HPF.FutureState.UnitTest
             s = "Delete from Call_Center where call_center_id = " + aCallLog.CallCenterID;
             ExecuteSql(s);
             s = "Delete from Servicer where servicer_id = " + aCallLog.ServicerId;
-            ExecuteSql(s);
+            ExecuteSql(s);  
         }
         
         private int GetCallLogId()

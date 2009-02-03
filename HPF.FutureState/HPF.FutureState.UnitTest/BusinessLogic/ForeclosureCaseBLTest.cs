@@ -1696,7 +1696,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private ForeclosureCaseSetDTO SetForeclosureCaseSet(string status)
         {            
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            foreclosureCaseSet.WorkingUserID = "test working uID";
+            //foreclosureCaseSet.WorkingUserID = "test working uID";
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCase(status);
             foreclosureCaseSet.CaseLoans = SetCaseLoanCollection(status);
             foreclosureCaseSet.Outcome = SetOutcomeItemCollection(status);
@@ -1704,7 +1704,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.BudgetItems = SetBudgetItemCollection(status);
             foreclosureCaseSet.BudgetAssets = SetBudgetAssetCollection(status);
             foreclosureCaseSet.ActivityLog = SetActivityLogCollection(status);
-            foreclosureCaseSet.WorkingUserID = "HPF";
+            //foreclosureCaseSet.WorkingUserID = "HPF";
             return foreclosureCaseSet;
         }
 
