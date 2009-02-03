@@ -1415,7 +1415,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!referenceCode.Validate(ReferenceCode.MILITARY_SERVICE_CODE, forclosureCase.MilitaryServiceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0217));
             if (!referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE, forclosureCase.IntakeCreditBureauCd))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for IntakeCreditBureauCd.");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0218, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0218));
             return msgFcCaseSet;
         }
 
@@ -1434,13 +1434,13 @@ namespace HPF.FutureState.BusinessLogic
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
                 if (!referenceCode.Validate(ReferenceCode.LOAN_1ST_2ND, caseLoan.Loan1st2nd))
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for Loan1st2nd " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0219, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0219) + " which index  " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MORTGAGE_TYPE_CODE, caseLoan.MortgageTypeCd))
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for MortgageTypeCode " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0220, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0220) + " which index  " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.TERM_LENGTH_CODE, caseLoan.TermLengthCd))
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for TermLengthCode " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0221, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0221) + " which index  " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, caseLoan.LoanDelinqStatusCd))
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for LoanDelinqStatusCode " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0222, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0222) + " which index  " + (i + 1));
                 if(!CheckValidServicerId(caseLoan.ServicerId))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId " + (i + 1));
             }
@@ -1508,9 +1508,9 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (forclosureCase.ContactZip.Length != 5)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for ContactZip");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0257, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0257));
             if (forclosureCase.PropZip.Length != 5)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for PropZip");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0258, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0258));
             return msgFcCaseSet;
         }
 
