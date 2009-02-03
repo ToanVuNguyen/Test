@@ -169,7 +169,11 @@ namespace HPF.FutureState.BusinessLogic
                 result = InvoiceDAO.CreateInstance().InvoiceCaseSearch(searchCriteria);
             return result;
         }
-
+        /// <summary>
+        /// Create Invoice Draft 
+        /// </summary>
+        /// <param name="searchCriteria"></param>
+        /// <returns></returns>
         public InvoiceDraftDTO CreateInvoiceDraft(InvoiceCaseSearchCriteriaDTO searchCriteria)
         {
             InvoiceDraftDTO invoiceDraft = new InvoiceDraftDTO();
@@ -178,6 +182,15 @@ namespace HPF.FutureState.BusinessLogic
             invoiceDraft.PeriodStartDate = searchCriteria.PeriodStart;
             invoiceDraft.ForeclosureCaseDrafts = this.InvoiceCaseSearch(searchCriteria);
             return invoiceDraft;
+        }
+        /// <summary>
+        /// Get invoice Set 
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <returns></returns>
+        public InvoiceSetDTO GetInvoiceSet(int invoiceId)
+        {
+            return InvoiceDAO.CreateInstance().InvoiceSetGet(invoiceId);
         }
     }
 }

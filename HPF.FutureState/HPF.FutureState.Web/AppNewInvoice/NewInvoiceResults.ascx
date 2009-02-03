@@ -59,7 +59,7 @@
     </tr>
     <tr>
         <td align="left" class="sidelinks">
-            Invoice Items:          Invoice Items:</td>
+                        Invoice Items:</td>
         <td>
             &nbsp;</td>
         <td colspan="2">

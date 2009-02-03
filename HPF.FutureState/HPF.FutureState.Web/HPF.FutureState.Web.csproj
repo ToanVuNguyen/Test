@@ -162,6 +162,20 @@
     <Compile Include="AppNewPayable\NewPayableCriteriaUC.ascx.designer.cs">
       <DependentUpon>NewPayableCriteriaUC.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AppViewEditInvoicePage.aspx.cs">
+      <DependentUpon>AppViewEditInvoicePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppViewEditInvoicePage.aspx.designer.cs">
+      <DependentUpon>AppViewEditInvoicePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.cs">
+      <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.designer.cs">
+      <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -322,6 +336,8 @@
     <Content Include="AppNewInvoice\NewInvoiceResults.ascx" />
     <Content Include="AppNewPayable\NewAgencyPayableResultsUC.ascx" />
     <Content Include="AppNewPayable\NewPayableCriteriaUC.ascx" />
+    <Content Include="AppViewEditInvoicePage.aspx" />
+    <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="Common\Menu\MenuBar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -399,9 +415,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

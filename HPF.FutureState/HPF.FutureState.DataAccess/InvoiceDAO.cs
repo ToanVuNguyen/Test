@@ -391,5 +391,70 @@ namespace HPF.FutureState.DataAccess
             }
             return invoices;
         }
+        /// <summary>
+        /// Get InvoiceSet to display in View/Edit Invoice Page
+        /// </summary>
+        /// <returns> InvoiceSetDTO containts info about the Invoice and InvoiceCases</returns>
+        public InvoiceSetDTO InvoiceSetGet(int invoiceId)
+        {
+            InvoiceSetDTO result = new InvoiceSetDTO();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_invoice_set_get", dbConnection);
+            command.Connection = dbConnection;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    //read Invoice
+                    reader.Read();
+                    InvoiceDTO invoice = new InvoiceDTO();
+                    invoice.FundingSourceId = ConvertToInt(reader["funding_source_id"]);
+                    invoice.FundingSourceName = ConvertToString(reader["funding_source_name"]);
+                    invoice.InvoiceBillAmount = ConvertToDouble(reader["invoice_bill_amt"]);
+                    invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);
+                    invoice.InvoiceId = ConvertToInt(reader["Invoice_id"]);
+                    invoice.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
+                    invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
+                    invoice.InvoicePaymentAmount = ConvertToDouble(reader["invoice_pmt_amt"]);
+                    invoice.StatusCode = ConvertToString(reader["status_cd"]);
+                    invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
+                    result.Invoice = invoice;
+
+                    reader.NextResult();
+                    // read InvoiceCases
+
+                    while (reader.Read())
+                    {
+                        var invoiceCase = new InvoiceCaseDTO();
+
+                        invoiceCase.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
+                        invoiceCase.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
+                        invoiceCase.CaseCompleteDate = (ConvertToDateTime(reader["completed_dt"])).ToShortDateString();
+                        invoiceCase.InvoiceCaseBillAmount = ConvertToDouble(reader["invoice_case_bill_amt"]);
+                        invoiceCase.LoanNumber = ConvertToString(reader["acct_num"]);
+                        invoiceCase.ServicerName = ConvertToString(reader["servicer_name"]);
+                        invoiceCase.BorrowerName = ConvertToString(reader["borrower_name"]);
+                        invoiceCase.PaidDate = (ConvertToDateTime(reader["pmt_dt"])).ToShortDateString();
+                        invoiceCase.InvoiceCasePaymentAmount = ConvertToDouble(reader["invoice_case_pmt_amt"]);
+                        invoiceCase.PaymentRejectReasonCode = ConvertToString(reader["pmt_reject_reason_cd"]);
+                        invoiceCase.InvenstorLoanId = ConvertToString(reader["investor_loan_num"]);
+
+                        result.InvoiceCases.Add(invoiceCase);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
     }
 }
