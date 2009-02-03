@@ -25,8 +25,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public ActivityLogDTOCollection ActivityLog { get; set; }
 
-        [StringRequiredValidator(Tag = ErrorMessages.ERR0125, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
-        [NullableOrStringLengthValidator(false, 30, "Working User ID", Ruleset = Constant.RULESET_LENGTH)]
-        public string WorkingUserID { get; set; }
+        
     }
 }
