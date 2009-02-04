@@ -25,13 +25,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = true;
-            if (objectToValidate != null  && (string.IsNullOrEmpty(objectToValidate.ToString())))
+            if (objectToValidate != null  && (!string.IsNullOrEmpty(objectToValidate.ToString())))
             {
                 if (objectToValidate.GetType() == typeof(DateTime))
                 {
                     DateTime dt;
-                    DateTime.TryParse(objectToValidate.ToString(), out dt);
-                    if (dt == DateTime.MinValue)
+                    if (!DateTime.TryParse(objectToValidate.ToString(), out dt))
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
@@ -41,8 +40,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 if (objectToValidate.GetType() == typeof(decimal))
                 {
                     decimal value;
-                    decimal.TryParse(objectToValidate.ToString(), out value);
-                    if (value == decimal.MinValue)
+                    if(!decimal.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
@@ -52,8 +50,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 if (objectToValidate.GetType() == typeof(double))
                 {
                     double value;
-                    double.TryParse(objectToValidate.ToString(), out value);
-                    if (value == double.MinValue)
+                    if(!double.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
@@ -63,8 +60,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 if (objectToValidate.GetType() == typeof(int))
                 {
                     int value;
-                    int.TryParse(objectToValidate.ToString(), out value);
-                    if (value == int.MinValue)
+                    if (!int.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
@@ -74,8 +70,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 if (objectToValidate.GetType() == typeof(byte))
                 {
                     byte value;
-                    byte.TryParse(objectToValidate.ToString(), out value);
-                    if (value == byte.MinValue)
+                    if (!byte.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
