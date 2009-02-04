@@ -15,7 +15,7 @@ namespace HPF.FutureState.Common
         public const string CALL_SOURCE_CODE = "call source code";
         public const string CASE_FOLLOW_UP_OUTCOME_CODE = "Case follow up outcome code";
         public const string CASE_FOLLOW_UP_SOURCE_CODE = "Case followup source code";
-        public const string CASE_RESOURCE_CODE = "Case resource code";
+        public const string CASE_RESOURCE_CODE = "Case source code";
         public const string CASE_STATUS_CODE = "Case status code";
         public const string COUNSELING_DURARION_CODE = "Counseling durarion code";
         public const string COUNSELING_SUMMARY_FORMAT_CODE = "Counseling summary format code";

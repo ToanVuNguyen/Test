@@ -35,6 +35,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         /// <returns></returns>
         public bool ContainCode(string codeValue)
         {
+            if (string.IsNullOrEmpty(codeValue))
+                return true;
             return this.SingleOrDefault(item => item.Code == codeValue) != null;
         }
     }
