@@ -947,24 +947,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckInactiveCaseWithFcIDAndCompleteDateTrue()
         {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target._workingUserID = "HPF";
-            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
-            target.InsertForeclosureCaseSet(foreclosureCase);
-            target.CompleteTransaction();
-            foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
-            ForeclosureCaseDTO fCase = SetForeclosureCase("TRUE");
-            fCase.FcId = GetForeclosureCaseId();
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
+            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();
+            int fcId = SearchFcCase_GetFcID();
+            fCase.FcId = fcId;
             fCase.CompletedDt = Convert.ToDateTime("12/12/2007");
             UpdateForeclosureCase(fCase);
             bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            target.InitiateTransaction();
-            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
-            target.CompleteTransaction();
-            int fcId = GetForeclosureCaseId();
-            DeleteForeclosureCase(fcId);            
+            bool actual = target.CheckInactiveCase(fcId);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1076,13 +1066,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.ForeclosureCase.WorkingUserID = "HPF";
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
-            foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");            
-            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
             ExceptionMessageCollection actual;
-            actual = target.CheckInvalidFormatData(foreclosureCaseSet);
-            if (actual.Count == 0)
-                actual = null;
-            Assert.AreEqual(expected, actual);
+            actual = target.CheckInvalidFormatData(foreclosureCaseSet);            
+            Assert.AreEqual(0, actual.Count);
         }
 
         
@@ -1097,13 +1084,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
             foreclosureCaseSet.ForeclosureCase.WorkingUserID = "HPF";
-            foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";
-            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";            
             ExceptionMessageCollection actual;
-            actual = target.CheckRequireForPartial(foreclosureCaseSet);
-            if (actual.Count == 0) 
-                actual = null;
-            Assert.AreEqual(expected, actual);
+            actual = target.CheckRequireForPartial(foreclosureCaseSet);            
+            Assert.AreEqual(0, actual.Count);
         }
 
         /// <summary>
@@ -1133,13 +1117,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {            
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
-            foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();
-            ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();            
             ExceptionMessageCollection actual;
             InsertGeoCodeRef();            
             actual = target.CheckValidCode(foreclosureCaseSet);            
             DeleteGeoCodeRef(GetGeoCodeRefId());
-            Assert.AreEqual(expected, actual);            
+            Assert.AreEqual(0, actual.Count);            
         }
 
         /// <summary>
@@ -1153,10 +1136,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeFalse();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
-            ExceptionMessageCollection actual;
-            target.InitiateTransaction();
-            actual = target.CheckValidCode(foreclosureCaseSet);
-            target.CompleteTransaction();
+            ExceptionMessageCollection actual;            
+            actual = target.CheckValidCode(foreclosureCaseSet);            
             Assert.AreNotEqual(expected, actual);
         }
 
@@ -1373,11 +1354,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
-            target.WarningMessage = new ExceptionMessageCollection();
-            target.InitiateTransaction();
-            actual = target.MiscErrorException(foreclosureCaseSet);
-            target.CompleteTransaction();
-            Assert.AreEqual(expected, actual);
+            target.WarningMessage = new ExceptionMessageCollection();            
+            actual = target.MiscErrorException(foreclosureCaseSet);            
+            Assert.AreEqual(0, actual.Count);
         }
 
         #region Data test ForeclosureCaseSet
