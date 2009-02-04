@@ -7,7 +7,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class OutcomeTypeDTO:BaseDTO
     {
-        public int OutcomeTypeID { get; set; }
+        public int? OutcomeTypeID { get; set; }
 
         public string OutcomeTypeName { get; set; }
 

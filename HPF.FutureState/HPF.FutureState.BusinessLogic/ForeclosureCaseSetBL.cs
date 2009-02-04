@@ -337,7 +337,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1)
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Missing Outcome item. At least one Outcome item is required to save a foreclosure case.");
-            int outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
+            int? outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
             foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
             {
                 var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
@@ -362,7 +362,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int outComeTypeId, OutcomeItemDTO item)
+        private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int? outComeTypeId, OutcomeItemDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != 0 && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
@@ -429,7 +429,7 @@ namespace HPF.FutureState.BusinessLogic
             return 0;
         }
 
-        private int FindOutcomeTypeIdWithNameIsExternalReferral()
+        private int? FindOutcomeTypeIdWithNameIsExternalReferral()
         {
             OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();
             foreach (OutcomeTypeDTO item in outcomeType)
