@@ -17,9 +17,7 @@ namespace HPF.FutureState.WebService.Test.Web
 {
     public class AgencyHelper
     {
-        
-
-        public static List<CaseLoanDTO_App> ParseCaseLoanDTO_App(XDocument xdoc)
+        public static List<CaseLoanDTO_App> ParseCaseLoanDTO(XDocument xdoc)
         {            
             try
             {
@@ -27,17 +25,11 @@ namespace HPF.FutureState.WebService.Test.Web
                            select new CaseLoanDTO_App
                            {                                 
                                AcctNum = obj.Element("AcctNum").Value,
-                               //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
-                               //CreateUserId = obj.Element("CreateUserId").Value,                                                               
                                ArmResetInd = obj.Element("ArmResetInd").Value,
-                               CaseLoanId = Util.ConvertToInt(obj.Element("CaseLoanId").Value),
                                CurrentLoanBalanceAmt = Util.ConvertToDouble(obj.Element("CurrentLoanBalanceAmt").Value),
-                               //CurrentServicerNameTbd = obj.Element("CurrentServicerNameTbd").Value,
-                               CurrentServicerFdicNcuaNum = obj.Element("CurrentServicerFdicNcuaNum").Value,                               
-                               //InvestorLoanNum = obj.Element("InvestorLoanNum").Value,
-                               //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
+                               CurrentServicerFdicNcuaNum = obj.Element("CurrentServicerFdicNcuaNum").Value,
                                InterestRate = Util.ConvertToDouble(obj.Element("InterestRate").Value),
-                               Loan1st2nd = obj.Element("Loan1st2nd").Value,                               
+                               Loan1st2nd = obj.Element("Loan1st2nd").Value,
                                LoanDelinqStatusCd = obj.Element("LoanDelinqStatusCd").Value,
                                MortgageTypeCd = obj.Element("MortgageTypeCd").Value,
                                OrginalLoanNum = obj.Element("OrginalLoanNum").Value,
@@ -72,7 +64,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("OutcomeItem")
                            select new OutcomeItemDTO_App
                            {
-                               OutcomeItemId = Util.ConvertToInt(obj.Element("OutcomeTypeId").Value),
+                               //OutcomeItemId = Util.ConvertToInt(obj.Element("OutcomeTypeId").Value),
                                ExtRefOtherName = obj.Element("ExtRefOtherName").Value,
                                //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
                                NonprofitreferralKeyNum = obj.Element("NonprofitreferralKeyNum").Value,
@@ -105,7 +97,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("BudgetAsset")
                            select new BudgetAssetDTO_App
                            {
-                               BudgetAssetId = Util.ConvertToInt(obj.Element("BudgetAssetId").Value),
+                               //BudgetAssetId = Util.ConvertToInt(obj.Element("BudgetAssetId").Value),
                                //BudgetSetId = Util.ConvertToInt(obj.Element("BudgetSetId").Value),
                                AssetName = obj.Element("AssetName").Value,
                                AssetValue = Util.ConvertToDouble(obj.Element("AssetValue").Value),
@@ -135,7 +127,7 @@ namespace HPF.FutureState.WebService.Test.Web
                            select new BudgetItemDTO_App
                            {
                                BudgetItemAmt = Util.ConvertToDouble(obj.Element("BudgetItemAmt").Value),
-                               BudgetItemId = Util.ConvertToInt(obj.Element("BudgetItemId").Value),
+                               //BudgetItemId = Util.ConvertToInt(obj.Element("BudgetItemId").Value),
                                BudgetNote = obj.Element("BudgetNote").Value,
                                //BudgetSetId = Util.ConvertToInt(obj.Element("BudgetSetId").Value),
                                BudgetSubcategoryId = Util.ConvertToInt(obj.Element("BudgetSubcategoryId").Value),

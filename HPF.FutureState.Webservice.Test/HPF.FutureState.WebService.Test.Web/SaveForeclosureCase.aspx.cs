@@ -41,7 +41,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void BindToForm(XDocument xdoc)
         {
-            Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO_App(xdoc);
+            Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO(xdoc);
             Session[SessionVariables.BUDGET_ASSET_COLLECTION] = AgencyHelper.ParseBudgetAssetDTO(xdoc);
             Session[SessionVariables.BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseBudgetItemDTO(xdoc);
             //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);

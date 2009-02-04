@@ -119,7 +119,7 @@
       <OrigMortgageCoFdicNcusNum>test</OrigMortgageCoFdicNcusNum>
       <OrigMortgageCoName>test</OrigMortgageCoName>
       <OrginalLoanNum>test</OrginalLoanNum>
-      <FdicNcusNumCurrentServicerTbd>test</FdicNcusNumCurrentServicerTbd>
+      <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
       <!--<InvestorLoanNum>test</InvestorLoanNum>
       <CreateUserId>Agency1</CreateUserId>
@@ -144,7 +144,7 @@
       <OrigMortgageCoFdicNcusNum>test</OrigMortgageCoFdicNcusNum>
       <OrigMortgageCoName>test</OrigMortgageCoName>
       <OrginalLoanNum>test</OrginalLoanNum>
-      <FdicNcusNumCurrentServicerTbd>test</FdicNcusNumCurrentServicerTbd>
+      <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
       <!--<InvestorLoanNum>test</InvestorLoanNum>
       <CreateUserId>Agency1</CreateUserId>
