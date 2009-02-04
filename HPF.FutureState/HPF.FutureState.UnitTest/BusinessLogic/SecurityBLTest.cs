@@ -126,12 +126,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void WSUserLoginSuccessTest()
         {
             SecurityBL_Accessor target = new SecurityBL_Accessor();
-            //string userName = "utest_user2";
-            //string password = "utest_user2";
-            //string userName = "utest_user1";
-            //string password = "utest_user1";
-            string userName = "agency";
-            string password = "agency";
+            string userName = "utest_user2";
+            string password = "utest_user2";            
             WSType wsType = WSType.Agency;
 
             bool expected = true;
