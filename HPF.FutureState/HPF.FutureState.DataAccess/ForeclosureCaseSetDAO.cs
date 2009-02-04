@@ -1350,9 +1350,9 @@ namespace HPF.FutureState.DataAccess
         public string GetAgencyName(int? AgencyID)
         {
             string returnString = string.Empty;
+            var dbConnection = CreateConnection();
             try
-            {
-                var dbConnection = CreateConnection();
+            {                
                 SqlCommand command = base.CreateCommand("hpf_agency_detail_get", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
@@ -1391,9 +1391,9 @@ namespace HPF.FutureState.DataAccess
         public bool GetCall(string callID)
         {
             bool results = false;
+            var dbConnection = CreateConnection();
             try
-            {
-                var dbConnection = CreateConnection();
+            {                
                 SqlCommand command = base.CreateCommand("hpf_call_get", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
@@ -1428,9 +1428,9 @@ namespace HPF.FutureState.DataAccess
         public string GetServicerName(int? servicerId)
         {
             string returnString = string.Empty;
+            var dbConnection = CreateConnection();
             try
-            {
-                var dbConnection = CreateConnection();
+            {                
                 SqlCommand command = base.CreateCommand("hpf_servicer_get", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[1];
@@ -1471,9 +1471,9 @@ namespace HPF.FutureState.DataAccess
         public bool CheckExistingAgencyIdAndCaseNumber(int? agency_id, string agency_case_number)
         {
             bool returnValue = true;
+            var dbConnection = CreateConnection();
             try
-            {
-                var dbConnection = CreateConnection();
+            {                
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);//new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
                 //<Parameter>
                 var sqlParam = new SqlParameter[2];
@@ -1502,10 +1502,10 @@ namespace HPF.FutureState.DataAccess
         public DuplicatedCaseLoanDTOCollection GetDuplicatedCases(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DuplicatedCaseLoanDTOCollection returnCollection = null;
+            var dbConnection = CreateConnection();
             try
             {
-                ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
-                var dbConnection = CreateConnection();
+                ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;                
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_duplicate", dbConnection);
                 //<Parameter>
                 SqlParameter[] sqlParam = new SqlParameter[4];

@@ -13,7 +13,7 @@ namespace HPF.FutureState.BusinessLogic
             //Get group of RefCode with same RefCode name.
             //The group was cached itself in refCodeItemCollection.
             var refCodeItemCollectionByCode = refCodeItemCollection.GetRefCodeItemsByRefCode(refCode);
-            if ((refCodeItemCollectionByCode == null || refCodeItemCollectionByCode.Count < 1) && codeValue != null)
+            if ((refCodeItemCollectionByCode == null || refCodeItemCollectionByCode.Count < 1) && !string.IsNullOrEmpty(codeValue))
                 return false;
             //
             return refCodeItemCollectionByCode.ContainCode(codeValue);            

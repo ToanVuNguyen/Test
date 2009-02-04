@@ -80,6 +80,15 @@ namespace HPF.FutureState.Common
         public const string ERR0069 = "ERR0069" ;
         public const string ERR0070 = "ERR0070" ;
         public const string ERR0071 = "ERR0071" ;
+        public const string ERR0072 = "ERR0072";
+        public const string ERR0073 = "ERR0073";
+        public const string ERR0074 = "ERR0074";
+        public const string ERR0075 = "ERR0075";
+        public const string ERR0076 = "ERR0076";
+        public const string ERR0077 = "ERR0077";
+        public const string ERR0078 = "ERR0078";
+        public const string ERR0079 = "ERR0079";
+        public const string ERR0080 = "ERR0080";
 
         public const string ERR0100 = "ERR0100";
         public const string ERR0101 = "ERR0101";
@@ -145,7 +154,20 @@ namespace HPF.FutureState.Common
         public const string ERR0256 = "ERR0256";
         public const string ERR0257 = "ERR0257";
         public const string ERR0258 = "ERR0258";
-        //public const string ERR0259 = "ERR0259";
+        public const string ERR0259 = "ERR0259";
+        public const string ERR0260 = "ERR0260";
+        public const string ERR0261 = "ERR0261";
+        public const string ERR0262 = "ERR0262";
+        public const string ERR0263 = "ERR0263";
+        public const string ERR0264 = "ERR0264";
+        public const string ERR0265 = "ERR0265";
+        public const string ERR0266 = "ERR0266";
+        public const string ERR0267 = "ERR0267";
+        public const string ERR0268 = "ERR0268";
+        public const string ERR0269 = "ERR0269";
+        public const string ERR0270 = "ERR0270";
+        public const string ERR0271 = "ERR0271";
+        public const string ERR0272 = "ERR0272";
 
         public const string ERR0350 = "ERR0350"; // "A CcCallKey is required to save a call.";
         public const string ERR0351 = "ERR0351"; //"A StartDt is required to save a call.";
@@ -213,7 +235,7 @@ namespace HPF.FutureState.Common
 
         public static string GetExceptionMessage(string exceptionId, params object[] agrs)
         {
-            return string.Format(GetExceptionMessage(exceptionId, agrs));
+            return string.Format(GetExceptionMessage(exceptionId), agrs);
         }
 
         public static string GetExceptionMessageCombined(string exceptionId)
@@ -306,6 +328,16 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0070, "BudgetNote has a maximum length of 100 characters.");
                 errorMessageDict.Add(ERR0071, "AssetName has a maximum length of 50 characters.");
 
+                errorMessageDict.Add(ERR0072, "PrimResEstMktValue must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0073, "HomeSalePrice must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0074, "HomeCurrentmarketValue must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0075, "HouseholdGrossAnnualIncomeAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0076, "CurrntLoanBalanceAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0077, "OrigLoanAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0078, "AssetValue must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0079, "BudgetItemAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0080, "HomePurchasePrice must be a valid number with 2 decimal places.");
+
                 errorMessageDict.Add(ERR0100,"An AgencyId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0101,"A ProgramId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0102,"An AgencyCaseNum is required to save a foreclosure case.");
@@ -373,7 +405,21 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0256, "Only one loan can be designated as '1st'.");
                 errorMessageDict.Add(ERR0257, "ContactZip must contain 5 numeric digits.");
                 errorMessageDict.Add(ERR0258, "PropZip must contain 5 numberic digits.");
-                //errorMessageDict.Add(ERR0259, "ContactZip and ContactStateCd+D69 must be a valid combinatoncontain 5 numeric digits.");
+                errorMessageDict.Add(ERR0259, "ContactZip and ContactStateCd must be a valid state-zip combinaton.");
+
+                errorMessageDict.Add(ERR0260, "PropZip and PropStateCd must be a valid state-zip combinaton.");
+                errorMessageDict.Add(ERR0261, "An invalid ProgramId was provided.");
+                errorMessageDict.Add(ERR0262, "An invalid BudgetSubcategoryId was provided.");
+                errorMessageDict.Add(ERR0263, "An invalid OutcomeTypeId was provided.");
+                errorMessageDict.Add(ERR0264, "An invalid CallId was provided.");
+                errorMessageDict.Add(ERR0265, "An Esternal Referral outcome requires the entry of either a NonprofitreferralKeyNum1 or ExeRefOtherName1.");
+                errorMessageDict.Add(ERR0266, "A Serivcer selection of Other requires the entry of OtherServicerName.");
+                errorMessageDict.Add(ERR0267, "BorrowerFnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR0268, "BorrowerLname may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR0269, "CoBorrowerFnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR0270, "CoBorrowerLnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR0271, "Invalid BorrowerDOB.  The Borrower's age must be 12 to 110.");
+                errorMessageDict.Add(ERR0272, "Invalid CoBorrowerDOB.  The CoBorrower's age must be 12 to 110.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A StartDt is required to save a call.");

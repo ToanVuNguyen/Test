@@ -1785,10 +1785,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             return result;
         }
-
-        
-
-        
+               
         static private int GetBudgetSetId(int fcId)
         {
             int result = 0;

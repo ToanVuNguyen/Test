@@ -860,10 +860,10 @@ namespace HPF.FutureState.BusinessLogic
 
                 CompleteTransaction();
             }
-            catch
+            catch(Exception ex)
             {
                 RollbackTransaction();
-                throw;
+                throw ex;
             }
             return fcId;
         }
