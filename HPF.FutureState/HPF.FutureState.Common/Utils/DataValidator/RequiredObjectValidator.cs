@@ -25,36 +25,71 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = true;
-            if (objectToValidate != null)
+            if (objectToValidate != null  && (string.IsNullOrEmpty(objectToValidate.ToString())))
             {
                 if (objectToValidate.GetType() == typeof(DateTime))
                 {
-                    
-                    //with DateTime type, a null value is equal to DateTime.MinValue
-                    if ((DateTime)objectToValidate == DateTime.MinValue)
+                    DateTime dt;
+                    DateTime.TryParse(objectToValidate.ToString(), out dt);
+                    if (dt == DateTime.MinValue)
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
                     }
-                    else
+                }
+
+                if (objectToValidate.GetType() == typeof(decimal))
+                {
+                    decimal value;
+                    decimal.TryParse(objectToValidate.ToString(), out value);
+                    if (value == decimal.MinValue)
                     {
-                        DateTime dt;
-                        DateTime.TryParse(objectToValidate.ToString(), out dt);
-                        if (dt == DateTime.MinValue)
-                        {
-                            isValid = false;
-                            MessageTemplate = key + " is invalid";
-                        }
-                    }                    
+                        isValid = false;
+                        MessageTemplate = key + " is invalid";
+                    }
+                }
+
+                if (objectToValidate.GetType() == typeof(double))
+                {
+                    double value;
+                    double.TryParse(objectToValidate.ToString(), out value);
+                    if (value == double.MinValue)
+                    {
+                        isValid = false;
+                        MessageTemplate = key + " is invalid";
+                    }
+                }
+
+                if (objectToValidate.GetType() == typeof(int))
+                {
+                    int value;
+                    int.TryParse(objectToValidate.ToString(), out value);
+                    if (value == int.MinValue)
+                    {
+                        isValid = false;
+                        MessageTemplate = key + " is invalid";
+                    }
+                }
+
+                if (objectToValidate.GetType() == typeof(byte))
+                {
+                    byte value;
+                    byte.TryParse(objectToValidate.ToString(), out value);
+                    if (value == byte.MinValue)
+                    {
+                        isValid = false;
+                        MessageTemplate = key + " is invalid";
+                    }
                 }
             }
             else
             {
                 isValid = false;
-                MessageTemplate = key + " is invalid";
+                MessageTemplate = key + " is required";
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
         }        
+
     }
 }
