@@ -29,21 +29,30 @@ namespace HPF.FutureState.Common.Utils.DataValidator
             {
                 
                 //with DateTime type, a null value is equal to DateTime.MinValue
-                if ((DateTime)objectToValidate == DateTime.MinValue)
+                if (objectToValidate != null)
                 {
-                    isValid = false;
-                    MessageTemplate = key + " is invalid";
-                }
-                else 
-                {
-                    DateTime dt;
-                    DateTime.TryParse(objectToValidate.ToString() ,out dt);
-                    if (dt == DateTime.MinValue)
+                    if ((DateTime)objectToValidate == DateTime.MinValue)
                     {
                         isValid = false;
                         MessageTemplate = key + " is invalid";
                     }
+                    else
+                    {
+                        DateTime dt;
+                        DateTime.TryParse(objectToValidate.ToString(), out dt);
+                        if (dt == DateTime.MinValue)
+                        {
+                            isValid = false;
+                            MessageTemplate = key + " is invalid";
+                        }
+                    }
                 }
+                else
+                {
+                    isValid = false;
+                    MessageTemplate = key + " is invalid";
+                }
+
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
