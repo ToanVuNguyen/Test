@@ -25,12 +25,12 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = true;
-            if (objectToValidate.GetType() == typeof(DateTime))
+            if (objectToValidate != null)
             {
-                
-                //with DateTime type, a null value is equal to DateTime.MinValue
-                if (objectToValidate != null)
+                if (objectToValidate.GetType() == typeof(DateTime))
                 {
+                    
+                    //with DateTime type, a null value is equal to DateTime.MinValue
                     if ((DateTime)objectToValidate == DateTime.MinValue)
                     {
                         isValid = false;
@@ -45,14 +45,13 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                             isValid = false;
                             MessageTemplate = key + " is invalid";
                         }
-                    }
+                    }                    
                 }
-                else
-                {
-                    isValid = false;
-                    MessageTemplate = key + " is invalid";
-                }
-
+            }
+            else
+            {
+                isValid = false;
+                MessageTemplate = key + " is invalid";
             }
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
