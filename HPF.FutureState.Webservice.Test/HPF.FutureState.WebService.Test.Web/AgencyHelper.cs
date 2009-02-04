@@ -19,12 +19,12 @@ namespace HPF.FutureState.WebService.Test.Web
     {
         
 
-        public static List<CaseLoanDTO> ParseCaseLoanDTO(XDocument xdoc)
-        {
+        public static List<CaseLoanDTO_App> ParseCaseLoanDTO_App(XDocument xdoc)
+        {            
             try
             {
                 var objs = from obj in xdoc.Descendants("CaseLoan")
-                           select new CaseLoanDTO
+                           select new CaseLoanDTO_App
                            {                                 
                                AcctNum = obj.Element("AcctNum").Value,
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
@@ -33,7 +33,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                CaseLoanId = Util.ConvertToInt(obj.Element("CaseLoanId").Value),
                                CurrentLoanBalanceAmt = Util.ConvertToDouble(obj.Element("CurrentLoanBalanceAmt").Value),
                                //CurrentServicerNameTbd = obj.Element("CurrentServicerNameTbd").Value,
-                               FdicNcusNumCurrentServicerTbd = obj.Element("FdicNcusNumCurrentServicerTbd").Value,
+                               CurrentServicerFdicNcuaNum = obj.Element("CurrentServicerFdicNcuaNum").Value,                               
                                //InvestorLoanNum = obj.Element("InvestorLoanNum").Value,
                                //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
                                InterestRate = Util.ConvertToDouble(obj.Element("InterestRate").Value),
@@ -50,7 +50,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                TermLengthCd = obj.Element("TermLengthCd").Value
                            };
                 int i = 1;
-                List<CaseLoanDTO> list = objs.ToList<CaseLoanDTO>();
+                List<CaseLoanDTO_App> list = objs.ToList<CaseLoanDTO_App>();
                 foreach (var item in list)
                 {
                     item.CaseLoanId = i;
@@ -65,12 +65,12 @@ namespace HPF.FutureState.WebService.Test.Web
 
         }
 
-        public static List<OutcomeItemDTO> ParseOutcomeItemDTO(XDocument xdoc)
+        public static List<OutcomeItemDTO_App> ParseOutcomeItemDTO(XDocument xdoc)
         {
             try
             {
                 var objs = from obj in xdoc.Descendants("OutcomeItem")
-                           select new OutcomeItemDTO
+                           select new OutcomeItemDTO_App
                            {
                                OutcomeItemId = Util.ConvertToInt(obj.Element("OutcomeTypeId").Value),
                                ExtRefOtherName = obj.Element("ExtRefOtherName").Value,
@@ -84,7 +84,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                //CreateUserId = obj.Element("CreateUserId").Value
                            };
                 int i = 1;
-                List<OutcomeItemDTO> list = objs.ToList<OutcomeItemDTO>();
+                List<OutcomeItemDTO_App> list = objs.ToList<OutcomeItemDTO_App>();
                 foreach (var item in list)
                 {
                     item.OutcomeItemId = i;
@@ -98,12 +98,12 @@ namespace HPF.FutureState.WebService.Test.Web
             }
         }
 
-        public static List<BudgetAssetDTO> ParseBudgetAssetDTO(XDocument xdoc)
+        public static List<BudgetAssetDTO_App> ParseBudgetAssetDTO(XDocument xdoc)
         {
             try
             {
                 var objs = from obj in xdoc.Descendants("BudgetAsset")
-                           select new BudgetAssetDTO
+                           select new BudgetAssetDTO_App
                            {
                                BudgetAssetId = Util.ConvertToInt(obj.Element("BudgetAssetId").Value),
                                //BudgetSetId = Util.ConvertToInt(obj.Element("BudgetSetId").Value),
@@ -113,7 +113,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                //CreateUserId = obj.Element("CreateUserId").Value,
                            };
                 int i = 1;
-                List<BudgetAssetDTO> list = objs.ToList<BudgetAssetDTO>();
+                List<BudgetAssetDTO_App> list = objs.ToList<BudgetAssetDTO_App>();
                 foreach (var item in list)
                 {
                     item.BudgetAssetId = i;
@@ -127,12 +127,12 @@ namespace HPF.FutureState.WebService.Test.Web
             }
         }
 
-        public static List<BudgetItemDTO> ParseBudgetItemDTO(XDocument xdoc)
+        public static List<BudgetItemDTO_App> ParseBudgetItemDTO(XDocument xdoc)
         {
             try
             {
                 var objs = from obj in xdoc.Descendants("BudgetItem")
-                           select new BudgetItemDTO
+                           select new BudgetItemDTO_App
                            {
                                BudgetItemAmt = Util.ConvertToDouble(obj.Element("BudgetItemAmt").Value),
                                BudgetItemId = Util.ConvertToInt(obj.Element("BudgetItemId").Value),
@@ -143,7 +143,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                //CreateUserId = obj.Element("CreateUserId").Value
                            };
                 int i = 1;
-                List<BudgetItemDTO> list = objs.ToList<BudgetItemDTO>();
+                List<BudgetItemDTO_App> list = objs.ToList<BudgetItemDTO_App>();
                 foreach (var item in list)
                 {
                     item.BudgetItemId = i;
@@ -158,26 +158,26 @@ namespace HPF.FutureState.WebService.Test.Web
 
         }
 
-        public static List<ActivityLogDTO> ParseActivityLogDTO(XDocument xdoc)
-        {
-            try
-            {
-                var objs = from obj in xdoc.Descendants("ActivityLog")
-                           select new ActivityLogDTO
-                           {
-                               FcId = Util.ConvertToInt(obj.Element("FcId").Value),
-                               ActivityCd = obj.Element("ActivityCd").Value,
-                               ActivityDt = Util.ConvertToDateTime(obj.Element("ActivityDt").Value),
-                               ActivityLogId = Util.ConvertToInt(obj.Element("ActivityLogId").Value),
-                               ActivityNote = obj.Element("ActivityNote").Value
-                           };
-                return objs.ToList<ActivityLogDTO>();
-            }
-            catch (NullReferenceException ex)
-            {
-                return null;
-            }
-        }
+        //public static List<ActivityLogDTO> ParseActivityLogDTO(XDocument xdoc)
+        //{
+            //try
+            //{
+            //    var objs = from obj in xdoc.Descendants("ActivityLog")
+            //               select new ActivityLogDTO
+            //               {
+            //                   FcId = Util.ConvertToInt(obj.Element("FcId").Value),
+            //                   ActivityCd = obj.Element("ActivityCd").Value,
+            //                   ActivityDt = Util.ConvertToDateTime(obj.Element("ActivityDt").Value),
+            //                   ActivityLogId = Util.ConvertToInt(obj.Element("ActivityLogId").Value),
+            //                   ActivityNote = obj.Element("ActivityNote").Value
+            //               };
+            //    return objs.ToList<ActivityLogDTO>();
+            //}
+            //catch (NullReferenceException ex)
+            //{
+            //    return null;
+            //}
+        //}
 
         public static ForeclosureCaseDTO ParseForeclosureCaseDTO(XDocument xdoc)
         {
@@ -236,7 +236,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                DfltReason1stCd = obj.Element("DfltReason1stCd").Value,
                                DfltReason2ndCd = obj.Element("DfltReason2ndCd").Value,
                                DiscussedSolutionWithSrvcrInd = obj.Element("DiscussedSolutionWithSrvcrInd").Value,
-                               DoNotCallInd = obj.Element("DoNotCallInd").Value,
+                               //DoNotCallInd = obj.Element("DoNotCallInd").Value,
                                //DuplicateInd = obj.Element("DuplicateInd").Value,
                                Email1 = obj.Element("Email1").Value,
                                Email2 = obj.Element("Email2").Value,
@@ -273,8 +273,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                //NeverBillReasonCd = obj.Element("NeverBillReasonCd").Value,
                                //NeverPayReasonCd = obj.Element("NeverPayReasonCd").Value,
                                OccupantNum = Util.ConvertToByte(obj.Element("OccupantNum").Value),
-                               OptOutNewsletterInd = obj.Element("OptOutNewsletterInd").Value,
-                               OptOutSurveyInd = obj.Element("OptOutSurveyInd").Value,
+                               //OptOutNewsletterInd = obj.Element("OptOutNewsletterInd").Value,
+                               //OptOutSurveyInd = obj.Element("OptOutSurveyInd").Value,
                                OwnerOccupiedInd = obj.Element("OwnerOccupiedInd").Value,
                                PrimaryContactNo = obj.Element("PrimaryContactNo").Value,
                                PrimaryResidenceInd = obj.Element("PrimaryResidenceInd").Value,
@@ -312,5 +312,25 @@ namespace HPF.FutureState.WebService.Test.Web
 
         
 
+    }
+
+    public class CaseLoanDTO_App : CaseLoanDTO
+    {
+        public int? CaseLoanId { get; set; }
+    }
+
+    public class OutcomeItemDTO_App : OutcomeItemDTO
+    {
+        public int? OutcomeItemId { get; set; }
+    }
+
+    public class BudgetItemDTO_App : BudgetItemDTO
+    {
+        public int? BudgetItemId { get; set; }
+    }
+
+    public class BudgetAssetDTO_App : BudgetAssetDTO
+    {
+        public int? BudgetAssetId { get; set; }
     }
 }

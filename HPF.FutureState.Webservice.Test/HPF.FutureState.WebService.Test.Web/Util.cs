@@ -14,39 +14,89 @@ namespace HPF.FutureState.WebService.Test.Web
 {
     public class Util
     {
-        public static DateTime ConvertToDateTime(Object obj)
+        public static DateTime? ConvertToDateTime(object obj)
         {
-            DateTime temp = DateTime.Now;
-            DateTime.TryParse(obj.ToString(), out temp);
-            return temp;
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                try
+                {
+                    return DateTime.Parse(obj.ToString());
+                }
+                catch
+                {
+                    return DateTime.MinValue;
+                }
+            }
+            else
+                return null;
         }
 
-        public static int ConvertToInt(Object obj)
+        public static int? ConvertToInt(object obj)
         {
-            int temp = 0;
-            int.TryParse(obj.ToString(), out temp);
-            return temp;
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                try
+                {
+                    return int.Parse(obj.ToString());
+                }
+                catch
+                {
+                    return int.MinValue;
+                }
+            }
+            else
+                return null;
         }
 
-        public static decimal ConvertToDecimal(Object obj)
+        public static decimal? ConvertToDecimal(object obj)
         {
-            decimal temp = 0;
-            decimal.TryParse(obj.ToString(), out temp);
-            return temp;
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                try
+                {
+                    return Decimal.Parse(obj.ToString());
+                }
+                catch
+                {
+                    return Decimal.MinValue;
+                }
+            }
+            else
+                return null;
         }
 
-        public static double ConvertToDouble(Object obj)
+        public static double? ConvertToDouble(object obj)
         {
-            double temp = 0;
-            double.TryParse(obj.ToString(), out temp);
-            return temp;
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                try
+                {
+                    return double.Parse(obj.ToString());
+                }
+                catch
+                {
+                    return double.MinValue;
+                }
+            }
+            else
+                return null;
         }
 
-        public static byte ConvertToByte(Object obj)
+        public static byte? ConvertToByte(object obj)
         {
-            byte temp;
-            byte.TryParse(obj.ToString(), out temp);
-            return temp;
+            if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
+            {
+                try
+                {
+                    return byte.Parse(obj.ToString());
+                }
+                catch
+                {
+                    return byte.MinValue;
+                }
+            }
+            else
+                return null;
         }        
     }
 }

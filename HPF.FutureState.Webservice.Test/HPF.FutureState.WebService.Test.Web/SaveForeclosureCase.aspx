@@ -876,11 +876,7 @@
                 <asp:TextBox CssClass = "Text" ID="txtChangeLastUserID" runat="server"></asp:TextBox>
             </td>--%>                       
         </tr>   
-        <tr>
-             
-                                             
-        </tr>                  
-    </table>
+        </table>
 
     
         
@@ -894,7 +890,8 @@
         OnRowCancelingEdit = "grdvCaseLoan_RowCancelEditing"
         onrowupdating="grdvCaseLoan_RowUpdating"
         onrowcommand="grdvCaseLoan_RowCommand" 
-        onrowdeleting="grdvCaseLoan_RowDeleting">
+        onrowdeleting="grdvCaseLoan_RowDeleting" 
+            onrowcreated="grdvCaseLoan_RowCreated">
         <Columns>
             
             <asp:TemplateField HeaderText="Edit" ShowHeader="False">
@@ -1062,12 +1059,12 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="FDIC NCUA" >  
                 <EditItemTemplate>
-                    <asp:TextBox ID="txtFDICNCUANum" runat="server" Text='<%# Eval("FdicNcusNumCurrentServicerTbd") %>'></asp:TextBox>
+                    <asp:TextBox ID="txtFDICNCUANum" runat="server" Text='<%# Eval("CurrentServicerFdicNcuaNum") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <FooterTemplate>
                     <asp:TextBox ID="txtFDICNCUANum" runat="server"></asp:TextBox> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label17" runat="server" Text='<%# Bind("FdicNcusNumCurrentServicerTbd") %>'></asp:Label>
+                    <asp:Label ID="Label17" runat="server" Text='<%# Bind("CurrentServicerFdicNcuaNum") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <%--<asp:TemplateField HeaderText="Current servicer" >  
@@ -1272,7 +1269,7 @@
     </asp:GridView>
     <br />
     
-    <asp:Label ID="Label117" runat="server" Text="Activity Log" Visible ="false" ></asp:Label>
+    <%--<asp:Label ID="Label117" runat="server" Text="Activity Log" Visible ="false" ></asp:Label>
     <br />
     <asp:GridView ID="grdvActivityLog" runat="server" 
         ShowFooter = "true" 
@@ -1356,7 +1353,7 @@
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>            
-    </asp:GridView>
+    </asp:GridView>--%>
     <br />
     <asp:Label ID="Label118" runat="server" Text="Outcome"></asp:Label>
     <br />
@@ -1481,4 +1478,5 @@
     <br />
     <asp:GridView ID="grdvMessages" runat="server">
     </asp:GridView>
+    </div>
 </asp:Content>

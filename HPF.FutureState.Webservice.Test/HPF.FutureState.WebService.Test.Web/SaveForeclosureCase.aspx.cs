@@ -29,10 +29,7 @@ namespace HPF.FutureState.WebService.Test.Web
             if (!IsPostBack)
             {
                 LoadDefaultFcCase();
-
             }
-
-            
         }
 
         private void LoadDefaultFcCase()
@@ -44,7 +41,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void BindToForm(XDocument xdoc)
         {
-            Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO(xdoc);
+            Session[SessionVariables.CASE_LOAN_COLLECTION] = AgencyHelper.ParseCaseLoanDTO_App(xdoc);
             Session[SessionVariables.BUDGET_ASSET_COLLECTION] = AgencyHelper.ParseBudgetAssetDTO(xdoc);
             Session[SessionVariables.BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseBudgetItemDTO(xdoc);
             //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
@@ -307,17 +304,17 @@ namespace HPF.FutureState.WebService.Test.Web
         #region Case Loan
         private void grdvCaseLoanBinding()
         {
-            List<CaseLoanDTO> caseLoans;
+            List<CaseLoanDTO_App> caseLoans;
             if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
             {
-                caseLoans = (List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION];
+                caseLoans = (List<CaseLoanDTO_App>)Session[SessionVariables.CASE_LOAN_COLLECTION];
                 grdvCaseLoan.DataSource = caseLoans;
                 grdvCaseLoan.DataBind();
             }
             else
             {
-                caseLoans = new List<CaseLoanDTO>();
-                caseLoans.Add(new CaseLoanDTO());
+                caseLoans = new List<CaseLoanDTO_App>();
+                caseLoans.Add(new CaseLoanDTO_App());
                 grdvCaseLoan.DataSource = caseLoans;
                 grdvCaseLoan.DataBind();
 
@@ -347,10 +344,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvCaseLoan_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            CaseLoanDTO caseLoan = RowToCaseLoanDTO(grdvCaseLoan.Rows[e.RowIndex]);
+            CaseLoanDTO_App caseLoan = RowToCaseLoanDTO_App(grdvCaseLoan.Rows[e.RowIndex]);
             if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
             {
-                List<CaseLoanDTO> caseLoans = (List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION];
+                List<CaseLoanDTO_App> caseLoans = (List<CaseLoanDTO_App>)Session[SessionVariables.CASE_LOAN_COLLECTION];
                 int index = caseLoans.FindIndex(item => item.CaseLoanId == caseLoan.CaseLoanId);
 
                 if (index < 0)
@@ -376,10 +373,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvCaseLoan_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int caseLoanId = Util.ConvertToInt(((Label)grdvCaseLoan.Rows[e.RowIndex].FindControl("lblCaseLoanId")).Text);
+            int? caseLoanId = Util.ConvertToInt(((Label)grdvCaseLoan.Rows[e.RowIndex].FindControl("lblCaseLoanId")).Text);
             if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
             {
-                List<CaseLoanDTO> caseLoans = (List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION];
+                List<CaseLoanDTO_App> caseLoans = (List<CaseLoanDTO_App>)Session[SessionVariables.CASE_LOAN_COLLECTION];
                 int index = caseLoans.FindIndex(item => item.CaseLoanId == caseLoanId);
 
                 if (index < 0)
@@ -405,17 +402,22 @@ namespace HPF.FutureState.WebService.Test.Web
             }
         }
 
+        protected void grdvCaseLoan_RowCreated(object sender, GridViewRowEventArgs e)
+        {           
+        }
+
         protected void grdvCaseLoan_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                CaseLoanDTO caseLoan = RowToCaseLoanDTO(grdvCaseLoan.FooterRow);
-
-                List<CaseLoanDTO> caseLoans = new List<CaseLoanDTO>();
+                CaseLoanDTO_App caseLoan = RowToCaseLoanDTO_App(grdvCaseLoan.FooterRow);
+    
+                
+                List<CaseLoanDTO_App> caseLoans = new List<CaseLoanDTO_App>();
                 if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
                 {
-                     caseLoans = (List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION];
-                    int caseLoanId = caseLoans.Max(item => item.CaseLoanId);
+                    caseLoans = (List<CaseLoanDTO_App>)Session[SessionVariables.CASE_LOAN_COLLECTION];
+                    int? caseLoanId = caseLoans.Max(item => item.CaseLoanId);
                     caseLoan.CaseLoanId = caseLoanId + 1;
                 }
                 else
@@ -432,9 +434,9 @@ namespace HPF.FutureState.WebService.Test.Web
         }
        
 
-        private CaseLoanDTO RowToCaseLoanDTO(GridViewRow row)
+        private CaseLoanDTO_App RowToCaseLoanDTO_App(GridViewRow row)
         {
-            CaseLoanDTO caseLoan = new CaseLoanDTO();
+            CaseLoanDTO_App caseLoan = new CaseLoanDTO_App();
 
             #region retrieve controls from gridview
             TextBox txtAccNum = (TextBox)row.FindControl("txtAccNum");
@@ -467,7 +469,8 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.CaseLoanId = Util.ConvertToInt(lblCaseLoanId.Text.Trim());
             caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDouble(txtCurrentLoanBalanceAmt.Text.Trim());
             //caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
-            caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
+            caseLoan.CurrentServicerFdicNcuaNum = txtFDICNCUANum.Text.Trim();
+            //caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
             //caseLoan.InvestorLoanNum = txtFreddieLoanNum.Text.Trim();
             //caseLoan.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
             caseLoan.InterestRate = Util.ConvertToDouble(txtInterestRate.Text.Trim());
@@ -493,17 +496,17 @@ namespace HPF.FutureState.WebService.Test.Web
         #region Budget Item
         private void grdvBudgetItemBinding()
         {
-            List<BudgetItemDTO> budgetItems;
+            List<BudgetItemDTO_App> budgetItems;
             if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
             {
-                budgetItems = (List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
+                budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
                 grdvBudgetItem.DataSource = budgetItems;
                 grdvBudgetItem.DataBind();
             }
             else
             {
-                budgetItems = new List<BudgetItemDTO>();
-                budgetItems.Add(new BudgetItemDTO());
+                budgetItems = new List<BudgetItemDTO_App>();
+                budgetItems.Add(new BudgetItemDTO_App());
                 grdvBudgetItem.DataSource = budgetItems;
                 grdvBudgetItem.DataBind();
 
@@ -514,7 +517,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvBudgetItem.Rows[0].Cells[0].Text = "No Records Found";
             }    
         }
-        private BudgetItemDTO RowToBudgetItemDTO(GridViewRow row)
+        private BudgetItemDTO_App RowToBudgetItemDTO(GridViewRow row)
         {
             TextBox txtBudgetItemAmt = (TextBox)row.FindControl("txtBudgetItemAmt");
             TextBox txtBudgetNote = (TextBox)row.FindControl("txtBudgetNote");
@@ -523,7 +526,7 @@ namespace HPF.FutureState.WebService.Test.Web
             Label lblBudgetItemId = (Label)row.FindControl("lblBudgetItemId");
             //TextBox txtBudgetItemSetId = (TextBox)row.FindControl("txtBudgetItemSetId");
 
-            BudgetItemDTO budgetItem = new BudgetItemDTO();
+            BudgetItemDTO_App budgetItem = new BudgetItemDTO_App();
             budgetItem.BudgetItemAmt = Util.ConvertToDouble(txtBudgetItemAmt.Text.Trim());
             budgetItem.BudgetNote = txtBudgetNote.Text.Trim();
             budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
@@ -547,13 +550,13 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                BudgetItemDTO budgetItem = RowToBudgetItemDTO(grdvBudgetItem.FooterRow);
+                BudgetItemDTO_App budgetItem = RowToBudgetItemDTO(grdvBudgetItem.FooterRow);
 
-                List<BudgetItemDTO> budgetItems = new List<BudgetItemDTO>();
+                List<BudgetItemDTO_App> budgetItems = new List<BudgetItemDTO_App>();
                 if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
                 {
-                    budgetItems = (List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
-                    int budgetItemId = budgetItems.Max(item => item.BudgetItemId);
+                    budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
+                    int? budgetItemId = budgetItems.Max(item => item.BudgetItemId);
                     budgetItem.BudgetItemId = budgetItemId + 1;
                 }
                 else
@@ -571,10 +574,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvBudgetItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int budgetItemId = Util.ConvertToInt(((Label)grdvBudgetItem.Rows[e.RowIndex].FindControl("lblBudgetItemId")).Text);
+            int? budgetItemId = Util.ConvertToInt(((Label)grdvBudgetItem.Rows[e.RowIndex].FindControl("lblBudgetItemId")).Text);
             if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
             {
-                List<BudgetItemDTO> budgetItems = (List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
+                List<BudgetItemDTO_App> budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
                 int index = budgetItems.FindIndex(item => item.BudgetItemId == budgetItemId);
 
                 if (index < 0)
@@ -610,10 +613,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvBudgetItem_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            BudgetItemDTO budgetItem = RowToBudgetItemDTO(grdvBudgetItem.Rows[e.RowIndex]);
+            BudgetItemDTO_App budgetItem = RowToBudgetItemDTO(grdvBudgetItem.Rows[e.RowIndex]);
             if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
             {
-                List<BudgetItemDTO> budgetItems = (List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
+                List<BudgetItemDTO_App> budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
                 int index = budgetItems.FindIndex(item => item.BudgetItemId == budgetItem.BudgetItemId);
 
                 if (index < 0)
@@ -642,17 +645,17 @@ namespace HPF.FutureState.WebService.Test.Web
         private void grdvBudgetAssetBinding()
         {
 
-            List<BudgetAssetDTO> budgetAssets;
+            List<BudgetAssetDTO_App> budgetAssets;
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
             {
-                budgetAssets = (List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
+                budgetAssets = (List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
                 grdvBudgetAsset.DataSource = budgetAssets;
                 grdvBudgetAsset.DataBind();
             }
             else
             {
-                budgetAssets = new List<BudgetAssetDTO>();
-                budgetAssets.Add(new BudgetAssetDTO());
+                budgetAssets = new List<BudgetAssetDTO_App>();
+                budgetAssets.Add(new BudgetAssetDTO_App());
                 grdvBudgetAsset.DataSource = budgetAssets;
                 grdvBudgetAsset.DataBind();
 
@@ -665,7 +668,7 @@ namespace HPF.FutureState.WebService.Test.Web
             }    
         }
 
-        private BudgetAssetDTO RowToBudgetAssetDTO(GridViewRow row)
+        private BudgetAssetDTO_App RowToBudgetAssetDTO(GridViewRow row)
         {
             TextBox txtAssetName = (TextBox)row.FindControl("txtAssetName");
             TextBox txtAssetValue = (TextBox)row.FindControl("txtAssetValue");
@@ -673,7 +676,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //TextBox txtBudgetID = (TextBox)row.FindControl("txtBudgetID");
             Label lblBudgetAssetID = (Label)row.FindControl("lblBudgetAssetID");
 
-            BudgetAssetDTO budgetAsset = new BudgetAssetDTO();
+            BudgetAssetDTO_App budgetAsset = new BudgetAssetDTO_App();
             budgetAsset.AssetName = txtAssetName.Text.Trim();
             budgetAsset.AssetValue = Util.ConvertToDouble(txtAssetValue.Text.Trim());
             //budgetAsset.CreateUserId = txtCreateUserID.Text.Trim();
@@ -694,13 +697,13 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                BudgetAssetDTO budgetAsset = RowToBudgetAssetDTO(grdvBudgetAsset.FooterRow);
+                BudgetAssetDTO_App budgetAsset = RowToBudgetAssetDTO(grdvBudgetAsset.FooterRow);
 
-                List<BudgetAssetDTO> budgetAssets = new List<BudgetAssetDTO>();
+                List<BudgetAssetDTO_App> budgetAssets = new List<BudgetAssetDTO_App>();
                 if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
                 {
-                    budgetAssets = (List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
-                    int budgetAssetId = budgetAssets.Max(item => item.BudgetAssetId);
+                    budgetAssets = (List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
+                    int? budgetAssetId = budgetAssets.Max(item => item.BudgetAssetId);
                     budgetAsset.BudgetAssetId = budgetAssetId + 1;
                 }
                 else
@@ -717,10 +720,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvBudgetAsset_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int budgetAssetId = Util.ConvertToInt(((Label)grdvBudgetAsset.Rows[e.RowIndex].FindControl("lblBudgetAssetId")).Text);
+            int? budgetAssetId = Util.ConvertToInt(((Label)grdvBudgetAsset.Rows[e.RowIndex].FindControl("lblBudgetAssetId")).Text);
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
             {
-                List<BudgetAssetDTO> budgetAssets = (List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
+                List<BudgetAssetDTO_App> budgetAssets = (List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
                 int index = budgetAssets.FindIndex(item => item.BudgetAssetId == budgetAssetId);
 
                 if (index < 0)
@@ -755,10 +758,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvBudgetAsset_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            BudgetAssetDTO budgetAsset = RowToBudgetAssetDTO(grdvBudgetAsset.Rows[e.RowIndex]);
+            BudgetAssetDTO_App budgetAsset = RowToBudgetAssetDTO(grdvBudgetAsset.Rows[e.RowIndex]);
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
             {
-                List<BudgetAssetDTO> budgetAssets = (List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
+                List<BudgetAssetDTO_App> budgetAssets = (List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION];
                 int index = budgetAssets.FindIndex(item => item.BudgetAssetId == budgetAsset.BudgetAssetId);
 
                 if (index < 0)
@@ -783,154 +786,154 @@ namespace HPF.FutureState.WebService.Test.Web
         }
         #endregion
 
-        #region Activity Log
+        //#region Activity Log
 
-        private void grdvActivityLogBinding()
-        {
-            List<ActivityLogDTO> activityLogs;
-            if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
-            {
-                activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
-                grdvActivityLog.DataSource = activityLogs;
-                grdvActivityLog.DataBind();
-            }
-            else
-            {
-                activityLogs = new List<ActivityLogDTO>();
-                activityLogs.Add(new ActivityLogDTO());
-                grdvActivityLog.DataSource = activityLogs;
-                grdvActivityLog.DataBind();
+        //private void grdvActivityLogBinding()
+        //{
+        //    List<ActivityLogDTO> activityLogs;
+        //    if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
+        //    {
+        //        activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
+        //        grdvActivityLog.DataSource = activityLogs;
+        //        grdvActivityLog.DataBind();
+        //    }
+        //    else
+        //    {
+        //        activityLogs = new List<ActivityLogDTO>();
+        //        activityLogs.Add(new ActivityLogDTO());
+        //        grdvActivityLog.DataSource = activityLogs;
+        //        grdvActivityLog.DataBind();
 
-                int TotalColumns = grdvActivityLog.Rows[0].Cells.Count;
-                grdvActivityLog.Rows[0].Cells.Clear();
-                grdvActivityLog.Rows[0].Cells.Add(new TableCell());
-                grdvActivityLog.Rows[0].Cells[0].ColumnSpan = TotalColumns;
-                grdvActivityLog.Rows[0].Cells[0].Text = "No Records Found";
-            }           
-        }
-        private ActivityLogDTO RowToActivityLogDTO(GridViewRow row)
-        {
-            TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
-            TextBox txtActivityCode = (TextBox)row.FindControl("txtActivityCode");
-            TextBox txtActivityDt = (TextBox)row.FindControl("txtActivityDt");
-            TextBox txtActivityLogId = (TextBox)row.FindControl("txtActivityLogId");
-            TextBox txtActivityNote = (TextBox)row.FindControl("txtActivityNote");
+        //        int TotalColumns = grdvActivityLog.Rows[0].Cells.Count;
+        //        grdvActivityLog.Rows[0].Cells.Clear();
+        //        grdvActivityLog.Rows[0].Cells.Add(new TableCell());
+        //        grdvActivityLog.Rows[0].Cells[0].ColumnSpan = TotalColumns;
+        //        grdvActivityLog.Rows[0].Cells[0].Text = "No Records Found";
+        //    }           
+        //}
+        //private ActivityLogDTO RowToActivityLogDTO(GridViewRow row)
+        //{
+        //    TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
+        //    TextBox txtActivityCode = (TextBox)row.FindControl("txtActivityCode");
+        //    TextBox txtActivityDt = (TextBox)row.FindControl("txtActivityDt");
+        //    TextBox txtActivityLogId = (TextBox)row.FindControl("txtActivityLogId");
+        //    TextBox txtActivityNote = (TextBox)row.FindControl("txtActivityNote");
 
-            ActivityLogDTO activityLog = new ActivityLogDTO();
-            activityLog.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
-            activityLog.ActivityCd = txtActivityCode.Text.Trim();
-            activityLog.ActivityDt = Util.ConvertToDateTime(txtActivityDt.Text.Trim());
-            activityLog.ActivityLogId = Util.ConvertToInt(txtActivityLogId.Text.Trim());
-            activityLog.ActivityNote = txtActivityNote.Text.Trim();
-            return activityLog;
-        }
+        //    ActivityLogDTO activityLog = new ActivityLogDTO();
+        //    activityLog.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
+        //    activityLog.ActivityCd = txtActivityCode.Text.Trim();
+        //    activityLog.ActivityDt = Util.ConvertToDateTime(txtActivityDt.Text.Trim());
+        //    activityLog.ActivityLogId = Util.ConvertToInt(txtActivityLogId.Text.Trim());
+        //    activityLog.ActivityNote = txtActivityNote.Text.Trim();
+        //    return activityLog;
+        //}
 
-        protected void grdvActivityLog_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
-        {
-            grdvActivityLog.EditIndex = -1;
-            grdvActivityLogBinding();
-        }
+        //protected void grdvActivityLog_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
+        //{
+        //    grdvActivityLog.EditIndex = -1;
+        //    grdvActivityLogBinding();
+        //}
 
-        protected void grdvActivityLogRowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName.Equals("AddNew"))
-            {
-                ActivityLogDTO activityLog = RowToActivityLogDTO(grdvActivityLog.FooterRow);
+        //protected void grdvActivityLogRowCommand(object sender, GridViewCommandEventArgs e)
+        //{
+        //    if (e.CommandName.Equals("AddNew"))
+        //    {
+        //        ActivityLogDTO activityLog = RowToActivityLogDTO(grdvActivityLog.FooterRow);
 
-                List<ActivityLogDTO> activityLogs = new List<ActivityLogDTO>();
-                if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
-                {
-                    activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
-                    int activityLogId = activityLogs.Max(item => item.ActivityLogId);
-                    activityLog.ActivityLogId = activityLogId + 1;
-                }
-                else
-                {
-                    activityLog.ActivityLogId = 1;
-                }
+        //        List<ActivityLogDTO> activityLogs = new List<ActivityLogDTO>();
+        //        if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
+        //        {
+        //            activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
+        //            int activityLogId = activityLogs.Max(item => item.ActivityLogId);
+        //            activityLog.ActivityLogId = activityLogId + 1;
+        //        }
+        //        else
+        //        {
+        //            activityLog.ActivityLogId = 1;
+        //        }
 
-                activityLogs.Add(activityLog);
-                Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = activityLogs;
-                grdvActivityLogBinding();
-            } 
-        }
+        //        activityLogs.Add(activityLog);
+        //        Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = activityLogs;
+        //        grdvActivityLogBinding();
+        //    } 
+        //}
 
-        protected void grdvActivityLog_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int activityLogId = Util.ConvertToInt(((Label)grdvActivityLog.Rows[e.RowIndex].FindControl("lblActivityLogId")).Text);
-            if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
-            {
-                List<ActivityLogDTO> activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
-                int index = activityLogs.FindIndex(item => item.ActivityLogId == activityLogId);
+        //protected void grdvActivityLog_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        //{
+        //    int activityLogId = Util.ConvertToInt(((Label)grdvActivityLog.Rows[e.RowIndex].FindControl("lblActivityLogId")).Text);
+        //    if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
+        //    {
+        //        List<ActivityLogDTO> activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
+        //        int index = activityLogs.FindIndex(item => item.ActivityLogId == activityLogId);
 
-                if (index < 0)
-                {
-                    //can not Delete item
-                }
-                else
-                {
-                    activityLogs.RemoveAt(index);
-                    Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = activityLogs;
-                }
+        //        if (index < 0)
+        //        {
+        //            //can not Delete item
+        //        }
+        //        else
+        //        {
+        //            activityLogs.RemoveAt(index);
+        //            Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = activityLogs;
+        //        }
 
-                grdvActivityLog.EditIndex = -1;
-                grdvActivityLogBinding();
-            }
-            else
-            {
-                //can not Delete item
-            }
-        }
+        //        grdvActivityLog.EditIndex = -1;
+        //        grdvActivityLogBinding();
+        //    }
+        //    else
+        //    {
+        //        //can not Delete item
+        //    }
+        //}
 
-        protected void grdvActivityLog_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            grdvActivityLog.EditIndex = e.NewEditIndex;
-            grdvActivityLogBinding();
-        }
+        //protected void grdvActivityLog_RowEditing(object sender, GridViewEditEventArgs e)
+        //{
+        //    grdvActivityLog.EditIndex = e.NewEditIndex;
+        //    grdvActivityLogBinding();
+        //}
 
-        protected void grdvActivityLog_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            ActivityLogDTO activityLog = RowToActivityLogDTO(grdvActivityLog.Rows[e.RowIndex]);
-            if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
-            {
-                List<ActivityLogDTO> activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
-                int index = activityLogs.FindIndex(item => item.ActivityLogId == activityLog.ActivityLogId);
+        //protected void grdvActivityLog_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        //{
+        //    ActivityLogDTO activityLog = RowToActivityLogDTO(grdvActivityLog.Rows[e.RowIndex]);
+        //    if (Session[SessionVariables.ACTIVITY_LOG_COLLECTION] != null)
+        //    {
+        //        List<ActivityLogDTO> activityLogs = (List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION];
+        //        int index = activityLogs.FindIndex(item => item.ActivityLogId == activityLog.ActivityLogId);
 
-                if (index < 0)
-                {
-                    //can not update List
-                }
-                else
-                {
-                    activityLogs[index] = activityLog;
-                    Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = activityLogs;
-                }
+        //        if (index < 0)
+        //        {
+        //            //can not update List
+        //        }
+        //        else
+        //        {
+        //            activityLogs[index] = activityLog;
+        //            Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = activityLogs;
+        //        }
 
 
-                grdvActivityLog.EditIndex = -1;
-                grdvActivityLogBinding();
-            }
-            else
-            {
-                //can not update List
-            }
-        }
-        #endregion
+        //        grdvActivityLog.EditIndex = -1;
+        //        grdvActivityLogBinding();
+        //    }
+        //    else
+        //    {
+        //        //can not update List
+        //    }
+        //}
+        //#endregion
 
         #region Outcome 
         private void grdvOutcomeItemBinding()
         {
-            List<OutcomeItemDTO> outcomeItems;
+            List<OutcomeItemDTO_App> outcomeItems;
             if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
             {
-                outcomeItems = (List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
+                outcomeItems = (List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
                 grdvOutcomeItem.DataSource = outcomeItems;
                 grdvOutcomeItem.DataBind();
             }
             else                    
             {   
-                outcomeItems = new List<OutcomeItemDTO>();
-                outcomeItems.Add(new OutcomeItemDTO());
+                outcomeItems = new List<OutcomeItemDTO_App>();
+                outcomeItems.Add(new OutcomeItemDTO_App());
                 grdvOutcomeItem.DataSource = outcomeItems;
                 grdvOutcomeItem.DataBind();
 
@@ -941,7 +944,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvOutcomeItem.Rows[0].Cells[0].Text = "No Records Found";
             }
         }
-        private OutcomeItemDTO RowToOutcomeItemDTO(GridViewRow row)
+        private OutcomeItemDTO_App RowToOutcomeItemDTO(GridViewRow row)
         {
             TextBox txtExtRefOtherName = (TextBox)row.FindControl("txtExtRefOtherName");
             //TextBox txtFcId = (TextBox)row.FindControl("txtFcId");
@@ -953,7 +956,7 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtOutcomeTypeId = (TextBox)row.FindControl("txtOutcomeTypeId");
             Label lblOutcomeItemId = (Label)row.FindControl("lblOutcomeItemId");
 
-            OutcomeItemDTO outcomeItem = new OutcomeItemDTO();
+            OutcomeItemDTO_App outcomeItem = new OutcomeItemDTO_App();
             outcomeItem.ExtRefOtherName = txtExtRefOtherName.Text.Trim();
             //outcomeItem.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
             outcomeItem.NonprofitreferralKeyNum = txtNonprofitreferralKeyNum.Text.Trim();
@@ -982,13 +985,13 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                OutcomeItemDTO outcomeItem = RowToOutcomeItemDTO(grdvOutcomeItem.FooterRow);
+                OutcomeItemDTO_App outcomeItem = RowToOutcomeItemDTO(grdvOutcomeItem.FooterRow);
 
-                List<OutcomeItemDTO> outcomeItems = new List<OutcomeItemDTO>();
+                List<OutcomeItemDTO_App> outcomeItems = new List<OutcomeItemDTO_App>();
                 if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
                 {
-                    outcomeItems = (List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
-                    int outcomeItemId = outcomeItems.Max(item => item.OutcomeItemId);
+                    outcomeItems = (List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
+                    int? outcomeItemId = outcomeItems.Max(item => item.OutcomeItemId);
                     outcomeItem.OutcomeItemId = outcomeItemId + 1;
                 }
                 else
@@ -1005,10 +1008,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvOutcomeItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int outcomeItemId = Util.ConvertToInt(((Label)grdvOutcomeItem.Rows[e.RowIndex].FindControl("lblOutcomeItemId")).Text);
+            int? outcomeItemId = Util.ConvertToInt(((Label)grdvOutcomeItem.Rows[e.RowIndex].FindControl("lblOutcomeItemId")).Text);
             if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
             {
-                List<OutcomeItemDTO> outcomeItems = (List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
+                List<OutcomeItemDTO_App> outcomeItems = (List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
                 int index = outcomeItems.FindIndex(item => item.OutcomeItemId == outcomeItemId);
 
                 if (index < 0)
@@ -1043,10 +1046,10 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void grdvOutcomeItem_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            OutcomeItemDTO outcomeItem = RowToOutcomeItemDTO(grdvOutcomeItem.Rows[e.RowIndex]);
+            OutcomeItemDTO_App outcomeItem = RowToOutcomeItemDTO(grdvOutcomeItem.Rows[e.RowIndex]);
             if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
             {
-                List<OutcomeItemDTO> outcomeItems = (List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
+                List<OutcomeItemDTO_App> outcomeItems = (List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION];
                 int index = outcomeItems.FindIndex(item => item.OutcomeItemId == outcomeItem.OutcomeItemId);
 
                 if (index < 0)
@@ -1101,60 +1104,32 @@ namespace HPF.FutureState.WebService.Test.Web
             }
         }
 
-        private void SetTrackingInformation(ForeclosureCaseSetDTO fcCaseSet)
-        {
-            string createUserId = txtWorkingUserID.Text.Trim();  //txtCreateUserID.Text.Trim();
-            string changeLastUserId = txtWorkingUserID.Text.Trim();// txtChangeLastUserID.Text.Trim();
-            fcCaseSet.ForeclosureCase.CreateUserId = createUserId;
-            fcCaseSet.ForeclosureCase.ChangeLastUserId = changeLastUserId;
-
-            foreach (BudgetAssetDTO obj in fcCaseSet.BudgetAssets)
-            {
-                obj.CreateUserId = createUserId;
-                obj.ChangeLastUserId = changeLastUserId;
-            }
-            foreach (BudgetItemDTO obj in fcCaseSet.BudgetItems)
-            {
-                obj.CreateUserId = createUserId;
-                obj.ChangeLastUserId = changeLastUserId;
-            }
-            foreach (OutcomeItemDTO obj in fcCaseSet.Outcome)
-            {
-                obj.CreateUserId = createUserId;
-                obj.ChangeLastUserId = changeLastUserId;
-            }            
-            foreach (CaseLoanDTO obj in fcCaseSet.CaseLoans)
-            {
-                obj.CreateUserId = createUserId;
-                obj.ChangeLastUserId = changeLastUserId;
-            }
-            
-        }
         private ForeclosureCaseSaveRequest CreateForeclosureCaseSaveRequest()
         {
             ForeclosureCaseSaveRequest request = new ForeclosureCaseSaveRequest();
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
-            fcCaseSet.WorkingUserID = txtWorkingUserID.Text.Trim();
+            //fcCaseSet.WorkingUserID = txtWorkingUserID.Text.Trim();
             
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
+            fcCaseSet.ForeclosureCase.WorkingUserID = txtWorkingUserID.Text.Trim();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
-                fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
+                fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
             else
                 fcCaseSet.BudgetAssets = null;
 
             if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
-                fcCaseSet.BudgetItems = ((List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
+                fcCaseSet.BudgetItems = ((List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
             else
                 fcCaseSet.BudgetItems = null;
 
             if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
-                fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
+                fcCaseSet.CaseLoans = ((List<CaseLoanDTO_App>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
             else
                 fcCaseSet.CaseLoans = null;
 
             if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
-                fcCaseSet.Outcome = ((List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
+                fcCaseSet.Outcome = ((List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
             else
                 fcCaseSet.Outcome = null;
             
@@ -1230,5 +1205,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] == null)
                 grdvOutcomeItemBinding();
         }
+
+        
     }
 }

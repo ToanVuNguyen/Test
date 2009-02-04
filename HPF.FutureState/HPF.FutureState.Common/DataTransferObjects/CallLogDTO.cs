@@ -15,15 +15,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int CallId { get; set; }
         public int? CallCenterID { get; set; }
 
-        [NullableOrStringLengthValidator(true, 55, "Cc Agent Id Key", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(false, 55, "Cc Agent Id Key", Ruleset = "Default", Tag = ErrorMessages.ERR0356)]
         public string CcAgentIdKey { get; set; }
         
-        
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0351)]
+        [RequiredObjectValidator(Ruleset = "Default", Tag = ErrorMessages.ERR0351)]
         public DateTime? StartDate { get; set; }
 
         
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0352)]
+        [RequiredObjectValidator(Ruleset = "Default", Tag = ErrorMessages.ERR0352)]
         public DateTime? EndDate { get; set; }
         
         [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default")]
@@ -45,9 +44,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default")]
         public string LastName { get; set; }
-
         
-        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be type of Integer")]
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be numeric")]
         public int? ServicerId { get; set; }
 
         public string OtherServicerName { get; set; }
@@ -55,8 +53,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default")]
         public string PropZipFull9 { get; set; }
 
-        
-        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be type of Integer")]
+
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be numeric")]
         public int? PrevAgencyId { get; set; }
 
         [NullableOrStringLengthValidator(true, 20, "Selected Agency Id", Ruleset = "Default")]

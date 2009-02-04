@@ -1823,24 +1823,6 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.GridView grdvBudgetAsset;
         
         /// <summary>
-        /// Label117 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label117;
-        
-        /// <summary>
-        /// grdvActivityLog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdvActivityLog;
-        
-        /// <summary>
         /// Label118 control.
         /// </summary>
         /// <remarks>

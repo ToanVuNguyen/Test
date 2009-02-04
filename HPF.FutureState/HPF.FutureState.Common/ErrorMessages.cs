@@ -151,6 +151,9 @@ namespace HPF.FutureState.Common
         public const string ERR0351 = "ERR0351"; //"A StartDt is required to save a call.";
         public const string ERR0352 = "ERR0352"; //"An EndDt is required to save a call.";
         public const string ERR0353 = "ERR0353"; //"A FinalDispoCd is required to save a call.";
+        public const string ERR0354 = "ERR0354";
+        public const string ERR0355 = "ERR0355";
+        public const string ERR0356 = "ERR0356"; 
         
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
@@ -376,6 +379,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0351, "A StartDt is required to save a call.");
                 errorMessageDict.Add(ERR0352, "An EndDt is required to save a call.");
                 errorMessageDict.Add(ERR0353, "A FinalDispoCd is required to save a call.");
+                errorMessageDict.Add(ERR0354, "The StartDt and EndDt must include both a valid date and time component.");
+                errorMessageDict.Add(ERR0355, "An invalid code was provided for FinalDispoCd.");
+                errorMessageDict.Add(ERR0356, "A CCAgentIdKey is required to save a call.");
 
                 errorMessageDict.Add(WARN0300,"An IncomeEarnersCd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0301,"A RaceCd is required to complete a foreclosure case.");

@@ -46,34 +46,44 @@ namespace HPF.FutureState.BusinessLogic
             ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
             DataValidationException dataValidationException = new DataValidationException();
             if (!validationResults.IsValid)
-            {                
-                
+            {
+
                 foreach (ValidationResult result in validationResults)
                 {
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(result.Message);
+                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
                 }
-                throw dataValidationException;
+                //throw dataValidationException;
             }
 
-            List<string> errorList = CheckValidCodeForCallLog(aCallLog);
-            if (errorList != null && errorList.Count > 0)
-                ThrowDataValidationException(errorList);
+            dataValidationException.ExceptionMessages.Add(CheckValidCodeForCallLog(aCallLog));
+            //List<string> errorList = CheckValidCodeForCallLog(aCallLog);
+            //if (errorList != null && errorList.Count > 0)
+            //    ThrowDataValidationException(errorList);
 
-            errorList = CheckForeignKey(aCallLog);
-            if (errorList != null && errorList.Count > 0)
-                ThrowDataValidationException(errorList);
+            dataValidationException.ExceptionMessages.Add(CheckForeignKey(aCallLog));
+            //errorList = CheckForeignKey(aCallLog);
+            //if (errorList != null && errorList.Count > 0)
+            //    ThrowDataValidationException(errorList);
 
+            
             if (aCallLog.StartDate > aCallLog.EndDate)
                 dataValidationException.ExceptionMessages.AddExceptionMessage("Start date must < End date");
 
-            errorList = CheckDependingCallCenter(aCallLog);
-            if (errorList != null && errorList.Count > 0)
-                ThrowDataValidationException(errorList);
+            dataValidationException.ExceptionMessages.Add(CheckDependingCallCenter(aCallLog));
+            //errorList = CheckDependingCallCenter(aCallLog);
+            //if (errorList != null && errorList.Count > 0)
+            //    ThrowDataValidationException(errorList);
 
-            errorList = CheckDependingServicer(aCallLog);
-            if (errorList != null && errorList.Count > 0)
-                ThrowDataValidationException(errorList);
-           
+            dataValidationException.ExceptionMessages.Add(CheckDependingServicer(aCallLog));
+            //errorList = CheckDependingServicer(aCallLog);
+            //if (errorList != null && errorList.Count > 0)
+            //    ThrowDataValidationException(errorList);
+
+            if (dataValidationException.ExceptionMessages.Count > 0)
+                throw dataValidationException;
+
             return CallLogDAO.Instance.InsertCallLog(aCallLog);
 
             
@@ -90,101 +100,100 @@ namespace HPF.FutureState.BusinessLogic
         }
         #endregion        
 
-        private List<string> CheckValidCodeForCallLog(CallLogDTO aCallLog)
+        private ExceptionMessageCollection CheckValidCodeForCallLog(CallLogDTO aCallLog)
         {
             ReferenceCodeValidatorBL referenceCode = new ReferenceCodeValidatorBL();
-            List<string> errorList = new List<string>();
-
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();            
                       
             if (!referenceCode.Validate(ReferenceCode.CALL_SOURCE_CODE, aCallLog.CallSourceCd))
-                errorList.Add("Call source code is not valid");
+                errorList.Add(new ExceptionMessage(){ErrorCode="ERROR", Message = "Call source code is not valid"});
 
             if (!referenceCode.Validate(ReferenceCode.FINAL_DISPO_CD, aCallLog.FinalDispoCd))
-                errorList.Add("FinalDispoCd code is not valid");
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "FinalDispoCd code is not valid" });
 
             if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, aCallLog.LoanDelinqStatusCd))
-                errorList.Add("Loan Delinq status code is not valid");
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Loan Delinq status code is not valid" });
             
             
             return errorList;
         }
 
-        private List<string> CheckForeignKey(CallLogDTO aCallLog)
+        private ExceptionMessageCollection CheckForeignKey(CallLogDTO aCallLog)
         {
             Dictionary<string, int> idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
             int callCenterID = idList["CallCenterID"];
             //int isValidCCAgentIdKey = 1;
             int prevAgencyID = idList["PrevAgencyID"];
             //int isValidSelectedAgencyId = 1;
-            int servicerID = idList["ServicerID"]; 
-            List<string> errorList = new List<string>();
+            int servicerID = idList["ServicerID"];
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
             if (callCenterID == 0)
-                errorList.Add("CallCenterID does not exist");
-            if (prevAgencyID == 0)
-                errorList.Add("prevAgencyID does not exist");
-            if (servicerID == 0)
-                errorList.Add("ServicerId does not exist");
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "CallCenterID does not exist"});
+            if (aCallLog.PrevAgencyId.HasValue && prevAgencyID == 0)
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "prevAgencyID does not exist"});
+            if (aCallLog.ServicerId.HasValue && servicerID == 0)
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "ServicerId does not exist" });
             return errorList;
         }
 
-        private List<string> CheckDependingCallCenter(CallLogDTO aCallLog)
+        private ExceptionMessageCollection CheckDependingCallCenter(CallLogDTO aCallLog)
         {
             CallCenterDTO callCenter = CallLogDAO.Instance.GetCallCenter(aCallLog);
-            List<string> errorList = new List<string>();
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
             
             if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
             {
                 aCallLog.CallCenter = callCenter.CallCenterName;
-                return null;
+                return errorList;
             }
             
             if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty))
             {
-                errorList.Add("Call center is required");
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center is required" });
                 return errorList;
             }
 
             if (aCallLog.CallCenter.Trim().Length <= 4)
-                return null;
+                return errorList;
 
-            errorList.Add("Call center max length is 4");
+            errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center max length is 4"});
             return errorList;
             
         }
 
-        private List<string> CheckDependingServicer(CallLogDTO aCallLog)
+        private ExceptionMessageCollection CheckDependingServicer(CallLogDTO aCallLog)
         {
             ServicerDTO servicer = CallLogDAO.Instance.GetServicer(aCallLog);
-            List<string> errorList = new List<string>();
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
 
-            if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))            
-                return null;
+            if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
+                return errorList;
 
             if ((aCallLog.OtherServicerName == null) 
                 || (aCallLog.OtherServicerName.Trim() == string.Empty))
             {
-                errorList.Add("Other servicer name is required");
+                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name is required"});
                 return errorList;
             }
 
             if (aCallLog.OtherServicerName.Trim().Length <= 50)
-                return null;
+                return errorList;
 
-            errorList.Add("Other servicer name max length is 50");
+            errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name max length is 50" });
             return errorList;
         }
 
-        private void ThrowDataValidationException(List<string> errorList)
-        {
-            DataValidationException pe = new DataValidationException();
-            foreach (string obj in errorList)
-            {
-                ExceptionMessage em = new ExceptionMessage();
-                em.Message = obj;
-                pe.ExceptionMessages.Add(em);
-            }
-            throw pe;
-        }
+        //private void ThrowDataValidationException(List<string> errorList)
+        //{
+        //    DataValidationException pe = new DataValidationException();
+        //    foreach (string obj in errorList)
+        //    {
+        //        ExceptionMessage em = new ExceptionMessage();
+        //        em.Message = obj;
+        //        pe.ExceptionMessages.Add(em);
+        //    }
+        //    throw pe;
+        //}
 
     }
 }

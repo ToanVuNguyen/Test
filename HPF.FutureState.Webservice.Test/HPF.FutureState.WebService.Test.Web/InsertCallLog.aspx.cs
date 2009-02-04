@@ -134,9 +134,7 @@ namespace HPF.FutureState.WebService.Test.Web
             
             CallLogWSDTO aWSCallLog = FormToCallLogWSDTO();
             
-            CallCenterService proxy = new CallCenterService();
-
-            
+            CallCenterService proxy = new CallCenterService();            
             
             AuthenticationInfo ai = new AuthenticationInfo();
             ai.UserName = txtUsername.Text.Trim();
