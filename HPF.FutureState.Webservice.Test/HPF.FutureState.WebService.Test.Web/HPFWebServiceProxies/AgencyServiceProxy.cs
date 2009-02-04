@@ -1613,14 +1613,15 @@ namespace HPF.Webservice.Agency
     public partial class OutcomeItemDTO : BaseDTO
     {
 
-        private int outcomeTypeIdField;
+        private System.Nullable<int> outcomeTypeIdField;
 
         private string nonprofitreferralKeyNumField;
 
         private string extRefOtherNameField;
 
         /// <remarks/>
-        public int OutcomeTypeId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> OutcomeTypeId
         {
             get
             {
