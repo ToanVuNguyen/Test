@@ -78,14 +78,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            //SearchFcCase_GenerateTestData();            
+            SearchFcCase_GenerateTestData();            
         }
         
         //Use TestCleanup to run code after each test has run
         [TestCleanup()]
         public void MyTestCleanup()
         {
-            //SearchFcCase_ClearTestData();
+            SearchFcCase_ClearTestData();
         }
         //
         #endregion
