@@ -295,14 +295,14 @@
                 <asp:TextBox CssClass="Text" ID="txtFinalDispoCd" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>          
         </asp:TableRow>
-        <asp:TableRow ID="TableRow2" runat="server">
+       <%-- <asp:TableRow ID="TableRow2" runat="server">
             <asp:TableCell ID="TableCell53" runat="server">
             <asp:Label CssClass="sidelinks" ID="Label19" runat="server" Text="Change last User ID"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell54" runat="server">
                 <asp:TextBox CssClass="Text" ID="txtWorkingUserId" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>                        
-        </asp:TableRow>
+        </asp:TableRow>--%>
                 
     </asp:Table>
     <br />

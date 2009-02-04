@@ -86,7 +86,7 @@ namespace HPF.FutureState.WebService.Test.Web
             txtTransNumber.Text = aCallLogWS.TransNumber; //"TransNumber" + _pageloadno.ToString();
 
             //txtLastChangeUserId.Text = aCallLogWS.ChangeLastUserId;
-            txtWorkingUserId.Text = aCallLogWS.CreateUserId;
+            //txtWorkingUserId.Text = aCallLogWS.CreateUserId;
         }
 
         private CallLogWSDTO FormToCallLogWSDTO()
@@ -119,7 +119,7 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.ServicerId = Util.ConvertToInt(txtServiceID.Text.Trim());
             aWSCallLog.StartDate = Util.ConvertToDateTime(txtStartDate.Text.Trim());
             aWSCallLog.TransNumber = txtTransNumber.Text.Trim();
-            aWSCallLog.WorkingUserId = txtWorkingUserId.Text.Trim();
+            //aWSCallLog.WorkingUserId = txtWorkingUserId.Text.Trim();
             //aWSCallLog.CreateUserId = txtCreateUserId.Text.Trim();
             //aWSCallLog.ChangeLastUserId = txtLastChangeUserId.Text.Trim();
 
