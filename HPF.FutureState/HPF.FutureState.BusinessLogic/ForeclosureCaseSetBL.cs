@@ -139,6 +139,8 @@ namespace HPF.FutureState.BusinessLogic
             if (collection != null && collection.Count > 0)
             {
                 fcCase.DuplicateInd = Constant.DUPLICATE_YES;
+                fcCase.NeverBillReasonCd = Constant.NEVER_BILL_REASON_CODE_DUPE;
+                fcCase.NeverPayReasonCd = Constant.NEVER_PAY_REASON_CODE_DUPE;
                 WarningMessage.Add(CreateDuplicateCaseWarning(collection));
             }
             else
