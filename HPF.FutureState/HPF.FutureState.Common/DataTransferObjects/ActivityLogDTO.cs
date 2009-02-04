@@ -11,11 +11,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public int ActivityLogId{ get; set; }
 
-        public int FcId{ get; set; }
+        public int? FcId{ get; set; }
         
         public string ActivityCd{ get; set; }
         
-        public DateTime ActivityDt{ get; set; }
+        public DateTime? ActivityDt{ get; set; }
 
         public string ActivityNote { get; set; }
     }
