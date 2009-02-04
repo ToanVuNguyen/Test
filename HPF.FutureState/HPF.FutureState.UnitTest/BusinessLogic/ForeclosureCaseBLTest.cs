@@ -12,6 +12,8 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Collections.Generic;
+using HPF.FutureState.Common;
+using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.UnitTest.BusinessLogic
 {
     
@@ -76,14 +78,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            SearchFcCase_GenerateTestData();            
+            //SearchFcCase_GenerateTestData();            
         }
         
         //Use TestCleanup to run code after each test has run
         [TestCleanup()]
         public void MyTestCleanup()
         {
-            SearchFcCase_ClearTestData();
+            //SearchFcCase_ClearTestData();
         }
         //
         #endregion
@@ -974,24 +976,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckInactiveCaseWithFcIDAndCompleteDateFalse()
         {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target._workingUserID = "HPF";
-            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
-            target.InsertForeclosureCaseSet(foreclosureCase);
-            target.CompleteTransaction();
-            foreclosureCase.ForeclosureCase.FcId = GetForeclosureCaseId();
-            ForeclosureCaseDTO fCase = SetForeclosureCase("TRUE");
-            fCase.FcId = GetForeclosureCaseId();
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
+            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();
+            int fcId = SearchFcCase_GetFcID();
+            fCase.FcId = fcId;
             fCase.CompletedDt = Convert.ToDateTime("12/12/2008");
             UpdateForeclosureCase(fCase);
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            target.InitiateTransaction();
-            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
-            target.CompleteTransaction();
-            int fcId = GetForeclosureCaseId();
-            DeleteForeclosureCase(fcId);
+            bool actual = target.CheckInactiveCase(fcId);            
             Assert.AreEqual(expected, actual);
         }
 
@@ -1003,20 +995,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
         {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target._workingUserID = "HPF";
-            ForeclosureCaseSetDTO foreclosureCase = SetForeclosureCaseSet("TRUE");// TODO: Initialize to an appropriate value                        
-            target.InsertForeclosureCaseSet(foreclosureCase);
-            target.CompleteTransaction();            
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            target.InitiateTransaction();
-            actual = target.CheckInactiveCase(foreclosureCase.ForeclosureCase.FcId);
-            target.CompleteTransaction();
-            int fcId = GetForeclosureCaseId();
-            DeleteForeclosureCase(fcId);
-            Assert.AreEqual(expected, actual);            
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                                           
+            int fcId = SearchFcCase_GetFcID();            
+            bool expected = false; 
+            bool actual = target.CheckInactiveCase(fcId);
+            Assert.AreEqual(expected, actual);         
         }
 
         /// <summary>
@@ -1030,12 +1013,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO foreclosureCase = SetForeclosureCase("FALSE");
             foreclosureCase.AgencyId = SearchFcCase_GetAgencyID();
-            ExceptionMessageCollection actual;
-            target.InitiateTransaction();
-            actual = target.CheckValidAgencyId(foreclosureCase);
-            if (actual.Count == 0)
-                actual = null;
-            target.CompleteTransaction();
+            ExceptionMessageCollection actual;            
+            actual = target.CheckValidAgencyId(foreclosureCase);            
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             Assert.AreEqual(expected, actual);
         }            
@@ -1049,12 +1028,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckBorrowerDOB()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                        
-            DateTime borrowerDob = Convert.ToDateTime("1900/04/02");
-            target.InitiateTransaction();
+            DateTime borrowerDob = Convert.ToDateTime("1900/04/02");            
             bool expected = true; // TODO: Initialize to an appropriate value
             bool actual = true;
-            actual = target.CheckDateOfBirth(borrowerDob);
-            target.RollbackTransaction();
+            actual = target.CheckDateOfBirth(borrowerDob);            
             Assert.AreEqual(expected, actual);
         }
 
@@ -1066,11 +1043,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckCallId()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                        
-            string callId = "HPF1    ";            
-            target.InitiateTransaction();
+            string callId = "HPF1    ";                        
             bool expected = true;
-            bool actual = target.CheckCallID(callId);
-            target.RollbackTransaction();
+            bool actual = target.CheckCallID(callId);            
             Assert.AreEqual(expected, actual);
         }
 
@@ -1082,12 +1057,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CompleteValidation()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value            
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = target.CheckComplete(foreclosureCaseSet);
-            target.RollbackTransaction();
+            actual = target.CheckComplete(foreclosureCaseSet);            
             Assert.AreEqual(expected, actual);
         }
 
@@ -1100,15 +1073,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            target._workingUserID = "HPF";
+            foreclosureCaseSet.ForeclosureCase.WorkingUserID = "HPF";
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
-            foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");
-            target.InitiateTransaction();
+            foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");            
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
             actual = target.CheckInvalidFormatData(foreclosureCaseSet);
-            target.RollbackTransaction();
+            if (actual.Count == 0)
+                actual = null;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1122,12 +1095,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void RequireFieldsValidationPass()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value            
-            target.InitiateTransaction();
+            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
+            foreclosureCaseSet.ForeclosureCase.WorkingUserID = "HPF";
+            foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);
-            target.RollbackTransaction();
+            if (actual.Count == 0) 
+                actual = null;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1140,12 +1115,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "";
-            target.InitiateTransaction();
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "";            
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
-            actual = target.CheckRequireForPartial(foreclosureCaseSet);
-            target.RollbackTransaction();
+            actual = target.CheckRequireForPartial(foreclosureCaseSet);            
             Assert.AreNotEqual(expected, actual);
         }
         #endregion
@@ -1163,10 +1136,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCaseCodeTrue();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
             ExceptionMessageCollection actual;
-            InsertGeoCodeRef();
-            target.InitiateTransaction();
-            actual = target.CheckValidCode(foreclosureCaseSet);
-            target.CompleteTransaction();
+            InsertGeoCodeRef();            
+            actual = target.CheckValidCode(foreclosureCaseSet);            
             DeleteGeoCodeRef(GetGeoCodeRefId());
             Assert.AreEqual(expected, actual);            
         }
@@ -1200,10 +1171,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE");
             foreclosureCaseSet.CaseLoans = SetCaseLoanCodeFalse();
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
-            ExceptionMessageCollection actual;
-            target.InitiateTransaction();
-            actual = target.CheckValidCode(foreclosureCaseSet);
-            target.CompleteTransaction();
+            ExceptionMessageCollection actual;            
+            actual = target.CheckValidCode(foreclosureCaseSet);            
             Assert.AreNotEqual(expected, actual);
         }
         #endregion
@@ -1217,11 +1186,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
-            target.InitiateTransaction();
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";            
             target._workingUserID = "HPF";
-            target.InsertForeclosureCaseSet(foreclosureCaseSet);
-            target.CompleteTransaction();
+            target.InsertForeclosureCaseSet(foreclosureCaseSet);            
             int fcId = GetForeclosureCaseId();
             string expected = "Acency Case Num Test";
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
@@ -1230,6 +1197,26 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(expected, actual);
         }
 
+        [Ignore]
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void ValidationComplete()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO foreclosureCase = SetForeclosureCase("TRUE"); // TODO: Initialize to an appropriate value
+            ExceptionMessageCollection actual = null;
+            try
+            {
+                actual = HPFValidator.ValidateToGetExceptionMessage<ForeclosureCaseDTO>(foreclosureCase, Constant.RULESET_LENGTH);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            ExceptionMessageCollection expected = null;
+            Assert.AreEqual(expected, actual);
+        }
+        
         /// <summary>
         ///A test for UpdateForeclosureCaseSet
         ///</summary>
@@ -1431,6 +1418,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.AgencyClientNum = "HPF";
             foreclosureCase.ContactStateCd = "HPF";
             foreclosureCase.PropStateCd = "HPF";
+            foreclosureCase.GenderCd = "ABC";
             if (status == "TRUE")
             {
                 //foreclosureCase.CompletedDt = Convert.ToDateTime("12/12/2007");
@@ -1487,7 +1475,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
                 //budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-                //budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1500,7 +1488,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO = new BudgetItemDTO();
                 //budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-                //budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
+                budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1515,7 +1503,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 BudgetItemDTO budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("1");
-                //budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("900.08");
+                budgetItemDTO.BudgetItemAmt = 900.08;
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1528,7 +1516,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO = new BudgetItemDTO();
                 budgetItemDTO.BudgetSetId = Convert.ToInt32("76156");
                 //budgetItemDTO.BudgetSubcategoryId = Convert.ToInt32("8");
-                //budgetItemDTO.BudgetItemAmt = Convert.ToDecimal("300.05");
+                budgetItemDTO.BudgetItemAmt = 300.05;
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
                 budgetItemDTO.CreateUserId = "HPF";
@@ -1851,11 +1839,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             int? fcId = fCase.FcId;
-            DateTime completeDt = fCase.CompletedDt;
+            DateTime? completeDt = fCase.CompletedDt;
             dbConnection.Open();
             try
             {
-                var command = new SqlCommand("UPDATE foreclosure_case SET completed_dt = " + completeDt + " WHERE fc_id = " + fcId + "", dbConnection);
+                var command = new SqlCommand("UPDATE foreclosure_case SET completed_dt = '" + completeDt + "' WHERE fc_id = " + fcId + "", dbConnection);
                 command.ExecuteNonQuery();
             }
             catch(Exception ex)
@@ -2056,10 +2044,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.GenderCd = (reader["gender_cd"].ToString());
                         returnObject.HasWorkoutPlanInd = (reader["has_workout_plan_ind"].ToString());
                         returnObject.HispanicInd = (reader["hispanic_ind"].ToString());
-                        returnObject.HomeCurrentMarketValue = double.Parse(reader["home_current_market_value"].ToString());
-                        returnObject.HomePurchasePrice = double.Parse(reader["home_purchase_price"].ToString());
-                        returnObject.HomePurchaseYear = int.Parse(reader["home_purchase_year"].ToString());
-                        returnObject.HomeSalePrice = double.Parse(reader["home_sale_price"].ToString());
+                        if (!string.IsNullOrEmpty(reader["home_current_market_value"].ToString()))
+                            returnObject.HomeCurrentMarketValue = double.Parse(reader["home_current_market_value"].ToString());
+                        if (!string.IsNullOrEmpty(reader["home_purchase_price"].ToString()))
+                            returnObject.HomePurchasePrice = double.Parse(reader["home_purchase_price"].ToString());
+                        if (!string.IsNullOrEmpty(reader["home_purchase_year"].ToString()))
+                            returnObject.HomePurchaseYear = int.Parse(reader["home_purchase_year"].ToString());
+                        if (!string.IsNullOrEmpty(reader["home_sale_price"].ToString()) )
+                            returnObject.HomeSalePrice = double.Parse(reader["home_sale_price"].ToString());
                         returnObject.HouseholdCd = (reader["household_cd"].ToString());
                         returnObject.HpfMediaCandidateInd = (reader["hpf_media_candidate_ind"].ToString());                        
                         returnObject.HpfSuccessStoryInd = (reader["hpf_success_story_ind"].ToString());
@@ -2071,14 +2063,17 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.MotherMaidenLname = (reader["mother_maiden_lname"].ToString());
                         returnObject.NeverBillReasonCd = (reader["never_bill_reason_cd"].ToString());
                         returnObject.NeverPayReasonCd = (reader["never_pay_reason_cd"].ToString());
-                        returnObject.OccupantNum = byte.Parse(reader["occupant_num"].ToString());
+                        if (!string.IsNullOrEmpty(reader["occupant_num"].ToString())) 
+                            returnObject.OccupantNum = byte.Parse(reader["occupant_num"].ToString());
                         returnObject.OptOutNewsletterInd = (reader["opt_out_newsletter_ind"].ToString());
                         returnObject.OptOutSurveyInd = (reader["opt_out_survey_ind"].ToString());
                         returnObject.OwnerOccupiedInd = (reader["owner_occupied_ind"].ToString());
                         returnObject.PrimaryContactNo = (reader["primary_contact_no"].ToString());
                         returnObject.PrimaryResidenceInd = (reader["primary_residence_ind"].ToString());
-                        returnObject.PrimResEstMktValue = double.Parse(reader["prim_res_est_mkt_value"].ToString());
-                        returnObject.ProgramId = int.Parse(reader["program_id"].ToString());
+                        if (!string.IsNullOrEmpty(reader["prim_res_est_mkt_value"].ToString()) )
+                            returnObject.PrimResEstMktValue = double.Parse(reader["prim_res_est_mkt_value"].ToString());
+                        if (!string.IsNullOrEmpty(reader["program_id"].ToString()))
+                            returnObject.ProgramId = int.Parse(reader["program_id"].ToString());
                         returnObject.PropAddr1 = (reader["prop_addr1"].ToString());
                         returnObject.PropAddr2 = (reader["prop_addr2"].ToString());
                         returnObject.PropCity = (reader["prop_city"].ToString());

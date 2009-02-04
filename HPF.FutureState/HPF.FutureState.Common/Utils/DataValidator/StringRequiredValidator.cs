@@ -7,6 +7,7 @@ using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Configuration;
 
+
 namespace HPF.FutureState.Common.Utils.DataValidator
 {
     [ConfigurationElementType(typeof(CustomValidatorData))]
@@ -30,11 +31,11 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         {
             if (objectToValidate == null)
             {
-                LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
+                LogValidationResult(validationResults, MessageTemplate, currentTarget, key);                
             }
             else
             {
-                if ((objectToValidate == string.Empty) | (objectToValidate.Trim().Length == 0))
+                if ((objectToValidate == string.Empty) || (objectToValidate.Trim().Length == 0))
                 {
                     LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
                 }

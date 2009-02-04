@@ -20,8 +20,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public int? FcId { get; set; }
 
-        [XmlElement(IsNullable = true)]
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive,Tag=ErrorMessages.ERR0127, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]        
+        [XmlElement(IsNullable = true)]        
+        [RequiredObjectValidator(Tag = ErrorMessages.ERR0127, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int? ServicerId { get; set; }
 
         [XmlIgnore]
@@ -62,17 +62,17 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Code", Ruleset = Constant.RULESET_LENGTH)]
         public string LoanDelinqStatusCd { get; set; }
 
-        [XmlElement(IsNullable = true)]
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CurrentLoanBalanceAmt must be numeric(15,2)")]
+        [XmlElement(IsNullable = true)]        
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CurrentLoanBalanceAmt must be numeric(15,2)")]
         public double? CurrentLoanBalanceAmt { get; set; }
 
-        [XmlElement(IsNullable = true)]
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "OrigLoanAmt must be numeric(15,2)")]
+        [XmlElement(IsNullable = true)]        
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "OrigLoanAmt must be numeric(15,2)")]
         public double? OrigLoanAmt { get; set; }
 
         [XmlElement(IsNullable = true)]
-        [NotNullValidator(Tag = ErrorMessages.WARN0324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        [RangeValidator(-99.999, RangeBoundaryType.Inclusive, 99.999, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InterestRate must be numeric(5,3)")]
+        [NotNullValidator(Tag = ErrorMessages.WARN0324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]        
+        [NullableOrInRangeNumberValidator(true, "-99.999", "99.999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InterestRate must be numeric(5,3)")]
         public double? InterestRate { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "Originating Lender Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0060)]

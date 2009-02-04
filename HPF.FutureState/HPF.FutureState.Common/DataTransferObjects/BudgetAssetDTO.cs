@@ -20,8 +20,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "Asset Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0071)]
         public string AssetName { get; set; }
 
-        [XmlElement(IsNullable = true)]
-        [RangeValidator(-9999999999999.99, RangeBoundaryType.Inclusive, 9999999999999.99, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_LENGTH,MessageTemplate = "AssetValue must be numeric(15,2)")]
+        [XmlElement(IsNullable = true)]        
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "AssetValue must be numeric(15,2)")]
         public double? AssetValue { get; set; }          
     }
 }

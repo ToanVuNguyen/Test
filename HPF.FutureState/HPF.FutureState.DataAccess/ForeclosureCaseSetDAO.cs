@@ -1145,7 +1145,7 @@ namespace HPF.FutureState.DataAccess
             if (results == null)
             {
                 var dbConnection = CreateConnection();
-                var command = new SqlCommand("hpf_program_get", this.dbConnection);
+                var command = new SqlCommand("hpf_program_get", dbConnection);
                 try
                 {
                     command.CommandType = CommandType.StoredProcedure;                    

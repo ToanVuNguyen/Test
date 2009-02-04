@@ -21,7 +21,7 @@ namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {        
-        ForeclosureCaseSetDAO foreclosureCaseSetDAO;
+        ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
         ForeclosureCaseDTO _dbFcCase = null;
         private string _workingUserID;
 
@@ -97,8 +97,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         private void InitiateTransaction()
-        {
-            foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+        {            
             foreclosureCaseSetDAO.Begin();
         }
 
@@ -245,14 +244,12 @@ namespace HPF.FutureState.BusinessLogic
         /// <return>Collection Message Error</return>
         /// </summary>
         private ExceptionMessageCollection RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
-        {
-            var msgFcCaseSet = new ExceptionMessageCollection
-                                   {HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet)};
-            //
+        {            
+            var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };                        
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
                 msgFcCaseSet.Add(CheckOtherFieldFCaseForPartial(foreclosureCase));                                
-            }
+            }                      
             return msgFcCaseSet;
         }
 
@@ -464,7 +461,7 @@ namespace HPF.FutureState.BusinessLogic
             DateTime currentDate = DateTime.Now;
             DateTime backOneYear = DateTime.MinValue;            
             ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);            
-            DateTime completeDate = foreclosureCase.CompletedDt;
+            DateTime? completeDate = foreclosureCase.CompletedDt;
             if (completeDate == null || completeDate == DateTime.MinValue)
             {
                 return false;
@@ -566,7 +563,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckDateOfBirth(DateTime? dateOfBirth)
         {
             int systemYear = DateTime.Now.Year;
-            if (dateOfBirth != DateTime.MinValue)
+            if (dateOfBirth != null && dateOfBirth != DateTime.MinValue)
             {
                 int yearOfBirth = dateOfBirth.Value.Year;
                 int calculateYear = systemYear - yearOfBirth;
@@ -937,7 +934,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int? InsertForeclosureCase(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseDTO foreclosureCase)
         {
-            int? fcId = int.MinValue;
+            int? fcId = null;
             if(foreclosureCase != null)
             {
                 foreclosureCase.SetInsertTrackingInformation(_workingUserID);
@@ -1786,7 +1783,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Set value for Complete Date
         /// </summary>
-        private DateTime GetCompleteDate(int? fcId)
+        private DateTime? GetCompleteDate(int? fcId)
         {
             ForeclosureCaseDTO foreclosureCase;
             if (fcId != int.MinValue && fcId > 0)

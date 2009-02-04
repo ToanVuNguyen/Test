@@ -21,8 +21,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public int? OutcomeSetId { get; set; }
 
-        [XmlElement(IsNullable=true)]
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, Tag = ErrorMessages.ERR0129 ,MessageTemplate = "Required!")]
+        [XmlElement(IsNullable=true)]        
+        [RequiredObjectValidator(Tag = ErrorMessages.ERR0129, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int? OutcomeTypeId { get; set; }
 
         [XmlIgnore]

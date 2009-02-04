@@ -158,7 +158,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
             lblProgram.Text = foreclosureCase.ProgramId.ToString();
             lblIntakeDate.Text = foreclosureCase.IntakeDt.Value.ToShortDateString();
-            lblCompleteDate.Text = foreclosureCase.CompletedDt.ToShortDateString();
+            lblCompleteDate.Text = foreclosureCase.CompletedDt.Value.ToShortDateString();
             lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd.ToString();
             lblSourceCode.Text = foreclosureCase.CaseSourceCd;
             //case summary
