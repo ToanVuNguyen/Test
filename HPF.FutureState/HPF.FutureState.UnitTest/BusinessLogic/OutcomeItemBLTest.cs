@@ -80,7 +80,7 @@ namespace HPF.FutureState.UnitTest
             string workingUserId = "test data";
             int fc_id = GetFcID();
             OutcomeItemDTO outcomeItem = GetOutcomeItem(fc_id, null);
-            int outcomeItemId = outcomeItem.OutcomeItemId;
+            int? outcomeItemId = outcomeItem.OutcomeItemId;
             DeleteOutcomeItem(outcomeItemId);
             DateTime? expected = null;
 
@@ -99,7 +99,7 @@ namespace HPF.FutureState.UnitTest
             string workingUserId = "test data";
             int fc_id = GetFcID();
             OutcomeItemDTO outcomeItem = GetOutcomeItem(fc_id, null);
-            int outcomeItemId = outcomeItem.OutcomeItemId;
+            int? outcomeItemId = outcomeItem.OutcomeItemId;
             DeleteOutcomeItem(outcomeItemId);
             DateTime? expected = DateTime.Now.Date;
 
@@ -121,7 +121,7 @@ namespace HPF.FutureState.UnitTest
             string workingUserId = "test data";
             int fc_id = GetFcID();
             OutcomeItemDTO outcomeItem = GetOutcomeItem(fc_id, null);
-            int outcomeItemId = outcomeItem.OutcomeItemId;
+            int? outcomeItemId = outcomeItem.OutcomeItemId;
             DateTime? expected = DateTime.Now.Date;
 
             target.DeleteOutcomeItem(outcomeItemId, workingUserId);
@@ -139,7 +139,7 @@ namespace HPF.FutureState.UnitTest
             string workingUserId = "test data";
             int fc_id = GetFcID();
             OutcomeItemDTO outcomeItem = GetOutcomeItem(fc_id, null);
-            int outcomeItemId = outcomeItem.OutcomeItemId;
+            int? outcomeItemId = outcomeItem.OutcomeItemId;
             DateTime? expected = null;
 
             target.DeleteOutcomeItem(outcomeItemId, workingUserId);
@@ -347,7 +347,7 @@ namespace HPF.FutureState.UnitTest
             return outcomeItem;
         }
 
-        private void DeleteOutcomeItem(int outcomeItemId)
+        private void DeleteOutcomeItem(int? outcomeItemId)
         {
             string sql = "Update Outcome_Item set outcome_deleted_dt = '" + DateTime.Now + "' where outcome_item_id = " + outcomeItemId;
             ExecuteSql(sql);

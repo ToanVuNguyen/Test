@@ -36,7 +36,7 @@ namespace HPF.FutureState.BusinessLogic
             return OutcomeItemDAO.Instance.RetrieveOutcomeItems(fcId);
         }
 
-        public bool DeleteOutcomeItem(int outcomeItemId, string workingUserId)
+        public bool DeleteOutcomeItem(int? outcomeItemId, string workingUserId)
         {
             OutcomeItemDTO item = new OutcomeItemDTO();
             item.OutcomeItemId = outcomeItemId;
@@ -44,7 +44,7 @@ namespace HPF.FutureState.BusinessLogic
             return OutcomeItemDAO.Instance.DeleteOutcomeItem(item);
         }
 
-        public bool InstateOutcomeItem(int outcomeItemId, string workingUserId)
+        public bool InstateOutcomeItem(int? outcomeItemId, string workingUserId)
         {
             OutcomeItemDTO item = new OutcomeItemDTO();
             item.OutcomeItemId = outcomeItemId;

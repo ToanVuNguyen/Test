@@ -13,22 +13,23 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class OutcomeItemDTO : BaseDTO
     {
         [XmlIgnore]
-        public int OutcomeItemId { get; set; }
+        public int? OutcomeItemId { get; set; }
 
         [XmlIgnore]
-        public int FcId { get; set; }
+        public int? FcId { get; set; }
 
         [XmlIgnore]
-        public int OutcomeSetId { get; set; }
+        public int? OutcomeSetId { get; set; }
 
+        [XmlElement(IsNullable=true)]
         [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, Tag = ErrorMessages.ERR0129 ,MessageTemplate = "Required!")]
-        public int OutcomeTypeId { get; set; }
+        public int? OutcomeTypeId { get; set; }
 
         [XmlIgnore]
         public string OutcomeTypeName { get; set; }
 
         [XmlIgnore]
-        public DateTime OutcomeDt { get; set; }
+        public DateTime? OutcomeDt { get; set; }
 
         [XmlIgnore]
         public DateTime? OutcomeDeletedDt { get; set; }

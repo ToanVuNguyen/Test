@@ -1662,7 +1662,7 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeTypeDTOCollection outcomeTypeCollection = foreclosureCaseSetDAO.GetOutcomeType();
             if (outcomeTypeCollection == null || outcomeTypeCollection.Count < 1)
                 return true;
-            int outcomeTypeId = outcomeItem.OutcomeTypeId;
+            int? outcomeTypeId = outcomeItem.OutcomeTypeId;
             foreach (OutcomeTypeDTO item in outcomeTypeCollection)
             {
                 if (item.OutcomeTypeID == outcomeTypeId)
