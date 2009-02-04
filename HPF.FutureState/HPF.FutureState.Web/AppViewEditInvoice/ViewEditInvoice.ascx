@@ -66,9 +66,7 @@
         <td class="Text">
             <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text" Text="11/30/2008"></asp:Label>
         </td>
-        <td align="right" class="sidelinks">
-            &nbsp;</td>
-        <td>
+        <td align="right" class="sidelinks" colspan="2">
             &nbsp;</td>
         <td align="right" class="sidelinks">
             HPF Payment ID:</td>
@@ -158,12 +156,12 @@
                         <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" />
                         <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Dt." />
-                        <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" HeaderText="Amount" />
+                        <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Amount" />
                         <asp:BoundField DataField="LoanNumber"  HeaderText="Loan Number" />
                         <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
                         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
                         <asp:BoundField DataField="PaidDate" HeaderText="Paid Date" />
-                        <asp:BoundField DataField="InvoiceCasePaymentAmount" HeaderText="Paid Amt" DataFormatString="{0:C}" />
+                        <asp:BoundField DataField="InvoiceCasePaymentAmount" HeaderText="Paid Amt" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" />
                         <asp:BoundField DataField="PaymentRejectReasonCode" HeaderText="Reject Reason" />
                         <asp:BoundField DataField="InvenstorLoanId" HeaderText="Investor Loan ID" />
                     </Columns>

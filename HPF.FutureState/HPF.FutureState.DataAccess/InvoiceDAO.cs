@@ -399,8 +399,11 @@ namespace HPF.FutureState.DataAccess
         {
             InvoiceSetDTO result = new InvoiceSetDTO();
             var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_invoice_set_get", dbConnection);
+            var command = CreateSPCommand("hpf_invoice_get", dbConnection);
             command.Connection = dbConnection;
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_invoice_id", invoiceId);
+            command.Parameters.AddRange(sqlParam);
             try
             {
                 dbConnection.Open();

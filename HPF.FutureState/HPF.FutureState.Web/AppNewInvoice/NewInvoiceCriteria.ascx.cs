@@ -58,7 +58,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         {
             if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
             {
-                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
         }
         /// <summary>

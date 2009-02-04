@@ -40,8 +40,8 @@
         <asp:BoundField HeaderText="Invoice #" DataField="InvoiceId" />
         <asp:BoundField HeaderText="Loan #" DataField="Loan" />
         <asp:BoundField HeaderText="1st/2nd" DataField="InDisputeIndicator" />
-        <asp:BoundField HeaderText="Bill Amt" DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}"  />
-        <asp:BoundField HeaderText="Pd Amt" DataField="InvoiceCasePaymentAmount" DataFormatString="{0:C}" />
+        <asp:BoundField HeaderText="Bill Amt" DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  />
+        <asp:BoundField HeaderText="Pd Amt" DataField="InvoiceCasePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" />
         <asp:BoundField HeaderText="Paid Date" DataField="PaidDate" DataFormatString="{0:d}" />
         <asp:BoundField HeaderText="Reject Reason" DataField="PaymentRejectReasonCode" />
         </Columns>    
@@ -81,7 +81,7 @@
         <asp:BoundField HeaderText="Payable Date" DataField="PaymentDate"  DataFormatString="{0:d}"/>
         <asp:BoundField HeaderText="Agency" DataField="AgencyName" />
         <asp:BoundField HeaderText="Payable #" DataField="AgencyPayableId" />
-        <asp:BoundField HeaderText="Pay Amt" DataField="PaymentAmount" DataFormatString="{0:C}"  />
+        <asp:BoundField HeaderText="Pay Amt" DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  />
         <asp:BoundField HeaderText="NFMC Diff Elig" DataField="NFMCDiffererencePaidInd" />
         <asp:BoundField HeaderText="NFMC Diff Pd" DataField="NFMCDifferenceEligibleInd" />
         </Columns>

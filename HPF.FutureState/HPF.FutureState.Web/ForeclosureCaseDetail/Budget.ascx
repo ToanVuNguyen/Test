@@ -30,10 +30,11 @@
                             <ItemTemplate>
                                 <asp:Label ID="lblSurplus" runat="server"></asp:Label>
                             </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Right" />
                         </asp:TemplateField>
-                        <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}" HeaderText="Total Income" />
-                        <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}" HeaderText="Total Expenses" />
-                        <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}" HeaderText="Total Asset" />
+                        <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  HeaderText="Total Income" />
+                        <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  HeaderText="Total Expenses" />
+                        <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  HeaderText="Total Asset" />
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
                 </asp:GridView>
@@ -64,7 +65,7 @@
                             <Columns>
                                 <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120"/>
                                 <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="250"/>
-                                <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}" HeaderText="Amount" ItemStyle-Width="70"/>
+                                <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Amount" ItemStyle-Width="70"/>
                                 <asp:BoundField DataField="BudgetNote" HeaderText="Note" />
                             </Columns>
                         </asp:GridView>
@@ -91,7 +92,7 @@
                     <SelectedRowStyle CssClass="SelectedRowStyle"  />
                     <Columns>
                         <asp:BoundField DataField="AssetName" HeaderText="Asset Name" ItemStyle-Width="180" />
-                        <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}" HeaderText="Asset Value" ItemStyle-Width="120" />
+                        <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Asset Value" ItemStyle-Width="120" />
                     </Columns>
                 </asp:GridView>
     </asp:Panel>
@@ -117,7 +118,7 @@
                             <Columns>
                                 <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120"/>
                                 <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="250"/>
-                                <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}" HeaderText="Amount" ItemStyle-Width="70"/>
+                                <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Amount" ItemStyle-Width="70"/>
                                 <asp:BoundField DataField="BudgetNote" HeaderText="Note" />
                             </Columns>
                         </asp:GridView>
@@ -141,19 +142,19 @@
                 <tr>
                     <td  class="NormalHeader"  >
                         Income Total</td>
-                    <td>
+                    <td align="right">
                         <asp:Label runat="server" ID="lblIncomeTotal" CssClass="Text" Font-Bold="True"></asp:Label></td>
                 </tr>
                 <tr>
                     <td  class="NormalHeader">
                         Expense Total</td>
-                    <td>
-                        <asp:Label runat="server" ID="lblExpenseTotal" CssClass="Text" Font-Bold="True"></asp:Label></td>
+                    <td align="right" >
+                        <asp:Label  runat="server" ID="lblExpenseTotal" CssClass="Text" Font-Bold="True"></asp:Label></td>
                 </tr>
                 <tr>
                     <td class="NormalHeader">
                         Total Surplus or Deficit</td>
-                    <td>
+                    <td align="right">
                         <asp:Label runat="server" ID="lblSurplusTotal"  CssClass="Text" 
                             Font-Bold="True"></asp:Label></td>
                 </tr>

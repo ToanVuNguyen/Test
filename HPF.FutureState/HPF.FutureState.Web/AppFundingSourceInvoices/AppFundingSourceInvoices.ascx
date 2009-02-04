@@ -90,8 +90,8 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" />
-                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" HeaderText="Invoice Amount" />
-                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" HeaderText="Payment Amount" />
+                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Invoice Amount" />
+                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Payment Amount" />
                         <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" />
                         <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" />
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
@@ -113,7 +113,8 @@
     <tr>
         <td height="20" width="120">
             <asp:Button ID="btnViewEditInvoice" runat="server" CssClass="MyButton" 
-                Text="View/Edit Invoice" Width="120px" />
+                Text="View/Edit Invoice" Width="120px" 
+                onclick="btnViewEditInvoice_Click" />
         </td>
     </tr>
     <tr>

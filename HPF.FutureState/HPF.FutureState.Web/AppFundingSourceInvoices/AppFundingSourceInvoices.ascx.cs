@@ -194,5 +194,13 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
+
+        protected void btnViewEditInvoice_Click(object sender, EventArgs e)
+        {
+            if (grvFundingSourceInvoices.SelectedIndex == -1)
+                return;
+            int invoiceId = (int)grvFundingSourceInvoices.SelectedValue;
+            Response.Redirect("AppViewEditInvoicePage.aspx?id=" + invoiceId.ToString());
+        }
     }
 }

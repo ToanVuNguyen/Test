@@ -19,7 +19,14 @@ namespace HPF.FutureState.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             string errorMessageCode = Request.QueryString["CODE"];
-            lblErrorMessage.Text = ErrorMessages.GetExceptionMessage(errorMessageCode);
+            try
+            {
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessage(errorMessageCode);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+            }
         }
     }
 }

@@ -14,16 +14,72 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.Web.AppViewEditInvoice
 {
     public partial class ViewEditInvoice : System.Web.UI.UserControl
     {
+        int invoiceID=-1;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            BindDataToRejectReason();
+            ApplySecurity();
+            try
+            {
+                invoiceID = int.Parse(Request.QueryString["id"]);
+                if (!IsPostBack)
+                {
+                    BindDataToRejectReason();
+                    if (invoiceID != -1)
+                        LoadInvoiceSet();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
+            }
         }
+        /// <summary>
+        /// Load Invoice and InvoiceCases to display
+        /// </summary>
+        private void LoadInvoiceSet()
+        {
+            InvoiceSetDTO invoiceSet= InvoiceBL.Instance.GetInvoiceSet(invoiceID);
+            BindInvoice(invoiceSet);
+            BindInvoiceCases(invoiceSet);
+        }
+        private void BindInvoiceCases(InvoiceSetDTO invoiceSet)
+        {
+            InvoiceCaseDTOCollection invoiceCases = invoiceSet.InvoiceCases;
+            grvViewEditInvoice.DataSource = invoiceCases;
+            grvViewEditInvoice.DataBind();
+        }
+        private void BindInvoice(InvoiceSetDTO invoiceSet)
+        {
+            InvoiceDTO invoice = invoiceSet.Invoice;
+            lblFundingSource.Text = invoice.FundingSourceName;
+            lblInvoiceNumber.Text = invoice.InvoiceId.ToString();
+            lblInvoiceTotal.Text = invoice.InvoiceBillAmount.ToString("C");
+            lblPeriodEnd.Text = invoice.PeriodEndDate.ToShortDateString();
+            lblPeriodStart.Text = invoice.PeriodStartDate.ToShortDateString();
+            lblTotalCases.Text = invoiceSet.TotalCases.ToString() ;
+            lblTotalPaid.Text = invoiceSet.TotalPaid.ToString("C");
+            lblTotalRejected.Text = invoiceSet.TotalRejected.ToString("C");
+        }
+        /// <summary>
+        /// only user with edit permision can access this page
+        /// </summary>
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
+            }
+        }
+        /// <summary>
+        /// Bind data to Reject Reason dropdown box
+        /// </summary>
         private void BindDataToRejectReason()
         {
             try
