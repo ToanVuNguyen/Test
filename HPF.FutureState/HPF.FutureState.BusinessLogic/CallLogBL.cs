@@ -40,7 +40,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>return a calllog id after inserting</returns>
         public int InsertCallLog(CallLogDTO aCallLog)
         {
-            aCallLog.SetInsertTrackingInformation(aCallLog.WorkingUserId);
+            aCallLog.SetInsertTrackingInformation(aCallLog.CcAgentIdKey);
 
             ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
             ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
@@ -140,23 +140,28 @@ namespace HPF.FutureState.BusinessLogic
         {
             CallCenterDTO callCenter = CallLogDAO.Instance.GetCallCenter(aCallLog);
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
-            
-            if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
-            {
-                aCallLog.CallCenter = callCenter.CallCenterName;
-                return errorList;
-            }
-            
-            if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty))
-            {
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center is required" });
-                return errorList;
-            }
 
-            if (aCallLog.CallCenter.Trim().Length <= 4)
-                return errorList;
+            if (callCenter != null)
+            {
 
-            errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center max length is 4"});
+
+                if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
+                {
+                    aCallLog.CallCenter = callCenter.CallCenterName;
+                    return errorList;
+                }
+
+                if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty))
+                {
+                    errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center is required" });
+                    return errorList;
+                }
+
+                if (aCallLog.CallCenter.Trim().Length <= 4)
+                    return errorList;
+
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center max length is 4" });
+            }
             return errorList;
             
         }
@@ -166,20 +171,24 @@ namespace HPF.FutureState.BusinessLogic
             ServicerDTO servicer = CallLogDAO.Instance.GetServicer(aCallLog);
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
 
-            if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
-                return errorList;
 
-            if ((aCallLog.OtherServicerName == null) 
-                || (aCallLog.OtherServicerName.Trim() == string.Empty))
+            if (servicer != null)
             {
-                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name is required"});
-                return errorList;
+                if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
+                    return errorList;
+
+                if ((aCallLog.OtherServicerName == null)
+                    || (aCallLog.OtherServicerName.Trim() == string.Empty))
+                {
+                    errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name is required" });
+                    return errorList;
+                }
+
+                if (aCallLog.OtherServicerName.Trim().Length <= 50)
+                    return errorList;
+
+                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name max length is 50" });
             }
-
-            if (aCallLog.OtherServicerName.Trim().Length <= 50)
-                return errorList;
-
-            errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name max length is 50" });
             return errorList;
         }
 

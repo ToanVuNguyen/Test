@@ -12,7 +12,7 @@
   <LoanAccountNumber >LoanAccountNumber</LoanAccountNumber>
   <FirstName >FirstName</FirstName>
   <LastName >LastName</LastName>
-  <ServicerId >12982</ServicerId>
+  <ServicerId ></ServicerId>
   <OtherServicerName >OtherServicerName</OtherServicerName>
   <PropZipFull9 >123456789</PropZipFull9>
   <PrevAgencyId >2</PrevAgencyId>

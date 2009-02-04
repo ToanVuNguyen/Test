@@ -91,8 +91,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string AuthorizedInd { get { return _authorizedInd; } set { _authorizedInd = value.ToUpper(); } }
 
-        [NullableOrStringLengthValidator(false, 30, "Working User ID", Ruleset= "Default")]
-        public string WorkingUserId { get; set; }
+        //[NullableOrStringLengthValidator(false, 30, "Working User ID", Ruleset= "Default")]
+        //public string WorkingUserId { get; set; }
         #endregion        
     }
 }

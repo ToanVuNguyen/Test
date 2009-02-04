@@ -142,11 +142,11 @@ namespace HPF.FutureState.UnitTest
                 aCallLog.CallCenterID = 9999999;
                 target.InsertCallLog(aCallLog);
             }
-            catch (DataValidationException actual)
+            catch (Exception actual)
             {
                 var expected = new DataValidationException();
                 Assert.AreEqual(expected.GetType(), actual.GetType());
-                ShowException(actual);
+                ShowException((DataValidationException)actual);
             }
         }
 
@@ -244,6 +244,7 @@ namespace HPF.FutureState.UnitTest
 
             aCallLog.StartDate = new DateTime(2008, 10, 10);
             aCallLog.EndDate = DateTime.Now;
+            aCallLog.CcAgentIdKey = "WorkingUserID";
             aCallLog.CcCallKey = "12345";
             aCallLog.LoanDelinqStatusCd = "120+";
             aCallLog.CallSourceCd = "Billboard";
@@ -251,7 +252,7 @@ namespace HPF.FutureState.UnitTest
             aCallLog.PrevAgencyId = GetAgencyID();
             aCallLog.ServicerId = GetServicerID();
             aCallLog.CallCenterID = GetCallCenterID();
-            aCallLog.WorkingUserId = "WorkingUserId";
+            //aCallLog.WorkingUserId = "WorkingUserId";
 
             aCallLog.SetInsertTrackingInformation("Unit test");
 
