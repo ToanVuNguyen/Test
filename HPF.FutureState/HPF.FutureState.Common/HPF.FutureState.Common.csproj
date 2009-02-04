@@ -181,6 +181,8 @@
     <Compile Include="Utils\DataValidator\InTakeDateValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidator.cs" />
     <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidatorAttribute.cs" />
+    <Compile Include="Utils\DataValidator\NullableOrInRangeNumberValidator.cs" />
+    <Compile Include="Utils\DataValidator\NullableOrInRangeNumberValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\NullableOrInRangeValidator.cs" />
     <Compile Include="Utils\DataValidator\NullableOrInRangeValidatorAttribute.cs" />
     <Compile Include="Utils\DataValidator\NullableOrStringLengthValidator.cs" />
