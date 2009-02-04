@@ -317,20 +317,74 @@ namespace HPF.FutureState.WebService.Test.Web
     public class CaseLoanDTO_App : CaseLoanDTO
     {
         public int? CaseLoanId { get; set; }
+        public CaseLoanDTO ConvertToBase()
+        {
+
+            return new CaseLoanDTO()
+            {
+
+                AcctNum = this.AcctNum,
+                ArmResetInd = this.ArmResetInd,
+                CurrentLoanBalanceAmt = this.CurrentLoanBalanceAmt,
+                CurrentServicerFdicNcuaNum = this.CurrentServicerFdicNcuaNum,
+                InterestRate = this.InterestRate,
+                InvestorName = this.InvestorName,
+                InvestorNum = this.InvestorNum,
+                Loan1st2nd = this.Loan1st2nd,
+                LoanDelinqStatusCd = this.LoanDelinqStatusCd,
+                MortgageTypeCd = this.MortgageTypeCd,
+                OrginalLoanNum = this.OrginalLoanNum,
+                OriginatingLenderName = this.OriginatingLenderName,
+                OrigLoanAmt = this.OrigLoanAmt,
+                OrigMortgageCoFdicNcusNum = this.OrigMortgageCoFdicNcusNum,
+                OrigMortgageCoName = this.OrigMortgageCoName,
+                OtherServicerName = this.OtherServicerName,
+                ServicerId = this.ServicerId,
+                TermLengthCd = this.TermLengthCd
+
+            };
+        }
     }
 
     public class OutcomeItemDTO_App : OutcomeItemDTO
     {
         public int? OutcomeItemId { get; set; }
+        public OutcomeItemDTO ConvertToBase()
+        {
+            return new OutcomeItemDTO()
+            {
+                ExtRefOtherName = this.ExtRefOtherName,
+                NonprofitreferralKeyNum = this.NonprofitreferralKeyNum,
+                OutcomeTypeId = this.OutcomeItemId
+            };
+        }
     }
 
     public class BudgetItemDTO_App : BudgetItemDTO
     {
         public int? BudgetItemId { get; set; }
+        public BudgetItemDTO ConvertToBase()
+        {
+            return new BudgetItemDTO()
+            {
+                BudgetItemAmt = this.BudgetItemAmt,
+                BudgetNote = this.BudgetNote,
+                BudgetSubcategoryId = this.BudgetSubcategoryId
+            };
+        }
     }
 
     public class BudgetAssetDTO_App : BudgetAssetDTO
     {
         public int? BudgetAssetId { get; set; }
+        public BudgetAssetDTO ConvertToBase()
+        {
+            return new BudgetAssetDTO()
+            {
+                AssetName = this.AssetName,
+                AssetValue = this.AssetValue
+               
+            };
+        }
     }
 }

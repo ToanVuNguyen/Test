@@ -1114,28 +1114,50 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCaseSet.ForeclosureCase.WorkingUserID = txtWorkingUserID.Text.Trim();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
-            //{
-            //    List<BudgetAssetDTO> list = new List<BudgetAssetDTO>();
-            //    List<BudgetAssetDTO_App> list_app = ((List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]);
-            //    foreach (var item in list_app)
-            //        lis
-            //}
-                fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
+            {
+                var list = new List<BudgetAssetDTO>();
+                var list_app = ((List<BudgetAssetDTO_App>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]);
+                foreach (var item in list_app)
+                    list.Add(item.ConvertToBase());
+                fcCaseSet.BudgetAssets = list.ToArray();
+            }
+                //fcCaseSet.BudgetAssets = ((List<BudgetAssetDTO>)Session[SessionVariables.BUDGET_ASSET_COLLECTION]).ToArray();
             else
                 fcCaseSet.BudgetAssets = null;
 
             if (Session[SessionVariables.BUDGET_ITEM_COLLECTION] != null)
-                fcCaseSet.BudgetItems = ((List<BudgetItemDTO>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
+            {
+                var list = new List<BudgetItemDTO>();
+                var list_app = ((List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]);
+                foreach (var item in list_app)
+                    list.Add(item.ConvertToBase());
+                fcCaseSet.BudgetItems = list.ToArray();
+            }
+                //fcCaseSet.BudgetItems = ((List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION]).ToArray();
             else
                 fcCaseSet.BudgetItems = null;
 
             if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
-                fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
+            {
+                var list = new List<CaseLoanDTO>();
+                var list_app = ((List<CaseLoanDTO_App>)Session[SessionVariables.CASE_LOAN_COLLECTION]);
+                foreach (var item in list_app)
+                    list.Add(item.ConvertToBase());
+                fcCaseSet.CaseLoans = list.ToArray();
+            }
+                //fcCaseSet.CaseLoans = ((List<CaseLoanDTO>)Session[SessionVariables.CASE_LOAN_COLLECTION]).ToArray();
             else
                 fcCaseSet.CaseLoans = null;
 
             if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] != null)
-                fcCaseSet.Outcome = ((List<OutcomeItemDTO>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
+            {
+                var list = new List<OutcomeItemDTO>();
+                var list_app = ((List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]);
+                foreach (var item in list_app)
+                    list.Add(item.ConvertToBase());
+                fcCaseSet.Outcome = list.ToArray();
+            }
+                //fcCaseSet.Outcome = ((List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
             else
                 fcCaseSet.Outcome = null;
             
