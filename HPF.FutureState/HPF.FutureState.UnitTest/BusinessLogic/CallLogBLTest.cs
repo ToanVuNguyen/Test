@@ -202,7 +202,8 @@ namespace HPF.FutureState.UnitTest
             }
         }
 
-        [TestMethod]
+        
+        //[TestMethod]
         public void InsertCallLogTest_DependingCallCenter()
         {
             //12982 - servicer other
@@ -226,18 +227,9 @@ namespace HPF.FutureState.UnitTest
         #region helper
 
         #region property
-        string prop_zip = "68686";
-        string ssn = "6868";
-        string agency_case_number = "686868686868";
-        string first_name = "Test data";
-        int agency_id = 2;
-        string acct_num = "acct_num6868";
-
         string agency_name = "agency_name_68";
         string servicer_name = "servicer_name_68";
-        string call_center = "call_center_68";
-        string outcome_type_name = "otn_686868";
-
+        string call_center_name = "call_center_68";
         string working_user_id = "wui_686868";
         #endregion
 
@@ -250,18 +242,18 @@ namespace HPF.FutureState.UnitTest
             ExecuteSql(sql);
 
             sql = "Insert into Call_Center "
-                + " (call_center, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + call_center + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " (call_center_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('" + call_center_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
 
             sql = "Insert into Servicer "
                 + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + servicer_name + "', HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " ('" + servicer_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
 
             aCallLog.StartDate = new DateTime(2008, 10, 10);
             aCallLog.EndDate = DateTime.Now;
-            aCallLog.CcAgentIdKey = "WorkingUserID";
+            aCallLog.CcAgentIdKey = working_user_id;
             aCallLog.CcCallKey = "12345";
             aCallLog.LoanDelinqStatusCd = "120+";
             aCallLog.CallSourceCd = "Billboard";
@@ -271,9 +263,8 @@ namespace HPF.FutureState.UnitTest
             aCallLog.CallCenterID = GetCallCenterID();
 
             aCallLog.SetInsertTrackingInformation(working_user_id);
-
-            
         }
+
         private void ClearTestData(CallLogDTO aCallLog)
         {
             string s = "Delete from Call where call_id = " + aCallLog.CallId;
@@ -344,7 +335,7 @@ namespace HPF.FutureState.UnitTest
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand("SELECT call_center_id FROM Call_Center where call_center = '" + call_center + "'", dbConnection);
+            var command = new SqlCommand("SELECT call_center_id FROM Call_Center where call_center_name = '" + call_center_name + "'", dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
             if (reader.HasRows)
