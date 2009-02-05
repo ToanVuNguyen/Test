@@ -3,10 +3,10 @@
 
 <table  width="100%">
     <colgroup>
+    <col width="30%" />
+    <col width="20%" />
     <col width="15%" />
-    <col width="20%" />
-    <col width="20%" />
-    <col width="20%" />
+    <col width="10%" />
     <col width="25%" />
     </colgroup>
     <tr>
@@ -19,22 +19,15 @@
     </tr>
     <tr>
         <td class="sidelinks" align="right">
-            Agency:</td>
+            Agency*:</td>
         <td>
             <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
-            Case Completed:</td>
+            &nbsp;</td>
         <td>
-            <asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text">
-             <asp:ListItem Value="None" Text=""></asp:ListItem>
-            <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
-            <asp:ListItem Value="N" Text="No"></asp:ListItem>
-            
-            
-            </asp:DropDownList>
-        </td>
+            &nbsp;</td>
         <td>
             <asp:Button ID="btnDraftNewPayable" runat="server"  Text="Draft New Payable"  
                 CssClass="MyButton" Width="120px" onclick="btnDraftNewPayable_Click" />
@@ -44,69 +37,60 @@
     </tr>
     <tr>
         <td class="sidelinks" align="right">
-            Period Start:</td>
+            Period Start*:</td>
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Text="1/1/2003"> </asp:TextBox>
             
         </td>
         <td class="sidelinks" align="right">
-            Servicer Consent:</td>
+            &nbsp;</td>
         <td>
-            <asp:DropDownList ID="ddlServicerConsent" runat="server" CssClass="Text">
-            <asp:ListItem Value="None" Text=""></asp:ListItem>
-            <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
-            <asp:ListItem Value="N" Text="No"></asp:ListItem>
-            
-            </asp:DropDownList>
-        </td>
+            &nbsp;</td>
         <td>
            </td>
     </tr>
     <tr>
         <td class="sidelinks" align="right">
-            Period End:</td>
+            Period End*:</td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text" Text="5/1/2008"></asp:TextBox>
         </td>
         <td class="sidelinks" align="right">
-            Funding Consent:</td>
+            &nbsp;</td>
         <td>
-            <asp:DropDownList ID="ddlFundingConsent" runat="server" CssClass="Text">
-             <asp:ListItem Value="None" Text=""></asp:ListItem>
-            <asp:ListItem Value="Y" Text="Yes" Selected="True"></asp:ListItem>
-            <asp:ListItem Value="N" Text="No"></asp:ListItem>
-            </asp:DropDownList>
-        </td>
+            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>
     <tr>
-        <td>
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
         <td class="sidelinks" align="right">
-            Max Number of Cases:</td>
+            Completed?*:</td>
         <td>
-            <asp:TextBox ID="txtMaxNumberCase" runat="server" CssClass="Text" MaxLength="6" Width="70px" ></asp:TextBox>
+            <asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text">
+             <asp:ListItem Value="None" Text="Select Both Complete & Incomplete Cases"></asp:ListItem>
+            <asp:ListItem Value="Y" Text="Select Only Complete Cases" Selected="True"></asp:ListItem>
+            <asp:ListItem Value="N" Text="Select Only Incomplete Cases"></asp:ListItem>
+            
+            
+            </asp:DropDownList>
         </td>
+        <td class="sidelinks" align="right">
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>
     <tr>
-        <td>
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
         <td class="sidelinks" align="right">
-            1<sup>st</sup> 2<sup>nd </sup>Indicator:</td>
+            Include No-No Consent?:</td>
         <td>
-            <asp:DropDownList ID="ddlIndicator" runat="server" CssClass="Text">
-            <asp:ListItem Value="None" Text=""></asp:ListItem>
-            <asp:ListItem Value="1st" Text="1st Mortgage"></asp:ListItem>
-            <asp:ListItem Value="2nd" Text="2nd Mortgate"></asp:ListItem>
-            </asp:DropDownList>
+            <asp:CheckBox ID="ChkInclude" runat="server" Text="" />
         </td>
+        <td class="sidelinks" align="right">
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>

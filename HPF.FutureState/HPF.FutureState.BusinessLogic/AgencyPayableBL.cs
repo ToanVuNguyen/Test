@@ -63,7 +63,7 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.AgencyName = "";
                     agencyPayableCase.PaymentDate = DateTime.Now;
                     agencyPayableCase.NFMCDifferenceEligibleInd = "N";
-                    agencyPayableCase.NFMCDiffererencePaidInd= "N";
+                    //agencyPayableCase.NFMCDiffererencePaidInd= "N";
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
                     
                 }

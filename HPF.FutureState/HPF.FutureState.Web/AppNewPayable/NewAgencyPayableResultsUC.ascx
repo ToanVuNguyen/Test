@@ -4,9 +4,9 @@
    
 <table width="100%">
 <colgroup>
+<col width="17%" />
 <col width="15%" />
-<col width="15%" />
-<col width="20%" />
+<col width="18%" />
 <col width="20%" />
 <col width="30%" />
 </colgroup>
@@ -46,8 +46,7 @@
             <asp:Label ID="lblTotalAmount" runat="server"  CssClass="Text"></asp:Label>
         </td>
         <td>
-            <asp:Button ID="btnExportToExcel" runat="server" Text="Export to Excel" Width="150px" CssClass="MyButton"   />
-        </td>
+            &nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks" align="right">
@@ -62,12 +61,24 @@
         <td>
             &nbsp;</td>
     </tr>
+     <tr>
+        <td class="sidelinks" align="right">
+            Payment Comments:</td>
+        <td colspan="3">
+            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="4" TextMode="MultiLine" Width="100%" Enabled="false" ></asp:TextBox>
+        </td>
+       
+        <td>
+            &nbsp;</td>
+    </tr>
+    
     <tr>
         <td colspan="5">
         <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text=""></asp:Label>
         </td>
     </tr>
     <tr>
+    
         <td class="sidelinks" colspan="5" >
             Invoice Items:</td>
       
@@ -93,14 +104,16 @@
         <asp:CheckBox ID="chkCaseID" runat="server"  />
         </ItemTemplate>
         </asp:TemplateField>
-        <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Left" />
-        
+        <asp:BoundField DataField="ForeclosureCaseId" HeaderText="HPF Case ID" ItemStyle-HorizontalAlign="Left" />
         <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Left" />
-        <asp:BoundField DataField="CompletedDate" HeaderText="Complete Dt" ItemStyle-HorizontalAlign="Left" />
-        <asp:BoundField DataField="Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="Left" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"/>
-        <asp:BoundField DataField="AccountLoanNumber" HeaderText="Loan Num" ItemStyle-HorizontalAlign="Left"/>
+        <asp:BoundField DataField="CreateDate" HeaderText="Create Date" ItemStyle-HorizontalAlign="Left" DataFormatString="{0:d}" />
+        <asp:BoundField DataField="CompletedDate" HeaderText="Complete Dt" ItemStyle-HorizontalAlign="Left" DataFormatString="{0:d}" />
+        <asp:BoundField DataField="Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:C}" />
+        <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" ItemStyle-HorizontalAlign="Left" />
         <asp:BoundField DataField="ServicerName" HeaderText="Servicer" ItemStyle-HorizontalAlign="Left"/>
         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" ItemStyle-HorizontalAlign="Left" />
+        <asp:BoundField DataField="Srvcr" HeaderText="Srvcr" ItemStyle-HorizontalAlign="Left" />
+        <asp:BoundField DataField="Fund" HeaderText="Fund" ItemStyle-HorizontalAlign="Right" />
         </Columns>
         <EmptyDataTemplate>There is no data match</EmptyDataTemplate>
         </asp:GridView>
@@ -131,11 +144,11 @@
     </tr>
     <tr>
         <td colspan="5">
-            <table width="30%" align="center">
+            <table width="50%" align="center">
                 <tr>
                     <td >
-                        <asp:Button ID="btnGeneratePayable" runat="server" Text="Generate Payable"  
-                            CssClass="MyButton" Width="120px" onclick="btnGeneratePayable_Click"/>
+                        <asp:Button ID="btnGeneratePayable" runat="server" Text="Generate Payable & Export File"  
+                            CssClass="MyButton"  onclick="btnGeneratePayable_Click" Width="200px"/>
 &nbsp;<asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton" 
                             Width="120px" onclick="btnCancelPayable_Click" />
                     </td>

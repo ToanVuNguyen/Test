@@ -59,19 +59,13 @@ namespace HPF.FutureState.Web.AppNewPayable
             int agencyid = int.Parse(Request.QueryString["agencyid"].ToString());
             string casecomplete = Request.QueryString["casecomplete"].ToString();
             DateTime periodenddate = Convert.ToDateTime(Request.QueryString["periodenddate"].ToString());
-            string servicerconsent = Request.QueryString["servicerconsent"].ToString();
             DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
-            string fundingconsent = Request.QueryString["fundingconsent"].ToString();
-            int maxnumbercase = int.Parse(Request.QueryString["maxnumbercase"].ToString());
-            string indicator = Request.QueryString["indicator"].ToString();
+            int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
             agencyPayableSearchCriteria.AgencyId = agencyid;
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
             agencyPayableSearchCriteria.PeriodStartDate = periodstartdate;
-            agencyPayableSearchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), servicerconsent);
             agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
-            agencyPayableSearchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), fundingconsent);
-            agencyPayableSearchCriteria.MaxNumberOfCase = maxnumbercase;
-            agencyPayableSearchCriteria.LoanIndicator = indicator;
+            agencyPayableSearchCriteria.Indicator = indicator;
             return agencyPayableSearchCriteria;
         }
         /// <summary>
@@ -120,7 +114,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                     {
                         //test
-                        item.Amount = 10;
+                       // item.Amount = 10;
                         total += item.Amount;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
@@ -211,9 +205,9 @@ namespace HPF.FutureState.Web.AppNewPayable
         private string GetQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {
             string query = "?agencyid=" + agencyPayableSearchCriteria.AgencyId + "&casecomplete=" + agencyPayableSearchCriteria.CaseComplete
-                + "&periodenddate=" + agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString() + "&servicerconsent=" + agencyPayableSearchCriteria.ServicerConsent
-                + "&periodstartdate=" + agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString() + "&fundingconsent=" + agencyPayableSearchCriteria.FundingConsent
-                + "&maxnumbercase=" + agencyPayableSearchCriteria.MaxNumberOfCase + "&indicator=" + agencyPayableSearchCriteria.LoanIndicator;
+                + "&periodenddate=" + agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString() 
+                + "&periodstartdate=" + agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString() 
+                + "&indicator=" + agencyPayableSearchCriteria.Indicator;
             return query;
         }
     }

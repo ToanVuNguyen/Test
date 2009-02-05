@@ -87,8 +87,11 @@ namespace HPF.FutureState.DataAccess
             sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayableCase.ChangeLastDate));
             sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableCase.ChangeLastUserId);
             sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableCase.ChangeLastAppName);
-            sqlParam[10] = new SqlParameter("@pi_NFMC_difference_paid_ind", agencyPayableCase.NFMCDiffererencePaidInd);
             sqlParam[11] = new SqlParameter("@pi_NFMC_difference_eligible_ind ", agencyPayableCase.NFMCDifferenceEligibleInd);
+            sqlParam[12] = new SqlParameter("@pi_takeback_pmt_identified_dt", null);
+            sqlParam[13] = new SqlParameter("@pi_takeback_pmt_reason_cd", null);
+            sqlParam[14] = new SqlParameter("@pi_NFMC_difference_paid_amt", null);
+            
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             try
@@ -117,7 +120,6 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[15];
             sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayable.AgencyId);
             sqlParam[1] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayable.PaymentDate));
-            //sqlParam[2] = new SqlParameter("@pi_pmt_cd", agencyPayable.PayamentCode);
             sqlParam[2] = new SqlParameter("@pi_status_cd", agencyPayable.StatusCode);
             sqlParam[3] = new SqlParameter("@pi_period_start_dt", NullableDateTime(agencyPayable.PeriodStartDate));
             sqlParam[4] = new SqlParameter("@pi_period_end_dt", NullableDateTime(agencyPayable.PeriodEndDate));
@@ -276,7 +278,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
 
             var command = CreateSPCommand("hpf_agency_payable_search_draft", dbConnection);
-            var sqlParam = new SqlParameter[8];
+            var sqlParam = new SqlParameter[5];
             ForeclosureCaseDraftDTOCollection fCaseDraftCollection = new ForeclosureCaseDraftDTOCollection();
             try
             {
@@ -284,10 +286,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodStartDate);
                 sqlParam[2] = new SqlParameter("@pi_end_dt", agencyPayableCriteria.PeriodEndDate);
                 sqlParam[3] = new SqlParameter("@pi_case_completed_ind", (agencyPayableCriteria.CaseComplete == CustomBoolean.None) ? null : agencyPayableCriteria.CaseComplete.ToString());
-                sqlParam[4] = new SqlParameter("@pi_servicer_consent_ind", (agencyPayableCriteria.ServicerConsent == CustomBoolean.None) ? null : agencyPayableCriteria.ServicerConsent.ToString());
-                sqlParam[5] = new SqlParameter("@pi_funding_consent_ind", (agencyPayableCriteria.FundingConsent == CustomBoolean.None) ? null : agencyPayableCriteria.FundingConsent.ToString());
-                sqlParam[6] = new SqlParameter("@pi_loan_1st_2nd_cd", agencyPayableCriteria.LoanIndicator == CustomBoolean.None.ToString() ? null : agencyPayableCriteria.LoanIndicator.ToString());
-                sqlParam[7] = new SqlParameter("@pi_max_number_cases", agencyPayableCriteria.MaxNumberOfCase);
+                sqlParam[4] = new SqlParameter("@pi_consent_flag", (agencyPayableCriteria.Indicator ));
                 command.Parameters.AddRange(sqlParam);
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
@@ -301,12 +300,16 @@ namespace HPF.FutureState.DataAccess
                     {
                         ForeclosureCaseDraftDTO item = new ForeclosureCaseDraftDTO();
                         item.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
-                        item.AgencyCaseId = ConvertToString(reader["agency_id"]);
+                        item.AgencyCaseId = ConvertToString(reader["agency_case_num"]);
                         item.CompletedDate = ConvertToDateTime(reader["completed_dt"]);
+                        item.CreateDate = ConvertToDateTime(reader["create_dt"]);
                         item.Amount = ConvertToDecimal(reader["pmt_rate"]);
                         item.AccountLoanNumber = ConvertToString(reader["acct_num"]);
                         item.ServicerName = ConvertToString(reader["servicer_name"]);
                         item.BorrowerName = ConvertToString(reader["borrower_name"]);
+                        item.Srvcr = ConvertToString(reader["servicer_consent_ind"]);
+                        item.Fund = ConvertToString(reader["funding_consent_ind"]);
+
                         fCaseDraftCollection.Add(item);
                     }
                     reader.Close();

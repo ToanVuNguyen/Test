@@ -17,10 +17,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime PeriodStartDate { get; set; }
         public DateTime PeriodEndDate { get; set; }
         public CustomBoolean CaseComplete { get; set; }
-        public CustomBoolean ServicerConsent { get; set; }
-        public CustomBoolean FundingConsent { get; set; }
-        [NullableOrInRangeValidator(true, "[0-9]", MessageTemplate = "Max Number Of Case: Only numeric characters allowed", Ruleset = "CriteriaValidation")]
-        public int MaxNumberOfCase { get; set; }
-        public string LoanIndicator { get; set; }
+        //public CustomBoolean ServicerConsent { get; set; }
+        //public CustomBoolean FundingConsent { get; set; }
+        //[NullableOrInRangeValidator(true, "[0-9]", MessageTemplate = "Max Number Of Case: Only numeric characters allowed", Ruleset = "CriteriaValidation")]
+        //public int MaxNumberOfCase { get; set; }
+        public int Indicator { get; set; }
     }
 }

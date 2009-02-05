@@ -54,10 +54,9 @@ namespace HPF.FutureState.Web.AppNewPayable
                 txtPeriodEnd.Text = Request.QueryString["periodenddate"].ToString();
                 txtPeriodStart.Text = Request.QueryString["periodstartdate"].ToString();
                 ddlCaseCompleted.SelectedValue = Request.QueryString["casecomplete"].ToString();
-                ddlServicerConsent.SelectedValue = Request.QueryString["servicerconsent"].ToString();
-                ddlFundingConsent.SelectedValue = Request.QueryString["fundingconsent"].ToString();
-                txtMaxNumberCase.Text = Request.QueryString["maxnumbercase"].ToString();
-                ddlIndicator.SelectedValue = Request.QueryString["indicator"].ToString();
+                if (Convert.ToInt16(Request.QueryString["indicator"]) == 1)
+                    ChkInclude.Checked = true;
+                else ChkInclude.Checked = false;
                 ddlAgency.SelectedValue = Request.QueryString["agencyid"].ToString();
             }
             
@@ -139,20 +138,15 @@ namespace HPF.FutureState.Web.AppNewPayable
             agencyPayableSearchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlCaseCompleted.SelectedValue.ToString());
             agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
-            agencyPayableSearchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlServicerConsent.SelectedValue.ToString());
             agencyPayableSearchCriteria.PeriodEndDate = Convert.ToDateTime(txtPeriodEnd.Text.Trim());
-            agencyPayableSearchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlFundingConsent.SelectedValue.ToString());
-            if (txtMaxNumberCase.Text != string.Empty)
-                agencyPayableSearchCriteria.MaxNumberOfCase = int.Parse(txtMaxNumberCase.Text.Trim());
-            else agencyPayableSearchCriteria.MaxNumberOfCase = 500;
-            agencyPayableSearchCriteria.LoanIndicator = ddlIndicator.SelectedValue;
+            if (ChkInclude.Checked)// return true or false
+                agencyPayableSearchCriteria.Indicator = 1;
+            else agencyPayableSearchCriteria.Indicator = 0;
             string query = "?agencyid=" + agencyPayableSearchCriteria.AgencyId + "&casecomplete=" + agencyPayableSearchCriteria.CaseComplete
-                + "&periodenddate=" + agencyPayableSearchCriteria.PeriodEndDate + "&servicerconsent=" + agencyPayableSearchCriteria.ServicerConsent
-                + "&periodstartdate=" + agencyPayableSearchCriteria.PeriodStartDate + "&fundingconsent=" + agencyPayableSearchCriteria.FundingConsent
-                + "&maxnumbercase=" + agencyPayableSearchCriteria.MaxNumberOfCase + "&indicator=" + agencyPayableSearchCriteria.LoanIndicator;
+                + "&periodenddate=" + agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString() + "&periodstartdate=" + agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString() 
+                + "&indicator=" + agencyPayableSearchCriteria.Indicator;
             return query;
         }
-       
 
     }
 }

@@ -59,15 +59,6 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.Label lblTotalAmount;
         
         /// <summary>
-        /// btnExportToExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportToExcel;
-        
-        /// <summary>
         /// lblPeriodEnd control.
         /// </summary>
         /// <remarks>
@@ -75,6 +66,15 @@ namespace HPF.FutureState.Web.AppNewPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPeriodEnd;
+        
+        /// <summary>
+        /// txtComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtComment;
         
         /// <summary>
         /// lblMessage control.

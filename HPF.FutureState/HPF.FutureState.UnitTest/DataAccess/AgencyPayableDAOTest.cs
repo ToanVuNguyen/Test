@@ -203,7 +203,7 @@ namespace HPF.FutureState.UnitTest
             agencyPayableCaseInsert.ChangeLastDate = Convert.ToDateTime("2000/1/1");
             agencyPayableCaseInsert.ChangeLastUserId = "HPF";
             agencyPayableCaseInsert.ChangeLastAppName = "HPF";
-            agencyPayableCaseInsert.NFMCDiffererencePaidInd = "N";
+            //agencyPayableCaseInsert.NFMCDiffererencePaidInd = "N";
             agencyPayableCaseInsert.NFMCDifferenceEligibleInd = "N";
             target.BeginTran();
             target.InsertAgencyPayableCase(agencyPayableCaseInsert);
@@ -228,7 +228,7 @@ namespace HPF.FutureState.UnitTest
                     agencyPayableCaseSelect.ChangeLastDate = Convert.ToDateTime(dr["chg_lst_dt"]);
                     agencyPayableCaseSelect.ChangeLastUserId = Convert.ToString(dr["chg_lst_user_id"]);
                     agencyPayableCaseSelect.ChangeLastAppName = Convert.ToString(dr["chg_lst_app_name"]);
-                    agencyPayableCaseSelect.NFMCDiffererencePaidInd = Convert.ToString(dr["NFMC_difference_paid_ind"]);
+                    //agencyPayableCaseSelect.NFMCDiffererencePaidInd = Convert.ToString(dr["NFMC_difference_paid_ind"]);
                     agencyPayableCaseSelect.NFMCDifferenceEligibleInd = Convert.ToString(dr["NFMC_difference_eligible_ind"]);
                 }
             Assert.IsFalse(!CompareAgencyPayableCaseDTO(agencyPayableCaseInsert, agencyPayableCaseSelect));
@@ -246,7 +246,7 @@ namespace HPF.FutureState.UnitTest
             if (agencyPayableCaseSelect.ChangeLastDate != agencyPayableCaseInsert.ChangeLastDate) return false;
             if (agencyPayableCaseSelect.ChangeLastAppName != agencyPayableCaseInsert.ChangeLastAppName) return false;
             if (agencyPayableCaseSelect.ChangeLastUserId != agencyPayableCaseInsert.ChangeLastUserId) return false;
-            if (agencyPayableCaseSelect.NFMCDiffererencePaidInd != agencyPayableCaseInsert.NFMCDiffererencePaidInd) return false;
+            //if (agencyPayableCaseSelect.NFMCDiffererencePaidInd != agencyPayableCaseInsert.NFMCDiffererencePaidInd) return false;
             if (agencyPayableCaseSelect.NFMCDifferenceEligibleInd != agencyPayableCaseInsert.NFMCDifferenceEligibleInd) return false;
             return true;
         }

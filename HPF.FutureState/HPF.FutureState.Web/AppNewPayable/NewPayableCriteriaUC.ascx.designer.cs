@@ -23,15 +23,6 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.DropDownList ddlAgency;
         
         /// <summary>
-        /// ddlCaseCompleted control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCaseCompleted;
-        
-        /// <summary>
         /// btnDraftNewPayable control.
         /// </summary>
         /// <remarks>
@@ -50,15 +41,6 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.TextBox txtPeriodStart;
         
         /// <summary>
-        /// ddlServicerConsent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlServicerConsent;
-        
-        /// <summary>
         /// txtPeriodEnd control.
         /// </summary>
         /// <remarks>
@@ -68,31 +50,22 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.TextBox txtPeriodEnd;
         
         /// <summary>
-        /// ddlFundingConsent control.
+        /// ddlCaseCompleted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFundingConsent;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCaseCompleted;
         
         /// <summary>
-        /// txtMaxNumberCase control.
+        /// ChkInclude control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMaxNumberCase;
-        
-        /// <summary>
-        /// ddlIndicator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIndicator;
+        protected global::System.Web.UI.WebControls.CheckBox ChkInclude;
         
         /// <summary>
         /// lblMessage control.
