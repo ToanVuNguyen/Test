@@ -66,9 +66,8 @@ namespace HPF.FutureState.BusinessLogic
             exceptionList.Add(formatDataException);
             //            
             foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
-            //
-            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
+            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
             exceptionList.Add(CheckValidCode(foreclosureCaseSet));
             //
@@ -108,15 +107,33 @@ namespace HPF.FutureState.BusinessLogic
         public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
             var validationResults = HPFValidator.Validate(searchCriteria);
+            var dataValidationException = new DataValidationException();
             if (!validationResults.IsValid)
-            {                
-                var dataValidationException = new DataValidationException();
+            {                                
                 foreach (var result in validationResults)
                 {
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(result.Message);
-                }
+
+                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
+                }                
+            }
+
+            if (string.IsNullOrEmpty(searchCriteria.AgencyCaseNumber) &&
+                string.IsNullOrEmpty(searchCriteria.FirstName) &&
+                string.IsNullOrEmpty(searchCriteria.Last4_SSN) &&
+                string.IsNullOrEmpty(searchCriteria.LastName) &&
+                string.IsNullOrEmpty(searchCriteria.LoanNumber) &&
+                string.IsNullOrEmpty(searchCriteria.PropertyZip))
+            {
+                string errorCode = "ERROR";// string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                string errorMess = "At least one search criteria option is required"; // string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
+            }
+
+            if (dataValidationException.ExceptionMessages.Count > 0)
                 throw dataValidationException;
-            }            
+
             return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
         }
         #endregion
@@ -174,8 +191,8 @@ namespace HPF.FutureState.BusinessLogic
         {                        
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
-            if (string.IsNullOrEmpty(fcCase.AgencyCaseNum) || fcCase.AgencyId == 0)
-                ThrowDataValidationException(ErrorMessages.ERR0250);
+            //if (string.IsNullOrEmpty(fcCase.AgencyCaseNum) || fcCase.AgencyId == 0)
+            //    ThrowDataValidationException(ErrorMessages.ERR0250);
             
             if (CheckExistingAgencyIdAndCaseNumber(fcCase.AgencyId, fcCase.AgencyCaseNum))
                 ThrowDataValidationException(ErrorMessages.ERR0254);                            
