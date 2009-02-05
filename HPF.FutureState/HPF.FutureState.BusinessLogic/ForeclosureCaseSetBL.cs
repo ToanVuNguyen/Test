@@ -1462,15 +1462,15 @@ namespace HPF.FutureState.BusinessLogic
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
                 if (!referenceCode.Validate(ReferenceCode.LOAN_1ST_2ND, caseLoan.Loan1st2nd))
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0219, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0219) + " which index  " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0219, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0219) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MORTGAGE_TYPE_CODE, caseLoan.MortgageTypeCd))
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0220, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0220) + " which index  " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0220, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0220) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.TERM_LENGTH_CODE, caseLoan.TermLengthCd))
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0221, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0221) + " which index  " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0221, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0221) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, caseLoan.LoanDelinqStatusCd))
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0222, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0222) + " which index  " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0222, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0222) + " working on case loan index " + (i + 1));
                 if(!CheckValidServicerId(caseLoan.ServicerId))
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId" + " working on case loan index " + (i + 1));
             }
             return msgFcCaseSet;  
         }
@@ -1667,7 +1667,7 @@ namespace HPF.FutureState.BusinessLogic
                 OutcomeItemDTO item = outcomeItem[i];
                 bool isValid = CheckOutcomeType(item);
                 if (!isValid)
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0263, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0263) + " which index  " + (i + 1));   
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0263, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0263) + " working on outcome item index " + (i + 1));   
             }
             return msgFcCaseSet;
         }
