@@ -57,6 +57,7 @@
     <Compile Include="ForeclosureCaseSetDAO.cs" />
     <Compile Include="GeoCodeRefDAO.cs" />
     <Compile Include="InvoiceDAO.cs" />
+    <Compile Include="InvoicePaymentDAO.cs" />
     <Compile Include="MenuGroupDAO.cs" />
     <Compile Include="MenuSecurityDAO.cs" />
     <Compile Include="OutcomeItemDAO.cs" />
