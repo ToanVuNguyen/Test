@@ -63,6 +63,7 @@
     <Compile Include="ForeclosureCaseBL.cs" />
     <Compile Include="ForeclosureCaseSetBL.cs" />
     <Compile Include="InvoiceBL.cs" />
+    <Compile Include="InvoicePaymentBL.cs" />
     <Compile Include="LookupDataBL.cs" />
     <Compile Include="MenuGroupBL.cs" />
     <Compile Include="MenuSecurityBL.cs" />
