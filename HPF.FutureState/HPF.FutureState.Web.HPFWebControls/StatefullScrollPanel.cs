@@ -20,20 +20,12 @@ namespace HPF.FutureState.Web.HPFWebControls
             /*
              * Hidden inputs to persist scroll position(s)
              */
-            string s = "<input type='hidden' name='" + ScrollXInputId + "' id='" +
-                ScrollXInputId + "' value='" + ScrollXInputValue + "'/>";
             writer.Write("<input type='hidden' name='" + ScrollXInputId + "' id='" +
                 ScrollXInputId + "' value='" + ScrollXInputValue + "'/>");
 
             writer.Write("<input type='hidden' name='" + ScrollYInputId + "' id='" +
                 ScrollYInputId + "' value='" + ScrollYInputValue + "'/>");
 
-            s = "<script language='Javascript'>function " + TraceMethod +
-                "{" + GetElementAccessor(ScrollXInputId) + ".value = " +
-                GetElementAccessor(ClientID) + ".scrollLeft;" +
-                GetElementAccessor(ScrollYInputId) + ".value = " +
-                GetElementAccessor(ClientID) + ".scrollTop;}" +
-                "</script>";
             //Trace method that populates the hidden inputs
             writer.Write("<script language='Javascript'>function " + TraceMethod +
                 "{" + GetElementAccessor(ScrollXInputId) + ".value = " +
@@ -49,7 +41,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         protected override void OnLoad(EventArgs e)
         {
             //To enable scrolling in the first place
-            base.Style.Add(HtmlTextWriterStyle.Overflow, "scroll");
+            base.Style.Add(HtmlTextWriterStyle.Overflow, "auto");
 
             //Register our trace method
             base.Attributes.Add("onScroll", TraceMethod);

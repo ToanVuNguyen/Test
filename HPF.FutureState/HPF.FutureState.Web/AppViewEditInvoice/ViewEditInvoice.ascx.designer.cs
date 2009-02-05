@@ -23,15 +23,6 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         protected global::System.Web.UI.ScriptManager myscriptManager;
         
         /// <summary>
-        /// lblErrorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
-        
-        /// <summary>
         /// valPaymentId control.
         /// </summary>
         /// <remarks>
@@ -39,6 +30,15 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator valPaymentId;
+        
+        /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
         
         /// <summary>
         /// lblFundingSource control.
@@ -173,7 +173,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panForeClosureCaseSearch;
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panForeClosureCaseSearch;
         
         /// <summary>
         /// UpdatePanel1 control.
@@ -192,5 +192,32 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grvViewEditInvoice;
+        
+        /// <summary>
+        /// lblTotalCase1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalCase1;
+        
+        /// <summary>
+        /// lblInvoiceTotal1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvoiceTotal1;
+        
+        /// <summary>
+        /// lblTotalPaid1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalPaid1;
     }
 }

@@ -5,11 +5,16 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    public enum InvoiceCaseUpdateFlag { Reject = 0, Unpay = 1, Pay = 2 }
     [Serializable]
     public class InvoiceSetDTO:BaseDTO
     {
         public InvoiceDTO Invoice { get; set; }
         public InvoiceCaseDTOCollection InvoiceCases { get; set; }
+        //use for Update InvoiceCase
+        public string PaymentRejectReason { get; set; }
+        public int InvoicePaymentId { get; set; }
+
         public InvoiceSetDTO()
         {
             InvoiceCases = new InvoiceCaseDTOCollection();

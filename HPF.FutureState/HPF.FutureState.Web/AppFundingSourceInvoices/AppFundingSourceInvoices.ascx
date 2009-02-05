@@ -28,7 +28,7 @@
         <td class="style1">
             &nbsp;</td>
         <td rowspan="2" align="center" style="vertical-align: top">
-            <img alt="" src="../Styles/Images/HPFLogo.jpg" 
+            <img alt="" src="Styles/Images/HPFLogo.jpg" 
                 style="width: 55px; height: 55px" /><br />
             <asp:LinkButton ID="lblPortal" runat="server">Invoices on Portal</asp:LinkButton>
         </td>

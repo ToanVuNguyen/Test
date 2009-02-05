@@ -218,6 +218,16 @@ namespace HPF.FutureState.Common
         public const string WARN0337 = "WARN0337";
         public const string WARN0550 = "WARN0550";
         public const string WARN0551 = "WARN0551";
+        //Invoice
+        public const string ERR0552 = "ERR0552";
+        public const string ERR0553 = "ERR0553";
+        public const string WARN0554 = "WARN0554";
+        public const string ERR0555 = "ERR0555";
+        public const string ERR0556 = "ERR0556";
+        public const string WARN0557 = "WARN0557";
+        public const string ERR0558 = "ERR0558";
+        public const string ERR0559 = "ERR0559";
+        public const string WARN0560 = "WARN0560"; 
         //
         public const string ERR0600 = "ERR0600"; 
         public const string ERR0601 = "ERR0601";
@@ -466,6 +476,17 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(ERR0600, "An outcome that already has a Delete Date cannot be deleted.");
                 errorMessageDict.Add(ERR0601, "An outcome must have a Delete Date to be reinstated.");                
+                //Invoice
+                errorMessageDict.Add(ERR0552, "There were zero cases matching your selection criteria.");
+                errorMessageDict.Add(ERR0553, "At least one case must be selected in order to reject.");
+                errorMessageDict.Add(WARN0554, "Are you sure you wish to reject the selected case(s)?");
+                errorMessageDict.Add(ERR0555, "At least one case must be selected to be paid.");
+                errorMessageDict.Add(ERR0556, "An HPF Payment ID is required to apply payments.");
+                errorMessageDict.Add(WARN0557, "Are you sure you wish to pay the selected case(s)?");
+                errorMessageDict.Add(ERR0558, "The HPF Payment ID provided in not a valid HPF Payment ID.");
+                errorMessageDict.Add(ERR0559, "At least one case must be selected to be unpaid.");
+                errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
+
                 //
                 errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");
