@@ -76,7 +76,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set;
         }
 
-        [NullableOrDigitsRequriedValidator(false, 5, "Property Zip",  Ruleset = "Default")]
+        [NullableOrDigitsRequriedValidator(true, 5, "Property Zip",  Ruleset = "Default")]
         public string PropertyZip { get; set; }
 
         [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN" , Ruleset = "Default")]
