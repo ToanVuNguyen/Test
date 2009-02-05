@@ -269,7 +269,7 @@ namespace HPF.FutureState.DataAccess
                         item.PropStateCd = ConvertToString(reader["prop_state_cd"]);
                         item.PropZip = ConvertToString(reader["prop_zip"]);
                         item.AgencyName = ConvertToString(reader["agency_name"]);
-                        item.CounselorFullName = ConvertToString(reader["counselor_fname"]) + " " + ConvertToString(reader["counselor_fname"]);
+                        item.CounselorFullName = ConvertToString(reader["counselor_fname"]) + " " + ConvertToString(reader["counselor_lname"]);
                         item.CounselorPhone = ConvertToString(reader["counselor_phone"]);
                         item.CounselorExt = ConvertToString(reader["counselor_ext"]);
                         item.CounselorEmail = ConvertToString(reader["counselor_email"]);
