@@ -19,7 +19,7 @@ namespace HPF.FutureState.UnitTest
     public class InvoiceDAOTest
     {
 
-
+        public static int invoiceId;
         private TestContext testContextInstance;
 
         /// <summary>
@@ -62,14 +62,31 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Insert Into Invoice(funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (1,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
+            command.CommandText = "Insert Into Invoice(funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,invoice_comment)" +
+                                    " values (1,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test','Sinh-invoice')";
             command.ExecuteNonQuery();
 
-            command.CommandText = "Insert Into Invoice(funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (2,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test')";
+            command.CommandText = "Insert Into Invoice(funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,invoice_comment)" +
+                                    " values (2,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test','Sinh-invoice')";
+            command.ExecuteNonQuery();
+            //Get invoiceId
+            command.CommandText = "Select Invoice_id from Invoice where funding_source_id =1 and invoice_comment='Sinh-invoice' ";
+            var reader = command.ExecuteReader();
+            if (!reader.HasRows)
+            {
+                dbConnection.Close();
+                reader.Close();
+                Assert.Fail("Insert Invoice Not successful");
+            }
+            reader.Read();
+            invoiceId = int.Parse(reader["Invoice_id"].ToString());
+            reader.Close();
+            //Insert invoice Case
+            command.CommandText = "Insert Into invoice_case(fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
+                                    " values (234769," + invoiceId.ToString() + ",'1/1/2208', 'Sinh Tran', 'test', '1/1/2008', 'test', 'test')";
             command.ExecuteNonQuery();
             dbConnection.Close();
+
         }
         //
         //Use TestCleanup to run code after each test has run
@@ -80,11 +97,13 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Delete Invoice where funding_source_id = 1 and period_start_dt='1/1/2107' and period_end_dt='1/1/2108'";
+
+            command.CommandText = "Delete invoice_case where create_user_id='Sinh Tran'";
             command.ExecuteNonQuery();
 
-            command.CommandText = command.CommandText = "Delete Invoice where funding_source_id = 2 and period_start_dt='1/1/2107' and period_end_dt='1/1/2108'";
+            command.CommandText = "Delete Invoice where invoice_comment='Sinh-invoice'";
             command.ExecuteNonQuery();
+
             dbConnection.Close();
         }
         //
@@ -125,7 +144,7 @@ namespace HPF.FutureState.UnitTest
         {
             InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
 
-            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = 2, PeriodStartDate=new DateTime(2107,1,1), PeriodEndDate= new DateTime(2108,1,1)};
+            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = 2, InvoiceComment="Sinh-invoice", PeriodStartDate=new DateTime(2107,1,1), PeriodEndDate= new DateTime(2108,1,1)};
             invoice.SetInsertTrackingInformation("1");
             target.BeginTransaction();
             int invoiceID = target.InsertInvoice(invoice);
@@ -170,6 +189,7 @@ namespace HPF.FutureState.UnitTest
 
             InvoiceCaseDTO invoiceCase = new InvoiceCaseDTO { InvoiceId = invoiceID, ForeclosureCaseId = 123, InvoiceCasePaymentAmount = 9999 };
             invoiceCase.SetInsertTrackingInformation("1");
+            invoiceCase.CreateUserId = "Sinh Tran";
 
             target.BeginTransaction();
             target.InsertInvoiceCase(invoiceCase);
@@ -191,10 +211,26 @@ namespace HPF.FutureState.UnitTest
             reader.Read();
             Assert.AreEqual(9999,double.Parse(reader["invoice_case_pmt_amt"].ToString()));
             reader.Close();
-            //Delete inserted invoiceCase
-            command.CommandText = "Delete invoice_case where Invoice_id=" + invoiceID.ToString();
-            command.ExecuteNonQuery();
             dbConnection.Close();
+        }
+        [TestMethod()]
+        public void InvoiceSetGetTest()
+        {
+            InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
+            //Get Invoice Id which was inserted in init method
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            //insert invoicase 
+            
+            InvoiceSetDTO actual= target.InvoiceSetGet(invoiceId);
+            Assert.AreEqual(1, actual.Invoice.FundingSourceId);
+            Assert.AreEqual("Sinh-invoice", actual.Invoice.InvoiceComment);
+            Assert.AreEqual(234769, actual.InvoiceCases[0].ForeclosureCaseId);
+            Assert.AreEqual(invoiceId, actual.Invoice.InvoiceId);
+            
+            
         }
 
     }
