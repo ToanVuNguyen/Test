@@ -54,32 +54,18 @@ namespace HPF.FutureState.BusinessLogic
                     string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
                     dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
                 }
-                //throw dataValidationException;
             }
 
             dataValidationException.ExceptionMessages.Add(CheckValidCodeForCallLog(aCallLog));
-            //List<string> errorList = CheckValidCodeForCallLog(aCallLog);
-            //if (errorList != null && errorList.Count > 0)
-            //    ThrowDataValidationException(errorList);
 
             dataValidationException.ExceptionMessages.Add(CheckForeignKey(aCallLog));
-            //errorList = CheckForeignKey(aCallLog);
-            //if (errorList != null && errorList.Count > 0)
-            //    ThrowDataValidationException(errorList);
-
             
             if (aCallLog.StartDate > aCallLog.EndDate)
                 dataValidationException.ExceptionMessages.AddExceptionMessage("Start date must < End date");
 
-            dataValidationException.ExceptionMessages.Add(CheckDependingCallCenter(aCallLog));
-            //errorList = CheckDependingCallCenter(aCallLog);
-            //if (errorList != null && errorList.Count > 0)
-            //    ThrowDataValidationException(errorList);
+            //dataValidationException.ExceptionMessages.Add(CheckDependingCallCenter(aCallLog));
 
             dataValidationException.ExceptionMessages.Add(CheckDependingServicer(aCallLog));
-            //errorList = CheckDependingServicer(aCallLog);
-            //if (errorList != null && errorList.Count > 0)
-            //    ThrowDataValidationException(errorList);
 
             if (dataValidationException.ExceptionMessages.Count > 0)
                 throw dataValidationException;
@@ -190,19 +176,7 @@ namespace HPF.FutureState.BusinessLogic
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name max length is 50" });
             }
             return errorList;
-        }
-
-        //private void ThrowDataValidationException(List<string> errorList)
-        //{
-        //    DataValidationException pe = new DataValidationException();
-        //    foreach (string obj in errorList)
-        //    {
-        //        ExceptionMessage em = new ExceptionMessage();
-        //        em.Message = obj;
-        //        pe.ExceptionMessages.Add(em);
-        //    }
-        //    throw pe;
-        //}
+        }       
 
     }
 }

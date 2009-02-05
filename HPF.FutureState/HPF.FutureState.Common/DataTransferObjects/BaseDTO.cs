@@ -14,9 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public DateTime CreateDate { get; set; }
 
-
-        //[StringRequiredValidator(MessageTemplate = "Create User ID is required", Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
-        
+        [XmlIgnore]
         public string CreateUserId { get; set; }
 
         [XmlIgnore]
@@ -25,9 +23,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public DateTime ChangeLastDate { get; set; }
 
-
-        //[NullableOrStringLengthValidator(false, 30, "Change Last User ID", Ruleset = "Default")]
-        //[StringRequiredValidator(MessageTemplate = "Last change User ID is required", Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
+        [XmlIgnore]
         public string ChangeLastUserId { get; set; }
 
         [XmlIgnore]
@@ -36,7 +32,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         /// <summary>
         /// Set Insert tracking information
         /// </summary>
-        /// <param name="userId"></param>        
+        /// <param name="userId"></param>  
+        
         public void SetInsertTrackingInformation(string userId)
         {
             CreateUserId = userId;
@@ -50,10 +47,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         /// <summary>
         /// Set update tracking information
         /// </summary>
-        /// <param name="userId"></param>        
+        /// <param name="userId"></param> 
+        
         public void SetUpdateTrackingInformation(string userId)
         {
-
             ChangeLastDate = DateTime.Today;
             ChangeLastUserId = userId;
             ChangeLastAppName = GetApplicationName();

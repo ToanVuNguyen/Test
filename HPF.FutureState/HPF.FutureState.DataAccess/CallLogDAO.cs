@@ -43,7 +43,7 @@ namespace HPF.FutureState.DataAccess
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[32];
+            SqlParameter[] sqlParam = new SqlParameter[37];
             sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);            
             sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));
@@ -75,8 +75,14 @@ namespace HPF.FutureState.DataAccess
             sqlParam[28] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCallLog.ChangeLastDate));
             sqlParam[29] = new SqlParameter("@pi_chg_lst_user_id", aCallLog.ChangeLastUserId);
             sqlParam[30] = new SqlParameter("@pi_chg_lst_app_name", aCallLog.ChangeLastAppName);
+
+            sqlParam[31] = new SqlParameter("@pi_city", aCallLog.City);
+            sqlParam[32] = new SqlParameter("@pi_state", aCallLog.State);
+            sqlParam[33] = new SqlParameter("@pi_nonprofitreferral_key_num1", aCallLog.NonprofitReferralKeyNum1);
+            sqlParam[34] = new SqlParameter("@pi_nonprofitreferral_key_num2", aCallLog.NonprofitReferralKeyNum2);
+            sqlParam[35] = new SqlParameter("@pi_nonprofitreferral_key_num3", aCallLog.NonprofitReferralKeyNum3);
             
-            sqlParam[31] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            sqlParam[36] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
             #endregion
 
@@ -90,7 +96,7 @@ namespace HPF.FutureState.DataAccess
             
                 command.ExecuteNonQuery();
                 trans.Commit();
-                aCallLog.CallId = ConvertToInt(sqlParam[31].Value);
+                aCallLog.CallId = ConvertToInt(command.Parameters["@po_call_id"].Value);
             }
             catch(Exception Ex)
             {
@@ -232,6 +238,11 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
                         callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
                         callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
+                        callLogDTO.City = ConvertToString(reader["city"]);
+                        callLogDTO.State = ConvertToString(reader["state"]);
+                        callLogDTO.NonprofitReferralKeyNum1 = ConvertToString(reader["nonprofitreferral_key_num1"]); 
+                        callLogDTO.NonprofitReferralKeyNum2 = ConvertToString(reader["nonprofitreferral_key_num2"]); 
+                        callLogDTO.NonprofitReferralKeyNum3 = ConvertToString(reader["nonprofitreferral_key_num3"]); 
                         #endregion
                     }
                     reader.Close();
@@ -286,13 +297,12 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Open();
                 command.ExecuteNonQuery();
-                //var reader = command.ExecuteReader();
                 
-                        callCenterID = ConvertToInt(sqlParam[3].Value);
-                        //isValidCCAgentIdKey = ConvertToInt(sqlParam[6].Value);
-                        prevAgencyID = ConvertToInt(sqlParam[4].Value);
-                        //isValidSelectedAgencyId = ConvertToInt(sqlParam[8].Value);
-                        servicerID = ConvertToInt(sqlParam[5].Value);                        
+                callCenterID = ConvertToInt(command.Parameters["@po_call_center_id"].Value);
+                //isValidCCAgentIdKey = ConvertToInt(sqlParam[6].Value);
+                prevAgencyID = ConvertToInt(command.Parameters["@po_prev_agency_id"].Value);
+                //isValidSelectedAgencyId = ConvertToInt(sqlParam[8].Value);
+                servicerID = ConvertToInt(command.Parameters["@po_servicer_id"].Value);                        
                
 
             }
@@ -304,12 +314,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-
-            //if (callCenterID < 1) errorList.Add("Call Center ID is not valid");
-            //if (isValidCCAgentIdKey < 1) errorList.Add("CC Agent ID is not valid");
-            //if (prevAgencyID < 1) errorList.Add("Prev Agent ID is not valid");
-            //if (isValidSelectedAgencyId < 1) errorList.Add("Selected Agent ID is not valid");
-            //if (servicerID < 1) errorList.Add("Servicer ID is not valid");
+            
             idList.Add("CallCenterID",callCenterID);
             idList.Add("PrevAgencyID", prevAgencyID);
             idList.Add("ServicerID", servicerID);

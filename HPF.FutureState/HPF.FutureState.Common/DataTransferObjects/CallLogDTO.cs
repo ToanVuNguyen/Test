@@ -91,8 +91,21 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
         public string AuthorizedInd { get { return _authorizedInd; } set { _authorizedInd = value.ToUpper(); } }
 
-        //[NullableOrStringLengthValidator(false, 30, "Working User ID", Ruleset= "Default")]
-        //public string WorkingUserId { get; set; }
+        [NullableOrStringLengthValidator(true, 30, "City", Ruleset = "Default")]
+        public string City {get; set;}  //	varchar(30)
+
+        [NullableOrStringLengthValidator(true, 2, "State", Ruleset = "Default")]
+        public string State	{get; set;} //varchar(2)
+        
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum1", Ruleset = "Default")]
+        public string NonprofitReferralKeyNum1 {get; set;}
+        
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum2", Ruleset = "Default")]        
+        public string NonprofitReferralKeyNum2 {get; set;}
+        
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum3", Ruleset = "Default")]
+        public string NonprofitReferralKeyNum3 { get; set; }
+
         #endregion        
     }
 }

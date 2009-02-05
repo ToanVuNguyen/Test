@@ -114,13 +114,18 @@ namespace HPF.FutureState.WebServices
             destObject.ScreenRout = sourceObject.ScreenRout;
             destObject.TransNumber = sourceObject.TransNumber;
 
-            destObject.CreateDate = sourceObject.CreateDate;
-            destObject.CreateUserId = sourceObject.CreateUserId;
-            destObject.CreateAppName = sourceObject.CreateAppName;
-            destObject.ChangeLastDate = sourceObject.ChangeLastDate;
-            destObject.ChangeLastUserId = sourceObject.ChangeLastUserId;
-            destObject.ChangeLastAppName = sourceObject.ChangeLastAppName;
-            //destObject.WorkingUserId = sourceObject.WorkingUserId;
+            //destObject.CreateDate = sourceObject.CreateDate;
+            //destObject.CreateUserId = sourceObject.CreateUserId;
+            //destObject.CreateAppName = sourceObject.CreateAppName;
+            //destObject.ChangeLastDate = sourceObject.ChangeLastDate;
+            //destObject.ChangeLastUserId = sourceObject.ChangeLastUserId;
+            //destObject.ChangeLastAppName = sourceObject.ChangeLastAppName;
+
+            destObject.City = sourceObject.City;
+            destObject.State = sourceObject.State;
+            destObject.NonprofitReferralKeyNum1 = sourceObject.NonprofitReferralKeyNum1;
+            destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
+            destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
             return destObject;
         }
         

@@ -224,22 +224,39 @@ namespace HPF.FutureState.UnitTest
         }
 
         #region helper
+
+        #region property
+        string prop_zip = "68686";
+        string ssn = "6868";
+        string agency_case_number = "686868686868";
+        string first_name = "Test data";
+        int agency_id = 2;
+        string acct_num = "acct_num6868";
+
+        string agency_name = "agency_name_68";
+        string servicer_name = "servicer_name_68";
+        string call_center = "call_center_68";
+        string outcome_type_name = "otn_686868";
+
+        string working_user_id = "wui_686868";
+        #endregion
+
         private void SetCallLogTestData(CallLogDTO aCallLog)
         {
 
             string sql = "Insert into Agency "
-               + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-               + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+               + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+               + " ('" + agency_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
 
             sql = "Insert into Call_Center "
-                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " (call_center, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('" + call_center + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
 
             sql = "Insert into Servicer "
-                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('" + servicer_name + "', HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
             ExecuteSql(sql);
 
             aCallLog.StartDate = new DateTime(2008, 10, 10);
@@ -252,9 +269,8 @@ namespace HPF.FutureState.UnitTest
             aCallLog.PrevAgencyId = GetAgencyID();
             aCallLog.ServicerId = GetServicerID();
             aCallLog.CallCenterID = GetCallCenterID();
-            //aCallLog.WorkingUserId = "WorkingUserId";
 
-            aCallLog.SetInsertTrackingInformation("Unit test");
+            aCallLog.SetInsertTrackingInformation(working_user_id);
 
             
         }
@@ -274,7 +290,8 @@ namespace HPF.FutureState.UnitTest
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand("SELECT Max(Call_Id) FROM Call", dbConnection);
+            string sql = string.Format("SELECT call_Id FROM Call where create_user_id = '{0}' and chg_lst_user_id = '{1}'", working_user_id, working_user_id);
+            var command = new SqlCommand(sql, dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -286,12 +303,13 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Close();
             return id;
         }
-       
+
         private int GetAgencyID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand("SELECT Max(Agency_ID) FROM Agency", dbConnection);
+            string sql = "Select agency_id from Agency where agency_name = '" + agency_name + "'";
+            var command = new SqlCommand(sql, dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -308,7 +326,8 @@ namespace HPF.FutureState.UnitTest
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand("SELECT Max(Servicer_ID) FROM Servicer", dbConnection);
+            string sql = "Select servicer_id from Servicer where servicer_name = '" + servicer_name + "'";
+            var command = new SqlCommand(sql, dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -325,7 +344,7 @@ namespace HPF.FutureState.UnitTest
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            var command = new SqlCommand("SELECT Max(Call_Center_ID) FROM Call_Center", dbConnection);
+            var command = new SqlCommand("SELECT call_center_id FROM Call_Center where call_center = '" + call_center + "'", dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
             if (reader.HasRows)

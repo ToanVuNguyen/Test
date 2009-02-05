@@ -70,7 +70,15 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string AuthorizedInd { get; set; }
 
-        public string WorkingUserId { get; set; }
+        public string City { get; set; } 
+
+        public string State { get; set; }
+
+        public string NonprofitReferralKeyNum1 { get; set; }
+
+        public string NonprofitReferralKeyNum2 { get; set; }
+
+        public string NonprofitReferralKeyNum3 { get; set; }
         #endregion           
     }
 }

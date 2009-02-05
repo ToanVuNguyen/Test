@@ -195,12 +195,7 @@ namespace HPF.FutureState.WebServices
                 destObject.CallId = "HPF" + Convert.ToString(sourceObject.CallId);
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
-            //destObject.CallCenter = sourceObject.CallCenter;
-            destObject.CallSourceCd = sourceObject.CallSourceCd;
-            //destObject.CallCenterID = sourceObject.CallCenterID;
-            //destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
-            //destObject.CcCallKey = sourceObject.CcCallKey;
-            //destObject.DNIS = sourceObject.DNIS;
+            destObject.CallSourceCd = sourceObject.CallSourceCd;            
             destObject.EndDate = sourceObject.EndDate;
             destObject.FinalDispoCd = sourceObject.FinalDispoCd;
             destObject.FirstName = sourceObject.FirstName;
@@ -217,8 +212,12 @@ namespace HPF.FutureState.WebServices
             destObject.ServicerId = sourceObject.ServicerId;
             destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
             destObject.SelectedCounselor = sourceObject.SelectedCounselor;
-            //destObject.ScreenRout = sourceObject.ScreenRout;
-            //destObject.TransNumber = sourceObject.TransNumber;
+
+            destObject.City = sourceObject.City;
+            destObject.State = sourceObject.State;
+            destObject.NonprofitReferralKeyNum1 = sourceObject.NonprofitReferralKeyNum1;
+            destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
+            destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
             return destObject;
         }
         #endregion
