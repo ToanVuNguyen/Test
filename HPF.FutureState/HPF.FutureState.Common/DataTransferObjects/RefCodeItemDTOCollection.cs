@@ -37,7 +37,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             if (string.IsNullOrEmpty(codeValue))
                 return true;
-            return this.SingleOrDefault(item => item.Code == codeValue) != null;
+            return this.SingleOrDefault(item => item.Code.ToUpper().Trim() == codeValue.ToUpper().Trim()) != null;
         }
     }
 }
