@@ -64,9 +64,8 @@ namespace HPF.FutureState.BusinessLogic
 
             var formatDataException = CheckInvalidFormatData(foreclosureCaseSet);
             exceptionList.Add(formatDataException);
-            //
-            if(formatDataException.Count==0)
-                foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
+            //            
+            foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
             //
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
 
@@ -411,8 +410,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
             if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
-            {
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An OtherServicerName is required");
+            {                
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0266));
             }            
             return msgFcCaseSet;
         }
@@ -513,17 +512,17 @@ namespace HPF.FutureState.BusinessLogic
             msgFcCaseSet.Add(msgBudgetAsset);
             //
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.BorrowerDob))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Age of the Borrower must be >=12 and <=110");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0271, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0271));
             if (!CheckDateOfBirth(fCaseSet.ForeclosureCase.CoBorrowerDob))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Age of the Co_borrower must be >=12 and <=110");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0272, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0272));
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerFname))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0267, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0267));
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.BorrowerLname))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0268, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0268));
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerFname))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "CoBorrowerFname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0269, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0269));
             if (!CheckSpecialCharacrer(fCaseSet.ForeclosureCase.CoBorrowerLname))
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "CoBorrowerLname must not include the following characters:!@#$%^*(){}|:;?><567890");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0270, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0270));
             if (!CheckCallID(fCaseSet.ForeclosureCase.CallId))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid format is provided for CallID");            
             return msgFcCaseSet;
@@ -1485,9 +1484,9 @@ namespace HPF.FutureState.BusinessLogic
                     break;
             }            
             if(contactValid == false)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Combination ContactStateCode and ContactZipCode is invalid");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0259, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0259));
             if(propertyValid == false)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Combination PropertyStateCode and PropertyZipcode is invalid");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0260, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0260));
             return msgFcCaseSet;
         }
 
@@ -1543,7 +1542,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (item.AgencyID == agencyID.ToString())
                     return null;
             }
-            msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for AgencyId");
+            msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0250, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0250));            
             return msgFcCaseSet;
         }
 
@@ -1559,7 +1558,7 @@ namespace HPF.FutureState.BusinessLogic
             bool isCall = foreclosureCaseSetDAO.GetCall(forclosureCase.CallId);
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (!isCall)
-                msgFcCaseSet.AddExceptionMessage("An invalid ID was provided for CallId");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0264, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0264));
             return msgFcCaseSet;
         }
 
@@ -1598,7 +1597,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (item.ProgramID == programId.ToString())
                     return null;
             }
-            msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ProgramId");
+            msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261)); 
             return msgFcCaseSet;
         }
 
@@ -1617,7 +1616,7 @@ namespace HPF.FutureState.BusinessLogic
                 BudgetItemDTO item =  budgetItem[i];
                 bool isValid = CheckBudgetSubcategory(item);
                 if(!isValid)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Budget item " + (i + 1) + " was provided invalid BudgetSubcategoryId");
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0262, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0262)); 
             }
             return msgFcCaseSet;
         }
@@ -1651,7 +1650,7 @@ namespace HPF.FutureState.BusinessLogic
                 OutcomeItemDTO item = outcomeItem[i];
                 bool isValid = CheckOutcomeType(item);
                 if (!isValid)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Outcome item " + (i + 1) + " was provided invalid OutcomeTypeId");
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0263, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0263) + " which index  " + (i + 1));   
             }
             return msgFcCaseSet;
         }
@@ -1698,7 +1697,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckRequireFieldPartial(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
-            if (msgError == null || msgError.Count < 1)
+            if (msgError.Count == 0)
                 return true;
             return false;
         }
@@ -1709,7 +1708,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckRequireFieldForComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            if (msgError == null || msgError.Count < 0)
+            if (msgError.Count == 0)
                 return true;
             return false;
         }

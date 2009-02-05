@@ -476,7 +476,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[20];
+                var sqlParam = new SqlParameter[22];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", caseLoan.FcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", caseLoan.OtherServicerName);
@@ -497,8 +497,8 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[17] = new SqlParameter("@pi_investor_num", caseLoan.InvestorNum);
                 sqlParam[18] = new SqlParameter("@pi_investor_name", caseLoan.InvestorName);
                 sqlParam[19] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
-                sqlParam[18] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
-                sqlParam[19] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
+                sqlParam[20] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
+                sqlParam[21] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;

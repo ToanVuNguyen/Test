@@ -27,7 +27,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlElement(IsNullable = true)]
         //[RequiredObjectValidator(Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "BudgetItemAmt is required to save this case")]
         [RequiredObjectValidator(Tag = ErrorMessages.WARN0329, Ruleset = Constant.RULESET_COMPLETE)]
-        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "BudgetItemAmt must be numeric(15,2)")]
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0079)]
         public double? BudgetItemAmt { get; set; }
 
         [NullableOrStringLengthValidator(true, 100, "Budget Note", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0070)]

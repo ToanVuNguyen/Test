@@ -249,7 +249,7 @@ namespace HPF.FutureState.DataAccess
 
         protected static SqlString NullableString(string value)
         {
-            if (value != null)
+            if (!string.IsNullOrEmpty(value))
                 return (SqlString)value;
             return SqlString.Null;            
         }

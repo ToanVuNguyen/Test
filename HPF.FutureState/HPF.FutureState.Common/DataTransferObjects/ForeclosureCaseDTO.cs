@@ -402,7 +402,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string FollowupNotes { get; set; }
 
         [XmlElement(IsNullable = true)]        
-        [NullableOrInRangeNumberValidator(true ,"-9999999999999.99", "9999999999999.99",Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "PrimResEstMktValue must be numeric(15,2)")]
+        [NullableOrInRangeNumberValidator(true ,"-9999999999999.99", "9999999999999.99",Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0072)]
         public double? PrimResEstMktValue { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0118, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -577,26 +577,26 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [XmlElement(IsNullable = true)]        
-        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomeSalePrice must be numeric(15,2)")]
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0073)]
         public double? HomeSalePrice { get; set; }
 
         [XmlElement(IsNullable = true)]
         public int? HomePurchaseYear { get; set; }
 
-        [XmlElement(IsNullable = true)]        
-        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomePurchasePrice must be numeric(15,2)")]
+        [XmlElement(IsNullable = true)]
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0080)]
         public double? HomePurchasePrice { get; set; }
 
         [XmlElement(IsNullable = true)]
-        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HomeCurrentMarketValue must be numeric(15,2)")]        
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0074)]        
         public double? HomeCurrentMarketValue { get; set; }
 
         [NullableOrStringLengthValidator(true, 15, "Military Service Cd", Ruleset = Constant.RULESET_LENGTH)]
         public string MilitaryServiceCd { get; set; }
 
         [XmlElement(IsNullable = true)]        
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]        
-        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HouseholdGrossAnnualIncomeAmt must be numeric(15,2)")]
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0075)]
         public double? HouseholdGrossAnnualIncomeAmt { get; set; }
 
         [XmlIgnore]
