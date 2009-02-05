@@ -89,6 +89,7 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\InvoicePaymentDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceSetDTO.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTO.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTOCollection.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="DataTransferObjects\WSUserDTO.cs" />
     <Compile Include="ErrorMessages.cs" />
     <Compile Include="BusinessLogicInterface\IReferenceCodeValidatorBL.cs" />
+    <Compile Include="DataTransferObjects\InvoicePaymentDTOCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

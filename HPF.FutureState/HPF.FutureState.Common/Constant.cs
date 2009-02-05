@@ -40,5 +40,6 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_BUDGET_CATEGORY_CODE = "BUDGETCATEGORYCODE";
         public const string HPF_CACHE_BUDGET_SUBCATEGORY = "BUDGETSUBCATEGORY";
         public const string HPF_CACHE_AGENCY = "HPFCACHEAGENCY";
+        public const string HPF_CACHE_PAYMENT_TYPE = "HPFCACHPAYMENTTYPE";
     }
 }
