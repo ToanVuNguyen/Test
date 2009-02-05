@@ -58,35 +58,37 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void CallLogWSDTOToForm(CallLogWSDTO aCallLogWS)
         {
-            //txtCallCenterID.Text = aCallLogWS.CallCenterID.ToString();
             txtCallCenter.Text = aCallLogWS.CallCenter;
             txtAuthorizedInd.Text = aCallLogWS.AuthorizedInd;
             txtCallSourceCd.Text = aCallLogWS.CallSourceCd;
-            txtCcAgentIdKey.Text = aCallLogWS.CcAgentIdKey; //"CCAgentIdKey" + _pageloadno.ToString();
-            txtCcCallKey.Text = aCallLogWS.CcCallKey; //"CcCallKey" + _pageloadno.ToString();
-            txtDNIS.Text = aCallLogWS.DNIS; //"DNIS" + _pageloadno.ToString();
+            txtCcAgentIdKey.Text = aCallLogWS.CcAgentIdKey;
+            txtCcCallKey.Text = aCallLogWS.CcCallKey;
+            txtDNIS.Text = aCallLogWS.DNIS;
             txtEndDate.Text = aCallLogWS.EndDate.ToString();
-            txtFinalDispoCd.Text = aCallLogWS.FinalDispoCd; //"FinalDispoCd" + _pageloadno.ToString();
-            txtFirstName.Text = aCallLogWS.FirstName; //"FirstName" + _pageloadno.ToString();
-            txtHomeownerInd.Text = aCallLogWS.HomeownerInd; //"Y";
-            txtLastName.Text = aCallLogWS.LastName; //"LastName" + _pageloadno.ToString();
-            txtLoanAccountNumber.Text = aCallLogWS.LoanAccountNumber; //"LoanAccountNumber" + _pageloadno.ToString();
-            txtLoanDelinqStatusCd.Text = aCallLogWS.LoanDelinqStatusCd; //"0123456789";
-            txtOtherServicerName.Text = aCallLogWS.OtherServicerName; //"OtherServicerName" + _pageloadno.ToString();
+            txtFinalDispoCd.Text = aCallLogWS.FinalDispoCd;
+            txtFirstName.Text = aCallLogWS.FirstName;
+            txtHomeownerInd.Text = aCallLogWS.HomeownerInd;
+            txtLastName.Text = aCallLogWS.LastName;
+            txtLoanAccountNumber.Text = aCallLogWS.LoanAccountNumber;
+            txtLoanDelinqStatusCd.Text = aCallLogWS.LoanDelinqStatusCd;
+            txtOtherServicerName.Text = aCallLogWS.OtherServicerName;
 
-            txtPowerOfAttorneyInd.Text = aCallLogWS.PowerOfAttorneyInd; //"Y";
-            txtPrevAgencyId.Text = aCallLogWS.PrevAgencyId.ToString(); //"PrevAgencyId" + _pageloadno.ToString();
-            txtPropZipFull9.Text = aCallLogWS.PropZipFull9; //"123456789";
-            txtReasonToCall.Text = aCallLogWS.ReasonToCall; //"ReasonToCall" + _pageloadno.ToString();
-            txtScreenRout.Text = aCallLogWS.ScreenRout; //"ScreenRout" + _pageloadno.ToString();
-            txtSelectedAgencyId.Text = aCallLogWS.SelectedAgencyId; //"SelectedAgencyId" + _pageloadno.ToString();
-            txtSelectedCounselor.Text = aCallLogWS.SelectedCounselor; //"SelectedCounselor" + _pageloadno.ToString();
-            txtServiceID.Text = aCallLogWS.ServicerId.ToString(); //"1";
-            txtStartDate.Text = aCallLogWS.StartDate.ToString(); //DateTime.Now;
-            txtTransNumber.Text = aCallLogWS.TransNumber; //"TransNumber" + _pageloadno.ToString();
+            txtPowerOfAttorneyInd.Text = aCallLogWS.PowerOfAttorneyInd;
+            txtPrevAgencyId.Text = aCallLogWS.PrevAgencyId.ToString();
+            txtPropZipFull9.Text = aCallLogWS.PropZipFull9;
+            txtReasonToCall.Text = aCallLogWS.ReasonToCall;
+            txtScreenRout.Text = aCallLogWS.ScreenRout; 
+            txtSelectedAgencyId.Text = aCallLogWS.SelectedAgencyId; 
+            txtSelectedCounselor.Text = aCallLogWS.SelectedCounselor;
+            txtServiceID.Text = aCallLogWS.ServicerId.ToString();
+            txtStartDate.Text = aCallLogWS.StartDate.ToString(); 
+            txtTransNumber.Text = aCallLogWS.TransNumber; 
 
-            //txtLastChangeUserId.Text = aCallLogWS.ChangeLastUserId;
-            //txtWorkingUserId.Text = aCallLogWS.CreateUserId;
+            txtState.Text = aCallLogWS.State;
+            txtCity.Text = aCallLogWS.City;
+            txtNonprofitReferral1.Text = aCallLogWS.NonprofitReferralKeyNum1;
+            txtNonprofitReferral2.Text = aCallLogWS.NonprofitReferralKeyNum2;
+            txtNonprofitReferral3.Text = aCallLogWS.NonprofitReferralKeyNum3;
         }
 
         private CallLogWSDTO FormToCallLogWSDTO()
@@ -96,7 +98,6 @@ namespace HPF.FutureState.WebService.Test.Web
             #region set value
             aWSCallLog.AuthorizedInd = txtAuthorizedInd.Text.Trim();
             aWSCallLog.CallCenter = txtCallCenter.Text.Trim();            
-            //aWSCallLog.CallCenterID = Util.ConvertToInt(txtCallCenterID.Text.Trim());
             aWSCallLog.CallSourceCd = txtCallSourceCd.Text.Trim();
             aWSCallLog.CcCallKey = txtCcCallKey.Text.Trim();
             aWSCallLog.CcAgentIdKey = txtCcAgentIdKey.Text.Trim();            
@@ -119,9 +120,12 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.ServicerId = Util.ConvertToInt(txtServiceID.Text.Trim());
             aWSCallLog.StartDate = Util.ConvertToDateTime(txtStartDate.Text.Trim());
             aWSCallLog.TransNumber = txtTransNumber.Text.Trim();
-            //aWSCallLog.WorkingUserId = txtWorkingUserId.Text.Trim();
-            //aWSCallLog.CreateUserId = txtCreateUserId.Text.Trim();
-            //aWSCallLog.ChangeLastUserId = txtLastChangeUserId.Text.Trim();
+            aWSCallLog.City = txtCity.Text.Trim();
+            aWSCallLog.State = txtState.Text.Trim();
+            aWSCallLog.NonprofitReferralKeyNum1 = txtNonprofitReferral1.Text.Trim();
+            aWSCallLog.NonprofitReferralKeyNum2 = txtNonprofitReferral2.Text.Trim();
+            aWSCallLog.NonprofitReferralKeyNum3 = txtNonprofitReferral3.Text.Trim();
+
 
             #endregion
 

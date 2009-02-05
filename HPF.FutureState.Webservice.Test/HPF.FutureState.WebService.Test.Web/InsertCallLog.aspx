@@ -283,27 +283,56 @@
                 
         <asp:TableRow ID="TableRow26" runat="server">
             <asp:TableCell ID="TableCell51" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label26" runat="server" Text="AuthorizedI nd"></asp:Label>
+                <asp:Label CssClass="sidelinks" ID="Label26" runat="server" Text="AuthorizedI nd"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell52" runat="server">
                 <asp:TextBox CssClass="Text" ID="txtAuthorizedInd" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>   
             <asp:TableCell ID="TableCell11" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label6" runat="server" Text="Final Dispo Cd"></asp:Label>
+                <asp:Label CssClass="sidelinks" ID="Label6" runat="server" Text="Final Dispo Cd"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell12" runat="server">
                 <asp:TextBox CssClass="Text" ID="txtFinalDispoCd" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>          
         </asp:TableRow>
-       <%-- <asp:TableRow ID="TableRow2" runat="server">
+        <asp:TableRow ID="TableRow2" runat="server">
             <asp:TableCell ID="TableCell53" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label19" runat="server" Text="Change last User ID"></asp:Label>
+                <asp:Label CssClass="sidelinks" ID="Label19" runat="server" Text="City"></asp:Label>
             </asp:TableCell>
             <asp:TableCell ID="TableCell54" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtWorkingUserId" runat="server" Width="128px"></asp:TextBox>           
+                <asp:TextBox CssClass="Text" ID="txtCity" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell> 
+            
+            <asp:TableCell ID="TableCell1" runat="server">
+                <asp:Label CssClass="sidelinks" ID="Label1" runat="server" Text="State"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell2" runat="server">
+                <asp:TextBox CssClass="Text" ID="txtState" runat="server" Width="128px"></asp:TextBox>           
             </asp:TableCell>                        
-        </asp:TableRow>--%>
-                
+        </asp:TableRow>
+        
+        <asp:TableRow ID="TableRow5" runat="server">
+            <asp:TableCell ID="TableCell55" runat="server">
+                <asp:Label CssClass="sidelinks" ID="Label27" runat="server" Text="Nonprofit Referral 1"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell56" runat="server">
+                <asp:TextBox CssClass="Text" ID="txtNonprofitReferral1" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell>   
+            <asp:TableCell ID="TableCell57" runat="server">
+                <asp:Label CssClass="sidelinks" ID="Label30" runat="server" Text="Nonprofit Referral 2"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell58" runat="server">
+                <asp:TextBox CssClass="Text" ID="txtNonprofitReferral2" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell>                      
+        </asp:TableRow>        
+        <asp:TableRow ID="TableRow15" runat="server">
+            <asp:TableCell ID="TableCell59" runat="server">
+                <asp:Label CssClass="sidelinks" ID="Label31" runat="server" Text="Nonprofit Referral 3"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell60" runat="server">
+                <asp:TextBox CssClass="Text" ID="txtNonprofitReferral3" runat="server" Width="128px"></asp:TextBox>           
+            </asp:TableCell>                        
+        </asp:TableRow>        
     </asp:Table>
     <br />
     <br />

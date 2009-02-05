@@ -49,8 +49,12 @@ namespace HPF.FutureState.WebService.Test.Web
                                ServicerId = Util.ConvertToInt(obj.Element("ServicerId").Value),
                                StartDate = Util.ConvertToDateTime(obj.Element("StartDate").Value),
                                TransNumber = obj.Element("TransNumber").Value,
-                               CreateUserId = obj.Element("CreateUserId").Value,
-                               ChangeLastUserId = obj.Element("ChangeLastUserId").Value
+                               State = obj.Element("State").Value,
+                               City = obj.Element("City").Value,
+                               NonprofitReferralKeyNum1 = obj.Element("NonprofitReferralKeyNum1").Value,
+                               NonprofitReferralKeyNum2 = obj.Element("NonprofitReferralKeyNum2").Value,
+                               NonprofitReferralKeyNum3 = obj.Element("NonprofitReferralKeyNum3").Value,
+                               
                            };
                 return objs.ToList<CallLogWSDTO>()[0];
             }

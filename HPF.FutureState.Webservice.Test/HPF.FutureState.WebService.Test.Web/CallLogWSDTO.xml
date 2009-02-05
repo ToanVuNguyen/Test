@@ -26,6 +26,9 @@
   <HomeownerInd >Y</HomeownerInd>
   <PowerOfAttorneyInd >Y</PowerOfAttorneyInd>
   <AuthorizedInd >Y</AuthorizedInd>
-  <CreateUserId>CallCenter1</CreateUserId>
-  <ChangeLastUserId>CallCenter1</ChangeLastUserId>
+  <State>TE</State>
+  <City>TEST</City>
+  <NonprofitReferralKeyNum1>TEST</NonprofitReferralKeyNum1>
+  <NonprofitReferralKeyNum2>TEST</NonprofitReferralKeyNum2>
+  <NonprofitReferralKeyNum3>TEST</NonprofitReferralKeyNum3>
 </CallLogWSDTO>
