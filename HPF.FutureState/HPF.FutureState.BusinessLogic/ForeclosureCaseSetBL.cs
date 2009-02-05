@@ -313,7 +313,7 @@ namespace HPF.FutureState.BusinessLogic
                                                      "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
                 //-----HomeSalePrice
                 if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.ForSaleInd)) ==
-                    Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == 0)
+                    Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A HomeSalePrice is required to save a foreclosure case.");
             }

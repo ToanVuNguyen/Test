@@ -52,7 +52,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!decimal.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        //MessageTemplate = key + " is invalid";
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                         else
                         {
                             isValid = false;
-                            MessageTemplate = string.Format("{0} is out of allowed range ", key);
+                            //MessageTemplate = string.Format("{0} is out of allowed range ", key);
                         }
 
                     }
@@ -79,7 +79,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!double.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        //MessageTemplate = key + " is invalid";
                     }
                     else
                     {
@@ -88,7 +88,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                         else
                         {
                             isValid = false;
-                            MessageTemplate = string.Format("{0} is out of allowed range ", key);
+                            //MessageTemplate = string.Format("{0} is out of allowed range ", key);
                         }
 
                     }
@@ -107,7 +107,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!int.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        //MessageTemplate = key + " is invalid";
                     }
                     else
                     {
@@ -116,7 +116,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                         else
                         {
                             isValid = false;
-                            MessageTemplate = string.Format("{0} is out of allowed range ", key);
+                            //MessageTemplate = string.Format("{0} is out of allowed range ", key);
                         }
 
                     }
