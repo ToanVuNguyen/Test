@@ -354,6 +354,16 @@ namespace HPF.Webservice.Agency
 
         private string authorizedIndField;
 
+        private string cityField;
+
+        private string stateField;
+
+        private string nonprofitReferralKeyNum1Field;
+
+        private string nonprofitReferralKeyNum2Field;
+
+        private string nonprofitReferralKeyNum3Field;
+
         /// <remarks/>
         public string CallId
         {
@@ -602,6 +612,71 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.authorizedIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string City
+        {
+            get
+            {
+                return this.cityField;
+            }
+            set
+            {
+                this.cityField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string State
+        {
+            get
+            {
+                return this.stateField;
+            }
+            set
+            {
+                this.stateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NonprofitReferralKeyNum1
+        {
+            get
+            {
+                return this.nonprofitReferralKeyNum1Field;
+            }
+            set
+            {
+                this.nonprofitReferralKeyNum1Field = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NonprofitReferralKeyNum2
+        {
+            get
+            {
+                return this.nonprofitReferralKeyNum2Field;
+            }
+            set
+            {
+                this.nonprofitReferralKeyNum2Field = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NonprofitReferralKeyNum3
+        {
+            get
+            {
+                return this.nonprofitReferralKeyNum3Field;
+            }
+            set
+            {
+                this.nonprofitReferralKeyNum3Field = value;
             }
         }
     }
@@ -1180,36 +1255,6 @@ namespace HPF.Webservice.Agency
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
     public partial class BaseDTO
     {
-
-        private string createUserIdField;
-
-        private string changeLastUserIdField;
-
-        /// <remarks/>
-        public string CreateUserId
-        {
-            get
-            {
-                return this.createUserIdField;
-            }
-            set
-            {
-                this.createUserIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string ChangeLastUserId
-        {
-            get
-            {
-                return this.changeLastUserIdField;
-            }
-            set
-            {
-                this.changeLastUserIdField = value;
-            }
-        }
     }
 
     /// <remarks/>
