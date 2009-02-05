@@ -347,7 +347,7 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 ExtRefOtherName = this.ExtRefOtherName,
                 NonprofitreferralKeyNum = this.NonprofitreferralKeyNum,
-                OutcomeTypeId = this.OutcomeItemId
+                OutcomeTypeId = this.OutcomeTypeId
             };
         }
     }
