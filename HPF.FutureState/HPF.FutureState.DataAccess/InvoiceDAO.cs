@@ -102,6 +102,13 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
         }
+        /// <summary>
+        /// Update Invoice and Invoice Cases when user want to Reject,Pay,UnPay InvoiceCases
+        /// </summary>
+        /// <param name="invoiceSet">Contains InvoiceDTO and InvoiceCaseDTOCollection</param>
+        /// <param name="invoiceCaseIdCollection">a string that contains all invoiceCaseId to change</param>
+        /// <param name="updateFlag">0:Reject, 1:Unpay, 2:Pay</param>
+        /// <returns>true: Update Sucessfull;false:Payment_id does not exists</returns>
         public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet,string invoiceCaseIdCollection,InvoiceCaseUpdateFlag updateFlag)
         {
             InvoiceDTO invoice = invoiceSet.Invoice;
