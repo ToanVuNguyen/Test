@@ -448,6 +448,11 @@ CREATE TABLE call (
   homeowner_ind VARCHAR(1)    ,
   power_of_attorney_ind VARCHAR(1)    ,
   authorized_ind VARCHAR(1)    ,
+  city varchar(30) NULL,
+  state varchar(2) NULL,
+  nonprofitreferral_key_num1 Varchar(10) NULL,
+  nonprofitreferral_key_num2 Varchar(10) NULL,
+  nonprofitreferral_key_num3 Varchar(10) NULL,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -526,6 +531,7 @@ CREATE TABLE agency_rate (
   eff_dt DATETIME    ,
   exp_dt DATETIME    ,
   rate_comment VARCHAR(300)    ,
+  nfmc_upcharge_pmt_rate numeric(15,2) NULL, 
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -819,6 +825,8 @@ CREATE TABLE case_loan (
   orginal_loan_num VARCHAR(30)    ,
   current_servicer_FDIC_NCUA_num VARCHAR(30)    ,  
   investor_loan_num VARCHAR(30)    ,
+  investor_num varchar(30) null,
+ investor_name varchar(50) null,
   create_dt DATETIME  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
@@ -884,8 +892,10 @@ CREATE TABLE agency_payable_case (
   agency_payable_id INTEGER  NOT NULL  ,
   pmt_dt DATETIME    ,
   pmt_amt NUMERIC(15,2)    ,
-  NFMC_difference_paid_ind VARCHAR(1)    NOT NULL,
   NFMC_difference_eligible_ind varchar(1) Not NULL,
+  takeback_pmt_identified_dt datetime NULL,
+  takeback_pmt_reason_cd varchar(15) NULL,
+  NFMC_difference_paid_amt Numeric (15,2) Null,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -936,6 +946,60 @@ PRIMARY KEY(budget_asset_id)  ,
   FOREIGN KEY(budget_set_id)
     REFERENCES budget_set(budget_set_id));
 GO
+
+/****** Object: Table [dbo].[Log] Script Date: 01/19/2009 11:53:16 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Log](
+    [LogID] [int] IDENTITY(1,1) NOT NULL,
+    [EventID] [int] NULL,
+    [Priority] [int] NOT NULL,
+    [Severity] [nvarchar](32) NOT NULL,
+    [Title] [nvarchar](256) NOT NULL,
+    [Timestamp] [datetime] NOT NULL,
+    [MachineName] [nvarchar](32) NOT NULL,
+    [AppDomainName] [nvarchar](512) NOT NULL,
+    [ProcessID] [nvarchar](256) NOT NULL,
+    [ProcessName] [nvarchar](512) NOT NULL,
+    [ThreadName] [nvarchar](512) NULL,
+    [Win32ThreadId] [nvarchar](128) NULL,
+    [Message] [nvarchar](1500) NULL,
+    [FormattedMessage] [ntext] NULL,
+ CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED(LogID ASC)
+    WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+)
+GO
+
+/****** Object: Table [dbo].[Category] Script Date: 01/19/2009 15:28:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Category](
+    [CategoryID] [int] IDENTITY(1,1) NOT NULL,
+    [CategoryName] [nvarchar](64) NOT NULL,
+ CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED([CategoryID] ASC)
+    WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object: Table [dbo].[CategoryLog] Script Date: 01/19/2009 15:29:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CategoryLog](
+    [CategoryLogID] [int] IDENTITY(1,1) NOT NULL,
+    [CategoryID] [int] NOT NULL,
+    [LogID] [int] NOT NULL,
+ CONSTRAINT [PK_CategoryLog] PRIMARY KEY CLUSTERED ([CategoryLogID] ASC)
+    WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/******** INDEXES *****************************/
 
 IF EXISTS (SELECT name from sys.indexes
              WHERE name = N'ws_user_login_username_UK')
