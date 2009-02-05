@@ -249,7 +249,7 @@ namespace HPF.FutureState.Common
 
         public static string GetExceptionMessageCombined(string exceptionId, params object[] agrs)
         {
-            return string.Format(GetExceptionMessageCombined(exceptionId, agrs));
+            return string.Format(GetExceptionMessageCombined(exceptionId), agrs);
         }
 
         private static void LoadErrorMessageDict()
