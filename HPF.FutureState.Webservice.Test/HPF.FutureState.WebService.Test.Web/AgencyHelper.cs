@@ -288,8 +288,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                SummarySentOtherCd = obj.Element("SummarySentOtherCd").Value,
                                SummarySentOtherDt = Util.ConvertToDateTime(obj.Element("SummarySentOtherDt").Value),
                                WorkedWithAnotherAgencyInd = obj.Element("WorkedWithAnotherAgencyInd").Value,
-                               ChangeLastUserId = obj.Element("ChangeLastUserId").Value,                               
-                               CreateUserId = obj.Element("CreateUserId").Value
+                               //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,                               
+                               //CreateUserId = obj.Element("CreateUserId").Value
                                
                            };
                 ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];

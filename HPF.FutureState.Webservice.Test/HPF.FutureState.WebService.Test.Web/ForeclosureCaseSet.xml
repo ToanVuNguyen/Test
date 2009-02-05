@@ -95,8 +95,7 @@
     <HouseholdGrossAnnualIncomeAmt></HouseholdGrossAnnualIncomeAmt>
     <IntakeCreditScore></IntakeCreditScore>
     <FcSaleDate></FcSaleDate>
-    <CreateUserId>Agency1</CreateUserId>
-    <ChangeLastUserId>Agency1</ChangeLastUserId>
+    <WorkingUserId>Agency1</WorkingUserId>    
   <IntakeCreditBureauCd></IntakeCreditBureauCd>
   </ForeclosureCase>
   <CaseLoanSet>
