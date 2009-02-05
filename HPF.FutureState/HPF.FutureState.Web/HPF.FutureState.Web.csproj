@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{94A553D0-1C4D-4F55-8F69-A0F756889A94}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -263,6 +263,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InvoicePayment.aspx.cs">
+      <DependentUpon>InvoicePayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoicePayment.aspx.designer.cs">
+      <DependentUpon>InvoicePayment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoicePayments\InvoicePaymentsUC.ascx.cs">
+      <DependentUpon>InvoicePaymentsUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoicePayments\InvoicePaymentsUC.ascx.designer.cs">
+      <DependentUpon>InvoicePaymentsUC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="InvoicePayments\ViewEditInvoicePaymentUC.ascx.cs">
+      <DependentUpon>ViewEditInvoicePaymentUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvoicePayments\ViewEditInvoicePaymentUC.ascx.designer.cs">
+      <DependentUpon>ViewEditInvoicePaymentUC.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -326,6 +347,13 @@
     <Compile Include="SummaryEmail\SummaryEmailUC.ascx.designer.cs">
       <DependentUpon>SummaryEmailUC.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewEditInvoicePayment.aspx.cs">
+      <DependentUpon>ViewEditInvoicePayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEditInvoicePayment.aspx.designer.cs">
+      <DependentUpon>ViewEditInvoicePayment.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
@@ -357,6 +385,9 @@
     <Content Include="ForeclosureCaseDetail\CaseLoan.ascx" />
     <Content Include="ForeclosureCaseDetail\Outcome.ascx" />
     <Content Include="Global.asax" />
+    <Content Include="InvoicePayment.aspx" />
+    <Content Include="InvoicePayments\InvoicePaymentsUC.ascx" />
+    <Content Include="InvoicePayments\ViewEditInvoicePaymentUC.ascx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="NewInvoiceResultPage.aspx" />
@@ -381,6 +412,7 @@
     <Content Include="NewAgencyPayableResults.aspx" />
     <Content Include="AgencyAccountsPayable.aspx" />
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
+    <Content Include="ViewEditInvoicePayment.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
@@ -419,6 +451,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
