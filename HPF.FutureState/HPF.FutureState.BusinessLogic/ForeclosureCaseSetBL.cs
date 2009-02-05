@@ -300,12 +300,10 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
                 //-----SummarySentOtherCd, SummarySentOtherDt
-                if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null &&
-                    foreclosureCase.SummarySentOtherDt != DateTime.MinValue)
+                if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null && foreclosureCase.SummarySentOtherDt != null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SummarySentOtherCd is required to save a foreclosure case.");
-                else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null &&
-                         foreclosureCase.SummarySentOtherDt == DateTime.MinValue)
+                else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null && foreclosureCase.SummarySentOtherDt == null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SummarySentOtherDt is required to save a foreclosure case.");
                 //-----SrvcrWorkoutPlanCurrentInd
@@ -1641,9 +1639,9 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckBudgetSubcategory(BudgetItemDTO budgetItem)
         {
             BudgetSubcategoryDTOCollection budgetSubcategoryCollection = foreclosureCaseSetDAO.GetBudgetSubcategory();
-            if (budgetSubcategoryCollection == null || budgetSubcategoryCollection.Count < 1)
-                return true;
             int? budgetSubId = budgetItem.BudgetSubcategoryId;
+            if (budgetSubcategoryCollection == null || budgetSubcategoryCollection.Count < 1 || budgetSubId == null)
+                return true;            
             foreach(BudgetSubcategoryDTO item in budgetSubcategoryCollection)
             {
                 if (item.BudgetSubcategoryID == budgetSubId)
@@ -1886,7 +1884,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (BudgetAssetDTO item in budgetAssetCollection)
             {
                 totalAssest += item.AssetValue;
-            }            
+            }
             return totalAssest;
         }
 
@@ -1907,8 +1905,7 @@ namespace HPF.FutureState.BusinessLogic
                     else if (budgetCode == Constant.EXPENSES)
                         totalExpenses += item.BudgetItemAmt;
                 }
-            }
-            
+            }           
         }
 
         private string BuggetCategoryCode(ForeclosureCaseSetDAO foreClosureCaseSetDAO, int? subCategoryId)
