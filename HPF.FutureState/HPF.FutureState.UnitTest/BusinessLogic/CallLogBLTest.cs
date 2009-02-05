@@ -20,7 +20,7 @@ namespace HPF.FutureState.UnitTest
 
 
         private TestContext testContextInstance;
-        private CallLogDTO aCallLog;
+        static private CallLogDTO aCallLog;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -38,24 +38,10 @@ namespace HPF.FutureState.UnitTest
         }
 
         #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
+       
         //Use TestInitialize to run code before running each test
-        [TestInitialize()]
-        public void MyTestInitialize()
+        [ClassInitialize()]
+        public static void MyTestInitialize(TestContext testContext)
         {
             aCallLog = new CallLogDTO();
             SetCallLogTestData(aCallLog);
@@ -63,10 +49,10 @@ namespace HPF.FutureState.UnitTest
         }
         //
         //Use TestCleanup to run code after each test has run
-        [TestCleanup()]
-        public void MyTestCleanup()
+        [ClassCleanup()]
+        public static void MyTestCleanup()
         {
-            ClearTestData(aCallLog);   
+            ClearTestData();   
         }
         //
         #endregion
@@ -79,11 +65,11 @@ namespace HPF.FutureState.UnitTest
         public void RetrieveCallLogTestSuccess()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = 0; // TODO: Initialize to an appropriate value
-            CallLogDTO expected = null; // TODO: Initialize to an appropriate value
+            int callLogId = GetCallLogId(); // TODO: Initialize to an appropriate value
+            //CallLogDTO expected = null; // TODO: Initialize to an appropriate value
             CallLogDTO actual;
             actual = target.RetrieveCallLog(callLogId);
-            Assert.AreEqual(expected, actual);            
+            Assert.AreEqual(callLogId, actual.CallId);            
         }
 
         /// <summary>
@@ -93,7 +79,7 @@ namespace HPF.FutureState.UnitTest
         public void RetrieveCallLogTestFail()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = 2; // TODO: Initialize to an appropriate value
+            int callLogId = 0; // TODO: Initialize to an appropriate value
             CallLogDTO expected = null; // TODO: Initialize to an appropriate value
             CallLogDTO actual;
             actual = target.RetrieveCallLog(callLogId);
@@ -107,10 +93,10 @@ namespace HPF.FutureState.UnitTest
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
             int actual = target.InsertCallLog(aCallLog);
-            int expected = GetCallLogId();
-            Assert.AreEqual(expected, actual);
+            //int expected = GetCallLogId();
+            Assert.AreNotEqual(null, actual);
 
-            TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1}", expected, actual));
+            //TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1}", expected, actual));
            
         }
 
@@ -227,29 +213,30 @@ namespace HPF.FutureState.UnitTest
         #region helper
 
         #region property
-        string agency_name = "agency_name_68";
-        string servicer_name = "servicer_name_68";
-        string call_center_name = "call_center_68";
-        string working_user_id = "wui_686868";
+        static string agency_name = "utest_agency_name_68";
+        static string servicer_name = "utest_servicer_name_68";
+        static string call_center_name = "utest_call_center_68";
+        static string working_user_id = "utest_wui_686868";
         #endregion
 
-        private void SetCallLogTestData(CallLogDTO aCallLog)
+        static private void SetCallLogTestData(CallLogDTO aCallLog)
         {
-
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
             string sql = "Insert into Agency "
                + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-               + " ('" + agency_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+               + " ('" + agency_name + "', '"+ working_user_id +"' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
 
             sql = "Insert into Call_Center "
                 + " (call_center_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + call_center_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+                + " ('" + call_center_name + "', '" + working_user_id + "' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
 
             sql = "Insert into Servicer "
                 + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + servicer_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+                + " ('" + servicer_name + "', '" + working_user_id + "' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
 
             aCallLog.StartDate = new DateTime(2008, 10, 10);
             aCallLog.EndDate = DateTime.Now;
@@ -263,18 +250,24 @@ namespace HPF.FutureState.UnitTest
             aCallLog.CallCenterID = GetCallCenterID();
 
             aCallLog.SetInsertTrackingInformation(working_user_id);
+            dbConnection.Close();
         }
 
-        private void ClearTestData(CallLogDTO aCallLog)
+        static private void ClearTestData()
         {
-            string s = "Delete from Call where call_id = " + aCallLog.CallId;
-            ExecuteSql(s);
-            s = "Delete from Agency where agency_id = " + aCallLog.PrevAgencyId;
-            ExecuteSql(s);
-            s = "Delete from Call_Center where call_center_id = " + aCallLog.CallCenterID;
-            ExecuteSql(s);
-            s = "Delete from Servicer where servicer_id = " + aCallLog.ServicerId;
-            ExecuteSql(s);  
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+
+            string s = "Delete from Call where where create_user_id = '" + working_user_id + "'";
+            ExecuteSql(s, dbConnection);
+            s = "Delete from Agency where create_user_id ='" + working_user_id + "'";
+            ExecuteSql(s, dbConnection);
+            s = "Delete from Call_Center where call_center_id = '" + working_user_id + "'";
+            ExecuteSql(s, dbConnection);
+            s = "Delete from Servicer where create_user_id ='" + working_user_id + "'";
+            ExecuteSql(s, dbConnection);
+
+            dbConnection.Close();
         }
         
         private int GetCallLogId()
@@ -295,7 +288,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private int GetAgencyID()
+        static private int GetAgencyID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -313,7 +306,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private int GetServicerID()
+        static private int GetServicerID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -331,7 +324,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private int GetCallCenterID()
+        static private int GetCallCenterID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -348,16 +341,14 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private void ExecuteSql(string sql)
-        {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
+        static private void ExecuteSql(string sql, SqlConnection dbConnection)
+        {            
             var command = new SqlCommand();
             command.Connection = dbConnection;
             command.CommandText = sql;
-            command.ExecuteNonQuery();
-            dbConnection.Close();
+            command.ExecuteNonQuery();            
         }
+        
         private void ShowException(DataValidationException ex)
         {
             foreach (ExceptionMessage em in ex.ExceptionMessages)
