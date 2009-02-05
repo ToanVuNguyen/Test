@@ -70,8 +70,6 @@
              <asp:ListItem Value="None" Text="Select Both Complete & Incomplete Cases"></asp:ListItem>
             <asp:ListItem Value="Y" Text="Select Only Complete Cases" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="Select Only Incomplete Cases"></asp:ListItem>
-            
-            
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">

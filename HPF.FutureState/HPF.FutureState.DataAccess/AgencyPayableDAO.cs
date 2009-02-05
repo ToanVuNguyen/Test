@@ -76,7 +76,7 @@ namespace HPF.FutureState.DataAccess
         {
             var command = CreateSPCommand("hpf_agency_payable_case_insert", this.dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[12];
+            var sqlParam = new SqlParameter[14];
             sqlParam[0] = new SqlParameter("@pi_fc_id", agencyPayableCase.ForeclosureCaseId);
             sqlParam[1] = new SqlParameter("@pi_agency_payable_id", agencyPayableCase.AgencyPayableId);
             sqlParam[2] = new SqlParameter("@pi_pmt_dt", NullableDateTime(agencyPayableCase.PaymentDate));
@@ -87,10 +87,10 @@ namespace HPF.FutureState.DataAccess
             sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(agencyPayableCase.ChangeLastDate));
             sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableCase.ChangeLastUserId);
             sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableCase.ChangeLastAppName);
-            sqlParam[11] = new SqlParameter("@pi_NFMC_difference_eligible_ind ", agencyPayableCase.NFMCDifferenceEligibleInd);
-            sqlParam[12] = new SqlParameter("@pi_takeback_pmt_identified_dt", null);
-            sqlParam[13] = new SqlParameter("@pi_takeback_pmt_reason_cd", null);
-            sqlParam[14] = new SqlParameter("@pi_NFMC_difference_paid_amt", null);
+            sqlParam[10] = new SqlParameter("@pi_NFMC_difference_eligible_ind ", agencyPayableCase.NFMCDifferenceEligibleInd);
+            sqlParam[11] = new SqlParameter("@pi_takeback_pmt_identified_dt",DateTime.Now);
+            sqlParam[12] = new SqlParameter("@pi_takeback_pmt_reason_cd", null);
+            sqlParam[13] = new SqlParameter("@pi_NFMC_difference_paid_amt", null);
             
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
