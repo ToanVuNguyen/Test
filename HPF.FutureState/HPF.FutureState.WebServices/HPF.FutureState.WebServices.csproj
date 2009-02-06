@@ -84,7 +84,6 @@
   <ItemGroup>
     <Compile Include="AgencyWebService.asmx.cs">
       <DependentUpon>AgencyWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="BaseAgencyWebService.cs">
       <SubType>Component</SubType>
