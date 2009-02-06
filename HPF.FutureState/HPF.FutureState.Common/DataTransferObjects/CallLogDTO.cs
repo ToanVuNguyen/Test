@@ -49,6 +49,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be numeric")]
         public int? ServicerId { get; set; }
 
+        [NullableOrStringLengthValidator(true, 50, "OtherServicerName", Ruleset = "Default")]
         public string OtherServicerName { get; set; }
 
         [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default")]
