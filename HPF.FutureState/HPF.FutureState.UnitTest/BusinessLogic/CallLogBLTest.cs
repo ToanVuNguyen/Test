@@ -45,6 +45,7 @@ namespace HPF.FutureState.UnitTest
         [ClassInitialize()]
         public static void MyTestInitialize(TestContext testContext)
         {
+            MyTestCleanup();
             aCallLog = new CallLogDTO();
             SetCallLogTestData(aCallLog);
            
@@ -54,10 +55,7 @@ namespace HPF.FutureState.UnitTest
         [ClassCleanup()]
         public static void MyTestCleanup()
         {
-
-            ClearTestData();
-            command.Dispose();
-            dbConnection.Close();   
+            ClearTestData();            
         }
         //
         #endregion
