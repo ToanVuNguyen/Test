@@ -294,7 +294,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
                 txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
-                txtWorkingUserID.Text = fcCase.WorkingUserID.ToString();
+                txtWorkingUserID.Text = fcCase.ChangeUserID.ToString();
                 //txtCreateUserID.Text = fcCase.CreateUserId.ToString();
                 //txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
             }
@@ -1111,7 +1111,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //fcCaseSet.WorkingUserID = txtWorkingUserID.Text.Trim();
             
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
-            fcCaseSet.ForeclosureCase.WorkingUserID = txtWorkingUserID.Text.Trim();
+            fcCaseSet.ForeclosureCase.ChangeUserID = txtWorkingUserID.Text.Trim();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
             {

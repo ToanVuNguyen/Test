@@ -1987,7 +1987,7 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<System.DateTime> fcSaleDateField;
 
-        private string workingUserIDField;
+        private string changeUserIDField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
@@ -3215,15 +3215,15 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string WorkingUserID
+        public string ChangeUserID
         {
             get
             {
-                return this.workingUserIDField;
+                return this.changeUserIDField;
             }
             set
             {
-                this.workingUserIDField = value;
+                this.changeUserIDField = value;
             }
         }
     }

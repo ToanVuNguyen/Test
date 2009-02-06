@@ -288,7 +288,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                SummarySentOtherCd = obj.Element("SummarySentOtherCd").Value,
                                SummarySentOtherDt = Util.ConvertToDateTime(obj.Element("SummarySentOtherDt").Value),
                                WorkedWithAnotherAgencyInd = obj.Element("WorkedWithAnotherAgencyInd").Value,
-                               WorkingUserID = obj.Element("WorkingUserId").Value
+                               ChangeUserID = obj.Element("WorkingUserId").Value
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,                               
                                //CreateUserId = obj.Element("CreateUserId").Value
                                
