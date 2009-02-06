@@ -471,6 +471,15 @@ namespace HPF.FutureState.DataAccess
                     invoice.InvoicePaymentAmount = ConvertToDouble(reader["invoice_pmt_amt"]);
                     invoice.StatusCode = ConvertToString(reader["status_cd"]);
                     invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
+
+                    invoice.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                    invoice.CreateUserId = ConvertToString(reader["create_user_id"]);
+                    invoice.CreateAppName = ConvertToString(reader["create_app_name"]);
+                    invoice.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                    invoice.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                    invoice.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+
+
                     result.Invoice = invoice;
 
                     reader.NextResult();
@@ -492,6 +501,13 @@ namespace HPF.FutureState.DataAccess
                         invoiceCase.InvoiceCasePaymentAmount = ConvertToDouble(reader["invoice_case_pmt_amt"]);
                         invoiceCase.PaymentRejectReasonCode = ConvertToString(reader["pmt_reject_reason_cd"]);
                         invoiceCase.InvenstorLoanId = ConvertToString(reader["investor_loan_num"]);
+
+                        invoiceCase.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        invoiceCase.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        invoiceCase.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        invoiceCase.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        invoiceCase.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        invoiceCase.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
 
                         result.InvoiceCases.Add(invoiceCase);
                     }
