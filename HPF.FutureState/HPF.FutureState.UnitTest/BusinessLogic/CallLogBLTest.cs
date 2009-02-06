@@ -21,6 +21,7 @@ namespace HPF.FutureState.UnitTest
 
         private TestContext testContextInstance;
         static private CallLogDTO aCallLog;
+
         private static SqlConnection dbConnection;
         private static SqlCommand command;
         /// <summary>
@@ -45,11 +46,6 @@ namespace HPF.FutureState.UnitTest
         [ClassInitialize()]
         public static void MyTestInitialize(TestContext testContext)
         {
-            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            command = new SqlCommand();
-            command.Connection = dbConnection;
-
             aCallLog = new CallLogDTO();
             SetCallLogTestData(aCallLog);
            
@@ -59,6 +55,7 @@ namespace HPF.FutureState.UnitTest
         [ClassCleanup()]
         public static void MyTestCleanup()
         {
+
             ClearTestData();
             command.Dispose();
             dbConnection.Close();   
@@ -70,7 +67,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test for RetrieveCallLog
         ///</summary>
-        [TestMethod()]
+        //[TestMethod()]
         public void RetrieveCallLogTestSuccess()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value            
@@ -87,7 +84,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test fail for RetrieveCallLog        
         ///</summary>    
-        [TestMethod()]
+        //[TestMethod()]
         public void RetrieveCallLogTestFail()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
@@ -106,14 +103,23 @@ namespace HPF.FutureState.UnitTest
         public void InsertCallLogTest_Pass()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
+            
             CallLogDTO aCallLog = new CallLogDTO();
-            SetCallLogTestData(aCallLog);
-            int actual = target.InsertCallLog(aCallLog);
-            //int expected = GetCallLogId();
-            Assert.AreNotEqual(null, actual);
+            aCallLog.StartDate = new DateTime(2008, 10, 10);
+            aCallLog.EndDate = DateTime.Now;
+            aCallLog.CcAgentIdKey = working_user_id;
+            aCallLog.CcCallKey = "12345";
+            aCallLog.LoanDelinqStatusCd = "120+";
+            aCallLog.CallSourceCd = "Billboard";
+            aCallLog.FinalDispoCd = "COUNSELORTRANS";
+            aCallLog.PrevAgencyId = GetAgencyID();
+            aCallLog.ServicerId = GetServicerID();
+            aCallLog.CallCenterID = GetCallCenterID();
+            aCallLog.SetInsertTrackingInformation(working_user_id);
 
-            //TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1}", expected, actual));
-           
+            int actual = target.InsertCallLog(aCallLog);
+            int expected = GetCallLogId();
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -235,7 +241,7 @@ namespace HPF.FutureState.UnitTest
         static string working_user_id = "utest_wui_686868";
         #endregion
 
-        private static void SetCallLogTestData(CallLogDTO aCallLog)
+        static private void SetCallLogTestData(CallLogDTO aCallLog)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -269,7 +275,7 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Close();
         }
 
-        private static void ClearTestData()
+        static private void ClearTestData()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -357,9 +363,10 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-
-        private static void ExecuteSql(string sql, SqlConnection dbConnection)
+        static private void ExecuteSql(string sql, SqlConnection dbConnection)
         {            
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
             command.CommandText = sql;
             command.ExecuteNonQuery();            
         }
