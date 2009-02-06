@@ -1126,7 +1126,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
+            foreclosureCaseSet.ForeclosureCase.WorkingUserID = working_user_id;
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
             foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
@@ -1146,7 +1146,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
-            foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
+            foreclosureCaseSet.ForeclosureCase.WorkingUserID = working_user_id;
             foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";
             foreclosureCaseSet.ForeclosureCase.SummarySentOtherDt = DateTime.Now;
             ExceptionMessageCollection actual;
@@ -1290,7 +1290,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             caseLoanDTO.LoanDelinqStatusCd = "30-59";
             caseLoanDTO.InterestRate = 10;
             caseLoanDTO.CreateDate = DateTime.Now;
-            caseLoanDTO.CreateUserId = "CSC";
+            caseLoanDTO.CreateUserId = working_user_id;
             caseLoanDTO.CreateAppName = "CSC";
             caseLoanDTO.ChangeLastDate = DateTime.Now;
             caseLoanDTO.ChangeLastAppName = "CSC";
@@ -1307,7 +1307,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             caseLoanDTO.LoanDelinqStatusCd = "30-59";
             caseLoanDTO.InterestRate = 10;
             caseLoanDTO.CreateDate = DateTime.Now;
-            caseLoanDTO.CreateUserId = "CSC";
+            caseLoanDTO.CreateUserId = working_user_id;
             caseLoanDTO.CreateAppName = "CSC";
             caseLoanDTO.ChangeLastDate = DateTime.Now;
             caseLoanDTO.ChangeLastAppName = "CSC";
@@ -1323,7 +1323,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             outcomeItemDTO.ExtRefOtherName = "CSC";
             outcomeItemDTO.OutcomeDt = DateTime.Now;
             outcomeItemDTO.CreateDate = DateTime.Now;
-            outcomeItemDTO.CreateUserId = "HPF";
+            outcomeItemDTO.CreateUserId = working_user_id;
             outcomeItemDTO.CreateAppName = "HPF";
             outcomeItemDTO.ChangeLastDate = DateTime.Now;
             outcomeItemDTO.ChangeLastAppName = "HPF";
@@ -1336,7 +1336,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             outcomeItemDTO.ExtRefOtherName = "HPF";
             outcomeItemDTO.OutcomeDt = DateTime.Now;
             outcomeItemDTO.CreateDate = DateTime.Now;
-            outcomeItemDTO.CreateUserId = "HPF";
+            outcomeItemDTO.CreateUserId = working_user_id;
             outcomeItemDTO.CreateAppName = "HPF";
             outcomeItemDTO.ChangeLastDate = DateTime.Now;
             outcomeItemDTO.ChangeLastAppName = "HPF";
@@ -1351,7 +1351,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             budgetItemDTO.BudgetItemAmt = Convert.ToDouble("1000");
             budgetItemDTO.BudgetNote = null;
             budgetItemDTO.CreateDate = DateTime.Now;
-            budgetItemDTO.CreateUserId = "CSC";
+            budgetItemDTO.CreateUserId = working_user_id;
             budgetItemDTO.CreateAppName = "HPF";
             budgetItemDTO.ChangeLastDate = DateTime.Now;
             budgetItemDTO.ChangeLastAppName = "HPF";
@@ -1363,7 +1363,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300");
             budgetItemDTO.BudgetNote = null;
             budgetItemDTO.CreateDate = DateTime.Now;
-            budgetItemDTO.CreateUserId = "HPF";
+            budgetItemDTO.CreateUserId = working_user_id;
             budgetItemDTO.CreateAppName = "HPF";
             budgetItemDTO.ChangeLastDate = DateTime.Now;
             budgetItemDTO.ChangeLastAppName = "HPF";
@@ -1378,7 +1378,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             budgetAsset.AssetName = "CSC";
             budgetAsset.AssetValue = Convert.ToDouble("506");
             budgetAsset.CreateDate = DateTime.Now;
-            budgetAsset.CreateUserId = "HPF";
+            budgetAsset.CreateUserId = working_user_id;
             budgetAsset.CreateAppName = "HPF";
             budgetAsset.ChangeLastDate = DateTime.Now;
             budgetAsset.ChangeLastAppName = "HPF";
@@ -1390,7 +1390,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             budgetAsset.AssetName = "CSC";
             budgetAsset.AssetValue = Convert.ToDouble("350");
             budgetAsset.CreateDate = DateTime.Now;
-            budgetAsset.CreateUserId = "HPF";
+            budgetAsset.CreateUserId = working_user_id;
             budgetAsset.CreateAppName = "HPF";
             budgetAsset.ChangeLastDate = DateTime.Now;
             budgetAsset.ChangeLastAppName = "HPF";
@@ -1402,8 +1402,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.CompleteTransaction();
             string expected = "Acency Case Num Test";
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
-            string actual = fcCase.AgencyCaseNum;
-            DeleteForeclosureCase(fcId);
+            string actual = fcCase.AgencyCaseNum;            
             Assert.AreEqual(expected, actual);
         }        
 
@@ -1453,7 +1452,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.DoNotCallInd = "N";
             foreclosureCase.PrimaryResidenceInd = "Y";
             foreclosureCase.CreateDate = DateTime.Now;
-            foreclosureCase.CreateUserId = "HPF";
+            foreclosureCase.CreateUserId = working_user_id;
             foreclosureCase.CreateAppName = "HPF";
             foreclosureCase.ChangeLastDate = DateTime.Now;
             foreclosureCase.ChangeLastAppName = "HPF";
@@ -1485,7 +1484,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     budgetAsset.AssetName = "01234567890123456789012345678901234567890123456789";
                     budgetAsset.AssetValue = Convert.ToDouble("30.65");
                     budgetAsset.CreateDate = DateTime.Now;
-                    budgetAsset.CreateUserId = "HPF";
+                    budgetAsset.CreateUserId = working_user_id;
                     budgetAsset.CreateAppName = "HPF";
                     budgetAsset.ChangeLastDate = DateTime.Now;
                     budgetAsset.ChangeLastAppName = "HPF";
@@ -1500,7 +1499,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetAsset.AssetName = "Test";
                 budgetAsset.AssetValue = Convert.ToDouble("30.65");
                 budgetAsset.CreateDate = DateTime.Now;
-                budgetAsset.CreateUserId = "HPF";
+                budgetAsset.CreateUserId = working_user_id;
                 budgetAsset.CreateAppName = "HPF";
                 budgetAsset.ChangeLastDate = DateTime.Now;
                 budgetAsset.ChangeLastAppName = "HPF";
@@ -1521,7 +1520,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO.BudgetItemAmt = Convert.ToDouble("900.08");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
-                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateUserId = working_user_id;
                 budgetItemDTO.CreateAppName = "HPF";
                 budgetItemDTO.ChangeLastDate = DateTime.Now;
                 budgetItemDTO.ChangeLastAppName = "HPF";
@@ -1534,7 +1533,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO.BudgetItemAmt = Convert.ToDouble("300.05");
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
-                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateUserId = working_user_id;
                 budgetItemDTO.CreateAppName = "HPF";
                 budgetItemDTO.ChangeLastDate = DateTime.Now;
                 budgetItemDTO.ChangeLastAppName = "HPF";
@@ -1549,7 +1548,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO.BudgetItemAmt = 900.08;
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
-                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateUserId = working_user_id;
                 budgetItemDTO.CreateAppName = "HPF";
                 budgetItemDTO.ChangeLastDate = DateTime.Now;
                 budgetItemDTO.ChangeLastAppName = "HPF";
@@ -1562,7 +1561,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 budgetItemDTO.BudgetItemAmt = 300.05;
                 budgetItemDTO.BudgetNote = null;
                 budgetItemDTO.CreateDate = DateTime.Now;
-                budgetItemDTO.CreateUserId = "HPF";
+                budgetItemDTO.CreateUserId = working_user_id;
                 budgetItemDTO.CreateAppName = "HPF";
                 budgetItemDTO.ChangeLastDate = DateTime.Now;
                 budgetItemDTO.ChangeLastAppName = "HPF";
@@ -1585,7 +1584,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     outcomeItemDTO.ExtRefOtherName = "Test";
                     outcomeItemDTO.OutcomeDt = DateTime.Now;
                     outcomeItemDTO.CreateDate = DateTime.Now;
-                    outcomeItemDTO.CreateUserId = "HPF";
+                    outcomeItemDTO.CreateUserId = working_user_id;
                     outcomeItemDTO.CreateAppName = "HPF";
                     outcomeItemDTO.ChangeLastDate = DateTime.Now;
                     outcomeItemDTO.ChangeLastAppName = "HPF";
@@ -1603,7 +1602,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     outcomeItemDTO.ExtRefOtherName = "Test";
                     outcomeItemDTO.OutcomeDt = DateTime.Now;
                     outcomeItemDTO.CreateDate = DateTime.Now;
-                    outcomeItemDTO.CreateUserId = "HPF";
+                    outcomeItemDTO.CreateUserId = working_user_id;
                     outcomeItemDTO.CreateAppName = "HPF";
                     outcomeItemDTO.ChangeLastDate = DateTime.Now;
                     outcomeItemDTO.ChangeLastAppName = "HPF";
@@ -1630,7 +1629,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 10;
                     caseLoanDTO.CreateDate = DateTime.Now;
-                    caseLoanDTO.CreateUserId = "HPF";
+                    caseLoanDTO.CreateUserId = working_user_id;
                     caseLoanDTO.CreateAppName = "HPF";
                     caseLoanDTO.ChangeLastDate = DateTime.Now;
                     caseLoanDTO.ChangeLastAppName = "HPF";
@@ -1651,7 +1650,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     caseLoanDTO.LoanDelinqStatusCd = "30-59";
                     caseLoanDTO.InterestRate = 1;
                     caseLoanDTO.CreateDate = DateTime.Now;
-                    caseLoanDTO.CreateUserId = "HPF";
+                    caseLoanDTO.CreateUserId = working_user_id;
                     caseLoanDTO.CreateAppName = "HPF";
                     caseLoanDTO.ChangeLastDate = DateTime.Now;
                     caseLoanDTO.ChangeLastAppName = "HPF";
@@ -1669,7 +1668,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 budgetSetDTO.BudgetSetDt = Convert.ToDateTime("12/12/2009");
                 budgetSetDTO.CreateDate = DateTime.Now;
-                budgetSetDTO.CreateUserId = "HPF";
+                budgetSetDTO.CreateUserId = working_user_id;
                 budgetSetDTO.CreateAppName = "HPF";
                 budgetSetDTO.ChangeLastDate = DateTime.Now;
                 budgetSetDTO.ChangeLastAppName = "HPF";
@@ -1679,7 +1678,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 budgetSetDTO.BudgetSetDt = Convert.ToDateTime("12/12/2009");
                 budgetSetDTO.CreateDate = DateTime.Now;
-                budgetSetDTO.CreateUserId = "HPF";
+                budgetSetDTO.CreateUserId = working_user_id;
                 budgetSetDTO.CreateAppName = "HPF";
                 budgetSetDTO.ChangeLastDate = DateTime.Now;
                 budgetSetDTO.ChangeLastAppName = "HPF";
@@ -1699,7 +1698,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                     activityLog.ActivityCd = "Test";
                     activityLog.ActivityDt = DateTime.Now;
                     activityLog.CreateDate = DateTime.Now;
-                    activityLog.CreateUserId = "HPF";
+                    activityLog.CreateUserId = working_user_id;
                     activityLog.CreateAppName = "HPF";
                     activityLog.ChangeLastDate = DateTime.Now;
                     activityLog.ChangeLastAppName = "HPF";
@@ -1713,7 +1712,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 {
                     ActivityLogDTO activityLog = new ActivityLogDTO();                   
                     activityLog.CreateDate = DateTime.Now;
-                    activityLog.CreateUserId = "HPF";
+                    activityLog.CreateUserId = working_user_id;
                     activityLog.CreateAppName = "HPF";
                     activityLog.ChangeLastDate = DateTime.Now;
                     activityLog.ChangeLastAppName = "HPF";
