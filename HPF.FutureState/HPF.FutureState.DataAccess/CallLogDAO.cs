@@ -55,10 +55,10 @@ namespace HPF.FutureState.DataAccess
             sqlParam[8] = new SqlParameter("@pi_loan_acct_num", aCallLog.LoanAccountNumber);
             sqlParam[9] = new SqlParameter("@pi_fname", aCallLog.FirstName);
             sqlParam[10] = new SqlParameter("@pi_lname", aCallLog.LastName);
-            sqlParam[11] = new SqlParameter("@pi_servicer_id", aCallLog.ServicerId);
+            sqlParam[11] = new SqlParameter("@pi_servicer_id", NullableInteger(aCallLog.ServicerId));
             sqlParam[12] = new SqlParameter("@pi_other_servicer_name", aCallLog.OtherServicerName);
             sqlParam[13] = new SqlParameter("@pi_prop_zip_full9", aCallLog.PropZipFull9);
-            sqlParam[14] = new SqlParameter("@pi_prev_agency_id", aCallLog.PrevAgencyId);
+            sqlParam[14] = new SqlParameter("@pi_prev_agency_id", NullableInteger(aCallLog.PrevAgencyId));
             sqlParam[15] = new SqlParameter("@pi_selected_agency_id", aCallLog.SelectedAgencyId);
             sqlParam[16] = new SqlParameter("@pi_screen_rout", aCallLog.ScreenRout);
             sqlParam[17] = new SqlParameter("@pi_final_dispo_cd", aCallLog.FinalDispoCd);
