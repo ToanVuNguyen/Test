@@ -1035,7 +1035,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.WorkingUserID = working_user_id;
+            foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
             foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
@@ -1055,7 +1055,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
-            foreclosureCaseSet.ForeclosureCase.WorkingUserID = working_user_id;
+            foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
             foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";            
             ExceptionMessageCollection actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);            
@@ -1635,7 +1635,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private ForeclosureCaseSetDTO SetForeclosureCaseSet(string status)
         {            
             ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            //foreclosureCaseSet.WorkingUserID = "test working uID";
+            //foreclosureCaseSet.ChangeUserID = "test working uID";
             foreclosureCaseSet.ForeclosureCase = SetForeclosureCase(status);
             foreclosureCaseSet.CaseLoans = SetCaseLoanCollection(status);
             foreclosureCaseSet.Outcome = SetOutcomeItemCollection(status);
@@ -1643,7 +1643,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.BudgetItems = SetBudgetItemCollection(status);
             foreclosureCaseSet.BudgetAssets = SetBudgetAssetCollection(status);
             foreclosureCaseSet.ActivityLog = SetActivityLogCollection(status);
-            //foreclosureCaseSet.WorkingUserID = "HPF";
+            //foreclosureCaseSet.ChangeUserID = "HPF";
             return foreclosureCaseSet;
         }
 
