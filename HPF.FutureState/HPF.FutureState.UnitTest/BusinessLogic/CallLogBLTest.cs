@@ -21,7 +21,6 @@ namespace HPF.FutureState.UnitTest
 
         private TestContext testContextInstance;
         static private CallLogDTO aCallLog;
-
         private static SqlConnection dbConnection;
         private static SqlCommand command;
         /// <summary>
@@ -247,17 +246,17 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             string sql = "Insert into Agency "
                + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-               + " ('" + agency_name + "', '"+ working_user_id +"' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+               + " ('" + agency_name + "', 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
 
             sql = "Insert into Call_Center "
                 + " (call_center_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + call_center_name + "', '" + working_user_id + "' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " ('" + call_center_name + "', 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
 
             sql = "Insert into Servicer "
                 + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + servicer_name + "', '" + working_user_id + "' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " ('" + servicer_name + "', 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
 
             aCallLog.StartDate = new DateTime(2008, 10, 10);
@@ -280,11 +279,11 @@ namespace HPF.FutureState.UnitTest
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
 
-            string s = "Delete from Call where where create_user_id = '" + working_user_id + "'";
+            string s = "Delete from Call where create_user_id = '" + working_user_id + "'";
             ExecuteSql(s, dbConnection);
             s = "Delete from Agency where create_user_id ='" + working_user_id + "'";
             ExecuteSql(s, dbConnection);
-            s = "Delete from Call_Center where call_center_id = '" + working_user_id + "'";
+            s = "Delete from Call_Center where create_user_id = '" + working_user_id + "'";
             ExecuteSql(s, dbConnection);
             s = "Delete from Servicer where create_user_id ='" + working_user_id + "'";
             ExecuteSql(s, dbConnection);
@@ -376,6 +375,18 @@ namespace HPF.FutureState.UnitTest
             foreach (ExceptionMessage em in ex.ExceptionMessages)
                 TestContext.WriteLine(em.Message);
         }
+        #endregion
+
+        #region Sript to manually work with db
+        //select top(2) * from Call order by Call_Id desc 
+        //select top(2) * from Call_Center where call_center_name = 'utest_call_center_68'
+        //select top(2) * from Servicer where servicer_name = 'utest_servicer_name_68'
+        //Select top(2) * from Agency where agency_name = 'utest_agency_name_68'
+
+        //Delete from Call where cc_agent_id_key = 'utest_wui_686868'
+        //Delete from Call_Center where call_center_name = 'utest_call_center_68'
+        //Delete from Servicer where servicer_name = 'utest_servicer_name_68'
+        //Delete from Agency where agency_name = 'utest_agency_name_68'
         #endregion
         #endregion
     }
