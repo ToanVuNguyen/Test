@@ -348,8 +348,11 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1)
+            if ((outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1) && ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
+            {
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Missing Outcome item. At least one Outcome item is required to save a foreclosure case.");
+                return msgFcCaseSet;
+            }
             int? outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
             foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
             {
@@ -393,8 +396,11 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (caseLoanDTOCollection == null || caseLoanDTOCollection.Count < 1)
+            if ((caseLoanDTOCollection == null || caseLoanDTOCollection.Count < 1) && ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
+            {
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0126, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0126));
+                return msgFcCaseSet;
+            }
             int? servicerId = FindServicerIDWithNameIsOther();            
             foreach (CaseLoanDTO item in caseLoanDTOCollection)
             {

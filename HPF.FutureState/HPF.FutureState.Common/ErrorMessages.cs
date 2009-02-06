@@ -411,7 +411,7 @@ namespace HPF.FutureState.Common
                                               +"Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
                                               +"Last Outcome: {12} ");                
                 errorMessageDict.Add(ERR0254, "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
-                errorMessageDict.Add(ERR0255, "A previously completed case cannot become uncompleted. An update was submitted without all fields required to compleg.");
+                errorMessageDict.Add(ERR0255, "A previously completed case cannot become uncompleted. An update was submitted without all fields required to complete.");
                 errorMessageDict.Add(ERR0256, "Only one loan can be designated as '1st'.");
                 errorMessageDict.Add(ERR0257, "ContactZip must contain 5 numeric digits.");
                 errorMessageDict.Add(ERR0258, "PropZip must contain 5 numberic digits.");
