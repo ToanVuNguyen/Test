@@ -2163,5 +2163,19 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             target.AppSearchforeClosureCase(criteria);
         }
         #endregion
+
+
+        #region script to manually work with db
+        //delete from case_loan where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
+        //delete from activity_log where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
+        //delete from foreclosure_case where prop_zip = '68686'
+        //delete from agency where agency_name = 'agency_name_68'
+        //delete from servicer where servicer_name = 'servicer_name_68'
+
+        //select * from case_loan where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
+        //Select * from servicer where servicer_name = 'servicer_name_68'
+        //Select * from agency where agency_name = 'agency_name_68'
+        //Select fc_id, prop_zip from foreclosure_case where prop_zip = '68686'
+        #endregion
     }
 }
