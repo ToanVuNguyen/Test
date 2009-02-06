@@ -40,6 +40,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static string agency_name = "agency_name_68";
         static string servicer_name = "servicer_name_68";
         static int fc_id = 0;
+        static int fc_id_complete_true = 0;
+        static int fc_id_complete_false = 0;
+        static int fc_id_complete_null = 0;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -393,6 +396,50 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
                 + ", 'HPF' ,'" + working_user_id +"' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id +"', '" + DateTime.Now + "' )";
              ExecuteSql(sql, dbConnection);
+
+            //CompleteDate: True
+             sql = "Insert into foreclosure_case "
+                 + " (completed_dt, agency_id, program_id, intake_dt"
+                 + ", borrower_fname, borrower_lname, primary_contact_no"
+                 + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                 + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                 + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                 + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                 + ", counselor_fname, counselor_lname, counselor_id_ref"
+                 + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                 + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                 + " ('2007/12/12', " + agency_id + ", 1, '" + DateTime.Now + "'"
+                 + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                 + ", 'acbdfegh123456789', 'cty', 'scod', 'czip'"
+                 + ", 'Y', 'Y', 'email'"
+                 + ", 'phone', 'Y', 'Y'"
+                 + ", 'Y', 'Y', 'Y'"
+                 + ", 'cfname', 'clname', 'cidref'"
+                 + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
+                 + ", 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
+             ExecuteSql(sql, dbConnection);
+
+             //CompleteDate: False
+             sql = "Insert into foreclosure_case "
+                 + " (completed_dt, agency_id, program_id, intake_dt"
+                 + ", borrower_fname, borrower_lname, primary_contact_no"
+                 + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                 + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                 + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                 + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                 + ", counselor_fname, counselor_lname, counselor_id_ref"
+                 + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                 + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                 + " ('2009/12/12', " + agency_id + ", 1, '" + DateTime.Now + "'"
+                 + ", '" + first_name + "', 'Lastname', 'pcontactno'"
+                 + ", '123456789acbdfegh', 'cty', 'scod', 'czip'"
+                 + ", 'Y', 'Y', 'email'"
+                 + ", 'phone', 'Y', 'Y'"
+                 + ", 'Y', 'Y', 'Y'"
+                 + ", 'cfname', 'clname', 'cidref'"
+                 + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
+                 + ", 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
+             ExecuteSql(sql, dbConnection);
             #endregion
 
             #region servicer, case_loan
@@ -403,6 +450,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ExecuteSql(sql, dbConnection);
 
             fc_id = SearchFcCase_GetFcID();
+            fc_id_complete_null = fc_id;
+            fc_id_complete_true = SearchFcCase_GetFcID_CompleteTrue();
+            fc_id_complete_false = SearchFcCase_GetFcID_CompleteFalse();
             int servicer_id = SearchFcCase_GetServicerID();
             sql = "Insert into Case_Loan "
                 + " (fc_id, servicer_id, acct_num, loan_1st_2nd_cd, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
@@ -458,6 +508,54 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             string sql = "SELECT fc_id FROM foreclosure_case " +
                             " WHERE prop_zip = '" + prop_zip + "'"
                             + " and agency_case_num = '" + agency_case_number + "'";
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            try
+            {
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    result = int.Parse(reader["fc_id"].ToString());
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
+            return result;
+        }
+
+        static private int SearchFcCase_GetFcID_CompleteTrue()
+        {
+            int result = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "SELECT fc_id FROM foreclosure_case WHERE contact_addr1 = 'acbdfegh123456789'";
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            try
+            {
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    result = int.Parse(reader["fc_id"].ToString());
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
+            return result;
+        }
+
+        static private int SearchFcCase_GetFcID_CompleteFalse()
+        {
+            int result = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "SELECT fc_id FROM foreclosure_case WHERE contact_addr1 = '123456789acbdfegh'";
             var command = new SqlCommand(sql, dbConnection);
             dbConnection.Open();
             try
@@ -911,6 +1009,22 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
 
         #region CheckInactiveCase
+
+        /// <summary>
+        ///A test for CheckInactiveCase with FcId without CompleteDate
+        ///Case True
+        ///</summary>        
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                                           
+            //int fcId = SearchFcCase_GetFcID();            
+            bool expected = false;
+            bool actual = target.CheckInactiveCase(fc_id_complete_null);
+            Assert.AreEqual(expected, actual);
+        }
+
         /// <summary>
         ///A test for CheckInactiveCase With FcId and CompleteDate
         ///Case True
@@ -920,13 +1034,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDAndCompleteDateTrue()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
-            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();
-            int fcId = SearchFcCase_GetFcID();
-            fCase.FcId = fcId;
-            fCase.CompletedDt = Convert.ToDateTime("12/12/2007");
-            UpdateForeclosureCase(fCase);
+            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();                        
             bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckInactiveCase(fcId);
+            bool actual = target.CheckInactiveCase(fc_id_complete_true);
             Assert.AreEqual(expected, actual);
         }
 
@@ -939,30 +1049,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDAndCompleteDateFalse()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
-            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();
-            //int fcId = SearchFcCase_GetFcID();
-            fCase.FcId = fc_id;
-            fCase.CompletedDt = Convert.ToDateTime("12/12/2008");
-            UpdateForeclosureCase(fCase);
+            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();                        
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckInactiveCase(fc_id);            
+            bool actual = target.CheckInactiveCase(fc_id_complete_false);            
             Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for CheckInactiveCase with FcId without CompleteDate
-        ///Case True
-        ///</summary>        
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                                           
-            //int fcId = SearchFcCase_GetFcID();            
-            bool expected = false; 
-            bool actual = target.CheckInactiveCase(fc_id);
-            Assert.AreEqual(expected, actual);         
-        }
+        }       
 
         /// <summary>
         ///A test for CheckInactiveCase with FcId without CompleteDate
@@ -974,7 +1065,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseDTO foreclosureCase = SetForeclosureCase("FALSE");
-            foreclosureCase.AgencyId = SearchFcCase_GetAgencyID();
+            foreclosureCase.AgencyId = agency_id;// SearchFcCase_GetAgencyID();
             ExceptionMessageCollection actual;            
             actual = target.CheckValidAgencyId(foreclosureCase);            
             ExceptionMessageCollection expected = null; // TODO: Initialize to an appropriate value
@@ -1056,7 +1147,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
             foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
-            foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";            
+            foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";
+            foreclosureCaseSet.ForeclosureCase.SummarySentOtherDt = DateTime.Now;
             ExceptionMessageCollection actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);            
             Assert.AreEqual(0, actual.Count);
