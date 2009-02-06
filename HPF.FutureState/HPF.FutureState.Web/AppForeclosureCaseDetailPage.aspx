@@ -23,7 +23,7 @@
             </td>
             <td align="center">
                 <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" 
-                    Text="Print Summary" />
+                    Text="Print Summary" onclick="btn_Print_Click" />
             </td>
         </tr>
         <tr>

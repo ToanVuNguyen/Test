@@ -16,6 +16,7 @@ using HPF.FutureState.BusinessLogic;
 using System.Globalization;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils;
 
 
 namespace HPF.FutureState.Web.SummaryEmail
@@ -52,26 +53,15 @@ namespace HPF.FutureState.Web.SummaryEmail
 
                 if (result == true)
                 {
-                    try
-                    {
-                        MailMessage em = new MailMessage(from, to, subject, body);
-                        Attachment attach = new Attachment(@"D:\test.pdf");
-                        em.Attachments.Add(attach);
-                        em.IsBodyHtml = true;
-
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = ConfigurationManager.AppSettings["smtpServer"];
-                        smtp.UseDefaultCredentials = true;
-                        smtp.Port = 25;
-                        smtp.Send(em);
-
-                        return "Email was sent: " + to + ".";
-                    }
-                    catch (Exception ex)
-                    {
-                        return ex.Message;
-                        ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                    }
+                    HPFSendMail hpfSendMail = new HPFSendMail();
+                    ReportingExporter reportExport = new ReportingExporter();
+                    hpfSendMail.To = SendTo;
+                    hpfSendMail.Subject = Subject;
+                    hpfSendMail.Body = Body;
+                    reportExport.ReportPath = @"D:\";
+                    byte[] attachContent = reportExport.ExportToPdf();
+                    hpfSendMail.AddAttachment("hpf_report.pdf", attachContent);
+                    hpfSendMail.Send();
                 }
                 else
                 {
@@ -83,6 +73,7 @@ namespace HPF.FutureState.Web.SummaryEmail
                 return ex.Message;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+            return "successful";
         }
 
         protected void btnSend_Click(object sender, EventArgs e)
@@ -96,7 +87,7 @@ namespace HPF.FutureState.Web.SummaryEmail
             ActivityLogDTO activityLog = GetActivityLogInfo();
             activityLog.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             ActivityLogBL.Instance.InsertActivityLog(activityLog);
-            
+
         }
         protected ActivityLogDTO GetActivityLogInfo()
         {
