@@ -340,8 +340,8 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[72] = new SqlParameter("@pi_followup_notes", NullableString(foreclosureCase.FollowupNotes));
                 sqlParam[73] = new SqlParameter("@pi_prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
                 sqlParam[74] = new SqlParameter("@pi_counselor_id_ref", NullableString(foreclosureCase.AssignedCounselorIdRef));
-                sqlParam[75] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorFname));
-                sqlParam[76] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorLname));
+                sqlParam[75] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorLname));
+                sqlParam[76] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorFname));
                 sqlParam[77] = new SqlParameter("@pi_counselor_email", NullableString(foreclosureCase.CounselorEmail));
                 sqlParam[78] = new SqlParameter("@pi_counselor_phone", NullableString(foreclosureCase.CounselorPhone));
                 sqlParam[79] = new SqlParameter("@pi_counselor_ext", NullableString(foreclosureCase.CounselorExt));
@@ -804,8 +804,8 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[74] = new SqlParameter("@pi_followup_notes", NullableString(foreclosureCase.FollowupNotes));
                 sqlParam[75] = new SqlParameter("@pi_prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
                 sqlParam[76] = new SqlParameter("@pi_counselor_id_ref", NullableString(foreclosureCase.AssignedCounselorIdRef));
-                sqlParam[77] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorFname));
-                sqlParam[78] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorLname));
+                sqlParam[77] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorLname));
+                sqlParam[78] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorFname));
                 sqlParam[79] = new SqlParameter("@pi_counselor_email", NullableString(foreclosureCase.CounselorEmail));
                 sqlParam[80] = new SqlParameter("@pi_counselor_phone", NullableString(foreclosureCase.CounselorPhone));
                 sqlParam[81] = new SqlParameter("@pi_counselor_ext", NullableString(foreclosureCase.CounselorExt));
