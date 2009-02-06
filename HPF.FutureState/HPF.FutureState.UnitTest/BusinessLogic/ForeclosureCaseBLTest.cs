@@ -28,18 +28,18 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
 
         private TestContext testContextInstance;
-        
-        string prop_zip = "68686";
-        string ssn = "6868";
-        string agency_case_number = "686868686868";
-        string first_name = "Test data";
-        int agency_id = 2;
-        string acct_num = "acct_num6868";
 
-        string agency_name = "agency_name_68";
-        string servicer_name = "servicer_name_68";
+        static string prop_zip = "68686";
+        static string ssn = "6868";
+        static string agency_case_number = "686868686868";
+        static string first_name = "Test data";
+        static int agency_id = 2;
+        static string acct_num = "acct_num6868";
+        static string working_user_id = "utest_FC_test_12345";
 
-        string[][] criterias;
+        static string agency_name = "agency_name_68";
+        static string servicer_name = "servicer_name_68";
+        static int fc_id = 0;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -64,28 +64,28 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-           
+            SearchFcCase_GenerateTestData();            
         }
         //
         //Use ClassCleanup to run code after all tests in a class have run
         [ClassCleanup()]
         public static void MyClassCleanup()
         {
-            
+            SearchFcCase_ClearTestData();
         }
         //
         //Use TestInitialize to run code before running each test
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            SearchFcCase_GenerateTestData();            
+            
         }
         
         //Use TestCleanup to run code after each test has run
         [TestCleanup()]
         public void MyTestCleanup()
         {
-            SearchFcCase_ClearTestData();
+            
         }
         //
         #endregion
@@ -108,13 +108,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
 
-            int expected = SearchFcCase_GetFcID();
-            int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
+            //int expected = SearchFcCase_GetFcID();
+            ForeclosureCaseSearchResult actual = target.SearchForeclosureCase(searchCriteria, 50);
 
             //SearchFcCase_ClearTestData();
-
-            Assert.AreEqual(expected, actual);  
-            TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ",expected, actual));
+            Assert.AreEqual(1, actual.Count);  
+            Assert.AreEqual(fc_id, actual[0].FcId);  
+            //TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ",expected, actual));
         }
 
         
@@ -395,12 +395,15 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         #region helper
 
-        private void SearchFcCase_GenerateTestData()
+        static private void SearchFcCase_GenerateTestData()
         {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            
             string sql = "Insert into Agency "
                 + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + agency_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+                + " ('" + agency_name + "', 'HPF' ,'" + working_user_id+ "' ,'" + DateTime.Now + "', 'HPF', '"+working_user_id+"', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
             agency_id = SearchFcCase_GetAgencyID();
             
             #region fc_case
@@ -422,8 +425,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + ", 'Y', 'Y', 'Y'"
                 + ", 'cfname', 'clname', 'cidref'"
                 + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
-                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+                + ", 'HPF' ,'" + working_user_id +"' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id +"', '" + DateTime.Now + "' )";
+             ExecuteSql(sql, dbConnection);
             #endregion
 
             #region agency, servicer, case_loan
@@ -432,52 +435,58 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             sql = "Insert into Servicer "
                 + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('" + servicer_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
-            int fc_id = SearchFcCase_GetFcID();
+            fc_id = SearchFcCase_GetFcID();
             int servicer_id = SearchFcCase_GetServicerID();
             sql = "Insert into Case_Loan "
                 + " (fc_id, servicer_id, acct_num, loan_1st_2nd_cd, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " (" + fc_id + ", " + servicer_id + ", '" + acct_num + "', '1st', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+                + " (" + fc_id + ", " + servicer_id + ", '" + acct_num + "', '1st', 'HPF' ,'"+working_user_id+"' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id+"', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
             #endregion
 
+            dbConnection.Close();
         }
 
-        private void SearchFcCase_ClearTestData()
+        static private void SearchFcCase_ClearTestData()
         {
-            int fc_id = SearchFcCase_GetFcID();
-            int bsId = GetBudgetSetId(fc_id);
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
 
-            string sql = "Delete from Case_Loan where fc_id = " + fc_id;
-            ExecuteSql(sql);
+            //int fc_id = SearchFcCase_GetFcID();
+            //int bsId = GetBudgetSetId(fc_id);
 
-            sql = "DELETE FROM Budget_Asset WHERE budget_set_id =" + bsId;
-            ExecuteSql(sql);
+            string sql = "Delete from Case_Loan create_user_id = '" + working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Budget_Item WHERE budget_set_id =" + bsId;
-            ExecuteSql(sql);
+            sql = "DELETE FROM Budget_Asset WHERE create_user_id ='" + working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Budget_Set WHERE fc_id =" + fc_id;
-            ExecuteSql(sql);
+            sql = "DELETE FROM Budget_Item WHERE create_user_id ='" +working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Outcome_Item WHERE fc_id =" + fc_id;
-            ExecuteSql(sql);
+            sql = "DELETE FROM Budget_Set WHERE create_user_id ='" +working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from activity_log where fc_id = " + fc_id; ;
-            ExecuteSql(sql);
+            sql = "DELETE FROM Outcome_Item WHERE create_user_id ='" + working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from Foreclosure_case where fc_id = " + fc_id;
-            ExecuteSql(sql);
+            sql = "Delete from activity_log where create_user_id = '" + working_user_id + "'"; ;
+            ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from Agency where Agency_Name = '" + agency_name + "'";
-            ExecuteSql(sql);
-            
-            sql = "Delete from Servicer where Servicer_Name = '" + servicer_name + "'";
-            ExecuteSql(sql);
+            sql = "Delete from Foreclosure_case where create_user_id = '" +working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
+
+            sql = "Delete from Agency where create_user_id = '" +working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
+
+            sql = "Delete from Servicer where create_user_id = '"  +working_user_id + "'";
+            ExecuteSql(sql, dbConnection);
+
+            dbConnection.Close();
         }
 
-        private int SearchFcCase_GetFcID()
+        static private int SearchFcCase_GetFcID()
         {
             int result = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -502,8 +511,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             dbConnection.Close();
             return result;
         }
-        
-        private int SearchFcCase_GetAgencyID()
+
+        static private int SearchFcCase_GetAgencyID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -521,7 +530,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return id;
         }
 
-        private int SearchFcCase_GetServicerID()
+        static private int SearchFcCase_GetServicerID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -539,15 +548,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return id;
         }
 
-        private void ExecuteSql(string sql)
-        {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
+        static private void ExecuteSql(string sql, SqlConnection dbConnection)
+        {            
             var command = new SqlCommand();
             command.Connection = dbConnection;
             command.CommandText = sql;
-            command.ExecuteNonQuery();
-            dbConnection.Close();
+            command.ExecuteNonQuery();            
         }
 
         #endregion
@@ -968,12 +974,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
             ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();
-            int fcId = SearchFcCase_GetFcID();
-            fCase.FcId = fcId;
+            //int fcId = SearchFcCase_GetFcID();
+            fCase.FcId = fc_id;
             fCase.CompletedDt = Convert.ToDateTime("12/12/2008");
             UpdateForeclosureCase(fCase);
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckInactiveCase(fcId);            
+            bool actual = target.CheckInactiveCase(fc_id);            
             Assert.AreEqual(expected, actual);
         }
 
@@ -986,9 +992,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                                           
-            int fcId = SearchFcCase_GetFcID();            
+            //int fcId = SearchFcCase_GetFcID();            
             bool expected = false; 
-            bool actual = target.CheckInactiveCase(fcId);
+            bool actual = target.CheckInactiveCase(fc_id);
             Assert.AreEqual(expected, actual);         
         }
 
@@ -1063,7 +1069,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.WorkingUserID = "HPF";
+            foreclosureCaseSet.ForeclosureCase.WorkingUserID = working_user_id;
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
             foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
@@ -1083,7 +1089,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
-            foreclosureCaseSet.ForeclosureCase.WorkingUserID = "HPF";
+            foreclosureCaseSet.ForeclosureCase.WorkingUserID = working_user_id;
             foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";            
             ExceptionMessageCollection actual;
             actual = target.CheckRequireForPartial(foreclosureCaseSet);            
@@ -1168,13 +1174,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
             foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";            
-            target._workingUserID = "HPF";
+            target._workingUserID = working_user_id;
             target.InsertForeclosureCaseSet(foreclosureCaseSet);            
             int fcId = GetForeclosureCaseId();
             string expected = "Acency Case Num Test";
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);
             string actual = fcCase.AgencyCaseNum;
-            DeleteForeclosureCase(fcId);
+            //DeleteForeclosureCase(fcId);
             Assert.AreEqual(expected, actual);
         }
 
