@@ -100,9 +100,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void SearchFcCase_PropZip_Pass()
         {
-
-            //SearchFcCase_GenerateTestData();
-
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -157,10 +154,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
             }
-            finally
-            {
-                //SearchFcCase_ClearTestData();
-            }
+            
             
             
         }
@@ -185,10 +179,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected, actual));
 
             }
-            finally
-            {
-               // SearchFcCase_ClearTestData();
-            }
+            
         }
         #endregion
         
@@ -196,8 +187,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void SearchFcCase_SSN_Pass()
         {
-           
-            
+                       
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -205,18 +195,17 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             searchCriteria.Last4_SSN = ssn;
 
             int expected = SearchFcCase_GetFcID();
-            int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
+            ForeclosureCaseSearchResult actual = target.SearchForeclosureCase(searchCriteria, 50);
 
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(expected, actual[0].FcId);  
             
-            
-            Assert.AreEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
         
         [TestMethod()]
         public void SearchFcCase_SSN_Fail()
         {
-            //SearchFcCase_GenerateTestData();
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -226,7 +215,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int expected = 1; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-           //SearchFcCase_ClearTestData();
 
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
@@ -235,7 +223,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void SearchFcCase_SSN_Invalid()
         {
-            //SearchFcCase_GenerateTestData();
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
@@ -252,12 +239,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 Assert.AreEqual(expected.GetType(), actual.GetType());
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
-
             }
-            finally
-            {
-                //SearchFcCase_ClearTestData();
-            }
+           
         }
 
         
@@ -267,7 +250,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void SearchFcCase_FirstName_Pass()
         {
-            //SearchFcCase_GenerateTestData();
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -275,17 +257,17 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             searchCriteria.FirstName = first_name;
 
             int expected = SearchFcCase_GetFcID();
-            int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
+            ForeclosureCaseSearchResult actual = target.SearchForeclosureCase(searchCriteria, 50);
 
-            //SearchFcCase_ClearTestData();
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(expected, actual[0].FcId);  
 
-            Assert.AreEqual(expected, actual);
+
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
         [TestMethod()]
         public void SearchFcCase_FirstName_Fail()
         {
-            //SearchFcCase_GenerateTestData();
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
@@ -295,15 +277,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int expected = 1; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-           // SearchFcCase_ClearTestData();
-
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
         [TestMethod()]
         public void SearchFcCase_FirstName_Invalid()
         {
-            //SearchFcCase_GenerateTestData();
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -321,10 +300,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
 
             }
-            finally
-            {
-                //SearchFcCase_ClearTestData();
-            }
         }
         #endregion
 
@@ -332,8 +307,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void SearchFcCase_AgencyCaseNumber_Pass()
         {
-            //SearchFcCase_GenerateTestData();
-
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -341,18 +314,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             searchCriteria.AgencyCaseNumber = agency_case_number;
 
             int expected = SearchFcCase_GetFcID();
-            int actual = target.SearchForeclosureCase(searchCriteria, 50)[0].FcId;
+            ForeclosureCaseSearchResult actual = target.SearchForeclosureCase(searchCriteria, 50);
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(expected, actual[0].FcId);  
 
-           // SearchFcCase_ClearTestData();
-
-            Assert.AreEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} found - Actual: {1} found", expected, actual));
         }
 
         [TestMethod()]
         public void SearchFcCase_AgencyCaseNumber_Fail()
         {
-            //SearchFcCase_GenerateTestData();
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
@@ -361,7 +332,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int expected = 1; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-           // SearchFcCase_ClearTestData();
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
         }
@@ -369,7 +339,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]        
         public void SearchFcCase_AgencyCaseNumber_Invalid()
         {
-           // SearchFcCase_GenerateTestData();
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -385,11 +354,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
                 Assert.AreEqual(expected.GetType(), actual.GetType());              
-            }
-            finally
-            {
-                //SearchFcCase_ClearTestData();
-            }
+            }           
         }
         #endregion
 
@@ -429,12 +394,11 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
              ExecuteSql(sql, dbConnection);
             #endregion
 
-            #region agency, servicer, case_loan
+            #region servicer, case_loan
             
-
             sql = "Insert into Servicer "
                 + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + servicer_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
+                + " ('" + servicer_name + "', 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
 
             fc_id = SearchFcCase_GetFcID();
@@ -456,7 +420,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             //int fc_id = SearchFcCase_GetFcID();
             //int bsId = GetBudgetSetId(fc_id);
 
-            string sql = "Delete from Case_Loan create_user_id = '" + working_user_id + "'";
+            string sql = "Delete from Case_Loan Where create_user_id = '" + working_user_id + "'";
             ExecuteSql(sql, dbConnection);
 
             sql = "DELETE FROM Budget_Asset WHERE create_user_id ='" + working_user_id + "'";
@@ -683,7 +647,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 Assert.AreEqual(expected, pe.GetType());
             }
         }
-        
+
+        [Ignore]
         [TestMethod]
         public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_AgencyID_CaseNumber()
         {
