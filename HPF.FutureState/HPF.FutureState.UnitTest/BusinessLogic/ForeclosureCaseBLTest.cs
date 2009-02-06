@@ -2104,6 +2104,33 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         #endregion
 
 
+        [TestMethod()]
+        public void AppSearchForeclosureCaseTest()
+        {
+            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { PropertyZip = prop_zip, Last4SSN = ssn, Agency = agency_id, ForeclosureCaseID = -1, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0 };
+            var result = target.AppSearchForeclosureCase(criteria);
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual(ssn, result[0].Last4SSN);
+            Assert.AreEqual(agency_id.ToString(), result[0].AgencyCaseID);
+            Assert.AreEqual(prop_zip, result[0].PropertyZip);
+        }
+        /// <summary>
+        /// Search case which has id = 23
+        /// </summary>
+        [TestMethod()]
+        public void AppSearchForeclosureCasebyID()
+        {
+            ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = fc_id, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0 };
+            AppForeclosureCaseSearchResultDTOCollection searchResult = target.AppSearchForeclosureCase(criteria);
+            Assert.AreEqual(searchResult.Count, 1);
+            Assert.AreEqual(ssn, searchResult[0].Last4SSN);
+            Assert.AreEqual(agency_id.ToString(), searchResult[0].AgencyCaseID);
+            Assert.AreEqual(prop_zip, searchResult[0].PropertyZip);
+            
+        }
+
         #region script to manually work with db
         //delete from case_loan where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
         //delete from activity_log where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
