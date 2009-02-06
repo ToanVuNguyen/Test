@@ -119,7 +119,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
 
         
-        
+        [Ignore]
         [TestMethod()]
         public void SearchFcCase_PropZip_Fail()
         {
@@ -140,50 +140,28 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
         
         [TestMethod()]
+        [ExpectedException(typeof(DataValidationException))]
         public void SearchFcCase_PropZip_Null()
         {
-            //SearchFcCase_GenerateTestData();
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = null;
 
-            DataValidationException expected = new DataValidationException();
-            try
-            {
-                target.SearchForeclosureCase(searchCriteria, 50);
-            }
-            catch (DataValidationException actual)
-            {
-                Assert.AreEqual(expected.GetType(), actual.GetType());
-                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
-            }
-            
-            
-            
+            target.SearchForeclosureCase(searchCriteria, 50);
         }
         
         [TestMethod()]
+        [ExpectedException(typeof(DataValidationException))]
         public void SearchFcCase_PropZip_Invalid()
         {
-            //SearchFcCase_GenerateTestData();
-
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = "@#$%";
 
-            DataValidationException expected = new DataValidationException(); //number of cases returned
-            try
-            {
+           
                 target.SearchForeclosureCase(searchCriteria, 50);
-            }
-            catch (DataValidationException actual)
-            {
-                Assert.AreEqual(expected.GetType(), actual.GetType());
-                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected, actual));
-
-            }
-            
+                       
         }
         #endregion
         
@@ -215,36 +193,21 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.Last4_SSN = "1235";
-
-            int expected = 1; //number of cases returned
+            
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-
-            Assert.AreNotEqual(expected, actual);
-            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
+            Assert.AreEqual(0, actual);            
         }
         
         [TestMethod()]
+        [ExpectedException(typeof(DataValidationException))]
         public void SearchFcCase_SSN_Invalid()
         {
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.Last4_SSN = "@#$%";
             searchCriteria.PropertyZip = prop_zip;
-
-            DataValidationException expected = new DataValidationException(); //number of cases returned
-            try
-            {
-                target.SearchForeclosureCase(searchCriteria, 50);
-            }
-            catch (Exception actual)
-            {
-                Assert.AreEqual(expected.GetType(), actual.GetType());
-                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
-            }
-           
+            target.SearchForeclosureCase(searchCriteria, 50);
         }
 
         
@@ -277,33 +240,21 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.FirstName = "1235afdasdf";            
-
-            int expected = 1; //number of cases returned
+            
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-            Assert.AreNotEqual(expected, actual);
-            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
+            Assert.AreEqual(0, actual);
         }
         [TestMethod()]
+        [ExpectedException(typeof(DataValidationException))]
         public void SearchFcCase_FirstName_Invalid()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.FirstName = "@#$%";
-            searchCriteria.PropertyZip = prop_zip;
-
-            DataValidationException expected = new DataValidationException(); //number of cases returned
-            try
-            {
-                target.SearchForeclosureCase(searchCriteria, 50);
-            }
-            catch (DataValidationException actual)
-            {
-                Assert.AreEqual(expected.GetType(), actual.GetType());
-                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
-
-            }
+            searchCriteria.FirstName = "sadfasdfasdfasdfasdfsadfasdfasdfasdfasdfsadfasdfasdfasdfasdfsadfasdfasdfasdfasdf";
+            searchCriteria.PropertyZip = prop_zip;            
+            target.SearchForeclosureCase(searchCriteria, 50);            
         }
         #endregion
 
@@ -332,33 +283,22 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.AgencyCaseNumber = "123421";
-
-            int expected = 1; //number of cases returned
+            
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-            Assert.AreNotEqual(expected, actual);
-            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found", expected, actual));
+            Assert.AreEqual(0, actual);
         }
 
-        [TestMethod()]        
+        [TestMethod()]   
+        [ExpectedException(typeof(DataValidationException))]
         public void SearchFcCase_AgencyCaseNumber_Invalid()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
-            searchCriteria.AgencyCaseNumber = "asdfgds";
-
-            DataValidationException expected = new DataValidationException(); //number of cases returned
-            try
-            {
-                target.SearchForeclosureCase(searchCriteria, 50);
-            }
-            catch (Exception actual)
-            {
-                TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ", expected.GetType(), actual.GetType()));
-                Assert.AreEqual(expected.GetType(), actual.GetType());              
-            }           
+            searchCriteria.AgencyCaseNumber = "a#$sdfgds";
+            target.SearchForeclosureCase(searchCriteria, 50);
         }
         #endregion
 
