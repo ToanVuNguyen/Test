@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Reflection;
-using System.Web.Security;
 using System.Web.Services;
 using System.Web.Services.Protocols;
-
 using System.Configuration;
-
-using System.Linq;
-
 using HPF.FutureState.BusinessLogic;
-using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils.Exceptions;
-using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 
 namespace HPF.FutureState.WebServices
 {
     public class BaseWebService : WebService
     {
-        public AuthenticationInfo Authentication;        
+        public AuthenticationInfo Authentication;
+
+        protected int CurrentAgencyID { get; set; }
+
+        protected int CurrentCallCenterID { get; set; }
 
         /// <summary>
         /// Authenticate checking, this method can override for specific web service.
@@ -36,25 +32,25 @@ namespace HPF.FutureState.WebServices
             var response = new ForeclosureCaseSearchResponse();
             try
             {
-                if (IsAuthenticated())
-                //if (true)
-                {
-                    //Business Call
-                    int pageSize = 0;
-                    int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"].ToString(), out pageSize);
+                if (IsAuthenticated())                
+                {                    
+                    int pageSize;
+                    int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"], out pageSize);
 
-                    ForeclosureCaseSearchResult results = ForeclosureCaseSetBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);
-                    response = new ForeclosureCaseSearchResponse();
-                    response.Results = results;
-                    response.SearchResultCount = results.SearchResultCount;
-                    response.Status = ResponseStatus.Success;
+                    var results = ForeclosureCaseSetBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);
+                    response = new ForeclosureCaseSearchResponse
+                                   {
+                                       Results = results,
+                                       SearchResultCount = results.SearchResultCount,
+                                       Status = ResponseStatus.Success
+                                   };
                 }
             }
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(Ex.Message);
-                ExceptionProcessor.HandleException(Ex);
+                HandleException(Ex);
             }
             catch (DataValidationException Ex)
             {
@@ -63,23 +59,28 @@ namespace HPF.FutureState.WebServices
                     response.Messages = Ex.ExceptionMessages;
                 else
                     response.Messages.AddExceptionMessage(Ex.Message);
-                ExceptionProcessor.HandleException(Ex);
+                HandleException(Ex);
             }
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(Ex.Message);
-                ExceptionProcessor.HandleException(Ex);
+                HandleException(Ex);
             }
             catch (Exception Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(Ex.Message);
-                ExceptionProcessor.HandleException(Ex);
+                HandleException(Ex);
             }
             return response;
-        }        
+        }
 
-       
+
+        protected void HandleException(Exception Ex)
+        {
+            ExceptionProcessor.HandleException(Ex, Authentication.UserName, CurrentAgencyID.ToString(),
+                                               CurrentCallCenterID.ToString());
+        }
     }
 }

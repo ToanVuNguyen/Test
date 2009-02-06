@@ -25,5 +25,15 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                 Message = message                 
             });
         }
+
+        public override string ToString()
+        {
+            var result = string.Empty;
+            foreach (var message in this)
+            {
+                result += message + "|";
+            }
+            return result;
+        }
     }
 }

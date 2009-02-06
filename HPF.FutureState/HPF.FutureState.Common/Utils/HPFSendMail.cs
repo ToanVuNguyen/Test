@@ -49,9 +49,9 @@ namespace HPF.FutureState.Common.Utils
             foreach (var attachment in _attachments)
             {
                 var mem = new MemoryStream(attachment.Value, false);
-                var att = new Attachment(mem,"PDF") {Name = attachment.Key};
-                mailMessage.Attachments.Add(att);                    
-            }                        
+                var att = new Attachment(mem, null, null) {Name = attachment.Key};
+                mailMessage.Attachments.Add(att);
+            }
         }
 
         private static SmtpClient CreateSmtpClient()

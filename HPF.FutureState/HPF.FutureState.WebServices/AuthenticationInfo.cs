@@ -1,15 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.Services.Protocols;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+﻿using System.Web.Services.Protocols;
 
 namespace HPF.FutureState.WebServices
 {
@@ -18,5 +7,11 @@ namespace HPF.FutureState.WebServices
         public string UserName { get; set; }
 
         public string Password { get; set; }
+
+        public AuthenticationInfo()
+        {
+            UserName = string.Empty;
+            Password = string.Empty;
+        }
     }
 }
