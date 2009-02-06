@@ -21,8 +21,8 @@ namespace HPF.FutureState.UnitTest
 
         private TestContext testContextInstance;
         static private CallLogDTO aCallLog;
-        private SqlConnection dbConnection;
-        private SqlCommand command;
+        private static SqlConnection dbConnection;
+        private static SqlCommand command;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -41,27 +41,9 @@ namespace HPF.FutureState.UnitTest
 
         #region Additional test attributes
 
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        [ClassInitialize()]
-        public static void MyClassInitialize(TestContext testContext)
-        {
-            
-        }
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        [ClassCleanup()]
-        public static void MyClassCleanup()
-        {
-           
-        }
-        //
-
         //Use TestInitialize to run code before running each test
         [ClassInitialize()]
-        public void MyTestInitialize(TestContext testContext)
+        public static void MyTestInitialize(TestContext testContext)
         {
             dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -75,11 +57,9 @@ namespace HPF.FutureState.UnitTest
         //
         //Use TestCleanup to run code after each test has run
         [ClassCleanup()]
-        public void MyTestCleanup()
+        public static void MyTestCleanup()
         {
-
             ClearTestData();
-
             command.Dispose();
             dbConnection.Close();   
         }
@@ -93,9 +73,12 @@ namespace HPF.FutureState.UnitTest
         [TestMethod()]
         public void RetrieveCallLogTestSuccess()
         {
-            CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = GetCallLogId(); // TODO: Initialize to an appropriate value
+            CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value            
             //CallLogDTO expected = null; // TODO: Initialize to an appropriate value
+            CallLogDTO aCallLog = new CallLogDTO();
+            SetCallLogTestData(aCallLog);
+            target.InsertCallLog(aCallLog);
+            int callLogId = GetCallLogId(); // TODO: Initialize to an appropriate value
             CallLogDTO actual;
             actual = target.RetrieveCallLog(callLogId);
             Assert.AreEqual(callLogId, actual.CallId);            
@@ -108,11 +91,13 @@ namespace HPF.FutureState.UnitTest
         public void RetrieveCallLogTestFail()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = 0; // TODO: Initialize to an appropriate value
-            CallLogDTO expected = null; // TODO: Initialize to an appropriate value
+            int callLogId = 0; // TODO: Initialize to an appropriate value            
             CallLogDTO actual;
-            actual = target.RetrieveCallLog(callLogId);
-            Assert.AreEqual(expected, actual);
+            CallLogDTO aCallLog = new CallLogDTO();
+            SetCallLogTestData(aCallLog);
+            target.InsertCallLog(aCallLog);
+            actual = target.RetrieveCallLog(GetCallLogId());
+            Assert.AreNotEqual(0, actual.CallId);
         }
     #endregion
 
@@ -121,6 +106,8 @@ namespace HPF.FutureState.UnitTest
         public void InsertCallLogTest_Pass()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
+            CallLogDTO aCallLog = new CallLogDTO();
+            SetCallLogTestData(aCallLog);
             int actual = target.InsertCallLog(aCallLog);
             //int expected = GetCallLogId();
             Assert.AreNotEqual(null, actual);
@@ -248,7 +235,7 @@ namespace HPF.FutureState.UnitTest
         static string working_user_id = "utest_wui_686868";
         #endregion
 
-        private void SetCallLogTestData(CallLogDTO aCallLog)
+        private static void SetCallLogTestData(CallLogDTO aCallLog)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -282,7 +269,7 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Close();
         }
 
-        private void ClearTestData()
+        private static void ClearTestData()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -371,7 +358,7 @@ namespace HPF.FutureState.UnitTest
         }
 
 
-        private void ExecuteSql(string sql, SqlConnection dbConnection)
+        private static void ExecuteSql(string sql, SqlConnection dbConnection)
         {            
             command.CommandText = sql;
             command.ExecuteNonQuery();            
