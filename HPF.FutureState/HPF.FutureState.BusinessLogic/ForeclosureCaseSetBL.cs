@@ -759,11 +759,12 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckMortgageBudgetItem(ForeclosureCaseSetDTO foreclosureCaseSetInput, bool caseComplete)
         {            
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (!CheckBudgetItemHaveMortgage(foreclosureCaseSetInput) && caseComplete)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetItem must exist and it must have atleast 1 budget_item = 'Mortgage Amount'");
-            if(!CheckBudgetItemHaveMortgage(foreclosureCaseSetInput))
-                WarningMessage.AddExceptionMessage("UNKNOWN", "To be complete, a budget_item must exist and it must have atleast 1 budget_item = 'Mortgage Amount'.");
+            bool isbudgetHaveMortgate = CheckBudgetItemHaveMortgage(foreclosureCaseSetInput);
+            if (!isbudgetHaveMortgate && caseComplete)
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
             if (foreclosureCaseSetInput.BudgetItems == null || foreclosureCaseSetInput.BudgetItems.Count < 1)
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
+            else if (!isbudgetHaveMortgate)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
             return msgFcCaseSet;            
         }
