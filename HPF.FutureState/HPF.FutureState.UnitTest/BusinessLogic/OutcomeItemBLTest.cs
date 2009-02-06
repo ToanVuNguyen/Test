@@ -53,15 +53,16 @@ namespace HPF.FutureState.UnitTest
         //}
         //
         //Use TestInitialize to run code before running each test
-        [TestInitialize()]
-        public void MyTestInitialize()
+        [ClassInitialize()]
+        static public void MyTestInitialize(TestContext testContext)
         {
+            ClearTestData();
             GenerateTestData();
         }
         //
         //Use TestCleanup to run code after each test has run
-        [TestCleanup()]
-        public void MyTestCleanup()
+        [ClassCleanup()]
+        static public void MyTestCleanup()
         {
             ClearTestData();
         }
@@ -151,25 +152,27 @@ namespace HPF.FutureState.UnitTest
 
         #region helper
         #region property
-        string prop_zip = "68686";
-        string ssn = "6868";
-        string agency_case_number = "686868686868";
-        string first_name = "Test data";
-        int agency_id = 2;
-        string acct_num = "acct_num6868";
+        static string prop_zip = "58686";
+        static string ssn = "5868";
+        static string agency_case_number = "586868686868";
+        static string first_name = "Test data";
+        static int agency_id = 2;
+        static string acct_num = "acct_num5868";
 
-        string agency_name = "agency_name_68";
-        string servicer_name = "servicer_name_68";
+        static string agency_name = "agency_name_58";
+        static string servicer_name = "servicer_name_58";
 
-        string outcome_type_name = "otn_686868";
+        static string outcome_type_name = "otn_586868";
         #endregion
         
-        private void GenerateTestData()
+        static private void GenerateTestData()
         {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
             string sql = "Insert into Agency "
                 + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('" + agency_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
             agency_id = GetAgencyID();
 
             #region fc_case
@@ -192,7 +195,7 @@ namespace HPF.FutureState.UnitTest
                + ", 'cfname', 'clname', 'cidref'"
                + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
                + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
             #endregion
 
             #region outcome
@@ -201,43 +204,45 @@ namespace HPF.FutureState.UnitTest
             sql = "Insert into Outcome_Type "
                 + " (outcome_type_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('" + outcome_type_name + "', 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
             int outcome_type_id = GetOutcomeTypeId();
             int fc_id = GetFcID();
             sql = "Insert into Outcome_Item "
                 + " (fc_id, outcome_type_id, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " (" + fc_id + ", " + outcome_type_id + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', 'HPF', '" + DateTime.Now + "' )";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
             #endregion
 
         }
 
-        private void ClearTestData()
+        static private void ClearTestData()
         {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
             int fc_id = GetFcID();
             string sql = "Delete from Case_Loan where fc_id = " + fc_id;
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
             sql = "Delete from activity_log where fc_id = " + fc_id; ;
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
             sql = "Delete from Outcome_Item where fc_id = " + fc_id;
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
             sql = "Delete from Outcome_Type where outcome_type_name = '" + outcome_type_name + "'";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
             sql = "Delete from Foreclosure_case where fc_id = " + fc_id;
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
             sql = "Delete from Agency where Agency_Name = '" + agency_name + "'";
-            ExecuteSql(sql);
+            ExecuteSql(sql, dbConnection);
 
-            
+            dbConnection.Close();
         }
 
-        private int GetFcID()
+        static private int GetFcID()
         {
             int result = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -263,7 +268,7 @@ namespace HPF.FutureState.UnitTest
             return result;
         }
 
-        private int GetAgencyID()
+        static private int GetAgencyID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -281,7 +286,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private int GetServicerID()
+        static private int GetServicerID()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -299,7 +304,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private int GetOutcomeTypeId()
+        static private int GetOutcomeTypeId()
         {
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -317,7 +322,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private OutcomeItemDTO GetOutcomeItem(int? fc_id, int? outcomeItemId)
+        static private OutcomeItemDTO GetOutcomeItem(int? fc_id, int? outcomeItemId)
         {
             OutcomeItemDTO outcomeItem = new OutcomeItemDTO();
             
@@ -347,21 +352,21 @@ namespace HPF.FutureState.UnitTest
             return outcomeItem;
         }
 
-        private void DeleteOutcomeItem(int? outcomeItemId)
-        {
-            string sql = "Update Outcome_Item set outcome_deleted_dt = '" + DateTime.Now + "' where outcome_item_id = " + outcomeItemId;
-            ExecuteSql(sql);
-        }
-
-        private void ExecuteSql(string sql)
+        static private void DeleteOutcomeItem(int? outcomeItemId)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
+            string sql = "Update Outcome_Item set outcome_deleted_dt = '" + DateTime.Now + "' where outcome_item_id = " + outcomeItemId;
+            ExecuteSql(sql, dbConnection);
+            dbConnection.Close();
+        }
+
+        static private void ExecuteSql(string sql, SqlConnection dbConnection)
+        {            
             var command = new SqlCommand();
             command.Connection = dbConnection;
             command.CommandText = sql;
-            command.ExecuteNonQuery();
-            dbConnection.Close();
+            command.ExecuteNonQuery();            
         }
 
         #endregion

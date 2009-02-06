@@ -74,6 +74,7 @@ namespace HPF.FutureState.UnitTest.DataAccess
         {
             //try
             //{
+                CleanupTest();
                 var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
                 string now = "1/1/2009";
                 var command = new SqlCommand("insert into ws_user(login_username, login_password, create_dt,create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" + 

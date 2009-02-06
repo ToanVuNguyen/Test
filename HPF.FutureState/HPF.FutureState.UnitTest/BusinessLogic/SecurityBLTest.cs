@@ -42,6 +42,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassInitialize]
         public static void SetupTest(TestContext testContext)
         {
+            CleanupTest();
             //try
             //{
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);

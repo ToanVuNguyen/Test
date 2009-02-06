@@ -64,6 +64,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
+            SearchFcCase_ClearTestData();
             SearchFcCase_GenerateTestData();            
         }
         //
@@ -438,7 +439,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             sql = "Delete from activity_log where create_user_id = '" + working_user_id + "'"; ;
             ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from Foreclosure_case where create_user_id = '" +working_user_id + "'";
+            sql = "Delete from Foreclosure_case where create_user_id = '" + working_user_id + "'";
             ExecuteSql(sql, dbConnection);
 
             sql = "Delete from Agency where create_user_id = '" +working_user_id + "'";
