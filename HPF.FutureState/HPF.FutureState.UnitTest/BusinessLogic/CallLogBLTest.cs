@@ -21,6 +21,8 @@ namespace HPF.FutureState.UnitTest
 
         private TestContext testContextInstance;
         static private CallLogDTO aCallLog;
+        private SqlConnection dbConnection;
+        private SqlCommand command;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -38,11 +40,34 @@ namespace HPF.FutureState.UnitTest
         }
 
         #region Additional test attributes
-       
+
+        // 
+        //You can use the following additional attributes as you write your tests:
+        //
+        //Use ClassInitialize to run code before running the first test in the class
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+            
+        }
+        //
+        //Use ClassCleanup to run code after all tests in a class have run
+        [ClassCleanup()]
+        public static void MyClassCleanup()
+        {
+           
+        }
+        //
+
         //Use TestInitialize to run code before running each test
         [ClassInitialize()]
-        public static void MyTestInitialize(TestContext testContext)
+        public void MyTestInitialize(TestContext testContext)
         {
+            dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            command = new SqlCommand();
+            command.Connection = dbConnection;
+
             aCallLog = new CallLogDTO();
             SetCallLogTestData(aCallLog);
            
@@ -50,9 +75,13 @@ namespace HPF.FutureState.UnitTest
         //
         //Use TestCleanup to run code after each test has run
         [ClassCleanup()]
-        public static void MyTestCleanup()
+        public void MyTestCleanup()
         {
-            ClearTestData();   
+
+            ClearTestData();
+
+            command.Dispose();
+            dbConnection.Close();   
         }
         //
         #endregion
@@ -219,7 +248,7 @@ namespace HPF.FutureState.UnitTest
         static string working_user_id = "utest_wui_686868";
         #endregion
 
-        static private void SetCallLogTestData(CallLogDTO aCallLog)
+        private void SetCallLogTestData(CallLogDTO aCallLog)
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -253,7 +282,7 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Close();
         }
 
-        static private void ClearTestData()
+        private void ClearTestData()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -341,10 +370,9 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        static private void ExecuteSql(string sql, SqlConnection dbConnection)
+
+        private void ExecuteSql(string sql, SqlConnection dbConnection)
         {            
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
             command.CommandText = sql;
             command.ExecuteNonQuery();            
         }
