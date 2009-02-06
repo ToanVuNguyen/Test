@@ -28,6 +28,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default")]
         public string DNIS { get; set; }
 
+        [NullableOrStringLengthValidator(true, 4, "CallCenter", Ruleset = "Default")]
         public string CallCenter { get; set; }
 
         [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]        
