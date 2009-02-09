@@ -232,14 +232,14 @@ namespace HPF.FutureState.BusinessLogic
             
             var msgFcCaseSet = new ExceptionMessageCollection();
             //
-            msgFcCaseSet.Add(RequireFieldsForeclosureCase(foreclosureCase, ruleSet));                        
+            msgFcCaseSet.Add(ValidateFieldsForeclosureCase(foreclosureCase, ruleSet));                        
             //
-            msgFcCaseSet.Add(RequireFieldsCaseLoanItem(caseLoanItem, ruleSet));
+            msgFcCaseSet.Add(ValidateFieldsCaseLoanItem(caseLoanItem, ruleSet));
             //
-            msgFcCaseSet.Add(RequireFieldsOutcomeItem(outcomeItem, ruleSet));
+            msgFcCaseSet.Add(ValidateFieldsOutcomeItem(outcomeItem, ruleSet));
             //
             if (ruleSet != Constant.RULESET_MIN_REQUIRE_FIELD)
-                msgFcCaseSet.Add(RequireFieldsBudgetItem(budgetItem, ruleSet));
+                msgFcCaseSet.Add(ValidateFieldsBudgetItem(budgetItem, ruleSet));
             //
             return msgFcCaseSet;
         }
@@ -261,7 +261,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 1: Min request validate of Fore Closure Case
         /// <return>Collection Message Error</return>
         /// </summary>
-        private ExceptionMessageCollection RequireFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
+        private ExceptionMessageCollection ValidateFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {            
             var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };                        
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
@@ -325,7 +325,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 2:  Min request validate of Budget Item Collection
         /// <return>Collection Message Error</return>
         /// </summary>
-        private ExceptionMessageCollection RequireFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
+        private ExceptionMessageCollection ValidateFieldsBudgetItem(BudgetItemDTOCollection budgetItemDTOCollection, string ruleSet)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
             if (budgetItemDTOCollection != null || budgetItemDTOCollection.Count > 0)
@@ -345,7 +345,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 3:  Min request validate of Outcome Item Collection
         /// <return>Collection Message Error</return>
         /// </summary>
-        private ExceptionMessageCollection RequireFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
+        private ExceptionMessageCollection ValidateFieldsOutcomeItem(OutcomeItemDTOCollection outcomeItemDTOCollection, string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if ((outcomeItemDTOCollection == null || outcomeItemDTOCollection.Count < 1) && ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
@@ -393,7 +393,7 @@ namespace HPF.FutureState.BusinessLogic
         /// 4:  Min request validate of Case Loan Collection
         /// <return>Collection Message Error</return>
         /// </summary>       
-        private ExceptionMessageCollection RequireFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,string ruleSet)
+        private ExceptionMessageCollection ValidateFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if ((caseLoanDTOCollection == null || caseLoanDTOCollection.Count < 1) && ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
@@ -527,7 +527,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             //Special character
             ExceptionMessageCollection ex = ValidationFieldByRuleSet(fCaseSet, Constant.RULESET_LENGTH);
-            ExceptionMessageCollection msgBudgetAsset = RequireFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);            
+            ExceptionMessageCollection msgBudgetAsset = ValidateFieldsBudgetAsset(fCaseSet.BudgetAssets, Constant.RULESET_LENGTH);            
             msgFcCaseSet.Add(ex);
             //            
             msgFcCaseSet.Add(msgBudgetAsset);
@@ -565,7 +565,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Check MaxLength for budgetAsset
         /// </summary>
-        private ExceptionMessageCollection RequireFieldsBudgetAsset(BudgetAssetDTOCollection budgetAssetDTOCollection, string ruleSet)
+        private ExceptionMessageCollection ValidateFieldsBudgetAsset(BudgetAssetDTOCollection budgetAssetDTOCollection, string ruleSet)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
             //
@@ -761,12 +761,29 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             bool isbudgetHaveMortgate = CheckBudgetItemHaveMortgage(foreclosureCaseSetInput);
             if (!isbudgetHaveMortgate && caseComplete)
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
+            {
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
+                return msgFcCaseSet;
+            }
             if (foreclosureCaseSetInput.BudgetItems == null || foreclosureCaseSetInput.BudgetItems.Count < 1)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
             else if (!isbudgetHaveMortgate)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
             return msgFcCaseSet;            
+        }
+
+        private bool CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        {
+            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
+            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
+                return false;
+            int subCatId = FindSubCatWithNameIsMortgage();
+            foreach (BudgetItemDTO item in budgetItemCollection)
+            {
+                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != 0)
+                    return true;
+            }
+            return false;
         }
         #endregion
 
@@ -1694,95 +1711,17 @@ namespace HPF.FutureState.BusinessLogic
 
         #region CheckCaseIsComplete
         // <summary>
-        /// Check Data Input is Complete
-        /// 1-Perform partial caes required fields check.
-        /// 2-Perform complete case required fields check.
-        /// 3-Perform check case loan have 1st
-        /// 4-Perform check Outcome have Payable
-        /// 5-Perform check Budget Item have Amount
+        /// Check Data Input is Complete or not base on warning message   
         /// </summary>        
         private bool CheckComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             if (foreclosureCaseSetInput == null)
                 return false;
-            bool isRequireField = CheckRequireFieldPartial(foreclosureCaseSetInput);
-            bool isCompleteField = CheckRequireFieldForComplete(foreclosureCaseSetInput);
-            bool isCaseLoanHaveOne1st = CheckCaseLoanHaveOne1st(foreclosureCaseSetInput);
-            bool isOutcomeHavePayable = CheckOutcomeHavePayable(foreclosureCaseSetInput);
-            bool isBudgetItemHaveAmount = CheckBudgetItemHaveMortgage(foreclosureCaseSetInput);
-            return (isRequireField && isCompleteField && isCaseLoanHaveOne1st && isOutcomeHavePayable && isBudgetItemHaveAmount);
-        }
-
-        /// <summary>
-        /// 1-Perform partial caes required fields check.
-        /// </summary>
-        private bool CheckRequireFieldPartial(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
-            if (msgError.Count == 0)
+            if (WarningMessage.Count == 0)
                 return true;
-            return false;
-        }
-
-        /// <summary>
-        /// 2-Perform complete case required fields check.
-        /// </summary>
-        private bool CheckRequireFieldForComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            ExceptionMessageCollection msgError = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            if (msgError.Count == 0)
-                return true;
-            return false;
-        }
-
-        /// <summary>
-        /// 3-Perform check case loan have 1st
-        /// </summary>
-        private bool CheckCaseLoanHaveOne1st(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSetInput.CaseLoans;
-            if (caseLoanCollection == null || caseLoanCollection.Count < 1)
-                return false;
-            foreach (CaseLoanDTO item in caseLoanCollection)
-            {
-                if (ConvertStringToUpper(item.Loan1st2nd) == Constant.LOAN_1ST)
-                    return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// 4-Perform check outcome have payable
-        /// </summary>
-        private bool CheckOutcomeHavePayable(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            OutcomeItemDTOCollection outcomeCollection = foreclosureCaseSetInput.Outcome;
-            if (outcomeCollection == null || outcomeCollection.Count < 1)
-                return false;
-            foreach (OutcomeItemDTO item in outcomeCollection)
-            {
-                if (CheckBillableOutcome(item))
-                    return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// 5-Perform check Budget Item have Amount
-        /// </summary>
-        private bool CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
-            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
-                return false;
-            int subCatId = FindSubCatWithNameIsMortgage();
-            foreach (BudgetItemDTO item in budgetItemCollection)
-            {
-                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != 0)
-                    return true;
-            }
-            return false;
-        }
+            else
+                return false;          
+        }        
         #endregion
 
         #region Funcrions Set HP-Auto
