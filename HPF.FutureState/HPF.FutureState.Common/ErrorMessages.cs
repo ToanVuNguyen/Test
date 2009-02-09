@@ -231,6 +231,29 @@ namespace HPF.FutureState.Common
         //
         public const string ERR0600 = "ERR0600"; 
         public const string ERR0601 = "ERR0601";
+
+        //App view/edit invoice payment
+        public const string ERR0650 = "ERR0650";
+        public const string ERR0651 = "ERR0651";
+        public const string ERR0652 = "ERR0652";
+        public const string ERR0653 = "ERR0653";
+        public const string ERR0654 = "ERR0654";
+        public const string ERR0655 = "ERR0655";
+        public const string ERR0656 = "ERR0656";
+        public const string ERR0657 = "ERR0657";
+        public const string ERR0658 = "ERR0658";
+        public const string ERR0659 = "ERR0659";
+        public const string ERR0660 = "ERR0660";
+        public const string ERR0661 = "ERR0661";
+        public const string ERR0662 = "ERR0662";
+
+        public const string ERR0670 = "ERR0670";
+        public const string ERR0671 = "ERR0671";
+        public const string ERR0672 = "ERR0672";
+        public const string ERR0673 = "ERR0673";
+
+
+
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
 
@@ -486,6 +509,27 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0558, "The HPF Payment ID provided in not a valid HPF Payment ID.");
                 errorMessageDict.Add(ERR0559, "At least one case must be selected to be unpaid.");
                 errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
+
+                //View/Edit Invoice Payment
+                errorMessageDict.Add(ERR0650, "A Funding Source is required to save an Invoice Payment.");
+                errorMessageDict.Add(ERR0651, "A Payment Number is required to save an Invoice Payment.");
+                errorMessageDict.Add(ERR0652, "A valid Payment Date is required to save an Invoice Payment.");
+                errorMessageDict.Add(ERR0653, "A Payment Type is required to save an Invoice Payment.");
+                errorMessageDict.Add(ERR0654, "A valid Payment Amount is required to save an Invoice Payment.");
+                errorMessageDict.Add(ERR0655, "Unable to open payment reconciliation file.");
+                errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file.  It is not in the proper format, it must be Excel 2003 or newer");
+                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: FC ID, Loan Num, Invoice Case ID, Pmt Amt, Pmt Reject Reason Code, Freddie Mac Loan Num, Investor Num, and Investor Name.");
+                errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The FC ID in row {0} is not a valid number.");
+                errorMessageDict.Add(ERR0659, "Unable to process the reconciliation file. The Pmt Amt in row {0} is not a valid amount.");
+                errorMessageDict.Add(ERR0660, "Unable to process the reconciliation file  The Payment Reject Reason Code in row {0} is not a valid code.");
+                errorMessageDict.Add(ERR0661, "Unable to process the reconciliation file. It has {0} rows with payments totaling {1} which does not match the entered Payment Amount of {2}.");
+                errorMessageDict.Add(ERR0662, "Unable to process the reconciliation file. The Invoice Case ID in row {0} is not a valid number.");
+
+                errorMessageDict.Add(ERR0670, "Unable to process the reconciliation file. The Invoice Case ID in row {0} is not valid for the funding source selected.");
+                errorMessageDict.Add(ERR0671, "Unable to process the reconciliation file. The Invoice Case ID in row {0} belongs to an invoice that has been cancelled.");
+                errorMessageDict.Add(ERR0672, "Unable to process the reconciliation file. The Pmt Amt in row {0} does not match the amount billed on the invoice.");
+                errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"Reconciliation\" tab cannot be located.");
+
 
                 //
                 errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");

@@ -14,13 +14,13 @@ namespace HPF.FutureState.Web.InvoicePayments {
     public partial class ViewEditInvoicePayment {
         
         /// <summary>
-        /// lblMessage control.
+        /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
         
         /// <summary>
         /// lblPaymentID control.
@@ -77,13 +77,13 @@ namespace HPF.FutureState.Web.InvoicePayments {
         protected global::System.Web.UI.WebControls.TextBox txtPaymentAmt;
         
         /// <summary>
-        /// FileUpload control.
+        /// fileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload;
+        protected global::System.Web.UI.WebControls.FileUpload fileUpload;
         
         /// <summary>
         /// txtComment control.

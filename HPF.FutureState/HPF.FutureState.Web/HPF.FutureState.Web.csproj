@@ -354,12 +354,12 @@
     <Compile Include="SummaryEmail\SummaryEmailUC.ascx.designer.cs">
       <DependentUpon>SummaryEmailUC.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewEditInvoicePayment.aspx.cs">
-      <DependentUpon>ViewEditInvoicePayment.aspx</DependentUpon>
+    <Compile Include="AppViewEditInvoicePaymentPage.aspx.cs">
+      <DependentUpon>AppViewEditInvoicePaymentPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewEditInvoicePayment.aspx.designer.cs">
-      <DependentUpon>ViewEditInvoicePayment.aspx</DependentUpon>
+    <Compile Include="AppViewEditInvoicePaymentPage.aspx.designer.cs">
+      <DependentUpon>AppViewEditInvoicePaymentPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -420,7 +420,7 @@
     <Content Include="NewAgencyPayableResults.aspx" />
     <Content Include="AgencyAccountsPayable.aspx" />
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
-    <Content Include="ViewEditInvoicePayment.aspx" />
+    <Content Include="AppViewEditInvoicePaymentPage.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
@@ -459,9 +459,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

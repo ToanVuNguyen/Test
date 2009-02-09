@@ -6,6 +6,7 @@ using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
+using System.Xml;
 //using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.BusinessLogic
@@ -209,6 +210,30 @@ namespace HPF.FutureState.BusinessLogic
         public InvoiceSetDTO GetInvoiceSet(int invoiceId)
         {
             return InvoiceDAO.CreateInstance().InvoiceSetGet(invoiceId);
+        }
+        string GetXmlString(ReconciliationDTOCollection reconciliationDTOCollection)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement root = doc.CreateElement("invoice_cases");
+            int rowIndex=0;
+            foreach (var reconciliationDTO in reconciliationDTOCollection)
+            {
+                XmlElement item = doc.CreateElement("invoice_case");
+                item.SetAttribute("row_index", rowIndex.ToString());
+                item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
+                item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
+                root.AppendChild(item);
+                rowIndex++;
+            }
+            doc.AppendChild(root);
+            return doc.InnerXml;
+        }
+        public void BackEndPreProcessing(ReconciliationDTOCollection reconciliationDTOCollection)
+        {
+            DataValidationException ex = new DataValidationException();
+            string xml = GetXmlString(reconciliationDTOCollection);
+
+
         }
     }
 }

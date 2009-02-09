@@ -10,14 +10,10 @@
             <h1>View/Edit Invoice Payment</h1></td>
     </tr>
     <tr>
-        <td>
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text=""></asp:Label></td>
+        <td colspan="2" class="ErrorMessage">
+            <asp:BulletedList ID="lblErrorMessage" runat="server" BulletStyle="Square">
+            </asp:BulletedList>
+        </td>
     </tr>
     <tr>
         <td class="sidelinks" colspan="2">
@@ -71,7 +67,7 @@
         <td class="sidelinks" align="right">
             Reconciliation File:</td>
         <td>
-            <asp:FileUpload ID="FileUpload"  runat="server" Width="100%" CssClass="Text" 
+            <asp:FileUpload ID="fileUpload"  runat="server" Width="100%" CssClass="Text" 
                 Height="18px" />
         </td>
     </tr>
@@ -86,7 +82,8 @@
         <td>
             &nbsp;</td>
         <td align="center">
-            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" width="100px"/>
+            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
+                width="100px" onclick="btnSave_Click"/>
             &nbsp;&nbsp;
             <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" 
                 Width="100px" onclick="btnCancel_Click"/>
