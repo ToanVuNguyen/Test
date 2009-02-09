@@ -878,7 +878,10 @@
         </tr>   
         </table>
 
+    <br />
     
+    <asp:Button ID="btnSave2" runat="server" Text="Save Foreclosure Case" 
+    onclick="btnSave_Click" />
         
     <br />
     <asp:Label ID="Label115" runat="server" Text="Case Loan"></asp:Label>

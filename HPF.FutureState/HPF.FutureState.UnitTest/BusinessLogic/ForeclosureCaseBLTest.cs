@@ -37,6 +37,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static string acct_num = "acct_num6868";
         static string working_user_id = "utest_FC_test_12345";
 
+        static string working_user_id_dupe = "utest_FC_test_12345_dupe";
+        static string acct_num_dupe = "an_6868_dupe";
+        static string servicer_name_dupe = "sn_68_dupe";
+        static string outcome_type_name_dupe = "otn_68_dupe";
+        static int fc_id_dupe = 0;
+        static int servicer_id_dupe = 0;
+        static int case_loan_id_dupe = 0;
+        static string agency_case_num_dupe = "acnd_68_dupe";
+        
+
         static string agency_name = "agency_name_68";
         static string servicer_name = "servicer_name_68";
         static int fc_id = 0;
@@ -109,10 +119,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
 
-            //int expected = SearchFcCase_GetFcID();
             ForeclosureCaseSearchResult actual = target.SearchForeclosureCase(searchCriteria, 50);
 
-            //SearchFcCase_ClearTestData();
             Assert.AreEqual(1, actual.Count);  
             Assert.AreEqual(fc_id, actual[0].FcId);  
             //TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ",expected, actual));
@@ -123,8 +131,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [TestMethod()]
         public void SearchFcCase_PropZip_Fail()
         {
-            //SearchFcCase_GenerateTestData();
-
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
@@ -133,7 +139,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int expected = 2; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-            //SearchFcCase_ClearTestData();
 
             Assert.AreNotEqual(expected, actual);
             TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found",expected, actual));
@@ -158,9 +163,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = "@#$%";
-
-           
-                target.SearchForeclosureCase(searchCriteria, 50);
+            target.SearchForeclosureCase(searchCriteria, 50);
                        
         }
         #endregion
@@ -173,7 +176,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.PropertyZip = prop_zip;
+            //searchCriteria.PropertyZip = prop_zip;
             searchCriteria.Last4_SSN = ssn;
 
             int expected = SearchFcCase_GetFcID();
@@ -220,7 +223,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.PropertyZip = prop_zip;
+            //searchCriteria.PropertyZip = prop_zip;
             searchCriteria.FirstName = first_name;
 
             int expected = SearchFcCase_GetFcID();
@@ -238,7 +241,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            searchCriteria.PropertyZip = prop_zip;
+            //searchCriteria.PropertyZip = prop_zip;
             searchCriteria.FirstName = "1235afdasdf";            
             
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
@@ -380,26 +383,83 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                  + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
                  + ", 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
              ExecuteSql(sql, dbConnection);
+
+             
             #endregion
 
+             fc_id = SearchFcCase_GetFcID();
+             fc_id_complete_null = fc_id;
+             fc_id_complete_true = SearchFcCase_GetFcID_CompleteTrue();
+             fc_id_complete_false = SearchFcCase_GetFcID_CompleteFalse();
+
             #region servicer, case_loan
-            
-            sql = "Insert into Servicer "
+
+             sql = "Insert into Servicer "
                 + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " ('" + servicer_name + "', 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
-            ExecuteSql(sql, dbConnection);
-
-            fc_id = SearchFcCase_GetFcID();
-            fc_id_complete_null = fc_id;
-            fc_id_complete_true = SearchFcCase_GetFcID_CompleteTrue();
-            fc_id_complete_false = SearchFcCase_GetFcID_CompleteFalse();
+            ExecuteSql(sql, dbConnection);            
             int servicer_id = SearchFcCase_GetServicerID();
             sql = "Insert into Case_Loan "
                 + " (fc_id, servicer_id, acct_num, loan_1st_2nd_cd, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " (" + fc_id + ", " + servicer_id + ", '" + acct_num + "', '1st', 'HPF' ,'"+working_user_id+"' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id+"', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
+
+            
             #endregion
 
+            #region dupe test - active case
+            //foreclosure case
+            sql = "Insert into foreclosure_case "
+             + " (completed_dt, agency_id, program_id, intake_dt"
+             + ", borrower_fname, borrower_lname, primary_contact_no"
+             + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+             + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+             + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+             + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+             + ", counselor_fname, counselor_lname, counselor_id_ref"
+             + ", prop_zip, agency_case_num, borrower_last4_SSN"
+             + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+             + " (null, " + agency_id + ", 1, '" + DateTime.Now + "'"
+             + ", '" + first_name + "_dupe" + "', 'Lastname', 'pcontactno'"
+             + ", '123456789acbdfegh', 'cty', 'scod', 'czip'"
+             + ", 'Y', 'Y', 'email'"
+             + ", 'phone', 'Y', 'Y'"
+             + ", 'Y', 'Y', 'Y'"
+             + ", 'cfname', 'clname', 'cidref'"
+             + ", '" + "_dupe" + "', '" + agency_case_num_dupe + "', '" + "_dup" + "'"
+             + ", 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
+
+
+            //servicer
+            sql = "Insert into Servicer "
+                + " (servicer_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('" + servicer_name_dupe + "', 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
+            
+            //case_loan
+            fc_id_dupe = SaveFcCase_GetFcID_Dupe();
+            servicer_id_dupe = SaveFcCase_GetServicerID_Dupe();            
+            sql = "Insert into Case_Loan "
+                + " (fc_id, servicer_id, acct_num, loan_1st_2nd_cd, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " (" + fc_id_dupe + ", " + servicer_id_dupe + ", '" + acct_num_dupe + "', '1st', 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
+
+            //outcome type
+            sql = "Insert into Outcome_Type "
+                + " (outcome_type_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('" + outcome_type_name_dupe + "', 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
+
+            //outcome item
+            int outcome_type_id = SearchFcCase_GetOutcomeTypeId();
+            
+            sql = "Insert into Outcome_Item "
+                + " (fc_id, outcome_type_id, outcome_dt, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " (" + fc_id_dupe + ", " + outcome_type_id + ",'" + DateTime.Now.Date.AddMonths(-1).Date.ToString() + "', 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
+            
+            #endregion
             dbConnection.Close();
         }
 
@@ -408,35 +468,37 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
 
-            //int fc_id = SearchFcCase_GetFcID();
-            //int bsId = GetBudgetSetId(fc_id);
-
-            string sql = "Delete from Case_Loan Where create_user_id = '" + working_user_id + "'";
+            #region general
+            string sql = string.Format("Delete from Case_Loan Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Budget_Asset WHERE create_user_id ='" + working_user_id + "'";
+            sql = string.Format("DELETE FROM Budget_Asset Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Budget_Item WHERE create_user_id ='" +working_user_id + "'";
+            sql = string.Format("DELETE FROM Budget_Item Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Budget_Set WHERE create_user_id ='" +working_user_id + "'";
+            sql = string.Format("DELETE FROM Budget_Set Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "DELETE FROM Outcome_Item WHERE create_user_id ='" + working_user_id + "'";
+            sql = string.Format("DELETE FROM Outcome_Item Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from activity_log where create_user_id = '" + working_user_id + "'"; ;
+            sql = string.Format("Delete from Outcome_Type Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from Foreclosure_case where create_user_id = '" + working_user_id + "'";
+            sql = string.Format("Delete from activity_log Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from Agency where create_user_id = '" +working_user_id + "'";
+            sql = string.Format("Delete from Foreclosure_case Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
-            sql = "Delete from Servicer where create_user_id = '"  +working_user_id + "'";
+            sql = string.Format("Delete from Agency Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
+
+            sql = string.Format("Delete from Servicer Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
+            ExecuteSql(sql, dbConnection);
+            #endregion
 
             dbConnection.Close();
         }
@@ -515,6 +577,30 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return result;
         }
 
+        static private int SaveFcCase_GetFcID_Dupe()
+        {
+            int result = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "SELECT fc_id FROM foreclosure_case WHERE create_user_id = '" + working_user_id_dupe + "'" ;
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            try
+            {
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    result = int.Parse(reader["fc_id"].ToString());
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                dbConnection.Close();
+            }
+            dbConnection.Close();
+            return result;
+        }
+
         static private int SearchFcCase_GetAgencyID()
         {
             int id = 0;
@@ -551,6 +637,42 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return id;
         }
 
+        static private int SaveFcCase_GetServicerID_Dupe()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "Select servicer_id from Servicer where servicer_name = '" + servicer_name_dupe + "'";
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+
+        static private int SearchFcCase_GetOutcomeTypeId()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "Select outcome_type_id from Outcome_Type where outcome_type_name = '" + outcome_type_name_dupe + "'";
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+
         static private void ExecuteSql(string sql, SqlConnection dbConnection)
         {            
             var command = new SqlCommand();
@@ -561,101 +683,64 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         #endregion
 
-        #endregion
-        [Ignore]
+        #endregion               
+        
         [TestMethod()]
-        public void SaveForeclosureCase_MissingRequiredFields()
+        public void SaveFcCase_GetDupe_NullFcId_Existing()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseDTO fcCase = SetForeclosureCase("True");
-            fcCase.ProgramId = 0;
-            ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
-            fcCaseSet.ForeclosureCase = fcCase;
-
-            var expected = new DataValidationException();
-            try
-            {
-                target.SaveForeclosureCaseSet(fcCaseSet);
-            }
-            catch (DataValidationException actual)
-            {
-                expected = actual;
-                Assert.AreEqual(expected.GetType(), actual.GetType()); 
-            }
-
-            if (expected.ExceptionMessages != null && expected.ExceptionMessages.Count > 0)
-                foreach (ExceptionMessage em in expected.ExceptionMessages)
-                    testContextInstance.WriteLine(em.Message);
-            else
-                testContextInstance.WriteLine(expected.Message);
-        }
-
-        [Ignore]
-        [TestMethod()]
-        public void SaveForeclosureCase_BadCode()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseDTO fcCase = SetForeclosureCase("True");
-            fcCase.IncomeEarnersCd = "-123124";
-            ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
-            fcCaseSet.ForeclosureCase = fcCase;
-
-            var expected = new DataValidationException();
-            try
-            {
-                target.SaveForeclosureCaseSet(fcCaseSet);
-            }
-            catch (DataValidationException actual)
-            {
-                expected = actual;
-                Assert.AreEqual(expected.GetType(), actual.GetType());
-            }
-
-            if (expected.ExceptionMessages != null && expected.ExceptionMessages.Count > 0)
-                foreach (ExceptionMessage em in expected.ExceptionMessages)
-                    testContextInstance.WriteLine(em.Message);
-            else
-                testContextInstance.WriteLine(expected.Message);
-        }
-
-        [Ignore]
-        [TestMethod()]
-        public void SaveForeclosureCase_NotValidFcIdForAgencyId()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseDTO fcCase = SetForeclosureCase("True");
-
-            GeoCodeRefDTOCollection cols = GeoCodeRefDAO.Instance.GetGeoCodeRef();
-            fcCase.ContactZip = cols[0].ZipCode;
-            fcCase.ContactStateCd = cols[0].StateAbbr;
-
-            fcCase.PropStateCd = cols[0].StateAbbr;
-            fcCase.PropZip = cols[0].ZipCode;
-
             
+            
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO(){
+                                    FcId = null,
+                                    AgencyCaseNum = agency_case_num_dupe + "_68",
+                                    AgencyId = agency_id};
 
-            fcCase.FcId = 123124;
-            fcCase.AgencyId = 12345;
+            CaseLoanDTO cl = new CaseLoanDTO()
+            {
+                FcId = fcCase.FcId,
+                AcctNum = acct_num_dupe,
+                ServicerId = servicer_id_dupe
+            };
             ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
             fcCaseSet.ForeclosureCase = fcCase;
+            fcCaseSet.CaseLoans = new CaseLoanDTOCollection();
+            fcCaseSet.CaseLoans.Add(cl);
 
-            var expected = new DataValidationException();
-            try
-            {
-                target.SaveForeclosureCaseSet(fcCaseSet);
-            }
-            catch (DataValidationException actual)
-            {
-                expected = actual;
-                Assert.AreEqual(expected.GetType(), actual.GetType());
-            }
-
-            if (expected.ExceptionMessages != null && expected.ExceptionMessages.Count > 0)
-                foreach (ExceptionMessage em in expected.ExceptionMessages)
-                    testContextInstance.WriteLine(em.Message);
-            else
-                testContextInstance.WriteLine(expected.Message);
+            var dupeCaseLoans = target.GetDuplicateCases(fcCaseSet);
+            Assert.AreNotEqual(dupeCaseLoans, null);
+            Assert.AreEqual(dupeCaseLoans.Count, 1);
         }
+
+        [TestMethod()]
+        public void SaveFcCase_GetDupe_NotNullFcId_Existing()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+
+
+            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO()
+            {
+                FcId = fc_id,
+                AgencyCaseNum = agency_case_num_dupe + "_68",
+                AgencyId = agency_id
+            };
+
+            CaseLoanDTO cl = new CaseLoanDTO()
+            {
+                FcId = fcCase.FcId,
+                AcctNum = acct_num_dupe,
+                ServicerId = servicer_id_dupe
+            };
+            ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
+            fcCaseSet.ForeclosureCase = fcCase;
+            fcCaseSet.CaseLoans = new CaseLoanDTOCollection();
+            fcCaseSet.CaseLoans.Add(cl);
+
+            var dupeCaseLoans = target.GetDuplicateCases(fcCaseSet);
+            Assert.AreNotEqual(dupeCaseLoans, null);
+            Assert.AreEqual(dupeCaseLoans.Count, 1);
+        }
+
 
         private GeoCodeRefDTOCollection GetGeoCodeRefDTO()
         {
@@ -812,8 +897,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [Ignore]
         [TestMethod]
         public void ProcessInsertForeclosureCaseSet_Success_Duplicated_FC_Case()
-        {
-            TestContext.WriteLine("This test will throw an DataValidationException when there is a dupe case");
+        {            
             CheckDuplicate_PreTest();
             ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
             fcCase.FcId = 123;
@@ -831,54 +915,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 Assert.AreEqual(expected, pe.GetType());
             }
             CheckDuplicate_PostTest();
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertForeclosureCaseSet_Success_MiscException()
-        {
-            TestContext.WriteLine("This test is not implemented yet");
-            CheckDuplicate_PreTest();
-            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            fcCase.FcId = 123;
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = fcCase;
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-            CheckDuplicate_PostTest();
-        }
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertForeclosureCaseSet_Success()
-        {
-            TestContext.WriteLine("This test is not implemented yet");
-            CheckDuplicate_PreTest();
-            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            fcCase.FcId = 123;
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = fcCase;
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-            CheckDuplicate_PostTest();
-        }
+        }        
         #endregion
 
         #region ProcessUpdateForeclosureCaseSet
@@ -2139,16 +2176,21 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
 
         #region script to manually work with db
-        //delete from case_loan where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
-        //delete from activity_log where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
-        //delete from foreclosure_case where prop_zip = '68686'
-        //delete from agency where agency_name = 'agency_name_68'
-        //delete from servicer where servicer_name = 'servicer_name_68'
+//        select * from case_loan where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//Select * from servicer where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//Select * from agency where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//Select * from outcome_type where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//Select * from outcome_item where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//Select fc_id, prop_zip from foreclosure_case where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
 
-        //select * from case_loan where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
-        //Select * from servicer where servicer_name = 'servicer_name_68'
-        //Select * from agency where agency_name = 'agency_name_68'
-        //Select fc_id, prop_zip from foreclosure_case where prop_zip = '68686'
+
+//delete from case_loan where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//delete from activity_log where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
+//delete from outcome_item where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//delete from outcome_type where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//delete from foreclosure_case where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//delete from agency where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//delete from servicer where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
         #endregion
     }
 }
