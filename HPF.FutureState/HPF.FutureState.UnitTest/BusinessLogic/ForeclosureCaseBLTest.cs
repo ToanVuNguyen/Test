@@ -1086,9 +1086,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
         public void CompleteValidation()
         {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value            
-            bool expected = false; // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.CheckComplete(foreclosureCaseSet);            
             Assert.AreEqual(expected, actual);
