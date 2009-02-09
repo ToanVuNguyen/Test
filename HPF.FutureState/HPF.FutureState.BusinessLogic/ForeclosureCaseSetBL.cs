@@ -383,7 +383,7 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != 0 && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
             {
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An NonprofitreferralKeyNum or ExtRefOtherName is required");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0265, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0265));
             }                        
             return msgFcCaseSet;
         }
@@ -1151,7 +1151,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             bool budgetItem = IsBudgetItemsDifference(foreClosureCaseSetDAO, budgetItemCollection, fcId);
             bool budgetAsset = IsBudgetAssetDifference(foreClosureCaseSetDAO, budgetAssetCollection, fcId);
-            return (budgetItem || budgetItem);                
+            return (budgetItem || budgetAsset);                
         }
         #endregion
 
