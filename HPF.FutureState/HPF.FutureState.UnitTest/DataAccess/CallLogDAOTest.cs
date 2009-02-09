@@ -45,7 +45,7 @@ namespace HPF.FutureState.UnitTest
         //Use ClassInitialize to run code before running the first test in the class
         //[ClassInitialize()]
         //public static void MyClassInitialize(TestContext testContext)
-        //{
+        //{           
         //}
         //
         //Use ClassCleanup to run code after all tests in a class have run
@@ -75,7 +75,7 @@ namespace HPF.FutureState.UnitTest
         [ClassInitialize]
         public static void SetupTest(TestContext testContext)
         {
-           
+            Delete_Data();
         }
 
         /// <summary>
@@ -84,35 +84,34 @@ namespace HPF.FutureState.UnitTest
         [ClassCleanup()]
         public static void CleanupTest()
         {
-           
+            Delete_Data();
         }
         /// <summary>
         ///A test sussess for ReadCallLog
-        ///</summary>      
-        [Ignore]
+        ///</summary>         
         [TestMethod()]
         public void ReadCallLogTestSuccess()
         {
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            var callLogId = 2;//TODO: Initialize to an appropriate value
-            CallLogDTO expected = CallLogDAO.Instance.ReadCallLog(callLogId); // TODO: Initialize to an appropriate value                        
+            InsertCall();
+            var callLogId = GetCallID();            
             CallLogDTO actual = target.ReadCallLog(callLogId);
-            Assert.AreEqual(expected.CallId, actual.CallId);
+            Assert.AreEqual("cc_call_key_test", actual.CcCallKey);
+            Delete_Data();
         }
 
         /// <summary>
         ///A test fail for ReadCallLog
-        ///</summary>                
-        [Ignore]
+        ///</summary>                        
         [TestMethod()]
         public void ReadCallLogTestFail()
         {
             CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            var callLogId1 = 2; // TODO: Initialize to an appropriate value
-            var callLogId2 = 3;
-            CallLogDTO expected = CallLogDAO.Instance.ReadCallLog(callLogId1); // TODO: Initialize to an appropriate value           
-            CallLogDTO actual = target.ReadCallLog(callLogId2);
-            Assert.AreNotEqual(expected.CallId, actual.CallId);
+            InsertCall();
+            var callLogId = GetCallID();
+            CallLogDTO actual = target.ReadCallLog(callLogId);
+            Assert.AreNotEqual("cc_call_key", actual.CcCallKey);
+            Delete_Data();
         }
 
         #region InsertCallLog_Test
@@ -129,6 +128,52 @@ namespace HPF.FutureState.UnitTest
             
             dbConnection.Close();
 
+        }
+
+        private void InsertCall()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+
+            string sql = "Insert into call_center(call_center_name, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name) values ('call_center_name_test', '" + DateTime.Now + "', 'test', 'test', '" + DateTime.Now + "', 'test', 'test')";
+            ExecuteSql(sql, dbConnection);
+
+            int callCenterID = GetCallCenterID(dbConnection);
+
+            sql = "Insert into call(call_center_id, start_dt, end_dt, cc_call_key, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name) values ( " + callCenterID + ", '" + DateTime.Now + "', '" + DateTime.Now + "', 'cc_call_key_test',  '" + DateTime.Now + "', 'test', 'test', '" + DateTime.Now + "', 'test', 'test')";
+            ExecuteSql(sql, dbConnection);
+
+            dbConnection.Close();
+        }
+
+        static private int GetCallCenterID(SqlConnection dbConnection)
+        {
+            int id = 0;
+            string sql = "Select call_center_id from call_center where call_center_name = 'call_center_name_test'";
+            var command = new SqlCommand(sql, dbConnection);            
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+            reader.Close();
+            return id;
+        }
+
+        static private void ExecuteSql(string sql, SqlConnection dbConnection)
+        {
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+            command.CommandText = sql;
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
 
         private int GetCallCenterID()
@@ -149,6 +194,26 @@ namespace HPF.FutureState.UnitTest
             reader.Close();
             dbConnection.Close();
             return id;           
+        }
+
+        private int GetCallID()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            var command = new SqlCommand();
+            command.Connection = dbConnection;
+
+            command.CommandText = "Select call_id from call WHERE cc_call_key = 'cc_call_key_test'";
+            var reader = command.ExecuteReader();
+            int id = 0;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+            reader.Close();
+            dbConnection.Close();
+            return id;
         }
 
         private int GetCallLogID()
@@ -213,6 +278,21 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = "Delete from Call_Center where call_center_ID = " + GetCallCenterID() ;// 'call_center_name_1'";
             command.ExecuteNonQuery();
 
+
+            dbConnection.Close();
+        }
+
+
+        private static void Delete_Data()
+        {
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            
+            string sql =  "Delete from Call where cc_call_key = 'cc_call_key_test'";
+            ExecuteSql(sql, dbConnection);
+
+            sql = "Delete from Call_Center where call_center_name = 'call_center_name_test'";
+            ExecuteSql(sql, dbConnection);
 
             dbConnection.Close();
         }
