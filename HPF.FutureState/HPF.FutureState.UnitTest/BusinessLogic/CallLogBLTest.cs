@@ -60,40 +60,7 @@ namespace HPF.FutureState.UnitTest
         //
         #endregion
 
-        #region retrieve call log
-        /// <summary>
-        ///A test for RetrieveCallLog
-        ///</summary>
-        [TestMethod()]
-        public void RetrieveCallLogTestSuccess()
-        {
-            CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value            
-            //CallLogDTO expected = null; // TODO: Initialize to an appropriate value
-            CallLogDTO aCallLog = new CallLogDTO();
-            SetCallLogTestData(aCallLog);
-            target.InsertCallLog(aCallLog);
-            int callLogId = GetCallLogId(); // TODO: Initialize to an appropriate value
-            CallLogDTO actual;
-            actual = target.RetrieveCallLog(callLogId);
-            Assert.AreEqual(callLogId, actual.CallId);            
-        }
 
-        /// <summary>
-        ///A test fail for RetrieveCallLog        
-        ///</summary>    
-        [TestMethod()]
-        public void RetrieveCallLogTestFail()
-        {
-            CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
-            int callLogId = 0; // TODO: Initialize to an appropriate value            
-            CallLogDTO actual;
-            CallLogDTO aCallLog = new CallLogDTO();
-            SetCallLogTestData(aCallLog);
-            target.InsertCallLog(aCallLog);
-            actual = target.RetrieveCallLog(GetCallLogId());
-            Assert.AreNotEqual(callLogId, actual.CallId);
-        }
-    #endregion
 
         #region Insert CallLog
         //[Ignore]
@@ -230,6 +197,31 @@ namespace HPF.FutureState.UnitTest
             }
         }
 
+        #region retrieve call log
+        /// <summary>
+        ///A test for RetrieveCallLog
+        ///</summary>
+        [TestMethod()]
+        public void RetrieveCallLogTestSuccess()
+        {
+            CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value                                                
+            int callLogId = GetCallId(); // TODO: Initialize to an appropriate value
+            CallLogDTO actual = target.RetrieveCallLog(callLogId);
+            Assert.AreEqual("cc_call_key_test_1", actual.CcCallKey);
+        }
+
+        /// <summary>
+        ///A test fail for RetrieveCallLog        
+        ///</summary>    
+        [TestMethod()]
+        public void RetrieveCallLogTestFail()
+        {
+            CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value                                                
+            int callLogId = GetCallId(); // TODO: Initialize to an appropriate value
+            CallLogDTO actual = target.RetrieveCallLog(callLogId);
+            Assert.AreNotEqual("cc_call_key_test_2", actual.CcCallKey);
+        }
+        #endregion
         #region helper
 
         #region property
@@ -270,6 +262,9 @@ namespace HPF.FutureState.UnitTest
             aCallLog.CallCenterID = GetCallCenterID();
 
             aCallLog.SetInsertTrackingInformation(working_user_id);
+
+            sql = "Insert into call(call_center_id, start_dt, end_dt, cc_call_key, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name) values ( " + GetCallCenterID() + ", '" + DateTime.Now + "', '" + DateTime.Now + "', 'cc_call_key_test_1',  '" + DateTime.Now + "', '" + working_user_id + "', 'test', '" + DateTime.Now + "', 'test', 'test')";
+            ExecuteSql(sql, dbConnection);
             dbConnection.Close();
         }
 
@@ -295,6 +290,24 @@ namespace HPF.FutureState.UnitTest
             int id = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             string sql = string.Format("SELECT call_Id FROM Call where create_user_id = '{0}' and chg_lst_user_id = '{1}'", working_user_id, working_user_id);
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+
+        private int GetCallId()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = string.Format("SELECT call_Id FROM Call where cc_call_key = 'cc_call_key_test_1'");
             var command = new SqlCommand(sql, dbConnection);
             dbConnection.Open();
             var reader = command.ExecuteReader();
