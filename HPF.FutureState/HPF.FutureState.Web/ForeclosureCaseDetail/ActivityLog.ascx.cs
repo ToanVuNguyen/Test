@@ -11,6 +11,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+using HPF.FutureState.Common;
+using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
@@ -24,7 +26,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                 int fcId = Int32.Parse(Request.QueryString["CaseID"].ToString());
-                
+                ApplySecurity();
                 grdvActivityLogs.DataSource = ActivityLogBL.Instance.GetActivityLog(fcId);
                 grdvActivityLogs.DataBind();
             }
@@ -32,6 +34,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 ExceptionProcessor.HandleException(ex);
             }
+        }
+
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))            
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");            
         }
     }
 }
