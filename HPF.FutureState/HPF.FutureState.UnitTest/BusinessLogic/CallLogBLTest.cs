@@ -64,7 +64,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test for RetrieveCallLog
         ///</summary>
-        //[TestMethod()]
+        [TestMethod()]
         public void RetrieveCallLogTestSuccess()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value            
@@ -81,7 +81,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test fail for RetrieveCallLog        
         ///</summary>    
-        //[TestMethod()]
+        [TestMethod()]
         public void RetrieveCallLogTestFail()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor(); // TODO: Initialize to an appropriate value
@@ -91,11 +91,12 @@ namespace HPF.FutureState.UnitTest
             SetCallLogTestData(aCallLog);
             target.InsertCallLog(aCallLog);
             actual = target.RetrieveCallLog(GetCallLogId());
-            Assert.AreNotEqual(0, actual.CallId);
+            Assert.AreNotEqual(callLogId, actual.CallId);
         }
     #endregion
 
         #region Insert CallLog
+        //[Ignore]
         [TestMethod]
         public void InsertCallLogTest_Pass()
         {
