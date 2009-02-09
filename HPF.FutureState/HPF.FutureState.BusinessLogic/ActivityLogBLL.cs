@@ -31,5 +31,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             ActivityLogDAO.Instance.InsertActivityLog(activityLog);
         }
+
+        public ActivityLogDTOCollection GetActivityLog(int fcId)
+        {
+            return ActivityLogDAO.Instance.GetActivityLog(fcId);
+        }
     }
 }

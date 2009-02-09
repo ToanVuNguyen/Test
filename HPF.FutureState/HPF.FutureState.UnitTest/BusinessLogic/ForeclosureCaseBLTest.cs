@@ -1362,6 +1362,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(0, actual.Count);
         }
 
+        [TestMethod()]
+        public void GetActivityLogTest()
+        {
+            ActivityLogBL_Accessor target = new ActivityLogBL_Accessor();
+            ActivityLogDTOCollection actual = target.GetActivityLog(fc_id);
+            Assert.AreEqual(1, actual.Count);
+        }
         #region Data test ForeclosureCaseSet
         private ForeclosureCaseDTO SetForeclosureCase(string status)
         {            
