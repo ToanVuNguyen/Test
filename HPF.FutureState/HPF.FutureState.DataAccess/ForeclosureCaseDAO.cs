@@ -574,6 +574,53 @@ namespace HPF.FutureState.DataAccess
             return foreclosureCase.FcId;
         }
 
+        /// <summary>
+        /// Get ID and Name from table servicer to bind on DDLB
+        /// </summary>
+        /// <returns>ServicerDTOCollection contains all Servicer </returns>
+        public ServicerDTOCollection AppGetServicer()
+        {
+            //AgencyDTOCollection results = HPFCacheManager.Instance.GetData<AgencyDTOCollection>("refAgency");
+            ServicerDTOCollection results = new ServicerDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = new SqlCommand("hpf_servicer_get", dbConnection);
+            var sqlParam = new SqlParameter[2];
+            sqlParam[0] = new SqlParameter("@pi_servicer_id", null);
+            sqlParam[1] = new SqlParameter("@pi_funding_source_id", null);
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = dbConnection;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var item = new ServicerDTO();
+                        item.ServicerID = ConvertToInt(reader["servicer_id"]);
+                        item.ServicerName = ConvertToString(reader["servicer_name"]);
+                        results.Add(item);
+                    }
+                    reader.Close();
+                    //HPFCacheManager.Instance.Add("refAgency", results);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return results;
+        }
+        ///<summary>
+        ///
+
 
     }
 }
