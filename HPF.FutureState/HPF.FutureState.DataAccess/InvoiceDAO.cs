@@ -265,7 +265,7 @@ namespace HPF.FutureState.DataAccess
                         invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
                         invoice.InvoicePaymentAmount= ConvertToDouble(reader["invoice_pmt_amt"]);
                         invoice.StatusCode = ConvertToString(reader["status_cd"]);
-                        invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Value.Date;
+                        invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]);
                         if(invoice.PeriodStartDate!=null && invoice.PeriodEndDate!=null)
                             invoice.InvoicePeriod = invoice.PeriodStartDate.Value.ToShortDateString() + "-" + invoice.PeriodEndDate.Value.ToShortDateString();
                         invoices.Add(invoice);                           

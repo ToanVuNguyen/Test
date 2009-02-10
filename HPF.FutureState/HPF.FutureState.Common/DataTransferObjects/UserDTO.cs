@@ -10,7 +10,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int? HPFUserId { get; set; }
         public string UserName { get; set; }
-        private string _Password=string.Empty;
+        private string _Password=null;
 
         public string Password
         {
