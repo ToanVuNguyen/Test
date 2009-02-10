@@ -37,8 +37,8 @@ namespace HPF.FutureState.DataAccess
         {
             InvoicePaymentDTOCollection invoicePayments = null;
             SqlConnection dbConnection =base.CreateConnection();
-            //SqlCommand command = base.CreateCommand("hpf_invoice_payments_search", dbConnection);
-            SqlCommand command = new SqlCommand("hpf_invoice_payments_search",dbConnection);
+            //SqlCommand command = base.CreateCommand("hpf_invoice_payment_search", dbConnection);
+            SqlCommand command = new SqlCommand("hpf_invoice_payment_search",dbConnection);
 
             //<Parameter>   
             SqlParameter[] sqlParam = new SqlParameter[3];

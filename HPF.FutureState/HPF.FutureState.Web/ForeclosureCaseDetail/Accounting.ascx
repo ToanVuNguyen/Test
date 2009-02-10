@@ -82,7 +82,6 @@
         <asp:BoundField HeaderText="Agency" DataField="AgencyName" />
         <asp:BoundField HeaderText="Payable #" DataField="AgencyPayableId" />
         <asp:BoundField HeaderText="Pay Amt" DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  />
-        <asp:BoundField HeaderText="NFMC Diff Elig" DataField="NFMCDiffererencePaidInd" />
         <asp:BoundField HeaderText="NFMC Diff Pd" DataField="NFMCDifferenceEligibleInd" />
         </Columns>
         <EmptyDataTemplate>There is no data match</EmptyDataTemplate>

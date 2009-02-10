@@ -366,8 +366,8 @@ namespace HPF.FutureState.DataAccess
                         item.CaseID = ConvertToString(reader["fc_id"]);
                         item.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         item.AgencyCaseID = ConvertToString(reader["agency_id"]);
-                        item.CaseCompleteDate = ConvertToDateTime(reader["completed_dt"]);
-                        item.CaseDate = ConvertToDateTime(reader["intake_dt"]);
+                        item.CaseCompleteDate = ConvertToDateTime(reader["completed_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["completed_dt"]);
+                        item.CaseDate = ConvertToDateTime(reader["intake_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["intake_dt"]);
                         item.BorrowerFirstName = ConvertToString(reader["borrower_fname"]);
                         item.BorrowerLastName = ConvertToString(reader["borrower_lname"]);
                         item.Last4SSN = ConvertToString(reader["borrower_last4_SSN"]);
