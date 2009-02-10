@@ -638,7 +638,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         private ExceptionMessageCollection MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            var msgFcCaseSet = new ExceptionMessageCollection();            
+            var msgFcCaseSet = new ExceptionMessageCollection();
             int? fcId = foreclosureCaseSet.ForeclosureCase.FcId;
             bool caseComplete = CheckForeclosureCaseComplete(fcId);            
             //Cannot Un-complete a Previously Completed Case
@@ -648,7 +648,9 @@ namespace HPF.FutureState.BusinessLogic
             //Cannot resubmit the case complete without billable outcome
             msgFcCaseSet.Add(CheckBillableOutCome(foreclosureCaseSet, caseComplete));
             //Budget Item must have atleast 1 budget_item = 'Mortgage Amount'.(If case completed)
-            msgFcCaseSet.Add(CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete));            
+            msgFcCaseSet.Add(CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete));
+            //Budget Item valid or not
+            msgFcCaseSet.Add(CheckBugetItemIsValid(foreclosureCaseSet));   
             //
             if (caseComplete && msgFcCaseSet.Count != 0)
             {
@@ -658,10 +660,26 @@ namespace HPF.FutureState.BusinessLogic
                                   Message = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255)
                               };
                 msgFcCaseSet.Insert(0,msg);
-            }            
+            }                    
             return msgFcCaseSet;
         }
 
+        private ExceptionMessageCollection CheckBugetItemIsValid(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            var budgetCollection = foreclosureCaseSet.BudgetItems;
+            var msgFcCaseSet = new ExceptionMessageCollection();
+            if (budgetCollection == null || budgetCollection.Count < 1)
+                return msgFcCaseSet;
+            foreach (BudgetItemDTO item in budgetCollection)
+            { 
+                if(item.BudgetItemAmt == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetItemAmt can not be null");
+                if(item.BudgetSubcategoryId == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetSubCategory can not be null");
+
+            }
+            return msgFcCaseSet;
+        }
         /// <summary>
         /// Check Misc Error Exception
         /// Case 1: Cannot Un-complete a Previously Completed Case  
@@ -690,7 +708,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);            
             bool caseComplete = false;
-            if (fcCase != null && fcCase.CompletedDt != DateTime.MinValue && !CheckInactiveCase(fcId))
+            if (fcCase != null && fcCase.CompletedDt != null && !CheckInactiveCase(fcId))
                 caseComplete = true;
             return caseComplete;
         }
