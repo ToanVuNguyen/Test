@@ -222,6 +222,7 @@ namespace HPF.FutureState.BusinessLogic
                 item.SetAttribute("row_index", rowIndex.ToString());
                 item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
                 item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
+                item.SetAttribute("reject_reason_code", reconciliationDTO.PaymentRejectReasonCode);
                 root.AppendChild(item);
                 rowIndex++;
             }
@@ -230,10 +231,10 @@ namespace HPF.FutureState.BusinessLogic
         }
         public void BackEndPreProcessing(ReconciliationDTOCollection reconciliationDTOCollection)
         {
-            DataValidationException ex = new DataValidationException();
             string xml = GetXmlString(reconciliationDTOCollection);
-
-
+            DataValidationException ex= InvoiceDAO.CreateInstance().BackEndPreProcessing(xml);
+            if (ex != null)
+                throw (ex);
         }
     }
 }

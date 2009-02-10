@@ -525,5 +525,54 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+        /// <summary>
+        /// Get InvoiceSet to display in View/Edit Invoice Page
+        /// </summary>
+        /// <returns> InvoiceSetDTO containts info about the Invoice and InvoiceCases</returns>
+        public DataValidationException BackEndPreProcessing(string xmlString)
+        {
+            DataValidationException result = new DataValidationException();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_Invoice_case_validate", dbConnection);
+            command.Connection = dbConnection;
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_XMLDOC", xmlString);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                    while(reader.Read())
+                    {
+                        string errorCodes = ConvertToString(reader["error_code"]);
+                        if(errorCodes==null)
+                            continue;
+                        int rowIndex = ConvertToInt(reader["row_index"]).Value;
+                        string[] errorList = errorCodes.Split(',');
+                        foreach(string errorCode in errorList)
+                        {
+                            ExceptionMessage exMes = new ExceptionMessage();
+                            exMes.Message=ErrorMessages.GetExceptionMessageCombined(errorCode,rowIndex);
+                            exMes.ErrorCode = errorCode;
+                            result.ExceptionMessages.Add(exMes);
+                        }
+                        
+                    }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            if(result.ExceptionMessages.Count>0)
+                return result;
+            return null;
+        }
+
     }
 }

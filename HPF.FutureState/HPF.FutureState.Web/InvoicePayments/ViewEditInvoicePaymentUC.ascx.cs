@@ -94,7 +94,10 @@ namespace HPF.FutureState.Web.InvoicePayments
             try
             {
                 //Validate the data input 
-                ControlValidation();
+                
+                //remember to remove this line 
+                
+                //ControlValidation();
                 //Validate Excel file
                 ExcelProcessing();
             }
@@ -274,11 +277,12 @@ namespace HPF.FutureState.Web.InvoicePayments
                 }
 
                 //Reject Reaon Code
-                if(paymentRejectReasonCollection.IndexOf(row[COLUMN_NAME[4]].ToString())==-1)
-                {
-                    var exMes = GetExceptionMessage(ErrorMessages.ERR0660, rowIndex);
-                    ex.ExceptionMessages.Add(exMes);
-                }
+                if (row[COLUMN_NAME[4]].ToString() != string.Empty)
+                    if (paymentRejectReasonCollection.IndexOf(row[COLUMN_NAME[4]].ToString()) == -1)
+                    {
+                        var exMes = GetExceptionMessage(ErrorMessages.ERR0660, rowIndex);
+                        ex.ExceptionMessages.Add(exMes);
+                    }
                 rowIndex++;
             }
             //sumOfpaymentAmount must equal total paymentAmount
