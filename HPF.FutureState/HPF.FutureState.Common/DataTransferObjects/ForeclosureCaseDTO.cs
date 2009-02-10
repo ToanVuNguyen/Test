@@ -38,7 +38,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string AgencyClientNum { get; set; }
 
         [XmlElement(IsNullable = true)]        
-        [RequiredObjectValidator(Tag = ErrorMessages.ERR0103, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]             
+        [RequiredObjectValidator(Tag = ErrorMessages.ERR0103, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        [NullableOrInRangeNumberValidator(false,"1-1-1753","12-31-9999",Ruleset = Constant.RULESET_LENGTH, MessageTemplate= "IntakeDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? IntakeDt { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0300, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -77,6 +78,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HudTerminationReasonCd { get; set; }
 
         [XmlElement(IsNullable = true)]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HudTerminationDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? HudTerminationDt { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0305, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -116,7 +118,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerLast4Ssn { get; set; }
 
         [XmlElement(IsNullable = true)]
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]        
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0308, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "BorrowerDob must be between 1/1/1753 and 12/31/9999")]
         public DateTime? BorrowerDob { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Co-Borrower F Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0009)]
@@ -136,6 +139,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CoBorrowerLast4Ssn { get; set; }
 
         [XmlElement(IsNullable = true)]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CoBorrowerDob must be between 1/1/1753 and 12/31/9999")]
         public DateTime? CoBorrowerDob { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0107, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -381,6 +385,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string SummarySentOtherCd { get; set; }
 
         [XmlElement(IsNullable = true)]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SummarySentOtherDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? SummarySentOtherDt { get; set; }
 
         [XmlIgnore]
@@ -610,6 +615,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string IntakeCreditBureauCd { get; set; }
 
         [XmlElement(IsNullable = true)]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "FcSaleDate must be between 1/1/1753 and 12/31/9999")]
         public DateTime? FcSaleDate { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0125, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]

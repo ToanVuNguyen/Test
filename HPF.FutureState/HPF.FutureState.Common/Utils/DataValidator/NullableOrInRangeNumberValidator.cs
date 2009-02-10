@@ -122,6 +122,33 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     }
                 }
 
+                if (objectToValidate.GetType() == typeof(DateTime))
+                {
+                    DateTime value;
+                    DateTime lowerValue;
+                    DateTime upperValue;
+                    if (!DateTime.TryParse(_lowerBound, out lowerValue))
+                        lowerValue = DateTime.MinValue;
+                    if (!DateTime.TryParse(_upperBound, out upperValue))
+                        upperValue = DateTime.MaxValue;
+                    if (!DateTime.TryParse(objectToValidate.ToString(), out value))
+                    {
+                        isValid = false;
+                        //MessageTemplate = key + " is invalid";
+                    }
+                    else
+                    {
+                        if (lowerValue <= value && upperValue >= value)
+                            isValid = true;
+                        else
+                        {
+                            isValid = false;
+                            //MessageTemplate = string.Format("{0} is out of allowed range ", key);
+                        }
+
+                    }
+                }
+
                                 
             }
             if (!isValid)
