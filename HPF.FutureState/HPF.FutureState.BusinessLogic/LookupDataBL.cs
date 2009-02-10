@@ -72,6 +72,15 @@ namespace HPF.FutureState.BusinessLogic
 
         }
         /// <summary>
+        /// Get ServicerDTOCollection contains all ServicerDTO 
+        /// </summary>
+        /// <returns></returns>
+        public ServicerDTOCollection GetServicer()
+        {
+            ServicerDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetServicer();
+            return result;
+        }
+        /// <summary>
         /// Get Servicer Name from FundingSourceId
         /// </summary>
         /// <param name="fundingSourceId"></param>
