@@ -148,13 +148,16 @@ namespace HPF.FutureState.Web
 
         protected void btnEmailSummary_Click(object sender, EventArgs e)
         {
-            //Response.Redirect("EmailSummary.aspx");
             Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Email Summary", "<script language='javascript'>window.open('EmailSummary.aspx','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=800px,height=500px')</script>");
         }
 
         protected void btn_Print_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PrintSummary.aspx");
+            if (Request.QueryString["CaseID"] == null)
+                return;
+            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID="+caseid+"','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1000px,height=900px')</script>");
+            
         }
         
 

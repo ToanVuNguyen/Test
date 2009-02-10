@@ -16,6 +16,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common;
 namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 {
 
@@ -55,6 +56,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindProgramDropdownlist();
                 BindStateDropdownlist();
                 BindAgencyDropdownlist();
+                BindServicerDropDownList();
                 //redisplay search criteria when you click on menu item.
                 ReBindSearchCriteria();
             }
@@ -125,6 +127,17 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlProgram.DataBind();
             //selected item of drop down list : all
             ddlProgram.Items.FindByText("ALL").Selected = true;
+        }
+        protected void BindServicerDropDownList()
+        {
+            ServicerDTOCollection servicerCollection = LookupDataBL.Instance.GetServicer();
+            ListItem item = new ListItem("ALL", "-1");
+            ddlServicer.DataValueField = "ServicerID";
+            ddlServicer.DataTextField = "ServicerName";
+            ddlServicer.Items.Add(item);
+            ddlServicer.DataSource = servicerCollection;
+            ddlServicer.DataBind();
+            //ddlServicer.Items.FindByText("ALL").Selected = true;
         }
 
         /// <summary>
@@ -277,8 +290,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             BindGrvForeClosureCaseSearch(1);
             //calculate totalpage from search data to display warning message if there are greater than 500 cases.
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            if (totalpage > 10) lblErrorMessage.Text = @"Cases matched your search criteria, only the first 500 will
-                        be presented. To reduce the number of results, please refine your search criteria.";
+            if (totalpage > 10) lblErrorMessage.Text = ErrorMessages.WARN0500;
             //every click search button, set 
             this.PageNum = 0;
             lbtnLast.Enabled = true;

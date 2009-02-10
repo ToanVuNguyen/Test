@@ -58,15 +58,15 @@ namespace HPF.FutureState.Web.SummaryEmail
                     hpfSendMail.To = SendTo;
                     hpfSendMail.Subject = Subject;
                     hpfSendMail.Body = Body;
-                    //reportExport.ReportPath = @"D:\";
-                    //byte[] attachContent = reportExport.ExportToPdf();
-                    //hpfSendMail.AddAttachment("hpf_report.pdf", attachContent);
+                    reportExport.ReportPath = @"http:\\hpf_01\reportserver\HPF_Report\rpt_Counseling_Summary.rdl";
+                    byte[] attachContent = reportExport.ExportToPdf();
+                    hpfSendMail.AddAttachment("hpf_report.pdf", attachContent);
                     hpfSendMail.Send();
                 }
-                else
-                {
-                    return "";
-                }
+                //else
+                //{
+                //    return "";
+                //}
             }
             catch (Exception ex)
             {
