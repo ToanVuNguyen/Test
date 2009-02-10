@@ -113,7 +113,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="agencyPayable"></param>
         /// <returns></returns>
-        public int InsertAgencyPayable(AgencyPayableDTO agencyPayable)
+        public int? InsertAgencyPayable(AgencyPayableDTO agencyPayable)
         {
             var command = CreateSPCommand("hpf_agency_payable_insert", this.dbConnection);
             //<Parameter>

@@ -38,7 +38,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="aCallLog"></param>
         /// <returns>return a calllog id after inserting</returns>
-        public int InsertCallLog(CallLogDTO aCallLog)
+        public int? InsertCallLog(CallLogDTO aCallLog)
         {
             aCallLog.SetInsertTrackingInformation(aCallLog.CcAgentIdKey);
 
@@ -106,12 +106,12 @@ namespace HPF.FutureState.BusinessLogic
 
         private ExceptionMessageCollection CheckForeignKey(CallLogDTO aCallLog)
         {
-            Dictionary<string, int> idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
-            int callCenterID = idList["CallCenterID"];
+            Dictionary<string, int?> idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
+            int? callCenterID = idList["CallCenterID"].Value;
             //int isValidCCAgentIdKey = 1;
-            int prevAgencyID = idList["PrevAgencyID"];
+            int? prevAgencyID = idList["PrevAgencyID"].Value;
             //int isValidSelectedAgencyId = 1;
-            int servicerID = idList["ServicerID"];
+            int? servicerID = idList["ServicerID"].Value;
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
             if (callCenterID == 0)
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "CallCenterID does not exist"});

@@ -12,9 +12,9 @@ namespace HPF.FutureState.WebServices
     {
         public AuthenticationInfo Authentication;
 
-        protected int CurrentAgencyID { get; set; }
+        protected int? CurrentAgencyID { get; set; }
 
-        protected int CurrentCallCenterID { get; set; }
+        protected int? CurrentCallCenterID { get; set; }
 
         /// <summary>
         /// Authenticate checking, this method can override for specific web service.

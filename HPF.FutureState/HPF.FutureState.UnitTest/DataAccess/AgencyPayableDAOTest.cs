@@ -242,8 +242,8 @@ namespace HPF.FutureState.UnitTest
             //actual search data  
             AgencyPayableDTOCollection actual = target.SearchAgencyPayable(agencyPayableCriteria);
             //compare actual and expect
-            Assert.AreEqual(actual[0].PeriodStartDate.ToShortDateString(), "1/1/2222");
-            Assert.AreEqual(actual[0].PeriodEndDate.ToShortDateString(), "1/1/2222");
+            Assert.AreEqual(actual[0].PeriodStartDate.Value.ToShortDateString(), "1/1/2222");
+            Assert.AreEqual(actual[0].PeriodEndDate.Value.ToShortDateString(), "1/1/2222");
             Assert.AreEqual(actual[0].PaymentComment, "test comment");
             Assert.AreEqual(actual[0].StatusCode, "payable test");
             dbConnection.Close();

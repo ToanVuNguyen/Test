@@ -135,10 +135,8 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             Label lblInvoice = e.Row.FindControl("lblInvoiceDate") as Label;
             if (lblInvoice != null)
             {
-                string date = (e.Row.DataItem as InvoiceDTO).InvoiceDate.ToShortDateString();
+                string date = (e.Row.DataItem as InvoiceDTO).InvoiceDate == null ? "" : (e.Row.DataItem as InvoiceDTO).InvoiceDate.Value.ToShortDateString();
                 lblInvoice.Text = date;
-                if (date == "1/1/0001")
-                    lblInvoice.Text = "N/A";
             }
         }
         /// <summary>

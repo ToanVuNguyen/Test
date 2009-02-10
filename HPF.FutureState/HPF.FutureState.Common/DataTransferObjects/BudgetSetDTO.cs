@@ -33,6 +33,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime? BudgetSetDt { get; set; }
 
         [XmlIgnore]
-        public double TotalSurplus { get; set; }
+        public double? TotalSurplus { get; set; }
     }
 }

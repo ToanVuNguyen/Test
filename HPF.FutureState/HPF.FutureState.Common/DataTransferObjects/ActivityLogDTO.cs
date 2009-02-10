@@ -9,7 +9,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ActivityLogDTO : BaseDTO
     {
-        public int ActivityLogId{ get; set; }
+        public int? ActivityLogId { get; set; }
 
         public int? FcId{ get; set; }
         

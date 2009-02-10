@@ -136,8 +136,8 @@ namespace HPF.FutureState.UnitTest
             InvoiceDTOCollection results;
             results = target.SearchInvoice(searchCriteria);
             List<int> actual = new List<int>();
-            actual.Add(results[0].FundingSourceId);
-            actual.Add(results[1].FundingSourceId);
+            actual.Add(results[0].FundingSourceId.Value);
+            actual.Add(results[1].FundingSourceId.Value);
             for (int i = 0; i < 2; i++)
                 Assert.AreEqual(expected[i], actual[i]);
             

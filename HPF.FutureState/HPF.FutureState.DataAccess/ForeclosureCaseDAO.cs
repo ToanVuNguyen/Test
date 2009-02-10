@@ -288,7 +288,7 @@ namespace HPF.FutureState.DataAccess
                     }
                     reader.Close();
                 }
-                results.SearchResultCount = ConvertToInt(sqlParam[8].Value);
+                results.SearchResultCount = ConvertToInt(sqlParam[8].Value).Value;
             }
             catch (Exception Ex)
             {
@@ -318,10 +318,10 @@ namespace HPF.FutureState.DataAccess
             return whereClause.ToString();
         }
 
-        private string GetCounseledProperty(DateTime completedDt)
+        private string GetCounseledProperty(DateTime? completedDt)
         {
             DateTime oneYearBefore = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day - 1);
-            if (completedDt.CompareTo(oneYearBefore) >= 0 && completedDt.CompareTo(DateTime.Now) <= 0)
+            if (completedDt.Value.CompareTo(oneYearBefore) >= 0 && completedDt.Value.CompareTo(DateTime.Now) <= 0)
                 return "<1yr";
             return ">1yr";
         }

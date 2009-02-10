@@ -8,7 +8,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class RefCodeItemDTO : BaseDTO
     {
-        public int RefCodeItemId { get; set; }
+        public int? RefCodeItemId { get; set; }
 
         public string RefCodeSetName { get; set; }
 
@@ -18,7 +18,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CodeComment { get; set; }
 
-        public int SortOrder { get; set; }
+        public int? SortOrder { get; set; }
 
         public string ActiveInd { get; set; }
     }

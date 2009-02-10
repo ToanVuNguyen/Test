@@ -219,7 +219,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     string curCulture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
                     System.Globalization.NumberFormatInfo currencyFormat = new System.Globalization.CultureInfo(curCulture).NumberFormat;
                     currencyFormat.CurrencyNegativePattern = 1;
-                    lblSurplus.Text   =  bud.TotalSurplus.ToString("C",currencyFormat);
+                    lblSurplus.Text   =  bud.TotalSurplus.Value.ToString("C",currencyFormat);
                 }
         }
     }

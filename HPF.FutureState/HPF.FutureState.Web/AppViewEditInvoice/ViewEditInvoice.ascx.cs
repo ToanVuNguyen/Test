@@ -69,16 +69,16 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             InvoiceDTO invoice = invoiceSet.Invoice;
             lblFundingSource.Text = invoice.FundingSourceName;
             lblInvoiceNumber.Text = invoice.InvoiceId.ToString();
-            lblInvoiceTotal.Text = invoice.InvoiceBillAmount.ToString("C");
-            lblPeriodEnd.Text = invoice.PeriodEndDate.ToShortDateString();
-            lblPeriodStart.Text = invoice.PeriodStartDate.ToShortDateString();
+            lblInvoiceTotal.Text = invoice.InvoiceBillAmount == null ? "" : invoice.InvoiceBillAmount.Value.ToString("C");
+            lblPeriodEnd.Text = invoice.PeriodEndDate == null ? "" : invoice.PeriodEndDate.Value.ToShortDateString();
+            lblPeriodStart.Text = invoice.PeriodStartDate == null ? "" : invoice.PeriodStartDate.Value.ToShortDateString();
             lblTotalCases.Text = invoiceSet.TotalCases.ToString() ;
-            lblTotalPaid.Text =  invoiceSet.Invoice.InvoicePaymentAmount.ToString("C");
+            lblTotalPaid.Text = invoiceSet.Invoice.InvoicePaymentAmount == null ? "" : invoiceSet.Invoice.InvoicePaymentAmount.Value.ToString("C");
             lblTotalRejected.Text = invoiceSet.TotalRejected.ToString("C");
 
             lblTotalCase1.Text = invoiceSet.TotalCases.ToString();
             lblTotalPaid1.Text = invoiceSet.TotalPaid.ToString("C");
-            lblInvoiceTotal1.Text = invoice.InvoiceBillAmount.ToString("C");
+            lblInvoiceTotal1.Text = invoice.InvoiceBillAmount == null ? "" : invoice.InvoiceBillAmount.Value.ToString("C");
         }
         /// <summary>
         /// only user with edit permision can access this page

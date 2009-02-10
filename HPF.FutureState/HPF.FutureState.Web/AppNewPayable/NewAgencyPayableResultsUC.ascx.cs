@@ -79,7 +79,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             //calculate the total amount of ForeclosureCaseDraftDTOCollection
             foreach (var item in this.FCDraftCol)
             {
-                total += item.Amount;
+                total += item.Amount==null?0:item.Amount.Value;
             }
             //add the values you just calculate to lable in UI
             lblInvoiceTotalFooter.Text = String.Format("{0:c}",total);
@@ -115,7 +115,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     {
                         //test
                        // item.Amount = 10;
-                        total += item.Amount;
+                        total += item.Amount==null?0:item.Amount.Value;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
                     lblTotalAmount.Text = total.ToString();

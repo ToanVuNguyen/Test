@@ -10,9 +10,9 @@ namespace HPF.FutureState.DataAccess
     {
         protected virtual string ConnectionString
         {
-            get 
-            { 
-                return ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString; 
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString;
             }
         }
 
@@ -23,13 +23,13 @@ namespace HPF.FutureState.DataAccess
 
         protected virtual SqlCommand CreateCommand(string spName)
         {
-            return new SqlCommand(spName);            
+            return new SqlCommand(spName);
         }
 
         protected virtual SqlCommand CreateCommand(string spName, SqlConnection connection)
         {
             var sqlCommand = new SqlCommand(spName)
-            {                
+            {
                 Connection = connection
             };
             return sqlCommand;
@@ -40,7 +40,7 @@ namespace HPF.FutureState.DataAccess
             var sqlCommand = new SqlCommand(spName)
             {
                 Connection = connection,
-                Transaction = transaction                
+                Transaction = transaction
             };
             return sqlCommand;
         }
@@ -58,19 +58,19 @@ namespace HPF.FutureState.DataAccess
         protected virtual SqlCommand CreateSPCommand(string spName)
         {
             var sqlCommand = new SqlCommand(spName)
-                                 {
-                                     CommandType = CommandType.StoredProcedure
-                                 };
+            {
+                CommandType = CommandType.StoredProcedure
+            };
             return sqlCommand;
         }
 
         protected virtual SqlCommand CreateSPCommand(string spName, SqlConnection connection)
         {
             var sqlCommand = new SqlCommand(spName)
-                                 {
-                                     CommandType = CommandType.StoredProcedure, 
-                                     Connection = connection
-                                 };            
+            {
+                CommandType = CommandType.StoredProcedure,
+                Connection = connection
+            };
             return sqlCommand;
         }
 
@@ -120,11 +120,10 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         protected static string ConvertToString(object obj)
         {
-            if (null != obj && System.DBNull.Value != obj)
-            {
+            if (!string.IsNullOrEmpty(obj.ToString()))
                 return obj.ToString();
-            }
-            return string.Empty;
+            return null;
+
         }
 
         /// <summary>
@@ -132,13 +131,11 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static int ConvertToInt(object obj)
+        protected static int? ConvertToInt(object obj)
         {
             int returnValue = 0;
-            if (null != obj)
-            {
-                int.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!int.TryParse(obj.ToString(), out returnValue))
+                return null;
             return returnValue;
         }
 
@@ -147,13 +144,11 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static byte ConvertToByte(object obj)
+        protected static byte? ConvertToByte(object obj)
         {
             byte returnValue = 0;
-            if (null != obj)
-            {
-                byte.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!byte.TryParse(obj.ToString(), out returnValue))
+                return null;
             return returnValue;
         }
 
@@ -165,10 +160,8 @@ namespace HPF.FutureState.DataAccess
         protected static bool ConvertToBool(object obj)
         {
             bool returnValue = false;
-            if (null != obj)
-            {
-                bool.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!bool.TryParse(obj.ToString(), out returnValue))
+                return false;
             return returnValue;
         }
 
@@ -177,28 +170,24 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static decimal ConvertToDecimal(object obj)
+        protected static decimal? ConvertToDecimal(object obj)
         {
             decimal returnValue = 0;
-            if (null != obj)
-            {
-                decimal.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!decimal.TryParse(obj.ToString(), out returnValue))
+                return null;
             return returnValue;
-        }       
+        }
 
         /// <summary>
         /// Convert an object to datetime
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static DateTime ConvertToDateTime(object obj)
+        protected static DateTime? ConvertToDateTime(object obj)
         {
             DateTime returnValue = DateTime.MinValue;
-            if (null != obj)
-            {
-                DateTime.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!DateTime.TryParse(obj.ToString(), out returnValue))
+                return null;
             return returnValue;
         }
 
@@ -207,13 +196,11 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static long ConvertToLong(object obj)
+        protected static long? ConvertToLong(object obj)
         {
             long returnValue = 0;
-            if (null != obj)
-            {
-                long.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!long.TryParse(obj.ToString(), out returnValue))
+                return null;
             return returnValue;
         }
 
@@ -222,13 +209,11 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected static double ConvertToDouble(object obj)
+        protected static double? ConvertToDouble(object obj)
         {
             double returnValue = 0;
-            if (null != obj)
-            {
-                double.TryParse(obj.ToString(), out returnValue);
-            }
+            if (!double.TryParse(obj.ToString(), out returnValue))
+                return null;
             return returnValue;
         }
 
@@ -251,10 +236,10 @@ namespace HPF.FutureState.DataAccess
         {
             if (!string.IsNullOrEmpty(value))
                 return (SqlString)value;
-            return SqlString.Null;            
+            return SqlString.Null;
         }
         #endregion
-        
+
         #endregion
     }
 }

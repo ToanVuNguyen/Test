@@ -84,7 +84,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HudOutcomeCd { get; set; }
 
         [XmlIgnore]
-        public int AmiPercentage { get; set; }
+        public int? AmiPercentage { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0306, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Counseling Duration Code", Ruleset = Constant.RULESET_LENGTH)]
@@ -384,7 +384,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime? SummarySentOtherDt { get; set; }
 
         [XmlIgnore]
-        public DateTime SummarySentDt { get; set; }
+        public DateTime? SummarySentDt { get; set; }
 
         [XmlElement(IsNullable = true)]        
         [RequiredObjectValidator(Tag = ErrorMessages.WARN0312, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]

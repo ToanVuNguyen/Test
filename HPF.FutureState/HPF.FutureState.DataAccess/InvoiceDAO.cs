@@ -188,7 +188,7 @@ namespace HPF.FutureState.DataAccess
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
-            return invoice.InvoiceId;
+            return invoice.InvoiceId.Value;
         }
 
         public void UpdateInvoice(InvoiceDTO invoice)
@@ -265,8 +265,9 @@ namespace HPF.FutureState.DataAccess
                         invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
                         invoice.InvoicePaymentAmount= ConvertToDouble(reader["invoice_pmt_amt"]);
                         invoice.StatusCode = ConvertToString(reader["status_cd"]);
-                        invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
-                        invoice.InvoicePeriod = invoice.PeriodStartDate.ToShortDateString() + "-" + invoice.PeriodEndDate.ToShortDateString();
+                        invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Value.Date;
+                        if(invoice.PeriodStartDate!=null && invoice.PeriodEndDate!=null)
+                            invoice.InvoicePeriod = invoice.PeriodStartDate.Value.ToShortDateString() + "-" + invoice.PeriodEndDate.Value.ToShortDateString();
                         invoices.Add(invoice);                           
                     }
                     reader.Close();
@@ -308,7 +309,7 @@ namespace HPF.FutureState.DataAccess
                         while (reader.Read())
                         {
                             var item = new FundingSourceDTO();
-                            item.FundingSourceID = ConvertToInt(reader["funding_source_id"]);
+                            item.FundingSourceID = ConvertToInt(reader["funding_source_id"]).Value;
                             item.FundingSourceName = ConvertToString(reader["funding_source_name"]);
                             result.Add(item);
                         }
@@ -470,7 +471,7 @@ namespace HPF.FutureState.DataAccess
                     invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
                     invoice.InvoicePaymentAmount = ConvertToDouble(reader["invoice_pmt_amt"]);
                     invoice.StatusCode = ConvertToString(reader["status_cd"]);
-                    invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]).Date;
+                    invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]);
 
                     invoice.CreateDate = ConvertToDateTime(reader["create_dt"]);
                     invoice.CreateUserId = ConvertToString(reader["create_user_id"]);
@@ -492,12 +493,12 @@ namespace HPF.FutureState.DataAccess
                         invoiceCase.InvoiceCaseId = ConvertToInt(reader["invoice_case_id"]);
                         invoiceCase.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
                         invoiceCase.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
-                        invoiceCase.CaseCompleteDate = (ConvertToDateTime(reader["completed_dt"])).ToShortDateString();
+                        invoiceCase.CaseCompleteDate = (ConvertToDateTime(reader["completed_dt"])) == null ? "" : (ConvertToDateTime(reader["completed_dt"])).Value.ToShortDateString();
                         invoiceCase.InvoiceCaseBillAmount = ConvertToDouble(reader["invoice_case_bill_amt"]);
                         invoiceCase.LoanNumber = ConvertToString(reader["acct_num"]);
                         invoiceCase.ServicerName = ConvertToString(reader["servicer_name"]);
                         invoiceCase.BorrowerName = ConvertToString(reader["borrower_name"]);
-                        invoiceCase.PaidDate = (ConvertToDateTime(reader["pmt_dt"])).ToShortDateString();
+                        invoiceCase.PaidDate = (ConvertToDateTime(reader["pmt_dt"])) == null ? "" : (ConvertToDateTime(reader["pmt_dt"])).Value.ToShortDateString();
                         invoiceCase.InvoiceCasePaymentAmount = ConvertToDouble(reader["invoice_case_pmt_amt"]);
                         invoiceCase.PaymentRejectReasonCode = ConvertToString(reader["pmt_reject_reason_cd"]);
                         invoiceCase.InvenstorLoanId = ConvertToString(reader["investor_loan_num"]);

@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class BaseDTO
     {
         [XmlIgnore]
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
 
         [XmlIgnore]
         public string CreateUserId { get; set; }
@@ -21,7 +21,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CreateAppName { get; set; }
 
         [XmlIgnore]
-        public DateTime ChangeLastDate { get; set; }
+        public DateTime? ChangeLastDate { get; set; }
 
         [XmlIgnore]
         public string ChangeLastUserId { get; set; }

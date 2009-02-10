@@ -94,10 +94,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             Label lblComplete = e.Row.FindControl("lblCompleteDate") as Label;
             if (lblComplete != null)
             {
-                string date = (e.Row.DataItem as ForeclosureCaseDraftDTO).CompletedDate.ToShortDateString();
+                string date = (e.Row.DataItem as ForeclosureCaseDraftDTO).CompletedDate == null ? "" : (e.Row.DataItem as ForeclosureCaseDraftDTO).CompletedDate.Value.ToShortDateString();
                 lblComplete.Text = date;
-                if (date == "1/1/0001")
-                    lblComplete.Text = "N/A";
             }
 
         }

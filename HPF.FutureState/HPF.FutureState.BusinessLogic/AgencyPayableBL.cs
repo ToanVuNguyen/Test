@@ -48,7 +48,7 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.StatusCode = "ACTIVE";
                 agencyPayable.PaymentDate = DateTime.Now;
                 int agencyPayableId = 0;
-                agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable);
+                agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable).Value;
                 //Insert Acency Payable Case
                 ForeclosureCaseDraftDTOCollection fCaseDrafColection = agencyPayableDraft.ForclosureCaseDrafts;
                 foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)

@@ -58,7 +58,7 @@ namespace HPF.FutureState.Web.Security
                 uId.DisplayName= uId.DisplayName.Replace(",", " ");
 
             uId.Email = user.Email;
-            uId.UserId = user.HPFUserId;
+            uId.UserId = user.HPFUserId.Value;
         }
     }
 }

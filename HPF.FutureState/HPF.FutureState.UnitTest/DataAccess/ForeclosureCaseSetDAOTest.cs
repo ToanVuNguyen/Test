@@ -116,11 +116,11 @@ namespace HPF.FutureState.UnitTest.DataAccess
             expected.Add(185);
             expected.Add(123);
 
-            List<int> actual = new List<int>();
+            List<int?> actual = new List<int?>();
             ForeclosureCaseSearchResult actualResult = target.SearchForeclosureCase(searchCriteria, 50);
             foreach (ForeclosureCaseWSDTO wscase in actualResult)
             {
-                actual.Add(wscase.FcId);
+                actual.Add(wscase.FcId.Value);
             }
             CollectionAssert.AreEquivalent(expected, actual);
             

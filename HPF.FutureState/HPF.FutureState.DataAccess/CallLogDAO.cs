@@ -34,7 +34,7 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="aCallLog">CallLogDTO</param>
         /// <returns>a new CallLogId</returns>
-        public int InsertCallLog(CallLogDTO aCallLog)
+        public int? InsertCallLog(CallLogDTO aCallLog)
         {
         
             SqlConnection dbConnection = CreateConnection();
@@ -260,19 +260,19 @@ namespace HPF.FutureState.DataAccess
             return callLogDTO;
         }
 
-        public Dictionary<string, int> GetForeignKey(CallLogDTO aCallLog)
+        public Dictionary<string, int?> GetForeignKey(CallLogDTO aCallLog)
         {
-            Dictionary<string, int> idList = new Dictionary<string, int>();
+            Dictionary<string, int?> idList = new Dictionary<string, int?>();
 
             SqlConnection dbConnection = CreateConnection();
             SqlCommand command = CreateSPCommand("hpf_call_check_foreign_key", dbConnection);
             
             
-            int callCenterID = 0;
+            int? callCenterID = 0;
             //int isValidCCAgentIdKey = 1;
-            int prevAgencyID = 0;
+            int? prevAgencyID = 0;
             //int isValidSelectedAgencyId = 1;
-            int servicerID = 0;
+            int? servicerID = 0;
 
             #region parameters
             //<Parameter>

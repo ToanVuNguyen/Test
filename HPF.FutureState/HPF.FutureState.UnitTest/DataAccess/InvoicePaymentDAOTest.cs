@@ -130,7 +130,7 @@ namespace HPF.FutureState.UnitTest
 
             InvoicePaymentDTOCollection actual = target.InvoicePaymentSearch(searchCriteria);
             List<string> actuallist = new List<string> {actual[0].FundingSourceID.ToString(),actual[0].FundingSourceName,
-            actual[0].PaymentNum,actual[0].PaymentDate.ToShortDateString()};
+            actual[0].PaymentNum,actual[0].PaymentDate==null?"":actual[0].PaymentDate.Value.ToShortDateString()};
             CollectionAssert.AreEquivalent(expectlist, actuallist);
             dbConnection.Close();
         }

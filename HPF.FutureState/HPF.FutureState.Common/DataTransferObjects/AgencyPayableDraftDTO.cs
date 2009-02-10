@@ -8,9 +8,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AgencyPayableDraftDTO:BaseDTO
     {
-        public int AgencyId { get; set; }        
-        public DateTime PeriodStartDate { get; set; }
-        public DateTime PeriodEndDate { get; set; }
+        public int? AgencyId { get; set; }
+        public DateTime? PeriodStartDate { get; set; }
+        public DateTime? PeriodEndDate { get; set; }
         public int TotalCases 
         {
             get
@@ -25,7 +25,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 decimal total = 0;
                 foreach (ForeclosureCaseDraftDTO fc in ForclosureCaseDrafts)
-                    total += fc.Amount;
+                    total += fc.Amount.Value;
 
                 return total;
             }

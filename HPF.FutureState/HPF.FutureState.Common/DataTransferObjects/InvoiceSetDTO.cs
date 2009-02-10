@@ -31,7 +31,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     return 0;
                 double sum = 0;
                 foreach (var invoiceCase in InvoiceCases)
-                    sum += invoiceCase.InvoiceCaseBillAmount;
+                    sum += invoiceCase.InvoiceCaseBillAmount == null ? 0 : invoiceCase.InvoiceCaseBillAmount.Value;
                 return sum;
             }
         }
@@ -43,7 +43,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     return 0;
                 double sum = 0;
                 foreach (var invoiceCase in InvoiceCases)
-                    sum += invoiceCase.InvoiceCasePaymentAmount;
+                    sum += invoiceCase.InvoiceCasePaymentAmount == null ? 0 : invoiceCase.InvoiceCasePaymentAmount.Value;
                 return sum;
             }
         }
@@ -56,7 +56,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 double sum = 0;
                 foreach (var invoiceCase in InvoiceCases)
                     if(invoiceCase.PaymentRejectReasonCode!=null)
-                        sum += invoiceCase.InvoiceCaseBillAmount;
+                        sum += invoiceCase.InvoiceCaseBillAmount == null ? 0 : invoiceCase.InvoiceCaseBillAmount.Value;
                 return sum;
             }
         }

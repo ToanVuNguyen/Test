@@ -8,14 +8,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class InvoicePaymentDTO : BaseDTO
     {
-        public int InvoicePaymentID { get; set; }
+        public int? InvoicePaymentID { get; set; }
         public string FundingSourceName { get; set; }
         public string FundingSourceID { get; set; }
         public string PaymentNum { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime? PaymentDate { get; set; }
         public string PaymentCode { get; set; }
-        public double PaymentAmount { get; set; }
+        public double? PaymentAmount { get; set; }
         public string Comments { get; set; }
-
     }
 }

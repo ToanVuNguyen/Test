@@ -1286,7 +1286,7 @@ namespace HPF.FutureState.DataAccess
                         while (reader.Read())
                         {
                             var item = new BudgetSubcategoryDTO();
-                            item.BudgetSubcategoryID = ConvertToInt(reader["budget_subcategory_id"]);
+                            item.BudgetSubcategoryID = ConvertToInt(reader["budget_subcategory_id"]).Value;
                             item.BudgetSubcategoryName = ConvertToString(reader["budget_subcategory_name"]);
                             results.Add(item);
                         }

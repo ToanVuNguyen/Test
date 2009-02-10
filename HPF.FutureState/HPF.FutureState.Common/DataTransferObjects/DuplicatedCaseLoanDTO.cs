@@ -10,9 +10,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class DuplicatedCaseLoanDTO:BaseDTO
     {
         public string LoanNumber { get; set; }
-        public int AgencyID { get; set; }
-        public int FcID { get; set; }
-        public int ServicerID { get; set; }
+        public int? AgencyID { get; set; }
+        public int? FcID { get; set; }
+        public int? ServicerID { get; set; }
         public string ServicerName { get; set; }
         public string BorrowerFirstName { get; set; }
         public string BorrowerLastName { get; set; }
@@ -24,7 +24,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CounselorExt { get; set; }
         public string CounselorEmail { get; set; }
         public string PropertyZip { get; set; }
-        public DateTime OutcomeDt { get; set; }
+        public DateTime? OutcomeDt { get; set; }
         public string OutcomeTypeCode { get; set; }
     }
 }

@@ -82,8 +82,8 @@ namespace HPF.FutureState.UnitTest
             aCallLog.CallCenterID = GetCallCenterID();
             aCallLog.SetInsertTrackingInformation(working_user_id);
 
-            int actual = target.InsertCallLog(aCallLog);
-            int expected = GetCallLogId();
+            int? actual = target.InsertCallLog(aCallLog);
+            int? expected = GetCallLogId();
             Assert.AreEqual(expected, actual);
         }
 

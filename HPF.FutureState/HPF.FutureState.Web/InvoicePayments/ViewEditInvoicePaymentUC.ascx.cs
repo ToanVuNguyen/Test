@@ -56,7 +56,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 lblPaymentID.Text = invoicePaymentInfo.InvoicePaymentID.ToString();
                 ddlFundingSource.SelectedValue = invoicePaymentInfo.FundingSourceID;
                 txtPaymentNum.Text = invoicePaymentInfo.PaymentNum;
-                txtPaymentDt.Text = invoicePaymentInfo.PaymentDate.ToShortDateString();
+                txtPaymentDt.Text = invoicePaymentInfo.PaymentDate==null?"":invoicePaymentInfo.PaymentDate.Value.ToShortDateString();
                 ddlPaymentType.SelectedValue = invoicePaymentInfo.PaymentCode;
                 txtPaymentAmt.Text = String.Format("{0:C}", invoicePaymentInfo.PaymentAmount);
                 //miss file and comments
@@ -103,11 +103,13 @@ namespace HPF.FutureState.Web.InvoicePayments
                 foreach (var mes in ex.ExceptionMessages)
                 {
                     lblErrorMessage.Items.Add(mes.Message);
+                    ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
                 }
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
             
         }
@@ -168,7 +170,11 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
             Stream fileContents = fileUpload.FileContent;
             if (fileContents == null)
-                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0655));
+            {
+                DataValidationException ex = new DataValidationException();
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0655));
+                throw ex;
+            }
             DataSet dataSet = null;
             try
             {
@@ -176,7 +182,9 @@ namespace HPF.FutureState.Web.InvoicePayments
             }
             catch 
             {
-                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0656));
+                DataValidationException ex = new DataValidationException();
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0656));
+                throw ex;
             }
             //FrontEndPreProcessing on the Presentation Layer
             ReconciliationDTOCollection reconciliationCollection = FrontEndPreProcessing(dataSet);

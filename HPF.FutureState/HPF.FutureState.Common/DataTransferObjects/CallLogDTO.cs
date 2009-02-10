@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
 
         #region property
-        public int CallId { get; set; }
+        public int? CallId { get; set; }
         public int? CallCenterID { get; set; }
 
         [NullableOrStringLengthValidator(false, 55, "Cc Agent Id Key", Ruleset = "Default", Tag = ErrorMessages.ERR0356)]

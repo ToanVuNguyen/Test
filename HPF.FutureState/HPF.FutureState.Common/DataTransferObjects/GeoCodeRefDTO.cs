@@ -8,7 +8,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class GeoCodeRefDTO : BaseDTO
     {
-        public int GeocodeRefId{ get; set; }
+        public int? GeocodeRefId { get; set; }
 
         public string ZipCode{ get; set; }
 
@@ -34,7 +34,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string TimeZone{ get; set; }
 
-        public decimal UTC{ get; set; }
+        public decimal? UTC { get; set; }
 
         public string DST{ get; set; }
 

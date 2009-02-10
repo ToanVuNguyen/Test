@@ -216,7 +216,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        private int GetCallLogID()
+        private int? GetCallLogID()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -236,7 +236,7 @@ namespace HPF.FutureState.UnitTest
             return id;
         }
 
-        int callLogid = 0;
+        int? callLogid = 0;
         [TestMethod()]
         public void InsertCallLogTest_Success()
         {
@@ -255,8 +255,8 @@ namespace HPF.FutureState.UnitTest
             aCallLog.ChangeLastDate = DateTime.Now;
             aCallLog.ChangeLastAppName = "test";
             aCallLog.ChangeLastUserId = "test";
-            int actual = target.InsertCallLog(aCallLog);
-            int expected = GetCallLogID();
+            int? actual = target.InsertCallLog(aCallLog);
+            int? expected = GetCallLogID();
             callLogid = actual;
             Assert.AreEqual(expected, actual);
             TestContext.WriteLine("New Call Log ID: " + actual);

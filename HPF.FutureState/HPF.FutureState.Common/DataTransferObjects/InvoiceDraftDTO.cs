@@ -26,7 +26,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 if (ForeclosureCaseDrafts == null)
                     return total;
                 foreach (ForeclosureCaseDraftDTO fc in ForeclosureCaseDrafts)
-                    total += fc.Amount;
+                    total += fc.Amount.Value;
 
                 return total;
             }

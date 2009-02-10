@@ -109,7 +109,7 @@ namespace HPF.FutureState.DataAccess
                         menuItem.PermissionValue = ConvertToString(reader["permission_value"])[0];
                         menuItem.Visible = ConvertToBool(reader["visibled"]);
                         //
-                        var oldMenuGroup = result.FindMenuGroupDTO(menuGroup.GroupId);
+                        var oldMenuGroup = result.FindMenuGroupDTO(menuGroup.GroupId.Value);
                         if (oldMenuGroup!=null)
                         {
                             oldMenuGroup.MenuItemList.Add(menuItem);
