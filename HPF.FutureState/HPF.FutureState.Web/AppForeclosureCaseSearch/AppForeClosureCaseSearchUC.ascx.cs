@@ -309,6 +309,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblcounseled = e.Row.FindControl("lblCounseled") as Label;
+                if (lblcounseled.Text == string.Empty) return;
                 DateTime datecounseled = DateTime.Parse(lblcounseled.Text);
                 //datecompare is early than today 1 year.
                 DateTime datecompare = DateTime.Today.AddYears(-1);
