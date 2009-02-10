@@ -31,7 +31,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string OtherServicerName { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0128, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(false, 30, "Acct Num", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0058)]
+        [NullableOrStringLengthValidator(true, 30, "Acct Num", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0058)]
         public string AcctNum { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0320, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
