@@ -1750,8 +1750,7 @@ namespace HPF.FutureState.BusinessLogic
         {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int? fcId = foreclosureCase.FcId;
-            bool isComplete = CheckComplete(foreclosureCaseSet);
-            foreclosureCase.AmiPercentage = CalculateAmiPercentage();
+            bool isComplete = CheckComplete(foreclosureCaseSet);            
             foreclosureCase.SummarySentDt = DateTime.Now;            
             if (isComplete)
             {
@@ -1776,15 +1775,8 @@ namespace HPF.FutureState.BusinessLogic
                 return foreclosureCase.CompletedDt;
             }
             return DateTime.Now;
-        }      
-
-        /// <summary>
-        /// Set value for AmiPercentage
-        /// </summary>
-        private int CalculateAmiPercentage()
-        {
-            return 0;
-        }
+        }     
+              
 
         /// <summary>
         /// Add value HPF-Auto for Outcome
