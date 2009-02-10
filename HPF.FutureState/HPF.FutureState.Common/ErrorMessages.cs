@@ -216,6 +216,8 @@ namespace HPF.FutureState.Common
         public const string WARN0335 = "WARN0335";
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
+        //App foreclosure Case Search
+        public const string WARN0500 = "WARN0500";
         public const string WARN0550 = "WARN0550";
         public const string WARN0551 = "WARN0551";
         //Invoice
@@ -228,7 +230,7 @@ namespace HPF.FutureState.Common
         public const string ERR0558 = "ERR0558";
         public const string ERR0559 = "ERR0559";
         public const string WARN0560 = "WARN0560"; 
-        //
+        
         public const string ERR0600 = "ERR0600"; 
         public const string ERR0601 = "ERR0601";
 
@@ -493,7 +495,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
-
+                // App foreclosure Case Search
+                errorMessageDict.Add(WARN0500, "Cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
+                //
                 errorMessageDict.Add(WARN0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
                 errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");
 
