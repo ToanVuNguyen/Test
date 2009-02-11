@@ -97,7 +97,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 
                 //remember to remove this line 
                 
-                //ControlValidation();
+                ControlValidation();
                 //Validate Excel file
                 ExcelProcessing();
             }
@@ -193,6 +193,10 @@ namespace HPF.FutureState.Web.InvoicePayments
             ReconciliationDTOCollection reconciliationCollection = FrontEndPreProcessing(dataSet);
             //BackEndPreProcessing on Business Layer
             InvoiceBL.Instance.BackEndPreProcessing(reconciliationCollection);
+            //Update Invoice CAses
+            ReconciliationDTO t = new ReconciliationDTO();
+            t.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection,t.ChangeLastDate.Value,t.ChangeLastAppName,t.ChangeLastUserId);
         }
         #region FrontEnd PreProcessing
         /// <summary>

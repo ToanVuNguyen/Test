@@ -211,6 +211,11 @@ namespace HPF.FutureState.BusinessLogic
         {
             return InvoiceDAO.CreateInstance().InvoiceSetGet(invoiceId);
         }
+        /// <summary>
+        /// Create a xml file to validate all the invoice Cases
+        /// </summary>
+        /// <param name="reconciliationDTOCollection"></param>
+        /// <returns></returns>
         string GetXmlString(ReconciliationDTOCollection reconciliationDTOCollection)
         {
             XmlDocument doc = new XmlDocument();
@@ -236,5 +241,73 @@ namespace HPF.FutureState.BusinessLogic
             if (ex != null)
                 throw (ex);
         }
+        /// <summary>
+        /// push an xml file to the database to update invoice Case
+        /// </summary>
+        /// <param name="reconciliationDTOCollection">Data from excel file</param>
+        /// <param name="changeLastDt">for update </param>
+        /// <param name="changeLastApp">for update</param>
+        /// <param name="changeLastUserId">for update</param>
+        public void UpdateInvoicePayment(ReconciliationDTOCollection reconciliationDTOCollection, DateTime changeLastDt, string changeLastApp, string changeLastUserId)
+        {
+            //string payList = "";
+            //RefCodeItemDTOCollection paymentRejectCodeCollection = LookupDataBL.Instance.GetRefCode("payment reject reason code");
+            //var rejectString =new { RejectList="", RejectReason=""};
+            //foreach (var item in reconciliationDTOCollection)
+            //    if (item.PaymentRejectReasonCode == string.Empty)
+            //        payList = payList+ item.InvoiceCaseId + ",";
+            //List<string> rejectIds = new List<string>();
+            //List<string> rejectCodes = new List<string>();
+            //foreach (var item in paymentRejectCodeCollection)
+            //{
+            //    var rejectArray = from s in reconciliationDTOCollection
+            //                      where (s.PaymentRejectReasonCode == item.Code)
+            //                      select ( s.InvoiceCaseId);
+            //    if(rejectArray.Count<int>() >0)
+            //    {
+            //        string temp = "";
+            //        foreach (var i in rejectArray)
+            //            temp = temp + i + ",";
+            //        temp = temp.Remove(temp.LastIndexOf(','),1);
+            //        rejectIds.Add(temp);
+            //        rejectCodes.Add(item.Code);
+            //    }
+            //}
+            ////remove last ','
+            //payList = payList.Remove(payList.LastIndexOf(','), 1);
+            XmlDocument doc = new XmlDocument();
+            XmlElement root = doc.CreateElement("invoice_cases");
+            foreach (var reconciliationDTO in reconciliationDTOCollection)
+            {
+                XmlElement item = doc.CreateElement("invoice_case");
+                item.SetAttribute("fc_id", reconciliationDTO.ForeclosureCaseId.ToString());
+                item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
+                item.SetAttribute("acct_num", reconciliationDTO.LoanNumber);
+                item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
+                item.SetAttribute("reject_reason_cd", reconciliationDTO.PaymentRejectReasonCode);
+                item.SetAttribute("investor_loan_num", reconciliationDTO.FreddieMacLoanNumber);
+                item.SetAttribute("investor_num", reconciliationDTO.InvestorNumber);
+                item.SetAttribute("investor_name", reconciliationDTO.InvestorName);
+                root.AppendChild(item);
+            }
+            doc.AppendChild(root);
+            string xmlString = doc.InnerXml;
+            ExecuteUpdateInvoicePayment(xmlString, changeLastDt, changeLastApp, changeLastUserId);
+        }
+        public void ExecuteUpdateInvoicePayment(string xmlString,DateTime changeLastDt,string changeLastApp,string changeLastUserId)
+        {
+            try
+            {
+                InitiateTransaction();
+                invoiceDAO.InvoiceCaseUpdateForPayment(xmlString, changeLastDt, changeLastUserId, changeLastApp);
+                CompleteTransaction();
+            }
+            catch(Exception ex)
+            {
+                RollbackTransaction();
+                throw (ex);
+            }
+        }
+
     }
 }

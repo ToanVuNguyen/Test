@@ -114,7 +114,7 @@ namespace HPF.FutureState.DataAccess
             InvoiceDTO invoice = invoiceSet.Invoice;
             InvoiceCaseDTOCollection invoiceCases = invoiceSet.InvoiceCases;
             dbConnection = base.CreateConnection();
-            var command = CreateSPCommand("hpf_invoice_case_update", dbConnection);
+            var command = CreateSPCommand("hpf_invoice_case_update_for_invoice", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[11];
             sqlParam[0] = new SqlParameter("@pi_update_flag",(int)updateFlag);
@@ -572,6 +572,26 @@ namespace HPF.FutureState.DataAccess
             if(result.ExceptionMessages.Count>0)
                 return result;
             return null;
+        }
+
+        public void InvoiceCaseUpdateForPayment(string xmlString,DateTime changeLastDt,string changeLastUserId,string changeLastAppName)
+        {
+            var command = CreateSPCommand("hpf_Invoice_case_update_for_payment", dbConnection);
+            SqlParameter[] sqlParam = new SqlParameter[4];
+            sqlParam[0] = new SqlParameter("@pi_XMLDOC", xmlString);
+            sqlParam[1] = new SqlParameter("@pi_chg_lst_dt", changeLastDt);
+            sqlParam[2] = new SqlParameter("@pi_chg_lst_user_id", changeLastUserId);
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_app_name", changeLastAppName);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
         }
 
     }
