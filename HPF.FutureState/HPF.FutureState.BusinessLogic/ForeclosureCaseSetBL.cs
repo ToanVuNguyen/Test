@@ -25,6 +25,8 @@ namespace HPF.FutureState.BusinessLogic
         ForeclosureCaseDTO _dbFcCase = null;
         private string _workingUserID;
 
+        private bool IsCaseCompleted;
+
         public ExceptionMessageCollection WarningMessage { get; private set; } 
     
         /// <summary>
@@ -77,8 +79,7 @@ namespace HPF.FutureState.BusinessLogic
             if (fcCase.FcId > 0)
                 fcId = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             else
-                fcId = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-
+                fcId = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);            
             return fcId;         
         }
 
@@ -867,6 +868,8 @@ namespace HPF.FutureState.BusinessLogic
                 caseLoanCollecionNew = null;
                 caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
                 InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew, fcId);
+                //
+                SendCompletedCaseToQueueIfAny(fcId);
 
                 CompleteTransaction();
             }
@@ -925,6 +928,8 @@ namespace HPF.FutureState.BusinessLogic
 
                 //Insert table Budget Asset
                 InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
+                //
+                SendCompletedCaseToQueueIfAny(fcId);
 
                 CompleteTransaction();
             }
@@ -935,6 +940,15 @@ namespace HPF.FutureState.BusinessLogic
             }
             return fcId;
         }
+
+        private void SendCompletedCaseToQueueIfAny(int? fcId)
+        {
+            if (!IsCaseCompleted) return;
+            //
+            var queue = new HPFSummaryQueue();
+            queue.SendACompletedCaseToQueue(fcId);
+        }
+
         #endregion
 
         #region Functions for Insert and Update tables
@@ -1780,11 +1794,11 @@ namespace HPF.FutureState.BusinessLogic
         {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int? fcId = foreclosureCase.FcId;
-            bool isComplete = CheckComplete(foreclosureCaseSet);            
+            IsCaseCompleted = CheckComplete(foreclosureCaseSet);
             foreclosureCase.SummarySentDt = DateTime.Now;            
-            if (isComplete)
+            if (IsCaseCompleted)
             {
-                foreclosureCase.CompletedDt = GetCompleteDate(fcId);
+                foreclosureCase.CompletedDt = GetCompleteDate(fcId);                
             }
             return foreclosureCase;
         }        
