@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 using HPF.FutureState.BusinessLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -119,7 +120,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         //
         #endregion
 
-
+        
         /// <summary>
         /// Test login in case successfull case
         /// </summary>

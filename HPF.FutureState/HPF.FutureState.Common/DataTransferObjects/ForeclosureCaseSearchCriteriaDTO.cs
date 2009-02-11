@@ -79,7 +79,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 if (value != null)
                 {
                     _loanNumber = value;
-                    Regex exp = new Regex(@"^[a-zA-Z0-9]");
+                    Regex exp = new Regex(@"[^a-zA-Z0-9]");
                     MatchCollection matches = exp.Matches(_loanNumber);
                     foreach (Match item in matches)
                     {

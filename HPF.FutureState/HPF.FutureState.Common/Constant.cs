@@ -18,6 +18,10 @@ namespace HPF.FutureState.Common
         public const string FORSALE_IND_YES = "Y";
         public const string DUPLICATE_YES = "Y";
         public const string DUPLICATE_NO = "N";
+        public const string INDICATOR_YES = "Y";
+        public const string INDICATOR_NO = "N";
+        public const string INDICATOR_YES_FULL = "YES";
+        public const string INDICATOR_NO_FULL = "NO";
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
         //

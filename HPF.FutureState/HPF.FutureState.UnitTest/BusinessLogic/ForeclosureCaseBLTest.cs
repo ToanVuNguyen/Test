@@ -36,15 +36,19 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static int agency_id = 2;
         static string acct_num = "acct_num6868";
         static string working_user_id = "utest_FC_test_12345";
+        static int budget_category_id = 0;
+        static int budget_subcategory_id = 0;
 
         static string working_user_id_dupe = "utest_FC_test_12345_dupe";
         static string acct_num_dupe = "an_6868_dupe";
         static string servicer_name_dupe = "sn_68_dupe";
         static string outcome_type_name_dupe = "otn_68_dupe";
+        static int outcome_type_id_dupe = 0;
         static int fc_id_dupe = 0;
         static int servicer_id_dupe = 0;
         static int case_loan_id_dupe = 0;
         static string agency_case_num_dupe = "acnd_68_dupe";
+
         
 
         static string agency_name = "agency_name_68";
@@ -286,10 +290,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
             searchCriteria.AgencyCaseNumber = "123421";
+            var actual = target.SearchForeclosureCase(searchCriteria, 50);
             
-            int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
-
-            Assert.AreEqual(0, actual);
+            Assert.AreNotEqual(actual, null);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod()]   
@@ -452,13 +456,25 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ExecuteSql(sql, dbConnection);
 
             //outcome item
-            int outcome_type_id = SearchFcCase_GetOutcomeTypeId();
+            outcome_type_id_dupe = SearchFcCase_GetOutcomeTypeId();
             
             sql = "Insert into Outcome_Item "
                 + " (fc_id, outcome_type_id, outcome_dt, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " (" + fc_id_dupe + ", " + outcome_type_id + ",'" + DateTime.Now.Date.AddMonths(-1).Date.ToString() + "', 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+                + " (" + fc_id_dupe + ", " + outcome_type_id_dupe + ",'" + DateTime.Now.Date.AddMonths(-1).Date.ToString() + "', 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
             
+            //buget_category
+            sql = "Insert into budget_category "
+                + " (chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
+
+            budget_category_id = GetBudgetCategoryId();
+            //budget_subcategory
+            sql = "Insert into budget_subcategory "
+                + " (budget_category_id, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " (" + budget_category_id + ", 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);
             #endregion
             dbConnection.Close();
         }
@@ -479,6 +495,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ExecuteSql(sql, dbConnection);
 
             sql = string.Format("DELETE FROM Budget_Set Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
+            ExecuteSql(sql, dbConnection);
+
+            sql = string.Format("DELETE FROM Budget_Subcategory Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
+            ExecuteSql(sql, dbConnection);
+
+            sql = string.Format("DELETE FROM Budget_Category Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
             ExecuteSql(sql, dbConnection);
 
             sql = string.Format("DELETE FROM Outcome_Item Where create_user_id = '{0}' or create_user_id = '{1}'", working_user_id, working_user_id_dupe);
@@ -673,6 +695,43 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return id;
         }
 
+        static private int GetBudgetCategoryId()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "Select budget_category_id from Budget_category WHERE create_user_id = '" + working_user_id_dupe + "'";
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+
+        static private int GetBudgetSubCategoryId()
+        {
+            int id = 0;
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string sql = "Select budget_subcategory_id from Budget_subcategory WHERE create_user_id = '" + working_user_id_dupe + "'";
+            var command = new SqlCommand(sql, dbConnection);
+            dbConnection.Open();
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                    id = reader.GetInt32(0);
+            }
+
+            dbConnection.Close();
+            return id;
+        }
+
+
         static private void ExecuteSql(string sql, SqlConnection dbConnection)
         {            
             var command = new SqlCommand();
@@ -683,8 +742,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         #endregion
 
+        
         #endregion               
         
+        #region SaveFcCase - Dupe session
         [TestMethod()]
         public void SaveFcCase_GetDupe_NullFcId_Existing()
         {
@@ -741,6 +802,72 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(dupeCaseLoans.Count, 1);
         }
 
+        [TestMethod()]
+        [ExpectedException(typeof(DuplicateException))]
+        public void SaveFcCase_InsertFcCaseWhenDupe_Pass()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseSetDTO fcCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO fcCase = fcCaseSet.ForeclosureCase;
+            CaseLoanDTO cl = new CaseLoanDTO()
+            {
+                FcId = fcCase.FcId,
+                AcctNum = acct_num_dupe,
+                ServicerId = servicer_id_dupe
+            };
+            fcCaseSet.CaseLoans.Add(cl);
+
+            target._workingUserID = working_user_id;
+            target.ProcessInsertForeclosureCaseSet(fcCaseSet);
+        }
+
+        [TestMethod()]
+        public void SaveFcCase_UpdateActiveFcCaseWhenDupe_Pass()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+
+            ForeclosureCaseDTO fcCase = target.GetForeclosureCase(fc_id);
+            
+            
+            CaseLoanDTO cl = new CaseLoanDTO()
+            {
+                FcId = fcCase.FcId,
+                AcctNum = acct_num_dupe,
+                ServicerId = servicer_id_dupe
+            };
+
+            var bi = new BudgetItemDTO()
+            {
+                BudgetSubcategoryId = budget_category_id,
+                BudgetItemAmt = 10
+            };
+
+            var oi = new OutcomeItemDTO()
+            {
+                FcId = fcCase.FcId,
+                OutcomeTypeId = outcome_type_id_dupe,
+                OutcomeDt = DateTime.Now.Date.AddMonths(-1).Date
+            };
+
+            ForeclosureCaseSetDTO fcCaseSet = new ForeclosureCaseSetDTO();
+            fcCaseSet.ForeclosureCase = fcCase;
+            fcCaseSet.CaseLoans = new CaseLoanDTOCollection();
+            fcCaseSet.CaseLoans.Add(cl);
+            fcCaseSet.BudgetItems = new BudgetItemDTOCollection();
+            fcCaseSet.BudgetItems.Add(bi);
+            fcCaseSet.Outcome = new OutcomeItemDTOCollection();
+            fcCaseSet.Outcome.Add(oi);
+            //fcCaseSet.BudgetItems
+            int? fcId = target.ProcessUpdateForeclosureCaseSet(fcCaseSet);
+            //ForeclosureCaseDTO newFcCase = GetForeclosureCase(fcId);
+
+            var newFcCase = target.GetForeclosureCase(fcId);
+            Assert.AreNotEqual(newFcCase, null);
+            Assert.AreEqual(newFcCase.DuplicateInd, Constant.DUPLICATE_YES);
+            Assert.AreEqual(newFcCase.NeverBillReasonCd, Constant.NEVER_BILL_REASON_CODE_DUPE);
+            Assert.AreEqual(newFcCase.NeverPayReasonCd, Constant.NEVER_PAY_REASON_CODE_DUPE);
+        }
+        #endregion
 
         private GeoCodeRefDTOCollection GetGeoCodeRefDTO()
         {
@@ -752,238 +879,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         
 
-        #region ProcessInsertUpdateWithoutForeclosureCaseId
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_FC_CaseSet()
-        {
-            TestContext.WriteLine("This test will throw an DataValidationException when ForeclosureCaseSetDTO is null");
-            
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-        }
+        
 
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Null_AgencyID_CaseNumber()
-        {
-            TestContext.WriteLine("This test will throw an DataValidationException when AgencyID or CaseNumber is null");
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
-            foreclosureCaseSet.ForeclosureCase.AgencyId = 0;
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = null;
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success_Existing_AgencyID_CaseNumber()
-        {
-            TestContext.WriteLine("This test will throw an DataValidationException when AgencyID and CaseNumber existed");
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
-            foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-        }
-
-        [TestMethod]
-        public void ProcessInsertUpdateWithoutForeclosureCaseId_Success()
-        {
-            TestContext.WriteLine("This test is not implemented yet");
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            target.InitiateTransaction();
-            target._workingUserID = "HPF";
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO();
-            foreclosureCaseSet.ForeclosureCase = new ForeclosureCaseDTO();
-            foreclosureCaseSet.ForeclosureCase.AgencyId = 2;
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "644186";
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-            target.CompleteTransaction();
-        }
-        #endregion
-
-        #region ProcessInsertForeclosureCaseSet
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertForeclosureCaseSet_Success_Null_FC_CaseSet()
-        {
-            TestContext.WriteLine("This test will throw an DataValidationException when ForeclosureCaseSetDTO is null");
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }            
-        }
-
-        private void CheckDuplicate_PreTest()
-        {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
-
-            command.CommandText = "Update foreclosure_case Set Completed_dt = null, Duplicate_IND = 'N' Where fc_id = 23";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "Update foreclosure_case Set Completed_dt = '2008-02-17' , Duplicate_IND = 'N' Where fc_id = 4341";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "Update foreclosure_case Set Completed_dt = '2008-02-17', Duplicate_IND = 'N' Where fc_id = 123";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "Update case_loan set acct_num = '4650801', servicer_id = 5 where fc_id = 123";
-            command.ExecuteNonQuery();
-            dbConnection.Close();
-        }
-        private void CheckDuplicate_PostTest()
-        {
-            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            dbConnection.Open();
-            var command = new SqlCommand();
-            command.Connection = dbConnection;
-            command.CommandText = "Update foreclosure_case Set Completed_dt = '2003-05-15', Duplicate_IND = null Where fc_id = 23 or fc_id = 4341";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "Update foreclosure_case Set Completed_dt = '2003-05-05', Duplicate_IND = null Where fc_id = 123";
-            command.ExecuteNonQuery();
-
-            command.CommandText = "Update case_loan set acct_num = '1994489', servicer_id = 2 where fc_id = 123";
-            command.ExecuteNonQuery();
-
-            dbConnection.Close();
-        }
-        [Ignore]
-        [TestMethod]
-        public void ProcessInsertForeclosureCaseSet_Success_Duplicated_FC_Case()
-        {            
-            CheckDuplicate_PreTest();
-            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            fcCase.FcId = 123;
-            
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = fcCase;
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-            CheckDuplicate_PostTest();
-        }        
-        #endregion
-
-        #region ProcessUpdateForeclosureCaseSet
-        [Ignore]
-        [TestMethod]
-        public void ProcessUpdateForeclosureCaseSet_Success_Null_FC_CaseSet()
-        {
-            TestContext.WriteLine("This test will throw an DataValidationException when ForeclosureCaseSetDTO is null");
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = null; // TODO: Initialize to an appropriate value
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-        }
-        [Ignore]
-        [TestMethod]
-        public void ProcessUpdateForeclosureCaseSet_Success_MiscException()
-        {
-            TestContext.WriteLine("This test is not implemented yet");
-            CheckDuplicate_PreTest();
-            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            fcCase.FcId = 123;
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = fcCase;
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-            CheckDuplicate_PostTest();
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void ProcessUpdateForeclosureCaseSet_Success()
-        {
-            TestContext.WriteLine("This test is not implemented yet");
-            CheckDuplicate_PreTest();
-            ForeclosureCaseDTO fcCase = new ForeclosureCaseDTO();
-            fcCase.FcId = 123;
-
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-            ForeclosureCaseSetDTO foreclosureCaseSet = new ForeclosureCaseSetDTO(); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase = fcCase;
-            var expected = (new DataValidationException()).GetType();
-            try
-            {
-                target.ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
-            }
-            catch (DataValidationException pe)
-            {
-                Assert.AreEqual(expected, pe.GetType());
-            }
-            CheckDuplicate_PostTest();
-        }
-        #endregion
+       
+        
 
         #region CheckInactiveCase
 

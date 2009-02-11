@@ -54,8 +54,11 @@ namespace HPF.FutureState.BusinessLogic
                     string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
                     dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
                 }
+
+                throw dataValidationException;
             }
 
+            dataValidationException = new DataValidationException();
             dataValidationException.ExceptionMessages.Add(CheckValidCodeForCallLog(aCallLog));
 
             dataValidationException.ExceptionMessages.Add(CheckForeignKey(aCallLog));
@@ -106,7 +109,8 @@ namespace HPF.FutureState.BusinessLogic
 
         private ExceptionMessageCollection CheckForeignKey(CallLogDTO aCallLog)
         {
-            Dictionary<string, int?> idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
+            Dictionary<string, int?> idList = new Dictionary<string, int?>();
+            idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
             int? callCenterID = idList["CallCenterID"].Value;
             //int isValidCCAgentIdKey = 1;
             int? prevAgencyID = idList["PrevAgencyID"].Value;
