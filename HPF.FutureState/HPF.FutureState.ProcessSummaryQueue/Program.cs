@@ -6,11 +6,15 @@ namespace HPF.FutureState.ProcessSummaryQueue
 {
     class Program
     {
+        private const string MUTEX_NAME = "HPF.FutureState.ProcessSummaryQueue";
+
+        private const int SLEEPING_TIME = 1000;//Miliseconds
+
         static void Main(string[] args)
         {
             //Single Instance checking
             bool canRun;
-            var mutex = new Mutex(true, "HPF.FutureState.ProcessSummaryQueue", out canRun);
+            var mutex = new Mutex(true, MUTEX_NAME, out canRun);
             if (!canRun)
             {                
                 return;
@@ -27,7 +31,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
             while (entry != null)
             {
                 ProcessCompleteCaseEntry(entry);
-                Thread.Sleep(1000);//Make a thread safe
+                Thread.Sleep(SLEEPING_TIME);//Make a thread safe
                 entry = queue.ReceiveCompletedCaseFromQueue();
             }
         }
@@ -48,7 +52,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
         /// <param name="entry"></param>
         private static void ProcessCompleteCaseEntry(HPFSummaryQueueEntry entry)
         {
-            
+            //Will call SummaryReportBL
         }
     }
 }
