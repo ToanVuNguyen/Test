@@ -129,18 +129,16 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             Assert.AreEqual(fc_id, actual[0].FcId);  
             //TestContext.WriteLine(string.Format("Expected: {0} - Actual: {1} ",expected, actual));
         }
-
-        
-        [Ignore]
+               
         [TestMethod()]
         public void SearchFcCase_PropZip_Fail()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.PropertyZip = prop_zip;
+            searchCriteria.PropertyZip = "65432";
 
-            int expected = 2; //number of cases returned
+            int expected = 0; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
 

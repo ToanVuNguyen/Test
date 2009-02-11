@@ -48,5 +48,6 @@ namespace HPF.FutureState.Common
 
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";
+        public const string REF_CODE_SET_AUDIT_FAILURE_REASON_CODE = "audit failure reason code";
     }
 }

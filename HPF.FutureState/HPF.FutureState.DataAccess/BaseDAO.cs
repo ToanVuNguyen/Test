@@ -134,7 +134,8 @@ namespace HPF.FutureState.DataAccess
         protected static int? ConvertToInt(object obj)
         {
             int returnValue = 0;
-            if (!int.TryParse(obj.ToString(), out returnValue))
+            
+            if (obj == null || !int.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
         }
@@ -147,7 +148,7 @@ namespace HPF.FutureState.DataAccess
         protected static byte? ConvertToByte(object obj)
         {
             byte returnValue = 0;
-            if (!byte.TryParse(obj.ToString(), out returnValue))
+            if (obj == null || !byte.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
         }
@@ -160,7 +161,7 @@ namespace HPF.FutureState.DataAccess
         protected static bool ConvertToBool(object obj)
         {
             bool returnValue = false;
-            if (!bool.TryParse(obj.ToString(), out returnValue))
+            if (obj == null || !bool.TryParse(obj.ToString(), out returnValue))
                 return false;
             return returnValue;
         }
@@ -173,7 +174,7 @@ namespace HPF.FutureState.DataAccess
         protected static decimal? ConvertToDecimal(object obj)
         {
             decimal returnValue = 0;
-            if (!decimal.TryParse(obj.ToString(), out returnValue))
+            if (obj == null || !decimal.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
         }
@@ -186,7 +187,7 @@ namespace HPF.FutureState.DataAccess
         protected static DateTime? ConvertToDateTime(object obj)
         {
             DateTime returnValue = DateTime.MinValue;
-            if (!DateTime.TryParse(obj.ToString(), out returnValue))
+            if (obj == null || !DateTime.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
         }
@@ -199,7 +200,7 @@ namespace HPF.FutureState.DataAccess
         protected static long? ConvertToLong(object obj)
         {
             long returnValue = 0;
-            if (!long.TryParse(obj.ToString(), out returnValue))
+            if (obj == null || !long.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
         }
@@ -212,7 +213,7 @@ namespace HPF.FutureState.DataAccess
         protected static double? ConvertToDouble(object obj)
         {
             double returnValue = 0;
-            if (!double.TryParse(obj.ToString(), out returnValue))
+            if (obj == null || !double.TryParse(obj.ToString(), out returnValue))
                 return null;
             return returnValue;
         }

@@ -39,6 +39,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 BindDataToIndicatorDropDownLists();
                 BindDataToReviewedByDDL();
                 BindDataToAuditTypeDDL();
+                BindDataToAuditFailureReasonDDL();
             }
             catch (Exception ex)
             {
@@ -68,7 +69,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             _isUpdating = false;
             ClearControls();
         }
-
 
         private CaseAuditDTOCollection RetrieveCaseAudits(int fcid)
         {
@@ -117,13 +117,21 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void BindDataToAuditFailureReasonDDL()
         {
+            //the failure reason codes are not provided from client
+            //not implemented yet
             ddlAuditFailureReason.Items.Clear();
-            ddlAuditFailureReason.Items.Add(new ListItem(string.Empty));
+
+            RefCodeItemDTOCollection failureReasonCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_FAILURE_REASON_CODE);
+            ddlAuditFailureReason.DataValueField = "Code";
+            ddlAuditFailureReason.DataTextField = "CodeDesc";
+            ddlAuditFailureReason.DataSource = failureReasonCodes;
+            ddlAuditFailureReason.DataBind();
+            ddlAuditFailureReason.Items.Insert(0, new ListItem(string.Empty));
         }
 
         private void ClearControls()
         {
-            foreach (DropDownList ddl in this.Controls)
+            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>() )
                 ddl.Text = string.Empty;
             txtAuditDate.Text = string.Empty;
             txtAuditComment.Text = string.Empty;

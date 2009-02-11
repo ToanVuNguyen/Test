@@ -247,9 +247,10 @@ namespace HPF.FutureState.DataAccess
 
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
+                results = new ForeclosureCaseSearchResult();
                 if (reader.HasRows)
                 {
-                    results = new ForeclosureCaseSearchResult();
+                    
                     while (reader.Read())
                     {
                         #region set value for ForeclosureCaseWSDTO
@@ -288,7 +289,8 @@ namespace HPF.FutureState.DataAccess
                     }
                     reader.Close();
                 }
-                results.SearchResultCount = ConvertToInt(sqlParam[8].Value).Value;
+                int? resultCount = ConvertToInt(sqlParam[8].Value);
+                results.SearchResultCount =  resultCount.HasValue ? resultCount.Value : 0;
             }
             catch (Exception Ex)
             {
@@ -321,8 +323,11 @@ namespace HPF.FutureState.DataAccess
         private string GetCounseledProperty(DateTime? completedDt)
         {
             DateTime oneYearBefore = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day - 1);
-            if (completedDt.Value.CompareTo(oneYearBefore) >= 0 && completedDt.Value.CompareTo(DateTime.Now) <= 0)
-                return "<1yr";
+            if (completedDt.HasValue)
+            {
+                if (completedDt.Value.CompareTo(oneYearBefore) >= 0 && completedDt.Value.CompareTo(DateTime.Now) <= 0)
+                    return "<1yr";
+            }
             return ">1yr";
         }
         /// <summary>

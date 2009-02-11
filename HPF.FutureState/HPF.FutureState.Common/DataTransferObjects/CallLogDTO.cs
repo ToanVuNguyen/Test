@@ -46,7 +46,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default")]
         public string LastName { get; set; }
         
-        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be numeric")]
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be a valid integer")]
         public int? ServicerId { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "OtherServicerName", Ruleset = "Default")]
@@ -56,7 +56,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PropZipFull9 { get; set; }
 
 
-        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be numeric")]
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be a valid integer")]
         public int? PrevAgencyId { get; set; }
 
         [NullableOrStringLengthValidator(true, 20, "Selected Agency Id", Ruleset = "Default")]
