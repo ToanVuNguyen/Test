@@ -121,5 +121,48 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+        public InvoicePaymentDTO InvoicePaymentGet(int invoicePaymentId)
+        {
+            SqlConnection dbConnection = base.CreateConnection();
+            //SqlCommand command = base.CreateCommand("hpf_invoice_payment_search", dbConnection);
+            SqlCommand command = CreateSPCommand("hpf_invoice_payment_get", dbConnection);
+
+            //<Parameter>   
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_invoice_payment_id", invoicePaymentId);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            InvoicePaymentDTO invoicePayment = null;
+            try
+            {
+                dbConnection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    invoicePayment = new InvoicePaymentDTO();
+                    while (reader.Read())
+                    {
+                        invoicePayment.FundingSourceName = ConvertToString(reader["funding_source_name"]);
+                        invoicePayment.FundingSourceID = ConvertToString(reader["funding_source_id"]);
+                        invoicePayment.InvoicePaymentID = ConvertToInt(reader["invoice_payment_id"]);
+                        invoicePayment.PaymentCode = ConvertToString(reader["pmt_cd"]);
+                        invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
+                        invoicePayment.PaymentNum = ConvertToString(reader["pmt_num"]);
+                        invoicePayment.PaymentAmount = ConvertToDouble(reader["pmt_amt"]);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return invoicePayment;
+        }
     }
 }

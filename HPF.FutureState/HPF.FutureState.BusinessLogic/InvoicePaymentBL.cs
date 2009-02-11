@@ -31,6 +31,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             return (InvoicePaymentDAO.Instance.InvoicePaymentSearch(paymentSearchCriteria));
         }
+        public InvoicePaymentDTO InvoicePaymentGet(int invoicePaymentId)
+        { 
+            return (InvoicePaymentDAO.Instance.InvoicePaymentGet(invoicePaymentId));
+        }
        
     }
 }

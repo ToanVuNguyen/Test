@@ -24,6 +24,8 @@ namespace HPF.FutureState.Web.InvoicePayments
     public partial class ViewEditInvoicePayment : System.Web.UI.UserControl
     {
         private  List<string> COLUMN_NAME = new List<string>();
+        int paymentId = -1;
+        bool isNew = true;
             
         private void UcInit()
         {
@@ -38,10 +40,26 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            try
+            {
+                if (Request.QueryString["id"] != null)
+                {
+                    paymentId = int.Parse(Request.QueryString["id"].ToString());
+                    BindViewEditInvoicePayment();
+                    isNew = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add("Payment Id is not valid.");
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                btnSave.Enabled = false;
+                return;
+            }
             UcInit();
             if (!IsPostBack)
             {
-                BindViewEditInvoicePayment();
                 BindPaymentTypeDropDownList();
                 BindFundingSourceDropDownList();
             }
@@ -49,18 +67,14 @@ namespace HPF.FutureState.Web.InvoicePayments
         #region Bind Data
         protected void BindViewEditInvoicePayment()
         {
-            if (Session["invoicePaymentInfo"] != null)
-            {
-                InvoicePaymentDTO invoicePaymentInfo = new InvoicePaymentDTO();
-                invoicePaymentInfo = (InvoicePaymentDTO)Session["invoicePaymentInfo"];
-                lblPaymentID.Text = invoicePaymentInfo.InvoicePaymentID.ToString();
-                ddlFundingSource.SelectedValue = invoicePaymentInfo.FundingSourceID;
-                txtPaymentNum.Text = invoicePaymentInfo.PaymentNum;
-                txtPaymentDt.Text = invoicePaymentInfo.PaymentDate==null?"":invoicePaymentInfo.PaymentDate.Value.ToShortDateString();
-                ddlPaymentType.SelectedValue = invoicePaymentInfo.PaymentCode;
-                txtPaymentAmt.Text = String.Format("{0:C}", invoicePaymentInfo.PaymentAmount);
-                //miss file and comments
-            }
+            InvoicePaymentDTO invoicePaymentInfo = InvoicePaymentBL.Instance.InvoicePaymentGet(paymentId);
+            lblPaymentID.Text = invoicePaymentInfo.InvoicePaymentID.ToString();
+            ddlFundingSource.SelectedValue = invoicePaymentInfo.FundingSourceID;
+            txtPaymentNum.Text = invoicePaymentInfo.PaymentNum;
+            txtPaymentDt.Text = invoicePaymentInfo.PaymentDate==null?"":invoicePaymentInfo.PaymentDate.Value.ToShortDateString();
+            ddlPaymentType.SelectedValue = invoicePaymentInfo.PaymentCode;
+            txtPaymentAmt.Text = String.Format("{0:C}", invoicePaymentInfo.PaymentAmount);
+            txtComment.Text = invoicePaymentInfo.Comments;
         }
         protected void BindPaymentTypeDropDownList()
         {
