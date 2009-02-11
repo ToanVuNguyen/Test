@@ -13,7 +13,9 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using Microsoft.Reporting.WebForms;
 using Microsoft.Reporting;
-
+using HPF.FutureState.Common;
+using HPF.FutureState.Web.Security;
+using System.Net;
 
 namespace HPF.FutureState.Web.PrintSummary
 {
@@ -21,20 +23,85 @@ namespace HPF.FutureState.Web.PrintSummary
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //LoadReport();
+            LoadReport();
         }
         protected void LoadReport()
         {
             int caseid = Convert.ToInt32(Request.QueryString["CaseID"].ToString());
-            ReportParameter reportParameter = new ReportParameter();
-            reportParameter.Name = "pi_fc_id";
-            reportParameter.Values[1] = caseid.ToString();
-            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[]{reportParameter});
-            ReportViewerPrintSummary.ServerReport.ReportServerUrl = new Uri("http://HPF-01/REPORTSERVER");
-            ReportViewerPrintSummary.ServerReport.ReportPath = @"HPF_Report/rpt_CounselingSummary.rdl";
+            
+            ReportViewerCredential rvc = new ReportViewerCredential();
+            ReportViewerPrintSummary.ServerReport.ReportServerCredentials = rvc;
             ReportViewerPrintSummary.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Remote;
-            //ReportViewerCredentials rvc = new  ReportViewerCredentials("TestUser", "TestPassword", "");
-            //ReportViewerPrintSummary.ServerReport.ReportServerCredentials = rvc;
+
+            ReportViewerPrintSummary.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["REPORTSERVER_URL"].ToString());
+            ReportViewerPrintSummary.ServerReport.ReportPath = @"/HPF_Report/rpt_CounselingSummary";
+
+            ReportParameter reportParameter = new ReportParameter("pi_fc_id", caseid.ToString());
+            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { reportParameter });
+            
+
+
         }
     }
+    [Serializable]
+    class ReportViewerCredential : IReportServerCredentials
+    {
+
+
+        public string Username
+        {
+            get;
+            set;
+        }
+        public string Password
+        {
+            get;
+            set;
+
+        }
+        public string Domain
+        {
+            get;
+            set;
+        }
+
+        
+        public ReportViewerCredential()
+        {
+            this.Username = ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"].ToString();
+            this.Password = ConfigurationManager.AppSettings["REPORTSERVER_LOGINNAME"].ToString();
+            //if (this.Password.Contains(@"\"))
+            //    this.Domain = this.Password.Substring(0, this.Password.IndexOf(@"\"));
+            this.Domain = ConfigurationManager.AppSettings["REPORTSERVER_DOMAIN"].ToString();
+            //this.Username = "Administrator";
+            //this.Password = "Password123";
+            //this.Domain = "HPF-01";
+        }
+
+        #region IReportServerCredentials Members
+
+        public bool GetFormsCredentials(out Cookie authCookie, out string userName, out string password, out string authority)
+        {
+            authCookie = null;
+            userName = this.Username;
+            password = this.Password;
+            authority = this.Domain;
+            return false;
+        }
+
+        public System.Security.Principal.WindowsIdentity ImpersonationUser
+        {
+            get { return null; }
+        }
+
+        public ICredentials NetworkCredentials
+        {
+            get { return (new NetworkCredential(this.Username, this.Password, this.Domain)); }
+        }
+
+        #endregion
+    }
+
+
+
 }

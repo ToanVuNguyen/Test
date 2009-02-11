@@ -131,13 +131,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         protected void BindServicerDropDownList()
         {
             ServicerDTOCollection servicerCollection = LookupDataBL.Instance.GetServicer();
-            ListItem item = new ListItem("ALL", "-1");
             ddlServicer.DataValueField = "ServicerID";
             ddlServicer.DataTextField = "ServicerName";
-            ddlServicer.Items.Add(item);
             ddlServicer.DataSource = servicerCollection;
             ddlServicer.DataBind();
-            //ddlServicer.Items.FindByText("ALL").Selected = true;
+            ddlServicer.Items.FindByText("ALL").Selected = true;
         }
 
         /// <summary>

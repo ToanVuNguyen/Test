@@ -154,11 +154,16 @@ namespace HPF.FutureState.Web.InvoicePayments
             if (grvInvoicePaymentList.SelectedIndex != -1)
             {
                 btnViewEditPayable.Attributes.Clear();
-                Response.Redirect("AppViewEditInvoicePaymentPage.aspx.aspx");
+                Response.Redirect("AppViewEditInvoicePaymentPage.aspx?id="+grvInvoicePaymentList.SelectedValue.ToString());
             }
             else
                 btnViewEditPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
 
+        }
+
+        protected void btnNewPayable_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AppViewEditInvoicePaymentPage.aspx");
         }
     }
 }

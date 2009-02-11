@@ -182,6 +182,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReferenceCode.cs" />
+    <Compile Include="ReportViewerCridential.cs" />
     <Compile Include="Utils\DataValidator\HPFValidator.cs" />
     <Compile Include="Utils\DataValidator\InTakeDateValidator.cs" />
     <Compile Include="Utils\DataValidator\InTakeDateValidatorAttribute.cs" />

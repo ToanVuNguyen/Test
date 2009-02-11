@@ -20,25 +20,14 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
 {
     public partial class AgencyAccountsPayableUC : System.Web.UI.UserControl
     {
-        //row number of selected row.
-        protected int rownum
-        {
-            get { return (int)ViewState["rownum"]; }
-            set { ViewState["rownum"] = value; }
-        }
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             ApplySecurity();
-            for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
-            {
-                grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
-            }
+           
             if (IsPostBack)
             {
-                //for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
-                //{
-                //    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
-                //}
+               
                 if (grvInvoiceList.Rows.Count == 0)
                     grvInvoiceList.SelectedIndex = -1;
                 if (grvInvoiceList.SelectedIndex != -1)
@@ -61,20 +50,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
                 BindGrvInvoiceList(DateTime.Now.AddMonths(-6), DateTime.Now);
-                //for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
-                //{
-                //    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
-                //}
-                //if (grvInvoiceList.Rows.Count == 0)
-                //    grvInvoiceList.SelectedIndex = -1;
-                //if (grvInvoiceList.SelectedIndex != -1)
-                //{
-                //    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
-                //}
-                //else
-                //{
-                //    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
-                //}
+               
             }
         }
         private void ApplySecurity()
@@ -117,17 +93,11 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 searchCriteria.PeriodStartDate = periodStart;
                 //get search data match that search collection
                 agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
+                ViewState["agency"] = agency;
                 //bind search data to gridview
                 grvInvoiceList.DataSource = agency;
                 grvInvoiceList.DataBind();
-                if (agency.Count != 0)
-                {
-                    for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
-                    {
-                        grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
-                    }
-                }
-                else
+                if (agency.Count == 0)
                 {
                     grvInvoiceList.SelectedIndex = -1;
                     btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
@@ -160,6 +130,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             periodStart = DateTime.Parse(txtPeriodStart.Text);
             periodEnd = DateTime.Parse(txtPeriodEnd.Text);
             BindGrvInvoiceList(periodStart, periodEnd);
+            grvInvoiceList.SelectedIndex = -1;
         }
         /// <summary>
         /// go to New payable criteria.
@@ -179,24 +150,21 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
-            AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
+            //AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
                 if (grvInvoiceList.SelectedIndex != -1)
                 {
-                    for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
-                    {
-                        grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
-                    }
                     //
                     btnCancelPayable.Attributes.Clear();
                     btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
                     //
-                    searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-                    searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
-                    searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
-                    agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
+                    //searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
+                    //searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
+                    //searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
+                    //agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
+                    agency=(AgencyPayableDTOCollection)ViewState["agency"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
                     agency[selectedrow].StatusCode = "Cancel";

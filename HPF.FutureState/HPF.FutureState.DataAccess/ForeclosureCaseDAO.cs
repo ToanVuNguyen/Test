@@ -594,6 +594,10 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
+                var itemdefault = new ServicerDTO();
+                itemdefault.ServicerID = -1;
+                itemdefault.ServicerName = "ALL";
+                results.Add(itemdefault);
                 if (reader.HasRows)
                 {
                     while (reader.Read())
