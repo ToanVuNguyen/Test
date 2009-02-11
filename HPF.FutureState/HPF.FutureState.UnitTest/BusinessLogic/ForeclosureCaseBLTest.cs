@@ -1103,7 +1103,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
+            foreclosureCaseSet.ForeclosureCase.ChgLstUserId = working_user_id;
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
             foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
@@ -1123,7 +1123,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value                        
-            foreclosureCaseSet.ForeclosureCase.ChangeUserID = working_user_id;
+            foreclosureCaseSet.ForeclosureCase.ChgLstUserId = working_user_id;
             foreclosureCaseSet.ForeclosureCase.SummarySentOtherCd = "HPF";
             foreclosureCaseSet.ForeclosureCase.SummarySentOtherDt = DateTime.Now;
             ExceptionMessageCollection actual;

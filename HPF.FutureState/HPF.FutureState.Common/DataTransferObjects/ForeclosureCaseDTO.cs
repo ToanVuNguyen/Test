@@ -620,6 +620,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0125, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [NullableOrStringLengthValidator(true, 30, "Working User ID", Ruleset = Constant.RULESET_LENGTH)]
-        public string ChangeUserID { get; set; }
+        public string ChgLstUserId { get; set; }
     }
 }
