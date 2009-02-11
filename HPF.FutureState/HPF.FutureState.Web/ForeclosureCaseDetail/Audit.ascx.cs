@@ -25,7 +25,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     public partial class Audit : System.Web.UI.UserControl
     {
         private bool _isUpdating = false;
-        private string _workingUserId = null;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,6 +38,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ApplySecurity();
                 BindDataToIndicatorDropDownLists();
                 BindDataToReviewedByDDL();
+                BindDataToAuditTypeDDL();
             }
             catch (Exception ex)
             {
@@ -50,14 +50,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             CaseAuditDTO caseAudit = FormToCaseAuditDTO();
             if (_isUpdating)
-                CaseAuditBL.Instance.SaveCaseAudit(caseAudit, _workingUserId, true);
+                CaseAuditBL.Instance.SaveCaseAudit(caseAudit, HPFWebSecurity.CurrentIdentity.LoginName, true);
             else
-                CaseAuditBL.Instance.SaveCaseAudit(caseAudit, _workingUserId, false);
+                CaseAuditBL.Instance.SaveCaseAudit(caseAudit, HPFWebSecurity.CurrentIdentity.LoginName, false);
+            _isUpdating = false;
    
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            _isUpdating = false;
             ClearControls();
         }
 
@@ -95,7 +97,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void BindDataToAuditTypeDDL()
         {
             ddlAuditType.Items.Clear();
-            ddlAuditType.Items.Add(new ListItem(string.Empty));
+            
+            RefCodeItemDTOCollection auditTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_TYPE_CODE);
+            ddlAuditType.DataValueField = "Code";
+            ddlAuditType.DataTextField = "CodeDesc";
+            ddlAuditType.DataSource = auditTypeCodes;
+            ddlAuditType.DataBind();
+            ddlAuditType.Items.Insert(0, new ListItem(string.Empty));
+            
 
         }
 
@@ -114,7 +123,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void ClearControls()
         {
-            foreach (DropDownList ddl in Page.Controls)
+            foreach (DropDownList ddl in this.Controls)
                 ddl.Text = string.Empty;
             txtAuditDate.Text = string.Empty;
             txtAuditComment.Text = string.Empty;
