@@ -31,7 +31,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? ProgramId { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0102, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0001)]        
+        [NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0001)]
+        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "AgencyCaseNumber only have alpha-numeric characters", Ruleset = Constant.RULESET_LENGTH)]
         public string AgencyCaseNum { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Agency Client Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0002)]

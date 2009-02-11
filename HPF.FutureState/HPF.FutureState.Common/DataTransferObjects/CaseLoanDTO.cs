@@ -6,6 +6,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils.DataValidator;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using System.Xml.Serialization;
+using System.Text.RegularExpressions;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
@@ -30,9 +31,27 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "Other Servicer Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0057)]
         public string OtherServicerName { get; set; }
 
+        string _acctNum = null;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0128, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
-        [NullableOrStringLengthValidator(true, 30, "Acct Num", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0058)]
-        public string AcctNum { get; set; }
+        [NullableOrStringLengthValidator(true, 30, "Acct Num", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0058)]        
+        public string AcctNum
+        {
+            get { return _acctNum; }
+            set
+            {
+                if (value != null)
+                {
+                    _acctNum = value;
+                    Regex exp = new Regex(@"[^a-zA-Z0-9]");
+                    MatchCollection matches = exp.Matches(_acctNum);
+                    foreach (Match item in matches)
+                    {
+                        _acctNum = _acctNum.Replace(item.Value, string.Empty);
+                    }
+
+                }
+            }
+        }
 
         [StringRequiredValidator(Tag = ErrorMessages.WARN0320, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Loan 1st 2nd ", Ruleset = Constant.RULESET_LENGTH)]

@@ -354,15 +354,20 @@ namespace HPF.FutureState.BusinessLogic
                 return msgFcCaseSet;
             }
             int? outComeTypeId = FindOutcomeTypeIdWithNameIsExternalReferral();
-            foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
+            for (int i = 0; i < outcomeItemDTOCollection.Count; i++)
             {
+                var item = outcomeItemDTOCollection[i];
                 var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
-                if (ex.Count > 0)
+                if (ex.Count != 0)
                 {
-                    msgFcCaseSet.Add(ex);
-                    break;
+                    for (int j = 0; j < ex.Count; j++)
+                    {
+                        var exItem = ex[j];
+                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on outcome item index " + (i + 1));
+                    }
                 }
-            }            
+
+            }                  
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
                 foreach (OutcomeItemDTO item in outcomeItemDTOCollection)
@@ -567,14 +572,21 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection ValidateFieldsBudgetAsset(BudgetAssetDTOCollection budgetAssetDTOCollection, string ruleSet)
         {
-            var msgFcCaseSet = new ExceptionMessageCollection();
-            //
-            foreach (var item in budgetAssetDTOCollection)
+            var msgFcCaseSet = new ExceptionMessageCollection();           
+            for (int i = 0; i < budgetAssetDTOCollection.Count; i++)
             {
+                var item = budgetAssetDTOCollection[i];
                 var ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
-                msgFcCaseSet.Add(ex);
+                if (ex.Count != 0)
+                {
+                    for (int j = 0; j < ex.Count; j++)
+                    {
+                        var exItem = ex[j];
+                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on budget asset index " + (i + 1));
+                    }
+                }
+                    
             }
-            //
             return msgFcCaseSet;
         }
 
@@ -670,14 +682,14 @@ namespace HPF.FutureState.BusinessLogic
             var msgFcCaseSet = new ExceptionMessageCollection();
             if (budgetCollection == null || budgetCollection.Count < 1)
                 return msgFcCaseSet;
-            foreach (BudgetItemDTO item in budgetCollection)
-            { 
-                if(item.BudgetItemAmt == null)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetItemAmt can not be null");
-                if(item.BudgetSubcategoryId == null)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetSubCategory can not be null");
-
-            }
+            for (int i = 0; i < budgetCollection.Count; i++)
+            {
+                var item = budgetCollection[i];
+                if (item.BudgetItemAmt == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetItemAmt can not be null working on budget item index " + (i + 1));
+                if (item.BudgetSubcategoryId == null)
+                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetSubCategory can not be null working on budget item index " + (i + 1));
+            }            
             return msgFcCaseSet;
         }
         /// <summary>
@@ -1554,6 +1566,8 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CombinationContactValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
         {
+            if (string.IsNullOrEmpty(forclosureCase.ContactZip) && string.IsNullOrEmpty(forclosureCase.ContactStateCd))
+                return true;
             return (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr);
         }
 
@@ -1564,6 +1578,8 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CombinationPropertyValid(ForeclosureCaseDTO forclosureCase, GeoCodeRefDTO item)
         {
+            if (string.IsNullOrEmpty(forclosureCase.PropZip) && string.IsNullOrEmpty(forclosureCase.PropStateCd))
+                return true;
             return (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr);            
         }
 
@@ -1575,9 +1591,9 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (forclosureCase.ContactZip.Length != 5)
+            if (!string.IsNullOrEmpty(forclosureCase.ContactZip) && forclosureCase.ContactZip.Length != 5)
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0257, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0257));
-            if (forclosureCase.PropZip.Length != 5)
+            if (!string.IsNullOrEmpty(forclosureCase.PropZip) && forclosureCase.PropZip.Length != 5)
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0258, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0258));
             return msgFcCaseSet;
         }
@@ -1588,12 +1604,17 @@ namespace HPF.FutureState.BusinessLogic
         /// <return>bool<return>
         /// </summary>
         private ExceptionMessageCollection CheckValidAgencyId(ForeclosureCaseDTO forclosureCase)
-        {           
-            AgencyDTOCollection agencyCollection = foreclosureCaseSetDAO.GetAgency();
-            if (agencyCollection == null || agencyCollection.Count < 1)
-                return null;
-            int? agencyID = forclosureCase.AgencyId;
+        {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            AgencyDTOCollection agencyCollection = foreclosureCaseSetDAO.GetAgency();
+            int? agencyID = forclosureCase.AgencyId;
+            if (agencyID == null)
+                return null;            
+            else if ((agencyCollection == null || agencyCollection.Count < 1) && agencyID != null)
+            {
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0250, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0250));
+                return msgFcCaseSet;
+            }
             foreach (AgencyDTO item in agencyCollection)
             {
                 if (item.AgencyID == agencyID.ToString())
@@ -1627,7 +1648,9 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckValidServicerId(int? servicerId)
         {            
             ServicerDTOCollection servicerCollection = foreclosureCaseSetDAO.GetServicer();
-            if (servicerCollection == null || servicerCollection.Count < 1)
+            if (servicerId == null)
+                return true;
+            else if (servicerCollection == null || servicerCollection.Count < 1)
                 return false;
             foreach (ServicerDTO item in servicerCollection)
             {
@@ -1645,10 +1668,15 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidProgramId(ForeclosureCaseDTO forclosureCase)
         {
             ProgramDTOCollection programCollection = foreclosureCaseSetDAO.GetProgram();
-            if (programCollection == null || programCollection.Count < 1)
-                return null;
-            int? programId = forclosureCase.ProgramId;
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            int? programId = forclosureCase.ProgramId;
+            if (programId == null)
+                return null;
+            else if (programCollection == null || programCollection.Count < 1)
+            {
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));
+                return msgFcCaseSet;
+            }            
             foreach (ProgramDTO item in programCollection)
             {
                 if (item.ProgramID == programId.ToString())
@@ -1718,6 +1746,8 @@ namespace HPF.FutureState.BusinessLogic
             if (outcomeTypeCollection == null || outcomeTypeCollection.Count < 1)
                 return true;
             int? outcomeTypeId = outcomeItem.OutcomeTypeId;
+            if (outcomeTypeId == null)
+                return true;
             foreach (OutcomeTypeDTO item in outcomeTypeCollection)
             {
                 if (item.OutcomeTypeID == outcomeTypeId)
