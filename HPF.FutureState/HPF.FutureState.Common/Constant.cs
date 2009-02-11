@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,9 +45,11 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_BUDGET_SUBCATEGORY = "BUDGETSUBCATEGORY";
         public const string HPF_CACHE_AGENCY = "HPFCACHEAGENCY";
         public const string HPF_CACHE_PAYMENT_TYPE = "HPFCACHPAYMENTTYPE";
-
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";
         public const string REF_CODE_SET_AUDIT_FAILURE_REASON_CODE = "audit failure reason code";
+        //
+        public const int HPF_QUEUE_READING_TIMEOUT = 10;//Seconds
+        public const string HPF_QUEUE_PATH = @".\Private$\HPFSummaryQueue";
     }
 }
