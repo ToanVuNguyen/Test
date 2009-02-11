@@ -22,6 +22,7 @@ using System.Configuration;
 
 namespace HPF.Webservice.Agency
 {
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -833,9 +834,9 @@ namespace HPF.Webservice.Agency
     public partial class ForeclosureCaseWSDTO : BaseDTO
     {
 
-        private int fcIdField;
+        private System.Nullable<int> fcIdField;
 
-        private System.DateTime intakeDtField;
+        private System.Nullable<System.DateTime> intakeDtField;
 
         private string borrowerFnameField;
 
@@ -867,7 +868,7 @@ namespace HPF.Webservice.Agency
 
         private string counselorEmailField;
 
-        private System.DateTime completedDtField;
+        private System.Nullable<System.DateTime> completedDtField;
 
         private string bankruptcyIndField;
 
@@ -888,7 +889,8 @@ namespace HPF.Webservice.Agency
         private string caseLoanIDField;
 
         /// <remarks/>
-        public int FcId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> FcId
         {
             get
             {
@@ -901,7 +903,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public System.DateTime IntakeDt
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> IntakeDt
         {
             get
             {
@@ -1109,7 +1112,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public System.DateTime CompletedDt
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> CompletedDt
         {
             get
             {
@@ -1714,7 +1718,7 @@ namespace HPF.Webservice.Agency
     public partial class ActivityLogDTO : BaseDTO
     {
 
-        private int activityLogIdField;
+        private System.Nullable<int> activityLogIdField;
 
         private System.Nullable<int> fcIdField;
 
@@ -1725,7 +1729,8 @@ namespace HPF.Webservice.Agency
         private string activityNoteField;
 
         /// <remarks/>
-        public int ActivityLogId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ActivityLogId
         {
             get
             {
@@ -1903,9 +1908,9 @@ namespace HPF.Webservice.Agency
 
         private string borrowerPreferredLangCdField;
 
-        private string borrowerOccupationCdField;
+        private string borrowerOccupationField;
 
-        private string coBorrowerOccupationCdField;
+        private string coBorrowerOccupationField;
 
         private string hispanicIndField;
 
@@ -1987,7 +1992,7 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<System.DateTime> fcSaleDateField;
 
-        private string changeUserIDField;
+        private string chgLstUserIdField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
@@ -2660,28 +2665,28 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string BorrowerOccupationCd
+        public string BorrowerOccupation
         {
             get
             {
-                return this.borrowerOccupationCdField;
+                return this.borrowerOccupationField;
             }
             set
             {
-                this.borrowerOccupationCdField = value;
+                this.borrowerOccupationField = value;
             }
         }
 
         /// <remarks/>
-        public string CoBorrowerOccupationCd
+        public string CoBorrowerOccupation
         {
             get
             {
-                return this.coBorrowerOccupationCdField;
+                return this.coBorrowerOccupationField;
             }
             set
             {
-                this.coBorrowerOccupationCdField = value;
+                this.coBorrowerOccupationField = value;
             }
         }
 
@@ -3215,15 +3220,15 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string ChangeUserID
+        public string ChgLstUserId
         {
             get
             {
-                return this.changeUserIDField;
+                return this.chgLstUserIdField;
             }
             set
             {
-                this.changeUserIDField = value;
+                this.chgLstUserIdField = value;
             }
         }
     }

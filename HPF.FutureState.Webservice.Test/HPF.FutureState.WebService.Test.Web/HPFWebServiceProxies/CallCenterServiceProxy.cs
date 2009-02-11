@@ -514,9 +514,9 @@ namespace HPF.Webservice.CallCenter
     public partial class ForeclosureCaseWSDTO : BaseDTO
     {
 
-        private int fcIdField;
+        private System.Nullable<int> fcIdField;
 
-        private System.DateTime intakeDtField;
+        private System.Nullable<System.DateTime> intakeDtField;
 
         private string borrowerFnameField;
 
@@ -548,7 +548,7 @@ namespace HPF.Webservice.CallCenter
 
         private string counselorEmailField;
 
-        private System.DateTime completedDtField;
+        private System.Nullable<System.DateTime> completedDtField;
 
         private string bankruptcyIndField;
 
@@ -569,7 +569,8 @@ namespace HPF.Webservice.CallCenter
         private string caseLoanIDField;
 
         /// <remarks/>
-        public int FcId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> FcId
         {
             get
             {
@@ -582,7 +583,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public System.DateTime IntakeDt
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> IntakeDt
         {
             get
             {
@@ -790,7 +792,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public System.DateTime CompletedDt
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> CompletedDt
         {
             get
             {
