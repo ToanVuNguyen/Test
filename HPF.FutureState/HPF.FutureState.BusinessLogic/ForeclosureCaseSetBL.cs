@@ -869,6 +869,7 @@ namespace HPF.FutureState.BusinessLogic
                 caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
                 InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew, fcId);
                 //
+                
                 SendCompletedCaseToQueueIfAny(fcId);
 
                 CompleteTransaction();
@@ -943,12 +944,20 @@ namespace HPF.FutureState.BusinessLogic
 
         private void SendCompletedCaseToQueueIfAny(int? fcId)
         {
-            if (!IsCaseCompleted) return;
+            if (!IsCaseCompleted)
+            {
+                return;
+            }            
             //
             var queue = new HPFSummaryQueue();
             queue.SendACompletedCaseToQueue(fcId);
+            UpdateSummarySentDateTime(fcId);
         }
 
+        private static void UpdateSummarySentDateTime(int? fcId)
+        {
+            
+        }
         #endregion
 
         #region Functions for Insert and Update tables
@@ -1794,11 +1803,10 @@ namespace HPF.FutureState.BusinessLogic
         {                                            
             ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
             int? fcId = foreclosureCase.FcId;
-            IsCaseCompleted = CheckComplete(foreclosureCaseSet);
-            foreclosureCase.SummarySentDt = DateTime.Now;            
+            IsCaseCompleted = CheckComplete(foreclosureCaseSet);            
             if (IsCaseCompleted)
-            {
-                foreclosureCase.CompletedDt = GetCompleteDate(fcId);                
+            {                
+                foreclosureCase.CompletedDt = GetCompleteDate(fcId);                                
             }
             return foreclosureCase;
         }        
