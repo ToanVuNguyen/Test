@@ -69,11 +69,25 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
 
+        string _loanNumber = null;
         [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Loan Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
         public string LoanNumber
         {
-            get;
-            set;
+            get { return _loanNumber; }
+            set
+            {
+                if (value != null)
+                {
+                    _loanNumber = value;
+                    Regex exp = new Regex(@"^[a-zA-Z0-9]");
+                    MatchCollection matches = exp.Matches(_loanNumber);
+                    foreach (Match item in matches)
+                    {
+                        _loanNumber = _loanNumber.Replace(item.Value, string.Empty);
+                    }
+
+                }
+            }
         }
 
         [NullableOrDigitsRequriedValidator(true, 5, "Property Zip",  Ruleset = "Default")]
