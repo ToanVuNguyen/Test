@@ -197,7 +197,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                BorrowerLname = obj.Element("BorrowerLname").Value,
                                BorrowerMaritalStatusCd = obj.Element("BorrowerMaritalStatusCd").Value,
                                BorrowerMname = obj.Element("BorrowerMname").Value,
-                               BorrowerOccupationCd = obj.Element("BorrowerOccupationCd").Value,
+                               BorrowerOccupation = obj.Element("BorrowerOccupationCd").Value,
                                BorrowerPreferredLangCd = obj.Element("BorrowerPreferredLangCd").Value,
                                BorrowerSsn = obj.Element("BorrowerSsn").Value,
                                CallId = obj.Element("CallId").Value,
@@ -209,7 +209,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                //CoBorrowerLast4Ssn = obj.Element("CoBorrowerLast4Ssn").Value,
                                CoBorrowerLname = obj.Element("CoBorrowerLname").Value,
                                CoBorrowerMname = obj.Element("CoBorrowerMname").Value,
-                               CoBorrowerOccupationCd = obj.Element("CoBorrowerOccupationCd").Value,
+                               CoBorrowerOccupation = obj.Element("CoBorrowerOccupationCd").Value,
                                CoBorrowerSsn = obj.Element("CoBorrowerSsn").Value,
                                //CompletedDt = Util.ConvertToDateTime(obj.Element("CompletedDt").Value),
                                ContactAddr1 = obj.Element("ContactAddr1").Value,
@@ -288,7 +288,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                SummarySentOtherCd = obj.Element("SummarySentOtherCd").Value,
                                SummarySentOtherDt = Util.ConvertToDateTime(obj.Element("SummarySentOtherDt").Value),
                                WorkedWithAnotherAgencyInd = obj.Element("WorkedWithAnotherAgencyInd").Value,
-                                   ChangeUserID = obj.Element("WorkingUserId").Value
+                               ChgLstUserId = obj.Element("WorkingUserId").Value
                                //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,                               
                                //CreateUserId = obj.Element("CreateUserId").Value
                                

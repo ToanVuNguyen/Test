@@ -79,7 +79,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.BorrowerLname = txtBorrowerLName.Text.Trim();
             fcCase.BorrowerMaritalStatusCd = txtBorrowerMaritalStatusCd.Text.Trim();
             fcCase.BorrowerMname = txtBorrowerMName.Text.Trim();
-            fcCase.BorrowerOccupationCd = txtBorrowerOccupationCd.Text.Trim();
+            fcCase.BorrowerOccupation = txtBorrowerOccupationCd.Text.Trim();
             fcCase.BorrowerPreferredLangCd = txtBorrowerPreferedLangCd.Text.Trim();
             fcCase.BorrowerSsn = txtBorrowerSSN.Text.Trim();
             fcCase.CallId = txtCallID.Text.Trim();
@@ -91,7 +91,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //fcCase.CoBorrowerLast4Ssn = txtCoBorrowerLast4SSN.Text.Trim();
             fcCase.CoBorrowerLname = txtCoBorrowerLName.Text.Trim();
             fcCase.CoBorrowerMname = txtCoBorrowerMName.Text.Trim();
-            fcCase.CoBorrowerOccupationCd = txtCoBorrowerOccupationCd.Text.Trim();
+            fcCase.CoBorrowerOccupation = txtCoBorrowerOccupationCd.Text.Trim();
             fcCase.CoBorrowerSsn = txtCoBorrowerSSN.Text.Trim();
             //fcCase.CompletedDt = Util.ConvertToDateTime(txtCompletedDt.Text.Trim());
             fcCase.ContactAddr1 = txtContactAddress1.Text.Trim();
@@ -203,7 +203,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtBorrowerLName.Text = fcCase.BorrowerLname.ToString();
                 txtBorrowerMaritalStatusCd.Text = fcCase.BorrowerMaritalStatusCd.ToString();
                 txtBorrowerMName.Text = fcCase.BorrowerMname.ToString();
-                txtBorrowerOccupationCd.Text = fcCase.BorrowerOccupationCd.ToString();
+                txtBorrowerOccupationCd.Text = fcCase.BorrowerOccupation.ToString();
                 txtBorrowerPreferedLangCd.Text = fcCase.BorrowerPreferredLangCd.ToString();
                 txtBorrowerSSN.Text = fcCase.BorrowerSsn.ToString();
                 txtCallID.Text = fcCase.CallId.ToString();
@@ -215,7 +215,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 //txtCoBorrowerLast4SSN.Text = fcCase.CoBorrowerLast4Ssn.ToString();
                 txtCoBorrowerLName.Text = fcCase.CoBorrowerLname.ToString();
                 txtCoBorrowerMName.Text = fcCase.CoBorrowerMname.ToString();
-                txtCoBorrowerOccupationCd.Text = fcCase.CoBorrowerOccupationCd.ToString();
+                txtCoBorrowerOccupationCd.Text = fcCase.CoBorrowerOccupation.ToString();
                 txtCoBorrowerSSN.Text = fcCase.CoBorrowerSsn.ToString();
                 //txtCompletedDt.Text = fcCase.CompletedDt.ToString();
                 txtContactAddress1.Text = fcCase.ContactAddr1.ToString();
@@ -294,7 +294,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtSummarySentOtherDt.Text = fcCase.SummarySentOtherDt.ToString();
                 txtWorkedWithAnotherAgencyInd.Text = fcCase.WorkedWithAnotherAgencyInd.ToString();
                 txtFcSaleDate.Text = fcCase.FcSaleDate.ToString();
-                txtWorkingUserID.Text = fcCase.ChangeUserID.ToString();
+                txtWorkingUserID.Text = fcCase.ChgLstUserId.ToString();
                 //txtCreateUserID.Text = fcCase.CreateUserId.ToString();
                 //txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
             }
@@ -1111,7 +1111,7 @@ namespace HPF.FutureState.WebService.Test.Web
             //fcCaseSet.WorkingUserID = txtWorkingUserID.Text.Trim();
             
             fcCaseSet.ForeclosureCase = FormToForeclosureCase();
-            fcCaseSet.ForeclosureCase.ChangeUserID = txtWorkingUserID.Text.Trim();
+            fcCaseSet.ForeclosureCase.ChgLstUserId = txtWorkingUserID.Text.Trim();
             //fcCaseSet.ActivityLog = ((List<ActivityLogDTO>)Session[SessionVariables.ACTIVITY_LOG_COLLECTION]).ToArray();
             if (Session[SessionVariables.BUDGET_ASSET_COLLECTION] != null)
             {
