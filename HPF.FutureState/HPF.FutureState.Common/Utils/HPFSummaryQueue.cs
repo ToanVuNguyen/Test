@@ -9,7 +9,7 @@ namespace HPF.FutureState.Common.Utils
         /// Put a completed Case to MSMQ
         /// </summary>
         /// <param name="fc_id"></param>
-        public void SendACompletedCaseToQueue(string fc_id)
+        public void SendACompletedCaseToQueue(int? fc_id)
         {
             var entry = new HPFSummaryQueueEntry {FC_ID = fc_id};
             SendACompletedCaseToQueue(entry);            
