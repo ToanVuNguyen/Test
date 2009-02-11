@@ -238,10 +238,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerPreferredLangCd { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "Borrower Occupation Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string BorrowerOccupationCd { get; set; }
+        public string BorrowerOccupation { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "CoBorrower Occupation Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string CoBorrowerOccupationCd { get; set; }
+        public string CoBorrowerOccupation { get; set; }
 
         private string hispanicInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0310, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]

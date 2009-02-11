@@ -140,7 +140,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             lblPreferedLanguage.Text = foreclosureCase.BorrowerPreferredLangCd;
             lblEducationLevel.Text = foreclosureCase.BorrowerEducLevelCompletedCd;
             lblMaritalStatus.Text = foreclosureCase.BorrowerMaritalStatusCd;
-            lblOccupation.Text = foreclosureCase.BorrowerOccupationCd;
+            lblOccupation.Text = foreclosureCase.BorrowerOccupation;
             lblMilitaryService.Text = foreclosureCase.MilitaryServiceCd;
             //Co-Borrower
             lblCoFirstName.Text = foreclosureCase.CoBorrowerFname;
@@ -152,7 +152,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblCoLast4SSN.Text = "";
             else lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
             lblCoDisabled.Text = DisplayInd(foreclosureCase.CoBorrowerDisabledInd);
-            lblCoOccupation.Text = foreclosureCase.CoBorrowerOccupationCd;
+            lblCoOccupation.Text = foreclosureCase.CoBorrowerOccupation;
             //Contact Address
             lblContactAdd1.Text = foreclosureCase.ContactAddr1;
             lblContactAdd2.Text = foreclosureCase.ContactAddr2;

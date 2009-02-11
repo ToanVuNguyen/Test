@@ -2024,7 +2024,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.BorrowerMaritalStatusCd = (reader["borrower_marital_status_cd"].ToString());
                         returnObject.BorrowerLast4Ssn = (reader["borrower_last4_SSN"].ToString());
                         returnObject.BorrowerMname = (reader["borrower_mname"].ToString());
-                        returnObject.BorrowerOccupationCd = (reader["borrower_occupation"].ToString());
+                        returnObject.BorrowerOccupation = (reader["borrower_occupation"].ToString());
                         returnObject.BorrowerPreferredLangCd = (reader["borrower_preferred_lang_cd"].ToString());
                         //returnObject.BorrowerSsn = (reader["borrower_ssn"].ToString());
                         returnObject.CallId = (reader["call_id"].ToString());                        
@@ -2035,7 +2035,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.CoBorrowerLname = (reader["co_borrower_lname"].ToString());
                         returnObject.CoBorrowerLast4Ssn = (reader["co_borrower_last4_SSN"].ToString());
                         returnObject.CoBorrowerMname = (reader["co_borrower_mname"].ToString());
-                        returnObject.CoBorrowerOccupationCd = (reader["co_borrower_occupation"].ToString());
+                        returnObject.CoBorrowerOccupation = (reader["co_borrower_occupation"].ToString());
                         //returnObject.CoBorrowerSsn = (reader["co_borrower_ssn"].ToString());                        
                         returnObject.ContactAddr1 = (reader["contact_addr1"].ToString());
                         returnObject.ContactAddr2 = (reader["contact_addr2"].ToString());
