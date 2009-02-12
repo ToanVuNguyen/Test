@@ -1185,7 +1185,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (BudgetAssetDTO budgetAssetDB in budgetCollectionDB)
             {
-                if (budgetAssetInput.AssetName == budgetAssetDB.AssetName
+                if (ConvertStringToUpper(budgetAssetInput.AssetName) == ConvertStringToUpper(budgetAssetDB.AssetName)
                     && budgetAssetInput.AssetValue == budgetAssetDB.AssetValue)
                     return true;
             }
@@ -1307,7 +1307,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (caseLoan.AcctNum == item.AcctNum)
+                if (ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
                 {
                     if (caseLoan.ServicerId != item.ServicerId
                         || ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName)
