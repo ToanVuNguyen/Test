@@ -154,7 +154,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AppNewInvoiceCriteriaPage.aspx");
+            Response.Redirect("CreateNewInvoice.aspx");
         }
     }
 }

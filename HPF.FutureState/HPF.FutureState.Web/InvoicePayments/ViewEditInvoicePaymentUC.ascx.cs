@@ -209,7 +209,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             InvoicePaymentDTO invoicePayment = GetInvoicePayment();
             invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             paymentId= InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection,invoicePayment);
-            Response.Redirect("AppViewEditInvoicePaymentPage.aspx?id="+paymentId.ToString());
+            Response.Redirect("InvoicePaymentInfo.aspx?id="+paymentId.ToString());
         }
         #region FrontEnd PreProcessing
         /// <summary>

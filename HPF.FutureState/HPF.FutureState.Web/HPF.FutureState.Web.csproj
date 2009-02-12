@@ -97,19 +97,19 @@
     <Compile Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx.designer.cs">
       <DependentUpon>AgencyAccountsPayableUC.ascx</DependentUpon>
     </Compile>
-    <Compile Include="AppForeclosureCaseDetailPage.aspx.cs">
-      <DependentUpon>AppForeclosureCaseDetailPage.aspx</DependentUpon>
+    <Compile Include="ForeclosureCaseInfo.aspx.cs">
+      <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppForeclosureCaseDetailPage.aspx.designer.cs">
-      <DependentUpon>AppForeclosureCaseDetailPage.aspx</DependentUpon>
+    <Compile Include="ForeclosureCaseInfo.aspx.designer.cs">
+      <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AppForeClosureCaseSearchPage.aspx.cs">
-      <DependentUpon>AppForeClosureCaseSearchPage.aspx</DependentUpon>
+    <Compile Include="SearchForeclosureCase.aspx.cs">
+      <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppForeClosureCaseSearchPage.aspx.designer.cs">
-      <DependentUpon>AppForeClosureCaseSearchPage.aspx</DependentUpon>
+    <Compile Include="SearchForeclosureCase.aspx.designer.cs">
+      <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx.cs">
       <DependentUpon>AppForeClosureCaseSearchUC.ascx</DependentUpon>
@@ -118,12 +118,12 @@
     <Compile Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx.designer.cs">
       <DependentUpon>AppForeClosureCaseSearchUC.ascx</DependentUpon>
     </Compile>
-    <Compile Include="AppFundingSourceInvoicesPage.aspx.cs">
-      <DependentUpon>AppFundingSourceInvoicesPage.aspx</DependentUpon>
+    <Compile Include="FundingSourceInvoice.aspx.cs">
+      <DependentUpon>FundingSourceInvoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppFundingSourceInvoicesPage.aspx.designer.cs">
-      <DependentUpon>AppFundingSourceInvoicesPage.aspx</DependentUpon>
+    <Compile Include="FundingSourceInvoice.aspx.designer.cs">
+      <DependentUpon>FundingSourceInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx.cs">
       <DependentUpon>AppFundingSourceInvoices.ascx</DependentUpon>
@@ -132,12 +132,12 @@
     <Compile Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx.designer.cs">
       <DependentUpon>AppFundingSourceInvoices.ascx</DependentUpon>
     </Compile>
-    <Compile Include="AppNewInvoiceCriteriaPage.aspx.cs">
-      <DependentUpon>AppNewInvoiceCriteriaPage.aspx</DependentUpon>
+    <Compile Include="CreateNewInvoice.aspx.cs">
+      <DependentUpon>CreateNewInvoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppNewInvoiceCriteriaPage.aspx.designer.cs">
-      <DependentUpon>AppNewInvoiceCriteriaPage.aspx</DependentUpon>
+    <Compile Include="CreateNewInvoice.aspx.designer.cs">
+      <DependentUpon>CreateNewInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.cs">
       <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
@@ -167,12 +167,12 @@
     <Compile Include="AppNewPayable\NewPayableCriteriaUC.ascx.designer.cs">
       <DependentUpon>NewPayableCriteriaUC.ascx</DependentUpon>
     </Compile>
-    <Compile Include="AppViewEditInvoicePage.aspx.cs">
-      <DependentUpon>AppViewEditInvoicePage.aspx</DependentUpon>
+    <Compile Include="InvoiceInfo.aspx.cs">
+      <DependentUpon>InvoiceInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppViewEditInvoicePage.aspx.designer.cs">
-      <DependentUpon>AppViewEditInvoicePage.aspx</DependentUpon>
+    <Compile Include="InvoiceInfo.aspx.designer.cs">
+      <DependentUpon>InvoiceInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.cs">
       <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
@@ -303,12 +303,12 @@
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
-    <Compile Include="NewInvoiceResultPage.aspx.cs">
-      <DependentUpon>NewInvoiceResultPage.aspx</DependentUpon>
+    <Compile Include="NewInvoiceSelection.aspx.cs">
+      <DependentUpon>NewInvoiceSelection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="NewInvoiceResultPage.aspx.designer.cs">
-      <DependentUpon>NewInvoiceResultPage.aspx</DependentUpon>
+    <Compile Include="NewInvoiceSelection.aspx.designer.cs">
+      <DependentUpon>NewInvoiceSelection.aspx</DependentUpon>
     </Compile>
     <Compile Include="PrintSummary.aspx.cs">
       <DependentUpon>PrintSummary.aspx</DependentUpon>
@@ -366,27 +366,27 @@
     <Compile Include="SummaryEmail\SummaryEmailUC.ascx.designer.cs">
       <DependentUpon>SummaryEmailUC.ascx</DependentUpon>
     </Compile>
-    <Compile Include="AppViewEditInvoicePaymentPage.aspx.cs">
-      <DependentUpon>AppViewEditInvoicePaymentPage.aspx</DependentUpon>
+    <Compile Include="InvoicePaymentInfo.aspx.cs">
+      <DependentUpon>InvoicePaymentInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppViewEditInvoicePaymentPage.aspx.designer.cs">
-      <DependentUpon>AppViewEditInvoicePaymentPage.aspx</DependentUpon>
+    <Compile Include="InvoicePaymentInfo.aspx.designer.cs">
+      <DependentUpon>InvoicePaymentInfo.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
-    <Content Include="AppForeclosureCaseDetailPage.aspx" />
-    <Content Include="AppForeClosureCaseSearchPage.aspx" />
+    <Content Include="ForeclosureCaseInfo.aspx" />
+    <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
-    <Content Include="AppFundingSourceInvoicesPage.aspx" />
+    <Content Include="FundingSourceInvoice.aspx" />
     <Content Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx" />
-    <Content Include="AppNewInvoiceCriteriaPage.aspx" />
+    <Content Include="CreateNewInvoice.aspx" />
     <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
     <Content Include="AppNewInvoice\NewInvoiceResults.ascx" />
     <Content Include="AppNewPayable\NewAgencyPayableResultsUC.ascx" />
     <Content Include="AppNewPayable\NewPayableCriteriaUC.ascx" />
-    <Content Include="AppViewEditInvoicePage.aspx" />
+    <Content Include="InvoiceInfo.aspx" />
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="Common\Menu\MenuBar.xml">
@@ -409,7 +409,7 @@
     <Content Include="InvoicePayments\ViewEditInvoicePaymentUC.ascx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
-    <Content Include="NewInvoiceResultPage.aspx" />
+    <Content Include="NewInvoiceSelection.aspx" />
     <Content Include="PrintSummary.aspx" />
     <Content Include="PrintSummary\PrintSummaryUC.ascx" />
     <Content Include="Scripts\HPF.js" />
@@ -433,7 +433,7 @@
     <Content Include="NewAgencyPayableResults.aspx" />
     <Content Include="AgencyAccountsPayable.aspx" />
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
-    <Content Include="AppViewEditInvoicePaymentPage.aspx" />
+    <Content Include="InvoicePaymentInfo.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">

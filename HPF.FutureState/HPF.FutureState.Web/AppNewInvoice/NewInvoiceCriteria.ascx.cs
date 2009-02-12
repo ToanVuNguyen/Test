@@ -333,7 +333,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 {
                     Session["IvoiceCaseSearchCriteria"] = searchCriteria;
                     Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
-                    Response.Redirect("NewInvoiceResultPage.aspx");
+                    Response.Redirect("NewInvoiceSelection.aspx");
                 }
             }
             catch (Exception ex)

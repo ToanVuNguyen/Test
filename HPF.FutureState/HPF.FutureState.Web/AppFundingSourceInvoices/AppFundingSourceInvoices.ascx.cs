@@ -147,7 +147,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         protected void btnNewInvoice_Click(object sender, EventArgs e)
         {
             Session["fundingSourceId"] = dropFundingSource.SelectedValue;
-            Response.Redirect("AppNewInvoiceCriteriaPage.aspx");
+            Response.Redirect("CreateNewInvoice.aspx");
         }
 
         protected void btnCancelInvoice_Click(object sender, EventArgs e)
@@ -198,7 +198,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             if (grvFundingSourceInvoices.SelectedIndex == -1)
                 return;
             int invoiceId = (int)grvFundingSourceInvoices.SelectedValue;
-            Response.Redirect("AppViewEditInvoicePage.aspx?id=" + invoiceId.ToString());
+            Response.Redirect("InvoiceInfo.aspx?id=" + invoiceId.ToString());
         }
     }
 }

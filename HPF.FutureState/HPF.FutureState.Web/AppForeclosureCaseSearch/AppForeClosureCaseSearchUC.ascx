@@ -154,7 +154,7 @@
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <Columns>
-                        <asp:HyperLinkField DataTextField="CaseID" DataNavigateUrlFields="CaseID" DataNavigateUrlFormatString="../AppForeclosureCaseDetailPage.aspx?CaseID={0}" HeaderText="Case ID" />
+                        <asp:HyperLinkField DataTextField="CaseID" DataNavigateUrlFields="CaseID" DataNavigateUrlFormatString="../ForeclosureCaseInfo.aspx?CaseID={0}" HeaderText="Case ID" />
                         <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Center" />
                         <asp:TemplateField HeaderText="Counseled">
                         <ItemTemplate>
