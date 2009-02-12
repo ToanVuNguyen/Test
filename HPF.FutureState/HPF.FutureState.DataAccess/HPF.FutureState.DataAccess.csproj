@@ -54,6 +54,7 @@
     <Compile Include="CallLogDAO.cs" />
     <Compile Include="CaseAuditDAO.cs" />
     <Compile Include="CaseLoanDAO.cs" />
+    <Compile Include="CaseFollowUpDAO.cs" />
     <Compile Include="ForeclosureCaseDAO.cs" />
     <Compile Include="ForeclosureCaseSetDAO.cs" />
     <Compile Include="GeoCodeRefDAO.cs" />

@@ -89,6 +89,8 @@
     <Compile Include="DataTransferObjects\CallCenterDTO.cs" />
     <Compile Include="DataTransferObjects\CaseAuditDTO.cs" />
     <Compile Include="DataTransferObjects\CaseAuditDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CaseFollowUpDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseFollowUpDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
