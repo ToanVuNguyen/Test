@@ -58,9 +58,9 @@ namespace HPF.FutureState.Web.SummaryEmail
                     hpfSendMail.To = SendTo;
                     hpfSendMail.Subject = Subject;
                     hpfSendMail.Body = Body;
-                    reportExport.ReportPath = @"http:\\hpf_01\reportserver\HPF_Report\rpt_Counseling_Summary.rdl";
+                    reportExport.ReportPath = @"http:\\hpf_01\reportserver\HPF_Report\rpt_Counseling_Summary";
                     byte[] attachContent = reportExport.ExportToPdf();
-                    hpfSendMail.AddAttachment("hpf_report.pdf", attachContent);
+                    hpfSendMail.AddAttachment("hpf_report", attachContent);
                     hpfSendMail.Send();
                 }
                 //else
@@ -81,7 +81,7 @@ namespace HPF.FutureState.Web.SummaryEmail
             //string SendFrom = "HPF.DoNotReply@HopeNetAdmin.org";
             string SendFrom = "tnguyen243@csc.com";
             string SendTo = txtTo.Text;
-            string Subject = txtSubject.Text + "$S$";
+            string Subject = txtSubject.Text;
             string Body = txtBody.Text;
             lblMessgage.Text = SendEmailWithAttachment(SendFrom, SendTo, Subject, Body);
             ActivityLogDTO activityLog = GetActivityLogInfo();
