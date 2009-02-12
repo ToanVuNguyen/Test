@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="137a9bc8-a194-46ab-a080-9a21f071d3b0" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <!--
+  The following Guid for FeatureId is used as a reference to the list definition, 
+  and it will be automatically replaced with actual feature id at deployment time.
+  -->
+  <ListInstance FeatureId="00bfea71-e717-4e80-aa17-d0c71b360101" 
+                Title="ReportDocumentLibrary" 
+                Url="Lists/ReportDocumentLibrary">
+  </ListInstance>
+</Elements>

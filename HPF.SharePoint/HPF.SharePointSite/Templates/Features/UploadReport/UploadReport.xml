@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <CustomAction
+      Id="UploadReport.MenuLink"
+      Location="Microsoft.SharePoint.StandardMenu"
+      GroupId="UploadMenu"
+      Title="HPF Upload">
+    <UrlAction Url="_layouts/MultiUpload.aspx?ListId={ListId}"/>
+  </CustomAction>
+</Elements>
