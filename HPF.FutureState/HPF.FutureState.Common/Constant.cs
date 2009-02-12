@@ -25,9 +25,10 @@ namespace HPF.FutureState.Common
         public const string SUB_CATEGORY_NAME_MORTGAGE = "MORTGAGE";
         public const string OUTCOME_TYPE_NAME_EXTERNAL_REFERAL = "EXTERNAL REFERAL";        
         public const string MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE = "FundingSourceInvoice.aspx";
-        public const string MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE = "AgencyAccountsPayable.aspx";
+        public const string MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE = "AgencyPayable.aspx";
         public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_SEARCH = "SearchForeclosureCase.aspx";
         public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL = "ForeclosureCaseInfo.aspx";
+        public const string MENU_ITEM_TARGET_APP_AGENCY_PAYABLE_INFO = "AgencyPayableInfo.aspx";
         //
         public const string HPF_CACHE_REF_CODE_ITEM = "refCodeItem";
         public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";

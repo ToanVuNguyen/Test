@@ -14,13 +14,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime? PeriodStartDate { get; set; }
         public DateTime? PeriodEndDate { get; set; }
         public string AccountLinkTBD { get; set; }
-        public decimal? AgencyPayablePaymentAmount { get; set; }
-        public decimal? TotalAmount { get; set; }
+        public double? AgencyPayablePaymentAmount { get; set; }
+        public double? TotalAmount { get; set; }
         public string PaymentComment { get; set; }
         public string StatusCode { get; set; }
         public DateTime? PaymentDate { get; set; }
         //---------------
         public int? AgencyPayableId { get; set; }
+        //---------------view/edit agency payable
+        public string PayableNum { get; set; }
         public AgencyPayableCaseDTOCollection AgencyPayableCases { get; set; }
     }
 }

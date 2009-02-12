@@ -18,11 +18,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 return ForeclosureCaseDrafts==null?0:ForeclosureCaseDrafts.Count;
             }
         }
-        public decimal TotalAmount
+        public double TotalAmount
         {
             get
             {
-                decimal total = 0;
+                double total = 0;
                 if (ForeclosureCaseDrafts == null)
                     return total;
                 foreach (ForeclosureCaseDraftDTO fc in ForeclosureCaseDrafts)
