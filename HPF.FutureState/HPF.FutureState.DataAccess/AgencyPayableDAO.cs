@@ -246,7 +246,7 @@ namespace HPF.FutureState.DataAccess
                         results.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         results.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
                         results.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
-                        results.TotalAmount = ConvertToDecimal(reader["agency_payable_pmt_amt"]);
+                        results.TotalAmount = ConvertToDouble(reader["agency_payable_pmt_amt"]);
                         results.PaymentComment = ConvertToString(reader["pmt_comment"]);
                         results.StatusCode = ConvertToString(reader["status_cd"]);
                         result.Add(results);
@@ -303,7 +303,7 @@ namespace HPF.FutureState.DataAccess
                         item.AgencyCaseId = ConvertToString(reader["agency_case_num"]);
                         item.CompletedDate = ConvertToDateTime(reader["completed_dt"]);
                         item.CreateDate = ConvertToDateTime(reader["create_dt"]);
-                        item.Amount = ConvertToDecimal(reader["pmt_rate"]);
+                        item.Amount = ConvertToDouble(reader["pmt_rate"]);
                         item.AccountLoanNumber = ConvertToString(reader["acct_num"]);
                         item.ServicerName = ConvertToString(reader["servicer_name"]);
                         item.BorrowerName = ConvertToString(reader["borrower_name"]);
@@ -326,6 +326,73 @@ namespace HPF.FutureState.DataAccess
             }
             return results;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <returns></returns>
+        public AgencyPayableSetDTO AgencyPayableSetGet(int? agencypayableId)
+        {
+            AgencyPayableSetDTO result = new AgencyPayableSetDTO();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_agency_payable_get", dbConnection);
+            command.Connection = dbConnection;
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_agency_payable_id", agencypayableId);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    //read Invoice
+                    reader.Read();
+                    AgencyPayableDTO payable = new AgencyPayableDTO();
+                    payable.AgencyId = ConvertToInt(reader["agency_id"]);
+                    payable.AgencyName = ConvertToString(reader["agency_name"]);
+                    payable.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["period_start_dt"]).Value;
+                    payable.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["period_end_dt"]).Value;
+                    payable.PaymentComment = ConvertToString(reader["pmt_comment"]);
+                    
+                    result.Payable=payable;
+
+                    reader.NextResult();
+                    // read payable Cases
+
+                    while (reader.Read())
+                    {
+                        var payableCase = new AgencyPayableCaseDTO();
+
+                        payableCase.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
+                        payableCase.AgencyCaseID = ConvertToInt(reader["agency_case_num"]);
+                        payableCase.CreateDt = ConvertToDateTime(reader["create_dt"])==null? DateTime.MinValue : ConvertToDateTime(reader["create_dt"]).Value;
+                        payableCase.CompleteDt = ConvertToDateTime(reader["completed_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["completed_dt"]).Value;
+                        payableCase.PaymentAmount = ConvertToDouble(reader["pmt_amt"])==null?0:ConvertToDouble(reader["pmt_amt"]).Value;
+                        payableCase.LoanNum = ConvertToString(reader["acct_num"]);
+                        payableCase.ServicerName= ConvertToString(reader["servicer_name"]);
+                        payableCase.BorrowerName = ConvertToString(reader["Borrower"]);
+                        payableCase.NFMCDifferenceEligibleInd = ConvertToString(reader["NFMC_difference_eligible_ind"]);
+                        payableCase.NFMCDifferencePaidAmt = ConvertToDouble(reader["NFMC_difference_paid_amt"]);
+                        payableCase.TakebackReason = ConvertToString(reader["takeback_pmt_reason_cd"]);
+                        payableCase.TakebackDate = ConvertToDateTime(reader["takeback_pmt_identified_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["takeback_pmt_identified_dt"]).Value;
+
+                        result.PayableCases.Add(payableCase);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
+       
         #endregion
     }
 }

@@ -298,7 +298,7 @@ namespace HPF.FutureState.UnitTest
                     agencyPayableCaseSelect.ForeclosureCaseId = Convert.ToInt32(dr["fc_id"]);
                     agencyPayableCaseSelect.AgencyPayableId = Convert.ToInt32(dr["agency_payable_id"]);
                     agencyPayableCaseSelect.PaymentDate = Convert.ToDateTime(dr["pmt_dt"]);
-                    agencyPayableCaseSelect.PaymentAmount = Convert.ToDecimal(dr["pmt_amt"]);
+                    agencyPayableCaseSelect.PaymentAmount = Convert.ToDouble(dr["pmt_amt"]);
                     agencyPayableCaseSelect.CreateDate = Convert.ToDateTime(dr["create_dt"]);
                     agencyPayableCaseSelect.CreateUserId = dr["create_user_id"].ToString();
                     agencyPayableCaseSelect.CreateAppName = dr["create_app_name"].ToString();
@@ -374,7 +374,7 @@ namespace HPF.FutureState.UnitTest
                     agencyPayableSelect.ChangeLastDate = Convert.ToDateTime(dr["chg_lst_dt"]);
                     agencyPayableSelect.ChangeLastUserId = dr["chg_lst_user_id"].ToString();
                     agencyPayableSelect.ChangeLastAppName = dr["chg_lst_app_name"].ToString();
-                    agencyPayableSelect.AgencyPayablePaymentAmount = Convert.ToDecimal(dr["agency_payable_pmt_amt"]);
+                    agencyPayableSelect.AgencyPayablePaymentAmount = Convert.ToDouble(dr["agency_payable_pmt_amt"]);
                 }
             Assert.IsFalse(!CompareAgencyPayableDTO(agencyPayableInsert, agencyPayableSelect));
         }

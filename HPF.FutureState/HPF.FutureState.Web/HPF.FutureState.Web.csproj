@@ -97,12 +97,47 @@
     <Compile Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx.designer.cs">
       <DependentUpon>AgencyAccountsPayableUC.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AgencyPayable.aspx.cs">
+      <DependentUpon>AgencyPayable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgencyPayable.aspx.designer.cs">
+      <DependentUpon>AgencyPayable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgencyPayableInfo.aspx.cs">
+      <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgencyPayableInfo.aspx.designer.cs">
+      <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgencyPayableInfo\ViewEditInvoice.ascx.cs">
+      <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgencyPayableInfo\ViewEditInvoice.ascx.designer.cs">
+      <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateNewPayable.aspx.cs">
+      <DependentUpon>CreateNewPayable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateNewPayable.aspx.designer.cs">
+      <DependentUpon>CreateNewPayable.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ForeclosureCaseInfo.aspx.cs">
       <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ForeclosureCaseInfo.aspx.designer.cs">
       <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewPayableSelection.aspx.cs">
+      <DependentUpon>NewPayableSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewPayableSelection.aspx.designer.cs">
+      <DependentUpon>NewPayableSelection.aspx</DependentUpon>
     </Compile>
     <Compile Include="SearchForeclosureCase.aspx.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
@@ -338,27 +373,6 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="NewPayableCriteria.aspx.cs">
-      <DependentUpon>NewPayableCriteria.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewPayableCriteria.aspx.designer.cs">
-      <DependentUpon>NewPayableCriteria.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="NewAgencyPayableResults.aspx.cs">
-      <DependentUpon>NewAgencyPayableResults.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NewAgencyPayableResults.aspx.designer.cs">
-      <DependentUpon>NewAgencyPayableResults.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AgencyAccountsPayable.aspx.cs">
-      <DependentUpon>AgencyAccountsPayable.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AgencyAccountsPayable.aspx.designer.cs">
-      <DependentUpon>AgencyAccountsPayable.aspx</DependentUpon>
-    </Compile>
     <Compile Include="SummaryEmail\SummaryEmailUC.ascx.cs">
       <DependentUpon>SummaryEmailUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -376,7 +390,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
+    <Content Include="AgencyPayable.aspx" />
+    <Content Include="AgencyPayableInfo.aspx" />
+    <Content Include="AgencyPayableInfo\ViewEditInvoice.ascx" />
+    <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
+    <Content Include="NewPayableSelection.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="FundingSourceInvoice.aspx" />
@@ -429,9 +448,6 @@
     <Content Include="Styles\Images\toplogo.jpg" />
     <Content Include="Styles\Images\topmidspace.jpg" />
     <Content Include="Styles\Images\topnavbg.jpg" />
-    <Content Include="NewPayableCriteria.aspx" />
-    <Content Include="NewAgencyPayableResults.aspx" />
-    <Content Include="AgencyAccountsPayable.aspx" />
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
     <Content Include="InvoicePaymentInfo.aspx" />
   </ItemGroup>
@@ -472,6 +488,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
