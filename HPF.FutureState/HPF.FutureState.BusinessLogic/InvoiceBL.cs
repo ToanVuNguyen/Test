@@ -248,7 +248,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="changeLastDt">for update </param>
         /// <param name="changeLastApp">for update</param>
         /// <param name="changeLastUserId">for update</param>
-        public void UpdateInvoicePayment(ReconciliationDTOCollection reconciliationDTOCollection, DateTime changeLastDt, string changeLastApp, string changeLastUserId)
+        public int UpdateInvoicePayment(ReconciliationDTOCollection reconciliationDTOCollection, InvoicePaymentDTO invoicePayment)
         {
             //string payList = "";
             //RefCodeItemDTOCollection paymentRejectCodeCollection = LookupDataBL.Instance.GetRefCode("payment reject reason code");
@@ -292,15 +292,20 @@ namespace HPF.FutureState.BusinessLogic
             }
             doc.AppendChild(root);
             string xmlString = doc.InnerXml;
-            ExecuteUpdateInvoicePayment(xmlString, changeLastDt, changeLastApp, changeLastUserId);
+            return ExecuteUpdateInvoicePayment(xmlString,invoicePayment);
         }
-        public void ExecuteUpdateInvoicePayment(string xmlString,DateTime changeLastDt,string changeLastApp,string changeLastUserId)
+        public int ExecuteUpdateInvoicePayment(string xmlString,InvoicePaymentDTO invoicePayment)
         {
             try
             {
                 InitiateTransaction();
-                invoiceDAO.InvoiceCaseUpdateForPayment(xmlString, changeLastDt, changeLastUserId, changeLastApp);
+                invoiceDAO.InvoiceCaseUpdateForPayment(xmlString, invoicePayment.ChangeLastDate.Value,invoicePayment.ChangeLastUserId,invoicePayment.ChangeLastAppName);
+                if (invoicePayment.InvoicePaymentID == -1)
+                    invoiceDAO.InsertInvoicePayment(invoicePayment);
+                else
+                    invoiceDAO.UpdateInvoicePayment(invoicePayment);
                 CompleteTransaction();
+                return invoicePayment.InvoicePaymentID.Value;
             }
             catch(Exception ex)
             {

@@ -41,15 +41,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                         GetBudgetDetail(budgetSets[0].BudgetSetId);
                     }
                 }
-                else
-                {
-                    budgetSets = new BudgetSetDTOCollection();
-                    budgetSets.Add(new BudgetSetDTO());
-                    grvBudgetSet.DataSource = budgetSets;
-                    grvBudgetSet.DataBind();
-                    grvBudgetSet.Rows[0].Cells.Clear();
-                    grvBudgetSet.Rows[0].Cells.Add(new TableCell { Text = "No data found.", ColumnSpan=6 });
-                }
+                //else
+                //{
+                //    budgetSets = new BudgetSetDTOCollection();
+                //    budgetSets.Add(new BudgetSetDTO());
+                //    grvBudgetSet.DataSource = budgetSets;
+                //    grvBudgetSet.DataBind();
+                //    grvBudgetSet.Rows[0].Cells.Clear();
+                //    grvBudgetSet.Rows[0].Cells.Add(new TableCell { Text = "No data found.", ColumnSpan=6 });
+                //}
             }
             catch (Exception ex)
             {
@@ -95,25 +95,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                         break;
                     }
                 }
-
-                
-
-
-                if (budgetDetail.BudgetAssetCollection.Count == 0)
-                {
-                    var dummyData = new BudgetAssetDTOCollection();
-                    dummyData.Add(new BudgetAssetDTO());
-                    grvAsset.DataSource = dummyData;
-                    grvAsset.DataBind();
-                    grvAsset.Rows[0].Cells.Clear();
-                    grvAsset.Rows[0].Cells.Add(new TableCell { Text = "No data found!", ColumnSpan = 2 });
-                }
-                else
-                {
-                    grvAsset.RowCreated += new GridViewRowEventHandler(grvAsset_RowCreated);
-                    grvAsset.DataSource = budgetDetail.BudgetAssetCollection;
-                    grvAsset.DataBind();
-                }
+                grvAsset.RowCreated += new GridViewRowEventHandler(grvAsset_RowCreated);
+                grvAsset.DataSource = budgetDetail.BudgetAssetCollection;
+                grvAsset.DataBind();
                 lstIncomes.DataSource = budgetIncomeItem;
                 lstIncomes.DataBind();
                 lstExpense.DataSource = budgetExpenseItem;

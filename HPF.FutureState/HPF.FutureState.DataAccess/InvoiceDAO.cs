@@ -12,7 +12,7 @@ using HPF.FutureState.Common;
 
 namespace HPF.FutureState.DataAccess
 {
-    public class InvoiceDAO: BaseDAO
+    public class InvoiceDAO : BaseDAO
     {
         # region Private variables
         private SqlConnection dbConnection;
@@ -73,7 +73,7 @@ namespace HPF.FutureState.DataAccess
         /// <param name="invoiceCase">InvoiceCaseDTO</param>
         public void InsertInvoiceCase(InvoiceCaseDTO invoiceCase)
         {
-            var command = CreateSPCommand("hpf_invoice_case_insert",dbConnection);
+            var command = CreateSPCommand("hpf_invoice_case_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[14];
             sqlParam[0] = new SqlParameter("@pi_fc_id", invoiceCase.ForeclosureCaseId);
@@ -109,7 +109,7 @@ namespace HPF.FutureState.DataAccess
         /// <param name="invoiceCaseIdCollection">a string that contains all invoiceCaseId to change</param>
         /// <param name="updateFlag">0:Reject, 1:Unpay, 2:Pay</param>
         /// <returns>true: Update Sucessfull;false:Payment_id does not exists</returns>
-        public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet,string invoiceCaseIdCollection,InvoiceCaseUpdateFlag updateFlag)
+        public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet, string invoiceCaseIdCollection, InvoiceCaseUpdateFlag updateFlag)
         {
             InvoiceDTO invoice = invoiceSet.Invoice;
             InvoiceCaseDTOCollection invoiceCases = invoiceSet.InvoiceCases;
@@ -117,13 +117,13 @@ namespace HPF.FutureState.DataAccess
             var command = CreateSPCommand("hpf_invoice_case_update_for_invoice", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[11];
-            sqlParam[0] = new SqlParameter("@pi_update_flag",(int)updateFlag);
-            sqlParam[1] = new SqlParameter("@pi_Invoice_id",invoice.InvoiceId);
-            sqlParam[2] = new SqlParameter("@pi_str_invoice_case_id",invoiceCaseIdCollection);
-            sqlParam[3] = new SqlParameter("@pi_pmt_reject_reason_cd",invoiceSet.PaymentRejectReason);
-            sqlParam[4] = new SqlParameter("@pi_invoice_payment_id",invoiceSet.InvoicePaymentId);
-            sqlParam[5] = new SqlParameter("@pi_invoice_pmt_amt",invoiceSet.Invoice.InvoicePaymentAmount);
-            sqlParam[6] = new SqlParameter("@pi_chg_lst_dt",invoiceSet.ChangeLastDate);
+            sqlParam[0] = new SqlParameter("@pi_update_flag", (int)updateFlag);
+            sqlParam[1] = new SqlParameter("@pi_Invoice_id", invoice.InvoiceId);
+            sqlParam[2] = new SqlParameter("@pi_str_invoice_case_id", invoiceCaseIdCollection);
+            sqlParam[3] = new SqlParameter("@pi_pmt_reject_reason_cd", invoiceSet.PaymentRejectReason);
+            sqlParam[4] = new SqlParameter("@pi_invoice_payment_id", invoiceSet.InvoicePaymentId);
+            sqlParam[5] = new SqlParameter("@pi_invoice_pmt_amt", invoiceSet.Invoice.InvoicePaymentAmount);
+            sqlParam[6] = new SqlParameter("@pi_chg_lst_dt", invoiceSet.ChangeLastDate);
             sqlParam[7] = new SqlParameter("@pi_chg_lst_user_id", invoiceSet.ChangeLastUserId);
             sqlParam[8] = new SqlParameter("@pi_chg_lst_app_name", invoiceSet.ChangeLastAppName);
             sqlParam[9] = new SqlParameter("@po_valid_invoice_payment_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
@@ -157,7 +157,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>Invoice ID</returns>
         public int InsertInvoice(InvoiceDTO invoice)
         {
-            var command = CreateSPCommand("hpf_invoice_insert",dbConnection);
+            var command = CreateSPCommand("hpf_invoice_insert", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoice.FundingSourceId);
@@ -232,7 +232,7 @@ namespace HPF.FutureState.DataAccess
         public InvoiceDTOCollection SearchInvoice(InvoiceSearchCriteriaDTO searchCriteria)
         {
             InvoiceDTOCollection invoices = null;
-           
+
             try
             {
                 dbConnection = base.CreateConnection();
@@ -258,20 +258,20 @@ namespace HPF.FutureState.DataAccess
                         InvoiceDTO invoice = new InvoiceDTO();
                         invoice.FundingSourceId = ConvertToInt(reader["funding_source_id"]);
                         invoice.FundingSourceName = ConvertToString(reader["funding_source_name"]);
-                        invoice.InvoiceBillAmount = ConvertToDouble(reader["invoice_bill_amt"]);                                                
-                        invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);                        
+                        invoice.InvoiceBillAmount = ConvertToDouble(reader["invoice_bill_amt"]);
+                        invoice.InvoiceComment = ConvertToString(reader["invoice_comment"]);
                         invoice.InvoiceId = ConvertToInt(reader["Invoice_id"]);
                         invoice.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
                         invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
-                        invoice.InvoicePaymentAmount= ConvertToDouble(reader["invoice_pmt_amt"]);
+                        invoice.InvoicePaymentAmount = ConvertToDouble(reader["invoice_pmt_amt"]);
                         invoice.StatusCode = ConvertToString(reader["status_cd"]);
                         invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]);
-                        if(invoice.PeriodStartDate!=null && invoice.PeriodEndDate!=null)
+                        if (invoice.PeriodStartDate != null && invoice.PeriodEndDate != null)
                             invoice.InvoicePeriod = invoice.PeriodStartDate.Value.ToShortDateString() + "-" + invoice.PeriodEndDate.Value.ToShortDateString();
-                        invoices.Add(invoice);                           
+                        invoices.Add(invoice);
                     }
                     reader.Close();
-                }                
+                }
             }
             catch (Exception Ex)
             {
@@ -284,7 +284,7 @@ namespace HPF.FutureState.DataAccess
             return invoices;
         }
 
-        
+
         #endregion
         /// <summary>
         /// Get Funding Source to bind on DDLB
@@ -358,7 +358,7 @@ namespace HPF.FutureState.DataAccess
                     }
                     reader.Close();
                 }
-        
+
             }
             catch (Exception ex)
             {
@@ -384,27 +384,27 @@ namespace HPF.FutureState.DataAccess
                 SqlCommand command = base.CreateCommand("hpf_invoice_case_search_draft", dbConnection);
                 //<Parameter>   
                 SqlParameter[] sqlParam = new SqlParameter[21];
-                sqlParam[0] = new SqlParameter("@pi_funding_source_id",searchCriteria.FundingSourceId);
-                sqlParam[1] = new SqlParameter("@pi_program_id", (searchCriteria.ProgramId==-1)?null:searchCriteria.ProgramId.ToString());
+                sqlParam[0] = new SqlParameter("@pi_funding_source_id", searchCriteria.FundingSourceId);
+                sqlParam[1] = new SqlParameter("@pi_program_id", (searchCriteria.ProgramId == -1) ? null : searchCriteria.ProgramId.ToString());
                 sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.PeriodEnd);
                 sqlParam[3] = new SqlParameter("@pi_start_dt", searchCriteria.PeriodStart);
-                sqlParam[4] = new SqlParameter("@pi_duplicate_ind", searchCriteria.Duplicate== CustomBoolean.None?null:searchCriteria.ToString());
-                sqlParam[5] = new SqlParameter("@pi_case_completed_ind", searchCriteria.CompleteCase==CustomBoolean.None?null:searchCriteria.CompleteCase.ToString());
-                sqlParam[6] = new SqlParameter("@pi_is_billed_ind", searchCriteria.AlreadyBill==CustomBoolean.None?null:searchCriteria.AlreadyBill.ToString());
-                sqlParam[7] = new SqlParameter("@pi_servicer_consent_ind", searchCriteria.ServicerConsent==CustomBoolean.None?null:searchCriteria.ServicerConsent.ToString());
-                sqlParam[8] = new SqlParameter("@pi_funding_consent_ind", searchCriteria.FundingConsent==CustomBoolean.None?null:searchCriteria.FundingConsent.ToString());
-                sqlParam[9] = new SqlParameter("@pi_loan_1st_2nd_cd", searchCriteria.LoanIndicator=="-1"?null:searchCriteria.LoanIndicator);
-                sqlParam[10] = new SqlParameter("@pi_max_number_cases", searchCriteria.MaxNumOfCases==int.MinValue?null:searchCriteria.MaxNumOfCases.ToString());
-                sqlParam[11] = new SqlParameter("@pi_gender_cd", searchCriteria.Gender=="-1"?null:searchCriteria.Gender);
-                sqlParam[12] = new SqlParameter("@pi_race_cd", searchCriteria.Race=="-1"?null:searchCriteria.Race);
-                sqlParam[13] = new SqlParameter("@pi_ethnicity_cd", searchCriteria.Hispanic==CustomBoolean.None?null:searchCriteria.Hispanic.ToString());
-                sqlParam[14] = new SqlParameter("@pi_household_cd", searchCriteria.HouseholdCode=="-1"? null : searchCriteria.HouseholdCode);
-                sqlParam[15] = new SqlParameter("@pi_city", searchCriteria.City== string.Empty ? null : searchCriteria.City);
+                sqlParam[4] = new SqlParameter("@pi_duplicate_ind", searchCriteria.Duplicate == CustomBoolean.None ? null : searchCriteria.ToString());
+                sqlParam[5] = new SqlParameter("@pi_case_completed_ind", searchCriteria.CompleteCase == CustomBoolean.None ? null : searchCriteria.CompleteCase.ToString());
+                sqlParam[6] = new SqlParameter("@pi_is_billed_ind", searchCriteria.AlreadyBill == CustomBoolean.None ? null : searchCriteria.AlreadyBill.ToString());
+                sqlParam[7] = new SqlParameter("@pi_servicer_consent_ind", searchCriteria.ServicerConsent == CustomBoolean.None ? null : searchCriteria.ServicerConsent.ToString());
+                sqlParam[8] = new SqlParameter("@pi_funding_consent_ind", searchCriteria.FundingConsent == CustomBoolean.None ? null : searchCriteria.FundingConsent.ToString());
+                sqlParam[9] = new SqlParameter("@pi_loan_1st_2nd_cd", searchCriteria.LoanIndicator == "-1" ? null : searchCriteria.LoanIndicator);
+                sqlParam[10] = new SqlParameter("@pi_max_number_cases", searchCriteria.MaxNumOfCases == int.MinValue ? null : searchCriteria.MaxNumOfCases.ToString());
+                sqlParam[11] = new SqlParameter("@pi_gender_cd", searchCriteria.Gender == "-1" ? null : searchCriteria.Gender);
+                sqlParam[12] = new SqlParameter("@pi_race_cd", searchCriteria.Race == "-1" ? null : searchCriteria.Race);
+                sqlParam[13] = new SqlParameter("@pi_ethnicity_cd", searchCriteria.Hispanic == CustomBoolean.None ? null : searchCriteria.Hispanic.ToString());
+                sqlParam[14] = new SqlParameter("@pi_household_cd", searchCriteria.HouseholdCode == "-1" ? null : searchCriteria.HouseholdCode);
+                sqlParam[15] = new SqlParameter("@pi_city", searchCriteria.City == string.Empty ? null : searchCriteria.City);
                 sqlParam[16] = new SqlParameter("@pi_state_cd", searchCriteria.State == "-1" ? null : searchCriteria.State);
                 sqlParam[17] = new SqlParameter("@pi_min_age", searchCriteria.Age.Min == int.MinValue ? null : searchCriteria.Age.Min.ToString());
                 sqlParam[18] = new SqlParameter("@pi_max_age", searchCriteria.Age.Max == int.MinValue ? null : searchCriteria.Age.Max.ToString());
-                sqlParam[19] = new SqlParameter("@pi_min_gross_annual_income", searchCriteria.HouseholdGrossAnnualIncome.Min== double.MinValue ? null : searchCriteria.HouseholdGrossAnnualIncome.Min.ToString());
-                sqlParam[20] = new SqlParameter("@pi_max_gross_annual_income", searchCriteria.HouseholdGrossAnnualIncome.Max== double.MinValue? null : searchCriteria.HouseholdGrossAnnualIncome.Max.ToString());
+                sqlParam[19] = new SqlParameter("@pi_min_gross_annual_income", searchCriteria.HouseholdGrossAnnualIncome.Min == double.MinValue ? null : searchCriteria.HouseholdGrossAnnualIncome.Min.ToString());
+                sqlParam[20] = new SqlParameter("@pi_max_gross_annual_income", searchCriteria.HouseholdGrossAnnualIncome.Max == double.MinValue ? null : searchCriteria.HouseholdGrossAnnualIncome.Max.ToString());
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -418,12 +418,12 @@ namespace HPF.FutureState.DataAccess
                     while (reader.Read())
                     {
                         ForeclosureCaseDraftDTO caseDraft = new ForeclosureCaseDraftDTO();
-                        caseDraft.ForeclosureCaseId= ConvertToInt(reader["fc_id"]);
+                        caseDraft.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
                         caseDraft.AgencyCaseId = ConvertToString(reader["agency_case_num"]);
                         caseDraft.CompletedDate = ConvertToDateTime(reader["completed_dt"]);
                         caseDraft.Amount = ConvertToDecimal(reader["bill_rate"]);
                         caseDraft.AccountLoanNumber = ConvertToString(reader["acct_num"]);
-                        caseDraft.ServicerName= ConvertToString(reader["servicer_name"]);
+                        caseDraft.ServicerName = ConvertToString(reader["servicer_name"]);
                         caseDraft.BorrowerName = ConvertToString(reader["borrower_name"]);
                         invoices.Add(caseDraft);
                     }
@@ -543,21 +543,21 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         string errorCodes = ConvertToString(reader["error_code"]);
-                        if(errorCodes==null)
+                        if (errorCodes == null)
                             continue;
                         int rowIndex = ConvertToInt(reader["row_index"]).Value;
                         string[] errorList = errorCodes.Split(',');
-                        foreach(string errorCode in errorList)
+                        foreach (string errorCode in errorList)
                         {
                             ExceptionMessage exMes = new ExceptionMessage();
-                            exMes.Message=ErrorMessages.GetExceptionMessageCombined(errorCode,rowIndex);
+                            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode, rowIndex);
                             exMes.ErrorCode = errorCode;
                             result.ExceptionMessages.Add(exMes);
                         }
-                        
+
                     }
                 reader.Close();
             }
@@ -569,12 +569,12 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            if(result.ExceptionMessages.Count>0)
+            if (result.ExceptionMessages.Count > 0)
                 return result;
             return null;
         }
 
-        public void InvoiceCaseUpdateForPayment(string xmlString,DateTime changeLastDt,string changeLastUserId,string changeLastAppName)
+        public void InvoiceCaseUpdateForPayment(string xmlString, DateTime changeLastDt, string changeLastUserId, string changeLastAppName)
         {
             var command = CreateSPCommand("hpf_Invoice_case_update_for_payment", dbConnection);
             SqlParameter[] sqlParam = new SqlParameter[4];
@@ -594,5 +594,62 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
+        public void UpdateInvoicePayment(InvoicePaymentDTO invoicePayment)
+        {
+            var command = CreateSPCommand("hpf_invoice_payment_update", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[9];
+            sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoicePayment.FundingSourceID);
+            sqlParam[1] = new SqlParameter("@pi_pmt_num", invoicePayment.PaymentNum);
+            sqlParam[2] = new SqlParameter("@pi_pmt_dt", NullableDateTime(invoicePayment.PaymentDate));
+            sqlParam[3] = new SqlParameter("@pi_pmt_cd", invoicePayment.PaymentType);
+            sqlParam[4] = new SqlParameter("@pi_pmt_amt", invoicePayment.PaymentAmount);
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_dt", invoicePayment.ChangeLastDate);
+            sqlParam[6] = new SqlParameter("@pi_chg_lst_user_id", invoicePayment.ChangeLastUserId);
+            sqlParam[7] = new SqlParameter("@pi_chg_lst_app_name", invoicePayment.ChangeLastAppName);
+            sqlParam[8] = new SqlParameter("@pi_invoice_payment_id", invoicePayment.InvoicePaymentID);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        }
+        public int InsertInvoicePayment(InvoicePaymentDTO invoicePayment)
+        {
+            var command = CreateSPCommand("hpf_invoice_payment_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[12];
+            sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoicePayment.FundingSourceID);
+            sqlParam[1] = new SqlParameter("@pi_pmt_num", invoicePayment.PaymentNum);
+            sqlParam[2] = new SqlParameter("@pi_pmt_dt", NullableDateTime(invoicePayment.PaymentDate));
+            sqlParam[3] = new SqlParameter("@pi_pmt_cd", invoicePayment.PaymentType);
+            sqlParam[4] = new SqlParameter("@pi_pmt_amt", invoicePayment.PaymentAmount);
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_dt", invoicePayment.ChangeLastDate);
+            sqlParam[6] = new SqlParameter("@pi_chg_lst_user_id", invoicePayment.ChangeLastUserId);
+            sqlParam[7] = new SqlParameter("@pi_chg_lst_app_name", invoicePayment.ChangeLastAppName);
+            sqlParam[8] = new SqlParameter("@pi_create_dt", invoicePayment.CreateDate);
+            sqlParam[9] = new SqlParameter("@pi_create_user_id", invoicePayment.CreateUserId);
+            sqlParam[10] = new SqlParameter("@pi_create_app_name", invoicePayment.CreateAppName);
+            sqlParam[11] = new SqlParameter("@po_invoice_payment_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                invoicePayment.InvoicePaymentID = ConvertToInt(sqlParam[11].Value);
+                return invoicePayment.InvoicePaymentID.Value;
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        }
     }
 }

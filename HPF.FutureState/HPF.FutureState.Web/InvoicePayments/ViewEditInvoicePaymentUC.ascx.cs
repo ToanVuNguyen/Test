@@ -25,7 +25,6 @@ namespace HPF.FutureState.Web.InvoicePayments
     {
         private  List<string> COLUMN_NAME = new List<string>();
         int paymentId = -1;
-        bool isNew = true;
             
         private void UcInit()
         {
@@ -44,36 +43,35 @@ namespace HPF.FutureState.Web.InvoicePayments
             try
             {
                 if (Request.QueryString["id"] != null)
-                {
                     paymentId = int.Parse(Request.QueryString["id"].ToString());
-                    BindViewEditInvoicePayment();
-                    isNew = false;
+                UcInit();
+                if (!IsPostBack)
+                {
+                    BindPaymentTypeDropDownList();
+                    BindFundingSourceDropDownList();
+                    if(paymentId!=-1)
+                        BindViewEditInvoicePayment();
                 }
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Items.Add("Payment Id is not valid.");
+                lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 btnSave.Enabled = false;
                 return;
-            }
-            UcInit();
-            if (!IsPostBack)
-            {
-                BindPaymentTypeDropDownList();
-                BindFundingSourceDropDownList();
             }
         }
         #region Bind Data
         protected void BindViewEditInvoicePayment()
         {
             InvoicePaymentDTO invoicePaymentInfo = InvoicePaymentBL.Instance.InvoicePaymentGet(paymentId);
+            Session["InvoicePayment"] = invoicePaymentInfo;
             lblPaymentID.Text = invoicePaymentInfo.InvoicePaymentID.ToString();
             ddlFundingSource.SelectedValue = invoicePaymentInfo.FundingSourceID;
             txtPaymentNum.Text = invoicePaymentInfo.PaymentNum;
             txtPaymentDt.Text = invoicePaymentInfo.PaymentDate==null?"":invoicePaymentInfo.PaymentDate.Value.ToShortDateString();
-            ddlPaymentType.SelectedValue = invoicePaymentInfo.PaymentCode;
-            txtPaymentAmt.Text = String.Format("{0:C}", invoicePaymentInfo.PaymentAmount);
+            ddlPaymentType.SelectedValue = invoicePaymentInfo.PaymentType;
+            txtPaymentAmt.Text = invoicePaymentInfo.PaymentAmount.ToString();
             txtComment.Text = invoicePaymentInfo.Comments;
         }
         protected void BindPaymentTypeDropDownList()
@@ -208,9 +206,10 @@ namespace HPF.FutureState.Web.InvoicePayments
             //BackEndPreProcessing on Business Layer
             InvoiceBL.Instance.BackEndPreProcessing(reconciliationCollection);
             //Update Invoice CAses
-            ReconciliationDTO t = new ReconciliationDTO();
-            t.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-            InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection,t.ChangeLastDate.Value,t.ChangeLastAppName,t.ChangeLastUserId);
+            InvoicePaymentDTO invoicePayment = GetInvoicePayment();
+            invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            paymentId= InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection,invoicePayment);
+            Response.Redirect("AppViewEditInvoicePaymentPage.aspx?id="+paymentId.ToString());
         }
         #region FrontEnd PreProcessing
         /// <summary>
@@ -365,6 +364,18 @@ namespace HPF.FutureState.Web.InvoicePayments
             var rejectReason = LookupDataBL.Instance.GetRefCode("payment reject reason code");
             foreach (var i in rejectReason)
                 result.Add(i.Code);
+            return result;
+        }
+        private InvoicePaymentDTO GetInvoicePayment()
+        {
+            InvoicePaymentDTO result = new InvoicePaymentDTO();
+            result.Comments = txtComment.Text;
+            result.FundingSourceID = ddlFundingSource.SelectedValue;
+            result.PaymentAmount= double.Parse(txtPaymentAmt.Text);
+            result.PaymentType = ddlPaymentType.SelectedValue;
+            result.PaymentNum = txtPaymentNum.Text;
+            result.PaymentDate = DateTime.Parse(txtPaymentDt.Text);
+            result.InvoicePaymentID = paymentId;
             return result;
         }
         #endregion

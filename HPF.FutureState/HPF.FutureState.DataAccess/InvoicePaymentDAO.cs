@@ -61,7 +61,7 @@ namespace HPF.FutureState.DataAccess
                         invoicePayment.FundingSourceName = ConvertToString(reader["funding_source_name"]);
                         invoicePayment.FundingSourceID = ConvertToString(reader["funding_source_id"]);
                         invoicePayment.InvoicePaymentID = ConvertToInt(reader["invoice_payment_id"]);
-                        invoicePayment.PaymentCode = ConvertToString(reader["pmt_cd"]);
+                        invoicePayment.PaymentType = ConvertToString(reader["pmt_cd"]);
                         invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         invoicePayment.PaymentNum = ConvertToString(reader["pmt_num"]);
                         invoicePayment.PaymentAmount = ConvertToDouble(reader["pmt_amt"]);
@@ -103,7 +103,7 @@ namespace HPF.FutureState.DataAccess
                         while (reader.Read())
                         {
                             var item = new InvoicePaymentDTO();
-                            item.PaymentCode = ConvertToString(reader["pmt_cd"]);
+                            item.PaymentType = ConvertToString(reader["pmt_cd"]);
                             result.Add(item);
                         }
                         reader.Close();
@@ -146,7 +146,7 @@ namespace HPF.FutureState.DataAccess
                         invoicePayment.FundingSourceName = ConvertToString(reader["funding_source_name"]);
                         invoicePayment.FundingSourceID = ConvertToString(reader["funding_source_id"]);
                         invoicePayment.InvoicePaymentID = ConvertToInt(reader["invoice_payment_id"]);
-                        invoicePayment.PaymentCode = ConvertToString(reader["pmt_cd"]);
+                        invoicePayment.PaymentType = ConvertToString(reader["pmt_cd"]);
                         invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         invoicePayment.PaymentNum = ConvertToString(reader["pmt_num"]);
                         invoicePayment.PaymentAmount = ConvertToDouble(reader["pmt_amt"]);

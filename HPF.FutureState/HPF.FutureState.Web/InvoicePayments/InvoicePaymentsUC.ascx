@@ -85,7 +85,7 @@
                         <asp:BoundField HeaderText="Payment ID" DataField="InvoicePaymentID" />
                         <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" />
                         <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" />
-                        <asp:BoundField HeaderText="Payable Code" DataField="PaymentCode" />
+                        <asp:BoundField HeaderText="Payable Code" DataField="PaymentType" />
                         <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}"
                             ItemStyle-HorizontalAlign="Right" />
                         <%--<asp:BoundField HeaderText="Comments" DataField="PaymentComment" />--%>
@@ -99,13 +99,13 @@
             <table style="vertical-align: top;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="150px" 
+                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="150px" 
                             CssClass="MyButton" onclick="btnNewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnViewEditPayable" runat="server" Text="View/Edit Payable" CssClass="MyButton"
+                        <asp:Button ID="btnViewEditPayable" runat="server" Text="View/Edit Payment" CssClass="MyButton"
                             Width="150px" OnClick="btnViewPayable_Click" />
                     </td>
                 </tr>
