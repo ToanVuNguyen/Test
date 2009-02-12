@@ -75,7 +75,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             grvInvoiceItems.DataSource = this.FCDraftCol;
             grvInvoiceItems.DataBind();
-            decimal total = 0;
+            double total = 0;
             //calculate the total amount of ForeclosureCaseDraftDTOCollection
             foreach (var item in this.FCDraftCol)
             {
@@ -109,7 +109,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     lblTotalAmount.Text = agencyPayableDraftDTO.TotalAmount.ToString();
                     lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
                     lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
-                    decimal total = 0;
+                    double total = 0;
                     //calculate total amount of cases - search data match  search criteria.
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                     {
@@ -160,7 +160,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     this.FCDraftCol[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 }
                 agencyPayableDraftDTO.ForclosureCaseDrafts = this.FCDraftCol;
-                agencyPayableDraftDTO.TotalAmount = decimal.Parse(lblTotalAmount.Text.ToString());
+                agencyPayableDraftDTO.TotalAmount = double.Parse(lblTotalAmount.Text.ToString());
                 agencyPayableDraftDTO.TotalCases = this.FCDraftCol.Count;
                 agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);

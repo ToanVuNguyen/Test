@@ -1,0 +1,110 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using HPF.FutureState.Common;
+using HPF.FutureState.Web.Security;
+using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common.DataTransferObjects;
+
+namespace HPF.FutureState.Web.AppNewPayable
+{
+    public partial class ViewEditAgencyPayable : System.Web.UI.UserControl
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+              
+                BindTakebackReasonDropDownList();
+                BindViewEditPayable();
+            }
+        }
+        protected void BindTakebackReasonDropDownList()
+        {
+            RefCodeItemDTOCollection takebackReasonCol = LookupDataBL.Instance.GetRefCode("takeback reason code");
+            ddlTakebackReason.DataSource = takebackReasonCol;
+            ddlTakebackReason.DataTextField = "code";
+            ddlTakebackReason.DataValueField = "code";
+            ddlTakebackReason.DataBind();
+            //add blank to first item in ddl
+            ddlTakebackReason.Items.Insert(0, new ListItem("","-1"));
+        }
+        protected void BindViewEditPayable()
+        {
+            if (Session["agencyPayable"] != null)
+            {
+                AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["agencyPayable"];
+                int? agencypayableid = agencyPayable.AgencyPayableId;
+                AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencypayableid);
+                
+                //Bind Agency Payable, from agencypaybleDTO.payable
+                lblAgency.Text = agencyPayableSet.Payable.AgencyName;
+                lblPeriodStart.Text = agencyPayableSet.Payable.PeriodStartDate.ToString();
+                lblPeriodEnd.Text = agencyPayableSet.Payable.PeriodEndDate.ToString();
+                lblPayableNumber.Text = agencyPayableSet.Payable.PayableNum.ToString();
+                
+                //bind from agencypayableDTO
+                lblTotalCases.Text = agencyPayableSet.TotalCases.ToString();
+                lblTotalPayable.Text = agencyPayableSet.TotalPayable.ToString();
+                lblUnpaidNFMCEligibleCase.Text = agencyPayableSet.UnpaidNFMCEligibleCases.ToString();
+                lblTotalChargePaid.Text = agencyPayableSet.TotalNFMCUpChargePaid.ToString();
+                lblGrandTotalPaid.Text = (agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable).ToString();
+                //footer
+                lblTotalCase_ft.Text = agencyPayableSet.TotalCases.ToString();
+                lblPayableTotal_ft.Text = agencyPayableSet.TotalPayable.ToString();
+                lblTotalNFMCUpChangePaid_ft.Text = agencyPayableSet.TotalNFMCUpChargePaid.ToString();
+                //Bind Agency Payable Case, from agencypayableDTO.payablecase
+                grvViewEditAgencyPayable.DataSource = agencyPayableSet.PayableCases;
+                grvViewEditAgencyPayable.DataBind();
+            }
+           
+        }
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_AGENCY_PAYABLE_INFO))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
+            }
+        }
+        protected void chkCheckAllCheck(object sender, EventArgs e)
+        {
+            CheckBox headerCheckbox = (CheckBox)sender;
+            foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
+            {
+                CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
+                if (chkSelected != null)
+                    chkSelected.Checked = headerCheckbox.Checked;
+            }
+        }
+        protected AgencyPayableCaseDTOCollection GetDraftAgencyPayableCase()
+        {
+            AgencyPayableCaseDTOCollection agencyPayableCaseCol = new AgencyPayableCaseDTOCollection();
+            foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
+            {
+                CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
+                if (chkSelected.Checked)
+                { 
+                
+                }
+            }
+            return agencyPayableCaseCol;
+        
+        }
+        protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
+        { 
+        }
+        protected void btnTakeBackMarkCase_Click(object sender, EventArgs e)
+        { 
+        }
+        
+    }
+}

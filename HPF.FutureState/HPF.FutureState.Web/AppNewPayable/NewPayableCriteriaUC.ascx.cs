@@ -114,7 +114,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 string query = GetQueryString();
-                Response.Redirect("NewAgencyPayableResults.aspx" + query);
+                Response.Redirect("NewPayableSelection.aspx" + query);
             }
             catch (DataValidationException ex)
             {
