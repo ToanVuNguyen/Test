@@ -1499,7 +1499,7 @@ namespace HPF.FutureState.DataAccess
 
         public DuplicatedCaseLoanDTOCollection GetDuplicatedCases(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            DuplicatedCaseLoanDTOCollection returnCollection = null;
+            DuplicatedCaseLoanDTOCollection returnCollection = new DuplicatedCaseLoanDTOCollection();
             var dbConnection = CreateConnection();
             try
             {

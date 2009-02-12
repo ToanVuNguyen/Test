@@ -63,7 +63,7 @@ namespace HPF.FutureState.BusinessLogic
 
             dataValidationException.ExceptionMessages.Add(CheckForeignKey(aCallLog));
             
-            if (aCallLog.StartDate > aCallLog.EndDate)
+            if (aCallLog.StartDate.HasValue && aCallLog.EndDate.HasValue && aCallLog.StartDate > aCallLog.EndDate)
                 dataValidationException.ExceptionMessages.AddExceptionMessage("Start date must < End date");
 
             //dataValidationException.ExceptionMessages.Add(CheckDependingCallCenter(aCallLog));
@@ -150,7 +150,7 @@ namespace HPF.FutureState.BusinessLogic
                     return errorList;
                 }
 
-                if ((aCallLog.CallCenter == null) || (aCallLog.CallCenter.Trim() == string.Empty))
+                if (string.IsNullOrEmpty(aCallLog.CallCenter.Trim()))
                 {
                     errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center is required" });
                     return errorList;
@@ -176,8 +176,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
                     return errorList;
 
-                if ((aCallLog.OtherServicerName == null)
-                    || (aCallLog.OtherServicerName.Trim() == string.Empty))
+                if (string.IsNullOrEmpty(aCallLog.OtherServicerName.Trim()))
                 {
                     errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name is required" });
                     return errorList;

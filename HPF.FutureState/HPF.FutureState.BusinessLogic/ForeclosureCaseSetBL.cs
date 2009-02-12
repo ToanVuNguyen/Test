@@ -76,7 +76,7 @@ namespace HPF.FutureState.BusinessLogic
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
             //                
-            if (fcCase.FcId > 0)
+            if (fcCase.FcId.HasValue)
                 fcId = ProcessInsertUpdateWithForeclosureCaseId(foreclosureCaseSet);
             else
                 fcId = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);            
@@ -153,7 +153,7 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fcCase.FcId);
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
             fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
-            if (collection != null && collection.Count > 0)
+            if (collection.Count > 0)
             {
                 fcCase.DuplicateInd = Constant.DUPLICATE_YES;
                 fcCase.NeverBillReasonCd = Constant.NEVER_BILL_REASON_CODE_DUPE;
@@ -163,10 +163,8 @@ namespace HPF.FutureState.BusinessLogic
             else
             {               
                 fcCase.DuplicateInd = Constant.DUPLICATE_NO;
-                //
                 if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
                     fcCase.NeverBillReasonCd = null;
-
                 if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
                     fcCase.NeverPayReasonCd = null;                
             }
@@ -177,7 +175,7 @@ namespace HPF.FutureState.BusinessLogic
         private int? ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
-            if (collection != null && collection.Count > 0)
+            if (collection.Count > 0)
             {
                 ThrowDuplicateCaseException(collection);
             }

@@ -54,7 +54,6 @@ namespace HPF.FutureState.WebService.Test.Web
             grdvResult.DataBind();
 
             lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
-            
 
         }
 

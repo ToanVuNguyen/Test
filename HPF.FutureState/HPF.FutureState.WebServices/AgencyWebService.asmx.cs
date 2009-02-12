@@ -178,7 +178,7 @@ namespace HPF.FutureState.WebServices
         private static CallLogWSReturnDTO ConvertToCallLogWSDTO(CallLogDTO sourceObject)
         {
             var destObject = new CallLogWSReturnDTO();
-            if (sourceObject.CallId != 0)
+            if (sourceObject.CallId.HasValue)
                 destObject.CallId = "HPF" + Convert.ToString(sourceObject.CallId);
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
