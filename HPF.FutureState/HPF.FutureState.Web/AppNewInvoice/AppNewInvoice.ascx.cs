@@ -111,7 +111,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void Button1_Click(object sender, EventArgs e)
         {
             InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
-            searchCriteria.FundingSourceId = int.Parse(dropFundingSource.SelectedValue);
+            searchCriteria.FundingSourceId = dropFundingSource.SelectedValue;
             searchCriteria.ProgramId = int.Parse(dropProgram.SelectedValue);
             try
             {

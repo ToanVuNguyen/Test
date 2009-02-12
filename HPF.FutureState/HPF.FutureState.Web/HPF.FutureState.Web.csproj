@@ -111,11 +111,25 @@
     <Compile Include="AgencyPayableInfo.aspx.designer.cs">
       <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AgencyPayableInfo\ViewEditInvoice.ascx.cs">
+    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.cs">
+      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.designer.cs">
+      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AppNewPayable\ViewEditAgencyPayable.ascx.cs">
+      <DependentUpon>ViewEditAgencyPayable.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppNewPayable\ViewEditAgencyPayable.ascx.designer.cs">
+      <DependentUpon>ViewEditAgencyPayable.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.cs">
       <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AgencyPayableInfo\ViewEditInvoice.ascx.designer.cs">
+    <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.designer.cs">
       <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
     </Compile>
     <Compile Include="CreateNewPayable.aspx.cs">
@@ -174,13 +188,6 @@
     <Compile Include="CreateNewInvoice.aspx.designer.cs">
       <DependentUpon>CreateNewInvoice.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.cs">
-      <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.designer.cs">
-      <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
-    </Compile>
     <Compile Include="AppNewInvoice\NewInvoiceResults.ascx.cs">
       <DependentUpon>NewInvoiceResults.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -208,13 +215,6 @@
     </Compile>
     <Compile Include="InvoiceInfo.aspx.designer.cs">
       <DependentUpon>InvoiceInfo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.cs">
-      <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.designer.cs">
-      <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
     </Compile>
     <Compile Include="ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
@@ -392,7 +392,9 @@
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
     <Content Include="AgencyPayable.aspx" />
     <Content Include="AgencyPayableInfo.aspx" />
-    <Content Include="AgencyPayableInfo\ViewEditInvoice.ascx" />
+    <Content Include="AppNewInvoice\AppNewInvoice.ascx" />
+    <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
+    <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="NewPayableSelection.aspx" />
@@ -401,12 +403,10 @@
     <Content Include="FundingSourceInvoice.aspx" />
     <Content Include="AppFundingSourceInvoices\AppFundingSourceInvoices.ascx" />
     <Content Include="CreateNewInvoice.aspx" />
-    <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
     <Content Include="AppNewInvoice\NewInvoiceResults.ascx" />
     <Content Include="AppNewPayable\NewAgencyPayableResultsUC.ascx" />
     <Content Include="AppNewPayable\NewPayableCriteriaUC.ascx" />
     <Content Include="InvoiceInfo.aspx" />
-    <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="Common\Menu\MenuBar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
