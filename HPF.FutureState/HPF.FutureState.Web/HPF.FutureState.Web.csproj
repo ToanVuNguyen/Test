@@ -111,12 +111,12 @@
     <Compile Include="AgencyPayableInfo.aspx.designer.cs">
       <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.cs">
-      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+    <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.cs">
+      <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AppNewInvoice\AppNewInvoice.ascx.designer.cs">
-      <DependentUpon>AppNewInvoice.ascx</DependentUpon>
+    <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.designer.cs">
+      <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
     </Compile>
     <Compile Include="AppNewPayable\ViewEditAgencyPayable.ascx.cs">
       <DependentUpon>ViewEditAgencyPayable.ascx</DependentUpon>
@@ -392,7 +392,7 @@
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
     <Content Include="AgencyPayable.aspx" />
     <Content Include="AgencyPayableInfo.aspx" />
-    <Content Include="AppNewInvoice\AppNewInvoice.ascx" />
+    <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
     <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="CreateNewPayable.aspx" />
@@ -488,9 +488,6 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

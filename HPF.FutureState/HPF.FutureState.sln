@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.Web.HPFWebC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.UnitTest", "HPF.FutureState.UnitTest\HPF.FutureState.UnitTest.csproj", "{5B537C78-E427-4A64-8DD8-BF7E351B598F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.ProcessSummaryQueue", "HPF.FutureState.ProcessSummaryQueue\HPF.FutureState.ProcessSummaryQueue.csproj", "{31645679-83D5-4592-AF1C-B169AAB374EE}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3A7D9D8-E2F8-4D96-BF3B-60E09A55A8D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enterprise Library", "Enterprise Library", "{E85B2ACB-43EF-44FB-B395-5C66ABA3ACAA}"
@@ -109,8 +111,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enterprise Library", "Enter
 		Enterprise Library\MsmqDistributor.exe.config = Enterprise Library\MsmqDistributor.exe.config
 		Enterprise Library\MsmqDistributor.xml = Enterprise Library\MsmqDistributor.xml
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.ProcessSummaryQueue", "HPF.FutureState.ProcessSummaryQueue\HPF.FutureState.ProcessSummaryQueue.csproj", "{31645679-83D5-4592-AF1C-B169AAB374EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
