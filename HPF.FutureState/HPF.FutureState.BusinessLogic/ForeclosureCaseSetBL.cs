@@ -385,7 +385,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int? outComeTypeId, OutcomeItemDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != 0 && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
+            if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != null && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
             {
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0265, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0265));
             }                        
@@ -809,7 +809,7 @@ namespace HPF.FutureState.BusinessLogic
             int subCatId = FindSubCatWithNameIsMortgage();
             foreach (BudgetItemDTO item in budgetItemCollection)
             {
-                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != 0)
+                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != null)
                     return true;
             }
             return false;
@@ -1011,7 +1011,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private int? InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int? fcId)
         {
-            int? budget_set_id = int.MinValue;
+            int? budget_set_id = null;
             if(budgetSet != null)
             {
                 budgetSet.SetInsertTrackingInformation(_workingUserID);
@@ -1818,7 +1818,7 @@ namespace HPF.FutureState.BusinessLogic
             if (fcId != int.MinValue && fcId > 0)
             {
                 foreclosureCase = GetForeclosureCase(fcId);
-                if (foreclosureCase.CompletedDt == DateTime.MinValue)
+                if (foreclosureCase.CompletedDt == null)
                     return DateTime.Now;
                 if(CheckInactiveCase(fcId))
                     return DateTime.Now;

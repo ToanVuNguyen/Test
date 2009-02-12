@@ -61,6 +61,7 @@
     <Compile Include="CallLogBL.cs" />
     <Compile Include="CaseAuditBL.cs" />
     <Compile Include="CaseLoanBL.cs" />
+    <Compile Include="CaseFollowUpBL.cs" />
     <Compile Include="EmailSummaryBL.cs" />
     <Compile Include="ForeclosureCaseBL.cs" />
     <Compile Include="ForeclosureCaseSetBL.cs" />

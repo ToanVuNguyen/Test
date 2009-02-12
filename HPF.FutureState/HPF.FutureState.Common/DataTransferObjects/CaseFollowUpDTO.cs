@@ -13,21 +13,29 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public int? CasePostCounselingStatusId { get; set; }
 
-        public int? OutcomeTypeId { get; set; } 
+        public int? OutcomeTypeId { get; set; }
+
+        public string OutcomeTypeName { get; set; } 
 
         public DateTime? FollowUpDt { get; set; }
 
         public string FollowUpComment { get; set; }
 
-        public string FollowupSourceCd { get; set; }
+        public string FollowUpSourceCd { get; set; }
+
+        public string FollowUpSourceCdDesc{ get; set; }
 
         public string LoanDelinqStatusCd { get; set; }
+
+        public string LoanDelinqStatusCdDesc { get; set; }
 
         public string StillInHouseInd { get; set; }
 
         public string CreditScore { get; set; }
 
         public string CreditBureauCd { get; set; }
+
+        public string CreditBureauCdDesc { get; set; }
 
         public DateTime? CreditReportDt { get; set; }        
     }

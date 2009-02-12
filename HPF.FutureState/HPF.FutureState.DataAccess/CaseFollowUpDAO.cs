@@ -49,7 +49,7 @@ namespace HPF.FutureState.DataAccess
             command.Parameters.Add(new SqlParameter("@pi_fc_id", caseFollowUp.FcId));
             command.Parameters.Add(new SqlParameter("@pi_followup_dt", caseFollowUp.FollowUpDt));
             command.Parameters.Add(new SqlParameter("@pi_followup_comment", caseFollowUp.FollowUpComment));
-            command.Parameters.Add(new SqlParameter("@pi_followup_source_cd", caseFollowUp.FollowupSourceCd));
+            command.Parameters.Add(new SqlParameter("@pi_followup_source_cd", caseFollowUp.FollowUpSourceCd));
             command.Parameters.Add(new SqlParameter("@pi_loan_delinq_status_cd", caseFollowUp.LoanDelinqStatusCd));
             command.Parameters.Add(new SqlParameter("@pi_still_in_house_ind", caseFollowUp.StillInHouseInd));
             command.Parameters.Add(new SqlParameter("@pi_credit_score", caseFollowUp.CreditScore));
@@ -78,7 +78,7 @@ namespace HPF.FutureState.DataAccess
             return bReturn;
         }
 
-        public CaseFollowUpDTOCollection GetFollowUp(int fcId)
+        public CaseFollowUpDTOCollection GetCaseFollowUp(int fcId)
         {
             CaseFollowUpDTOCollection result = new CaseFollowUpDTOCollection();
             SqlConnection dbConnection = CreateConnection();
@@ -100,13 +100,17 @@ namespace HPF.FutureState.DataAccess
                     caseFollowUp.CasePostCounselingStatusId = ConvertToInt(reader["case_post_counseling_status_id"]);
                     caseFollowUp.FollowUpDt = ConvertToDateTime(reader["followup_dt"]);
                     caseFollowUp.FollowUpComment = ConvertToString(reader["followup_comment"]);
-                    caseFollowUp.FollowupSourceCd = ConvertToString(reader["followup_source_cd"]);
+                    caseFollowUp.FollowUpSourceCd = ConvertToString(reader["followup_source_cd"]);
+                    caseFollowUp.FollowUpSourceCdDesc = ConvertToString(reader["followup_source_cd_desc"]);
                     caseFollowUp.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
+                    caseFollowUp.LoanDelinqStatusCdDesc = ConvertToString(reader["loan_delinq_status_cd_desc"]);
                     caseFollowUp.StillInHouseInd = ConvertToString(reader["still_in_house_ind"]);
                     caseFollowUp.CreditScore = ConvertToString(reader["credit_score"]);
                     caseFollowUp.CreditBureauCd = ConvertToString(reader["credit_bureau_cd"]);
+                    caseFollowUp.CreditBureauCdDesc = ConvertToString(reader["credit_bureau_cd_desc"]);
                     caseFollowUp.CreditReportDt = ConvertToDateTime(reader["credit_report_dt"]);
                     caseFollowUp.OutcomeTypeId = ConvertToInt(reader["outcome_type_id"]);
+                    caseFollowUp.OutcomeTypeName = ConvertToString(reader["outcome_type_name"]);
 
                     result.Add(caseFollowUp);
 

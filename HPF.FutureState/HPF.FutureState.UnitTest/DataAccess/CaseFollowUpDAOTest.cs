@@ -84,7 +84,7 @@ namespace HPF.FutureState.UnitTest
             caseFollowUp.OutcomeTypeId = outcomeTypeId;
             caseFollowUp.FollowUpDt = DateTime.Now;
             caseFollowUp.FollowUpComment = "Comment";
-            caseFollowUp.FollowupSourceCd = "FUSC";
+            caseFollowUp.FollowUpSourceCd = "FUSC";
             caseFollowUp.LoanDelinqStatusCd = "LDSC";
             caseFollowUp.StillInHouseInd = "Y";
             caseFollowUp.CreditScore = "CRS";
@@ -113,7 +113,7 @@ namespace HPF.FutureState.UnitTest
             caseFollowUp.OutcomeTypeId = outcomeTypeId;
             caseFollowUp.FollowUpDt = DateTime.Now;
             caseFollowUp.FollowUpComment = "Comment update";
-            caseFollowUp.FollowupSourceCd = "FUSC";
+            caseFollowUp.FollowUpSourceCd = "FUSC";
             caseFollowUp.LoanDelinqStatusCd = "LDSC";
             caseFollowUp.StillInHouseInd = "Y";
             caseFollowUp.CreditScore = "CRS";
@@ -141,9 +141,9 @@ namespace HPF.FutureState.UnitTest
             CaseFollowUpDAO_Accessor target = new CaseFollowUpDAO_Accessor(); // TODO: Initialize to an appropriate value            
             string expected = GetFollowUpDTO(fcId).FollowUpComment; // TODO: Initialize to an appropriate value
             string actual = null;
-            CaseFollowUpDTOCollection temp = target.GetFollowUp(fcId);
-            if (temp.Count != 0) 
-                actual = target.GetFollowUp(fcId)[0].FollowUpComment;
+            CaseFollowUpDTOCollection temp = target.GetCaseFollowUp(fcId);
+            if (temp.Count != 0)
+                actual = temp[0].FollowUpComment;
             Assert.AreEqual(expected, actual);
         }
 
