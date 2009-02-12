@@ -13,7 +13,9 @@
                 <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle" 
                     SelectedRowStyle-BackColor="Yellow"                                      
-                    DataKeyNames="OutcomeItemId">
+                    DataKeyNames="CaseAuditId" onrowcommand="grdvCaseAudit_RowCommand" 
+                    onrowcreated="grdvCaseAudit_RowCreated" 
+                    onrowdatabound="grdvCaseAudit_RowDataBound">
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -58,7 +60,7 @@
                             ItemStyle-Width="200px">            
                             <ItemStyle Width="200px" />
                         </asp:BoundField>
-                        <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+                        <asp:CommandField ShowSelectButton="true" SelectText = "Edit" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
                     <EmptyDataTemplate>
                         There is no data match !
@@ -131,4 +133,17 @@
     </tr>
     
 </table>
+
+    <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="125px">
+        
+        <Fields>
+            <asp:BoundField DataField="abc" HeaderText="abc" SortExpression="abc" />
+        </Fields>
+    </asp:DetailsView>
+
+
+    <asp:FormView ID="FormView1" runat="server">
+    </asp:FormView>
+
+
 

@@ -47,14 +47,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
             OutcomeItemDTOCollection outcomeItems = RetrieveOutcomeItems(caseID);
-            if (outcomeItems != null && outcomeItems.Count > 0)
+            if (outcomeItems.Count > 0)
             {
                 grdvOutcomeItems.DataSource = outcomeItems;
                 grdvOutcomeItems.DataBind();
             }
-            else if (outcomeItems != null && outcomeItems.Count ==0)
+            else
             {                
-                outcomeItems = new OutcomeItemDTOCollection();
                 outcomeItems.Add(new OutcomeItemDTO());
 
                 grdvOutcomeItems.DataSource = outcomeItems;
@@ -72,19 +71,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             int idxIdColumn = 0;
             e.Row.Cells[idxIdColumn].Visible = false;
-
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //e.Row.Attributes.Add("onclick", "this.className='SelectedRowStyle'");
-                //if (e.Row.RowState == DataControlRowState.Alternate)
-                //{
-                //    e.Row.Attributes.Add("ondblclick", "this.className='AlternatingRowStyle'");
-                //}
-                //else
-                //{
-                //    e.Row.Attributes.Add("ondblclick", "this.className='RowStyle'");
-                //}
-            }       
+            
         }
 
         protected void grdvOutcomeItems_RowDataBound(object sender, GridViewRowEventArgs e)

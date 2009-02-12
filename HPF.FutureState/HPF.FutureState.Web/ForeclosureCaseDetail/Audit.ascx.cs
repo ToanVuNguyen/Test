@@ -34,8 +34,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         protected override void OnLoad(EventArgs e)
         {
             try
-            {               
+            {                               
                 ApplySecurity();
+
+                grdvCaseAuditBinding();
+
                 BindDataToIndicatorDropDownLists();
                 BindDataToReviewedByDDL();
                 BindDataToAuditTypeDDL();
@@ -68,11 +71,62 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             _isUpdating = false;
             ClearControls();
+            GenerateTestData();
+        }
+
+        protected void grdvCaseAudit_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            int idxIdColumn = 0;
+            e.Row.Cells[idxIdColumn].Visible = false;
+
+        }
+        protected void grdvCaseAudit_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+        protected void grdvCaseAudit_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            //if (e.CommandName.ToUpper() == "Edit".ToUpper())
+
+        }
+
+        private void GenerateTestData()
+        {
+            txtAuditDate.Text = "1/1/2009";
+            txtAuditComment.Text = "Test comment";
+            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
+                if (ddl != this.ddlAuditFailureReason)
+                    ddl.Text = "YES";
+
         }
 
         private CaseAuditDTOCollection RetrieveCaseAudits(int fcid)
         {
             return CaseAuditBL.Instance.RetrieveCaseAudits(fcid);
+        }
+
+        private void grdvCaseAuditBinding()
+        {
+            int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
+            CaseAuditDTOCollection caseAudits = RetrieveCaseAudits(caseID);
+            if (caseAudits.Count > 0)
+            {
+                grdvCaseAudit.DataSource = caseAudits;
+                grdvCaseAudit.DataBind();
+            }
+            else
+            {                
+                caseAudits.Add(new CaseAuditDTO());
+
+                grdvCaseAudit.DataSource = caseAudits;
+                grdvCaseAudit.DataBind();
+
+                int TotalColumns = grdvCaseAudit.Rows[0].Cells.Count;
+                grdvCaseAudit.Rows[0].Cells.Clear();
+                grdvCaseAudit.Rows[0].Cells.Add(new TableCell());
+                grdvCaseAudit.Rows[0].Cells[0].ColumnSpan = TotalColumns;
+                grdvCaseAudit.Rows[0].Cells[0].Text = "No Records Found";
+            }
         }
 
         private void BindDataToIndicatorDropDownLists()
@@ -149,6 +203,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 BudgetCompletedInd = GetIndicatorShortValue(ddlBudgetCompleted.SelectedValue),
                 ClientActionPlanInd = GetIndicatorShortValue(ddlClientActionPlan.SelectedValue),
                 CompliantInd = GetIndicatorShortValue(ddlCompliant.SelectedValue),
+                FcId = int.Parse(Request.QueryString["CaseID"].ToString()),
                 ReasonForDefaultInd = GetIndicatorShortValue(ddlReasonForDefault.SelectedValue),
                 ReviewedBy = ddlReviewedBy.SelectedValue,
                 VerbalPrivacyConsentInd = GetIndicatorShortValue(ddlVerbalPrivacyConsent.SelectedValue),
@@ -211,5 +266,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 //btnReinstate.Enabled = true;
             }
         }
+
+       
+
+        
     }
 }
