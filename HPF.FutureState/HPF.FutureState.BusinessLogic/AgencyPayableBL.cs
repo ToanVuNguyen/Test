@@ -161,7 +161,10 @@ namespace HPF.FutureState.BusinessLogic
                 msg.Add(result.Message);
             }
         }
-
+        public AgencyPayableSetDTO AgencyPayableSetGet(int? agencyPayableID)
+        { 
+        return (AgencyPayableDAO.CreateInstance().AgencyPayableSetGet(agencyPayableID));
+        }
 
     }
 }
