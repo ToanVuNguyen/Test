@@ -117,15 +117,15 @@ namespace HPF.FutureState.BusinessLogic
                 switch (wsType)
                 {
                     case WSType.Agency:
-                        if (user.AgencyId != 0)
+                        if (user.AgencyId != null)
                             return user;
                         break;
                     case WSType.CallCenter:
-                        if (user.CallCenterId != 0)
+                        if (user.CallCenterId != null)
                             return user;
                         break;
                     case WSType.Any:
-                        if (user.AgencyId != 0 && user.CallCenterId != 0)
+                        if (user.AgencyId != null && user.CallCenterId != null)
                             return user;
                         break;
                     default:
