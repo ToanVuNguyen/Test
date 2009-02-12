@@ -84,7 +84,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
 
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
-            AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
+            AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
             try
             {
                 //get search criteria to AgencyPayableSearchCriteriaDTO
@@ -92,12 +92,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 searchCriteria.PeriodEndDate = periodEnd;
                 searchCriteria.PeriodStartDate = periodStart;
                 //get search data match that search collection
-                agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
-                ViewState["agency"] = agency;
+                agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
+                //
+                ViewState["agencycol"] = agencycol;
                 //bind search data to gridview
-                grvInvoiceList.DataSource = agency;
+                grvInvoiceList.DataSource = agencycol;
                 grvInvoiceList.DataBind();
-                if (agency.Count == 0)
+                if (agencycol.Count == 0)
                 {
                     grvInvoiceList.SelectedIndex = -1;
                     btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
@@ -140,7 +141,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         protected void btnNewPayable_Click(object sender, EventArgs e)
         {
             string query = "?agency=" + ddlAgency.SelectedValue;
-            Response.Redirect("NewPayableCriteria.aspx" + query);
+            Response.Redirect("CreateNewPayable.aspx" + query);
         }
 
         /// <summary>
@@ -164,7 +165,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     //searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
                     //searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
                     //agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
-                    agency=(AgencyPayableDTOCollection)ViewState["agency"];
+                    agency=(AgencyPayableDTOCollection)Session["agency"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
                     agency[selectedrow].StatusCode = "Cancel";
@@ -190,6 +191,14 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             btnCancelPayable.Attributes.Clear();
             btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
+        }
+
+        protected void btnViewPayable_Click(object sender, EventArgs e)
+        {
+            AgencyPayableDTOCollection agencyPayableCol=(AgencyPayableDTOCollection)ViewState["agencycol"];
+            AgencyPayableDTO agencyPayable = agencyPayableCol[grvInvoiceList.SelectedIndex];
+            Session["agencyPayable"] = agencyPayable;
+            Response.Redirect("AgencyPayableInfo.aspx");
         }
     }
 }

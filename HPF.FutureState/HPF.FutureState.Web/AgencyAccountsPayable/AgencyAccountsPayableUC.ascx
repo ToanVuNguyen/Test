@@ -1,10 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AgencyAccountsPayableUC.ascx.cs" Inherits="HPF.FutureState.Web.AgencyAccountsPayable.AgencyAccountsPayableUC" %>
 
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
- <asp:ScriptManager ID="myscript" runat="server">
+ <%--<asp:ScriptManager ID="myscript" runat="server">
         </asp:ScriptManager>
         <asp:UpdatePanel ID="myupdatepanel" runat="server">
-        <ContentTemplate>
+        <ContentTemplate>--%>
 <table width="90%">
     <colgroup>
     <col width="10%" />
@@ -97,7 +97,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnViewPayable" runat="server" Text="View/Edit Payable" CssClass="MyButton" Width="100px" />
+                        <asp:Button ID="btnViewPayable" runat="server" Text="View/Edit Payable" 
+                            CssClass="MyButton" Width="100px" onclick="btnViewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
@@ -116,5 +117,5 @@
             &nbsp;</td><td>
             &nbsp;</td><td>
             &nbsp;</td></tr></table>
-        </ContentTemplate>
-        </asp:UpdatePanel>
+       <%-- </ContentTemplate>
+        </asp:UpdatePanel>--%>
