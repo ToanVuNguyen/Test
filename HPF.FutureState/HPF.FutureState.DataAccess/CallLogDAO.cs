@@ -271,27 +271,20 @@ namespace HPF.FutureState.DataAccess
             int? callCenterID = 0;
             //int isValidCCAgentIdKey = 1;
             int? prevAgencyID = 0;
-            //int isValidSelectedAgencyId = 1;
+            int? selectedAgencyId = 0;
             int? servicerID = 0;
 
-            #region parameters
-            //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
-            //sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);
-            sqlParam[1] = new SqlParameter("@pi_prev_agency_id", aCallLog.PrevAgencyId);
-            //sqlParam[3] = new SqlParameter("@pi_selected_agency_id", aCallLog.SelectedAgencyId);
-            sqlParam[2] = new SqlParameter("@pi_servicer_id", aCallLog.ServicerId);
+           
 
-            sqlParam[3] = new SqlParameter("@po_call_center_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            //sqlParam[6] = new SqlParameter("@po_cc_agent_id_key", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            sqlParam[4] = new SqlParameter("@po_prev_agency_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            //sqlParam[8] = new SqlParameter("@po_selected_agency_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            sqlParam[5] = new SqlParameter("@po_servicer_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-
-            #endregion
-
-            command.Parameters.AddRange(sqlParam);
+            command.Parameters.Add(new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID));
+            command.Parameters.Add(new SqlParameter("@pi_prev_agency_id", aCallLog.PrevAgencyId));
+            command.Parameters.Add(new SqlParameter("@pi_servicer_id", aCallLog.ServicerId));
+            command.Parameters.Add(new SqlParameter("@pi_selected_agency_id", aCallLog.SelectedAgencyId));
+            command.Parameters.Add(new SqlParameter("@po_call_center_id", SqlDbType.Int) { Direction = ParameterDirection.Output });
+            command.Parameters.Add(new SqlParameter("@po_prev_agency_id", SqlDbType.Int) { Direction = ParameterDirection.Output });
+            command.Parameters.Add(new SqlParameter("@po_servicer_id", SqlDbType.Int) { Direction = ParameterDirection.Output });
+            command.Parameters.Add(new SqlParameter("@po_selected_agency_id", SqlDbType.Int) { Direction = ParameterDirection.Output });
+            
             command.CommandType = CommandType.StoredProcedure;
             try
             {
@@ -299,11 +292,9 @@ namespace HPF.FutureState.DataAccess
                 command.ExecuteNonQuery();
                 
                 callCenterID = ConvertToInt(command.Parameters["@po_call_center_id"].Value);
-                //isValidCCAgentIdKey = ConvertToInt(sqlParam[6].Value);
                 prevAgencyID = ConvertToInt(command.Parameters["@po_prev_agency_id"].Value);
-                //isValidSelectedAgencyId = ConvertToInt(sqlParam[8].Value);
-                servicerID = ConvertToInt(command.Parameters["@po_servicer_id"].Value);                        
-               
+                servicerID = ConvertToInt(command.Parameters["@po_servicer_id"].Value);
+                selectedAgencyId = ConvertToInt(command.Parameters["@po_selected_agency_id"].Value);                        
 
             }
             catch (Exception Ex)
@@ -318,6 +309,7 @@ namespace HPF.FutureState.DataAccess
             idList.Add("CallCenterID", callCenterID);
             idList.Add("PrevAgencyID", prevAgencyID);
             idList.Add("ServicerID", servicerID);
+            idList.Add("SelectedAgencyID", selectedAgencyId);
             return idList;
 
         }
