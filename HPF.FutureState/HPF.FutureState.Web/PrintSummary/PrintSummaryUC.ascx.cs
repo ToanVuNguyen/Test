@@ -46,8 +46,6 @@ namespace HPF.FutureState.Web.PrintSummary
     [Serializable]
     class ReportViewerCredential : IReportServerCredentials
     {
-
-
         public string Username
         {
             get;
@@ -68,14 +66,13 @@ namespace HPF.FutureState.Web.PrintSummary
         
         public ReportViewerCredential()
         {
-            this.Username = ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"].ToString();
-            this.Password = ConfigurationManager.AppSettings["REPORTSERVER_LOGINNAME"].ToString();
-            //if (this.Password.Contains(@"\"))
-            //    this.Domain = this.Password.Substring(0, this.Password.IndexOf(@"\"));
-            this.Domain = ConfigurationManager.AppSettings["REPORTSERVER_DOMAIN"].ToString();
-            //this.Username = "Administrator";
-            //this.Password = "Password123";
-            //this.Domain = "HPF-01";
+            this.Password = ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"].ToString();
+            string username_domain = ConfigurationManager.AppSettings["REPORTSERVER_LOGINNAME"].ToString();
+            if (username_domain.Contains(@"/"))
+            {
+                this.Domain = username_domain.Substring(0, username_domain.IndexOf(@"/"));
+                this.Username = username_domain.Substring(username_domain.IndexOf(@"/") + 1, username_domain.Length - username_domain.IndexOf(@"/")-1);
+            }
         }
 
         #region IReportServerCredentials Members

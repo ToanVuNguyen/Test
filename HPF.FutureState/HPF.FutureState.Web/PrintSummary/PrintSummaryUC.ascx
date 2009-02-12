@@ -3,7 +3,7 @@
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 <rsweb:ReportViewer ID="ReportViewerPrintSummary" runat="server" Width="100%" 
-    Font-Names="Verdana" Font-Size="8pt" Height="400px" ProcessingMode="Remote">
-    <ServerReport ReportServerUrl="http://HPF-01:8080/reportservers" />
+    Font-Names="Verdana" Font-Size="8pt" Height="610px" ProcessingMode="Remote">
+
     
 </rsweb:ReportViewer>
