@@ -636,7 +636,8 @@ namespace HPF.FutureState.BusinessLogic
             string callID = fCaseSet.ForeclosureCase.CallId;
             if (string.IsNullOrEmpty(callID))
                 return fCaseSet;
-            fCaseSet.ForeclosureCase.CallId = callID.Substring(3, callID.Length - 3);
+            else if(CheckCallID(callID))
+                fCaseSet.ForeclosureCase.CallId = callID.Substring(3, callID.Length - 3);
             return fCaseSet;
         }
         #endregion       
@@ -1589,7 +1590,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (string.IsNullOrEmpty(forclosureCase.ContactZip) && string.IsNullOrEmpty(forclosureCase.ContactStateCd))
                 return true;
-            return (forclosureCase.ContactZip == item.ZipCode && forclosureCase.ContactStateCd == item.StateAbbr);
+            return (ConvertStringToUpper(forclosureCase.ContactZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(forclosureCase.ContactStateCd) == ConvertStringToUpper(item.StateAbbr));
         }
 
         /// <summary>
@@ -1601,7 +1602,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (string.IsNullOrEmpty(forclosureCase.PropZip) && string.IsNullOrEmpty(forclosureCase.PropStateCd))
                 return true;
-            return (forclosureCase.PropZip == item.ZipCode && forclosureCase.PropStateCd == item.StateAbbr);            
+            return (ConvertStringToUpper(forclosureCase.PropZip) == ConvertStringToUpper(item.ZipCode) && ConvertStringToUpper(forclosureCase.PropStateCd) == ConvertStringToUpper(item.StateAbbr));            
         }
 
         /// <summary>
