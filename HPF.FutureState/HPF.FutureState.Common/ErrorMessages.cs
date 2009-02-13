@@ -221,7 +221,7 @@ namespace HPF.FutureState.Common
 
         //App foreclosure Case Search
         public const string WARN0500 = "WARN0500";
-        public const string WARN0550 = "WARN0550";
+        public const string ERR0550 = "ERR0550";
         public const string WARN0551 = "WARN0551";
         //Invoice
         public const string ERR0552 = "ERR0552";
@@ -263,6 +263,9 @@ namespace HPF.FutureState.Common
         public const string ERR0703 = "ERR0703";
         public const string ERR0704 = "ERR0704";
 
+        public const string ERR0995 = "ERR0995";
+        public const string ERR0996 = "ERR0996";
+        public const string ERR0997 = "ERR0997";
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
 
@@ -505,7 +508,7 @@ namespace HPF.FutureState.Common
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "Cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
                 //
-                errorMessageDict.Add(WARN0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
+                errorMessageDict.Add(ERR0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
                 errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");
 
                 errorMessageDict.Add(ERR0600, "An outcome that already has a Delete Date cannot be deleted.");
@@ -547,6 +550,9 @@ namespace HPF.FutureState.Common
 
 
                 //
+                errorMessageDict.Add(ERR0995, "A Funding Source is required to search.");
+                errorMessageDict.Add(ERR0996, "A valid Period End is required to search.");
+                errorMessageDict.Add(ERR0997, "A valid Period Start is required to search.");
                 errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");
 

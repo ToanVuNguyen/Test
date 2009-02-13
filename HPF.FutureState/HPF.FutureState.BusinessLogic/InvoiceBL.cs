@@ -177,7 +177,7 @@ namespace HPF.FutureState.BusinessLogic
         public InvoiceDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
             InvoiceDTOCollection result = null;
-            if (ValidateInvoiceCriteria(searchCriteria))
+            //if (ValidateInvoiceCriteria(searchCriteria))
                 result = InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
             return result;
         }

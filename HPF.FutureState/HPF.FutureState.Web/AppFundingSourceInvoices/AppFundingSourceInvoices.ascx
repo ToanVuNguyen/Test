@@ -9,7 +9,14 @@
 <table style="width:100%;">
     <tr>
         <td align="center" colspan="6">
-            <h1>Funding Source Invoices</h1></td>
+            <h1>Funding Source Invoices</h1>
+            
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="6">
+            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList></td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
@@ -22,8 +29,6 @@
             Period Start:</td>
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"  ControlToValidate="txtPeriodStart"
-                CssClass="ErrorMessage" ErrorMessage="Period Start is required; "></asp:RequiredFieldValidator>
         </td>
         <td class="style1">
             &nbsp;</td>
@@ -42,8 +47,6 @@
             Period End:</td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"  ControlToValidate="txtPeriodEnd"
-                CssClass="ErrorMessage" ErrorMessage="Period End is required; "></asp:RequiredFieldValidator>
         </td>
         <td >
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 
@@ -56,8 +59,7 @@
                 Visible="False"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
-        </td>
+            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>

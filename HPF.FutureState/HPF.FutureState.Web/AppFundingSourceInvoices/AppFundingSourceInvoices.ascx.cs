@@ -24,6 +24,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             try
             {
                 ApplySecurity();
@@ -35,8 +36,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(new ListItem( ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -44,7 +44,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
             {
-                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
             if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
             {
@@ -67,7 +67,6 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         }
         private void GetFundingSourceList()
         {
-            
                 FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
                 dropFundingSource.DataValueField = "FundingSourceID";
                 dropFundingSource.DataTextField = "FundingSourceName";
@@ -76,8 +75,16 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 dropFundingSource.Items.FindByText("ALL").Selected = true;
             
         }
-        protected void btnRefreshList_Click(object sender, EventArgs e)
+        private ExceptionMessage GetExceptionMessage(string errorCode)
         {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
+            return exMes;
+        }
+        private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()
+        {
+            DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
             searchCriteria.FundingSourceId = int.Parse(dropFundingSource.SelectedValue);
             try
@@ -86,7 +93,8 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             catch
             {
-                searchCriteria.PeriodEnd = DateTime.MinValue;
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ex.ExceptionMessages.Add(exMes);
             }
             try
             {
@@ -94,10 +102,34 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             catch
             {
-                searchCriteria.PeriodStart = DateTime.MinValue;
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            if (ex.ExceptionMessages.Count > 0)
+                throw (ex);
+            return searchCriteria;
+
+        }
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
+        }
+        protected void btnRefreshList_Click(object sender, EventArgs e)
+        {
+            ClearErrorMessages();
+            InvoiceSearchCriteriaDTO searchCriteria = null;
+            try
+            {
+                searchCriteria = GetInvoiceSearchCriterial();
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
             InvoiceSearch(searchCriteria);
-            
         }
 
         private void InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
@@ -110,11 +142,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 grvFundingSourceInvoices.DataSource = searchResult;
                 grvFundingSourceInvoices.DataBind();
             }
+            
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
 
@@ -122,12 +154,10 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         /// Show the gridView
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name0.="e"></param>
         protected void grvFundingSourceInvoices_DataBound(object sender, EventArgs e)
         {
-            
             lblInvoiceList.Visible = true;
-            lblErrorMessage.Visible = false;
         }
 
         protected void grvFundingSourceInvoices_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -152,7 +182,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
         protected void btnCancelInvoice_Click(object sender, EventArgs e)
         {
-            lblErrorMessage.Visible = false;
+            ClearErrorMessages();
             if (grvFundingSourceInvoices.SelectedIndex == -1)
                 return;
             if (Session["searchResult"] == null)
@@ -161,19 +191,12 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             InvoiceDTO invoice = searchResult[grvFundingSourceInvoices.SelectedRow.DataItemIndex];
             if (invoice.InvoicePaymentAmount > 0)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessage("WARN0550");
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0550)));
                 return;
             }
             try
             {
                 string cancelCode = LookupDataBL.Instance.GetRefCode("invoice status code")[1].Code;
-                if (invoice.StatusCode == cancelCode)
-                {
-                    lblErrorMessage.Text = "This Invoice has been Cancel";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
                 //Update to Database
                 invoice.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 invoice.StatusCode = cancelCode;
@@ -187,8 +210,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
