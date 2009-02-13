@@ -68,13 +68,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     GeneratePages(totalpage);
                 }
             }
-            // gridview selected row 
-            if(grvForeClosureCaseSearch.Rows.Count!=0)
-            for(int i=0;i<grvForeClosureCaseSearch.Rows.Count;i++)
-            {
-            grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick",Page.ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch,"Select$"+i));
-            }
-
         }
         /// <summary>
         /// Redisplay search criteria.

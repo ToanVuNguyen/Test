@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppForeClosureCaseSearchUC.ascx.cs"
     Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC"  %>
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc2" %>
 <%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>
@@ -140,11 +142,12 @@
     <tr>
         <td colspan="6">
             <asp:ScriptManager ID="myscript" runat="server"></asp:ScriptManager>
-            <asp:UpdatePanel ID="myupdatepan" runat="server">
-            <ContentTemplate>
             
-            <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Visible="false"  >
+            <cc2:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
+                BorderColor="Gray" BorderWidth="1px" Visible="false" >
+            
+                <asp:UpdatePanel ID="myupdatepan" runat="server">
+            <ContentTemplate>
                 <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle"  
                     Width="2500px" onrowdatabound="grvForeClosureCaseSearch_RowDataBound" >
@@ -198,9 +201,10 @@
                     There is no data match !
                     </EmptyDataTemplate>
                 </asp:GridView>
-            </asp:Panel>
-            </ContentTemplate>
+                </ContentTemplate>
             </asp:UpdatePanel>
+            </cc2:StatefullScrollPanel>
+            
         </td>
     </tr>
     <tr>

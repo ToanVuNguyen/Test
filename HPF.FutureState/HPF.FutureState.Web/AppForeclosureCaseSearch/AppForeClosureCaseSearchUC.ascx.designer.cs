@@ -158,6 +158,15 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.ScriptManager myscript;
         
         /// <summary>
+        /// panForeClosureCaseSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panForeClosureCaseSearch;
+        
+        /// <summary>
         /// myupdatepan control.
         /// </summary>
         /// <remarks>
@@ -165,15 +174,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel myupdatepan;
-        
-        /// <summary>
-        /// panForeClosureCaseSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panForeClosureCaseSearch;
         
         /// <summary>
         /// grvForeClosureCaseSearch control.
