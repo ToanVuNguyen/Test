@@ -1655,7 +1655,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (forclosureCase.CallId == null || forclosureCase.CallId == string.Empty)
                 return null;
-            if(!CheckCallID(forclosureCase.CallId))
+            if(!CheckCallID("HPF" + forclosureCase.CallId))
                 return null;
             bool isCall = foreclosureCaseSetDAO.GetCall(forclosureCase.CallId);
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
