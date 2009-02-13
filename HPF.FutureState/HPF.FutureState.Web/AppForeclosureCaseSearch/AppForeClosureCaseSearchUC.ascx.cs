@@ -139,7 +139,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             try
             {
-                panForeClosureCaseSearch.Visible = true;
+                //panForeClosureCaseSearch.Visible = true;
                 ManageControls(false);
                 //get search criteria
                 var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
@@ -199,7 +199,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //return exception message check input search criteria
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
-                    panForeClosureCaseSearch.Visible = false;
+                    //panForeClosureCaseSearch.Visible = false;
                     lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
                     lblErrorMessage.Text += " <br>";
                 }
@@ -208,7 +208,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (Exception ex)
             {
-                panForeClosureCaseSearch.Visible = false;
+                //panForeClosureCaseSearch.Visible = false;
                 lblErrorMessage.Text += ex.Message;
                 lblErrorMessage.Text += " <br>";
                 this.TotalRowNum = 0;
