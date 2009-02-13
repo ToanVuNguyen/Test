@@ -10,7 +10,7 @@
 <asp:ScriptManager runat="server">
 </asp:ScriptManager>
 <div style="border-bottom: solid 1 #8FC4F6">
-    <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
+    <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
         Width="100%" Height="90" Visible="true">
                 <asp:GridView ID="grvBudgetSet" runat="server" CellPadding="2" ForeColor="#333333"
                     DataKeyNames="BudgetSetId" GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle"
@@ -40,7 +40,7 @@
                             ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
                 </asp:GridView>
-    </cc1:StatefullScrollPanel>
+    </asp:Panel>
     &nbsp; &nbsp;
 </div>
 <h1>

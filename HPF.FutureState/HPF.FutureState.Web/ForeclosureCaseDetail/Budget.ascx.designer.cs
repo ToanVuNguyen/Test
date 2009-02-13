@@ -29,7 +29,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panForeClosureCaseSearch;
+        protected global::System.Web.UI.WebControls.Panel panForeClosureCaseSearch;
         
         /// <summary>
         /// grvBudgetSet control.
