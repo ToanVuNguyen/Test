@@ -106,7 +106,7 @@ namespace HPF.FutureState.DataAccess
                     caseAudit.AuditComments = ConvertToString(reader["audit_comment"]);
                     caseAudit.AuditDt = ConvertToDateTime(reader["audit_dt"]);
                     caseAudit.AuditFailureReasonCode = ConvertToString(reader["audit_failure_reason_cd"]);
-                    caseAudit.AuditTypeCode = ConvertToString(reader["audit_type_cd_desc"]);
+                    caseAudit.AuditTypeCode = ConvertToString(reader["audit_type_cd"]);
                     caseAudit.BudgetCompletedInd = ConvertToString(reader["complete_budget_ind"]);
                     caseAudit.ClientActionPlanInd = ConvertToString(reader["client_action_plan_ind"]);
                     caseAudit.CompliantInd = ConvertToString(reader["compliant_ind"]);

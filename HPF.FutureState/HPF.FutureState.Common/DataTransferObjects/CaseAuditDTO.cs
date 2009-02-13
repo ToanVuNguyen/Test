@@ -52,5 +52,26 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [YesNoIndicatorValidator(true, Ruleset = "Defalut")]        
         public string WrittenActionConsentInd { get; set; }
+
+        public bool Equals(CaseAuditDTO caseAudit)
+        {
+            if (FcId != caseAudit.FcId
+                || CaseAuditId != caseAudit.CaseAuditId
+                || AuditDt != caseAudit.AuditDt
+                || AuditTypeCode != caseAudit.AuditTypeCode
+                || ReviewedBy != caseAudit.ReviewedBy
+                || AuditFailureReasonCode != caseAudit.AuditFailureReasonCode
+                || AuditComments != caseAudit.AuditComments
+                || CompliantInd != caseAudit.CompliantInd
+                || ReasonForDefaultInd != caseAudit.ReasonForDefaultInd
+                || BudgetCompletedInd != caseAudit.BudgetCompletedInd
+                || AppropriateOutcomeInd != caseAudit.AppropriateOutcomeInd
+                || ClientActionPlanInd != caseAudit.ClientActionPlanInd
+                || VerbalPrivacyConsentInd != caseAudit.VerbalPrivacyConsentInd
+                || WrittenActionConsentInd != caseAudit.WrittenActionConsentInd) 
+                return false;
+                
+            return true;
+        }
     }
 }

@@ -505,6 +505,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0450, "Do you want to save changes?.");
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "Cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
                 //
