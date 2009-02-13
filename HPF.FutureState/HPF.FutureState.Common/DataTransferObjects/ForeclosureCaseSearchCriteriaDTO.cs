@@ -16,11 +16,26 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ForeclosureCaseSearchCriteriaDTO
     {
-        [NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = "Default")]
+        string _agencyCaseNumber;
         public string AgencyCaseNumber
         {
-            get;
-            set;
+            get { return _agencyCaseNumber; }
+            set
+            {
+                if (value != null)
+                {
+                    _agencyCaseNumber = value;
+                    _agencyCaseNumber = ProcessSQLSpecialCharacter(_agencyCaseNumber);
+                    Regex exp = new Regex(@"[*]");
+                    MatchCollection matches = exp.Matches(_firstName);
+                    foreach (Match item in matches)
+                    {
+                        _firstName = _firstName.Replace(item.Value, "/*");
+                    }
+
+                }
+            }
 
         }
 

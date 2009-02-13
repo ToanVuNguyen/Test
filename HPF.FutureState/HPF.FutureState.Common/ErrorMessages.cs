@@ -216,6 +216,9 @@ namespace HPF.FutureState.Common
         public const string WARN0335 = "WARN0335";
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
+        public const string WARN0450 = "WARN0450";
+
+
         //App foreclosure Case Search
         public const string WARN0500 = "WARN0500";
         public const string WARN0550 = "WARN0550";
@@ -255,6 +258,8 @@ namespace HPF.FutureState.Common
         public const string ERR0673 = "ERR0673";
 
 
+        public const string ERR0701 = "ERR0701";
+        public const string ERR0702 = "ERR0702";
 
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
@@ -533,6 +538,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0671, "Unable to process the reconciliation file. The Invoice Case ID in row {0} belongs to an invoice that has been cancelled.");
                 errorMessageDict.Add(ERR0672, "Unable to process the reconciliation file. The Pmt Amt in row {0} does not match the amount billed on the invoice.");
                 errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"Reconciliation\" tab cannot be located.");
+                errorMessageDict.Add(ERR0701, "Audit date must be in the range [1-1-1753, 12-31-9999].");
+                errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
 
 
                 //

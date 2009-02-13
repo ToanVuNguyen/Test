@@ -60,7 +60,8 @@
                             ItemStyle-Width="200px">            
                             <ItemStyle Width="200px" />
                         </asp:BoundField>
-                        <asp:CommandField ShowSelectButton="true" SelectText = "Edit" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+                        <asp:ButtonField ButtonType="Button" CommandName="Edit"/>
+                        <asp:CommandField ShowSelectButton="true"  SelectText = "Edit" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Edit" />
                     </Columns>
                     <EmptyDataTemplate>
                         There is no data match !
@@ -76,6 +77,10 @@
     <tr align="center">
         <td>
             <table>
+            <tr>
+            <td><asp:HiddenField ID="hfAction" runat="server" /></td>
+            </tr>
+                
             <tr>
                 <td colspan = "2">
                     <asp:Label ID="Label2" runat="server" Text="Audit Detail" CssClass="sidelinks"></asp:Label>

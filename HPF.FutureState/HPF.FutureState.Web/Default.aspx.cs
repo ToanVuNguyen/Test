@@ -25,7 +25,9 @@ namespace HPF.FutureState.Web
     {       
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             UserDTO user = SecurityBL.Instance.GetWebUser("admin");
+            Response.Redirect("http://localhost:2197/ForeclosureCaseInfo.aspx?CaseID=365168");
         }
 
         

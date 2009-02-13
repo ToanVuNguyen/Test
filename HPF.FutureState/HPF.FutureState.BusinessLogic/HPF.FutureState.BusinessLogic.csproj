@@ -65,6 +65,7 @@
     <Compile Include="EmailSummaryBL.cs" />
     <Compile Include="ForeclosureCaseBL.cs" />
     <Compile Include="ForeclosureCaseSetBL.cs" />
+    <Compile Include="HPFUserBL.cs" />
     <Compile Include="InvoiceBL.cs" />
     <Compile Include="InvoicePaymentBL.cs" />
     <Compile Include="LookupDataBL.cs" />

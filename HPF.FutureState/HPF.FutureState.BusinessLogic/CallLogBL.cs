@@ -53,12 +53,9 @@ namespace HPF.FutureState.BusinessLogic
                     string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
                     string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
                     dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
-                }
-
-                throw dataValidationException;
+                }            
             }
-
-            dataValidationException = new DataValidationException();
+            
             dataValidationException.ExceptionMessages.Add(CheckValidCodeForCallLog(aCallLog));
 
             dataValidationException.ExceptionMessages.Add(CheckForeignKey(aCallLog));

@@ -37,14 +37,42 @@ namespace HPF.FutureState.BusinessLogic
 
         public bool SaveCaseAudit(CaseAuditDTO caseAudit, string workingUserId, bool isUpdated)
         {
+
+            ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
+            DataValidationException dataValidationException = new DataValidationException();
+            
             if (isUpdated)
             {
                 caseAudit.SetUpdateTrackingInformation(workingUserId);
+                dataValidationException = ValidateCaseAudit(caseAudit);
+                if (dataValidationException.ExceptionMessages.Count > 0)
+                    throw dataValidationException;
                 return CaseAuditDAO.Instance.SaveCaseAudit(caseAudit, true);
             }
+
             caseAudit.SetInsertTrackingInformation(workingUserId);
+            dataValidationException = ValidateCaseAudit(caseAudit);
+            if (dataValidationException.ExceptionMessages.Count > 0)
+                throw dataValidationException;
             return CaseAuditDAO.Instance.SaveCaseAudit(caseAudit, false);
 
+        }
+
+        private DataValidationException ValidateCaseAudit(CaseAuditDTO caseAudit)
+        {
+            DataValidationException dataValidationException = new DataValidationException();
+            ValidationResults validationResults = HPFValidator.Validate<CaseAuditDTO>(caseAudit);            
+
+            if (!validationResults.IsValid)
+            {
+                foreach (ValidationResult result in validationResults)
+                {
+                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
+                }
+            }
+            return dataValidationException;
         }
     }
 }

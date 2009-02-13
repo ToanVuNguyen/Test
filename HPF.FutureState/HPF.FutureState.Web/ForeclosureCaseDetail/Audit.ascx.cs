@@ -24,7 +24,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
     public partial class Audit : System.Web.UI.UserControl
     {
-        private bool _isUpdating = false;
+        
+        private const string ACTION_UPDATE = "update";
+        private const string ACTION_INSERT = "insert";
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,13 +38,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {                               
                 ApplySecurity();
+                if (IsPostBack)
+                {
+                    BindingDataToGrdvCaseAudit();
 
-                grdvCaseAuditBinding();
-
-                BindDataToIndicatorDropDownLists();
-                BindDataToReviewedByDDL();
-                BindDataToAuditTypeDDL();
-                BindDataToAuditFailureReasonDDL();
+                    BindDataToIndicatorDropDownLists();
+                    BindDataToReviewedByDDL();
+                    BindDataToAuditTypeDDL();
+                    BindDataToAuditFailureReasonDDL();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -52,26 +57,39 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            CaseAuditDTO caseAudit = FormToCaseAuditDTO();
-            if (_isUpdating)
-                CaseAuditBL.Instance.SaveCaseAudit(caseAudit, HPFWebSecurity.CurrentIdentity.LoginName, true);
-            else
-                CaseAuditBL.Instance.SaveCaseAudit(caseAudit, HPFWebSecurity.CurrentIdentity.LoginName, false);
-            _isUpdating = false;
+            try
+            {
+                CaseAuditDTO caseAudit = FormToCaseAuditDTO();
+                if (!string.IsNullOrEmpty(hfAction.Value))
+                {
+                    if (hfAction.Value == ACTION_UPDATE)
+                        CaseAuditBL.Instance.SaveCaseAudit(caseAudit, HPFWebSecurity.CurrentIdentity.LoginName, true);
+                    else
+                        CaseAuditBL.Instance.SaveCaseAudit(caseAudit, HPFWebSecurity.CurrentIdentity.LoginName, false);
+                    ClearControls();
+                    BindingDataToGrdvCaseAudit();
+                }
+            }
+            catch (DataValidationException ex)
+            {
+                errorList.DataSource = ex.ExceptionMessages;
+                errorList.DataBind();
+            }
    
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            _isUpdating = false;
+            
             ClearControls();
         }
 
         protected void btnNew_Click(object sender, EventArgs e)
-        {
-            _isUpdating = false;
+        {            
             ClearControls();
             GenerateTestData();
+            hfAction.Value = ACTION_INSERT;
+            errorList.Items.Add(new ListItem(hfAction.Value));
         }
 
         protected void grdvCaseAudit_RowCreated(object sender, GridViewRowEventArgs e)
@@ -86,8 +104,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void grdvCaseAudit_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //if (e.CommandName.ToUpper() == "Edit".ToUpper())
-
+            if (e.CommandName.ToUpper() == "Select".ToUpper())
+            {
+                int index = int.Parse(e.CommandArgument.ToString());
+                CaseAuditDTO caseAudit = ((CaseAuditDTOCollection)grdvCaseAudit.DataSource)[index];
+                Session[Constant.SS_CASE_AUDIT_OBJECT] = caseAudit;
+                CaseAuditDTOToForm(caseAudit);
+                hfAction.Value = ACTION_UPDATE;
+                errorList.Items.Add(new ListItem(hfAction.Value));              
+            }
         }
 
         private void GenerateTestData()
@@ -105,7 +130,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             return CaseAuditBL.Instance.RetrieveCaseAudits(fcid);
         }
 
-        private void grdvCaseAuditBinding()
+        private void BindingDataToGrdvCaseAudit()
         {
             int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
             CaseAuditDTOCollection caseAudits = RetrieveCaseAudits(caseID);
@@ -153,7 +178,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditType.Items.Clear();
             
             RefCodeItemDTOCollection auditTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_TYPE_CODE);
-            ddlAuditType.DataValueField = "Code";
+            //ddlAuditType.DataValueField = "Code";
+            ddlAuditType.DataValueField = "CodeDesc";
             ddlAuditType.DataTextField = "CodeDesc";
             ddlAuditType.DataSource = auditTypeCodes;
             ddlAuditType.DataBind();
@@ -166,7 +192,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             ddlReviewedBy.Items.Clear();
             ddlReviewedBy.Items.Add(new ListItem(string.Empty));
-            ddlReviewedBy.Items.Add(new ListItem(HPFWebSecurity.CurrentIdentity.DisplayName));
+
+            HPFUserDTOCollection hpfUsers = LookupDataBL.Instance.GetHpfUsers();
+            //ddlReviewedBy.DataValueField = "HpfUserId";
+            ddlReviewedBy.DataValueField = "FullName";
+            ddlReviewedBy.DataTextField = "FullName";
+            ddlReviewedBy.DataSource = hpfUsers;
+            ddlReviewedBy.DataBind();
+
+            ddlReviewedBy.Items.Insert(0, new ListItem(string.Empty));
         }
 
         private void BindDataToAuditFailureReasonDDL()
@@ -176,7 +210,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditFailureReason.Items.Clear();
 
             RefCodeItemDTOCollection failureReasonCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_FAILURE_REASON_CODE);
-            ddlAuditFailureReason.DataValueField = "Code";
+            //ddlAuditFailureReason.DataValueField = "Code";
+            ddlAuditFailureReason.DataValueField = "CodeDesc";
             ddlAuditFailureReason.DataTextField = "CodeDesc";
             ddlAuditFailureReason.DataSource = failureReasonCodes;
             ddlAuditFailureReason.DataBind();
@@ -189,12 +224,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ddl.Text = string.Empty;
             txtAuditDate.Text = string.Empty;
             txtAuditComment.Text = string.Empty;
+            hfAction.Value = null;
         }
 
         private CaseAuditDTO FormToCaseAuditDTO()
         {
-            CaseAuditDTO caseAudit = new CaseAuditDTO()
-            {
+            int? id = null;
+            if (Session[Constant.SS_CASE_AUDIT_OBJECT] != null)
+                id = ((CaseAuditDTO)Session[Constant.SS_CASE_AUDIT_OBJECT]).CaseAuditId;
+            return new CaseAuditDTO(){
+                CaseAuditId = id,
                 AppropriateOutcomeInd = GetIndicatorShortValue(ddlAppropriateOutcome.SelectedValue),
                 AuditComments = txtAuditComment.Text.Trim(),
                 AuditDt = ConvertToDateTime(txtAuditDate.Text.Trim()),
@@ -207,9 +246,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ReasonForDefaultInd = GetIndicatorShortValue(ddlReasonForDefault.SelectedValue),
                 ReviewedBy = ddlReviewedBy.SelectedValue,
                 VerbalPrivacyConsentInd = GetIndicatorShortValue(ddlVerbalPrivacyConsent.SelectedValue),
-                WrittenActionConsentInd = GetIndicatorShortValue(ddlWrittenPrivacyConsent.SelectedValue)
+                WrittenActionConsentInd = GetIndicatorShortValue(ddlWrittenPrivacyConsent.SelectedValue)           
             };
-            return caseAudit;
         }
 
         private void CaseAuditDTOToForm(CaseAuditDTO caseAudit)
@@ -217,16 +255,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAppropriateOutcome.Text = GetIndicatorLongValue(caseAudit.AppropriateOutcomeInd);
             txtAuditComment.Text = caseAudit.AuditComments;
             txtAuditDate.Text = (caseAudit.AuditDt.HasValue) ? caseAudit.AuditDt.Value.Date.ToString() : string.Empty;
-            ddlAuditFailureReason.Text = caseAudit.AuditFailureReasonCode;
-            ddlAuditType.Text = caseAudit.AuditTypeCode;
+            //ddlAuditType.Items.FindByText(caseAudit.AuditFailureReasonCode).Selected = true;
+            ddlAuditType.SelectedIndex = ddlAuditType.Items.IndexOf(ddlAuditType.Items.FindByText(caseAudit.AuditTypeCode));
             ddlBudgetCompleted.Text = GetIndicatorLongValue(caseAudit.BudgetCompletedInd);
             ddlClientActionPlan.Text = GetIndicatorLongValue(caseAudit.ClientActionPlanInd);
             ddlCompliant.Text = GetIndicatorLongValue(caseAudit.CompliantInd);
-            ddlReasonForDefault.Text = GetIndicatorLongValue(caseAudit.ReasonForDefaultInd);            
-            ddlReviewedBy.Text = GetIndicatorLongValue(caseAudit.ReviewedBy);
+            ddlReasonForDefault.Text = GetIndicatorLongValue(caseAudit.ReasonForDefaultInd);
+            ddlReviewedBy.SelectedIndex = ddlReviewedBy.Items.IndexOf(ddlReviewedBy.Items.FindByText(caseAudit.ReviewedBy));
             ddlVerbalPrivacyConsent.Text = GetIndicatorLongValue(caseAudit.VerbalPrivacyConsentInd);
             ddlWrittenPrivacyConsent.Text = GetIndicatorLongValue(caseAudit.WrittenActionConsentInd);
         }
+
+        
 
         private string GetIndicatorShortValue(string value)
         {

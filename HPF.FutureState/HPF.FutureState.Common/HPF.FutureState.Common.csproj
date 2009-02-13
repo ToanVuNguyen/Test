@@ -95,6 +95,8 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\HPFUserDTO.cs" />
+    <Compile Include="DataTransferObjects\HPFUserDTOCollection.cs" />
     <Compile Include="DataTransferObjects\InvoicePaymentDTO.cs" />
     <Compile Include="DataTransferObjects\InvoiceSetDTO.cs" />
     <Compile Include="DataTransferObjects\MenuGroupDTO.cs" />

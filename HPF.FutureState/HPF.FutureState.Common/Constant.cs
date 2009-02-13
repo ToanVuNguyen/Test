@@ -41,6 +41,8 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_BUDGET_SUBCATEGORY = "BUDGETSUBCATEGORY";
         public const string HPF_CACHE_AGENCY = "HPFCACHEAGENCY";
         public const string HPF_CACHE_PAYMENT_TYPE = "HPFCACHPAYMENTTYPE";
+        public const string HPF_CACHE_HPFUSER = "HPFCACHEHPFUSER";
+
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";
         public const string REF_CODE_SET_AUDIT_FAILURE_REASON_CODE = "audit failure reason code";
@@ -50,5 +52,8 @@ namespace HPF.FutureState.Common
         //
         public const int HPF_QUEUE_READING_TIMEOUT = 10;//Seconds
         public const string HPF_QUEUE_PATH = @".\Private$\HPFSummaryQueue";
+        //
+        public const string SS_CASE_AUDIT_OBJECT = "ss_case_audit_object";
+
     }
 }

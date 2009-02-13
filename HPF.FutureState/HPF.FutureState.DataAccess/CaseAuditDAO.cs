@@ -33,16 +33,20 @@ namespace HPF.FutureState.DataAccess
         {
             bool bReturn = false;
             var dbConnection=CreateConnection();
-            var command = CreateSPCommand("hpf_case_audit_update", dbConnection);
-            if (!isUpdated)
+            var command = CreateSPCommand("", dbConnection);
+            if (isUpdated)
+            {
+                command = CreateSPCommand("hpf_case_audit_update", dbConnection);
+                command.Parameters.Add(new SqlParameter("@pi_case_audit_id", caseAudit.CaseAuditId));
+            }
+            else
             {
                 command = CreateSPCommand("hpf_case_audit_insert", dbConnection);
-                command.Parameters.Add(new SqlParameter("@po_case_audit_id", SqlDbType.Int) { Direction = ParameterDirection.Output });
+                command.Parameters.Add(new SqlParameter("@po_case_audit_id", SqlDbType.Int) { Direction = ParameterDirection.Output });                
                 command.Parameters.Add(new SqlParameter("@pi_create_dt", caseAudit.CreateDate));
                 command.Parameters.Add(new SqlParameter("@pi_create_user_id", caseAudit.CreateUserId));
                 command.Parameters.Add(new SqlParameter("@pi_create_app_name", caseAudit.CreateAppName));
             }
-            
             command.Parameters.Add(new SqlParameter("@pi_fc_id", caseAudit.FcId));
             command.Parameters.Add(new SqlParameter("@pi_audit_type_cd", caseAudit.AuditTypeCode));
             command.Parameters.Add(new SqlParameter("@pi_appropriate_outcome_ind", caseAudit.AppropriateOutcomeInd));
@@ -55,10 +59,10 @@ namespace HPF.FutureState.DataAccess
             command.Parameters.Add(new SqlParameter("@pi_verbal_privacy_consent_ind", caseAudit.VerbalPrivacyConsentInd));
             command.Parameters.Add(new SqlParameter("@pi_written_privacy_consent_ind", caseAudit.WrittenActionConsentInd));
             command.Parameters.Add(new SqlParameter("@pi_compliant_ind", caseAudit.CompliantInd));
-            command.Parameters.Add(new SqlParameter("@pi_audit_failure_reason_cd", caseAudit.AuditFailureReasonCode));            
+            command.Parameters.Add(new SqlParameter("@pi_audit_failure_reason_cd", caseAudit.AuditFailureReasonCode));
             command.Parameters.Add(new SqlParameter("@pi_chg_lst_dt", caseAudit.ChangeLastDate));
             command.Parameters.Add(new SqlParameter("@pi_chg_lst_user_id", caseAudit.ChangeLastUserId));
-            command.Parameters.Add(new SqlParameter("@pi_chg_lst_app_name", caseAudit.ChangeLastAppName));
+            command.Parameters.Add(new SqlParameter("@pi_chg_lst_app_name", caseAudit.ChangeLastAppName));                
             
             try
             {

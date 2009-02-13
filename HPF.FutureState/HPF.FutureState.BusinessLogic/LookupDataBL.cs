@@ -99,6 +99,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             return (InvoicePaymentDAO.Instance.PaymentTypeGet());
         }
+        public HPFUserDTOCollection GetHpfUsers()
+        {
+            return HPFUserDAO.Instance.GetHpfUsers();
+        }
 
     }
 }
