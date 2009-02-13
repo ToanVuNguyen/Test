@@ -144,7 +144,7 @@
             <asp:ScriptManager ID="myscript" runat="server"></asp:ScriptManager>
             
             <cc2:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Visible="false" >
+                BorderColor="Gray" BorderWidth="1px">
             
                 <asp:UpdatePanel ID="myupdatepan" runat="server">
             <ContentTemplate>
