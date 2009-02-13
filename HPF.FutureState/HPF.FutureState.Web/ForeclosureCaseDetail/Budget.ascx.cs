@@ -197,14 +197,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             Label lblSurplus = e.Row.FindControl("lblSurplus") as Label;
             BudgetSetDTO bud = e.Row.DataItem as BudgetSetDTO;
-            if(lblSurplus!=null)
-                if (bud != null)
-                { 
-                    string curCulture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
-                    System.Globalization.NumberFormatInfo currencyFormat = new System.Globalization.CultureInfo(curCulture).NumberFormat;
-                    currencyFormat.CurrencyNegativePattern = 1;
-                    lblSurplus.Text   =  bud.TotalSurplus.Value.ToString("C",currencyFormat);
-                }
+            if (lblSurplus == null)
+                return;
+            if (bud == null)
+                return;
+            if (bud.TotalSurplus == null)
+                return;
+            string curCulture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+            System.Globalization.NumberFormatInfo currencyFormat = new System.Globalization.CultureInfo(curCulture).NumberFormat;
+            currencyFormat.CurrencyNegativePattern = 1;
+            lblSurplus.Text   =  bud.TotalSurplus.Value.ToString("C",currencyFormat);
         }
     }
 }
