@@ -29,6 +29,7 @@ namespace HPF.FutureState.Common
         public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_SEARCH = "SearchForeclosureCase.aspx";
         public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL = "ForeclosureCaseInfo.aspx";
         public const string MENU_ITEM_TARGET_APP_AGENCY_PAYABLE_INFO = "AgencyPayableInfo.aspx";
+        public const string MENU_ITEM_TARGET_APP_INVOICE_PAYMENT = "InvoicePayment.aspx";
         //
         public const string HPF_CACHE_REF_CODE_ITEM = "refCodeItem";
         public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";

@@ -23,15 +23,6 @@ namespace HPF.FutureState.Web.InvoicePayments {
         protected global::System.Web.UI.ScriptManager myScript;
         
         /// <summary>
-        /// myUPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel myUPanel;
-        
-        /// <summary>
         /// ddlFundingSource control.
         /// </summary>
         /// <remarks>
@@ -119,7 +110,16 @@ namespace HPF.FutureState.Web.InvoicePayments {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panInvoiceList;
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panInvoiceList;
+        
+        /// <summary>
+        /// myUPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel myUPanel;
         
         /// <summary>
         /// grvInvoicePaymentList control.

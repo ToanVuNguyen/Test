@@ -23,7 +23,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            //ApplySecurity();
+            ApplySecurity();
             for (int i = 0; i < grvInvoicePaymentList.Rows.Count; i++)
             {
                 grvInvoicePaymentList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoicePaymentList, "Select$" + i));
@@ -39,11 +39,11 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         private void ApplySecurity()
         {
-            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE))
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
             {
-                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
-            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE))
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
             {
                 btnNewPayable.Enabled = false;
                 btnViewEditPayable.Enabled = false;
@@ -84,10 +84,10 @@ namespace HPF.FutureState.Web.InvoicePayments
                 }
                 //
                 grvInvoicePaymentList.DataBind();
-                for (int i = 0; i < grvInvoicePaymentList.Rows.Count; i++)
-                {
-                    grvInvoicePaymentList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoicePaymentList, "Select$" + i));
-                }
+                //for (int i = 0; i < grvInvoicePaymentList.Rows.Count; i++)
+                //{
+                //    grvInvoicePaymentList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoicePaymentList, "Select$" + i));
+                //}
             }
             catch (Exception ex)
             {
@@ -138,16 +138,6 @@ namespace HPF.FutureState.Web.InvoicePayments
             BindGrvInvoicePaymentList(periodStart, periodEnd);
         }
        
-        protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            InvoicePaymentDTOCollection invoicePayment = new InvoicePaymentDTOCollection();
-            invoicePayment = (InvoicePaymentDTOCollection)ViewState["invoicePayment"];
-            if (invoicePayment != null)
-            {
-                
-                Session["invoicePaymentInfo"] = invoicePayment[grvInvoicePaymentList.SelectedIndex];
-            }
-        }
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {

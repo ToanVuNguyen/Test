@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvoicePaymentsUC.ascx.cs"
     Inherits="HPF.FutureState.Web.InvoicePayments.InvoicePaymentsUC" %>
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-<asp:ScriptManager ID="myScript" runat="server"></asp:ScriptManager>
-<asp:UpdatePanel ID="myUPanel" runat="server">
-<ContentTemplate>
+<asp:ScriptManager ID="myScript" runat="server">
+</asp:ScriptManager>
 <table width="90%">
     <colgroup>
         <col width="10%" />
@@ -73,34 +74,45 @@
     </tr>
     <tr>
         <td colspan="4">
-            <asp:Panel ID="panInvoiceList" runat="server" CssClass="ScrollTable" Width="840px">
-                <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
-                    AutoGenerateColumns="false" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged" DataKeyNames="InvoicePaymentID">
-                    <HeaderStyle CssClass="FixedHeader"  />
-                    <AlternatingRowStyle CssClass="AlternatingRowStyle" />
-                    <RowStyle CssClass="RowStyle" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle" />
-                    <Columns>
-                        <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName" />
-                        <asp:BoundField HeaderText="Payment ID" DataField="InvoicePaymentID" />
-                        <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" />
-                        <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" />
-                        <asp:BoundField HeaderText="Payable Code" DataField="PaymentType" />
-                        <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}"
-                            ItemStyle-HorizontalAlign="Right" />
-                        <%--<asp:BoundField HeaderText="Comments" DataField="PaymentComment" />--%>
-                    </Columns>
-                    <EmptyDataTemplate>
-                        There is no data match.</EmptyDataTemplate>
-                </asp:GridView>
-            </asp:Panel>
+            
+            <cc1:StatefullScrollPanel ID="panInvoiceList" runat="server" CssClass="ScrollTable"
+                Width="840px">
+                <asp:UpdatePanel ID="myUPanel" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
+                            AutoGenerateColumns="false" DataKeyNames="InvoicePaymentID">
+                            <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <AlternatingRowStyle CssClass="AlternatingRowStyle" />
+                            <RowStyle CssClass="RowStyle" />
+                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <EditRowStyle BackColor="#2461BF" />
+                            <AlternatingRowStyle CssClass="AlternatingRowStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            <Columns>
+                                <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName" />
+                                <asp:BoundField HeaderText="Payment ID" DataField="InvoicePaymentID" />
+                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" />
+                                <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" />
+                                <asp:BoundField HeaderText="Payable Code" DataField="PaymentType" />
+                                <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}"
+                                    ItemStyle-HorizontalAlign="Right" />
+                                <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
+                                    ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+                                <%--<asp:BoundField HeaderText="Comments" DataField="PaymentComment" />--%>
+                            </Columns>
+                            <EmptyDataTemplate>
+                                There is no data match.</EmptyDataTemplate>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </cc1:StatefullScrollPanel>
         </td>
         <td valign="top">
             <table style="vertical-align: top;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="150px" 
-                            CssClass="MyButton" onclick="btnNewPayable_Click" />
+                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="150px" CssClass="MyButton"
+                            OnClick="btnNewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
@@ -135,5 +147,3 @@
         </td>
     </tr>
 </table>
-</ContentTemplate>
-</asp:UpdatePanel>

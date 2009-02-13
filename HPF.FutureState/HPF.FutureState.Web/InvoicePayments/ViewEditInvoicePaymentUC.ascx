@@ -85,8 +85,10 @@
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
                 width="100px" onclick="btnSave_Click"/>
             &nbsp;&nbsp;
-            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" 
-                Width="100px" onclick="btnCancel_Click"/>
+            <span onclick="return confirm('Do you really want to cancel?')">
+                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" Width="100px"
+                    OnClick="btnCancel_Click" />
+            </span>
         </td>
     </tr>
     <tr>

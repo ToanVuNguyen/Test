@@ -70,8 +70,7 @@
                  
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
-                    Width="100%"  SelectedRowStyle-BackColor="Yellow" 
-                    ondatabound="grvFundingSourceInvoices_DataBound" 
+                    Width="100%" ondatabound="grvFundingSourceInvoices_DataBound" 
                     onrowdatabound="grvFundingSourceInvoices_RowDataBound" DataKeyNames="InvoiceId" >
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
