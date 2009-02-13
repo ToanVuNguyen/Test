@@ -159,10 +159,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 if (this.TotalRowNum != 0)
                 {
                     //add to selected row in gridview
-                    for (int i = 0; i < grvForeClosureCaseSearch.Rows.Count; i++)
-                    {
-                        grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch, "Select$" + i));
-                    }
+                    //for (int i = 0; i < grvForeClosureCaseSearch.Rows.Count; i++)
+                    //{
+                    //    grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch, "Select$" + i));
+                    //}
                     //display pagers controls
                     ManageControls(true);
                     grvForeClosureCaseSearch.Visible = true;

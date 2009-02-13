@@ -68,7 +68,7 @@
         
         <tr>
             <td colspan="6">
-                <table cellpadding="0" cellspacing= "0">
+                <table cellpadding="0" cellspacing= "0" width="100%">
                     <tr>
                         <td>
                             <HPF:TabControl ID="tabControl" runat="server">
@@ -77,7 +77,7 @@
                     </tr>
                     <tr>
                         <td  style="border:solid 1px #8FC4F6">
-                            <HPF:UserControlLoader  ID="UserControlLoader" runat="server">
+                            <HPF:UserControlLoader  ID="UserControlLoader" runat="server" >
                             </HPF:UserControlLoader>
                         </td>
                     </tr>

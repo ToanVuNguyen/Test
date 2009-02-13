@@ -66,7 +66,6 @@ namespace HPF.FutureState.Web.InvoicePayments
         /// </summary>
         protected void BindGrvInvoicePaymentList(DateTime periodStart, DateTime periodEnd)
         {
-            
             try
             {
                 InvoicePaymentDTOCollection invoicePayment = GetInvoicePaymentInfo(periodStart, periodEnd);
@@ -84,10 +83,6 @@ namespace HPF.FutureState.Web.InvoicePayments
                 }
                 //
                 grvInvoicePaymentList.DataBind();
-                //for (int i = 0; i < grvInvoicePaymentList.Rows.Count; i++)
-                //{
-                //    grvInvoicePaymentList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoicePaymentList, "Select$" + i));
-                //}
             }
             catch (Exception ex)
             {
@@ -121,12 +116,8 @@ namespace HPF.FutureState.Web.InvoicePayments
         /// </summary>
         protected void SetDefaultPeriodStartEnd()
         {
-            DateTime today = DateTime.Today;
-            int priormonth = today.AddMonths(-1).Month;
-            int year = today.AddMonths(-1).Year;
-            txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
-            int daysinmonth = DateTime.DaysInMonth(year, priormonth);
-            txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
+            txtPeriodStart.Text = DateTime.Today.AddMonths(-6).ToShortDateString() ;
+            txtPeriodEnd.Text = DateTime.Today.ToShortDateString();
         }
 
         protected void btnRefreshList_Click(object sender, EventArgs e)
