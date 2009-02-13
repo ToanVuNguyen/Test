@@ -19,18 +19,14 @@ namespace HPF.CustomAction
             {
                 base.CreateChildControls();
 
-                SubMenuTemplate hpfMenu = new SubMenuTemplate();
-                hpfMenu.Text = "HPF";
-                hpfMenu.ImageUrl = "";
-                hpfMenu.Description = "HPF";
-
                 PostBackMenuItemTemplate downloadMenu = new PostBackMenuItemTemplate();
                 downloadMenu.ID = "downloadMenu";
-                downloadMenu.Text = "Zip and download selected document(s)";
-                downloadMenu.ClientOnClickPostBackConfirmation = "You will download selected document(s), depending on the item count and size it might be take sometime, are you sure ?";
-                downloadMenu.OnPostBack += new EventHandler<EventArgs>(downloadMenu_OnPostBack);
-                hpfMenu.Controls.Add(downloadMenu);
-                this.Controls.Add(hpfMenu);
+                downloadMenu.Text = "Zip and download selected document(s)";                
+                
+                downloadMenu.ClientOnClickPostBackConfirmation = "You will download selected document(s), depending on the item count and size it might be take sometime, are you sure ?";                
+                
+                downloadMenu.OnPostBack += new EventHandler<EventArgs>(downloadMenu_OnPostBack);                
+                this.Controls.Add(downloadMenu);
             }
         }
 

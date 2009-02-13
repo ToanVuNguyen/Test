@@ -12,7 +12,7 @@ namespace HPF.SharePointAPI
     public class UploadFileInfo
     {
         #region "Private Properties"
-        private int _contentLength;
+        private long _contentLength;
         private string _contentType;
         private string _fileName;
         private Stream _inputStream;
@@ -22,7 +22,7 @@ namespace HPF.SharePointAPI
         #endregion
 
         #region "Public Properties"
-        public int ContentLength
+        public long ContentLength
         {
             get { return _contentLength; }
             set { _contentLength = value; }
@@ -81,6 +81,17 @@ namespace HPF.SharePointAPI
             _contentType = postedFile.ContentType;
             _fileName = Path.GetFileName(postedFile.FileName);
             _inputStream = postedFile.InputStream;
+            _checkInComment = checkInComment;
+            _overwriteIfExists = overwriteIfExists;
+        }
+
+        public UploadFileInfo(string physicalFilePath, string checkInComment, bool overwriteIfExists)
+        {
+            FileInfo f = new FileInfo(physicalFilePath);            
+            _contentLength = f.Length;
+            _contentType = f.Extension;
+            _fileName = Path.GetFileName(physicalFilePath);            
+            _inputStream = f.OpenRead();
             _checkInComment = checkInComment;
             _overwriteIfExists = overwriteIfExists;
         }

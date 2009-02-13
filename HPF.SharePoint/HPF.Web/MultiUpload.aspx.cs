@@ -77,6 +77,16 @@ namespace HPF.Web
             this.ButtonCancel.Click += new EventHandler(ButtonCancel_Click);
         }
 
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+            ClientScript.RegisterClientScriptInclude("DownLoadZipItem", "/_layouts/1033/DownLoadZipItem.js");
+            string script = String.Format("UploadHandler('{0}', '{1}');",
+                this.RadioButtonFromClient.ClientID,
+                this.RadioButtonFromServer.ClientID);
+            this.Page.ClientScript.RegisterStartupScript(this.GetType(), "UploadHandler", script, true);
+        }
+
         void ButtonCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(Source);
@@ -84,7 +94,14 @@ namespace HPF.Web
 
         void ButtonUpload_Click(object sender, EventArgs e)
         {
-            UploadFiles();
+            if (this.RadioButtonFromClient.Checked)
+            {
+                UploadFilesFromClient();
+            }
+            else
+            {
+                UploadFileFromServer();
+            }
             Response.Redirect(Source);
         }
         protected override void OnLoad(EventArgs e)
@@ -94,8 +111,8 @@ namespace HPF.Web
         #endregion
 
         #region "helper"
-        private void UploadFiles()
-        {
+        private void UploadFilesFromClient()
+        {            
             if (Request.Files != null && Request.Files.Count > 0)
             {
                 UploadFileInfo uploadFile;
@@ -123,9 +140,12 @@ namespace HPF.Web
                         uploadedFiles = DocumentLibraryHelper.UploadFiles(uploadFileList, RootFolder);
                     }
                 }
-
-                Response.Redirect(Source);
             }
+        }
+
+        private void UploadFileFromServer()
+        {
+            DocumentLibraryHelper.UploadFiles(this.TextBoxServerLocation.Text, RootFolder);
         }
         #endregion
     }

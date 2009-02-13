@@ -102,6 +102,54 @@ namespace HPF.SharePointAPI
             SPFolder spFolder = SPContext.Current.Web.GetFolder(folderUrl);
             return UploadFiles(files, spFolder);
         }
+
+        /// <summary>
+        /// Upload files and create SharePoint folder from physical location on server
+        /// </summary>
+        /// <param name="physicalFolderPath">Physical folder path</param>
+        /// <param name="spFolder">Target SharePoint folder</param>
+        /// <returns>A collection of SharePoint files which are uploaded</returns>
+        public static IList<SPFile> UploadFiles(string physicalFolderPath, SPFolder spFolder)
+        {
+            List<SPFile> uploadedFiles = new List<SPFile>();
+            //check if physical folder exists
+            if (!Directory.Exists(physicalFolderPath))
+            {
+                throw new IOException(String.Format("{0} does not exist.", physicalFolderPath));
+            }
+
+            //upload files in current folder
+            UploadFileInfo fileInfo = null;
+            List<UploadFileInfo> fileInfoList = new List<UploadFileInfo>();
+            foreach (string fileName in Directory.GetFiles(physicalFolderPath))
+            {
+                fileInfo = new UploadFileInfo(fileName, "", true);
+                fileInfoList.Add(fileInfo);
+            }
+
+            uploadedFiles.AddRange(UploadFiles(fileInfoList, spFolder));
+
+            //recursive loop into subfolders and upload files
+            foreach (string folder in Directory.GetDirectories(physicalFolderPath))
+            {
+                //create SPFolder
+                SPFolder createdSPFolder = spFolder.SubFolders.Add(folder);
+                uploadedFiles.AddRange(UploadFiles(folder, createdSPFolder));
+            }
+            return uploadedFiles;
+        }
+
+        /// <summary>
+        /// Upload files and create SharePoint folder from physical location on server
+        /// </summary>
+        /// <param name="physicalFolderPath">Physical folder path</param>
+        /// <param name="spFolder">Target url of SharePoint folder</param>
+        /// <returns>A collection of SharePoint files which are uploaded</returns>
+        public static IList<SPFile> UploadFiles(string physicalFolderPath, string folderUrl)
+        {
+            SPFolder spFolder = SPContext.Current.Web.GetFolder(folderUrl);
+            return UploadFiles(physicalFolderPath, spFolder);
+        }
         #endregion
 
         #region "Zip Helper"        
@@ -177,6 +225,7 @@ namespace HPF.SharePointAPI
             zipStream.Finish();
             zipStream.Close();
         }        
+
         private static IList<string> GetFileNameInFolder(string dir)
         {
             List<string> list = new List<string>();

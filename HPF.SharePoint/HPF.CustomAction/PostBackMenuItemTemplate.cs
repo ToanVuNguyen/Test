@@ -15,9 +15,10 @@ namespace HPF.CustomAction
             if (!base.ChildControlsCreated)
             {
                 base.EnsureChildControls();
+
                 if (string.IsNullOrEmpty(base.ClientOnClickUsingPostBackEvent))
-                {
-                    base.ClientOnClickUsingPostBackEventFromControl(this, "%ListId%");
+                {                    
+                    base.ClientOnClickUsingPostBackEventFromControl(this);
                 }
             }
         }

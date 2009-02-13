@@ -14,6 +14,24 @@ namespace HPF.Web {
     public partial class MultiUpload {
         
         /// <summary>
+        /// RadioButtonFromClient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonFromClient;
+        
+        /// <summary>
+        /// RadioButtonFromServer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonFromServer;
+        
+        /// <summary>
         /// FileUpload1 control.
         /// </summary>
         /// <remarks>
@@ -59,6 +77,15 @@ namespace HPF.Web {
         protected global::System.Web.UI.WebControls.FileUpload FileUpload5;
         
         /// <summary>
+        /// TextBoxServerLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxServerLocation;
+        
+        /// <summary>
         /// ButtonUpload control.
         /// </summary>
         /// <remarks>
@@ -75,5 +102,32 @@ namespace HPF.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonCancel;
+        
+        /// <summary>
+        /// EncodedLiteral1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.SharePoint.WebControls.EncodedLiteral EncodedLiteral1;
+        
+        /// <summary>
+        /// EncodedLiteral2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.SharePoint.WebControls.EncodedLiteral EncodedLiteral2;
+        
+        /// <summary>
+        /// ListProperty1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.SharePoint.WebControls.ListProperty ListProperty1;
     }
 }
