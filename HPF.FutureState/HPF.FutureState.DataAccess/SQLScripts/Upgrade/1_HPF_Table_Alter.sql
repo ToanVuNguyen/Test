@@ -103,3 +103,58 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','CONV','Initial CCRC Conversion','',17,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','CONVINS','Insert After Conversion','',18,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','CONVUPD','Updated After Conversion','',19,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
+
+DELETE FROM menu_security;
+DELETE FROM menu_item;
+DELETE FROM menu_group;
+
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (1,'Accounting',3,'#');
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (2,'Home',1,'Default.aspx');
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (3,'Foreclosure Case',2,'SearchForeclosureCase.aspx');
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (4,'Reports',4,'default.aspx');
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (5,'Change Password',5,'ChangePassword.aspx');
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (6,'Admin',6,'#');
+INSERT INTO menu_group (menu_group_id,group_name, group_sort_order, group_target) VALUES (7,'Logout',7,'Logout.aspx');
+
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (1,1,'Funding Source Invoices',1,'FundingSourceInvoice.aspx');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (2,1,'Agency Accounts Payables',2,'AgencyPayable.aspx');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (3,6,'Agency',1,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (4,6,'Funding Source',2,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (5,6,'Servicer',3,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (6,6,'Programs',5,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (7,6,'Rates',4,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (8,6,'General Codes',6,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (9,6,'Budget Categories',7,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (10,6,'Outcomes',8,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (11,6,'User',9,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (12,6,'WS User',10,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (13,6,'Call Center',11,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (14,6,'Congressional Districts',12,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (15,6,'Area Median Income',13,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (16,6,'Geocode Reference',14,'#');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (17,6,'ForeclosureDetail',15,'ForeclosureCaseInfo.aspx');
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target)   VALUES (18,1,'Invoice Payments',3,'InvoicePayment.aspx');
+
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (1,1,1,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (2,1,2,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (3,1,3,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (4,1,4,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (5,1,5,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (6,1,6,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (7,1,7,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (8,1,8,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (9,1,9,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (10,1,10,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (11,1,11,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (12,1,12,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (13,1,13,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (14,1,14,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (15,1,15,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (16,1,16,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (17,4,1,'R');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (18,4,2,'R');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (19,1,17,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (20,4,17,'R');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (21,1,18,'U');
+INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (22,4,18,'R');
