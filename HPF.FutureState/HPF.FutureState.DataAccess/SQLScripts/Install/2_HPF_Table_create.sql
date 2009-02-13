@@ -1,9 +1,9 @@
 -- =============================================
--- Create date: 21 Jan 2009
+-- Create date: 12 Feb 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
---		Apply database changes on:  17 Jan 2009
+--		Apply database changes on:  12 Feb 2009
 --		Refer to file "DB Track changes.xls"
 -- =============================================
 USE HPF
@@ -286,6 +286,17 @@ CREATE TABLE Agency (
   active_ind VARCHAR(1)    ,
   hud_agency_num VARCHAR(20)    ,
   hud_agency_sub_grantee_num VARCHAR(20)    ,
+finance_contact_fname varchar(30) null,
+finance_contact_lname varchar(30) null,
+finance_phone varchar(20) null,
+finance_fax varchar(20) null,
+finance_email varchar(50) null,
+finance_addr1 varchar(50) null,
+finance_addr2 varchar(50) null,
+finance_city varchar(30) null,
+finance_state_cd varchar(15) null,
+finance_zip varchar(5) null,
+finance_zip_plus_4 varchar(4) null,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -780,19 +791,18 @@ GO
 CREATE TABLE case_audit (
   case_audit_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
-  appropriate_outcome_cd VARCHAR(1)    ,
-  reason_for_default_cd VARCHAR(1)    ,
-  complete_budget_cd VARCHAR(1)    ,
-  onsite_audit_ind VARCHAR(1)    ,
-  audit_dt DATETIME    ,
-  audit_comment VARCHAR(300)    ,
-  reviewed_by VARCHAR(30)    ,
-  session_cd VARCHAR(15)    ,
-  client_action_plan_cd VARCHAR(15)    ,
-  verbal_privacy_cd VARCHAR(15)    ,
-  written_privacy_cd VARCHAR(15)    ,
-  data_intake_complete_cd VARCHAR(15)    ,
-  compliant_cd VARCHAR(15)    ,
+  appropriate_outcome_ind varchar(1) NULL
+  appropriate_reason_for_dflt_ind varchar(1) NULL
+  complete_budget_ind varchar(1) NULL,
+  audit_type_cd varchar(15) Null,
+  audit_dt DATETIME    NULL,
+  audit_comment VARCHAR(300)    NULL,
+  reviewed_by VARCHAR(30)    NULL,
+  client_action_plan_ind varchar(1) NULL,  
+  verbal_privacy_consent_ind varchar(1) NULL,  
+  written_privacy_consent_ind varchar(1) NULL,
+  compliant_ind varchar(1) NULL,
+  audit_failure_reason_cd varchar(15) NULL,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -841,12 +851,11 @@ GO
 
 CREATE TABLE case_post_counseling_status (
   case_post_counseling_status_id INTEGER  NOT NULL   IDENTITY ,
+  outcome_type_id INTEGER  NULL  ,
   fc_id INTEGER  NOT NULL  ,
   followup_dt DATETIME  NOT NULL  ,
   followup_comment VARCHAR(8000)    ,
   followup_source_cd VARCHAR(15)  NOT NULL  ,
-  followup_outcome_cd VARCHAR(15)    ,
-  case_status_cd VARCHAR(15)    ,
   loan_delinq_status_cd VARCHAR(15)    ,
   still_in_house_ind VARCHAR(1)    ,
   credit_score VARCHAR(4)    ,
@@ -863,6 +872,9 @@ PRIMARY KEY(case_post_counseling_status_id)  ,
     REFERENCES foreclosure_case(fc_id));
 GO
 
+ALTER TABLE case_post_counseling_status 
+ADD CONSTRAINT outcome_type_FK  FOREIGN KEY(outcome_type_id )
+    REFERENCES outcome_type(outcome_type_id);
 
 CREATE TABLE outcome_item (
   outcome_item_id INTEGER  NOT NULL   IDENTITY ,
