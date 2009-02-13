@@ -194,7 +194,7 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.GridView grvViewEditAgencyPayable;
         
         /// <summary>
-        /// lblTotalCase1 control.
+        /// lblTotalCase_ft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -203,7 +203,7 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.Label lblTotalCase_ft;
         
         /// <summary>
-        /// lblInvoiceTotal1 control.
+        /// lblPayableTotal_ft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -212,7 +212,7 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.Label lblPayableTotal_ft;
         
         /// <summary>
-        /// lblTotalPaid1 control.
+        /// lblTotalNFMCUpChangePaid_ft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

@@ -80,10 +80,14 @@
                     <ContentTemplate>
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
                             AutoGenerateColumns="false" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
-                            <HeaderStyle CssClass="FixedHeader" />
-                            <AlternatingRowStyle CssClass="AlternatingRowStyle" />
-                            <RowStyle CssClass="RowStyle" />
-                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            <RowStyle CssClass="RowStyle"  />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="#D1DDF1"   ForeColor="#333333" />
+                        <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <EditRowStyle BackColor="#2461BF" />
+                        <AlternatingRowStyle CssClass="AlternatingRowStyle" />
+                        <SelectedRowStyle CssClass="SelectedRowStyle"  />
                             <Columns>
                                 <asp:BoundField HeaderText="Agency" DataField="AgencyName" />
                                 <asp:BoundField HeaderText="Payable#" DataField="AgencyPayableId" />

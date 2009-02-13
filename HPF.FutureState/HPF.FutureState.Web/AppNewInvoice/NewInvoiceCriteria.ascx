@@ -70,7 +70,7 @@
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <AlternatingItemStyle BackColor="White" />
                 <ItemStyle  BackColor="#EFF3FB" />
-                <SelectedItemStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                <SelectedItemStyle BackColor="#D1DDF1"  ForeColor="#333333" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%#Eval("ServicerName") %>'></asp:Label>
