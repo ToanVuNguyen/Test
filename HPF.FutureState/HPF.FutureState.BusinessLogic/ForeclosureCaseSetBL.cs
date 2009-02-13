@@ -446,7 +446,7 @@ namespace HPF.FutureState.BusinessLogic
             var serviers = foreclosureCaseSetDAO.GetServicer();
             foreach(var item in serviers)
             {
-                if (item.ServicerName != null && item.ServicerName.ToUpper().Trim() == Constant.SERVICER_OTHER)
+                if (ConvertStringToUpper(item.ServicerName) == Constant.SERVICER_OTHER)
                     return item.ServicerID;
             }
             return 0;
@@ -457,7 +457,7 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();
             foreach (OutcomeTypeDTO item in outcomeType)
             {                
-                if (item.OutcomeTypeName.ToUpper().Trim() == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
+                if (ConvertStringToUpper(item.OutcomeTypeName) == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
                     return item.OutcomeTypeID;
             }
             return 0;
@@ -468,7 +468,7 @@ namespace HPF.FutureState.BusinessLogic
             BudgetSubcategoryDTOCollection budgetSubCat = foreclosureCaseSetDAO.GetBudgetSubcategory();
             foreach (BudgetSubcategoryDTO item in budgetSubCat)
             {                
-                if (item.BudgetSubcategoryName.ToUpper().Trim() == Constant.SUB_CATEGORY_NAME_MORTGAGE)
+                if (ConvertStringToUpper(item.BudgetSubcategoryName) == Constant.SUB_CATEGORY_NAME_MORTGAGE)
                     return item.BudgetSubcategoryID;
             }
             return 0;
@@ -1654,6 +1654,8 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidCallId(ForeclosureCaseDTO forclosureCase)
         {
             if (forclosureCase.CallId == null || forclosureCase.CallId == string.Empty)
+                return null;
+            if(!CheckCallID(forclosureCase.CallId))
                 return null;
             bool isCall = foreclosureCaseSetDAO.GetCall(forclosureCase.CallId);
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
