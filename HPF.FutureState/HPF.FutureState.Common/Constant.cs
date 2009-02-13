@@ -8,6 +8,7 @@ namespace HPF.FutureState.Common
         public const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
         public const string RULESET_COMPLETE = "Complete";
         public const string RULESET_LENGTH = "Length";
+        public const string RULESET_FOLLOW_UP = "FollowUp";
         public const string PAYABLE_IND = "Y";
         public const string BANKRUPTCY_IND_YES = "Y";
         public const string FORSALE_IND_YES = "Y";
@@ -19,6 +20,7 @@ namespace HPF.FutureState.Common
         public const string INDICATOR_NO_FULL = "NO";
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
+        public const string FOLLOW_UP_CD_CREDIT_REPORT = "CREDITREPORT";
         //
         public const string CALL_CENTER_OTHER = "OTHER";
         public const string SERVICER_OTHER = "OTHER (LENDER NAME IN NOTES)";
@@ -49,12 +51,12 @@ namespace HPF.FutureState.Common
         public const string REF_CODE_SET_AUDIT_FAILURE_REASON_CODE = "audit failure reason code";
         public const string REF_CODE_SET_FOLLOW_UP_SOURCE_CODE = "follow up source code";
         public const string REF_CODE_SET_LOAN_DELINQUENCY_CODE = "loan delinquency status code";
-        public const string REF_CODE_SET_CREDIR_BERREAU_CODE = "credit burreau code";
+        public const string REF_CODE_SET_CREDIR_BERREAU_CODE = "credit burreau code";        
         //
         public const int HPF_QUEUE_READING_TIMEOUT = 10;//Seconds
         public const string HPF_QUEUE_PATH = @".\Private$\HPFSummaryQueue";
         //
         public const string SS_CASE_AUDIT_OBJECT = "ss_case_audit_object";
-
+        public const string SS_CASE_FOLLOW_UP_OBJECT = "ss_case_follow_up_object";
     }
 }

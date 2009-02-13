@@ -262,7 +262,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ExceptionMessageCollection ValidateFieldsForeclosureCase(ForeclosureCaseDTO foreclosureCase, string ruleSet)
         {            
-            var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };                        
+            var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
                 msgFcCaseSet.Add(CheckOtherFieldFCaseForPartial(foreclosureCase));                                
@@ -445,8 +445,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             var serviers = foreclosureCaseSetDAO.GetServicer();
             foreach(var item in serviers)
-            {                
-                if (item.ServicerName.ToUpper().Trim() == Constant.SERVICER_OTHER)
+            {
+                if (item.ServicerName != null && item.ServicerName.ToUpper().Trim() == Constant.SERVICER_OTHER)
                     return item.ServicerID;
             }
             return 0;

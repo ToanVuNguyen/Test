@@ -14,21 +14,36 @@ using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common;
+using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils.DataValidator;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
     public partial class CaseFollowUp : System.Web.UI.UserControl
     {
-        private bool _isUpdating = false;
+        private const string ACTION_UPDATE = "update";
+        private const string ACTION_INSERT = "insert";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            grdvCaseFollowUpBinding();
+            try
+            {
+                ApplySecurity();
+                if (IsPostBack)
+                {
+                    grdvCaseFollowUpBinding();
 
-            ddlFollowUpSourceBinding();
-            ddlCreditReportBureauBinding();
-            ddlOutcomeBinding();
-            ddlDelinquencyStatusBinding();
-            ddlStillInHomeBinding();
+                    ddlFollowUpSourceBinding();
+                    ddlCreditReportBureauBinding();
+                    ddlOutcomeBinding();
+                    ddlDelinquencyStatusBinding();
+                    ddlStillInHomeBinding();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionProcessor.HandleException(ex);
+            }
         }
 
         private void grdvCaseFollowUpBinding()
@@ -43,10 +58,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             else
             {
                 caseFollowUps.Add(new CaseFollowUpDTO());
-
                 grd_FollowUpList.DataSource = caseFollowUps;
                 grd_FollowUpList.DataBind();
-
                 int TotalColumns = grd_FollowUpList.Rows[0].Cells.Count;
                 grd_FollowUpList.Rows[0].Cells.Clear();
                 grd_FollowUpList.Rows[0].Cells.Add(new TableCell());
@@ -95,7 +108,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void ddlDelinquencyStatusBinding()
         {
             ddl_DelinqencyStatus.Items.Clear();
-            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_CREDIR_BERREAU_CODE);
+            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_LOAN_DELINQUENCY_CODE);
             ddl_DelinqencyStatus.DataValueField = "Code";
             ddl_DelinqencyStatus.DataTextField = "CodeDesc";
             ddl_DelinqencyStatus.DataSource = followUpTypeCodes;
@@ -136,10 +149,167 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
 
         protected void btn_Save_Click(object sender, EventArgs e)
+        {           
+            if(string.IsNullOrEmpty(hfAction.Value))
+            {
+                hfAction.Value = ACTION_INSERT;
+            }            
+            var caseFollowUp = CreateCaseFollowUpDTO();
+            var msgFollowUp = ValidateFollowUpDTO(caseFollowUp);
+            if (msgFollowUp.Count == 0)
+            {
+                string logInName = HPFWebSecurity.CurrentIdentity.LoginName;
+                if (hfAction.Value == ACTION_UPDATE)
+                    CaseFollowUpBL.Instance.SaveCaseFollowUp(caseFollowUp, logInName, true);
+                else
+                    CaseFollowUpBL.Instance.SaveCaseFollowUp(caseFollowUp, logInName, false);
+                grdvCaseFollowUpBinding();
+                ClearControls();
+            }
+            else
+            {
+                ArrayList err = new ArrayList();                
+                foreach (ExceptionMessage item in msgFollowUp)
+                {
+                    err.Add(item.Message);
+                }
+                errorList.DataSource = err;
+                errorList.DataBind();
+            }                       
+        }
+
+        private CaseFollowUpDTO CreateCaseFollowUpDTO()
         {
+            int? id = null;
+            if (Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] != null)
+                id = ((CaseFollowUpDTO)Session[Constant.SS_CASE_FOLLOW_UP_OBJECT]).CasePostCounselingStatusId;
             CaseFollowUpDTO caseFollowUp = new CaseFollowUpDTO();
-            int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
-            caseFollowUp.FcId = caseID;
+
+            caseFollowUp.CasePostCounselingStatusId = id;
+
+            if (!string.IsNullOrEmpty(Request.QueryString["CaseID"].ToString()))
+                caseFollowUp.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
+            else
+                caseFollowUp.FcId = null;
+
+            if (!string.IsNullOrEmpty(ddl_FollowUpOutcome.SelectedValue))
+                caseFollowUp.OutcomeTypeId = int.Parse(ddl_FollowUpOutcome.SelectedValue);
+            else
+                caseFollowUp.OutcomeTypeId = null;
+
+            if (!string.IsNullOrEmpty(txt_FollowUpDt.Text))
+                caseFollowUp.FollowUpDt = ConvertToDateTime(txt_FollowUpDt.Text);
+            else
+                caseFollowUp.FollowUpDt = null;
+
+            caseFollowUp.FollowUpComment = txt_FollowUpComment.Text;
+            caseFollowUp.FollowUpSourceCd = ddl_FollowUpSource.SelectedValue;
+            caseFollowUp.LoanDelinqStatusCd = ddl_DelinqencyStatus.SelectedValue;
+            caseFollowUp.StillInHouseInd = ddl_StillInHome.SelectedValue;
+            caseFollowUp.CreditScore = txt_CreditScore.Text;
+            caseFollowUp.CreditBureauCd = ddl_CreditReportBureau.SelectedValue;
+
+            if (!string.IsNullOrEmpty(txt_CreditReportDt.Text))
+                caseFollowUp.CreditReportDt = ConvertToDateTime(txt_CreditReportDt.Text);
+            else
+                caseFollowUp.CreditReportDt = null;
+
+            return caseFollowUp;
+        }
+
+        protected void btn_Cancel_Click(object sender, EventArgs e)
+        {            
+            ClearControls();
+        }
+
+        private void ClearControls()
+        {
+            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
+                ddl.Text = string.Empty;
+            txt_CreditReportDt.Text = string.Empty;
+            txt_CreditScore.Text = string.Empty;
+            txt_FollowUpComment.Text = string.Empty;
+            txt_FollowUpDt.Text = string.Empty;
+            hfAction.Value = null;
+        }
+
+        protected void grd_FollowUpList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName.ToUpper() == "Select".ToUpper())
+            {
+                int index = int.Parse(e.CommandArgument.ToString());
+                CaseFollowUpDTO caseFollowUp = ((CaseFollowUpDTOCollection)grd_FollowUpList.DataSource)[index];
+                Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
+                CaseFollowUpDTOToForm(caseFollowUp);
+                hfAction.Value = ACTION_UPDATE;                
+            }
+        }
+
+        private void CaseFollowUpDTOToForm(CaseFollowUpDTO caseFollowUp)
+        {
+            if (caseFollowUp != null)
+            {
+                txt_FollowUpDt.Text = (caseFollowUp.FollowUpDt.HasValue) ? caseFollowUp.FollowUpDt.Value.Date.ToString() : string.Empty;
+                txt_CreditScore.Text = caseFollowUp.CreditScore;
+                ddl_FollowUpSource.SelectedIndex = ddl_FollowUpSource.Items.IndexOf(ddl_FollowUpSource.Items.FindByText(caseFollowUp.FollowUpSourceCd));
+                ddl_CreditReportBureau.SelectedIndex = ddl_CreditReportBureau.Items.IndexOf(ddl_CreditReportBureau.Items.FindByText(caseFollowUp.CreditBureauCd));
+                ddl_FollowUpOutcome.SelectedIndex = ddl_FollowUpOutcome.Items.IndexOf(ddl_FollowUpOutcome.Items.FindByText(caseFollowUp.OutcomeTypeName));
+                txt_CreditReportDt.Text = (caseFollowUp.CreditReportDt.HasValue) ? caseFollowUp.CreditReportDt.Value.Date.ToString() : string.Empty;
+                ddl_DelinqencyStatus.SelectedIndex = ddl_DelinqencyStatus.Items.IndexOf(ddl_DelinqencyStatus.Items.FindByText(caseFollowUp.LoanDelinqStatusCd));
+                txt_FollowUpComment.Text = caseFollowUp.FollowUpComment;
+                ddl_StillInHome.Text = GetIndicatorLongValue(caseFollowUp.StillInHouseInd);
+            }
+        }
+
+        protected void grd_FollowUpList_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            int idxIdColumn = 0;
+            e.Row.Cells[idxIdColumn].Visible = false;
+
+        }
+
+        protected void btn_New_Click(object sender, EventArgs e)
+        {
+            hfAction.Value = ACTION_INSERT;            
+            GenerateDefaultData();
+        }
+
+        private void GenerateDefaultData()
+        {
+            txt_FollowUpDt.Text = DateTime.Now.Date.ToString();
+        }
+
+        private ExceptionMessageCollection ValidateFollowUpDTO(CaseFollowUpDTO followUp)
+        {
+            var msgFolowUp = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(followUp, Constant.RULESET_FOLLOW_UP) };
+            if (followUp.FollowUpSourceCd.ToUpper().Trim() == Constant.FOLLOW_UP_CD_CREDIT_REPORT)
+            {
+                if (string.IsNullOrEmpty(followUp.CreditScore))
+                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700-Credit Score is require to save this case");
+                if (string.IsNullOrEmpty(followUp.CreditBureauCd))
+                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700-Credit Report Bureau is require to save this case");
+                if (followUp.CreditReportDt == null)
+                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700-Credit Report Date is require to save this case");
+            }
+            return msgFolowUp;
+        }
+
+        private DateTime ConvertToDateTime(object obj)
+        {
+            DateTime dt;
+            DateTime.TryParse(obj.ToString(), out dt);
+            return dt;
+        }
+
+        private string GetIndicatorLongValue(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (value.ToUpper() == Constant.INDICATOR_YES.ToUpper())
+                    return Constant.INDICATOR_YES_FULL;
+                return Constant.INDICATOR_NO_FULL;
+            }
+            return string.Empty;
         }
     }
 }

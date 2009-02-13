@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseFollowUp.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseFollowUp" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<asp:HiddenField ID="hfAction" runat="server" />
+<br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
 <table width="100%" id="tbl_main">
     <tr>
@@ -14,11 +16,14 @@
                     <td align="left" valign="bottom" width="95%">
                     <!--Display Follow-Up list-->
                     <asp:Panel ID="pnlActivity" runat="server" CssClass="ScrollTable"  
-                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="0px" Height="337px">
+                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="0px" Height="100%" Width="820px">
                         <asp:GridView ID="grd_FollowUpList" runat="server" 
                         CellPadding="2" ForeColor="#333333"
                         GridLines="Vertical" AutoGenerateColumns="False" 
-                        SelectedRowStyle-BackColor="Yellow">
+                        SelectedRowStyle-BackColor="Yellow" 
+                        DataKeyNames="CasePostCounselingStatusId"
+                        onrowcommand="grd_FollowUpList_RowCommand" 
+                        onrowcreated="grd_FollowUpList_RowCreated" Width="100%">
                             <RowStyle CssClass="RowStyle"  />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -27,35 +32,38 @@
                             ForeColor="White" HorizontalAlign="Left"/>
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
-                            <Columns>   
-                                  
+                            <Columns>
+                                <asp:BoundField DataField="CasePostCounselingStatusId" HeaderText="ID" />                                     
                                 <asp:BoundField DataField="FollowUpDt" HeaderText="Follow-Up Date"  
-                                DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="150px">
-                                <ItemStyle Width="150px" />
+                                DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="13%">
+                                    <ItemStyle Width="13%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="FollowUpSourceCdDesc" HeaderText="Source" 
-                                ItemStyle-Width="100px">
-                                <ItemStyle Width="100px" />
+                                ItemStyle-Width="37%">
+                                    <ItemStyle Width="37%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="OutcomeTypeName" 
-                                HeaderText="Follow-Up Outcome"  ItemStyle-Width="100px">            
-                                <ItemStyle Width="100px" />
+                                HeaderText="Follow-Up Outcome"  ItemStyle-Width="20%">
+                                    <ItemStyle Width="100px" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="LoanDelinqStatusCdDesc" HeaderText="Delinquency Status" 
-                                ItemStyle-Width="265px">            
-                                <ItemStyle Width="265px" />
+                                ItemStyle-Width="15%">
+                                    <ItemStyle Width="100px" />
                                 </asp:BoundField>
-                                <asp:CommandField ShowSelectButton="true" SelectText = "View/Edit" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
-                            </Columns>                            
+                                <asp:CommandField ShowSelectButton="true" SelectText = "View/Edit" 
+                                    ButtonType="Button" ControlStyle-CssClass="MyButton" 
+                                    ItemStyle-HorizontalAlign="Center" HeaderText="Select" ItemStyle-Width="15%" />
+                            </Columns>
                             <EmptyDataTemplate>
-                            There is no Follow-Up!
+                                There is no Follow-Up!
                             </EmptyDataTemplate>
                         </asp:GridView>
                     </asp:Panel>                
                     <!---->
                     </td>
                     <td align="left" valign="bottom" width="5%">
-                        <asp:Button ID="btn_New" runat="server" Text="  New  " CssClass="MyButton" />
+                        <asp:Button ID="btn_New" runat="server" Text="  New  " CssClass="MyButton" 
+                            onclick="btn_New_Click" />
                     </td>
                 </tr>
             </table>
@@ -74,11 +82,11 @@
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Date*: </td>
         <td align="left">
-            <asp:TextBox ID="txt_FollowUpDt" width="30%" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txt_FollowUpDt" width="30%" runat="server" MaxLength="10"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks"  width="20%">Credit Score: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditScore" width="30%" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txt_CreditScore" width="30%" runat="server" MaxLength="4"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -99,9 +107,9 @@
             <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server">
             </asp:DropDownList>
         </td>
-        <td align="right" class="sidelinks" width="20%">Credit Date: </td>
+        <td align="right" class="sidelinks" width="20%">Credit Report Date: </td>
         <td align="left">
-            <asp:TextBox ID="txtCreditDt" runat="server" width="30%"></asp:TextBox>
+            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="30%" MaxLength="10"></asp:TextBox>
         </td>
     </tr>    
     <tr>
@@ -111,8 +119,9 @@
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Follow-Up Comment: </td>        
-        <td rowspan="2" width="30%"><asp:TextBox ID="txt_FollowUpComment" runat="server" 
-                TextMode="MultiLine"></asp:TextBox>
+        <td rowspan="2" width="30%">
+            <asp:TextBox ID="txt_FollowUpComment" runat="server" 
+                TextMode="MultiLine" MaxLength="8000"></asp:TextBox>
         </td>
     </tr>    
     <tr>
@@ -129,7 +138,8 @@
                 onclick="btn_Save_Click" />
         </td>
         <td colspan="2" align="left">
-            <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CssClass="MyButton" />
+            <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CssClass="MyButton" 
+                onclick="btn_Cancel_Click" />
         </td>
     </tr>  
 </table>

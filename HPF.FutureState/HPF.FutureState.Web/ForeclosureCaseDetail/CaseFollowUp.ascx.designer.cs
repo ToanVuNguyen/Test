@@ -14,6 +14,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
     public partial class CaseFollowUp {
         
         /// <summary>
+        /// hfAction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfAction;
+        
+        /// <summary>
         /// errorList control.
         /// </summary>
         /// <remarks>
@@ -95,13 +104,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.DropDownList ddl_FollowUpOutcome;
         
         /// <summary>
-        /// txtCreditDt control.
+        /// txt_CreditReportDt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreditDt;
+        protected global::System.Web.UI.WebControls.TextBox txt_CreditReportDt;
         
         /// <summary>
         /// ddl_DelinqencyStatus control.

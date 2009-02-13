@@ -1323,11 +1323,14 @@ namespace HPF.FutureState.DataAccess
                     {
                         results = new ServicerDTOCollection();
                         while (reader.Read())
-                        {
-                            var item = new ServicerDTO();
-                            item.ServicerID = ConvertToInt(reader["servicer_id"]);
-                            item.ServicerName = ConvertToString(reader["servicer_name"]);
-                            results.Add(item);
+                        {                            
+                            if (ConvertToInt(reader["servicer_id"]) != -1)
+                            {
+                                var item = new ServicerDTO();
+                                item.ServicerID = ConvertToInt(reader["servicer_id"]);
+                                item.ServicerName = ConvertToString(reader["servicer_name"]);
+                                results.Add(item);
+                            }
                         }
                         reader.Close();
                     }

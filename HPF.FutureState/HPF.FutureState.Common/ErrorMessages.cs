@@ -260,6 +260,8 @@ namespace HPF.FutureState.Common
 
         public const string ERR0701 = "ERR0701";
         public const string ERR0702 = "ERR0702";
+        public const string ERR0703 = "ERR0703";
+        public const string ERR0704 = "ERR0704";
 
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
@@ -540,6 +542,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"Reconciliation\" tab cannot be located.");
                 errorMessageDict.Add(ERR0701, "Audit date must be in the range [1-1-1753, 12-31-9999].");
                 errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
+                errorMessageDict.Add(ERR0703, "Follow-Up Date is required to save the case.");
+                errorMessageDict.Add(ERR0704, "Follow-Up Source is required to save the case.");
 
 
                 //
