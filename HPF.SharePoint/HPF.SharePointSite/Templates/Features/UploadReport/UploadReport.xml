@@ -5,6 +5,6 @@
       Location="Microsoft.SharePoint.StandardMenu"
       GroupId="UploadMenu"
       Title="HPF Upload">
-    <UrlAction Url="_layouts/MultiUpload.aspx?ListId={ListId}"/>
+    <UrlAction Url="javascript:window.location= '{SiteUrl}/_layouts/MultiUpload.aspx?List={ListId}&amp;Source=' + window.location"/>
   </CustomAction>
 </Elements>

@@ -79,7 +79,7 @@ namespace HPF.SharePointAPI
         {
             _contentLength = postedFile.ContentLength;
             _contentType = postedFile.ContentType;
-            _fileName = postedFile.FileName;
+            _fileName = Path.GetFileName(postedFile.FileName);
             _inputStream = postedFile.InputStream;
             _checkInComment = checkInComment;
             _overwriteIfExists = overwriteIfExists;
