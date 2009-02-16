@@ -31,8 +31,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         static string prop_zip = "68686";
         static string ssn = "6868";
-        static string agency_case_number = "686868686868";
-        static string first_name = "Test data";
+        static string agency_case_number = "686868";
+        static string first_name = "Test data"; //"~`&-_=+[]\"',./\\";  //"~`!@#$%^&*()-_=+";//
         static int agency_id = 2;
         static string acct_num = "acct_num6868";
         static string working_user_id = "utest_FC_test_12345";
@@ -270,7 +270,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.PropertyZip = prop_zip;
+            //searchCriteria.PropertyZip = prop_zip;
             searchCriteria.AgencyCaseNumber = agency_case_number;
 
             int expected = SearchFcCase_GetFcID();
@@ -287,7 +287,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
-            searchCriteria.AgencyCaseNumber = "123421";
+            searchCriteria.AgencyCaseNumber = "123-4*56";//"123421";
             var actual = target.SearchForeclosureCase(searchCriteria, 50);
             
             Assert.AreNotEqual(actual, null);
@@ -2074,21 +2074,22 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         }
 
         #region script to manually work with db
-//        select * from case_loan where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//Select * from servicer where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//Select * from agency where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//Select * from outcome_type where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//Select * from outcome_item where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//Select fc_id, prop_zip from foreclosure_case where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//select * from case_loan where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//Select * from servicer where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//Select * from agency where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//Select * from outcome_type where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//Select * from outcome_item where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//Select fc_id, prop_zip from foreclosure_case where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
 
 
-//delete from case_loan where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//delete from activity_log where fc_id in (select fc_id from foreclosure_case where prop_zip = '68686')
-//delete from outcome_item where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//delete from outcome_type where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//delete from foreclosure_case where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//delete from agency where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
-//delete from servicer where chg_lst_user_id = 'utest_FC_test_12345' or chg_lst_user_id = 'utest_FC_test_12345_dupe'
+//delete from case_loan where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//delete from activity_log where fc_id in (select fc_id from foreclosure_case where create_user_id = 'utest_FC_test_12345_dupe')
+//delete from outcome_item where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//delete from case_post_counseling_status where outcome_type_id in (Select outcome_type_id from outcome_type where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe')
+//delete from outcome_type where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//delete from foreclosure_case where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//delete from agency where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
+//delete from servicer where create_user_id = 'utest_FC_test_12345' or create_user_id = 'utest_FC_test_12345_dupe'
         #endregion
     }
 }
