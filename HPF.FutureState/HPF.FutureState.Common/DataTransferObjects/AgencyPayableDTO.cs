@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         //---------------
         public int? AgencyPayableId { get; set; }
         //---------------view/edit agency payable
-        public string PayableNum { get; set; }
+        public int? PayableNum { get; set; }
         public AgencyPayableCaseDTOCollection AgencyPayableCases { get; set; }
     }
 }

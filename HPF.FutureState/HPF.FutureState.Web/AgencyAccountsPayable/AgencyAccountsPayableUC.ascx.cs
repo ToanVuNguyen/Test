@@ -165,7 +165,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     //searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
                     //searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
                     //agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
-                    agency=(AgencyPayableDTOCollection)Session["agency"];
+                    agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
                     agency[selectedrow].StatusCode = "Cancel";

@@ -47,11 +47,11 @@ namespace HPF.FutureState.BusinessLogic
         /// Get State Name and State ID to display in DDLB
         /// </summary>
         /// <returns>StateDTOCollection containts all State</returns>
-        public StateDTOCollection GetState()
-        {
-            StateDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetState();
-            return result;
-        }
+        //public StateDTOCollection GetState()
+        //{
+        //    StateDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetState();
+        //    return result;
+        //}
         /// <summary>
         /// Get Agency Name and Agency ID to display in DDLB
         /// </summary>

@@ -45,7 +45,7 @@
         <asp:BoundField HeaderText="Paid Date" DataField="PaidDate" DataFormatString="{0:d}" />
         <asp:BoundField HeaderText="Reject Reason" DataField="PaymentRejectReasonCode" />
         </Columns>    
-        <EmptyDataTemplate>There is no data match</EmptyDataTemplate>   
+        <EmptyDataTemplate>There is no billing information</EmptyDataTemplate>   
         </asp:GridView>
         </td>
         </tr>
@@ -84,7 +84,7 @@
         <asp:BoundField HeaderText="Pay Amt" DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  />
         <asp:BoundField HeaderText="NFMC Diff Pd" DataField="NFMCDifferenceEligibleInd" />
         </Columns>
-        <EmptyDataTemplate>There is no data match</EmptyDataTemplate>
+        <EmptyDataTemplate>There is not payment information</EmptyDataTemplate>
         </asp:GridView>
         </td>
         </tr>

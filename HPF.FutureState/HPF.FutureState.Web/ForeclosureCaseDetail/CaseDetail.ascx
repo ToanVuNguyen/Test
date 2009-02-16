@@ -346,8 +346,7 @@
                                 <td>
                                     &nbsp;</td>
                             </tr>
-                        </table>
-                        <table style="width:100%;">
+                       
                             <tr>
                                 <td colspan="2">
                                    <h1>Contact Address:</h1></td>

@@ -354,7 +354,7 @@ namespace HPF.FutureState.DataAccess
                     payable.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["period_start_dt"]).Value;
                     payable.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["period_end_dt"]).Value;
                     payable.PaymentComment = ConvertToString(reader["pmt_comment"]);
-                    
+                    payable.PayableNum = ConvertToInt(reader["agency_payable_id"]);
                     result.Payable=payable;
 
                     reader.NextResult();
@@ -391,6 +391,38 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
             return result;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="invoicePayment"></param>
+        public void TakebackMarkCase(string takebackReason,string agencyPayableIdCol)
+        {
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_agency_payable_case_update", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[6];
+            sqlParam[0] = new SqlParameter("@pi_update_flag", 0);
+            sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIdCol);
+            sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", takebackReason);
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", null);
+            sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", null);
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name", null);
+            
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally {
+                dbConnection.Close();
+            }
         }
        
         #endregion

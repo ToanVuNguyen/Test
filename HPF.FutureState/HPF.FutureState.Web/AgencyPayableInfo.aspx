@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  MasterPageFile="~/Site.Master"  CodeBehind="AgencyPayableInfo.aspx.cs" Inherits="HPF.FutureState.Web.AppViewEditAgencyPayable" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true"  MasterPageFile="~/Site.Master"  CodeBehind="AgencyPayableInfo.aspx.cs" Inherits="HPF.FutureState.Web.AppViewEditAgencyPayable" Title="Agency Payable Info" %>
 
 <%@ Register src="AppNewPayable/ViewEditAgencyPayable.ascx" tagname="ViewEditAgencyPayable" tagprefix="uc1" %>
 

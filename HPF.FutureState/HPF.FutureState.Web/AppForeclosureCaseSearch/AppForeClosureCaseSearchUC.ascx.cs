@@ -95,12 +95,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindStateDropdownlist()
         {
-            StateDTOCollection stateCollection = LookupDataBL.Instance.GetState();
+             RefCodeItemDTOCollection stateCol= LookupDataBL.Instance.GetRefCode("state");
             //Bind data
-            ddlPropertyState.DataValueField = "StateName";
-            ddlPropertyState.DataTextField = "StateName";
-            ddlPropertyState.DataSource = stateCollection;
+            ddlPropertyState.DataValueField = "code";
+            ddlPropertyState.DataTextField = "code";
+            ddlPropertyState.DataSource = stateCol;
             ddlPropertyState.DataBind();
+            ddlPropertyState.Items.Insert(0,new ListItem("ALL","ALL"));
         }
         protected void BindAgencyDropdownlist()
         {
@@ -128,7 +129,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlServicer.DataTextField = "ServicerName";
             ddlServicer.DataSource = servicerCollection;
             ddlServicer.DataBind();
-            ddlServicer.Items.FindByText("ALL").Selected = true;
+            ddlServicer.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -281,7 +282,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             BindGrvForeClosureCaseSearch(1);
             //calculate totalpage from search data to display warning message if there are greater than 500 cases.
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            if (totalpage > 10) lblErrorMessage.Text = ErrorMessages.WARN0500;
+            if (totalpage > 10) lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
             //every click search button, set 
             this.PageNum = 0;
             lbtnLast.Enabled = true;
@@ -306,9 +307,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 DateTime datecompare = DateTime.Today.AddYears(-1);
                 int result = DateTime.Compare(datecompare, datecounseled);
                 //datecompare is later than datecounseled--> counseled <1 yr
-                if (result > 0) lblcounseled.Text = "<1 yr";
+                if (result > 0||datecounseled==null) lblcounseled.Text = ">1 yr";
                 //datecompare is earlier than datecounseled--> counseled >1 yr
-                else lblcounseled.Text = ">1 yr";
+                else lblcounseled.Text = "<1 yr";
 
             }
         }

@@ -271,7 +271,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
             foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
             //couselor notes
-            foreclosureCase.DfltReason1stCd = txtReasonNote.Text;
+            foreclosureCase.LoanDfltReasonNotes = txtReasonNote.Text;
             foreclosureCase.ActionItemsNotes = txtItemNotes.Text;
             foreclosureCase.FollowupNotes = txtFollowUpNotes.Text;
             //Opt In/Out

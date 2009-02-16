@@ -48,7 +48,7 @@
             <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100" CssClass="Text"></asp:TextBox>
         </td>
         <td>
-            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List" Width="100px"
+            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List" Width="120px"
                 CssClass="MyButton" OnClick="btnRefreshList_Click" />
         </td>
     </tr>
@@ -115,20 +115,20 @@
             <table style="vertical-align: top;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="100px" CssClass="MyButton"
+                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="120px" CssClass="MyButton"
                             OnClick="btnNewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Button ID="btnViewPayable" runat="server" Text="View/Edit Payable" CssClass="MyButton"
-                            Width="100px" OnClick="btnViewPayable_Click" />
+                            Width="120px" OnClick="btnViewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton"
-                            Width="100px" OnClick="btnCancelPayable_Click" />
+                            Width="120px" OnClick="btnCancelPayable_Click" />
                     </td>
                 </tr>
             </table>

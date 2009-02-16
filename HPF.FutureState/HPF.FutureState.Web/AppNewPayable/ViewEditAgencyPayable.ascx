@@ -6,9 +6,24 @@
 </asp:ScriptManager>
 <%--<asp:UpdatePanel runat="server">
     <ContentTemplate>--%>
+        <style type="text/css">
+            .style1
+            {
+                height: 34px;
+            }
+        </style>
         <table style="width: 100%;">
+        <colgroup>
+        <col width="15%" />
+        <col width="10%" />
+        <col width="25%" />
+        <col width="10%" />
+        <col width="15%" />
+        <col width="10" />
+        <col width="15%" />
+        </colgroup>    
             <tr>
-                <td colspan="8" align="center">
+                <td colspan="8" align="center" class="style1">
                     <h1>
                         View/Edit Agency Payable</h1>
                 </td>
@@ -35,13 +50,13 @@
                     Takeback Reason:
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlTakebackReason" runat="server" CssClass="Text">
+                    <asp:DropDownList ID="ddlTakebackReason" runat="server" CssClass="Text" Width="100px">
                     </asp:DropDownList>
                 </td>
                 <td align="center">
                     <span onclick="return confirm('Are you sure you wish to reject the selected case(s)?')">
                         <asp:Button ID="btnTakeBackMarkCase" runat="server" CssClass="MyButton" Text="Takeback Marked Cases"
-                            Width="130px" OnClick="btnTakeBackMarkCase_Click" />
+                            Width="150px" OnClick="btnTakeBackMarkCase_Click" />
                     </span>
                 </td>
             </tr>
@@ -67,7 +82,7 @@
                 <td align="center">
                     <span onclick="return confirm('Are you sure you wish to pay the selected case(s)?')">
                         <asp:Button ID="btnPayUnpayMarkCase" runat="server" CssClass="MyButton" Text="Pay/Unpay Marked Cases"
-                            Width="130px" onclick="btnPayUnpayMarkCase_Click" />
+                            Width="150px" onclick="btnPayUnpayMarkCase_Click" />
                     </span>
                 </td>
             </tr>
@@ -78,21 +93,19 @@
                 <td class="Text">
                     <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text" Text="11/30/2008"></asp:Label>
                 </td>
-                <td align="right" class="sidelinks" colspan="2">
+                <td align="right" class="sidelinks" >
                     Total NFMC Up Charge Paid:
                 </td>
-                <td class="Text">
+                <td class="Text" colspan="2">
                     <asp:Label ID="lblTotalChargePaid" runat="server" Text="$15.00" CssClass="Text"  ></asp:Label></td>
                 <td align="right" class="sidelinks">
-                    HPF Payment ID:
-                </td>
+                    &nbsp;</td>
                 <td class="Text">
-                    <asp:TextBox ID="txtPaymentID" runat="server" ></asp:TextBox>
-                </td>
+                    &nbsp;</td>
                 <td align="center">
                     <span onclick="return confirm('Are you sure you wish to unpay the selected case(s)?')">
                         <asp:Button ID="btnReprintPayable" runat="server" CssClass="MyButton" Text="Reprint Payable"
-                            Width="130px" />
+                            Width="150px" />
                     </span>
                 </td>
             </tr>
@@ -190,7 +203,7 @@
                                         <asp:BoundField DataField="CompleteDt" HeaderText="Complete Dt." />
                                         <asp:BoundField DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
                                             HeaderText="Amount" />
-                                        <asp:BoundField DataField="LoanNumber" HeaderText="Loan Number" />
+                                        <asp:BoundField DataField="LoanNum" HeaderText="Loan Num" />
                                         <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
                                         <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
                                         <asp:BoundField DataField="NFMCDifferenceEligibleInd" HeaderText="NFMC?" />
@@ -203,10 +216,7 @@
                                         There is no data match !
                                     </EmptyDataTemplate>
                                 </asp:GridView>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </cc1:StatefullScrollPanel>
-                    <table width="100%">
+                                 <table width="100%">
                         <tr>
                             <td align="right" class="sidelinks">
                                 Total Cases:
@@ -228,7 +238,25 @@
                             </td>
                         </tr>
                     </table>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </cc1:StatefullScrollPanel>
+                    
+                   
                 </td>
+            </tr>
+            <tr  >
+            <td >
+             <table width="100%" >
+             <tr >
+             <td>
+             <asp:Button ID="btnClose" runat="server" CssClass="MyButton" Text="Close"
+                            Width="150px" />
+             </td>
+             </tr>
+             </table>
+             
+            </td>
             </tr>
         </table>
         

@@ -14,6 +14,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.Web.AppNewPayable
 {
@@ -48,8 +49,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                 
                 //Bind Agency Payable, from agencypaybleDTO.payable
                 lblAgency.Text = agencyPayableSet.Payable.AgencyName;
-                lblPeriodStart.Text = agencyPayableSet.Payable.PeriodStartDate.ToString();
-                lblPeriodEnd.Text = agencyPayableSet.Payable.PeriodEndDate.ToString();
+                lblPeriodStart.Text = agencyPayableSet.Payable.PeriodStartDate.Value.ToShortDateString();
+                lblPeriodEnd.Text = agencyPayableSet.Payable.PeriodEndDate.Value.ToShortDateString();
                 lblPayableNumber.Text = agencyPayableSet.Payable.PayableNum.ToString();
                 
                 //bind from agencypayableDTO
@@ -103,8 +104,55 @@ namespace HPF.FutureState.Web.AppNewPayable
         { 
         }
         protected void btnTakeBackMarkCase_Click(object sender, EventArgs e)
-        { 
+        {
+
+            string payableCaseIdCollection = GetSelectedRow();
+            string takebackReason = ddlTakebackReason.SelectedValue;
+
+            AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["agencyPayable"];
+            int? agencypayableid = agencyPayable.AgencyPayableId;
+            AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencypayableid);
+                
+            if (payableCaseIdCollection == null)
+            {
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0575");
+                return;
+            }
+            try
+            {
+                agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                AgencyPayableBL.Instance.TakebackMarkCase(takebackReason,payableCaseIdCollection);
+                BindViewEditPayable();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
+            }
+            
         }
+        protected string GetSelectedRow()
+        {
+            string result = "";
+            AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["agencyPayable"];
+            int? agencypayableid = agencyPayable.AgencyPayableId;
+            AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencypayableid);
+            
+            foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
+            {
+                CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
+                if (chkSelected != null)
+                    if (chkSelected.Checked == true)
+                    {
+                        result += agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ",";
+                        }
+            }
+            if (result == "")
+                return null;
+            result = result.Remove(result.LastIndexOf(","), 1);
+            return result;
+        }
+
         
     }
 }

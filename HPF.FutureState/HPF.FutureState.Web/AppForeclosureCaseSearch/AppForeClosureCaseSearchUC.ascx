@@ -165,21 +165,16 @@
                         </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="CaseDate" HeaderText="Case Date" DataFormatString="{0:dd/MM/yyyy}" />
-                        <asp:TemplateField HeaderText="Borrower Name">
-                            <ItemTemplate>
-                                <asp:Label ID="lblBorrowerName" runat="server" Text='<%#Eval("BorrowerFirstName")+","+Eval("BorrowerLastName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Last4SSN" HeaderText="SSN" />
-                        <asp:TemplateField HeaderText="Co-Borrower">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCoBorrowerName" runat="server" Text='<%#Eval("CoborrowerFirstName")+" "+Eval("CoborrowerLastName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="SSN" />
+                        <asp:BoundField DataField="LoanList" HeaderText="Loan List" />
+                        <asp:BoundField DataField="BorrowerFirstName" HeaderText="Borrower First Name" />
+                        <asp:BoundField DataField="BorrowerLastName" HeaderText="Borrower Last Name" />
+                        <asp:BoundField DataField="Last4SSN" HeaderText="Last 4 of SSN" />
+                        <asp:BoundField DataField="CoborrowerFirstName" HeaderText="Co-borrower First Name" />
+                        <asp:BoundField DataField="CoborrowerLastName" HeaderText="Co-borrower Last Name" />
+                        <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="Last 4 of SSN" />
                         <asp:TemplateField  HeaderText="Property Address">
                         <ItemTemplate>
-                        <asp:Label ID="lblPropertyAddress" runat="server" Text='<%#Eval("PropertyAddress")+","+Eval("PropertyCity")+","+Eval("PropertyState")+","+Eval("PropertyZip") %>'></asp:Label>
+                        <asp:Label ID="lblPropertyAddress" runat="server" Text='<%#Eval("PropertyAddress")+" , "+Eval("PropertyCity")+" , "+Eval("PropertyState")+" , "+Eval("PropertyZip") %>'></asp:Label>
                         </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="AgencyName" HeaderText="Agency Name" />
@@ -195,7 +190,7 @@
                         <asp:BoundField DataField="DaysDelinquent" HeaderText="Days Delinquent" />
                         <asp:BoundField DataField="BankruptcyIndicator" HeaderText="Bankrupcy Indicator" />
                         <asp:BoundField DataField="ForeclosureNoticeReceivedIndicator" HeaderText="Foreclosure Notice Received Indicator" />
-                        <asp:BoundField DataField="LoanList" HeaderText="Loan List" />
+                        
                     </Columns>
                     <EmptyDataTemplate>
                     There is no data match !
