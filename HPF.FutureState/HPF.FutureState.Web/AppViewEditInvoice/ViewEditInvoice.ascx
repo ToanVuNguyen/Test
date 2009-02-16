@@ -168,8 +168,7 @@
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
                                 <asp:GridView ID="grvViewEditInvoice" runat="server" CellPadding="2" ForeColor="#333333"
-                                    GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%"
-                                    SelectedRowStyle-BackColor="Yellow">
+                                    GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%">
                                     <RowStyle CssClass="RowStyle" />
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />

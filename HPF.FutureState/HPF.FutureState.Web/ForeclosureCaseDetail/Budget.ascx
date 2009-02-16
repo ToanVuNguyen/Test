@@ -55,7 +55,7 @@
                 <ItemTemplate>
                     <asp:Panel ID="Panel1" runat="server" Width="600">
                         <asp:GridView ID="grvIncome" runat="server" CellPadding="2" ForeColor="#333333" GridLines="Vertical"
-                            AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%" SelectedRowStyle-BackColor="Yellow">
+                            AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -83,7 +83,7 @@
             <asp:Panel ID="panelAsset" runat="server" CssClass="ScrollTable" Width="300" Height="90"
                 Visible="true">
                 <asp:GridView ID="grvAsset" runat="server" CellPadding="2" ForeColor="#333333" GridLines="Vertical"
-                    AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%" SelectedRowStyle-BackColor="Yellow">
+                    AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%">
                     <RowStyle CssClass="RowStyle" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -109,8 +109,7 @@
                 <ItemTemplate>
                     <asp:Panel runat="server" Width="600">
                         <asp:GridView ID="grvExpense" runat="server" CellPadding="2" ForeColor="#333333"
-                            GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="600"
-                            SelectedRowStyle-BackColor="Yellow">
+                            GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="600">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />

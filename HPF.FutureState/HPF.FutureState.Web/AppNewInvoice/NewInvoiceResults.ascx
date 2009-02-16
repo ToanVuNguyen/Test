@@ -75,7 +75,7 @@
                 BorderColor="Gray" BorderWidth="1px" Width="100%" >
                 <asp:GridView ID="grvNewInvoiceResults" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
-                    Width="100%"  SelectedRowStyle-BackColor="Yellow" 
+                    Width="100%" 
                     ondatabound="grvNewInvoiceResults_DataBound" 
                     onrowdatabound="grvNewInvoiceResults_RowDataBound" >
                     <RowStyle CssClass="RowStyle"  />

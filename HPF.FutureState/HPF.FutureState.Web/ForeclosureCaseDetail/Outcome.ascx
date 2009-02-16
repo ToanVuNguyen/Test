@@ -7,8 +7,7 @@
         <td>
             <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px">
                 <asp:GridView ID="grdvOutcomeItems" runat="server" CellPadding="2" ForeColor="#333333"
-                    GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle" 
-                    SelectedRowStyle-BackColor="Yellow" 
+                    GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                     
                     onrowcreated="grvForeClosureCaseSearch_RowCreated" 
                     onrowdatabound="grdvOutcomeItems_RowDataBound"                     
                     DataKeyNames="OutcomeItemId">

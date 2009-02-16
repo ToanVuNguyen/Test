@@ -14,7 +14,7 @@
                 <asp:Panel ID="pnlAudit" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
                 BorderColor="Gray" BorderWidth="1px" Width="820px">
                         <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
-                            GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle" SelectedRowStyle-BackColor="Yellow"
+                            GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle" 
                             DataKeyNames="CaseAuditId" OnRowCommand="grdvCaseAudit_RowCommand" OnRowCreated="grdvCaseAudit_RowCreated"
                             OnRowDataBound="grdvCaseAudit_RowDataBound" 
                             onselectedindexchanged="grdvCaseAudit_SelectedIndexChanged"
