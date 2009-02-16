@@ -38,6 +38,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     ddlOutcomeBinding();
                     ddlDelinquencyStatusBinding();
                     ddlStillInHomeBinding();
+
+                    GenerateDefaultData();
+
+                    btn_Cancel.Attributes.Add("onclick", "return ConfirmToCancel();");                    
                 }
             }
             catch (Exception ex)
@@ -46,6 +50,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
         }
 
+        #region BindDataToControl
         private void grdvCaseFollowUpBinding()
         {
             int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
@@ -83,7 +88,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         //Bind data to credir report bureau
         private void ddlCreditReportBureauBinding()
         {
-            ddl_CreditReportBureau .Items.Clear();
+            ddl_CreditReportBureau.Items.Clear();
             RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_CREDIR_BERREAU_CODE);
             ddl_CreditReportBureau.DataValueField = "Code";
             ddl_CreditReportBureau.DataTextField = "CodeDesc";
@@ -125,35 +130,26 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddl_StillInHome.Items.Add(new ListItem(Constant.INDICATOR_NO_FULL));
         }
 
+        protected void grd_FollowUpList_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            int idxIdColumn = 0;
+            e.Row.Cells[idxIdColumn].Visible = false;
+
+        }
+
         private CaseFollowUpDTOCollection RetrieveCaseFollowUps(int fcid)
         {
             return CaseFollowUpBL.Instance.RetrieveCaseFollowUps(fcid);
-        }
-
-        private void ApplySecurity()
-        {
-            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
-            {
-                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
-            }
-            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
-            {
-                //btnDelete.Enabled = false;
-                //btnReinstate.Enabled = false;
-            }
-            else
-            {
-                //btnDelete.Enabled = true;
-                //btnReinstate.Enabled = true;
-            }
-        }
-
+        }   
+        #endregion
+        
+        #region ButtonClick
         protected void btn_Save_Click(object sender, EventArgs e)
-        {           
-            if(string.IsNullOrEmpty(hfAction.Value))
+        {
+            if (string.IsNullOrEmpty(hfAction.Value))
             {
                 hfAction.Value = ACTION_INSERT;
-            }            
+            }
             var caseFollowUp = CreateCaseFollowUpDTO();
             var msgFollowUp = ValidateFollowUpDTO(caseFollowUp);
             if (msgFollowUp.Count == 0)
@@ -168,16 +164,52 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
             else
             {
-                ArrayList err = new ArrayList();                
+                ArrayList err = new ArrayList();
                 foreach (ExceptionMessage item in msgFollowUp)
                 {
                     err.Add(item.Message);
                 }
                 errorList.DataSource = err;
                 errorList.DataBind();
-            }                       
+            }
+        }
+        
+        protected void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            btn_Save_Click(sender, e);            
+        }        
+
+        protected void btn_New_Click(object sender, EventArgs e)
+        {
+            hfAction.Value = ACTION_INSERT;
+            GenerateDefaultData();
         }
 
+        protected void grd_FollowUpList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName.ToUpper() == "Select".ToUpper())
+            {
+                int index = int.Parse(e.CommandArgument.ToString());
+                CaseFollowUpDTO caseFollowUp = ((CaseFollowUpDTOCollection)grd_FollowUpList.DataSource)[index];
+                Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
+                CaseFollowUpDTOToForm(caseFollowUp);
+                hfAction.Value = ACTION_UPDATE;
+            }
+        }
+
+        private void ClearControls()
+        {
+            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
+                ddl.Text = string.Empty;
+            txt_CreditReportDt.Text = string.Empty;
+            txt_CreditScore.Text = string.Empty;
+            txt_FollowUpComment.Text = string.Empty;
+            txt_FollowUpDt.Text = string.Empty;
+            hfAction.Value = null;
+        }    
+        #endregion
+
+        #region GenerateData
         private CaseFollowUpDTO CreateCaseFollowUpDTO()
         {
             int? id = null;
@@ -216,69 +248,71 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             return caseFollowUp;
         }
-
-        protected void btn_Cancel_Click(object sender, EventArgs e)
-        {            
-            ClearControls();
-        }
-
-        private void ClearControls()
-        {
-            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
-                ddl.Text = string.Empty;
-            txt_CreditReportDt.Text = string.Empty;
-            txt_CreditScore.Text = string.Empty;
-            txt_FollowUpComment.Text = string.Empty;
-            txt_FollowUpDt.Text = string.Empty;
-            hfAction.Value = null;
-        }
-
-        protected void grd_FollowUpList_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName.ToUpper() == "Select".ToUpper())
-            {
-                int index = int.Parse(e.CommandArgument.ToString());
-                CaseFollowUpDTO caseFollowUp = ((CaseFollowUpDTOCollection)grd_FollowUpList.DataSource)[index];
-                Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
-                CaseFollowUpDTOToForm(caseFollowUp);
-                hfAction.Value = ACTION_UPDATE;                
-            }
-        }
-
+        
         private void CaseFollowUpDTOToForm(CaseFollowUpDTO caseFollowUp)
         {
             if (caseFollowUp != null)
             {
-                txt_FollowUpDt.Text = (caseFollowUp.FollowUpDt.HasValue) ? caseFollowUp.FollowUpDt.Value.Date.ToString() : string.Empty;
+                txt_FollowUpDt.Text = (caseFollowUp.FollowUpDt.HasValue) ? caseFollowUp.FollowUpDt.Value.Date.ToString("MM/dd/yyyy") : string.Empty;
                 txt_CreditScore.Text = caseFollowUp.CreditScore;
-                ddl_FollowUpSource.SelectedIndex = ddl_FollowUpSource.Items.IndexOf(ddl_FollowUpSource.Items.FindByText(caseFollowUp.FollowUpSourceCd));
-                ddl_CreditReportBureau.SelectedIndex = ddl_CreditReportBureau.Items.IndexOf(ddl_CreditReportBureau.Items.FindByText(caseFollowUp.CreditBureauCd));
-                ddl_FollowUpOutcome.SelectedIndex = ddl_FollowUpOutcome.Items.IndexOf(ddl_FollowUpOutcome.Items.FindByText(caseFollowUp.OutcomeTypeName));
-                txt_CreditReportDt.Text = (caseFollowUp.CreditReportDt.HasValue) ? caseFollowUp.CreditReportDt.Value.Date.ToString() : string.Empty;
-                ddl_DelinqencyStatus.SelectedIndex = ddl_DelinqencyStatus.Items.IndexOf(ddl_DelinqencyStatus.Items.FindByText(caseFollowUp.LoanDelinqStatusCd));
+                ddl_FollowUpSource.SelectedIndex = ddl_FollowUpSource.Items.IndexOf(ddl_FollowUpSource.Items.FindByValue(caseFollowUp.FollowUpSourceCd));
+                ddl_CreditReportBureau.SelectedIndex = ddl_CreditReportBureau.Items.IndexOf(ddl_CreditReportBureau.Items.FindByValue(caseFollowUp.CreditBureauCd));
+                ddl_FollowUpOutcome.SelectedIndex = ddl_FollowUpOutcome.Items.IndexOf(ddl_FollowUpOutcome.Items.FindByValue(caseFollowUp.OutcomeTypeId.ToString()));
+                txt_CreditReportDt.Text = (caseFollowUp.CreditReportDt.HasValue) ? caseFollowUp.CreditReportDt.Value.Date.ToString("MM/dd/yyyy") : string.Empty;
+                ddl_DelinqencyStatus.SelectedIndex = ddl_DelinqencyStatus.Items.IndexOf(ddl_DelinqencyStatus.Items.FindByValue(caseFollowUp.LoanDelinqStatusCd));
                 txt_FollowUpComment.Text = caseFollowUp.FollowUpComment;
-                ddl_StillInHome.Text = GetIndicatorLongValue(caseFollowUp.StillInHouseInd);
+                ddl_StillInHome.SelectedIndex = ddl_StillInHome.Items.IndexOf(ddl_StillInHome.Items.FindByText(GetIndicatorLongValue(caseFollowUp.StillInHouseInd)));
             }
-        }
-
-        protected void grd_FollowUpList_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            int idxIdColumn = 0;
-            e.Row.Cells[idxIdColumn].Visible = false;
-
-        }
-
-        protected void btn_New_Click(object sender, EventArgs e)
-        {
-            hfAction.Value = ACTION_INSERT;            
-            GenerateDefaultData();
         }
 
         private void GenerateDefaultData()
         {
-            txt_FollowUpDt.Text = DateTime.Now.Date.ToString();
+            txt_FollowUpDt.Text = DateTime.Now.ToString("MM/dd/yyyy");
+            ddl_FollowUpSource.SelectedIndex = ddl_FollowUpSource.Items.IndexOf(ddl_FollowUpSource.Items.FindByValue("HPF"));
+            ddl_FollowUpOutcome.SelectedIndex = ddl_FollowUpOutcome.Items.IndexOf(ddl_FollowUpOutcome.Items.FindByText(string.Empty));
+            ddl_DelinqencyStatus.SelectedIndex = ddl_DelinqencyStatus.Items.IndexOf(ddl_DelinqencyStatus.Items.FindByText(string.Empty));
+            ddl_StillInHome.SelectedIndex = ddl_StillInHome.Items.IndexOf(ddl_StillInHome.Items.FindByText(string.Empty));
+            txt_CreditScore.Text = string.Empty;
+            ddl_CreditReportBureau.SelectedIndex = ddl_CreditReportBureau.Items.IndexOf(ddl_CreditReportBureau.Items.FindByText(string.Empty));
+            txt_CreditReportDt.Text = string.Empty;
+        }
+        #endregion
+
+        #region Sercurity
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
+            }
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+            {
+                SetControlEnable(false);
+            }
+            else
+            {
+                SetControlEnable(true);
+            }
         }
 
+        private void SetControlEnable(bool status)
+        {
+            btn_New.Enabled = status;
+            btn_Save.Enabled = status;
+            btn_Cancel.Enabled = status;
+            txt_FollowUpDt.Enabled = status;
+            ddl_FollowUpSource.Enabled = status;
+            ddl_FollowUpOutcome.Enabled = status;
+            ddl_DelinqencyStatus.Enabled = status;
+            ddl_StillInHome.Enabled = status;
+            txt_CreditScore.Enabled = status;
+            ddl_CreditReportBureau.Enabled = status;
+            txt_CreditReportDt.Enabled = status;
+            txt_FollowUpComment.Enabled = status;
+        }
+        #endregion
+
+        #region ValidateData
         private ExceptionMessageCollection ValidateFollowUpDTO(CaseFollowUpDTO followUp)
         {
             var msgFolowUp = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(followUp, Constant.RULESET_FOLLOW_UP) };
@@ -293,7 +327,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
             return msgFolowUp;
         }
+        #endregion
 
+        #region Utility
         private DateTime ConvertToDateTime(object obj)
         {
             DateTime dt;
@@ -311,5 +347,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
             return string.Empty;
         }
+        
+        public string msgWARN0450
+        {
+            get
+            {
+                Object msg = ViewState["msgWARN0450"];
+                return (msg == null) ? ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450) : (string)msg;
+            }            
+        }                      
+        #endregion
     }
 }

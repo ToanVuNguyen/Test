@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseFollowUp.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseFollowUp" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+
 <asp:HiddenField ID="hfAction" runat="server" />
 <br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
@@ -82,52 +83,52 @@
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Date*: </td>
         <td align="left">
-            <asp:TextBox ID="txt_FollowUpDt" width="30%" runat="server" MaxLength="10"></asp:TextBox>
+            <asp:TextBox ID="txt_FollowUpDt" width="30%" runat="server" MaxLength="10" CssClass="Text"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks"  width="20%">Credit Score: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditScore" width="30%" runat="server" MaxLength="4"></asp:TextBox>
+            <asp:TextBox ID="txt_CreditScore" width="30%" runat="server" MaxLength="4" CssClass="Text"></asp:TextBox>
         </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Source*: </td>
         <td align="left"  width="30%">
-            <asp:DropDownList ID="ddl_FollowUpSource" runat="server">
+            <asp:DropDownList ID="ddl_FollowUpSource" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Bureau: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_CreditReportBureau" runat="server">
+            <asp:DropDownList ID="ddl_CreditReportBureau" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Outcome: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server">
+            <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Date: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="30%" MaxLength="10"></asp:TextBox>
+            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="30%" MaxLength="10" CssClass="Text"></asp:TextBox>
         </td>
     </tr>    
     <tr>
         <td align="right" class="sidelinks" width="20%">Delinquency Status: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_DelinqencyStatus" runat="server">
+            <asp:DropDownList ID="ddl_DelinqencyStatus" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Follow-Up Comment: </td>        
         <td rowspan="2" width="30%">
-            <asp:TextBox ID="txt_FollowUpComment" runat="server" 
+            <asp:TextBox ID="txt_FollowUpComment" runat="server"  CssClass="Text"
                 TextMode="MultiLine" MaxLength="8000"></asp:TextBox>
         </td>
     </tr>    
     <tr>
         <td align="right" class="sidelinks" width="20%">Still in Home?: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_StillInHome" runat="server">
+            <asp:DropDownList ID="ddl_StillInHome" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>        
         <td>&nbsp;</td>        
@@ -143,3 +144,83 @@
         </td>
     </tr>  
 </table>
+
+<script type="text/javascript" language="javascript">
+    var msfWARN0450 = '<%= msgWARN0450 %>';    
+    
+    var followUpDate = document.getElementById('<%=txt_FollowUpDt.ClientID %>');
+    var creditScore = document.getElementById('<%=txt_CreditScore.ClientID %>');
+    var followUpSource = document.getElementById('<%=ddl_FollowUpSource.ClientID %>');
+    var creditReportBureau = document.getElementById('<%=ddl_CreditReportBureau.ClientID %>');        
+    var followUpOutcome = document.getElementById('<%=ddl_FollowUpOutcome.ClientID %>');        
+    var creditReportDt = document.getElementById('<%=txt_CreditReportDt.ClientID %>');        
+    var delinqencyStatus = document.getElementById('<%=ddl_DelinqencyStatus.ClientID %>');
+    var followUpComment = document.getElementById('<%=txt_FollowUpComment.ClientID %>');
+    var stillInHome = document.getElementById('<%=ddl_StillInHome.ClientID %>');
+    var CaseFollowUp = function(followUpDate, creditScore, followUpSource, creditReportBureau, followUpOutcome, 
+    creditReportDt, delinqencyStatus, followUpComment, stillInHome)
+    {        
+        this.FollowUpDate = followUpDate;
+        this.CreditScore = creditScore;
+        this.FollowUpSource = followUpSource;        
+        this.CreditReportBureau = creditReportBureau;
+        this.FollowUpOutcome = followUpOutcome;
+        this.CreditReportDt = creditReportDt;
+        this.DelinqencyStatus = delinqencyStatus;
+        this.FollowUpComment = followUpComment;
+        this.StillInHome = stillInHome;
+    }
+    
+    var caseFollowUpBefore = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
+            , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);
+    var caseFollowUpAfter = new CaseFollowUp();
+    function ConfirmToCancel()
+    {   
+        caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
+            , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
+        if(CompareCaseFollowUpObject(caseFollowUpAfter))
+        {            
+             if (confirm(msfWARN0450)==true)
+                return true;
+             else
+                return false;         
+        }
+        else
+        {            
+            ClearAllControl();
+            return false;
+        }
+    }
+    
+    function CompareCaseFollowUpObject(caseFollowUpAfter)
+    {
+        if(caseFollowUpAfter.FollowUpDate != caseFollowUpBefore.FollowUpDate
+            ||  caseFollowUpAfter.FollowUpDate != caseFollowUpBefore.FollowUpDate
+            ||  caseFollowUpAfter.CreditScore != caseFollowUpBefore.CreditScore
+            ||  caseFollowUpAfter.FollowUpSource != caseFollowUpBefore.FollowUpSource  
+            ||  caseFollowUpAfter.CreditReportBureau != caseFollowUpBefore.CreditReportBureau
+            ||  caseFollowUpAfter.FollowUpOutcome != caseFollowUpBefore.FollowUpOutcome
+            ||  caseFollowUpAfter.CreditReportDt != caseFollowUpBefore.CreditReportDt
+            ||  caseFollowUpAfter.DelinqencyStatus != caseFollowUpBefore.DelinqencyStatus
+            ||  caseFollowUpAfter.FollowUpComment != caseFollowUpBefore.FollowUpComment
+            ||  caseFollowUpAfter.StillInHome != caseFollowUpBefore.StillInHome
+        )
+            return true;
+        else
+            return false;
+    }
+    
+    function ClearAllControl()
+    {
+        followUpDate.value = "";
+        creditScore.value = "";
+        followUpSource.value = "";
+        creditReportBureau.value = "";
+        followUpOutcome.value = "";
+        creditReportDt.value = "";
+        delinqencyStatus.value = "";
+        followUpComment.value = "";
+        stillInHome.value = "";
+        CaseFollowUp.value = "";
+    }
+</script>

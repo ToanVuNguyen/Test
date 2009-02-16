@@ -3,13 +3,13 @@
 <div class="sidelinks"><h1>Loan Details:</h1></div>
 <Div style="Height:210px;Overflow:Auto">
 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
-<asp:DataList ID="dtlCaseLoan" runat="server" Width=100% >        
+<asp:DataList ID="dtlCaseLoan" runat="server" Width=100%>        
     <ItemTemplate>
         <tr>
-            <td align="right" class="sidelinks">Loan Number*: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "AcctNum")%></td>
-            <td align="right" class="sidelinks">Current Loan Balance: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "CurrentLoanBalanceAmt", "{0:C}")%></td>
+            <td align="right" class="sidelinks" width="20%">Loan Number*: </td>
+            <td align="left"  width="30%"><%# DataBinder.Eval(Container.DataItem, "AcctNum")%></td>
+            <td align="right" class="sidelinks"  width="20%">Current Loan Balance: </td>
+            <td align="left"  width="30%"><%# DataBinder.Eval(Container.DataItem, "CurrentLoanBalanceAmt", "{0:C}")%></td>
         </tr>
         <tr>
             <td align="right" class="sidelinks">Servicer*: </td>
