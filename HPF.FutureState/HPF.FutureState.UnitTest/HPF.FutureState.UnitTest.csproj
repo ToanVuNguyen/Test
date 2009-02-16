@@ -57,6 +57,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\CaseAuditBLTest.cs" />
+    <Compile Include="DataAccess\CaseAuditDAOTest.cs" />
     <Compile Include="DataAccess\CaseFollowUpDAOTest.cs" />
     <Compile Include="DataAccess\AccountingDAOTest.cs" />
     <Compile Include="DataAccess\BudgetDAOTest.cs" />
