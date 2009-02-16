@@ -20,7 +20,8 @@
                     BorderStyle="Inset" BorderColor="Gray" BorderWidth="0px" Height="100%" Width="820px">
                         <asp:GridView ID="grd_FollowUpList" runat="server" 
                         CellPadding="2" ForeColor="#333333"
-                        GridLines="Vertical" AutoGenerateColumns="False"                         
+                        GridLines="Vertical" AutoGenerateColumns="False" 
+                        SelectedRowStyle-BackColor="Yellow" 
                         DataKeyNames="CasePostCounselingStatusId"
                         onrowcommand="grd_FollowUpList_RowCommand" 
                         onrowcreated="grd_FollowUpList_RowCreated" Width="100%">
@@ -182,7 +183,10 @@
              if (confirm(msfWARN0450)==true)
                 return true;
              else
+             {
+                ClearAllControl();
                 return false;         
+             }
         }
         else
         {            
