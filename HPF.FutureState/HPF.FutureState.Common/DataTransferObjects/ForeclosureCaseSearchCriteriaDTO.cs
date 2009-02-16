@@ -106,6 +106,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         private string ProcessSQLSpecialCharacter(string sInput)
         {
+            sInput = sInput.Replace("/", "//");
             sInput = sInput.Replace("%", "/%");
             sInput = sInput.Replace("_", "/_");
             sInput = sInput.Replace("[", "/[");
