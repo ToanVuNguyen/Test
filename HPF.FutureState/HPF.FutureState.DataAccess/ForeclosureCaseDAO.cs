@@ -310,14 +310,48 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(" AND foreclosure_case.fc_id = case_loan.fc_id");
             whereClause.Append(" AND case_loan.servicer_id = servicer.servicer_id");
             whereClause.Append(" AND case_loan.loan_1st_2nd_cd = '1st'");
-            whereClause.Append((searchCriteria.AgencyCaseNumber == null) ? "" : " AND agency_case_num = @pi_agency_case_num");
-            whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')");
-            whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_borrower_lname  ESCAPE '/' OR co_borrower_lname like @pi_borrower_lname  ESCAPE '/')");
+            //whereClause.Append((searchCriteria.AgencyCaseNumber == null) ? "" : " AND agency_case_num like @pi_agency_case_num ESCAPE '/'");
+            //whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')");
+            //whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_borrower_lname  ESCAPE '/' OR co_borrower_lname like @pi_borrower_lname  ESCAPE '/')");
+            whereClause.Append(ParsingAgencyCaseNumber(searchCriteria.AgencyCaseNumber));
+            whereClause.Append(ParsingFirstName(searchCriteria.FirstName));
+            whereClause.Append(ParsingLastName(searchCriteria.LastName));
             whereClause.Append((searchCriteria.Last4_SSN == null) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : " AND case_loan.acct_num = @pi_loan_number");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND prop_zip = @pi_prop_zip");
             
             return whereClause.ToString();
+        }
+
+        private string ParsingAgencyCaseNumber(string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+                s = ContainingSQLSpecialCharacter(s) ? " AND agency_case_num like @pi_agency_case_num ESCAPE '/'" : " AND agency_case_num = @pi_agency_case_num";
+            return s;
+        }
+
+        private string ParsingFirstName(string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+                s = ContainingSQLSpecialCharacter(s) ? " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')"
+                                                    : " AND (borrower_fname = @pi_borrower_fname OR co_borrower_fname = @pi_borrower_fname)";
+            return s;
+        }
+
+        private string ParsingLastName(string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+                s = ContainingSQLSpecialCharacter(s) ? " AND (borrower_lname like @pi_borrower_lname  ESCAPE '/' OR co_borrower_lname like @pi_borrower_lname  ESCAPE '/')"
+                                                    : " AND (borrower_lname = @pi_borrower_lname OR co_borrower_lname = @pi_borrower_lname)";
+            return s;
+        }
+
+        private bool ContainingSQLSpecialCharacter(string s)
+        {
+            //if (s.Contains("/%") || s.Contains("/_") || s.Contains("/["))
+            if (s.Contains("/"))
+                return true;
+            return false;
         }
 
         private string GetCounseledProperty(DateTime? completedDt)
@@ -330,6 +364,8 @@ namespace HPF.FutureState.DataAccess
             }
             return ">1yr";
         }
+
+
         /// <summary>
         /// Search ForeclosureCase
         /// </summary>
