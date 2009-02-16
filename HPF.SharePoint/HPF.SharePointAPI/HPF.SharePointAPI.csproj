@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ResultInfo.cs" />
     <Compile Include="Validators\CommonValidator.cs" />
     <Compile Include="UploadFileInfo.cs" />
     <Compile Include="DocumentLibraryHelper.cs" />

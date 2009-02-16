@@ -71,9 +71,13 @@ namespace HPF.CustomAction
 
                         if (zippedFiles.Count > 0)
                         {
-                            file = DocumentLibraryHelper.CompressSPFiles(zippedFiles, historyList);
-                            string script = String.Format("openDownloadWindow('{0}');", file.ServerRelativeUrl);
-                            this.Page.ClientScript.RegisterStartupScript(this.GetType(), "download", script, true);
+                            ResultInfo<SPFile> result = DocumentLibraryHelper.CompressSPFiles(zippedFiles, historyList);
+                            if (result.Successful)
+                            {
+                                file = result.BizObject;
+                                string script = String.Format("openDownloadWindow('{0}');", file.ServerRelativeUrl);
+                                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "download", script, true);
+                            }
                         }
                     }
                 }

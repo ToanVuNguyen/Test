@@ -20,7 +20,7 @@ namespace HPF.SharePointAPI
         /// <param name="files">A collection of file info</param>
         /// <param name="spFolder">Target SharePoint folder</param>
         /// <returns>A collection of SharePoint files which are uploaded</returns>
-        public static IList<SPFile> UploadFiles(IList<UploadFileInfo> files, SPFolder spFolder)
+        public static IList<ResultInfo<SPFile>> UploadFiles(IList<UploadFileInfo> files, SPFolder spFolder)
         {
             //Validate arguments
             CommonValidator.ArgumentNotNull(files, "files");
@@ -31,8 +31,10 @@ namespace HPF.SharePointAPI
                 throw new SPException(errorMessage);
             }
 
-            List<SPFile> spFiles = new List<SPFile>();
+            List<ResultInfo<SPFile>> results = new List<ResultInfo<SPFile>>();
+
             string fileUrl;
+            ResultInfo<SPFile> resSPFile;
             SPFile spFile;
             SPUser checkedOutBy;
             SPWeb web = spFolder.ParentWeb;
@@ -40,6 +42,8 @@ namespace HPF.SharePointAPI
 
             foreach (UploadFileInfo file in files)
             {
+                resSPFile = new ResultInfo<SPFile>();
+
                 //check if this file exists
                 fileUrl = String.Format("{0}/{1}", spFolder.ServerRelativeUrl, file.FileName);
                 spFile = web.GetFile(fileUrl);
@@ -47,11 +51,13 @@ namespace HPF.SharePointAPI
                 {
                     //if not exists, this file will be added to spFolder
                     spFile = spFolder.Files.Add(file.FileName, file.InputStream, file.OverwriteIfExists, file.CheckInComment, true);
-                    spFiles.Add(spFile);
+                    
                     if (spFile.CheckedOutBy != null)
                     {
                         spFile.CheckIn(file.CheckInComment, SPCheckinType.OverwriteCheckIn);
                     }
+                    resSPFile = new ResultInfo<SPFile>(spFile);
+                    results.Add(resSPFile);
                     continue;
                 }
 
@@ -74,7 +80,9 @@ namespace HPF.SharePointAPI
                     else if (checkedOutBy.ID != web.CurrentUser.ID)
                     {
                         //user don't have permission on this file
-                        throw new SPException(SPResource.GetString("FileAlreadyCheckedOutError", new object[] { spFile.Name, checkedOutBy, spFile.CheckedOutDate }));
+                        resSPFile = new ResultInfo<SPFile>(new SPException(SPResource.GetString("FileAlreadyCheckedOutError", new object[] { spFile.Name, checkedOutBy, spFile.CheckedOutDate })), spFile);
+                        results.Add(resSPFile);
+                        continue;
                     }
 
                     //try to save file and check in
@@ -87,13 +95,13 @@ namespace HPF.SharePointAPI
                     catch (Exception error)
                     {
                         spFile.UndoCheckOut();
-                        throw error;
+                        resSPFile = new ResultInfo<SPFile>(error, spFile);
                     }
 
-                    spFiles.Add(spFile);
+                    results.Add(resSPFile);
                 }
             }
-            return spFiles;
+            return results;
         }
 
         /// <summary>
@@ -102,7 +110,7 @@ namespace HPF.SharePointAPI
         /// <param name="files">A collection of file info</param>
         /// <param name="spFolder">Target url of SharePoint folder</param>
         /// <returns>A collection of SharePoint files which are uploaded</returns>
-        public static IList<SPFile> UploadFiles(IList<UploadFileInfo> files, string folderUrl)
+        public static IList<ResultInfo<SPFile>> UploadFiles(IList<UploadFileInfo> files, string folderUrl)
         {
             SPFolder spFolder = SPContext.Current.Web.GetFolder(folderUrl);
             return UploadFiles(files, spFolder);
@@ -114,9 +122,9 @@ namespace HPF.SharePointAPI
         /// <param name="physicalFolderPath">Physical folder path</param>
         /// <param name="spFolder">Target SharePoint folder</param>
         /// <returns>A collection of SharePoint files which are uploaded</returns>
-        public static IList<SPFile> UploadFiles(string physicalFolderPath, SPFolder spFolder)
+        public static IList<ResultInfo<SPFile>> UploadFiles(string physicalFolderPath, SPFolder spFolder)
         {
-            List<SPFile> uploadedFiles = new List<SPFile>();
+            List<ResultInfo<SPFile>> uploadedFiles = new List<ResultInfo<SPFile>>();
             UploadFileInfo fileInfo = null;
             List<UploadFileInfo> fileInfoList = new List<UploadFileInfo>();
             try
@@ -166,7 +174,7 @@ namespace HPF.SharePointAPI
         /// <param name="physicalFolderPath">Physical folder path</param>
         /// <param name="spFolder">Target url of SharePoint folder</param>
         /// <returns>A collection of SharePoint files which are uploaded</returns>
-        public static IList<SPFile> UploadFiles(string physicalFolderPath, string folderUrl)
+        public static IList<ResultInfo<SPFile>> UploadFiles(string physicalFolderPath, string folderUrl)
         {
             SPFolder spFolder = SPContext.Current.Web.GetFolder(folderUrl);
             return UploadFiles(physicalFolderPath, spFolder);
@@ -174,7 +182,13 @@ namespace HPF.SharePointAPI
         #endregion
 
         #region "Zip Helper"
-        public static SPFile CompressSPFiles(IList<SPListItem> spListItems, SPDocumentLibrary spDocLib)
+        /// <summary>
+        /// Compress SharePoint list items and put it to spDocLib
+        /// </summary>
+        /// <param name="spListItems">A collection of SharePoint list items need to be compressed</param>
+        /// <param name="spDocLib">A document library which contains compressed file</param>
+        /// <returns></returns>
+        public static ResultInfo<SPFile> CompressSPFiles(IList<SPListItem> spListItems, SPDocumentLibrary spDocLib)
         {
             string tempPath = Path.GetTempPath();
             string randomFileName = Path.GetRandomFileName();
@@ -199,23 +213,31 @@ namespace HPF.SharePointAPI
 
             FileStream zipFileStream = null;
             SPFile returnSPFile = null;
+            ResultInfo<SPFile> result = null;
             try
             {
                 zipFileStream = new FileStream(path + @"\" + outputPathAndFile, FileMode.Open, FileAccess.Read, FileShare.Read);
                 returnSPFile = spDocLib.RootFolder.Files.Add(spDocLib.RootFolder.ServerRelativeUrl + @"\" + outputPathAndFile, zipFileStream);
 
+                result = new ResultInfo<SPFile>(returnSPFile);
             }
-            catch { }
+            catch (Exception error) { result = new ResultInfo<SPFile>(error, returnSPFile); }
             finally
             {
                 if (zipFileStream != null) { zipFileStream.Close(); }
                 //File.Delete(tempPath + randomFileName);
             }
 
-            return returnSPFile;
+            return result;
 
         }
 
+        /// <summary>
+        /// Copy buffer to file
+        /// </summary>
+        /// <param name="bytFile"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         private static bool FlushBufferToFile(byte[] bytFile, string fileName)
         {
             FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
@@ -224,6 +246,11 @@ namespace HPF.SharePointAPI
             return true;
         }
 
+        /// <summary>
+        /// Using SharpZipLib to compress folder
+        /// </summary>
+        /// <param name="inputFolderPath"></param>
+        /// <param name="outputPathAndFile"></param>
         private static void ZipFolder(string inputFolderPath, string outputPathAndFile)
         {
             IList<string> list = GetFileNameInFolder(inputFolderPath);
@@ -247,6 +274,11 @@ namespace HPF.SharePointAPI
             zipStream.Close();
         }
 
+        /// <summary>
+        /// Get filename in folder recursively
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <returns></returns>
         private static IList<string> GetFileNameInFolder(string dir)
         {
             List<string> list = new List<string>();

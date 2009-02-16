@@ -138,16 +138,24 @@ namespace HPF.Web
                     }
                 }
 
+                IList<ResultInfo<SPFile>> results = null;
                 if (uploadFileList.Count > 0)
-                {
-                    IList<SPFile> uploadedFiles = null;
+                {                    
                     if (RootFolder.Length == 0)
                     {
-                        uploadedFiles = DocumentLibraryHelper.UploadFiles(uploadFileList, UploadLibrary.RootFolder);
+                        results = DocumentLibraryHelper.UploadFiles(uploadFileList, UploadLibrary.RootFolder);
                     }
                     else
                     {
-                        uploadedFiles = DocumentLibraryHelper.UploadFiles(uploadFileList, RootFolder);
+                        results = DocumentLibraryHelper.UploadFiles(uploadFileList, RootFolder);
+                    }
+                }
+
+                if (uploadFileList != null && uploadFileList.Count > 0)
+                {
+                    foreach (ResultInfo<SPFile> f in results)
+                    {
+                        //todo: handle error
                     }
                 }
             }
