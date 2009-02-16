@@ -7,58 +7,58 @@
     <ItemTemplate>
         <tr>
             <td align="right" class="sidelinks" width="20%">Loan Number*: </td>
-            <td align="left"  width="30%"><%# DataBinder.Eval(Container.DataItem, "AcctNum")%></td>
+            <td align="left" width="30%" class ="Text"><%# DataBinder.Eval(Container.DataItem, "AcctNum")%></td>
             <td align="right" class="sidelinks"  width="20%">Current Loan Balance: </td>
-            <td align="left"  width="30%"><%# DataBinder.Eval(Container.DataItem, "CurrentLoanBalanceAmt", "{0:C}")%></td>
+            <td align="left"  width="30%" class ="Text"><%# DataBinder.Eval(Container.DataItem, "CurrentLoanBalanceAmt", "{0:C}")%></td>
         </tr>
         <tr>
             <td align="right" class="sidelinks">Servicer*: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "ServicerName")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "ServicerName")%></td>
             <td align="right" class="sidelinks">Original Loan Amount: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "OrigLoanAmt", "{0:C}")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrigLoanAmt", "{0:C}")%></td>
             
         </tr>       
         <tr>
             <td align="right" class="sidelinks">Other Servicer Name: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "OtherServicerName")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OtherServicerName")%></td>
             <td align="right" class="sidelinks">Orig. Mortgate Co. Name: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "OrigMortgageCoName")%></td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrigMortgageCoName")%></td>            
         </tr>       
         <tr>
             <td align="right" class="sidelinks">Mortgage Type*: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "MortgageTypeCd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageTypeCd")%></td>
             <td align="right" class="sidelinks">Orig. Mortgage Co FDIC/NCUA: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "OrigMortgageCoFdicNcusNum")%></td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrigMortgageCoFdicNcusNum")%></td>            
         </tr>       
         <tr>
             <td align="right" class="sidelinks">Loan 1<sup>st</sup> 2<sup>nd</sup> Code: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "Loan1st2nd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "Loan1st2nd")%></td>
             <td align="right" class="sidelinks">Orig. Loan Number: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "OrginalLoanNum")%></td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrginalLoanNum")%></td>            
         </tr>       
          <tr>
             <td align="right" class="sidelinks">ARM Reset Indicator: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "ArmResetInd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "ArmResetInd")%></td>
             <td align="right" class="sidelinks">Current Servicer FDIC/NCUA: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "CurrentServicerFdicNcuaNum")%></td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "CurrentServicerFdicNcuaNum")%></td>            
         </tr>     
         <tr>
             <td align="right" class="sidelinks">Interest Rate*: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "InterestRate", "{0:P3}")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InterestRate", "{0:P3}")%></td>
             <td align="right" class="sidelinks">Investor Number: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "InvestorNum")%></td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InvestorNum")%></td>            
         </tr>    
         <tr>
             <td align="right" class="sidelinks">Term*: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "TermLengthCd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "TermLengthCd")%></td>
             <td align="right" class="sidelinks">Investor Name: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "InvestorName")%></td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InvestorName")%></td>            
         </tr>  
         <tr>
             <td align="right" class="sidelinks">Loan Delinquency Status*: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "LoanDelinqStatusCd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "LoanDelinqStatusCd")%></td>
             <td align="right" class="sidelinks">Investor Loan ID: </td>
-            <td align="left"><%# DataBinder.Eval(Container.DataItem, "InvestorLoanNum")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InvestorLoanNum")%></td>
         </tr>     
     </ItemTemplate>
     <SeparatorTemplate>
