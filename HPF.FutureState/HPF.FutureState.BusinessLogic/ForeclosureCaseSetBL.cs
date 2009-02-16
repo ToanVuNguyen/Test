@@ -107,19 +107,23 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
         public ForeclosureCaseSearchResult SearchForeclosureCase(ForeclosureCaseSearchCriteriaDTO searchCriteria, int pageSize)
         {
-            var validationResults = HPFValidator.Validate(searchCriteria);
             var dataValidationException = new DataValidationException();
-            if (!validationResults.IsValid)
-            {                                
-                foreach (var result in validationResults)
-                {
 
-                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
-                }                
-            }
+            ValidateFcCaseSearchCriteriaNotNull(searchCriteria, dataValidationException);
 
+            ValidateFcCaseSearchCriteriaData(searchCriteria, dataValidationException);
+            
+            if (dataValidationException.ExceptionMessages.Count > 0)
+                throw dataValidationException;
+
+            return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
+        }
+        
+        #endregion
+
+        #region Function to serve SearchForeclosureCase
+        private void ValidateFcCaseSearchCriteriaNotNull(ForeclosureCaseSearchCriteriaDTO searchCriteria, DataValidationException dataValidationException)
+        {
             if (string.IsNullOrEmpty(searchCriteria.AgencyCaseNumber) &&
                 string.IsNullOrEmpty(searchCriteria.FirstName) &&
                 string.IsNullOrEmpty(searchCriteria.Last4_SSN) &&
@@ -131,12 +135,23 @@ namespace HPF.FutureState.BusinessLogic
                 string errorMess = "At least one search criteria option is required"; // string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
                 dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
             }
-
-            if (dataValidationException.ExceptionMessages.Count > 0)
-                throw dataValidationException;
-
-            return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
         }
+
+        private void ValidateFcCaseSearchCriteriaData(ForeclosureCaseSearchCriteriaDTO searchCriteria, DataValidationException dataValidationException)
+        {
+            var validationResults = HPFValidator.Validate(searchCriteria);
+            if (!validationResults.IsValid)
+            {
+                foreach (var result in validationResults)
+                {
+
+                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
+                }
+            }
+        }
+
         #endregion
 
         #region Functions to serve SaveForeclosureCaseSet
