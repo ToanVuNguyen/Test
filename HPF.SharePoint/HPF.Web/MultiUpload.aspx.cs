@@ -75,18 +75,28 @@ namespace HPF.Web
             base.OnInit(e);
             this.ButtonUpload.Click += new EventHandler(ButtonUpload_Click);
             this.ButtonCancel.Click += new EventHandler(ButtonCancel_Click);
+            this.RadioButtonFromClient.CheckedChanged += new EventHandler(RadioButtonFromClient_CheckedChanged);
+            this.RadioButtonFromServer.CheckedChanged += new EventHandler(RadioButtonFromServer_CheckedChanged);
         }
 
-        protected override void OnPreRender(EventArgs e)
+        void RadioButtonFromServer_CheckedChanged(object sender, EventArgs e)
         {
-            base.OnPreRender(e);
-            ClientScript.RegisterClientScriptInclude("DownLoadZipItem", "/_layouts/1033/DownLoadZipItem.js");
-            string script = String.Format("UploadHandler('{0}', '{1}');",
-                this.RadioButtonFromClient.ClientID,
-                this.RadioButtonFromServer.ClientID);
-            this.Page.ClientScript.RegisterStartupScript(this.GetType(), "UploadHandler", script, true);
+            if (this.RadioButtonFromServer.Checked)
+            {
+                PanelUploadFromServer.Visible = true;
+                PanelUploadFromClient.Visible = false;
+            }
         }
 
+        void RadioButtonFromClient_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.RadioButtonFromClient.Checked)
+            {
+                PanelUploadFromClient.Visible = true;
+                PanelUploadFromServer.Visible = false;
+            }
+        }
+        
         void ButtonCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(Source);
@@ -145,7 +155,15 @@ namespace HPF.Web
 
         private void UploadFileFromServer()
         {
-            DocumentLibraryHelper.UploadFiles(this.TextBoxServerLocation.Text, RootFolder);
+            if (RootFolder.Length == 0)
+            {
+                DocumentLibraryHelper.UploadFiles(this.TextBoxServerLocation.Text, UploadLibrary.RootFolder);
+            }
+            else
+            {
+                DocumentLibraryHelper.UploadFiles(this.TextBoxServerLocation.Text, RootFolder);
+            }
+            
         }
         #endregion
     }

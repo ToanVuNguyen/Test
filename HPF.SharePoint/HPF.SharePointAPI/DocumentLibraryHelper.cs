@@ -48,6 +48,10 @@ namespace HPF.SharePointAPI
                     //if not exists, this file will be added to spFolder
                     spFile = spFolder.Files.Add(file.FileName, file.InputStream, file.OverwriteIfExists, file.CheckInComment, true);
                     spFiles.Add(spFile);
+                    if (spFile.CheckedOutBy != null)
+                    {
+                        spFile.CheckIn(file.CheckInComment, SPCheckinType.OverwriteCheckIn);
+                    }
                     continue;
                 }
 
@@ -67,7 +71,7 @@ namespace HPF.SharePointAPI
                         if (currentList.ForceCheckout)
                             spFile.CheckOut();
                     }
-                    else if(checkedOutBy.ID != web.CurrentUser.ID)
+                    else if (checkedOutBy.ID != web.CurrentUser.ID)
                     {
                         //user don't have permission on this file
                         throw new SPException(SPResource.GetString("FileAlreadyCheckedOutError", new object[] { spFile.Name, checkedOutBy, spFile.CheckedOutDate }));
@@ -76,7 +80,8 @@ namespace HPF.SharePointAPI
                     //try to save file and check in
                     try
                     {
-                        spFile.SaveBinary(file.InputStream, true);
+                        if (file.ContentLength > 0)
+                            spFile.SaveBinary(file.InputStream, true);
                         spFile.CheckIn(file.CheckInComment);
                     }
                     catch (Exception error)
@@ -112,28 +117,44 @@ namespace HPF.SharePointAPI
         public static IList<SPFile> UploadFiles(string physicalFolderPath, SPFolder spFolder)
         {
             List<SPFile> uploadedFiles = new List<SPFile>();
-            //check if physical folder exists
-            if (!Directory.Exists(physicalFolderPath))
-            {
-                throw new IOException(String.Format("{0} does not exist.", physicalFolderPath));
-            }
-
-            //upload files in current folder
             UploadFileInfo fileInfo = null;
             List<UploadFileInfo> fileInfoList = new List<UploadFileInfo>();
-            foreach (string fileName in Directory.GetFiles(physicalFolderPath))
+            try
             {
-                fileInfo = new UploadFileInfo(fileName, "", true);
-                fileInfoList.Add(fileInfo);
-            }
+                //check if physical folder exists
+                if (!Directory.Exists(physicalFolderPath))
+                {
+                    throw new IOException(String.Format("{0} does not exist.", physicalFolderPath));
+                }
 
-            uploadedFiles.AddRange(UploadFiles(fileInfoList, spFolder));
+                //upload files in current folder                
+                foreach (string fileName in Directory.GetFiles(physicalFolderPath))
+                {
+                    fileInfo = new UploadFileInfo(fileName, "", true);
+                    fileInfoList.Add(fileInfo);
+                }
+
+                uploadedFiles.AddRange(UploadFiles(fileInfoList, spFolder));
+            }
+            finally
+            {
+                //lose streams
+                foreach (UploadFileInfo f in fileInfoList)
+                {
+                    if (f != null && f.InputStream != null)
+                    {
+                        f.InputStream.Close();
+                    }
+                }
+            }
 
             //recursive loop into subfolders and upload files
             foreach (string folder in Directory.GetDirectories(physicalFolderPath))
             {
-                //create SPFolder
-                SPFolder createdSPFolder = spFolder.SubFolders.Add(folder);
+                //create SPFolder                
+                string folderName = folder.Replace(physicalFolderPath, string.Empty);
+
+                SPFolder createdSPFolder = spFolder.SubFolders.Add(spFolder.ServerRelativeUrl + folderName);
                 uploadedFiles.AddRange(UploadFiles(folder, createdSPFolder));
             }
             return uploadedFiles;
@@ -152,7 +173,7 @@ namespace HPF.SharePointAPI
         }
         #endregion
 
-        #region "Zip Helper"        
+        #region "Zip Helper"
         public static SPFile CompressSPFiles(IList<SPListItem> spListItems, SPDocumentLibrary spDocLib)
         {
             string tempPath = Path.GetTempPath();
@@ -167,9 +188,9 @@ namespace HPF.SharePointAPI
                 SPFile file = item.File;
                 if (file != null)
                 {
-                    byte[] bytFile = file.OpenBinary();                    
+                    byte[] bytFile = file.OpenBinary();
                     string qualifiedFileName = path + file.Name;
-                    FlushBufferToFile(bytFile, qualifiedFileName);                    
+                    FlushBufferToFile(bytFile, qualifiedFileName);
                 }
             }
             string outputPathAndFile = randomFileName + ".zip";
@@ -194,7 +215,7 @@ namespace HPF.SharePointAPI
             return returnSPFile;
 
         }
-        
+
         private static bool FlushBufferToFile(byte[] bytFile, string fileName)
         {
             FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
@@ -208,7 +229,7 @@ namespace HPF.SharePointAPI
             IList<string> list = GetFileNameInFolder(inputFolderPath);
             int count = Directory.GetParent(inputFolderPath).ToString().Length + 1;
             ZipOutputStream zipStream = new ZipOutputStream(File.Create(inputFolderPath + @"\" + outputPathAndFile));
-            
+
             zipStream.SetLevel(9);
             foreach (string name in list)
             {
@@ -224,7 +245,7 @@ namespace HPF.SharePointAPI
             }
             zipStream.Finish();
             zipStream.Close();
-        }        
+        }
 
         private static IList<string> GetFileNameInFolder(string dir)
         {

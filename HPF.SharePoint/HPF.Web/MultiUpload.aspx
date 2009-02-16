@@ -5,39 +5,14 @@
 
 <%@ Register TagPrefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls"
     Assembly="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-    <script type="text/javascript">
-        function UploadHandler(rdClientId, rdServerId) {
-            this.rdClient = document.getElementById(rdClientId);
-            this.rdServer = document.getElementById(rdServerId);
-            
-            addEventListenerEx(this.rdClient, "click", function(e){                
-                var divUploadClient = document.getElementById("divUploadFromClient");
-                var divUploadServer = document.getElementById("divUploadFromServer");
-                
-                if(e.target.checked){
-                    divUploadClient.style.display = "";
-                    divUploadServer.style.display = "none";
-                }
-            });
-            
-            addEventListenerEx(this.rdServer, "click", function(e){
-                var divUploadClient = document.getElementById("divUploadFromClient");
-                var divUploadServer = document.getElementById("divUploadFromServer");
-                if(e.target.checked){
-                    divUploadClient.style.display = "none";
-                    divUploadServer.style.display = "";
-                }
-            });
-        }
-    </script>
+<asp:Content ID="Content2" ContentPlaceHolderID="PlaceHolderMain" runat="server">    
     <div style="font-weight:bold;">
         Upload Document: 
-        <asp:RadioButton ID="RadioButtonFromClient" runat="server" GroupName="Upload" Text="From client" Checked="true" />
-        <asp:RadioButton ID="RadioButtonFromServer" runat="server" GroupName="Upload" Text="From server" />
+        <asp:RadioButton ID="RadioButtonFromClient" runat="server" GroupName="Upload" Text="From client" Checked="true" AutoPostBack="true" />
+        <asp:RadioButton ID="RadioButtonFromServer" runat="server" GroupName="Upload" Text="From server" AutoPostBack="true" />
     </div>
-    
-    <div id="divUploadFromClient">
+    <br />
+    <asp:Panel ID="PanelUploadFromClient" runat="server">
         <div style="font-weight:bold;">
             Browse to the document you intend to upload.<br />
         </div>
@@ -51,13 +26,13 @@
         <asp:FileUpload ID="FileUpload4" runat="server" /><br />
         File 2:
         <asp:FileUpload ID="FileUpload5" runat="server" /><br />
-    </div>
-    <div id="divUploadFromServer" style="display:none;">
+    </asp:Panel>
+    <asp:Panel ID="PanelUploadFromServer" runat="server" Visible="false">
         <div style="font-weight:bold;">
             Enter the server location you intent to upload<br />
         </div>
         <asp:TextBox ID="TextBoxServerLocation" runat="server" Width="200px"></asp:TextBox>
-    </div>
+    </asp:Panel>
     <div style="text-align: right;">
         <asp:Button ID="ButtonUpload" runat="server" Text="OK" Width="7.5em" />
         <asp:Button ID="ButtonCancel" runat="server" Text="Cancel" Width="7.5em" />

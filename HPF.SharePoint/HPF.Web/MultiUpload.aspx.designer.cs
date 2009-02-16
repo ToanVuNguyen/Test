@@ -32,6 +32,15 @@ namespace HPF.Web {
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonFromServer;
         
         /// <summary>
+        /// PanelUploadFromClient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelUploadFromClient;
+        
+        /// <summary>
         /// FileUpload1 control.
         /// </summary>
         /// <remarks>
@@ -75,6 +84,15 @@ namespace HPF.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload FileUpload5;
+        
+        /// <summary>
+        /// PanelUploadFromServer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelUploadFromServer;
         
         /// <summary>
         /// TextBoxServerLocation control.

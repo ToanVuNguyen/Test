@@ -88,6 +88,7 @@
     <Content Include="Templates\Features\UploadReport\feature.xml" />
     <Content Include="Templates\Features\UploadReport\UploadReport.xml" />
     <Content Include="Templates\Layouts\1033\DownLoadZipItem.js" />
+    <Content Include="Templates\Layouts\layouts.sitemap.HPF_AppPages.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.SharePointAPI\HPF.SharePointAPI.csproj">
