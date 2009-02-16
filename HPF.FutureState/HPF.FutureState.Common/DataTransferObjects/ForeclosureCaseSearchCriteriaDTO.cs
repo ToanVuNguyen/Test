@@ -27,13 +27,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 {
                     _agencyCaseNumber = value;
                     _agencyCaseNumber = ProcessSQLSpecialCharacter(_agencyCaseNumber);
-                    Regex exp = new Regex(@"[*]");
-                    MatchCollection matches = exp.Matches(_firstName);
-                    foreach (Match item in matches)
-                    {
-                        _firstName = _firstName.Replace(item.Value, "/*");
-                    }
-
                 }
             }
 
