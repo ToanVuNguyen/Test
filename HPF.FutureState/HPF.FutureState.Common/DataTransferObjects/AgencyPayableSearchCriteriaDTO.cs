@@ -8,7 +8,7 @@ using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 using HPF.FutureState.Common.Utils.DataValidator;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public enum CustomBoolean { None = 0, Y = 1, N = 2 }        
+    public enum CustomBoolean { None = -1, Y = 0, N = 1 }        
 
     [Serializable]
     public class AgencyPayableSearchCriteriaDTO

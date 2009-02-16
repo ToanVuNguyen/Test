@@ -102,7 +102,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0997);
                 ex.ExceptionMessages.Add(exMes);
             }
             if (ex.ExceptionMessages.Count > 0)

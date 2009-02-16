@@ -2,37 +2,25 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <table style="width: 100%;">
     <tr>
-        <td colspan="8">
+        <td colspan="7">
             <h1 align="center">New Invoice Criteria</h1>
         </td>
     </tr>
     <tr>
-        <td colspan="8" class="ErrorMessage">
-            &nbsp;If Case Completed set to &#39;No&#39; then Period Start and Period End will not be 
-            used for the search.<br />
-&nbsp;<asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMin" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Age Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtAgeMax" ID="RegularExpressionValidator2" Display="Dynamic" runat="server" ErrorMessage="Age Max: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtIncomeMin" ID="RegularExpressionValidator3" Display="Dynamic" runat="server" ErrorMessage="Household Income Min: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtIncomeMax" ID="RegularExpressionValidator4" Display="Dynamic" runat="server" ErrorMessage="Household Income Max: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
-            <asp:RegularExpressionValidator CssClass="ErrorMessage" ControlToValidate="txtMaxNumberofCases" ID="RegularExpressionValidator5" Display="Dynamic" runat="server" ErrorMessage="Max Number of Cases: Only numeric characters allowed; " ValidationExpression="[\d]*"></asp:RegularExpressionValidator>
-            <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPeriodStart" CssClass="ErrorMessage" runat="server" ErrorMessage="Period Start is required; " Display="Dynamic" ></asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPeriodEnd" CssClass="ErrorMessage" runat="server" ErrorMessage="Period End is required; " Display="Dynamic" ></asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator1" runat="server" 
-                ControlToValidate="txtAgeMin" CssClass="ErrorMessage" 
-                ErrorMessage="Age Min: Max of 3 numbers; " MaximumValue="100" MinimumValue="1" 
-                Type="Integer"></asp:RangeValidator>
-            <asp:RangeValidator ID="RangeValidator2" runat="server" 
-                ControlToValidate="txtAgeMax" CssClass="ErrorMessage" 
-                ErrorMessage="Age Max: Max of 3 numbers; " MaximumValue="100" MinimumValue="1" 
-                Type="Integer"></asp:RangeValidator>
+        <td colspan="7" class="ErrorMessage">
+            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList>
         </td>
         
         
     </tr>
     <tr>
-        <td class="sidelinks" colspan="8">
+        <td class="sidelinks" colspan="4">
             Primary Selection Criteria:
+            </td>
+        <td class="sidelinks" colspan="3" align="right">
+            <asp:Button ID="btnDraftNewInvoice" runat="server" CssClass="MyButton" 
+                Text="Draft New Invoice" Width="120px" onclick="DraftNewInvoice_Click" />
             </td>
     </tr>
     <tr>
@@ -46,23 +34,16 @@
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
-            &nbsp;
-            Case Completed:</td>
+            Program*:</td>
         <td>
-            <asp:DropDownList ID="dropCaseCompleted" runat="server" CssClass="Text">
-                <asp:ListItem Value="1">Yes</asp:ListItem>
-                <asp:ListItem Value="2">No</asp:ListItem>
+            <asp:DropDownList ID="dropProgram" runat="server" CssClass="Text">
             </asp:DropDownList>
-        </td>
-        <td>
-            <asp:Button ID="btnDraftNewInvoice" runat="server" CssClass="MyButton" 
-                Text="Draft New Invoice" Width="120px" onclick="DraftNewInvoice_Click" />
         </td>
     </tr>
     <tr>
-        <td>
-            &nbsp;</td>
-        <td colspan="4" rowspan="3">
+        <td align="right" class="sidelinks" rowspan="2" style="vertical-align: top">
+            Servicer :</td>
+        <td colspan="4" rowspan="2" style="vertical-align: top">
             <div style="height:60px; overflow:auto;border:solid 1px #8FC4F6">
             
             <asp:DataList ID="lst_FundingSourceGroup" runat="server" Width="100%" 
@@ -80,128 +61,93 @@
             </div>
         </td>
         <td align="right" class="sidelinks">
-            Already Billed:</td>
-        <td>
-            <asp:DropDownList ID="dropAlreadyBilled" runat="server" CssClass="Text">
-                <asp:ListItem Value="1">Yes</asp:ListItem>
-                <asp:ListItem Value="2">No</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-        <td align="right" class="sidelinks">
-            &nbsp;
-            Servicer Consent:</td>
-        <td>
-            <asp:DropDownList ID="dropServicerConsent" runat="server" CssClass="Text">
-                <asp:ListItem Value="1">Yes</asp:ListItem>
-                <asp:ListItem Value="2">No</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-        <td align="right" class="sidelinks">
-            &nbsp;
-            Funding Consent:</td>
-        <td>
-            <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
-                <asp:ListItem Value="1">Yes</asp:ListItem>
-                <asp:ListItem Value="2">No</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td align="right" class="sidelinks">
-            &nbsp;
-            Program:</td>
-        <td colspan="4">
-            <asp:DropDownList ID="dropProgram" runat="server" CssClass="Text">
-            </asp:DropDownList>
-        </td>
-        <td align="right" class="sidelinks">
-            &nbsp;
-            Max Number of Cases:</td>
-        <td>
-            <asp:TextBox ID="txtMaxNumberofCases" runat="server" CssClass="Text"></asp:TextBox>
-        </td>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td align="right" class="sidelinks">
-            &nbsp;
             Period Start*:</td>
-        <td colspan="4">
+        <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
         </td>
-        <td align="right" class="sidelinks">
-            &nbsp;
-            
-                1<sup>st</sup>2<sup>nd</sup>Indicator:
-        </td>
-        <td>
-            <asp:DropDownList ID="dropIndicators" runat="server" CssClass="Text">
-            </asp:DropDownList>
-        </td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            &nbsp;
-            Period End*:</td>
-        <td class="Text" colspan="4">
+            Period End*:&nbsp; </td>
+        <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2009</asp:TextBox>
         </td>
-        <td align="right" class="sidelinks">
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
-            &nbsp;
-            Duplicates:</td>
-        <td colspan="4">
-            <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
-                <asp:ListItem Value="1">Yes</asp:ListItem>
-                <asp:ListItem Value="2">No</asp:ListItem>
-            </asp:DropDownList>
+        <td rowspan="4" align="right" class="sidelinks" style="vertical-align: top">
+            Non-Servicer Funding
+            <br />
+            Source Option :</td>
+        <td colspan="4" 
+            style="border-color: #8FC4F6; border-style: solid; border-width: 1px; vertical-align: top" 
+            rowspan="4">
+            <asp:CheckBox ID="chkServicerRejected" runat="server" CssClass="Text" Text="Select Servicer Rejected (except Freddie)" /><br />
+            <asp:CheckBox ID="chkServicerFreddie" runat="server" CssClass="Text" Text="Select Servicer Rejected because it's Freddie" /><br />
+            <asp:CheckBox ID="chkNeighborworksRejected" runat="server" CssClass="Text" Text="Select Neighborworks Rejected as Freddie Dupe" /><br />
+            <asp:CheckBox ID="chkFundingAgreement" runat="server" CssClass="Text" Text="Select All Servicers w/o a Funding Agreement" /><br />
+            <asp:CheckBox ID="chkUnfunded" runat="server" CssClass="Text" Text="Select Still Unfunded(billed and rejected)" />
         </td>
         <td align="right" class="sidelinks">
+            &nbsp;Completed?:&nbsp;
             </td>
         <td>
-            </td>
-        <td>
-            </td>
+            <asp:DropDownList ID="dropCaseCompleted" runat="server" CssClass="Text">
+                <asp:ListItem Value="0">Select Only Complete Cases</asp:ListItem>
+                <asp:ListItem Value="1">Select Only Incomplete Cases</asp:ListItem>
+                <asp:ListItem Value="-1">Select Both Complete & Incomplete Cases</asp:ListItem>
+            </asp:DropDownList>
+        </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            &nbsp;</td>
-        <td colspan="4">
-            &nbsp;</td>
+            Duplicates?:</td>
+        <td>
+            <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
+                <asp:ListItem Value="0">Select Only Original Cases</asp:ListItem>
+                <asp:ListItem Value="1">Select Only Duplicate Cases</asp:ListItem>
+                <asp:ListItem Value="-1">Select Both Original & Duplicate Cases</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
         <td align="right" class="sidelinks">
-            &nbsp;</td>
+            Allow Multiple Billing?:</td>
         <td>
-            &nbsp;</td>
+            <asp:DropDownList ID="dropAlreadyBilled" runat="server" CssClass="Text">
+                <asp:ListItem Value="0">Yes</asp:ListItem>
+                <asp:ListItem Value="1">No</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="sidelinks">
+            Ignore Funding Consent:</td>
         <td>
+            <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
+                <asp:ListItem Value="0">Yes</asp:ListItem>
+                <asp:ListItem Value="1">No</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="sidelinks" colspan="7" 
+            style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #8FC4F6;">
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="left" class="sidelinks" colspan="8">
+        <td align="left" class="sidelinks" colspan="7">
             Secondary Selection Criteria:</td>
+    </tr>
+    <tr>
+        <td align="right" class="sidelinks">
+            Max Number of Cases:</td>
+        <td colspan="4">
+            <asp:TextBox ID="txtMaxNumberofCases" runat="server" CssClass="Text"></asp:TextBox>
+        </td>
+        <td align="right" class="sidelinks">
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
@@ -212,7 +158,7 @@
         </td>
         <td align="right" class="sidelinks">
             Household Code:</td>
-        <td colspan="2">
+        <td>
             <asp:DropDownList ID="dropHouseholdCode" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
@@ -226,7 +172,7 @@
         </td>
         <td align="right" class="sidelinks">
             City:</td>
-        <td colspan="2">
+        <td>
             <asp:TextBox ID="txtCity" runat="server" CssClass="Text"></asp:TextBox>
         </td>
     </tr>
@@ -235,13 +181,13 @@
             Hispanic:</td>
         <td colspan="4">
             <asp:DropDownList ID="dropHispanic" runat="server" CssClass="Text">
-                <asp:ListItem Value="1">Yes</asp:ListItem>
-                <asp:ListItem Value="2">No</asp:ListItem>
+                <asp:ListItem Value="0">Yes</asp:ListItem>
+                <asp:ListItem Value="1">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
             State:</td>
-        <td colspan="2">
+        <td>
             <asp:DropDownList ID="dropState" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
@@ -265,8 +211,6 @@
             &nbsp;</td>
         <td>
             &nbsp;</td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
@@ -285,8 +229,6 @@
         <td>
             &nbsp;</td>
         <td>
-            &nbsp;</td>
-            <td>
             &nbsp;</td>
     </tr>
 </table>

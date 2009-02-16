@@ -25,6 +25,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         {
             try
             {
+                ClearErrorMessages();
                 ApplySecurity();
                 if (!IsPostBack)
                 {
@@ -32,7 +33,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     ProgramDatabind();
                     GenderDatabind();
                     RaceDatabind();
-                    IndicatorDatabind();
                     HouseholdDatabind();
                     StateDatabind();
                     SetDefaultPeriodStartEnd();
@@ -46,8 +46,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -80,14 +79,12 @@ namespace HPF.FutureState.Web.AppNewInvoice
             txtAgeMax.Text = searchCriteria.Age.Max == int.MinValue ? "" : searchCriteria.Age.Max.ToString();
             txtIncomeMin.Text = searchCriteria.HouseholdGrossAnnualIncome.Min == double.MinValue ? "" : searchCriteria.HouseholdGrossAnnualIncome.Min.ToString();
             txtIncomeMax.Text = searchCriteria.HouseholdGrossAnnualIncome.Max == double.MinValue ? "" : searchCriteria.HouseholdGrossAnnualIncome.Max.ToString();
-            dropHispanic.Items[(int)searchCriteria.Hispanic].Selected = true; ;
+            dropHispanic.Items.FindByValue(((int)searchCriteria.Hispanic).ToString()).Selected = true;
             dropDuplicates.Items[(int)searchCriteria.Duplicate].Selected = true; ;
-            dropCaseCompleted.Items[(int)searchCriteria.CompleteCase].Selected = true; ;
+            dropCaseCompleted.Items[(int)searchCriteria.Completed].Selected = true; ;
             dropAlreadyBilled.Items[(int)searchCriteria.AlreadyBill].Selected = true; ;
-            dropServicerConsent.Items[(int)searchCriteria.ServicerConsent].Selected = true; ;
-            dropFundingConsent.Items[(int)searchCriteria.FundingConsent].Selected = true; ;
+            dropFundingConsent.Items[(int)searchCriteria.IgnoreFundingConsent].Selected = true; ;
             txtMaxNumberofCases.Text = searchCriteria.MaxNumOfCases == int.MinValue ? "" : searchCriteria.MaxNumOfCases.ToString();
-            dropIndicators.Items.FindByValue(searchCriteria.LoanIndicator.ToString()).Selected = true;
             dropHouseholdCode.Items.FindByValue(searchCriteria.HouseholdCode).Selected = true;
             txtCity.Text = searchCriteria.City;
             dropState.Items.FindByValue(searchCriteria.State).Selected = true;
@@ -98,8 +95,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void SetDefaultPeriodStartEnd()
         {
             DateTime today = DateTime.Today;
-            txtPeriodStart.Text = (today.AddMonths(-1)).ToShortDateString();
-            txtPeriodEnd.Text = today.ToShortDateString();
+            DateTime startDate = today.AddMonths(-1);
+            startDate = startDate.AddDays(-today.Day + 1);
+            txtPeriodStart.Text = startDate.ToShortDateString();
+            txtPeriodEnd.Text = startDate.AddDays(DateTime.DaysInMonth(startDate.Year,startDate.Month)-1).ToShortDateString();
         }
         /// <summary>
         /// Set default Value if there's no searchCriteria store in the session
@@ -107,12 +106,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
         private void SetDefaultValueForDropDownList()
         {
             //set default value for DDLB
-            dropDuplicates.SelectedIndex = 2;
-            dropCaseCompleted.SelectedIndex = 1;
-            dropAlreadyBilled.SelectedIndex = 2;
-            dropServicerConsent.SelectedIndex = 1;
+            dropDuplicates.SelectedIndex = 0;
+            dropCaseCompleted.SelectedIndex = 0;
+            dropAlreadyBilled.SelectedIndex = 1;
             dropFundingConsent.SelectedIndex = 1;
-            dropIndicators.SelectedIndex = 1;
             dropGender.SelectedIndex = 0;
             dropRace.SelectedIndex = 0;
             dropHispanic.SelectedIndex = 0;
@@ -124,12 +121,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// </summary>
         private void AddBlankToYesNoDropDownList()
         {
-            AddBlankToDDLB(dropDuplicates);
             AddBlankToDDLB(dropHispanic);
-            AddBlankToDDLB(dropCaseCompleted);
-            AddBlankToDDLB(dropAlreadyBilled);
-            AddBlankToDDLB(dropServicerConsent);
-            AddBlankToDDLB(dropFundingConsent);
         }
         /// <summary>
         /// insert a blank to dropdowlist at index 0
@@ -137,7 +129,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// <param name="temp"></param>
         private void AddBlankToDDLB(DropDownList temp)
         {
-            temp.Items.Insert(0,new ListItem(" ", "0"));
+            temp.Items.Insert(0,new ListItem(" ", "-1"));
         }
         private void FundingSourceDatabind()
         {
@@ -164,6 +156,17 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 dropFundingSource.Items.FindByValue(fundingSourceId).Selected = true;
                 GetServicerList();
             }
+        }
+        private void ServicerExists(bool flag)
+        {
+            chkFundingAgreement.Enabled = !flag;
+            chkNeighborworksRejected.Enabled = !flag;
+            chkServicerFreddie.Enabled = !flag;
+            chkServicerRejected.Enabled = !flag;
+            chkUnfunded.Enabled = !flag;
+
+            dropFundingConsent.Enabled = !flag;
+
         }
         private void ProgramDatabind()
         {
@@ -219,24 +222,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropRace.DataBind();
             dropRace.Items.Insert(0, new ListItem(" ", "-1"));
         }
-        private void IndicatorDatabind()
-        {
-            RefCodeItemDTOCollection indicatorCollection = null;
-            try
-            {
-                indicatorCollection = LookupDataBL.Instance.GetRefCode("Loan 1st 2nd");
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
-            }
-            dropIndicators.DataValueField = "Code";
-            dropIndicators.DataTextField = "CodeDesc";
-            dropIndicators.DataSource = indicatorCollection;
-            dropIndicators.DataBind();
-            dropIndicators.Items.Insert(0, new ListItem(" ", "-1"));
-        }
+        
         private void HouseholdDatabind()
         {
             RefCodeItemDTOCollection householdCollection = null;
@@ -290,13 +276,148 @@ namespace HPF.FutureState.Web.AppNewInvoice
             try
             {
                 servicers = LookupDataBL.Instance.GetServicerByFundingSourceId(int.Parse(dropFundingSource.SelectedValue));
+                foreach(var i in servicers)
+                    if (i.ServicerName == "ALL")
+                    {
+                        servicers.Remove(i);
+                        break;
+                    }
+                //Non-Servicer
+                ServicerExists(!(servicers.Count==0));
             }
             catch (Exception ex)
             {
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
             lst_FundingSourceGroup.DataSource = servicers;
             lst_FundingSourceGroup.DataBind();
+            
+        }
+        private void AddToErrorMessage(string s)
+        {
+            lblErrorMessage.Items.Add(new ListItem(s));
+        }
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
+        }
+        private ExceptionMessage GetExceptionMessage(string errorCode)
+        {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
+            return exMes;
+        }
+        /// <summary>
+        /// Collect Invoice Criteria , if  not success the throw DataValidation Exception
+        /// </summary>
+        /// <returns></returns>
+        private InvoiceCaseSearchCriteriaDTO GetInvoiceCaseSearchCriteria()
+        {
+            DataValidationException ex = new DataValidationException();
+            InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
+            try
+            {
+                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            try
+            {
+                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0997);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            //a program is require
+            searchCriteria.ProgramId = dropProgram.SelectedValue;
+            searchCriteria.FundingSourceId = dropFundingSource.SelectedValue;
+            if (searchCriteria.FundingSourceId == "-1")
+            { 
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0995);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
+            searchCriteria.Gender = dropGender.SelectedValue;
+            searchCriteria.Race = dropRace.SelectedValue;
+            searchCriteria.Hispanic = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropHispanic.SelectedValue);
+            try
+            {
+                searchCriteria.Age.Min = (txtAgeMin.Text == "") ? int.MinValue : int.Parse(txtAgeMin.Text);
+                searchCriteria.Age.Max = (txtAgeMax.Text == "") ? int.MinValue : int.Parse(txtAgeMax.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0993);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            try
+            {
+                searchCriteria.HouseholdGrossAnnualIncome.Min = (txtIncomeMin.Text == "") ? double.MinValue : double.Parse(txtIncomeMin.Text);
+                searchCriteria.HouseholdGrossAnnualIncome.Max = (txtIncomeMax.Text == "") ? double.MinValue : double.Parse(txtIncomeMax.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0992);
+                ex.ExceptionMessages.Add(exMes);
+            }
+
+            searchCriteria.Completed = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropCaseCompleted.SelectedValue);
+            searchCriteria.AlreadyBill = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropAlreadyBilled.SelectedValue);
+            searchCriteria.IgnoreFundingConsent= (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropFundingConsent.SelectedValue);
+            try
+            {
+                searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0991);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
+            searchCriteria.City = txtCity.Text;
+            searchCriteria.State = dropState.SelectedValue;
+            if(searchCriteria.PeriodStart!=null&&searchCriteria.PeriodEnd!=null)
+                if ((searchCriteria.PeriodStart > searchCriteria.PeriodEnd))
+                {
+                    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0990);
+                    ex.ExceptionMessages.Add(exMes);
+                }
+            if (searchCriteria.Age.Min > searchCriteria.Age.Max)
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0989);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            if (searchCriteria.HouseholdGrossAnnualIncome.Min > searchCriteria.HouseholdGrossAnnualIncome.Max)
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0988);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            if (chkUnfunded.Enabled == false)
+            {
+                searchCriteria.ServicerRejected = false;
+                searchCriteria.ServicerRejectedFreddie = false;
+                searchCriteria.NeighborworkRejected = false;
+                searchCriteria.SelectAllServicer = false;
+                searchCriteria.SelectUnfunded = false;
+            }
+            else
+            {
+                searchCriteria.ServicerRejected = chkServicerRejected.Checked;
+                searchCriteria.ServicerRejectedFreddie = chkServicerFreddie.Checked;
+                searchCriteria.NeighborworkRejected = chkNeighborworksRejected.Checked;
+                searchCriteria.SelectAllServicer = chkFundingAgreement.Checked;
+                searchCriteria.SelectUnfunded = chkUnfunded.Checked;
+            }
+            if (ex.ExceptionMessages.Count > 0)
+                throw (ex);
+            return searchCriteria;
         }
         /// <summary>
         /// Draft new Invoice
@@ -305,64 +426,30 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// <param name="e"></param>
         protected void DraftNewInvoice_Click(object sender, EventArgs e)
         {
-            InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
-
-            GetDateTime(searchCriteria);
-            searchCriteria.FundingSourceId = dropFundingSource.SelectedValue;
-            searchCriteria.ProgramId = int.Parse(dropProgram.SelectedValue);
-            searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
-            searchCriteria.Gender = dropGender.SelectedValue;
-            searchCriteria.Race = dropRace.SelectedValue;
-            searchCriteria.Hispanic = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropHispanic.SelectedValue);
-            searchCriteria.Age.Min = (txtAgeMin.Text=="")?int.MinValue:int.Parse(txtAgeMin.Text);
-            searchCriteria.Age.Max = (txtAgeMax.Text == "")?int.MinValue:int.Parse(txtAgeMax.Text);
-            searchCriteria.HouseholdGrossAnnualIncome.Min = (txtIncomeMin.Text == "") ? double.MinValue: double.Parse(txtIncomeMin.Text);
-            searchCriteria.HouseholdGrossAnnualIncome.Max = (txtIncomeMax.Text == "") ? double.MinValue : double.Parse(txtIncomeMax.Text);
-            searchCriteria.CompleteCase = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropCaseCompleted.SelectedValue);
-            searchCriteria.AlreadyBill = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropAlreadyBilled.SelectedValue);
-            searchCriteria.ServicerConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropServicerConsent.SelectedValue);
-            searchCriteria.FundingConsent = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropFundingConsent.SelectedValue);
-            searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text==""?int.MinValue:int.Parse(txtMaxNumberofCases.Text);
-            searchCriteria.LoanIndicator = dropIndicators.SelectedValue;
-            searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
-            searchCriteria.City = txtCity.Text;
-            searchCriteria.State = dropState.SelectedValue;
+            ClearErrorMessages();
             try
             {
-                if (InvoiceBL.Instance.ValidateInvoiceCaseCriteria(searchCriteria))
-                {
-                    Session["IvoiceCaseSearchCriteria"] = searchCriteria;
-                    Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
-                    Response.Redirect("NewInvoiceSelection.aspx");
-                }
+                InvoiceCaseSearchCriteriaDTO searchCriteria = GetInvoiceCaseSearchCriteria();
+                Session["IvoiceCaseSearchCriteria"] = searchCriteria;
+                Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
+                Response.Redirect("NewInvoiceSelection.aspx");
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                lblErrorMessage.Items.Add(new ListItem( ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
 
         }
 
-        private void GetDateTime(InvoiceCaseSearchCriteriaDTO searchCriteria)
-        {
-            try
-            {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-            }
-            catch
-            {
-                searchCriteria.PeriodEnd = DateTime.MinValue;
-            }
-            try
-            {
-                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
-            }
-            catch
-            {
-                searchCriteria.PeriodStart = DateTime.MinValue;
-            }
-        }
+ 
 
         
     }

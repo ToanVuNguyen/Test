@@ -23,19 +23,35 @@ namespace HPF.FutureState.Web.InvoicePayments
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             ApplySecurity();
-            for (int i = 0; i < grvInvoicePaymentList.Rows.Count; i++)
+            try
             {
-                grvInvoicePaymentList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoicePaymentList, "Select$" + i));
+                if (!IsPostBack)
+                {
+                    BindFundingSourceDropDownList();
+                    SetDefaultPeriodStartEnd();
+                    DefaultSearch();
+
+                }
             }
-            if (grvInvoicePaymentList.SelectedIndex != -1)
-                btnViewEditPayable.Attributes.Clear();
-            if (!IsPostBack)
+            catch (Exception ex)
             {
-                BindFundingSourceDropDownList();
-                SetDefaultPeriodStartEnd();
-                BindGrvInvoicePaymentList(DateTime.Now.AddMonths(-6), DateTime.Now);
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
             }
+
+        }
+
+        private void DefaultSearch()
+        {
+            InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
+            searchCriteria.FundingSourceId = -1;
+            searchCriteria.PeriodStart = DateTime.Today.AddMonths(-6);
+            searchCriteria.PeriodEnd = DateTime.Today;
+            InvoicePaymentDTOCollection invoicePayment = InvoicePaymentSearch(searchCriteria);
+            grvInvoicePaymentList.DataSource = invoicePayment;
+            grvInvoicePaymentList.DataBind();
         }
         private void ApplySecurity()
         {
@@ -64,50 +80,95 @@ namespace HPF.FutureState.Web.InvoicePayments
         /// <summary>
         /// Bind search data into gridview
         /// </summary>
-        protected void BindGrvInvoicePaymentList(DateTime periodStart, DateTime periodEnd)
+        protected void BindGrvInvoicePaymentList()
         {
             try
             {
-                InvoicePaymentDTOCollection invoicePayment = GetInvoicePaymentInfo(periodStart, periodEnd);
+                InvoicePaymentDTOCollection invoicePayment = GetInvoicePaymentInfo();
                 //bind search data to gridview
-               
-                if (invoicePayment!= null)
-                {
-                    grvInvoicePaymentList.DataSource = invoicePayment;
-                    ViewState["invoicePayment"] = invoicePayment;
-                }
-                else
-                {
-                    grvInvoicePaymentList.SelectedIndex = -1;
-                    invoicePayment = null;
-                }
-                //
+                grvInvoicePaymentList.DataSource = invoicePayment;
+                ViewState["invoicePayment"] = invoicePayment;
                 grvInvoicePaymentList.DataBind();
+                
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.DisplayName);
             }
         }
-        protected InvoicePaymentDTOCollection GetInvoicePaymentInfo(DateTime periodStart, DateTime periodEnd)
+
+        private ExceptionMessage GetExceptionMessage(string errorCode)
         {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
+            return exMes;
+        }
+        /// <summary>
+        /// Get or throw exception if there's any datavalidation error.
+        /// </summary>
+        /// <returns></returns>
+        private InvoiceSearchCriteriaDTO GetInvoicePaymentSearchCriterial()
+        {
+            DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
-            InvoicePaymentDTOCollection invoicePayment = new InvoicePaymentDTOCollection();
+            searchCriteria.FundingSourceId = int.Parse(ddlFundingSource.SelectedValue);
             try
             {
-                //get search criteria to AgencyPayableSearchCriteriaDTO
-                searchCriteria.FundingSourceId = int.Parse(ddlFundingSource.SelectedValue);
-                searchCriteria.PeriodStart = periodStart;
-                searchCriteria.PeriodEnd = periodEnd;
-                //get search data match that search collection
-                invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
+                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            try
+            {
+                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0997);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            if (ex.ExceptionMessages.Count > 0)
+                throw (ex);
+            return searchCriteria;
+
+        }
+        /// <summary>
+        /// Get the searchCriteria and then perform a search
+        /// </summary>
+        /// <returns></returns>
+        protected InvoicePaymentDTOCollection GetInvoicePaymentInfo()
+        {
+            try
+            {
+                InvoiceSearchCriteriaDTO searchCriteria = GetInvoicePaymentSearchCriterial();
+                InvoicePaymentDTOCollection invoicePayment = InvoicePaymentSearch(searchCriteria);
+                return invoicePayment;
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
+            return null;
+            
+        }
+
+        private static InvoicePaymentDTOCollection InvoicePaymentSearch(InvoiceSearchCriteriaDTO searchCriteria)
+        {
+            InvoicePaymentDTOCollection invoicePayment = new InvoicePaymentDTOCollection();
+            //get search criteria to AgencyPayableSearchCriteriaDTO
+            invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
             return invoicePayment;
         }
         /// <summary>
@@ -120,25 +181,26 @@ namespace HPF.FutureState.Web.InvoicePayments
             txtPeriodEnd.Text = DateTime.Today.ToShortDateString();
         }
 
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
+        }
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
-            DateTime periodStart, periodEnd;
-            periodStart = DateTime.Parse(txtPeriodStart.Text);
-            periodEnd = DateTime.Parse(txtPeriodEnd.Text);
-            BindGrvInvoicePaymentList(periodStart, periodEnd);
+            ClearErrorMessages();
+            BindGrvInvoicePaymentList();
         }
        
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             if (grvInvoicePaymentList.SelectedIndex != -1)
             {
-                btnViewEditPayable.Attributes.Clear();
-                Response.Redirect("InvoicePaymentInfo.aspx?id="+grvInvoicePaymentList.SelectedValue.ToString());
+                Response.Redirect("InvoicePaymentInfo.aspx?id=" + grvInvoicePaymentList.SelectedValue.ToString());
             }
             else
-                btnViewEditPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
+                lblErrorMessage.Items.Add(new ListItem("You have to select an invoice payment to view."));
 
         }
 

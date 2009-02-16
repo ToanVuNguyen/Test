@@ -130,63 +130,14 @@ namespace HPF.FutureState.BusinessLogic
             }
 
         }
-        /// <summary>
-        /// Validate criteria for Invoice Search 
-        /// </summary>
-        /// <param name="criteria">searchCriteria</param>
-        /// <param name="returnMessage">Error Message</param>
-        /// <returns>True if ok and false if fail</returns>
-        public bool ValidateInvoiceCriteria(InvoiceSearchCriteriaDTO criteria)
-        {
-            string returnMessage = "";
-            if (criteria.PeriodStart == DateTime.MinValue)
-                returnMessage += "Period Start:Wrong DateTime format; ";
-            if (criteria.PeriodEnd == DateTime.MinValue)
-                returnMessage += "Period End:Wrong DateTime format; ";
-            if ((criteria.PeriodStart > criteria.PeriodEnd)&&returnMessage=="")
-                returnMessage += "Period Start can not larger than Period End; ";
-            if (returnMessage != "")
-                throw new DataValidationException(returnMessage);
-            return true;
-        }
-        /// <summary>
-        /// Validate criteria for Invoice Search Case
-        /// </summary>
-        /// <param name="criteria">searchCriteria</param>
-        /// <param name="returnMessage">Error Message</param>
-        /// <returns>True if ok and false if fail</returns>
-        public bool ValidateInvoiceCaseCriteria(InvoiceCaseSearchCriteriaDTO criteria)
-        {
-            string returnMessage = "";
-            if(criteria.FundingSourceId=="-1")
-                returnMessage += "FundingSource is required; ";
-            if (criteria.PeriodStart == DateTime.MinValue)
-                returnMessage += "Period Start:Wrong DateTime format; ";
-            if (criteria.PeriodEnd == DateTime.MinValue)
-                returnMessage += "Period End:Wrong DateTime format; ";
-            if ((criteria.PeriodStart > criteria.PeriodEnd) && returnMessage == "")
-                returnMessage += "Period Start can not larger than Period End; ";
-            if(criteria.Age.Min>criteria.Age.Max&& criteria.Age.Max!=int.MinValue)
-                returnMessage += "AgeMin can not larger than AgeMax; ";
-            if(criteria.HouseholdGrossAnnualIncome.Min>criteria.HouseholdGrossAnnualIncome.Max&&criteria.HouseholdGrossAnnualIncome.Max!=double.MinValue)
-                returnMessage += "GrossAnnualIncome Min can not larger than GrossAnnualIncome Max; ";
-            if(returnMessage!="")
-                throw new DataValidationException(returnMessage);
-            return true;
-        }
+        
         public InvoiceDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            InvoiceDTOCollection result = null;
-            //if (ValidateInvoiceCriteria(searchCriteria))
-                result = InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
-            return result;
+            return InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
         }
         public ForeclosureCaseDraftDTOCollection InvoiceCaseSearch(InvoiceCaseSearchCriteriaDTO searchCriteria)
         {
-            ForeclosureCaseDraftDTOCollection result = null;
-            if (ValidateInvoiceCaseCriteria(searchCriteria))
-                result = InvoiceDAO.CreateInstance().InvoiceCaseSearch(searchCriteria);
-            return result;
+            return InvoiceDAO.CreateInstance().InvoiceCaseSearch(searchCriteria);
         }
         /// <summary>
         /// Create Invoice Draft 

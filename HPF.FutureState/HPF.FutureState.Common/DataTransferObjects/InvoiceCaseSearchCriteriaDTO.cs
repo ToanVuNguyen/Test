@@ -20,16 +20,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public string FundingSourceId { get; set; }
         public int ServicerId { get; set; }
-        public int ProgramId { get; set; }
+        public string ProgramId { get; set; }
         public DateTime PeriodStart { get; set; }
         public DateTime PeriodEnd { get; set; }
         public CustomBoolean Duplicate { get; set; }
-        public CustomBoolean CompleteCase { get; set; }
+        public CustomBoolean Completed { get; set; }
         public CustomBoolean AlreadyBill { get; set; }
-        public CustomBoolean ServicerConsent { get; set; }
-        public CustomBoolean FundingConsent { get; set; }
+        public CustomBoolean IgnoreFundingConsent { get; set; }
         public int MaxNumOfCases { get; set; }
-        public string LoanIndicator { get; set; }
         public string Gender { get; set; }
         public string Race { get; set; }
         public CustomBoolean Hispanic { get; set; }
@@ -38,6 +36,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HouseholdCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public bool ServicerRejected { get; set; }
+        public bool ServicerRejectedFreddie { get; set; }
+        public bool NeighborworkRejected { get; set; }
+        public bool SelectAllServicer { get; set; }
+        public bool SelectUnfunded { get; set; }
         public InvoiceCaseSearchCriteriaDTO()
         {
             Age = new NumberRange();

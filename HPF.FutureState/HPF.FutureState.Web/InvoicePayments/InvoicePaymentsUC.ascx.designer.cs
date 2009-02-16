@@ -59,49 +59,13 @@ namespace HPF.FutureState.Web.InvoicePayments {
         protected global::System.Web.UI.WebControls.Button btnRefreshList;
         
         /// <summary>
-        /// lblMessage control.
+        /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-        
-        /// <summary>
-        /// reqtxtPeriodStart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtPeriodStart;
-        
-        /// <summary>
-        /// reqtxtPeriodEnd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtPeriodEnd;
-        
-        /// <summary>
-        /// cmptxtPeriodStart control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtPeriodStart;
-        
-        /// <summary>
-        /// cmptxtPeriodEnd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtPeriodEnd;
+        protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
         
         /// <summary>
         /// panInvoiceList control.

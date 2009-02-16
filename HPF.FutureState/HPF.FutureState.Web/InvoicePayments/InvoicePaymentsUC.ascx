@@ -53,18 +53,9 @@
         </td>
     </tr>
     <tr>
-        <td colspan="5">
-            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="ErrorMessage"></asp:Label>
-            <asp:RequiredFieldValidator ID="reqtxtPeriodStart" Display="Dynamic" runat="server"
-                ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="reqtxtPeriodEnd" Display="Dynamic" runat="server"
-                ErrorMessage="Must input date" ControlToValidate="txtPeriodEnd"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="Input correct date format"
-                ControlToValidate="txtPeriodStart" ValueToCompare="1/1/1900" Operator="GreaterThan"
-                Type="Date"></asp:CompareValidator>
-            <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="Input correct date format"
-                ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan"
-                Type="Date"></asp:CompareValidator>
+        <td colspan="5" class="ErrorMessage">
+            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList>
         </td>
     </tr>
     <tr>
@@ -98,7 +89,6 @@
                                     ItemStyle-HorizontalAlign="Right" />
                                 <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                                     ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
-                                <%--<asp:BoundField HeaderText="Comments" DataField="PaymentComment" />--%>
                             </Columns>
                             <EmptyDataTemplate>
                                 There is no data match.</EmptyDataTemplate>

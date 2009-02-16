@@ -263,6 +263,14 @@ namespace HPF.FutureState.Common
         public const string ERR0703 = "ERR0703";
         public const string ERR0704 = "ERR0704";
 
+        public const string ERR0987 = "ERR0987";
+        public const string ERR0988 = "ERR0988";
+        public const string ERR0989 = "ERR0989";
+        public const string ERR0990 = "ERR0990";
+        public const string ERR0991 = "ERR0991";
+        public const string ERR0992 = "ERR0992";
+        public const string ERR0993 = "ERR0993";
+        public const string ERR0994 = "ERR0994";
         public const string ERR0995 = "ERR0995";
         public const string ERR0996 = "ERR0996";
         public const string ERR0997 = "ERR0997";
@@ -551,6 +559,13 @@ namespace HPF.FutureState.Common
 
 
                 //
+                errorMessageDict.Add(ERR0988, "GrossAnnualIncome Min can not larger than GrossAnnualIncome Max.");
+                errorMessageDict.Add(ERR0989, "AgeMin can not larger than AgeMax.");
+                errorMessageDict.Add(ERR0990, "Period Start can not larger than Period End.");
+                errorMessageDict.Add(ERR0991, "An invalid Max Num of Cases was provided.");
+                errorMessageDict.Add(ERR0992, "An invalid Household Gross Annual Income Min/Max was provided.");
+                errorMessageDict.Add(ERR0993, "An invalid AgeMin/Max was provided.");
+                errorMessageDict.Add(ERR0994, "A Program is required to search.");
                 errorMessageDict.Add(ERR0995, "A Funding Source is required to search.");
                 errorMessageDict.Add(ERR0996, "A valid Period End is required to search.");
                 errorMessageDict.Add(ERR0997, "A valid Period Start is required to search.");
