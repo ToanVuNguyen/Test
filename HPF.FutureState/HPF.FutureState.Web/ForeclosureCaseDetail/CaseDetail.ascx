@@ -131,7 +131,8 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    Primary Residence Est. Mkt Value:</td>
+                                    Primary Residence<br />
+&nbsp;Est. Mkt Value:</td>
                                 <td>
                                     <asp:Label ID="lblPrimaryRes" runat="server" CssClass="Text">$200,000.00</asp:Label>
                                 </td>

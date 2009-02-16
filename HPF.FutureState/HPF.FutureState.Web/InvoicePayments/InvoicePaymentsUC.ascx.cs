@@ -62,7 +62,6 @@ namespace HPF.FutureState.Web.InvoicePayments
             if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
             {
                 btnNewPayable.Enabled = false;
-                btnViewEditPayable.Enabled = false;
             }
         }
         /// <summary>

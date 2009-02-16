@@ -63,9 +63,13 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         private void ApplySecurity()
         {
-            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
             {
                 Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
+            }
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
+            {
+                btnSave.Enabled = false;
             }
         }
         #region Bind Data

@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ForeclosureCaseInfo.aspx.cs" Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="App Forclosure Case Detail"  EnableEventValidation="false"%>
 <%@ Register assembly="HPF.FutureState.Web.HPFWebControls" namespace="HPF.FutureState.Web.HPFWebControls" tagprefix="HPF" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
-    <table style="width:100%;" >
+    <table style="width:100%;" align="left"  >
         <tr>
             <td align="center" colspan="6">
                 <h1>Foreclosure Case Detail</h1></td>
@@ -68,7 +68,7 @@
         
         <tr>
             <td colspan="6">
-                <table cellpadding="0" cellspacing= "0" width="100%">
+                <table cellpadding="0" cellspacing= "0" width="100%" align="left">
                     <tr>
                         <td>
                             <HPF:TabControl ID="tabControl" runat="server">

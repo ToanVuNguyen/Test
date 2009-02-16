@@ -101,14 +101,14 @@
             <table style="vertical-align: top;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="150px" CssClass="MyButton"
+                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="120px" CssClass="MyButton"
                             OnClick="btnNewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Button ID="btnViewEditPayable" runat="server" Text="View/Edit Payment" CssClass="MyButton"
-                            Width="150px" OnClick="btnViewPayable_Click" />
+                            Width="120px" OnClick="btnViewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
