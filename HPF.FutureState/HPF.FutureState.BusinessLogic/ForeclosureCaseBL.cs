@@ -64,7 +64,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!ValidateSearchCriteria(searchCriteria))
             {
                 ExceptionMessage ex = new ExceptionMessage();
-                ex.Message = "Please choose argument(s) for at least one search option";
+                ex.Message = "At least one search criteria option is required";
                 DataValidationException pe = new DataValidationException();
                 pe.ExceptionMessages.Add(ex);
                 throw pe;
