@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.ProcessSummaryQueue
@@ -10,7 +11,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
 
         private const int SLEEPING_TIME = 1000;//Miliseconds
 
-        static void Main(string[] args)
+        static void Main()
         {
             //Single Instance checking
             bool canRun;
@@ -30,7 +31,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
             var entry = GetCompleteCaseEntry(queue);
             while (entry != null)
             {
-                ProcessCompleteCaseEntry(entry);
+                ProcessCompletedCaseEntry(entry);
                 Thread.Sleep(SLEEPING_TIME);//Make a thread safe
                 entry = queue.ReceiveCompletedCaseFromQueue();
             }
@@ -50,9 +51,9 @@ namespace HPF.FutureState.ProcessSummaryQueue
         /// Process a completed Case Entry
         /// </summary>
         /// <param name="entry"></param>
-        private static void ProcessCompleteCaseEntry(HPFSummaryQueueEntry entry)
+        private static void ProcessCompletedCaseEntry(HPFSummaryQueueEntry entry)
         {
-            //Will call SummaryReportBL
+            SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);
         }
     }
 }

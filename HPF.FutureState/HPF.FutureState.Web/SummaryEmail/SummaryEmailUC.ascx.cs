@@ -47,7 +47,7 @@ namespace HPF.FutureState.Web.SummaryEmail
                 }
                 if (result == true)
                 {
-                    EmailSummaryBL.Instance.SendEmailWithAttachment(SendTo, Subject, Body, CaseID);
+                    EmailSummaryBL.Instance.SendEmailSummaryReport(SendTo, Subject, Body, CaseID);
                 }
 
             }

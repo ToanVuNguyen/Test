@@ -960,7 +960,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             if (!IsCaseCompleted)            
                 return;
-            if(!IsSendQueueAndUpdateSummarySendDate(fcId))
+            if(!ShouldSendSummary(fcId))
                 return;
             //
             try
@@ -969,9 +969,9 @@ namespace HPF.FutureState.BusinessLogic
                 queue.SendACompletedCaseToQueue(fcId);
                 UpdateSummarySentDateTime(fcId);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                //Log and send E-mail                
             }
         }
 
@@ -981,10 +981,10 @@ namespace HPF.FutureState.BusinessLogic
         /// if one of them is not NOSEND return TRUE
         /// <return>bool<return>
         /// </summary>
-        private bool IsSendQueueAndUpdateSummarySendDate(int? fcId)
+        private bool ShouldSendSummary(int? fcId)
         { 
-            SummaryReportBL summaryBL = new SummaryReportBL();
-            ServicerDTOCollection servicers = summaryBL.GetServicerbyFcId(fcId);
+            var summaryBL = SummaryReportBL.Instance;
+            var servicers = summaryBL.GetServicerbyFcId(fcId);
             foreach (ServicerDTO item in servicers)
             {
                 if (ConvertStringToUpper(item.SecureDeliveryMethodCd) != Constant.SECURE_DELIVERY_METHOD_NOSEND)
