@@ -59,17 +59,17 @@
                 ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
             <asp:RequiredFieldValidator ID="reqtxtPeriodEnd" Display="Dynamic" runat="server"
                 ErrorMessage="Must input date" ControlToValidate="txtPeriodEnd"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="Input correct date format"
+            <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="An invalid date was provided for <Period Start>"
                 ControlToValidate="txtPeriodStart" ValueToCompare="1/1/1900" Operator="GreaterThan"
                 Type="Date"></asp:CompareValidator>
-            <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="Input correct date format"
+            <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="An invalid date was provided for <Period End>"
                 ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan"
                 Type="Date"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
         <td colspan="5" class="sidelinks">
-            Invoice List:
+            Payable List:
         </td>
     </tr>
     <tr>
