@@ -165,9 +165,10 @@ namespace HPF.FutureState.BusinessLogic
         { 
         return (AgencyPayableDAO.CreateInstance().AgencyPayableSetGet(agencyPayableID));
         }
-        public void TakebackMarkCase(string takebackReason, string agencyPayableIdCol)
+        public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet, string takebackReason, string agencyPayableIDCol)
         {
-            AgencyPayableDAO.CreateInstance().TakebackMarkCase(takebackReason, agencyPayableIdCol);
+            //agencyPayableCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            AgencyPayableDAO.CreateInstance().TakebackMarkCase(agencyPayableSet,takebackReason,agencyPayableIDCol);
         }
 
     }

@@ -46,7 +46,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["agencyPayable"];
                 int? agencypayableid = agencyPayable.AgencyPayableId;
                 AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencypayableid);
-                
+                ViewState["agencyPayableSet"] = agencyPayableSet;
                 //Bind Agency Payable, from agencypaybleDTO.payable
                 lblAgency.Text = agencyPayableSet.Payable.AgencyName;
                 lblPeriodStart.Text = agencyPayableSet.Payable.PeriodStartDate.Value.ToShortDateString();
@@ -107,12 +107,9 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
 
             string payableCaseIdCollection = GetSelectedRow();
-            string takebackReason = ddlTakebackReason.SelectedValue;
+            string takebackReason = ddlTakebackReason.SelectedItem.Text;
 
-            AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["agencyPayable"];
-            int? agencypayableid = agencyPayable.AgencyPayableId;
-            AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencypayableid);
-                
+            AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
             if (payableCaseIdCollection == null)
             {
                 lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0575");
@@ -121,7 +118,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                AgencyPayableBL.Instance.TakebackMarkCase(takebackReason,payableCaseIdCollection);
+                AgencyPayableBL.Instance.TakebackMarkCase(agencyPayableSet,takebackReason,payableCaseIdCollection);
                 BindViewEditPayable();
             }
             catch (Exception ex)
@@ -134,10 +131,8 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected string GetSelectedRow()
         {
             string result = "";
-            AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["agencyPayable"];
-            int? agencypayableid = agencyPayable.AgencyPayableId;
-            AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencypayableid);
-            
+            AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
+           
             foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
             {
                 CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");

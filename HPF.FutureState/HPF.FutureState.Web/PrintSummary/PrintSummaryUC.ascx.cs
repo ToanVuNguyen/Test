@@ -68,10 +68,11 @@ namespace HPF.FutureState.Web.PrintSummary
         {
             this.Password = ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"].ToString();
             string username_domain = ConfigurationManager.AppSettings["REPORTSERVER_LOGINNAME"].ToString();
-            if (username_domain.Contains(@"/"))
+            var DomainUser = username_domain.Split('\\');
+            if (username_domain.Contains(@"\"))
             {
-                this.Domain = username_domain.Substring(0, username_domain.IndexOf(@"/"));
-                this.Username = username_domain.Substring(username_domain.IndexOf(@"/") + 1, username_domain.Length - username_domain.IndexOf(@"/")-1);
+                this.Domain = DomainUser[0];
+                this.Username = DomainUser[1];//username_domain.Substring(username_domain.IndexOf(@"\") + 1, username_domain.Length - username_domain.IndexOf(@"\")-1);
             }
         }
 

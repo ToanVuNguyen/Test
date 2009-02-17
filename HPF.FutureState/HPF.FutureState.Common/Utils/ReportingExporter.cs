@@ -60,8 +60,18 @@ namespace HPF.FutureState.Common.Utils
 
         private byte[] Export(string format)
         {
-            var webClient = GetWebClient();            
-            var buffer = webClient.DownloadData(GetReportUrl(format));
+            byte[] buffer=null;
+            var webClient = GetWebClient();
+            try
+            {
+            
+            
+                buffer = webClient.DownloadData(GetReportUrl(format));
+            }
+            catch
+            {
+                webClient.ToString();    
+            }            
             webClient.Dispose();
             return buffer;
         }

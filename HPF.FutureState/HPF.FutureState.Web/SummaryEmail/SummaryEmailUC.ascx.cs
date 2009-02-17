@@ -53,12 +53,14 @@ namespace HPF.FutureState.Web.SummaryEmail
 
                 if (result == true)
                 {
+                    int caseid = Convert.ToInt32(Request.QueryString["CaseID"].ToString());
                     HPFSendMail hpfSendMail = new HPFSendMail();
                     ReportingExporter reportExport = new ReportingExporter();
                     hpfSendMail.To = SendTo;
                     hpfSendMail.Subject = Subject;
                     hpfSendMail.Body = Body;
-                    reportExport.ReportPath = @"http:\\hpf_01\reportserver\HPF_Report\rpt_Counseling_Summary";
+                    reportExport.ReportPath = @"HPF_Report/rpt_CounselingSummary";
+                    reportExport.SetReportParameter("pi_fc_id", caseid.ToString());
                     byte[] attachContent = reportExport.ExportToPdf();
                     hpfSendMail.AddAttachment("hpf_report", attachContent);
                     hpfSendMail.Send();

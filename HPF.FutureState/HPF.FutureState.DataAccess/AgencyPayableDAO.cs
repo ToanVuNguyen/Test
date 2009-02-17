@@ -365,6 +365,7 @@ namespace HPF.FutureState.DataAccess
                         var payableCase = new AgencyPayableCaseDTO();
 
                         payableCase.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
+                        payableCase.AgencyPayableId = ConvertToInt(reader["agency_payable_case_id"]);
                         payableCase.AgencyCaseID = ConvertToInt(reader["agency_case_num"]);
                         payableCase.CreateDt = ConvertToDateTime(reader["create_dt"])==null? DateTime.MinValue : ConvertToDateTime(reader["create_dt"]).Value;
                         payableCase.CompleteDt = ConvertToDateTime(reader["completed_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["completed_dt"]).Value;
@@ -396,18 +397,18 @@ namespace HPF.FutureState.DataAccess
         /// 
         /// </summary>
         /// <param name="invoicePayment"></param>
-        public void TakebackMarkCase(string takebackReason,string agencyPayableIdCol)
+        public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet,string takebackReason,string agencyPayableIDCol )
         {
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_agency_payable_case_update", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];
             sqlParam[0] = new SqlParameter("@pi_update_flag", 0);
-            sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIdCol);
+            sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIDCol);// payableid collection
             sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", takebackReason);
-            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", null);
-            sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", null);
-            sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name", null);
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);
+            sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableSet.ChangeLastUserId);
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name",agencyPayableSet.ChangeLastAppName);
             
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
