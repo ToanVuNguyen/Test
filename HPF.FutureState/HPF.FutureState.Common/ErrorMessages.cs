@@ -7,79 +7,79 @@ namespace HPF.FutureState.Common
 {
     public static class ErrorMessages
     {
-        public const string AUTHENTICATION_ERROR_MSG = "Authentication failed, access to web service is denied";       
+        public const string AUTHENTICATION_ERROR_MSG = "Authentication failed, access to web service is denied";
 
-        public const string ERR0001 = "ERR0001" ;
-        public const string ERR0002 = "ERR0002" ;
-        public const string ERR0003 = "ERR0003" ;
-        public const string ERR0004 = "ERR0004" ;
-        public const string ERR0005 = "ERR0005" ;
-        public const string ERR0006 = "ERR0006" ;
-        public const string ERR0007 = "ERR0007" ;
-        public const string ERR0008 = "ERR0008" ;
-        public const string ERR0009 = "ERR0009" ;
-        public const string ERR0010 = "ERR0010" ;
-        public const string ERR0011 = "ERR0011" ;
-        public const string ERR0012 = "ERR0012" ;
-        public const string ERR0013 = "ERR0013" ;
-        public const string ERR0014 = "ERR0014" ;
-        public const string ERR0015 = "ERR0015" ;
-        public const string ERR0016 = "ERR0016" ;
-        public const string ERR0017 = "ERR0017" ;
-        public const string ERR0018 = "ERR0018" ;
-        public const string ERR0019 = "ERR0019" ;
-        public const string ERR0020 = "ERR0020" ;
-        public const string ERR0021 = "ERR0021" ;
-        public const string ERR0022 = "ERR0022" ;
-        public const string ERR0023 = "ERR0023" ;
-        public const string ERR0024 = "ERR0024" ;
-        public const string ERR0025 = "ERR0025" ;
-        public const string ERR0026 = "ERR0026" ;
-        public const string ERR0027 = "ERR0027" ;
-        public const string ERR0028 = "ERR0028" ;
-        public const string ERR0029 = "ERR0029" ;
-        public const string ERR0030 = "ERR0030" ;
-        public const string ERR0031 = "ERR0031" ;
-        public const string ERR0032 = "ERR0032" ;
-        public const string ERR0033 = "ERR0033" ;
-        public const string ERR0034 = "ERR0034" ;
-        public const string ERR0035 = "ERR0035" ;
-        public const string ERR0036 = "ERR0036" ;
-        public const string ERR0037 = "ERR0037" ;
-        public const string ERR0038 = "ERR0038" ;
-        public const string ERR0039 = "ERR0039" ;
-        public const string ERR0040 = "ERR0040" ;
-        public const string ERR0041 = "ERR0041" ;
-        public const string ERR0042 = "ERR0042" ;
-        public const string ERR0043 = "ERR0043" ;
-        public const string ERR0044 = "ERR0044" ;
-        public const string ERR0045 = "ERR0045" ;
-        public const string ERR0046 = "ERR0046" ;
-        public const string ERR0047 = "ERR0047" ;
-        public const string ERR0048 = "ERR0048" ;
-        public const string ERR0049 = "ERR0049" ;
-        public const string ERR0050 = "ERR0050" ;
-        public const string ERR0051 = "ERR0051" ;
-        public const string ERR0052 = "ERR0052" ;
-        public const string ERR0053 = "ERR0053" ;
-        public const string ERR0054 = "ERR0054" ;
-        public const string ERR0055 = "ERR0055" ;
-        public const string ERR0056 = "ERR0056" ;
-        public const string ERR0057 = "ERR0057" ;
-        public const string ERR0058 = "ERR0058" ;
-        public const string ERR0059 = "ERR0059" ;
-        public const string ERR0060 = "ERR0060" ;
-        public const string ERR0061 = "ERR0061" ;
-        public const string ERR0062 = "ERR0062" ;
-        public const string ERR0063 = "ERR0063" ;
-        public const string ERR0064 = "ERR0064" ;
-        public const string ERR0065 = "ERR0065" ;
-        public const string ERR0066 = "ERR0066" ;
-        public const string ERR0067 = "ERR0067" ;
-        public const string ERR0068 = "ERR0068" ;
-        public const string ERR0069 = "ERR0069" ;
-        public const string ERR0070 = "ERR0070" ;
-        public const string ERR0071 = "ERR0071" ;
+        public const string ERR0001 = "ERR0001";
+        public const string ERR0002 = "ERR0002";
+        public const string ERR0003 = "ERR0003";
+        public const string ERR0004 = "ERR0004";
+        public const string ERR0005 = "ERR0005";
+        public const string ERR0006 = "ERR0006";
+        public const string ERR0007 = "ERR0007";
+        public const string ERR0008 = "ERR0008";
+        public const string ERR0009 = "ERR0009";
+        public const string ERR0010 = "ERR0010";
+        public const string ERR0011 = "ERR0011";
+        public const string ERR0012 = "ERR0012";
+        public const string ERR0013 = "ERR0013";
+        public const string ERR0014 = "ERR0014";
+        public const string ERR0015 = "ERR0015";
+        public const string ERR0016 = "ERR0016";
+        public const string ERR0017 = "ERR0017";
+        public const string ERR0018 = "ERR0018";
+        public const string ERR0019 = "ERR0019";
+        public const string ERR0020 = "ERR0020";
+        public const string ERR0021 = "ERR0021";
+        public const string ERR0022 = "ERR0022";
+        public const string ERR0023 = "ERR0023";
+        public const string ERR0024 = "ERR0024";
+        public const string ERR0025 = "ERR0025";
+        public const string ERR0026 = "ERR0026";
+        public const string ERR0027 = "ERR0027";
+        public const string ERR0028 = "ERR0028";
+        public const string ERR0029 = "ERR0029";
+        public const string ERR0030 = "ERR0030";
+        public const string ERR0031 = "ERR0031";
+        public const string ERR0032 = "ERR0032";
+        public const string ERR0033 = "ERR0033";
+        public const string ERR0034 = "ERR0034";
+        public const string ERR0035 = "ERR0035";
+        public const string ERR0036 = "ERR0036";
+        public const string ERR0037 = "ERR0037";
+        public const string ERR0038 = "ERR0038";
+        public const string ERR0039 = "ERR0039";
+        public const string ERR0040 = "ERR0040";
+        public const string ERR0041 = "ERR0041";
+        public const string ERR0042 = "ERR0042";
+        public const string ERR0043 = "ERR0043";
+        public const string ERR0044 = "ERR0044";
+        public const string ERR0045 = "ERR0045";
+        public const string ERR0046 = "ERR0046";
+        public const string ERR0047 = "ERR0047";
+        public const string ERR0048 = "ERR0048";
+        public const string ERR0049 = "ERR0049";
+        public const string ERR0050 = "ERR0050";
+        public const string ERR0051 = "ERR0051";
+        public const string ERR0052 = "ERR0052";
+        public const string ERR0053 = "ERR0053";
+        public const string ERR0054 = "ERR0054";
+        public const string ERR0055 = "ERR0055";
+        public const string ERR0056 = "ERR0056";
+        public const string ERR0057 = "ERR0057";
+        public const string ERR0058 = "ERR0058";
+        public const string ERR0059 = "ERR0059";
+        public const string ERR0060 = "ERR0060";
+        public const string ERR0061 = "ERR0061";
+        public const string ERR0062 = "ERR0062";
+        public const string ERR0063 = "ERR0063";
+        public const string ERR0064 = "ERR0064";
+        public const string ERR0065 = "ERR0065";
+        public const string ERR0066 = "ERR0066";
+        public const string ERR0067 = "ERR0067";
+        public const string ERR0068 = "ERR0068";
+        public const string ERR0069 = "ERR0069";
+        public const string ERR0070 = "ERR0070";
+        public const string ERR0071 = "ERR0071";
         public const string ERR0072 = "ERR0072";
         public const string ERR0073 = "ERR0073";
         public const string ERR0074 = "ERR0074";
@@ -175,8 +175,8 @@ namespace HPF.FutureState.Common
         public const string ERR0353 = "ERR0353"; //"A FinalDispoCd is required to save a call.";
         public const string ERR0354 = "ERR0354";
         public const string ERR0355 = "ERR0355";
-        public const string ERR0356 = "ERR0356"; 
-        
+        public const string ERR0356 = "ERR0356";
+
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
         public const string WARN0302 = "WARN0302";
@@ -232,9 +232,11 @@ namespace HPF.FutureState.Common
         public const string WARN0557 = "WARN0557";
         public const string ERR0558 = "ERR0558";
         public const string ERR0559 = "ERR0559";
-        public const string WARN0560 = "WARN0560"; 
-        
-        public const string ERR0600 = "ERR0600"; 
+        public const string WARN0560 = "WARN0560";
+        //view edit payable page
+        public const string ERR0575 = "ERR0575";
+        public const string WARN0576 = "WARN0576";
+        public const string ERR0600 = "ERR0600";
         public const string ERR0601 = "ERR0601";
 
         //App view/edit invoice payment
@@ -283,7 +285,7 @@ namespace HPF.FutureState.Common
         {
             LoadErrorMessageDict();
             //            
-            return errorMessageDict[exceptionId];            
+            return errorMessageDict[exceptionId];
         }
 
         public static string GetExceptionMessage(string exceptionId, params object[] agrs)
@@ -296,8 +298,8 @@ namespace HPF.FutureState.Common
             LoadErrorMessageDict();
             //
             if (errorMessageDict.ContainsKey(exceptionId))
-                return exceptionId + "--" + errorMessageDict[exceptionId];            
-                return "0000--Unknow Error.";
+                return exceptionId + "--" + errorMessageDict[exceptionId];
+            return "0000--Unknow Error.";
         }
 
         public static string GetExceptionMessageCombined(string exceptionId, params object[] agrs)
@@ -309,7 +311,7 @@ namespace HPF.FutureState.Common
         {
             if (errorMessageDict.Count == 0)
             {
-                errorMessageDict.Add(ERR0001,"AgencyCaseNum has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0001, "AgencyCaseNum has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0002, "AgencyClientNum has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0003, "BorrowerFName has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0004, "BorrowerLName has a maximum length of 30 characters.");
@@ -391,55 +393,55 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0079, "BudgetItemAmt must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0080, "HomePurchasePrice must be a valid number with 2 decimal places.");
 
-                errorMessageDict.Add(ERR0100,"An AgencyId is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0101,"A ProgramId is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0102,"An AgencyCaseNum is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0103,"An IntakeDt is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0104,"A CaseSourceCd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0105,"A BorrowerFname is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0106,"A BorrowerLname is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0107,"A PrimaryContactNo is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0108,"A ContactAddr1 is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0109,"A ContactCity is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0110,"A ContactStateCd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0111,"A ContactZip is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0112,"A PropAddr1 is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0113,"A PropCity is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0114,"A PropStateCd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0115,"A PropZip is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0116,"The FundingConsentInd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0117,"The ServicerConsentInd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0118,"A CounselorIdRef of the assigned counselor is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0119,"A CounselorLname is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0120,"A CounselorFname is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0121,"A CounselorEmail is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0122,"A CounselorPhone is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0123,"The OwnerOccupiedInd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0124,"The PrimaryResidenceInd is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0125,"A ChgLstUserId is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0100, "An AgencyId is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0101, "A ProgramId is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0102, "An AgencyCaseNum is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0103, "An IntakeDt is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0104, "A CaseSourceCd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0105, "A BorrowerFname is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0106, "A BorrowerLname is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0107, "A PrimaryContactNo is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0108, "A ContactAddr1 is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0109, "A ContactCity is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0110, "A ContactStateCd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0111, "A ContactZip is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0112, "A PropAddr1 is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0113, "A PropCity is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0114, "A PropStateCd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0115, "A PropZip is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0116, "The FundingConsentInd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0117, "The ServicerConsentInd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0118, "A CounselorIdRef of the assigned counselor is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0119, "A CounselorLname is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0120, "A CounselorFname is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0121, "A CounselorEmail is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0122, "A CounselorPhone is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0123, "The OwnerOccupiedInd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0124, "The PrimaryResidenceInd is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0125, "A ChgLstUserId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0126, "Missing loans.  At least one loan is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0127, "One or more of your loans is missing a ServicerID.");
                 errorMessageDict.Add(ERR0128, "One or more of your loans is missing a Loan Num.");
                 errorMessageDict.Add(ERR0129, "An OutcomeTypeID is required to save a foreclosure case.");
 
-                errorMessageDict.Add(ERR0200,"An invalid code was provided for IncomeEarnersCd.");
-                errorMessageDict.Add(ERR0201,"An invalid code was provided for CaseSourceCd.");
-                errorMessageDict.Add(ERR0202,"An invalid code was provided for RaceCd.");
-                errorMessageDict.Add(ERR0203,"An invalid code was provided for HouseholdCd.");
-                errorMessageDict.Add(ERR0204,"An invalid code was provided for DfltReason1stCd.");
-                errorMessageDict.Add(ERR0205,"An invalid code was provided for DfltReason2ndCd.");
-                errorMessageDict.Add(ERR0206,"An invalid code was provided for HudTerminationReasonCd.");
-                errorMessageDict.Add(ERR0207,"An invalid code was provided for HudOutcomeCd.");
-                errorMessageDict.Add(ERR0208,"An invalid code was provided for CounselingDurationCd.");
-                errorMessageDict.Add(ERR0209,"An invalid code was provided for GenderCd.");
-                errorMessageDict.Add(ERR0210,"An invalid code was provided for ContactStateCd.");
-                errorMessageDict.Add(ERR0211,"An invalid code was provided for PropStateCd.");
-                errorMessageDict.Add(ERR0212,"An invalid code was provided for BorrowerEducLevelCompletedCd.");
-                errorMessageDict.Add(ERR0213,"An invalid code was provided for BorrowerMaritalStatusCd.");
-                errorMessageDict.Add(ERR0214,"An invalid code was provided for BorrowerPreferredLangCd.");
-                errorMessageDict.Add(ERR0215,"An invalid code was provided for SummarySentOtherCd.");
-                errorMessageDict.Add(ERR0216,"An invalid code was provided for PropertyCd.");
-                errorMessageDict.Add(ERR0217,"An invalid code was provided for MilitaryServiceCd.");
+                errorMessageDict.Add(ERR0200, "An invalid code was provided for IncomeEarnersCd.");
+                errorMessageDict.Add(ERR0201, "An invalid code was provided for CaseSourceCd.");
+                errorMessageDict.Add(ERR0202, "An invalid code was provided for RaceCd.");
+                errorMessageDict.Add(ERR0203, "An invalid code was provided for HouseholdCd.");
+                errorMessageDict.Add(ERR0204, "An invalid code was provided for DfltReason1stCd.");
+                errorMessageDict.Add(ERR0205, "An invalid code was provided for DfltReason2ndCd.");
+                errorMessageDict.Add(ERR0206, "An invalid code was provided for HudTerminationReasonCd.");
+                errorMessageDict.Add(ERR0207, "An invalid code was provided for HudOutcomeCd.");
+                errorMessageDict.Add(ERR0208, "An invalid code was provided for CounselingDurationCd.");
+                errorMessageDict.Add(ERR0209, "An invalid code was provided for GenderCd.");
+                errorMessageDict.Add(ERR0210, "An invalid code was provided for ContactStateCd.");
+                errorMessageDict.Add(ERR0211, "An invalid code was provided for PropStateCd.");
+                errorMessageDict.Add(ERR0212, "An invalid code was provided for BorrowerEducLevelCompletedCd.");
+                errorMessageDict.Add(ERR0213, "An invalid code was provided for BorrowerMaritalStatusCd.");
+                errorMessageDict.Add(ERR0214, "An invalid code was provided for BorrowerPreferredLangCd.");
+                errorMessageDict.Add(ERR0215, "An invalid code was provided for SummarySentOtherCd.");
+                errorMessageDict.Add(ERR0216, "An invalid code was provided for PropertyCd.");
+                errorMessageDict.Add(ERR0217, "An invalid code was provided for MilitaryServiceCd.");
                 errorMessageDict.Add(ERR0218, "An invalid code was provided for IntakeCreditBureauCd.");
                 errorMessageDict.Add(ERR0219, "An invalid code was provided for Loan1st2ndCd.");
                 errorMessageDict.Add(ERR0220, "An invalid code was provided for MortgageTypeCd.");
@@ -450,9 +452,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
                 errorMessageDict.Add(ERR0252, "An invalid AgencyID was provided for the Corresponding FcId.  Your agency does not own this foreclosure case. ");
                 errorMessageDict.Add(ERR0253, "Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
-                                              +"Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
-                                              +"Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
-                                              +"Last Outcome: {12} ");                
+                                              + "Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
+                                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
+                                              + "Last Outcome: {12} ");
                 errorMessageDict.Add(ERR0254, "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
                 errorMessageDict.Add(ERR0255, "A previously completed case cannot become uncompleted. An update was submitted without all fields required to complete.");
                 errorMessageDict.Add(ERR0256, "Only one loan can be designated as '1st'.");
@@ -482,27 +484,27 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0355, "An invalid code was provided for FinalDispoCd.");
                 errorMessageDict.Add(ERR0356, "A CCAgentIdKey is required to save a call and max length is 55 characters.");
 
-                errorMessageDict.Add(WARN0300,"An IncomeEarnersCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0301,"A RaceCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0302,"A HouseholdCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0303,"A DfltReason1stCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0304,"A DfltReason2ndCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0305,"A HudOutcomeCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0306,"A CounselingDurationCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0307,"A GenderCd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0308,"A BorrowerDob is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0309,"The BankruptcyInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0310,"The HispanicInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0311,"The FcNoticeReceivedInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0312,"An OccupantNum is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0313,"LoanDefltReasonNotes are required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0314,"ActionItemsNotes is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0315,"The DiscussedSolutionWithSrvcrInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0316,"The WorkedWithAnotherAgencyInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0317,"The ContactedSrvcrRecentlyInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0318,"The HasWorkoutPlanInd is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0319,"A HouseholdGrossAnnualIncomeAmt is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0320,"A Loan1st2ndCd is required on all loans to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0300, "An IncomeEarnersCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0301, "A RaceCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0302, "A HouseholdCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0303, "A DfltReason1stCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0304, "A DfltReason2ndCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0305, "A HudOutcomeCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0306, "A CounselingDurationCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0307, "A GenderCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0308, "A BorrowerDob is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0309, "The BankruptcyInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0310, "The HispanicInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0311, "The FcNoticeReceivedInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0312, "An OccupantNum is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0313, "LoanDefltReasonNotes are required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0314, "ActionItemsNotes is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0315, "The DiscussedSolutionWithSrvcrInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0316, "The WorkedWithAnotherAgencyInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0317, "The ContactedSrvcrRecentlyInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0318, "The HasWorkoutPlanInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0319, "A HouseholdGrossAnnualIncomeAmt is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0320, "A Loan1st2ndCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0321, "A MortgageTypeCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0322, "A TermLengthCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0323, "A LoanDelinqStatusCd is required on all loans to complete a foreclosure case.");
@@ -521,7 +523,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");
 
                 errorMessageDict.Add(ERR0600, "An outcome that already has a Delete Date cannot be deleted.");
-                errorMessageDict.Add(ERR0601, "An outcome must have a Delete Date to be reinstated.");                
+                errorMessageDict.Add(ERR0601, "An outcome must have a Delete Date to be reinstated.");
                 //Invoice
                 errorMessageDict.Add(ERR0552, "There were zero cases matching your selection criteria.");
                 errorMessageDict.Add(ERR0553, "At least one case must be selected in order to reject.");
@@ -533,6 +535,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0559, "At least one case must be selected to be unpaid.");
                 errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
 
+                //view edit payable page
+                errorMessageDict.Add(ERR0575, "will be update soon");
+                errorMessageDict.Add(WARN0576, "will be update soon");
                 //View/Edit Invoice Payment
                 errorMessageDict.Add(ERR0650, "A Funding Source is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0651, "A Payment Number is required to save an Invoice Payment.");
