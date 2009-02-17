@@ -175,7 +175,7 @@
             <tr>
                 <td align="left" class="sidelinks" colspan="8">
                     <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
-                        Width="100%" Visible="true" ScrollBars="Vertical">
+                        Width="100%" Visible="true" ScrollBars="Auto">
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
                                 <asp:GridView ID="grvViewEditAgencyPayable" runat="server" CellPadding="2" ForeColor="#333333"

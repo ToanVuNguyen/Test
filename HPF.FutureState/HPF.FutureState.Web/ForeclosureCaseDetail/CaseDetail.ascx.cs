@@ -25,8 +25,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                // ApplySecurity();
+                
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-                BindDetailCaseData(caseid);
+                if (caseid != null)
+                    BindDetailCaseData(caseid);
+                else
+                    lblMessage.Text = "There is no data with this fc_id";
             }
             catch (Exception ex)
             {
@@ -98,160 +102,172 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
         {
-            //Top area
-            //Property
-            lblAddress1.Text = foreclosureCase.PropAddr1;
-            lblAddress2.Text = foreclosureCase.PropAddr2;
-            lblCity.Text = foreclosureCase.PropCity;
-            if (foreclosureCase.PropZipPlus4 == null||foreclosureCase.PropZipPlus4=="")
-                lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip;
-            else
-                lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
-            lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
-            foreclosureCase.OwnerOccupiedInd = DisplayInd(lblOwnerOccupied.Text);
-            lblPropertyCode.Text = foreclosureCase.PropertyCd;
-            lblNumberOfOccupants.Text = foreclosureCase.OccupantNum.ToString();
-            lblPurchaseYear.Text = foreclosureCase.HomePurchaseYear.ToString();
-            lblPurchasePrice.Text = foreclosureCase.HomePurchasePrice.ToString();
-            lblCurrentMarketValue.Text = foreclosureCase.HomeCurrentMarketValue.ToString();
-            lblForSaleIndicator.Text = DisplayInd(foreclosureCase.ForSaleInd);
-            lblRealtyCompany.Text = foreclosureCase.RealtyCompany;
-            lblHomeAskingPrice.Text = foreclosureCase.HomeSalePrice.ToString();
-            lblPrimaryResidence.Text = foreclosureCase.PrimResEstMktValue.ToString();
-            //Borrower
-            lblFirstName.Text = foreclosureCase.BorrowerFname;
-            lblMidName.Text = foreclosureCase.BorrowerMname;
-            lblLastName.Text = foreclosureCase.BorrowerLname;
-            //DisplayDt(foreclosureCase.BorrowerDob.Value, lblDOB);
+            if (ddlAgency.SelectedValue != "")
+            {
+                //Top area
+                //Property
 
-            lblDOB.Text = foreclosureCase.BorrowerDob == null ? "" : foreclosureCase.BorrowerDob.Value.ToShortDateString();
-            if (foreclosureCase.BorrowerLast4Ssn == null|| foreclosureCase.BorrowerLast4Ssn=="")
-                lblLast4SSN.Text = "";
-            else lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
-            lblPrimaryContact.Text = foreclosureCase.PrimaryContactNo;
-            lblSecondaryContact.Text = foreclosureCase.SecondContactNo;
-            lblPrimaryEmail.Text = foreclosureCase.Email1;
-            lblSecondaryEmail.Text = foreclosureCase.Email2;
-            lblGender.Text = foreclosureCase.GenderCd;
-            lblMother.Text = foreclosureCase.MotherMaidenLname;
-            foreclosureCase.BorrowerDisabledInd = DisplayInd(lblDisabled.Text);
-            lblRace.Text = foreclosureCase.RaceCd;
-            foreclosureCase.HispanicInd = DisplayInd(lblEthnicity.Text);
-            lblPreferedLanguage.Text = foreclosureCase.BorrowerPreferredLangCd;
-            lblEducationLevel.Text = foreclosureCase.BorrowerEducLevelCompletedCd;
-            lblMaritalStatus.Text = foreclosureCase.BorrowerMaritalStatusCd;
-            lblOccupation.Text = foreclosureCase.BorrowerOccupation;
-            lblMilitaryService.Text = foreclosureCase.MilitaryServiceCd;
-            //Co-Borrower
-            lblCoFirstName.Text = foreclosureCase.CoBorrowerFname;
-            lblCoMidName.Text = foreclosureCase.CoBorrowerMname;
-            lblCoLastName.Text = foreclosureCase.CoBorrowerLname;
-            //DisplayDt(foreclosureCase.CoBorrowerDob.Value, lblCoDOB);
-            lblCoDOB.Text = foreclosureCase.CoBorrowerDob==null?"":foreclosureCase.CoBorrowerDob.Value.ToShortDateString();
-            if (foreclosureCase.CoBorrowerLast4Ssn == null||foreclosureCase.CoBorrowerLast4Ssn=="")
-                lblCoLast4SSN.Text = "";
-            else lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
-            lblCoDisabled.Text = DisplayInd(foreclosureCase.CoBorrowerDisabledInd);
-            lblCoOccupation.Text = foreclosureCase.CoBorrowerOccupation;
-            //Contact Address
-            lblContactAdd1.Text = foreclosureCase.ContactAddr1;
-            lblContactAdd2.Text = foreclosureCase.ContactAddr2;
-            lblContactCity.Text = foreclosureCase.ContactCity;
-            lblContactStateZip.Text = foreclosureCase.ContactStateCd + "," + foreclosureCase.ContactZip;
-            //case status
-            ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
-            if (foreclosureCase.DuplicateInd == "Y")
-                ddlDuplicate.SelectedIndex = 0;
-            else ddlDuplicate.SelectedIndex = 1;
-            ddlAgency.SelectedValue = foreclosureCase.AgencyId.ToString();
-            lblAgencyCase.Text = foreclosureCase.AgencyCaseNum;
-            lblAgencyClient.Text = foreclosureCase.AgencyClientNum;
-            lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
-            lblPhoneExt.Text = foreclosureCase.CounselorPhone + " " + foreclosureCase.CounselorExt;
-            lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
-            lblProgram.Text = foreclosureCase.ProgramId.ToString();
-            //DisplayDt(foreclosureCase.IntakeDt.Value, lblIntakeDate);
-            lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
-            //DisplayDt(foreclosureCase.CompletedDt.Value, lblCompleteDate);
-            lblCompleteDate.Text = foreclosureCase.CompletedDt == null ? "" : foreclosureCase.CompletedDt.Value.ToShortDateString();
-            lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd.ToString();
-            lblSourceCode.Text = foreclosureCase.CaseSourceCd;
-            //case summary
-            lblSentDate.Text = foreclosureCase.SummarySentDt == null ? "" : foreclosureCase.SummarySentDt.Value.ToShortDateString();
-            lblSentOrther.Text = foreclosureCase.SummarySentOtherCd;
-            lblOtherDate.Text = foreclosureCase.SummarySentOtherDt == null ? "" : foreclosureCase.SummarySentOtherDt.Value.ToShortDateString();
-            //consent
-            lblServicerConsent.Text = DisplayInd(foreclosureCase.ServicerConsentInd);
-            lblFundingConsent.Text = DisplayInd(foreclosureCase.FundingConsentInd);
-            //default reason
-            lblDefaultReason.Text = foreclosureCase.DfltReason1stCd;
-            lblSDefaultReason.Text = foreclosureCase.DfltReason2ndCd;
-            //case financial
-            lblHouseholdType.Text = foreclosureCase.HouseholdCd;
-            lblAnnualIncome.Text = foreclosureCase.HouseholdGrossAnnualIncomeAmt.ToString();
-            lblEarnerCode.Text = foreclosureCase.IncomeEarnersCd;
-            lblAMIPercentage.Text = foreclosureCase.AmiPercentage.ToString();
-            lblWServicer.Text = DisplayInd(foreclosureCase.DiscussedSolutionWithSrvcrInd);
-            lblAnotherAgency.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
-            lblSevicerRecently.Text = DisplayInd(foreclosureCase.ContactedSrvcrRecentlyInd);
-            lblWorkoutPlan.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
-            lblPlanCurrent.Text = DisplayInd(foreclosureCase.SrvcrWorkoutPlanCurrentInd);
-            lblCreditScores.Text = foreclosureCase.IntakeCreditScore;
-            lblCreditBureau.Text = foreclosureCase.IntakeCreditBureauCd;
-            //foreclosure notice
+                lblAddress1.Text = foreclosureCase.PropAddr1;
+                lblAddress2.Text = foreclosureCase.PropAddr2;
+                lblCity.Text = foreclosureCase.PropCity;
+                if (foreclosureCase.PropZipPlus4 == null || foreclosureCase.PropZipPlus4 == "")
+                    lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip;
+                else
+                    lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
+                lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
+                foreclosureCase.OwnerOccupiedInd = DisplayInd(lblOwnerOccupied.Text);
+                lblPropertyCode.Text = foreclosureCase.PropertyCd;
+                lblNumberOfOccupants.Text = foreclosureCase.OccupantNum.ToString();
+                lblPurchaseYear.Text = foreclosureCase.HomePurchaseYear.ToString();
+                lblPurchasePrice.Text = foreclosureCase.HomePurchasePrice.ToString();
+                lblCurrentMarketValue.Text = foreclosureCase.HomeCurrentMarketValue.ToString();
+                lblForSaleIndicator.Text = DisplayInd(foreclosureCase.ForSaleInd);
+                lblRealtyCompany.Text = foreclosureCase.RealtyCompany;
+                lblHomeAskingPrice.Text = foreclosureCase.HomeSalePrice.ToString();
+                lblPrimaryResidence.Text = foreclosureCase.PrimResEstMktValue.ToString();
+                //Borrower
+                lblFirstName.Text = foreclosureCase.BorrowerFname;
+                lblMidName.Text = foreclosureCase.BorrowerMname;
+                lblLastName.Text = foreclosureCase.BorrowerLname;
+                //DisplayDt(foreclosureCase.BorrowerDob.Value, lblDOB);
 
-            lblNoticeReceived.Text = foreclosureCase.FcSaleDate == null ? "" : foreclosureCase.FcSaleDate.Value.ToShortDateString();
-            //bankcruptcy
-            lblBankruptcy.Text = DisplayInd(foreclosureCase.BankruptcyInd);
-            lblBankruptcyAttomey.Text = foreclosureCase.BankruptcyAttorney;
-            lblCurrentIndicator.Text = DisplayInd(foreclosureCase.BankruptcyPmtCurrentInd);
-            //HUD
-            lblTerminationReason.Text = foreclosureCase.HudOutcomeCd;
-            lblTerminationDate.Text = foreclosureCase.HudTerminationDt == null ? "" : foreclosureCase.HudTerminationDt.Value.ToShortDateString();
-            lblHUDOutcome.Text = foreclosureCase.HudOutcomeCd;
-            //couselor notes
-            txtReasonNote.Text = foreclosureCase.LoanDfltReasonNotes;
-            txtItemNotes.Text = foreclosureCase.ActionItemsNotes;
-            txtFollowUpNotes.Text = foreclosureCase.FollowupNotes;
-            //Opt In/Out
-            ddlNotCall.SelectedValue = foreclosureCase.DoNotCallInd;
-            ddlNotCall.SelectedItem.Text = DisplayInd(foreclosureCase.DoNotCallInd);
-            ddlNewsLetter.SelectedValue = foreclosureCase.OptOutNewsletterInd;
-            ddlNewsLetter.SelectedItem.Text = DisplayInd(foreclosureCase.OptOutNewsletterInd);
-            ddlServey.SelectedValue = foreclosureCase.OptOutSurveyInd;
-            ddlServey.SelectedItem.Text = DisplayInd(foreclosureCase.OptOutSurveyInd);
-            //media cadidate
-            lblMediaInterest.Text = DisplayInd(foreclosureCase.AgencyMediaInterestInd);
-            ddlMediaCondirmation.SelectedValue = foreclosureCase.HpfMediaCandidateInd;
-            if (foreclosureCase.HpfMediaCandidateInd == "Y")
-                ddlMediaCondirmation.SelectedIndex = 1;//yes
-            else
-                if (foreclosureCase.HpfMediaCandidateInd == "N")
-                    ddlMediaCondirmation.SelectedIndex = 2;//no
-                else ddlMediaCondirmation.SelectedIndex = 0;//blank
-            //success story
-            lblSuccessStory.Text = foreclosureCase.AgencySuccessStoryInd;
-            ddlSuccessStory.SelectedValue = foreclosureCase.HpfSuccessStoryInd;
-            if (foreclosureCase.HpfSuccessStoryInd == "Y")
-                ddlSuccessStory.SelectedIndex = 1;//yes
-            else
-                if (foreclosureCase.HpfSuccessStoryInd == "N")
-                    ddlSuccessStory.SelectedIndex = 2;//no
-                else ddlSuccessStory.SelectedIndex = 0;//blank
-            BindDDLAgency(foreclosureCase.AgencyId.ToString());
+                lblDOB.Text = foreclosureCase.BorrowerDob == null ? "" : foreclosureCase.BorrowerDob.Value.ToShortDateString();
+                if (foreclosureCase.BorrowerLast4Ssn == null || foreclosureCase.BorrowerLast4Ssn == "")
+                    lblLast4SSN.Text = "";
+                else lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
+                lblPrimaryContact.Text = foreclosureCase.PrimaryContactNo;
+                lblSecondaryContact.Text = foreclosureCase.SecondContactNo;
+                lblPrimaryEmail.Text = foreclosureCase.Email1;
+                lblSecondaryEmail.Text = foreclosureCase.Email2;
+                lblGender.Text = foreclosureCase.GenderCd;
+                lblMother.Text = foreclosureCase.MotherMaidenLname;
+                foreclosureCase.BorrowerDisabledInd = DisplayInd(lblDisabled.Text);
+                lblRace.Text = foreclosureCase.RaceCd;
+                foreclosureCase.HispanicInd = DisplayInd(lblEthnicity.Text);
+                lblPreferedLanguage.Text = foreclosureCase.BorrowerPreferredLangCd;
+                lblEducationLevel.Text = foreclosureCase.BorrowerEducLevelCompletedCd;
+                lblMaritalStatus.Text = foreclosureCase.BorrowerMaritalStatusCd;
+                lblOccupation.Text = foreclosureCase.BorrowerOccupation;
+                lblMilitaryService.Text = foreclosureCase.MilitaryServiceCd;
+                //Co-Borrower
+                lblCoFirstName.Text = foreclosureCase.CoBorrowerFname;
+                lblCoMidName.Text = foreclosureCase.CoBorrowerMname;
+                lblCoLastName.Text = foreclosureCase.CoBorrowerLname;
+                //DisplayDt(foreclosureCase.CoBorrowerDob.Value, lblCoDOB);
+                lblCoDOB.Text = foreclosureCase.CoBorrowerDob == null ? "" : foreclosureCase.CoBorrowerDob.Value.ToShortDateString();
+                if (foreclosureCase.CoBorrowerLast4Ssn == null || foreclosureCase.CoBorrowerLast4Ssn == "")
+                    lblCoLast4SSN.Text = "";
+                else lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
+                lblCoDisabled.Text = DisplayInd(foreclosureCase.CoBorrowerDisabledInd);
+                lblCoOccupation.Text = foreclosureCase.CoBorrowerOccupation;
+                //Contact Address
+                lblContactAdd1.Text = foreclosureCase.ContactAddr1;
+                lblContactAdd2.Text = foreclosureCase.ContactAddr2;
+                lblContactCity.Text = foreclosureCase.ContactCity;
+                lblContactStateZip.Text = foreclosureCase.ContactStateCd + "," + foreclosureCase.ContactZip;
+                //case status
+                ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
+                if (foreclosureCase.DuplicateInd == "Y")
+                    ddlDuplicate.SelectedIndex = 0;
+                else ddlDuplicate.SelectedIndex = 1;
+                ddlAgency.SelectedValue = foreclosureCase.AgencyId.ToString();
+                lblAgencyCase.Text = foreclosureCase.AgencyCaseNum;
+                lblAgencyClient.Text = foreclosureCase.AgencyClientNum;
+                lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
+                lblPhoneExt.Text = foreclosureCase.CounselorPhone + " " + foreclosureCase.CounselorExt;
+                lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
+                lblProgram.Text = foreclosureCase.ProgramId.ToString();
+                //DisplayDt(foreclosureCase.IntakeDt.Value, lblIntakeDate);
+                lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
+                //DisplayDt(foreclosureCase.CompletedDt.Value, lblCompleteDate);
+                lblCompleteDate.Text = foreclosureCase.CompletedDt == null ? "" : foreclosureCase.CompletedDt.Value.ToShortDateString();
+                lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd.ToString();
+                lblSourceCode.Text = foreclosureCase.CaseSourceCd;
+                //case summary
+                lblSentDate.Text = foreclosureCase.SummarySentDt == null ? "" : foreclosureCase.SummarySentDt.Value.ToShortDateString();
+                lblSentOrther.Text = foreclosureCase.SummarySentOtherCd;
+                lblOtherDate.Text = foreclosureCase.SummarySentOtherDt == null ? "" : foreclosureCase.SummarySentOtherDt.Value.ToShortDateString();
+                //consent
+                lblServicerConsent.Text = DisplayInd(foreclosureCase.ServicerConsentInd);
+                lblFundingConsent.Text = DisplayInd(foreclosureCase.FundingConsentInd);
+                //default reason
+                lblDefaultReason.Text = foreclosureCase.DfltReason1stCd;
+                lblSDefaultReason.Text = foreclosureCase.DfltReason2ndCd;
+                //case financial
+                lblHouseholdType.Text = foreclosureCase.HouseholdCd;
+                lblAnnualIncome.Text = foreclosureCase.HouseholdGrossAnnualIncomeAmt.ToString();
+                lblEarnerCode.Text = foreclosureCase.IncomeEarnersCd;
+                lblAMIPercentage.Text = foreclosureCase.AmiPercentage.ToString();
+                lblWServicer.Text = DisplayInd(foreclosureCase.DiscussedSolutionWithSrvcrInd);
+                lblAnotherAgency.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
+                lblSevicerRecently.Text = DisplayInd(foreclosureCase.ContactedSrvcrRecentlyInd);
+                lblWorkoutPlan.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
+                lblPlanCurrent.Text = DisplayInd(foreclosureCase.SrvcrWorkoutPlanCurrentInd);
+                lblCreditScores.Text = foreclosureCase.IntakeCreditScore;
+                lblCreditBureau.Text = foreclosureCase.IntakeCreditBureauCd;
+                //foreclosure notice
 
+                lblNoticeReceived.Text = foreclosureCase.FcSaleDate == null ? "" : foreclosureCase.FcSaleDate.Value.ToShortDateString();
+                //bankcruptcy
+                lblBankruptcy.Text = DisplayInd(foreclosureCase.BankruptcyInd);
+                lblBankruptcyAttomey.Text = foreclosureCase.BankruptcyAttorney;
+                lblCurrentIndicator.Text = DisplayInd(foreclosureCase.BankruptcyPmtCurrentInd);
+                //HUD
+                lblTerminationReason.Text = foreclosureCase.HudOutcomeCd;
+                lblTerminationDate.Text = foreclosureCase.HudTerminationDt == null ? "" : foreclosureCase.HudTerminationDt.Value.ToShortDateString();
+                lblHUDOutcome.Text = foreclosureCase.HudOutcomeCd;
+                //couselor notes
+                txtReasonNote.Text = foreclosureCase.LoanDfltReasonNotes;
+                txtItemNotes.Text = foreclosureCase.ActionItemsNotes;
+                txtFollowUpNotes.Text = foreclosureCase.FollowupNotes;
+                //Opt In/Out
+                ddlNotCall.SelectedValue = foreclosureCase.DoNotCallInd;
+                ddlNotCall.SelectedItem.Text = DisplayInd(foreclosureCase.DoNotCallInd);
+                ddlNewsLetter.SelectedValue = foreclosureCase.OptOutNewsletterInd;
+                ddlNewsLetter.SelectedItem.Text = DisplayInd(foreclosureCase.OptOutNewsletterInd);
+                ddlServey.SelectedValue = foreclosureCase.OptOutSurveyInd;
+                ddlServey.SelectedItem.Text = DisplayInd(foreclosureCase.OptOutSurveyInd);
+                //media cadidate
+                lblMediaInterest.Text = DisplayInd(foreclosureCase.AgencyMediaInterestInd);
+                ddlMediaCondirmation.SelectedValue = foreclosureCase.HpfMediaCandidateInd;
+                if (foreclosureCase.HpfMediaCandidateInd == "Y")
+                    ddlMediaCondirmation.SelectedIndex = 1;//yes
+                else
+                    if (foreclosureCase.HpfMediaCandidateInd == "N")
+                        ddlMediaCondirmation.SelectedIndex = 2;//no
+                    else ddlMediaCondirmation.SelectedIndex = 0;//blank
+                //success story
+                lblSuccessStory.Text = foreclosureCase.AgencySuccessStoryInd;
+                ddlSuccessStory.SelectedValue = foreclosureCase.HpfSuccessStoryInd;
+                if (foreclosureCase.HpfSuccessStoryInd == "Y")
+                    ddlSuccessStory.SelectedIndex = 1;//yes
+                else
+                    if (foreclosureCase.HpfSuccessStoryInd == "N")
+                        ddlSuccessStory.SelectedIndex = 2;//no
+                    else ddlSuccessStory.SelectedIndex = 0;//blank
+                BindDDLAgency(foreclosureCase.AgencyId.ToString());
+            }
+            else
+                lblMessage.Text = "There is no data with this agency";
         }
 
         protected void UpdateForecloseCase()
         {
             //get update datacollection from UI
-            ForeclosureCaseDTO foreclosureCase = GetUpdateInfo();
+            ForeclosureCaseDTO foreclosureCase=null;
+            if(ddlAgency.SelectedValue!="") 
+            foreclosureCase = GetUpdateInfo();
+            
             try
             {
-                foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                BindDetailCaseData(fcid);
-                lblMessage.Text = "Save foreclosure case succesfull";
+                if (foreclosureCase != null)
+                {
+                    foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
+                    BindDetailCaseData(fcid);
+                    lblMessage.Text = "Save foreclosure case succesfull";
+                }
+                else lblMessage.Text = "Agency null value, can't save";
             }
             catch (Exception ex)
             {
@@ -265,28 +281,28 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <returns></returns>
         private ForeclosureCaseDTO GetUpdateInfo()
         {
-            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
-            //case status
-            foreclosureCase.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
-            foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
-            foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
-            //couselor notes
-            foreclosureCase.LoanDfltReasonNotes = txtReasonNote.Text;
-            foreclosureCase.ActionItemsNotes = txtItemNotes.Text;
-            foreclosureCase.FollowupNotes = txtFollowUpNotes.Text;
-            //Opt In/Out
-            foreclosureCase.DoNotCallInd = ddlNotCall.SelectedItem.Value;
-            foreclosureCase.OptOutNewsletterInd = ddlNewsLetter.SelectedItem.Value;
-            foreclosureCase.OptOutSurveyInd = ddlServey.SelectedItem.Value;
-            //media cadidate
-            if (ddlMediaCondirmation.SelectedValue == "") foreclosureCase.HpfMediaCandidateInd = null;
-            else
-                foreclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
-            //success story
-            if (ddlSuccessStory.SelectedValue == "") foreclosureCase.HpfSuccessStoryInd = null;
-            else
-                foreclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
-            return foreclosureCase;
+                ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+                //case status
+                foreclosureCase.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
+                foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
+                foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
+                //couselor notes
+                foreclosureCase.LoanDfltReasonNotes = txtReasonNote.Text;
+                foreclosureCase.ActionItemsNotes = txtItemNotes.Text;
+                foreclosureCase.FollowupNotes = txtFollowUpNotes.Text;
+                //Opt In/Out
+                foreclosureCase.DoNotCallInd = ddlNotCall.SelectedItem.Value;
+                foreclosureCase.OptOutNewsletterInd = ddlNewsLetter.SelectedItem.Value;
+                foreclosureCase.OptOutSurveyInd = ddlServey.SelectedItem.Value;
+                //media cadidate
+                if (ddlMediaCondirmation.SelectedValue == "") foreclosureCase.HpfMediaCandidateInd = null;
+                else
+                    foreclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
+                //success story
+                if (ddlSuccessStory.SelectedValue == "") foreclosureCase.HpfSuccessStoryInd = null;
+                else
+                    foreclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
+                return foreclosureCase;
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
