@@ -52,6 +52,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                     if(paymentId!=-1)
                         BindViewEditInvoicePayment();
                 }
+                btnCancel.Attributes.Add("onclick", "return ConfirmToCancel();");
             }
             catch (Exception ex)
             {

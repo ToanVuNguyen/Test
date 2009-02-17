@@ -85,10 +85,8 @@
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
                 width="100px" onclick="btnSave_Click"/>
             &nbsp;&nbsp;
-            <span onclick="return confirm('Do you really want to cancel?')">
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" Width="100px"
                     OnClick="btnCancel_Click" />
-            </span>
         </td>
     </tr>
     <tr>
@@ -98,3 +96,58 @@
             &nbsp;</td>
     </tr>
 </table>
+<script type="text/javascript" language="javascript">
+    var paymentId = document.getElementById('<%=lblPaymentID.ClientID %>');
+    var fundingSource = document.getElementById('<%=ddlFundingSource.ClientID %>');
+    var paymentNum = document.getElementById('<%=txtPaymentNum.ClientID %>');
+    var paymentDt = document.getElementById('<%=txtPaymentDt.ClientID %>');        
+    var paymentType = document.getElementById('<%=ddlPaymentType.ClientID %>');        
+    var paymentAmt = document.getElementById('<%=txtPaymentAmt.ClientID %>');        
+    var fileUpload = document.getElementById('<%=fileUpload.ClientID %>');
+    var txtComment = document.getElementById('<%=txtComment.ClientID %>');
+    var invoicePayment = function(paymentId, fundingSource, paymentNum, paymentDt, paymentType, 
+    paymentAmt, fileUpload, txtComment)
+    {        
+        this.paymentId      = paymentId   ; 
+        this.fundingSource  = fundingSource;
+        this.paymentNum     = paymentNum    ;   
+        this.paymentDt      = paymentDt    ;
+        this.paymentType    = paymentType  ;
+        this.paymentAmt     = paymentAmt   ;
+        this.fileUpload     = fileUpload   ;
+        this.txtComment     = txtComment   ;
+    }        
+    
+    var paymentBefore = new invoicePayment(paymentId.value, fundingSource.value, paymentNum.value, paymentDt.value, paymentType.value, 
+                                            paymentAmt.value, fileUpload.value, txtComment.value);
+    var paymentAfter = new invoicePayment();
+    function ConfirmToCancel()
+    {   
+        paymentAfter = new invoicePayment(paymentId.value, fundingSource.value, paymentNum.value, paymentDt.value, paymentType.value, 
+                                            paymentAmt.value, fileUpload.value, txtComment.value);        
+        if(ComparePaymentObject(paymentAfter))
+        {            
+             if (confirm("Data has been changed. Are you sure you want to cancel?")==true)
+                return true;
+            return false;         
+        }
+        else
+            return true;
+    }
+    
+    function ComparePaymentObject(paymentAfter)
+    {
+        if( paymentAfter.paymentId != paymentBefore.paymentId
+            ||  paymentAfter.fundingSource != paymentBefore.fundingSource
+            ||  paymentAfter.paymentNum != paymentBefore.paymentNum
+            ||  paymentAfter.paymentDt != paymentBefore.paymentDt
+            ||  paymentAfter.paymentAmt != paymentBefore.paymentAmt
+            ||  paymentAfter.fileUpload != paymentBefore.fileUpload
+            ||  paymentAfter.txtComment != paymentBefore.txtComment
+            ||  paymentAfter.paymentType != paymentBefore.paymentType
+        )
+            return true;
+        else
+            return false;
+    }
+</script>
