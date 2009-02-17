@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.DataAccess;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -20,9 +21,9 @@ namespace HPF.FutureState.BusinessLogic
 
         //Get All service if a case.
 
-        public ServicerDTOCollection GetServicer(int fc_id)
+        public ServicerDTOCollection GetServicerbyFcId(int? fcId)
         {
-            return null;
+            return ServicerDAO.Instance.GetServicersByFcId(fcId);
         }
     }
 }

@@ -958,21 +958,44 @@ namespace HPF.FutureState.BusinessLogic
 
         private void SendCompletedCaseToQueueIfAny(int? fcId)
         {
-            if (!IsCaseCompleted)
-            {
+            if (!IsCaseCompleted)            
                 return;
-            }            
+            if(!IsSendQueueAndUpdateSummarySendDate(fcId))
+                return;
             //
-            var queue = new HPFSummaryQueue();
-            queue.SendACompletedCaseToQueue(fcId);
-            UpdateSummarySentDateTime(fcId);
+            try
+            {
+                var queue = new HPFSummaryQueue();
+                queue.SendACompletedCaseToQueue(fcId);
+                UpdateSummarySentDateTime(fcId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        
-        //ShouldSendSummary
 
-        private static void UpdateSummarySentDateTime(int? fcId)
+        /// <summary>
+        /// Check sercure dilivery method of all servicer in CaseloanCollection
+        /// if all of them is NOSEND return FALSE
+        /// if one of them is not NOSEND return TRUE
+        /// <return>bool<return>
+        /// </summary>
+        private bool IsSendQueueAndUpdateSummarySendDate(int? fcId)
+        { 
+            SummaryReportBL summaryBL = new SummaryReportBL();
+            ServicerDTOCollection servicers = summaryBL.GetServicerbyFcId(fcId);
+            foreach (ServicerDTO item in servicers)
+            {
+                if (ConvertStringToUpper(item.SecureDeliveryMethodCd) != Constant.SECURE_DELIVERY_METHOD_NOSEND)
+                    return true;
+            }
+            return false;
+        }
+
+        private void UpdateSummarySentDateTime(int? fcId)
         {
-            
+            foreclosureCaseSetDAO.UpdateSendSummaryDate(fcId);
         }
         #endregion
 

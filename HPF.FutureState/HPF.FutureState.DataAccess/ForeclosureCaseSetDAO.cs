@@ -1572,6 +1572,38 @@ namespace HPF.FutureState.DataAccess
             sb.Remove(sb.Length - orString.Length, orString.Length);
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Update a ForeclosureCase to database.
+        /// </summary>
+        /// <param name="foreclosureCase">ForeclosureCase</param>
+        /// <returns>a new Fc_id</returns>
+        public void UpdateSendSummaryDate(int? fcId)
+        {
+            var dbConnection = CreateConnection();
+            try
+            {
+                var command = CreateSPCommand("hpf_foreclosure_case_update_summary_send_dt", dbConnection);
+                //<Parameter>            
+                var sqlParam = new SqlParameter[2];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                sqlParam[1] = new SqlParameter("@pi_summary_send_dt", DateTime.Now);
+                //</Parameter> 
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                dbConnection.Close();
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }            
+        }
     }
 }
 

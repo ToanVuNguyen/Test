@@ -6,8 +6,6 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using HPF.FutureState.Common;
-using HPF.FutureState.Common.DataTransferObjects;
-
 using System.Collections.Generic;
 using System;
 
