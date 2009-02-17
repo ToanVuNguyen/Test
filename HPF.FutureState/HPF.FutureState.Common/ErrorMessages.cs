@@ -236,6 +236,8 @@ namespace HPF.FutureState.Common
         //view edit payable page
         public const string ERR0575 = "ERR0575";
         public const string WARN0576 = "WARN0576";
+        public const string ERR0577 = "ERR0577";
+        public const string WARN0577 = "WARN0577";
         public const string ERR0600 = "ERR0600";
         public const string ERR0601 = "ERR0601";
 
@@ -538,6 +540,8 @@ namespace HPF.FutureState.Common
                 //view edit payable page
                 errorMessageDict.Add(ERR0575, "will be update soon");
                 errorMessageDict.Add(WARN0576, "will be update soon");
+                errorMessageDict.Add(ERR0577, "will be update soon");
+                errorMessageDict.Add(WARN0577, "will be update soon");
                 //View/Edit Invoice Payment
                 errorMessageDict.Add(ERR0650, "A Funding Source is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0651, "A Payment Number is required to save an Invoice Payment.");

@@ -425,6 +425,35 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
         }
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol)
+        {
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_agency_payable_case_update", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[6];
+            sqlParam[0] = new SqlParameter("@pi_update_flag", 1);
+            sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIDCol);// payableid collection
+            sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", null);
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);
+            sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableSet.ChangeLastUserId);
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableSet.ChangeLastAppName);
+
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
        
         #endregion
     }

@@ -167,8 +167,11 @@ namespace HPF.FutureState.BusinessLogic
         }
         public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet, string takebackReason, string agencyPayableIDCol)
         {
-            //agencyPayableCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             AgencyPayableDAO.CreateInstance().TakebackMarkCase(agencyPayableSet,takebackReason,agencyPayableIDCol);
+        }
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol)
+        {
+            AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet,agencyPayableIDCol);
         }
 
     }

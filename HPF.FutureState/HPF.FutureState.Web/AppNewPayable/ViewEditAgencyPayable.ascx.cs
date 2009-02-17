@@ -101,7 +101,27 @@ namespace HPF.FutureState.Web.AppNewPayable
         
         }
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
-        { 
+        {
+            string payableCaseIdCollection = GetSelectedRow();
+
+            AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
+            if (payableCaseIdCollection == null)
+            {
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0577");
+                return;
+            }
+            try
+            {
+                agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection);
+                BindViewEditPayable();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
+            }
+            
         }
         protected void btnTakeBackMarkCase_Click(object sender, EventArgs e)
         {
