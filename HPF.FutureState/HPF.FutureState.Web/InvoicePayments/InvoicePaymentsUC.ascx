@@ -48,7 +48,7 @@
             <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100" CssClass="Text"></asp:TextBox>
         </td>
         <td>
-            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List" Width="100px"
+            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List" Width="120px"
                 CssClass="MyButton" OnClick="btnRefreshList_Click" />
         </td>
     </tr>
@@ -111,12 +111,7 @@
                             Width="120px" OnClick="btnViewPayable_Click" />
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        &nbsp;
-                    </td>
-                </tr>
-            </table>
+                </table>
         </td>
     </tr>
     <tr>

@@ -26,6 +26,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             try
             {
                 ApplySecurity();
+                ClearErrorMessages();
                 if (!IsPostBack)
                 {
                     if (Session["IvoiceCaseSearchCriteria"] == null)
@@ -38,8 +39,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     }
                     catch (DataException ex)
                     {
-                        lblErrorMessage.Text = ex.Message;
-                        lblErrorMessage.Visible = true;
+                        lblErrorMessage.Items.Add(new ListItem(ex.Message));
                         ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
                     }
                     Session["invoiceDraft"] = invoiceDraft;
@@ -51,8 +51,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -86,7 +85,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             lblTotalAmount.Text = invoiceDraft.TotalAmount.ToString("C");
             grvNewInvoiceResults.DataSource = invoiceDraft.ForeclosureCaseDrafts;
             grvNewInvoiceResults.DataBind();
-            lblErrorMessage.Visible = false;
         }
 
         protected void grvNewInvoiceResults_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -107,6 +105,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
 
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             if (invoiceDraft == null)
                 return;
             for (int i = grvNewInvoiceResults.Rows.Count - 1; i >= 0; i--)
@@ -126,13 +125,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
             Session["invoiceDraft"] = invoiceDraft;
             InvoiceDraftDataBind();
         }
-
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
+        }
         protected void btnGenerateInvoice_Click(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             if (invoiceDraft.ForeclosureCaseDrafts==null||invoiceDraft.ForeclosureCaseDrafts.Count == 0)
             {
-                lblErrorMessage.Text = "There must be at least one Invoice Item to generate an invoice.";
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0987)));
                 return;
             }
             try
@@ -140,13 +142,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 //insert invoice to the database
                 InvoiceBL.Instance.InsertInvoice(invoiceDraft);
-                lblErrorMessage.Text = "Insert Invoice successful.";
-                lblErrorMessage.Visible = true;
             }
             catch(Exception ex)
             {
-                lblErrorMessage.Visible = true;
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             

@@ -188,9 +188,16 @@ namespace HPF.FutureState.BusinessLogic
         public void BackEndPreProcessing(ReconciliationDTOCollection reconciliationDTOCollection)
         {
             string xml = GetXmlString(reconciliationDTOCollection);
-            DataValidationException ex= InvoiceDAO.CreateInstance().BackEndPreProcessing(xml);
-            if (ex != null)
-                throw (ex);
+            try
+            {
+                InvoiceDAO.CreateInstance().BackEndPreProcessing(xml);
+            }
+            catch (DataValidationException ex)
+            {
+                throw ex;
+            }
+            
+            
         }
         /// <summary>
         /// push an xml file to the database to update invoice Case
@@ -201,31 +208,6 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="changeLastUserId">for update</param>
         public int UpdateInvoicePayment(ReconciliationDTOCollection reconciliationDTOCollection, InvoicePaymentDTO invoicePayment)
         {
-            //string payList = "";
-            //RefCodeItemDTOCollection paymentRejectCodeCollection = LookupDataBL.Instance.GetRefCode("payment reject reason code");
-            //var rejectString =new { RejectList="", RejectReason=""};
-            //foreach (var item in reconciliationDTOCollection)
-            //    if (item.PaymentRejectReasonCode == string.Empty)
-            //        payList = payList+ item.InvoiceCaseId + ",";
-            //List<string> rejectIds = new List<string>();
-            //List<string> rejectCodes = new List<string>();
-            //foreach (var item in paymentRejectCodeCollection)
-            //{
-            //    var rejectArray = from s in reconciliationDTOCollection
-            //                      where (s.PaymentRejectReasonCode == item.Code)
-            //                      select ( s.InvoiceCaseId);
-            //    if(rejectArray.Count<int>() >0)
-            //    {
-            //        string temp = "";
-            //        foreach (var i in rejectArray)
-            //            temp = temp + i + ",";
-            //        temp = temp.Remove(temp.LastIndexOf(','),1);
-            //        rejectIds.Add(temp);
-            //        rejectCodes.Add(item.Code);
-            //    }
-            //}
-            ////remove last ','
-            //payList = payList.Remove(payList.LastIndexOf(','), 1);
             XmlDocument doc = new XmlDocument();
             XmlElement root = doc.CreateElement("invoice_cases");
             foreach (var reconciliationDTO in reconciliationDTOCollection)
@@ -245,6 +227,12 @@ namespace HPF.FutureState.BusinessLogic
             string xmlString = doc.InnerXml;
             return ExecuteUpdateInvoicePayment(xmlString,invoicePayment);
         }
+        /// <summary>
+        /// Update Invoice Cases in the excel file 
+        /// </summary>
+        /// <param name="xmlString">xml string containts all the information in the excel file</param>
+        /// <param name="invoicePayment">Invoice Payment info to update or insert</param>
+        /// <returns>New Invoice Payment ID</returns>
         public int ExecuteUpdateInvoicePayment(string xmlString,InvoicePaymentDTO invoicePayment)
         {
             try

@@ -47,30 +47,18 @@
         <td>
             <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td colspan="2" align="center">
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
-        <td>
+        <td colspan="4" align="center">
             &nbsp;</td>
     </tr>
     <tr>
         <td align="left"  colspan="6" class="ErrorMessage">
-            <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage" 
-                Visible="False"></asp:Label>
+            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList>
         </td>
     </tr>
     <tr>
-        <td align="left" class="sidelinks">
+        <td align="left" class="sidelinks" colspan="6">
                         Invoice Items:</td>
-        <td>
-            &nbsp;</td>
-        <td colspan="2">
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td align="center" colspan="6">

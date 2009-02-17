@@ -533,7 +533,7 @@ namespace HPF.FutureState.DataAccess
         /// Get InvoiceSet to display in View/Edit Invoice Page
         /// </summary>
         /// <returns> InvoiceSetDTO containts info about the Invoice and InvoiceCases</returns>
-        public DataValidationException BackEndPreProcessing(string xmlString)
+        public void BackEndPreProcessing(string xmlString)
         {
             DataValidationException result = new DataValidationException();
             var dbConnection = CreateConnection();
@@ -574,8 +574,7 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
             if (result.ExceptionMessages.Count > 0)
-                return result;
-            return null;
+                throw result;
         }
 
         public void InvoiceCaseUpdateForPayment(string xmlString, DateTime changeLastDt, string changeLastUserId, string changeLastAppName)

@@ -568,6 +568,7 @@ namespace HPF.FutureState.Common
 
 
                 //
+                errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");
                 errorMessageDict.Add(ERR0988, "GrossAnnualIncome Min can not larger than GrossAnnualIncome Max.");
                 errorMessageDict.Add(ERR0989, "AgeMin can not larger than AgeMax.");
                 errorMessageDict.Add(ERR0990, "Period Start can not larger than Period End.");
