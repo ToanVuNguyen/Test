@@ -68,7 +68,7 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (ValidationResult result in validationResults)
                 {
                     string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessage(result.Tag);
                     dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
                 }
             }

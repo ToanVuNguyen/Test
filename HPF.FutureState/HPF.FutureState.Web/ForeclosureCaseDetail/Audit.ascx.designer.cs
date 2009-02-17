@@ -23,15 +23,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.BulletedList errorList;
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// pnlAudit control.
         /// </summary>
         /// <remarks>
@@ -68,13 +59,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.HiddenField hfAction;
         
         /// <summary>
-        /// hfWarn0450 control.
+        /// hfDoSaving control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfWarn0450;
+        protected global::System.Web.UI.WebControls.HiddenField hfDoSaving;
         
         /// <summary>
         /// lblFormTitle control.

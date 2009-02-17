@@ -73,5 +73,24 @@ namespace HPF.FutureState.Common.DataTransferObjects
                 
             return true;
         }
+
+        public bool IsNull()
+        {
+            if (CaseAuditId.HasValue
+                || AuditDt.HasValue
+                || !string.IsNullOrEmpty(AuditTypeCode)
+                || !string.IsNullOrEmpty(ReviewedBy)
+                || !string.IsNullOrEmpty(AuditFailureReasonCode)
+                || !string.IsNullOrEmpty(AuditComments)
+                || !string.IsNullOrEmpty(CompliantInd)
+                || !string.IsNullOrEmpty(ReasonForDefaultInd)
+                || !string.IsNullOrEmpty(BudgetCompletedInd)
+                || !string.IsNullOrEmpty(AppropriateOutcomeInd)
+                || !string.IsNullOrEmpty(ClientActionPlanInd)
+                || !string.IsNullOrEmpty(VerbalPrivacyConsentInd)
+                || !string.IsNullOrEmpty(WrittenActionConsentInd))
+                return false;
+            return true;
+        }
     }
 }

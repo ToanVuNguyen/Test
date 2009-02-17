@@ -5,7 +5,7 @@
 <table>
     <tr>
         <td>
-            <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px">
+            <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="820px">
                 <asp:GridView ID="grdvOutcomeItems" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                     
                     onrowcreated="grvForeClosureCaseSearch_RowCreated" 
@@ -60,9 +60,9 @@
     <tr>
         <td align="right">
             <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass = "MyButton"
-                onclick="btnDelete_Click" />
+                onclick="btnDelete_Click" Visible = "false" />
             <asp:Button ID="btnReinstate" runat="server" Text="Reinstate" CssClass = "MyButton"
-                onclick="btnReinstate_Click" />
+                onclick="btnReinstate_Click" Visible = "false" />
         </td>
         
     </tr>
