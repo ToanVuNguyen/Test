@@ -22,11 +22,12 @@
                 </td>
             </tr>
                 <tr>
-                    <td style="vertical-align: top">
+                    <td style="vertical-align: top;width:35%">
                         <table style="width:100%; border-bottom-style:none;">
                             <tr>
-                                <td colspan="2">
+                                <td  align="right">
                                     <h1>Property:</h1></td>
+                                    <td></td>
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
@@ -139,11 +140,12 @@
                             </tr>
                         </table>
                     </td>
-                    <td style="vertical-align: top">
+                    <td style="vertical-align: top;width:35%" >
                         <table style="width:100%;">
                             <tr>
-                                <td colspan="2">
+                                <td  align="right">
                                     <h1>Borrower:</h1></td>
+                                    <td></td>
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
@@ -283,8 +285,9 @@
                     <td style="vertical-align: top">
                         <table style="width:100%;">
                             <tr>
-                                <td colspan="2">
+                                <td  align="right">
                                    <h1>Co-Borrower:</h1></td>
+                                   <td></td>
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
