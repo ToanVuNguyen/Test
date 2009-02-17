@@ -80,7 +80,7 @@
     <tr>
     
         <td class="sidelinks" colspan="5" >
-            Invoice Items:</td>
+            Payable Items:</td>
       
     </tr>
     <tr>
