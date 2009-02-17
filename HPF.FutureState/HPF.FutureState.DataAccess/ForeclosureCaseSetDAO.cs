@@ -1583,7 +1583,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             try
             {
-                var command = CreateSPCommand("hpf_foreclosure_case_update_summary_send_dt", dbConnection);
+                var command = CreateSPCommand("hpf_foreclosure_case_update_ws", dbConnection);
                 //<Parameter>            
                 var sqlParam = new SqlParameter[2];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
