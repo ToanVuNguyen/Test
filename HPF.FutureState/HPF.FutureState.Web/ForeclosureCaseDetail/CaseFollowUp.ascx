@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseFollowUp.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseFollowUp" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-
+<asp:HiddenField ID="hdf_Confirm" runat="server" />
 <asp:HiddenField ID="hfAction" runat="server" />
 <br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
@@ -22,8 +22,7 @@
                         CellPadding="2" ForeColor="#333333"
                         GridLines="Vertical" AutoGenerateColumns="False" 
                         SelectedRowStyle-BackColor="Yellow" 
-                        DataKeyNames="CasePostCounselingStatusId"
-                        onrowcommand="grd_FollowUpList_RowCommand" 
+                        DataKeyNames="CasePostCounselingStatusId"                        
                         onrowcreated="grd_FollowUpList_RowCreated" Width="100%">
                             <RowStyle CssClass="RowStyle"  />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -50,10 +49,12 @@
                                 <asp:BoundField DataField="LoanDelinqStatusCdDesc" HeaderText="Delinquency Status" 
                                 ItemStyle-Width="15%"  ItemStyle-CssClass="Text">
                                     <ItemStyle Width="100px" />
-                                </asp:BoundField>
-                                <asp:CommandField ShowSelectButton="true" SelectText = "View/Edit" 
-                                    ButtonType="Button" ControlStyle-CssClass="MyButton" 
-                                    ItemStyle-HorizontalAlign="Center" HeaderText="Select" ItemStyle-Width="15%" />
+                                </asp:BoundField>                                
+                                <asp:TemplateField HeaderText = "Select" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Button ID="btn_Edit" Text="View/Edit" CommandName="Select" runat="server" CssClass="MyButton" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>                              
                             </Columns>
                             <EmptyDataTemplate>
                                 There is no Follow-Up!
@@ -147,6 +148,7 @@
 
 <script type="text/javascript" language="javascript">
     var msfWARN0450 = '<%= msgWARN0450 %>';    
+    var status = document.getElementById('<%=hdf_Confirm.ClientID %>');
     
     var followUpDate = document.getElementById('<%=txt_FollowUpDt.ClientID %>');
     var creditScore = document.getElementById('<%=txt_CreditScore.ClientID %>');
@@ -225,5 +227,28 @@
         followUpComment.value = "";
         stillInHome.value = "";
         CaseFollowUp.value = "";
+    }
+    
+    function ConfirmEdit()
+    {
+        caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
+            , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
+        if(CompareCaseFollowUpObject(caseFollowUpAfter))
+        {            
+            if (confirm(msfWARN0450)==true)
+            {
+                status.value = "TRUE";                
+            }
+            else
+            {
+                status.value = "FALSE";                
+            }
+            
+        } 
+        else
+        {
+            status.value = "FALSE";            
+        }
+        return true;
     }
 </script>

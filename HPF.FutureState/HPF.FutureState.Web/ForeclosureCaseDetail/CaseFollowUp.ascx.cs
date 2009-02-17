@@ -23,7 +23,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         private const string ACTION_UPDATE = "update";
         private const string ACTION_INSERT = "insert";
-
+        CaseFollowUpDTOCollection caseFollowUps = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -54,7 +54,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void grdvCaseFollowUpBinding()
         {
             int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
-            CaseFollowUpDTOCollection caseFollowUps = RetrieveCaseFollowUps(caseID);
+            caseFollowUps = RetrieveCaseFollowUps(caseID);
             if (caseFollowUps.Count > 0)
             {
                 grd_FollowUpList.DataSource = caseFollowUps;
@@ -135,7 +135,17 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             int idxIdColumn = 0;
             e.Row.Cells[idxIdColumn].Visible = false;
 
-        }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Button _button = (Button)e.Row.FindControl("btn_Edit");
+                if (_button != null)
+                {
+                    _button.Attributes.Add("onclick", "return ConfirmEdit();");
+                    _button.Click += new EventHandler(btn_Edit_Click);
+                    _button.CommandArgument = e.Row.RowIndex.ToString();
+                }
+            }
+        }        
 
         private CaseFollowUpDTOCollection RetrieveCaseFollowUps(int fcid)
         {
@@ -145,6 +155,48 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         
         #region ButtonClick
         protected void btn_Save_Click(object sender, EventArgs e)
+        {
+            DoSaving();
+        }
+        
+        protected void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            DoSaving();     
+        }        
+
+        protected void btn_New_Click(object sender, EventArgs e)
+        {
+            hfAction.Value = ACTION_INSERT;
+            GenerateDefaultData();
+        }
+
+        private void btn_Edit_Click(object sender, EventArgs e)
+        {
+            Button btnEdit = sender as Button;
+
+            if (hdf_Confirm.Value == "TRUE")
+                DoSaving();
+
+            int index = int.Parse(btnEdit.CommandArgument.ToString());
+            grd_FollowUpList.SelectedIndex = index;
+            CaseFollowUpDTO caseFollowUp = ((CaseFollowUpDTOCollection)grd_FollowUpList.DataSource)[index];
+            Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
+            CaseFollowUpDTOToForm(caseFollowUp);
+            hfAction.Value = ACTION_UPDATE;
+        }        
+
+        private void ClearControls()
+        {
+            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
+                ddl.Text = string.Empty;
+            txt_CreditReportDt.Text = string.Empty;
+            txt_CreditScore.Text = string.Empty;
+            txt_FollowUpComment.Text = string.Empty;
+            txt_FollowUpDt.Text = string.Empty;
+            hfAction.Value = null;
+        }
+
+        protected void DoSaving()
         {
             if (string.IsNullOrEmpty(hfAction.Value))
             {
@@ -173,40 +225,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 errorList.DataBind();
             }
         }
-        
-        protected void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            btn_Save_Click(sender, e);            
-        }        
-
-        protected void btn_New_Click(object sender, EventArgs e)
-        {
-            hfAction.Value = ACTION_INSERT;
-            GenerateDefaultData();
-        }
-
-        protected void grd_FollowUpList_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName.ToUpper() == "Select".ToUpper())
-            {
-                int index = int.Parse(e.CommandArgument.ToString());
-                CaseFollowUpDTO caseFollowUp = ((CaseFollowUpDTOCollection)grd_FollowUpList.DataSource)[index];
-                Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
-                CaseFollowUpDTOToForm(caseFollowUp);
-                hfAction.Value = ACTION_UPDATE;
-            }
-        }
-
-        private void ClearControls()
-        {
-            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
-                ddl.Text = string.Empty;
-            txt_CreditReportDt.Text = string.Empty;
-            txt_CreditScore.Text = string.Empty;
-            txt_FollowUpComment.Text = string.Empty;
-            txt_FollowUpDt.Text = string.Empty;
-            hfAction.Value = null;
-        }    
         #endregion
 
         #region GenerateData
