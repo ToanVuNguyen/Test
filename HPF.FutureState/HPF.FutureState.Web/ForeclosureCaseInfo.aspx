@@ -3,13 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <table style="width:100%;" align="left"  >
         <tr>
-            <td align="center" colspan="6">
+            <td align="center" colspan="7">
                 <h1>Foreclosure Case Detail</h1></td>
         </tr>
         <tr>
+            <td class="sidelinks" align="right">
+                HPF Case ID: </td>
             <td>
                 <asp:Label ID="lblHpfID" runat="server" Text="100987654" CssClass="Text"></asp:Label>
             </td>
+            
             <td align="right" class="sidelinks" >
                 Agency Name:</td>
             <td>
@@ -27,7 +30,8 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="sidelinks" align="right">Borrower:</td>
+            <td >
                 <asp:Label ID="lblBorrower" runat="server" CssClass="Text">Ivan A Mustang</asp:Label>
             </td>
             <td colspan="2">
@@ -43,7 +47,8 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="sidelinks" align="right">City, State,Zip:</td>
+            <td >
                 <asp:Label ID="lblPropertyAddress" runat="server" CssClass="Text">Yourtown, MN 55416</asp:Label>
             </td>
             <td colspan="2">
@@ -55,19 +60,20 @@
             </td>
         </tr>
         <tr>
+            <td class="sidelinks" align="right">Case Loans:</td>
             <td colspan="6">
                 <asp:Label ID="lblLoanList" runat="server" CssClass="Text">1298494593 - Citibank; 554587876 - 
                 Bank of America</asp:Label>
             </td>
         </tr>
         <tr>
-        <td>
+        <td colspan="2">
         <asp:Label ID="lblErrorMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>
         </td>
         </tr>
         
         <tr>
-            <td colspan="6">
+            <td colspan="7">
                 <table cellpadding="0" cellspacing= "0" width="100%" align="left">
                     <tr>
                         <td>
