@@ -150,7 +150,7 @@
             <ContentTemplate>
                 <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle"  
-                    Width="2500px" onrowdatabound="grvForeClosureCaseSearch_RowDataBound" >
+                    Width="2900px" onrowdatabound="grvForeClosureCaseSearch_RowDataBound" >
                     <RowStyle CssClass="RowStyle"  />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                     <HeaderStyle CssClass="FixedHeader" />
@@ -164,7 +164,7 @@
                         <asp:Label ID="lblCounseled" runat="server" Text='<%#Eval("CaseCompleteDate") %>'></asp:Label>
                         </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="CaseDate" HeaderText="Case Date" DataFormatString="{0:dd/MM/yyyy}" />
+                        <asp:BoundField DataField="CaseDate" HeaderText="Case Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="LoanList" HeaderText="Loan List" />
                         <asp:BoundField DataField="BorrowerFirstName" HeaderText="Borrower First Name" />
                         <asp:BoundField DataField="BorrowerLastName" HeaderText="Borrower Last Name" />
@@ -186,14 +186,18 @@
                         <asp:BoundField DataField="AgentPhone" HeaderText="Agent Phone" />
                         <asp:BoundField DataField="AgentExtension" HeaderText="Agent Extension" />
                         <asp:BoundField DataField="AgentEmail" HeaderText="Agent Email" />
-                        <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Date"  DataFormatString="{0:dd/MM/yyyy}"/>
+                        <asp:TemplateField HeaderText="Complete Date">
+                        <ItemTemplate>
+                        <asp:Label ID="lblCaseCompleteDate" runat="server" Text='<%#Eval("CaseCompleteDate","{0:MM/dd/yyyy}") %>'></asp:Label>
+                        </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="DaysDelinquent" HeaderText="Days Delinquent" />
                         <asp:BoundField DataField="BankruptcyIndicator" HeaderText="Bankrupcy Indicator" />
                         <asp:BoundField DataField="ForeclosureNoticeReceivedIndicator" HeaderText="Foreclosure Notice Received Indicator" />
                         
                     </Columns>
                     <EmptyDataTemplate>
-                    There is no data match !
+                    No cases found that match your search criteria.
                     </EmptyDataTemplate>
                 </asp:GridView>
                 </ContentTemplate>

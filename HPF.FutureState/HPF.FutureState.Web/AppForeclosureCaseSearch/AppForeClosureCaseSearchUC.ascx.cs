@@ -232,13 +232,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (txtFirstName.Text != string.Empty)
             {
                 textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
-                textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
+                //textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
             }
             //replace * by % to search like in fristname
             if (txtLastName.Text != string.Empty)
             {
                 textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
-                textchangeLastName = Replace1Char(textchangeLastName, "*", "%");
+                //textchangeLastName = Replace1Char(textchangeLastName, "*", "%");
             }
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
             appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
@@ -310,6 +310,16 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 if (result > 0||datecounseled==null) lblcounseled.Text = ">1 yr";
                 //datecompare is earlier than datecounseled--> counseled >1 yr
                 else lblcounseled.Text = "<1 yr";
+
+                //Case complete date
+                Label lblcasecompletedate = e.Row.FindControl("lblCaseCompleteDate") as Label;
+                string completedt = lblcasecompletedate.Text;
+                string mindt = DateTime.MinValue.ToShortDateString();
+                DateTime completedate = Convert.ToDateTime(lblcasecompletedate.Text);
+                DateTime mindate = DateTime.MinValue;
+                if (DateTime.Compare(completedate,mindate)==0) 
+                lblcasecompletedate.Text = "";
+                
 
             }
         }
@@ -443,20 +453,15 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             if (mystring == "" || oldchar == "" || newchar == "")
                 return mystring;
-            int StartIndex = mystring.IndexOf(oldchar);
-            if (StartIndex == -1) return mystring;
-            string mystring1 = null;
-            string mystring2 = null;
-            mystring1 = mystring.Substring(0, StartIndex);
-
-            if (StartIndex + 1 == mystring.Length)
-                return mystring1 + "%";
-            else
+            var mysubstring = mystring.Split('*');
+            string result=null;
+            for (int i = 0; i < mysubstring.Count(); i++)
             {
-                mystring2 = mystring.Substring(StartIndex + 1, mystring.Length - 1);
-                if (StartIndex == 0) return ("%" + mystring2);
-                return (mystring1 + "%" + mystring2);
+                result += mysubstring[i]+newchar;
             }
+            result = result.Substring(0, result.Length - 1);
+            return result;
+          
         }
     }
 }
