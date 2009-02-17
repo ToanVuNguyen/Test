@@ -77,6 +77,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 DoSaving();
 
             int index = int.Parse(btnEdit.CommandArgument.ToString());
+            grdvCaseAudit.SelectedIndex = index;
             CaseAuditDTO caseAudit = ((CaseAuditDTOCollection)grdvCaseAudit.DataSource)[index];
             Session[Constant.SS_CASE_AUDIT_OBJECT] = caseAudit;
             CaseAuditDTOToForm(caseAudit);
