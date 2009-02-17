@@ -249,8 +249,8 @@ namespace HPF.SharePointAPI
         /// <summary>
         /// Using SharpZipLib to compress folder
         /// </summary>
-        /// <param name="inputFolderPath"></param>
-        /// <param name="outputPathAndFile"></param>
+        /// <param name="inputFolderPath">zip folder path</param>
+        /// <param name="outputPathAndFile">zipped file path</param>
         private static void ZipFolder(string inputFolderPath, string outputPathAndFile)
         {
             IList<string> list = GetFileNameInFolder(inputFolderPath);
