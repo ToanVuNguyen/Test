@@ -78,7 +78,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     InvoiceCaseDTO invoiceCase = new InvoiceCaseDTO();
                     invoiceCase.InvoiceId = invoiceId;
-                    invoiceCase.InvoiceCaseBillAmount = (double)fCaseDraf.Amount;
+                    invoiceCase.InvoiceCaseBillAmount = fCaseDraf.Amount;
                     invoiceCase.ForeclosureCaseId = fCaseDraf.ForeclosureCaseId;
                     invoiceCase.ChangeLastAppName = invoiceDraft.ChangeLastAppName;
                     invoiceCase.ChangeLastDate = invoiceDraft.ChangeLastDate;

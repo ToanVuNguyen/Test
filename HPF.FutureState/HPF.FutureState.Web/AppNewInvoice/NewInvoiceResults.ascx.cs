@@ -83,7 +83,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             lblPeriodStart.Text = invoiceDraft.PeriodStartDate.ToShortDateString();
             lblPeriodEnd.Text = invoiceDraft.PeriodEndDate.ToShortDateString();
             lblTotalCases.Text = invoiceDraft.TotalCases.ToString();
-            lblTotalAmount.Text = "$" + invoiceDraft.TotalAmount;
+            if(invoiceDraft.TotalAmount!=null)
+                lblTotalAmount.Text = invoiceDraft.TotalAmount.ToString("C");
             grvNewInvoiceResults.DataSource = invoiceDraft.ForeclosureCaseDrafts;
             grvNewInvoiceResults.DataBind();
             lblErrorMessage.Visible = false;

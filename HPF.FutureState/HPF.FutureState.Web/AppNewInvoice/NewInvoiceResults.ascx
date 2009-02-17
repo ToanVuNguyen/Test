@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewInvoiceResults.ascx.cs" Inherits="HPF.FutureState.Web.AppNewInvoice.NewInvoiceResults" %>
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<asp:ScriptManager runat="server"></asp:ScriptManager>
 <table style="width:100%;">
     <tr>
         <td colspan="6">
@@ -70,49 +73,53 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="center"  colspan="6">
-            <asp:Panel ID="panInvoiceResultsPage" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Width="100%" >
-                <asp:GridView ID="grvNewInvoiceResults" runat="server" CellPadding="2" ForeColor="#333333"
-                    GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
-                    Width="100%" 
-                    ondatabound="grvNewInvoiceResults_DataBound" 
-                    onrowdatabound="grvNewInvoiceResults_RowDataBound" >
-                    <RowStyle CssClass="RowStyle"  />
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="#D1DDF1"  ForeColor="#333333" />
-                    <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <EditRowStyle BackColor="#2461BF" />
-                    <AlternatingRowStyle CssClass="AlternatingRowStyle" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle"  />
-                    <Columns>
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:CheckBox runat="server" AutoPostBack="true"  OnCheckedChanged="chkHeaderCaseIDCheck"   ID="chkCheckAll" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:CheckBox runat="server" ID="chkCaseSelected" />
-                            </ItemTemplate>
-                            <ItemStyle HorizontalAlign="Center" />
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" />
-                        <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" />
-                        <asp:TemplateField HeaderText="Complete Dt.">
-                            <ItemTemplate>
-                                <asp:Label ID="lblCompleteDate" runat="server"> </asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Amount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Amount" />
-                        <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" />
-                        <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
-                        <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
-                    </Columns>
-                    <EmptyDataTemplate>
-                    There is no data match !
-                    </EmptyDataTemplate>
-                </asp:GridView>
-            </asp:Panel>
+        <td align="center" colspan="6">
+            <cc1:StatefullScrollPanel ID="panInvoiceResultsPage" runat="server" CssClass="ScrollTable"
+                BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="grvNewInvoiceResults" runat="server" CellPadding="2" ForeColor="#333333"
+                            GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%"
+                            OnDataBound="grvNewInvoiceResults_DataBound" OnRowDataBound="grvNewInvoiceResults_RowDataBound">
+                            <RowStyle CssClass="RowStyle" />
+                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                            <SelectedRowStyle BackColor="#D1DDF1" ForeColor="#333333" />
+                            <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <EditRowStyle BackColor="#2461BF" />
+                            <AlternatingRowStyle CssClass="AlternatingRowStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            <Columns>
+                                <asp:TemplateField>
+                                    <HeaderTemplate>
+                                        <asp:CheckBox runat="server" AutoPostBack="true" OnCheckedChanged="chkHeaderCaseIDCheck"
+                                            ID="chkCheckAll" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox runat="server" ID="chkCaseSelected" />
+                                    </ItemTemplate>
+                                    <ItemStyle HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" />
+                                <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" />
+                                <asp:TemplateField HeaderText="Complete Dt.">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCompleteDate" runat="server"> </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Amount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                                    HeaderText="Amount" />
+                                <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" />
+                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
+                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
+                            </Columns>
+                            <EmptyDataTemplate>
+                                There is no data match !
+                            </EmptyDataTemplate>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </cc1:StatefullScrollPanel>
         </td>
     </tr>
     <tr>

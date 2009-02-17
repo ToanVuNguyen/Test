@@ -16,10 +16,10 @@
             </tr>
             <tr>
                 <td class="Text" colspan="8">
+                    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
                     <asp:RegularExpressionValidator ID="valPaymentId" runat="server" ControlToValidate="txtPaymentID"
                         CssClass="ErrorMessage" ErrorMessage="RegularExpressionValidator" ValidationExpression="^[\d ]*$">HPF 
                     Payment ID field is a numberic only entry field.</asp:RegularExpressionValidator>
-                    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
                 </td>
             </tr>
             <tr>
