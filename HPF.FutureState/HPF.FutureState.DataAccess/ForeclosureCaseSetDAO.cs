@@ -1587,7 +1587,7 @@ namespace HPF.FutureState.DataAccess
                 //<Parameter>            
                 var sqlParam = new SqlParameter[2];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
-                sqlParam[1] = new SqlParameter("@pi_summary_send_dt", DateTime.Now);
+                sqlParam[1] = new SqlParameter("@pi_summary_sent_dt", DateTime.Now);
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;

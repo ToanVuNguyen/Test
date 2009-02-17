@@ -32,7 +32,7 @@ namespace HPF.FutureState.DataAccess
         {
             ServicerDTOCollection servicers = null;
             var dbConnection = CreateConnection();
-            var command = CreateCommand("hpf_view_caseloan_servicer", dbConnection);
+            var command = CreateCommand("hpf_case_loan_get", dbConnection);
             //<Parameter>            
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
