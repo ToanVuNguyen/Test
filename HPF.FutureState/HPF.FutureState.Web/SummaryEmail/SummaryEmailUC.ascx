@@ -47,7 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="sidelinks" align="right">
+                    <td class="sidelinks" align="right" valign="top">
                         Body:
                     </td>
                     <td align="left">
