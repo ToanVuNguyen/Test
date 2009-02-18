@@ -5,7 +5,7 @@ using System.Text;
 
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using HPF.FutureState.Common.Utils.DataValidator;
-
+using System.Xml.Serialization;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     [Serializable]
@@ -15,6 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
        
         public CaseLoanDTOCollection CaseLoans { get; set; }
 
+        [XmlIgnore]
         public BudgetSetDTO BudgetSet { get; set; }
 
         public BudgetItemDTOCollection BudgetItems { get; set; }
@@ -23,6 +24,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public OutcomeItemDTOCollection Outcome { get; set; }
 
+        [XmlIgnore]
         public ActivityLogDTOCollection ActivityLog { get; set; }
 
         

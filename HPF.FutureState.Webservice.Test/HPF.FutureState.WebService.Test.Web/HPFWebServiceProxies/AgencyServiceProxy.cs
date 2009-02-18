@@ -1245,11 +1245,11 @@ namespace HPF.Webservice.Agency
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseWSDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CaseLoanDTO))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetSetDTO))]
+    //[System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetSetDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetItemDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetAssetDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OutcomeItemDTO))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivityLogDTO))]
+    //[System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivityLogDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseDTO))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -1560,14 +1560,14 @@ namespace HPF.Webservice.Agency
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
-    public partial class BudgetSetDTO : BaseDTO
-    {
-    }
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    //[System.SerializableAttribute()]
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.ComponentModel.DesignerCategoryAttribute("code")]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    //public partial class BudgetSetDTO : BaseDTO
+    //{
+    //}
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
@@ -1724,92 +1724,92 @@ namespace HPF.Webservice.Agency
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
-    public partial class ActivityLogDTO : BaseDTO
-    {
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    //[System.SerializableAttribute()]
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.ComponentModel.DesignerCategoryAttribute("code")]
+    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    //public partial class ActivityLogDTO : BaseDTO
+    //{
 
-        private System.Nullable<int> activityLogIdField;
+    //    private System.Nullable<int> activityLogIdField;
 
-        private System.Nullable<int> fcIdField;
+    //    private System.Nullable<int> fcIdField;
 
-        private string activityCdField;
+    //    private string activityCdField;
 
-        private System.Nullable<System.DateTime> activityDtField;
+    //    private System.Nullable<System.DateTime> activityDtField;
 
-        private string activityNoteField;
+    //    private string activityNoteField;
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> ActivityLogId
-        {
-            get
-            {
-                return this.activityLogIdField;
-            }
-            set
-            {
-                this.activityLogIdField = value;
-            }
-        }
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+    //    public System.Nullable<int> ActivityLogId
+    //    {
+    //        get
+    //        {
+    //            return this.activityLogIdField;
+    //        }
+    //        set
+    //        {
+    //            this.activityLogIdField = value;
+    //        }
+    //    }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> FcId
-        {
-            get
-            {
-                return this.fcIdField;
-            }
-            set
-            {
-                this.fcIdField = value;
-            }
-        }
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+    //    public System.Nullable<int> FcId
+    //    {
+    //        get
+    //        {
+    //            return this.fcIdField;
+    //        }
+    //        set
+    //        {
+    //            this.fcIdField = value;
+    //        }
+    //    }
 
-        /// <remarks/>
-        public string ActivityCd
-        {
-            get
-            {
-                return this.activityCdField;
-            }
-            set
-            {
-                this.activityCdField = value;
-            }
-        }
+    //    /// <remarks/>
+    //    public string ActivityCd
+    //    {
+    //        get
+    //        {
+    //            return this.activityCdField;
+    //        }
+    //        set
+    //        {
+    //            this.activityCdField = value;
+    //        }
+    //    }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<System.DateTime> ActivityDt
-        {
-            get
-            {
-                return this.activityDtField;
-            }
-            set
-            {
-                this.activityDtField = value;
-            }
-        }
+    //    /// <remarks/>
+    //    [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+    //    public System.Nullable<System.DateTime> ActivityDt
+    //    {
+    //        get
+    //        {
+    //            return this.activityDtField;
+    //        }
+    //        set
+    //        {
+    //            this.activityDtField = value;
+    //        }
+    //    }
 
-        /// <remarks/>
-        public string ActivityNote
-        {
-            get
-            {
-                return this.activityNoteField;
-            }
-            set
-            {
-                this.activityNoteField = value;
-            }
-        }
-    }
+    //    /// <remarks/>
+    //    public string ActivityNote
+    //    {
+    //        get
+    //        {
+    //            return this.activityNoteField;
+    //        }
+    //        set
+    //        {
+    //            this.activityNoteField = value;
+    //        }
+    //    }
+    //}
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
@@ -3411,7 +3411,7 @@ namespace HPF.Webservice.Agency
 
         private CaseLoanDTO[] caseLoansField;
 
-        private BudgetSetDTO budgetSetField;
+        //private BudgetSetDTO budgetSetField;
 
         private BudgetItemDTO[] budgetItemsField;
 
@@ -3419,7 +3419,7 @@ namespace HPF.Webservice.Agency
 
         private OutcomeItemDTO[] outcomeField;
 
-        private ActivityLogDTO[] activityLogField;
+        //private ActivityLogDTO[] activityLogField;
 
         /// <remarks/>
         public ForeclosureCaseDTO ForeclosureCase
@@ -3448,17 +3448,17 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public BudgetSetDTO BudgetSet
-        {
-            get
-            {
-                return this.budgetSetField;
-            }
-            set
-            {
-                this.budgetSetField = value;
-            }
-        }
+        //public BudgetSetDTO BudgetSet
+        //{
+        //    get
+        //    {
+        //        return this.budgetSetField;
+        //    }
+        //    set
+        //    {
+        //        this.budgetSetField = value;
+        //    }
+        //}
 
         /// <remarks/>
         public BudgetItemDTO[] BudgetItems
@@ -3500,17 +3500,17 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public ActivityLogDTO[] ActivityLog
-        {
-            get
-            {
-                return this.activityLogField;
-            }
-            set
-            {
-                this.activityLogField = value;
-            }
-        }
+        //public ActivityLogDTO[] ActivityLog
+        //{
+        //    get
+        //    {
+        //        return this.activityLogField;
+        //    }
+        //    set
+        //    {
+        //        this.activityLogField = value;
+        //    }
+        //}
     }
 
     /// <remarks/>
