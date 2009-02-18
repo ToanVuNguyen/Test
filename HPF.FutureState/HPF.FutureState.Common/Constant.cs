@@ -23,6 +23,8 @@ namespace HPF.FutureState.Common
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
         public const string FOLLOW_UP_CD_CREDIT_REPORT = "CREDITREPORT";
         public const string SECURE_DELIVERY_METHOD_NOSEND = "NOSEND";
+        public const string SECURE_DELIVERY_METHOD_PORTAL = "PORTAL";
+        public const string SECURE_DELIVERY_METHOD_SECEMAIL = "SECEMAIL";        
         public const string MORTGATE_TYPE_CODE_ARM = "ARM";
         public const string MORTGATE_TYPE_CODE_POA = "POA";
         public const string MORTGATE_TYPE_CODE_INTONLY = "INTONLY";
@@ -64,6 +66,6 @@ namespace HPF.FutureState.Common
         //
         public const string SS_CASE_AUDIT_OBJECT = "ss_case_audit_object";
         public const string SS_CASE_FOLLOW_UP_OBJECT = "ss_case_follow_up_object";
-        public const string DB_LOG_CATEGORY = "Importance";
+        public const string DB_LOG_CATEGORY = "Importance";        
     }
 }

@@ -28,15 +28,15 @@ namespace HPF.FutureState.Web.SummaryEmail
             txtTo.Focus();
             ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
             int? fc_id = forclosureInfo.FcId;
-            txtSubject.Text =EmailSummaryBL.Instance.GenerateSubject(fc_id);
+            txtSubject.Text =EmailSummaryBL.Instance.CreateEmailSummarySubject(fc_id);
         }
-        public string SendEmailWithAttachment(string SendTo, string Subject, string Body, string CaseID)
+        public string SendEmailWithAttachment(string sendTo, string subject, string body, int caseID)
         {
             try
             {
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
                 bool result = true;
-                String[] ALL_EMAILS = SendTo.Split(';');
+                String[] ALL_EMAILS = sendTo.Split(';');
 
                 foreach (string emailaddress in ALL_EMAILS)
                 {
@@ -48,7 +48,7 @@ namespace HPF.FutureState.Web.SummaryEmail
                 }
                 if (result == true)
                 {
-                    EmailSummaryBL.Instance.SendEmailSummaryReport(SendTo, Subject, Body, CaseID);
+                    EmailSummaryBL.Instance.SendEmailSummaryReport(sendTo, subject, body, caseID);
                 }
 
             }
@@ -63,13 +63,12 @@ namespace HPF.FutureState.Web.SummaryEmail
   
 
         protected void btnSend_Click(object sender, EventArgs e)
-        {
-            //string SendFrom = "HPF.DoNotReply@HopeNetAdmin.org";
-            string CaseID = Request.QueryString["CaseID"].ToString();
+        {            
+            string CaseID = Request.QueryString["CaseID"];
             string SendTo = txtTo.Text;
             string Subject = txtSubject.Text;
             string Body = txtBody.Text;
-            lblMessgage.Text = SendEmailWithAttachment(SendTo, Subject, Body,CaseID);
+            lblMessgage.Text = SendEmailWithAttachment(SendTo, Subject, Body,Convert.ToInt32(CaseID));
             ActivityLogDTO activityLog = GetActivityLogInfo();
             activityLog.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             ActivityLogBL.Instance.InsertActivityLog(activityLog);
@@ -84,11 +83,6 @@ namespace HPF.FutureState.Web.SummaryEmail
             activityLog.ActivityDt = DateTime.Now;
             activityLog.ActivityNote = string.Concat(" Subject: ", txtSubject.Text, " To: ", txtTo.Text, " Body: ", txtBody.Text);
             return activityLog;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="foreclosurecaseInfo"></param>
-        /// <returns></returns>
+        }        
     }
 }
