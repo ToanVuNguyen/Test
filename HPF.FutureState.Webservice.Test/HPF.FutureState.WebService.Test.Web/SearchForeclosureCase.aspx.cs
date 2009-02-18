@@ -59,7 +59,7 @@ namespace HPF.FutureState.WebService.Test.Web
             grdvResult.DataBind();
 
             if (response.Status == HPF.Webservice.Agency.ResponseStatus.Warning)
-                lblResult.Text = response.Messages.First().Message;
+                lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString() + " - " + response.Messages.First().Message;
             else
                 lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
 
@@ -80,14 +80,21 @@ namespace HPF.FutureState.WebService.Test.Web
 
             HPF.Webservice.CallCenter.ForeclosureCaseSearchResponse response = proxy.SearchForeclosureCase(request);
 
-            if (response.Status == HPF.Webservice.CallCenter.ResponseStatus.Success)
+            if (response.Status == HPF.Webservice.CallCenter.ResponseStatus.Success ||
+                response.Status == HPF.Webservice.CallCenter.ResponseStatus.Warning)
+            {
                 grdvResult.DataSource = response.Results;
+            }
             else
+            {
                 grdvResult.DataSource = response.Messages;
+            }
             grdvResult.DataBind();
 
-            lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
-
+            if (response.Status == HPF.Webservice.CallCenter.ResponseStatus.Warning)
+                lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString() + " - " + response.Messages.First().Message;
+            else
+                lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
 
         }
 
