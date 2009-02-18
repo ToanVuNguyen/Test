@@ -5,6 +5,7 @@ using System.Configuration;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.WebServices
 {
@@ -35,7 +36,8 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())                
                 {                    
                     int pageSize;
-                    int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"], out pageSize);
+                    if (!int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"], out pageSize))
+                        pageSize = 50;
 
                     var results = ForeclosureCaseSetBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);
                     response = new ForeclosureCaseSearchResponse
@@ -44,6 +46,11 @@ namespace HPF.FutureState.WebServices
                                        SearchResultCount = results.SearchResultCount,
                                        Status = ResponseStatus.Success
                                    };
+                    if (response.SearchResultCount > pageSize)
+                    {
+                        response.Status = ResponseStatus.Warning;
+                        response.Messages.AddExceptionMessage(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0375));
+                    }
                 }
             }
             catch (AuthenticationException Ex)

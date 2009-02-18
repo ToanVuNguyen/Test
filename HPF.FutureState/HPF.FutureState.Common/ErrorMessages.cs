@@ -217,6 +217,7 @@ namespace HPF.FutureState.Common
         public const string WARN0335 = "WARN0335";
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
+        public const string WARN0375 = "WARN0375";
         public const string WARN0450 = "WARN0450";
 
 
@@ -519,6 +520,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0375, "Need more info for WARN0375.");
+
                 errorMessageDict.Add(WARN0450, "Do you want to save changes?.");
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "Cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
