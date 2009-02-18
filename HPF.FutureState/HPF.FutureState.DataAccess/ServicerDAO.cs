@@ -32,7 +32,7 @@ namespace HPF.FutureState.DataAccess
         {
             ServicerDTOCollection servicers = null;
             var dbConnection = CreateConnection();
-            var command = CreateCommand("hpf_case_loan_get", dbConnection);
+            var command = CreateCommand("hpf_servicer_get_from_FcId", dbConnection);
             //<Parameter>            
             var sqlParam = new SqlParameter[1];
             sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
@@ -51,7 +51,16 @@ namespace HPF.FutureState.DataAccess
                         var item = new ServicerDTO();
                         item.ServicerID = ConvertToInt(reader["servicer_id"]);
                         item.ServicerName = ConvertToString(reader["servicer_name"]);
+                        item.ContactFName = ConvertToString(reader["contact_fname"]);
+                        item.ContactLName= ConvertToString(reader["contact_lname"]);
+                        item.ContactEmail = ConvertToString(reader["contact_email"]);
+                        item.Phone = ConvertToString(reader["phone"]);
+                        item.Fax = ConvertToString(reader["fax"]);
+                        item.ActiveInd = ConvertToString(reader["active_ind"]);
+                        item.FundingAgreementInd = ConvertToString(reader["funding_agreement_ind"]);
                         item.SecureDeliveryMethodCd = ConvertToString(reader["secure_delivery_method_cd"]);
+                        item.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);
+                        item.HudServicerNum = ConvertToString(reader["hud_servicer_num"]);
                         servicers.Add(item);
                     }
                     reader.Close();
