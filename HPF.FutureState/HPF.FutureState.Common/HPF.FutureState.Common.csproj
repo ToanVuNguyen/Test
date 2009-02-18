@@ -93,6 +93,9 @@
     <Compile Include="DataTransferObjects\CaseFollowUpDTO.cs" />
     <Compile Include="DataTransferObjects\CaseFollowUpDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseSearchCriteriaDTO.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataTransferObjects\FundingSourceDTO.cs" />
     <Compile Include="DataTransferObjects\FundingSourceDTOCollection.cs" />
     <Compile Include="DataTransferObjects\HPFUserDTO.cs" />
@@ -134,7 +137,6 @@
     <Compile Include="DataTransferObjects\DuplicatedCaseLoanDTOCollection.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTO.cs" />
     <Compile Include="DataTransferObjects\GeoCodeRefDTOCollection.cs" />
-    <Compile Include="DataTransferObjects\ForeclosureCaseSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseSearchResult.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -167,15 +169,21 @@
     <Compile Include="DataTransferObjects\WebServices\BaseResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogInsertResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveRequest.cs" />
-    <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogRetrieveResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataTransferObjects\WebServices\CallLogWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSaveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSaveResponse.cs" />
-    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ForeclosureCaseWSDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\ResponseStatus.cs" />
+    <Compile Include="DataTransferObjects\WebServices\SendSummaryRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\SendSummaryResponse.cs" />
     <Compile Include="DataTransferObjects\WSType.cs" />
     <Compile Include="DataTransferObjects\WSUserDTO.cs" />
     <Compile Include="ErrorMessages.cs" />

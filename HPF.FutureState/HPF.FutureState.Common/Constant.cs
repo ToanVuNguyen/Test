@@ -66,6 +66,8 @@ namespace HPF.FutureState.Common
         //
         public const string SS_CASE_AUDIT_OBJECT = "ss_case_audit_object";
         public const string SS_CASE_FOLLOW_UP_OBJECT = "ss_case_follow_up_object";
-        public const string DB_LOG_CATEGORY = "Importance";        
+        public const string DB_LOG_CATEGORY = "Importance";
+
+        public const string HPF_SECURE_EMAIL = "$s$";  
     }
 }
