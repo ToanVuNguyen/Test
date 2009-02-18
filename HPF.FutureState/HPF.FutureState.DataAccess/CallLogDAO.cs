@@ -222,7 +222,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                         callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);                        
                         callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
-                        callLogDTO.SelectedAgencyId = ConvertToString(reader["selected_agency_id"]);
+                        callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
                         callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
                         callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
                         callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);                        

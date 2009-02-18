@@ -40,7 +40,8 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         [XmlElement(IsNullable = true)]
         public int? PrevAgencyId { get; set; }
 
-        public string SelectedAgencyId { get; set; }        
+        [XmlElement(IsNullable = true)]
+        public int? SelectedAgencyId { get; set; }        
 
         public string FinalDispoCd { get; set; }                
 

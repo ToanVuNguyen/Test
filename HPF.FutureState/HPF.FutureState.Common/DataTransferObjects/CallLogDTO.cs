@@ -59,8 +59,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be a valid integer")]
         public int? PrevAgencyId { get; set; }
 
-        [NullableOrStringLengthValidator(true, 20, "Selected Agency Id", Ruleset = "Default")]
-        public string SelectedAgencyId { get; set; }
+        [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Selected Agency Id must be a valid integer")]
+        public int? SelectedAgencyId { get; set; }
 
         [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default")]
         public string ScreenRout { get; set; }

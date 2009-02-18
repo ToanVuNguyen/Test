@@ -107,18 +107,15 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckForeignKey(CallLogDTO aCallLog)
         {
             Dictionary<string, int?> idList = new Dictionary<string, int?>();
-            int temp = 0;
-            int.TryParse(aCallLog.SelectedAgencyId, out temp);
-            aCallLog.SelectedAgencyId = temp.ToString();
-
+            
             idList = CallLogDAO.Instance.GetForeignKey(aCallLog);
             int? callCenterID = (idList["CallCenterID"].HasValue) ? idList["CallCenterID"].Value : 0;
-            //int isValidCCAgentIdKey = 1;
+            
             int? prevAgencyID = (idList["PrevAgencyID"].HasValue) ? idList["PrevAgencyID"].Value : 0;
             
             int? servicerID = (idList["ServicerID"].HasValue) ? idList["ServicerID"].Value : 0;
 
-            int selectedAgencyId = (idList["SelectedAgencyID"].HasValue) ? idList["SelectedAgencyID"].Value : 0; 
+            int? selectedAgencyId = (idList["SelectedAgencyID"].HasValue) ? idList["SelectedAgencyID"].Value : 0; 
             
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
             if (aCallLog.CallCenterID.HasValue && callCenterID == 0)
@@ -127,7 +124,7 @@ namespace HPF.FutureState.BusinessLogic
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "PrevAgencyID does not exist"});
             if (aCallLog.ServicerId.HasValue && servicerID == 0)
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "ServicerId does not exist" });
-            if (!string.IsNullOrEmpty(aCallLog.SelectedAgencyId) && selectedAgencyId == 0)
+            if (aCallLog.SelectedAgencyId.HasValue && selectedAgencyId == 0)
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "SelectedAgencyID does not exist" });
             return errorList;
         }
