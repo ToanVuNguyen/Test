@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Data;
@@ -13,6 +14,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Common;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
@@ -20,7 +22,7 @@ using System.Text.RegularExpressions;
 namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseSetBL : BaseBusinessLogic
-    {        
+    {
         ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
         ForeclosureCaseDTO _dbFcCase = null;
         private string _workingUserID;
@@ -965,11 +967,22 @@ namespace HPF.FutureState.BusinessLogic
             {
                 var queue = new HPFSummaryQueue();
                 queue.SendACompletedCaseToQueue(fcId);
-                UpdateSummarySentDateTime(fcId);
             }
             catch
             {
-                //Log and send E-mail                
+                
+                var QUEUE_ERROR_MESSAGE = "Fail to push completed case to Queue : " + fcId;
+                //Log
+                Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
+                //Send E-mail to support
+                var hpfSupportEmail = ConfigurationManager.AppSettings["HPF_SUPPORT_EMAIL"];
+                var mail = new HPFSendMail
+                               {
+                                   To = hpfSupportEmail,
+                                   Subject = QUEUE_ERROR_MESSAGE
+                               };
+                mail.Send();
+                //
             }
         }
 
@@ -990,11 +1003,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             return false;
         }
-
-        private void UpdateSummarySentDateTime(int? fcId)
-        {
-            foreclosureCaseSetDAO.UpdateSendSummaryDate(fcId);
-        }
+        
         #endregion
 
         #region Functions for Insert and Update tables

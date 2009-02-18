@@ -48,6 +48,17 @@ namespace HPF.FutureState.BusinessLogic
             return ServicerDAO.Instance.GetServicersByFcId(fcId);
         }
 
+        public void UpdateSummarySentDateTime(int? fcId)
+        {
+            var foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+            foreclosureCaseSetDAO.UpdateSendSummaryDate(fcId);
+        }
+
+        public DateTime? GetCurrentSummarySentDateTime(int? fcId)
+        {
+            return null;
+        }
+
         /// <summary>
         /// Process a completed case summary
         /// </summary>
