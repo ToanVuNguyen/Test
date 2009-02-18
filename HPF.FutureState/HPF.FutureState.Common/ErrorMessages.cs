@@ -178,6 +178,9 @@ namespace HPF.FutureState.Common
         public const string ERR0355 = "ERR0355";
         public const string ERR0356 = "ERR0356";
 
+        public const string ERR0376 = "ERR0376";
+        public const string ERR0377 = "ERR0377";
+
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
         public const string WARN0302 = "WARN0302";
@@ -488,6 +491,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0354, "The StartDt and EndDt must include both a valid date and time component.");
                 errorMessageDict.Add(ERR0355, "An invalid code was provided for FinalDispoCd.");
                 errorMessageDict.Add(ERR0356, "A CCAgentIdKey is required to save a call and max length is 55 characters.");
+                errorMessageDict.Add(ERR0376, "The Last4_SSN search criteria must be exactly 4 numeric digits.");
+                errorMessageDict.Add(ERR0377, "The PropertyZip search criteria bust be a valid 5 digit numeric zip.");
 
                 errorMessageDict.Add(WARN0300, "An IncomeEarnersCd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0301, "A RaceCd is required to complete a foreclosure case.");
