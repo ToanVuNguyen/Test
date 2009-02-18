@@ -89,6 +89,7 @@ namespace HPF.FutureState.Common
         public const string ERR0078 = "ERR0078";
         public const string ERR0079 = "ERR0079";
         public const string ERR0080 = "ERR0080";
+        public const string ERR0081 = "ERR0081";
 
         public const string ERR0100 = "ERR0100";
         public const string ERR0101 = "ERR0101";
@@ -331,12 +332,12 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0016, "Email2 has a maximum length of 50 characters.");
                 errorMessageDict.Add(ERR0017, "ContactAddr1 has a maximum length of 50 characters.");
                 errorMessageDict.Add(ERR0018, "ContactAddr2 has a maximum length of 50 characters.");
-                errorMessageDict.Add(ERR0019, "ContactCity has a maximum length of 4 characters.");
+                errorMessageDict.Add(ERR0019, "ContactCity has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0020, "ContactZip has a maximum length of 5 characters.");
                 errorMessageDict.Add(ERR0021, "ContactZipPlus4 has a maximum length of 4 characters.");
                 errorMessageDict.Add(ERR0022, "PropAddr1 has a maximum length of 50 characters.");
                 errorMessageDict.Add(ERR0023, "PropAddr2 has a maximum length of 50 characters.");
-                errorMessageDict.Add(ERR0024, "PropCity has a maximum length of 4 characters.");
+                errorMessageDict.Add(ERR0024, "PropCity has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0025, "PropZip has a maximum length of 5 characters.");
                 errorMessageDict.Add(ERR0026, "PropZipPlus4 has a maximum length of 4 characters.");
                 errorMessageDict.Add(ERR0027, "BankruptcyInd must be either a Y, N or a blank.");
@@ -356,9 +357,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0041, "CounselorIDRef has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0042, "CounselorLName has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0043, "CounselorFName has a maximum length of 30 characters.");
-                errorMessageDict.Add(ERR0044, "CounselorEmail has a maximum length of 30 characters.");
-                errorMessageDict.Add(ERR0045, "CounselorPhone has a maximum length of 30 characters.");
-                errorMessageDict.Add(ERR0046, "CounselorExt has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0044, "CounselorEmail has a maximum length of 50 characters.");
+                errorMessageDict.Add(ERR0045, "CounselorPhone has a maximum length of 20 characters.");
+                errorMessageDict.Add(ERR0046, "CounselorExt has a maximum length of 20 characters.");
                 errorMessageDict.Add(ERR0047, "DiscussedSolutionWithSrvcrInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0048, "WorkedWithAnotherAgencyInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0049, "ContactedSrvcrRecentlyInd must be either a Y, N or a blank.");
@@ -394,6 +395,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0078, "AssetValue must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0079, "BudgetItemAmt must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0080, "HomePurchasePrice must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0081, "HouseholdGrossAnnualIncomeAmt must be a valid number with 2 decimal places. It must be greater than Zero and less than or equal to 99,999,999.99.");
 
                 errorMessageDict.Add(ERR0100, "An AgencyId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0101, "A ProgramId is required to save a foreclosure case.");

@@ -293,16 +293,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
             if (foreclosureCase != null)
-            {
-                //-----CoBorrowerFname, CoBorrowerLname
-                if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) == null &&
-                    ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) != null)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
-                                                     "A CoBorrowerFname is required to save a foreclosure case.");
-                else if (ConvertStringEmptyToNull(foreclosureCase.CoBorrowerFname) != null &&
-                         ConvertStringEmptyToNull(foreclosureCase.CoBorrowerLname) == null)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN",
-                                                     "A CoBorrowerLname is required to save a foreclosure case.");
+            {                
                 //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
                 if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null &&
                     ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) !=
@@ -326,12 +317,12 @@ namespace HPF.FutureState.BusinessLogic
                                                      "A SummarySentOtherDt is required to save a foreclosure case.");
                 //-----SrvcrWorkoutPlanCurrentInd
                 if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null &&
-                    ConvertStringEmptyToNull(foreclosureCase.HasWorkoutPlanInd) != null)
+                    ConvertStringToUpper(foreclosureCase.HasWorkoutPlanInd) != Constant.HAS_WORKOUT_PLAN_IND_YES)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
                 //-----HomeSalePrice
-                if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.ForSaleInd)) ==
-                    Constant.FORSALE_IND_YES && foreclosureCase.HomeSalePrice == null)
+                if (ConvertStringToUpper(foreclosureCase.ForSaleInd) == Constant.FORSALE_IND_YES && 
+                    foreclosureCase.HomeSalePrice == null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A HomeSalePrice is required to save a foreclosure case.");
             }
@@ -437,26 +428,33 @@ namespace HPF.FutureState.BusinessLogic
 
             if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
-                foreach (CaseLoanDTO item in caseLoanDTOCollection)
-                {                    
-                    ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId,item);
+                for (int i = 0; i < caseLoanDTOCollection.Count; i++)
+                { 
+                    var item = caseLoanDTOCollection[i];
+                    ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId, item, i);
                     if (msgOther.Count > 0)
                     {
                         msgFcCaseSet.Add(msgOther);
                         break;
                     }
-                }
+                }                
             }            
             return msgFcCaseSet;
         }
 
-        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int? servicerId, CaseLoanDTO item)
+        private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int? servicerId, CaseLoanDTO item, int i)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
             if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
             {                
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0266));
             }            
+            if((ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_ARM
+               || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_HYBARM
+               || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_POA
+               || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_INTONLY) 
+               && ConvertStringEmptyToNull(item.ArmResetInd) == null)
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A ArmResetInd is required to save a foreclosure case working on case loan index " + (i + 1));
             return msgFcCaseSet;
         }
 

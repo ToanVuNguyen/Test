@@ -11,6 +11,7 @@ namespace HPF.FutureState.Common
         public const string RULESET_FOLLOW_UP = "FollowUp";
         public const string PAYABLE_IND = "Y";
         public const string BANKRUPTCY_IND_YES = "Y";
+        public const string HAS_WORKOUT_PLAN_IND_YES = "Y";
         public const string FORSALE_IND_YES = "Y";
         public const string DUPLICATE_YES = "Y";
         public const string DUPLICATE_NO = "N";
@@ -22,6 +23,10 @@ namespace HPF.FutureState.Common
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
         public const string FOLLOW_UP_CD_CREDIT_REPORT = "CREDITREPORT";
         public const string SECURE_DELIVERY_METHOD_NOSEND = "NOSEND";
+        public const string MORTGATE_TYPE_CODE_ARM = "ARM";
+        public const string MORTGATE_TYPE_CODE_POA = "POA";
+        public const string MORTGATE_TYPE_CODE_INTONLY = "INTONLY";
+        public const string MORTGATE_TYPE_CODE_HYBARM = "HYBARM";
         //
         public const string CALL_CENTER_OTHER = "OTHER";
         public const string SERVICER_OTHER = "OTHER (LENDER NAME IN NOTES)";
