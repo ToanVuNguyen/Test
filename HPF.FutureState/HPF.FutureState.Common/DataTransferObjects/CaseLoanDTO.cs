@@ -123,6 +123,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Investor Name", Ruleset = Constant.RULESET_LENGTH)]
         public string MortgageProgramCd{ get; set; }
 
+        [XmlIgnore]
         public string ChangedAcctNum { get; set; }
 
     }
