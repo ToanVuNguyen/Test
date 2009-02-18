@@ -1391,6 +1391,41 @@ namespace HPF.FutureState.DataAccess
             return returnString;
         }
 
+        public DateTime? GetSummarySendDt(int? fcId)
+        {
+            DateTime? returnDt = null;
+            var dbConnection = CreateConnection();
+            try
+            {
+                SqlCommand command = base.CreateCommand("hpf_foreclosure_case_get_summary_send_dt", dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        returnDt = ConvertToDateTime(reader["summary_sent_dt"]);
+                    }                    
+                }
+                reader.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return returnDt;
+        }
+
         public bool GetCall(string callID)
         {
             bool results = false;

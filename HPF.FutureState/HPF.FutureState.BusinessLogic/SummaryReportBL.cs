@@ -56,7 +56,7 @@ namespace HPF.FutureState.BusinessLogic
 
         public DateTime? GetCurrentSummarySentDateTime(int? fcId)
         {
-            return null;
+            return ForeclosureCaseSetDAO.CreateInstance().GetSummarySendDt(fcId);            
         }
 
         /// <summary>
