@@ -870,22 +870,28 @@ namespace HPF.FutureState.BusinessLogic
                 //check outcome item DB with outcome item input
                 //if not exit, update outcome_deleted_dt = today()
                 outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
-                UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);
+                UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);                
 
-                //Check for Delete Case Loan
-                CaseLoanDTOCollection caseLoanCollecionNew = null;
-                caseLoanCollecionNew = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, fcId);
-                DeleteCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);
+                //Get list case loan wil be deleted
+                CaseLoanDTOCollection caseLoanDeleteCollecion = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, fcId);
 
-                //Check for Update Case Loan
-                caseLoanCollecionNew = null;
-                caseLoanCollecionNew = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, fcId);
-                UpdateCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew);
+                //Get list case loan wil be updated
+                CaseLoanDTOCollection caseLoanUpdateCollecion = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, fcId);
 
-                //Check for Insert Case Loan
-                caseLoanCollecionNew = null;
-                caseLoanCollecionNew = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
-                InsertCaseLoan(foreclosureCaseSetDAO, caseLoanCollecionNew, fcId);
+                //Get list case loan wil be inserted
+                CaseLoanDTOCollection caseLoanInsertCollecion = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, fcId);
+
+                // Set Change Acc Num For CaseLoan Insertd
+                caseLoanInsertCollecion = SetChangeAccNumForCaseLoan(caseLoanDeleteCollecion, caseLoanInsertCollecion);
+
+                //Delete Case Loan
+                DeleteCaseLoan(foreclosureCaseSetDAO, caseLoanDeleteCollecion);
+                
+                //Update Case Loan
+                UpdateCaseLoan(foreclosureCaseSetDAO, caseLoanUpdateCollecion);
+                
+                //Insert Case Loan
+                InsertCaseLoan(foreclosureCaseSetDAO, caseLoanInsertCollecion, fcId);
                 //                               
 
                 CompleteTransaction();
@@ -1330,6 +1336,36 @@ namespace HPF.FutureState.BusinessLogic
 
         #region Functions check for update Case Loan
         /// <summary>      
+        
+        /// </summary>
+        /// <param name>caseLoanDeleteCollection, caseLoanInsertCollection</param>
+        /// <returns>caseLoanInsertCollection with changed_acct_num</returns>
+        private CaseLoanDTOCollection SetChangeAccNumForCaseLoan(CaseLoanDTOCollection caseLoanDelete, CaseLoanDTOCollection caseLoanInsert)
+        {
+            var caseLoanNew = new CaseLoanDTOCollection();          
+            int minCount = caseLoanDelete.Count < caseLoanInsert.Count ? caseLoanDelete.Count : caseLoanInsert.Count;
+            for (int i = 0; i < minCount; i++)
+            {
+                var itemDelete = caseLoanDelete[i];
+                var itemInsert = caseLoanInsert[i];
+                itemInsert.ChangedAcctNum = itemDelete.AcctNum + "-" + itemDelete.Loan1st2nd + " changed to " + itemInsert.AcctNum + "-" + itemInsert.Loan1st2nd;
+                caseLoanNew.Add(itemInsert);
+            }
+            //If collection Insert greater than collection delete
+            //add more item Insert
+            if (caseLoanDelete.Count < caseLoanInsert.Count)
+            {
+                var j = caseLoanInsert.Count - minCount;
+                for (int i = minCount; i < (minCount + j); i++)
+                {
+                    var itemInsert = caseLoanInsert[i];
+                    caseLoanNew.Add(itemInsert);
+                }
+            }
+            return caseLoanNew;
+        }
+
+        /// <summary>      
         /// Check exist of a caseLoan
         /// base on fcId, Accnum
         /// If exist return true; vs return false
@@ -1429,7 +1465,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 bool isChanged = CheckCaseLoan(itemDB, caseLoanCollection);
                 if (!isChanged)
-                {
+                {                    
                     caseLoanNew.Add(itemDB);
                 }
             }            
