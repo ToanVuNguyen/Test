@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System;
 using System.Data.SqlClient;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 
 namespace HPF.FutureState.UnitTest
@@ -364,6 +365,18 @@ namespace HPF.FutureState.UnitTest
             bool result = target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
             Assert.IsFalse(result);
         }
+        [ExpectedException (typeof(DataValidationException),"Unable to process the reconciliation file. The Invoice Case ID in row 0 is not valid for the funding source selected.")]
+        [TestMethod()]
+        public void BackEndPreProcessingTest_Fail()
+        {
+            InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
+            //Get invoice Set which was inserted in the init method
+            string xmlString = "<invoice_cases>"
+                                   + "<invoice_case row_index=\"0\" invoice_case_id=\"924353739\" invoice_case_pmt_amt=\"0\" reject_reason_code=\"BK\" />"
+                              +"</invoice_cases>";
+            target.BackEndPreProcessing(xmlString);
+        }
+        
 
     }
 

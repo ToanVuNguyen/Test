@@ -98,7 +98,7 @@ namespace HPF.FutureState.Web.HPFWebControls
                             writer.Write("</table>");
                         }
                         else
-                            writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:default; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
+                            writer.Write("<a id=\"{0}\" style=\"display: block;margin: 0 1 0 0; padding: 6 6;background: transparent;color:Gray; cursor:pointer; text-align: center; text-decoration: none;width: auto;\">{1}</a>", menu.Id, menu.Title);
 
                     }
                     writer.Write("</td>");
