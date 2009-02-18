@@ -1,7 +1,9 @@
 ﻿using System;
 using HPF.FutureState.Common;
+using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -23,7 +25,7 @@ namespace HPF.FutureState.BusinessLogic
             
         }
 
-        public void SendEmailSummaryReport(string sendTo, string subject, string body, int fc_id)
+        public void SendEmailSummaryReport(string sendTo, string subject, string body, int fc_id, string fileName)
         {
             var hpfSendMail = GetHpfSendMail();
             var pdfSummaryReport = GetPdfSummaryReport(fc_id);
@@ -31,8 +33,15 @@ namespace HPF.FutureState.BusinessLogic
             hpfSendMail.To = sendTo;
             hpfSendMail.Subject = subject;
             hpfSendMail.Body = body;
-            hpfSendMail.AddAttachment(HPF_ATTACHMENT_REPORT_FILE_NAME, pdfSummaryReport);
+            hpfSendMail.AddAttachment(fileName, pdfSummaryReport);
             hpfSendMail.Send();
+        }
+
+        public void SendEmailSummaryReport(string sendTo, string subject, string body, int fc_id)
+        {
+
+            SendEmailSummaryReport(sendTo, subject, body, fc_id, HPF_ATTACHMENT_REPORT_FILE_NAME);
+
         }
 
         public void SendEmailSummaryReport(int? fc_id, string sendTo, string attachmentReportFileName)
@@ -56,7 +65,7 @@ namespace HPF.FutureState.BusinessLogic
             return new HPFSendMail();
         }
 
-        public  string CreateEmailSummarySubject(int? fc_id)
+        public string CreateEmailSummarySubject(int? fc_id)
         {
             var strSubject = "HPF Summary loan#";
             //get info from case loan to get: Loan Status and Loan Num
@@ -71,6 +80,77 @@ namespace HPF.FutureState.BusinessLogic
                 strSubject += " ,priority URGENT";
             return strSubject;
 
+        }
+
+        public SendSummaryResponse ProcessWebServiceSendSummary(SendSummaryRequest sendSummary, int agencyID)
+        {
+            var response = new SendSummaryResponse();
+
+            int fc_Id = sendSummary.FCId;
+
+            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_Id);
+
+            ExceptionMessageCollection errorList = ValidateSendSummaryRequest(foreclosureCase, sendSummary, agencyID);
+
+            if (errorList.Count>0)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages = errorList;
+
+                return response;
+            }
+
+            string fileName;
+
+            CaseLoanDTO caseLoan=CaseLoanBL.Instance.Retrieve1stCaseLoan(fc_Id);
+
+            //loan num>_<lname>_<1st initial>.pdf
+
+            fileName = caseLoan.AcctNum + "_" + foreclosureCase.BorrowerLname + "_" +
+                       foreclosureCase.BorrowerFname.Substring(1, 1) + ".pdf";
+
+
+            SendEmailSummaryReport(sendSummary.EmailToAddress,
+                                    sendSummary.EmailSubject + Constant.HPF_SECURE_EMAIL, 
+                                    sendSummary.EmailBody, 
+                                    sendSummary.FCId, 
+                                    fileName);
+
+            //log to activity log
+            ActivityLogDTO activityLog = ActivityLogBL.Instance.CreateSendSummaryWSActivityLog(sendSummary);
+            activityLog.SetInsertTrackingInformation(sendSummary.SenderId.ToString());
+            ActivityLogBL.Instance.InsertActivityLog(activityLog);
+
+            response.Status = ResponseStatus.Success;
+
+            return response;
+        }
+
+        private ExceptionMessageCollection ValidateSendSummaryRequest(ForeclosureCaseDTO foreclosureCase, SendSummaryRequest sendSummary, int agencyID)
+        {
+            ExceptionMessageCollection errorCollection = new ExceptionMessageCollection();
+
+
+            if (sendSummary.EmailToAddress.Trim().Length == 0)
+                errorCollection.AddExceptionMessage("ERR495", "The EmailToAddress cannot be null or empty.");
+
+            if (sendSummary.SenderId.Trim().Length == 0)
+                errorCollection.AddExceptionMessage("ERR496", "The SenderId cannot be null or empty.");
+
+            if (foreclosureCase == null)
+                errorCollection.AddExceptionMessage("ERR497", "The FCId supplied is invalid, no foreclosure case found.");
+
+            else
+            {
+                if (foreclosureCase.AgencyId != agencyID)
+                    errorCollection.AddExceptionMessage("ERR498", "The foreclosure case of FCId supplied does not belong to your agency.");
+
+                if (foreclosureCase.CompletedDt == null)
+                    errorCollection.AddExceptionMessage("ERR499", "Summary report cannot be sent while the case is not completed.");
+    
+            }
+            
+            return errorCollection;
         }
     }
 }
