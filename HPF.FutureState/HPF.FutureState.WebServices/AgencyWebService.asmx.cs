@@ -137,6 +137,51 @@ namespace HPF.FutureState.WebServices
             return response;
         }
         
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public SendSummaryResponse SendSummary(SendSummaryRequest request)
+        {
+            var response = new SendSummaryResponse();
+            try
+            {
+                if (IsAuthenticated())//Authentication checking                
+                {
+                    var workingInstance = EmailSummaryBL.Instance;
+                    response = workingInstance.ProcessWebServiceSendSummary(request, (int)CurrentAgencyID);
+
+                }
+            }
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Status = ResponseStatus.Fail;                
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }            
+            catch (Exception Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+
+            return response;
+        }
+
         private static bool ValidateCallLogID(CallLogRetrieveRequest request)
         {
             var dataValidationException = new DataValidationException();
