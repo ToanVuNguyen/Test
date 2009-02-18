@@ -398,7 +398,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[25];
+                var sqlParam = new SqlParameter[27];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", NullableString(caseLoan.OtherServicerName));
@@ -418,13 +418,14 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[16] = new SqlParameter("@pi_current_servicer_FDIC_NCUA_num", NullableString(caseLoan.CurrentServicerFdicNcuaNum));
                 sqlParam[17] = new SqlParameter("@pi_investor_num", NullableString(caseLoan.InvestorNum));
                 sqlParam[18] = new SqlParameter("@pi_investor_name", NullableString(caseLoan.InvestorName));
-                sqlParam[19] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
-                sqlParam[20] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
-                sqlParam[21] = new SqlParameter("@pi_create_app_name", caseLoan.CreateAppName);
-                sqlParam[22] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
-                sqlParam[23] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
-                sqlParam[24] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
-
+                sqlParam[19] = new SqlParameter("@pi_mortgage_program_cd", NullableString(caseLoan.MortgageProgramCd));
+                sqlParam[20] = new SqlParameter("@pi_changed_acct_num", NullableString(caseLoan.ChangedAcctNum));
+                sqlParam[21] = new SqlParameter("@pi_create_dt", NullableDateTime(caseLoan.CreateDate));
+                sqlParam[22] = new SqlParameter("@pi_create_user_id", caseLoan.CreateUserId);
+                sqlParam[23] = new SqlParameter("@pi_create_app_name", caseLoan.CreateAppName);
+                sqlParam[24] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
+                sqlParam[25] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
+                sqlParam[26] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
@@ -495,8 +496,9 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[16] = new SqlParameter("@pi_current_servicer_FDIC_NCUA_num", NullableString(caseLoan.CurrentServicerFdicNcuaNum));
                 sqlParam[17] = new SqlParameter("@pi_investor_num", NullableString(caseLoan.InvestorNum));
                 sqlParam[18] = new SqlParameter("@pi_investor_name", NullableString(caseLoan.InvestorName));
-                sqlParam[19] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
-                sqlParam[20] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
+                sqlParam[19] = new SqlParameter("@pi_mortgage_program_cd", NullableString(caseLoan.MortgageProgramCd));
+                sqlParam[20] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
+                sqlParam[21] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
                 sqlParam[21] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
