@@ -601,7 +601,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [XmlElement(IsNullable = true)]        
         [RequiredObjectValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0075)]
+        [NullableOrInRangeNumberValidator(true, "-99999999.99", "99999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0081)]
         public double? HouseholdGrossAnnualIncomeAmt { get; set; }
 
         [XmlIgnore]
