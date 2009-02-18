@@ -59,7 +59,7 @@ namespace HPF.FutureState.WebService.Test.Web
             grdvResult.DataBind();
 
             if (response.Status == HPF.Webservice.Agency.ResponseStatus.Warning)
-                lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString() + " - " + response.Messages.First().Message;
+                lblResult.Text = string.Format("{0} -- {1}", response.Messages.First().ErrorCode, response.Messages.First().Message);
             else
                 lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
 
@@ -92,7 +92,7 @@ namespace HPF.FutureState.WebService.Test.Web
             grdvResult.DataBind();
 
             if (response.Status == HPF.Webservice.CallCenter.ResponseStatus.Warning)
-                lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString() + " - " + response.Messages.First().Message;
+                lblResult.Text = string.Format("{0} -- {1}", response.Messages.First().ErrorCode, response.Messages.First().Message);
             else
                 lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
 

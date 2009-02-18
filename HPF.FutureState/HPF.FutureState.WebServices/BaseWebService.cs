@@ -49,7 +49,13 @@ namespace HPF.FutureState.WebServices
                     if (response.SearchResultCount > pageSize)
                     {
                         response.Status = ResponseStatus.Warning;
-                        response.Messages.AddExceptionMessage(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0375));
+                        var em = new ExceptionMessage()
+                        {
+                            ErrorCode = ErrorMessages.WARN0375,
+                            Message = ErrorMessages.GetExceptionMessage(ErrorMessages.WARN0375, response.SearchResultCount)
+
+                        };
+                        response.Messages.Add(em);
                     }
                 }
             }
