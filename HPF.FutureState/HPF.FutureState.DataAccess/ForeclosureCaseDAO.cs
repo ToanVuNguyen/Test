@@ -310,7 +310,7 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(" AND foreclosure_case.fc_id = case_loan.fc_id");
             whereClause.Append(" AND case_loan.servicer_id = servicer.servicer_id");
             whereClause.Append(" AND case_loan.loan_1st_2nd_cd = '1st'");
-            whereClause.Append(" AND foreclosure_case.duplicate_ind = 'N' OR foreclosure_case.duplicate_ind is null");
+            whereClause.Append(" AND (foreclosure_case.duplicate_ind = 'N' OR foreclosure_case.duplicate_ind is null)");
             //whereClause.Append((searchCriteria.AgencyCaseNumber == null) ? "" : " AND agency_case_num like @pi_agency_case_num ESCAPE '/'");
             //whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')");
             //whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_borrower_lname  ESCAPE '/' OR co_borrower_lname like @pi_borrower_lname  ESCAPE '/')");

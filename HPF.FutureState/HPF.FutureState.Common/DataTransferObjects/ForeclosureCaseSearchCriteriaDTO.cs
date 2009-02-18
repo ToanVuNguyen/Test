@@ -16,8 +16,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class ForeclosureCaseSearchCriteriaDTO
     {
-        [NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = "Default")]
         string _agencyCaseNumber;
+        [NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = "Default")]        
         public string AgencyCaseNumber
         {
             get { return _agencyCaseNumber; }

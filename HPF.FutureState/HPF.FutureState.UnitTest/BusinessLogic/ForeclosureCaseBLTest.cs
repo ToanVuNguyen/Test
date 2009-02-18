@@ -29,6 +29,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
         private TestContext testContextInstance;
 
+       
+        static string duplicate_ind = "N";
+        static string prop_addr1 = "prop_addr1";
+        static string prop_city = "prop_city";
+        static string prop_state_cd = "68";
+
         static string prop_zip = "68686";
         static string ssn = "6868";
         static string agency_case_number = "686868";
@@ -37,7 +43,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static string acct_num = "acct_num6868";
         static string working_user_id = "utest_FC_test_12345";
         static int budget_category_id = 0;
-        static int budget_subcategory_id = 0;
 
         static string working_user_id_dupe = "utest_FC_test_12345_dupe";
         static string acct_num_dupe = "an_6868_dupe";
@@ -46,7 +51,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static int outcome_type_id_dupe = 0;
         static int fc_id_dupe = 0;
         static int servicer_id_dupe = 0;
-        static int case_loan_id_dupe = 0;
         static string agency_case_num_dupe = "acnd_68_dupe";
 
         
@@ -141,9 +145,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int expected = 0; //number of cases returned
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
-
-            Assert.AreNotEqual(expected, actual);
-            TestContext.WriteLine(string.Format("Expected: {0} rows found - Actual: {1} rows found",expected, actual));
+            Assert.AreEqual(expected, actual);
         }
         
         [TestMethod()]
@@ -291,7 +293,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             var actual = target.SearchForeclosureCase(searchCriteria, 50);
             
             Assert.AreNotEqual(actual, null);
-            Assert.AreEqual(0, actual.Count);
+            Assert.AreEqual(0, actual.SearchResultCount);
         }
 
         [TestMethod()]   
@@ -302,7 +304,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
             searchCriteria.PropertyZip = prop_zip;
-            searchCriteria.AgencyCaseNumber = "a#$sdfgds";
+            searchCriteria.AgencyCaseNumber = "ForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTO";
             target.SearchForeclosureCase(searchCriteria, 50);
         }
         #endregion
@@ -322,7 +324,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             
             #region fc_case
              sql = "Insert into foreclosure_case "
-                + " (agency_id, program_id, intake_dt"
+                + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+                + ", agency_id, program_id, intake_dt"
                 + ", borrower_fname, borrower_lname, primary_contact_no"
                 + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
                 + ", funding_consent_ind, servicer_consent_ind, counselor_email"
@@ -331,7 +334,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + ", counselor_fname, counselor_lname, counselor_id_ref"
                 + ", prop_zip, agency_case_num, borrower_last4_SSN"
                 + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " (" + agency_id + ", 1, '" + DateTime.Now + "'"
+                + " ('N', 'prop_addr1', 'prop_city', 'cd', " + agency_id + ", 1, '" + DateTime.Now + "'"
                 + ", '" + first_name + "', 'Lastname', 'pcontactno'"
                 + ", 'address1', 'cty', 'scod', 'czip'"
                 + ", 'Y', 'Y', 'email'"
@@ -344,7 +347,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             //CompleteDate: True
              sql = "Insert into foreclosure_case "
-                 + " (completed_dt, agency_id, program_id, intake_dt"
+                 + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+                 + ", completed_dt, agency_id, program_id, intake_dt"
                  + ", borrower_fname, borrower_lname, primary_contact_no"
                  + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
                  + ", funding_consent_ind, servicer_consent_ind, counselor_email"
@@ -353,7 +357,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                  + ", counselor_fname, counselor_lname, counselor_id_ref"
                  + ", prop_zip, agency_case_num, borrower_last4_SSN"
                  + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                 + " ('2007/12/12', " + agency_id + ", 1, '" + DateTime.Now + "'"
+                 + " ('N', 'prop_addr1', 'prop_city', 'cd', '2007/12/12', " + agency_id + ", 1, '" + DateTime.Now + "'"
                  + ", '" + first_name + "', 'Lastname', 'pcontactno'"
                  + ", 'acbdfegh123456789', 'cty', 'scod', 'czip'"
                  + ", 'Y', 'Y', 'email'"
@@ -366,7 +370,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
              //CompleteDate: False
              sql = "Insert into foreclosure_case "
-                 + " (completed_dt, agency_id, program_id, intake_dt"
+                 + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+                 + ", completed_dt, agency_id, program_id, intake_dt"
                  + ", borrower_fname, borrower_lname, primary_contact_no"
                  + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
                  + ", funding_consent_ind, servicer_consent_ind, counselor_email"
@@ -375,7 +380,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                  + ", counselor_fname, counselor_lname, counselor_id_ref"
                  + ", prop_zip, agency_case_num, borrower_last4_SSN"
                  + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                 + " ('2009/12/12', " + agency_id + ", 1, '" + DateTime.Now + "'"
+                 + " ('N', 'prop_addr1', 'prop_city', 'cd', '2009/12/12', " + agency_id + ", 1, '" + DateTime.Now + "'"
                  + ", '" + first_name + "', 'Lastname', 'pcontactno'"
                  + ", '123456789acbdfegh', 'cty', 'scod', 'czip'"
                  + ", 'Y', 'Y', 'email'"
@@ -412,24 +417,25 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             #region dupe test - active case
             //foreclosure case
             sql = "Insert into foreclosure_case "
-             + " (completed_dt, agency_id, program_id, intake_dt"
-             + ", borrower_fname, borrower_lname, primary_contact_no"
-             + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
-             + ", funding_consent_ind, servicer_consent_ind, counselor_email"
-             + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
-             + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
-             + ", counselor_fname, counselor_lname, counselor_id_ref"
-             + ", prop_zip, agency_case_num, borrower_last4_SSN"
-             + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-             + " (null, " + agency_id + ", 1, '" + DateTime.Now + "'"
-             + ", '" + first_name + "_dupe" + "', 'Lastname', 'pcontactno'"
-             + ", '123456789acbdfegh', 'cty', 'scod', 'czip'"
-             + ", 'Y', 'Y', 'email'"
-             + ", 'phone', 'Y', 'Y'"
-             + ", 'Y', 'Y', 'Y'"
-             + ", 'cfname', 'clname', 'cidref'"
-             + ", '" + "_dupe" + "', '" + agency_case_num_dupe + "', '" + "_dup" + "'"
-             + ", 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
+                + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+                + ", completed_dt, agency_id, program_id, intake_dt"
+                + ", borrower_fname, borrower_lname, primary_contact_no"
+                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+                + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+                + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+                + ", counselor_fname, counselor_lname, counselor_id_ref"
+                + ", prop_zip, agency_case_num, borrower_last4_SSN"
+                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+                + " ('N', 'prop_addr1', 'prop_city', 'cd', null, " + agency_id + ", 1, '" + DateTime.Now + "'"
+                + ", '" + first_name + "_dupe" + "', 'Lastname', 'pcontactno'"
+                + ", '123456789acbdfegh', 'cty', 'scod', 'czip'"
+                + ", 'Y', 'Y', 'email'"
+                + ", 'phone', 'Y', 'Y'"
+                + ", 'Y', 'Y', 'Y'"
+                + ", 'cfname', 'clname', 'cidref'"
+                + ", '" + "_dupe" + "', '" + agency_case_num_dupe + "', '" + "_dup" + "'"
+                + ", 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
 
 
