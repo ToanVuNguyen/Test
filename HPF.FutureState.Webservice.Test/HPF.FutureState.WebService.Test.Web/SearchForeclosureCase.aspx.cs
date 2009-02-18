@@ -47,13 +47,21 @@ namespace HPF.FutureState.WebService.Test.Web
 
             HPF.Webservice.Agency.ForeclosureCaseSearchResponse response = proxy.SearchForeclosureCase(request);
 
-            if (response.Status == HPF.Webservice.Agency.ResponseStatus.Success)
+            if (response.Status == HPF.Webservice.Agency.ResponseStatus.Success ||
+                response.Status == HPF.Webservice.Agency.ResponseStatus.Warning)
+            {
                 grdvResult.DataSource = response.Results;
+            }
             else
+            {
                 grdvResult.DataSource = response.Messages;
+            }
             grdvResult.DataBind();
 
-            lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
+            if (response.Status == HPF.Webservice.Agency.ResponseStatus.Warning)
+                lblResult.Text = response.Messages.First().Message;
+            else
+                lblResult.Text = "Total rows found: " + response.SearchResultCount.ToString();
 
         }
 

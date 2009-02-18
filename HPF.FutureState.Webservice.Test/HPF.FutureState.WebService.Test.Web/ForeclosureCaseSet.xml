@@ -100,8 +100,7 @@
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>
-      <CaseLoanId></CaseLoanId>
-      <!--<FcId>1</FcId>-->
+      <CaseLoanId></CaseLoanId>      
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum1</AcctNum>
@@ -120,13 +119,12 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <!--<InvestorLoanNum>test</InvestorLoanNum>
-      <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>-->
+      <MortgageProgramCd>MPCd</MortgageProgramCd>
+      <InvestorName>investor name</InvestorName>
+      <InvestorNum>inum</InvestorNum>
     </CaseLoan>
     <CaseLoan>
-      <CaseLoanId></CaseLoanId>
-      <!--<FcId>2</FcId>-->
+      <CaseLoanId></CaseLoanId>      
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum2</AcctNum>
@@ -145,9 +143,9 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <!--<InvestorLoanNum>test</InvestorLoanNum>
-      <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId> -->
+      <MortgageProgramCd>MPCd</MortgageProgramCd>
+      <InvestorName>investor name</InvestorName>
+      <InvestorNum>inum</InvestorNum>
     </CaseLoan>    
   </CaseLoanSet>
   <OutcomeSet>

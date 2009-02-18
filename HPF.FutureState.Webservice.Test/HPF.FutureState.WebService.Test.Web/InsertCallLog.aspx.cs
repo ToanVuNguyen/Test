@@ -78,7 +78,7 @@ namespace HPF.FutureState.WebService.Test.Web
             txtPropZipFull9.Text = aCallLogWS.PropZipFull9;
             txtReasonToCall.Text = aCallLogWS.ReasonToCall;
             txtScreenRout.Text = aCallLogWS.ScreenRout; 
-            txtSelectedAgencyId.Text = aCallLogWS.SelectedAgencyId; 
+            txtSelectedAgencyId.Text = aCallLogWS.SelectedAgencyId.ToString(); 
             txtSelectedCounselor.Text = aCallLogWS.SelectedCounselor;
             txtServiceID.Text = aCallLogWS.ServicerId.ToString();
             txtStartDate.Text = aCallLogWS.StartDate.ToString(); 
@@ -115,7 +115,7 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.PropZipFull9 = txtPropZipFull9.Text.Trim();
             aWSCallLog.ReasonToCall = txtReasonToCall.Text.Trim();
             aWSCallLog.ScreenRout = txtScreenRout.Text.Trim();
-            aWSCallLog.SelectedAgencyId = txtSelectedAgencyId.Text.Trim();
+            aWSCallLog.SelectedAgencyId = Util.ConvertToInt(txtSelectedAgencyId.Text.Trim());
             aWSCallLog.SelectedCounselor = txtSelectedCounselor.Text.Trim();
             aWSCallLog.ServicerId = Util.ConvertToInt(txtServiceID.Text.Trim());
             aWSCallLog.StartDate = Util.ConvertToDateTime(txtStartDate.Text.Trim());

@@ -22,7 +22,6 @@ using System.Configuration;
 
 namespace HPF.Webservice.Agency
 {
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1306,6 +1305,8 @@ namespace HPF.Webservice.Agency
 
         private string investorNameField;
 
+        private string mortgageProgramCdField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> ServicerId
@@ -1541,6 +1542,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.investorNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MortgageProgramCd
+        {
+            get
+            {
+                return this.mortgageProgramCdField;
+            }
+            set
+            {
+                this.mortgageProgramCdField = value;
             }
         }
     }

@@ -1070,38 +1070,38 @@
                     <asp:Label ID="Label17" runat="server" Text='<%# Bind("CurrentServicerFdicNcuaNum") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <%--<asp:TemplateField HeaderText="Current servicer" >  
+            <asp:TemplateField HeaderText="MortgageProgramCd" >  
                 <EditItemTemplate>
-                    <asp:TextBox ID="txtCurrentServiceNameTBD" runat="server" Text='<%# Eval("CurrentServicerNameTbd") %>'></asp:TextBox>
+                    <asp:TextBox ID="txtMortgageProgramCd" runat="server" Text='<%# Eval("MortgageProgramCd") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtCurrentServiceNameTBD" runat="server"></asp:TextBox> </FooterTemplate>
+                    <asp:TextBox ID="txtMortgageProgramCd" runat="server"></asp:TextBox> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label18" runat="server" Text='<%# Bind("CurrentServicerNameTbd") %>'></asp:Label>
+                    <asp:Label ID="Label18" runat="server" Text='<%# Bind("MortgageProgramCd") %>'></asp:Label>
                 </ItemTemplate>                
                 
             </asp:TemplateField>
             
-            <asp:TemplateField HeaderText="Freddie loan num" >  
+            <asp:TemplateField HeaderText="InvestorName" >  
                 <EditItemTemplate>
-                    <asp:TextBox ID="txtFreddieLoanNum" runat="server" Text='<%# Eval("InvestorLoanNum") %>'></asp:TextBox>
+                    <asp:TextBox ID="txtInvestorName" runat="server" Text='<%# Eval("InvestorName") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtFreddieLoanNum" runat="server"></asp:TextBox> </FooterTemplate>
+                    <asp:TextBox ID="txtInvestorName" runat="server"></asp:TextBox> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label19" runat="server" Text='<%# Bind("InvestorLoanNum") %>'></asp:Label>
+                    <asp:Label ID="Label19" runat="server" Text='<%# Bind("InvestorName") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>            
-            <asp:TemplateField HeaderText="FCID" >  
+            <asp:TemplateField HeaderText="InvestorNum" >  
                 <EditItemTemplate>
-                    <asp:TextBox ID="txtFcId" runat="server" Text='<%# Eval("FcId") %>'></asp:TextBox>
+                    <asp:TextBox ID="txtInvestorNum" runat="server" Text='<%# Eval("InvestorNum") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <FooterTemplate>
-                    <asp:TextBox ID="txtFcId" runat="server"></asp:TextBox> </FooterTemplate>
+                    <asp:TextBox ID="txtInvestorNum" runat="server"></asp:TextBox> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label22" runat="server" Text='<%# Bind("FcId") %>'></asp:Label>
+                    <asp:Label ID="Label22" runat="server" Text='<%# Bind("InvestorNum") %>'></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField>--%> 
+            </asp:TemplateField>
             <asp:TemplateField HeaderText="Case Loan ID" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>

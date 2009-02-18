@@ -44,7 +44,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                PropZipFull9 = obj.Element("PropZipFull9").Value,
                                ReasonToCall = obj.Element("ReasonToCall").Value,
                                ScreenRout = obj.Element("ScreenRout").Value,
-                               SelectedAgencyId = obj.Element("SelectedAgencyId").Value,
+                               SelectedAgencyId = Util.ConvertToInt(obj.Element("SelectedAgencyId").Value),
                                SelectedCounselor = obj.Element("SelectedCounselor").Value,
                                ServicerId = Util.ConvertToInt(obj.Element("ServicerId").Value),
                                StartDate = Util.ConvertToDateTime(obj.Element("StartDate").Value),

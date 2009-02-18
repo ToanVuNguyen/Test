@@ -39,7 +39,10 @@ namespace HPF.FutureState.WebService.Test.Web
                                OrigMortgageCoName = obj.Element("OrigMortgageCoName").Value,
                                OtherServicerName = obj.Element("OtherServicerName").Value,
                                ServicerId = Util.ConvertToInt(obj.Element("ServicerId").Value),
-                               TermLengthCd = obj.Element("TermLengthCd").Value
+                               TermLengthCd = obj.Element("TermLengthCd").Value,
+                               MortgageProgramCd = obj.Element("MortgageProgramCd").Value,                               
+                               InvestorName = obj.Element("InvestorName").Value,
+                               InvestorNum = obj.Element("InvestorNum").Value                               
                            };
                 int i = 1;
                 List<CaseLoanDTO_App> list = objs.ToList<CaseLoanDTO_App>();
@@ -333,7 +336,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 OrigMortgageCoName = this.OrigMortgageCoName,
                 OtherServicerName = this.OtherServicerName,
                 ServicerId = this.ServicerId,
-                TermLengthCd = this.TermLengthCd
+                TermLengthCd = this.TermLengthCd,
+                MortgageProgramCd = this.MortgageProgramCd                
 
             };
         }

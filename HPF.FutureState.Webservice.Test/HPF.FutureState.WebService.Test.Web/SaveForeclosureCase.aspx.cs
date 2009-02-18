@@ -460,19 +460,17 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtOtherServiceName = (TextBox)row.FindControl("txtOtherServiceName");
             TextBox txtServicerId = (TextBox)row.FindControl("txtServicerId");
             TextBox txtTermLengthCd = (TextBox)row.FindControl("txtTermLengthCd");
+            TextBox txtMortgageProgramCd = (TextBox)row.FindControl("txtMortgageProgramCd");
+            TextBox txtInvestorName = (TextBox)row.FindControl("txtInvestorName");
+            TextBox txtInvestorNum = (TextBox)row.FindControl("txtInvestorNum");
             Label lblCaseLoanId = (Label)row.FindControl("lblCaseLoanId");
             #endregion
 
             caseLoan.AcctNum = txtAccNum.Text.Trim();
-            //caseLoan.ArmLoanInd = txtArmLoanInd.Text.Trim();
             caseLoan.ArmResetInd = txtArmResetInd.Text.Trim();
             caseLoan.CaseLoanId = Util.ConvertToInt(lblCaseLoanId.Text.Trim());
             caseLoan.CurrentLoanBalanceAmt = Util.ConvertToDouble(txtCurrentLoanBalanceAmt.Text.Trim());
-            //caseLoan.CurrentServicerNameTbd = txtCurrentServiceNameTBD.Text.Trim();
             caseLoan.CurrentServicerFdicNcuaNum = txtFDICNCUANum.Text.Trim();
-            //caseLoan.FdicNcusNumCurrentServicerTbd = txtFDICNCUANum.Text.Trim();
-            //caseLoan.InvestorLoanNum = txtFreddieLoanNum.Text.Trim();
-            //caseLoan.FcId = Util.ConvertToInt(txtFcId.Text.Trim());
             caseLoan.InterestRate = Util.ConvertToDouble(txtInterestRate.Text.Trim());
             caseLoan.Loan1st2nd = txtLoan1st2nd.Text.Trim();
             caseLoan.LoanDelinqStatusCd = txtLoanDelinqCd.Text.Trim();
@@ -485,9 +483,9 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.OtherServicerName = txtOtherServiceName.Text.Trim();
             caseLoan.ServicerId = Util.ConvertToInt(txtServicerId.Text.Trim());
             caseLoan.TermLengthCd = txtTermLengthCd.Text.Trim();
-
-            //caseLoan.CreateUserId = txtCreateUserID.Text.Trim();
-            //caseLoan.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
+            caseLoan.MortgageProgramCd = txtMortgageProgramCd.Text.Trim();
+            caseLoan.InvestorName = txtInvestorName.Text.Trim();
+            caseLoan.InvestorNum = txtInvestorNum.Text.Trim();
             return caseLoan;
 
         }

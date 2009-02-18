@@ -976,7 +976,7 @@ namespace HPF.Webservice.CallCenter
 
         private System.Nullable<int> prevAgencyIdField;
 
-        private string selectedAgencyIdField;
+        private System.Nullable<int> selectedAgencyIdField;
 
         private string screenRoutField;
 
@@ -1220,7 +1220,8 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public string SelectedAgencyId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> SelectedAgencyId
         {
             get
             {
