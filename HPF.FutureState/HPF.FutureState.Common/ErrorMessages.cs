@@ -560,7 +560,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0654, "A valid Payment Amount is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0655, "Unable to open payment reconciliation file.");
                 errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file.  It is not in the proper format, it must be Excel 2003 or newer");
-                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: FC ID, Loan Num, Invoice Case ID, Pmt Amt, Pmt Reject Reason Code, Freddie Mac Loan Num, Investor Num, and Investor Name.");
+                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: HPF Internal Case ID,HPF Invoice Case ID,Paymnet Amount, Payment Reject Reason Code,Feddie Mac Servicer Number,Feddie Mac Loan Number,Investor Number,Investor Name,Loan Number.");
                 errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The FC ID in row {0} is not a valid number.");
                 errorMessageDict.Add(ERR0659, "Unable to process the reconciliation file. The Pmt Amt in row {0} is not a valid amount.");
                 errorMessageDict.Add(ERR0660, "Unable to process the reconciliation file  The Payment Reject Reason Code in row {0} is not a valid code.");

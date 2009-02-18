@@ -215,6 +215,7 @@ namespace HPF.FutureState.BusinessLogic
                 XmlElement item = doc.CreateElement("invoice_case");
                 item.SetAttribute("fc_id", reconciliationDTO.ForeclosureCaseId.ToString());
                 item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
+                item.SetAttribute("Freddie_servicer_num", reconciliationDTO.FreddieMacServicerNumber.ToString());
                 item.SetAttribute("acct_num", reconciliationDTO.LoanNumber);
                 item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
                 item.SetAttribute("reject_reason_cd", reconciliationDTO.PaymentRejectReasonCode);

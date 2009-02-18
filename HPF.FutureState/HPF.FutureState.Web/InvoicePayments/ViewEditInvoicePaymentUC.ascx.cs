@@ -29,13 +29,14 @@ namespace HPF.FutureState.Web.InvoicePayments
         private void UcInit()
         {
             COLUMN_NAME.Add("HPF Internal Case ID");
-            COLUMN_NAME.Add("Loan Number");
-            COLUMN_NAME.Add("Invoice Case ID");
+            COLUMN_NAME.Add("HPF Invoice Case ID");
             COLUMN_NAME.Add("Payment Amount");
             COLUMN_NAME.Add("Payment Reject Reason Code");
+            COLUMN_NAME.Add("Freddie Mac Servicer Number");
             COLUMN_NAME.Add("Freddie Mac Loan Number");
             COLUMN_NAME.Add("Investor Number");
             COLUMN_NAME.Add("Investor Name");
+            COLUMN_NAME.Add("Loan Number");
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -247,13 +248,14 @@ namespace HPF.FutureState.Web.InvoicePayments
             {
                 ReconciliationDTO item = new ReconciliationDTO();
                 item.ForeclosureCaseId = int.Parse(row[COLUMN_NAME[0]].ToString());
-                item.LoanNumber = row[COLUMN_NAME[1]].ToString();
-                item.InvoiceCaseId = int.Parse(row[COLUMN_NAME[2]].ToString());
-                item.PaymentAmount = double.Parse(row[COLUMN_NAME[3]].ToString());
-                item.PaymentRejectReasonCode = row[COLUMN_NAME[4]].ToString();
+                item.InvoiceCaseId = int.Parse(row[COLUMN_NAME[1]].ToString());
+                item.PaymentAmount = double.Parse(row[COLUMN_NAME[2]].ToString());
+                item.PaymentRejectReasonCode = row[COLUMN_NAME[3]].ToString();
+                item.FreddieMacServicerNumber = row[COLUMN_NAME[4]].ToString();
                 item.FreddieMacLoanNumber = row[COLUMN_NAME[5]].ToString();
                 item.InvestorNumber = row[COLUMN_NAME[6]].ToString();
                 item.InvestorName = row[COLUMN_NAME[7]].ToString();
+                item.LoanNumber = row[COLUMN_NAME[8]].ToString();
                 result.Add(item);
             }
             return result;
@@ -297,7 +299,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //Payment Amounts
                 try
                 {
-                    sumOfPaymentAmount += double.Parse(row[COLUMN_NAME[3]].ToString());
+                    sumOfPaymentAmount += double.Parse(row[COLUMN_NAME[2]].ToString());
                 }
                 catch
                 {
@@ -306,8 +308,8 @@ namespace HPF.FutureState.Web.InvoicePayments
                 }
 
                 //Reject Reaon Code
-                if (row[COLUMN_NAME[4]].ToString() != string.Empty)
-                    if (paymentRejectReasonCollection.IndexOf(row[COLUMN_NAME[4]].ToString()) == -1)
+                if (row[COLUMN_NAME[3]].ToString() != string.Empty)
+                    if (paymentRejectReasonCollection.IndexOf(row[COLUMN_NAME[3]].ToString()) == -1)
                     {
                         var exMes = GetExceptionMessage(ErrorMessages.ERR0660, rowIndex);
                         ex.ExceptionMessages.Add(exMes);
@@ -327,17 +329,24 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         private void ColumnsValidate(DataTable fileContent)
         {
+            DataValidationException ex = new DataValidationException();
             List<string> columnName = new List<string>();
             foreach (string name in COLUMN_NAME)
                 columnName.Add(name);
             if (fileContent.Columns.Count != columnName.Count)
-                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0657));
+            {
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
+                throw ex;
+
+                
+            }
             foreach (DataColumn col in fileContent.Columns)
             {
                 int index = columnName.IndexOf(col.ColumnName);
                 if (index == -1)
                 {
-                    throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0657));
+                    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
+                    throw ex;
                 }
                 columnName.RemoveAt(index);
             }

@@ -12,6 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int InvoiceCaseId { get; set; }
         public double PaymentAmount { get; set; }
         public string PaymentRejectReasonCode { get; set; }
+        public string FreddieMacServicerNumber { get; set; }
         public string FreddieMacLoanNumber {get;set;}
         public string InvestorNumber { get; set; }
         public string InvestorName { get; set; }
