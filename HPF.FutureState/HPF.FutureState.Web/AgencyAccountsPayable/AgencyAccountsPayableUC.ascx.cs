@@ -15,6 +15,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common.Utils.DataValidator;
 
 namespace HPF.FutureState.Web.AgencyAccountsPayable
 {
@@ -49,7 +50,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
-                BindGrvInvoiceList(DateTime.Now.AddMonths(-6), DateTime.Now);
+                BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
                
             }
         }
@@ -80,7 +81,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// <summary>
         /// Bind search data into gridview
         /// </summary>
-        protected void BindGrvInvoiceList(DateTime periodStart, DateTime periodEnd)
+        protected void BindGrvInvoiceList(string periodStart, string periodEnd)
         {
 
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
@@ -88,9 +89,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             try
             {
                 //get search criteria to AgencyPayableSearchCriteriaDTO
-                searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-                searchCriteria.PeriodEndDate = periodEnd;
-                searchCriteria.PeriodStartDate = periodStart;
+                searchCriteria=GetSearchCriteria(periodStart,periodEnd);
                 //get search data match that search collection
                 agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
                 //
@@ -123,15 +122,59 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             int daysinmonth = DateTime.DaysInMonth(year, priormonth);
             txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
         }
-
+        private ExceptionMessage GetExceptionMessage(string exCode)
+        {
+            ExceptionMessage exMess = new ExceptionMessage();
+            exMess.ErrorCode = exCode;
+            exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
+            return exMess;
+        }
+        private AgencyPayableSearchCriteriaDTO GetSearchCriteria(string periodStart, string periodEnd)
+        {
+            AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
+            DataValidationException ex = new DataValidationException();
+            searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
+            try
+            {
+               searchCriteria.PeriodStartDate = DateTime.Parse(periodStart);
+            }
+            catch
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0001);//error code
+                ex.ExceptionMessages.Add(exMessage);
+            }
+            try
+            {
+                searchCriteria.PeriodEndDate = DateTime.Parse(periodEnd);
+            }
+            catch
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0001);
+                ex.ExceptionMessages.Add(exMessage);
+            }
+            return searchCriteria;
+        }
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
-            DateTime periodStart, periodEnd;
-            periodStart = DateTime.Parse(txtPeriodStart.Text);
-            periodEnd = DateTime.Parse(txtPeriodEnd.Text);
-            BindGrvInvoiceList(periodStart, periodEnd);
-            grvInvoiceList.SelectedIndex = -1;
+
+            try
+            {
+                BindGrvInvoiceList(txtPeriodStart.Text, txtPeriodEnd.Text);
+                grvInvoiceList.SelectedIndex = -1;
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                return;
+            }
+            
         }
         /// <summary>
         /// go to New payable criteria.

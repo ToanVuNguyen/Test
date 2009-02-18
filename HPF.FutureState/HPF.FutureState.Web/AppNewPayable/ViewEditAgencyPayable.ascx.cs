@@ -55,7 +55,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 
                 //bind from agencypayableDTO
                 lblTotalCases.Text = agencyPayableSet.TotalCases.ToString();
-                lblTotalPayable.Text = agencyPayableSet.TotalPayable.ToString();
+                lblTotalPayable.Text =String.Format("{0:C}",agencyPayableSet.TotalPayable);
                 lblUnpaidNFMCEligibleCase.Text = agencyPayableSet.UnpaidNFMCEligibleCases.ToString();
                 lblTotalChargePaid.Text = agencyPayableSet.TotalNFMCUpChargePaid.ToString();
                 lblGrandTotalPaid.Text = (agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable).ToString();

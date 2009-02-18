@@ -27,7 +27,8 @@ namespace HPF.FutureState.Web.SummaryEmail
         {
             txtTo.Focus();
             ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
-            txtSubject.Text = GenerateSubject(forclosureInfo);
+            int? fc_id = forclosureInfo.FcId;
+            txtSubject.Text =EmailSummaryBL.Instance.GenerateSubject(fc_id);
         }
         public string SendEmailWithAttachment(string SendTo, string Subject, string Body, string CaseID)
         {
@@ -89,19 +90,5 @@ namespace HPF.FutureState.Web.SummaryEmail
         /// </summary>
         /// <param name="foreclosurecaseInfo"></param>
         /// <returns></returns>
-        protected string GenerateSubject(ForeclosureCaseDTO foreclosurecaseInfo)
-        {
-            string strSubject = "HPF Summary loan#";
-            //get info from case loan to get: Loan Status and Loan Num
-            CaseLoanDTOCollection caseLoanDTOCol = CaseLoanBL.Instance.RetrieveCaseLoan(foreclosurecaseInfo.FcId);
-            //
-            strSubject += caseLoanDTOCol[0].AcctNum + "/" + foreclosurecaseInfo.PropZip;
-
-            string loanDelinqStatus = caseLoanDTOCol[0].LoanDelinqStatusCd;
-            if (foreclosurecaseInfo.ForSaleInd == "Y" || loanDelinqStatus == "120+")
-                strSubject += " ,priority URGENT";
-            return strSubject;
-
-        }
     }
 }

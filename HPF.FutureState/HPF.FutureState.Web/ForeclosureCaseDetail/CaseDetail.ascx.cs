@@ -27,7 +27,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                // ApplySecurity();
                 
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-                if (caseid != null)
+                if (Request.QueryString["CaseID"]!=null)
                     BindDetailCaseData(caseid);
                 else
                     lblMessage.Text = "There is no data with this fc_id";
@@ -102,7 +102,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
         {
-            if (ddlAgency.SelectedValue != "")
+            if (foreclosureCase.AgencyId!=null)
             {
                 //Top area
                 //Property

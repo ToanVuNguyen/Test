@@ -54,6 +54,7 @@
     </tr>
     <tr>
         <td colspan="5">
+            <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
             <asp:Label ID="lblMessage" runat="server" Text="" CssClass="ErrorMessage"></asp:Label>
             <asp:RequiredFieldValidator ID="reqtxtPeriodStart" Display="Dynamic" runat="server"
                 ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>

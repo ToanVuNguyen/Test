@@ -32,9 +32,9 @@ namespace HPF.FutureState.BusinessLogic
         public byte[] GenerateSummaryReport(int? fc_id)
         {
             var reportExport = new ReportingExporter();
-            var attachContent = reportExport.ExportToPdf();
             reportExport.ReportPath = @"HPF_Report/rpt_CounselingSummary";
             reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
+            var attachContent = reportExport.ExportToPdf();
             return attachContent;
         }
         

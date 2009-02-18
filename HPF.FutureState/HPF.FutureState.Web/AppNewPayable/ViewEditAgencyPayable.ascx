@@ -71,7 +71,7 @@
                     Total Payable:
                 </td>
                 <td class="Text" colspan="2">
-                    <asp:Label ID="lblTotalPayable" runat="server" CssClass="Text" Text="$700.00"></asp:Label>
+                    <asp:Label ID="lblTotalPayable" runat="server" CssClass="Text"  Text="$700.00"></asp:Label>
                 </td>
                 <td>
                     &nbsp;
@@ -199,7 +199,7 @@
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
                                         <asp:BoundField DataField="AgencyCaseID" HeaderText="Agency Case ID" />
-                                        <asp:BoundField DataField="CompleteDt" HeaderText="Complete Dt." />
+                                        <asp:BoundField DataField="CompleteDt" HeaderText="Complete Dt."  DataFormatString="{0:d}"/>
                                         <asp:BoundField DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
                                             HeaderText="Amount" />
                                         <asp:BoundField DataField="LoanNum" HeaderText="Loan Num" />
@@ -209,7 +209,7 @@
                                         <asp:BoundField DataField="NFMCDifferencePaidAmt" HeaderText="NFMC Paid Amt" DataFormatString="{0:C}"
                                             ItemStyle-HorizontalAlign="Right" />
                                         <asp:BoundField DataField="TakebackReason" HeaderText="Takeback Reason" />
-                                        <asp:BoundField DataField="TakebackDate" HeaderText="Takeback Date" />
+                                        <asp:BoundField DataField="TakebackDate" HeaderText="Takeback Date" DataFormatString="{0:d}" />
                                     </Columns>
                                     <EmptyDataTemplate>
                                         There is no data match !
