@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Xml.Linq;
+using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.Web
 {
@@ -15,7 +16,7 @@ namespace HPF.FutureState.Web
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
+            ExcelFileReader.TempDir = Server.MapPath(ConfigurationManager.AppSettings["TEMP_DIRECTORY"]);
         }
 
         protected void Session_Start(object sender, EventArgs e)

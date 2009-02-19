@@ -37,7 +37,7 @@ namespace HPF.FutureState.Common.Utils
         /// <returns></returns>
         public static DataSet Read(Stream stream)
         {
-            stream.Seek(0, SeekOrigin.Begin);
+            stream.Seek(0, SeekOrigin.Begin);            
             var tempFileName = TempDir + Guid.NewGuid() + ".xls";
             PushStreamToTempFile(stream, tempFileName);
             var ds = Read(tempFileName);
