@@ -32,6 +32,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 EmailBody = txtBody.Text.Trim(),
                 EmailSubject = txtSubject.Text.Trim(),
                 EmailToAddress = txtTo.Text.Trim(),
+               
             };
 
             AuthenticationInfo ai = new AuthenticationInfo();
