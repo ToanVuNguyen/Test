@@ -57,12 +57,13 @@ namespace HPF.FutureState.Web.AppNewPayable
                 lblTotalCases.Text = agencyPayableSet.TotalCases.ToString();
                 lblTotalPayable.Text =String.Format("{0:C}",agencyPayableSet.TotalPayable);
                 lblUnpaidNFMCEligibleCase.Text = agencyPayableSet.UnpaidNFMCEligibleCases.ToString();
-                lblTotalChargePaid.Text = agencyPayableSet.TotalNFMCUpChargePaid.ToString();
-                lblGrandTotalPaid.Text = (agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable).ToString();
+                lblTotalChargePaid.Text = String.Format("{0:C}",agencyPayableSet.TotalNFMCUpChargePaid);
+                lblGrandTotalPaid.Text = String.Format("{0:C}",(agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable));
                 //footer
                 lblTotalCase_ft.Text = agencyPayableSet.TotalCases.ToString();
                 lblPayableTotal_ft.Text = agencyPayableSet.TotalPayable.ToString();
                 lblTotalNFMCUpChangePaid_ft.Text = agencyPayableSet.TotalNFMCUpChargePaid.ToString();
+                txtPayableComments.Text = agencyPayableSet.Payable.PaymentComment;
                 //Bind Agency Payable Case, from agencypayableDTO.payablecase
                 grvViewEditAgencyPayable.DataSource = agencyPayableSet.PayableCases;
                 grvViewEditAgencyPayable.DataBind();

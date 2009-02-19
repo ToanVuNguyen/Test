@@ -25,7 +25,8 @@
                 <asp:Label ID="lblCounselor" runat="server" CssClass="Text">Amada - Huggenkiss</asp:Label>
             </td>
             <td align="center">
-                <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" 
+                <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" Width="130px"
+                
                     Text="Print Summary" onclick="btn_Print_Click" />
             </td>
         </tr>
@@ -42,7 +43,7 @@
                 <asp:Label ID="lblPhone" runat="server" CssClass="Text">877-123-1234 x55432</asp:Label>
             </td>
             <td align="center">
-                <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" 
+                <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" Width="130px"
                     Text="Email Summary" onclick="btnEmailSummary_Click" />
             </td>
         </tr>
@@ -55,8 +56,12 @@
                 &nbsp;</td>
             <td align="right" class="sidelinks">
                 Counselor Email:</td>
-            <td colspan="2">
+            <td>
                 <asp:Label ID="lblCounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
+            </td>
+            <td align="center">
+                <asp:Button ID="btnResendServicer" runat="server" CssClass="MyButton" Width="130px"
+                    Text="Resend to Servicer"  />
             </td>
         </tr>
         <tr>

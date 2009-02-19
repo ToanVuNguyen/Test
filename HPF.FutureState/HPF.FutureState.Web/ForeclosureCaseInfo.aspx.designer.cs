@@ -95,6 +95,15 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblCounselorEmail;
         
         /// <summary>
+        /// btnResendServicer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResendServicer;
+        
+        /// <summary>
         /// lblLoanList control.
         /// </summary>
         /// <remarks>

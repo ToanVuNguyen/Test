@@ -30,12 +30,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (Request.QueryString["CaseID"]!=null)
                     BindDetailCaseData(caseid);
                 else
-                    lblMessage.Text = "There is no data with this fc_id";
+                    bulMessage.Items.Add(new ListItem("There is no data with this fc_id"));
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
 
         }
@@ -52,6 +52,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         //}
         private void BindDetailCaseData(int? caseid)
         {
+            bulMessage.Items.Clear();
             try
             {
                 ForeclosureCaseDTO foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
@@ -61,8 +62,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -72,17 +73,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <returns></returns>
         private string DisplayInd(string Ind)
         {
+            if (Ind == null) return "";
+            Ind = Ind.Trim();
             if (Ind == "Y")
                 return "Yes";
             if (Ind == "N")
                 return "No";
             return "";
-        }
-        private void DisplayDt(DateTime value, Label lblname)
-        {
-            if (value.ToShortDateString() == null)
-                lblname.Text = "";
-            else lblname.Text=value.ToShortDateString();
         }
         /// <summary>
         /// 
@@ -102,7 +99,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
         {
-            if (foreclosureCase.AgencyId!=null)
+            if (foreclosureCase.AgencyId != null)
             {
                 //Top area
                 //Property
@@ -115,7 +112,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 else
                     lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
                 lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
-                foreclosureCase.OwnerOccupiedInd = DisplayInd(lblOwnerOccupied.Text);
+                lblOwnerOccupied.Text=DisplayInd(foreclosureCase.OwnerOccupiedInd);
                 lblPropertyCode.Text = foreclosureCase.PropertyCd;
                 lblNumberOfOccupants.Text = foreclosureCase.OccupantNum.ToString();
                 lblPurchaseYear.Text = foreclosureCase.HomePurchaseYear.ToString();
@@ -124,7 +121,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblForSaleIndicator.Text = DisplayInd(foreclosureCase.ForSaleInd);
                 lblRealtyCompany.Text = foreclosureCase.RealtyCompany;
                 lblHomeAskingPrice.Text = foreclosureCase.HomeSalePrice.ToString();
-                lblPrimaryResidence.Text = foreclosureCase.PrimResEstMktValue.ToString();
+                lblPrimaryRes.Text = foreclosureCase.PrimResEstMktValue.ToString();
                 //Borrower
                 lblFirstName.Text = foreclosureCase.BorrowerFname;
                 lblMidName.Text = foreclosureCase.BorrowerMname;
@@ -141,9 +138,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblSecondaryEmail.Text = foreclosureCase.Email2;
                 lblGender.Text = foreclosureCase.GenderCd;
                 lblMother.Text = foreclosureCase.MotherMaidenLname;
-                foreclosureCase.BorrowerDisabledInd = DisplayInd(lblDisabled.Text);
+                lblDisabled.Text = DisplayInd(foreclosureCase.BorrowerDisabledInd);
                 lblRace.Text = foreclosureCase.RaceCd;
-                foreclosureCase.HispanicInd = DisplayInd(lblEthnicity.Text);
+                lblEthnicity.Text = DisplayInd(foreclosureCase.HispanicInd);
                 lblPreferedLanguage.Text = foreclosureCase.BorrowerPreferredLangCd;
                 lblEducationLevel.Text = foreclosureCase.BorrowerEducLevelCompletedCd;
                 lblMaritalStatus.Text = foreclosureCase.BorrowerMaritalStatusCd;
@@ -164,7 +161,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblContactAdd1.Text = foreclosureCase.ContactAddr1;
                 lblContactAdd2.Text = foreclosureCase.ContactAddr2;
                 lblContactCity.Text = foreclosureCase.ContactCity;
-                lblContactStateZip.Text = foreclosureCase.ContactStateCd + "," + foreclosureCase.ContactZip;
+                lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip+" , "+foreclosureCase.ContactZipPlus4;
                 //case status
                 ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
                 if (foreclosureCase.DuplicateInd == "Y")
@@ -201,7 +198,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblWServicer.Text = DisplayInd(foreclosureCase.DiscussedSolutionWithSrvcrInd);
                 lblAnotherAgency.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
                 lblSevicerRecently.Text = DisplayInd(foreclosureCase.ContactedSrvcrRecentlyInd);
-                lblWorkoutPlan.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
+                lblWorkoutPlan.Text = DisplayInd(foreclosureCase.HasWorkoutPlanInd);
                 lblPlanCurrent.Text = DisplayInd(foreclosureCase.SrvcrWorkoutPlanCurrentInd);
                 lblCreditScores.Text = foreclosureCase.IntakeCreditScore;
                 lblCreditBureau.Text = foreclosureCase.IntakeCreditBureauCd;
@@ -237,8 +234,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                         ddlMediaCondirmation.SelectedIndex = 2;//no
                     else ddlMediaCondirmation.SelectedIndex = 0;//blank
                 //success story
-                lblSuccessStory.Text = foreclosureCase.AgencySuccessStoryInd;
-                ddlSuccessStory.SelectedValue = foreclosureCase.HpfSuccessStoryInd;
+                lblSuccessStory.Text = DisplayInd(foreclosureCase.AgencySuccessStoryInd);
+                ddlSuccessStory.SelectedValue =DisplayInd(foreclosureCase.HpfSuccessStoryInd);
                 if (foreclosureCase.HpfSuccessStoryInd == "Y")
                     ddlSuccessStory.SelectedIndex = 1;//yes
                 else
@@ -248,9 +245,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 BindDDLAgency(foreclosureCase.AgencyId.ToString());
             }
             else
-                lblMessage.Text = "There is no data with this agency";
+                bulMessage.Items.Add(new ListItem("There is no data with this agency"));
         }
-
         protected void UpdateForecloseCase()
         {
             //get update datacollection from UI
@@ -265,14 +261,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
                     BindDetailCaseData(fcid);
-                    lblMessage.Text = "Save foreclosure case succesfull";
+                    bulMessage.Items.Add(new ListItem("Save foreclosure case succesfull"));
                 }
-                else lblMessage.Text = "Agency null value, can't save";
+                else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -281,6 +277,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <returns></returns>
         private ForeclosureCaseDTO GetUpdateInfo()
         {
+                
+                
                 ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
                 //case status
                 foreclosureCase.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
@@ -306,7 +304,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
-            UpdateForecloseCase();
+             UpdateForecloseCase();
         }
 
         

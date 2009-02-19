@@ -78,6 +78,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             {
                 //set search control the values from session searchcriteria.               
                 AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
+                //bind criteria
                 txtLastName.Text = searchcriteria.LastName;
                 txtFirstName.Text = searchcriteria.FirstName;
                 txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
@@ -91,17 +92,20 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 ddlDup.SelectedValue = searchcriteria.Duplicates;
                 ddlProgram.SelectedValue = searchcriteria.Program.ToString();
                 ddlPropertyState.SelectedValue = searchcriteria.PropertyState;
+                ddlServicer.SelectedValue = searchcriteria.Servicer.ToString();
+                //bind gridview
+                BindGrvForeClosureCaseSearch(1);
             }
         }
         protected void BindStateDropdownlist()
         {
-             RefCodeItemDTOCollection stateCol= LookupDataBL.Instance.GetRefCode("state");
+            RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCode("state");
             //Bind data
             ddlPropertyState.DataValueField = "code";
             ddlPropertyState.DataTextField = "code";
             ddlPropertyState.DataSource = stateCol;
             ddlPropertyState.DataBind();
-            ddlPropertyState.Items.Insert(0,new ListItem("ALL","ALL"));
+            ddlPropertyState.Items.Insert(0, new ListItem("ALL", "ALL"));
         }
         protected void BindAgencyDropdownlist()
         {
@@ -129,7 +133,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlServicer.DataTextField = "ServicerName";
             ddlServicer.DataSource = servicerCollection;
             ddlServicer.DataBind();
-            ddlServicer.SelectedIndex = 0;
+            ddlServicer.Items.FindByText("ALL").Selected = true;
         }
 
         /// <summary>
@@ -159,11 +163,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //there have data search result
                 if (this.TotalRowNum != 0)
                 {
-                    //add to selected row in gridview
-                    //for (int i = 0; i < grvForeClosureCaseSearch.Rows.Count; i++)
-                    //{
-                    //    grvForeClosureCaseSearch.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvForeClosureCaseSearch, "Select$" + i));
-                    //}
+                   
                     //display pagers controls
                     ManageControls(true);
                     grvForeClosureCaseSearch.Visible = true;
@@ -201,8 +201,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
                     //panForeClosureCaseSearch.Visible = false;
-                    lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
-                    lblErrorMessage.Text += " <br>";
+                    bulErrorMessage.Items.Add(new ListItem(ex.ExceptionMessages[i].Message));
+                   
                 }
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
@@ -210,8 +210,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             catch (Exception ex)
             {
                 //panForeClosureCaseSearch.Visible = false;
-                lblErrorMessage.Text += ex.Message;
-                lblErrorMessage.Text += " <br>";
+                bulErrorMessage.Items.Add(new ListItem(ex.Message));
+                //lblErrorMessage.Text += ex.Message;
+                //lblErrorMessage.Text += " <br>";
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
@@ -242,17 +243,27 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
             appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
-            appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
-            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text.Trim();
-            appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text == string.Empty ? null : txtLoanNum.Text.Trim();
+            try
+            {
+                appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
+            }
+            catch
+            {
+                bulErrorMessage.Items.Add(ErrorMessages.ERR0503);
+            }
+            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = DeleteSpecialChar(txtAgencyCaseID.Text) == string.Empty ? null : DeleteSpecialChar(txtAgencyCaseID.Text);
+            appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text);
             appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty ? null : txtPropertyZip.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
             appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
             appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
             appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
+            appForeclosureCaseSearchCriteriaDTO.Servicer = int.Parse(ddlServicer.SelectedValue);
             appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
             appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
             appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
+            txtAgencyCaseID.Text = DeleteSpecialChar(txtAgencyCaseID.Text);
+            txtLoanNum.Text = DeleteSpecialChar(txtLoanNum.Text);
             return appForeclosureCaseSearchCriteriaDTO;
         }
         /// <summary>
@@ -276,18 +287,21 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             //store searchcriteria in session to keep searchcriteria when you click on menu item.
             Session["searchcriteria"] = GetAppForeclosureCaseSearchCriteriaDTO(1);
-            lblErrorMessage.Text = "";
+            //lblErrorMessage.Text = "";
+            bulErrorMessage.Items.Clear();
             //Bind search data meet search criteria to gridview, display page 1.
             lblTemp.Text = " ";
             BindGrvForeClosureCaseSearch(1);
             //calculate totalpage from search data to display warning message if there are greater than 500 cases.
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            if (totalpage > 10) lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
+            if (totalpage > 10)
+                //lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
+                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")));
             //every click search button, set 
             this.PageNum = 0;
             lbtnLast.Enabled = true;
             lbtnNext.Enabled = true;
-            
+
             //
             GeneratePages(totalpage);
         }
@@ -307,7 +321,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 DateTime datecompare = DateTime.Today.AddYears(-1);
                 int result = DateTime.Compare(datecompare, datecounseled);
                 //datecompare is later than datecounseled--> counseled <1 yr
-                if (result > 0||datecounseled==null) lblcounseled.Text = ">1 yr";
+                if (result > 0 || datecounseled == null) lblcounseled.Text = ">1 yr";
                 //datecompare is earlier than datecounseled--> counseled >1 yr
                 else lblcounseled.Text = "<1 yr";
 
@@ -317,9 +331,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 string mindt = DateTime.MinValue.ToShortDateString();
                 DateTime completedate = Convert.ToDateTime(lblcasecompletedate.Text);
                 DateTime mindate = DateTime.MinValue;
-                if (DateTime.Compare(completedate,mindate)==0) 
-                lblcasecompletedate.Text = "";
-                
+                if (DateTime.Compare(completedate, mindate) == 0)
+                    lblcasecompletedate.Text = "";
+
 
             }
         }
@@ -333,7 +347,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             switch (e.CommandName)
             {
-               // button: <<
+                // button: <<
                 case "First":
                     this.PageNum = 1;
                     lbtnFirst.Enabled = false;
@@ -454,14 +468,30 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (mystring == "" || oldchar == "" || newchar == "")
                 return mystring;
             var mysubstring = mystring.Split('*');
-            string result=null;
+            string result = null;
             for (int i = 0; i < mysubstring.Count(); i++)
             {
-                result += mysubstring[i]+newchar;
+                result += mysubstring[i] + newchar;
             }
             result = result.Substring(0, result.Length - 1);
             return result;
-          
+
         }
+        string DeleteSpecialChar(string mystring)
+        {
+            string result = "";
+            if (mystring != null)
+            {
+                mystring = mystring.Trim();
+                char[] specialchar = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '-', '[', ']', ';', ',', '.', '/', '{', '}', '|', ':', '<', '>', '?' };
+                var DigitChar = mystring.Split(specialchar);
+                for (int i = 0; i < DigitChar.Count(); i++)
+                {
+                    result += DigitChar[i];
+                }
+            }
+            return result;
+        }
+
     }
 }

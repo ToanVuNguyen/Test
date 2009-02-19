@@ -21,37 +21,27 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
 {
     public partial class AgencyAccountsPayableUC : System.Web.UI.UserControl
     {
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            //apply security
             ApplySecurity();
-           
-            if (IsPostBack)
-            {
-               
-                if (grvInvoiceList.Rows.Count == 0)
-                    grvInvoiceList.SelectedIndex = -1;
-                if (grvInvoiceList.SelectedIndex != -1)
-                {
-                    btnCancelPayable.Attributes.Clear();
-                    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
-                }
-                else
-                {
-                    btnCancelPayable.Attributes.Clear();
-                    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
-                }
-            }
-            //for (int i = 0; i < grvInvoiceList.Rows.Count; i++)
+            
+            //if (grvInvoiceList.SelectedIndex != -1)
             //{
-            //    grvInvoiceList.Rows[i].Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(grvInvoiceList, "Select$" + i));
+            //    //btnCancelPayable.Attributes.Clear();
+            //    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
             //}
+            
+            // display grv in the first time
             if (!IsPostBack)
             {
                 BindAgencyDropDownList();
                 SetDefaultPeriodStartEnd();
+               // btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
+                //default display all agencyaccount within 6 month.
                 BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
-               
+
             }
         }
         private void ApplySecurity()
@@ -67,9 +57,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
         }
         /// <summary>
-        /// 
+        ///Display data in dropdownlist 
         /// </summary>
-
         protected void BindAgencyDropDownList()
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
@@ -83,13 +72,12 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// </summary>
         protected void BindGrvInvoiceList(string periodStart, string periodEnd)
         {
-
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
             try
             {
                 //get search criteria to AgencyPayableSearchCriteriaDTO
-                searchCriteria=GetSearchCriteria(periodStart,periodEnd);
+                searchCriteria = GetSearchCriteria(periodStart, periodEnd);
                 //get search data match that search collection
                 agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
                 //
@@ -100,13 +88,12 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 if (agencycol.Count == 0)
                 {
                     grvInvoiceList.SelectedIndex = -1;
-                    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
                 }
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                throw ex;
             }
         }
         /// <summary>
@@ -136,11 +123,11 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
             try
             {
-               searchCriteria.PeriodStartDate = DateTime.Parse(periodStart);
+                searchCriteria.PeriodStartDate = DateTime.Parse(periodStart);
             }
             catch
             {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0001);//error code
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0996);//error code
                 ex.ExceptionMessages.Add(exMessage);
             }
             try
@@ -149,32 +136,36 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch
             {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0001);
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0997);
                 ex.ExceptionMessages.Add(exMessage);
             }
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
             return searchCriteria;
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
 
+            bulMessage.Items.Clear();
             try
             {
+                
                 BindGrvInvoiceList(txtPeriodStart.Text, txtPeriodEnd.Text);
                 grvInvoiceList.SelectedIndex = -1;
             }
             catch (DataValidationException ex)
             {
                 foreach (var mes in ex.ExceptionMessages)
-                    bulMessage.Items.Add(new ListItem(ex.Message));
+                    bulMessage.Items.Add(new ListItem(mes.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 return;
             }
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 return;
             }
-            
         }
         /// <summary>
         /// go to New payable criteria.
@@ -194,25 +185,23 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
-            //AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
+            //clear the error message
+            bulMessage.Items.Clear();
+           //
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
                 if (grvInvoiceList.SelectedIndex != -1)
                 {
                     //
-                    btnCancelPayable.Attributes.Clear();
-                    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
+                   // btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
                     //
-                    //searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-                    //searchCriteria.PeriodEndDate = DateTime.Parse(txtPeriodEnd.Text);
-                    //searchCriteria.PeriodStartDate = DateTime.Parse(txtPeriodStart.Text);
-                    //agency = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
                     agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
-                    agency[selectedrow].StatusCode = "Cancel";
-                    agency[selectedrow].PaymentComment = "Agency didn't complete";
+                    RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCode("agency payable status code")[1];
+                    agency[selectedrow].StatusCode = agencystatus.Code;
+                    
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
                     //
                     grvInvoiceList.DataSource = agency;
@@ -220,28 +209,37 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 }
                 else
                 {
-                    btnCancelPayable.Attributes.Clear();
-                    btnCancelPayable.Attributes.Add("onclick", "alert('You have to choose a row in gridview!')");
+                    bulMessage.Items.Add(new ListItem("Please choose record."));
                 }
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                bulMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnCancelPayable.Attributes.Clear();
             btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
         }
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
-            AgencyPayableDTOCollection agencyPayableCol=(AgencyPayableDTOCollection)ViewState["agencycol"];
-            AgencyPayableDTO agencyPayable = agencyPayableCol[grvInvoiceList.SelectedIndex];
-            Session["agencyPayable"] = agencyPayable;
-            Response.Redirect("AgencyPayableInfo.aspx");
+            
+            try{
+                AgencyPayableDTOCollection agencyPayableCol = (AgencyPayableDTOCollection)ViewState["agencycol"];
+                AgencyPayableDTO agencyPayable = agencyPayableCol[grvInvoiceList.SelectedIndex];
+                if (agencyPayable != null)
+                {
+                    Session["agencyPayable"] = agencyPayable;
+                    Response.Redirect("AgencyPayableInfo.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                 bulMessage.Items.Add(new ListItem("Please choose record."));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
     }
 }

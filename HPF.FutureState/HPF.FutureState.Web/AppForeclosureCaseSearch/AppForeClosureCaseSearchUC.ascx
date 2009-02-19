@@ -125,8 +125,9 @@
     </tr>
     <tr>
         <td colspan="5">
-         <asp:Label ID="lblErrorMessage"  CssClass="ErrorMessage" runat="server" ></asp:Label>
-         <asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d ]*"></asp:RegularExpressionValidator>
+         <asp:BulletedList ID="bulErrorMessage" CssClass="ErrorMessage" runat="server"></asp:BulletedList>
+         
+         <%--<asp:RegularExpressionValidator  ControlToValidate="txtForeclosureCaseID" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ErrorMessage="Foreclosure Case ID: Only numeric characters allowed" ValidationExpression="[\d ]*"></asp:RegularExpressionValidator>--%>
         </td>
         <td  class="Control">
         <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"  CssClass="MyButton"/>

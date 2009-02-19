@@ -122,22 +122,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch {
         protected global::System.Web.UI.WebControls.DropDownList ddlServicer;
         
         /// <summary>
-        /// lblErrorMessage control.
+        /// bulErrorMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
-        
-        /// <summary>
-        /// RegularExpressionValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        protected global::System.Web.UI.WebControls.BulletedList bulErrorMessage;
         
         /// <summary>
         /// btnSearch control.

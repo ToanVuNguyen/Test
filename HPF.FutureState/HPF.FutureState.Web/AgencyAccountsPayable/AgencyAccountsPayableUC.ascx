@@ -55,7 +55,7 @@
     <tr>
         <td colspan="5">
             <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
-            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="ErrorMessage"></asp:Label>
+            <%--<asp:Label ID="lblMessage" runat="server" Text="" CssClass="ErrorMessage"></asp:Label>
             <asp:RequiredFieldValidator ID="reqtxtPeriodStart" Display="Dynamic" runat="server"
                 ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
             <asp:RequiredFieldValidator ID="reqtxtPeriodEnd" Display="Dynamic" runat="server"
@@ -65,7 +65,7 @@
                 Type="Date"></asp:CompareValidator>
             <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="An invalid date was provided for <Period End>"
                 ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan"
-                Type="Date"></asp:CompareValidator>
+                Type="Date"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr>
@@ -129,7 +129,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton"
-                            Width="120px" OnClick="btnCancelPayable_Click" />
+                            Width="120px" OnClick="btnCancelPayable_Click" OnClientClick="return confirm('Do you want to cancel ?')" />
                     </td>
                 </tr>
             </table>

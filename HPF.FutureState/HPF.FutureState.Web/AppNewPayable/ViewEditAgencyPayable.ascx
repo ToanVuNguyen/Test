@@ -161,7 +161,7 @@
                 </td>
                 <td colspan="7">
                     <asp:TextBox ID="txtPayableComments" runat="server" CssClass="Text" Height="80px"
-                        TextMode="MultiLine" Width="100%"></asp:TextBox>
+                        TextMode="MultiLine" Width="100%" Enabled="false"></asp:TextBox>
                 </td>
             </tr>
             <tr>

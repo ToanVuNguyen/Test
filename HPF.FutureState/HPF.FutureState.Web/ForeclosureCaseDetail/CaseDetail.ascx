@@ -14,7 +14,7 @@
             <table style="width:100%; border-bottom-style: none;">
             <tr>
                 <td colspan="2" align="left">
-                <asp:Label ID="lblMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>                
+                <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
                 </td>
                 <td align="right">
                     <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" 
@@ -62,7 +62,7 @@
                                 <td align="right" class="sidelinks">
                                     Primary Residence:</td>
                                 <td>
-                                    <asp:Label ID="lblPrimaryResidence" runat="server" CssClass="Text">Yes</asp:Label>
+                                    <asp:Label ID="lblPrimaryResidence" runat="server" CssClass="Text"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -775,7 +775,7 @@
                                  <td align="right" class="sidelinks" style="vertical-align:top">
                                      FollowUp Notes:</td>
                                  <td class="Control">
-                                     <asp:TextBox ID="txtFollowUpNotes" runat="server" Rows="3" Width="100%" Height="56px" 
+                                     <asp:TextBox ID="txtFollowUpNotes" runat="server" Rows="3" Width="100%" MaxLength="800" Height="56px" 
                                          TextMode="MultiLine" CssClass="Text"></asp:TextBox>
                                  </td>
                              </tr>
