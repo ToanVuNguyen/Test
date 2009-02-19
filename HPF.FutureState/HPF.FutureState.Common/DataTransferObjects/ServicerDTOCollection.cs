@@ -22,5 +22,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
             return returnValue;
         }
+
+        public ServicerDTO GetServicerById(int? servicerId)
+        {
+            return this.SingleOrDefault(i => i.ServicerID == servicerId);
+        }
     }
 }

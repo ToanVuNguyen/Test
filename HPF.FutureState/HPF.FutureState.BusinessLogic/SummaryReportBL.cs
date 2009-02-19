@@ -68,38 +68,37 @@ namespace HPF.FutureState.BusinessLogic
         {
             //<Prepare data>
             var foreclosureCase = GetForeclosureCase(fc_id);
-            var caseLoans = GetCaseLoans(fc_id);
+            var caseLoan = GetCaseLoans1St(fc_id);
             var servicers = GetServicerbyFcId(fc_id);
+            var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
             //</Prepare data>           
 
-            //<Send mail>
-            var secureMailServicers = servicers.ExtractServicerByDeliveryMethod(Constant.SECURE_DELIVERY_METHOD_SECEMAIL);
-            SendSummaryMailToServicer(foreclosureCase, secureMailServicers, caseLoans);
-            //</Send mail>
-
-            //<Send to HPF Sharepoint Portal>
-            var portalServicers = servicers.ExtractServicerByDeliveryMethod(Constant.SECURE_DELIVERY_METHOD_PORTAL);
-            SendSummaryToHPFPortal(foreclosureCase, portalServicers, caseLoans);
-            //</Send to HPF Sharepoint Portal>
-
+            //Send summary
+            switch (primaryServicer.SecureDeliveryMethodCd)
+            {
+                case Constant.SECURE_DELIVERY_METHOD_SECEMAIL:
+                    SendSummaryMailToServicer(foreclosureCase, primaryServicer, caseLoan);
+                    break;
+                case Constant.SECURE_DELIVERY_METHOD_PORTAL:
+                    SendSummaryToHPFPortal(foreclosureCase, primaryServicer, caseLoan);
+                    break;
+            }
+            
             //Update Summary sent datetime if any
-            if(secureMailServicers.Count > 0 || portalServicers.Count>0)
+            if (primaryServicer.SecureDeliveryMethodCd != Constant.SECURE_DELIVERY_METHOD_NOSEND)
             {
                 UpdateSummarySentDateTime(fc_id);
             }
-        }        
-
-        private static void SendSummaryMailToServicer(ForeclosureCaseDTO foreclosureCase, ServicerDTOCollection servicers, CaseLoanDTOCollection caseLoans)
-        {
-            foreach (var servicer in servicers)
-            {                
-                var caseLoan = caseLoans.GetCaseLoanByServicer(servicer.ServicerID);
-                var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
-                EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail, attachmentFileName);
-            }
         }
 
-        private static void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTOCollection servicers, CaseLoanDTOCollection caseLoans)
+        private static void SendSummaryMailToServicer(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
+        {
+            var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
+            EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail,
+                                                           attachmentFileName);
+        }
+
+        private static void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
         {
             //
         }
@@ -109,9 +108,9 @@ namespace HPF.FutureState.BusinessLogic
             var pdfFile = new StringBuilder();            
             pdfFile.Append(caseLoan.AcctNum);
             pdfFile.Append("_");
-            pdfFile.Append(caseLoan.ServicerName);
+            pdfFile.Append(foreclosureCase.BorrowerLname);
             pdfFile.Append("_");
-            pdfFile.Append(caseLoan.Loan1st2nd);
+            pdfFile.Append(foreclosureCase.BorrowerFname.Substring(1, 1));
             if (caseLoan.LoanDelinqStatusCd == "120+" || foreclosureCase.FcNoticeReceiveInd == "Y")
             {
                 pdfFile.Append("_");
@@ -127,9 +126,10 @@ namespace HPF.FutureState.BusinessLogic
             return pdfFile.ToString();
         }
 
-        private static CaseLoanDTOCollection GetCaseLoans(int? fc_id)
+        private static CaseLoanDTO GetCaseLoans1St(int? fc_id)
         {
-            return CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
+            var caseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
+            return caseLoans.SingleOrDefault(i => i.Loan1st2nd == "1st");
         }
 
         private static ForeclosureCaseDTO GetForeclosureCase(int? fc_id)
