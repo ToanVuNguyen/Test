@@ -32,11 +32,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>PDF file buffer</returns>
         public byte[] GenerateSummaryReport(int? fc_id)
         {
-            var reportExport = new ReportingExporter();
-            reportExport.ReportPath = @"HPF_Report/rpt_CounselingSummary";
+            var reportExport = new ReportingExporter
+                                   {
+                                       ReportPath = @"HPF_Report/rpt_CounselingSummary"
+                                   };
             reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
-            var attachContent = reportExport.ExportToPdf();
-            return attachContent;
+            var pdfReport = reportExport.ExportToPdf();
+            return pdfReport;
         }
         
         /// <summary>
@@ -100,7 +102,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private static void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
         {
-            //
+            HPFSharepointGateway.SendSummary(new HPFSharepointSummary());
         }
         
         private static string BuildPdfAttachmentFileName(ForeclosureCaseDTO foreclosureCase, CaseLoanDTO caseLoan)

@@ -5,11 +5,8 @@ using System.Text;
 
 namespace HPF.FutureState.Common.Utils
 {
-    public static class HPFSharepointGateway
+    public class HPFSharepointSummary
     {
-        public static void SendSummary(HPFSharepointSummary summary)
-        {
-            
-        }
+        public byte[] PdfFile { get; set; }
     }
 }
