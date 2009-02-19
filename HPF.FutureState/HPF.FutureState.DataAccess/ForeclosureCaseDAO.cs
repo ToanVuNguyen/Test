@@ -13,7 +13,9 @@ namespace HPF.FutureState.DataAccess
 {
     public class ForeclosureCaseDAO : BaseDAO
     {
-
+        private const string DELINQUENT_CODE_1ST = "1st";
+        private const string COUNSELED_LESS_THAN_1YEAR = "<1yr";
+        private const string COUNSELED_GREATER_THAN_1YEAR = ">1yr";
         protected ForeclosureCaseDAO()
         {
 
@@ -275,7 +277,7 @@ namespace HPF.FutureState.DataAccess
                         item.CounselorExt = ConvertToString(reader["counselor_ext"]);
                         item.CounselorEmail = ConvertToString(reader["counselor_email"]);
                         item.CompletedDt = ConvertToDateTime(reader["completed_dt"]);
-                        item.DelinquentCd = ConvertToString(reader["Delinquent_cd"]);
+                        item.DelinquentCd = Show1STCodeOnly(ConvertToString(reader["Delinquent_cd"]));
                         item.BankruptcyInd = ConvertToString(reader["bankruptcy_ind"]);
                         item.FcNoticeReceivedInd = ConvertToString(reader["fc_notice_received_ind"]);
                         item.LoanNumber = ConvertToString(reader["loan_number"]);
@@ -309,7 +311,7 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(" WHERE foreClosure_case.agency_id = Agency.agency_id");
             whereClause.Append(" AND foreclosure_case.fc_id = case_loan.fc_id");
             whereClause.Append(" AND case_loan.servicer_id = servicer.servicer_id");
-            whereClause.Append(" AND case_loan.loan_1st_2nd_cd = '1st'");
+            //whereClause.Append(" AND case_loan.loan_1st_2nd_cd = '1st'");
             whereClause.Append(" AND (foreclosure_case.duplicate_ind = 'N' OR foreclosure_case.duplicate_ind is null)");
             //whereClause.Append((searchCriteria.AgencyCaseNumber == null) ? "" : " AND agency_case_num like @pi_agency_case_num ESCAPE '/'");
             //whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')");
@@ -355,17 +357,22 @@ namespace HPF.FutureState.DataAccess
             return false;
         }
 
+        private string Show1STCodeOnly(string delinquentCd)
+        {
+            if (string.IsNullOrEmpty(delinquentCd))
+                return string.Empty;
+            return (delinquentCd == DELINQUENT_CODE_1ST) ? DELINQUENT_CODE_1ST : string.Empty;
+                 
+        }
         private string GetCounseledProperty(DateTime? completedDt)
         {
             DateTime oneYearBefore = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day - 1);
-            if (completedDt.HasValue)
-            {
-                if (completedDt.Value.CompareTo(oneYearBefore) >= 0 && completedDt.Value.CompareTo(DateTime.Now) <= 0)
-                    return "<1yr";
-            }
-            else
-                return "<1yr";
-            return ">1yr";
+            if (!completedDt.HasValue)
+                return COUNSELED_LESS_THAN_1YEAR;
+            if (completedDt.Value.CompareTo(oneYearBefore) >= 0 && completedDt.Value.CompareTo(DateTime.Now) <= 0)
+                return COUNSELED_LESS_THAN_1YEAR;
+
+            return COUNSELED_GREATER_THAN_1YEAR;
         }
 
 
