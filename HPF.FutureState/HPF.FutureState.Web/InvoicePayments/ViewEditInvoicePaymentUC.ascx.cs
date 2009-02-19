@@ -36,6 +36,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             COLUMN_NAME.Add("Freddie Mac Loan Number");
             COLUMN_NAME.Add("Investor Number");
             COLUMN_NAME.Add("Investor Name");
+            COLUMN_NAME.Add("Servicer Name");
             COLUMN_NAME.Add("Loan Number");
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -110,21 +111,33 @@ namespace HPF.FutureState.Web.InvoicePayments
         #endregion
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            if(hiddenIsSave.Value=="true")
+                SaveInvoicePayment();
             Response.Redirect("InvoicePayment.aspx");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            SaveInvoicePayment();
+            
+        }
+
+        private void SaveInvoicePayment()
+        {
             lblErrorMessage.Items.Clear();
             try
             {
                 //Validate the data input 
-                
+
                 //remember to remove this line 
-                
+
                 ControlValidation();
-                //Validate Excel file
-                ExcelProcessing();
+                if (fileUpload.FileName != string.Empty)
+                    //Validate Excel file
+                    ExcelProcessing();
+                else
+                    UpdateInvoicePaymentOnly();
+
             }
             catch (DataValidationException ex)
             {
@@ -139,8 +152,9 @@ namespace HPF.FutureState.Web.InvoicePayments
                 lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
-            
         }
+        
+
         private void ControlValidation()
         {
             DataValidationException ex = new DataValidationException();
@@ -149,17 +163,6 @@ namespace HPF.FutureState.Web.InvoicePayments
                 ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0650));
             if (txtPaymentNum.Text == string.Empty)
                 ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0651));
-            //else
-            //{
-            //    try
-            //    {
-            //        int.Parse(txtPaymentNum.Text);
-            //    }
-            //    catch
-            //    {
-            //        ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0651));
-            //    }
-            //}
             if (txtPaymentDt.Text == string.Empty)
                 ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0652));
             else
@@ -214,6 +217,12 @@ namespace HPF.FutureState.Web.InvoicePayments
                 ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0656));
                 throw ex;
             }
+            if (dataSet == null||dataSet.Tables.Count==0)
+            {
+                DataValidationException ex = new DataValidationException();
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0673));
+                throw ex;
+            }
             //FrontEndPreProcessing on the Presentation Layer
             ReconciliationDTOCollection reconciliationCollection = FrontEndPreProcessing(dataSet);
             //BackEndPreProcessing on Business Layer
@@ -223,6 +232,13 @@ namespace HPF.FutureState.Web.InvoicePayments
             invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             paymentId= InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection,invoicePayment);
             Response.Redirect("InvoicePaymentInfo.aspx?id="+paymentId.ToString());
+        }
+        private void UpdateInvoicePaymentOnly()
+        {
+            InvoicePaymentDTO invoicePayment = GetInvoicePayment();
+            invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            paymentId = InvoiceBL.Instance.UpdateInvoicePaymentOnly(invoicePayment);
+            Response.Redirect("InvoicePaymentInfo.aspx?id=" + paymentId.ToString());
         }
         #region FrontEnd PreProcessing
         /// <summary>
@@ -235,8 +251,6 @@ namespace HPF.FutureState.Web.InvoicePayments
             DataTable fileContent = dataSet.Tables[0];
             
             double paymentAmount = double.Parse(txtPaymentAmt.Text);
-            
-            NullValidate(fileContent);
             ColumnsValidate(fileContent);
             RowsValidate(fileContent,paymentAmount);
             return ConvertToObjectReconciliationDTO(fileContent);
@@ -255,17 +269,11 @@ namespace HPF.FutureState.Web.InvoicePayments
                 item.FreddieMacLoanNumber = row[COLUMN_NAME[5]].ToString();
                 item.InvestorNumber = row[COLUMN_NAME[6]].ToString();
                 item.InvestorName = row[COLUMN_NAME[7]].ToString();
-                item.LoanNumber = row[COLUMN_NAME[8]].ToString();
+                item.LoanNumber = row[COLUMN_NAME[9]].ToString();
                 result.Add(item);
             }
             return result;
         }
-        private static void NullValidate(DataTable fileContent)
-        {
-            if (fileContent == null)
-                throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0655));
-        }
-        
         private void RowsValidate(DataTable fileContent,double paymentAmount)
         {
             DataValidationException ex = new DataValidationException();
@@ -288,7 +296,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //Invoice Case ID
                 try
                 {
-                    int.Parse(row[COLUMN_NAME[2]].ToString());
+                    int.Parse(row[COLUMN_NAME[1]].ToString());
                 }
                 catch
                 {
@@ -299,7 +307,12 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //Payment Amounts
                 try
                 {
-                    sumOfPaymentAmount += double.Parse(row[COLUMN_NAME[2]].ToString());
+                    double pmtAmt = double.Parse(row[COLUMN_NAME[2]].ToString());
+                    if (pmtAmt < 0)
+                        throw (new Exception());
+                    //if the row doesnt have a payment reject reason code, add it to the payment amount total for the file.
+                    if(row[COLUMN_NAME[3]].ToString() == string.Empty)
+                        sumOfPaymentAmount += paymentAmount;
                 }
                 catch
                 {
@@ -314,6 +327,13 @@ namespace HPF.FutureState.Web.InvoicePayments
                         var exMes = GetExceptionMessage(ErrorMessages.ERR0660, rowIndex);
                         ex.ExceptionMessages.Add(exMes);
                     }
+                //Neither a payment amount nor payment reject reason code exist for the record
+                if (row[COLUMN_NAME[3]].ToString() == string.Empty && row[COLUMN_NAME[2]].ToString() == "0")
+                {
+                    var exMes = GetExceptionMessage(ErrorMessages.ERR0679, rowIndex);
+                    ex.ExceptionMessages.Add(exMes);
+                }
+
                 rowIndex++;
             }
             //sumOfpaymentAmount must equal total paymentAmount
@@ -333,26 +353,50 @@ namespace HPF.FutureState.Web.InvoicePayments
             List<string> columnName = new List<string>();
             foreach (string name in COLUMN_NAME)
                 columnName.Add(name);
-            if (fileContent.Columns.Count != columnName.Count)
-            {
-                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
-                throw ex;
+            //if (fileContent.Columns.Count != columnName.Count)
+            //{
+            //    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
+            //    throw ex;
+            //}
 
-                
-            }
             foreach (DataColumn col in fileContent.Columns)
             {
                 int index = columnName.IndexOf(col.ColumnName);
                 if (index == -1)
                 {
-                    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
-                    throw ex;
+                    ExceptionMessage exMes = GetColumnExceptionMessage(col.ColumnName);
+                    if (exMes != null)
+                        ex.ExceptionMessages.Add(exMes);
                 }
                 columnName.RemoveAt(index);
             }
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
         }
         #endregion
+
         #region Get Methods
+        private ExceptionMessage GetColumnExceptionMessage(string collumName)
+        {
+            if (collumName == COLUMN_NAME[0])
+                return GetExceptionMessage(ErrorMessages.ERR0662);
+            if (collumName == COLUMN_NAME[1])
+                return GetExceptionMessage(ErrorMessages.ERR0663);
+            if (collumName == COLUMN_NAME[2])
+                return GetExceptionMessage(ErrorMessages.ERR0664);
+            if (collumName == COLUMN_NAME[3])
+                return GetExceptionMessage(ErrorMessages.ERR0665);
+            if (collumName == COLUMN_NAME[4])
+                return GetExceptionMessage(ErrorMessages.ERR0666);
+            if (collumName == COLUMN_NAME[5])
+                return GetExceptionMessage(ErrorMessages.ERR0667);
+            if (collumName == COLUMN_NAME[6])
+                return GetExceptionMessage(ErrorMessages.ERR0668);
+            if (collumName == COLUMN_NAME[7])
+                return GetExceptionMessage(ErrorMessages.ERR0669);
+            return null;
+        }
+
         /// <summary>
         /// Get ExceptionMessage from ErrorMessages Class
         /// </summary>

@@ -253,6 +253,25 @@ namespace HPF.FutureState.BusinessLogic
                 throw (ex);
             }
         }
+        public int UpdateInvoicePaymentOnly(InvoicePaymentDTO invoicePayment)
+        {
+            try
+            {
+                InitiateTransaction();
+                if (invoicePayment.InvoicePaymentID == -1)
+                    invoiceDAO.InsertInvoicePayment(invoicePayment);
+                else
+                    invoiceDAO.UpdateInvoicePayment(invoicePayment);
+                CompleteTransaction();
+                return invoicePayment.InvoicePaymentID.Value;
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw (ex);
+            }
+                
+        }
 
     }
 }

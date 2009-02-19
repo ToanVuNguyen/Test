@@ -96,6 +96,7 @@
             &nbsp;</td>
     </tr>
 </table>
+<asp:HiddenField runat="server" ID="hiddenIsSave" />
 <script type="text/javascript" language="javascript">
     var paymentId = document.getElementById('<%=lblPaymentID.ClientID %>');
     var fundingSource = document.getElementById('<%=ddlFundingSource.ClientID %>');
@@ -105,6 +106,7 @@
     var paymentAmt = document.getElementById('<%=txtPaymentAmt.ClientID %>');        
     var fileUpload = document.getElementById('<%=fileUpload.ClientID %>');
     var txtComment = document.getElementById('<%=txtComment.ClientID %>');
+    var hidden = document.getElementById('<%=hiddenIsSave.ClientID %>');
     var invoicePayment = function(paymentId, fundingSource, paymentNum, paymentDt, paymentType, 
     paymentAmt, fileUpload, txtComment)
     {        
@@ -127,12 +129,15 @@
                                             paymentAmt.value, fileUpload.value, txtComment.value);        
         if(ComparePaymentObject(paymentAfter))
         {            
-             if (confirm("Data has been changed. Are you sure you want to cancel?")==true)
-                return true;
-            return false;         
+             if (confirm("Do you want to save changes?")==true)
+                hidden.value ="true";
+             else
+                hidden.value ="false";
         }
         else
-            return true;
+            hidden.value ="false";
+        return true;
+        
     }
     
     function ComparePaymentObject(paymentAfter)
