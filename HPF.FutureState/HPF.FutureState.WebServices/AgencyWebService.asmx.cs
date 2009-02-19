@@ -188,13 +188,13 @@ namespace HPF.FutureState.WebServices
             request.callLogId = request.callLogId.Trim();
             if (string.IsNullOrEmpty(request.callLogId))
             {
-                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Log Id is required");
+                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Id is required");
                 throw dataValidationException;
             }
             var validationResults = HPFValidator.Validate(request);
             if (!validationResults.IsValid)
             {
-                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Log Id is invalid");
+                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Id is invalid");
                 throw dataValidationException;
             }
             return true;
