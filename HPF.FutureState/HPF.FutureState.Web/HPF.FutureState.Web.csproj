@@ -450,6 +450,7 @@
     <Content Include="Styles\Images\topnavbg.jpg" />
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
     <Content Include="InvoicePaymentInfo.aspx" />
+    <Content Include="Temp\Description.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
