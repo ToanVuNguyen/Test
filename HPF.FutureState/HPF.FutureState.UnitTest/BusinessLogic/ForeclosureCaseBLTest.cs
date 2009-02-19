@@ -36,6 +36,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static string prop_state_cd = "68";
 
         static string prop_zip = "68686";
+        
         static string ssn = "6868";
         static string agency_case_number = "686868";
         static string first_name = "Test data"; //"~`&-_=+[]\"',./\\";  //"~`!@#$%^&*()-_=+";//
@@ -43,7 +44,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static string acct_num = "acct_num6868";
         static string working_user_id = "utest_FC_test_12345";
         static int budget_category_id = 0;
-
         static string working_user_id_dupe = "utest_FC_test_12345_dupe";
         static string acct_num_dupe = "an_6868_dupe";
         static string servicer_name_dupe = "sn_68_dupe";
@@ -1308,6 +1308,103 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ActivityLogBL_Accessor target = new ActivityLogBL_Accessor();
             ActivityLogDTOCollection actual = target.GetActivityLog(fc_id);
             Assert.AreEqual(1, actual.Count);
+        }
+
+
+         /// <summary>
+        ///A test for MiscErrorException
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
+        public void SetChangeAccNumForCaseLoanTest()
+        {
+            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
+            #region deleteCaseLoan
+            CaseLoanDTOCollection deleteCaseLoan = new CaseLoanDTOCollection();
+            CaseLoanDTO caseLoanDTO = new CaseLoanDTO();                        
+            caseLoanDTO.ServicerId = Convert.ToInt32("5");
+            caseLoanDTO.AcctNum = "GGG";
+            caseLoanDTO.Loan1st2nd = "2st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = working_user_id;
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            deleteCaseLoan.Add(caseLoanDTO);
+            //2
+            caseLoanDTO = new CaseLoanDTO();            
+            caseLoanDTO.ServicerId = Convert.ToInt32("5");
+            caseLoanDTO.AcctNum = "FFF";
+            caseLoanDTO.Loan1st2nd = "1st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = working_user_id;
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            deleteCaseLoan.Add(caseLoanDTO);
+            #endregion            
+            #region insertCaseLoan
+            CaseLoanDTOCollection intsertCollection = new CaseLoanDTOCollection();        
+            caseLoanDTO.ServicerId = Convert.ToInt32("5");
+            caseLoanDTO.AcctNum = "EEE";
+            caseLoanDTO.Loan1st2nd = "2st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = working_user_id;
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            intsertCollection.Add(caseLoanDTO);
+            //2
+            caseLoanDTO = new CaseLoanDTO();            
+            caseLoanDTO.ServicerId = Convert.ToInt32("5");
+            caseLoanDTO.AcctNum = "BBB";
+            caseLoanDTO.Loan1st2nd = "1st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = working_user_id;
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            intsertCollection.Add(caseLoanDTO);
+            //3
+            caseLoanDTO = new CaseLoanDTO();
+            caseLoanDTO.ServicerId = Convert.ToInt32("5");
+            caseLoanDTO.AcctNum = "CCC";
+            caseLoanDTO.Loan1st2nd = "1st";
+            caseLoanDTO.MortgageTypeCd = "11";
+            caseLoanDTO.TermLengthCd = "";
+            caseLoanDTO.LoanDelinqStatusCd = "30-59";
+            caseLoanDTO.InterestRate = 10;
+            caseLoanDTO.CreateDate = DateTime.Now;
+            caseLoanDTO.CreateUserId = working_user_id;
+            caseLoanDTO.CreateAppName = "CSC";
+            caseLoanDTO.ChangeLastDate = DateTime.Now;
+            caseLoanDTO.ChangeLastAppName = "CSC";
+            caseLoanDTO.ChangeLastUserId = "CSC";
+            intsertCollection.Add(caseLoanDTO);
+            #endregion
+            int expect = intsertCollection.Count;
+            CaseLoanDTOCollection actual = target.SetChangeAccNumForCaseLoan(deleteCaseLoan, intsertCollection);
+            Assert.AreEqual(expect, actual.Count);
         }
         #region Data test ForeclosureCaseSet
         private ForeclosureCaseDTO SetForeclosureCase(string status)
