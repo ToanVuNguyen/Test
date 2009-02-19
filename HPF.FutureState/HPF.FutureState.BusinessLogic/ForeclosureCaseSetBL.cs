@@ -24,13 +24,16 @@ namespace HPF.FutureState.BusinessLogic
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
         ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
-        ForeclosureCaseDTO _dbFcCase = null;
+
+        ForeclosureCaseDTO _oldFCase = null;
+
         private string _workingUserID;
 
         private bool IsCaseCompleted;
-        private bool IsFirstTimeCaseCompleted;
-        private double? budgetSetMinusAgency = null;
+        private bool IsFirstTimeCaseCompleted;        
+        //
         ForeclosureCaseSetDTO FCaseSetFromDB = new ForeclosureCaseSetDTO();
+
         public ExceptionMessageCollection WarningMessage { get; private set; } 
     
         /// <summary>
@@ -106,7 +109,7 @@ namespace HPF.FutureState.BusinessLogic
             var fCaseFromAcency = fCaseSetFromAcency.ForeclosureCase;
             var caseloanFromAcency = fCaseSetFromAcency.CaseLoans;
             var caseLoan = FindPrimaryCaseLoan(caseloanFromAcency);
-            return (CompareForeClosureCase(fCaseFromAcency) || ComparePrimaryCaseLoan(caseLoan) || CompareBudgetSetTotal());
+            return (CompareForeClosureCase(fCaseFromAcency) || ComparePrimaryCaseLoan(caseLoan) || CompareBudgetSetTotal(fCaseSetFromAcency.BudgetSet));
         }
 
         private CaseLoanDTO FindPrimaryCaseLoan(CaseLoanDTOCollection caseloanCollection)
@@ -160,11 +163,11 @@ namespace HPF.FutureState.BusinessLogic
         /// Compare total_income - total_expenses  from DB and total_income - total_expenses  from Acgency
         /// <return>bool<return>
         /// </summary>
-        private bool CompareBudgetSetTotal()
+        private bool CompareBudgetSetTotal(BudgetSetDTO newSubmitBudgetSet)
         {
             var bugetSet = FCaseSetFromDB.BudgetSet;
             double? bugetSetMinus = bugetSet.TotalIncome - bugetSet.TotalExpenses;
-            return (bugetSetMinus != budgetSetMinusAgency);
+            return (bugetSetMinus != (newSubmitBudgetSet.TotalIncome - newSubmitBudgetSet.TotalExpenses));
         }
 
 
@@ -883,7 +886,7 @@ namespace HPF.FutureState.BusinessLogic
                 IsFirstTimeCaseCompleted = false;
                 //use for send queue
                 //get case from DB
-                FCaseSetFromDB.ForeclosureCase = _dbFcCase;
+                FCaseSetFromDB.ForeclosureCase = _oldFCase;
                 FCaseSetFromDB.CaseLoans = foreclosureCaseSetDAO.GetCaseLoanCollection(fcId);
                 FCaseSetFromDB.BudgetSet = foreclosureCaseSetDAO.GetBudgetSet(fcId);                
             }
@@ -992,6 +995,8 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            foreclosureCaseSet.BudgetSet = budgetSet;
+            //
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
@@ -1071,6 +1076,8 @@ namespace HPF.FutureState.BusinessLogic
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            foreclosureCaseSet.BudgetSet = budgetSet;
+            //
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
 
             BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
@@ -2058,10 +2065,7 @@ namespace HPF.FutureState.BusinessLogic
             budgetSet.BudgetSetDt = DateTime.Now;
             //
             budgetSet.SetInsertTrackingInformation(_workingUserID);
-
-            //use for send queue
-            //set value for budgetSetTotal
-            budgetSetMinusAgency = totalIncome - totalExpenses;
+                        
             return budgetSet;
         }
 
@@ -2124,10 +2128,10 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>object of ForeclosureCase </returns>
         private ForeclosureCaseDTO GetForeclosureCase(int? fcId)
         {
-            if (_dbFcCase == null || (_dbFcCase != null && _dbFcCase.FcId != fcId))
-                _dbFcCase = foreclosureCaseSetDAO.GetForeclosureCase(fcId);
+            if (_oldFCase == null || (_oldFCase != null && _oldFCase.FcId != fcId))
+                _oldFCase = foreclosureCaseSetDAO.GetForeclosureCase(fcId);
 
-            return _dbFcCase;
+            return _oldFCase;
         }
 
         #region Throw Detail Exception
