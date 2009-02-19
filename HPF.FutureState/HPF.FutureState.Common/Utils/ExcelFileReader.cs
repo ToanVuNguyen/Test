@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.Utils
     {
         private const string CONNECTION_STRING = @"Dsn=Excel Files;dbq={0};defaultdir=C:;driverid=790;fil=excel 8.0;maxbuffersize=2048;pagetimeout=5";
 
-        private const string SELECT_STATEMENT = "Select * from [Sheet1$]";
+        private const string SELECT_STATEMENT = "Select * from [Reconciliation$]";
 
         public static string TempDir = "C:\\";
 
