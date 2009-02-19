@@ -28,7 +28,9 @@ namespace HPF.FutureState.BusinessLogic
         private string _workingUserID;
 
         private bool IsCaseCompleted;
-
+        private bool IsFirstTimeCaseCompleted;
+        private double? budgetSetMinusAgency = null;
+        ForeclosureCaseSetDTO FCaseSetFromDB = new ForeclosureCaseSetDTO();
         public ExceptionMessageCollection WarningMessage { get; private set; } 
     
         /// <summary>
@@ -47,6 +49,141 @@ namespace HPF.FutureState.BusinessLogic
 
             WarningMessage = new ExceptionMessageCollection();
         }
+
+        #region Send Complete Case to Queue
+        private void SendCompletedCaseToQueueIfAny(ForeclosureCaseSetDTO fCaseSetFromAgency)
+        {
+            int? fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
+            if (!IsCaseCompleted)
+                return;
+            if (!ShouldSendSummary(fCaseSetFromAgency))
+                return;
+            //
+            try
+            {
+                var queue = new HPFSummaryQueue();
+                queue.SendACompletedCaseToQueue(fcId);
+            }
+            catch
+            {
+
+                var QUEUE_ERROR_MESSAGE = "Fail to push completed case to Queue : " + fcId;
+                //Log
+                Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
+                //Send E-mail to support
+                var hpfSupportEmail = ConfigurationManager.AppSettings["HPF_SUPPORT_EMAIL"];
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = QUEUE_ERROR_MESSAGE
+                };
+                mail.Send();
+                //
+            }
+        }
+
+        /// <summary>
+        /// Check sercure dilivery method of all servicer in CaseloanCollection
+        /// if all of them is NOSEND return FALSE
+        /// if one of them is not NOSEND return TRUE
+        /// <return>bool<return>
+        /// </summary>
+        private bool ShouldSendSummary(ForeclosureCaseSetDTO fCaseSetFromAcency)
+        {
+            int? fcId = fCaseSetFromAcency.ForeclosureCase.FcId;
+            if (IsFirstTimeCaseCompleted)
+                return CheckDeliveryMethodCode(fcId);
+            else
+                return (CheckDeliveryMethodCode(fcId) && CheckFieldChange(fCaseSetFromAcency));
+        }
+
+        /// <summary>
+        /// Track change to send summary to queue
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckFieldChange(ForeclosureCaseSetDTO fCaseSetFromAcency)
+        {
+            var fCaseFromAcency = fCaseSetFromAcency.ForeclosureCase;
+            var caseloanFromAcency = fCaseSetFromAcency.CaseLoans;
+            var caseLoan = FindPrimaryCaseLoan(caseloanFromAcency);
+            return (CompareForeClosureCase(fCaseFromAcency) || ComparePrimaryCaseLoan(caseLoan) || CompareBudgetSetTotal());
+        }
+
+        private CaseLoanDTO FindPrimaryCaseLoan(CaseLoanDTOCollection caseloanCollection)
+        {
+            foreach (CaseLoanDTO item in caseloanCollection)
+            {
+                if (ConvertStringToUpper(item.Loan1st2nd) == Constant.LOAN_1ST)
+                    return item;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Compare foreclosure case from DB and foreclosure case from Acgency
+        /// <return>bool<return>
+        /// </summary>
+        private bool CompareForeClosureCase(ForeclosureCaseDTO fCaseFromAcency)
+        {
+            var fCaseFromDB = FCaseSetFromDB.ForeclosureCase;
+            return (ConvertStringToUpper(fCaseFromAcency.BorrowerFname) != ConvertStringToUpper(fCaseFromDB.BorrowerFname)
+                || ConvertStringToUpper(fCaseFromAcency.BorrowerLname) != ConvertStringToUpper(fCaseFromDB.BorrowerLname)
+                || ConvertStringToUpper(fCaseFromAcency.ContactAddr1) != ConvertStringToUpper(fCaseFromDB.ContactAddr1)
+                || ConvertStringToUpper(fCaseFromAcency.ContactAddr2) != ConvertStringToUpper(fCaseFromDB.ContactAddr2)
+                || ConvertStringToUpper(fCaseFromAcency.ContactCity) != ConvertStringToUpper(fCaseFromDB.ContactCity)
+                || ConvertStringToUpper(fCaseFromAcency.ContactStateCd) != ConvertStringToUpper(fCaseFromDB.ContactStateCd)
+                || ConvertStringToUpper(fCaseFromAcency.ContactZip) != ConvertStringToUpper(fCaseFromDB.ContactZip)
+                || ConvertStringToUpper(fCaseFromAcency.PropAddr1) != ConvertStringToUpper(fCaseFromDB.PropAddr1)
+                || ConvertStringToUpper(fCaseFromAcency.PropAddr2) != ConvertStringToUpper(fCaseFromDB.PropAddr2)
+                || ConvertStringToUpper(fCaseFromAcency.PropCity) != ConvertStringToUpper(fCaseFromDB.PropCity)
+                || ConvertStringToUpper(fCaseFromAcency.PropStateCd) != ConvertStringToUpper(fCaseFromDB.PropStateCd)
+                || ConvertStringToUpper(fCaseFromAcency.PropZip) != ConvertStringToUpper(fCaseFromDB.PropZip)
+                || ConvertStringToUpper(fCaseFromAcency.PrimaryContactNo) != ConvertStringToUpper(fCaseFromDB.PrimaryContactNo)
+                || ConvertStringToUpper(fCaseFromAcency.SecondContactNo) != ConvertStringToUpper(fCaseFromDB.SecondContactNo)
+                || ConvertStringToUpper(fCaseFromAcency.Email1) != ConvertStringToUpper(fCaseFromDB.Email1)
+                );
+        }
+
+        /// <summary>
+        /// Compare primary case Loan from DB and primary case Loan from Acgency
+        /// <return>bool<return>
+        /// </summary>
+        private bool ComparePrimaryCaseLoan(CaseLoanDTO caseLoan)
+        {
+            var caseLoanDB = FindPrimaryCaseLoan(FCaseSetFromDB.CaseLoans);
+            return (caseLoan.ServicerId != caseLoanDB.ServicerId
+                    || ConvertStringToUpper(caseLoan.AcctNum) != ConvertStringToUpper(caseLoanDB.AcctNum)
+                );
+        }
+
+        /// <summary>
+        /// Compare total_income - total_expenses  from DB and total_income - total_expenses  from Acgency
+        /// <return>bool<return>
+        /// </summary>
+        private bool CompareBudgetSetTotal()
+        {
+            var bugetSet = FCaseSetFromDB.BudgetSet;
+            double? bugetSetMinus = bugetSet.TotalIncome - bugetSet.TotalExpenses;
+            return (bugetSetMinus != budgetSetMinusAgency);
+        }
+
+
+        /// <summary>
+        /// Check Delivery Method Code
+        /// <return>bool<return>
+        /// </summary>
+        private bool CheckDeliveryMethodCode(int? fcId)
+        {
+            var summaryBL = SummaryReportBL.Instance;
+            var servicers = summaryBL.GetServicerbyFcId(fcId);
+            foreach (ServicerDTO item in servicers)
+            {
+                if (ConvertStringToUpper(item.SecureDeliveryMethodCd) != Constant.SECURE_DELIVERY_METHOD_NOSEND)
+                    return true;
+            }
+            return false;
+        }
+        #endregion
 
         #region Implementation of IForclosureCaseBL        
 
@@ -84,7 +221,8 @@ namespace HPF.FutureState.BusinessLogic
                 fcId = ProcessInsertUpdateWithoutForeclosureCaseId(foreclosureCaseSet);            
 
             //
-            SendCompletedCaseToQueueIfAny(fcId);
+            foreclosureCaseSet.ForeclosureCase.FcId = fcId;
+            SendCompletedCaseToQueueIfAny(foreclosureCaseSet);
             //
             return fcId;         
         }
@@ -238,9 +376,7 @@ namespace HPF.FutureState.BusinessLogic
                 return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
             else
                 return ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
-        }
-
-        
+        }        
         
         #region Functions check min request validate
         private ExceptionMessageCollection ValidationFieldByRuleSet(ForeclosureCaseSetDTO foreclosureCaseSet, string ruleSet)
@@ -739,8 +875,18 @@ namespace HPF.FutureState.BusinessLogic
         {
             ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);            
             bool caseComplete = false;
+            //use for send queue
+            IsFirstTimeCaseCompleted = true;
             if (fcCase != null && fcCase.CompletedDt != null && !CheckInactiveCase(fcId))
+            {
                 caseComplete = true;
+                IsFirstTimeCaseCompleted = false;
+                //use for send queue
+                //get case from DB
+                FCaseSetFromDB.ForeclosureCase = _dbFcCase;
+                FCaseSetFromDB.CaseLoans = foreclosureCaseSetDAO.GetCaseLoanCollection(fcId);
+                FCaseSetFromDB.BudgetSet = foreclosureCaseSetDAO.GetBudgetSet(fcId);                
+            }
             return caseComplete;
         }
 
@@ -834,7 +980,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             return false;
         }
-        #endregion
+        #endregion        
 
         #region Function Update Fore Closure Case Set
         /// <summary>
@@ -960,55 +1106,7 @@ namespace HPF.FutureState.BusinessLogic
                 throw ex;
             }
             return fcId;
-        }
-
-        private void SendCompletedCaseToQueueIfAny(int? fcId)
-        {
-            if (!IsCaseCompleted)            
-                return;
-            if(!ShouldSendSummary(fcId))
-                return;
-            //
-            try
-            {
-                var queue = new HPFSummaryQueue();
-                queue.SendACompletedCaseToQueue(fcId);
-            }
-            catch
-            {
-                
-                var QUEUE_ERROR_MESSAGE = "Fail to push completed case to Queue : " + fcId;
-                //Log
-                Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
-                //Send E-mail to support
-                var hpfSupportEmail = ConfigurationManager.AppSettings["HPF_SUPPORT_EMAIL"];
-                var mail = new HPFSendMail
-                               {
-                                   To = hpfSupportEmail,
-                                   Subject = QUEUE_ERROR_MESSAGE
-                               };
-                mail.Send();
-                //
-            }
-        }
-
-        /// <summary>
-        /// Check sercure dilivery method of all servicer in CaseloanCollection
-        /// if all of them is NOSEND return FALSE
-        /// if one of them is not NOSEND return TRUE
-        /// <return>bool<return>
-        /// </summary>
-        private bool ShouldSendSummary(int? fcId)
-        { 
-            var summaryBL = SummaryReportBL.Instance;
-            var servicers = summaryBL.GetServicerbyFcId(fcId);
-            foreach (ServicerDTO item in servicers)
-            {
-                if (ConvertStringToUpper(item.SecureDeliveryMethodCd) != Constant.SECURE_DELIVERY_METHOD_NOSEND)
-                    return true;
-            }
-            return false;
-        }
+        }       
         
         #endregion
 
@@ -1200,7 +1298,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (budgetItemInput.BudgetSubcategoryId == budgetItemDB.BudgetSubcategoryId
                     && budgetItemInput.BudgetItemAmt == budgetItemDB.BudgetItemAmt
-                    && ConvertStringToUpper(budgetItemInput.BudgetNote) == ConvertStringToUpper(budgetItemDB.BudgetNote))
+                    && ConvertStringEmptyToNull((budgetItemInput.BudgetNote)) == ConvertStringEmptyToNull(ConvertStringToUpper(budgetItemDB.BudgetNote)))
                     return true;
             }
             return false;
@@ -1238,7 +1336,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (BudgetAssetDTO budgetAssetDB in budgetCollectionDB)
             {
-                if (ConvertStringToUpper(budgetAssetInput.AssetName) == ConvertStringToUpper(budgetAssetDB.AssetName)
+                if (ConvertStringEmptyToNull(ConvertStringToUpper(budgetAssetInput.AssetName)) == ConvertStringEmptyToNull(ConvertStringToUpper(budgetAssetDB.AssetName))
                     && budgetAssetInput.AssetValue == budgetAssetDB.AssetValue)
                     return true;
             }
@@ -1960,7 +2058,10 @@ namespace HPF.FutureState.BusinessLogic
             budgetSet.BudgetSetDt = DateTime.Now;
             //
             budgetSet.SetInsertTrackingInformation(_workingUserID);
-            
+
+            //use for send queue
+            //set value for budgetSetTotal
+            budgetSetMinusAgency = totalIncome - totalExpenses;
             return budgetSet;
         }
 
@@ -2081,7 +2182,7 @@ namespace HPF.FutureState.BusinessLogic
         private string ConvertStringToUpper(string s)
         {
             if (string.IsNullOrEmpty(s))
-                return s;
+                return null;
             s = s.ToUpper().Trim();
             return s;
         }

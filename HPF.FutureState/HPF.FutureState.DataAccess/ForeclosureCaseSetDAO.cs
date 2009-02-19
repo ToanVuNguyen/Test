@@ -872,6 +872,50 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// Get latest budget set by fcId
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>OutcomeItemDTOCollection</returns>
+        public BudgetSetDTO GetBudgetSet(int? fcId)
+        {
+            BudgetSetDTO budgetSet = null;
+            var dbConnection = CreateConnection();            
+            try
+            {
+                var command = CreateSPCommand("hpf_budget_set_get", dbConnection);
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    budgetSet = new BudgetSetDTO();
+                    if (reader.Read())
+                    {
+                        budgetSet.BudgetSetId = ConvertToInt(reader["budget_set_id"]);                        
+                        budgetSet.TotalIncome = ConvertToDouble(reader["total_income"]);
+                        budgetSet.TotalExpenses = ConvertToDouble(reader["total_expenses"]);
+                        budgetSet.TotalAssets = ConvertToDouble(reader["total_assets"]);
+                        budgetSet.BudgetSetDt = ConvertToDateTime(reader["budget_dt"]);
+                        budgetSet.TotalSurplus = ConvertToDouble(reader["Total_surplus"]);                         
+                    }                    
+                }
+                reader.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return budgetSet;
+        }
+
+        /// <summary>
         /// Select a BudgetItem to database.
         /// Where Max BudgetSet_ID and FC_ID
         /// </summary>
