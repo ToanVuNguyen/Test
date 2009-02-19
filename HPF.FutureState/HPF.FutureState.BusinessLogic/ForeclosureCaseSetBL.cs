@@ -1836,9 +1836,9 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckValidZipCode(ForeclosureCaseDTO forclosureCase)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (!string.IsNullOrEmpty(forclosureCase.ContactZip) && forclosureCase.ContactZip.Length != 5)
+            if ((!string.IsNullOrEmpty(forclosureCase.ContactZip) && forclosureCase.ContactZip.Length != 5) || !ConvertStringtoInt(forclosureCase.ContactZip))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0257, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0257));
-            if (!string.IsNullOrEmpty(forclosureCase.PropZip) && forclosureCase.PropZip.Length != 5)
+            if ((!string.IsNullOrEmpty(forclosureCase.PropZip) && forclosureCase.PropZip.Length != 5) || !ConvertStringtoInt(forclosureCase.PropZip))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0258, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0258));
             return msgFcCaseSet;
         }
@@ -2229,6 +2229,24 @@ namespace HPF.FutureState.BusinessLogic
             if (string.IsNullOrEmpty(s))
                 return null;            
             return s;
+        }
+
+        private bool ConvertStringtoInt(string s)
+        {
+            if (s == null)
+                return true;
+            else
+            {
+                try
+                {
+                    int.Parse(s);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
         #endregion
 
