@@ -72,6 +72,9 @@ namespace HPF.FutureState.DataAccess
                         item.InvestorLoanNum = ConvertToString(reader["investor_loan_num"]);
                         item.InvestorNum = ConvertToString(reader["investor_num"]);
                         item.InvestorName = ConvertToString(reader["investor_name"]);
+                        item.LoanDelinquencyDesc = ConvertToString(reader["delinq_code_desc"]);
+                        item.TermLengthDesc = ConvertToString(reader["term_code_desc"]);
+                        item.MortgageTypeCdDesc = ConvertToString(reader["mortgage_type_code_desc"]);    
                         item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
                         item.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);

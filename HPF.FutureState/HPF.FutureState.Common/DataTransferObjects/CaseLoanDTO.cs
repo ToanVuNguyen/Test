@@ -126,5 +126,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public string ChangedAcctNum { get; set; }
 
+        [XmlIgnore]
+        public string LoanDelinquencyDesc { get; set; }
+
+        [XmlIgnore]
+        public string TermLengthDesc { get; set; }
+
+        [XmlIgnore]
+        public string MortgageTypeCdDesc { get; set; }
+
     }
 }
