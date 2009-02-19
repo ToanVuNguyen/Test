@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.CustomAction", "HPF.CustomAction\HPF.CustomAction.csproj", "{1A1F467A-3305-415C-A1CA-9719A9D76108}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.Web", "HPF.Web\HPF.Web.csproj", "{BE933656-03C5-4822-8DAE-081D8C8CA5E2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZipLibrary", "ZipLibrary", "{0B439D19-F412-40C1-A15D-C6686ACC7118}"
 	ProjectSection(SolutionItems) = preProject
 		ZipLibrary\ICSharpCode.SharpZipLib.dll = ZipLibrary\ICSharpCode.SharpZipLib.dll
@@ -13,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.SharePointAPI", "HPF.SharePointAPI\HPF.SharePointAPI.csproj", "{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.SharePointSite", "HPF.SharePointSite\HPF.SharePointSite.csproj", "{BA293D94-970A-4F07-ABBE-DC5F7D6953EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.SharePointAPIsDemo", "HPF.SharePointAPIsDemo\HPF.SharePointAPIsDemo.csproj", "{E8118C7E-675E-4ECE-9B05-294BB2B2AE24}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -28,10 +28,6 @@ Global
 		{1A1F467A-3305-415C-A1CA-9719A9D76108}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A1F467A-3305-415C-A1CA-9719A9D76108}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A1F467A-3305-415C-A1CA-9719A9D76108}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE933656-03C5-4822-8DAE-081D8C8CA5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE933656-03C5-4822-8DAE-081D8C8CA5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE933656-03C5-4822-8DAE-081D8C8CA5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE933656-03C5-4822-8DAE-081D8C8CA5E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,6 +38,10 @@ Global
 		{BA293D94-970A-4F07-ABBE-DC5F7D6953EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA293D94-970A-4F07-ABBE-DC5F7D6953EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA293D94-970A-4F07-ABBE-DC5F7D6953EA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E8118C7E-675E-4ECE-9B05-294BB2B2AE24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8118C7E-675E-4ECE-9B05-294BB2B2AE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8118C7E-675E-4ECE-9B05-294BB2B2AE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8118C7E-675E-4ECE-9B05-294BB2B2AE24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -45,14 +45,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ResultInfo.cs" />
-    <Compile Include="Validators\CommonValidator.cs" />
-    <Compile Include="UploadFileInfo.cs" />
-    <Compile Include="DocumentLibraryHelper.cs" />
-    <Compile Include="Validators\FileValidator.cs" />
+    <Compile Include="BusinessEntity\AccountPayableInfo.cs" />
+    <Compile Include="BusinessEntity\BaseObject.cs" />
+    <Compile Include="BusinessEntity\ConselingSummaryInfo.cs" />
+    <Compile Include="BusinessEntity\InvoiceInfo.cs" />
+    <Compile Include="BusinessEntity\ResultInfo.cs" />
+    <Compile Include="Constants\DocumentCenterContentType.cs" />
+    <Compile Include="Controllers\DocumentCenterController.cs" />
+    <Compile Include="DocumentCenter.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>DocumentCenter.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Enum\Enum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="DocumentCenter.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DocumentCenter.Designer.cs</LastGenOutput>
+    </None>
     <None Include="HPF.SharePointAPI.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
