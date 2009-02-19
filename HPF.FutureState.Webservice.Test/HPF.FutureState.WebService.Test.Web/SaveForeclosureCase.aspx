@@ -532,7 +532,7 @@
                 <asp:TextBox CssClass = "Text" ID="txtFcNoticeReceivedInd" runat="server"></asp:TextBox>
             </td>
             <td>
-                <asp:Label CssClass = "sidelinks" ID="Label67" runat="server" Text="agency media consent ind."></asp:Label>             
+                <asp:Label CssClass = "sidelinks" ID="Label67" runat="server" Text="agency media interest ind."></asp:Label>             
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtAgencyMediaConsentInd" runat="server"></asp:TextBox>
