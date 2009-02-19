@@ -69,5 +69,9 @@ namespace HPF.FutureState.Common
         public const string DB_LOG_CATEGORY = "Importance";
 
         public const string HPF_SECURE_EMAIL = "$s$";  
+
+        //appforeclosurecase search
+        public const string RULESET_CRITERIAVALID = "CriteriaValidation";
+        public const string RULESET_APPSEARCH = "AppSearchRequireCriteria";
     }
 }
