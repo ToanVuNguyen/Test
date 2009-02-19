@@ -72,7 +72,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 dropFundingSource.DataTextField = "FundingSourceName";
                 dropFundingSource.DataSource = fundingSourceCollection;
                 dropFundingSource.DataBind();
-                dropFundingSource.Items.FindByText("ALL").Selected = true;
+                dropFundingSource.Items.FindByText(" ALL").Selected = true;
             
         }
         private ExceptionMessage GetExceptionMessage(string errorCode)
