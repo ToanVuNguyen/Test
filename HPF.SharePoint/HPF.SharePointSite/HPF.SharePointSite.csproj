@@ -79,6 +79,10 @@
     <Content Include="..\ZipLibrary\ICSharpCode.SharpZipLib.dll">
       <Link>ICSharpCode.SharpZipLib.dll</Link>
     </Content>
+    <Content Include="MasterPages\HPF_BlueBand\Module.xml" />
+    <None Include="MasterPages\HPF_BlueBand\HPF_BlueBand.master">
+      <SubType>ASPXCodeBehind</SubType>
+    </None>
     <Content Include="Templates\Features\DownloadZippedItems\DownloadZippedItems.xml" />
     <Content Include="ListDefinitions\DownloadHistoryDocumentLibrary\instance.xml" />
     <Content Include="ListDefinitions\ReportDocumentLibrary\instance.xml" />
@@ -89,12 +93,17 @@
     <Content Include="Templates\Features\UploadReport\UploadReport.xml" />
     <Content Include="Templates\Layouts\1033\DownLoadZipItem.js" />
     <Content Include="Templates\Layouts\layouts.sitemap.HPF_AppPages.xml" />
+    <Content Include="Templates\Themes\HPF\HPF.INF" />
+    <Content Include="Templates\Themes\HPF\theme.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.SharePointAPI\HPF.SharePointAPI.csproj">
       <Project>{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}</Project>
       <Name>HPF.SharePointAPI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\Images\HPF\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
