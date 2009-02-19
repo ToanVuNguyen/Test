@@ -60,9 +60,6 @@ namespace HPF.FutureState.BusinessLogic
 
             dataValidationException.ExceptionMessages.Add(CheckForeignKey(aCallLog));
             
-            if (aCallLog.StartDate.HasValue && aCallLog.EndDate.HasValue && aCallLog.StartDate > aCallLog.EndDate)
-                dataValidationException.ExceptionMessages.AddExceptionMessage("Start date must < End date");
-
             //dataValidationException.ExceptionMessages.Add(CheckDependingCallCenter(aCallLog));
 
             dataValidationException.ExceptionMessages.Add(CheckDependingServicer(aCallLog));

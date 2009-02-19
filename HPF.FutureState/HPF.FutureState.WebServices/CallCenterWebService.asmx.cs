@@ -28,8 +28,7 @@ namespace HPF.FutureState.WebServices
                 {
                     var callLogDTO = ConvertToCallLogDTO(request.CallLog);
                     callLogDTO.CallCenterID = CurrentCallCenterID;
-                    var callLogID = "HPF" + CallLogBL.Instance.InsertCallLog(callLogDTO);
-                    response.CallLogID = callLogID;
+                    response.CallLogID = "HPF" + CallLogBL.Instance.InsertCallLog(callLogDTO);                    
                     response.Status = ResponseStatus.Success;
                 }
             }
