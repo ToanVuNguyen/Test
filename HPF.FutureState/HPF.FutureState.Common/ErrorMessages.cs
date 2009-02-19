@@ -145,6 +145,7 @@ namespace HPF.FutureState.Common
         public const string ERR0220 = "ERR0220";
         public const string ERR0221 = "ERR0221";
         public const string ERR0222 = "ERR0222";
+        public const string ERR0223 = "ERR0223";
 
         public const string ERR0250 = "ERR0250";
         public const string ERR0251 = "ERR0251";
@@ -447,7 +448,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0123, "The OwnerOccupiedInd is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0124, "The PrimaryResidenceInd is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0125, "A ChgLstUserId is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0126, "Missing loans.  At least one loan is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0126, "At least one loan is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0127, "One or more of your loans is missing a ServicerID.");
                 errorMessageDict.Add(ERR0128, "One or more of your loans is missing a Loan Num.");
                 errorMessageDict.Add(ERR0129, "An OutcomeTypeID is required to save a foreclosure case.");
@@ -475,6 +476,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0220, "An invalid code was provided for MortgageTypeCd.");
                 errorMessageDict.Add(ERR0221, "An invalid code was provided for TermLengthCd.");
                 errorMessageDict.Add(ERR0222, "An invalid code was provided for LoanDelinqStatusCd.");
+                errorMessageDict.Add(ERR0223, "An invalid code was provided for MortgageProgramCd.");
+
 
                 errorMessageDict.Add(ERR0250, "An invalid AgencyID was provided. ");
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
@@ -539,7 +542,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0322, "A TermLengthCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0323, "A LoanDelinqStatusCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0324, "A InterestRate is required on all loans to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0325, "A MortgageTypeCd is required on all loans to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0325, "A MortgageProgramCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0326, "A billable OutcomeTypeID is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0327, "The budget item \"Mortgage Amount\" is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");

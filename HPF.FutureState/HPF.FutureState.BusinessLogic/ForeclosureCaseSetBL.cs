@@ -1725,7 +1725,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, caseLoan.LoanDelinqStatusCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0222, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0222) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MORTGAGE_PROGRAM_CODE, caseLoan.MortgageProgramCd))
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for MortgateProgramCode" + " working on case loan index " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0223, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0223) + " working on case loan index " + (i + 1));
                 if(!CheckValidServicerId(caseLoan.ServicerId))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId" + " working on case loan index " + (i + 1));
             }

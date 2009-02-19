@@ -264,7 +264,19 @@ namespace HPF.FutureState.UnitTest.DataAccess
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
+        /// <summary>
+        ///A test for GetForeclosureCase
+        ///</summary>
+        //[TestMethod()]
+        //public void GetBudgetSet()
+        //{
+        //    ForeclosureCaseSetDAO_Accessor target = new ForeclosureCaseSetDAO_Accessor(); // TODO: Initialize to an appropriate value
+        //    int? fc_id = 1352308; // TODO: Initialize to an appropriate value
+        //    int? expected = 77010; // TODO: Initialize to an appropriate value
+        //    int? actual = target.GetBudgetSet(fc_id).BudgetSetId;
+        //    Assert.AreEqual(expected, actual);
 
+        //}
         [TestMethod()]
         public void CheckDuplicateTest_Exist_From_FCID()
         {
