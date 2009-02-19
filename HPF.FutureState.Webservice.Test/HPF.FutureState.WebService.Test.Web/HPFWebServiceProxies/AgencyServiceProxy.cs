@@ -39,6 +39,8 @@ namespace HPF.Webservice.Agency
 
         private System.Threading.SendOrPostCallback RetrieveCallLogOperationCompleted;
 
+        private System.Threading.SendOrPostCallback SendSummaryOperationCompleted;
+
         private System.Threading.SendOrPostCallback SearchForeclosureCaseOperationCompleted;
 
         /// <remarks/>
@@ -64,6 +66,9 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         public event RetrieveCallLogCompletedEventHandler RetrieveCallLogCompleted;
+
+        /// <remarks/>
+        public event SendSummaryCompletedEventHandler SendSummaryCompleted;
 
         /// <remarks/>
         public event SearchForeclosureCaseCompletedEventHandler SearchForeclosureCaseCompleted;
@@ -165,6 +170,56 @@ namespace HPF.Webservice.Agency
             {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.RetrieveCallLogCompleted(this, new RetrieveCallLogCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/SendSummary", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public SendSummaryResponse SendSummary(SendSummaryRequest request)
+        {
+            object[] results = this.Invoke("SendSummary", new object[] {
+                    request});
+            return ((SendSummaryResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public System.IAsyncResult BeginSendSummary(SendSummaryRequest request, System.AsyncCallback callback, object asyncState)
+        {
+            return this.BeginInvoke("SendSummary", new object[] {
+                    request}, callback, asyncState);
+        }
+
+        /// <remarks/>
+        public SendSummaryResponse EndSendSummary(System.IAsyncResult asyncResult)
+        {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((SendSummaryResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public void SendSummaryAsync(SendSummaryRequest request)
+        {
+            this.SendSummaryAsync(request, null);
+        }
+
+        /// <remarks/>
+        public void SendSummaryAsync(SendSummaryRequest request, object userState)
+        {
+            if ((this.SendSummaryOperationCompleted == null))
+            {
+                this.SendSummaryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSendSummaryOperationCompleted);
+            }
+            this.InvokeAsync("SendSummary", new object[] {
+                    request}, this.SendSummaryOperationCompleted, userState);
+        }
+
+        private void OnSendSummaryOperationCompleted(object arg)
+        {
+            if ((this.SendSummaryCompleted != null))
+            {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SendSummaryCompleted(this, new SendSummaryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
 
@@ -340,7 +395,7 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<int> prevAgencyIdField;
 
-        private string selectedAgencyIdField;
+        private System.Nullable<int> selectedAgencyIdField;
 
         private string finalDispoCdField;
 
@@ -525,7 +580,8 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string SelectedAgencyId
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> SelectedAgencyId
         {
             get
             {
@@ -723,6 +779,7 @@ namespace HPF.Webservice.Agency
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchResponse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SendSummaryResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogRetrieveResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSaveResponse))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
@@ -1245,11 +1302,9 @@ namespace HPF.Webservice.Agency
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseWSDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CaseLoanDTO))]
-    //[System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetSetDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetItemDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BudgetAssetDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(OutcomeItemDTO))]
-    //[System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivityLogDTO))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseDTO))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -1560,16 +1615,6 @@ namespace HPF.Webservice.Agency
     }
 
     /// <remarks/>
-    //[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
-    //[System.SerializableAttribute()]
-    //[System.Diagnostics.DebuggerStepThroughAttribute()]
-    //[System.ComponentModel.DesignerCategoryAttribute("code")]
-    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
-    //public partial class BudgetSetDTO : BaseDTO
-    //{
-    //}
-
-    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1722,94 +1767,6 @@ namespace HPF.Webservice.Agency
             }
         }
     }
-
-    /// <remarks/>
-    //[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
-    //[System.SerializableAttribute()]
-    //[System.Diagnostics.DebuggerStepThroughAttribute()]
-    //[System.ComponentModel.DesignerCategoryAttribute("code")]
-    //[System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
-    //public partial class ActivityLogDTO : BaseDTO
-    //{
-
-    //    private System.Nullable<int> activityLogIdField;
-
-    //    private System.Nullable<int> fcIdField;
-
-    //    private string activityCdField;
-
-    //    private System.Nullable<System.DateTime> activityDtField;
-
-    //    private string activityNoteField;
-
-    //    /// <remarks/>
-    //    [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-    //    public System.Nullable<int> ActivityLogId
-    //    {
-    //        get
-    //        {
-    //            return this.activityLogIdField;
-    //        }
-    //        set
-    //        {
-    //            this.activityLogIdField = value;
-    //        }
-    //    }
-
-    //    /// <remarks/>
-    //    [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-    //    public System.Nullable<int> FcId
-    //    {
-    //        get
-    //        {
-    //            return this.fcIdField;
-    //        }
-    //        set
-    //        {
-    //            this.fcIdField = value;
-    //        }
-    //    }
-
-    //    /// <remarks/>
-    //    public string ActivityCd
-    //    {
-    //        get
-    //        {
-    //            return this.activityCdField;
-    //        }
-    //        set
-    //        {
-    //            this.activityCdField = value;
-    //        }
-    //    }
-
-    //    /// <remarks/>
-    //    [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-    //    public System.Nullable<System.DateTime> ActivityDt
-    //    {
-    //        get
-    //        {
-    //            return this.activityDtField;
-    //        }
-    //        set
-    //        {
-    //            this.activityDtField = value;
-    //        }
-    //    }
-
-    //    /// <remarks/>
-    //    public string ActivityNote
-    //    {
-    //        get
-    //        {
-    //            return this.activityNoteField;
-    //        }
-    //        set
-    //        {
-    //            this.activityNoteField = value;
-    //        }
-    //    }
-    //}
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
@@ -3253,6 +3210,16 @@ namespace HPF.Webservice.Agency
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class SendSummaryResponse : BaseResponse
+    {
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
     public partial class CallLogRetrieveResponse : BaseResponse
     {
 
@@ -3411,15 +3378,11 @@ namespace HPF.Webservice.Agency
 
         private CaseLoanDTO[] caseLoansField;
 
-        //private BudgetSetDTO budgetSetField;
-
         private BudgetItemDTO[] budgetItemsField;
 
         private BudgetAssetDTO[] budgetAssetsField;
 
         private OutcomeItemDTO[] outcomeField;
-
-        //private ActivityLogDTO[] activityLogField;
 
         /// <remarks/>
         public ForeclosureCaseDTO ForeclosureCase
@@ -3446,19 +3409,6 @@ namespace HPF.Webservice.Agency
                 this.caseLoansField = value;
             }
         }
-
-        /// <remarks/>
-        //public BudgetSetDTO BudgetSet
-        //{
-        //    get
-        //    {
-        //        return this.budgetSetField;
-        //    }
-        //    set
-        //    {
-        //        this.budgetSetField = value;
-        //    }
-        //}
 
         /// <remarks/>
         public BudgetItemDTO[] BudgetItems
@@ -3498,23 +3448,11 @@ namespace HPF.Webservice.Agency
                 this.outcomeField = value;
             }
         }
-
-        /// <remarks/>
-        //public ActivityLogDTO[] ActivityLog
-        //{
-        //    get
-        //    {
-        //        return this.activityLogField;
-        //    }
-        //    set
-        //    {
-        //        this.activityLogField = value;
-        //    }
-        //}
     }
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SendSummaryRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSaveRequest))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -3546,6 +3484,91 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.searchCriteriaField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class SendSummaryRequest : BaseRequest
+    {
+
+        private string senderIdField;
+
+        private string emailToAddressField;
+
+        private string emailSubjectField;
+
+        private string emailBodyField;
+
+        private int fCIdField;
+
+        /// <remarks/>
+        public string SenderId
+        {
+            get
+            {
+                return this.senderIdField;
+            }
+            set
+            {
+                this.senderIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string EmailToAddress
+        {
+            get
+            {
+                return this.emailToAddressField;
+            }
+            set
+            {
+                this.emailToAddressField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string EmailSubject
+        {
+            get
+            {
+                return this.emailSubjectField;
+            }
+            set
+            {
+                this.emailSubjectField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string EmailBody
+        {
+            get
+            {
+                return this.emailBodyField;
+            }
+            set
+            {
+                this.emailBodyField = value;
+            }
+        }
+
+        /// <remarks/>
+        public int FCId
+        {
+            get
+            {
+                return this.fCIdField;
+            }
+            set
+            {
+                this.fCIdField = value;
             }
         }
     }
@@ -3631,6 +3654,36 @@ namespace HPF.Webservice.Agency
             {
                 this.RaiseExceptionIfNecessary();
                 return ((CallLogRetrieveResponse)(this.results[0]));
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    public delegate void SendSummaryCompletedEventHandler(object sender, SendSummaryCompletedEventArgs e);
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SendSummaryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
+        private object[] results;
+
+        internal SendSummaryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+
+        /// <remarks/>
+        public SendSummaryResponse Result
+        {
+            get
+            {
+                this.RaiseExceptionIfNecessary();
+                return ((SendSummaryResponse)(this.results[0]));
             }
         }
     }

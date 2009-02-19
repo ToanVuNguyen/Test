@@ -95,6 +95,13 @@
     <Compile Include="SearchForeclosureCase.aspx.designer.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SendSummary.aspx.cs">
+      <DependentUpon>SendSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SendSummary.aspx.designer.cs">
+      <DependentUpon>SendSummary.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SessionVariables.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -115,6 +122,7 @@
     <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SaveForeclosureCase.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
+    <Content Include="SendSummary.aspx" />
     <Content Include="Site.Master" />
     <Content Include="Styles\HPF.css" />
     <Content Include="Styles\Images\arrow.jpg" />
