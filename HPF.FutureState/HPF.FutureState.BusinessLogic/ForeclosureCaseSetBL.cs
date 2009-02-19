@@ -963,13 +963,26 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
                 return msgFcCaseSet;
             }
+            bool isbudgetHaveMortgateGreaterThanZero = CheckBudgetItemHaveMortgageGreaterZero(foreclosureCaseSetInput);
+            if (!isbudgetHaveMortgateGreaterThanZero && caseComplete)
+            {
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
+                return msgFcCaseSet;
+            }
             if (foreclosureCaseSetInput.BudgetItems == null || foreclosureCaseSetInput.BudgetItems.Count < 1)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
             else if (!isbudgetHaveMortgate)
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
+            else if (!isbudgetHaveMortgateGreaterThanZero)
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
             return msgFcCaseSet;            
         }
 
+        /// <summary>
+        /// Check BudgetItem have least  item Mortgate
+        /// </summary>
+        /// <param name="foreclosureCaseSetInput"></param>
+        /// <returns></returns>
         private bool CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
@@ -979,6 +992,26 @@ namespace HPF.FutureState.BusinessLogic
             foreach (BudgetItemDTO item in budgetItemCollection)
             {
                 if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != null)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check BudgetItem have least  item Mortgate
+        /// and have value greater than ZERO
+        /// </summary>
+        /// <param name="foreclosureCaseSetInput"></param>
+        /// <returns></returns>
+        private bool CheckBudgetItemHaveMortgageGreaterZero(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        {
+            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
+            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
+                return false;
+            int subCatId = FindSubCatWithNameIsMortgage();
+            foreach (BudgetItemDTO item in budgetItemCollection)
+            {
+                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != null && item.BudgetItemAmt > 0)
                     return true;
             }
             return false;
