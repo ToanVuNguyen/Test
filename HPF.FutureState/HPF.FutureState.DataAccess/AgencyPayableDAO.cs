@@ -174,7 +174,7 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[12];
             sqlParam[0] = new SqlParameter("@pi_agency_payable_id", agencyPayable.AgencyPayableId);
             sqlParam[1] = new SqlParameter("@pi_status_cd", agencyPayable.StatusCode);
-            sqlParam[2] = new SqlParameter("@pi_pmt_comment", agencyPayable.PaymentComment);
+            sqlParam[2] = new SqlParameter("@pi_pmt_comment", null);
             //
             sqlParam[3] = new SqlParameter("@pi_agency_id", null);
             sqlParam[4] = new SqlParameter("@pi_pmt_dt", null);

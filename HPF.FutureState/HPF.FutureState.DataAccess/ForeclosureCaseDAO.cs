@@ -196,6 +196,11 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.WorkedWithAnotherAgencyInd = ConvertToString(reader["worked_with_another_agency_ind"]);
                         returnObject.FcSaleDate = ConvertToDateTime(reader["fc_sale_dt"]);
+                        returnObject.CaseSourceCd = ConvertToString(reader["case_source_cd"]);
+                        returnObject.HouseholdGrossAnnualIncomeAmt = ConvertToDouble(reader["household_gross_annual_income_amt"]);
+                        returnObject.IntakeCreditScore = ConvertToString(reader["intake_credit_score"]);
+                        returnObject.IntakeCreditBureauCd = ConvertToString(reader["intake_credit_bureau_cd"]);
+
                         #endregion
                     }
                     reader.Close();
@@ -387,7 +392,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = new SqlCommand("hpf_foreclosure_case_search_app_dynamic", dbConnection);
             string whereclause = AppGenerateWhereClause(searchCriteria);
-            var sqlParam = new SqlParameter[15];
+            var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
             sqlParam[1] = new SqlParameter("@pi_fname", searchCriteria.FirstName);
             sqlParam[2] = new SqlParameter("@pi_lname", searchCriteria.LastName);
@@ -403,6 +408,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
             sqlParam[13] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
             sqlParam[14] = new SqlParameter("@whereclause", whereclause);
+            sqlParam[15] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
             try
@@ -578,6 +584,8 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.Agency == -1) ? "" : " AND (f.agency_id=@pi_agencyid )");
             whereClause.Append((searchCriteria.AgencyCaseID == null) ? "" : " AND (f.agency_case_num=@pi_agencycaseid)");
             whereClause.Append((searchCriteria.Duplicates == null) ? "" : " AND (f.duplicate_ind = @pi_duplicate )");
+            whereClause.Append((searchCriteria.Servicer == -1) ? "" : " AND (l.servicer_id=@pi_servicer)");
+
             whereClause.Append((searchCriteria.Program == -1) ? "" : " AND(f.program_id= @pi_programid)");
             return whereClause.ToString();
         }
