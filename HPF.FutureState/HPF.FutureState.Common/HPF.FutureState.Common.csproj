@@ -72,6 +72,7 @@
     <Compile Include="BusinessLogicInterface\IRefCodeItemBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
+    <Compile Include="HPFConfigurationSettting.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="DataTransferObjects\AccountingDTO.cs" />
     <Compile Include="DataTransferObjects\AgencyDTO.cs" />

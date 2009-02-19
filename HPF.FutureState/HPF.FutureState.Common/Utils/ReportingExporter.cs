@@ -26,7 +26,7 @@ namespace HPF.FutureState.Common.Utils
         public ReportingExporter()
         {
             _Parameter = new Dictionary<string, string>();
-            _ReportServer = ConfigurationManager.AppSettings["REPORTSERVER_URL"];
+            _ReportServer = HPFConfigurationSettting.REPORTSERVER_URL;
         }
         /// <summary>
         /// Export report to Pdf format.
@@ -78,7 +78,7 @@ namespace HPF.FutureState.Common.Utils
 
         private static WebClient GetWebClient()
         {
-            var configLoginName = ConfigurationManager.AppSettings["REPORTSERVER_LOGINNAME"];
+            var configLoginName = HPFConfigurationSettting.REPORTSERVER_LOGINNAME;
             var loginNameDomain = configLoginName.Split('\\');
             var credentials = new NetworkCredential();
             if (loginNameDomain.Length > 1)
@@ -89,7 +89,7 @@ namespace HPF.FutureState.Common.Utils
             else
                 credentials.UserName = configLoginName;
             //
-            credentials.Password = ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"];
+            credentials.Password = HPFConfigurationSettting.REPORTSERVER_PASSWORD;
 
             return new WebClient
                        {
@@ -109,7 +109,10 @@ namespace HPF.FutureState.Common.Utils
 
         private string GetReportUrl(string renderFormat)
         {
-            var url = _ReportServer + "?/" + ReportPath + "&rs:Command=Render&rs:Format={0}{1}";
+            var newReportPath = HPFConfigurationSettting.SHAREPOINT_REPORT_LIBRARY + ReportPath + ".rdl";
+            //
+            var url = _ReportServer + "/?" + newReportPath + "&rs:Command=Render&rs:Format={0}{1}";
+            //
             var paramString = GetParamString();
             return string.Format(url, renderFormat, paramString);
         }

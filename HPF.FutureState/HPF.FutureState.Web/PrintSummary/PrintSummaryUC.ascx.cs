@@ -28,21 +28,34 @@ namespace HPF.FutureState.Web.PrintSummary
         protected void LoadReport()
         {
             int caseid = Convert.ToInt32(Request.QueryString["CaseID"].ToString());
-            
+
             ReportViewerCredential rvc = new ReportViewerCredential();
             ReportViewerPrintSummary.ServerReport.ReportServerCredentials = rvc;
             ReportViewerPrintSummary.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Remote;
-
-            ReportViewerPrintSummary.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["REPORTSERVER_URL"].ToString());
-            ReportViewerPrintSummary.ServerReport.ReportPath = @"/HPF_Report/rpt_CounselingSummary";
-
+            //
+            SetReportServerUrl();
+            //
+            SetReportPath();
+            //
             ReportParameter reportParameter = new ReportParameter("pi_fc_id", caseid.ToString());
-            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { reportParameter });
-            
+            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] {reportParameter});
 
 
         }
+
+        private void SetReportServerUrl()
+        {
+            ReportViewerPrintSummary.ServerReport.ReportServerUrl = new Uri(HPFConfigurationSettting.REPORTSERVER_URL);
+        }
+
+        private void SetReportPath()
+        {
+            ReportViewerPrintSummary.ServerReport.ReportPath = HPFConfigurationSettting.SHAREPOINT_REPORT_LIBRARY +
+                                                               @"/HPF_Report/rpt_CounselingSummary" +
+                                                               ".rdl";
+        }
     }
+
     [Serializable]
     class ReportViewerCredential : IReportServerCredentials
     {
@@ -66,8 +79,8 @@ namespace HPF.FutureState.Web.PrintSummary
         
         public ReportViewerCredential()
         {
-            this.Password = ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"].ToString();
-            string username_domain = ConfigurationManager.AppSettings["REPORTSERVER_LOGINNAME"].ToString();
+            this.Password = HPFConfigurationSettting.REPORTSERVER_PASSWORD;
+            string username_domain = HPFConfigurationSettting.REPORTSERVER_LOGINNAME;
             var DomainUser = username_domain.Split('\\');
             if (username_domain.Contains(@"\"))
             {
