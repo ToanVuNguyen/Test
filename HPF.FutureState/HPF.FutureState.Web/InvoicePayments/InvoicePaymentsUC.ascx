@@ -84,9 +84,10 @@
                                 <asp:BoundField HeaderText="HPF Payment ID" DataField="InvoicePaymentID" />
                                 <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" />
                                 <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" />
-                                <asp:BoundField HeaderText="Payment Code" DataField="PaymentType" />
+                                <asp:BoundField HeaderText="Payment Code" DataField="PaymentTypeDesc" />
                                 <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}"
                                     ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField HeaderText="Comments" DataField="Comments"/>
                                 <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                                     ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                             </Columns>

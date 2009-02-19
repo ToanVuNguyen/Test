@@ -95,10 +95,7 @@ namespace HPF.FutureState.BusinessLogic
             var refCodeItemCollection = RefCodeItemBL.Instance.GetRefCodeItems();
             return refCodeItemCollection.GetRefCodeItemsByRefCode(refCodeSetName);            
         }
-        public InvoicePaymentDTOCollection PaymentTypeGet()
-        {
-            return (InvoicePaymentDAO.Instance.PaymentTypeGet());
-        }
+        
         public HPFUserDTOCollection GetHpfUsers()
         {
             return HPFUserDAO.Instance.GetHpfUsers();

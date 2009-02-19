@@ -260,11 +260,31 @@ namespace HPF.FutureState.Common
         public const string ERR0660 = "ERR0660";
         public const string ERR0661 = "ERR0661";
         public const string ERR0662 = "ERR0662";
+        public const string ERR0663 = "ERR0663";
+        public const string ERR0664 = "ERR0664";
+        public const string ERR0665 = "ERR0665";
+        public const string ERR0666 = "ERR0666";
+        public const string ERR0667 = "ERR0667";
+        public const string ERR0668 = "ERR0668";
+        public const string ERR0669 = "ERR0669";
+
 
         public const string ERR0670 = "ERR0670";
         public const string ERR0671 = "ERR0671";
         public const string ERR0672 = "ERR0672";
         public const string ERR0673 = "ERR0673";
+        public const string ERR0674 = "ERR0674";
+        public const string ERR0675 = "ERR0675";
+        public const string ERR0676 = "ERR0676";
+        public const string ERR0677 = "ERR0677";
+        public const string ERR0678 = "ERR0678";
+        public const string ERR0679 = "ERR0679";
+        public const string ERR0680 = "ERR0680";
+        public const string ERR0681 = "ERR0681";
+        public const string ERR0682 = "ERR0682";
+
+
+
 
 
         public const string ERR0701 = "ERR0701";
@@ -560,17 +580,37 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0654, "A valid Payment Amount is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0655, "Unable to open payment reconciliation file.");
                 errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file.  It is not in the proper format, it must be Excel 2003 or newer");
-                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: HPF Internal Case ID,HPF Invoice Case ID,Paymnet Amount, Payment Reject Reason Code,Feddie Mac Servicer Number,Feddie Mac Loan Number,Investor Number,Investor Name,Loan Number.");
-                errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The FC ID in row {0} is not a valid number.");
+                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: HPF Internal Case ID, HPF Invoice Case ID, Payment Amount, Payment Reject Reason Code, Freddie Mac Servicer Number, Freddie Mac Loan Number, Investor Number, and Investor Name.");
+                errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The HPF Inetrnal Case ID (fc_id) in row {0} is not a valid number.");
                 errorMessageDict.Add(ERR0659, "Unable to process the reconciliation file. The Pmt Amt in row {0} is not a valid amount.");
                 errorMessageDict.Add(ERR0660, "Unable to process the reconciliation file  The Payment Reject Reason Code in row {0} is not a valid code.");
                 errorMessageDict.Add(ERR0661, "Unable to process the reconciliation file. It has {0} rows with payments totaling {1} which does not match the entered Payment Amount of {2}.");
-                errorMessageDict.Add(ERR0662, "Unable to process the reconciliation file. The Invoice Case ID in row {0} is not a valid number.");
+                errorMessageDict.Add(ERR0662, "The column 'HPF Internal Case ID' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0663, "The column 'HPF Invoice Case ID' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0664, "The column 'Payment Amount' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0665, "The column 'Payment Reject Reason Code' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0666, "The column 'Freddie Mac Servicer Number' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0667, "The column 'Freddie Mac Loan Number' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0668, "The column 'Investor Number' could not be found in the reconciliation file.");
+                errorMessageDict.Add(ERR0669, "The column 'Investor Name' could not be found in the reconciliation file.");
 
-                errorMessageDict.Add(ERR0670, "Unable to process the reconciliation file. The Invoice Case ID in row {0} is not valid for the funding source selected.");
+                errorMessageDict.Add(ERR0670, "Unable to process the reconciliation file. The HPF Invoice Case ID in row {0} is not valid.");
                 errorMessageDict.Add(ERR0671, "Unable to process the reconciliation file. The Invoice Case ID in row {0} belongs to an invoice that has been cancelled.");
                 errorMessageDict.Add(ERR0672, "Unable to process the reconciliation file. The Pmt Amt in row {0} does not match the amount billed on the invoice.");
                 errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"Reconciliation\" tab cannot be located.");
+                errorMessageDict.Add(ERR0674, "A Funding Source is required to search for Invoice Payments.");
+                errorMessageDict.Add(ERR0675, "A Period Start date is required to search for Invoice Payments.");
+                errorMessageDict.Add(ERR0676, "A Period End date is required to search for Invoice Payments.");
+                errorMessageDict.Add(ERR0677, "Unable to process the reconciliation file. The HPF Invoice Case ID (invoice_case_id) in row {0} is not a valid number.");
+                errorMessageDict.Add(ERR0678, "Unable to process the reconciliation file. Neither a HPF Invoice Case ID nor a HPF Internal Case ID were provided in row {0}.");
+                errorMessageDict.Add(ERR0679, "Unable to process the reconciliation file. Neither a Payment Amount nor a Payment Reject Reason were provided in row {0}.");
+                errorMessageDict.Add(ERR0680, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} does not match the case ID on the record retreived by the HPF Invoice Case ID in this row.");
+                errorMessageDict.Add(ERR0681, "Unable to process the reconciliation file. The Funding Source for this payment does not match the Funding Source on the invoice record retreived by the HPF Invoice Case ID in row {0}.");
+                errorMessageDict.Add(ERR0682, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} is not valid.");
+
+
+
+
                 errorMessageDict.Add(ERR0701, "Audit date must be in the range [1-1-1753, 12-31-9999].");
                 errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
                 errorMessageDict.Add(ERR0703, "Follow-Up Date is required to save the case.");

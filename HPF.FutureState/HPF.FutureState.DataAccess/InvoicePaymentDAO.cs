@@ -65,6 +65,8 @@ namespace HPF.FutureState.DataAccess
                         invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         invoicePayment.PaymentNum = ConvertToString(reader["pmt_num"]);
                         invoicePayment.PaymentAmount = ConvertToDouble(reader["pmt_amt"]);
+                        invoicePayment.Comments = ConvertToString(reader["invoice_payment_comment"]);
+                        invoicePayment.PaymentTypeDesc = ConvertToString(reader["code_desc"]);
                         invoicePayments.Add(invoicePayment);
                     }
                     reader.Close();
@@ -80,51 +82,10 @@ namespace HPF.FutureState.DataAccess
             }
             return invoicePayments;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public InvoicePaymentDTOCollection PaymentTypeGet()
-        {
-            InvoicePaymentDTOCollection result = HPFCacheManager.Instance.GetData<InvoicePaymentDTOCollection>(Constant.HPF_CACHE_PAYMENT_TYPE);
-            if (result == null)
-            {
-                result = new InvoicePaymentDTOCollection();
-                var dbConnection = CreateConnection();
-                var command = new SqlCommand("hpf_payment_type_get", dbConnection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Connection = dbConnection;
-                try
-                {
-                    dbConnection.Open();
-                    var reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            var item = new InvoicePaymentDTO();
-                            item.PaymentType = ConvertToString(reader["pmt_cd"]);
-                            result.Add(item);
-                        }
-                        reader.Close();
-                    }
-                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_PAYMENT_TYPE, result);
-                }
-                catch (Exception ex)
-                {
-                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-                }
-                finally
-                {
-                    dbConnection.Close();
-                }
-            }
-            return result;
-        }
+        
         public InvoicePaymentDTO InvoicePaymentGet(int invoicePaymentId)
         {
             SqlConnection dbConnection = base.CreateConnection();
-            //SqlCommand command = base.CreateCommand("hpf_invoice_payment_search", dbConnection);
             SqlCommand command = CreateSPCommand("hpf_invoice_payment_get", dbConnection);
 
             //<Parameter>   
@@ -150,6 +111,7 @@ namespace HPF.FutureState.DataAccess
                         invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         invoicePayment.PaymentNum = ConvertToString(reader["pmt_num"]);
                         invoicePayment.PaymentAmount = ConvertToDouble(reader["pmt_amt"]);
+                        invoicePayment.Comments = ConvertToString(reader["invoice_payment_comment"]);
                     }
                     reader.Close();
                 }

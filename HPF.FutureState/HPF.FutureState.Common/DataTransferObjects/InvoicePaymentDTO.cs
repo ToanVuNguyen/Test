@@ -14,6 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PaymentNum { get; set; }
         public DateTime? PaymentDate { get; set; }
         public string PaymentType { get; set; }
+        public string PaymentTypeDesc { get; set; }
         public double? PaymentAmount { get; set; }
         public string Comments { get; set; }
     }

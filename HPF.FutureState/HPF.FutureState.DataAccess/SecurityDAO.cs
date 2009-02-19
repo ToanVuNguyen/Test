@@ -136,7 +136,7 @@ namespace HPF.FutureState.DataAccess
                 UserDTO webUser = null;
                 var dbConnection = CreateConnection();
                 //Add store here
-                var command = CreateSPCommand("hpf_web_user_get_from_username", dbConnection);
+                var command = CreateSPCommand("hpf_hpf_user_get_from_login", dbConnection);
 
                 //<Parameter>
                 var sqlParam = new SqlParameter[1];
