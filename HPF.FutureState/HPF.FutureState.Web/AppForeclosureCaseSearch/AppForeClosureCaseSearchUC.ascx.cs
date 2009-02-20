@@ -114,7 +114,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
-            ddlAgency.Items.FindByText("ALL").Selected = true;
+            ddlAgency.SelectedIndex = 0;
+            //ddlAgency.Items.FindByText("ALL").Selected = true;
         }
         protected void BindProgramDropdownlist()
         {
