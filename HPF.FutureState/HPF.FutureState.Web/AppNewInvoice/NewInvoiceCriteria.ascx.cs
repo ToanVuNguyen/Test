@@ -80,10 +80,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             txtIncomeMin.Text = searchCriteria.HouseholdGrossAnnualIncome.Min == double.MinValue ? "" : searchCriteria.HouseholdGrossAnnualIncome.Min.ToString();
             txtIncomeMax.Text = searchCriteria.HouseholdGrossAnnualIncome.Max == double.MinValue ? "" : searchCriteria.HouseholdGrossAnnualIncome.Max.ToString();
             dropHispanic.Items.FindByValue(((int)searchCriteria.Hispanic).ToString()).Selected = true;
-            dropDuplicates.Items[(int)searchCriteria.Duplicate].Selected = true; ;
-            dropCaseCompleted.Items[(int)searchCriteria.Completed].Selected = true; ;
-            dropAlreadyBilled.Items[(int)searchCriteria.AlreadyBill].Selected = true; ;
-            dropFundingConsent.Items[(int)searchCriteria.IgnoreFundingConsent].Selected = true; ;
+            dropDuplicates.Items.FindByValue(((int)searchCriteria.Duplicate).ToString()).Selected = true; ;
+            dropCaseCompleted.Items.FindByValue(((int)searchCriteria.Completed).ToString()).Selected = true; ;
+            dropAlreadyBilled.Items.FindByValue(((int)searchCriteria.AlreadyBill).ToString()).Selected = true; ;
+            dropFundingConsent.Items.FindByValue(((int)searchCriteria.IgnoreFundingConsent).ToString()).Selected = true; ;
             txtMaxNumberofCases.Text = searchCriteria.MaxNumOfCases == int.MinValue ? "" : searchCriteria.MaxNumOfCases.ToString();
             dropHouseholdCode.Items.FindByValue(searchCriteria.HouseholdCode).Selected = true;
             txtCity.Text = searchCriteria.City;
@@ -147,8 +147,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.DataTextField = "FundingSourceName";
             dropFundingSource.DataSource = fundingSourceCollection;
             dropFundingSource.DataBind();
-            dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
-            dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
+            //dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
+            //dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
             //first time
             if (Session["fundingSourceId"] != null && Session["IvoiceCaseSearchCriteria"] == null)
             {
@@ -184,6 +184,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropProgram.DataTextField = "ProgramName";
             dropProgram.DataSource = programCollection;
             dropProgram.DataBind();
+            dropProgram.Items.Remove(dropProgram.Items.FindByValue("-1"));
+            dropProgram.Items.Insert(0, new ListItem("ALL", "-1"));
         }
         private void GenderDatabind()
         {

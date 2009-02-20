@@ -184,7 +184,10 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             ClearErrorMessages();
             if (grvFundingSourceInvoices.SelectedIndex == -1)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
                 return;
+            }
             if (Session["searchResult"] == null)
                 return;
             InvoiceDTOCollection searchResult = Session["searchResult"] as InvoiceDTOCollection;
@@ -218,7 +221,10 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         protected void btnViewEditInvoice_Click(object sender, EventArgs e)
         {
             if (grvFundingSourceInvoices.SelectedIndex == -1)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
                 return;
+            }
             int invoiceId = (int)grvFundingSourceInvoices.SelectedValue;
             Response.Redirect("InvoiceInfo.aspx?id=" + invoiceId.ToString());
         }

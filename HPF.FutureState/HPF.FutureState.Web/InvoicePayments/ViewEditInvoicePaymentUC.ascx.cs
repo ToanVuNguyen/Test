@@ -25,6 +25,7 @@ namespace HPF.FutureState.Web.InvoicePayments
     {
         private  List<string> COLUMN_NAME = new List<string>();
         int paymentId = -1;
+        bool isCancel = false;
             
         private void UcInit()
         {
@@ -111,8 +112,12 @@ namespace HPF.FutureState.Web.InvoicePayments
         #endregion
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            if(hiddenIsSave.Value=="true")
+            if (hiddenIsSave.Value == "true")
+            {
+                isCancel = true;
                 SaveInvoicePayment();
+            }
+
             Response.Redirect("InvoicePayment.aspx");
         }
 
@@ -231,14 +236,18 @@ namespace HPF.FutureState.Web.InvoicePayments
             InvoicePaymentDTO invoicePayment = GetInvoicePayment();
             invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             paymentId= InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection,invoicePayment);
-            Response.Redirect("InvoicePaymentInfo.aspx?id="+paymentId.ToString());
+            //if(!isCancel)
+            //    Response.Redirect("InvoicePaymentInfo.aspx?id="+paymentId.ToString());  
+            Response.Redirect("InvoicePayment.aspx");
         }
         private void UpdateInvoicePaymentOnly()
         {
             InvoicePaymentDTO invoicePayment = GetInvoicePayment();
             invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
             paymentId = InvoiceBL.Instance.UpdateInvoicePaymentOnly(invoicePayment);
-            Response.Redirect("InvoicePaymentInfo.aspx?id=" + paymentId.ToString());
+            //if(!isCancel)
+            //    Response.Redirect("InvoicePaymentInfo.aspx?id=" + paymentId.ToString());
+            Response.Redirect("InvoicePayment.aspx");
         }
         #region FrontEnd PreProcessing
         /// <summary>

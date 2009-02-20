@@ -50,7 +50,7 @@
         </td>
         <td >
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 
-                Text="Refresh List" onclick="btnRefreshList_Click" />
+                Text="Search" onclick="btnRefreshList_Click" Width="120px" />
         </td>
     </tr>
     <tr>
