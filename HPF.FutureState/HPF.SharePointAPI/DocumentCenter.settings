@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HPF.SharePointAPI" GeneratedClassName="DocumentCenter">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConselingSummary" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Conseling Summary</Value>
+    </Setting>
+    <Setting Name="Invoice" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Invoices</Value>
+    </Setting>
+    <Setting Name="AccountPayable" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Accounts Payable</Value>
+    </Setting>
+    <Setting Name="DocumentCenterSite" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://litwaredemo</Value>
+    </Setting>
+    <Setting Name="DocumentCenterWeb" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Docs</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
