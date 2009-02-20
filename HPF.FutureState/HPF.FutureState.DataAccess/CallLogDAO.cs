@@ -370,11 +370,18 @@ namespace HPF.FutureState.DataAccess
                 if (reader.HasRows)
                 {
                     servicer = new ServicerDTO();
-                    if (reader.Read())
+                    int? servicerId = 0;
+                    while (reader.Read())
                     {
-                        servicer.ServicerID = aCallLog.ServicerId;
-                        servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                        servicerId = ConvertToInt(reader["servicer_id"]);
+                        if (servicerId.HasValue && servicerId.Value == aCallLog.ServicerId)
+                        {
+                            servicer.ServicerID = aCallLog.ServicerId;
+                            servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                            break;
+                        }
                     }
+                    
                     reader.Close();
                 }
                 dbConnection.Close();
