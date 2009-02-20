@@ -2,7 +2,7 @@
 -- Create date: 11 Feb 2009
 -- Project : HPF 
 -- Build 
--- Description:	Insert initial data : ref_code_set, ref_code_item, ws_user, menu_group, menu_item, menu_security
+-- Description:	Insert initial data : ref_code_set, ref_code_item, ws_user, menu_group, menu_item, menu_security, create some default hpf_user and grant their permissions
 -- =============================================
 
 USE HPF 
@@ -37,15 +37,16 @@ INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('hud termi
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('income earners code','Income earners code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('invoice status code','Invoice - Status code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('invoice code','Invoice code');
-INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('preferred language code','Preferred language code');
-INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('loan 1st 2nd','Loan 1st 2nd');
-INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('loan delinquency status code','Loan delinquency status code');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mortgage program code','Mortgage program code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('marital status code','Marital status code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('military service code','Military service code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mortgage type code','Mortgage type code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('never bill reason code','Never bill reason code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('never pay reason code','Never pay reason code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('occupation code','Occupation code');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('preferred language code','Preferred language code');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('loan 1st 2nd','Loan 1st 2nd');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('loan delinquency status code','Loan delinquency status code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('payment code','Payment code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('payment reject reason code', 'Payment reject reason code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('program service code','Program service code');
@@ -134,7 +135,7 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('export format code','FIS','FIS Export','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('export format code','ICLEAR','iClear Export','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('export format code','NFMC','NFMC Export','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('export format code','STDSERV','HPF Standard Export','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('export format code','HPFSTD','HPF Standard Export','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('export format code','HSBC','HSBC  Export','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('gender code','Female','Female','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('gender code','Male','Male','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -190,13 +191,13 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('loan delinquency status code','Unknown','Unknown','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('military service code','ACTV','Active','Current',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('military service code','VET','Veteran','Veteran',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','ARM','Adjustable Rate Mortgage','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','FIXED','Fixed Rate Mortgage','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','OPTARM','Option ARM','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','POA','Payment Option ARM','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','INTONLY','Interest Only','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','PRIV','Privately Held Loan','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','HYBARM','Hybrid Arm','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','UNK','Homeowner does not know','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','HYBARM','Hybrid Arm','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage type code','UNK','Homeowner does not know','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('race code','1','American Indian/Alaskan Native','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('race code','2','Asian','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -271,15 +272,17 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('summary sent other code','Phone','Phone','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('summary sent other code','Multiple','Multiple Transmission Methods','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','3','3','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','5','5','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','7','7','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','10','10','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','15','15','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','20','20','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','30','30','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','40','40','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','UNK','Unknown','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','1', '1','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','3','3','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','5','5','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','7','7','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','10','10','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','15','15','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','20','20','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','30','30','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','40','40','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','UNK','Unknown','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('term length code','OTHER', 'Other','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('marital status code', 'NM', 'Never Married	','', 1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('marital status code', 'M', 'Married','', 2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -289,6 +292,7 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment code', 'EFT', 'Electronic Funds Transfer','', 2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment code', 'WIRE', 'Wire Transfer','', 3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment code', 'INTERNALTRANS', 'Internal Transfer','', 4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code', 'UTL', 'Unable to locate loan in portfolio','', 1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code', 'DOCS', 'Invalid counseling documentation','', 2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code', 'PIF', 'Paid in full prior to counseling','', 3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -298,7 +302,8 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code', 'FRED', 'Freddie Mac loan','', 7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code', 'DUPE', 'Previously paid/Duplicate','', 8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code','FREDDUP','Freddie Previously paid/Duplicate','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code','NFMCDUP','NFMC Previously paid/Duplicate','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code','NFMCDUPEIN','NFMC Previously Paid/Duplicate In-Network','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('payment reject reason code','NFMCDUPEOUT','NFMC Previously Paid/Duplicate Out-of-Network','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('never bill reason code', 'BOGUS', 'Obviously bogus session','', 1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('never bill reason code', 'TEST', 'Test session','', 2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -413,7 +418,7 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('secure delivery method code','NOSEND', 'Do Not Send','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('secure delivery method code','PORTAL', 'HPF Portal', '',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('secure delivery method code','SEMAIL', 'Secure Email','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('secure delivery method code','SECEMAIL', 'Secure Email','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('billing export format code', 'FIS', 'Fidelity New Invoice', '',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('billing export format code', 'ICLEAR', 'First American iClear', '',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -422,15 +427,23 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('billing delivery method code', 'PORTAL', 'HPF Portal','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('takeback reason code','NFMCDUPE', 'NFMC Duplicate','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('takeback reason code','DUPE', 'Servicer Reported Dupe','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('takeback reason code','UTL', 'Unable to locate loan in portfolio','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('takeback reason code','FREDDUPE', 'FreddieMac Reported Dupe','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES('takeback reason code','NFMCDUPEIN', 'NFMC Reported Dupe In-Network','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('follow up source code','CREDITREPORT','Credit Report','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('follow up source code','HOMEOWNER','Homeowner','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('follow up source code','HPF','Home Ownership Preservation Foundation','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('follow up source code','3RDPARTY','Third Party Provider','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('follow up source code','AGENCY','Counseling Agency Network','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage program code','FHA', 'FHA - Federal Housing Administration Loan','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage program code','VA', 'VA - Veterans Administration Loan','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage program code','CONV', 'Conventional Loan','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage program code','PRIV', 'Privately Held Loan','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mortgage program code','UNK', 'Unknown Loan Program','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
 
 
 DELETE FROM menu_security;
@@ -461,29 +474,150 @@ INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, i
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (14,6,'Congressional Districts',12,'#',1);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (15,6,'Area Median Income',13,'#',1);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (16,6,'Geocode Reference',14,'#',1);
-INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (17,6,'ForeclosureDetail',15,'ForeclosureCaseInfo.aspx',0);
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (17,3,'ForeclosureDetail',1,'ForeclosureCaseInfo.aspx',0);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (18,1,'Invoice Payments',3,'InvoicePayment.aspx',1);
 
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (1,1,1,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (2,1,2,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (3,1,3,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (4,1,4,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (5,1,5,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (6,1,6,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (7,1,7,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (8,1,8,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (9,1,9,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (10,1,10,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (11,1,11,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (12,1,12,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (13,1,13,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (14,1,14,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (15,1,15,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (16,1,16,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (17,4,1,'R');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (18,4,2,'R');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (19,1,17,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (20,4,17,'R');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (21,1,18,'U');
-INSERT INTO menu_security (menu_security_id, ccrc_user_id, menu_item_id, permission_value)   VALUES (22,4,18,'R');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (1,1,1,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (2,1,2,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (3,1,3,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (4,1,4,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (5,1,5,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (6,1,6,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (7,1,7,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (8,1,8,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (9,1,9,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (10,1,10,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (11,1,11,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (12,1,12,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (13,1,13,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (14,1,14,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (15,1,15,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (16,1,16,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (17,4,1,'R');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (18,4,2,'R');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (19,1,17,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (20,4,17,'R');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (21,1,18,'U');
+INSERT INTO menu_security (menu_security_id, hpf_user_id, menu_item_id, permission_value)   VALUES (22,4,18,'R');
 
+
+Use HPF
+GO
+DECLARE	@return_value int, @po_hpf_user_id int, @today datetime, @v_menu_security_id int
+SELECT @today = getdate();
+select @v_menu_security_id = max(menu_security_id) from menu_security;
+
+-- FCView         Foreclosure Case - View Only
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'FCView', @pi_password = N'FCView', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'FCView',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 17, @pi_permission_value = 'R', @pi_hpf_user_id  = @po_hpf_user_id
+
+-- FCEdit         Foreclosure Case - Edit
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'FCEdit', @pi_password = N'FCEdit', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'FCEdit',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 17, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+
+-- FCVE           Foreclosure Case - View Only and Foreclosure Case - Edit
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'FCVE', @pi_password = N'FCVE', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'FCVE',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 17, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+
+-- ActView        Accounting - View Only
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'ActView', @pi_password = N'ActView', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'ActView',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 1, @pi_permission_value = 'R', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 2, @pi_permission_value = 'R', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 18, @pi_permission_value = 'R', @pi_hpf_user_id  = @po_hpf_user_id
+
+-- ActEdit        Accounting - Edit
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'ActEdit', @pi_password = N'ActEdit', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'ActEdit',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 1, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 2, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 18, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+
+--ACTVE          Accounting - View Only and Accounting - Edit
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'ACTVE', @pi_password = N'ACTVE', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'ACTVE',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT;
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 1, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 2, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 18, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+
+--ALL   Foreclosure Case - View Only and Foreclosure Case - Edit and Accounting - View Only and Accounting - Edit 
+EXEC	@return_value = [dbo].[hpf_hpf_user_insert]
+		@pi_user_login_id = N'ALL', @pi_password = N'ALL', @pi_active_ind = N'Y',	@pi_user_role_str_TBD = NULL,
+		@pi_fname = N'ALL',	@pi_lname = NULL,	@pi_email = NULL, @pi_phone = NULL, @pi_last_login_dt = @today,
+		@pi_create_dt = @today, @pi_create_user_id = N'Installation', @pi_create_app_name = N'SQL Studio',
+		@pi_chg_lst_dt = @today,	@pi_chg_lst_user_id = N'Installation', @pi_chg_lst_app_name = N'SQL Studio',
+		@po_hpf_user_id = @po_hpf_user_id OUTPUT
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 17, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 1, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 2, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id
+select @v_menu_security_id = @v_menu_security_id +1;
+EXEC	@return_value = [dbo].[hpf_menu_security_insert]	
+		@pi_menu_security_id = 	@v_menu_security_id , @pi_menu_item_id = 18, @pi_permission_value = 'U', @pi_hpf_user_id  = @po_hpf_user_id;
+
+UPDATE	Agency SET		NFMC_branch_num = '84096' WHERE	Agency_name = 'CCCS of Atlanta';
+UPDATE	Agency SET		NFMC_branch_num = '84095' WHERE	Agency_name = 'CCCS of San Francisco';
+UPDATE	Agency SET		NFMC_branch_num = '84289' WHERE	Agency_name = 'MMI';
+UPDATE	Agency SET		NFMC_branch_num = '84094' WHERE	Agency_name = 'NovaDebt';
+UPDATE	Agency SET		NFMC_branch_num = '84093' WHERE	Agency_name = 'Springboard';
+UPDATE	Agency SET		NFMC_branch_num = '82210' WHERE	Agency_name = 'Auriton';
+UPDATE	Agency SET		NFMC_branch_num = '84468' WHERE	Agency_name = 'By Design';
+UPDATE	Agency SET		NFMC_branch_num = '84467' WHERE	Agency_name = 'CCCS Dallas';
+UPDATE	Agency SET		NFMC_branch_num = '84466' WHERE	Agency_name = 'CCCS-Central Florida';
+UPDATE	Agency SET		NFMC_branch_num = '84469' WHERE	Agency_name = 'Greenpath';     

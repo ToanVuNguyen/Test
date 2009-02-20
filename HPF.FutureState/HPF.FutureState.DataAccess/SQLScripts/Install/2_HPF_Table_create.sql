@@ -1,9 +1,9 @@
 -- =============================================
--- Create date: 12 Feb 2009
+-- Create date: 19 Feb 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
---		Apply database changes on:  12 Feb 2009
+--		Apply database changes on:  20 Feb 2009
 --		Refer to file "DB Track changes.xls"
 -- =============================================
 USE HPF
@@ -231,11 +231,11 @@ CREATE TABLE Area_Median_Income (
   fips VARCHAR(15)    ,
   state INT    ,
   county INT    ,
-  county_name VARCHAR(30)    ,
+  county_name VARCHAR(50)    ,
   CBSASub VARCHAR(30)    ,
-  metro_area_name VARCHAR(50)    ,
+  metro_area_name VARCHAR(100)    ,
   median1999 INT    ,
-  median2008 INT    ,
+  median_income INT    NULL,
   state_name VARCHAR(20)    ,
   L50_1 INTEGER    ,
   L50_2 INTEGER    ,
@@ -262,7 +262,7 @@ CREATE TABLE Area_Median_Income (
   L80_7 INTEGER    ,
   L80_8 INTEGER    ,
   msa INTEGER    ,
-  county_town_name VARCHAR(30)    ,
+  county_town_name VARCHAR(50)    ,
   metro INT    ,
   create_dt DATETIME    NOT NULL,
   create_user_id VARCHAR(30)    NOT NULL,
@@ -286,17 +286,18 @@ CREATE TABLE Agency (
   active_ind VARCHAR(1)    ,
   hud_agency_num VARCHAR(20)    ,
   hud_agency_sub_grantee_num VARCHAR(20)    ,
-finance_contact_fname varchar(30) null,
-finance_contact_lname varchar(30) null,
-finance_phone varchar(20) null,
-finance_fax varchar(20) null,
-finance_email varchar(50) null,
-finance_addr1 varchar(50) null,
-finance_addr2 varchar(50) null,
-finance_city varchar(30) null,
-finance_state_cd varchar(15) null,
-finance_zip varchar(5) null,
-finance_zip_plus_4 varchar(4) null,
+  finance_contact_fname varchar(30) null,
+  finance_contact_lname varchar(30) null,
+  finance_phone varchar(20) null,
+  finance_fax varchar(20) null,
+  finance_email varchar(50) null,
+  finance_addr1 varchar(50) null,
+  finance_addr2 varchar(50) null,
+  finance_city varchar(30) null,
+  finance_state_cd varchar(15) null,
+  finance_zip varchar(5) null,
+  finance_zip_plus_4 varchar(4) null,
+  NFMC_branch_num varchar(30) Null,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -333,6 +334,8 @@ CREATE TABLE invoice_payment (
   pmt_dt DATETIME    ,
   pmt_cd VARCHAR(15)    ,
   pmt_amt NUMERIC(15,2)    ,
+  invoice_payment_comment varchar(300) null,
+  payment_file varchar(100) null,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -449,7 +452,7 @@ CREATE TABLE call (
   other_servicer_name VARCHAR(50)    ,
   prop_zip_full9 VARCHAR(9)    ,
   prev_agency_id INTEGER    ,
-  selected_agency_id VARCHAR(20)    ,
+  selected_agency_id  	INTEGER NULL,
   screen_rout VARCHAR(2000)    ,
   final_dispo_cd VARCHAR(15)    ,
   trans_num VARCHAR(12)    ,
@@ -475,6 +478,7 @@ PRIMARY KEY(call_id)  ,
     REFERENCES call_center(call_center_id));
 GO
 
+ALTER TABLE call ADD CONSTRAINT agency_FK1 FOREIGN KEY (selected_agency_id) REFERENCES agency(agency_id);
 
 CREATE TABLE budget_subcategory (
   budget_subcategory_id INTEGER  NOT NULL   IDENTITY ,
@@ -559,14 +563,14 @@ GO
 
 CREATE TABLE menu_security (
   menu_security_id INTEGER  NOT NULL   IDENTITY ,
-  ccrc_user_id INTEGER  NOT NULL  ,
+  hpf_user_id INTEGER  NOT NULL  ,
   menu_item_id INTEGER  NOT NULL  ,
   permission_value VARCHAR(1)  NOT NULL    ,
 PRIMARY KEY(menu_security_id)    ,
   FOREIGN KEY(menu_item_id)
     REFERENCES menu_item(menu_item_id),
-  FOREIGN KEY(ccrc_user_id)
-    REFERENCES ccrc_user(ccrc_user_id));
+  FOREIGN KEY(hpf_user_id)
+    REFERENCES hpf_user(hpf_user_id));
 GO
 
 
@@ -631,16 +635,16 @@ CREATE TABLE foreclosure_case (
   email_1 VARCHAR(50)    ,
   contact_zip_plus4 VARCHAR(4)    ,
   email_2 VARCHAR(50)    ,
-  contact_addr1 VARCHAR(50)  NOT NULL  ,
+  contact_addr1 VARCHAR(50)  	NOT NULL  ,
   contact_addr2 VARCHAR(50)    ,
-  contact_city VARCHAR(30)  NOT NULL  ,
-  contact_state_cd VARCHAR(15)  NOT NULL  ,
-  contact_zip VARCHAR(5)  NOT NULL  ,
-  prop_addr1 VARCHAR(50)    ,
+  contact_city VARCHAR(30)  	NOT NULL  ,
+  contact_state_cd VARCHAR(15)  	NOT NULL  ,
+  contact_zip VARCHAR(5)  		NOT NULL  ,
+  prop_addr1 VARCHAR(50)    	NOT NULL ,
   prop_addr2 VARCHAR(50)    ,
-  prop_city VARCHAR(30)    ,
-  prop_state_cd VARCHAR(15)    ,
-  prop_zip VARCHAR(5)    ,
+  prop_city VARCHAR(30)    		NOT NULL ,
+  prop_state_cd VARCHAR(15)    	NOT NULL ,
+  prop_zip VARCHAR(5)    		NOT NULL ,
   prop_zip_plus_4 VARCHAR(4)    ,
   bankruptcy_ind VARCHAR(1)    ,
   bankruptcy_attorney VARCHAR(50)    ,
@@ -651,7 +655,7 @@ CREATE TABLE foreclosure_case (
   borrower_occupation VARCHAR(50)    ,
   co_borrower_occupation VARCHAR(50)    ,
   hispanic_ind VARCHAR(1)    ,
-  duplicate_ind VARCHAR(1)    ,
+  duplicate_ind VARCHAR(1)    	NOT NULL ,
   fc_notice_received_ind VARCHAR(1)    ,
   completed_dt DATETIME    ,
   funding_consent_ind VARCHAR(1)  NOT NULL  ,
@@ -821,7 +825,7 @@ CREATE TABLE case_loan (
   servicer_id INTEGER  NOT NULL  ,
   other_servicer_name VARCHAR(50)    ,
   acct_num VARCHAR(30)  NOT NULL  ,
-  loan_1st_2nd_cd VARCHAR(15)    ,
+  loan_1st_2nd_cd VARCHAR(15)    NOT NULL  ,
   mortgage_type_cd VARCHAR(15)    ,
   arm_reset_ind VARCHAR(1)    ,
   term_length_cd VARCHAR(15)    ,
@@ -837,6 +841,9 @@ CREATE TABLE case_loan (
   investor_loan_num VARCHAR(30)    ,
   investor_num varchar(30) null,
  investor_name varchar(50) null,
+  changed_acct_num VARCHAR(100) NULL,
+  mortgage_program_cd varchar(15) NULL,
+  freddie_servicer_num Varchar(30) null ,
   create_dt DATETIME  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
