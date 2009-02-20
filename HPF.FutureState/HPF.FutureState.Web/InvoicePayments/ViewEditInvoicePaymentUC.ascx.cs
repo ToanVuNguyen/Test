@@ -321,7 +321,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                         throw (new Exception());
                     //if the row doesnt have a payment reject reason code, add it to the payment amount total for the file.
                     if(row[COLUMN_NAME[3]].ToString() == string.Empty)
-                        sumOfPaymentAmount += paymentAmount;
+                        sumOfPaymentAmount += pmtAmt;
                 }
                 catch
                 {
@@ -367,17 +367,19 @@ namespace HPF.FutureState.Web.InvoicePayments
             //    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
             //    throw ex;
             //}
-
+            int count = 0;
             foreach (DataColumn col in fileContent.Columns)
             {
                 int index = columnName.IndexOf(col.ColumnName);
                 if (index == -1)
                 {
-                    ExceptionMessage exMes = GetColumnExceptionMessage(col.ColumnName);
+                    ExceptionMessage exMes = GetColumnExceptionMessage(count);
                     if (exMes != null)
                         ex.ExceptionMessages.Add(exMes);
                 }
-                columnName.RemoveAt(index);
+                else
+                    columnName.RemoveAt(index);
+                count++;
             }
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
@@ -385,23 +387,23 @@ namespace HPF.FutureState.Web.InvoicePayments
         #endregion
 
         #region Get Methods
-        private ExceptionMessage GetColumnExceptionMessage(string collumName)
+        private ExceptionMessage GetColumnExceptionMessage(int columnIndex)
         {
-            if (collumName == COLUMN_NAME[0])
+            if (columnIndex == 0)
                 return GetExceptionMessage(ErrorMessages.ERR0662);
-            if (collumName == COLUMN_NAME[1])
+            if (columnIndex == 1)
                 return GetExceptionMessage(ErrorMessages.ERR0663);
-            if (collumName == COLUMN_NAME[2])
+            if (columnIndex == 2)
                 return GetExceptionMessage(ErrorMessages.ERR0664);
-            if (collumName == COLUMN_NAME[3])
+            if (columnIndex == 3)
                 return GetExceptionMessage(ErrorMessages.ERR0665);
-            if (collumName == COLUMN_NAME[4])
+            if (columnIndex == 4)
                 return GetExceptionMessage(ErrorMessages.ERR0666);
-            if (collumName == COLUMN_NAME[5])
+            if (columnIndex == 5)
                 return GetExceptionMessage(ErrorMessages.ERR0667);
-            if (collumName == COLUMN_NAME[6])
+            if (columnIndex == 6)
                 return GetExceptionMessage(ErrorMessages.ERR0668);
-            if (collumName == COLUMN_NAME[7])
+            if (columnIndex == 7)
                 return GetExceptionMessage(ErrorMessages.ERR0669);
             return null;
         }
