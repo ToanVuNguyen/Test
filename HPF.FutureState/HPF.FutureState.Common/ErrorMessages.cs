@@ -356,7 +356,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0011, "CoBorrowerMName has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0012, "CoBorrowerLast4Ssn has a maximum length of 4 characters.");
                 errorMessageDict.Add(ERR0013, "PrimaryContactNo has a maximum length of 20 characters.");
-                errorMessageDict.Add(ERR0014, "SecondContactNo has a maximum length of 4 characters.");
+                errorMessageDict.Add(ERR0014, "SecondContactNo has a maximum length of 20 characters.");
                 errorMessageDict.Add(ERR0015, "Email1 has a maximum length of 50 characters.");
                 errorMessageDict.Add(ERR0016, "Email2 has a maximum length of 50 characters.");
                 errorMessageDict.Add(ERR0017, "ContactAddr1 has a maximum length of 50 characters.");

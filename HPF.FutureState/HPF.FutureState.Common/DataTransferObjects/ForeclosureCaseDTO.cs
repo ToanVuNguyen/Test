@@ -236,10 +236,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Borrower Preferred Language Code", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerPreferredLangCd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "Borrower Occupation Code", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Borrower Occupation", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerOccupation { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "CoBorrower Occupation Code", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "CoBorrower Occupation", Ruleset = Constant.RULESET_LENGTH)]
         public string CoBorrowerOccupation { get; set; }
 
         private string hispanicInd = null;
@@ -586,6 +586,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public double? HomeSalePrice { get; set; }
 
         [XmlElement(IsNullable = true)]
+        [NullableOrInRangeNumberValidator(true, "0", "9999", Ruleset = Constant.RULESET_LENGTH)]
         public int? HomePurchaseYear { get; set; }
 
         [XmlElement(IsNullable = true)]

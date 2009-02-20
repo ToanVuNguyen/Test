@@ -116,11 +116,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Investor Number", Ruleset = Constant.RULESET_LENGTH)]
         public string InvestorNum { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "Investor Name", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrStringLengthValidator(true, 50, "Investor Name", Ruleset = Constant.RULESET_LENGTH)]
         public string InvestorName { get; set; }
 
         [StringRequiredValidator(Tag=ErrorMessages.WARN0325, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "One or more MortgageProgramCd required to complete a foreclosure case.")]
-        [NullableOrStringLengthValidator(true, 15, "Mortgage Program Code ", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0223)]
+        [NullableOrStringLengthValidator(true, 15, "Mortgage Program Code", Ruleset = Constant.RULESET_LENGTH)]
         public string MortgageProgramCd{ get; set; }
 
         [XmlIgnore]

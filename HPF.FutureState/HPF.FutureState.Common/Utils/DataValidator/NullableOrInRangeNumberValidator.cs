@@ -107,18 +107,20 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!int.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        //MessageTemplate = key + " is invalid";
+                        MessageTemplate = key + " is invalid";
                     }
                     else
-                    {
+                    {                        
                         if (lowerValue <= value && upperValue >= value)
                             isValid = true;
                         else
                         {
                             isValid = false;
-                            //MessageTemplate = string.Format("{0} is out of allowed range ", key);
+                            if (value == int.MinValue)
+                                MessageTemplate = key + " is invalid integer";                            
+                            else                                                           
+                                MessageTemplate = string.Format("{0} is out of allowed range ", key);                            
                         }
-
                     }
                 }
 

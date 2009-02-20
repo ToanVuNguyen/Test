@@ -2248,6 +2248,19 @@ namespace HPF.FutureState.BusinessLogic
                 }
             }
         }
+
+        private bool CompareString(string str1, string str2)
+        {
+            var temp1 = ConvertStringEmptyToNull(str1);
+            var temp2 = ConvertStringEmptyToNull(str2);
+            if (temp1 == null && temp2 == null)
+                return true;
+            if ((temp1 == null && temp2 != null) || (temp1 != null && temp2 == null))
+                return false;
+            if (ConvertStringToUpper(temp1) == ConvertStringToUpper(temp2))
+                return true;
+            return false;
+        }
         #endregion
 
         #endregion             
