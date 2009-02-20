@@ -39,8 +39,15 @@ namespace HPF.FutureState.Common
             {
                 return ConfigurationManager.AppSettings["REPORTSERVER_PASSWORD"];
             }
-        }     
+        }
 
-        
+        public static string SEARCH_RESULT_MAXROW
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SearchResult_MaxRow"];
+            }
+
+        }
     }
 }
