@@ -48,7 +48,7 @@
                             ItemStyle-Width="200px">            
                             <ItemStyle Width="200px" />
                         </asp:BoundField>
-                        <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+                        <%--<asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />--%>
                     </Columns>
                     <EmptyDataTemplate>
                         There is no data match !
