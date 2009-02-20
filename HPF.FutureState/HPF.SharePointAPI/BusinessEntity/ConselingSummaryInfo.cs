@@ -7,14 +7,14 @@ namespace HPF.SharePointAPI.BusinessEntity
 {
     public class ConselingSummaryInfo:BaseObject
     {
-        private int _loanNumber;
+        private string _loanNumber;
         private string _servicer;
         private DateTime _completedDate;
         private DateTime _foreclosureSaleDate;
         private string _delinquency;
         private ReviewStatus _reviewStatus;
 
-        public int LoanNumber
+        public string LoanNumber
         {
             get { return _loanNumber; }
             set { _loanNumber = value; }
@@ -52,7 +52,7 @@ namespace HPF.SharePointAPI.BusinessEntity
 
         public ConselingSummaryInfo():base() { }
         public ConselingSummaryInfo(string name, byte[] file,
-             int loanNumber, string servicer, DateTime completedDate, 
+             string loanNumber, string servicer, DateTime completedDate, 
              DateTime foreclosureSaleDate, string delinquency, ReviewStatus reviewStatus):
             base(name, file)
         {
