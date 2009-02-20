@@ -16,7 +16,7 @@
     <HudTerminationReasonCd>1</HudTerminationReasonCd>
     <HudTerminationDt>10/10/2008</HudTerminationDt>
     <HudOutcomeCd>3</HudOutcomeCd>
-    <CounselingDurationCd>31-60 minutes</CounselingDurationCd>
+    <CounselingDurationCd>30-59</CounselingDurationCd>
     <GenderCd>Female</GenderCd>
     <BorrowerFname>BorrowerFname</BorrowerFname>
     <BorrowerLname>BorrowerLname</BorrowerLname>
@@ -36,14 +36,14 @@
     <ContactAddr1>ContactAddr1</ContactAddr1>
     <ContactAddr2>ContactAddr2</ContactAddr2>
     <ContactCity>ContactCity</ContactCity>
-    <ContactStateCd>AL</ContactStateCd>
-    <ContactZip>12345</ContactZip>
+    <ContactStateCd>Ny</ContactStateCd>
+    <ContactZip>00501</ContactZip>
     <ContactZipPlus4></ContactZipPlus4>
     <PropAddr1>PropAddr1</PropAddr1>
     <PropAddr2>PropAddr2</PropAddr2>
     <PropCity>PropCity</PropCity>
-    <PropStateCd>AL</PropStateCd>
-    <PropZip>12345</PropZip>
+    <PropStateCd>ny</PropStateCd>
+    <PropZip>00501</PropZip>
     <PropZipPlus4>1234</PropZipPlus4>
     <BankruptcyInd>Y</BankruptcyInd>
     <BankruptcyAttorney>BankruptcyAttorney</BankruptcyAttorney>
@@ -63,9 +63,9 @@
     <CoBorrowerDisabledInd></CoBorrowerDisabledInd>
     <SummarySentOtherCd>Fax</SummarySentOtherCd>
     <SummarySentOtherDt>10/10/2008</SummarySentOtherDt>
-    <OccupantNum></OccupantNum>
+    <OccupantNum>aa</OccupantNum>
     <LoanDfltReasonNotes>abc</LoanDfltReasonNotes>
-    <ActionItemsNotes></ActionItemsNotes>
+    <ActionItemsNotes>AA</ActionItemsNotes>
     <FollowupNotes></FollowupNotes>
     <PrimResEstMktValue></PrimResEstMktValue>
     <AssignedCounselorIdRef>12</AssignedCounselorIdRef>
@@ -86,13 +86,13 @@
     <PrimaryResidenceInd>Y</PrimaryResidenceInd>
     <RealtyCompany></RealtyCompany>
     <PropertyCd></PropertyCd>
-    <ForSaleInd></ForSaleInd>
+    <ForSaleInd>N</ForSaleInd>
     <HomeSalePrice></HomeSalePrice>
     <HomePurchaseYear></HomePurchaseYear>
     <HomePurchasePrice></HomePurchasePrice>
     <HomeCurrentMarketValue></HomeCurrentMarketValue>
     <MilitaryServiceCd></MilitaryServiceCd>
-    <HouseholdGrossAnnualIncomeAmt></HouseholdGrossAnnualIncomeAmt>
+    <HouseholdGrossAnnualIncomeAmt>99</HouseholdGrossAnnualIncomeAmt>
     <IntakeCreditScore></IntakeCreditScore>
     <FcSaleDate></FcSaleDate>
     <WorkingUserId>Agency1</WorkingUserId>    
@@ -119,7 +119,7 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <MortgageProgramCd>MPCd</MortgageProgramCd>
+      <MortgageProgramCd>va</MortgageProgramCd>
       <InvestorName>investor name</InvestorName>
       <InvestorNum>inum</InvestorNum>
     </CaseLoan>
@@ -143,7 +143,7 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <MortgageProgramCd>MPCd</MortgageProgramCd>
+      <MortgageProgramCd>va</MortgageProgramCd>
       <InvestorName>investor name</InvestorName>
       <InvestorNum>inum</InvestorNum>
     </CaseLoan>    
