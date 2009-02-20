@@ -5,16 +5,9 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager ID="myScript" runat="server">
 </asp:ScriptManager>
-<table width="90%">
-    <colgroup>
-        <col width="10%" />
-        <col width="10%" />
-        <col width="10%" />
-        <col width="20%" />
-        <col width="50%" />
-    </colgroup>
+<table width="100%">
     <tr>
-        <td colspan="5" class="Header">
+        <td colspan="6" class="Header">
             Invoice Payments
         </td>
     </tr>
@@ -30,8 +23,10 @@
             Period Start:
         </td>
         <td>
-            <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Width="150px" MaxLength="100"></asp:TextBox>
+            <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text"  MaxLength="100"></asp:TextBox>
         </td>
+        <td>
+            &nbsp;</td>
         <td>
             &nbsp;
         </td>
@@ -45,29 +40,28 @@
             Period End:
         </td>
         <td>
-            <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtPeriodEnd" runat="server"  MaxLength="100" CssClass="Text"></asp:TextBox>
         </td>
-        <td>
-            <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List" Width="120px"
+        <td colspan="2">
+            <asp:Button ID="btnRefreshList" runat="server" Text="Search" Width="120px"
                 CssClass="MyButton" OnClick="btnRefreshList_Click" />
         </td>
     </tr>
     <tr>
-        <td colspan="5" class="ErrorMessage">
+        <td colspan="6" class="ErrorMessage">
             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
     </tr>
     <tr>
-        <td colspan="5" class="sidelinks">
+        <td colspan="6" class="sidelinks">
             Payment List:
         </td>
     </tr>
     <tr>
-        <td colspan="4">
-            
+        <td colspan="5">
             <cc1:StatefullScrollPanel ID="panInvoiceList" runat="server" CssClass="ScrollTable"
-                Width="840px">
+                Width="100%">
                 <asp:UpdatePanel ID="myUPanel" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
@@ -116,19 +110,11 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="6">
             &nbsp;
-        </td>
-        <td>
             &nbsp;
-        </td>
-        <td>
             &nbsp;
-        </td>
-        <td>
             &nbsp;
-        </td>
-        <td>
             &nbsp;
         </td>
     </tr>

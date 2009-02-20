@@ -14,15 +14,6 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices {
     public partial class AppFundingSourceInvoices {
         
         /// <summary>
-        /// lblErrorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
-        
-        /// <summary>
         /// dropFundingSource control.
         /// </summary>
         /// <remarks>
@@ -66,6 +57,15 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRefreshList;
+        
+        /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
         
         /// <summary>
         /// lblInvoiceList control.

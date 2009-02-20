@@ -14,11 +14,6 @@
         </td>
     </tr>
     <tr>
-        <td align="left" colspan="6">
-            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
-            </asp:BulletedList></td>
-    </tr>
-    <tr>
         <td align="right" class="sidelinks">
             Funding Source</td>
         <td>
@@ -54,19 +49,25 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks">
+        <td class="ErrorMessage" colspan="5">
+            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList>
+        </td>
+        <td>
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td class="sidelinks" colspan="5">
             <asp:Label ID="lblInvoiceList" runat="server" Text="Invoice List" 
                 Visible="False"></asp:Label>
         </td>
-        <td colspan="4">
-            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>
     <tr>
         <td colspan="5" rowspan="17">
         <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" 
-                 Width="800" Visible="true">
+                 Width="100%" Visible="true">
                  <asp:UpdatePanel runat="server">
                  <ContentTemplate>
                  
