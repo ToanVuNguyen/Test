@@ -5,7 +5,6 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
-    public enum AgencyPayableCaseUpdateFlag { TakebackMarkCase = 0, PayUnpayMarkCase = 1 }
     [Serializable]
     public class AgencyPayableSetDTO : BaseDTO
     {
