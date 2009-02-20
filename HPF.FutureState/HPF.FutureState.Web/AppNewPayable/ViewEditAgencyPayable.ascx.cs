@@ -87,20 +87,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     chkSelected.Checked = headerCheckbox.Checked;
             }
         }
-        protected AgencyPayableCaseDTOCollection GetDraftAgencyPayableCase()
-        {
-            AgencyPayableCaseDTOCollection agencyPayableCaseCol = new AgencyPayableCaseDTOCollection();
-            foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
-            {
-                CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
-                if (chkSelected.Checked)
-                { 
-                
-                }
-            }
-            return agencyPayableCaseCol;
-        
-        }
+       
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
             string payableCaseIdCollection = GetSelectedRow();
@@ -108,7 +95,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
             if (payableCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0577");
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
                 return;
             }
             try
@@ -119,7 +106,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                bulErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
             
@@ -133,7 +120,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
             if (payableCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0575");
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
                 return;
             }
             try
@@ -144,10 +131,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                bulErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
-            
         }
         protected string GetSelectedRow()
         {

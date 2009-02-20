@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td class="Text" colspan="8">
-                    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
+                    <asp:BulletedList ID="bulErrorMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
                 </td>
             </tr>
             <tr>
@@ -54,10 +54,8 @@
                     </asp:DropDownList>
                 </td>
                 <td align="center">
-                    <span onclick="return confirm('Are you sure you wish to reject the selected case(s)?')">
                         <asp:Button ID="btnTakeBackMarkCase" runat="server" CssClass="MyButton" Text="Takeback Marked Cases"
-                            Width="150px" OnClick="btnTakeBackMarkCase_Click" />
-                    </span>
+                           Width="150px" OnClick="btnTakeBackMarkCase_Click" OnClientClick="return confirm('Are you sure you want to change Take Back Reason the selected case(s)')" />
                 </td>
             </tr>
             <tr>
@@ -80,10 +78,8 @@
                     &nbsp;
                 </td>
                 <td align="center">
-                    <span onclick="return confirm('Are you sure you wish to pay the selected case(s)?')">
                         <asp:Button ID="btnPayUnpayMarkCase" runat="server" CssClass="MyButton" Text="Pay/Unpay Marked Cases"
-                            Width="150px" onclick="btnPayUnpayMarkCase_Click" />
-                    </span>
+                            Width="150px" onclick="btnPayUnpayMarkCase_Click" OnClientClick="return confirm('Are you sure you want to Pay/Unpay the selected case(s)')" />
                 </td>
             </tr>
             <tr>
@@ -103,10 +99,8 @@
                 <td class="Text">
                     &nbsp;</td>
                 <td align="center">
-                    <span onclick="return confirm('Are you sure you wish to unpay the selected case(s)?')">
                         <asp:Button ID="btnReprintPayable" runat="server" CssClass="MyButton" Text="Reprint Payable"
                             Width="150px" />
-                    </span>
                 </td>
             </tr>
             <tr>

@@ -62,15 +62,12 @@ namespace HPF.FutureState.Web
                     lblErrorMessage.Text += " <br>";
                 }
                 ExceptionProcessor.HandleException(ex);
-
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Text += ex.Message;
                 ExceptionProcessor.HandleException(ex);
             }
-           
-
         }
 
         private void BindForeclosureCaseToUI(ForeclosureCaseDTO ForeclosureCase)
@@ -103,7 +100,6 @@ namespace HPF.FutureState.Web
                     if (i.AgencyID == agencyID.ToString())
                         return i.AgencyName;
                 }
-                
             }
             catch (Exception ex)
             {
@@ -112,9 +108,13 @@ namespace HPF.FutureState.Web
             }
             return string.Empty;
         }
-
+        //display message when you click out casedetail tab
         void tabControl_TabClick(object sender, HPF.FutureState.Web.HPFWebControls.TabControlEventArgs e)
         {
+            if (e.SelectedTabID != "caseDetail")
+            {
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"Confirm","<script language='javascript'>confirm('Are you ok?')</script>");
+            }
             switch (e.SelectedTabID)
             { 
                 case "caseDetail":

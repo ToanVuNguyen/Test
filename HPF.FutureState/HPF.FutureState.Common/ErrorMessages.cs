@@ -581,7 +581,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
 
                 //view edit payable page
-                errorMessageDict.Add(ERR0575, "will be update soon");
+                errorMessageDict.Add(ERR0575, "Please select at least a row");
                 errorMessageDict.Add(WARN0576, "will be update soon");
                 errorMessageDict.Add(ERR0577, "will be update soon");
                 errorMessageDict.Add(WARN0577, "will be update soon");

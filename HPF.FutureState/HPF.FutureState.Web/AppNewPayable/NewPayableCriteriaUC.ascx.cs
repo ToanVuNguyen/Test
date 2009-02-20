@@ -83,7 +83,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -111,6 +111,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnDraftNewPayable_Click(object sender, EventArgs e)
         {
+            bulMessage.Items.Clear();
             try
             {
                 string query = GetQueryString();
@@ -118,27 +119,53 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (DataValidationException ex)
             {
-                for (int i = 0; i < ex.ExceptionMessages.Count; i++)
+                foreach(var mes in ex.ExceptionMessages)
                 {
-                    lblMessage.Text += ex.ExceptionMessages[i].Message;
+                    bulMessage.Items.Add(new ListItem(mes.Message));
                 }
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
                 
             }
         }
+        private ExceptionMessage GetExceptionMess(string Code)
+        {
+            ExceptionMessage ex = new ExceptionMessage();
+            ex.ErrorCode = Code;
+            ex.Message = ErrorMessages.GetExceptionMessageCombined(Code);
+            return ex;
+        }
         //get all criterias pass to next page.
         private string GetQueryString()
         {
+            DataValidationException ex = new DataValidationException();
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             agencyPayableSearchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlCaseCompleted.SelectedValue.ToString());
-            agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
-            agencyPayableSearchCriteria.PeriodEndDate = Convert.ToDateTime(txtPeriodEnd.Text.Trim());
+            try
+            {
+                agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
+            }
+            catch 
+            {
+                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0997);
+                ex.ExceptionMessages.Add(exmsg);
+            }
+            try
+            {
+                agencyPayableSearchCriteria.PeriodEndDate = Convert.ToDateTime(txtPeriodEnd.Text.Trim());
+            }
+            catch
+            {
+                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0996);
+                ex.ExceptionMessages.Add(exmsg);
+            }
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
             if (ChkInclude.Checked)// return true or false
                 agencyPayableSearchCriteria.Indicator = 1;
             else agencyPayableSearchCriteria.Indicator = 0;
