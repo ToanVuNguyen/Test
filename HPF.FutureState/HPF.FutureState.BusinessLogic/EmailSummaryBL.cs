@@ -130,12 +130,21 @@ namespace HPF.FutureState.BusinessLogic
         {
             ExceptionMessageCollection errorCollection = new ExceptionMessageCollection();
 
-
-            if (sendSummary.EmailToAddress.Trim().Length == 0)
+            if (sendSummary.EmailToAddress == null)
                 errorCollection.AddExceptionMessage("ERR495", "The EmailToAddress cannot be null or empty.");
+            else
+            {
+                if (sendSummary.EmailToAddress.Trim().Length == 0)
+                    errorCollection.AddExceptionMessage("ERR495", "The EmailToAddress cannot be null or empty.");
+            }
 
-            if (sendSummary.SenderId.Trim().Length == 0)
+            if (sendSummary.SenderId == null)
                 errorCollection.AddExceptionMessage("ERR496", "The SenderId cannot be null or empty.");
+            else
+            {
+                if (sendSummary.SenderId.Trim().Length == 0)
+                    errorCollection.AddExceptionMessage("ERR496", "The SenderId cannot be null or empty.");
+            }
 
             if (foreclosureCase == null)
                 errorCollection.AddExceptionMessage("ERR497", "The FCId supplied is invalid, no foreclosure case found.");
