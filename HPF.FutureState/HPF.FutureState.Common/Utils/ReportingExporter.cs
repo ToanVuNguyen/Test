@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
@@ -26,7 +26,7 @@ namespace HPF.FutureState.Common.Utils
         public ReportingExporter()
         {
             _Parameter = new Dictionary<string, string>();
-            _ReportServer = HPFConfigurationSettting.REPORTSERVER_URL;
+            _ReportServer = HPFConfigurationSettings.REPORTSERVER_URL;
         }
         /// <summary>
         /// Export report to Pdf format.
@@ -78,7 +78,7 @@ namespace HPF.FutureState.Common.Utils
 
         private static WebClient GetWebClient()
         {
-            var configLoginName = HPFConfigurationSettting.REPORTSERVER_LOGINNAME;
+            var configLoginName = HPFConfigurationSettings.REPORTSERVER_LOGINNAME;
             var loginNameDomain = configLoginName.Split('\\');
             var credentials = new NetworkCredential();
             if (loginNameDomain.Length > 1)
@@ -89,7 +89,7 @@ namespace HPF.FutureState.Common.Utils
             else
                 credentials.UserName = configLoginName;
             //
-            credentials.Password = HPFConfigurationSettting.REPORTSERVER_PASSWORD;
+            credentials.Password = HPFConfigurationSettings.REPORTSERVER_PASSWORD;
 
             return new WebClient
                        {
@@ -109,7 +109,7 @@ namespace HPF.FutureState.Common.Utils
 
         private string GetReportUrl(string renderFormat)
         {
-            var newReportPath = HPFConfigurationSettting.SHAREPOINT_REPORT_LIBRARY + ReportPath + ".rdl";
+            var newReportPath = HPFConfigurationSettings.SHAREPOINT_REPORT_LIBRARY + ReportPath + ".rdl";
             //
             var url = _ReportServer + "/?" + newReportPath + "&rs:Command=Render&rs:Format={0}{1}";
             //

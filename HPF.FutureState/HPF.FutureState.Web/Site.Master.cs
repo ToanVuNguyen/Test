@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using HPF.FutureState.Common;
 using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.Web
@@ -21,7 +22,7 @@ namespace HPF.FutureState.Web
             //Admin
             MenuBarControl.UserId = HPFWebSecurity.CurrentIdentity.UserId;
             lblUserName.Text = HPFWebSecurity.CurrentIdentity.DisplayName;
-            lblVersion.Text = ConfigurationManager.AppSettings["HPFVersion"];
+            lblVersion.Text = HPFConfigurationSettings.HPF_VERSION;
         }
     }
 }

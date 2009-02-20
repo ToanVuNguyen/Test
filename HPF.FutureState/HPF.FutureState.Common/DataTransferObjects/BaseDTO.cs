@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -38,10 +38,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             CreateUserId = userId;
             CreateDate = DateTime.Today;
-            CreateAppName = GetApplicationName();
+            CreateAppName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
             ChangeLastDate = DateTime.Today;
             ChangeLastUserId = userId;
-            ChangeLastAppName = GetApplicationName();
+            ChangeLastAppName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
         }
 
         /// <summary>
@@ -53,12 +53,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             ChangeLastDate = DateTime.Today;
             ChangeLastUserId = userId;
-            ChangeLastAppName = GetApplicationName();
+            ChangeLastAppName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
         }
 
         private static string GetApplicationName()
         {
-            return ConfigurationManager.AppSettings["HPFApplicationName"];
+            return HPFConfigurationSettings.HPF_APPLICATION_NAME;
         }        
     }
 }

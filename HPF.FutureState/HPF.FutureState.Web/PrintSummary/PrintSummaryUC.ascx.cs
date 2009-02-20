@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
@@ -45,12 +45,12 @@ namespace HPF.FutureState.Web.PrintSummary
 
         private void SetReportServerUrl()
         {
-            ReportViewerPrintSummary.ServerReport.ReportServerUrl = new Uri(HPFConfigurationSettting.REPORTSERVER_URL);
+            ReportViewerPrintSummary.ServerReport.ReportServerUrl = new Uri(HPFConfigurationSettings.REPORTSERVER_URL);
         }
 
         private void SetReportPath()
         {
-            ReportViewerPrintSummary.ServerReport.ReportPath = HPFConfigurationSettting.SHAREPOINT_REPORT_LIBRARY +
+            ReportViewerPrintSummary.ServerReport.ReportPath = HPFConfigurationSettings.SHAREPOINT_REPORT_LIBRARY +
                                                                @"/HPF_Report/rpt_CounselingSummary" +
                                                                ".rdl";
         }
@@ -79,8 +79,8 @@ namespace HPF.FutureState.Web.PrintSummary
         
         public ReportViewerCredential()
         {
-            this.Password = HPFConfigurationSettting.REPORTSERVER_PASSWORD;
-            string username_domain = HPFConfigurationSettting.REPORTSERVER_LOGINNAME;
+            this.Password = HPFConfigurationSettings.REPORTSERVER_PASSWORD;
+            string username_domain = HPFConfigurationSettings.REPORTSERVER_LOGINNAME;
             var DomainUser = username_domain.Split('\\');
             if (username_domain.Contains(@"\"))
             {

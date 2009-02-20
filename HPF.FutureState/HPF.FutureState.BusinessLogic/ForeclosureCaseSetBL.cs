@@ -74,7 +74,7 @@ namespace HPF.FutureState.BusinessLogic
                 //Log
                 Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
                 //Send E-mail to support
-                var hpfSupportEmail = ConfigurationManager.AppSettings["HPF_SUPPORT_EMAIL"];
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
                 var mail = new HPFSendMail
                 {
                     To = hpfSupportEmail,

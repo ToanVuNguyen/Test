@@ -11,7 +11,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         private string _servicer;
         private DateTime _completedDate;
         private DateTime _foreclosureSaleDate;
-        private Delinquency _delinquency;
+        private string _delinquency;
         private ReviewStatus _reviewStatus;
 
         public int LoanNumber
@@ -38,7 +38,7 @@ namespace HPF.SharePointAPI.BusinessEntity
             set { _foreclosureSaleDate = value; }
         }
 
-        public Delinquency Delinquency
+        public string Delinquency
         {
             get { return _delinquency; }
             set { _delinquency = value; }
@@ -50,7 +50,10 @@ namespace HPF.SharePointAPI.BusinessEntity
             set { _reviewStatus = value; }
         }
 
-        public ConselingSummaryInfo():base() { }
+        public ConselingSummaryInfo():base()
+        {
+            _reviewStatus = ReviewStatus.PendingReview;
+        }
         public ConselingSummaryInfo(string name, byte[] file,
              int loanNumber, string servicer, DateTime completedDate, 
              DateTime foreclosureSaleDate, Delinquency delinquency, ReviewStatus reviewStatus):

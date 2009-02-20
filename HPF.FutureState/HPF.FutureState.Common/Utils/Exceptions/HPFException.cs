@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         private void Initialize()
         {
-            ApplicationName = ConfigurationManager.AppSettings["HPFApplicationName"];
+            ApplicationName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
             AgencyId = string.Empty;
             CallCenterId = string.Empty;
             UserName = string.Empty;

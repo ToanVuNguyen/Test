@@ -34,7 +34,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         //total records in one page, get this info from web config
         protected int PageSize
         {
-            get { return (int.Parse(ConfigurationManager.AppSettings["pagesize"])); }
+            get { return (int.Parse(HPFConfigurationSettings.APP_FORECLOSURECASE_PAGE_SIZE)); }
         }
         //total rows of search data
         protected double TotalRowNum
