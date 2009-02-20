@@ -282,7 +282,7 @@ namespace HPF.FutureState.DataAccess
                         item.CounselorExt = ConvertToString(reader["counselor_ext"]);
                         item.CounselorEmail = ConvertToString(reader["counselor_email"]);
                         item.CompletedDt = ConvertToDateTime(reader["completed_dt"]);
-                        item.DelinquentCd = Show1STCodeOnly(ConvertToString(reader["Delinquent_cd"]));
+                        item.DelinquentCd = Show1STCodeOnly(ConvertToString(reader["Delinquent_cd"]), ConvertToString(reader["loan_1st_2nd_cd"]));
                         item.BankruptcyInd = ConvertToString(reader["bankruptcy_ind"]);
                         item.FcNoticeReceivedInd = ConvertToString(reader["fc_notice_received_ind"]);
                         item.LoanNumber = ConvertToString(reader["loan_number"]);
@@ -324,9 +324,9 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(ParsingAgencyCaseNumber(searchCriteria.AgencyCaseNumber));
             whereClause.Append(ParsingFirstName(searchCriteria.FirstName));
             whereClause.Append(ParsingLastName(searchCriteria.LastName));
-            whereClause.Append((searchCriteria.Last4_SSN == null) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
-            whereClause.Append((searchCriteria.LoanNumber == null) ? "" : " AND case_loan.acct_num = @pi_loan_number");
-            whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND prop_zip = @pi_prop_zip");
+            whereClause.Append((string.IsNullOrEmpty(searchCriteria.Last4_SSN)) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
+            whereClause.Append((string.IsNullOrEmpty(searchCriteria.LoanNumber)) ? " AND case_loan.loan_1st_2nd_cd = '1st'" : " AND case_loan.acct_num = @pi_loan_number");
+            whereClause.Append((string.IsNullOrEmpty(searchCriteria.PropertyZip)) ? "" : " AND prop_zip = @pi_prop_zip");
             
             return whereClause.ToString();
         }
@@ -362,12 +362,11 @@ namespace HPF.FutureState.DataAccess
             return false;
         }
 
-        private string Show1STCodeOnly(string delinquentCd)
+        private string Show1STCodeOnly(string delinquentCd, string loan_1st_2nd)
         {
-            if (string.IsNullOrEmpty(delinquentCd))
+            if (string.IsNullOrEmpty(loan_1st_2nd))
                 return string.Empty;
-            return (delinquentCd == DELINQUENT_CODE_1ST) ? DELINQUENT_CODE_1ST : string.Empty;
-                 
+            return (loan_1st_2nd == DELINQUENT_CODE_1ST) ? delinquentCd : string.Empty;
         }
         private string GetCounseledProperty(DateTime? completedDt)
         {
