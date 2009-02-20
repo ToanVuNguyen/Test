@@ -112,7 +112,6 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            return false;
         }
 
         public bool InstateOutcomeItem(OutcomeItemDTO outcomeItem)
@@ -144,7 +143,6 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            return false;
         }
     }
 }
