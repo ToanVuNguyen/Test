@@ -8,6 +8,16 @@ namespace HPF.FutureState.Common
 {
     public static class HPFConfigurationSettings
     {
+        public static string HPF_DB_CONNECTION_STRING
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString;
+            }
+        }
+
+        
+
         //
         public static string SHAREPOINT_REPORT_LIBRARY
         {

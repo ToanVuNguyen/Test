@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -12,7 +13,7 @@ namespace HPF.FutureState.DataAccess
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString;
+                return HPFConfigurationSettings.HPF_DB_CONNECTION_STRING;
             }
         }
 
