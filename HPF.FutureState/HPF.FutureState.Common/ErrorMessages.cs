@@ -455,7 +455,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0124, "The PrimaryResidenceInd is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0125, "A ChgLstUserId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0126, "At least one loan is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0127, "One or more of your loans is missing a ServicerID.");
+                errorMessageDict.Add(ERR0127, "A ServicerId is require for Loan: {0}");
                 errorMessageDict.Add(ERR0128, "One or more of your loans is missing a Loan Num.");
                 errorMessageDict.Add(ERR0129, "An OutcomeTypeID is required to save a foreclosure case.");
 

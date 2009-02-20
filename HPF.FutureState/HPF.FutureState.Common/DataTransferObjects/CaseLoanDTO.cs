@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? FcId { get; set; }
 
         [XmlElement(IsNullable = true)]        
-        [RequiredObjectValidator(Tag = ErrorMessages.ERR0127, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        //[RequiredObjectValidator(Tag = ErrorMessages.ERR0127, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int? ServicerId { get; set; }
 
         [XmlIgnore]
@@ -53,7 +53,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
-        [StringRequiredValidator(Tag = ErrorMessages.WARN0320, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        //[StringRequiredValidator(Tag = ErrorMessages.WARN0320, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Loan 1st 2nd ", Ruleset = Constant.RULESET_LENGTH)]
         public string Loan1st2nd { get; set; }
 

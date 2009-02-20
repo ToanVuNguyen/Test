@@ -551,34 +551,38 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection ValidateFieldsCaseLoanItem(CaseLoanDTOCollection caseLoanDTOCollection,string ruleSet)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
+            //If caseLoan wasn't submitted by agency
+            //Throw Error0126
             if ((caseLoanDTOCollection == null || caseLoanDTOCollection.Count < 1) && ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
             {
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0126, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0126));
                 return msgFcCaseSet;
             }
-            int? servicerId = FindServicerIDWithNameIsOther();            
-            foreach (CaseLoanDTO item in caseLoanDTOCollection)
+            //If caseLoan not null 
+            //Check validate
+            int? servicerId = FindServicerIDWithNameIsOther();                        
+            for (int i = 0; i < caseLoanDTOCollection.Count; i++)
             {
+                var item = caseLoanDTOCollection[i];
                 ExceptionMessageCollection ex = HPFValidator.ValidateToGetExceptionMessage(item, ruleSet);
-                if (ex.Count > 0)
+                if (ex.Count != 0)
                 {
-                    msgFcCaseSet.Add(ex);
-                    break;
-                }
-            }
-
-            if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
-            {
-                for (int i = 0; i < caseLoanDTOCollection.Count; i++)
-                { 
-                    var item = caseLoanDTOCollection[i];
-                    ExceptionMessageCollection msgOther = CheckOtherFieldCaseLoanForPartial(servicerId, item, i);
-                    if (msgOther.Count > 0)
+                    for (int j = 0; j < ex.Count; j++)
                     {
-                        msgFcCaseSet.Add(msgOther);
-                        break;
+                        var exItem = ex[j];
+                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on case loan index " + (i + 1));
                     }
-                }                
+                }
+                if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
+                {
+                    if (item.ServicerId == null)
+                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0127, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0127, item.AcctNum));
+                    if (CompareString(item.Loan1st2nd , null))
+                        msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A Loan1st2nd is required to save a foreclosure case working on case loan index " + (i + 1));
+                    if(i == 0)
+                        msgFcCaseSet.Add(CheckAtLeastFirstMortgages(caseLoanDTOCollection));
+                    msgFcCaseSet.Add(CheckOtherFieldCaseLoanForPartial(servicerId, item, i));                        
+                }
             }            
             return msgFcCaseSet;
         }
@@ -596,6 +600,26 @@ namespace HPF.FutureState.BusinessLogic
                || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_INTONLY) 
                && ConvertStringEmptyToNull(item.ArmResetInd) == null)
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A ArmResetInd is required to save a foreclosure case working on case loan index " + (i + 1));
+            return msgFcCaseSet;
+        }
+
+        /// <summary>
+        /// Check have least 1st in case loan collection
+        /// </summary>
+        /// <param name="caseLoan"></param>
+        /// <returns></returns>
+        private ExceptionMessageCollection CheckAtLeastFirstMortgages(CaseLoanDTOCollection caseLoan)
+        {
+            int count = 0;
+            var msgFcCaseSet = new ExceptionMessageCollection();
+            foreach (CaseLoanDTO item in caseLoan)
+            {
+                if (ConvertStringToUpper(item.Loan1st2nd) == Constant.LOAN_1ST)
+                    count = count + 1;
+            }
+            if (count == 0)
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have Loan1st2nd Code with 1st value");
+            
             return msgFcCaseSet;
         }
 
@@ -814,7 +838,7 @@ namespace HPF.FutureState.BusinessLogic
             //Cannot Un-complete a Previously Completed Case
             msgFcCaseSet.Add(CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete));
             //Two First Mortgages Not Allowed in a Case AND Case Loan must have atleast 1st (If case completed)
-            msgFcCaseSet.Add(CheckFirstMortgages(foreclosureCaseSet, caseComplete));
+            msgFcCaseSet.Add(CheckFirstMortgages(foreclosureCaseSet));
             //Cannot resubmit the case complete without billable outcome
             msgFcCaseSet.Add(CheckBillableOutCome(foreclosureCaseSet, caseComplete));
             //Budget Item must have atleast 1 budget_item = 'Mortgage Amount'.(If case completed)
@@ -898,7 +922,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Case 2: Two First Mortgages Not Allowed in a Case         
         /// return TRUE if have Error
         /// </summary>
-        private ExceptionMessageCollection CheckFirstMortgages(ForeclosureCaseSetDTO foreclosureCaseSetInput, bool caseComplete)
+        private ExceptionMessageCollection CheckFirstMortgages(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
             int count = 0;
             CaseLoanDTOCollection caseLoan = foreclosureCaseSetInput.CaseLoans;
@@ -907,14 +931,9 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (ConvertStringToUpper(item.Loan1st2nd) == Constant.LOAN_1ST)                
                     count = count + 1;                
-            }
-            if(count == 0)
-                WarningMessage.AddExceptionMessage("UNKNOWN", "To be complete, atleast 1 mortgage with loan_1st_2nd_cd = '1st' is required.");
+            }            
             if(count > 1)
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0256, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0256));
-            if (caseComplete && count == 0)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have Loan_1st_2nd with 1st value");
-            
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0256, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0256));                        
             return msgFcCaseSet;
         }
 
