@@ -50,7 +50,10 @@ namespace HPF.SharePointAPI.BusinessEntity
             set { _reviewStatus = value; }
         }
 
-        public ConselingSummaryInfo():base() { }
+        public ConselingSummaryInfo():base()
+        {
+            _reviewStatus = Enum.ReviewStatus.PendingReview;
+        }
         public ConselingSummaryInfo(string name, byte[] file,
              string loanNumber, string servicer, DateTime completedDate, 
              DateTime foreclosureSaleDate, string delinquency, ReviewStatus reviewStatus):

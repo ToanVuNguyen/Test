@@ -225,8 +225,8 @@
     <Compile Include="Utils\Exceptions\HPFTextExceptionFormatter.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
     <Compile Include="Utils\HPFSendMail.cs" />
-    <Compile Include="Utils\HPFSharepointGateway.cs" />
-    <Compile Include="Utils\HPFSharepointSummary.cs" />
+    <Compile Include="Utils\HPFPortalGateway.cs" />
+    <Compile Include="Utils\HPFPortalConselingSummary.cs" />
     <Compile Include="Utils\HPFSummaryQueue.cs" />
     <Compile Include="Utils\HPFSummaryQueueEntry.cs" />
     <Compile Include="Utils\ReportingExporter.cs" />
@@ -237,6 +237,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HPF.SharePointAPI\HPF.SharePointAPI.csproj">
+      <Project>{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}</Project>
+      <Name>HPF.SharePointAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

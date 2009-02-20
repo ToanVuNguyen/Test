@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Text;
 using HPF.FutureState.Common;
@@ -74,7 +73,6 @@ namespace HPF.FutureState.BusinessLogic
             var servicers = GetServicerbyFcId(fc_id);
             var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
             //</Prepare data>           
-
             //Send summary
             switch (primaryServicer.SecureDeliveryMethodCd)
             {
@@ -84,8 +82,7 @@ namespace HPF.FutureState.BusinessLogic
                 case Constant.SECURE_DELIVERY_METHOD_PORTAL:
                     SendSummaryToHPFPortal(foreclosureCase, primaryServicer, caseLoan);
                     break;
-            }
-            
+            }            
             //Update Summary sent datetime if any
             if (primaryServicer.SecureDeliveryMethodCd != Constant.SECURE_DELIVERY_METHOD_NOSEND)
             {
@@ -93,18 +90,44 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Send ConselingSummary Mail to Servicer
+        /// </summary>
+        /// <param name="foreclosureCase"></param>
+        /// <param name="servicer"></param>
+        /// <param name="caseLoan"></param>
         private static void SendSummaryMailToServicer(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
         {
             var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
             EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail,
                                                            attachmentFileName);
         }
-
-        private static void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
+        /// <summary>
+        /// Send ConselingSummary information to HPF Portal.
+        /// </summary>
+        /// <param name="foreclosureCase"></param>
+        /// <param name="servicer"></param>
+        /// <param name="caseLoan"></param>
+        private void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
         {
-            HPFSharepointGateway.SendSummary(new HPFSharepointSummary());
+            var hpfSharepointSummary = new HPFPortalConselingSummary
+                                           {
+                                               ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
+                                               LoanNumber = caseLoan.AcctNum,
+                                               CompletedDate = foreclosureCase.CompletedDt.Value,
+                                               ForeclosureSaleDate = foreclosureCase.FcSaleDate.Value,
+                                               Servicer = servicer.ServicerName,
+                                               Delinquency = caseLoan.LoanDelinqStatusCd
+                                           };
+            HPFPortalGateway.SendSummary(hpfSharepointSummary);
         }
-        
+
+        /// <summary>
+        /// Build Pdf file name to attach to the e-mail that will be sent to servicer.
+        /// </summary>
+        /// <param name="foreclosureCase"></param>
+        /// <param name="caseLoan"></param>
+        /// <returns></returns>
         private static string BuildPdfAttachmentFileName(ForeclosureCaseDTO foreclosureCase, CaseLoanDTO caseLoan)
         {            
             var pdfFile = new StringBuilder();            
