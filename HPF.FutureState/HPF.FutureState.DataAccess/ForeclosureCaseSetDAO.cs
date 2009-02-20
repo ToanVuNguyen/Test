@@ -264,7 +264,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[103];
+                var sqlParam = new SqlParameter[104];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -361,13 +361,14 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[93] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
                 sqlParam[94] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
                 sqlParam[95] = new SqlParameter("@pi_Intake_credit_bureau_cd ", NullableString(foreclosureCase.IntakeCreditBureauCd));
-                sqlParam[96] = new SqlParameter("@pi_create_dt", NullableDateTime(foreclosureCase.CreateDate));
-                sqlParam[97] = new SqlParameter("@pi_create_user_id", foreclosureCase.CreateUserId);
-                sqlParam[98] = new SqlParameter("@pi_create_app_name", foreclosureCase.CreateAppName);
-                sqlParam[99] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
-                sqlParam[100] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
-                sqlParam[101] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
-                sqlParam[102] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output };                
+                sqlParam[96] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
+                sqlParam[97] = new SqlParameter("@pi_create_dt", NullableDateTime(foreclosureCase.CreateDate));
+                sqlParam[98] = new SqlParameter("@pi_create_user_id", foreclosureCase.CreateUserId);
+                sqlParam[99] = new SqlParameter("@pi_create_app_name", foreclosureCase.CreateAppName);
+                sqlParam[100] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
+                sqlParam[101] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
+                sqlParam[102] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
+                sqlParam[103] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
@@ -727,7 +728,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[102];
+                var sqlParam = new SqlParameter[103];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -826,10 +827,11 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[95] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
                 sqlParam[96] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
                 sqlParam[97] = new SqlParameter("@pi_Intake_credit_bureau_cd ", foreclosureCase.IntakeCreditBureauCd);
-                sqlParam[98] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
-                sqlParam[99] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
-                sqlParam[100] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
-                sqlParam[101] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);                
+                sqlParam[98] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
+                sqlParam[99] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
+                sqlParam[100] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
+                sqlParam[101] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
+                sqlParam[102] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId); 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
