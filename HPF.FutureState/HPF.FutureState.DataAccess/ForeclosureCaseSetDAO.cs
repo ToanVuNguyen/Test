@@ -374,7 +374,7 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;            
                 command.Transaction = this.trans;            
                 command.ExecuteNonQuery();                
-                foreclosureCase.FcId = ConvertToInt(sqlParam[102].Value);
+                foreclosureCase.FcId = ConvertToInt(sqlParam[103].Value);
             }
             catch (Exception Ex)
             {                
