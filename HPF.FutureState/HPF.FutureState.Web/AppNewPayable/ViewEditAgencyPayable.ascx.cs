@@ -38,6 +38,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             ddlTakebackReason.DataBind();
             //add blank to first item in ddl
             ddlTakebackReason.Items.Insert(0, new ListItem("","-1"));
+            ddlTakebackReason.Items.FindByText("").Selected = true;
+            //ddlTakebackReason.sel
         }
         protected void BindViewEditPayable()
         {
@@ -90,6 +92,7 @@ namespace HPF.FutureState.Web.AppNewPayable
        
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
+            bulErrorMessage.Items.Clear();
             string payableCaseIdCollection = GetSelectedRow();
 
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
@@ -114,6 +117,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void btnTakeBackMarkCase_Click(object sender, EventArgs e)
         {
 
+            bulErrorMessage.Items.Clear();
             string payableCaseIdCollection = GetSelectedRow();
             string takebackReason = ddlTakebackReason.SelectedItem.Text;
 
