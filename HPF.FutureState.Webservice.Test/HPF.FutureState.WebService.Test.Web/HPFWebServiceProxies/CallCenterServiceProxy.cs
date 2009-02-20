@@ -566,8 +566,6 @@ namespace HPF.Webservice.CallCenter
 
         private string loanServicerField;
 
-        private string caseLoanIDField;
-
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> FcId
@@ -906,19 +904,6 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.loanServicerField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string CaseLoanID
-        {
-            get
-            {
-                return this.caseLoanIDField;
-            }
-            set
-            {
-                this.caseLoanIDField = value;
             }
         }
     }

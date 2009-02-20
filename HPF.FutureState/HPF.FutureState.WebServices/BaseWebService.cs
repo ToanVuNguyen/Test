@@ -36,7 +36,7 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())                
                 {                    
                     int pageSize;
-                    if (!int.TryParse(ConfigurationManager.AppSettings["SearchResult_MaxRow"], out pageSize))
+                    if (!int.TryParse(HPFConfigurationSettting.SEARCH_RESULT_MAXROW, out pageSize))
                         pageSize = 50;
 
                     var results = ForeclosureCaseSetBL.Instance.SearchForeclosureCase(request.SearchCriteria, pageSize);

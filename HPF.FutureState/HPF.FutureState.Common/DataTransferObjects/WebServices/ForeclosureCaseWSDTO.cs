@@ -28,7 +28,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string CounselorEmail { get; set; }
         [XmlElement(IsNullable = true)]
 		public DateTime? CompletedDt { get; set; }
-		//-- ref_code_itemcode_desc as delinquent_dt { get; set; } -- table ref_code_item
         public string BankruptcyInd { get; set; }
         public string FcNoticeReceivedInd { get; set; }
         public string AgencyCaseNum { get; set; }
