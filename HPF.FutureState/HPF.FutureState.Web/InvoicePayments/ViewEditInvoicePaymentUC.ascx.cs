@@ -367,19 +367,19 @@ namespace HPF.FutureState.Web.InvoicePayments
             //    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
             //    throw ex;
             //}
-            int count = 0;
+            int columnIndex = 0;
             foreach (DataColumn col in fileContent.Columns)
             {
                 int index = columnName.IndexOf(col.ColumnName);
                 if (index == -1)
                 {
-                    ExceptionMessage exMes = GetColumnExceptionMessage(count);
+                    ExceptionMessage exMes = GetColumnExceptionMessage(columnIndex);
                     if (exMes != null)
                         ex.ExceptionMessages.Add(exMes);
                 }
                 else
                     columnName.RemoveAt(index);
-                count++;
+                columnIndex++;
             }
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
