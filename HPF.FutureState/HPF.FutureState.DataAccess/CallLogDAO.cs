@@ -369,13 +369,14 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    servicer = new ServicerDTO();
+                    
                     int? servicerId = 0;
                     while (reader.Read())
                     {
                         servicerId = ConvertToInt(reader["servicer_id"]);
                         if (servicerId.HasValue && servicerId.Value == aCallLog.ServicerId)
                         {
+                            servicer = new ServicerDTO();
                             servicer.ServicerID = aCallLog.ServicerId;
                             servicer.ServicerName = ConvertToString(reader["servicer_name"]);
                             break;

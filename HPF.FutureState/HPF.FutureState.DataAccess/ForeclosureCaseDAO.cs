@@ -342,7 +342,7 @@ namespace HPF.FutureState.DataAccess
         {
             if (!string.IsNullOrEmpty(s))
                 s = ContainingSQLSpecialCharacter(s) ? " AND (borrower_fname like @pi_borrower_fname  ESCAPE '/' OR co_borrower_fname like @pi_borrower_fname  ESCAPE '/')"
-                                                    : " AND (borrower_fname = @pi_borrower_fname OR co_borrower_fname = @pi_borrower_fname)";
+                                                    : " AND (borrower_fname like @pi_borrower_fname OR co_borrower_fname like @pi_borrower_fname)";
             return s;
         }
 
@@ -350,7 +350,7 @@ namespace HPF.FutureState.DataAccess
         {
             if (!string.IsNullOrEmpty(s))
                 s = ContainingSQLSpecialCharacter(s) ? " AND (borrower_lname like @pi_borrower_lname  ESCAPE '/' OR co_borrower_lname like @pi_borrower_lname  ESCAPE '/')"
-                                                    : " AND (borrower_lname = @pi_borrower_lname OR co_borrower_lname = @pi_borrower_lname)";
+                                                    : " AND (borrower_lname like @pi_borrower_lname OR co_borrower_lname like @pi_borrower_lname)";
             return s;
         }
 
