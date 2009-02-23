@@ -325,9 +325,9 @@ namespace HPF.FutureState.BusinessLogic
             else
             {               
                 fcCase.DuplicateInd = Constant.DUPLICATE_NO;
-                if (dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
+                if (!string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) && dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
                     fcCase.NeverBillReasonCd = null;
-                if (dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
+                if (!string.IsNullOrEmpty(dbFcCase.NeverPayReasonCd) && dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
                     fcCase.NeverPayReasonCd = null;                
             }
             
