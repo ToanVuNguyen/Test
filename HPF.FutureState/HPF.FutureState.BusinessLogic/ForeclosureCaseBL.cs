@@ -31,11 +31,8 @@ namespace HPF.FutureState.BusinessLogic
                 return instance;
             }
         }
-
         protected ForeclosureCaseBL()
         {
-            
-
         }
        
         /// <summary>
@@ -48,7 +45,6 @@ namespace HPF.FutureState.BusinessLogic
             ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, Constant.RULESET_APPSEARCH);
             if (validationResults.Count == NUMBER_OF_ERROR_APP_SEARCH_CRITERIA)
                 return false;// user doesnt change anything in search criteria
-
             return true;
         }
         /// <summary>
@@ -59,23 +55,26 @@ namespace HPF.FutureState.BusinessLogic
         public AppForeclosureCaseSearchResultDTOCollection AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             AppForeclosureCaseSearchResultDTOCollection result = new AppForeclosureCaseSearchResultDTOCollection();
-            Collection<string> ErrorMess = AppRequireFieldValidation(searchCriteria);
-            //ExceptionMessageCollection ErrorMess = HPFValidator.ValidateToGetExceptionMessage<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, "CriteriaValidation");
+            ExceptionMessageCollection exCol = new ExceptionMessageCollection();
+            DataValidationException dataVaidEx = new DataValidationException();
+            ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, Constant.RULESET_CRITERIAVALID);
             if (!ValidateSearchCriteria(searchCriteria))
             {
                 ExceptionMessage ex = new ExceptionMessage();
                 ex.Message = "At least one search criteria option is required";
-                DataValidationException pe = new DataValidationException();
-                pe.ExceptionMessages.Add(ex);
-                throw pe;
-                //throw new DataValidationException("Please choose argument(s) for at least one search option");
-                
+                dataVaidEx.ExceptionMessages.Add(ex);
             }
-            if (ErrorMess != null)
+            if (!validationResults.IsValid)
             {
-                
-                AppThrowMissingRequiredFieldsException(ErrorMess);
+                foreach (ValidationResult validationResult in validationResults)
+                {
+                    string errorCode = string.IsNullOrEmpty(validationResult.Tag) ? "ERROR" : validationResult.Tag;
+                    string errorMess = string.IsNullOrEmpty(validationResult.Tag) ? validationResult.Message : ErrorMessages.GetExceptionMessageCombined(validationResult.Tag);
+                    dataVaidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
+                }
             }
+            if(dataVaidEx.ExceptionMessages.Count>0)
+                throw dataVaidEx;
             result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
             return result;
         }
@@ -104,42 +103,5 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
-        //private void AppThrowMissingRequiredFieldsException(ExceptionMessageCollection collection)
-        //{
-        //    DataValidationException pe = new DataValidationException();
-        //    pe.ExceptionMessages.Add(collection);
-        //    throw pe;
-        //}
-
-        #region Functions check validate to app foreclosure case
-        ///<summary>
-        ///1.AgencyCaseID request alpha numberic 
-        ///2.ForclosureCaseID request numberic
-        ///3.LoanNumber request alpha numberic
-        ///4.PropertyZip request 5 digit
-        ///5.Last4SSN request 4 digit
-        /// </summary>
-        Collection<string> AppRequireFieldValidation(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
-        {
-
-            Collection<string> msgAppForeclosureCaseSearch = new Collection<string>();
-            RequireAppForeclosureCase(searchCriteria, ref msgAppForeclosureCaseSearch, "CriteriaValidation");
-            if (msgAppForeclosureCaseSearch.Count == 0)
-                return null;
-            return msgAppForeclosureCaseSearch;
-        }
-        void RequireAppForeclosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria, ref Collection<string> msg, string ruleset)
-        {
-            ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, ruleset);
-            // ExceptionMessageCollection validationResults = HPFValidator.ValidateToGetExceptionMessage<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, ruleset);
-            foreach (ValidationResult result in validationResults)
-            {
-                msg.Add(result.Message);
-            }
-        }
-
-        #endregion
-      
-       
     }
 }

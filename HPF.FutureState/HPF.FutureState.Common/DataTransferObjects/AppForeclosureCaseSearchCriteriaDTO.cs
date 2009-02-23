@@ -16,7 +16,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AppForeclosureCaseSearchCriteriaDTO
     {
-        //[NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Agency Case Number: Only alpha-numeric characters allowed", Ruleset = Constant.RULESET_CRITERIAVALID)]
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
         public string AgencyCaseID { get; set; }
 
@@ -27,11 +26,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LastName { get; set; }
 
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_APPSEARCH)]
-        [NullableOrInRangeValidator(true, "[0-9]", MessageTemplate = ErrorMessages.ERR0503, Ruleset = Constant.RULESET_CRITERIAVALID)]
         public int ForeclosureCaseID { get; set; }
 
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
-        //[NullableOrInRangeValidator(true, "[a-zA-Z0-9]", MessageTemplate = "Loan Number: Only alpha-numeric characters allowed", Ruleset = Constant.RULESET_CRITERIAVALID)]
         public string LoanNumber
         {
             get;
@@ -39,7 +36,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         }
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
-        [NullableOrDigitsRequriedValidator(true, 5, "Property Zip", Ruleset = Constant.RULESET_CRITERIAVALID)]
+        [NullableOrDigitsRequriedValidator(true, 5, "Property Zip", Ruleset = Constant.RULESET_CRITERIAVALID,Tag=ErrorMessages.ERR0502 )]
         public string PropertyZip { get; set; }
 
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
@@ -55,7 +52,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Duplicates { get; set; }
 
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
-        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = Constant.RULESET_CRITERIAVALID)]
+        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = Constant.RULESET_CRITERIAVALID,Tag=ErrorMessages.ERR0501)]
         public string Last4SSN { get; set; }
 
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_APPSEARCH)]

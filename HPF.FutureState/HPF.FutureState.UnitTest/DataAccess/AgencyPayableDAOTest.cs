@@ -407,47 +407,47 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test for TakeBackMarkedCase
         ///</summary>
-        //[TestMethod()]
-        //public void TakeBackMarkedCaseTest()
-        //{
-        //    AgencyPayableDAO_Accessor target = new AgencyPayableDAO_Accessor(); // TODO: Initialize to an appropriate value
-        //    AgencyPayableCaseDTO agencyPayableCase = new AgencyPayableCaseDTO(); // TODO: Initialize to an appropriate value
-            
-        //     //get payable_id from AGENCY_PAYABLE data test status_cd='payable test'
-        //    var dbConnection=new SqlConnection(ConfigurationManager.ConnectionStrings[""].ConnectionString);
-        //    string strsql = @"select agency_payable_id from agency_payable where status_cd='"+status_cd+"'";
-        //    var command = new SqlCommand(strsql, dbConnection);
-        //    int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
-        //    //
-        //    strsql = @"select agency_payable_case_id from agency_payable_case where agency_payable_id=" + agency_payable_id;
-        //    command = new SqlCommand(strsql, dbConnection);
-        //    int agency_payable_case_id=Convert.ToInt32(command.ExecuteScalar());
+        [TestMethod()]
+        public void TakeBackMarkedCaseTest()
+        {
+            AgencyPayableDAO_Accessor target = new AgencyPayableDAO_Accessor(); // TODO: Initialize to an appropriate value
+            AgencyPayableCaseDTO agencyPayableCase = new AgencyPayableCaseDTO(); // TODO: Initialize to an appropriate value
 
-        //    //update criteria.
-        //    AgencyPayableSetDTO agencyPayableSet=new AgencyPayableSetDTO();
-        //    agencyPayableSet.ChangeLastAppName = "test";
-        //    agencyPayableSet.ChangeLastDate =Convert.ToDateTime("2/2/2222");
-        //    agencyPayableSet.ChangeLastUserId = working_user_id;
-        //    string takebackReason="";
-        //    string agencyPayableIDCol=agency_payable_case_id.ToString();
-        //    //
-        //    target.TakebackMarkCase(agencyPayableSet,takebackReason,agencyPayableIDCol);
-        //    //
-        //    strsql = @"select * from agency_payable_case where agency_payable_id=" + agency_payable_id;
-        //    command = new SqlCommand(strsql, dbConnection);
-        //    var rd = command.ExecuteReader();
-        //    string takebackReason_actual = null;
-        //    if (rd.HasRows)
-        //        while (rd.Read())
-        //        {
-        //            takebackReason_actual = rd["takeback_pmt_reason_cd"].ToString();
-        //        }
-        //    Assert.AreEqual(takebackReason, takebackReason_actual);
-        //}
+            //get payable_id from AGENCY_PAYABLE data test status_cd='payable test'
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            string strsql = @"select agency_payable_id from agency_payable where status_cd='" + status_cd + "'";
+            var command = new SqlCommand(strsql, dbConnection);
+            int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
+            //
+            strsql = @"select agency_payable_case_id from agency_payable_case where agency_payable_id=" + agency_payable_id;
+            command = new SqlCommand(strsql, dbConnection);
+            int agency_payable_case_id = Convert.ToInt32(command.ExecuteScalar());
 
-        ///// <summary>
-        /////A test for PayUnpayMarkedCase
-        /////</summary>
+            //update criteria.
+            AgencyPayableSetDTO agencyPayableSet = new AgencyPayableSetDTO();
+            agencyPayableSet.ChangeLastAppName = "test";
+            agencyPayableSet.ChangeLastDate = Convert.ToDateTime("2/2/2222");
+            agencyPayableSet.ChangeLastUserId = working_user_id;
+            string takebackReason = "";
+            string agencyPayableIDCol = agency_payable_case_id.ToString();
+            //
+            target.TakebackMarkCase(agencyPayableSet, takebackReason, agencyPayableIDCol);
+            //
+            strsql = @"select * from agency_payable_case where agency_payable_id=" + agency_payable_id;
+            command = new SqlCommand(strsql, dbConnection);
+            var rd = command.ExecuteReader();
+            string takebackReason_actual = null;
+            if (rd.HasRows)
+                while (rd.Read())
+                {
+                    takebackReason_actual = rd["takeback_pmt_reason_cd"].ToString();
+                }
+            Assert.AreEqual(takebackReason, takebackReason_actual);
+        }
+
+        /// <summary>
+        ///A test for PayUnpayMarkedCase
+        ///</summary>
         //[TestMethod()]
         //public void PayUnpayMarkedCaseTest()
         //{
@@ -457,7 +457,6 @@ namespace HPF.FutureState.UnitTest
         //    bool actual;
         //    actual = target.UpdateAgencyPayable(agencyPayable);
         //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Verify the correctness of this test method.");
         //}
 
         #region Test Data

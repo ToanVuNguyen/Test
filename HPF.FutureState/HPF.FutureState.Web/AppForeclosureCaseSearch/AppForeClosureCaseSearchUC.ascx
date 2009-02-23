@@ -144,8 +144,9 @@
         <td colspan="6">
             <asp:ScriptManager ID="myscript" runat="server"></asp:ScriptManager>
             
-            <cc2:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" >
+            <asp:Panel ID="myPannel" runat="server" CssClass="ScrollTable">
+           <%-- <cc2:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
+                BorderColor="Gray" BorderWidth="1px" >--%>
             
                 <asp:UpdatePanel ID="myupdatepan" runat="server">
             <ContentTemplate>
@@ -203,7 +204,8 @@
                 </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>
-            </cc2:StatefullScrollPanel>
+           <%-- </cc2:StatefullScrollPanel>--%>
+            </asp:Panel>
             
         </td>
     </tr>

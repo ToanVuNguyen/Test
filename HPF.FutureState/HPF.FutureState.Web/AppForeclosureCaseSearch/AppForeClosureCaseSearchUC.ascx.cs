@@ -198,22 +198,18 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (DataValidationException ex)
             {
+                //panForeClosureCaseSearch.Visible = false;
                 //return exception message check input search criteria
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
-                    //panForeClosureCaseSearch.Visible = false;
                     bulErrorMessage.Items.Add(new ListItem(ex.ExceptionMessages[i].Message));
-                   
                 }
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
-                //panForeClosureCaseSearch.Visible = false;
                 bulErrorMessage.Items.Add(new ListItem(ex.Message));
-                //lblErrorMessage.Text += ex.Message;
-                //lblErrorMessage.Text += " <br>";
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
@@ -234,13 +230,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (txtFirstName.Text != string.Empty)
             {
                 textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
-                //textchangeFirstName = Replace1Char(textchangeFirstName, "*", "%");
             }
             //replace * by % to search like in fristname
             if (txtLastName.Text != string.Empty)
             {
                 textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
-                //textchangeLastName = Replace1Char(textchangeLastName, "*", "%");
             }
             appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
             appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
@@ -250,7 +244,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch
             {
-                bulErrorMessage.Items.Add(ErrorMessages.ERR0503);
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0503"));
             }
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = DeleteSpecialChar(txtAgencyCaseID.Text) == string.Empty ? null : DeleteSpecialChar(txtAgencyCaseID.Text);
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text);
@@ -334,8 +328,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 DateTime mindate = DateTime.MinValue;
                 if (DateTime.Compare(completedate, mindate) == 0)
                     lblcasecompletedate.Text = "";
-
-
             }
         }
         /// <summary>

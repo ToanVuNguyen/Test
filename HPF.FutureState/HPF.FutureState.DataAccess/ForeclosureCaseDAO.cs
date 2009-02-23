@@ -499,34 +499,7 @@ namespace HPF.FutureState.DataAccess
             return result;
         }
 
-        /// <summary>
-        /// Get ID and Name from table State to bind on DDLB
-        /// </summary>
-        /// <returns>StateDTOCollection contains all State</returns>
-        //public StateDTOCollection AppGetState()
-        //{
-        //    StateDTOCollection result = new StateDTOCollection();
-        //    RefCodeItemDTOCollection refcodeitems = RefCodeItemDAO.Instance.GetRefCodeItems();
-        //    try
-        //    {
-        //        StateDTO itemdefault = new StateDTO();
-        //        itemdefault.StateName = "ALL";
-        //        result.Add(itemdefault);
-        //        foreach (RefCodeItemDTO refcodeitem in refcodeitems)
-        //        {
-        //            StateDTO item = new StateDTO();
-        //            item.StateName = refcodeitem.Code;
-        //            result.Add(item);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-        //    }
-
-        //    return result;
-        //}
-
+      
         /// <summary>
         /// Get ID and Name from table Agency to bind on DDLB
         /// </summary>
