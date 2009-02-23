@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature Id="470f9cad-81c2-421f-bb76-7de0d3545056" Title="DownloadZippedItems" Scope="Web" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
-  <ElementManifests>
-    <ElementManifest Location="DownloadZippedItems.xml" />
-  </ElementManifests>
-</Feature>

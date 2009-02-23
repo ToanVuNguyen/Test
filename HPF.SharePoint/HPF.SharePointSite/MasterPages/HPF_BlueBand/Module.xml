@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Elements Id="5251965a-55e6-4cba-9e5c-7b487d557d03" xmlns="http://schemas.microsoft.com/sharepoint/">
-  <Module Name="HPF_BlueBand_MasterPage" Url="_catalogs/masterpage">
-    <File Path="HPF_BlueBand.master" Url="HPF_BlueBand.master" />
-  </Module>
-</Elements>

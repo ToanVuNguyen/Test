@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature Id="20719fb4-424f-4e1a-b93d-daa82ccb7cdb" Title="UploadReport" Scope="Web" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
-  <ElementManifests>
-    <ElementManifest Location="UploadReport.xml" />
-  </ElementManifests>
-</Feature>
