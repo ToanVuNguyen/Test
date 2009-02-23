@@ -570,7 +570,10 @@ namespace HPF.FutureState.BusinessLogic
                     for (int j = 0; j < ex.Count; j++)
                     {
                         var exItem = ex[j];
-                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on case loan index " + (i + 1));
+                        if (exItem.ErrorCode != null)
+                            msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on case loan index " + (i + 1));
+                        else
+                            msgFcCaseSet.AddExceptionMessage("UNKNOWN", "UNKNOWN--" + exItem.Message + " working on case loan index " + (i + 1));
                     }
                 }
                 if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
