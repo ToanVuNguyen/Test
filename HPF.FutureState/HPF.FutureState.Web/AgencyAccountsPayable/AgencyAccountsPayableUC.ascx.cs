@@ -62,10 +62,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         protected void BindAgencyDropDownList()
         {
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
-            ddlAgency.DataSource = agencyCollection;
-            ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataValueField = "AgencyID";
+            ddlAgency.DataTextField = "AgencyName";
+            ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
+            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
+            ddlAgency.Items.Insert(0,new ListItem("ALL","-1"));
+            ddlAgency.Items.FindByText("ALL").Selected = true;
         }
         /// <summary>
         /// Bind search data into gridview
@@ -102,12 +105,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// </summary>
         protected void SetDefaultPeriodStartEnd()
         {
-            DateTime today = DateTime.Today;
-            int priormonth = today.AddMonths(-1).Month;
-            int year = today.AddMonths(-1).Year;
-            txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
-            int daysinmonth = DateTime.DaysInMonth(year, priormonth);
-            txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
+            txtPeriodStart.Text=DateTime.Now.AddMonths(-6).ToShortDateString();
+            txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
         }
         private ExceptionMessage GetExceptionMessage(string exCode)
         {

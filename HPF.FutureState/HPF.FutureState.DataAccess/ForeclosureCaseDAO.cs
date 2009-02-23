@@ -506,8 +506,8 @@ namespace HPF.FutureState.DataAccess
         /// <returns>AgencyDTOCollection contains all Agency </returns>
         public AgencyDTOCollection AppGetAgency()
         {
-            //AgencyDTOCollection results = HPFCacheManager.Instance.GetData<AgencyDTOCollection>("refAgency");
             AgencyDTOCollection results = new AgencyDTOCollection();
+            //results = HPFCacheManager.Instance.GetData<AgencyDTOCollection>("refAgency");
                 var dbConnection = CreateConnection();
                 var command = new SqlCommand("hpf_agency_get", dbConnection);
                 command.CommandType = CommandType.StoredProcedure;

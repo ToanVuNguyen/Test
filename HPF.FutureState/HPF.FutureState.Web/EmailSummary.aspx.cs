@@ -67,7 +67,7 @@ namespace HPF.FutureState.Web
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 return ex.Message;
             }
-            return "successful";
+            return "succesfull";
         }
     }
 }

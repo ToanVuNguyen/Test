@@ -25,7 +25,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                // ApplySecurity();
-                
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
                 if (Request.QueryString["CaseID"]!=null)
                     BindDetailCaseData(caseid);
@@ -103,11 +102,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 //Top area
                 //Property
-
                 lblAddress1.Text = foreclosureCase.PropAddr1;
                 lblAddress2.Text = foreclosureCase.PropAddr2;
                 lblCity.Text = foreclosureCase.PropCity;
-                if (foreclosureCase.PropZipPlus4 == null || foreclosureCase.PropZipPlus4 == "")
+                if (String.IsNullOrEmpty(foreclosureCase.PropZipPlus4))
                     lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip;
                 else
                     lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
@@ -126,10 +124,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblFirstName.Text = foreclosureCase.BorrowerFname;
                 lblMidName.Text = foreclosureCase.BorrowerMname;
                 lblLastName.Text = foreclosureCase.BorrowerLname;
-                //DisplayDt(foreclosureCase.BorrowerDob.Value, lblDOB);
-
                 lblDOB.Text = foreclosureCase.BorrowerDob == null ? "" : foreclosureCase.BorrowerDob.Value.ToShortDateString();
-                if (foreclosureCase.BorrowerLast4Ssn == null || foreclosureCase.BorrowerLast4Ssn == "")
+                if(String.IsNullOrEmpty(foreclosureCase.BorrowerLast4Ssn))
                     lblLast4SSN.Text = "";
                 else lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
                 lblPrimaryContact.Text = foreclosureCase.PrimaryContactNo;
@@ -152,7 +148,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblCoLastName.Text = foreclosureCase.CoBorrowerLname;
                 //DisplayDt(foreclosureCase.CoBorrowerDob.Value, lblCoDOB);
                 lblCoDOB.Text = foreclosureCase.CoBorrowerDob == null ? "" : foreclosureCase.CoBorrowerDob.Value.ToShortDateString();
-                if (foreclosureCase.CoBorrowerLast4Ssn == null || foreclosureCase.CoBorrowerLast4Ssn == "")
+                if (String.IsNullOrEmpty(foreclosureCase.CoBorrowerLast4Ssn))
                     lblCoLast4SSN.Text = "";
                 else lblCoLast4SSN.Text = "XXX-XX-" + foreclosureCase.CoBorrowerLast4Ssn;
                 lblCoDisabled.Text = DisplayInd(foreclosureCase.CoBorrowerDisabledInd);
@@ -174,9 +170,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblPhoneExt.Text = foreclosureCase.CounselorPhone + " " + foreclosureCase.CounselorExt;
                 lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
                 lblProgram.Text = foreclosureCase.ProgramId.ToString();
-                //DisplayDt(foreclosureCase.IntakeDt.Value, lblIntakeDate);
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
-                //DisplayDt(foreclosureCase.CompletedDt.Value, lblCompleteDate);
                 lblCompleteDate.Text = foreclosureCase.CompletedDt == null ? "" : foreclosureCase.CompletedDt.Value.ToShortDateString();
                 lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd.ToString();
                 lblSourceCode.Text = foreclosureCase.CaseSourceCd;

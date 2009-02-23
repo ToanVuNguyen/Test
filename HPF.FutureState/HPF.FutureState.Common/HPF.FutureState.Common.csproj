@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{571F09A2-386F-42DD-9E7E-B58F8983E368}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -47,6 +47,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -197,6 +198,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReferenceCode.cs" />
+    <Compile Include="ReportViewerCredential.cs" />
     <Compile Include="Utils\DataValidator\HPFValidator.cs" />
     <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidator.cs" />
     <Compile Include="Utils\DataValidator\NullableOrDigitsRequriedValidatorAttribute.cs" />

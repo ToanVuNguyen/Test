@@ -15,7 +15,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common;
-
+using System.Text;
 namespace HPF.FutureState.Web.AppNewPayable
 {
     public partial class NewAgencyPayableResultsUC : System.Web.UI.UserControl
@@ -200,15 +200,22 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
             string query = GetQueryString(criteria);
-            Response.Redirect("NewPayableCriteria.aspx" + query);
+            Response.Redirect("CreateNewPayable.aspx" + query);
         }
         private string GetQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {
-            string query = "?agencyid=" + agencyPayableSearchCriteria.AgencyId + "&casecomplete=" + agencyPayableSearchCriteria.CaseComplete
-                + "&periodenddate=" + agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString() 
-                + "&periodstartdate=" + agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString() 
-                + "&indicator=" + agencyPayableSearchCriteria.Indicator;
-            return query;
+            StringBuilder query = new StringBuilder();
+            query.Append("?agencyid=");
+            query.Append(agencyPayableSearchCriteria.AgencyId);
+            query.Append("&casecomplete=");
+            query.Append(agencyPayableSearchCriteria.CaseComplete);
+            query.Append("&periodenddate=");
+            query.Append(agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString());
+            query.Append("&periodstartdate=");
+            query.Append(agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString());
+            query.Append("&indicator=");
+            query.Append(agencyPayableSearchCriteria.Indicator);
+            return query.ToString();
         }
     }
 }

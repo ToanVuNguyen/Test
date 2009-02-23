@@ -30,51 +30,63 @@ namespace HPF.FutureState.Web.SummaryEmail
             int? fc_id = forclosureInfo.FcId;
             txtSubject.Text =EmailSummaryBL.Instance.CreateEmailSummarySubject(fc_id);
         }
+        public bool CheckEmailAddress(string emailAddress)
+        {
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
+            bool result = true;
+            String[] ALL_EMAILS = emailAddress.Split(',');
+
+            foreach (string emailaddress in ALL_EMAILS)
+            {
+                result = (regex.IsMatch(emailaddress));
+                {
+                    return result;
+                }
+            }
+            return true;
+        }
         public string SendEmailWithAttachment(string sendTo, string subject, string body, int caseID)
         {
             try
             {
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
-                bool result = true;
-                String[] ALL_EMAILS = sendTo.Split(';');
-
-                foreach (string emailaddress in ALL_EMAILS)
-                {
-                    result = regex.IsMatch(emailaddress);
-                    if (result == false)
-                    {
-                        return "Email address is not wellform";
-                    }
-                }
+                bool result = CheckEmailAddress(sendTo);
+                if (result == false)
+                    return "Email address is not wellform";
                 if (result == true)
                 {
                     EmailSummaryBL.Instance.SendEmailSummaryReport(sendTo, subject, body, caseID);
                 }
-
             }
             catch (Exception ex)
             {
-
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 return ex.Message;
             }
             return "successful";
         }
-  
-
         protected void btnSend_Click(object sender, EventArgs e)
-        {            
+        {
+            BuildSendMailInfo();
+            //
+            InsertActivityLogInfo();
+        }
+
+        private void InsertActivityLogInfo()
+        {
+            ActivityLogDTO activityLog = BuildActivityLogInfo();
+            activityLog.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            ActivityLogBL.Instance.InsertActivityLog(activityLog);
+        }
+
+        private void BuildSendMailInfo()
+        {
             string CaseID = Request.QueryString["CaseID"];
             string SendTo = txtTo.Text;
             string Subject = txtSubject.Text;
             string Body = txtBody.Text;
-            lblMessgage.Text = SendEmailWithAttachment(SendTo, Subject, Body,Convert.ToInt32(CaseID));
-            ActivityLogDTO activityLog = GetActivityLogInfo();
-            activityLog.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-            ActivityLogBL.Instance.InsertActivityLog(activityLog);
-
+            lblMessgage.Text = SendEmailWithAttachment(SendTo, Subject, Body, Convert.ToInt32(CaseID));
         }
-        protected ActivityLogDTO GetActivityLogInfo()
+        protected ActivityLogDTO BuildActivityLogInfo()
         {
             ActivityLogDTO activityLog = new ActivityLogDTO();
             ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
