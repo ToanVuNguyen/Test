@@ -586,7 +586,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public double? HomeSalePrice { get; set; }
 
         [XmlElement(IsNullable = true)]
-        [NullableOrInRangeNumberValidator(true, "0", "9999", Ruleset = Constant.RULESET_LENGTH)]
+        [NullableOrInRangeNumberValidator(true, "0", "9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "An invalid HomePurchaseYear was provided.")]
         public int? HomePurchaseYear { get; set; }
 
         [XmlElement(IsNullable = true)]

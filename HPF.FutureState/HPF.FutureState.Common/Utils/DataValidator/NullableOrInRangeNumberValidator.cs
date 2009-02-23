@@ -117,7 +117,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                         {
                             isValid = false;
                             if (value == int.MinValue)
-                                MessageTemplate = key + " is invalid integer";                            
+                                MessageTemplate = "An invalid " + key + " was provided";                            
                             else                                                           
                                 MessageTemplate = string.Format("{0} is out of allowed range ", key);                            
                         }

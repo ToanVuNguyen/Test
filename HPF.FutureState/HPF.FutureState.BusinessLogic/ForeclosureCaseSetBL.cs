@@ -458,7 +458,7 @@ namespace HPF.FutureState.BusinessLogic
                                                      "A SummarySentOtherDt is required to save a foreclosure case.");
                 //-----SrvcrWorkoutPlanCurrentInd
                 if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null &&
-                    ConvertStringToUpper(foreclosureCase.HasWorkoutPlanInd) != Constant.HAS_WORKOUT_PLAN_IND_YES)
+                    ConvertStringToUpper(foreclosureCase.HasWorkoutPlanInd) == Constant.HAS_WORKOUT_PLAN_IND_YES)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
                 //-----HomeSalePrice
@@ -602,7 +602,7 @@ namespace HPF.FutureState.BusinessLogic
                || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_POA
                || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_INTONLY) 
                && ConvertStringEmptyToNull(item.ArmResetInd) == null)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A ArmResetInd is required to save a foreclosure case working on case loan index " + (i + 1));
+                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An ArmResetInd is required to save a foreclosure case working on case loan index " + (i + 1));
             return msgFcCaseSet;
         }
 
@@ -2248,9 +2248,12 @@ namespace HPF.FutureState.BusinessLogic
 
         private string ConvertStringEmptyToNull(string s)
         {
+            if (s == null)
+                return null;
+            s = s.Trim();
             if (string.IsNullOrEmpty(s))
-                return null;            
-            return s;
+                return null;
+            return s.Trim(); ;
         }
 
         private bool ConvertStringtoInt(string s)
