@@ -20,7 +20,7 @@ namespace HPF.SharePointAPI.Constants
             public const string LoanNumber = "Loan Number";
             public const string Servicer = "Servicer";
             public const string CompletedDate = "Completed Date";
-            public const string ForeclosureSaleDate = "ForeclosureSale Date";
+            public const string ForeclosureSaleDate = "Foreclosure Sale Date";
             public const string Delinquency = "Delinquency";
             public const string ReviewStatus = "Review Status";
         }

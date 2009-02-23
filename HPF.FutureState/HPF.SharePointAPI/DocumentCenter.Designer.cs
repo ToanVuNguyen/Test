@@ -61,13 +61,85 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Docs")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Doc")]
         public string DocumentCenterWeb {
             get {
                 return ((string)(this["DocumentCenterWeb"]));
             }
             set {
                 this["DocumentCenterWeb"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\namcao")]
+        public string ConselingSummaryUserName {
+            get {
+                return ((string)(this["ConselingSummaryUserName"]));
+            }
+            set {
+                this["ConselingSummaryUserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12345#qwe")]
+        public string ConselingSummaryPassword {
+            get {
+                return ((string)(this["ConselingSummaryPassword"]));
+            }
+            set {
+                this["ConselingSummaryPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\namcao")]
+        public string InvoiceUserName {
+            get {
+                return ((string)(this["InvoiceUserName"]));
+            }
+            set {
+                this["InvoiceUserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12345#qwe")]
+        public string InvoicePassword {
+            get {
+                return ((string)(this["InvoicePassword"]));
+            }
+            set {
+                this["InvoicePassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\namcao")]
+        public string AccountPayableUserName {
+            get {
+                return ((string)(this["AccountPayableUserName"]));
+            }
+            set {
+                this["AccountPayableUserName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12345#qwe")]
+        public string AccountPayablePassword {
+            get {
+                return ((string)(this["AccountPayablePassword"]));
+            }
+            set {
+                this["AccountPayablePassword"] = value;
             }
         }
     }

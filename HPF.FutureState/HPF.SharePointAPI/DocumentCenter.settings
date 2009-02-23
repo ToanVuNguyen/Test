@@ -15,7 +15,25 @@
       <Value Profile="(Default)">http://litwaredemo</Value>
     </Setting>
     <Setting Name="DocumentCenterWeb" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Docs</Value>
+      <Value Profile="(Default)">Doc</Value>
+    </Setting>
+    <Setting Name="ConselingSummaryUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LITWAREINC\namcao</Value>
+    </Setting>
+    <Setting Name="ConselingSummaryPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345#qwe</Value>
+    </Setting>
+    <Setting Name="InvoiceUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LITWAREINC\namcao</Value>
+    </Setting>
+    <Setting Name="InvoicePassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345#qwe</Value>
+    </Setting>
+    <Setting Name="AccountPayableUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LITWAREINC\namcao</Value>
+    </Setting>
+    <Setting Name="AccountPayablePassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345#qwe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

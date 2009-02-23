@@ -4,6 +4,8 @@ using System.Text;
 using HPF.SharePointAPI.BusinessEntity;
 using Microsoft.SharePoint;
 using HPF.SharePointAPI.Constants;
+using HPF.SharePointAPI.Enum;
+using HPF.SharePointAPI.Utils;
 
 namespace HPF.SharePointAPI.Controllers
 {
@@ -13,16 +15,21 @@ namespace HPF.SharePointAPI.Controllers
         #region "Conseling Summary"
         public static IList<ResultInfo<ConselingSummaryInfo>> Upload(IList<ConselingSummaryInfo> conselingSummaryList)
         {
-            IList<ResultInfo<ConselingSummaryInfo>> results = UploadSPFiles(conselingSummaryList, UpdateConselingSummaryInfo);
+            IList<ResultInfo<ConselingSummaryInfo>> results = UploadSPFiles(conselingSummaryList, DocumentCenter.Default.ConselingSummary, UpdateConselingSummaryInfo);
             
             return results;
         }
 
         public static ResultInfo<ConselingSummaryInfo> Upload(ConselingSummaryInfo conselingSummary)
         {
+            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.ConselingSummaryUserName, DocumentCenter.Default.ConselingSummaryPassword);
+
             List<ConselingSummaryInfo> conselingSummaryList = new List<ConselingSummaryInfo>();
             conselingSummaryList.Add(conselingSummary);
             IList<ResultInfo<ConselingSummaryInfo>> results = Upload(conselingSummaryList);
+
+            if (imp != null) { imp.Undo(); }
+
             return results[0];
         }
         #endregion
@@ -30,7 +37,11 @@ namespace HPF.SharePointAPI.Controllers
         #region "Invoice"
         public static IList<ResultInfo<InvoiceInfo>> Upload(IList<InvoiceInfo> invoiceList)
         {
-            IList<ResultInfo<InvoiceInfo>> results = UploadSPFiles(invoiceList, UpdateInvoiceInfo);
+            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.InvoiceUserName, DocumentCenter.Default.InvoicePassword);
+
+            IList<ResultInfo<InvoiceInfo>> results = UploadSPFiles(invoiceList, DocumentCenter.Default.Invoice, UpdateInvoiceInfo);
+
+            if (imp != null) { imp.Undo(); }
 
             return results;
         }
@@ -48,7 +59,11 @@ namespace HPF.SharePointAPI.Controllers
         #region "Account Payable"
         public static IList<ResultInfo<AccountPayableInfo>> Upload(IList<AccountPayableInfo> accountPayableList)
         {
-            IList<ResultInfo<AccountPayableInfo>> results = UploadSPFiles(accountPayableList, UpdateAccountPayableInfo);
+            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.AccountPayableUserName, DocumentCenter.Default.AccountPayablePassword);
+
+            IList<ResultInfo<AccountPayableInfo>> results = UploadSPFiles(accountPayableList, DocumentCenter.Default.AccountPayable, UpdateAccountPayableInfo);
+
+            if (imp != null) { imp.Undo(); }
 
             return results;
         }
@@ -63,7 +78,7 @@ namespace HPF.SharePointAPI.Controllers
         #endregion
 
         #region "Helper"
-        private static IList<ResultInfo<T>> UploadSPFiles<T>(IList<T> items, UpdateSPListItem<T> action) where T:BaseObject
+        private static IList<ResultInfo<T>> UploadSPFiles<T>(IList<T> items, string listName, UpdateSPListItem<T> action) where T:BaseObject
         {
             List<ResultInfo<T>> results = new List<ResultInfo<T>>();
             
@@ -72,8 +87,8 @@ namespace HPF.SharePointAPI.Controllers
                 ResultInfo<T> resultInfo;
                 string fileUrl;
                 SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];
-                web.AllowUnsafeUpdates = true;
-                SPDocumentLibrary docLib = (SPDocumentLibrary)web.Lists[DocumentCenter.Default.ConselingSummary];
+                web.AllowUnsafeUpdates = true;                
+                SPDocumentLibrary docLib = (SPDocumentLibrary)web.Lists[listName];                
                 SPFolder spFolder = docLib.RootFolder;
                 SPFile spFile;
                 foreach (T item in items)
@@ -83,8 +98,30 @@ namespace HPF.SharePointAPI.Controllers
                     {
                         //add file                        
                         fileUrl = String.Format("{0}/{1}", spFolder.ServerRelativeUrl, item.Name);
-                        spFile = spFolder.Files.Add(fileUrl, item.File);
-                        spFile.Update();
+
+                        spFile = web.GetFile(fileUrl);
+                        if (spFile == null || !spFile.Exists)
+                        {
+                            spFile = spFolder.Files.Add(fileUrl, item.File);
+                            spFile.Update();
+                        }
+                        else
+                        {
+                            if (spFile.CheckedOutBy != null)
+                            {
+                                if (spFile.CheckedOutBy.ID != web.CurrentUser.ID)
+                                {
+                                    resultInfo.Successful = false;
+                                    resultInfo.Error = new SPException("File Already Checked Out Error"); ;
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                if (docLib.ForceCheckout) { spFile.CheckOut(); }
+                                spFile.SaveBinary(item.File, true);
+                            }
+                        }
 
                         action(spFile.Item, item);
 
@@ -109,7 +146,7 @@ namespace HPF.SharePointAPI.Controllers
             spItem[DocumentCenterContentType.ConselingSummary.Delinquency] = conselingSummary.Delinquency;
             spItem[DocumentCenterContentType.ConselingSummary.ForeclosureSaleDate] = conselingSummary.ForeclosureSaleDate;
             spItem[DocumentCenterContentType.ConselingSummary.LoanNumber] = conselingSummary.LoanNumber;
-            spItem[DocumentCenterContentType.ConselingSummary.ReviewStatus] = conselingSummary.ReviewStatus;
+            spItem[DocumentCenterContentType.ConselingSummary.ReviewStatus] = conselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
             spItem[DocumentCenterContentType.ConselingSummary.Servicer] = conselingSummary.Servicer;
         }
 
