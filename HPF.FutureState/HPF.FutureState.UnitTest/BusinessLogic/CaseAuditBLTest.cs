@@ -160,7 +160,8 @@ namespace HPF.FutureState.UnitTest
 
             #region fc_case
             sql = "Insert into foreclosure_case "
-               + " (agency_id, program_id, intake_dt"
+               + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+               + ", agency_id, program_id, intake_dt"
                + ", borrower_fname, borrower_lname, primary_contact_no"
                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
@@ -169,7 +170,7 @@ namespace HPF.FutureState.UnitTest
                + ", counselor_fname, counselor_lname, counselor_id_ref"
                + ", prop_zip, agency_case_num, borrower_last4_SSN"
                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-               + " (" + agency_id + ", 1, '" + DateTime.Now + "'"
+               + " ('N', 'prop_addr1', 'prop_city', 'cd', " + agency_id + ", 1, '" + DateTime.Now + "'"
                + ", 'Firstname', 'Lastname', 'pcontactno'"
                + ", 'address1', 'cty', 'scod', 'czip'"
                + ", 'Y', 'Y', 'email'"
@@ -181,7 +182,8 @@ namespace HPF.FutureState.UnitTest
             ExecuteSql(sql, dbConnection);
 
             sql = "Insert into foreclosure_case "
-               + " (agency_id, program_id, intake_dt"
+               + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+               + ", agency_id, program_id, intake_dt"
                + ", borrower_fname, borrower_lname, primary_contact_no"
                + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
                + ", funding_consent_ind, servicer_consent_ind, counselor_email"
@@ -190,7 +192,7 @@ namespace HPF.FutureState.UnitTest
                + ", counselor_fname, counselor_lname, counselor_id_ref"
                + ", prop_zip, agency_case_num, borrower_last4_SSN"
                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-               + " (" + agency_id + ", 1, '" + DateTime.Now + "'"
+               + " ('N', 'prop_addr1', 'prop_city', 'cd', " + +agency_id + ", 1, '" + DateTime.Now + "'"
                + ", 'Firstname', 'Lastname', 'pcontactno'"
                + ", 'address1', 'cty', 'scod', 'czip'"
                + ", 'Y', 'Y', 'email'"

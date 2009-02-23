@@ -73,6 +73,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test for InstateOutcomeItem
         ///</summary>
+        [Ignore]
         [TestMethod()]
         public void InstateOutcomeItemTest()
         {
@@ -92,6 +93,7 @@ namespace HPF.FutureState.UnitTest
             Assert.AreEqual(expected, actual);
         }
 
+        [Ignore]
         [TestMethod()]
         public void InstateOutcomeItemTest_Fail()
         {
@@ -114,6 +116,7 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test for DeleteOutcomeItem
         ///</summary>
+        [Ignore]
         [TestMethod()]
         public void DeleteOutcomeItemTest()
         {
@@ -132,6 +135,7 @@ namespace HPF.FutureState.UnitTest
             Assert.AreEqual(expected, actual);
         }
 
+        [Ignore]
         [TestMethod()]
         public void DeleteOutcomeItemTest_Fail()
         {
