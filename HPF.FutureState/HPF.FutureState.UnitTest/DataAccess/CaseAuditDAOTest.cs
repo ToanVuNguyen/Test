@@ -127,25 +127,26 @@ namespace HPF.FutureState.UnitTest
 
             #region fc_case
             sql = "Insert into foreclosure_case "
-               + " (agency_id, program_id, intake_dt"
-               + ", borrower_fname, borrower_lname, primary_contact_no"
-               + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
-               + ", funding_consent_ind, servicer_consent_ind, counselor_email"
-               + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
-               + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
-               + ", counselor_fname, counselor_lname, counselor_id_ref"
-               + ", prop_zip, agency_case_num, borrower_last4_SSN"
-               + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-               + " (" + agency_id + ", 1, '" + DateTime.Now + "'"
-               + ", 'Firstname', 'Lastname', 'pcontactno'"
-               + ", 'address1', 'cty', 'scod', 'czip'"
-               + ", 'Y', 'Y', 'email'"
-               + ", 'phone', 'Y', 'Y'"
-               + ", 'Y', 'Y', 'Y'"
-               + ", 'cfname', 'clname', 'cidref'"
-               + ", '12345', 'acn121314', '1234'"
-               + ", 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
-            ExecuteSql(sql, dbConnection);           
+              + " (duplicate_ind, prop_addr1, prop_city, prop_state_cd "
+              + ", agency_id, program_id, intake_dt"
+              + ", borrower_fname, borrower_lname, primary_contact_no"
+              + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+              + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+              + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+              + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+              + ", counselor_fname, counselor_lname, counselor_id_ref"
+              + ", prop_zip, agency_case_num, borrower_last4_SSN"
+              + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
+              + " ('N', 'prop_addr1', 'prop_city', 'cd', " + agency_id + ", 1, '" + DateTime.Now + "'"
+              + ", 'Firstname', 'Lastname', 'pcontactno'"
+              + ", 'address1', 'cty', 'scod', 'czip'"
+              + ", 'Y', 'Y', 'email'"
+              + ", 'phone', 'Y', 'Y'"
+              + ", 'Y', 'Y', 'Y'"
+              + ", 'cfname', 'clname', 'cidref'"
+              + ", '12345', 'acn121314', '1234'"
+              + ", 'HPF' ,'" + working_user_id + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "' )";
+            ExecuteSql(sql, dbConnection);   
 
             #endregion
 
