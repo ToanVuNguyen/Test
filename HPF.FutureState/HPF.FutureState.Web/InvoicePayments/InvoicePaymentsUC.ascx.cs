@@ -119,7 +119,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0676);
                 ex.ExceptionMessages.Add(exMes);
             }
             try
@@ -128,7 +128,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0997);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0675);
                 ex.ExceptionMessages.Add(exMes);
             }
             if (ex.ExceptionMessages.Count > 0)
