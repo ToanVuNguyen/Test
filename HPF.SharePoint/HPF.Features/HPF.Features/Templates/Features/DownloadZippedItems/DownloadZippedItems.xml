@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+	<CustomAction
+		Id="DownloadZippedItems.MenuLink"
+		Location="Microsoft.SharePoint.StandardMenu"
+		GroupId="ActionsMenu"
+		ControlAssembly="HPF.CustomActions, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=00005ef85cc3d8ee"
+		ControlClass="HPF.CustomActions.DownloadZippedItems">
+	</CustomAction>
+</Elements>
