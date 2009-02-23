@@ -70,6 +70,15 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
+                                    SenderId:*
+                                </td>
+                                <td align="left">
+                                    <asp:TextBox ID="txtSenderId" runat="server" CssClass="Text" 
+                                        Width="100px"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" class="sidelinks">
                                     To*:
                                 </td>
                                 <td align="left">

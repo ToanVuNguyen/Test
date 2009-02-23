@@ -17,7 +17,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class ForeclosureCaseSearchCriteriaDTO
     {
         string _agencyCaseNumber;
-        [NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = "Default")]        
+        //[NullableOrStringLengthValidator(true, 30, "Agency Case Number", Ruleset = "Default")]        
         public string AgencyCaseNumber
         {
             get { return _agencyCaseNumber; }
@@ -33,7 +33,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         string _firstName = null;        
-        [NullableOrStringLengthValidator(true, 30, "First Name", Ruleset="Default")]
+        //[NullableOrStringLengthValidator(true, 30, "First Name", Ruleset="Default")]
         public string FirstName
         {
             get { return _firstName; }
@@ -55,7 +55,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         string _lastName = null;        
-        [NullableOrStringLengthValidator(true, 30, "Last Name", Ruleset="Default")]
+        //[NullableOrStringLengthValidator(true, 30, "Last Name", Ruleset="Default")]
         public string LastName
         {
             get { return _lastName; }
