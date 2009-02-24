@@ -144,6 +144,7 @@ namespace HPF.FutureState.BusinessLogic
                 || ConvertStringToUpper(fCaseFromAcency.PrimaryContactNo) != ConvertStringToUpper(fCaseFromDB.PrimaryContactNo)
                 || ConvertStringToUpper(fCaseFromAcency.SecondContactNo) != ConvertStringToUpper(fCaseFromDB.SecondContactNo)
                 || ConvertStringToUpper(fCaseFromAcency.Email1) != ConvertStringToUpper(fCaseFromDB.Email1)
+                || ConvertStringToUpper(fCaseFromAcency.Email2) != ConvertStringToUpper(fCaseFromDB.Email2)
                 );
         }
 
@@ -670,27 +671,22 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckInactiveCase(int? fcId)
         {
             DateTime currentDate = DateTime.Now;
-            DateTime backOneYear = DateTime.MinValue;            
+            DateTime backOneYear = DateTime.MinValue;
+            DateTime? tempDate = null;
             ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);            
             DateTime? completeDate = foreclosureCase.CompletedDt;
             if (completeDate == null || completeDate == DateTime.MinValue)
-            {
-                return false;
-            }
-            //Check leap year
-            if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))
-            {
-                backOneYear = currentDate.AddDays(-367);
-            }
+                tempDate = foreclosureCase.CreateDate;
             else
-            {
-                backOneYear = currentDate.AddDays(-366);
-            }
+                tempDate = completeDate;
+            //Check leap year
+            if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))            
+                backOneYear = currentDate.AddDays(-367);            
+            else            
+                backOneYear = currentDate.AddDays(-366);            
             //
-            if (backOneYear < completeDate)
-            {
-                return false;
-            }                
+            if (backOneYear < tempDate)            
+                return false;                            
             return true;
         }      
 
