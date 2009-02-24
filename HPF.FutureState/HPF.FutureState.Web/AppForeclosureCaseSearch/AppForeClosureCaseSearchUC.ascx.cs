@@ -477,7 +477,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (mystring != null)
             {
                 mystring = mystring.Trim();
-                char[] specialchar = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '-', '[', ']', ';', ',', '.', '/', '{', '}', '|', ':', '<', '>', '?' };
+                char[] specialchar = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '-', '[', ']', ';', ',', '.', '/', '{', '}', '|', ':', '<', '>', '?',' ' };
                 var DigitChar = mystring.Split(specialchar);
                 for (int i = 0; i < DigitChar.Count(); i++)
                 {
