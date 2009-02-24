@@ -199,6 +199,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 //foreclosure notice
 
                 lblNoticeReceived.Text = foreclosureCase.FcSaleDate == null ? "" : foreclosureCase.FcSaleDate.Value.ToShortDateString();
+                lblDateSet.Text = foreclosureCase.FcNoticeReceiveInd;
                 //bankcruptcy
                 lblBankruptcy.Text = DisplayInd(foreclosureCase.BankruptcyInd);
                 lblBankruptcyAttomey.Text = foreclosureCase.BankruptcyAttorney;
