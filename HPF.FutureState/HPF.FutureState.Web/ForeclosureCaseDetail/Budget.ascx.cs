@@ -125,7 +125,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         void grvAsset_RowCreated(object sender, GridViewRowEventArgs e)
         {
             BudgetAssetDTO budgetAsset = e.Row.DataItem as BudgetAssetDTO;
-            if (budgetAsset == null)
+            if (budgetAsset == null || budgetAsset.AssetName == null)
                 return;
             if (budgetAsset.AssetName.ToLower().Contains("total"))
             {
