@@ -103,7 +103,7 @@ namespace HPF.FutureState.BusinessLogic
                 errorList.Add(new ExceptionMessage(){ErrorCode="ERROR", Message = "Call source code is not valid"});
 
             if (!referenceCode.Validate(ReferenceCode.FINAL_DISPO_CD, aCallLog.FinalDispoCd))
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "FinalDispoCd code is not valid" });
+                errorList.AddExceptionMessage(ErrorMessages.ERR0355, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0355));
 
             if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, aCallLog.LoanDelinqStatusCd))
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Loan Delinq status code is not valid" });
