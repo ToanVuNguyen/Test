@@ -205,7 +205,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblBankruptcyAttomey.Text = foreclosureCase.BankruptcyAttorney;
                 lblCurrentIndicator.Text = DisplayInd(foreclosureCase.BankruptcyPmtCurrentInd);
                 //HUD
-                lblTerminationReason.Text = foreclosureCase.HudOutcomeCd;
+                lblTerminationReason.Text = foreclosureCase.HudTerminationReasonCd;
                 lblTerminationDate.Text = foreclosureCase.HudTerminationDt == null ? "" : foreclosureCase.HudTerminationDt.Value.ToShortDateString();
                 lblHUDOutcome.Text = foreclosureCase.HudOutcomeCd;
                 //couselor notes
