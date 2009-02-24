@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using System.Net;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.Common.Utils
 {
@@ -60,18 +61,8 @@ namespace HPF.FutureState.Common.Utils
 
         private byte[] Export(string format)
         {
-            byte[] buffer=null;
-            var webClient = GetWebClient();
-            try
-            {
-            
-            
-                buffer = webClient.DownloadData(GetReportUrl(format));
-            }
-            catch
-            {
-                webClient.ToString();    
-            }            
+            var webClient = GetWebClient();                            
+            byte[] buffer = webClient.DownloadData(GetReportUrl(format));                                    
             webClient.Dispose();
             return buffer;
         }
@@ -108,10 +99,8 @@ namespace HPF.FutureState.Common.Utils
         }
 
         private string GetReportUrl(string renderFormat)
-        {
-            var newReportPath = HPFConfigurationSettings.SHAREPOINT_REPORT_LIBRARY + ReportPath;
-            //
-            var url = _ReportServer + "/?" + newReportPath + "&rs:Command=Render&rs:Format={0}{1}";
+        {                        
+            var url = _ReportServer + "/?" + ReportPath + "&rs:Command=Render&rs:Format={0}{1}";
             //
             var paramString = GetParamString();
             return string.Format(url, renderFormat, paramString);

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using HPF.FutureState.BusinessLogic;
-using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.ProcessSummaryQueue
@@ -24,8 +23,11 @@ namespace HPF.FutureState.ProcessSummaryQueue
                 return;
             }
             GC.KeepAlive(mutex);
-            Logger.Write("Test Logging", "General");
-            //ProcessSummaryQueue();
+            //------------Test Data
+            var queue = new HPFSummaryQueue();
+            queue.SendACompletedCaseToQueue(243);
+            //------------
+            ProcessSummaryQueue();
         }
 
         private static void ProcessSummaryQueue()
@@ -36,7 +38,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
             {
                 ProcessCompletedCaseEntry(entry);
                 Thread.Sleep(SLEEPING_TIME);//Make a thread safe
-                entry = queue.ReceiveCompletedCaseFromQueue();
+                entry = queue.ReceiveCompletedCaseFromQueue();                
             }
         }
 
@@ -56,7 +58,14 @@ namespace HPF.FutureState.ProcessSummaryQueue
         /// <param name="entry"></param>
         private static void ProcessCompletedCaseEntry(HPFSummaryQueueEntry entry)
         {
-            SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);
+            try
+            {                
+                SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);
+            }
+            catch(Exception Ex)
+            {
+                ExceptionProcessor.HandleException(Ex);
+            }
         }
     }
 }
