@@ -5,55 +5,57 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager ID="myscript" runat="server">
 </asp:ScriptManager>
-<table width="90%">
-    <colgroup>
-        <col width="10%" />
-        <col width="10%" />
-        <col width="10%" />
-        <col width="20%" />
-        <col width="50%" />
-    </colgroup>
+<table width="90%">    
     <tr>
-        <td colspan="5" class="Header">
+        <td colspan="6" class="Header">
             Agency Accounts Payable page
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
-            Agency:
-        </td>
-        <td>
+        <td colspan="2">
+        <table cellpadding="0" cellspacing="0">
+        <tr>
+        <td align="left" class="sidelinks">
+            Agency:&nbsp;</td>
+        <td class="sidelinks" align="left">
             <asp:DropDownList ID="ddlAgency" runat="server" Height="16px" CssClass="Text">
             </asp:DropDownList>
         </td>
+        </td>
+        </tr>
+        </table>
         <td class="sidelinks" align="right">
             Period Start:
         </td>
-        <td>
+        <td align="left">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Width="150px" MaxLength="100"></asp:TextBox>
         </td>
+        <td>
+            &nbsp;</td>
         <td>
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td>
+        <td class="style5">
         </td>
-        <td>
-        </td>
+        <td class="style2">
+            &nbsp;</td>
         <td class="sidelinks" align="right">
             Period End:
         </td>
-        <td>
+        <td align="left">
             <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100" CssClass="Text"></asp:TextBox>
         </td>
-        <td>
+        <td align="right">
             <asp:Button ID="btnRefreshList" runat="server" Text="Refresh List" Width="120px"
                 CssClass="MyButton" OnClick="btnRefreshList_Click" />
         </td>
+        <td>
+            &nbsp;</td>
     </tr>
     <tr>
-        <td colspan="5">
+        <td colspan="6">
             <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
             <%--<asp:Label ID="lblMessage" runat="server" Text="" CssClass="ErrorMessage"></asp:Label>
             <asp:RequiredFieldValidator ID="reqtxtPeriodStart" Display="Dynamic" runat="server"
@@ -69,12 +71,12 @@
         </td>
     </tr>
     <tr>
-        <td colspan="5" class="sidelinks">
+        <td colspan="6" class="sidelinks">
             Payable List:
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             <cc1:StatefullScrollPanel ID="panInvoiceList" runat="server" CssClass="ScrollTable"
                 Width="840px">
                 <asp:UpdatePanel ID="myupdatepanel" runat="server">
@@ -136,9 +138,11 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td class="style5">
             &nbsp;
         </td>
+        <td class="style2">
+            &nbsp;</td>
         <td>
             &nbsp;
         </td>
