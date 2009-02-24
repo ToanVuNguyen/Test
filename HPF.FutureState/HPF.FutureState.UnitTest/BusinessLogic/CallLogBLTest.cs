@@ -68,7 +68,6 @@ namespace HPF.FutureState.UnitTest
         public void InsertCallLogTest_Pass()
         {
             CallLogBL_Accessor target = new CallLogBL_Accessor();
-            
             CallLogDTO aCallLog = new CallLogDTO();
             aCallLog.StartDate = new DateTime(2008, 10, 10);
             aCallLog.EndDate = DateTime.Now;

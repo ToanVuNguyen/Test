@@ -41,20 +41,12 @@ namespace HPF.FutureState.BusinessLogic
         public int? InsertCallLog(CallLogDTO aCallLog)
         {
             aCallLog.SetInsertTrackingInformation(aCallLog.CcAgentIdKey);
-
-            ExceptionMessageCollection exceptionMessages = new ExceptionMessageCollection();
-            ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
+            
             DataValidationException dataValidationException = new DataValidationException();
-            if (!validationResults.IsValid)
-            {
 
-                foreach (ValidationResult result in validationResults)
-                {
-                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess );
-                }            
-            }
+            dataValidationException.ExceptionMessages.Add(CheckDataValidation(aCallLog));
+
+            dataValidationException.ExceptionMessages.Add(CheckTimePart(aCallLog));
             
             dataValidationException.ExceptionMessages.Add(CheckValidCodeForCallLog(aCallLog));
 
@@ -72,6 +64,8 @@ namespace HPF.FutureState.BusinessLogic
             
         }
 
+        
+
         /// <summary>
         /// Get a CallLog by CallLogId
         /// </summary>
@@ -82,6 +76,23 @@ namespace HPF.FutureState.BusinessLogic
             return CallLogDAO.Instance.ReadCallLog(callLogId);
         }
         #endregion        
+
+        private ExceptionMessageCollection CheckDataValidation(CallLogDTO aCallLog)
+        {
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+            ValidationResults validationResults = HPFValidator.Validate<CallLogDTO>(aCallLog);
+            if (!validationResults.IsValid)
+            {
+
+                foreach (ValidationResult result in validationResults)
+                {
+                    string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessage(result.Tag);
+                    errorList.AddExceptionMessage(errorCode, errorMess);
+                }
+            }
+            return errorList;
+        }
 
         private ExceptionMessageCollection CheckValidCodeForCallLog(CallLogDTO aCallLog)
         {
@@ -154,6 +165,18 @@ namespace HPF.FutureState.BusinessLogic
             }
             return errorList;
             
+        }
+
+        private ExceptionMessageCollection CheckTimePart(CallLogDTO aCallLog)
+        {
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+            if (aCallLog.StartDate.HasValue && aCallLog.EndDate.HasValue)
+            {                                
+                TimeSpan sp = new TimeSpan();
+                if (aCallLog.StartDate.Value.TimeOfDay == sp && aCallLog.EndDate.Value.TimeOfDay == sp)
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0354, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0354));
+            }            
+            return errorList;
         }
 
         private ExceptionMessageCollection CheckDependingServicer(CallLogDTO aCallLog)

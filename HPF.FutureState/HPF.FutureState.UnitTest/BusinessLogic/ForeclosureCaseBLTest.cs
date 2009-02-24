@@ -30,11 +30,6 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         private TestContext testContextInstance;
 
        
-        static string duplicate_ind = "N";
-        static string prop_addr1 = "prop_addr1";
-        static string prop_city = "prop_city";
-        static string prop_state_cd = "68";
-
         static string prop_zip = "68686";
         
         static string ssn = "6868";
@@ -45,7 +40,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static string working_user_id = "utest_FC_test_12345";
         static int budget_category_id = 0;
         static string working_user_id_dupe = "utest_FC_test_12345_dupe";
-        static string acct_num_dupe = "an_6868_dupe";
+        static string acct_num_dupe = "an6868dupe";
         static string servicer_name_dupe = "sn_68_dupe";
         static string outcome_type_name_dupe = "otn_68_dupe";
         static int outcome_type_id_dupe = 0;
@@ -251,18 +246,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int actual = target.SearchForeclosureCase(searchCriteria, 50).Count;
 
             Assert.AreEqual(0, actual);
-        }
-        [TestMethod()]
-        [ExpectedException(typeof(DataValidationException))]
-        public void SearchFcCase_FirstName_Invalid()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-
-            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.FirstName = "sadfasdfasdfasdfasdfsadfasdfasdfasdfasdfsadfasdfasdfasdfasdfsadfasdfasdfasdfasdf";
-            searchCriteria.PropertyZip = prop_zip;            
-            target.SearchForeclosureCase(searchCriteria, 50);            
-        }
+        }        
         #endregion
 
         #region AgencyCaseNumber
@@ -294,19 +278,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             
             Assert.AreNotEqual(actual, null);
             Assert.AreEqual(0, actual.SearchResultCount);
-        }
-
-        [TestMethod()]   
-        [ExpectedException(typeof(DataValidationException))]
-        public void SearchFcCase_AgencyCaseNumber_Invalid()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-
-            ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.PropertyZip = prop_zip;
-            searchCriteria.AgencyCaseNumber = "ForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTOForeclosureCaseSearchCriteriaDTO";
-            target.SearchForeclosureCase(searchCriteria, 50);
-        }
+        }       
         #endregion
 
         #region helper

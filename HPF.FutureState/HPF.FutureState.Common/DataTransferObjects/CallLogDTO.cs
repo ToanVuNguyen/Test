@@ -65,13 +65,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default")]
         public string ScreenRout { get; set; }
 
-        [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0353)]
+        [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", Tag = ErrorMessages.ERR0353)]
         public string FinalDispoCd { get; set; }
 
         [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default")]
         public string TransNumber { get; set; }
 
-        [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", MessageTemplate = ErrorMessages.ERR0350)]
+        [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", Tag = ErrorMessages.ERR0350)]
         public string CcCallKey { get; set; }
 
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
