@@ -109,7 +109,7 @@ namespace HPF.FutureState.Common.Utils
 
         private string GetReportUrl(string renderFormat)
         {
-            var newReportPath = HPFConfigurationSettings.SHAREPOINT_REPORT_LIBRARY + ReportPath + ".rdl";
+            var newReportPath = HPFConfigurationSettings.SHAREPOINT_REPORT_LIBRARY + ReportPath;
             //
             var url = _ReportServer + "/?" + newReportPath + "&rs:Command=Render&rs:Format={0}{1}";
             //

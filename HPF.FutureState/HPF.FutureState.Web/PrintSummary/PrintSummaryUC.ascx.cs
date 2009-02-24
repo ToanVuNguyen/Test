@@ -51,9 +51,8 @@ namespace HPF.FutureState.Web.PrintSummary
 
         private void SetReportPath()
         {
-            ReportViewerPrintSummary.ServerReport.ReportPath = HPFConfigurationSettings.SHAREPOINT_REPORT_LIBRARY +
-                                                               @"/HPF_Report/rpt_CounselingSummary" +
-                                                               ".rdl";
+            ReportViewerPrintSummary.ServerReport.ReportPath =
+                HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT);
         }
     }
 

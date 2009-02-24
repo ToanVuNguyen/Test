@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.ProcessSummaryQueue
@@ -22,6 +24,13 @@ namespace HPF.FutureState.ProcessSummaryQueue
             }
             GC.KeepAlive(mutex);  
             //
+            //ReportingExporter ex = new ReportingExporter();
+            //ex.ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT);
+            //ex.SetReportParameter("pi_fc_id","243");
+            //var buffer = ex.ExportToPdf();
+            //FileStream f = new FileStream("c:\\test.pdf", FileMode.Create);
+            //f.Write(buffer,0, buffer.Length);
+            //f.Close();
             ProcessSummaryQueue();
         }
 

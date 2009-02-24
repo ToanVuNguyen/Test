@@ -103,7 +103,20 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["WS_SEARCH_RESULT_MAXROW"];
             }
 
-        }   
-        
+        }
+
+        public static string HPF_COUNSELINGSUMMARY_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_COUNSELINGSUMMARY_REPORT"];
+            }
+
+        }        
+   
+        public static string MapReportPath(string virtualPath)
+        {
+            return SHAREPOINT_REPORT_LIBRARY + virtualPath;
+        }
     }
 }

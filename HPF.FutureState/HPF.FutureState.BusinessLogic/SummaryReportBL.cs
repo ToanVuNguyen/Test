@@ -33,7 +33,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             var reportExport = new ReportingExporter
                                    {
-                                       ReportPath = @"HPF_Report/rpt_CounselingSummary"
+                                       ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT)
                                    };
             reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
             var pdfReport = reportExport.ExportToPdf();
