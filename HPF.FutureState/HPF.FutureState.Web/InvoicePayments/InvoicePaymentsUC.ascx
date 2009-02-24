@@ -12,13 +12,11 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="left" colspan="2" nowrap>
             Funding Source:
-        </td>
-        <td>
             <asp:DropDownList ID="ddlFundingSource" runat="server" Height="16px" CssClass="Text">
             </asp:DropDownList>
-        </td>
+        </td>        
         <td class="sidelinks" align="right">
             Period Start:
         </td>
@@ -40,12 +38,10 @@
             Period End:
         </td>
         <td>
-            <asp:TextBox ID="txtPeriodEnd" runat="server"  MaxLength="100" CssClass="Text"></asp:TextBox>
-        </td>
-        <td colspan="2">
-            <asp:Button ID="btnRefreshList" runat="server" Text="Search" Width="120px"
-                CssClass="MyButton" OnClick="btnRefreshList_Click" />
-        </td>
+            <asp:TextBox ID="txtPeriodEnd" runat="server"  MaxLength="100" CssClass="Text"></asp:TextBox>            
+        </td>        
+        <td align="right"><asp:Button ID="btnRefreshList" runat="server" Text="Search" Width="120px"
+                CssClass="MyButton" OnClick="btnRefreshList_Click" /></td>
     </tr>
     <tr>
         <td colspan="6" class="ErrorMessage">
