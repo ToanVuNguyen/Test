@@ -172,7 +172,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblProgram.Text = foreclosureCase.ProgramId.ToString();
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
                 lblCompleteDate.Text = foreclosureCase.CompletedDt == null ? "" : foreclosureCase.CompletedDt.Value.ToShortDateString();
-                lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd.ToString();
+                lblCounsellingDuration.Text = foreclosureCase.CounselingDurationCd;
                 lblSourceCode.Text = foreclosureCase.CaseSourceCd;
                 //case summary
                 lblSentDate.Text = foreclosureCase.SummarySentDt == null ? "" : foreclosureCase.SummarySentDt.Value.ToShortDateString();
