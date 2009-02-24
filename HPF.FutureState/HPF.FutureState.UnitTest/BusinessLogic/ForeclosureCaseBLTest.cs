@@ -801,7 +801,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void SaveFcCase_UpdateActiveFcCaseWhenDupe_Pass()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
-
+            target._workingUserID = working_user_id;
             ForeclosureCaseDTO fcCase = target.GetForeclosureCase(fc_id);
             
             
@@ -834,6 +834,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             fcCaseSet.Outcome = new OutcomeItemDTOCollection();
             fcCaseSet.Outcome.Add(oi);
             //fcCaseSet.BudgetItems
+            
             int? fcId = target.ProcessUpdateForeclosureCaseSet(fcCaseSet);
             //ForeclosureCaseDTO newFcCase = GetForeclosureCase(fcId);
 
