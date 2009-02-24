@@ -4,6 +4,7 @@ using System.Threading;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.ProcessSummaryQueue
 {
@@ -11,7 +12,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
     {
         private const string MUTEX_NAME = "HPF.FutureState.ProcessSummaryQueue";
 
-        private const int SLEEPING_TIME = 1000;//Miliseconds
+        private const int SLEEPING_TIME = 5000;//Miliseconds
 
         static void Main()
         {
@@ -22,16 +23,9 @@ namespace HPF.FutureState.ProcessSummaryQueue
             {                
                 return;
             }
-            GC.KeepAlive(mutex);  
-            //
-            //ReportingExporter ex = new ReportingExporter();
-            //ex.ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT);
-            //ex.SetReportParameter("pi_fc_id","243");
-            //var buffer = ex.ExportToPdf();
-            //FileStream f = new FileStream("c:\\test.pdf", FileMode.Create);
-            //f.Write(buffer,0, buffer.Length);
-            //f.Close();
-            ProcessSummaryQueue();
+            GC.KeepAlive(mutex);
+            Logger.Write("Test Logging", "General");
+            //ProcessSummaryQueue();
         }
 
         private static void ProcessSummaryQueue()
