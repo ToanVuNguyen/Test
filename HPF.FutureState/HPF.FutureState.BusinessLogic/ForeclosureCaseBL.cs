@@ -89,7 +89,6 @@ namespace HPF.FutureState.BusinessLogic
         }
         public int? UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
-            //foreclosureCase.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.ToString());
             return ForeclosureCaseDAO.CreateInstance().UpdateAppForeclosureCase(foreclosureCase);
         }
         private void AppThrowMissingRequiredFieldsException(Collection<string> collection)

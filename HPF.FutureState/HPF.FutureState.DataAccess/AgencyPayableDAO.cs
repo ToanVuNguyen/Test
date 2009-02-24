@@ -181,9 +181,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[5] = new SqlParameter("@pi_period_start_dt", null);
             sqlParam[6] = new SqlParameter("@pi_period_end_dt", null);
             sqlParam[7] = new SqlParameter("@pi_accounting_link_TBD", null);
-            sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", null);
-            sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", null);
-            sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", null);
+            sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", agencyPayable.ChangeLastDate);
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id",agencyPayable.ChangeLastUserId);
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", agencyPayable.ChangeLastAppName);
             sqlParam[11] = new SqlParameter("@pi_agency_payable_pmt_amt", null);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);

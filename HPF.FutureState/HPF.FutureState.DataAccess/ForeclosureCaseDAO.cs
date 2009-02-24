@@ -570,7 +570,7 @@ namespace HPF.FutureState.DataAccess
             var trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
             var command = CreateSPCommand("hpf_foreclosure_case_update_app", dbConnection);
             command.Transaction = trans;
-            var sqlParam = new SqlParameter[13];
+            var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
             sqlParam[1] = new SqlParameter("@pi_duplicate_ind", foreclosureCase.DuplicateInd);
             sqlParam[2] = new SqlParameter("@pi_loan_dflt_reason_notes", foreclosureCase.LoanDfltReasonNotes);
@@ -584,6 +584,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[10] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
             sqlParam[11] = new SqlParameter("@pi_never_pay_reason", null);
             sqlParam[12] = new SqlParameter("@pi_never_bill_reason", null);
+            sqlParam[13] = new SqlParameter("@pi_chg_lst_dt",foreclosureCase.ChangeLastDate);
+            sqlParam[14] = new SqlParameter("@pi_chg_lst_user_id",foreclosureCase.ChangeLastUserId);
+            sqlParam[15] = new SqlParameter("@pi_chg_lst_app_name",foreclosureCase.ChangeLastAppName);
             //</Parameter>            
             command.Parameters.AddRange(sqlParam);
             //<Parameter>
