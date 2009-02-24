@@ -239,12 +239,12 @@
                 </td>
             </tr>
             <tr  >
-            <td >
-             <table width="100%" >
+            <td align="center" colspan="8" style="width:100%" >
+             <table  >
              <tr >
-             <td>
+             <td align="center">
              <asp:Button ID="btnClose" runat="server" CssClass="MyButton" Text="Close"
-                            Width="150px" />
+                            Width="150px" onclick="btnClose_Click" />
              </td>
              </tr>
              </table>

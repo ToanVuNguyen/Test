@@ -159,6 +159,14 @@ namespace HPF.FutureState.Web.AppNewPayable
             return result;
         }
 
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            //if (Session["agencyPayable"] != null)
+            {
+                Response.Redirect("AgencyPayable.aspx");
+            }
+        }
+
         
     }
 }
