@@ -102,6 +102,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                 txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
                 int daysinmonth = DateTime.DaysInMonth(year, priormonth);
                 txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
+                // txtPeriodStart.Text = DateTime.Now.AddMonths(-6).ToShortDateString();
+               // txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
             }
 
         }
