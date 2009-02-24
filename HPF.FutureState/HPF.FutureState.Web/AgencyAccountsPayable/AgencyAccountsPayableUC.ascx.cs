@@ -26,21 +26,26 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             //apply security
             ApplySecurity();
-            
-            //if (grvInvoiceList.SelectedIndex != -1)
-            //{
-            //    //btnCancelPayable.Attributes.Clear();
-            //    btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
-            //}
-            
+          
             // display grv in the first time
             if (!IsPostBack)
             {
+                AgencyPayableSearchCriteriaDTO searchCriteria=new AgencyPayableSearchCriteriaDTO();
                 BindAgencyDropDownList();
-                SetDefaultPeriodStartEnd();
-               // btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
-                //default display all agencyaccount within 6 month.
-                BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
+                if (Session["agencyPayableSearchCriteria"] != null)
+                {
+                    searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
+                    txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
+                    txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
+                    ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
+                    BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(),searchCriteria.PeriodEndDate.ToShortDateString());
+                }
+                else
+                {
+                    SetDefaultPeriodStartEnd();
+                    //default display all agencyaccount within 6 month.
+                    BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
+                }
 
             }
         }
@@ -79,6 +84,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
             try
             {
+                
                 //get search criteria to AgencyPayableSearchCriteriaDTO
                 searchCriteria = GetSearchCriteria(periodStart, periodEnd);
                 //get search data match that search collection
@@ -140,6 +146,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
+            Session["agencyPayableSearchCriteria"] = searchCriteria;
             return searchCriteria;
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)
@@ -200,7 +207,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     int selectedrow = grvInvoiceList.SelectedIndex;
                     RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCode("agency payable status code")[1];
                     agency[selectedrow].StatusCode = agencystatus.Code;
-                    
+                    agency[selectedrow].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
                     //
                     grvInvoiceList.DataSource = agency;
