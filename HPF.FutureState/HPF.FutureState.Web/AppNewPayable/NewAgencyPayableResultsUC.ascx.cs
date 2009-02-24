@@ -20,16 +20,19 @@ namespace HPF.FutureState.Web.AppNewPayable
 {
     public partial class NewAgencyPayableResultsUC : System.Web.UI.UserControl
     {
-        //store ForeclosureCaseDraftDTOCollection
-        ForeclosureCaseDraftDTOCollection FCDraftCol
+        //store AgencyPayableDraftDTO
+        AgencyPayableDraftDTO agencyPayableDraft
         {
             get
-            { return (ForeclosureCaseDraftDTOCollection)ViewState["fcDraftCol"]; }
+            {
+                return (AgencyPayableDraftDTO)ViewState["agencyPayableDraft"];
+            }
             set
             {
-                ViewState["fcDraftCol"] = value;
+                ViewState["agencyPayableDraft"] = value;
             }
         }
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             //get search criteria.
@@ -63,7 +66,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
             agencyPayableSearchCriteria.AgencyId = agencyid;
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
-            agencyPayableSearchCriteria.PeriodStartDate = periodstartdate;
+            agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
             agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
             agencyPayableSearchCriteria.Indicator = indicator;
             return agencyPayableSearchCriteria;
@@ -73,19 +76,23 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// </summary>
         protected void BindGridView()
         {
-            grvInvoiceItems.DataSource = this.FCDraftCol;
+            grvInvoiceItems.DataSource = this.agencyPayableDraft.ForclosureCaseDrafts;
             grvInvoiceItems.DataBind();
             double total = 0;
             //calculate the total amount of ForeclosureCaseDraftDTOCollection
-            foreach (var item in this.FCDraftCol)
+            foreach (var item in this.agencyPayableDraft.ForclosureCaseDrafts)
             {
                 total += item.Amount==null?0:item.Amount.Value;
             }
             //add the values you just calculate to lable in UI
             lblInvoiceTotalFooter.Text = String.Format("{0:c}",total);
-            lblTotalCasesFooter.Text = this.FCDraftCol.Count.ToString();
-            lblTotalAmount.Text = total.ToString();
-            lblTotalCases.Text = this.FCDraftCol.Count.ToString();
+            lblTotalCasesFooter.Text = this.agencyPayableDraft.TotalCases.ToString();
+            lblTotalAmount.Text = String.Format("{0:C}", total);
+            lblTotalCases.Text = this.agencyPayableDraft.TotalCases.ToString();
+            this.agencyPayableDraft.TotalAmount = total;
+            if (this.agencyPayableDraft.ForclosureCaseDrafts.Count > 0)
+                btnGeneratePayable.Enabled = true;
+            else btnGeneratePayable.Enabled = false;
         }
         /// <summary>
         /// 
@@ -100,25 +107,25 @@ namespace HPF.FutureState.Web.AppNewPayable
                 if (agencyPayableDraftDTO.ForclosureCaseDrafts != null)
                 {
                     grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
-                    this.FCDraftCol = agencyPayableDraftDTO.ForclosureCaseDrafts;
+                    this.agencyPayableDraft = agencyPayableDraftDTO;
                     grvInvoiceItems.DataBind();
                     AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
                     lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
                     lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
                     lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
-                    lblTotalAmount.Text = agencyPayableDraftDTO.TotalAmount.ToString();
+                    lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount);
                     lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
                     lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
                     double total = 0;
                     //calculate total amount of cases - search data match  search criteria.
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                     {
-                        //test
-                       // item.Amount = 10;
                         total += item.Amount==null?0:item.Amount.Value;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
-                    lblTotalAmount.Text = total.ToString();
+                    
+                    lblTotalAmount.Text = String.Format("{0:C}",total);
+
                 }
                 else lblMessage.Text = "no data";
             }
@@ -151,20 +158,25 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             try
             {
-                AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
-                AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-                agencyPayableSearchCriteria = GetCriteria();
-                agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
-                for (int i = 0; i < this.FCDraftCol.Count; i++)
+                if (this.agencyPayableDraft.ForclosureCaseDrafts.Count > 0)
                 {
-                    this.FCDraftCol[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
+                    AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+                    agencyPayableSearchCriteria = GetCriteria();
+                    agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
+                    for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
+                    {
+                        this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    }
+                    agencyPayableDraftDTO.ForclosureCaseDrafts = this.agencyPayableDraft.ForclosureCaseDrafts;
+                    //agencyPayableDraftDTO.TotalAmount = double.Parse(lblTotalAmount.Text.ToString());
+                    agencyPayableDraftDTO.TotalAmount = this.agencyPayableDraft.TotalAmount;
+                    agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
+                    agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
+                    Response.Redirect("AgencyPayable.aspx");
                 }
-                agencyPayableDraftDTO.ForclosureCaseDrafts = this.FCDraftCol;
-                agencyPayableDraftDTO.TotalAmount = double.Parse(lblTotalAmount.Text.ToString());
-                agencyPayableDraftDTO.TotalCases = this.FCDraftCol.Count;
-                agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
-                lblMessage.Text = "Generate succesfull.";
+                else lblMessage.Text = "Please choose a record.";
             }
             catch (Exception ex)
             {
@@ -185,11 +197,12 @@ namespace HPF.FutureState.Web.AppNewPayable
                 CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
                 if (chkdel.Checked == true)
                 {
-                    ForeclosureCaseDraftDTO agency = this.FCDraftCol[i];
-                    this.FCDraftCol.Remove(agency);
+                    ForeclosureCaseDraftDTO agency = this.agencyPayableDraft.ForclosureCaseDrafts[i];
+                    this.agencyPayableDraft.ForclosureCaseDrafts.Remove(agency);
                 }
             }
             BindGridView();
+           
         }
         /// <summary>
         /// return NewPayableCriteria page.
