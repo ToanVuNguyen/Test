@@ -14,9 +14,8 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
-            Funding Source</td>
-        <td>
+        <td align="left" class="sidelinks" colspan="2">
+            Funding Source        
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
@@ -27,7 +26,7 @@
         </td>
         <td class="style1">
             &nbsp;</td>
-        <td rowspan="2" align="center" style="vertical-align: top">
+        <td rowspan="4" align="center" style="vertical-align: top">
             <img alt="" src="Styles/Images/HPFLogo.jpg" 
                 style="width: 55px; height: 55px" /><br />
             <asp:LinkButton ID="lblPortal" runat="server">Invoices on Portal</asp:LinkButton>
@@ -43,7 +42,7 @@
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
         </td>
-        <td >
+        <td align="right">
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 
                 Text="Search" onclick="btnRefreshList_Click" Width="120px" />
         </td>
@@ -53,16 +52,12 @@
             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks" colspan="5">
             <asp:Label ID="lblInvoiceList" runat="server" Text="Invoice List" 
                 Visible="False"></asp:Label>
         </td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td colspan="5" rowspan="17">
