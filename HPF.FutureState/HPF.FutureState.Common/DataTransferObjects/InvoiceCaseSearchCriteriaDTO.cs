@@ -41,6 +41,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public bool NeighborworkRejected { get; set; }
         public bool SelectAllServicer { get; set; }
         public bool SelectUnfunded { get; set; }
+        public int ServicerConsentQty { get; set; }
         public InvoiceCaseSearchCriteriaDTO()
         {
             Age = new NumberRange();
