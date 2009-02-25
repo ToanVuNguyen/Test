@@ -3,7 +3,6 @@ using System.Threading;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
-using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.ProcessSummaryQueue
 {

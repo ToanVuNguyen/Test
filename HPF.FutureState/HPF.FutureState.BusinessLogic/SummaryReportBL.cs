@@ -98,7 +98,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private static void SendSummaryMailToServicer(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
-        {            
+        {                        
             var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
             EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail,
                                                            attachmentFileName);            
@@ -110,34 +110,19 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
-        {
-            try
-            {
-            Logger.Write("Begin Create hpfSharepointSummary", "General");                
+        {            
             var hpfSharepointSummary = new HPFPortalConselingSummary
                                            {
                                                ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
                                                LoanNumber = caseLoan.AcctNum,
                                                CompletedDate = foreclosureCase.CompletedDt.Value,
                                                Servicer = servicer.ServicerName,
-                                               Delinquency = caseLoan.LoanDelinqStatusCd
+                                               Delinquency = caseLoan.LoanDelinqStatusCd,
+                                               ReportFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan)
                                            };
             if (foreclosureCase.FcSaleDate != null)
                 hpfSharepointSummary.ForeclosureSaleDate = foreclosureCase.FcSaleDate.Value;
-            Logger.Write("End Create hpfSharepointSummary", "General");
-
-            Logger.Write("Begin Send", "General");
-            
-                HPFPortalGateway.SendSummary(hpfSharepointSummary);
-
-                Logger.Write("End Send", "General");                
-            }
-            catch(Exception Ex)
-            {
-                Logger.Write(Ex.Message, "General");
-                Logger.Write(Ex.StackTrace, "General");
-            }
-            
+            HPFPortalGateway.SendSummary(hpfSharepointSummary);            
         }
 
         /// <summary>

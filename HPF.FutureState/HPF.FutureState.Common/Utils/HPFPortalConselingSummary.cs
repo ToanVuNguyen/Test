@@ -9,6 +9,8 @@ namespace HPF.FutureState.Common.Utils
     {
         public byte[] ReportFile { get; set; }
 
+        public string ReportFileName { get; set; }
+
         public string LoanNumber { get; set; }
 
         public string Servicer { get; set; }
@@ -17,6 +19,6 @@ namespace HPF.FutureState.Common.Utils
 
         public DateTime ForeclosureSaleDate { get; set; }
 
-        public string Delinquency { get; set; }
+        public string Delinquency { get; set; }        
     }
 }
