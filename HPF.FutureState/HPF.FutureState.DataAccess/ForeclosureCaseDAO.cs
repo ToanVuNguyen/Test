@@ -389,7 +389,7 @@ namespace HPF.FutureState.DataAccess
         {
             AppForeclosureCaseSearchResultDTOCollection results = new AppForeclosureCaseSearchResultDTOCollection();
             var dbConnection = CreateConnection();
-            var command = new SqlCommand("hpf_foreclosure_case_search_app_dynamic", dbConnection);
+            var command = CreateSPCommand("hpf_foreclosure_case_search_app_dynamic", dbConnection);
             string whereclause = AppGenerateWhereClause(searchCriteria);
             var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
@@ -409,7 +409,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[14] = new SqlParameter("@whereclause", whereclause);
             sqlParam[15] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
+            //command.CommandType = CommandType.StoredProcedure;
             try
             {
                 dbConnection.Open();
@@ -443,7 +443,6 @@ namespace HPF.FutureState.DataAccess
                         item.LoanList = ConvertToString(reader["loan_list"]);
                         item.BankruptcyIndicator = ConvertToString(reader["bankruptcy_ind"]);
                         item.ForeclosureNoticeReceivedIndicator = ConvertToString(reader["fc_notice_received_ind"]);
-
                         results.Add(item);
                     }
                     reader.Close();

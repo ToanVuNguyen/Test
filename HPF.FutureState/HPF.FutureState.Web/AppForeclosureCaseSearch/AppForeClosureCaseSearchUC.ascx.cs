@@ -224,6 +224,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (Exception ex)
             {
+                myPannel.Visible = false;
                 bulErrorMessage.Items.Add(new ListItem(ex.Message));
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);

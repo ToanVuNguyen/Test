@@ -6,6 +6,7 @@ using System.Configuration;
 using System;
 using System.Globalization;
 using System.Collections.Generic;
+using HPF.FutureState.Web.Security;
 namespace HPF.FutureState.UnitTest
 {
 
@@ -103,7 +104,7 @@ namespace HPF.FutureState.UnitTest
               + ", counselor_fname, counselor_lname, counselor_id_ref"
               + ", prop_zip, agency_case_num, borrower_last4_SSN"
               + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name"
-              + ", create_user_id,create_dt,never_pay_reason_cd,never_bill_reason_cd ) values "
+              + ", create_user_id,create_dt,never_pay_reason_cd,never_bill_reason_cd,prop_addr1,prop_city,prop_state_cd,duplicate_ind) values "
 
               + " (" + agency_id + "," + program_id + ", '" + DateTime.Now + "'"
               + ",'thao test', 'accounting test', 'pcontactno'"
@@ -113,7 +114,7 @@ namespace HPF.FutureState.UnitTest
               + ", 'Y', 'Y', 'Y'"
               + ", 'cfname', 'clname', 'cidref'"
               + ", '" + "9999" + "', '" + "abc" + "', '" + "1111" + "'"
-              + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "','accounting pay','accounting bill' )";
+              + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "','accounting pay','accounting bill','nguyen hong','hcm','bt','N' )";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -135,21 +136,22 @@ namespace HPF.FutureState.UnitTest
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
             //
-            string strsql = @"delete from agency_payable where create_user_id='" + working_user_id + "'";
-            var command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
-
-            //Delete test data insert to InsertAgencyPayableCaseTest
-            //
             //get payable_id from AGENCY_PAYABLE data test status_cd='payable test'
-            strsql = @"select agency_payable_id from agency_payable where status_cd='"+status_cd+"'";
-            command = new SqlCommand(strsql, dbConnection);
+            string strsql = @"select agency_payable_id from agency_payable where create_user_id='" + working_user_id + "'";
+            var command = new SqlCommand(strsql, dbConnection);
             int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
             //
             strsql = @"delete from agency_payable_case where agency_payable_id=" + agency_payable_id;
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
+            strsql = @"delete from agency_payable where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //Delete test data insert to InsertAgencyPayableCaseTest
+            //
+           
             //Delete test data insert to InsertAgencyPayableTest
             strsql = @"delete from agency_payable where [status_cd] = 'insert agency'";
             command = new SqlCommand(strsql, dbConnection);
@@ -383,11 +385,13 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
 
-            agencyPayable.PaymentComment = "Agency didn't complete";
-            agencyPayable.StatusCode = "Cancelled";
+            //agencyPayable.PaymentComment = "Agency didn't complete";
+            agencyPayable.StatusCode = "CANCELLED";
             agencyPayable.AgencyPayableId = agency_payable_id;
+            agencyPayable.ChangeLastDate = DateTime.Now;
+            agencyPayable.ChangeLastUserId = working_user_id;
+            agencyPayable.ChangeLastAppName = "HPF";
             target.CancelAgencyPayable(agencyPayable);
-
             strsql = @"select * from agency_payable where agency_payable_id=" + agency_payable_id;
             command = new SqlCommand(strsql, dbConnection);
             var rd = command.ExecuteReader();
@@ -416,6 +420,7 @@ namespace HPF.FutureState.UnitTest
             //get payable_id from AGENCY_PAYABLE data test status_cd='payable test'
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             string strsql = @"select agency_payable_id from agency_payable where status_cd='" + status_cd + "'";
+            dbConnection.Open();
             var command = new SqlCommand(strsql, dbConnection);
             int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
             //
@@ -436,13 +441,14 @@ namespace HPF.FutureState.UnitTest
             strsql = @"select * from agency_payable_case where agency_payable_id=" + agency_payable_id;
             command = new SqlCommand(strsql, dbConnection);
             var rd = command.ExecuteReader();
-            string takebackReason_actual = null;
+            string takebackReason_actual = "";
             if (rd.HasRows)
                 while (rd.Read())
                 {
                     takebackReason_actual = rd["takeback_pmt_reason_cd"].ToString();
                 }
             Assert.AreEqual(takebackReason, takebackReason_actual);
+            dbConnection.Close();
         }
 
         /// <summary>
