@@ -82,7 +82,7 @@ namespace HPF.SharePointAPI.Controllers
         {
             List<ResultInfo<T>> results = new List<ResultInfo<T>>();
             
-            using (SPSite site = new SPSite(DocumentCenter.Default.DocumentCenterSite))
+            using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite))
             {
                 ResultInfo<T> resultInfo;
                 string fileUrl;
@@ -96,6 +96,18 @@ namespace HPF.SharePointAPI.Controllers
                     resultInfo = new ResultInfo<T>();
                     try
                     {
+                        if (item.Name.Length == 0)
+                        {
+                            resultInfo.Successful = false;
+                            resultInfo.Error = new ArgumentNullException("Name");
+                            continue;
+                        }
+                        if (item.File.Length == 0)
+                        {
+                            resultInfo.Successful = false;
+                            resultInfo.Error = new ArgumentNullException("File");
+                            continue;
+                        }
                         //add file                        
                         fileUrl = String.Format("{0}/{1}", spFolder.ServerRelativeUrl, item.Name);
 

@@ -52,94 +52,73 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://litwaredemo")]
-        public string DocumentCenterSite {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://hpf-04")]
+        public string SharePointSite {
             get {
-                return ((string)(this["DocumentCenterSite"]));
+                return ((string)(this["SharePointSite"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Doc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Docs")]
         public string DocumentCenterWeb {
             get {
                 return ((string)(this["DocumentCenterWeb"]));
             }
-            set {
-                this["DocumentCenterWeb"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\namcao")]
+        [global::System.Configuration.DefaultSettingValueAttribute("hpf-04\\namcao")]
         public string ConselingSummaryUserName {
             get {
                 return ((string)(this["ConselingSummaryUserName"]));
             }
-            set {
-                this["ConselingSummaryUserName"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12345#qwe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Password123")]
         public string ConselingSummaryPassword {
             get {
                 return ((string)(this["ConselingSummaryPassword"]));
             }
-            set {
-                this["ConselingSummaryPassword"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\namcao")]
+        [global::System.Configuration.DefaultSettingValueAttribute("hpf-04\\namcao")]
         public string InvoiceUserName {
             get {
                 return ((string)(this["InvoiceUserName"]));
             }
-            set {
-                this["InvoiceUserName"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12345#qwe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Password123")]
         public string InvoicePassword {
             get {
                 return ((string)(this["InvoicePassword"]));
             }
-            set {
-                this["InvoicePassword"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\namcao")]
+        [global::System.Configuration.DefaultSettingValueAttribute("hpf-04\\namcao")]
         public string AccountPayableUserName {
             get {
                 return ((string)(this["AccountPayableUserName"]));
             }
-            set {
-                this["AccountPayableUserName"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12345#qwe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Password123")]
         public string AccountPayablePassword {
             get {
                 return ((string)(this["AccountPayablePassword"]));
-            }
-            set {
-                this["AccountPayablePassword"] = value;
             }
         }
     }
