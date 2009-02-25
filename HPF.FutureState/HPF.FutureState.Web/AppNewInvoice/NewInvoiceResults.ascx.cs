@@ -30,7 +30,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 if (!IsPostBack)
                 {
                     if (Session["IvoiceCaseSearchCriteria"] == null)
-                        return;
+                        Response.Redirect("CreateNewInvoice.aspx");
                     InvoiceCaseSearchCriteriaDTO searchCriteria = Session["IvoiceCaseSearchCriteria"] as InvoiceCaseSearchCriteriaDTO;
                     //Get the Invoice Case Draft
                     try
@@ -139,6 +139,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             try
             {
+                invoiceDraft.InvoiceComment = txtComment.Text;
                 invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 //insert invoice to the database
                 InvoiceBL.Instance.InsertInvoice(invoiceDraft);

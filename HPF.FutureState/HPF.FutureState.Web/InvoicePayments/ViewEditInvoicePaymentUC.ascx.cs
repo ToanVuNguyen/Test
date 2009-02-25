@@ -270,8 +270,14 @@ namespace HPF.FutureState.Web.InvoicePayments
             foreach(DataRow row in fileContent.Rows)
             {
                 ReconciliationDTO item = new ReconciliationDTO();
-                item.ForeclosureCaseId = int.Parse(row[COLUMN_NAME[0]].ToString());
-                item.InvoiceCaseId = int.Parse(row[COLUMN_NAME[1]].ToString());
+                if (row[COLUMN_NAME[0]].ToString() != string.Empty)
+                    item.ForeclosureCaseId = int.Parse(row[COLUMN_NAME[0]].ToString());
+                else
+                    item.ForeclosureCaseId = -1;
+                if (row[COLUMN_NAME[1]].ToString() != string.Empty)
+                    item.InvoiceCaseId = int.Parse(row[COLUMN_NAME[1]].ToString());
+                else
+                    item.InvoiceCaseId = -1;
                 item.PaymentAmount = double.Parse(row[COLUMN_NAME[2]].ToString());
                 item.PaymentRejectReasonCode = row[COLUMN_NAME[3]].ToString();
                 item.FreddieMacServicerNumber = row[COLUMN_NAME[4]].ToString();
@@ -281,6 +287,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 item.LoanNumber = row[COLUMN_NAME[9]].ToString();
                 result.Add(item);
             }
+            result.FundingSourceId = ddlFundingSource.SelectedValue;
             return result;
         }
         private void RowsValidate(DataTable fileContent,double paymentAmount)
@@ -294,7 +301,8 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //Internal Case IDs
                 try
                 {
-                    int.Parse(row[COLUMN_NAME[0]].ToString());
+                    if(row[COLUMN_NAME[0]].ToString()!=string.Empty)
+                        int.Parse(row[COLUMN_NAME[0]].ToString());
                 }
                 catch
                 {
@@ -305,14 +313,20 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //Invoice Case ID
                 try
                 {
-                    int.Parse(row[COLUMN_NAME[1]].ToString());
+                    if(row[COLUMN_NAME[1]].ToString()!=string.Empty)
+                        int.Parse(row[COLUMN_NAME[1]].ToString());
                 }
                 catch
                 {
                     var exMes = GetExceptionMessage(ErrorMessages.ERR0662, rowIndex);
                     ex.ExceptionMessages.Add(exMes);
                 }
-
+                //Internal Case ID and Invoice Case ID = null
+                if (row[COLUMN_NAME[0]].ToString() == string.Empty && row[COLUMN_NAME[1]].ToString() == string.Empty)
+                {
+                    var exMes = GetExceptionMessage(ErrorMessages.ERR0678, rowIndex);
+                    ex.ExceptionMessages.Add(exMes);
+                }
                 //Payment Amounts
                 try
                 {

@@ -245,6 +245,13 @@ namespace HPF.FutureState.Common
         public const string ERR0558 = "ERR0558";
         public const string ERR0559 = "ERR0559";
         public const string WARN0560 = "WARN0560";
+        public const string ERR0561 = "ERR0561";
+        public const string ERR0562 = "ERR0562";
+        public const string ERR0563 = "ERR0563";
+        public const string ERR0564 = "ERR0564";
+        public const string ERR0565 = "ERR0565";
+
+
         //view edit payable page
         public const string ERR0575 = "ERR0575";
         public const string WARN0576 = "WARN0576";
@@ -593,6 +600,11 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0558, "The HPF Payment ID provided in not a valid HPF Payment ID.");
                 errorMessageDict.Add(ERR0559, "At least one case must be selected to be unpaid.");
                 errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
+                errorMessageDict.Add(ERR0561, "A Funding Source is required to search for Invoices.");
+                errorMessageDict.Add(ERR0562, "A Period Start date is required to search for Invoices.");
+                errorMessageDict.Add(ERR0563, "A Period End date is required to search for Invoices.");
+                errorMessageDict.Add(ERR0564, "A Non-Servicer Funding Source Option is required to search for Invoices.");
+                errorMessageDict.Add(ERR0565, "A Program selection is required to search for Invoices.");
 
                 //view edit payable page
                 errorMessageDict.Add(ERR0575, "At least one case must be selected in order to take back a case.");

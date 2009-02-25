@@ -11,6 +11,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string FundingSourceId { get; set; }
         public DateTime PeriodStartDate { get; set; }
         public DateTime PeriodEndDate { get; set; }
+        public string InvoiceComment { get; set; }
         public int TotalCases
         {
             get

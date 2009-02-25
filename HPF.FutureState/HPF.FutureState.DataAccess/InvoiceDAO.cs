@@ -533,14 +533,15 @@ namespace HPF.FutureState.DataAccess
         /// Get InvoiceSet to display in View/Edit Invoice Page
         /// </summary>
         /// <returns> InvoiceSetDTO containts info about the Invoice and InvoiceCases</returns>
-        public void BackEndPreProcessing(string xmlString)
+        public void BackEndPreProcessing(string xmlString,string fundingSourceId)
         {
             DataValidationException result = new DataValidationException();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_Invoice_case_validate", dbConnection);
             command.Connection = dbConnection;
-            SqlParameter[] sqlParam = new SqlParameter[1];
+            SqlParameter[] sqlParam = new SqlParameter[2];
             sqlParam[0] = new SqlParameter("@pi_XMLDOC", xmlString);
+            sqlParam[1] = new SqlParameter("@pi_funding_source_id", fundingSourceId);
             command.Parameters.AddRange(sqlParam);
             try
             {
@@ -577,14 +578,15 @@ namespace HPF.FutureState.DataAccess
                 throw result;
         }
 
-        public void InvoiceCaseUpdateForPayment(string xmlString, DateTime changeLastDt, string changeLastUserId, string changeLastAppName)
+        public void InvoiceCaseUpdateForPayment(string xmlString,int invoicePaymentId, DateTime changeLastDt, string changeLastUserId, string changeLastAppName)
         {
             var command = CreateSPCommand("hpf_Invoice_case_update_for_payment", dbConnection);
-            SqlParameter[] sqlParam = new SqlParameter[4];
+            SqlParameter[] sqlParam = new SqlParameter[5];
             sqlParam[0] = new SqlParameter("@pi_XMLDOC", xmlString);
-            sqlParam[1] = new SqlParameter("@pi_chg_lst_dt", changeLastDt);
-            sqlParam[2] = new SqlParameter("@pi_chg_lst_user_id", changeLastUserId);
-            sqlParam[3] = new SqlParameter("@pi_chg_lst_app_name", changeLastAppName);
+            sqlParam[1] = new SqlParameter("@pi_invoice_payment_id", invoicePaymentId);
+            sqlParam[2] = new SqlParameter("@pi_chg_lst_dt", changeLastDt);
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_user_id", changeLastUserId);
+            sqlParam[4] = new SqlParameter("@pi_chg_lst_app_name", changeLastAppName);
             command.Parameters.AddRange(sqlParam);
             try
             {

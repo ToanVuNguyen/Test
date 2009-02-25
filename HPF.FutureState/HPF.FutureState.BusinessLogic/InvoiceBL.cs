@@ -69,6 +69,7 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.CreateDate = invoiceDraft.CreateDate;
                 invoice.InvoiceDate = invoice.CreateDate;
                 invoice.CreateUserId = invoiceDraft.CreateUserId;
+                invoice.InvoiceComment = invoiceDraft.InvoiceComment;
                 //Insert Invoice
                 int invoiceId = -1;
                 invoiceId = invoiceDAO.InsertInvoice(invoice);
@@ -176,7 +177,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 XmlElement item = doc.CreateElement("invoice_case");
                 item.SetAttribute("row_index", rowIndex.ToString());
-                item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
+                item.SetAttribute("fc_id", reconciliationDTO.ForeclosureCaseId==-1?"":reconciliationDTO.ForeclosureCaseId.ToString());
+                item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId==-1?"":reconciliationDTO.InvoiceCaseId.ToString());
                 item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
                 item.SetAttribute("reject_reason_code", reconciliationDTO.PaymentRejectReasonCode);
                 root.AppendChild(item);
@@ -190,7 +192,7 @@ namespace HPF.FutureState.BusinessLogic
             string xml = GetXmlString(reconciliationDTOCollection);
             try
             {
-                InvoiceDAO.CreateInstance().BackEndPreProcessing(xml);
+                InvoiceDAO.CreateInstance().BackEndPreProcessing(xml,reconciliationDTOCollection.FundingSourceId);
             }
             catch (DataValidationException ex)
             {
@@ -215,13 +217,12 @@ namespace HPF.FutureState.BusinessLogic
                 XmlElement item = doc.CreateElement("invoice_case");
                 item.SetAttribute("fc_id", reconciliationDTO.ForeclosureCaseId.ToString());
                 item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
-                item.SetAttribute("Freddie_servicer_num", reconciliationDTO.FreddieMacServicerNumber.ToString());
-                item.SetAttribute("acct_num", reconciliationDTO.LoanNumber);
                 item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
                 item.SetAttribute("reject_reason_cd", reconciliationDTO.PaymentRejectReasonCode);
                 item.SetAttribute("investor_loan_num", reconciliationDTO.FreddieMacLoanNumber);
                 item.SetAttribute("investor_num", reconciliationDTO.InvestorNumber);
                 item.SetAttribute("investor_name", reconciliationDTO.InvestorName);
+                item.SetAttribute("Freddie_servicer_num", reconciliationDTO.FreddieMacServicerNumber.ToString());
                 root.AppendChild(item);
             }
             doc.AppendChild(root);
@@ -239,11 +240,12 @@ namespace HPF.FutureState.BusinessLogic
             try
             {
                 InitiateTransaction();
-                invoiceDAO.InvoiceCaseUpdateForPayment(xmlString, invoicePayment.ChangeLastDate.Value,invoicePayment.ChangeLastUserId,invoicePayment.ChangeLastAppName);
+                
                 if (invoicePayment.InvoicePaymentID == -1)
-                    invoiceDAO.InsertInvoicePayment(invoicePayment);
+                    invoicePayment.InvoicePaymentID= invoiceDAO.InsertInvoicePayment(invoicePayment);
                 else
                     invoiceDAO.UpdateInvoicePayment(invoicePayment);
+                invoiceDAO.InvoiceCaseUpdateForPayment(xmlString,invoicePayment.InvoicePaymentID.Value,invoicePayment.ChangeLastDate.Value, invoicePayment.ChangeLastUserId, invoicePayment.ChangeLastAppName);
                 CompleteTransaction();
                 return invoicePayment.InvoicePaymentID.Value;
             }
@@ -253,6 +255,11 @@ namespace HPF.FutureState.BusinessLogic
                 throw (ex);
             }
         }
+        /// <summary>
+        /// In case user not provide excel file, so we only update or insert new invoice payment.
+        /// </summary>
+        /// <param name="invoicePayment"></param>
+        /// <returns>new invoicePaymentId</returns>
         public int UpdateInvoicePaymentOnly(InvoicePaymentDTO invoicePayment)
         {
             try

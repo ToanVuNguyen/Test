@@ -23,9 +23,7 @@
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text"  MaxLength="100"></asp:TextBox>
         </td>
-        <td>
-            &nbsp;</td>
-        <td>
+        <td colspan="2">
             &nbsp;
         </td>
     </tr>

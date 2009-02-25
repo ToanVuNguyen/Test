@@ -7,5 +7,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class ReconciliationDTOCollection:BaseDTOCollection<ReconciliationDTO>
     {
+        public string FundingSourceId { get; set; }
     }
 }

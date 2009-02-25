@@ -3,65 +3,83 @@
     TagPrefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server"></asp:ScriptManager>
+<style type="text/css">
+    .style1
+    {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: #2271A0;
+        font-size: 11px;
+        font-weight: bold;
+        width: 116px;
+    }
+</style>
 <table style="width:100%;">
     <tr>
-        <td colspan="6">
+        <td colspan="5">
             <h1 align="center">New Invoice Results</h1></td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="style1">
             Funding Source:</td>
         <td >
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td align="right" class="sidelinks" colspan="2">
+        <td align="right" class="sidelinks">
             Total Cases:</td>
         <td >
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td >
+        <td align="center" >
             <asp:Button ID="btnRemoveMarkedCases" runat="server" CssClass="MyButton" 
                 Text="Remove Marked Cases" Width="150px" 
                 onclick="btnRemoveMarkedCases_Click" />
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="style1">
             Period Start:</td>
         <td>
             <asp:Label ID="lblPeriodStart" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td align="right" class="sidelinks" colspan="2">
+        <td align="right" class="sidelinks">
             Total Amount:</td>
         <td>
             <asp:Label ID="lblTotalAmount" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td>
+        <td align="center">
             <asp:Button ID="btnExport" runat="server" CssClass="MyButton" 
                 Text="Export to Excel" Width="150px" />
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="style1">
             Period End:</td>
         <td>
             <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td colspan="4" align="center">
+        <td colspan="3" align="center">
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="left"  colspan="6" class="ErrorMessage">
+        <td align="right" class="style1">
+            Invoice Comments:</td>
+        <td colspan="4">
+            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Height="70px" 
+                TextMode="MultiLine" Width="100%"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td align="left"  colspan="5" class="ErrorMessage">
             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
     </tr>
     <tr>
-        <td align="left" class="sidelinks" colspan="6">
+        <td align="left" class="sidelinks" colspan="5">
                         Invoice Items:</td>
     </tr>
     <tr>
-        <td align="center" colspan="6">
+        <td align="center" colspan="5">
             <cc1:StatefullScrollPanel ID="panInvoiceResultsPage" runat="server" CssClass="ScrollTable"
                 BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
                 <asp:UpdatePanel runat="server">
@@ -111,11 +129,10 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" colspan="3">
+        <td align="center" class="sidelinks" colspan="5">
             <asp:Button ID="btnGenerateInvoice" runat="server" CssClass="MyButton" 
                 Text="Generate Invoice" Width="150px" onclick="btnGenerateInvoice_Click" />
-        </td>
-        <td colspan="3">
+                &nbsp
             <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" 
                 Text="Cancel Invoice" Width="150px" onclick="btnCancel_Click" />
         </td>

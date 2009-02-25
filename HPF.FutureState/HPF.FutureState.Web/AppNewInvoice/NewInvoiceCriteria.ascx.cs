@@ -168,6 +168,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingConsent.Enabled = !flag;
 
         }
+        #region DataBind
         private void ProgramDatabind()
         {
             ProgramDTOCollection programCollection = null;
@@ -261,6 +262,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropState.DataBind();
             dropState.Items.Insert(0, new ListItem(" ", "-1"));
         }
+        #endregion
         protected void dropFundingSource_SelectedIndexChanged1(object sender, EventArgs e)
         {
             GetServicerList();
@@ -325,7 +327,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0563);
                 ex.ExceptionMessages.Add(exMes);
             }
             try
@@ -334,7 +336,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0997);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0562);
                 ex.ExceptionMessages.Add(exMes);
             }
             //a program is require
@@ -342,7 +344,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.FundingSourceId = dropFundingSource.SelectedValue;
             if (searchCriteria.FundingSourceId == "-1")
             { 
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0995);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0561);
                 ex.ExceptionMessages.Add(exMes);
             }
             searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
@@ -411,15 +413,28 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             else
             {
-                searchCriteria.ServicerRejected = chkServicerRejected.Checked;
-                searchCriteria.ServicerRejectedFreddie = chkServicerFreddie.Checked;
-                searchCriteria.NeighborworkRejected = chkNeighborworksRejected.Checked;
-                searchCriteria.SelectAllServicer = chkFundingAgreement.Checked;
-                searchCriteria.SelectUnfunded = chkUnfunded.Checked;
+                //Check for error 0564 here
+                if (!CheckOneNonServicerFundingSourceOption())
+                {
+                    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0564);
+                    ex.ExceptionMessages.Add(exMes);
+                }
+                else
+                {
+                    searchCriteria.ServicerRejected = chkServicerRejected.Checked;
+                    searchCriteria.ServicerRejectedFreddie = chkServicerFreddie.Checked;
+                    searchCriteria.NeighborworkRejected = chkNeighborworksRejected.Checked;
+                    searchCriteria.SelectAllServicer = chkFundingAgreement.Checked;
+                    searchCriteria.SelectUnfunded = chkUnfunded.Checked;
+                }
             }
             if (ex.ExceptionMessages.Count > 0)
                 throw (ex);
             return searchCriteria;
+        }
+        bool CheckOneNonServicerFundingSourceOption()
+        {
+            return (chkServicerRejected.Checked || chkServicerFreddie.Checked || chkNeighborworksRejected.Checked || chkFundingAgreement.Checked || chkUnfunded.Checked);
         }
         /// <summary>
         /// Draft new Invoice
