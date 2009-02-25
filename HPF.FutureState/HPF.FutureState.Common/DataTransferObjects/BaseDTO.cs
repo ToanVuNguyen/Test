@@ -37,9 +37,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public void SetInsertTrackingInformation(string userId)
         {
             CreateUserId = userId;
-            CreateDate = DateTime.Today;
+            CreateDate = DateTime.Now;
             CreateAppName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
-            ChangeLastDate = DateTime.Today;
+            ChangeLastDate = DateTime.Now;
             ChangeLastUserId = userId;
             ChangeLastAppName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
         }
@@ -51,7 +51,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         public void SetUpdateTrackingInformation(string userId)
         {
-            ChangeLastDate = DateTime.Today;
+            ChangeLastDate = DateTime.Now;
             ChangeLastUserId = userId;
             ChangeLastAppName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
         }
