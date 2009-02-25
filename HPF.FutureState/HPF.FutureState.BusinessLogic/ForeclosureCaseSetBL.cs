@@ -669,21 +669,18 @@ namespace HPF.FutureState.BusinessLogic
         private bool CheckInactiveCase(int? fcId)
         {
             DateTime currentDate = DateTime.Now;
-            DateTime backOneYear = DateTime.MinValue;
-            DateTime? tempDate = null;
+            DateTime backOneYear = DateTime.MinValue;            
             ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);            
             DateTime? completeDate = foreclosureCase.CompletedDt;
             if (completeDate == null || completeDate == DateTime.MinValue)
-                tempDate = foreclosureCase.CreateDate;
-            else
-                tempDate = completeDate;
+                return false;
             //Check leap year
             if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))            
                 backOneYear = currentDate.AddDays(-367);            
             else            
                 backOneYear = currentDate.AddDays(-366);            
             //
-            if (backOneYear < tempDate)            
+            if (backOneYear < completeDate)            
                 return false;                            
             return true;
         }      
