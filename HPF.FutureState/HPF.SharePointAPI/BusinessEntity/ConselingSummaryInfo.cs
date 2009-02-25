@@ -9,8 +9,8 @@ namespace HPF.SharePointAPI.BusinessEntity
     {
         private string _loanNumber;
         private string _servicer;
-        private DateTime _completedDate;
-        private DateTime _foreclosureSaleDate;
+        private DateTime? _completedDate;
+        private DateTime? _foreclosureSaleDate;
         private string _delinquency;
         private ReviewStatus _reviewStatus;
 
@@ -26,13 +26,13 @@ namespace HPF.SharePointAPI.BusinessEntity
             set { _servicer = value; }
         }
 
-        public DateTime CompletedDate
+        public DateTime? CompletedDate
         {
             get { return _completedDate; }
             set { _completedDate = value; }
         }
 
-        public DateTime ForeclosureSaleDate
+        public DateTime? ForeclosureSaleDate
         {
             get { return _foreclosureSaleDate; }
             set { _foreclosureSaleDate = value; }

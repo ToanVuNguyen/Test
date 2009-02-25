@@ -6,13 +6,13 @@ namespace HPF.SharePointAPI.BusinessEntity
 {
     public class AccountPayableInfo:BaseObject
     {
-        private DateTime _date;
+        private DateTime? _date;
         private int _year;
         private string _month;
         private string _fundingSource;
         private string _invoiceNumber;
 
-        public DateTime Date
+        public DateTime? Date
         {
             get { return _date; }
             set { _date = value; }

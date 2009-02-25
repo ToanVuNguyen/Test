@@ -138,8 +138,6 @@ namespace HPF.SharePointAPI.Controllers
                         action(spFile.Item, item);
 
                         spFile.Item.Update();
-
-                        //resultInfo.BizObject = item;
                     }
                     catch (Exception error)
                     {
@@ -153,18 +151,27 @@ namespace HPF.SharePointAPI.Controllers
         }
 
         private static void UpdateConselingSummaryInfo(SPListItem spItem, ConselingSummaryInfo conselingSummary)
-        {            
-            spItem[DocumentCenterContentType.ConselingSummary.CompletedDate] = conselingSummary.CompletedDate;
+        {
+            if (conselingSummary.CompletedDate != null)
+            {
+                spItem[DocumentCenterContentType.ConselingSummary.CompletedDate] = conselingSummary.CompletedDate;
+            }
             spItem[DocumentCenterContentType.ConselingSummary.Delinquency] = conselingSummary.Delinquency;
-            spItem[DocumentCenterContentType.ConselingSummary.ForeclosureSaleDate] = conselingSummary.ForeclosureSaleDate;
+            if (conselingSummary.ForeclosureSaleDate != null)
+            {
+                spItem[DocumentCenterContentType.ConselingSummary.ForeclosureSaleDate] = conselingSummary.ForeclosureSaleDate;
+            }
             spItem[DocumentCenterContentType.ConselingSummary.LoanNumber] = conselingSummary.LoanNumber;
             spItem[DocumentCenterContentType.ConselingSummary.ReviewStatus] = conselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
             spItem[DocumentCenterContentType.ConselingSummary.Servicer] = conselingSummary.Servicer;
         }
 
         private static void UpdateInvoiceInfo(SPListItem spItem, InvoiceInfo invoice)
-        {            
-            spItem[DocumentCenterContentType.Invoice.Date] = invoice.Date;
+        {
+            if (invoice.Date != null)
+            {
+                spItem[DocumentCenterContentType.Invoice.Date] = invoice.Date;
+            }
             spItem[DocumentCenterContentType.Invoice.FundingSource] = invoice.FundingSource;
             spItem[DocumentCenterContentType.Invoice.InvoiceNumber] = invoice.InvoiceNumber;
             spItem[DocumentCenterContentType.Invoice.Month] = invoice.Month;
@@ -172,8 +179,11 @@ namespace HPF.SharePointAPI.Controllers
         }
 
         private static void UpdateAccountPayableInfo(SPListItem spItem, AccountPayableInfo accountPayable)
-        {            
-            spItem[DocumentCenterContentType.AccountPayable.Date] = accountPayable.Date;
+        {
+            if (accountPayable.Date != null)
+            {
+                spItem[DocumentCenterContentType.AccountPayable.Date] = accountPayable.Date;
+            }            
             spItem[DocumentCenterContentType.AccountPayable.FundingSource] = accountPayable.FundingSource;
             spItem[DocumentCenterContentType.AccountPayable.InvoiceNumber] = accountPayable.InvoiceNumber;
             spItem[DocumentCenterContentType.AccountPayable.Month] = accountPayable.Month;
