@@ -172,7 +172,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Reject);
             if (invoiceCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0553");
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0553);
                 return;
             }
             InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
@@ -215,12 +215,12 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Reject);
             if (invoiceCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0555");
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0555);
                 return;
             }
             if (txtPaymentID.Text == "")
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0556");
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0556);
                 return;
             }
             InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
@@ -235,7 +235,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                result= InvoiceBL.Instance.UpdateInvoiceCase(invoiceSet, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
                if (result == false)
-                   lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0558");
+                   lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0558);
                else
                    LoadInvoiceSet();
             }
@@ -251,7 +251,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Unpay);
             if (invoiceCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("ERR0559");
+                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0559);
                 return;
             }
             InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
