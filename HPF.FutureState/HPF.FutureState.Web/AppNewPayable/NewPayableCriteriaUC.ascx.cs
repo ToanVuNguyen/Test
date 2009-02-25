@@ -24,18 +24,18 @@ namespace HPF.FutureState.Web.AppNewPayable
     public partial class NewPayableCriteriaUC : System.Web.UI.UserControl
     {
 
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             ApplySecurity();
             if (!IsPostBack)
             {
-                
+
                 BindDDLAgency();
                 GetDefaultPeriodStartEnd();
                 CancelDisplayCriteria();
             }
-           
+
         }
         /// <summary>
         /// 
@@ -50,7 +50,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <summary>
         protected void CancelDisplayCriteria()
         {
-            if (Request.QueryString["periodenddate"]!=null)
+            if (Request.QueryString["periodenddate"] != null)
             {
                 txtPeriodEnd.Text = Request.QueryString["periodenddate"].ToString();
                 txtPeriodStart.Text = Request.QueryString["periodstartdate"].ToString();
@@ -60,7 +60,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 else ChkInclude.Checked = false;
                 ddlAgency.SelectedValue = Request.QueryString["agencyid"].ToString();
             }
-            
+
         }
 
         protected void BindDDLAgency()
@@ -68,19 +68,19 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
-                AgencyDTO item = agencyCollection[0];
-                agencyCollection.Remove(item);
+
                 ddlAgency.DataTextField = "AgencyName";
                 ddlAgency.DataValueField = "AgencyID";
+                ddlAgency.DataSource = agencyCollection;
+                ddlAgency.DataBind();
+                ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
                 if (Request.QueryString["agency"] != null)
                 {
                     if (Request.QueryString["agency"] == "-1")
-                        ddlAgency.SelectedIndex = 0 ;
+                        ddlAgency.SelectedIndex = 0;
                     else
-                    ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
+                        ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
                 }
-                    ddlAgency.DataSource = agencyCollection;
-                ddlAgency.DataBind();
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// </summary>
         protected void GetDefaultPeriodStartEnd()
         {
-            if (Request.QueryString["periodenddate"]==null)
+            if (Request.QueryString["periodenddate"] == null)
             {
                 DateTime today = DateTime.Today;
                 int priormonth = today.AddMonths(-1).Month;
@@ -103,7 +103,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 int daysinmonth = DateTime.DaysInMonth(year, priormonth);
                 txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
                 // txtPeriodStart.Text = DateTime.Now.AddMonths(-6).ToShortDateString();
-               // txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
+                // txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
             }
 
         }
@@ -122,7 +122,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (DataValidationException ex)
             {
-                foreach(var mes in ex.ExceptionMessages)
+                foreach (var mes in ex.ExceptionMessages)
                 {
                     bulMessage.Items.Add(new ListItem(mes.Message));
                 }
@@ -130,9 +130,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                 bulMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
-                
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
             }
         }
         private ExceptionMessage GetExceptionMess(string Code)
@@ -153,7 +153,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
             }
-            catch 
+            catch
             {
                 ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0997);
                 ex.ExceptionMessages.Add(exmsg);
@@ -172,7 +172,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             if (ChkInclude.Checked)// return true or false
                 agencyPayableSearchCriteria.Indicator = 1;
             else agencyPayableSearchCriteria.Indicator = 0;
-            
+
             StringBuilder query = new StringBuilder();
             query.Append("?agencyid=");
             query.Append(agencyPayableSearchCriteria.AgencyId);

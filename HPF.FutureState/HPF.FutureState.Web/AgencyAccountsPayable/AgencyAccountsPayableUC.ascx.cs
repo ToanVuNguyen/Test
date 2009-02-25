@@ -126,13 +126,14 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             DataValidationException ex = new DataValidationException();
             searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
+          
             try
             {
                 searchCriteria.PeriodStartDate = DateTime.Parse(periodStart);
             }
             catch
             {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0996);//error code
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0580);//error code
                 ex.ExceptionMessages.Add(exMessage);
             }
             try
@@ -141,7 +142,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch
             {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0997);
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
                 ex.ExceptionMessages.Add(exMessage);
             }
             if (ex.ExceptionMessages.Count > 0)

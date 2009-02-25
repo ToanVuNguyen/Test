@@ -88,6 +88,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 if (chkSelected != null)
                     chkSelected.Checked = headerCheckbox.Checked;
             }
+            
         }
        
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)

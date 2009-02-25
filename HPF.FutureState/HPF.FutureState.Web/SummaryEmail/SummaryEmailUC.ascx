@@ -11,9 +11,7 @@
     </tr>
     <tr >
     <td>
-    <asp:Label ID="lblMessgage" runat="server" CssClass="ErrorMessage" Text=""></asp:Label>
-    <asp:RequiredFieldValidator ID="reqtxtTo" runat="server" Display="Dynamic" ControlToValidate="txtTo" ErrorMessage="Input email address"></asp:RequiredFieldValidator>
-    <asp:RequiredFieldValidator ID="reqtxtSubject" runat="server" Display="Dynamic" ControlToValidate="txtSubject" ErrorMessage="You have to input subject "></asp:RequiredFieldValidator>
+    <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
     </td>
     </tr>
    
@@ -35,7 +33,7 @@
                         To*:
                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtTo" runat="server" Width="98%" CssClass="Text" MaxLength="255"></asp:TextBox>
+                        <asp:TextBox ID="txtTo" runat="server" Width="98%" CssClass="Text" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +41,7 @@
                         Subject*:
                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtSubject" runat="server" Width="98%" CssClass="Text" MaxLength="255"></asp:TextBox>
+                        <asp:TextBox ID="txtSubject" runat="server" Width="98%" CssClass="Text" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +49,7 @@
                         Body:
                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtBody" runat="server" Rows="20" TextMode="MultiLine" MaxLength="2000"
+                        <asp:TextBox ID="txtBody" runat="server" Rows="20" TextMode="MultiLine" 
                             Width="98%" CssClass="Text"></asp:TextBox>
                     </td>
                 </tr>

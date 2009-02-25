@@ -74,10 +74,10 @@ namespace HPF.FutureState.Web
         {
             lblHpfID.Text = ForeclosureCase.FcId.ToString();
             lblBorrower.Text = ForeclosureCase.BorrowerFname + " " + ForeclosureCase.BorrowerMname + " " + ForeclosureCase.BorrowerLname;
-            lblPropertyAddress.Text = ForeclosureCase.PropAddr1;
+            lblPropertyAddress.Text = ForeclosureCase.PropCity+" , "+ForeclosureCase.PropStateCd+" "+ForeclosureCase.PropZip;
             lblLoanList.Text = ForeclosureCase.LoanList;
             lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
-            lblPhone.Text = ForeclosureCase.CounselorPhone + "-" + ForeclosureCase.CounselorExt;
+            lblPhone.Text = ForeclosureCase.CounselorPhone + " " + ForeclosureCase.CounselorExt;
             lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
             lblAgencyName.Text = GetAgencyName(ForeclosureCase.AgencyId);
         }

@@ -55,7 +55,7 @@
                 </td>
                 <td align="center">
                         <asp:Button ID="btnTakeBackMarkCase" runat="server" CssClass="MyButton" Text="Takeback Marked Cases"
-                           Width="150px" OnClick="btnTakeBackMarkCase_Click" OnClientClick="return confirm('Are you sure you want to change Take Back Reason the selected case(s)')" />
+                           Width="150px" OnClick="btnTakeBackMarkCase_Click" OnClientClick="return confirm('Are you sure you wish to takeback the selected case(s)?')" />
                 </td>
             </tr>
             <tr>
@@ -78,8 +78,8 @@
                     &nbsp;
                 </td>
                 <td align="center">
-                        <asp:Button ID="btnPayUnpayMarkCase" runat="server" CssClass="MyButton" Text="Pay/Unpay Marked Cases"
-                            Width="150px" onclick="btnPayUnpayMarkCase_Click" OnClientClick="return confirm('Are you sure you want to Pay/Unpay the selected case(s)')" />
+                        <asp:Button ID="btnPayUnpayMarkCase" runat="server" CssClass="MyButton" Text="Pay/Unpay NFMC Upcharge"
+                            Width="150px" onclick="btnPayUnpayMarkCase_Click" OnClientClick="return confirm('Are you sure you wish to pay/unpay the selected case(s)?')" />
                 </td>
             </tr>
             <tr>

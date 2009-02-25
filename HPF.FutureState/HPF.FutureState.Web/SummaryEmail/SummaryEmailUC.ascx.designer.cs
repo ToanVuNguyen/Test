@@ -14,31 +14,13 @@ namespace HPF.FutureState.Web.SummaryEmail {
     public partial class SummaryEmailUC {
         
         /// <summary>
-        /// lblMessgage control.
+        /// bulMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessgage;
-        
-        /// <summary>
-        /// reqtxtTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtTo;
-        
-        /// <summary>
-        /// reqtxtSubject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqtxtSubject;
+        protected global::System.Web.UI.WebControls.BulletedList bulMessage;
         
         /// <summary>
         /// txtTo control.

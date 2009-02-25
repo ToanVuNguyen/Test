@@ -4,6 +4,7 @@ using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
+using System.Text;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -67,18 +68,22 @@ namespace HPF.FutureState.BusinessLogic
 
         public string CreateEmailSummarySubject(int? fc_id)
         {
-            var strSubject = "HPF Summary loan#";
+            StringBuilder strSubject = new StringBuilder();
+           
             //get info from case loan to get: Loan Status and Loan Num
             var caseLoanDTOCol = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
             //get foreclosurecase dto info
             var foreclosurecaseInfo = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_id);
-            
-            strSubject += caseLoanDTOCol[0].AcctNum + "/" + foreclosurecaseInfo.PropZip;
+            //
+            strSubject.Append("HPF Summary loan#");
+            strSubject.Append(caseLoanDTOCol[0].AcctNum);
+            strSubject.Append("/");
+            strSubject.Append(foreclosurecaseInfo.PropZip);
 
             var loanDelinqStatus = caseLoanDTOCol[0].LoanDelinqStatusCd;
-            if (foreclosurecaseInfo.ForSaleInd == "Y" || loanDelinqStatus == "120+")
-                strSubject += " ,priority URGENT";
-            return strSubject;
+            if (foreclosurecaseInfo.FcNoticeReceiveInd == "Y" || loanDelinqStatus == "120+")
+                strSubject.Append(" ,priority URGENT");
+            return strSubject.ToString();
 
         }
 

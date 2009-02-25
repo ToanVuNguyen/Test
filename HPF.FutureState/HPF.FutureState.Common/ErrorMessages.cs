@@ -247,7 +247,12 @@ namespace HPF.FutureState.Common
         public const string ERR0575 = "ERR0575";
         public const string WARN0576 = "WARN0576";
         public const string ERR0577 = "ERR0577";
-        public const string WARN0577 = "WARN0577";
+        public const string WARN0578 = "WARN0578";
+        public const string ERR0579 = "ERR0579";
+        public const string ERR0580 = "ERR0580";
+        public const string ERR0581 = "ERR0581";
+        public const string ERR0582 = "ERR0582";
+        //
         public const string ERR0600 = "ERR0600";
         public const string ERR0601 = "ERR0601";
 
@@ -296,7 +301,13 @@ namespace HPF.FutureState.Common
         public const string ERR0702 = "ERR0702";
         public const string ERR0703 = "ERR0703";
         public const string ERR0704 = "ERR0704";
-
+        //Email summary
+        public const string ERR0850 = "ERR0850";
+        public const string ERR0851 = "ERR0851";
+        public const string ERR0852 = "ERR0852";
+        public const string ERR0853 = "ERR0853";
+        public const string ERR0854 = "ERR0854";
+        //
         public const string ERR0985 = "ERR0985";
         public const string ERR0986 = "ERR0986";
         public const string ERR0987 = "ERR0987";
@@ -581,10 +592,15 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
 
                 //view edit payable page
-                errorMessageDict.Add(ERR0575, "Please select at least a row");
+                errorMessageDict.Add(ERR0575, "At least one case must be selected in order to take back a case.");
                 errorMessageDict.Add(WARN0576, "will be update soon");
-                errorMessageDict.Add(ERR0577, "will be update soon");
-                errorMessageDict.Add(WARN0577, "will be update soon");
+                errorMessageDict.Add(ERR0577, "At least one case must be selected in order to pay or unpay the case.");
+                errorMessageDict.Add(WARN0578, "will be update soon");
+                errorMessageDict.Add(ERR0579, "An Agency is required to search for Payables.");
+                errorMessageDict.Add(ERR0580, "A Period Start date is required to search for Payables.");
+                errorMessageDict.Add(ERR0581, "A Period End date is required to search for Payables.");
+                errorMessageDict.Add(ERR0582, "All selected cases must be NFMC Eligible to have a NFMC Upcharge applied.");
+
                 //View/Edit Invoice Payment
                 errorMessageDict.Add(ERR0650, "A Funding Source is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0651, "A Payment Number is required to save an Invoice Payment.");
@@ -621,14 +637,17 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0681, "Unable to process the reconciliation file. The Funding Source for this payment does not match the Funding Source on the invoice record retreived by the HPF Invoice Case ID in row {0}.");
                 errorMessageDict.Add(ERR0682, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} is not valid.");
 
-
-
-
                 errorMessageDict.Add(ERR0701, "Audit date must be in the range [1-1-1753, 12-31-9999].");
                 errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
                 errorMessageDict.Add(ERR0703, "Follow-Up Date is required to save the case.");
                 errorMessageDict.Add(ERR0704, "Follow-Up Source is required to save the case.");
 
+                //Email Summary
+                errorMessageDict.Add(ERR0850, "An EmailToAddres is required to send a summary.");
+                errorMessageDict.Add(ERR0851, "A Subject is required to send a summary.");
+                errorMessageDict.Add(ERR0852, "The 'To:' address has a max length of 255 characters.");
+                errorMessageDict.Add(ERR0853, "The 'Subject:' has a max length of 255 characters.");
+                errorMessageDict.Add(ERR0854, "The 'Body:' has a max length 2000 characters.");
 
                 //
                 errorMessageDict.Add(ERR0986, "You must select one Invoice.");

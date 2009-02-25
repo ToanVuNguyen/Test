@@ -17,6 +17,7 @@ using System.Globalization;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common;
 
 
 namespace HPF.FutureState.Web.SummaryEmail
@@ -27,8 +28,11 @@ namespace HPF.FutureState.Web.SummaryEmail
         {
             txtTo.Focus();
             ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
-            int? fc_id = forclosureInfo.FcId;
-            txtSubject.Text =EmailSummaryBL.Instance.CreateEmailSummarySubject(fc_id);
+            if (forclosureInfo != null)
+            {
+                int? fc_id = forclosureInfo.FcId;
+                txtSubject.Text = EmailSummaryBL.Instance.CreateEmailSummarySubject(fc_id);
+            }
         }
         public bool CheckEmailAddress(string emailAddress)
         {
@@ -39,6 +43,7 @@ namespace HPF.FutureState.Web.SummaryEmail
             foreach (string emailaddress in ALL_EMAILS)
             {
                 result = (regex.IsMatch(emailaddress));
+                if (!result || String.IsNullOrEmpty(emailAddress))
                 {
                     return result;
                 }
@@ -49,26 +54,48 @@ namespace HPF.FutureState.Web.SummaryEmail
         {
             try
             {
-                bool result = CheckEmailAddress(sendTo);
-                if (result == false)
-                    return "Email address is not wellform";
-                if (result == true)
-                {
-                    EmailSummaryBL.Instance.SendEmailSummaryReport(sendTo, subject, body, caseID);
-                }
+                EmailSummaryBL.Instance.SendEmailSummaryReport(sendTo, subject, body, caseID);
+                return "successful";
             }
             catch (Exception ex)
             {
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return ex.Message;
+                throw ex;
             }
-            return "successful";
+
+        }
+
+        private ExceptionMessage GetExceptionMessage(string exCode)
+        {
+            ExceptionMessage exMess = new ExceptionMessage();
+            exMess.ErrorCode = exCode;
+            exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
+            return exMess;
         }
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            BuildSendMailInfo();
-            //
-            InsertActivityLogInfo();
+            bulMessage.Items.Clear();
+            DataValidationException dataValidException = new DataValidationException();
+
+            try
+            {
+                BuildSendMailInfo();
+                //
+                InsertActivityLogInfo();
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    bulMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
         }
 
         private void InsertActivityLogInfo()
@@ -80,11 +107,39 @@ namespace HPF.FutureState.Web.SummaryEmail
 
         private void BuildSendMailInfo()
         {
+            DataValidationException ex = new DataValidationException();
             string CaseID = Request.QueryString["CaseID"];
             string SendTo = txtTo.Text;
+            if (SendTo.Length > 250)
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0852);//error code
+                ex.ExceptionMessages.Add(exMessage);
+            }
+            if (!CheckEmailAddress(SendTo))
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0850);//error code
+                ex.ExceptionMessages.Add(exMessage);
+            }
             string Subject = txtSubject.Text;
+            if (Subject.Length > 250)
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0853);//error code
+                ex.ExceptionMessages.Add(exMessage);
+            }
+            if (String.IsNullOrEmpty(Subject))
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0851);//error code
+                ex.ExceptionMessages.Add(exMessage);
+            }
             string Body = txtBody.Text;
-            lblMessgage.Text = SendEmailWithAttachment(SendTo, Subject, Body, Convert.ToInt32(CaseID));
+            if (Body.Length > 2000)
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0854);//error code
+                ex.ExceptionMessages.Add(exMessage);
+            }
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
+            bulMessage.Items.Add(new ListItem(SendEmailWithAttachment(SendTo, Subject, Body, Convert.ToInt32(CaseID))));
         }
         protected ActivityLogDTO BuildActivityLogInfo()
         {
@@ -93,8 +148,8 @@ namespace HPF.FutureState.Web.SummaryEmail
             activityLog.FcId = forclosureInfo.FcId;
             activityLog.ActivityCd = "EMAIL";
             activityLog.ActivityDt = DateTime.Now;
-            activityLog.ActivityNote = string.Concat(" Subject: ", txtSubject.Text, " To: ", txtTo.Text, " Body: ", txtBody.Text);
+            activityLog.ActivityNote = string.Concat(" To: ", txtTo.Text,"From:",HPFWebSecurity.CurrentIdentity.UserId.ToString(), " Subject: ", txtSubject.Text, " Body: ", txtBody.Text);
             return activityLog;
-        }        
+        }
     }
 }
