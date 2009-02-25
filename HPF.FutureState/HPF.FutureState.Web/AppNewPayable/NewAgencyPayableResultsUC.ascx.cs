@@ -32,7 +32,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 ViewState["agencyPayableDraft"] = value;
             }
         }
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //get search criteria.
@@ -82,10 +82,10 @@ namespace HPF.FutureState.Web.AppNewPayable
             //calculate the total amount of ForeclosureCaseDraftDTOCollection
             foreach (var item in this.agencyPayableDraft.ForclosureCaseDrafts)
             {
-                total += item.Amount==null?0:item.Amount.Value;
+                total += item.Amount == null ? 0 : item.Amount.Value;
             }
             //add the values you just calculate to lable in UI
-            lblInvoiceTotalFooter.Text = String.Format("{0:c}",total);
+            lblInvoiceTotalFooter.Text = String.Format("{0:c}", total);
             lblTotalCasesFooter.Text = this.agencyPayableDraft.TotalCases.ToString();
             lblTotalAmount.Text = String.Format("{0:C}", total);
             lblTotalCases.Text = this.agencyPayableDraft.TotalCases.ToString();
@@ -120,14 +120,22 @@ namespace HPF.FutureState.Web.AppNewPayable
                     //calculate total amount of cases - search data match  search criteria.
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                     {
-                        total += item.Amount==null?0:item.Amount.Value;
+                        total += item.Amount == null ? 0 : item.Amount.Value;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
-                    
-                    lblTotalAmount.Text = String.Format("{0:C}",total);
+
+                    lblTotalAmount.Text = String.Format("{0:C}", total);
 
                 }
-                else lblMessage.Text = "no data";
+                else
+                {
+                    lblMessage.Text = "no data";
+
+                }
+                if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count == 0)
+                {
+                    btnGeneratePayable.Enabled = false; 
+                }
             }
             catch (Exception ex)
             {
@@ -202,7 +210,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
             }
             BindGridView();
-           
+
         }
         /// <summary>
         /// return NewPayableCriteria page.

@@ -24,7 +24,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             try
             {
-               // ApplySecurity();
+                ApplySecurity();
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
                 if (Request.QueryString["CaseID"]!=null)
                     BindDetailCaseData(caseid);
@@ -38,17 +38,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
 
         }
-        //private void ApplySecurity()
-        //{
-        //    if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
-        //    {
-        //        Response.Redirect("ErrorPage.aspx?CODE=ERR999");
-        //    }
-        //    if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
-        //    {
-        //        btn_Save.Enabled = false;
-        //    }
-        //}
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+            }
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+            {
+                btn_Save.Enabled = false;
+                btn_Save0.Enabled = false;
+            }
+        }
         private void BindDetailCaseData(int? caseid)
         {
             bulMessage.Items.Clear();
@@ -93,6 +94,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
+            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
             ddlAgency.SelectedValue = agencyname;
         }
 
@@ -157,7 +159,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblContactAdd1.Text = foreclosureCase.ContactAddr1;
                 lblContactAdd2.Text = foreclosureCase.ContactAddr2;
                 lblContactCity.Text = foreclosureCase.ContactCity;
-                lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip+" , "+foreclosureCase.ContactZipPlus4;
+                if (String.IsNullOrEmpty(foreclosureCase.ContactZipPlus4))
+                    lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip;
+                else lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip + " , " + foreclosureCase.ContactZipPlus4;
+                
                 //case status
                 ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
                 if (foreclosureCase.DuplicateInd == "Y")

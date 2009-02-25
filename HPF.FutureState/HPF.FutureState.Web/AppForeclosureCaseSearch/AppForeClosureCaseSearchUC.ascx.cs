@@ -138,6 +138,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlServicer.Items.FindByText("ALL").Selected = true;
         }
 
+        private ExceptionMessage GetExceptionMessage(string exCode)
+        {
+            ExceptionMessage exMess = new ExceptionMessage();
+            exMess.ErrorCode = exCode;
+            exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
+            return exMess;
+        }
         /// <summary>
         /// Bind data search result to gridview. Depend on that display pager controls.
         /// </summary>
@@ -146,12 +153,19 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             try
             {
-                //panForeClosureCaseSearch.Visible = true;
+                DataValidationException ex = new DataValidationException();
+                myPannel.Visible = true;
                 ManageControls(false);
                 //get search criteria
                 var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
                 //get search info match search criteria
                 var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
+                if (searchResult.Count == 0)
+                {
+                    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0504);//error code
+                    ex.ExceptionMessages.Add(exMessage);
+                    throw ex;
+                }
                 //Bind data search result to gridview
                 grvForeClosureCaseSearch.DataSource = searchResult;
                 grvForeClosureCaseSearch.DataBind();
@@ -199,7 +213,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (DataValidationException ex)
             {
-                //panForeClosureCaseSearch.Visible = false;
+                myPannel.Visible = false;
                 //return exception message check input search criteria
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
@@ -247,7 +261,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0503"));
             }
-            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = DeleteSpecialChar(txtAgencyCaseID.Text) == string.Empty ? null : DeleteSpecialChar(txtAgencyCaseID.Text);
+            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text;
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text);
             appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty ? null : txtPropertyZip.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();

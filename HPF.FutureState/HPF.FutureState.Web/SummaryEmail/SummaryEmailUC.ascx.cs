@@ -110,7 +110,7 @@ namespace HPF.FutureState.Web.SummaryEmail
             DataValidationException ex = new DataValidationException();
             string CaseID = Request.QueryString["CaseID"];
             string SendTo = txtTo.Text;
-            if (SendTo.Length > 250)
+            if (SendTo.Length > 255)
             {
                 ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0852);//error code
                 ex.ExceptionMessages.Add(exMessage);
@@ -121,7 +121,7 @@ namespace HPF.FutureState.Web.SummaryEmail
                 ex.ExceptionMessages.Add(exMessage);
             }
             string Subject = txtSubject.Text;
-            if (Subject.Length > 250)
+            if (Subject.Length > 255)
             {
                 ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0853);//error code
                 ex.ExceptionMessages.Add(exMessage);

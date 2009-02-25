@@ -198,9 +198,9 @@
                         <asp:BoundField DataField="ForeclosureNoticeReceivedIndicator" HeaderText="Foreclosure Notice Received Indicator" />
                         
                     </Columns>
-                    <EmptyDataTemplate>
+                   <%-- <EmptyDataTemplate>
                     No cases found that match your search criteria.
-                    </EmptyDataTemplate>
+                    </EmptyDataTemplate>--%>
                 </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>

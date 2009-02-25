@@ -22,11 +22,19 @@ namespace HPF.FutureState.Web.AppNewPayable
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ApplySecurity();
             if (!IsPostBack)
             {
-              
                 BindTakebackReasonDropDownList();
                 BindViewEditPayable();
+            }
+        }
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_AGENCY_ACCOUNT_PAYABLE))
+            {
+                btnPayUnpayMarkCase.Enabled = false;
+                btnTakeBackMarkCase.Enabled = false;
             }
         }
         protected void BindTakebackReasonDropDownList()
@@ -72,13 +80,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
            
         }
-        private void ApplySecurity()
-        {
-            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_AGENCY_PAYABLE_INFO))
-            {
-                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
-            }
-        }
+       
         protected void chkCheckAllCheck(object sender, EventArgs e)
         {
             CheckBox headerCheckbox = (CheckBox)sender;
@@ -88,7 +90,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                 if (chkSelected != null)
                     chkSelected.Checked = headerCheckbox.Checked;
             }
-            
         }
        
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
@@ -113,7 +114,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                 bulErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
-            
         }
         protected void btnTakeBackMarkCase_Click(object sender, EventArgs e)
         {
@@ -142,6 +142,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         protected string GetSelectedRow()
         {
+            bulErrorMessage.Items.Clear();
             string result = "";
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
            
@@ -152,14 +153,18 @@ namespace HPF.FutureState.Web.AppNewPayable
                     if (chkSelected.Checked == true)
                     {
                         result += agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ",";
+                        if (agencyPayableSet.PayableCases[row.DataItemIndex].NFMCDifferenceEligibleInd == "N")
+                        { 
+                        bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
+                        return null;
                         }
+                    }
             }
             if (result == "")
                 return null;
             result = result.Remove(result.LastIndexOf(","), 1);
             return result;
         }
-
         protected void btnClose_Click(object sender, EventArgs e)
         {
             //if (Session["agencyPayable"] != null)
