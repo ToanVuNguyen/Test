@@ -98,10 +98,19 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private static void SendSummaryMailToServicer(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
-        {                        
-            var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
-            EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail,
-                                                           attachmentFileName);            
+        {
+            
+            try
+            {                
+                var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
+                EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail,
+                                                               attachmentFileName);                
+            }
+            catch(Exception Ex)
+            {
+                Logger.Write(Ex.Message, "General");
+                Logger.Write(Ex.StackTrace, "General");
+            }
         }
         /// <summary>
         /// Send ConselingSummary information to HPF Portal.
@@ -115,13 +124,12 @@ namespace HPF.FutureState.BusinessLogic
                                            {
                                                ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
                                                LoanNumber = caseLoan.AcctNum,
-                                               CompletedDate = foreclosureCase.CompletedDt.Value,
+                                               CompletedDate = foreclosureCase.CompletedDt,
+                                               ForeclosureSaleDate = foreclosureCase.FcSaleDate,
                                                Servicer = servicer.ServicerName,
                                                Delinquency = caseLoan.LoanDelinqStatusCd,
                                                ReportFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan)
-                                           };
-            if (foreclosureCase.FcSaleDate != null)
-                hpfSharepointSummary.ForeclosureSaleDate = foreclosureCase.FcSaleDate.Value;
+                                           };            
             HPFPortalGateway.SendSummary(hpfSharepointSummary);            
         }
 

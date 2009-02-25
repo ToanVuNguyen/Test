@@ -15,9 +15,9 @@ namespace HPF.FutureState.Common.Utils
 
         public string Servicer { get; set; }
 
-        public DateTime CompletedDate { get; set; }
+        public DateTime? CompletedDate { get; set; }
 
-        public DateTime ForeclosureSaleDate { get; set; }
+        public DateTime? ForeclosureSaleDate { get; set; }
 
         public string Delinquency { get; set; }        
     }

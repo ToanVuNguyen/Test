@@ -5,6 +5,7 @@ using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using System.Text;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -46,14 +47,14 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         public void SendEmailSummaryReport(int? fc_id, string sendTo, string attachmentReportFileName)
-        {
+        {            
             var hpfSendMail = GetHpfSendMail();
             var pdfSummaryReport = GetPdfSummaryReport(fc_id);
             //
             hpfSendMail.To = sendTo;
             hpfSendMail.Subject = CreateEmailSummarySubject(Convert.ToInt32(fc_id));
-            hpfSendMail.AddAttachment(attachmentReportFileName, pdfSummaryReport);
-            hpfSendMail.Send();
+            hpfSendMail.AddAttachment(attachmentReportFileName, pdfSummaryReport);            
+            hpfSendMail.Send();            
         }
 
         private static byte[] GetPdfSummaryReport(int? fc_id)
