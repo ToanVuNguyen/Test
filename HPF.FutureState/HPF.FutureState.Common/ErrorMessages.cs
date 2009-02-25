@@ -576,7 +576,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0501, "The 'Last 4 of SSN' search criteria must be exactly 4 numeric digits");
                 errorMessageDict.Add(ERR0502, "The 'Property Zip' search criteria must be a valid 5 digit numeric zip.");
                 errorMessageDict.Add(ERR0503, "The 'Foreclosure Case ID' search criteria must be only numeric digits");
-                errorMessageDict.Add(ERR0504, "No cases were found that match your search criteria.");
+                errorMessageDict.Add(ERR0504, "No cases were found that match your search criteria");
                 //
                 errorMessageDict.Add(ERR0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
                 errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");
