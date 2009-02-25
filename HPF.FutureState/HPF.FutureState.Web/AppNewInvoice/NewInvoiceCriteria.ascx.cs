@@ -324,6 +324,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             try
             {
                 searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+                if (searchCriteria.PeriodEnd.Year < 1753)
+                    throw (new Exception());
             }
             catch
             {
@@ -333,6 +335,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             try
             {
                 searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+                if (searchCriteria.PeriodStart.Year < 1753)
+                    throw (new Exception());
             }
             catch
             {
