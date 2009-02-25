@@ -121,6 +121,7 @@ namespace HPF.FutureState.Common
         public const string ERR0127 = "ERR0127";
         public const string ERR0128 = "ERR0128";
         public const string ERR0129 = "ERR0129";
+        public const string ERR0130 = "ERR0130";
 
         public const string ERR0200 = "ERR0200";
         public const string ERR0201 = "ERR0201";
@@ -170,6 +171,7 @@ namespace HPF.FutureState.Common
         public const string ERR0270 = "ERR0270";
         public const string ERR0271 = "ERR0271";
         public const string ERR0272 = "ERR0272";
+        public const string ERR0273 = "ERR0273";
 
         public const string ERR0350 = "ERR0350"; // "A CcCallKey is required to save a call.";
         public const string ERR0351 = "ERR0351"; //"A StartDt is required to save a call.";
@@ -466,10 +468,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0124, "The PrimaryResidenceInd is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0125, "A ChgLstUserId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0126, "At least one loan is required to save a foreclosure case.");
-                errorMessageDict.Add(ERR0127, "A ServicerId is require for Loan: {0}");
+                errorMessageDict.Add(ERR0127, "A ServicerId for Loan {0} is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0128, "One or more of your loans is missing a Loan Num.");
                 errorMessageDict.Add(ERR0129, "An OutcomeTypeID is required to save a foreclosure case.");
-
+                errorMessageDict.Add(ERR0130, "A 1ST2NDCd for Loan {0} is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0200, "An invalid code was provided for IncomeEarnersCd.");
                 errorMessageDict.Add(ERR0201, "An invalid code was provided for CaseSourceCd.");
                 errorMessageDict.Add(ERR0202, "An invalid code was provided for RaceCd.");
@@ -523,6 +525,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0270, "CoBorrowerLnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
                 errorMessageDict.Add(ERR0271, "Invalid BorrowerDOB.  The Borrower's age must be 12 to 110.");
                 errorMessageDict.Add(ERR0272, "Invalid CoBorrowerDOB.  The CoBorrower's age must be 12 to 110.");
+                errorMessageDict.Add(ERR0273, "One Loan with a 1ST2NDCd of '1ST' is required to save a foreclosure case.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A StartDt is required to save a call.");

@@ -580,9 +580,9 @@ namespace HPF.FutureState.BusinessLogic
                 if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
                 {
                     if (item.ServicerId == null)
-                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0127, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0127, item.AcctNum));
+                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0127, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0127, item.AcctNum));
                     if (CompareString(item.Loan1st2nd , null))
-                        msgFcCaseSet.AddExceptionMessage("UNKNOWN", "A Loan1st2nd is required to save a foreclosure case working on case loan index " + (i + 1));
+                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0130, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0130, item.AcctNum));
                     if(i == 0)
                         msgFcCaseSet.Add(CheckAtLeastFirstMortgages(caseLoanDTOCollection));
                     msgFcCaseSet.Add(CheckOtherFieldCaseLoanForPartial(servicerId, item, i));                        
@@ -622,7 +622,7 @@ namespace HPF.FutureState.BusinessLogic
                     count = count + 1;
             }
             if (count == 0)
-                msgFcCaseSet.AddExceptionMessage("UNKNOWN", "Must have Loan1st2nd Code with 1st value");
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0273, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0273));
             
             return msgFcCaseSet;
         }
