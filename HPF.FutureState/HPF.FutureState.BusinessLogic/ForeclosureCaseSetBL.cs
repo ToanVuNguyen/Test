@@ -437,33 +437,31 @@ namespace HPF.FutureState.BusinessLogic
             if (foreclosureCase != null)
             {                
                 //-----BankruptcyInd, BankruptcyAttorney, BankruptcyPmtCurrentInd
-                if (ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) != null &&
-                    ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) !=
-                    Constant.BANKRUPTCY_IND_YES)
+                if(!CompareString(foreclosureCase.BankruptcyAttorney, null) 
+                    && !CompareString(foreclosureCase.BankruptcyInd,Constant.BANKRUPTCY_IND_YES))                
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BankruptcyInd value should be Y.");
-                if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) ==
-                    Constant.BANKRUPTCY_IND_YES && ConvertStringEmptyToNull(foreclosureCase.BankruptcyAttorney) == null)
+                if (CompareString(foreclosureCase.BankruptcyInd, Constant.BANKRUPTCY_IND_YES)
+                    && CompareString(foreclosureCase.BankruptcyAttorney, null))                
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A BankruptcyAttorney is required to save a foreclosure case.");
-                if (ConvertStringEmptyToNull(ConvertStringToUpper(foreclosureCase.BankruptcyInd)) ==
-                    Constant.BANKRUPTCY_IND_YES &&
-                    ConvertStringEmptyToNull(foreclosureCase.BankruptcyPmtCurrentInd) == null)
+                if (CompareString(foreclosureCase.BankruptcyInd, Constant.BANKRUPTCY_IND_YES)
+                    && CompareString(foreclosureCase.BankruptcyPmtCurrentInd,null))                
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A BankruptcyPmtCurrentInd is required to save a foreclosure case.");
-                //-----SummarySentOtherCd, SummarySentOtherDt
-                if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) == null && foreclosureCase.SummarySentOtherDt != null)
+                //-----SummarySentOtherCd, SummarySentOtherDt                
+                if (CompareString(foreclosureCase.SummarySentOtherCd, null) && foreclosureCase.SummarySentOtherDt != null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SummarySentOtherCd is required to save a foreclosure case.");
-                else if (ConvertStringEmptyToNull(foreclosureCase.SummarySentOtherCd) != null && foreclosureCase.SummarySentOtherDt == null)
+                else if (!CompareString(foreclosureCase.SummarySentOtherCd, null) && foreclosureCase.SummarySentOtherDt == null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SummarySentOtherDt is required to save a foreclosure case.");
                 //-----SrvcrWorkoutPlanCurrentInd
-                if (ConvertStringEmptyToNull(foreclosureCase.SrvcrWorkoutPlanCurrentInd) == null &&
-                    ConvertStringToUpper(foreclosureCase.HasWorkoutPlanInd) == Constant.HAS_WORKOUT_PLAN_IND_YES)
+                if (CompareString(foreclosureCase.SrvcrWorkoutPlanCurrentInd, null)
+                    && CompareString(foreclosureCase.HasWorkoutPlanInd, Constant.HAS_WORKOUT_PLAN_IND_YES))                
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A SrvcrWorkoutPlanCurrentInd is required to save a foreclosure case.");
                 //-----HomeSalePrice
-                if (ConvertStringToUpper(foreclosureCase.ForSaleInd) == Constant.FORSALE_IND_YES && 
+                if (CompareString(foreclosureCase.ForSaleInd, Constant.FORSALE_IND_YES) && 
                     foreclosureCase.HomeSalePrice == null)
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN",
                                                      "A HomeSalePrice is required to save a foreclosure case.");
@@ -537,7 +535,7 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckOtherFieldOutcomeItemForPartial(int? outComeTypeId, OutcomeItemDTO item)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != null && (ConvertStringEmptyToNull(item.NonprofitreferralKeyNum) == null && ConvertStringEmptyToNull(item.ExtRefOtherName) == null))
+            if (item.OutcomeTypeId == outComeTypeId && outComeTypeId != null && (CompareString(item.NonprofitreferralKeyNum, null) && CompareString(item.ExtRefOtherName, null)))
             {
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0265, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0265));
             }                        
@@ -594,15 +592,15 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int? servicerId, CaseLoanDTO item, int i)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.ServicerId == servicerId && ConvertStringEmptyToNull(item.OtherServicerName) == null)
+            if (item.ServicerId == servicerId && CompareString(item.OtherServicerName, null))
             {                
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0266));
             }            
-            if((ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_ARM
-               || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_HYBARM
-               || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_POA
-               || ConvertStringToUpper(item.MortgageTypeCd) == Constant.MORTGATE_TYPE_CODE_INTONLY) 
-               && ConvertStringEmptyToNull(item.ArmResetInd) == null)
+            if((CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_ARM)
+               || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_HYBARM)
+               || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_POA)
+               || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_INTONLY))
+               && CompareString(item.ArmResetInd, null))
                 msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An ArmResetInd is required to save a foreclosure case working on case loan index " + (i + 1));
             return msgFcCaseSet;
         }
@@ -1356,7 +1354,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (budgetItemInput.BudgetSubcategoryId == budgetItemDB.BudgetSubcategoryId
                     && budgetItemInput.BudgetItemAmt == budgetItemDB.BudgetItemAmt
-                    && ConvertStringEmptyToNull((budgetItemInput.BudgetNote)) == ConvertStringEmptyToNull(ConvertStringToUpper(budgetItemDB.BudgetNote)))
+                    && CompareString(budgetItemInput.BudgetNote,budgetItemDB.BudgetNote))
                     return true;
             }
             return false;
@@ -1394,7 +1392,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (BudgetAssetDTO budgetAssetDB in budgetCollectionDB)
             {
-                if (ConvertStringEmptyToNull(ConvertStringToUpper(budgetAssetInput.AssetName)) == ConvertStringEmptyToNull(ConvertStringToUpper(budgetAssetDB.AssetName))
+                if (CompareString(budgetAssetInput.AssetName, budgetAssetDB.AssetName)
                     && budgetAssetInput.AssetValue == budgetAssetDB.AssetValue)
                     return true;
             }
@@ -2278,7 +2276,7 @@ namespace HPF.FutureState.BusinessLogic
                 return true;
             if ((temp1 == null && temp2 != null) || (temp1 != null && temp2 == null))
                 return false;
-            if (ConvertStringToUpper(temp1) == ConvertStringToUpper(temp2))
+            if (temp1.ToUpper() == temp2.ToUpper())
                 return true;
             return false;
         }
