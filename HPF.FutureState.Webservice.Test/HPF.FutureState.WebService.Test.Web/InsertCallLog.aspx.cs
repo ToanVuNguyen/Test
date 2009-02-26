@@ -96,37 +96,35 @@ namespace HPF.FutureState.WebService.Test.Web
             CallLogWSDTO aWSCallLog = new CallLogWSDTO();
 
             #region set value
-            aWSCallLog.AuthorizedInd = txtAuthorizedInd.Text.Trim();
-            aWSCallLog.CallCenter = txtCallCenter.Text.Trim();            
-            aWSCallLog.CallSourceCd = txtCallSourceCd.Text.Trim();
-            aWSCallLog.CcCallKey = txtCcCallKey.Text.Trim();
-            aWSCallLog.CcAgentIdKey = txtCcAgentIdKey.Text.Trim();            
-            aWSCallLog.DNIS = txtDNIS.Text.Trim();
+            aWSCallLog.AuthorizedInd = Util.ConvertToString(txtAuthorizedInd.Text.Trim());
+            aWSCallLog.CallCenter = Util.ConvertToString(txtCallCenter.Text.Trim());
+            aWSCallLog.CallSourceCd = Util.ConvertToString(txtCallSourceCd.Text.Trim());
+            aWSCallLog.CcCallKey = Util.ConvertToString(txtCcCallKey.Text.Trim());
+            aWSCallLog.CcAgentIdKey = Util.ConvertToString(txtCcAgentIdKey.Text.Trim());
+            aWSCallLog.DNIS = Util.ConvertToString(txtDNIS.Text.Trim());
             aWSCallLog.EndDate = Util.ConvertToDateTime(txtEndDate.Text.Trim());
-            aWSCallLog.FinalDispoCd = txtFinalDispoCd.Text.Trim();            
-            aWSCallLog.FirstName = txtFirstName.Text.Trim();
-            aWSCallLog.HomeownerInd = txtHomeownerInd.Text.Trim();
-            aWSCallLog.LastName = txtLastName.Text.Trim();
-            aWSCallLog.LoanAccountNumber = txtLoanAccountNumber.Text.Trim();
-            aWSCallLog.LoanDelinqStatusCd = txtLoanDelinqStatusCd.Text.Trim();
-            aWSCallLog.OtherServicerName = txtOtherServicerName.Text.Trim();
-            aWSCallLog.PowerOfAttorneyInd = txtPowerOfAttorneyInd.Text.Trim();
+            aWSCallLog.FinalDispoCd = Util.ConvertToString(txtFinalDispoCd.Text.Trim());
+            aWSCallLog.FirstName = Util.ConvertToString(txtFirstName.Text.Trim());
+            aWSCallLog.HomeownerInd = Util.ConvertToString(txtHomeownerInd.Text.Trim());
+            aWSCallLog.LastName = Util.ConvertToString(txtLastName.Text.Trim());
+            aWSCallLog.LoanAccountNumber = Util.ConvertToString(txtLoanAccountNumber.Text.Trim());
+            aWSCallLog.LoanDelinqStatusCd = Util.ConvertToString(txtLoanDelinqStatusCd.Text.Trim());
+            aWSCallLog.OtherServicerName = Util.ConvertToString(txtOtherServicerName.Text.Trim());
+            aWSCallLog.PowerOfAttorneyInd =Util.ConvertToString( txtPowerOfAttorneyInd.Text.Trim());
             aWSCallLog.PrevAgencyId = Util.ConvertToInt(txtPrevAgencyId.Text.Trim());
-            aWSCallLog.PropZipFull9 = txtPropZipFull9.Text.Trim();
-            aWSCallLog.ReasonToCall = txtReasonToCall.Text.Trim();
-            aWSCallLog.ScreenRout = txtScreenRout.Text.Trim();
+            aWSCallLog.PropZipFull9 = Util.ConvertToString(txtPropZipFull9.Text.Trim());
+            aWSCallLog.ReasonToCall = Util.ConvertToString(txtReasonToCall.Text.Trim());
+            aWSCallLog.ScreenRout = Util.ConvertToString(txtScreenRout.Text.Trim());
             aWSCallLog.SelectedAgencyId = Util.ConvertToInt(txtSelectedAgencyId.Text.Trim());
-            aWSCallLog.SelectedCounselor = txtSelectedCounselor.Text.Trim();
+            aWSCallLog.SelectedCounselor = Util.ConvertToString(txtSelectedCounselor.Text.Trim());
             aWSCallLog.ServicerId = Util.ConvertToInt(txtServiceID.Text.Trim());
             aWSCallLog.StartDate = Util.ConvertToDateTime(txtStartDate.Text.Trim());
-            aWSCallLog.TransNumber = txtTransNumber.Text.Trim();
-            aWSCallLog.City = txtCity.Text.Trim();
-            aWSCallLog.State = txtState.Text.Trim();
-            aWSCallLog.NonprofitReferralKeyNum1 = txtNonprofitReferral1.Text.Trim();
-            aWSCallLog.NonprofitReferralKeyNum2 = txtNonprofitReferral2.Text.Trim();
-            aWSCallLog.NonprofitReferralKeyNum3 = txtNonprofitReferral3.Text.Trim();
-
-
+            aWSCallLog.TransNumber = Util.ConvertToString(txtTransNumber.Text.Trim());
+            aWSCallLog.City = Util.ConvertToString(txtCity.Text.Trim());
+            aWSCallLog.State = Util.ConvertToString(txtState.Text.Trim());
+            aWSCallLog.NonprofitReferralKeyNum1 = Util.ConvertToString(txtNonprofitReferral1.Text.Trim());
+            aWSCallLog.NonprofitReferralKeyNum2 = Util.ConvertToString(txtNonprofitReferral2.Text.Trim());
+            aWSCallLog.NonprofitReferralKeyNum3 = Util.ConvertToString(txtNonprofitReferral3.Text.Trim());
             #endregion
 
             return aWSCallLog;

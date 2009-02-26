@@ -97,6 +97,14 @@ namespace HPF.FutureState.WebService.Test.Web
             }
             else
                 return null;
-        }        
+        }
+
+        public static string ConvertToString(object obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.ToString())) return null;
+            return obj.ToString();
+        }
     }
 }
