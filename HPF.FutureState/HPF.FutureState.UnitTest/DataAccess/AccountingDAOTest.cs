@@ -141,6 +141,53 @@ namespace HPF.FutureState.UnitTest
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
             //
+            //insert test data for DisplayInvoiceCase
+            //invoice ,funding_source, invoice_case, invoice_payment , case_loan 
+
+            //insert test data to FUNDING_SOURCE
+            command.CommandText = @"insert into [dbo].funding_source([funding_source_name],[funding_source_comment]
+           ,[city],[state_cd],[create_dt],[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id]
+           ,[chg_lst_app_name],[funding_source_abbrev]) values ('fs accounting test','fs test','hcm test'
+           ,'test','1/1/2222','" + working_user_id + "','fs test app','1/1/2222','Test data','CCRC','5')";
+            command.ExecuteNonQuery();
+            //-- get Funding Source Id of test data .
+            command.CommandText = @"select funding_source_id from funding_source where create_user_id='" + working_user_id + "'";
+            int fs_id = Convert.ToInt32(command.ExecuteScalar());
+
+            //insert test data to INVOICE
+            command.CommandText = "Insert Into Invoice(invoice_dt,funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,invoice_comment)" +
+                                    " values ('2/2/2222'," + fs_id + ",'1/1/2107', '1/1/2108', '1/1/2208', '" + working_user_id + "', 'test', '1/1/2008', 'test', 'test','test invoice')";
+            command.ExecuteNonQuery();
+            //--get invoice_id
+            command.CommandText = "select invoice_id from invoice where create_user_id='" + working_user_id + "'";
+            int invoice_id = Convert.ToInt32(command.ExecuteScalar());
+
+            //insert test data  INVOICE_CASE
+            command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,invoice_case_bill_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,pmt_reject_reason_cd)" +
+                                   " values (99999,99999," + fc_id + "," + invoice_id + ",'1/1/2208', '" + working_user_id + "', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test','no accounting')";
+            command.ExecuteNonQuery();
+
+            //insert INVOICE_PAYMENT
+            command.CommandText = @"INSERT INTO [invoice_payment]([funding_source_id],[pmt_num] ,[pmt_dt],[pmt_cd]
+            ,[create_dt] ,[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])
+            VALUES (" + fs_id + ",'invoice thao test','2/2/2222','test test','1/1/2222','" + working_user_id + "','fs test app','1/1/2222','Test data','CCRC')";
+            command.ExecuteNonQuery();
+
+            //insert SERVICER to insert test data to CASE_LOAN
+            command.CommandText = @"INSERT INTO [servicer]([servicer_name],[create_dt],[create_user_id]" +
+           ",[create_app_name],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])VALUES" +
+           "('test servicer','2/2/2222','" + working_user_id + "','HPF','2/2/2222','test','test')";
+            command.ExecuteNonQuery();
+            //--get servicer_id
+            command.CommandText = "select servicer_id from servicer where create_user_id='" + working_user_id + "'";
+            int servicer_id = Convert.ToInt32(command.ExecuteScalar());
+            //insert test data CASE_LOAN
+            command.CommandText = @"INSERT INTO [dbo].[case_loan]" +
+           "([fc_id],[servicer_id],[acct_num],[loan_1st_2nd_cd],[create_dt],[create_app_name]" +
+           ",[create_user_id],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])VALUES" +
+           "(" + fc_id + "," + servicer_id + ",99999,'1st','2/2/2222','test','" + working_user_id + "','2/2/2222','test','test')";
+            command.ExecuteNonQuery();
+
             dbConnection.Close();
         }
 
@@ -156,10 +203,8 @@ namespace HPF.FutureState.UnitTest
         private static void ClearTestData()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-
             dbConnection.Open();
-           
-           
+
             //Delete data test AGENCY_PAYABLE_CASE
             string strsql = @"delete from agency_payable_case where create_user_id='" + working_user_id + "'";
             var command = new SqlCommand(strsql, dbConnection);
@@ -178,12 +223,8 @@ namespace HPF.FutureState.UnitTest
             strsql = @"delete activity_log where fc_id=" + fc_id;
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
-            
-            //Delete data test FORECLOSURE 
-            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
 
+            
             //Delete data test AGENCY
             strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
@@ -194,6 +235,32 @@ namespace HPF.FutureState.UnitTest
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
             //
+            //delete data test DisplayInvoiceCase
+            //case_loan,servicer,invoice_case,invoice_payment,invoice,funding_source
+            //delete CASE_LOAN
+            command.CommandText = "delete from case_loan where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+            //delete SERVICER
+            command.CommandText = "delete from servicer where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+            //delete INVOICE_CASE
+            command.CommandText = "delete from invoice_case where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+            //delete INVOICE_PAYMENT
+            command.CommandText = "delete from invoice_payment where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+            //delete INVOICE
+            command.CommandText = "delete from invoice where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+            //delete FUNDING_SOURCE
+            command.CommandText = "delete from funding_source where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+
+            //Delete data test FORECLOSURE 
+            strsql = @"delete from  foreclosure_case where create_user_id='"+working_user_id+"'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
             dbConnection.Close();
         }
 
@@ -222,7 +289,7 @@ namespace HPF.FutureState.UnitTest
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             //
             string NeverBillReason = null;
-            string NeverPayReason=null ; // TODO: Initialize to an appropriate value
+            string NeverPayReason = null; // TODO: Initialize to an appropriate value
             //get current fc_id
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -237,10 +304,10 @@ namespace HPF.FutureState.UnitTest
             foreclosureCase.ChangeLastAppName = "HPF";
             target.UpdateForeclosureCase(foreclosureCase);
             //check update successful or not
-            strsql = @"select * from foreclosure_case where create_user_id='"+working_user_id+"'";
+            strsql = @"select * from foreclosure_case where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             var dr = command.ExecuteReader();
-            if(dr.HasRows)
+            if (dr.HasRows)
                 while (dr.Read())
                 {
                     NeverPayReason = dr["never_pay_reason_cd"].ToString();
@@ -254,19 +321,50 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test for DisplayInvoiceCase
         ///</summary>
-        /// doi sinh lam xong invoice dao test.
-        //[TestMethod()]
-        //public void DisplayInvoiceCaseTest()
-        //{
-        //    AccountingDAO_Accessor target = new AccountingDAO_Accessor(); // TODO: Initialize to an appropriate value
-        //    int CaseID = 0; // TODO: Initialize to an appropriate value
-        //    BillingInfoDTOCollection expected = null; // TODO: Initialize to an appropriate value
-        //    BillingInfoDTOCollection actual;
-        //    actual = target.DisplayInvoiceCase(CaseID);
-        //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Verify the correctness of this test method.");
-        //}
+        /// 
+        [TestMethod()]
+        public void DisplayInvoiceCaseTest()
+        {
+            AccountingDAO_Accessor target = new AccountingDAO_Accessor(); // TODO: Initialize to an appropriate value
+            var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
+            dbConnection.Open();
+            //
+            string strsql = @"select fc_id from foreclosure_case where create_user_id='" + working_user_id + "' ";
+            var command = new SqlCommand(strsql, dbConnection);
+            int CaseID = Convert.ToInt32(command.ExecuteScalar());
+            BillingInfoDTOCollection actual = new BillingInfoDTOCollection();
+            BillingInfoDTO expect = new BillingInfoDTO();
+            //actual 
+            actual = target.DisplayInvoiceCase(CaseID);
+            //expect
+            expect.InvoiceDate = Convert.ToDateTime("2/2/2222");
+            expect.FundingSourceName = "fs accounting test";
+            command.CommandText = "select invoice_id from invoice where create_user_id='" + working_user_id + "'";
+            int invoice_id = Convert.ToInt32(command.ExecuteScalar());
+            expect.InvoiceId = invoice_id;
+            expect.Loan = "99999";
+            expect.InDisputeIndicator = "1st";
+            expect.InvoiceCaseBillAmount = 99999;
+            expect.InvoiceCasePaymentAmount = 99999;
+            expect.PaidDate = Convert.ToDateTime("2/2/2222");
+            expect.PaymentRejectReasonCode = "no accounting";
+            Assert.IsFalse(!CompareBillingInfoDTO(actual[0], expect));
+            dbConnection.Close();
+        }
+        private bool CompareBillingInfoDTO(BillingInfoDTO actual, BillingInfoDTO expect)
+        {
 
+            if (expect.InvoiceDate != actual.InvoiceDate) return false;
+            if (expect.FundingSourceName != actual.FundingSourceName) return false;
+            if (expect.InvoiceId != actual.InvoiceId) return false;
+            if (expect.Loan != actual.Loan) return false;
+            if (expect.InDisputeIndicator != actual.InDisputeIndicator) return false;
+            if (expect.InvoiceCaseBillAmount != actual.InvoiceCaseBillAmount) return false;
+            if (expect.InvoiceCasePaymentAmount != actual.InvoiceCasePaymentAmount) return false;
+            if (expect.PaidDate != actual.PaidDate) return false;
+            if (expect.PaymentRejectReasonCode != actual.PaymentRejectReasonCode) return false;
+            return true;
+        }
         /// <summary>
         ///A test for DisplayAgencyPayable
         ///</summary>
@@ -315,11 +413,11 @@ namespace HPF.FutureState.UnitTest
             AccountingDTO actual = new AccountingDTO(); // TODO: Initialize to an appropriate value
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
-            string strsql=@"select fc_id from foreclosure_case where create_user_id='"+working_user_id+"'";
-            var command=new SqlCommand(strsql,dbConnection);
-            int fc_id=Convert.ToInt32(command.ExecuteScalar());
+            string strsql = @"select fc_id from foreclosure_case where create_user_id='" + working_user_id + "'";
+            var command = new SqlCommand(strsql, dbConnection);
+            int fc_id = Convert.ToInt32(command.ExecuteScalar());
             actual = target.DisplayAccounting(fc_id);
-            Assert.AreEqual(actual.NerverPayReason,"accounting pay");
+            Assert.AreEqual(actual.NerverPayReason, "accounting pay");
             Assert.AreEqual(actual.NeverBillReason, "accounting bill");
             dbConnection.Close();
         }

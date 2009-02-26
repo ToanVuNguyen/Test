@@ -579,7 +579,7 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(WARN0450, "Do you want to save changes?");
                 // App foreclosure Case Search
-                errorMessageDict.Add(WARN0500, "Cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
+                errorMessageDict.Add(WARN0500, "* cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
                 errorMessageDict.Add(ERR0501, "The 'Last 4 of SSN' search criteria must be exactly 4 numeric digits");
                 errorMessageDict.Add(ERR0502, "The 'Property Zip' search criteria must be a valid 5 digit numeric zip.");
                 errorMessageDict.Add(ERR0503, "The 'Foreclosure Case ID' search criteria must be only numeric digits");

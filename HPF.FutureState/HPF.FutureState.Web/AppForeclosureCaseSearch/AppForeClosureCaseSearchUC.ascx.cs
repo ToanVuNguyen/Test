@@ -273,7 +273,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
             appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
             appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
-            txtAgencyCaseID.Text = DeleteSpecialChar(txtAgencyCaseID.Text);
             txtLoanNum.Text = DeleteSpecialChar(txtLoanNum.Text);
             return appForeclosureCaseSearchCriteriaDTO;
         }
@@ -307,7 +306,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             if (totalpage > 10)
                 //lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
-                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")));
+                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")).ToString().Replace("*",this.TotalRowNum.ToString()));
             //every click search button, set 
             this.PageNum = 0;
             lbtnLast.Enabled = true;
