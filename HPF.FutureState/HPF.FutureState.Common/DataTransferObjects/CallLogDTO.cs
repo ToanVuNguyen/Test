@@ -34,8 +34,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]        
         public string CallSourceCd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 75, "Reason To Call", Ruleset = "Default")]
-        public string ReasonToCall { get; set; }
+        [NullableOrStringLengthValidator(true, 75, "Reason For Call", Ruleset = "Default")]
+        public string ReasonForCall { get; set; }
 
         [NullableOrStringLengthValidator(true, 30, "Loan Account Number", Ruleset = "Default")]
         public string LoanAccountNumber { get; set; }
