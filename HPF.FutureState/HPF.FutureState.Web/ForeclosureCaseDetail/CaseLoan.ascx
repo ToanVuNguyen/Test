@@ -26,7 +26,7 @@
         </tr>       
         <tr>
             <td align="right" class="sidelinks">Mortgage Type*: </td>
-            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageTypeCdDesc")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageTypeCd")%></td>
             <td align="right" class="sidelinks">Orig. Mortgage Co FDIC/NCUA: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrigMortgageCoFdicNcusNum")%></td>            
         </tr>       

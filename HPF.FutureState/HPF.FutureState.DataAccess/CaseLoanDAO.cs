@@ -78,6 +78,7 @@ namespace HPF.FutureState.DataAccess
                         item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
                         item.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        item.MortgageProgramCd = ConvertToString(reader["mortgage_program_cd"]);
                         results.Add(item);
                         #endregion
                     }
