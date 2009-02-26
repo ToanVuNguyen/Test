@@ -144,15 +144,6 @@ namespace HPF.FutureState.UnitTest
 
 
 
-        //[TestMethod()]
-        //public void PaymentTypeGetTest()
-        //{
-        //    InvoicePaymentDAO_Accessor target = new InvoicePaymentDAO_Accessor(); // TODO: Initialize to an appropriate value
-        //    InvoicePaymentDTOCollection expected = null; // TODO: Initialize to an appropriate value
-        //    InvoicePaymentDTOCollection actual;
-        //    actual = target.PaymentTypeGet();
-        //    Assert.AreEqual(expected, actual);
-        //    Assert.Inconclusive("Verify the correctness of this test method.");
-        //}
+        
     }
 }

@@ -28,10 +28,13 @@ namespace HPF.FutureState.Web.SummaryEmail
         {
             txtTo.Focus();
             ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
-            if (forclosureInfo != null)
+            if (!IsPostBack)
             {
-                int? fc_id = forclosureInfo.FcId;
-                txtSubject.Text = EmailSummaryBL.Instance.CreateEmailSummarySubject(fc_id);
+                if (forclosureInfo != null)
+                {
+                    int? fc_id = forclosureInfo.FcId;
+                    txtSubject.Text = EmailSummaryBL.Instance.CreateEmailSummarySubject(fc_id);
+                }
             }
         }
         public bool CheckEmailAddress(string emailAddress)

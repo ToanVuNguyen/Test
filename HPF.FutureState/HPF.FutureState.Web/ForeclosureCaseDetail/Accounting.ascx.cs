@@ -88,10 +88,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             try
             {
-                int fc_id = int.Parse(Request.QueryString["CaseID"]);
-                string neverbillreason = ddlNerverBillReason.SelectedValue;
-                string neverpayreason = ddlNeverPayReason.SelectedValue;
-                AccountingBL.Instance.UpdateForclosureCase(neverbillreason, neverpayreason, fc_id);
+                ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+                foreclosureCase.FcId= int.Parse(Request.QueryString["CaseID"]);
+                foreclosureCase.NeverBillReasonCd = ddlNerverBillReason.SelectedValue;
+                foreclosureCase.NeverPayReasonCd = ddlNeverPayReason.SelectedValue;
+                foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                AccountingBL.Instance.UpdateForeclosureCase(foreclosureCase);
                 lblMessage.Text = "Update Forclosurecase successfull";
             }
             catch (Exception ex)

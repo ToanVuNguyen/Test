@@ -150,15 +150,15 @@ namespace HPF.FutureState.DataAccess
 
         #endregion
         #region save
-        public void UpdateForclosureCase(string NeverBillReason, string NeverPayReason, int Fc_ID)
+        public void UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_update_app", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[13];
-            sqlParam[0] = new SqlParameter("@pi_fc_id", Fc_ID);
-            sqlParam[1] = new SqlParameter("@pi_never_pay_reason", NeverPayReason);
-            sqlParam[2] = new SqlParameter("@pi_never_bill_reason", NeverBillReason);
+            var sqlParam = new SqlParameter[16];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
+            sqlParam[1] = new SqlParameter("@pi_never_pay_reason", foreclosureCase.NeverPayReasonCd);
+            sqlParam[2] = new SqlParameter("@pi_never_bill_reason",foreclosureCase.NeverBillReasonCd);
             sqlParam[3] = new SqlParameter("@pi_agency_id",null);
             sqlParam[4] = new SqlParameter("@pi_duplicate_ind", null);
             sqlParam[5] = new SqlParameter("@pi_loan_dflt_reason_notes", null);
@@ -169,7 +169,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[10] = new SqlParameter("@pi_do_not_call_ind", null);
             sqlParam[11] = new SqlParameter("@pi_hpf_success_story_ind", null);
             sqlParam[12] = new SqlParameter("@pi_hpf_media_candidate_ind ", null);
-
+            sqlParam[13] = new SqlParameter("@pi_chg_lst_dt ", foreclosureCase.ChangeLastDate);
+            sqlParam[14] = new SqlParameter("@pi_chg_lst_user_id ", foreclosureCase.ChangeLastUserId);
+            sqlParam[15] = new SqlParameter("@pi_chg_lst_app_name ", foreclosureCase.ChangeLastAppName);
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             try

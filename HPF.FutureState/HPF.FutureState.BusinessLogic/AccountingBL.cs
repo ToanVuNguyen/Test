@@ -50,11 +50,11 @@ namespace HPF.FutureState.BusinessLogic
             }
             
         }
-        public void UpdateForclosureCase(string NeverBillReason, string NeverPayReason, int Fc_ID)
+        public void UpdateForeclosureCase(ForeclosureCaseDTO foreclosureCase)
         {
             try
             {
-                AccountingDAO.CreateInstance().UpdateForclosureCase(NeverBillReason, NeverPayReason, Fc_ID);
+                AccountingDAO.CreateInstance().UpdateForeclosureCase(foreclosureCase);
             }
             catch (Exception)
             {

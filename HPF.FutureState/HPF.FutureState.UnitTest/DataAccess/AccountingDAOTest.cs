@@ -99,7 +99,7 @@ namespace HPF.FutureState.UnitTest
                + ", counselor_fname, counselor_lname, counselor_id_ref"
                + ", prop_zip, agency_case_num, borrower_last4_SSN"
                + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name"
-               + ", create_user_id,create_dt,never_pay_reason_cd,never_bill_reason_cd ) values "
+               + ", create_user_id,create_dt,never_pay_reason_cd,never_bill_reason_cd,prop_addr1,prop_city,prop_state_cd,duplicate_ind ) values "
 
                + " (" + agency_id + "," + program_id + ", '" + DateTime.Now + "'"
                + ",'" + first_name + "', 'accounting test', 'pcontactno'"
@@ -109,7 +109,7 @@ namespace HPF.FutureState.UnitTest
                + ", 'Y', 'Y', 'Y'"
                + ", 'cfname', 'clname', 'cidref'"
                + ", '" + "9999" + "', '" + "abc" + "', '" + "1111" + "'"
-               + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "','accounting pay','accounting bill' )";
+               + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "','accounting pay','accounting bill','nguyen hong','hcm','bt','N' )";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -219,6 +219,8 @@ namespace HPF.FutureState.UnitTest
         public void UpdateForclosureCaseTest()
         {
             AccountingDAO_Accessor target = new AccountingDAO_Accessor(); // TODO: Initialize to an appropriate value
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+            //
             string NeverBillReason = null;
             string NeverPayReason=null ; // TODO: Initialize to an appropriate value
             //get current fc_id
@@ -226,8 +228,14 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             string strsql = @"select fc_id from foreclosure_case where create_user_id='" + working_user_id + "'";
             var command = new SqlCommand(strsql, dbConnection);
-            int fc_id = Convert.ToInt32(command.ExecuteScalar());
-            target.UpdateForclosureCase("bill accounting", "pay accounting", fc_id);
+            //set foreclosureCase data
+            foreclosureCase.FcId = Convert.ToInt32(command.ExecuteScalar());
+            foreclosureCase.NeverPayReasonCd = "pay accounting";
+            foreclosureCase.NeverBillReasonCd = "bill accounting";
+            foreclosureCase.ChangeLastDate = DateTime.Now;
+            foreclosureCase.ChangeLastUserId = working_user_id;
+            foreclosureCase.ChangeLastAppName = "HPF";
+            target.UpdateForeclosureCase(foreclosureCase);
             //check update successful or not
             strsql = @"select * from foreclosure_case where create_user_id='"+working_user_id+"'";
             command = new SqlCommand(strsql, dbConnection);
