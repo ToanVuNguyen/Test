@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common
         public const string CASE_STATUS_CODE = "Case status code";
         public const string COUNSELING_DURARION_CODE = "Counseling duration code";
         public const string COUNSELING_SUMMARY_FORMAT_CODE = "Counseling summary format code";
-        public const string CREDIT_BURREAU_CODE = "Credit burreau code";
+        public const string CREDIT_BURREAU_CODE = "Credit bureau code";
         public const string DEFAULT_REASON_CODE = "Default reason code";
         public const string EDUCATION_LEVEL_COMPLETED_CODE = "Education level completed code";
         public const string EXPORT_FORMAT_CODE = "Export format code";
