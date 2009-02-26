@@ -62,7 +62,7 @@ namespace HPF.FutureState.WebServices
             return response;
         }
 
-        private static CallLogDTO ConvertToCallLogDTO(CallLogWSDTO sourceObject)
+        private CallLogDTO ConvertToCallLogDTO(CallLogWSDTO sourceObject)
         {
             var destObject = new CallLogDTO();
             if (sourceObject.CallId != null)

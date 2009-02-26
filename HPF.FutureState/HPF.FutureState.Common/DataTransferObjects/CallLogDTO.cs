@@ -83,15 +83,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         string _homeownerInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
-        public string HomeownerInd { get { return _homeownerInd; } set { _homeownerInd = value.ToUpper(); } }
+        public string HomeownerInd { get { return _homeownerInd; } set { if (value != null) _homeownerInd = value.ToUpper(); } }
 
         string _powerOfAttorneyInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
-        public string PowerOfAttorneyInd { get { return _powerOfAttorneyInd; } set { _powerOfAttorneyInd = value.ToUpper(); } }
+        public string PowerOfAttorneyInd { get { return _powerOfAttorneyInd; } set { if (value != null) _powerOfAttorneyInd = value.ToUpper(); } }
         
         string _authorizedInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default")]
-        public string AuthorizedInd { get { return _authorizedInd; } set { _authorizedInd = value.ToUpper(); } }
+        public string AuthorizedInd 
+        { 
+            get { return _authorizedInd; } 
+            set { if (value != null)_authorizedInd = value.ToUpper(); } }
 
         [NullableOrStringLengthValidator(true, 30, "City", Ruleset = "Default")]
         public string City {get; set;}  //	varchar(30)
