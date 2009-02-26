@@ -38,7 +38,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         static int agency_id = 2;
         static string acct_num = "acct_num6868";
         static string working_user_id = "utest_FC_test_12345";
-        static int budget_category_id = 0;
+        static int budget_category_id = 0, budget_subcategory_id = 0;
         static string working_user_id_dupe = "utest_FC_test_12345_dupe";
         static string acct_num_dupe = "an6868dupe";
         static string servicer_name_dupe = "sn_68_dupe";
@@ -451,6 +451,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + " (budget_category_id, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
                 + " (" + budget_category_id + ", 'HPF' ,'" + working_user_id_dupe + "' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id_dupe + "', '" + DateTime.Now + "' )";
             ExecuteSql(sql, dbConnection);
+            budget_subcategory_id = GetBudgetSubCategoryId();
             #endregion
             dbConnection.Close();
         }
@@ -814,7 +815,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
             var bi = new BudgetItemDTO()
             {
-                BudgetSubcategoryId = budget_category_id,
+                BudgetSubcategoryId = budget_subcategory_id,
                 BudgetItemAmt = 10
             };
 
