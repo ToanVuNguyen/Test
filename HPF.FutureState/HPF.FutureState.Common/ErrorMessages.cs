@@ -302,15 +302,20 @@ namespace HPF.FutureState.Common
         public const string ERR0681 = "ERR0681";
         public const string ERR0682 = "ERR0682";
 
-
-
-
-
         public const string ERR0701 = "ERR0701";
         public const string ERR0702 = "ERR0702";
         public const string ERR0703 = "ERR0703";
         public const string ERR0704 = "ERR0704";
-        //Email summary
+
+        //WS Send summary
+        public const string ERR0800 = "ERR0800";
+        public const string ERR0801 = "ERR0801";
+        public const string ERR0802 = "ERR0802";
+        public const string ERR0803 = "ERR0803";
+        public const string ERR0804 = "ERR0804";
+        public const string ERR0805 = "ERR0805";
+
+        //App Email summary
         public const string ERR0850 = "ERR0850";
         public const string ERR0851 = "ERR0851";
         public const string ERR0852 = "ERR0852";
@@ -657,7 +662,16 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0703, "Follow-Up Date is required to save the case.");
                 errorMessageDict.Add(ERR0704, "Follow-Up Source is required to save the case.");
 
-                //Email Summary
+                //WS Send Summary
+                
+                errorMessageDict.Add(ERR0800, "An EmailToAddres is required to send a summary.");
+                errorMessageDict.Add(ERR0801, "A SenderID is required to send a summary.");
+                errorMessageDict.Add(ERR0802, "Unable to send summary. The FCId {0} is not a valid foreclosure case ID.");
+                errorMessageDict.Add(ERR0803, "Unable to send summary.  The FCId {0} does not belong to your agency.");
+                errorMessageDict.Add(ERR0804, "Unable to send summary. A summary cannot be sent when a case in not complete.");
+                errorMessageDict.Add(ERR0805, "A FCId is required to send a summary.");
+
+                //App Email Summary
                 errorMessageDict.Add(ERR0850, "An EmailToAddres is required to send a summary.");
                 errorMessageDict.Add(ERR0851, "A Subject is required to send a summary.");
                 errorMessageDict.Add(ERR0852, "The 'To:' address has a max length of 255 characters.");
