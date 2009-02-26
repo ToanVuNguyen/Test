@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ZipLibrary\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharePoint Library\Microsoft.SharePoint.dll</HintPath>
@@ -53,7 +49,21 @@
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
     <Compile Include="BusinessEntity\InvoiceInfo.cs" />
     <Compile Include="BusinessEntity\ResultInfo.cs" />
-    <Compile Include="Constants\DocumentCenterContentType.cs" />
+    <Compile Include="ContentTypes\AccountPayable.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>AccountPayable.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ContentTypes\CounselingSummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>CounselingSummary.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ContentTypes\Invoice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Invoice.settings</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\DocumentCenterController.cs" />
     <Compile Include="DocumentCenter.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -62,10 +72,21 @@
     </Compile>
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\WindowsImpersonation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ContentTypes\AccountPayable.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>AccountPayable.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ContentTypes\CounselingSummary.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>CounselingSummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ContentTypes\Invoice.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Invoice.Designer.cs</LastGenOutput>
+    </None>
     <None Include="DocumentCenter.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>DocumentCenter.Designer.cs</LastGenOutput>

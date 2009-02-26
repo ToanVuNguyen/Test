@@ -3,46 +3,45 @@ using System.Collections.Generic;
 using System.Text;
 using HPF.SharePointAPI.BusinessEntity;
 using Microsoft.SharePoint;
-using HPF.SharePointAPI.Constants;
 using HPF.SharePointAPI.Enum;
-using HPF.SharePointAPI.Utils;
+using System.Security;
+using HPF.SharePointAPI.ContentTypes;
 
 namespace HPF.SharePointAPI.Controllers
 {
-    public delegate void UpdateSPListItem<T>(SPListItem item, T obj) where T:BaseObject;
+    internal delegate void UpdateSPListItem<T>(SPListItem item, T obj) where T:BaseObject;
     public static class DocumentCenterController
     {        
         #region "counseling Summary"
         public static IList<ResultInfo<CounselingSummaryInfo>> Upload(IList<CounselingSummaryInfo> counselingSummaryList)
         {
-            IList<ResultInfo<CounselingSummaryInfo>> results = UploadSPFiles(counselingSummaryList, DocumentCenter.Default.CounselingSummary, UpdatecounselingSummaryInfo);
+            IList<ResultInfo<CounselingSummaryInfo>> results = UploadSPFiles(
+                DocumentCenter.Default.CounselingSummaryLoginName,
+                counselingSummaryList, 
+                DocumentCenter.Default.CounselingSummary, 
+                UpdateCounselingSummaryInfo);
             
             return results;
         }
 
         public static ResultInfo<CounselingSummaryInfo> Upload(CounselingSummaryInfo counselingSummary)
-        {
-            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.CounselingSummaryUserName, DocumentCenter.Default.CounselingSummaryPassword);
-
+        {   
             List<CounselingSummaryInfo> counselingSummaryList = new List<CounselingSummaryInfo>();
             counselingSummaryList.Add(counselingSummary);
             IList<ResultInfo<CounselingSummaryInfo>> results = Upload(counselingSummaryList);
-
-            if (imp != null) { imp.Undo(); }
-
-            return results[0];
+        
+            return results[0];            
         }
         #endregion
 
         #region "Invoice"
         public static IList<ResultInfo<InvoiceInfo>> Upload(IList<InvoiceInfo> invoiceList)
         {
-            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.InvoiceUserName, DocumentCenter.Default.InvoicePassword);
-
-            IList<ResultInfo<InvoiceInfo>> results = UploadSPFiles(invoiceList, DocumentCenter.Default.Invoice, UpdateInvoiceInfo);
-
-            if (imp != null) { imp.Undo(); }
-
+            IList<ResultInfo<InvoiceInfo>> results = UploadSPFiles(
+                DocumentCenter.Default.InvoiceLoginName,
+                invoiceList, 
+                DocumentCenter.Default.Invoice, 
+                UpdateInvoiceInfo);
             return results;
         }
 
@@ -59,12 +58,11 @@ namespace HPF.SharePointAPI.Controllers
         #region "Account Payable"
         public static IList<ResultInfo<AccountPayableInfo>> Upload(IList<AccountPayableInfo> accountPayableList)
         {
-            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.AccountPayableUserName, DocumentCenter.Default.AccountPayablePassword);
-
-            IList<ResultInfo<AccountPayableInfo>> results = UploadSPFiles(accountPayableList, DocumentCenter.Default.AccountPayable, UpdateAccountPayableInfo);
-
-            if (imp != null) { imp.Undo(); }
-
+            IList<ResultInfo<AccountPayableInfo>> results = UploadSPFiles(
+                DocumentCenter.Default.AccountPayableLoginName,
+                accountPayableList, 
+                DocumentCenter.Default.AccountPayable, 
+                UpdateAccountPayableInfo);
             return results;
         }
 
@@ -78,15 +76,27 @@ namespace HPF.SharePointAPI.Controllers
         #endregion
 
         #region "Helper"
-        private static IList<ResultInfo<T>> UploadSPFiles<T>(IList<T> items, string listName, UpdateSPListItem<T> action) where T:BaseObject
+        /// <summary>
+        /// Upload SPFile and call a delegate for updating SPItem
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="userName"></param>
+        /// <param name="items"></param>
+        /// <param name="listName"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        private static IList<ResultInfo<T>> UploadSPFiles<T>(string userName, IList<T> items, string listName, UpdateSPListItem<T> action) where T:BaseObject
         {
             List<ResultInfo<T>> results = new List<ResultInfo<T>>();
-            
-            using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite))
+
+            SPUserToken token = GetUploadSPUserToken(userName);
+
+            using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
             {
                 ResultInfo<T> resultInfo;
                 string fileUrl;
-                SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];
+                SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];                
+                
                 web.AllowUnsafeUpdates = true;                
                 SPDocumentLibrary docLib = (SPDocumentLibrary)web.Lists[listName];                
                 SPFolder spFolder = docLib.RootFolder;
@@ -150,44 +160,79 @@ namespace HPF.SharePointAPI.Controllers
             return results;
         }
 
-        private static void UpdatecounselingSummaryInfo(SPListItem spItem, CounselingSummaryInfo counselingSummary)
+        /// <summary>
+        /// Update Counseling Summary SPListItem
+        /// </summary>
+        /// <param name="spItem"></param>
+        /// <param name="counselingSummary"></param>
+        private static void UpdateCounselingSummaryInfo(SPListItem spItem, CounselingSummaryInfo counselingSummary)
         {
             if (counselingSummary.CompletedDate != null)
             {
-                spItem[DocumentCenterContentType.CounselingSummary.CompletedDate] = counselingSummary.CompletedDate;
+                spItem[CounselingSummary.Default.CompletedDate] = counselingSummary.CompletedDate;
             }
-            spItem[DocumentCenterContentType.CounselingSummary.Delinquency] = counselingSummary.Delinquency;
+            spItem[CounselingSummary.Default.Delinquency] = counselingSummary.Delinquency;
             if (counselingSummary.ForeclosureSaleDate != null)
             {
-                spItem[DocumentCenterContentType.CounselingSummary.ForeclosureSaleDate] = counselingSummary.ForeclosureSaleDate;
+                spItem[CounselingSummary.Default.ForeclosureSaleDate] = counselingSummary.ForeclosureSaleDate;
             }
-            spItem[DocumentCenterContentType.CounselingSummary.LoanNumber] = counselingSummary.LoanNumber;
-            spItem[DocumentCenterContentType.CounselingSummary.ReviewStatus] = counselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
-            spItem[DocumentCenterContentType.CounselingSummary.Servicer] = counselingSummary.Servicer;
+            spItem[CounselingSummary.Default.LoanNumber] = counselingSummary.LoanNumber;
+            spItem[CounselingSummary.Default.ReviewStatus] = counselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
+            spItem[CounselingSummary.Default.Servicer] = counselingSummary.Servicer;
         }
 
+        /// <summary>
+        /// Update Invoice SPListItem
+        /// </summary>
+        /// <param name="spItem"></param>
+        /// <param name="invoice"></param>
         private static void UpdateInvoiceInfo(SPListItem spItem, InvoiceInfo invoice)
         {
             if (invoice.Date != null)
             {
-                spItem[DocumentCenterContentType.Invoice.Date] = invoice.Date;
+                spItem[Invoice.Default.Date] = invoice.Date;
             }
-            spItem[DocumentCenterContentType.Invoice.FundingSource] = invoice.FundingSource;
-            spItem[DocumentCenterContentType.Invoice.InvoiceNumber] = invoice.InvoiceNumber;
-            spItem[DocumentCenterContentType.Invoice.Month] = invoice.Month;
-            spItem[DocumentCenterContentType.Invoice.Year] = invoice.Year;
+            spItem[Invoice.Default.FundingSource] = invoice.FundingSource;
+            spItem[Invoice.Default.InvoiceNumber] = invoice.InvoiceNumber;
+            spItem[Invoice.Default.Month] = invoice.Month;
+            spItem[Invoice.Default.Year] = invoice.Year;
         }
 
+        /// <summary>
+        /// Update Account Payable SPListItem
+        /// </summary>
+        /// <param name="spItem"></param>
+        /// <param name="accountPayable"></param>
         private static void UpdateAccountPayableInfo(SPListItem spItem, AccountPayableInfo accountPayable)
         {
             if (accountPayable.Date != null)
             {
-                spItem[DocumentCenterContentType.AccountPayable.Date] = accountPayable.Date;
-            }            
-            spItem[DocumentCenterContentType.AccountPayable.FundingSource] = accountPayable.FundingSource;
-            spItem[DocumentCenterContentType.AccountPayable.InvoiceNumber] = accountPayable.InvoiceNumber;
-            spItem[DocumentCenterContentType.AccountPayable.Month] = accountPayable.Month;
-            spItem[DocumentCenterContentType.AccountPayable.Year] = accountPayable.Year;
+                spItem[AccountPayable.Default.Date] = accountPayable.Date;
+            }
+            spItem[AccountPayable.Default.FundingSource] = accountPayable.FundingSource;
+            spItem[AccountPayable.Default.InvoiceNumber] = accountPayable.InvoiceNumber;
+            spItem[AccountPayable.Default.Month] = accountPayable.Month;
+            spItem[AccountPayable.Default.Year] = accountPayable.Year;
+        }
+
+        /// <summary>
+        /// Get SPUserToken for impersonating when upload file
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        private static SPUserToken GetUploadSPUserToken(string userName)
+        {
+            SPUserToken token = null;
+            SPSecurity.RunWithElevatedPrivileges(delegate()
+            {
+                using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite))
+                {
+                    SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];
+                    SPUser user = web.AllUsers[userName];
+                    token = user.UserToken;
+                }
+            });
+            return token;
         }
         #endregion
     }

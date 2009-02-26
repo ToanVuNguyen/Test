@@ -12,28 +12,19 @@
       <Value Profile="(Default)">Accounts Payable</Value>
     </Setting>
     <Setting Name="SharePointSite" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://hpf-04</Value>
+      <Value Profile="(Default)">http://litwaredemo</Value>
     </Setting>
     <Setting Name="DocumentCenterWeb" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Docs</Value>
+      <Value Profile="(Default)">Doc</Value>
     </Setting>
-    <Setting Name="InvoiceUserName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">hpf-04\namcao</Value>
+    <Setting Name="InvoiceLoginName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LITWAREINC\user1</Value>
     </Setting>
-    <Setting Name="InvoicePassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Password123</Value>
+    <Setting Name="AccountPayableLoginName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LITWAREINC\user1</Value>
     </Setting>
-    <Setting Name="AccountPayableUserName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">hpf-04\namcao</Value>
-    </Setting>
-    <Setting Name="AccountPayablePassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Password123</Value>
-    </Setting>
-    <Setting Name="CounselingSummaryUserName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">hpf-04\namcao</Value>
-    </Setting>
-    <Setting Name="CounselingSummaryPassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Password123</Value>
+    <Setting Name="CounselingSummaryLoginName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LITWAREINC\user1</Value>
     </Setting>
   </Settings>
 </SettingsFile>
