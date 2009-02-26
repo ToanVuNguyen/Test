@@ -165,7 +165,7 @@ namespace HPF.FutureState.BusinessLogic
         private static CaseLoanDTO GetCaseLoans1St(int? fc_id)
         {
             var caseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
-            return caseLoans.SingleOrDefault(i => i.Loan1st2nd == "1st");
+            return caseLoans.SingleOrDefault(i => i.Loan1st2nd.ToUpper() == Constant.LOAN_1ST);
         }
 
         private static ForeclosureCaseDTO GetForeclosureCase(int? fc_id)
