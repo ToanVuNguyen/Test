@@ -92,7 +92,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
-        /// Send ConselingSummary Mail to Servicer
+        /// Send CounselingSummary Mail to Servicer
         /// </summary>
         /// <param name="foreclosureCase"></param>
         /// <param name="servicer"></param>
@@ -113,14 +113,14 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
         /// <summary>
-        /// Send ConselingSummary information to HPF Portal.
+        /// Send CounselingSummary information to HPF Portal.
         /// </summary>
         /// <param name="foreclosureCase"></param>
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
         {            
-            var hpfSharepointSummary = new HPFPortalConselingSummary
+            var hpfSharepointSummary = new HPFPortalCounselingSummary
                                            {
                                                ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
                                                LoanNumber = caseLoan.AcctNum,

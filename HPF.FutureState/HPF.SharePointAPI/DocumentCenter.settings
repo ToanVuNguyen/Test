@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HPF.SharePointAPI" GeneratedClassName="DocumentCenter">
   <Profiles />
   <Settings>
-    <Setting Name="ConselingSummary" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Conseling Summary</Value>
+    <Setting Name="CounselingSummary" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Counseling Summary</Value>
     </Setting>
     <Setting Name="Invoice" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Invoices</Value>
@@ -17,12 +17,6 @@
     <Setting Name="DocumentCenterWeb" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Docs</Value>
     </Setting>
-    <Setting Name="ConselingSummaryUserName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">hpf-04\namcao</Value>
-    </Setting>
-    <Setting Name="ConselingSummaryPassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Password123</Value>
-    </Setting>
     <Setting Name="InvoiceUserName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">hpf-04\namcao</Value>
     </Setting>
@@ -33,6 +27,12 @@
       <Value Profile="(Default)">hpf-04\namcao</Value>
     </Setting>
     <Setting Name="AccountPayablePassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Password123</Value>
+    </Setting>
+    <Setting Name="CounselingSummaryUserName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">hpf-04\namcao</Value>
+    </Setting>
+    <Setting Name="CounselingSummaryPassword" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Password123</Value>
     </Setting>
   </Settings>

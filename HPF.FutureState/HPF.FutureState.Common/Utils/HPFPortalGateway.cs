@@ -11,9 +11,9 @@ namespace HPF.FutureState.Common.Utils
 {
     public static class HPFPortalGateway
     {
-        public static void SendSummary(HPFPortalConselingSummary summary)
+        public static void SendSummary(HPFPortalCounselingSummary summary)
         {
-            var conselingSummaryInfo = new ConselingSummaryInfo
+            var counselingSummaryInfo = new CounselingSummaryInfo
                                            {
                                                LoanNumber = summary.LoanNumber,
                                                CompletedDate = summary.CompletedDate,
@@ -23,7 +23,7 @@ namespace HPF.FutureState.Common.Utils
                                                Servicer = summary.Servicer,
                                                Delinquency = summary.Delinquency
                                            };
-            var result = DocumentCenterController.Upload(conselingSummaryInfo);
+            var result = DocumentCenterController.Upload(counselingSummaryInfo);
             if (!result.Successful)
             {
                 Logger.Write(result.Error.Message, "General");                

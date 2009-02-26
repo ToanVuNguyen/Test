@@ -5,7 +5,7 @@ using HPF.SharePointAPI.Enum;
 
 namespace HPF.SharePointAPI.BusinessEntity
 {
-    public class ConselingSummaryInfo:BaseObject
+    public class CounselingSummaryInfo:BaseObject
     {
         private string _loanNumber;
         private string _servicer;
@@ -50,11 +50,11 @@ namespace HPF.SharePointAPI.BusinessEntity
             set { _reviewStatus = value; }
         }
 
-        public ConselingSummaryInfo():base()
+        public CounselingSummaryInfo():base()
         {
             _reviewStatus = Enum.ReviewStatus.PendingReview;
         }
-        public ConselingSummaryInfo(string name, byte[] file,
+        public CounselingSummaryInfo(string name, byte[] file,
              string loanNumber, string servicer, DateTime completedDate, 
              DateTime foreclosureSaleDate, string delinquency, ReviewStatus reviewStatus):
             base(name, file)

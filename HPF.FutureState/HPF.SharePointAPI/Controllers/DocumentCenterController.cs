@@ -12,21 +12,21 @@ namespace HPF.SharePointAPI.Controllers
     public delegate void UpdateSPListItem<T>(SPListItem item, T obj) where T:BaseObject;
     public static class DocumentCenterController
     {        
-        #region "Conseling Summary"
-        public static IList<ResultInfo<ConselingSummaryInfo>> Upload(IList<ConselingSummaryInfo> conselingSummaryList)
+        #region "counseling Summary"
+        public static IList<ResultInfo<CounselingSummaryInfo>> Upload(IList<CounselingSummaryInfo> counselingSummaryList)
         {
-            IList<ResultInfo<ConselingSummaryInfo>> results = UploadSPFiles(conselingSummaryList, DocumentCenter.Default.ConselingSummary, UpdateConselingSummaryInfo);
+            IList<ResultInfo<CounselingSummaryInfo>> results = UploadSPFiles(counselingSummaryList, DocumentCenter.Default.CounselingSummary, UpdatecounselingSummaryInfo);
             
             return results;
         }
 
-        public static ResultInfo<ConselingSummaryInfo> Upload(ConselingSummaryInfo conselingSummary)
+        public static ResultInfo<CounselingSummaryInfo> Upload(CounselingSummaryInfo counselingSummary)
         {
-            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.ConselingSummaryUserName, DocumentCenter.Default.ConselingSummaryPassword);
+            WindowsImpersonation imp = WindowsImpersonation.ImpersonateAs(DocumentCenter.Default.CounselingSummaryUserName, DocumentCenter.Default.CounselingSummaryPassword);
 
-            List<ConselingSummaryInfo> conselingSummaryList = new List<ConselingSummaryInfo>();
-            conselingSummaryList.Add(conselingSummary);
-            IList<ResultInfo<ConselingSummaryInfo>> results = Upload(conselingSummaryList);
+            List<CounselingSummaryInfo> counselingSummaryList = new List<CounselingSummaryInfo>();
+            counselingSummaryList.Add(counselingSummary);
+            IList<ResultInfo<CounselingSummaryInfo>> results = Upload(counselingSummaryList);
 
             if (imp != null) { imp.Undo(); }
 
@@ -150,20 +150,20 @@ namespace HPF.SharePointAPI.Controllers
             return results;
         }
 
-        private static void UpdateConselingSummaryInfo(SPListItem spItem, ConselingSummaryInfo conselingSummary)
+        private static void UpdatecounselingSummaryInfo(SPListItem spItem, CounselingSummaryInfo counselingSummary)
         {
-            if (conselingSummary.CompletedDate != null)
+            if (counselingSummary.CompletedDate != null)
             {
-                spItem[DocumentCenterContentType.ConselingSummary.CompletedDate] = conselingSummary.CompletedDate;
+                spItem[DocumentCenterContentType.CounselingSummary.CompletedDate] = counselingSummary.CompletedDate;
             }
-            spItem[DocumentCenterContentType.ConselingSummary.Delinquency] = conselingSummary.Delinquency;
-            if (conselingSummary.ForeclosureSaleDate != null)
+            spItem[DocumentCenterContentType.CounselingSummary.Delinquency] = counselingSummary.Delinquency;
+            if (counselingSummary.ForeclosureSaleDate != null)
             {
-                spItem[DocumentCenterContentType.ConselingSummary.ForeclosureSaleDate] = conselingSummary.ForeclosureSaleDate;
+                spItem[DocumentCenterContentType.CounselingSummary.ForeclosureSaleDate] = counselingSummary.ForeclosureSaleDate;
             }
-            spItem[DocumentCenterContentType.ConselingSummary.LoanNumber] = conselingSummary.LoanNumber;
-            spItem[DocumentCenterContentType.ConselingSummary.ReviewStatus] = conselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
-            spItem[DocumentCenterContentType.ConselingSummary.Servicer] = conselingSummary.Servicer;
+            spItem[DocumentCenterContentType.CounselingSummary.LoanNumber] = counselingSummary.LoanNumber;
+            spItem[DocumentCenterContentType.CounselingSummary.ReviewStatus] = counselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
+            spItem[DocumentCenterContentType.CounselingSummary.Servicer] = counselingSummary.Servicer;
         }
 
         private static void UpdateInvoiceInfo(SPListItem spItem, InvoiceInfo invoice)

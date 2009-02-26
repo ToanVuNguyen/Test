@@ -731,7 +731,7 @@
                     <td align="right" class="sidelinks">
                                     HUD Outcome*:</td>
                     <td>
-                                    <asp:Label ID="lblHUDOutcome" runat="server" CssClass="Text">Currently receiving foreclosure prevention/buget conseling</asp:Label>
+                                    <asp:Label ID="lblHUDOutcome" runat="server" CssClass="Text">Currently receiving foreclosure prevention/buget counseling</asp:Label>
                                 </td>
                 </tr>
                 

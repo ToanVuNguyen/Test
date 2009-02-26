@@ -15,7 +15,7 @@ namespace HPF.SharePointAPI.Constants
             public const string InvoiceNumber = "Invoice Number";
         }
 
-        public class ConselingSummary
+        public class CounselingSummary
         {
             public const string LoanNumber = "Loan Number";
             public const string Servicer = "Servicer";

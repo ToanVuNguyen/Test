@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.Utils
 {
-    public class HPFPortalConselingSummary
+    public class HPFPortalCounselingSummary
     {
         public byte[] ReportFile { get; set; }
 

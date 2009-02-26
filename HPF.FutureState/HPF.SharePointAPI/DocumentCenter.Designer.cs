@@ -25,10 +25,10 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Conseling Summary")]
-        public string ConselingSummary {
+        [global::System.Configuration.DefaultSettingValueAttribute("Counseling Summary")]
+        public string CounselingSummary {
             get {
-                return ((string)(this["ConselingSummary"]));
+                return ((string)(this["CounselingSummary"]));
             }
         }
         
@@ -71,24 +71,6 @@ namespace HPF.SharePointAPI {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("hpf-04\\namcao")]
-        public string ConselingSummaryUserName {
-            get {
-                return ((string)(this["ConselingSummaryUserName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Password123")]
-        public string ConselingSummaryPassword {
-            get {
-                return ((string)(this["ConselingSummaryPassword"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("hpf-04\\namcao")]
         public string InvoiceUserName {
             get {
                 return ((string)(this["InvoiceUserName"]));
@@ -119,6 +101,24 @@ namespace HPF.SharePointAPI {
         public string AccountPayablePassword {
             get {
                 return ((string)(this["AccountPayablePassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("hpf-04\\namcao")]
+        public string CounselingSummaryUserName {
+            get {
+                return ((string)(this["CounselingSummaryUserName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Password123")]
+        public string CounselingSummaryPassword {
+            get {
+                return ((string)(this["CounselingSummaryPassword"]));
             }
         }
     }
