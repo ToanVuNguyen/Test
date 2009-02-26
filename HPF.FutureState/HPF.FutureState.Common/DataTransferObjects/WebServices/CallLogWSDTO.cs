@@ -13,10 +13,10 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     public class CallLogWSDTO : BaseDTO
     {
         #region property
-        public string CallId { get; set; }
+        //public string CallId { get; set; }
 
-        [XmlElement(IsNullable = true)]
-        public int? CallCenterID { get; set; }
+        //[XmlElement(IsNullable = true)]
+        //public int? CallCenterID { get; set; }
 
         public string CcAgentIdKey { get; set; }
 
@@ -32,7 +32,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string CallSourceCd { get; set; }
 
-        public string ReasonToCall { get; set; }
+        public string ReasonForCall { get; set; }
 
         public string LoanAccountNumber { get; set; }
 

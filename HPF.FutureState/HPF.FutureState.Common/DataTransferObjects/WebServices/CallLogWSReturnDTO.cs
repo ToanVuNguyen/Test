@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string CallSourceCd { get; set; }
 
-        public string ReasonToCall { get; set; }
+        public string ReasonForCall { get; set; }
 
         public string LoanAccountNumber { get; set; }
 
