@@ -51,7 +51,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[4] = new SqlParameter("@pi_dnis", aCallLog.DNIS);
             sqlParam[5] = new SqlParameter("@pi_call_center", aCallLog.CallCenter);
             sqlParam[6] = new SqlParameter("@pi_call_source_cd", aCallLog.CallSourceCd);
-            sqlParam[7] = new SqlParameter("@pi_reason_for_call", aCallLog.ReasonToCall);
+            sqlParam[7] = new SqlParameter("@pi_reason_for_call", aCallLog.ReasonForCall);
             sqlParam[8] = new SqlParameter("@pi_loan_acct_num", aCallLog.LoanAccountNumber);
             sqlParam[9] = new SqlParameter("@pi_fname", aCallLog.FirstName);
             sqlParam[10] = new SqlParameter("@pi_lname", aCallLog.LastName);
@@ -129,7 +129,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[4] = new SqlParameter("dnis", aCallLog.DNIS);
             sqlParam[5] = new SqlParameter("call_center", aCallLog.CallCenter);
             sqlParam[6] = new SqlParameter("@call_source_cd", aCallLog.CallSourceCd);
-            sqlParam[7] = new SqlParameter("@reason_for_call", aCallLog.ReasonToCall);
+            sqlParam[7] = new SqlParameter("@reason_for_call", aCallLog.ReasonForCall);
             sqlParam[8] = new SqlParameter("@loan_acct_num", aCallLog.LoanAccountNumber);
             sqlParam[9] = new SqlParameter("@fname", aCallLog.FirstName);
             sqlParam[10] = new SqlParameter("@lname", aCallLog.LastName);
@@ -214,7 +214,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.DNIS = ConvertToString(reader["dnis"]);
                         callLogDTO.CallCenter = ConvertToString(reader["call_center"]);
                         callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
-                        callLogDTO.ReasonToCall = ConvertToString(reader["reason_for_call"]);
+                        callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
                         callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
                         callLogDTO.FirstName = ConvertToString(reader["fname"]);
                         callLogDTO.LastName = ConvertToString(reader["lname"]);                                                
