@@ -90,13 +90,25 @@ namespace HPF.FutureState.BusinessLogic
 
         public SendSummaryResponse ProcessWebServiceSendSummary(SendSummaryRequest sendSummary, int agencyID)
         {
+
             var response = new SendSummaryResponse();
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+
+            if (sendSummary.FCId == null)
+            {
+                errorList.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805));
+
+                response.Status = ResponseStatus.Fail;
+                response.Messages = errorList;
+
+                return response;
+            }
 
             int fc_Id = sendSummary.FCId;
 
             ForeclosureCaseDTO foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_Id);
 
-            ExceptionMessageCollection errorList = ValidateSendSummaryRequest(foreclosureCase, sendSummary, agencyID);
+            errorList = ValidateSendSummaryRequest(foreclosureCase, sendSummary, agencyID, fc_Id);
 
             if (errorList.Count>0)
             {
@@ -132,36 +144,36 @@ namespace HPF.FutureState.BusinessLogic
             return response;
         }
 
-        private ExceptionMessageCollection ValidateSendSummaryRequest(ForeclosureCaseDTO foreclosureCase, SendSummaryRequest sendSummary, int agencyID)
+        private ExceptionMessageCollection ValidateSendSummaryRequest(ForeclosureCaseDTO foreclosureCase, SendSummaryRequest sendSummary, int agencyID, int fcId)
         {
             ExceptionMessageCollection errorCollection = new ExceptionMessageCollection();
 
             if (sendSummary.EmailToAddress == null)
-                errorCollection.AddExceptionMessage("ERR495", "The EmailToAddress cannot be null or empty.");
+                errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));
             else
             {
                 if (sendSummary.EmailToAddress.Trim().Length == 0)
-                    errorCollection.AddExceptionMessage("ERR495", "The EmailToAddress cannot be null or empty.");
+                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));
             }
 
             if (sendSummary.SenderId == null)
-                errorCollection.AddExceptionMessage("ERR496", "The SenderId cannot be null or empty.");
+                errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
             else
             {
                 if (sendSummary.SenderId.Trim().Length == 0)
-                    errorCollection.AddExceptionMessage("ERR496", "The SenderId cannot be null or empty.");
+                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
             }
 
             if (foreclosureCase == null)
-                errorCollection.AddExceptionMessage("ERR497", "The FCId supplied is invalid, no foreclosure case found.");
+                errorCollection.AddExceptionMessage(ErrorMessages.ERR0802, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0802, fcId));
 
             else
             {
                 if (foreclosureCase.AgencyId != agencyID)
-                    errorCollection.AddExceptionMessage("ERR498", "The foreclosure case of FCId supplied does not belong to your agency.");
+                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0803, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0803, fcId));
 
                 if (foreclosureCase.CompletedDt == null)
-                    errorCollection.AddExceptionMessage("ERR499", "Summary report cannot be sent while the case is not completed.");
+                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0804, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0804));
     
             }
             
