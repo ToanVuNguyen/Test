@@ -162,15 +162,19 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = "select invoice_id from invoice where create_user_id='" + working_user_id + "'";
             int invoice_id = Convert.ToInt32(command.ExecuteScalar());
 
-            //insert test data  INVOICE_CASE
-            command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,invoice_case_bill_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,pmt_reject_reason_cd)" +
-                                   " values (99999,99999," + fc_id + "," + invoice_id + ",'1/1/2208', '" + working_user_id + "', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test','no accounting')";
-            command.ExecuteNonQuery();
-
+           
             //insert INVOICE_PAYMENT
             command.CommandText = @"INSERT INTO [invoice_payment]([funding_source_id],[pmt_num] ,[pmt_dt],[pmt_cd]
             ,[create_dt] ,[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])
             VALUES (" + fs_id + ",'invoice thao test','2/2/2222','test test','1/1/2222','" + working_user_id + "','fs test app','1/1/2222','Test data','CCRC')";
+            command.ExecuteNonQuery();
+            //--select invoice_payment_id
+            command.CommandText = @"select invoice_payment_id from invoice_payment where create_user_id='"+working_user_id+"'";
+            int invoice_payment_id=Convert.ToInt32(command.ExecuteScalar());
+            
+            //insert test data  INVOICE_CASE
+            command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,invoice_payment_id,invoice_case_bill_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,pmt_reject_reason_cd)" +
+                                   " values (99999,"+invoice_payment_id+",99999," + fc_id + "," + invoice_id + ",'1/1/2208', '" + working_user_id + "', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test','no accounting')";
             command.ExecuteNonQuery();
 
             //insert SERVICER to insert test data to CASE_LOAN
@@ -256,7 +260,7 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = "delete from funding_source where create_user_id='" + working_user_id + "'";
             command.ExecuteNonQuery();
 
-            //Delete data test FORECLOSURE 
+            //Delete data test FORECLOSURE_CASE 
             strsql = @"delete from  foreclosure_case where create_user_id='"+working_user_id+"'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
