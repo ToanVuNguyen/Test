@@ -239,7 +239,7 @@ namespace HPF.FutureState.WebServices
             destObject.PowerOfAttorneyInd = sourceObject.PowerOfAttorneyInd;
             destObject.PropZipFull9 = sourceObject.PropZipFull9;
             destObject.PrevAgencyId = sourceObject.PrevAgencyId;
-            destObject.ReasonToCall = sourceObject.ReasonToCall;
+            destObject.ReasonForCall = sourceObject.ReasonForCall;
             destObject.StartDate = sourceObject.StartDate;
             destObject.ServicerId = sourceObject.ServicerId;
             destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;

@@ -65,18 +65,18 @@ namespace HPF.FutureState.WebServices
         private CallLogDTO ConvertToCallLogDTO(CallLogWSDTO sourceObject)
         {
             var destObject = new CallLogDTO();
-            if (sourceObject.CallId != null)
-            {
-                sourceObject.CallId = sourceObject.CallId.Replace("HPF", "");
-                int id;
-                int.TryParse(sourceObject.CallId, out id);
-                destObject.CallId = id;
-            }
+            //if (sourceObject.CallId != null)
+            //{
+            //    sourceObject.CallId = sourceObject.CallId.Replace("HPF", "");
+            //    int id;
+            //    int.TryParse(sourceObject.CallId, out id);
+            //    destObject.CallId = id;
+            //}
             //
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
             destObject.CallCenter = sourceObject.CallCenter;
             destObject.CallSourceCd = sourceObject.CallSourceCd;
-            destObject.CallCenterID = sourceObject.CallCenterID;
+            //destObject.CallCenterID = sourceObject.CallCenterID;
             destObject.CcAgentIdKey = sourceObject.CcAgentIdKey;
             destObject.CcCallKey = sourceObject.CcCallKey;
             destObject.DNIS = sourceObject.DNIS;
@@ -91,7 +91,7 @@ namespace HPF.FutureState.WebServices
             destObject.PowerOfAttorneyInd = sourceObject.PowerOfAttorneyInd;
             destObject.PropZipFull9 = sourceObject.PropZipFull9;
             destObject.PrevAgencyId = sourceObject.PrevAgencyId;
-            destObject.ReasonToCall = sourceObject.ReasonToCall;
+            destObject.ReasonForCall = sourceObject.ReasonForCall;
             destObject.StartDate = sourceObject.StartDate;
             destObject.ServicerId = sourceObject.ServicerId;
             destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
