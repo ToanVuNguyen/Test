@@ -152,7 +152,7 @@ namespace HPF.FutureState.BusinessLogic
                     return errorList;
                 }
 
-                if (string.IsNullOrEmpty(aCallLog.CallCenter.Trim()))
+                if (string.IsNullOrEmpty(aCallLog.CallCenter))
                 {
                     errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center is required" });
                     return errorList;
