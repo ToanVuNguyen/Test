@@ -45,7 +45,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void grdvOutcomeItemsBinding()
         {
-            int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
+            int caseID = 0;
+            int.TryParse(Request.QueryString["CaseID"].ToString(), out caseID);
             OutcomeItemDTOCollection outcomeItems = RetrieveOutcomeItems(caseID);
             if (outcomeItems.Count > 0)
             {

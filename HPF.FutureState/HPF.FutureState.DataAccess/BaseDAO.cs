@@ -121,6 +121,9 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         protected static string ConvertToString(object obj)
         {
+            if (obj == null)
+                return null;
+
             if (!string.IsNullOrEmpty(obj.ToString()))
                 return obj.ToString();
             return null;

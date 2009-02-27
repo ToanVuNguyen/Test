@@ -237,7 +237,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             caseFollowUp.CasePostCounselingStatusId = id;
 
-            if (!string.IsNullOrEmpty(Request.QueryString["CaseID"].ToString()))
+            if (Request.QueryString["CaseID"] != null && !string.IsNullOrEmpty(Request.QueryString["CaseID"].ToString()))
                 caseFollowUp.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
             else
                 caseFollowUp.FcId = null;

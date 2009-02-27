@@ -145,7 +145,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void BindingDataToGrdvCaseAudit()
         {
-            int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
+            int caseID = 0;
+            int.TryParse(Request.QueryString["CaseID"].ToString(), out caseID);
             CaseAuditDTOCollection caseAudits = RetrieveCaseAudits(caseID);
             if (caseAudits.Count > 0)
             {

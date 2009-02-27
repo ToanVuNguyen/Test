@@ -190,7 +190,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
                     return errorList;
 
-                if (string.IsNullOrEmpty(aCallLog.OtherServicerName.Trim()))
+                if (string.IsNullOrEmpty(aCallLog.OtherServicerName))
                 {
                     errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name is required" });
                     return errorList;
