@@ -76,7 +76,7 @@ namespace HPF.FutureState.WebService.Test.Web
             txtPowerOfAttorneyInd.Text = aCallLogWS.PowerOfAttorneyInd;
             txtPrevAgencyId.Text = aCallLogWS.PrevAgencyId.ToString();
             txtPropZipFull9.Text = aCallLogWS.PropZipFull9;
-            txtReasonToCall.Text = aCallLogWS.ReasonToCall;
+            txtReasonToCall.Text = aCallLogWS.ReasonForCall;
             txtScreenRout.Text = aCallLogWS.ScreenRout; 
             txtSelectedAgencyId.Text = aCallLogWS.SelectedAgencyId.ToString(); 
             txtSelectedCounselor.Text = aCallLogWS.SelectedCounselor;
@@ -113,7 +113,7 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.PowerOfAttorneyInd =Util.ConvertToString( txtPowerOfAttorneyInd.Text.Trim());
             aWSCallLog.PrevAgencyId = Util.ConvertToInt(txtPrevAgencyId.Text.Trim());
             aWSCallLog.PropZipFull9 = Util.ConvertToString(txtPropZipFull9.Text.Trim());
-            aWSCallLog.ReasonToCall = Util.ConvertToString(txtReasonToCall.Text.Trim());
+            aWSCallLog.ReasonForCall = Util.ConvertToString(txtReasonToCall.Text.Trim());
             aWSCallLog.ScreenRout = Util.ConvertToString(txtScreenRout.Text.Trim());
             aWSCallLog.SelectedAgencyId = Util.ConvertToInt(txtSelectedAgencyId.Text.Trim());
             aWSCallLog.SelectedCounselor = Util.ConvertToString(txtSelectedCounselor.Text.Trim());

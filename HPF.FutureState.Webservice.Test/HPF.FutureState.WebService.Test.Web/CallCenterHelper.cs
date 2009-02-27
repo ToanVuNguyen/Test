@@ -26,7 +26,7 @@ namespace HPF.FutureState.WebService.Test.Web
                            {
                                AuthorizedInd = obj.Element("AuthorizedInd").Value,
                                CallCenter = obj.Element("CallCenter").Value,
-                               CallCenterID = Util.ConvertToInt(obj.Element("CallCenterID").Value),
+                               //CallCenterID = Util.ConvertToInt(obj.Element("CallCenterID").Value),
                                CallSourceCd = obj.Element("CallSourceCd").Value,
                                CcCallKey = obj.Element("CcCallKey").Value,
                                CcAgentIdKey = obj.Element("CcAgentIdKey").Value,
@@ -42,7 +42,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                PowerOfAttorneyInd = obj.Element("PowerOfAttorneyInd").Value,
                                PrevAgencyId = Util.ConvertToInt(obj.Element("PrevAgencyId").Value),
                                PropZipFull9 = obj.Element("PropZipFull9").Value,
-                               ReasonToCall = obj.Element("ReasonToCall").Value,
+                               ReasonForCall = obj.Element("ReasonToCall").Value,
                                ScreenRout = obj.Element("ScreenRout").Value,
                                SelectedAgencyId = Util.ConvertToInt(obj.Element("SelectedAgencyId").Value),
                                SelectedCounselor = obj.Element("SelectedCounselor").Value,
