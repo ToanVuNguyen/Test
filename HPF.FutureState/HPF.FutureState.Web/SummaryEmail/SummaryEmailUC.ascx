@@ -2,7 +2,7 @@
     Inherits="HPF.FutureState.Web.SummaryEmail.SummaryEmailUC" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
-<table width="100%">
+<table width="1000px">
     <tr>
         <td align="center">
             <h1>
@@ -33,7 +33,7 @@
                         To*:
                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtTo" runat="server" Width="98%" CssClass="Text" ></asp:TextBox>
+                        <asp:TextBox ID="txtTo" runat="server" Width="900px" CssClass="Text" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -41,7 +41,7 @@
                         Subject*:
                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtSubject" runat="server" Width="98%" CssClass="Text" ></asp:TextBox>
+                        <asp:TextBox ID="txtSubject" runat="server" Width="900px" CssClass="Text"  ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +50,7 @@
                     </td>
                     <td align="left">
                         <asp:TextBox ID="txtBody" runat="server" Rows="20" TextMode="MultiLine" 
-                            Width="98%" CssClass="Text"></asp:TextBox>
+                            Width="900px" CssClass="Text"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
