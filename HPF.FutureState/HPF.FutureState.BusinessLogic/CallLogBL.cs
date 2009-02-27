@@ -144,7 +144,11 @@ namespace HPF.FutureState.BusinessLogic
 
             if (callCenter != null)
             {
-
+                if (string.IsNullOrEmpty(callCenter.CallCenterName))
+                {
+                    aCallLog.CallCenter = callCenter.CallCenterName;
+                    return errorList;
+                }
 
                 if (!callCenter.CallCenterName.ToUpper().Equals(Constant.CALL_CENTER_OTHER.ToUpper()))
                 {
