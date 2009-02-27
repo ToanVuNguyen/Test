@@ -191,6 +191,9 @@ namespace HPF.FutureState.BusinessLogic
 
             if (servicer != null)
             {
+                if (string.IsNullOrEmpty(servicer.ServicerName))
+                    return errorList;
+
                 if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
                     return errorList;
 
