@@ -1668,9 +1668,10 @@ namespace HPF.FutureState.DataAccess
             {
                 var command = CreateSPCommand("hpf_foreclosure_case_update_ws", dbConnection);
                 //<Parameter>            
-                var sqlParam = new SqlParameter[2];
+                var sqlParam = new SqlParameter[3];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 sqlParam[1] = new SqlParameter("@pi_summary_sent_dt", DateTime.Now);
+                sqlParam[2] = new SqlParameter("@chg_lst_dt", DateTime.Now);                
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
