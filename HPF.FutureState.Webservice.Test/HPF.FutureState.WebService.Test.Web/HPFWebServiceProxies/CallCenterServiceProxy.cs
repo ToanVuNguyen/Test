@@ -929,10 +929,6 @@ namespace HPF.Webservice.CallCenter
     public partial class CallLogWSDTO : BaseDTO
     {
 
-        private string callIdField;
-
-        private System.Nullable<int> callCenterIDField;
-
         private string ccAgentIdKeyField;
 
         private System.Nullable<System.DateTime> startDateField;
@@ -945,7 +941,7 @@ namespace HPF.Webservice.CallCenter
 
         private string callSourceCdField;
 
-        private string reasonToCallField;
+        private string reasonForCallField;
 
         private string loanAccountNumberField;
 
@@ -990,33 +986,6 @@ namespace HPF.Webservice.CallCenter
         private string nonprofitReferralKeyNum2Field;
 
         private string nonprofitReferralKeyNum3Field;
-
-        /// <remarks/>
-        public string CallId
-        {
-            get
-            {
-                return this.callIdField;
-            }
-            set
-            {
-                this.callIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> CallCenterID
-        {
-            get
-            {
-                return this.callCenterIDField;
-            }
-            set
-            {
-                this.callCenterIDField = value;
-            }
-        }
 
         /// <remarks/>
         public string CcAgentIdKey
@@ -1099,15 +1068,15 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public string ReasonToCall
+        public string ReasonForCall
         {
             get
             {
-                return this.reasonToCallField;
+                return this.reasonForCallField;
             }
             set
             {
-                this.reasonToCallField = value;
+                this.reasonForCallField = value;
             }
         }
 
