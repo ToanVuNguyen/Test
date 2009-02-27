@@ -207,7 +207,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get{return bankruptcyInd;}
             set 
             { 
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     bankruptcyInd = value.ToUpper().Trim();
             } 
         }
@@ -222,7 +222,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get{return bankruptcyPmtCurrentInd;}
             set
             {
-                if (value != null && value != string.Empty)                
+                
+                if (!string.IsNullOrEmpty(value))                
                     bankruptcyPmtCurrentInd = value.ToUpper().Trim();                
             }
         }
@@ -250,7 +251,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get{return hispanicInd;}
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     hispanicInd = value.ToUpper().Trim();
             }
         }
@@ -263,7 +264,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return duplicateInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     duplicateInd = value.ToUpper().Trim();
             }
         }
@@ -276,7 +277,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return fcNoticeReceiveInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     fcNoticeReceiveInd = value.ToUpper().Trim();
             }
         }
@@ -289,7 +290,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return fundingConsentInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     fundingConsentInd = value.ToUpper().Trim();
             }
         }
@@ -302,7 +303,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return servicerConsentInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     servicerConsentInd = value.ToUpper().Trim();
             }
         }
@@ -314,7 +315,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return agencyMediaInterestInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     agencyMediaInterestInd = value.ToUpper().Trim();
             }
         }
@@ -327,7 +328,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return hpfMediaCandidateInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     hpfMediaCandidateInd = value.ToUpper().Trim();
             }
         }
@@ -340,7 +341,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return hpfSuccessStoryInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     hpfSuccessStoryInd = value.ToUpper().Trim();
             }
         }
@@ -352,7 +353,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return agencySuccessStoryInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     agencySuccessStoryInd = value.ToUpper().Trim();
             }
         }
@@ -364,7 +365,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return borrowerDisabledInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     borrowerDisabledInd = value.ToUpper().Trim();
             }
         }
@@ -376,7 +377,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return coBorrowerDisabledInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     coBorrowerDisabledInd = value.ToUpper().Trim();
             }
         }
@@ -441,7 +442,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return discussedSolutionWithSrvcrInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     discussedSolutionWithSrvcrInd = value.ToUpper().Trim();
             }
         }
@@ -454,7 +455,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return workedWithAnotherAgencyInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     workedWithAnotherAgencyInd = value.ToUpper().Trim();
             }
         }
@@ -467,7 +468,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return contactedSrvcrRecentlyInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     contactedSrvcrRecentlyInd = value.ToUpper().Trim();
             }
         }
@@ -480,7 +481,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return hasWorkoutPlanInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     hasWorkoutPlanInd = value.ToUpper().Trim();
             }
         }
@@ -492,7 +493,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return srvcrWorkoutPlanCurrentInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     srvcrWorkoutPlanCurrentInd = value.ToUpper().Trim();
             }
         }
@@ -505,7 +506,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return optOutNewsletterInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     optOutNewsletterInd = value.ToUpper().Trim();
             }
         }
@@ -518,7 +519,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return optOutSurveyInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     optOutSurveyInd = value.ToUpper().Trim();
             }
         }
@@ -531,7 +532,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return doNotCallInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     doNotCallInd = value.ToUpper().Trim();
             }
         }
@@ -544,7 +545,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return ownerOccupiedInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     ownerOccupiedInd = value.ToUpper().Trim();
             }
         }
@@ -557,7 +558,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return primaryResidenceInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     primaryResidenceInd = value.ToUpper().Trim();
             }
         }
@@ -576,7 +577,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return forSaleInd; }
             set
             {
-                if (value != null && value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                     forSaleInd = value.ToUpper().Trim();
             }
         }
