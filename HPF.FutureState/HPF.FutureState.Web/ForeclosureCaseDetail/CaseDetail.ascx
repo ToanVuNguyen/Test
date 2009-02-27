@@ -852,7 +852,7 @@
                                                 </asp:DropDownList>
                                             </td>
                                             <td align="right" class="sidelinks" >
-                                                HPF Media Condirmation:</td>
+                                                HPF Media Confirmation:</td>
                                             <td class="Control">
                                                 <asp:DropDownList ID="ddlMediaCondirmation" runat="server" CssClass="Text" >
                                                  <asp:ListItem Value="" Text=""></asp:ListItem>
