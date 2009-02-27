@@ -74,27 +74,32 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// </summary>
         protected void ReBindSearchCriteria()
         {
+            string currentUserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
             if (Session["searchcriteria"] != null)
             {
-                //set search control the values from session searchcriteria.               
                 AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
-                //bind criteria
-                txtLastName.Text = searchcriteria.LastName;
-                txtFirstName.Text = searchcriteria.FirstName;
-                txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
-                if (searchcriteria.ForeclosureCaseID == -1)
-                    txtForeclosureCaseID.Text = "";
-                else txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
-                txtLoanNum.Text = searchcriteria.LoanNumber;
-                txtPropertyZip.Text = searchcriteria.PropertyZip;
-                txtSSN.Text = searchcriteria.Last4SSN;
-                ddlAgency.SelectedValue = searchcriteria.Agency.ToString();
-                ddlDup.SelectedValue = searchcriteria.Duplicates;
-                ddlProgram.SelectedValue = searchcriteria.Program.ToString();
-                ddlPropertyState.SelectedValue = searchcriteria.PropertyState;
-                ddlServicer.SelectedValue = searchcriteria.Servicer.ToString();
-                //bind gridview
-                BindGrvForeClosureCaseSearch(1);
+                if (currentUserID == searchcriteria.UserID)
+                {
+                    //set search control the values from session searchcriteria.               
+
+                    //bind criteria
+                    txtLastName.Text = searchcriteria.LastName;
+                    txtFirstName.Text = searchcriteria.FirstName;
+                    txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
+                    if (searchcriteria.ForeclosureCaseID == -1)
+                        txtForeclosureCaseID.Text = "";
+                    else txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
+                    txtLoanNum.Text = searchcriteria.LoanNumber;
+                    txtPropertyZip.Text = searchcriteria.PropertyZip;
+                    txtSSN.Text = searchcriteria.Last4SSN;
+                    ddlAgency.SelectedValue = searchcriteria.Agency.ToString();
+                    ddlDup.SelectedValue = searchcriteria.Duplicates;
+                    ddlProgram.SelectedValue = searchcriteria.Program.ToString();
+                    ddlPropertyState.SelectedValue = searchcriteria.PropertyState;
+                    ddlServicer.SelectedValue = searchcriteria.Servicer.ToString();
+                    //bind gridview
+                    BindGrvForeClosureCaseSearch(1);
+                }
             }
         }
         protected void BindStateDropdownlist()
@@ -115,7 +120,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
             ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
-            ddlAgency.Items.Insert(0,new ListItem("ALL","-1"));
+            ddlAgency.Items.Insert(0, new ListItem("ALL", "-1"));
             ddlAgency.Items.FindByText("ALL").Selected = true;
         }
         protected void BindProgramDropdownlist()
@@ -179,7 +184,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //there have data search result
                 if (this.TotalRowNum != 0)
                 {
-                   
+
                     //display pagers controls
                     ManageControls(true);
                     grvForeClosureCaseSearch.Visible = true;
@@ -274,6 +279,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
             appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
             txtLoanNum.Text = DeleteSpecialChar(txtLoanNum.Text);
+            appForeclosureCaseSearchCriteriaDTO.UserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
             return appForeclosureCaseSearchCriteriaDTO;
         }
         /// <summary>
@@ -296,7 +302,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             //store searchcriteria in session to keep searchcriteria when you click on menu item.
+
             Session["searchcriteria"] = GetAppForeclosureCaseSearchCriteriaDTO(1);
+
+
             //lblErrorMessage.Text = "";
             bulErrorMessage.Items.Clear();
             //Bind search data meet search criteria to gridview, display page 1.
@@ -306,7 +315,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             if (totalpage > 10)
                 //lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
-                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")).ToString().Replace("*",this.TotalRowNum.ToString()));
+                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")).ToString().Replace("*", this.TotalRowNum.ToString()));
             //every click search button, set 
             this.PageNum = 0;
             lbtnLast.Enabled = true;
@@ -419,12 +428,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 {
                     myLinkBtn.CssClass = "PageChoose";
                     myLinkBtn.Enabled = false;
-
                 }
                 else
                 {
                     myLinkBtn.CssClass = "UnderLine";
-
                 }
                 myLinkBtn.CommandName = i.ToString();
                 myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
@@ -433,6 +440,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 Literal lit = new Literal();
                 lit.Text = "&nbsp;&nbsp;";
                 phPages.Controls.Add(lit);
+                if (totalpage == 1)
+                {
+                    lbtnLast.Enabled = false;
+                    lbtnNext.Enabled = false;
+                }
             }
         }
         /// <summary>
@@ -491,7 +503,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (mystring != null)
             {
                 mystring = mystring.Trim();
-                char[] specialchar = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '-', '[', ']', ';', ',', '.', '/', '{', '}', '|', ':', '<', '>', '?',' ' };
+                char[] specialchar = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '-', '[', ']', ';', ',', '.', '/', '{', '}', '|', ':', '<', '>', '?', ' ' };
                 var DigitChar = mystring.Split(specialchar);
                 for (int i = 0; i < DigitChar.Count(); i++)
                 {

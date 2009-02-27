@@ -61,5 +61,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int PageSize { get; set; }
         public int PageNum { get; set; }
         public int TotalRowNum { get; set; }
+        public string UserID { get; set; }
     }
 }
