@@ -23,6 +23,15 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         protected global::System.Web.UI.ScriptManager myscript;
         
         /// <summary>
+        /// lblPortal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lblPortal;
+        
+        /// <summary>
         /// ddlAgency control.
         /// </summary>
         /// <remarks>
@@ -39,15 +48,6 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPeriodStart;
-        
-        /// <summary>
-        /// lblPortal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lblPortal;
         
         /// <summary>
         /// txtPeriodEnd control.
@@ -77,13 +77,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         protected global::System.Web.UI.WebControls.BulletedList bulMessage;
         
         /// <summary>
-        /// panInvoiceList control.
+        /// StatefullScrollPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panInvoiceList;
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel StatefullScrollPanel1;
         
         /// <summary>
         /// myupdatepanel control.
@@ -93,6 +93,15 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel myupdatepanel;
+        
+        /// <summary>
+        /// panInvoiceList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panInvoiceList;
         
         /// <summary>
         /// grvInvoiceList control.
