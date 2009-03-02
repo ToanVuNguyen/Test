@@ -173,13 +173,38 @@ namespace HPF.FutureState.Common
         public const string ERR0272 = "ERR0272";
         public const string ERR0273 = "ERR0273";
 
-        public const string ERR0350 = "ERR0350"; // "A CcCallKey is required to save a call.";
-        public const string ERR0351 = "ERR0351"; //"A StartDt is required to save a call.";
-        public const string ERR0352 = "ERR0352"; //"An EndDt is required to save a call.";
-        public const string ERR0353 = "ERR0353"; //"A FinalDispoCd is required to save a call.";
+        public const string ERR0350 = "ERR0350";
+        public const string ERR0351 = "ERR0351";
+        public const string ERR0352 = "ERR0352";
+        public const string ERR0353 = "ERR0353";
         public const string ERR0354 = "ERR0354";
         public const string ERR0355 = "ERR0355";
         public const string ERR0356 = "ERR0356";
+        public const string ERR0357 = "ERR0357";
+        public const string ERR0358 = "ERR0358";
+        public const string ERR0359 = "ERR0359";
+        public const string ERR0360 = "ERR0360";
+        public const string ERR0361 = "ERR0361";
+        public const string ERR0362 = "ERR0362";
+        public const string ERR0363 = "ERR0363";
+        public const string ERR0364 = "ERR0364";
+        public const string ERR0365 = "ERR0365";
+        public const string ERR0366 = "ERR0366";
+        public const string ERR0367 = "ERR0367";
+        public const string ERR0368 = "ERR0368";
+        public const string ERR0369 = "ERR0369";
+        public const string ERR0370 = "ERR0370";
+        public const string ERR0371 = "ERR0371";
+        public const string ERR0372 = "ERR0372";
+        public const string ERR0373 = "ERR0373";
+        public const string ERR0374 = "ERR0374";
+        public const string ERR0390 = "ERR0390";
+        public const string ERR0391 = "ERR0391";
+        public const string ERR0392 = "ERR0392";
+        public const string ERR0393 = "ERR0393";
+        public const string ERR0394 = "ERR0394";
+        
+
 
         public const string ERR0376 = "ERR0376";
         public const string ERR0377 = "ERR0377";
@@ -540,12 +565,37 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0273, "One Loan with a 1ST2NDCd of '1ST' is required to save a foreclosure case.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
-                errorMessageDict.Add(ERR0351, "A StartDt is required to save a call.");
-                errorMessageDict.Add(ERR0352, "An EndDt is required to save a call.");
+                errorMessageDict.Add(ERR0351, "A valid StartDt is required to save a call.");
+                errorMessageDict.Add(ERR0352, "A valid EndDt is required to save a call.");
                 errorMessageDict.Add(ERR0353, "A FinalDispoCd is required to save a call.");
                 errorMessageDict.Add(ERR0354, "The StartDt and EndDt must include both a valid date and time component.");
                 errorMessageDict.Add(ERR0355, "An invalid code was provided for FinalDispoCd.");
                 errorMessageDict.Add(ERR0356, "A CCAgentIdKey is required to save a call and max length is 55 characters.");
+                errorMessageDict.Add(ERR0357, "A Servicer selection of Other requires the entry of OtherServicerName.");
+                errorMessageDict.Add(ERR0358, "An invalid code was provided for CallSourceCd.");
+                errorMessageDict.Add(ERR0359, "An invalid code was provided for LoanDelinqStatusCd.");
+                errorMessageDict.Add(ERR0360, "An invalid Agency ID was provided for PrevAgencyID.");
+                errorMessageDict.Add(ERR0361, "An invalid Servicer ID was provided for ServicerId.");
+                errorMessageDict.Add(ERR0362, "An invalid Agency ID was provided for SelectedAgencyID.");
+                errorMessageDict.Add(ERR0363, "DNIS has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0364, "CallCenter has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0365, "LoanAcctNum has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0366, "FName has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0367, "LName has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0368, "PropZipFull9 has a maximum length of 9 characters.");
+                errorMessageDict.Add(ERR0369, "ScreenRout has a maximum length of 2000 characters.");
+                errorMessageDict.Add(ERR0370, "TransNum has a maximum length of 12 characters.");
+                errorMessageDict.Add(ERR0371, "SelectedCounselor has a maximum length of 40 characters.");
+                errorMessageDict.Add(ERR0372, "HomeownerInd has a maximum length of 1 character.");
+                errorMessageDict.Add(ERR0373, "PowerOfAttorneyInd has a maximum length of 1 character.");
+                errorMessageDict.Add(ERR0374, "AuthorizedInd has a maximum length of 1 character.");
+                errorMessageDict.Add(ERR0390, "City has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0391, "State has a maximum length of 2 characters.");
+                errorMessageDict.Add(ERR0392, "NonProfitReferralKeyNum1 has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0393, "NonProfitReferralKeyNum2 has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0394, "NonProfitReferralKeyNum3 has a maximum length of 10 characters.");
+
+                
                 errorMessageDict.Add(ERR0376, "The Last4_SSN search criteria must be exactly 4 numeric digits.");
                 errorMessageDict.Add(ERR0377, "The PropertyZip search criteria must be a valid 5 digit numeric zip.");
 

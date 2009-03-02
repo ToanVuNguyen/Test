@@ -26,6 +26,14 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             });
         }
 
+        public void AddException(string errorCode)
+        {
+            Add(new ExceptionMessage
+            {
+                ErrorCode = errorCode,
+                Message = ErrorMessages.GetExceptionMessage(errorCode)
+            });
+        }
         public override string ToString()
         {
             var result = string.Empty;

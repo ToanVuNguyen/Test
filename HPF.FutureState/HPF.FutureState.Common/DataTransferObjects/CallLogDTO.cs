@@ -24,26 +24,27 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         [RequiredObjectValidator(Ruleset = "Default", Tag = ErrorMessages.ERR0352)]
         public DateTime? EndDate { get; set; }
-        
-        [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default")]
+
+        [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default", Tag = ErrorMessages.ERR0363)]
         public string DNIS { get; set; }
 
-        [NullableOrStringLengthValidator(true, 4, "CallCenter", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 4, "CallCenter", Ruleset = "Default", Tag = ErrorMessages.ERR0364)]
         public string CallCenter { get; set; }
 
         [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]        
         public string CallSourceCd { get; set; }
 
+        //miss Error for string length
         [NullableOrStringLengthValidator(true, 75, "Reason For Call", Ruleset = "Default")]
         public string ReasonForCall { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "Loan Account Number", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "Loan Account Number", Ruleset = "Default", Tag = ErrorMessages.ERR0365)]
         public string LoanAccountNumber { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "First name", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "First name", Ruleset = "Default", Tag = ErrorMessages.ERR0366)]
         public string FirstName { get; set; }
 
-        [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default", Tag = ErrorMessages.ERR0367)]
         public string LastName { get; set; }
         
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be a valid integer")]
@@ -52,7 +53,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "OtherServicerName", Ruleset = "Default")]
         public string OtherServicerName { get; set; }
 
-        [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default", Tag = ErrorMessages.ERR0368)]
         public string PropZipFull9 { get; set; }
 
 
@@ -62,53 +63,54 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Selected Agency Id must be a valid integer")]
         public int? SelectedAgencyId { get; set; }
 
-        [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default", Tag = ErrorMessages.ERR0369)]
         public string ScreenRout { get; set; }
 
         [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", Tag = ErrorMessages.ERR0353)]
         public string FinalDispoCd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default", Tag = ErrorMessages.ERR0370)]
         public string TransNumber { get; set; }
 
         [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", Tag = ErrorMessages.ERR0350)]
         public string CcCallKey { get; set; }
 
+        //miss error for string length
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
         public string LoanDelinqStatusCd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 40, "Selected Counselor", Ruleset = "Default")]
-        public string SelectedCounselor { get; set; }
 
+        [NullableOrStringLengthValidator(true, 40, "Selected Counselor", Ruleset = "Default", Tag = ErrorMessages.ERR0371)]
+        public string SelectedCounselor { get; set; }
         
         string _homeownerInd;
-        [YesNoIndicatorValidator(true, Ruleset = "Default")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0372)]
         public string HomeownerInd { get { return _homeownerInd; } set { if (value != null) _homeownerInd = value.ToUpper(); } }
 
         string _powerOfAttorneyInd;
-        [YesNoIndicatorValidator(true, Ruleset = "Default")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0373)]
         public string PowerOfAttorneyInd { get { return _powerOfAttorneyInd; } set { if (value != null) _powerOfAttorneyInd = value.ToUpper(); } }
         
         string _authorizedInd;
-        [YesNoIndicatorValidator(true, Ruleset = "Default")]
+        [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0374)]
         public string AuthorizedInd 
         { 
             get { return _authorizedInd; } 
             set { if (value != null)_authorizedInd = value.ToUpper(); } }
 
-        [NullableOrStringLengthValidator(true, 30, "City", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 30, "City", Ruleset = "Default", Tag = ErrorMessages.ERR0390)]
         public string City {get; set;}  //	varchar(30)
 
-        [NullableOrStringLengthValidator(true, 2, "State", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 2, "State", Ruleset = "Default", Tag = ErrorMessages.ERR0391)]
         public string State	{get; set;} //varchar(2)
-        
-        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum1", Ruleset = "Default")]
+
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum1", Ruleset = "Default", Tag = ErrorMessages.ERR0392)]
         public string NonprofitReferralKeyNum1 {get; set;}
-        
-        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum2", Ruleset = "Default")]        
+
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum2", Ruleset = "Default", Tag = ErrorMessages.ERR0393)]        
         public string NonprofitReferralKeyNum2 {get; set;}
-        
-        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum3", Ruleset = "Default")]
+
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum3", Ruleset = "Default", Tag = ErrorMessages.ERR0394)]
         public string NonprofitReferralKeyNum3 { get; set; }
 
         #endregion        
