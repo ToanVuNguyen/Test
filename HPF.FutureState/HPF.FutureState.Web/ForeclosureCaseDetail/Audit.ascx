@@ -1,6 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Audit.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Audit" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
+<script type="text/javascript" language="javascript">
+TabControl.onChanged=function()
+{
+    return confirm('Changed confirm');
+};
+</script>
     <br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage">
 </asp:BulletedList>

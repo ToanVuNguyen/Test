@@ -68,6 +68,12 @@ namespace HPF.FutureState.Web.HPFWebControls
             LiteralControl include = new LiteralControl(String.Format(includeTemplate, includeLocation));
             Page.Header.Controls.Add(include);
 
+            //
+            //Add JavaScript to client page
+            string resourceName = "HPF.FutureState.Web.HPFWebControls.Tab.js";
+            ClientScriptManager cs = this.Page.ClientScript;
+            cs.RegisterClientScriptResource(this.GetType(), resourceName);
+
             
         }
         
@@ -80,7 +86,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         public void AddTab(string tabID,string title)
         {
             Tab tab = new Tab { Title = title, ID = tabID };
-            LinkButton linkBtn = GetTab(tabID, title);
+            LinkButton linkBtn = GetTab(tabID, title);            
             _Tabs.Add(tab);
             this.Controls.Add(linkBtn);
             ViewState["Tabs"] = _Tabs;
@@ -117,6 +123,7 @@ namespace HPF.FutureState.Web.HPFWebControls
                     foreach (var i in this.Controls)
                         if(i is LinkButton)
                         {
+                            ((LinkButton)i).Attributes.Add("onclick", "return TabControl.onChanged();");
                             writer.Write("<td align='center'>");
                                ((LinkButton)i).RenderControl(writer);
                             writer.Write("</td>");

@@ -38,3 +38,4 @@ using System.Web.UI;
 [assembly: WebResource("HPF.FutureState.Web.HPFWebControls.TabControl.css", "text/css")]
 [assembly: WebResource("HPF.FutureState.Web.HPFWebControls.MenuBarControl.css", "text/css")]
 [assembly: WebResource("HPF.FutureState.Web.HPFWebControls.MenuBarControl.js", "text/javascript")]
+[assembly: WebResource("HPF.FutureState.Web.HPFWebControls.Tab.js", "text/javascript")]

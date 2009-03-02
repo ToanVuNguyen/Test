@@ -110,15 +110,7 @@ namespace HPF.FutureState.Web
         }
         //display message when you click out casedetail tab
         void tabControl_TabClick(object sender, HPF.FutureState.Web.HPFWebControls.TabControlEventArgs e)
-        {
-            if (e.SelectedTabID != "caseDetail")
-            {
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(),"Confirm","<script language='javascript'>confirm('Are you ok?')</script>");
-              // if(MessageBox.Show("Really delete?","Confirm delete", MessageBoxButtons.YesNo) == DialogResult.Yes))
-               // { // a 'DialogResult.Yes' value was returned from the MessageBox // proce
-                   //Response.Write("<script language='javascript'> {return confirm('You want to navigate to other tab?') }</script>");
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "confirm", "<script type='text/javascript'>var confirm=window.confirm('Do you want to navigate to new tab?');if(confirm){alert('kaka');}</script>");
-            }
+        {            
             switch (e.SelectedTabID)
             { 
                 case "caseDetail":
