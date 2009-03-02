@@ -59,7 +59,7 @@ namespace HPF.FutureState.Common
         public const string REF_CODE_SET_AUDIT_FAILURE_REASON_CODE = "audit failure reason code";
         public const string REF_CODE_SET_FOLLOW_UP_SOURCE_CODE = "follow up source code";
         public const string REF_CODE_SET_LOAN_DELINQUENCY_CODE = "loan delinquency status code";
-        public const string REF_CODE_SET_CREDIR_BERREAU_CODE = "credit burreau code";        
+        public const string REF_CODE_SET_CREDIR_BERREAU_CODE = "credit bureau code";        
         //
         public const int HPF_QUEUE_READING_TIMEOUT = 10;//Seconds
         public const string HPF_QUEUE_PATH = @".\Private$\HPFSummaryQueue";
