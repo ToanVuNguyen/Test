@@ -12,83 +12,10 @@
       <DataType>Integer</DataType>
       <Prompt>HPF Case ID</Prompt>
     </ReportParameter>
-    <ReportParameter Name="v_borrower_lname">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>dst_CounselingSummary_get_FC_detail</DataSetName>
-          <ValueField>borrower_lname</ValueField>
-        </DataSetReference>
-      </DefaultValue>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>Report_Parameter_3</Prompt>
-      <Hidden>true</Hidden>
-    </ReportParameter>
-    <ReportParameter Name="v_acct_num">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>dst_CounselingSummary_get_FC_detail</DataSetName>
-          <ValueField>acct_num</ValueField>
-        </DataSetReference>
-      </DefaultValue>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>Report_Parameter_4</Prompt>
-      <Hidden>true</Hidden>
-    </ReportParameter>
   </ReportParameters>
   <rd:DrawGrid>true</rd:DrawGrid>
   <InteractiveWidth>8.5in</InteractiveWidth>
   <rd:SnapToGrid>false</rd:SnapToGrid>
-  <PageHeader>
-    <PrintOnFirstPage>true</PrintOnFirstPage>
-    <ReportItems>
-      <Line Name="line1">
-        <Top>0.52083in</Top>
-        <Width>7.40625in</Width>
-        <Style>
-          <BorderStyle>
-            <Default>Solid</Default>
-          </BorderStyle>
-        </Style>
-        <ZIndex>2</ZIndex>
-        <Left>0.61458in</Left>
-        <Height>0in</Height>
-      </Line>
-      <Textbox Name="textbox187">
-        <rd:DefaultName>textbox187</rd:DefaultName>
-        <Visibility>
-          <Hidden>=IIf(Globals!PageNumber&gt; 1, True, False)</Hidden>
-        </Visibility>
-        <Top>0.22917in</Top>
-        <Width>5.05208in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>1</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>2.94793in</Left>
-        <Height>0.25in</Height>
-        <Value>= "HPF Counseling Summary for Loan: " &amp; Parameters!v_acct_num.Value &amp; " - Last Name: " &amp; Parameters!v_borrower_lname.Value</Value>
-      </Textbox>
-      <Image Name="image1">
-        <Sizing>AutoSize</Sizing>
-        <Width>2.07292in</Width>
-        <Source>External</Source>
-        <Style />
-        <Left>0.625in</Left>
-        <Height>0.42708in</Height>
-        <Value>image.hpf_logo.gif</Value>
-      </Image>
-    </ReportItems>
-    <Height>0.55208in</Height>
-    <PrintOnLastPage>true</PrintOnLastPage>
-  </PageHeader>
   <rd:ReportID>a156b7b9-bc15-43be-97aa-ea0e2c26d8ba</rd:ReportID>
   <DataSets>
     <DataSet Name="dst_CounselingSummary_get_FC_detail">
@@ -573,6 +500,10 @@
           <DataField>current_servicer_FDIC_NCUA_num</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="mortgage_program_cd">
+          <DataField>mortgage_program_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="total_income">
           <DataField>total_income</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -678,9 +609,160 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.3229in</Width>
+  <Width>8.35417in</Width>
   <Body>
     <ReportItems>
+      <Textbox Name="mortgage_program_cd">
+        <rd:DefaultName>mortgage_program_cd</rd:DefaultName>
+        <Top>1.875in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>214</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>2.02083in</Left>
+        <Height>0.20833in</Height>
+        <Value>=First(Fields!mortgage_program_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox187">
+        <rd:DefaultName>textbox187</rd:DefaultName>
+        <Top>1.875in</Top>
+        <Width>1.67708in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>213</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.33333in</Left>
+        <Height>0.20833in</Height>
+        <Value>Mortgage program code</Value>
+      </Textbox>
+      <Line Name="line1">
+        <Top>19.875in</Top>
+        <Width>7.86458in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>212</ZIndex>
+        <Left>0.25in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="textbox213">
+        <rd:DefaultName>textbox213</rd:DefaultName>
+        <Top>20.92708in</Top>
+        <Width>1.91667in</Width>
+        <Style>
+          <Color>Blue</Color>
+          <FontSize>8pt</FontSize>
+          <TextDecoration>Underline</TextDecoration>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>211</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.46875in</Left>
+        <Value>www.995hope.org</Value>
+      </Textbox>
+      <Textbox Name="textbox209">
+        <rd:DefaultName>textbox209</rd:DefaultName>
+        <Top>20.70833in</Top>
+        <Width>7.5625in</Width>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>210</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.46875in</Left>
+        <Height>0.20833in</Height>
+        <Value>This agency is a member of the Homeownership Preservation Foundation Counseling Network</Value>
+      </Textbox>
+      <Textbox Name="textbox208">
+        <rd:DefaultName>textbox208</rd:DefaultName>
+        <Top>20.48958in</Top>
+        <Width>1.5in</Width>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>209</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.46875in</Left>
+        <Height>0.20834in</Height>
+        <Value>HPF contact info:</Value>
+      </Textbox>
+      <Textbox Name="textbox140">
+        <rd:DefaultName>textbox140</rd:DefaultName>
+        <Top>20.13541in</Top>
+        <Width>7.59375in</Width>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>208</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.46875in</Left>
+        <Height>0.34375in</Height>
+        <Value>NOTE: Regardless of content, this e-mail shall not operate to bind HPF to any order or other contract unless pursuant to explicit written agreement initiative expressly permitting the use of e-mail for such purpose.</Value>
+      </Textbox>
+      <Textbox Name="textbox50">
+        <Top>19.9427in</Top>
+        <Width>7.58855in</Width>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontSize>8pt</FontSize>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>207</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.46875in</Left>
+        <Height>0.1875in</Height>
+        <Value>This is a private message. If you are not the intended recipient, please delete without copying and kindly advise us by e-mail of the mistake in delivery.
+</Value>
+      </Textbox>
+      <Image Name="image2">
+        <Sizing>Fit</Sizing>
+        <Top>0.14062in</Top>
+        <Width>1.88542in</Width>
+        <Source>External</Source>
+        <Style />
+        <ZIndex>206</ZIndex>
+        <Left>6.29167in</Left>
+        <Height>0.42709in</Height>
+        <Value>888-995-HOPE TM.JPG</Value>
+      </Image>
       <Textbox Name="textbox230">
         <Top>18.28645in</Top>
         <Width>1.20313in</Width>
@@ -696,7 +778,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>204</ZIndex>
+        <ZIndex>205</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.20312in</Left>
         <Height>0.22917in</Height>
@@ -724,7 +806,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>203</ZIndex>
+        <ZIndex>204</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.20312in</Left>
         <Height>0.22917in</Height>
@@ -752,7 +834,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>202</ZIndex>
+        <ZIndex>203</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.20312in</Left>
         <Height>0.22917in</Height>
@@ -779,7 +861,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>201</ZIndex>
+        <ZIndex>202</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.79166in</Left>
         <Height>0.22917in</Height>
@@ -806,7 +888,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>200</ZIndex>
+        <ZIndex>201</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.79167in</Left>
         <Height>0.22917in</Height>
@@ -832,14 +914,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>199</ZIndex>
+        <ZIndex>200</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.79165in</Left>
         <Height>0.22917in</Height>
         <Value>Income Total</Value>
       </Textbox>
       <Table Name="table3">
-        <ZIndex>198</ZIndex>
+        <ZIndex>199</ZIndex>
         <DataSetName>dst_CounselingSummary_get_FC_Budget_asset</DataSetName>
         <Top>19.08333in</Top>
         <Width>4.92708in</Width>
@@ -1106,7 +1188,7 @@
         <Left>0.52084in</Left>
       </Table>
       <Table Name="table2">
-        <ZIndex>197</ZIndex>
+        <ZIndex>198</ZIndex>
         <DataSetName>dst_CounselingSummary_get_FC_Budget</DataSetName>
         <Top>17.23958in</Top>
         <TableGroups>
@@ -1580,7 +1662,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>196</ZIndex>
+        <ZIndex>197</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.54427in</Left>
         <Height>0.23958in</Height>
@@ -1588,26 +1670,26 @@
       </Textbox>
       <Line Name="line6">
         <Top>14.05209in</Top>
-        <Width>7.65625in</Width>
+        <Width>7.85417in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>196</ZIndex>
+        <Left>0.25001in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Line Name="line5">
+        <Top>16.88542in</Top>
+        <Width>7.875in</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
         </Style>
         <ZIndex>195</ZIndex>
-        <Left>0.50001in</Left>
-        <Height>0in</Height>
-      </Line>
-      <Line Name="line5">
-        <Top>16.88542in</Top>
-        <Width>7.58333in</Width>
-        <Style>
-          <BorderStyle>
-            <Default>Solid</Default>
-          </BorderStyle>
-        </Style>
-        <ZIndex>194</ZIndex>
-        <Left>0.52083in</Left>
+        <Left>0.25in</Left>
         <Height>0in</Height>
       </Line>
       <Textbox Name="textbox201">
@@ -1622,7 +1704,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>193</ZIndex>
+        <ZIndex>194</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.50911in</Left>
         <Height>0.25in</Height>
@@ -1642,7 +1724,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>192</ZIndex>
+        <ZIndex>193</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.28255in</Left>
         <Height>0.80209in</Height>
@@ -1660,7 +1742,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>191</ZIndex>
+        <ZIndex>192</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.4987in</Left>
         <Height>0.25in</Height>
@@ -1680,7 +1762,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>190</ZIndex>
+        <ZIndex>191</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.28255in</Left>
         <Height>0.80209in</Height>
@@ -1698,7 +1780,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>189</ZIndex>
+        <ZIndex>190</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.49739in</Left>
         <Height>0.25in</Height>
@@ -1718,7 +1800,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>188</ZIndex>
+        <ZIndex>189</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.28124in</Left>
         <Height>0.80209in</Height>
@@ -1735,14 +1817,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>187</ZIndex>
+        <ZIndex>188</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.52864in</Left>
         <Height>0.23958in</Height>
         <Value>Counselor Notes:</Value>
       </Textbox>
       <Table Name="table1">
-        <ZIndex>186</ZIndex>
+        <ZIndex>187</ZIndex>
         <DataSetName>dst_CounselingSummary_get_FC_Outcome</DataSetName>
         <Top>13.51042in</Top>
         <Width>7.3127in</Width>
@@ -1945,15 +2027,15 @@
         <Left>0.54167in</Left>
       </Table>
       <Line Name="line4">
-        <Top>13.21875in</Top>
-        <Width>7.60416in</Width>
+        <Top>13.19792in</Top>
+        <Width>7.87499in</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
         </Style>
-        <ZIndex>185</ZIndex>
-        <Left>0.51041in</Left>
+        <ZIndex>186</ZIndex>
+        <Left>0.24999in</Left>
         <Height>0in</Height>
       </Line>
       <Textbox Name="textbox183">
@@ -1967,7 +2049,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>184</ZIndex>
+        <ZIndex>185</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.54427in</Left>
         <Height>0.25in</Height>
@@ -1983,7 +2065,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>183</ZIndex>
+        <ZIndex>184</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59114in</Left>
         <Height>0.25in</Height>
@@ -2001,7 +2083,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>182</ZIndex>
+        <ZIndex>183</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.24739in</Left>
         <Height>0.36458in</Height>
@@ -2017,7 +2099,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>181</ZIndex>
+        <ZIndex>182</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
         <Height>0.25in</Height>
@@ -2035,7 +2117,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>180</ZIndex>
+        <ZIndex>181</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.28125in</Left>
         <Height>0.25in</Height>
@@ -2052,7 +2134,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>179</ZIndex>
+        <ZIndex>180</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.23958in</Left>
         <Height>0.22917in</Height>
@@ -2068,7 +2150,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>178</ZIndex>
+        <ZIndex>179</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
         <Height>0.25in</Height>
@@ -2086,7 +2168,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>177</ZIndex>
+        <ZIndex>178</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.28124in</Left>
         <Height>0.25in</Height>
@@ -2102,7 +2184,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>176</ZIndex>
+        <ZIndex>177</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.63542in</Left>
         <Height>0.23959in</Height>
@@ -2120,7 +2202,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>175</ZIndex>
+        <ZIndex>176</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.23958in</Left>
         <Height>0.23958in</Height>
@@ -2137,7 +2219,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>174</ZIndex>
+        <ZIndex>175</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.24999in</Left>
         <Height>0.25in</Height>
@@ -2153,7 +2235,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>173</ZIndex>
+        <ZIndex>174</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.625in</Left>
         <Height>0.25in</Height>
@@ -2171,7 +2253,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>172</ZIndex>
+        <ZIndex>173</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.35417in</Left>
         <Height>0.38542in</Height>
@@ -2187,7 +2269,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>171</ZIndex>
+        <ZIndex>172</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.93228in</Left>
         <Height>0.22917in</Height>
@@ -2205,7 +2287,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>170</ZIndex>
+        <ZIndex>171</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.5677in</Left>
         <Height>0.375in</Height>
@@ -2221,7 +2303,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>169</ZIndex>
+        <ZIndex>170</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.95312in</Left>
         <Height>0.25in</Height>
@@ -2239,7 +2321,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>168</ZIndex>
+        <ZIndex>169</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.54167in</Left>
         <Height>0.375in</Height>
@@ -2256,7 +2338,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>167</ZIndex>
+        <ZIndex>168</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.57812in</Left>
         <Height>0.21875in</Height>
@@ -2272,7 +2354,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>166</ZIndex>
+        <ZIndex>167</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.93229in</Left>
         <Height>0.22917in</Height>
@@ -2290,7 +2372,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>165</ZIndex>
+        <ZIndex>166</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.57291in</Left>
         <Height>0.35417in</Height>
@@ -2306,7 +2388,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>164</ZIndex>
+        <ZIndex>165</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.92708in</Left>
         <Height>0.22917in</Height>
@@ -2324,7 +2406,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>163</ZIndex>
+        <ZIndex>164</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.57291in</Left>
         <Height>0.22917in</Height>
@@ -2340,7 +2422,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>162</ZIndex>
+        <ZIndex>163</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.92708in</Left>
         <Height>0.25in</Height>
@@ -2358,7 +2440,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>161</ZIndex>
+        <ZIndex>162</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.57291in</Left>
         <Height>0.25in</Height>
@@ -2375,14 +2457,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>160</ZIndex>
+        <ZIndex>161</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.61458in</Left>
         <Height>0.25in</Height>
         <Value>Case Summary:</Value>
       </Textbox>
       <Textbox Name="textbox157">
-        <Top>10.63541in</Top>
+        <Top>9.72916in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2392,14 +2474,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>159</ZIndex>
+        <ZIndex>160</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.875in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!counseling_duration_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox158">
-        <Top>10.63541in</Top>
+        <Top>9.72916in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2410,18 +2492,36 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>158</ZIndex>
+        <ZIndex>159</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.48958in</Left>
-        <Height>0.25in</Height>
+        <Height>0.20833in</Height>
         <Value>Counseling Duration:</Value>
       </Textbox>
       <Textbox Name="textbox149">
-        <Top>10.375in</Top>
+        <Top>9.5in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>158</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>1.875in</Left>
+        <Height>0.21875in</Height>
+        <Value>=First(Fields!completed_dt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox150">
+        <Top>9.5in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2429,17 +2529,16 @@
         </Style>
         <ZIndex>157</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.875in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!completed_dt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.61458in</Left>
+        <Height>0.21875in</Height>
+        <Value>Completed Date:</Value>
       </Textbox>
-      <Textbox Name="textbox150">
-        <Top>10.375in</Top>
+      <Textbox Name="textbox151">
+        <Top>9.25in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2447,16 +2546,17 @@
         </Style>
         <ZIndex>156</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.61458in</Left>
-        <Height>0.25in</Height>
-        <Value>Completed Date:</Value>
+        <Left>1.875in</Left>
+        <Height>0.21875in</Height>
+        <Value>=First(Fields!intake_dt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox151">
-        <Top>10.11458in</Top>
+      <Textbox Name="textbox152">
+        <Top>9.23958in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2464,17 +2564,16 @@
         </Style>
         <ZIndex>155</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.875in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!intake_dt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.61458in</Left>
+        <Height>0.22917in</Height>
+        <Value>Intake date:</Value>
       </Textbox>
-      <Textbox Name="textbox152">
-        <Top>10.11458in</Top>
+      <Textbox Name="textbox153">
+        <Top>9.02084in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2482,16 +2581,17 @@
         </Style>
         <ZIndex>154</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.61458in</Left>
-        <Height>0.25in</Height>
-        <Value>Intake date:</Value>
+        <Left>1.875in</Left>
+        <Height>0.21875in</Height>
+        <Value>=First(Fields!counselor_email.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox153">
-        <Top>9.85417in</Top>
+      <Textbox Name="textbox154">
+        <Top>9.02084in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2499,17 +2599,16 @@
         </Style>
         <ZIndex>153</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.875in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!counselor_email.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.61458in</Left>
+        <Height>0.20833in</Height>
+        <Value>Email:</Value>
       </Textbox>
-      <Textbox Name="textbox154">
-        <Top>9.85417in</Top>
+      <Textbox Name="textbox155">
+        <Top>8.76042in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2517,16 +2616,17 @@
         </Style>
         <ZIndex>152</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.61458in</Left>
+        <Left>1.87501in</Left>
         <Height>0.25in</Height>
-        <Value>Email:</Value>
+        <Value>=First(Fields!counselor_phone.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox155">
-        <Top>9.59375in</Top>
+      <Textbox Name="textbox156">
+        <Top>8.76042in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2534,17 +2634,16 @@
         </Style>
         <ZIndex>151</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.87501in</Left>
+        <Left>0.61458in</Left>
         <Height>0.25in</Height>
-        <Value>=First(Fields!counselor_phone.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Value>Phone &amp; Ext:</Value>
       </Textbox>
-      <Textbox Name="textbox156">
-        <Top>9.59375in</Top>
+      <Textbox Name="textbox145">
+        <Top>8.54166in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2552,16 +2651,17 @@
         </Style>
         <ZIndex>150</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.61458in</Left>
-        <Height>0.25in</Height>
-        <Value>Phone &amp; Ext:</Value>
+        <Left>1.875in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!counselor_fname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox145">
-        <Top>9.33333in</Top>
+      <Textbox Name="textbox146">
+        <Top>8.54166in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2569,17 +2669,16 @@
         </Style>
         <ZIndex>149</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.875in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!counselor_fname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.61458in</Left>
+        <Height>0.19792in</Height>
+        <Value>Counselor:</Value>
       </Textbox>
-      <Textbox Name="textbox146">
-        <Top>9.33333in</Top>
+      <Textbox Name="textbox147">
+        <Top>8.30208in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2587,16 +2686,17 @@
         </Style>
         <ZIndex>148</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.61458in</Left>
-        <Height>0.25in</Height>
-        <Value>Counselor:</Value>
+        <Left>1.875in</Left>
+        <Height>0.21875in</Height>
+        <Value>=First(Fields!agency_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox147">
-        <Top>9.07291in</Top>
+      <Textbox Name="textbox148">
+        <Top>8.30208in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2604,30 +2704,12 @@
         </Style>
         <ZIndex>147</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.875in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!agency_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
-      <Textbox Name="textbox148">
-        <Top>9.07291in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>146</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>0.61458in</Left>
-        <Height>0.25in</Height>
+        <Height>0.21875in</Height>
         <Value>Agency:</Value>
       </Textbox>
       <Textbox Name="textbox141">
-        <Top>8.8125in</Top>
+        <Top>8in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2637,14 +2719,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>145</ZIndex>
+        <ZIndex>146</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.875in</Left>
-        <Height>0.25in</Height>
+        <Height>0.20833in</Height>
         <Value>=First(Fields!agency_case_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox142">
-        <Top>8.8125in</Top>
+        <Top>8in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2655,14 +2737,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>144</ZIndex>
+        <ZIndex>145</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.61458in</Left>
-        <Height>0.25in</Height>
+        <Height>0.20833in</Height>
         <Value>Agency Case:</Value>
       </Textbox>
       <Textbox Name="textbox143">
-        <Top>8.55208in</Top>
+        <Top>7.78125in</Top>
         <Width>1.17708in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2672,14 +2754,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>143</ZIndex>
+        <ZIndex>144</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.875in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!fc_id.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox144">
-        <Top>8.55208in</Top>
+        <Top>7.78125in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2690,14 +2772,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>142</ZIndex>
+        <ZIndex>143</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.61458in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>HPF Case ID:</Value>
       </Textbox>
       <Textbox Name="textbox133">
-        <Top>10.53125in</Top>
+        <Top>9.75in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2707,15 +2789,15 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>141</ZIndex>
+        <ZIndex>142</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
         <Height>0.22917in</Height>
         <Value>=First(Fields!srvcr_workout_plan_current_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox134">
-        <Top>10.45833in</Top>
-        <Width>1.3125in</Width>
+        <Top>9.64583in</Top>
+        <Width>1.23958in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -2725,14 +2807,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>140</ZIndex>
+        <ZIndex>141</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.28124in</Left>
-        <Height>0.375in</Height>
+        <Left>3.35416in</Left>
+        <Height>0.33333in</Height>
         <Value>Workout Plan Current:</Value>
       </Textbox>
       <Textbox Name="textbox135">
-        <Top>10.20833in</Top>
+        <Top>9.39583in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2742,14 +2824,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>139</ZIndex>
+        <ZIndex>140</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
         <Height>0.23959in</Height>
         <Value>=First(Fields!has_workout_plan_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox136">
-        <Top>10.20833in</Top>
+        <Top>9.39583in</Top>
         <Width>1.29167in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2760,14 +2842,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>138</ZIndex>
+        <ZIndex>139</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.30208in</Left>
         <Height>0.23959in</Height>
         <Value>Has workout Plan:</Value>
       </Textbox>
       <Textbox Name="textbox137">
-        <Top>9.94792in</Top>
+        <Top>9.13542in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2777,14 +2859,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>137</ZIndex>
+        <ZIndex>138</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
         <Height>0.25in</Height>
         <Value>=First(Fields!contacted_srvcr_recently_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox138">
-        <Top>9.8125in</Top>
+        <Top>9.04167in</Top>
         <Width>1.3125in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2795,14 +2877,31 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>136</ZIndex>
+        <ZIndex>137</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.28124in</Left>
-        <Height>0.38541in</Height>
+        <Height>0.34374in</Height>
         <Value>Contacted Servicer Recently:</Value>
       </Textbox>
       <Textbox Name="textbox139">
-        <Top>9.57291in</Top>
+        <Top>8.79166in</Top>
+        <Width>1.35417in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>136</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.60416in</Left>
+        <Height>0.22917in</Height>
+        <Value>=First(Fields!worked_with_another_agency_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox129">
+        <Top>8.38541in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2816,14 +2915,15 @@
         <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
         <Height>0.22917in</Height>
-        <Value>=First(Fields!worked_with_another_agency_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Value>=First(Fields!discussed_solution_with_srvcr_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox129">
-        <Top>9.19791in</Top>
-        <Width>1.35417in</Width>
+      <Textbox Name="textbox130">
+        <Top>8.28125in</Top>
+        <Width>1.29167in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2831,17 +2931,16 @@
         </Style>
         <ZIndex>134</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.60416in</Left>
-        <Height>0.22917in</Height>
-        <Value>=First(Fields!discussed_solution_with_srvcr_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.30208in</Left>
+        <Height>0.33333in</Height>
+        <Value>Discussed Solutionw/Servicers:</Value>
       </Textbox>
-      <Textbox Name="textbox130">
-        <Top>9.05208in</Top>
-        <Width>1.29167in</Width>
+      <Textbox Name="textbox131">
+        <Top>8.04167in</Top>
+        <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -2849,29 +2948,12 @@
         </Style>
         <ZIndex>133</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.30208in</Left>
-        <Height>0.375in</Height>
-        <Value>Discussed Solutionw/Servicers:</Value>
-      </Textbox>
-      <Textbox Name="textbox131">
-        <Top>8.8125in</Top>
-        <Width>1.35417in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>132</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
         <Height>0.22917in</Height>
         <Value>=First(Fields!AMI_percentage.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox132">
-        <Top>8.8125in</Top>
+        <Top>8.04167in</Top>
         <Width>1.29167in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2882,14 +2964,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>131</ZIndex>
+        <ZIndex>132</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.30208in</Left>
         <Height>0.22917in</Height>
         <Value>AMI Percentage:</Value>
       </Textbox>
       <Textbox Name="textbox127">
-        <Top>8.55207in</Top>
+        <Top>7.78124in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2899,14 +2981,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>130</ZIndex>
+        <ZIndex>131</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!income_earners_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox128">
-        <Top>8.55207in</Top>
+        <Top>7.78124in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2917,14 +2999,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>129</ZIndex>
+        <ZIndex>130</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.21874in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Income Earners Code:</Value>
       </Textbox>
       <Textbox Name="textbox126">
-        <Top>8.29166in</Top>
+        <Top>7.52083in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontWeight>700</FontWeight>
@@ -2934,14 +3016,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>128</ZIndex>
+        <ZIndex>129</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.61458in</Left>
         <Height>0.25in</Height>
         <Value>Case Detail:</Value>
       </Textbox>
       <Textbox Name="textbox121">
-        <Top>8.125in</Top>
+        <Top>7.35417in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -2951,66 +3033,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>127</ZIndex>
+        <ZIndex>128</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.60416in</Left>
         <Height>0.25in</Height>
         <Value>=First(Fields!household_gross_annual_income_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox122">
-        <Top>8.03124in</Top>
-        <Width>1.15625in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>126</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>3.43749in</Left>
-        <Height>0.35417in</Height>
-        <Value>Household Gross Annual Income:</Value>
-      </Textbox>
-      <Textbox Name="textbox123">
-        <Top>7.51041in</Top>
-        <Width>1.29167in</Width>
-        <Style>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>125</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>3.31249in</Left>
-        <Height>0.25in</Height>
-        <Value>Case Financials:</Value>
-      </Textbox>
-      <Textbox Name="textbox124">
-        <Top>7.77083in</Top>
-        <Width>1.35417in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>124</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>4.61458in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!household_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
-      <Textbox Name="textbox125">
-        <Top>7.77083in</Top>
+        <Top>7.26041in</Top>
         <Width>1.17708in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3021,14 +3051,66 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>123</ZIndex>
+        <ZIndex>127</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3.41666in</Left>
+        <Height>0.35417in</Height>
+        <Value>Household Gross Annual Income:</Value>
+      </Textbox>
+      <Textbox Name="textbox123">
+        <Top>6.73958in</Top>
+        <Width>1.29167in</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>126</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3.31249in</Left>
+        <Height>0.25in</Height>
+        <Value>Case Financials:</Value>
+      </Textbox>
+      <Textbox Name="textbox124">
+        <Top>7in</Top>
+        <Width>1.35417in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>125</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.61458in</Left>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!household_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox125">
+        <Top>7in</Top>
+        <Width>1.17708in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>124</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.42708in</Left>
         <Height>0.25in</Height>
         <Value>Household Type:</Value>
       </Textbox>
       <Textbox Name="textbox119">
-        <Top>8.03124in</Top>
+        <Top>7.26041in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3038,17 +3120,34 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>122</ZIndex>
+        <ZIndex>123</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.88542in</Left>
         <Height>0.25in</Height>
         <Value>=First(Fields!funding_consent_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox120">
-        <Top>8.03124in</Top>
+        <Top>7.26041in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>122</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.625in</Left>
+        <Height>0.25in</Height>
+        <Value>Funding Consent:</Value>
+      </Textbox>
+      <Textbox Name="textbox95">
+        <Top>6.73958in</Top>
+        <Width>1.27083in</Width>
+        <Style>
           <FontWeight>700</FontWeight>
           <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
@@ -3058,29 +3157,12 @@
         </Style>
         <ZIndex>121</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.625in</Left>
-        <Height>0.25in</Height>
-        <Value>Funding Consent:</Value>
-      </Textbox>
-      <Textbox Name="textbox95">
-        <Top>7.51041in</Top>
-        <Width>1in</Width>
-        <Style>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>120</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>0.67708in</Left>
+        <Left>0.61458in</Left>
         <Height>0.25in</Height>
         <Value>Consent:</Value>
       </Textbox>
       <Textbox Name="textbox96">
-        <Top>7.77083in</Top>
+        <Top>7in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3090,14 +3172,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>119</ZIndex>
+        <ZIndex>120</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.88542in</Left>
         <Height>0.25in</Height>
         <Value>=First(Fields!servicer_consent_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox118">
-        <Top>7.77083in</Top>
+        <Top>7in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3108,26 +3190,26 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>118</ZIndex>
+        <ZIndex>119</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.625in</Left>
         <Height>0.25in</Height>
         <Value>Servicer Consent:</Value>
       </Textbox>
       <Line Name="line3">
-        <Top>7.47916in</Top>
-        <Width>7.54167in</Width>
+        <Top>6.65624in</Top>
+        <Width>7.8125in</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
         </Style>
-        <ZIndex>117</ZIndex>
-        <Left>0.53124in</Left>
+        <ZIndex>118</ZIndex>
+        <Left>0.26041in</Left>
         <Height>0in</Height>
       </Line>
       <Textbox Name="textbox117">
-        <Top>5.90625in</Top>
+        <Top>5.25in</Top>
         <Width>1.35416in</Width>
         <Style>
           <FontWeight>700</FontWeight>
@@ -3137,14 +3219,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>116</ZIndex>
+        <ZIndex>117</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>5.84374in</Left>
-        <Height>0.22917in</Height>
+        <Height>0.25in</Height>
         <Value>Contact Address:</Value>
       </Textbox>
       <Textbox Name="textbox115">
-        <Top>6.92708in</Top>
+        <Top>6.1875in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3153,14 +3235,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>115</ZIndex>
+        <ZIndex>116</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.76041in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!contact_state_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox116">
-        <Top>6.92708in</Top>
+        <Top>6.1875in</Top>
         <Width>0.79167in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3171,17 +3253,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>114</ZIndex>
+        <ZIndex>115</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>5.95833in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>State, Zip:</Value>
       </Textbox>
       <Textbox Name="textbox113">
-        <Top>6.66666in</Top>
+        <Top>5.97916in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>114</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>6.76041in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!contact_city.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox114">
+        <Top>5.97916in</Top>
+        <Width>0.80208in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3189,17 +3289,15 @@
         </Style>
         <ZIndex>113</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76041in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!contact_city.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.94791in</Left>
+        <Height>0.19792in</Height>
+        <Value>City:</Value>
       </Textbox>
-      <Textbox Name="textbox114">
-        <Top>6.66666in</Top>
-        <Width>0.80208in</Width>
+      <Textbox Name="textbox111">
+        <Top>5.77083in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3207,15 +3305,17 @@
         </Style>
         <ZIndex>112</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.94791in</Left>
-        <Height>0.25in</Height>
-        <Value>City:</Value>
+        <Left>6.76041in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!contact_addr2.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox111">
-        <Top>6.40625in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox112">
+        <Top>5.77083in</Top>
+        <Width>0.80208in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3223,17 +3323,15 @@
         </Style>
         <ZIndex>111</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76041in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!contact_addr2.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.94791in</Left>
+        <Height>0.19792in</Height>
+        <Value>Address 2:</Value>
       </Textbox>
-      <Textbox Name="textbox112">
-        <Top>6.40625in</Top>
-        <Width>0.80208in</Width>
+      <Textbox Name="textbox109">
+        <Top>5.5625in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3241,28 +3339,12 @@
         </Style>
         <ZIndex>110</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.94791in</Left>
-        <Height>0.25in</Height>
-        <Value>Address 2:</Value>
-      </Textbox>
-      <Textbox Name="textbox109">
-        <Top>6.14583in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>109</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>6.76041in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!contact_addr1.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox110">
-        <Top>6.14583in</Top>
+        <Top>5.5625in</Top>
         <Width>0.80208in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3273,17 +3355,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>108</ZIndex>
+        <ZIndex>109</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>5.94791in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>Address 1:</Value>
       </Textbox>
       <Textbox Name="textbox107">
-        <Top>4.69791in</Top>
+        <Top>4.39583in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>108</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>6.76042in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!co_borrower_occupation.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox108">
+        <Top>4.39583in</Top>
+        <Width>0.89583in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3291,17 +3391,15 @@
         </Style>
         <ZIndex>107</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76042in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!co_borrower_occupation.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.85417in</Left>
+        <Height>0.19792in</Height>
+        <Value>Occupation:</Value>
       </Textbox>
-      <Textbox Name="textbox108">
-        <Top>4.69791in</Top>
-        <Width>0.89583in</Width>
+      <Textbox Name="textbox105">
+        <Top>4.18749in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3309,15 +3407,17 @@
         </Style>
         <ZIndex>106</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.85417in</Left>
-        <Height>0.25in</Height>
-        <Value>Occupation:</Value>
+        <Left>6.76042in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!co_borrower_last4_SSN.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox105">
-        <Top>4.43749in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox106">
+        <Top>4.18749in</Top>
+        <Width>0.89583in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3325,17 +3425,15 @@
         </Style>
         <ZIndex>105</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76042in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!co_borrower_last4_SSN.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.85417in</Left>
+        <Height>0.19792in</Height>
+        <Value>Last 4 of SSN:</Value>
       </Textbox>
-      <Textbox Name="textbox106">
-        <Top>4.43749in</Top>
-        <Width>0.89583in</Width>
+      <Textbox Name="textbox103">
+        <Top>3.97916in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3343,15 +3441,17 @@
         </Style>
         <ZIndex>104</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.85417in</Left>
-        <Height>0.25in</Height>
-        <Value>Last 4 of SSN:</Value>
+        <Left>6.76042in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!co_borrower_DOB.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox103">
-        <Top>4.17708in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox104">
+        <Top>3.97916in</Top>
+        <Width>0.89583in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3359,17 +3459,15 @@
         </Style>
         <ZIndex>103</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76042in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!co_borrower_DOB.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.85417in</Left>
+        <Height>0.19792in</Height>
+        <Value>DOB:</Value>
       </Textbox>
-      <Textbox Name="textbox104">
-        <Top>4.17708in</Top>
-        <Width>0.89583in</Width>
+      <Textbox Name="textbox101">
+        <Top>3.77083in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3377,15 +3475,17 @@
         </Style>
         <ZIndex>102</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.85417in</Left>
-        <Height>0.25in</Height>
-        <Value>DOB:</Value>
+        <Left>6.76042in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!co_borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox101">
-        <Top>3.91666in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox102">
+        <Top>3.77083in</Top>
+        <Width>0.89583in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3393,17 +3493,15 @@
         </Style>
         <ZIndex>101</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76042in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!co_borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.85417in</Left>
+        <Height>0.19792in</Height>
+        <Value>Last name:</Value>
       </Textbox>
-      <Textbox Name="textbox102">
-        <Top>3.91666in</Top>
-        <Width>0.89583in</Width>
+      <Textbox Name="textbox99">
+        <Top>3.57291in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3411,15 +3509,17 @@
         </Style>
         <ZIndex>100</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.85417in</Left>
-        <Height>0.25in</Height>
-        <Value>Last name:</Value>
+        <Left>6.76042in</Left>
+        <Height>0.1875in</Height>
+        <Value>=First(Fields!co_borrower_mname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox99">
-        <Top>3.65624in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox100">
+        <Top>3.57291in</Top>
+        <Width>0.89583in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3427,30 +3527,12 @@
         </Style>
         <ZIndex>99</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.76042in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!co_borrower_mname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
-      <Textbox Name="textbox100">
-        <Top>3.65624in</Top>
-        <Width>0.89583in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>98</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>5.85417in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Middle name:</Value>
       </Textbox>
       <Textbox Name="textbox97">
-        <Top>3.39583in</Top>
+        <Top>3.34375in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3459,14 +3541,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>97</ZIndex>
+        <ZIndex>98</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.76042in</Left>
-        <Height>0.25in</Height>
+        <Height>0.20833in</Height>
         <Value>=First(Fields!co_borrower_fname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox98">
-        <Top>3.39583in</Top>
+        <Top>3.34375in</Top>
         <Width>0.89583in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3477,17 +3559,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>96</ZIndex>
+        <ZIndex>97</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>5.85417in</Left>
-        <Height>0.25in</Height>
+        <Height>0.20833in</Height>
         <Value>First name:</Value>
       </Textbox>
       <Textbox Name="textbox93">
-        <Top>6.91666in</Top>
+        <Top>6.17708in</Top>
         <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>96</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!military_service_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox94">
+        <Top>6.17708in</Top>
+        <Width>1.21875in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3495,17 +3595,15 @@
         </Style>
         <ZIndex>95</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!military_service_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.36458in</Left>
+        <Height>0.19792in</Height>
+        <Value>Military Service:</Value>
       </Textbox>
-      <Textbox Name="textbox94">
-        <Top>6.91666in</Top>
-        <Width>1.21875in</Width>
+      <Textbox Name="textbox91">
+        <Top>5.96875in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3513,15 +3611,17 @@
         </Style>
         <ZIndex>94</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.36458in</Left>
-        <Height>0.25in</Height>
-        <Value>Military Service:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!borrower_occupation.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox91">
-        <Top>6.65625in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox92">
+        <Top>5.96875in</Top>
+        <Width>1.21875in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3529,30 +3629,12 @@
         </Style>
         <ZIndex>93</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!borrower_occupation.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
-      <Textbox Name="textbox92">
-        <Top>6.65625in</Top>
-        <Width>1.21875in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>92</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>3.36458in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>Occupation:</Value>
       </Textbox>
       <Textbox Name="textbox89">
-        <Top>6.39583in</Top>
+        <Top>5.76041in</Top>
         <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3561,14 +3643,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>91</ZIndex>
+        <ZIndex>92</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!borrower_marital_status_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox90">
-        <Top>6.39583in</Top>
+        <Top>5.76041in</Top>
         <Width>1.21875in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3579,14 +3661,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>90</ZIndex>
+        <ZIndex>91</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.36458in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>Marital Status:</Value>
       </Textbox>
       <Textbox Name="textbox87">
-        <Top>6.13541in</Top>
+        <Top>5.55208in</Top>
         <Width>1.19792in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3595,19 +3677,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>89</ZIndex>
+        <ZIndex>90</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!mother_maiden_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox88">
-        <Top>6.01041in</Top>
+        <Top>5.42708in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
           <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>89</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3.33333in</Left>
+        <Height>0.32292in</Height>
+        <Value>Mother's Maiden Name:</Value>
+      </Textbox>
+      <Textbox Name="textbox85">
+        <Top>5.21875in</Top>
+        <Width>1.15625in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3615,15 +3713,17 @@
         </Style>
         <ZIndex>88</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.375in</Height>
-        <Value>Mother's Maiden Name:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!gender_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox85">
-        <Top>5.75in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox86">
+        <Top>5.21875in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3631,17 +3731,15 @@
         </Style>
         <ZIndex>87</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!gender_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.33333in</Left>
+        <Height>0.19792in</Height>
+        <Value>Gender:</Value>
       </Textbox>
-      <Textbox Name="textbox86">
-        <Top>5.75in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox83">
+        <Top>5.01041in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3649,15 +3747,17 @@
         </Style>
         <ZIndex>86</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.25in</Height>
-        <Value>Gender:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!email_2.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox83">
-        <Top>5.48958in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox84">
+        <Top>5.01041in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3665,17 +3765,15 @@
         </Style>
         <ZIndex>85</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!email_2.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.33333in</Left>
+        <Height>0.19792in</Height>
+        <Value>Secondary Email:</Value>
       </Textbox>
-      <Textbox Name="textbox84">
-        <Top>5.48958in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox81">
+        <Top>4.81249in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3683,28 +3781,12 @@
         </Style>
         <ZIndex>84</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.25in</Height>
-        <Value>Secondary Email:</Value>
-      </Textbox>
-      <Textbox Name="textbox81">
-        <Top>5.22916in</Top>
-        <Width>1.15625in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>83</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!email_1.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox82">
-        <Top>5.22916in</Top>
+        <Top>4.81249in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3715,14 +3797,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>82</ZIndex>
+        <ZIndex>83</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.33333in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Primary Email:</Value>
       </Textbox>
       <Textbox Name="textbox79">
-        <Top>4.96875in</Top>
+        <Top>4.61458in</Top>
         <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3731,14 +3813,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>81</ZIndex>
+        <ZIndex>82</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!second_contact_no.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox80">
-        <Top>4.96875in</Top>
+        <Top>4.61458in</Top>
         <Width>1.35417in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3749,17 +3831,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>80</ZIndex>
+        <ZIndex>81</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.22916in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Secondary Contact#:</Value>
       </Textbox>
       <Textbox Name="textbox77">
-        <Top>4.70833in</Top>
+        <Top>4.40625in</Top>
         <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>80</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!primary_contact_no.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox78">
+        <Top>4.40625in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3767,17 +3867,15 @@
         </Style>
         <ZIndex>79</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!primary_contact_no.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.33333in</Left>
+        <Height>0.19792in</Height>
+        <Value>Primary Contact#:</Value>
       </Textbox>
-      <Textbox Name="textbox78">
-        <Top>4.70833in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox75">
+        <Top>4.19791in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3785,15 +3883,17 @@
         </Style>
         <ZIndex>78</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.25in</Height>
-        <Value>Primary Contact#:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!borrower_last4_SSN.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox75">
-        <Top>4.44791in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox76">
+        <Top>4.19791in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3801,17 +3901,15 @@
         </Style>
         <ZIndex>77</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!borrower_last4_SSN.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.33333in</Left>
+        <Height>0.19792in</Height>
+        <Value>Last 4 of SSN:</Value>
       </Textbox>
-      <Textbox Name="textbox76">
-        <Top>4.44791in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox73">
+        <Top>3.98958in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3819,15 +3917,17 @@
         </Style>
         <ZIndex>76</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.25in</Height>
-        <Value>Last 4 of SSN:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!borrower_DOB.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox73">
-        <Top>4.1875in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox74">
+        <Top>3.98958in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3835,17 +3935,15 @@
         </Style>
         <ZIndex>75</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!borrower_DOB.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.33333in</Left>
+        <Height>0.19792in</Height>
+        <Value>DOB:</Value>
       </Textbox>
-      <Textbox Name="textbox74">
-        <Top>4.1875in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox71">
+        <Top>3.78125in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3853,15 +3951,17 @@
         </Style>
         <ZIndex>74</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.25in</Height>
-        <Value>DOB:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox71">
-        <Top>3.92708in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox72">
+        <Top>3.78125in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3869,17 +3969,15 @@
         </Style>
         <ZIndex>73</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>3.33333in</Left>
+        <Height>0.19792in</Height>
+        <Value>Last name:</Value>
       </Textbox>
-      <Textbox Name="textbox72">
-        <Top>3.92708in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox69">
+        <Top>3.58333in</Top>
+        <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3887,15 +3985,17 @@
         </Style>
         <ZIndex>72</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
-        <Height>0.25in</Height>
-        <Value>Last name:</Value>
+        <Left>4.59375in</Left>
+        <Height>0.1875in</Height>
+        <Value>=First(Fields!borrower_mname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox69">
-        <Top>3.66666in</Top>
-        <Width>1.15625in</Width>
+      <Textbox Name="textbox70">
+        <Top>3.58333in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3903,30 +4003,12 @@
         </Style>
         <ZIndex>71</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.59375in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!borrower_mname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
-      <Textbox Name="textbox70">
-        <Top>3.66666in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>70</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>3.33332in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Middle name:</Value>
       </Textbox>
       <Textbox Name="textbox67">
-        <Top>3.40625in</Top>
+        <Top>3.36458in</Top>
         <Width>1.15625in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -3935,19 +4017,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>69</ZIndex>
+        <ZIndex>70</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.59375in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!borrower_fname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox68">
-        <Top>3.40625in</Top>
+        <Top>3.36458in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
           <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>69</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3.33332in</Left>
+        <Height>0.19792in</Height>
+        <Value>First name:</Value>
+      </Textbox>
+      <Textbox Name="textbox65">
+        <Top>6.39583in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3955,15 +4053,17 @@
         </Style>
         <ZIndex>68</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33332in</Left>
-        <Height>0.25in</Height>
-        <Value>First name:</Value>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!prim_res_est_mkt_value.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox65">
-        <Top>7.14583in</Top>
+      <Textbox Name="textbox66">
+        <Top>6.26041in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3971,17 +4071,15 @@
         </Style>
         <ZIndex>67</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!prim_res_est_mkt_value.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.33333in</Height>
+        <Value>Primary Residence Est. Mkt Value:</Value>
       </Textbox>
-      <Textbox Name="textbox66">
-        <Top>7.05208in</Top>
+      <Textbox Name="textbox63">
+        <Top>6.05208in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -3989,15 +4087,17 @@
         </Style>
         <ZIndex>66</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.375in</Height>
-        <Value>Primary Residence Est. Mkt Value:</Value>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!home_sale_price.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox63">
-        <Top>6.79166in</Top>
+      <Textbox Name="textbox64">
+        <Top>6.05208in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4005,17 +4105,15 @@
         </Style>
         <ZIndex>65</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!home_sale_price.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>Home Asking Price:</Value>
       </Textbox>
-      <Textbox Name="textbox64">
-        <Top>6.79166in</Top>
+      <Textbox Name="textbox61">
+        <Top>5.84375in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4023,15 +4121,17 @@
         </Style>
         <ZIndex>64</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Home Asking Price:</Value>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!realty_company.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox61">
-        <Top>6.53125in</Top>
+      <Textbox Name="textbox62">
+        <Top>5.84375in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4039,17 +4139,15 @@
         </Style>
         <ZIndex>63</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!realty_company.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>Realty Company:</Value>
       </Textbox>
-      <Textbox Name="textbox62">
-        <Top>6.53125in</Top>
+      <Textbox Name="textbox59">
+        <Top>5.63541in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4057,28 +4155,12 @@
         </Style>
         <ZIndex>62</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Realty Company:</Value>
-      </Textbox>
-      <Textbox Name="textbox59">
-        <Top>6.27083in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>61</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!for_sale_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox60">
-        <Top>6.27083in</Top>
+        <Top>5.63541in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4089,14 +4171,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>60</ZIndex>
+        <ZIndex>61</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.65625in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>For sale Indicator:</Value>
       </Textbox>
       <Textbox Name="textbox57">
-        <Top>6.01041in</Top>
+        <Top>5.42708in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4105,14 +4187,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>59</ZIndex>
+        <ZIndex>60</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!home_current_market_value.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox58">
-        <Top>6.01041in</Top>
+        <Top>5.42708in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4123,17 +4205,35 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>58</ZIndex>
+        <ZIndex>59</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.53125in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>Current Market Value:</Value>
       </Textbox>
       <Textbox Name="textbox55">
-        <Top>5.75in</Top>
+        <Top>5.21875in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>58</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!home_purchase_price.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox56">
+        <Top>5.21875in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4141,17 +4241,15 @@
         </Style>
         <ZIndex>57</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!home_purchase_price.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>Purchase Price:</Value>
       </Textbox>
-      <Textbox Name="textbox56">
-        <Top>5.75in</Top>
+      <Textbox Name="textbox53">
+        <Top>5.01041in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4159,28 +4257,12 @@
         </Style>
         <ZIndex>56</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Purchase Price:</Value>
-      </Textbox>
-      <Textbox Name="textbox53">
-        <Top>5.48958in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>55</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>=First(Fields!home_purchase_year.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox54">
-        <Top>5.48958in</Top>
+        <Top>5.01041in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4191,14 +4273,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>54</ZIndex>
+        <ZIndex>55</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.65625in</Left>
-        <Height>0.25in</Height>
+        <Height>0.19792in</Height>
         <Value>Purchase Year:</Value>
       </Textbox>
       <Textbox Name="textbox51">
-        <Top>5.22916in</Top>
+        <Top>4.81249in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4207,14 +4289,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>53</ZIndex>
+        <ZIndex>54</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!occupant_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox52">
-        <Top>5.22916in</Top>
+        <Top>4.81249in</Top>
         <Width>1.5in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4225,14 +4307,30 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>52</ZIndex>
+        <ZIndex>53</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.40625in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Number of Occupants:</Value>
       </Textbox>
       <Textbox Name="textbox49">
-        <Top>4.96875in</Top>
+        <Top>4.61458in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>52</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>1.91667in</Left>
+        <Height>0.1875in</Height>
+        <Value>=First(Fields!property_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox47">
+        <Top>4.40625in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4244,14 +4342,16 @@
         <ZIndex>51</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!property_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!owner_occupied_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox47">
-        <Top>4.70833in</Top>
+      <Textbox Name="textbox48">
+        <Top>4.40625in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4259,17 +4359,15 @@
         </Style>
         <ZIndex>50</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!owner_occupied_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>Owner Occupied:</Value>
       </Textbox>
-      <Textbox Name="textbox48">
-        <Top>4.70833in</Top>
+      <Textbox Name="textbox45">
+        <Top>4.19791in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4277,15 +4375,17 @@
         </Style>
         <ZIndex>49</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Owner Occupied:</Value>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!primary_residence_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox45">
-        <Top>4.44791in</Top>
+      <Textbox Name="textbox46">
+        <Top>4.19791in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4293,17 +4393,15 @@
         </Style>
         <ZIndex>48</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!primary_residence_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>Primary Residence:</Value>
       </Textbox>
-      <Textbox Name="textbox46">
-        <Top>4.44791in</Top>
+      <Textbox Name="textbox43">
+        <Top>3.98958in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4311,15 +4409,17 @@
         </Style>
         <ZIndex>47</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Primary Residence:</Value>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>= First(Fields!prop_state_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox43">
-        <Top>4.1875in</Top>
+      <Textbox Name="textbox44">
+        <Top>3.98958in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4327,17 +4427,15 @@
         </Style>
         <ZIndex>46</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>= First(Fields!prop_state_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>State,Zip</Value>
       </Textbox>
-      <Textbox Name="textbox44">
-        <Top>4.1875in</Top>
+      <Textbox Name="textbox41">
+        <Top>3.78125in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4345,15 +4443,17 @@
         </Style>
         <ZIndex>45</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>State,Zip</Value>
+        <Left>1.91667in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!prop_city.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox41">
-        <Top>3.92708in</Top>
+      <Textbox Name="textbox42">
+        <Top>3.78125in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4361,17 +4461,15 @@
         </Style>
         <ZIndex>44</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.91667in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!prop_city.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>0.65625in</Left>
+        <Height>0.19792in</Height>
+        <Value>City:</Value>
       </Textbox>
-      <Textbox Name="textbox42">
-        <Top>3.92708in</Top>
+      <Textbox Name="textbox39">
+        <Top>3.58333in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4379,28 +4477,12 @@
         </Style>
         <ZIndex>43</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>City:</Value>
-      </Textbox>
-      <Textbox Name="textbox39">
-        <Top>3.66666in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>42</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!prop_addr2.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox40">
-        <Top>3.66666in</Top>
+        <Top>3.58333in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4411,14 +4493,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>41</ZIndex>
+        <ZIndex>42</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.65625in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>Address 2:</Value>
       </Textbox>
       <Textbox Name="textbox38">
-        <Top>3.40625in</Top>
+        <Top>3.35417in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4427,14 +4509,14 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>40</ZIndex>
+        <ZIndex>41</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.91667in</Left>
-        <Height>0.25in</Height>
+        <Height>0.21875in</Height>
         <Value>=First(Fields!prop_addr1.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox37">
-        <Top>3.13541in</Top>
+        <Top>3.08333in</Top>
         <Width>1in</Width>
         <Style>
           <FontWeight>700</FontWeight>
@@ -4443,15 +4525,32 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>39</ZIndex>
+        <ZIndex>40</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>5.85417in</Left>
         <Height>0.25in</Height>
         <Value>Co-Borrower:</Value>
       </Textbox>
       <Textbox Name="textbox36">
-        <Top>3.14583in</Top>
+        <Top>3.09375in</Top>
         <Width>1.23958in</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>39</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3.33333in</Left>
+        <Height>0.25in</Height>
+        <Value>Borrower:</Value>
+      </Textbox>
+      <Textbox Name="textbox35">
+        <Top>3.09375in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontWeight>700</FontWeight>
           <TextAlign>Right</TextAlign>
@@ -4462,12 +4561,12 @@
         </Style>
         <ZIndex>38</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>3.33333in</Left>
+        <Left>0.65625in</Left>
         <Height>0.25in</Height>
-        <Value>Borrower:</Value>
+        <Value>Property:</Value>
       </Textbox>
-      <Textbox Name="textbox35">
-        <Top>3.14583in</Top>
+      <Textbox Name="textbox34">
+        <Top>0.98959in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontWeight>700</FontWeight>
@@ -4479,41 +4578,24 @@
         </Style>
         <ZIndex>37</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Property:</Value>
-      </Textbox>
-      <Textbox Name="textbox34">
-        <Top>0.72917in</Top>
-        <Width>1.25in</Width>
-        <Style>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>36</ZIndex>
-        <CanGrow>true</CanGrow>
         <Left>0.63542in</Left>
         <Height>0.25in</Height>
         <Value>Loan Details:</Value>
       </Textbox>
       <Line Name="line2">
-        <Top>3.11459in</Top>
-        <Width>7.5in</Width>
+        <Top>3.00001in</Top>
+        <Width>7.82292in</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
         </Style>
-        <ZIndex>35</ZIndex>
-        <Left>0.61459in</Left>
+        <ZIndex>36</ZIndex>
+        <Left>0.27084in</Left>
         <Height>0in</Height>
       </Line>
       <Textbox Name="textbox33">
-        <Top>3.40625in</Top>
+        <Top>3.35417in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4524,14 +4606,31 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>34</ZIndex>
+        <ZIndex>35</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.65625in</Left>
-        <Height>0.25in</Height>
+        <Height>0.21875in</Height>
         <Value>Address 1:</Value>
       </Textbox>
       <Textbox Name="textbox32">
-        <Top>2.55208in</Top>
+        <Top>2.52083in</Top>
+        <Width>1.375in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>34</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>6.61459in</Left>
+        <Height>0.1875in</Height>
+        <Value>=First(Fields!current_servicer_FDIC_NCUA_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+      </Textbox>
+      <Textbox Name="textbox31">
+        <Top>2.30209in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4544,11 +4643,11 @@
         <ZIndex>33</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!current_servicer_FDIC_NCUA_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.20833in</Height>
+        <Value>=First(Fields!orginal_loan_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox31">
-        <Top>2.29167in</Top>
+      <Textbox Name="textbox30">
+        <Top>2.09375in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4561,11 +4660,11 @@
         <ZIndex>32</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!orginal_loan_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.20833in</Height>
+        <Value>=First(Fields!orig_mortgage_co_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox30">
-        <Top>2.03125in</Top>
+      <Textbox Name="textbox29">
+        <Top>1.875in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4578,11 +4677,11 @@
         <ZIndex>31</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!orig_mortgage_co_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.20833in</Height>
+        <Value>=First(Fields!orig_mortgage_co_FDIC_NCUA_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox29">
-        <Top>1.77083in</Top>
+      <Textbox Name="textbox28">
+        <Top>1.66667in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4595,11 +4694,11 @@
         <ZIndex>30</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!orig_mortgage_co_FDIC_NCUA_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!originating_lender_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox28">
-        <Top>1.51042in</Top>
+      <Textbox Name="textbox27">
+        <Top>1.45833in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4612,10 +4711,10 @@
         <ZIndex>29</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!originating_lender_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!orig_loan_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox27">
+      <Textbox Name="textbox26">
         <Top>1.25in</Top>
         <Width>1.375in</Width>
         <Style>
@@ -4629,12 +4728,12 @@
         <ZIndex>28</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!orig_loan_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!current_loan_balance_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox26">
-        <Top>0.98958in</Top>
-        <Width>1.375in</Width>
+      <Textbox Name="textbox25">
+        <Top>2.09375in</Top>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <TextAlign>Left</TextAlign>
@@ -4645,12 +4744,12 @@
         </Style>
         <ZIndex>27</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>6.61459in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!current_loan_balance_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>2.02084in</Left>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!loan_1st_2nd_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox25">
-        <Top>1.77083in</Top>
+      <Textbox Name="textbox24">
+        <Top>2.30209in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4663,11 +4762,11 @@
         <ZIndex>26</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!loan_1st_2nd_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.20833in</Height>
+        <Value>=First(Fields!arm_reset_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox24">
-        <Top>2.03125in</Top>
+      <Textbox Name="textbox23">
+        <Top>2.52084in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4680,11 +4779,11 @@
         <ZIndex>25</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!arm_reset_ind.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!term_length_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox23">
-        <Top>2.29167in</Top>
+      <Textbox Name="textbox22">
+        <Top>2.72917in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4697,11 +4796,11 @@
         <ZIndex>24</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.02084in</Left>
-        <Height>0.25in</Height>
+        <Height>0.1875in</Height>
         <Value>=First(Fields!term_length_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox22">
-        <Top>2.55208in</Top>
+      <Textbox Name="textbox21">
+        <Top>2.73958in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4713,12 +4812,12 @@
         </Style>
         <ZIndex>23</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!term_length_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>6.61459in</Left>
+        <Height>0.17708in</Height>
+        <Value>=First(Fields!current_loan_balance_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox21">
-        <Top>2.8125in</Top>
+      <Textbox Name="textbox20">
+        <Top>1.66667in</Top>
         <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4731,12 +4830,12 @@
         <ZIndex>22</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!current_loan_balance_amt.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!mortgage_type_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox20">
-        <Top>1.51042in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox19">
+        <Top>1.45833in</Top>
+        <Width>2.36458in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <TextAlign>Left</TextAlign>
@@ -4748,12 +4847,12 @@
         <ZIndex>21</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!mortgage_type_cd.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!Servicer_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox19">
+      <Textbox Name="textbox18">
         <Top>1.25in</Top>
-        <Width>2.36458in</Width>
+        <Width>1.25in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <TextAlign>Left</TextAlign>
@@ -4765,15 +4864,16 @@
         <ZIndex>20</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!Servicer_name.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Height>0.19792in</Height>
+        <Value>=First(Fields!acct_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
-      <Textbox Name="textbox18">
-        <Top>0.98958in</Top>
-        <Width>1.25in</Width>
+      <Textbox Name="textbox11">
+        <Top>1.45833in</Top>
+        <Width>1.5in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Left</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -4781,12 +4881,12 @@
         </Style>
         <ZIndex>19</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>2.02084in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!acct_num.Value, "dst_CounselingSummary_get_FC_detail")</Value>
+        <Left>5.10417in</Left>
+        <Height>0.19792in</Height>
+        <Value>Original Loan Amount:</Value>
       </Textbox>
-      <Textbox Name="textbox11">
-        <Top>1.25in</Top>
+      <Textbox Name="textbox12">
+        <Top>1.66667in</Top>
         <Width>1.5in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4800,12 +4900,12 @@
         <ZIndex>18</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>5.10417in</Left>
-        <Height>0.25in</Height>
-        <Value>Original Loan Amount:</Value>
+        <Height>0.19792in</Height>
+        <Value>Originating Lender:</Value>
       </Textbox>
-      <Textbox Name="textbox12">
-        <Top>1.51042in</Top>
-        <Width>1.5in</Width>
+      <Textbox Name="textbox13">
+        <Top>1.875in</Top>
+        <Width>1.875in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -4817,12 +4917,12 @@
         </Style>
         <ZIndex>17</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.10417in</Left>
-        <Height>0.25in</Height>
-        <Value>Originating Lender:</Value>
+        <Left>4.72917in</Left>
+        <Height>0.20833in</Height>
+        <Value>Orig. Mortgage Co FDIC/NCUA:</Value>
       </Textbox>
-      <Textbox Name="textbox13">
-        <Top>1.77083in</Top>
+      <Textbox Name="textbox14">
+        <Top>2.09375in</Top>
         <Width>1.875in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4836,11 +4936,11 @@
         <ZIndex>16</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.72917in</Left>
-        <Height>0.25in</Height>
-        <Value>Orig. Mortgage Co FDIC/NCUA:</Value>
+        <Height>0.20833in</Height>
+        <Value>Orig. Mortgage Co Name:</Value>
       </Textbox>
-      <Textbox Name="textbox14">
-        <Top>2.03125in</Top>
+      <Textbox Name="textbox15">
+        <Top>2.30209in</Top>
         <Width>1.875in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4854,11 +4954,11 @@
         <ZIndex>15</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.72917in</Left>
-        <Height>0.25in</Height>
-        <Value>Orig. Mortgage Co Name:</Value>
+        <Height>0.20833in</Height>
+        <Value>Orig. Loan Number:</Value>
       </Textbox>
-      <Textbox Name="textbox15">
-        <Top>2.29167in</Top>
+      <Textbox Name="textbox16">
+        <Top>2.52083in</Top>
         <Width>1.875in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4872,12 +4972,12 @@
         <ZIndex>14</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.72917in</Left>
-        <Height>0.25in</Height>
-        <Value>Orig. Loan Number:</Value>
+        <Height>0.20833in</Height>
+        <Value>Current Servicer FDIC/NCUA:</Value>
       </Textbox>
-      <Textbox Name="textbox16">
-        <Top>2.55208in</Top>
-        <Width>1.875in</Width>
+      <Textbox Name="textbox17">
+        <Top>1.25in</Top>
+        <Width>1.5in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -4889,13 +4989,13 @@
         </Style>
         <ZIndex>13</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.72917in</Left>
-        <Height>0.25in</Height>
-        <Value>Current Servicer FDIC/NCUA:</Value>
+        <Left>5.10417in</Left>
+        <Height>0.19792in</Height>
+        <Value>Current Loan Balance:</Value>
       </Textbox>
-      <Textbox Name="textbox17">
-        <Top>0.98958in</Top>
-        <Width>1.5in</Width>
+      <Textbox Name="textbox10">
+        <Top>2.73958in</Top>
+        <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -4907,12 +5007,12 @@
         </Style>
         <ZIndex>12</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>5.10417in</Left>
-        <Height>0.25in</Height>
-        <Value>Current Loan Balance:</Value>
+        <Left>5.22917in</Left>
+        <Height>0.17708in</Height>
+        <Value>Loan Status:</Value>
       </Textbox>
-      <Textbox Name="textbox10">
-        <Top>2.8125in</Top>
+      <Textbox Name="textbox9">
+        <Top>1.45833in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4926,11 +5026,11 @@
         <ZIndex>11</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>Loan Status:</Value>
+        <Height>0.19792in</Height>
+        <Value>Servicer:</Value>
       </Textbox>
-      <Textbox Name="textbox9">
-        <Top>1.25in</Top>
+      <Textbox Name="textbox8">
+        <Top>1.66667in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4944,12 +5044,12 @@
         <ZIndex>10</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>Servicer:</Value>
+        <Height>0.19792in</Height>
+        <Value>Mortgage type:</Value>
       </Textbox>
-      <Textbox Name="textbox8">
-        <Top>1.51042in</Top>
-        <Width>1.375in</Width>
+      <Textbox Name="textbox7">
+        <Top>2.09375in</Top>
+        <Width>1.5in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -4961,13 +5061,13 @@
         </Style>
         <ZIndex>9</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>Mortgage type:</Value>
+        <Left>0.51042in</Left>
+        <Height>0.19792in</Height>
+        <Value>Loan 1st 2nd Indicator:</Value>
       </Textbox>
-      <Textbox Name="textbox7">
-        <Top>1.77083in</Top>
-        <Width>1.5in</Width>
+      <Textbox Name="textbox6">
+        <Top>2.30209in</Top>
+        <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -4979,12 +5079,12 @@
         </Style>
         <ZIndex>8</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.51042in</Left>
-        <Height>0.25in</Height>
-        <Value>Loan 1st 2nd Indicator:</Value>
+        <Left>0.63542in</Left>
+        <Height>0.20833in</Height>
+        <Value>ARM Reset Indicator:</Value>
       </Textbox>
-      <Textbox Name="textbox6">
-        <Top>2.03125in</Top>
+      <Textbox Name="textbox4">
+        <Top>2.52084in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -4998,11 +5098,11 @@
         <ZIndex>7</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>ARM Reset Indicator:</Value>
+        <Height>0.19792in</Height>
+        <Value>Interest Rate:</Value>
       </Textbox>
-      <Textbox Name="textbox4">
-        <Top>2.29167in</Top>
+      <Textbox Name="textbox3">
+        <Top>2.72917in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -5016,11 +5116,12 @@
         <ZIndex>6</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>Interest Rate:</Value>
+        <Height>0.1875in</Height>
+        <Value>Term:</Value>
       </Textbox>
-      <Textbox Name="textbox3">
-        <Top>2.55208in</Top>
+      <Textbox Name="textbox2">
+        <rd:DefaultName>textbox2</rd:DefaultName>
+        <Top>1.25in</Top>
         <Width>1.375in</Width>
         <Style>
           <FontSize>8pt</FontSize>
@@ -5034,17 +5135,16 @@
         <ZIndex>5</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>Term:</Value>
+        <Height>0.19792in</Height>
+        <Value>Loan Number</Value>
       </Textbox>
-      <Textbox Name="textbox2">
-        <rd:DefaultName>textbox2</rd:DefaultName>
-        <Top>0.98958in</Top>
-        <Width>1.375in</Width>
+      <Textbox Name="textbox5">
+        <rd:DefaultName>textbox5</rd:DefaultName>
+        <Top>0.48958in</Top>
+        <Width>1.86458in</Width>
         <Style>
-          <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
+          <TextAlign>Left</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -5052,31 +5152,13 @@
         </Style>
         <ZIndex>4</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.63542in</Left>
-        <Height>0.25in</Height>
-        <Value>Loan Number</Value>
-      </Textbox>
-      <Textbox Name="textbox5">
-        <rd:DefaultName>textbox5</rd:DefaultName>
-        <Top>0.36458in</Top>
-        <Width>2.5625in</Width>
-        <Style>
-          <FontStyle>Italic</FontStyle>
-          <TextAlign>Left</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>3</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>0.625in</Left>
+        <Left>3.20833in</Left>
         <Height>0.20834in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Sent date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>
-        <Top>0.04167in</Top>
+        <Top>0.15625in</Top>
         <Width>2.90625in</Width>
         <Style>
           <Color>MidnightBlue</Color>
@@ -5087,15 +5169,33 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>2</ZIndex>
+        <ZIndex>3</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.625in</Left>
+        <Left>2.66667in</Left>
         <Height>0.30208in</Height>
-        <Value>Counseling Summary</Value>
+        <Value>HPF Counseling Summary</Value>
       </Textbox>
       <Textbox Name="textbox205">
-        <Top>4.96875in</Top>
+        <Top>4.61458in</Top>
         <Width>1.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.65625in</Left>
+        <Height>0.1875in</Height>
+        <Value>Property Code:</Value>
+      </Textbox>
+      <Textbox Name="textbox206">
+        <Top>8.66667in</Top>
+        <Width>1.29167in</Width>
         <Style>
           <FontSize>8pt</FontSize>
           <FontWeight>700</FontWeight>
@@ -5107,29 +5207,22 @@
         </Style>
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.65625in</Left>
-        <Height>0.25in</Height>
-        <Value>Property Code:</Value>
-      </Textbox>
-      <Textbox Name="textbox206">
-        <Top>9.4375in</Top>
-        <Width>1.29167in</Width>
-        <Style>
-          <FontSize>8pt</FontSize>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Right</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <CanGrow>true</CanGrow>
         <Left>3.30208in</Left>
-        <Height>0.36459in</Height>
+        <Height>0.35417in</Height>
         <Value>Worked w/Another Agency:</Value>
       </Textbox>
+      <Image Name="image1">
+        <Sizing>Fit</Sizing>
+        <Top>0.13542in</Top>
+        <Width>1.85417in</Width>
+        <Source>External</Source>
+        <Style />
+        <Left>0.15625in</Left>
+        <Height>0.39583in</Height>
+        <Value>image.hpf_logo.gif</Value>
+      </Image>
     </ReportItems>
-    <Height>19.86458in</Height>
+    <Height>21.11458in</Height>
   </Body>
   <Language>en-US</Language>
   <PageFooter>
