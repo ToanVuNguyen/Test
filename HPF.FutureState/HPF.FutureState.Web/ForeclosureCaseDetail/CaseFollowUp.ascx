@@ -149,7 +149,7 @@
 <script type="text/javascript" language="javascript">
     var msfWARN0450 = '<%= msgWARN0450 %>';    
     var status = document.getElementById('<%=hdf_Confirm.ClientID %>');
-    
+    var confirmFlag = true;
     var followUpDate = document.getElementById('<%=txt_FollowUpDt.ClientID %>');
     var creditScore = document.getElementById('<%=txt_CreditScore.ClientID %>');
     var followUpSource = document.getElementById('<%=ddl_FollowUpSource.ClientID %>');
@@ -226,11 +226,14 @@
         delinqencyStatus.value = "";
         followUpComment.value = "";
         stillInHome.value = "";
-        CaseFollowUp.value = "";
+        CaseFollowUp.value = "";     
+        confirmFlag = false;   
     }
     
     function ConfirmEdit()
     {
+        if(confirmFlag = true)
+            return true;   
         caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
             , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
         if(CompareCaseFollowUpObject(caseFollowUpAfter))

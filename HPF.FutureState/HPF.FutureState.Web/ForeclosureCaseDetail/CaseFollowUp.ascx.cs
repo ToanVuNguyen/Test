@@ -167,6 +167,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         protected void btn_New_Click(object sender, EventArgs e)
         {
             hfAction.Value = ACTION_INSERT;
+            grd_FollowUpList.SelectedIndex = -1;
             GenerateDefaultData();
         }
 
