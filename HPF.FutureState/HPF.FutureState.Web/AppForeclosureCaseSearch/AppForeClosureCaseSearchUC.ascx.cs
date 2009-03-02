@@ -334,24 +334,21 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblcounseled = e.Row.FindControl("lblCounseled") as Label;
-                if (lblcounseled.Text == string.Empty) return;
-                DateTime datecounseled = DateTime.Parse(lblcounseled.Text);
-                //datecompare is early than today 1 year.
-                DateTime datecompare = DateTime.Today.AddYears(-1);
-                int result = DateTime.Compare(datecompare, datecounseled);
-                //datecompare is later than datecounseled--> counseled <1 yr
-                if (result > 0 || datecounseled == null) lblcounseled.Text = ">1 yr";
-                //datecompare is earlier than datecounseled--> counseled >1 yr
-                else lblcounseled.Text = "<1 yr";
-
-                //Case complete date
-                Label lblcasecompletedate = e.Row.FindControl("lblCaseCompleteDate") as Label;
-                string completedt = lblcasecompletedate.Text;
-                string mindt = DateTime.MinValue.ToShortDateString();
-                DateTime completedate = Convert.ToDateTime(lblcasecompletedate.Text);
-                DateTime mindate = DateTime.MinValue;
-                if (DateTime.Compare(completedate, mindate) == 0)
-                    lblcasecompletedate.Text = "";
+                if (lblcounseled.Text == string.Empty)
+                    lblcounseled.Text = "<1 yr";
+                else
+                {
+                    DateTime datecounseled = DateTime.Parse(lblcounseled.Text);
+                    //datecompare is early than today 1 year.
+                    DateTime datecompare = DateTime.Today.AddYears(-1);
+                    int result = DateTime.Compare(datecompare, datecounseled);
+                    //datecompare is later than datecounseled--> counseled <1 yr
+                    if (result <= 0)
+                        lblcounseled.Text = "<1 yr";
+                    //datecompare is earlier than datecounseled--> counseled >1 yr
+                    else
+                        lblcounseled.Text = ">1 yr";
+                }                
             }
         }
         /// <summary>
