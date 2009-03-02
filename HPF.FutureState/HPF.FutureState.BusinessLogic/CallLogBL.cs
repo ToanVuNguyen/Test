@@ -100,13 +100,13 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();            
                       
             if (!referenceCode.Validate(ReferenceCode.CALL_SOURCE_CODE, aCallLog.CallSourceCd))
-                errorList.Add(new ExceptionMessage(){ErrorCode="ERROR", Message = "Call source code is not valid"});
+                errorList.AddException(ErrorMessages.ERR0358);
 
             if (!referenceCode.Validate(ReferenceCode.FINAL_DISPO_CD, aCallLog.FinalDispoCd))
-                errorList.AddExceptionMessage(ErrorMessages.ERR0355, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0355));
+                errorList.AddException(ErrorMessages.ERR0355);
 
             if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, aCallLog.LoanDelinqStatusCd))
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Loan Delinq status code is not valid" });
+                errorList.AddException(ErrorMessages.ERR0359);
             
             
             return errorList;
@@ -129,11 +129,11 @@ namespace HPF.FutureState.BusinessLogic
             if (aCallLog.CallCenterID.HasValue && callCenterID == 0)
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "CallCenterID does not exist"});
             if (aCallLog.PrevAgencyId.HasValue && prevAgencyID == 0)
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "PrevAgencyID does not exist"});
+                errorList.AddException(ErrorMessages.ERR0360);
             if (aCallLog.ServicerId.HasValue && servicerID == 0)
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "ServicerId does not exist" });
+                errorList.AddException(ErrorMessages.ERR0361);
             if (aCallLog.SelectedAgencyId.HasValue && selectedAgencyId == 0)
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "SelectedAgencyID does not exist" });
+                errorList.AddException(ErrorMessages.ERR0362);
             return errorList;
         }
 
@@ -178,7 +178,7 @@ namespace HPF.FutureState.BusinessLogic
             {                                
                 TimeSpan sp = new TimeSpan();
                 if (aCallLog.StartDate.Value.TimeOfDay == sp && aCallLog.EndDate.Value.TimeOfDay == sp)
-                    errorList.AddExceptionMessage(ErrorMessages.ERR0354, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0354));
+                    errorList.AddException(ErrorMessages.ERR0354);
             }            
             return errorList;
         }
@@ -199,7 +199,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 if (string.IsNullOrEmpty(aCallLog.OtherServicerName))
                 {
-                    errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name is required" });
+                    errorList.AddException(ErrorMessages.ERR0357);
                     return errorList;
                 }
 
