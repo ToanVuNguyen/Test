@@ -59,6 +59,14 @@
       <FullPath>rpt_IncompletedCases.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_InvoiceExportFile_FIS_detail.rdl</Name>
+      <FullPath>rpt_InvoiceExportFile_FIS_detail.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_InvoiceExportFile_FIS_header.rdl</Name>
+      <FullPath>rpt_InvoiceExportFile_FIS_header.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_InvoiceExportFile_HPFStandard.rdl</Name>
       <FullPath>rpt_InvoiceExportFile_HPFStandard.rdl</FullPath>
     </ProjectItem>
@@ -78,23 +86,15 @@
       <Name>rpt_UnbilledCaseReport.rdl</Name>
       <FullPath>rpt_UnbilledCaseReport.rdl</FullPath>
     </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_InvoiceExportFile_FIS_detail.rdl</Name>
-      <FullPath>rpt_InvoiceExportFile_FIS_detail.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_InvoiceExportFile_FIS_header.rdl</Name>
-      <FullPath>rpt_InvoiceExportFile_FIS_header.rdl</FullPath>
-    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
       <Name>Debug</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://localhost/reports</TargetServerURL>
-        <TargetFolder>HPF_report</TargetFolder>
-        <TargetDataSourceFolder>Data Sources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:8088/</TargetServerURL>
+        <TargetFolder>http://hpf-01:8088/Reports/ReportsLibrary/Reports</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:8088/Reports/ReportsLibrary/DataSources</TargetDataSourceFolder>
       </Options>
     </Configuration>
     <Configuration>
@@ -109,9 +109,9 @@
       <Name>Production</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://localhost/ReportServer</TargetServerURL>
-        <TargetFolder>HPF_report</TargetFolder>
-        <TargetDataSourceFolder>Data Sources</TargetDataSourceFolder>
+        <TargetServerURL>http://hpf-01:8088/</TargetServerURL>
+        <TargetFolder>http://hpf-01:8088/Reports/ReportsLibrary/Reports</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:8088/Reports/ReportsLibrary/DataSources</TargetDataSourceFolder>
         <StartItem>rpt_CaseSource.rdl</StartItem>
       </Options>
     </Configuration>
