@@ -1085,7 +1085,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";            
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            foreclosureCaseSet.ForeclosureCase.DuplicateInd = "N";
             target._workingUserID = working_user_id;
             target.InsertForeclosureCaseSet(foreclosureCaseSet);            
             int fcId = GetForeclosureCaseId();
@@ -1125,13 +1126,14 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("TRUE"); // TODO: Initialize to an appropriate value
+            foreclosureCaseSet.ForeclosureCase.DuplicateInd = "N";
             target.InitiateTransaction();
             target._workingUserID = "HPF";
             target.InsertForeclosureCaseSet(foreclosureCaseSet);
             target.CompleteTransaction();
             int fcId = GetForeclosureCaseId();
             foreclosureCaseSet.ForeclosureCase.FcId = fcId;
-            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";
+            foreclosureCaseSet.ForeclosureCase.AgencyCaseNum = "Acency Case Num Test";            
             #region CaseLoan
             CaseLoanDTOCollection caseLoanCollection = new CaseLoanDTOCollection();
             CaseLoanDTO caseLoanDTO = new CaseLoanDTO();
@@ -1707,7 +1709,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.DfltReason2ndCd = "18";
             foreclosureCase.HudTerminationReasonCd = "1";
             foreclosureCase.HudOutcomeCd = "3";
-            foreclosureCase.CounselingDurationCd = "<30 minutes";            
+            foreclosureCase.CounselingDurationCd = "30-59";            
             foreclosureCase.SummarySentOtherCd = "Phone";            
             foreclosureCase.MilitaryServiceCd = "ACTV";
             foreclosureCase.ContactZip = "12345";
