@@ -184,16 +184,5 @@
       
       <BudgetSetId></BudgetSetId>-->
     </BudgetItem>
-  </BudgetItemSet>
-  <ActivityLogSet>
-    <ActivityLog>
-      <ActivityLogId>1</ActivityLogId>
-      <FcId></FcId>
-      <ActivityCd>1</ActivityCd>
-      <ActivityDt>11/11/2008</ActivityDt>
-      <ActivityNote></ActivityNote>
-      <CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
-    </ActivityLog>
-  </ActivityLogSet>
+  </BudgetItemSet>  
 </ForeclosureCaseSet>  
