@@ -147,8 +147,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropFundingSource.DataTextField = "FundingSourceName";
             dropFundingSource.DataSource = fundingSourceCollection;
             dropFundingSource.DataBind();
-            //dropFundingSource.Items.Remove(dropFundingSource.Items.FindByText("ALL"));
-            //dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
+            dropFundingSource.Items.Remove(dropFundingSource.Items.FindByValue("-1"));
+            dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
             //first time
             if (Session["fundingSourceId"] != null && Session["IvoiceCaseSearchCriteria"] == null)
             {
@@ -419,7 +419,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             else
             {
                 //Check for error 0564 here
-                if (!CheckOneNonServicerFundingSourceOption())
+                if (!CheckOneNonServicerFundingSourceOption()&&dropFundingSource.SelectedValue!="-1")
                 {
                     ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0564);
                     ex.ExceptionMessages.Add(exMes);
