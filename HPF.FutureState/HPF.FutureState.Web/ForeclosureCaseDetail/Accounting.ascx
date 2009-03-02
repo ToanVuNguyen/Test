@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Accounting.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Accounting" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 <div style="overflow:auto; height:400px;">
 
     <table  width="100%">
@@ -95,3 +96,30 @@
  <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
          Width="100px" onclick="btnSave_Click"  />
  </div>
+<script type="text/javascript" language="javascript">
+    var neverPayReason = document.getElementById('<%=ddlNeverPayReason.ClientID %>');
+    var neverBillReason = document.getElementById('<%=ddlNerverBillReason.ClientID %>');
+    var forecloseCase = function(neverPayReason, neverBillReason) {
+        this.neverPayReason = neverPayReason;
+        this.neverBillReason= neverBillReason;
+    }
+    var foreclosureCaseBefore = new forecloseCase(neverPayReason.value, neverBillReason.value);
+    var foreclosureCaseAfter = new forecloseCase();
+    TabControl.onChanged = function() {
+    foreclosureCaseAfter = new forecloseCase(neverPayReason.value, neverBillReason.value);
+    
+    if (ComparePaymentObject(foreclosureCaseAfter)) {
+            return (confirm('Your data is changed, You do not want to save it. ') );
+        }
+        return true;
+    }
+    function ComparePaymentObject(foreclosureCaseAfter) {
+        if (foreclosureCaseAfter.neverPayReason != foreclosureCaseBefore.neverPayReason
+            || foreclosureCaseAfter.neverBillReason != foreclosureCaseBefore.neverBillReason
+        )
+            return true;
+        else
+            return false;
+    }
+</script>
+

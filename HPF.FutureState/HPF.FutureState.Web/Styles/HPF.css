@@ -209,7 +209,8 @@ h2
 
 .SelectedRowStyle
 {
-    background-color:#8FC4F6;
+    background-color:#D1DDF1;
+    color:#333333;
 }
 .AlternatingRowStyle
 {

@@ -63,7 +63,6 @@
                             <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
-                            <SelectedRowStyle BackColor="#D1DDF1"  ForeColor="#333333" />
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />

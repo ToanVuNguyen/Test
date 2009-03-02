@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseDetail.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.ForeclosureCaseDetail" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+  <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 
 <style type="text/css">
     .style1
@@ -920,3 +922,45 @@
     </tr>
    
 </table>
+<script type="text/javascript" language="javascript">
+    var duplicate= document.getElementById('<%=ddlDuplicate.ClientID %>');
+    var agency = document.getElementById('<%=ddlAgency.ClientID %>');
+    var doNotCall = document.getElementById('<%=ddlNotCall.ClientID %>');
+    var newsLetter=document.getElementById('<%=ddlNewsLetter.ClientID %>');
+    var survey=document.getElementById('<%=ddlServey.ClientID %>');
+    var hpfMediaConfirmation=document.getElementById('<%=ddlMediaCondirmation.ClientID %>');
+    var hpfSuccessStory=document.getElementById('<%=lblSuccessStory.ClientID %>');
+    var detailCase = function(duplicate,agency,doNotCall,newsLetter,survey,hpfMediaConfirmation,hpfSuccessStory) {
+        this.duplicate = duplicate;
+        this.agency= agency;
+        this.doNotCall=doNotCall;
+        this.newsLetter=newsLetter;
+        this.survey=survey;
+        this.hpfMediaConfirmation=hpfMediaConfirmation;
+        this.hpfSuccessStory=hpfSuccessStory;
+    }
+    var detailCaseBefore = new detailCase(duplicate.value,agency.value,doNotCall.value,newsLetter.value,survey.value,hpfMediaConfirmation.value,hpfSuccessStory.value);
+    var detailCaseAfter = new detailCase();
+    TabControl.onChanged = function() {
+        detailCaseAfter = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
+
+        if (ComparePaymentObject(detailCaseAfter)) {
+            return (confirm('Your data is changed, You do not want to save it.'));
+        }
+        return true;
+    }
+    function ComparePaymentObject(detailCaseAfter) {
+        if (detailCaseAfter.duplicate != detailCaseBefore.duplicate
+            || detailCaseAfter.agency != detailCaseBefore.agency
+            || detailCaseAfter.doNotCall != detailCaseBefore.doNotCall
+            || detailCaseAfter.newsLetter != detailCaseBefore.newsLetter
+            || detailCaseAfter.survey != detailCaseBefore.survey
+            || detailCaseAfter.hpfMediaConfirmation != detailCaseBefore.hpfMediaConfirmation
+            || detailCaseAfter.hpfSuccessStory != detailCaseBefore.hpfSuccessStory
+        )
+            return true;
+        else
+            return false;
+    }
+</script>
+
