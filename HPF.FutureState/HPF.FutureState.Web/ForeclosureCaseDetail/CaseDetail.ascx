@@ -760,7 +760,7 @@
                                      Loan Default Reason Notes:</td>
                                  <td class="Control">
                                      <asp:TextBox ID="txtReasonNote" runat="server" Rows="3" Width="100%" Height="56px" 
-                                         TextMode="MultiLine" CssClass="Text"></asp:TextBox>
+                                         TextMode="MultiLine" CssClass="Text" Enabled="false"></asp:TextBox>
                                  </td>
                              </tr>
                              <tr>
@@ -768,7 +768,7 @@
                                      Action Item Notes:</td>
                                  <td class="Control">
                                      <asp:TextBox ID="txtItemNotes" runat="server" Rows="3" Width="100%" 
-                                         Height="56px" TextMode="MultiLine" CssClass="Text"></asp:TextBox>
+                                         Height="56px" TextMode="MultiLine" CssClass="Text" Enabled="false"></asp:TextBox>
                                  </td>
                              </tr>
                              <tr>
@@ -776,7 +776,7 @@
                                      FollowUp Notes:</td>
                                  <td class="Control">
                                      <asp:TextBox ID="txtFollowUpNotes" runat="server" Rows="3" Width="100%" MaxLength="800" Height="56px" 
-                                         TextMode="MultiLine" CssClass="Text"></asp:TextBox>
+                                         TextMode="MultiLine" CssClass="Text" Enabled="false"></asp:TextBox>
                                  </td>
                              </tr>
                          </table>

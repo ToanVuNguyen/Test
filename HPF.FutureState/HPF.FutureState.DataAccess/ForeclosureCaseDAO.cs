@@ -200,7 +200,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.HouseholdGrossAnnualIncomeAmt = ConvertToDouble(reader["household_gross_annual_income_amt"]);
                         returnObject.IntakeCreditScore = ConvertToString(reader["intake_credit_score"]);
                         returnObject.IntakeCreditBureauCd = ConvertToString(reader["intake_credit_bureau_cd"]);
-
+                        returnObject.LoanList = ConvertToString(reader["loan_list"]);
                         #endregion
                     }
                     reader.Close();
@@ -220,9 +220,6 @@ namespace HPF.FutureState.DataAccess
             return returnObject;
 
         }
-
-
-
         /// <summary>
         /// return all search results retrieved from database
         /// </summary>
@@ -257,7 +254,6 @@ namespace HPF.FutureState.DataAccess
                 results = new ForeclosureCaseSearchResult();
                 if (reader.HasRows)
                 {
-                    
                     while (reader.Read())
                     {
                         #region set value for ForeclosureCaseWSDTO
@@ -291,7 +287,6 @@ namespace HPF.FutureState.DataAccess
                         item.CaseLoanID = ConvertToString(reader["case_loan_id"]);
                         item.Counseled = GetCounseledProperty(item.CompletedDt);
                         #endregion
-
                         results.Add(item);
                     }
                     reader.Close();
@@ -309,7 +304,6 @@ namespace HPF.FutureState.DataAccess
             }
             return results;
         }
-
         private string GenerateWhereClause(ForeclosureCaseSearchCriteriaDTO searchCriteria)
         {
             StringBuilder whereClause = new StringBuilder();
@@ -327,7 +321,6 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((string.IsNullOrEmpty(searchCriteria.Last4_SSN)) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
             whereClause.Append((string.IsNullOrEmpty(searchCriteria.LoanNumber)) ? " AND case_loan.loan_1st_2nd_cd = '1st'" : " AND case_loan.acct_num = @pi_loan_number");
             whereClause.Append((string.IsNullOrEmpty(searchCriteria.PropertyZip)) ? "" : " AND prop_zip = @pi_prop_zip");
-            
             return whereClause.ToString();
         }
 
@@ -378,8 +371,6 @@ namespace HPF.FutureState.DataAccess
 
             return COUNSELED_GREATER_THAN_1YEAR;
         }
-
-
         /// <summary>
         /// Search ForeclosureCase
         /// </summary>
@@ -497,8 +488,6 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
-
-      
         /// <summary>
         /// Get ID and Name from table Agency to bind on DDLB
         /// </summary>

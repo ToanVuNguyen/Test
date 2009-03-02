@@ -8,12 +8,12 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <table width="100%">
     <colgroup>
-        <col width="15%" />
+        <col width="10%" />
         <col width="15%" />
         <col width="20%" />
         <col width="15%" />
         <col width="10%" />
-        <col width="25%" />
+        <col width="30%" />
     </colgroup>
     <tr style="">
         <td colspan="6" class="Header">
@@ -43,7 +43,7 @@
             Duplicate:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text" Width="60px">
                 <asp:ListItem Selected="True" Value=''></asp:ListItem>
                 <asp:ListItem Value='Y'>Yes</asp:ListItem>
                 <asp:ListItem Value='N'>No</asp:ListItem>
@@ -67,7 +67,7 @@
             Agency:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlAgency" runat="server" Width="100px" CssClass="Text">
+            <asp:DropDownList ID="ddlAgency" runat="server" Width="130px" CssClass="Text">
             </asp:DropDownList>
         </td>
     </tr>
@@ -88,7 +88,7 @@
             Program:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlProgram" runat="server" Width="100px" CssClass="Text">
+            <asp:DropDownList ID="ddlProgram" runat="server" Width="130px" CssClass="Text">
             </asp:DropDownList>
         </td>
     </tr>
@@ -103,14 +103,14 @@
             Property State:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="100px" CssClass="Text">
+            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="60px" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
             Servicer:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlServicer" runat="server" Width="100px" CssClass="Text">
+            <asp:DropDownList ID="ddlServicer" runat="server" Width="130px" CssClass="Text">
             </asp:DropDownList>
         </td>
     </tr>
@@ -126,7 +126,7 @@
     </tr>
     <tr>
         <td colspan="6" class="sidelinks">
-            Invoice list:
+            Search Results:
         </td>
     </tr>
     <tr>

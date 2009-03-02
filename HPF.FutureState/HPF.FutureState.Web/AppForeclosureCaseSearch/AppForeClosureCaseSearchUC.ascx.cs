@@ -131,6 +131,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlProgram.DataSource = programCollection;
             ddlProgram.DataBind();
             //selected item of drop down list : all
+            ddlProgram.Items.RemoveAt(ddlProgram.Items.IndexOf(ddlProgram.Items.FindByValue("-1")));
+            ddlProgram.Items.Insert(0, new ListItem("ALL","-1"));
             ddlProgram.Items.FindByText("ALL").Selected = true;
         }
         protected void BindServicerDropDownList()
@@ -140,6 +142,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlServicer.DataTextField = "ServicerName";
             ddlServicer.DataSource = servicerCollection;
             ddlServicer.DataBind();
+            ddlServicer.Items.RemoveAt(ddlServicer.Items.IndexOf(ddlServicer.Items.FindByValue("-1")));
+            ddlServicer.Items.Insert(0, new ListItem("ALL", "-1"));
             ddlServicer.Items.FindByText("ALL").Selected = true;
         }
 
