@@ -17,7 +17,7 @@
                     <td align="left" valign="bottom" width="95%">
                     <!--Display Follow-Up list-->
                     <asp:Panel ID="pnlActivity" runat="server" CssClass="ScrollTable"  
-                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="0px" Height="100%" Width="820px">
+                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="0px" Height="100%" Width="100%">
                         <asp:GridView ID="grd_FollowUpList" runat="server" 
                         CellPadding="2" ForeColor="#333333"
                         GridLines="Vertical" AutoGenerateColumns="False" 
@@ -235,20 +235,23 @@
             , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
         if(CompareCaseFollowUpObject(caseFollowUpAfter))
         {            
-            if (confirm(msfWARN0450)==true)
-            {
-                status.value = "TRUE";                
-            }
-            else
-            {
-                status.value = "FALSE";                
-            }
-            
+            if (confirm(msfWARN0450)==true)            
+                status.value = "TRUE";                            
+            else            
+                status.value = "FALSE";            
         } 
-        else
-        {
-            status.value = "FALSE";            
-        }
+        else        
+            status.value = "FALSE";                    
         return true;
     }
+    
+    TabControl.onChanged=function()
+    {
+        caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
+            , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);
+        if(CompareCaseFollowUpObject(caseFollowUpAfter))
+        {
+            return confirm('Changed confirm');
+        }        
+    };
 </script>
