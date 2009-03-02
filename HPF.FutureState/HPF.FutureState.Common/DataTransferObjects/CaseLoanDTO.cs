@@ -135,5 +135,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public string MortgageTypeCdDesc { get; set; }
 
+        [XmlIgnore]
+        public string MortgageProgramCdDesc { get; set; }
+
     }
 }

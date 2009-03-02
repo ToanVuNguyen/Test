@@ -6,10 +6,10 @@
 <asp:DataList ID="dtlCaseLoan" runat="server" Width=100%>        
     <ItemTemplate>
         <tr>
-            <td align="right" class="sidelinks" width="30%">Loan Number*: </td>
-            <td align="left" width="20%" class ="Text"><%# DataBinder.Eval(Container.DataItem, "AcctNum")%></td>
-            <td align="right" class="sidelinks"  width="30%">Current Loan Balance: </td>
-            <td align="left"  width="20%" class ="Text"><%# DataBinder.Eval(Container.DataItem, "CurrentLoanBalanceAmt", "{0:C}")%></td>
+            <td align="right" class="sidelinks" width="25%">Loan Number*: </td>
+            <td align="left" width="25%" class ="Text"><%# DataBinder.Eval(Container.DataItem, "AcctNum")%></td>
+            <td align="right" class="sidelinks"  width="25%">Current Loan Balance: </td>
+            <td align="left"  width="25%" class ="Text"><%# DataBinder.Eval(Container.DataItem, "CurrentLoanBalanceAmt", "{0:C}")%></td>
         </tr>
         <tr>
             <td align="right" class="sidelinks">Servicer*: </td>
@@ -26,13 +26,13 @@
         </tr>       
         <tr>
             <td align="right" class="sidelinks">Mortgage Type*: </td>
-            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageTypeCd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageTypeCdDesc")%></td>
             <td align="right" class="sidelinks">Orig. Mortgage Co FDIC/NCUA: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrigMortgageCoFdicNcusNum")%></td>            
         </tr>       
         <tr>
             <td align="right" class="sidelinks">Mortgage Program*: </td>
-            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageProgramCd")%></td>
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "MortgageProgramCdDesc")%></td>
             <td align="right" class="sidelinks">Orig. Loan Number: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrginalLoanNum")%></td>            
         </tr>       
