@@ -117,7 +117,7 @@ namespace HPF.FutureState.Web
               // if(MessageBox.Show("Really delete?","Confirm delete", MessageBoxButtons.YesNo) == DialogResult.Yes))
                // { // a 'DialogResult.Yes' value was returned from the MessageBox // proce
                    //Response.Write("<script language='javascript'> {return confirm('You want to navigate to other tab?') }</script>");
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "confirm", "<script type='text/javascript'>var confirm=window.confirm('Do you want to navigate to new tab?');if(confirm){alert('kaka');}</script>");
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "confirm", "<script type='text/javascript'>var confirm=window.confirm('Do you want to navigate to new tab?');if(confirm){alert('kaka');}</script>");
             }
             switch (e.SelectedTabID)
             { 
