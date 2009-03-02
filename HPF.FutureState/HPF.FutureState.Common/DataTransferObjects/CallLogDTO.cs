@@ -75,7 +75,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", Tag = ErrorMessages.ERR0350)]
         public string CcCallKey { get; set; }
 
-        //miss error for string length
+        
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
         public string LoanDelinqStatusCd { get; set; }
 
