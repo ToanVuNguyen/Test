@@ -12,8 +12,8 @@
         <col width="30%" />
         <col width="10%" />
         <col width="20%" />
-        <col width="10%" />
-        <col width="35%" />
+        <col width="20%" />
+        <col width="15%" />
     </colgroup>
     <tr>
         <td colspan="5" class="Header">
@@ -73,11 +73,11 @@
         <td colspan="5">
             
               <cc1:StatefullScrollPanel ID="StatefullScrollPanel1" runat="server" CssClass="ScrollTable"
-            Width="840px">
+            Width="100%">
 
             <asp:UpdatePanel ID="myupdatepanel" runat="server">
                 <ContentTemplate>
-                    <asp:Panel ID="panInvoiceList" runat="server" CssClass="ScrollTable" Width="840px">
+                    <asp:Panel ID="panInvoiceList" runat="server" CssClass="ScrollTable" Width="100%">
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
                             AutoGenerateColumns="false" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
                             <HeaderStyle CssClass="FixedHeader" />
@@ -96,6 +96,9 @@
                                 <asp:BoundField HeaderText="Amount" DataField="TotalAmount" DataFormatString="{0:C}" />
                                 <asp:BoundField HeaderText="Status" DataField="StatusCode" />
                                 <asp:BoundField HeaderText="Comments" DataField="PaymentComment" />
+                                  <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
+                                ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+
                             </Columns>
                             <EmptyDataTemplate>
                                 There is no data match.</EmptyDataTemplate>
@@ -109,20 +112,20 @@
             <table style="vertical-align: top;">
                 <tr>
                     <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="100px" CssClass="MyButton"
+                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payable" Width="130px" CssClass="MyButton"
                             OnClick="btnNewPayable_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Button ID="btnViewPayable" runat="server" Text="View/Edit Payable" CssClass="MyButton"
-                            Width="100px" />
+                            Width="130px" OnClick="btnViewPayable_Click"   />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton"
-                            Width="100px" OnClick="btnCancelPayable_Click" />
+                            Width="130px" OnClick="btnCancelPayable_Click" OnClientClick="return confirm('Do you want to cancel ?')"  />
                     </td>
                 </tr>
             </table>

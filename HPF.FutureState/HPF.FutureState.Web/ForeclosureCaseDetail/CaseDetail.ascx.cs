@@ -108,9 +108,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblAddress2.Text = foreclosureCase.PropAddr2;
                 lblCity.Text = foreclosureCase.PropCity;
                 if (String.IsNullOrEmpty(foreclosureCase.PropZipPlus4))
-                    lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip;
+                    lblStateZip.Text = foreclosureCase.PropStateCd + " , " + foreclosureCase.PropZip;
                 else
-                    lblStateZip.Text = foreclosureCase.PropStateCd + " - " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
+                    lblStateZip.Text = foreclosureCase.PropStateCd + " , " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
                 lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
                 lblOwnerOccupied.Text=DisplayInd(foreclosureCase.OwnerOccupiedInd);
                 lblPropertyCode.Text = foreclosureCase.PropertyCd;
@@ -161,7 +161,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblContactCity.Text = foreclosureCase.ContactCity;
                 if (String.IsNullOrEmpty(foreclosureCase.ContactZipPlus4))
                     lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip;
-                else lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip + " , " + foreclosureCase.ContactZipPlus4;
+                else lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip + " - " + foreclosureCase.ContactZipPlus4;
                 
                 //case status
                 ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
