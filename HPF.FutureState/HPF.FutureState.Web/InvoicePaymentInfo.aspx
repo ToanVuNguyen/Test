@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#"  MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InvoicePaymentInfo.aspx.cs" Inherits="HPF.FutureState.Web.ViewEditInvoicePayment" Title="View/Edit Invoice Payment" %>
+﻿<%@ Page Language="C#"  MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InvoicePaymentInfo.aspx.cs" Inherits="HPF.FutureState.Web.ViewEditInvoicePayment" Title="Invoice Payment Info" %>
 
 <%@ Register src="InvoicePayments/ViewEditInvoicePaymentUC.ascx" tagname="ViewEditInvoicePaymentUC" tagprefix="uc1" %>
 
