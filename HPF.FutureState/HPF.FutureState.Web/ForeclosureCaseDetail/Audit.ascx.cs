@@ -67,6 +67,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL)
                 DoSaving();
+
+            ClearPage();
         }
         
         private void btnEdit_Click(object sender, EventArgs e)
@@ -112,6 +114,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 }
             }
         }
+        
         
         #region helper
 
