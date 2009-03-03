@@ -32,6 +32,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.DropDownList ddlNerverBillReason;
         
         /// <summary>
+        /// panBillingInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panBillingInfo;
+        
+        /// <summary>
         /// grvBillingInfo control.
         /// </summary>
         /// <remarks>
@@ -48,6 +57,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlNeverPayReason;
+        
+        /// <summary>
+        /// panPaymentInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panPaymentInfo;
         
         /// <summary>
         /// grvPaymentInfo control.

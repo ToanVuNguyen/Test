@@ -197,6 +197,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// <param name="e"></param>
         protected void btnNewPayable_Click(object sender, EventArgs e)
         {
+            bulMessage.Items.Clear();
             string query = "?agency=" + ddlAgency.SelectedValue;
             Response.Redirect("CreateNewPayable.aspx" + query);
         }
@@ -245,7 +246,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
-
+            bulMessage.Items.Clear();
             try
             {
                 AgencyPayableDTOCollection agencyPayableCol = (AgencyPayableDTOCollection)ViewState["agencycol"];

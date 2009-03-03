@@ -31,7 +31,9 @@
         </tr>
         <tr>
         <td>
-        <asp:GridView ID="grvBillingInfo" runat="server" AutoGenerateColumns="false" Width="100%">
+        <asp:Panel runat="server" ID="panBillingInfo" CssClass="ScrollTable" BorderStyle="None">
+        <asp:GridView ID="grvBillingInfo" runat="server" AutoGenerateColumns="false" 
+                Width="100%" onrowdatabound="grvBillingInfo_RowDataBound">
         <HeaderStyle CssClass="FixedHeader" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
         <RowStyle CssClass="RowStyle" />
@@ -44,10 +46,15 @@
         <asp:BoundField HeaderText="Bill Amt" DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  />
         <asp:BoundField HeaderText="Pd Amt" DataField="InvoiceCasePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" />
         <asp:BoundField HeaderText="Paid Date" DataField="PaidDate" DataFormatString="{0:d}" />
-        <asp:BoundField HeaderText="Reject Reason" DataField="PaymentRejectReasonCode" />
+        <asp:TemplateField HeaderText="Reject Reason">
+        <ItemTemplate>
+        <asp:Label ID="lblPaymentRejectReasonDesc" runat="server" Text='<%#Eval("PaymentRejectReasonCode") %>' ></asp:Label>
+        </ItemTemplate>
+        </asp:TemplateField>
         </Columns>    
         <EmptyDataTemplate>There is no billing information</EmptyDataTemplate>   
         </asp:GridView>
+        </asp:Panel>
         </td>
         </tr>
         <tr>
@@ -74,6 +81,7 @@
        </tr>
         <tr>
         <td>
+        <asp:Panel ID="panPaymentInfo" runat="server" CssClass="ScrollTable" BorderStyle="None">
         <asp:GridView ID="grvPaymentInfo" runat="server" AutoGenerateColumns="false" Width="80%">
         <HeaderStyle CssClass="FixedHeader" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
@@ -83,10 +91,11 @@
         <asp:BoundField HeaderText="Agency" DataField="AgencyName" />
         <asp:BoundField HeaderText="Payable #" DataField="AgencyPayableId" />
         <asp:BoundField HeaderText="Pay Amt" DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  />
-        <asp:BoundField HeaderText="NFMC Diff Pd" DataField="NFMCDifferenceEligibleInd" />
+        <asp:BoundField HeaderText="NFMC Diff Elig" DataField="NFMCDifferenceEligibleInd" ItemStyle-HorizontalAlign="Center" />
         </Columns>
         <EmptyDataTemplate>There is not payment information</EmptyDataTemplate>
         </asp:GridView>
+        </asp:Panel>
         </td>
         </tr>
     </table>

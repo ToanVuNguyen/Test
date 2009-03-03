@@ -94,7 +94,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 foreclosureCase.NeverPayReasonCd = ddlNeverPayReason.SelectedValue;
                 foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 AccountingBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                lblMessage.Text = "Update Forclosurecase successfull";
+                lblMessage.Text = "Update Forclosurecase successfully";
             }
             catch (Exception ex)
             {
@@ -102,6 +102,20 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 throw;
             }
             
+        }
+
+        protected void grvBillingInfo_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblRejectReasonDesc = e.Row.FindControl("lblPaymentRejectReasonDesc") as Label;
+                RefCodeItemDTOCollection PaymentRejectReasonDTOCol = LookupDataBL.Instance.GetRefCode("payment reject reason code");
+                foreach (var PaymentRejectReasonDTO in PaymentRejectReasonDTOCol)
+                {
+                    if (lblRejectReasonDesc.Text == PaymentRejectReasonDTO.Code)
+                        lblRejectReasonDesc.Text = PaymentRejectReasonDTO.CodeDesc;
+                }
+            }
         }
     }
 }
