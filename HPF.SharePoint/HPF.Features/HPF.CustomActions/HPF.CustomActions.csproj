@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -53,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DownloadAppSettings.cs" />
     <Compile Include="DownloadZippedItems.cs" />
     <Compile Include="PostBackMenuItemTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

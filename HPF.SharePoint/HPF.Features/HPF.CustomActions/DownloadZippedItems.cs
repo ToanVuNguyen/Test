@@ -11,13 +11,7 @@ using System.Web;
 namespace HPF.CustomActions
 {
     public class DownloadZippedItems : WebControl
-    {
-        #region "Const"
-        private const string ReviewStatus = "Review Status";
-        private const string Reviewed = "Reviewed";
-        #endregion
-
-        // Methods
+    {        
         protected override void CreateChildControls()
         {
             if (!base.ChildControlsCreated)
@@ -27,34 +21,14 @@ namespace HPF.CustomActions
                 child.Text = "Zip List Items";
                 child.ImageUrl = "/_layouts/images/TBSPRSHT.GIF";
                 child.Description = "Zip and download List Items";
-                PostBackMenuItemTemplate templateZipListItems = new PostBackMenuItemTemplate();
-                templateZipListItems.ID = "menu1";
-                templateZipListItems.Text = "All Items";
-                templateZipListItems.Description = "Zip and Download All Items";
-                templateZipListItems.ClientOnClickPostBackConfirmation = "You will download all list items, depending on the items count and size it might take some time,are you sure ?";
-                templateZipListItems.OnPostBack += new EventHandler<EventArgs>(this.mnuListItem_OnPostBack);
-                PostBackMenuItemTemplate templateAllVersions = new PostBackMenuItemTemplate();
-                templateAllVersions.Text = "All Items with Versions";
-                templateAllVersions.Description = "Zip and Download All Items";
-                templateAllVersions.ID = "menu2";
-                templateAllVersions.OnPostBack += new EventHandler<EventArgs>(this.mnuListItem2_OnPostBack);
-                templateAllVersions.ClientOnClickPostBackConfirmation = "You will download all list items, depending on the items count and size it might take some time,are you sure ?";
-                MenuSeparatorTemplate templateSeparator = new MenuSeparatorTemplate();
+                
                 PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
                 templateCurrentView.Text = "Items In Current View";
                 templateCurrentView.Description = "Zip and Download All Items";
                 templateCurrentView.ID = "menu3";
-                templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
-                PostBackMenuItemTemplate templateCurrentViewAndVersion = new PostBackMenuItemTemplate();
-                templateCurrentViewAndVersion.Text = "Items In Current View With Versions";
-                templateCurrentViewAndVersion.Description = "Zip and Download All Items";
-                templateCurrentViewAndVersion.ID = "menu4";
-                templateCurrentViewAndVersion.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentViewVersions_OnPostBack);
-                child.Controls.Add(templateZipListItems);
-                child.Controls.Add(templateAllVersions);
-                child.Controls.Add(templateSeparator);
-                child.Controls.Add(templateCurrentView);
-                child.Controls.Add(templateCurrentViewAndVersion);
+                templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);                
+                
+                child.Controls.Add(templateCurrentView);                
                 this.Controls.Add(child);
             }
         }
@@ -122,27 +96,12 @@ namespace HPF.CustomActions
             this.ArchiveFileAndPushToDownload(path + outputPathAndFile, fileName, list.Title + " Archive");
 
             PushFileToDownload(path + outputPathAndFile, fileName);
-        }
-
-        private void mnuListItem_OnPostBack(object sender, EventArgs e)
-        {
-            this.GetListItems(SPContext.Current.List.ID, false, false);
-        }
-
-        private void mnuListItem2_OnPostBack(object sender, EventArgs e)
-        {
-            this.GetListItems(SPContext.Current.List.ID, true, false);
-        }
+        }        
 
         private void mnuListItemCurrentView_OnPostBack(object sender, EventArgs e)
         {
             this.GetListItems(SPContext.Current.List.ID, false, true);
-        }
-
-        private void mnuListItemCurrentViewVersions_OnPostBack(object sender, EventArgs e)
-        {
-            this.GetListItems(SPContext.Current.List.ID, true, true);
-        }
+        }        
 
         protected override void OnLoad(EventArgs e)
         {
@@ -173,10 +132,10 @@ namespace HPF.CustomActions
         {
             try
             {
-                SPField reviewStatusField = spListItem.Fields.GetField(ReviewStatus);
+                SPField reviewStatusField = spListItem.Fields.GetField(DownloadAppSettings.ReviewStatusField);
                 if (reviewStatusField != null)
                 {
-                    spListItem[reviewStatusField.Id] = Reviewed;
+                    spListItem[reviewStatusField.Id] = DownloadAppSettings.ReviewStatusDownloadValue;
                     spListItem.Update();
                 }
             }
@@ -203,7 +162,5 @@ namespace HPF.CustomActions
                 //File.Delete(tempPath + randomFileName);
             }
         }
-    }
-
-
+    }    
 }
