@@ -157,20 +157,22 @@ namespace HPF.FutureState.UnitTest
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
-            //Delete data test FORECLOSURE 
-            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
-
             //Delete data test AGENCY
             strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
+            //Delete data test FORECLOSURE 
+            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            
             //Delete data test PROGRAM
             strsql = @"delete from program where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
+
 
             dbConnection.Close();
         }

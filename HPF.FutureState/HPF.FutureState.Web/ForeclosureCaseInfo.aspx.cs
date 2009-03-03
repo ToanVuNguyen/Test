@@ -18,16 +18,23 @@ namespace HPF.FutureState.Web
 {
     public partial class AppForeclosureCaseDetailPage : System.Web.UI.Page
     {
-        
+
         string UCLOCATION = "ForeclosureCaseDetail\\";
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            BindData();
+            ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
+            ForeclosureCaseDTO foreclosureCaseAfter = (ForeclosureCaseDTO)Session["foreclosureCaseAfter"];
+            if (forclosureInfo != null && foreclosureCaseAfter != null)
+                if (!CompareForeclosureCase(forclosureInfo, foreclosureCaseAfter))
+                    btnEmailSummary.Attributes.Add("confirm", "return confirm('Do you want to change?')");
 
             tabControl.TabClick += new HPF.FutureState.Web.HPFWebControls.TabControlEventHandler(tabControl_TabClick);
             if (!IsPostBack)
             {
-                BindData();
+
                 tabControl.AddTab("caseDetail", "Case Detail");
                 tabControl.AddTab("caseLoan", "Case Loan(s)");
                 tabControl.AddTab("budget", "Budget(s)");
@@ -74,7 +81,7 @@ namespace HPF.FutureState.Web
         {
             lblHpfID.Text = ForeclosureCase.FcId.ToString();
             lblBorrower.Text = ForeclosureCase.BorrowerFname + " " + ForeclosureCase.BorrowerMname + " " + ForeclosureCase.BorrowerLname;
-            lblPropertyAddress.Text = ForeclosureCase.PropCity+" , "+ForeclosureCase.PropStateCd+" "+ForeclosureCase.PropZip;
+            lblPropertyAddress.Text = ForeclosureCase.PropCity + " , " + ForeclosureCase.PropStateCd + " " + ForeclosureCase.PropZip;
             lblLoanList.Text = ForeclosureCase.LoanList;
             lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
             lblPhone.Text = ForeclosureCase.CounselorPhone + " " + ForeclosureCase.CounselorExt;
@@ -110,14 +117,14 @@ namespace HPF.FutureState.Web
         }
         //display message when you click out casedetail tab
         void tabControl_TabClick(object sender, HPF.FutureState.Web.HPFWebControls.TabControlEventArgs e)
-        {            
+        {
             switch (e.SelectedTabID)
-            { 
+            {
                 case "caseDetail":
-                    UserControlLoader.LoadUserControl(UCLOCATION+"CaseDetail.ascx", "ucCaseDetail");
+                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
                     break;
                 case "caseLoan":
-                    UserControlLoader.LoadUserControl(UCLOCATION+"CaseLoan.ascx", "ucCaseLoan");
+                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseLoan.ascx", "ucCaseLoan");
                     break;
                 case "budget":
                     UserControlLoader.LoadUserControl(UCLOCATION + "Budget.ascx", "ucBudget");
@@ -139,7 +146,7 @@ namespace HPF.FutureState.Web
                     break;
 
             }
-            
+
         }
 
         protected void btnEmailSummary_Click(object sender, EventArgs e)
@@ -147,7 +154,7 @@ namespace HPF.FutureState.Web
             if (Request.QueryString["CaseID"] == null)
                 return;
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Email Summary", "<script language='javascript'>window.open('EmailSummary.aspx?CaseID="+caseid+"','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=500px')</script>");
+            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Email Summary", "<script language='javascript'>window.open('EmailSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=500px')</script>");
         }
 
         protected void btn_Print_Click(object sender, EventArgs e)
@@ -155,11 +162,22 @@ namespace HPF.FutureState.Web
             if (Request.QueryString["CaseID"] == null)
                 return;
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID="+caseid+"','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
-            
-        }
-        
+            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
 
-        
+        }
+        public bool CompareForeclosureCase(ForeclosureCaseDTO foreclosureCaseBefore, ForeclosureCaseDTO foreclosureCaseAfter)
+        {
+            if (foreclosureCaseBefore.DuplicateInd != foreclosureCaseAfter.DuplicateInd) return false;
+            if (foreclosureCaseBefore.AgencyId != foreclosureCaseAfter.AgencyId) return false;
+            if (foreclosureCaseBefore.DoNotCallInd != foreclosureCaseAfter.DoNotCallInd) return false;
+            if (foreclosureCaseBefore.HpfMediaCandidateInd != foreclosureCaseAfter.HpfMediaCandidateInd) return false;
+            if (foreclosureCaseBefore.HpfSuccessStoryInd != foreclosureCaseAfter.HpfSuccessStoryInd) return false;
+            if (foreclosureCaseBefore.OptOutNewsletterInd != foreclosureCaseAfter.OptOutNewsletterInd) return false;
+            if (foreclosureCaseBefore.OptOutSurveyInd != foreclosureCaseAfter.OptOutSurveyInd) return false;
+            return true;
+        }
+
+
+
     }
 }

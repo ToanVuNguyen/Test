@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ForeclosureCaseInfo.aspx.cs" Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="Forclosure Case Info"  EnableEventValidation="false"%>
 <%@ Register assembly="HPF.FutureState.Web.HPFWebControls" namespace="HPF.FutureState.Web.HPFWebControls" tagprefix="HPF" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <table style="width:100%;" align="left"  >
         <tr>
@@ -20,7 +21,7 @@
                     CssClass="Text"></asp:Label>
             </td>
             <td align="right" class="sidelinks">
-              Countselor*:  </td>
+              Counselor*:  </td>
             <td>
                 <asp:Label ID="lblCounselor" runat="server" CssClass="Text">Amada - Huggenkiss</asp:Label>
             </td>
@@ -97,5 +98,4 @@
             </td>
         </tr>
     </table>
-
 </asp:Content>

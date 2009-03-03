@@ -260,6 +260,9 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = "delete from funding_source where create_user_id='" + working_user_id + "'";
             command.ExecuteNonQuery();
 
+            //delete data activity_log
+            command.CommandText = @"delete activity_log where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
             //Delete data test FORECLOSURE_CASE 
             strsql = @"delete from  foreclosure_case where create_user_id='"+working_user_id+"'";
             command = new SqlCommand(strsql, dbConnection);
