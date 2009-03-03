@@ -67,16 +67,9 @@ namespace HPF.FutureState.WebService.Test.Web
                 var objs = from obj in xdoc.Descendants("OutcomeItem")
                            select new OutcomeItemDTO_App
                            {
-                               //OutcomeItemId = Util.ConvertToInt(obj.Element("OutcomeTypeId").Value),
                                ExtRefOtherName = obj.Element("ExtRefOtherName").Value,
-                               //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
                                NonprofitreferralKeyNum = obj.Element("NonprofitreferralKeyNum").Value,
-                               //OutcomeDeletedDt = Util.ConvertToDateTime(obj.Element("OutcomeDeletedDt").Value),
-                               //OutcomeDt = Util.ConvertToDateTime(obj.Element("OutcomeDt").Value),
-                               //OutcomeSetId = Util.ConvertToInt(obj.Element("OutcomeSetId").Value),
                                OutcomeTypeId = Util.ConvertToInt(obj.Element("OutcomeTypeId").Value),
-                               //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,
-                               //CreateUserId = obj.Element("CreateUserId").Value
                            };
                 int i = 1;
                 List<OutcomeItemDTO_App> list = objs.ToList<OutcomeItemDTO_App>();
@@ -187,7 +180,6 @@ namespace HPF.FutureState.WebService.Test.Web
                                AgencyId = Util.ConvertToInt(obj.Element("AgencyId").Value),
                                AgencyMediaInterestInd = obj.Element("AgencyMediaConsentInd").Value,
                                AgencySuccessStoryInd = obj.Element("AgencySuccessStoryInd").Value,
-                               //AmiPercentage = Util.ConvertToInt(obj.Element("AmiPercentage").Value),
                                AssignedCounselorIdRef = obj.Element("AssignedCounselorIdRef").Value,
                                BankruptcyAttorney = obj.Element("BankruptcyAttorney").Value,
                                BankruptcyInd = obj.Element("BankruptcyInd").Value,
@@ -196,7 +188,6 @@ namespace HPF.FutureState.WebService.Test.Web
                                BorrowerDob = Util.ConvertToDateTime(obj.Element("BorrowerDob").Value),
                                BorrowerEducLevelCompletedCd = obj.Element("BorrowerEducLevelCompletedCd").Value,
                                BorrowerFname = obj.Element("BorrowerFname").Value,
-                               //BorrowerLast4Ssn = obj.Element("BorrowerLast4Ssn").Value,
                                BorrowerLname = obj.Element("BorrowerLname").Value,
                                BorrowerMaritalStatusCd = obj.Element("BorrowerMaritalStatusCd").Value,
                                BorrowerMname = obj.Element("BorrowerMname").Value,
@@ -204,17 +195,14 @@ namespace HPF.FutureState.WebService.Test.Web
                                BorrowerPreferredLangCd = obj.Element("BorrowerPreferredLangCd").Value,
                                BorrowerSsn = obj.Element("BorrowerSsn").Value,
                                CallId = obj.Element("CallId").Value,
-                               //CaseCompleteInd = obj.Element("CaseCompleteInd").Value,
                                CaseSourceCd = obj.Element("CaseSourceCd").Value,
                                CoBorrowerDisabledInd = obj.Element("CoBorrowerDisabledInd").Value,
                                CoBorrowerDob = Util.ConvertToDateTime(obj.Element("CoBorrowerDob").Value),
                                CoBorrowerFname = obj.Element("CoBorrowerFname").Value,
-                               //CoBorrowerLast4Ssn = obj.Element("CoBorrowerLast4Ssn").Value,
                                CoBorrowerLname = obj.Element("CoBorrowerLname").Value,
                                CoBorrowerMname = obj.Element("CoBorrowerMname").Value,
                                CoBorrowerOccupation = obj.Element("CoBorrowerOccupationCd").Value,
                                CoBorrowerSsn = obj.Element("CoBorrowerSsn").Value,
-                               //CompletedDt = Util.ConvertToDateTime(obj.Element("CompletedDt").Value),
                                ContactAddr1 = obj.Element("ContactAddr1").Value,
                                ContactAddr2 = obj.Element("ContactAddr2").Value,
                                ContactCity = obj.Element("ContactCity").Value,
@@ -231,11 +219,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                DfltReason1stCd = obj.Element("DfltReason1stCd").Value,
                                DfltReason2ndCd = obj.Element("DfltReason2ndCd").Value,
                                DiscussedSolutionWithSrvcrInd = obj.Element("DiscussedSolutionWithSrvcrInd").Value,
-                               //DoNotCallInd = obj.Element("DoNotCallInd").Value,
-                               //DuplicateInd = obj.Element("DuplicateInd").Value,
                                Email1 = obj.Element("Email1").Value,
                                Email2 = obj.Element("Email2").Value,
-                               //FcId = Util.ConvertToInt(obj.Element("FcId").Value),
                                FcNoticeReceiveInd = obj.Element("FcNoticeReceiveInd").Value,
                                FcSaleDate = Util.ConvertToDateTime(obj.Element("FcSaleDate").Value),
                                
@@ -251,9 +236,6 @@ namespace HPF.FutureState.WebService.Test.Web
                                HomeSalePrice = Util.ConvertToDouble(obj.Element("HomeSalePrice").Value),
                                HouseholdCd = obj.Element("HouseholdCd").Value,
                                HouseholdGrossAnnualIncomeAmt = Util.ConvertToDouble(obj.Element("HouseholdGrossAnnualIncomeAmt").Value),
-                               //HpfMediaCandidateInd = obj.Element("HpfMediaCandidateInd").Value,
-                               //HpfNetworkCandidateInd = obj.Element("HpfNetworkCandidateInd").Value,
-                               //HpfSuccessStoryInd = obj.Element("HpfSuccessStoryInd").Value,
                                HudOutcomeCd = obj.Element("HudOutcomeCd").Value,
                                HudTerminationDt = Util.ConvertToDateTime(obj.Element("HudTerminationDt").Value),
                                HudTerminationReasonCd = obj.Element("HudTerminationReasonCd").Value,
@@ -262,14 +244,9 @@ namespace HPF.FutureState.WebService.Test.Web
                                IntakeCreditScore = obj.Element("IntakeCreditScore").Value,
                                IntakeDt = Util.ConvertToDateTime(obj.Element("IntakeDt").Value),
                                LoanDfltReasonNotes = obj.Element("LoanDfltReasonNotes").Value,
-                               //LoanList = obj.Element("LoanList").Value,
                                MilitaryServiceCd = obj.Element("MilitaryServiceCd").Value,
                                MotherMaidenLname = obj.Element("MotherMaidenLname").Value,
-                               //NeverBillReasonCd = obj.Element("NeverBillReasonCd").Value,
-                               //NeverPayReasonCd = obj.Element("NeverPayReasonCd").Value,
                                OccupantNum = Util.ConvertToByte(obj.Element("OccupantNum").Value),
-                               //OptOutNewsletterInd = obj.Element("OptOutNewsletterInd").Value,
-                               //OptOutSurveyInd = obj.Element("OptOutSurveyInd").Value,
                                OwnerOccupiedInd = obj.Element("OwnerOccupiedInd").Value,
                                PrimaryContactNo = obj.Element("PrimaryContactNo").Value,
                                PrimaryResidenceInd = obj.Element("PrimaryResidenceInd").Value,
@@ -287,13 +264,10 @@ namespace HPF.FutureState.WebService.Test.Web
                                SecondContactNo = obj.Element("SecondContactNo").Value,
                                ServicerConsentInd = obj.Element("ServicerConsentInd").Value,
                                SrvcrWorkoutPlanCurrentInd = obj.Element("SrvcrWorkoutPlanCurrentInd").Value,
-                               //SummarySentDt = Util.ConvertToDateTime(obj.Element("SummarySentDt").Value),
                                SummarySentOtherCd = obj.Element("SummarySentOtherCd").Value,
                                SummarySentOtherDt = Util.ConvertToDateTime(obj.Element("SummarySentOtherDt").Value),
                                WorkedWithAnotherAgencyInd = obj.Element("WorkedWithAnotherAgencyInd").Value,
-                               ChgLstUserId = obj.Element("WorkingUserId").Value
-                               //ChangeLastUserId = obj.Element("ChangeLastUserId").Value,                               
-                               //CreateUserId = obj.Element("CreateUserId").Value
+                               ChgLstUserId = obj.Element("ChgLstUserId").Value
                                
                            };
                 ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];
