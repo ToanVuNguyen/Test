@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using HPF.SharePointAPI.Enum;
 
 namespace HPF.SharePointAPI.BusinessEntity
 {
@@ -12,7 +11,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         private DateTime? _completedDate;
         private DateTime? _foreclosureSaleDate;
         private string _delinquency;
-        private ReviewStatus _reviewStatus;
+        private string _reviewStatus;
 
         public string LoanNumber
         {
@@ -44,7 +43,7 @@ namespace HPF.SharePointAPI.BusinessEntity
             set { _delinquency = value; }
         }
 
-        public ReviewStatus ReviewStatus
+        internal string ReviewStatus
         {
             get { return _reviewStatus; }
             set { _reviewStatus = value; }
@@ -52,11 +51,11 @@ namespace HPF.SharePointAPI.BusinessEntity
 
         public CounselingSummaryInfo():base()
         {
-            _reviewStatus = Enum.ReviewStatus.PendingReview;
+            _reviewStatus = HPF.SharePointAPI.ContentTypes.CounselingSummary.Default.ReviewStatusDefaultValue;
         }
         public CounselingSummaryInfo(string name, byte[] file,
              string loanNumber, string servicer, DateTime completedDate, 
-             DateTime foreclosureSaleDate, string delinquency, ReviewStatus reviewStatus):
+             DateTime foreclosureSaleDate, string delinquency):
             base(name, file)
         {
             _loanNumber = loanNumber;
@@ -64,7 +63,7 @@ namespace HPF.SharePointAPI.BusinessEntity
             _completedDate = completedDate;
             _foreclosureSaleDate = foreclosureSaleDate;
             _delinquency = delinquency;
-            _reviewStatus = reviewStatus;
+            _reviewStatus = HPF.SharePointAPI.ContentTypes.CounselingSummary.Default.ReviewStatusDefaultValue;
         }
     }
 }

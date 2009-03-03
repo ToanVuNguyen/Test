@@ -70,7 +70,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>DocumentCenter.settings</DependentUpon>
     </Compile>
-    <Compile Include="Enum\Enum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

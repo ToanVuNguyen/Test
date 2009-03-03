@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using HPF.SharePointAPI.BusinessEntity;
 using Microsoft.SharePoint;
-using HPF.SharePointAPI.Enum;
 using System.Security;
 using HPF.SharePointAPI.ContentTypes;
 
@@ -176,8 +175,7 @@ namespace HPF.SharePointAPI.Controllers
             {
                 spItem[CounselingSummary.Default.ForeclosureSaleDate] = counselingSummary.ForeclosureSaleDate;
             }
-            spItem[CounselingSummary.Default.LoanNumber] = counselingSummary.LoanNumber;
-            spItem[CounselingSummary.Default.ReviewStatus] = counselingSummary.ReviewStatus == ReviewStatus.PendingReview ? "Pending Review" : "Reviewed";
+            spItem[CounselingSummary.Default.LoanNumber] = counselingSummary.LoanNumber;            
             spItem[CounselingSummary.Default.Servicer] = counselingSummary.Servicer;
         }
 
