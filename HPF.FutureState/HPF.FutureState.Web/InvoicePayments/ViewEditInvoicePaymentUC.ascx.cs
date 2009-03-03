@@ -74,6 +74,13 @@ namespace HPF.FutureState.Web.InvoicePayments
             if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_INVOICE_PAYMENT))
             {
                 btnSave.Enabled = false;
+                txtComment.Enabled = false;
+                txtPaymentAmt.Enabled = false;
+                txtPaymentDt.Enabled = false;
+                txtPaymentNum.Enabled = false;
+                fileUpload.Enabled = false;
+                ddlFundingSource.Enabled = false;
+                ddlPaymentType.Enabled = false;
             }
         }
         #region Bind Data

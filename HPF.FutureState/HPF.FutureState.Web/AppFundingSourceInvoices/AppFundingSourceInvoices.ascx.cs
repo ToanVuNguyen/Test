@@ -50,6 +50,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 btnNewInvoice.Enabled = false;
                 btnCancelInvoice.Enabled = false;
+                btnViewEditInvoice.Enabled = false;
             }
         }
         /// <summary>
