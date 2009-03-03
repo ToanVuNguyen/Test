@@ -95,12 +95,11 @@
     <HouseholdGrossAnnualIncomeAmt>99</HouseholdGrossAnnualIncomeAmt>
     <IntakeCreditScore></IntakeCreditScore>
     <FcSaleDate></FcSaleDate>
-    <WorkingUserId>Agency1</WorkingUserId>    
+    <ChgLstUserId>Agency1</ChgLstUserId>    
   <IntakeCreditBureauCd></IntakeCreditBureauCd>
   </ForeclosureCase>
   <CaseLoanSet>
-    <CaseLoan>
-      <CaseLoanId></CaseLoanId>      
+    <CaseLoan>      
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum1</AcctNum>
@@ -124,7 +123,6 @@
       <InvestorNum>inum</InvestorNum>
     </CaseLoan>
     <CaseLoan>
-      <CaseLoanId></CaseLoanId>      
       <ServicerId>5</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum2</AcctNum>
@@ -149,40 +147,24 @@
     </CaseLoan>    
   </CaseLoanSet>
   <OutcomeSet>
-    <OutcomeItem>      
+    <OutcomeItem>
       <OutcomeTypeId >1</OutcomeTypeId>
-      <NonprofitreferralKeyNum >NRkeyNum</NonprofitreferralKeyNum>
-      <ExtRefOtherName >ExtName</ExtRefOtherName>
-      <!--<CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
-      <OutcomeItemId>1</OutcomeItemId>
-      <FcId ></FcId>
-      <OutcomeSetId ></OutcomeSetId>
-      <OutcomeDt >10/10/2008</OutcomeDt>
-      <OutcomeDeletedDt >10/10/2009</OutcomeDeletedDt>-->
+      <NonprofitreferralKeyNum >nprkeynum</NonprofitreferralKeyNum>
+      <ExtRefOtherName >extref</ExtRefOtherName>      
     </OutcomeItem>
   </OutcomeSet>
   <BudgetAssetSet>
     <BudgetAsset>
-      <BudgetAssetId>1</BudgetAssetId>
-      <AssetName>nothing</AssetName>
-      <AssetValue>10000</AssetValue>
-      <!--<CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
       
-      <BudgetSetId ></BudgetSetId>-->
+      <AssetName>nothing</AssetName>
+      <AssetValue>10000</AssetValue>      
     </BudgetAsset>
   </BudgetAssetSet>
   <BudgetItemSet>
-    <BudgetItem>
-      <BudgetItemId>1</BudgetItemId>
+    <BudgetItem>      
       <BudgetSubcategoryId>8</BudgetSubcategoryId>
       <BudgetItemAmt>100</BudgetItemAmt>
-      <BudgetNote></BudgetNote>
-      <!--<CreateUserId>Agency1</CreateUserId>
-      <ChangeLastUserId>Agency1</ChangeLastUserId>
-      
-      <BudgetSetId></BudgetSetId>-->
+      <BudgetNote></BudgetNote>      
     </BudgetItem>
   </BudgetItemSet>  
 </ForeclosureCaseSet>  
