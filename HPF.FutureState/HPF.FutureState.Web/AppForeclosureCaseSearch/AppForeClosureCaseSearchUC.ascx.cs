@@ -104,7 +104,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindStateDropdownlist()
         {
-            RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCode("state");
+            RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_STATE_CODE);
             //Bind data
             ddlPropertyState.DataValueField = "code";
             ddlPropertyState.DataTextField = "code";

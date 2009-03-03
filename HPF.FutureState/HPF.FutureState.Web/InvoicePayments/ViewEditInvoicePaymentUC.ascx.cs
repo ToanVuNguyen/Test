@@ -98,7 +98,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         protected void BindPaymentTypeDropDownList()
         {
-            var invoicePaymentCol = LookupDataBL.Instance.GetRefCode("payment code");
+            var invoicePaymentCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_PAYMENT_CODE);
             ddlPaymentType.DataSource = invoicePaymentCol;
             ddlPaymentType.DataTextField = "CodeDesc";
             ddlPaymentType.DataValueField = "Code";
@@ -458,7 +458,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         private List<string> GetRejectReasonCode()
         {
             List<string> result = new List<string>();
-            var rejectReason = LookupDataBL.Instance.GetRefCode("payment reject reason code");
+            var rejectReason = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_PAYMENT_REJECT_REASON_CODE);
             foreach (var i in rejectReason)
                 result.Add(i.Code);
             return result;

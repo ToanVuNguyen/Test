@@ -59,7 +59,19 @@ namespace HPF.FutureState.Common
         public const string REF_CODE_SET_AUDIT_FAILURE_REASON_CODE = "audit failure reason code";
         public const string REF_CODE_SET_FOLLOW_UP_SOURCE_CODE = "follow up source code";
         public const string REF_CODE_SET_LOAN_DELINQUENCY_CODE = "loan delinquency status code";
-        public const string REF_CODE_SET_CREDIR_BERREAU_CODE = "credit bureau code";        
+        public const string REF_CODE_SET_CREDIR_BERREAU_CODE = "credit bureau code";
+        public const string REF_CODE_SET_STATE_CODE = "State Code";
+        public const string REF_CODE_SET_GENDER_CODE = "Gender code";
+        public const string REF_CODE_SET_RACE_CODE = "Race code";
+        public const string REF_CODE_SET_HOUSEHOLD_CODE = "Household code";
+        public const string REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE = "agency payable status code";
+        public const string REF_CODE_SET_INVOICE_STATUS_CODE = "invoice status code";
+        public const string REF_CODE_SET_TAKE_BACK_REASON_CODE = "takeback reason code";
+        public const string REF_CODE_SET_PAYMENT_REJECT_REASON_CODE = "payment reject reason code";
+        public const string REF_CODE_SET_NEVER_BILL_REASON_CODE = "never bill reason code";
+        public const string REF_CODE_SET_NEVER_PAY_REASON_CODE = "never pay reason code";
+        public const string REF_CODE_SET_PAYMENT_CODE = "payment code";
+
         //
         public const int HPF_QUEUE_READING_TIMEOUT = 10;//Seconds
         public const string HPF_QUEUE_PATH = @".\Private$\HPFSummaryQueue";

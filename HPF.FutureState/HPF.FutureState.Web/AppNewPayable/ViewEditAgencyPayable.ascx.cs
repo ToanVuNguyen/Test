@@ -39,7 +39,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         protected void BindTakebackReasonDropDownList()
         {
-            RefCodeItemDTOCollection takebackReasonCol = LookupDataBL.Instance.GetRefCode("takeback reason code");
+            RefCodeItemDTOCollection takebackReasonCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_TAKE_BACK_REASON_CODE);
             ddlTakebackReason.DataSource = takebackReasonCol;
             ddlTakebackReason.DataTextField = "code";
             ddlTakebackReason.DataValueField = "code";

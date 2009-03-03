@@ -228,7 +228,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             try
             {
-                string cancelCode = LookupDataBL.Instance.GetRefCode("invoice status code")[1].Code;
+                string cancelCode = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_INVOICE_STATUS_CODE)[1].Code;
                 //Update to Database
                 invoice.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 invoice.StatusCode = cancelCode;

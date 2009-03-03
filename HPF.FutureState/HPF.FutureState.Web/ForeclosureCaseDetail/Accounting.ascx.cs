@@ -45,7 +45,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void BindNeverBillReasonDropDownList()
         {
-            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCode("never bill reason code");
+            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_NEVER_BILL_REASON_CODE);
             ddlNerverBillReason.DataSource = refCodeCol;
             ddlNerverBillReason.DataTextField = "CodeDesc";
             ddlNerverBillReason.DataValueField = "Code";
@@ -53,7 +53,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void BindNeverPayReasonDropDownList()
         {
-            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCode("never pay reason code");
+            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_NEVER_PAY_REASON_CODE);
             ddlNeverPayReason.DataSource = refCodeCol;
             ddlNeverPayReason.DataTextField = "CodeDesc";
             ddlNeverPayReason.DataValueField = "Code";

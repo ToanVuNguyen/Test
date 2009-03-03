@@ -193,7 +193,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             RefCodeItemDTOCollection genderCollection = null;
             try
             {
-                genderCollection = LookupDataBL.Instance.GetRefCode("Gender code");
+                genderCollection = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_GENDER_CODE);
             }
             catch (Exception ex)
             {
@@ -212,7 +212,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             RefCodeItemDTOCollection raceCollection = null;
             try
             {
-                raceCollection = LookupDataBL.Instance.GetRefCode("Race code");
+                raceCollection = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_RACE_CODE);
             }
             catch (Exception ex)
             {
@@ -231,7 +231,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             RefCodeItemDTOCollection householdCollection = null;
             try
             {
-                householdCollection = LookupDataBL.Instance.GetRefCode("Household code");
+                householdCollection = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_HOUSEHOLD_CODE);
             }
             catch (Exception ex)
             {
@@ -249,7 +249,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             RefCodeItemDTOCollection stateCollection = null;
             try
             {
-                stateCollection = LookupDataBL.Instance.GetRefCode("State Code");
+                stateCollection = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_STATE_CODE);
             }
             catch (Exception ex)
             {

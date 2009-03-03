@@ -220,7 +220,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
-                    RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCode("agency payable status code")[1];
+                    RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[1];
                     agency[selectedrow].StatusCode = agencystatus.Code;
                     agency[selectedrow].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
