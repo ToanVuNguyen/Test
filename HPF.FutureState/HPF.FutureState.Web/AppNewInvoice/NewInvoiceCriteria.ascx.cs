@@ -249,7 +249,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             RefCodeItemDTOCollection stateCollection = null;
             try
             {
-                stateCollection = LookupDataBL.Instance.GetRefCode("State");
+                stateCollection = LookupDataBL.Instance.GetRefCode("State Code");
             }
             catch (Exception ex)
             {
