@@ -104,6 +104,13 @@ namespace HPF.FutureState.Web.InvoicePayments
             exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
             return exMes;
         }
+        private ExceptionMessage GetExceptionMessageWithoutCode(string errorCode)
+        {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
+            return exMes;
+        }
         /// <summary>
         /// Get or throw exception if there's any datavalidation error.
         /// </summary>
@@ -113,27 +120,43 @@ namespace HPF.FutureState.Web.InvoicePayments
             DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
             searchCriteria.FundingSourceId = int.Parse(ddlFundingSource.SelectedValue);
-            try
+            if (txtPeriodStart.Text == string.Empty)
             {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-                if (searchCriteria.PeriodEnd.Year < 1753)
-                    throw (new Exception());
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0675);
+                ex.ExceptionMessages.Add(exMes);
             }
-            catch
+            else
+            {
+                try
+                {
+                    searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+                    if (searchCriteria.PeriodStart.Year < 1753)
+                        throw (new Exception());
+                }
+                catch
+                {
+                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0996);
+                    ex.ExceptionMessages.Add(exMes);
+                }
+            }
+            if (txtPeriodEnd.Text == string.Empty)
             {
                 ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0676);
                 ex.ExceptionMessages.Add(exMes);
             }
-            try
+            else
             {
-                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
-                if (searchCriteria.PeriodStart.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0675);
-                ex.ExceptionMessages.Add(exMes);
+                try
+                {
+                    searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+                    if (searchCriteria.PeriodEnd.Year < 1753)
+                        throw (new Exception());
+                }
+                catch
+                {
+                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0997);
+                    ex.ExceptionMessages.Add(exMes);
+                }
             }
             if (ex.ExceptionMessages.Count > 0)
                 throw (ex);

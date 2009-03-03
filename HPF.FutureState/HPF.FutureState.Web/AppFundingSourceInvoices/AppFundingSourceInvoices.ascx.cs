@@ -82,32 +82,55 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
             return exMes;
         }
+        private ExceptionMessage GetExceptionMessageWithoutCode(string errorCode)
+        {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
+            return exMes;
+        }
         private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()
         {
             DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
             searchCriteria.FundingSourceId = int.Parse(dropFundingSource.SelectedValue);
-            try
+            if (txtPeriodStart.Text == string.Empty)
             {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-                if (searchCriteria.PeriodEnd.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0562);
                 ex.ExceptionMessages.Add(exMes);
             }
-            try
+            else
             {
-                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
-                if (searchCriteria.PeriodStart.Year < 1753)
-                    throw (new Exception());
+                try
+                {
+                    searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+                    if (searchCriteria.PeriodStart.Year < 1753)
+                        throw (new Exception());
+                }
+                catch
+                {
+                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0996);
+                    ex.ExceptionMessages.Add(exMes);
+                }
             }
-            catch
+            if (txtPeriodEnd.Text == string.Empty)
             {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0997);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0563);
                 ex.ExceptionMessages.Add(exMes);
+            }
+            else
+            {
+                try
+                {
+                    searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+                    if (searchCriteria.PeriodEnd.Year < 1753)
+                        throw (new Exception());
+                }
+                catch
+                {
+                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0997);
+                    ex.ExceptionMessages.Add(exMes);
+                }
             }
             if (ex.ExceptionMessages.Count > 0)
                 throw (ex);
@@ -181,6 +204,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         protected void btnNewInvoice_Click(object sender, EventArgs e)
         {
             Session["fundingSourceId"] = dropFundingSource.SelectedValue;
+            Session["IvoiceCaseSearchCriteria"] = null;
             Response.Redirect("CreateNewInvoice.aspx");
         }
 
