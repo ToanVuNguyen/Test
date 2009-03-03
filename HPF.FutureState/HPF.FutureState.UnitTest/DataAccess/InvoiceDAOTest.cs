@@ -21,7 +21,10 @@ namespace HPF.FutureState.UnitTest
     {
 
         public static int invoiceId;
+        public static int fundingSourceId;
+        public static int paymentId;
         private TestContext testContextInstance;
+        static string working_user_id = "SinhUnitTest";
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -63,15 +66,35 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Insert Into Invoice(invoice_dt,funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,invoice_comment)" +
-                                    " values ('1/1/2107',1,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test','Sinh-invoice')";
+            //Insert Funding Source
+            command.CommandText = @"insert into [dbo].funding_source([funding_source_name],[funding_source_comment]
+           ,[city],[state_cd],[create_dt],[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id]
+           ,[chg_lst_app_name],[funding_source_abbrev]) values ('fs accounting test','fs test','hcm test'
+           ,'test','1/1/2222','" + working_user_id + "','fs test app','1/1/2222','Test data','CCRC','5')";
             command.ExecuteNonQuery();
+            //-- get Funding Source Id of test data .
+            command.CommandText = @"select funding_source_id from funding_source where create_user_id='" + working_user_id + "'";
+            fundingSourceId = Convert.ToInt32(command.ExecuteScalar());
+
+            //Insert invoice payment
+            command.CommandText = @"INSERT INTO [dbo].[invoice_payment]([funding_source_id],[pmt_num] ,[pmt_dt],[pmt_cd]
+            ,[create_dt] ,[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])
+            VALUES (" + fundingSourceId + ",'"+working_user_id+"','1/1/2222','test test','1/1/2222','HPF','fs test app','1/1/2222','Test data','CCRC')";
+            command.ExecuteNonQuery();
+            //get back
+            command.CommandText = @"select invoice_payment_id from invoice_payment where pmt_num='" + working_user_id + "'";
+            paymentId = Convert.ToInt32(command.ExecuteScalar());
+            //Insert Invoice
 
             command.CommandText = "Insert Into Invoice(invoice_dt,funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,invoice_comment)" +
-                                    " values ('1/1/2107',2,'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test','Sinh-invoice')";
+                                    " values ('1/1/2107',"+fundingSourceId.ToString()+",'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test','"+working_user_id+"')";
             command.ExecuteNonQuery();
+
+            //command.CommandText = "Insert Into Invoice(invoice_dt,funding_source_id,period_start_dt, period_end_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name,invoice_comment)" +
+            //                        " values ('1/1/2107'," + fundingSourceId.ToString() + ",'1/1/2107', '1/1/2108', '1/1/2208', 'test', 'test', '1/1/2008', 'test', 'test','"+working_user_id+"')";
+            //command.ExecuteNonQuery();
             //Get invoiceId
-            command.CommandText = "Select Invoice_id from Invoice where funding_source_id =1 and invoice_comment='Sinh-invoice' ";
+            command.CommandText = "Select Invoice_id from Invoice where invoice_comment='"+working_user_id+"' ";
             var reader = command.ExecuteReader();
             if (!reader.HasRows)
             {
@@ -84,13 +107,13 @@ namespace HPF.FutureState.UnitTest
             reader.Close();
             //Insert invoice Case
             command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (100,234769," + invoiceId.ToString() + ",'1/1/2208', 'Sinh Tran', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test')";
+                                    " values (100,234769," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test')";
             command.ExecuteNonQuery();
             command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (200,234769," + invoiceId.ToString() + ",'1/1/2208', 'Sinh Tran', 'InvoiceCase2', '1/1/2008', 'InvoiceCase2', 'test')";
+                                    " values (200,234769," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase2', '1/1/2008', 'InvoiceCase2', 'test')";
             command.ExecuteNonQuery();
             command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (300,234769," + invoiceId.ToString() + ",'1/1/2208', 'Sinh Tran', 'InvoiceCase3', '1/1/2008', 'InvoiceCase3', 'test')";
+                                    " values (300,234769," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase3', '1/1/2008', 'InvoiceCase3', 'test')";
             command.ExecuteNonQuery();
             dbConnection.Close();
 
@@ -104,11 +127,15 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
+            
 
-            command.CommandText = "Delete invoice_case where create_user_id='Sinh Tran'";
+            command.CommandText = "Delete invoice_case where create_user_id='"+working_user_id+"'";
             command.ExecuteNonQuery();
 
-            command.CommandText = "Delete Invoice where invoice_comment='Sinh-invoice'";
+            command.CommandText = "Delete Invoice where invoice_comment='"+working_user_id+"'";
+            command.ExecuteNonQuery();
+            command.CommandText = @"delete invoice_payment where pmt_num='" + working_user_id + "'";
+
             command.ExecuteNonQuery();
 
             dbConnection.Close();
@@ -125,23 +152,16 @@ namespace HPF.FutureState.UnitTest
         {
             InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO(); // TODO: Initialize to an appropriate value
-            searchCriteria.FundingSourceId = -1;
+            searchCriteria.FundingSourceId = fundingSourceId;
             searchCriteria.PeriodStart = new DateTime(2107, 01, 01);
             searchCriteria.PeriodEnd = new DateTime(2108, 02, 01);
 
             // Search Result's funding source ids 
-            List<int> expected = new List<int>();
-            expected.Add(1);
-            expected.Add(2);
 
             InvoiceDTOCollection results;
             results = target.SearchInvoice(searchCriteria);
-            List<int> actual = new List<int>();
-            actual.Add(results[0].FundingSourceId.Value);
-            actual.Add(results[1].FundingSourceId.Value);
-            for (int i = 0; i < 2; i++)
-                Assert.AreEqual(expected[i], actual[i]);
-            
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(fundingSourceId, results[0].FundingSourceId.Value);
         }
         /// <summary>
         ///A test for InsertInvoice
@@ -151,7 +171,7 @@ namespace HPF.FutureState.UnitTest
         {
             InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
 
-            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = 2, InvoiceComment="Sinh-invoice", PeriodStartDate=new DateTime(2107,1,1), PeriodEndDate= new DateTime(2108,1,1)};
+            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = fundingSourceId, InvoiceComment=working_user_id, PeriodStartDate=new DateTime(2107,1,1), PeriodEndDate= new DateTime(2108,1,1)};
             invoice.InvoiceDate = new DateTime(2108, 1, 1);
             invoice.SetInsertTrackingInformation("1");
             target.BeginTransaction();
@@ -171,7 +191,7 @@ namespace HPF.FutureState.UnitTest
                 Assert.Fail("Insert Invoice Not successful");
             }
             reader.Read();
-            Assert.AreEqual(2, int.Parse(reader["funding_source_id"].ToString()));
+            Assert.AreEqual(fundingSourceId, int.Parse(reader["funding_source_id"].ToString()));
             reader.Close();
             dbConnection.Close();
         }
@@ -185,8 +205,9 @@ namespace HPF.FutureState.UnitTest
             InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
 
             // insert Invoice 
-            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = 2, PeriodStartDate = new DateTime(2107, 1, 1), PeriodEndDate = new DateTime(2108, 1, 1) };
+            InvoiceDTO invoice = new InvoiceDTO { FundingSourceId = fundingSourceId, PeriodStartDate = new DateTime(2107, 1, 1), PeriodEndDate = new DateTime(2108, 1, 1) };
             invoice.InvoiceDate = new DateTime(2108, 1, 1);
+            invoice.InvoiceComment = working_user_id;
             invoice.SetInsertTrackingInformation("1");
             target.BeginTransaction();
             int invoiceID = -1;
@@ -198,7 +219,7 @@ namespace HPF.FutureState.UnitTest
 
             InvoiceCaseDTO invoiceCase = new InvoiceCaseDTO { InvoiceId = invoiceID, ForeclosureCaseId = 123, InvoiceCasePaymentAmount = 9999 };
             invoiceCase.SetInsertTrackingInformation("1");
-            invoiceCase.CreateUserId = "Sinh Tran";
+            invoiceCase.CreateUserId = working_user_id;
 
             target.BeginTransaction();
             target.InsertInvoiceCase(invoiceCase);
@@ -227,9 +248,8 @@ namespace HPF.FutureState.UnitTest
         {
             InvoiceDAO target = new InvoiceDAO(); // TODO: Initialize to an appropriate value
             InvoiceSetDTO actual= target.InvoiceSetGet(invoiceId);
-            Assert.AreEqual(1, actual.Invoice.FundingSourceId);
-            Assert.AreEqual("Sinh-invoice", actual.Invoice.InvoiceComment);
-            Assert.AreEqual(234769, actual.InvoiceCases[0].ForeclosureCaseId);
+            Assert.AreEqual(fundingSourceId, actual.Invoice.FundingSourceId);
+            Assert.AreEqual(working_user_id, actual.Invoice.InvoiceComment);
             Assert.AreEqual(invoiceId, actual.Invoice.InvoiceId);
         }
         [TestMethod()]
@@ -264,7 +284,7 @@ namespace HPF.FutureState.UnitTest
             while(reader.Read())
             {
                 Assert.AreEqual(234769, int.Parse(reader["fc_id"].ToString()));
-                Assert.AreEqual("Sinh Tran", reader["create_user_id"].ToString());
+                Assert.AreEqual(""+working_user_id+"", reader["create_user_id"].ToString());
                 Assert.AreEqual("REO", reader["pmt_reject_reason_cd"].ToString());
                 Assert.AreEqual(string.Empty, reader["invoice_case_pmt_amt"].ToString());
             }
@@ -301,7 +321,7 @@ namespace HPF.FutureState.UnitTest
             while (reader.Read())
             {
                 Assert.AreEqual(234769, int.Parse(reader["fc_id"].ToString()));
-                Assert.AreEqual("Sinh Tran", reader["create_user_id"].ToString());
+                Assert.AreEqual(""+working_user_id+"", reader["create_user_id"].ToString());
                 Assert.AreEqual(string.Empty, reader["pmt_reject_reason_cd"].ToString());
                 Assert.AreEqual(string.Empty, reader["invoice_case_pmt_amt"].ToString());
             }
@@ -319,10 +339,12 @@ namespace HPF.FutureState.UnitTest
             actual.ChangeLastAppName = "Unit TEst";
             actual.ChangeLastUserId = "1";
             //set payment id
-            actual.InvoicePaymentId = 1;
-            string invoiceCaseIdCollection = actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString();
+            actual.InvoicePaymentId = paymentId;
+            string invoiceCaseIdCollection = "";
+            foreach (var i in actual.InvoiceCases)
+                invoiceCaseIdCollection = invoiceCaseIdCollection + i.InvoiceCaseId.ToString() + ",";
+            invoiceCaseIdCollection = invoiceCaseIdCollection.Remove(invoiceCaseIdCollection.Length - 1, 1);
             //set RejectReason
-            //reject invoiceCase 1 and invoiceCase2
             bool result = target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
             Assert.IsTrue(result);
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
@@ -340,7 +362,7 @@ namespace HPF.FutureState.UnitTest
             while (reader.Read())
             {
                 Assert.AreEqual(234769, int.Parse(reader["fc_id"].ToString()));
-                Assert.AreEqual("Sinh Tran", reader["create_user_id"].ToString());
+                Assert.AreEqual(""+working_user_id+"", reader["create_user_id"].ToString());
                 Assert.AreEqual(string.Empty, reader["pmt_reject_reason_cd"].ToString());
                 Assert.AreEqual(reader["invoice_case_bill_amt"].ToString(), reader["invoice_case_pmt_amt"].ToString());
             }
