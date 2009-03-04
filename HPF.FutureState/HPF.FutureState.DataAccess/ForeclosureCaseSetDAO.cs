@@ -524,9 +524,10 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[2];
+                var sqlParam = new SqlParameter[3];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", caseLoan.FcId);                
                 sqlParam[1] = new SqlParameter("@pi_acct_num", caseLoan.AcctNum);
+                sqlParam[2] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
