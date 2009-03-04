@@ -1710,47 +1710,48 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (forclosureCase == null)
                 return null;
+
             if (!referenceCode.Validate(ReferenceCode.INCOME_EARNERS_CODE, forclosureCase.IncomeEarnersCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0200, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0200));
-            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE, forclosureCase.CaseSourceCd))
+            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE,  forclosureCase.CaseSourceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0201, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0201));
-            if (!referenceCode.Validate(ReferenceCode.RACE_CODE, forclosureCase.RaceCd))
+            if (!referenceCode.Validate(ReferenceCode.RACE_CODE,  forclosureCase.RaceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0202, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0202));
-            if (!referenceCode.Validate(ReferenceCode.HOUSEHOLD_CODE, forclosureCase.HouseholdCd))
+            if (!referenceCode.Validate(ReferenceCode.HOUSEHOLD_CODE,  forclosureCase.HouseholdCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0203, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0203));
             //if (!referenceCode.Validate(ReferenceCode.NEVER_BILL_REASON_CODE, forclosureCase.NeverBillReasonCd))
             //    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverBillReasonCd.");
             //if (!referenceCode.Validate(ReferenceCode.NEVER_PAY_REASON_CODE, forclosureCase.NeverPayReasonCd))
             //    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid code was provided for NeverPayReasonCd.");
-            if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE, forclosureCase.DfltReason1stCd))
+            if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE,  forclosureCase.DfltReason1stCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0204, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0204));
-            if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE, forclosureCase.DfltReason2ndCd))
+            if (!referenceCode.Validate(ReferenceCode.DEFAULT_REASON_CODE,  forclosureCase.DfltReason2ndCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0205, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0205));
-            if (!referenceCode.Validate(ReferenceCode.HUD_TERMINATION_REASON_CODE, forclosureCase.HudTerminationReasonCd))
+            if (!referenceCode.Validate(ReferenceCode.HUD_TERMINATION_REASON_CODE,  forclosureCase.HudTerminationReasonCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0206, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0206));
-            if (!referenceCode.Validate(ReferenceCode.HUD_OUTCOME_CODE, forclosureCase.HudOutcomeCd))
+            if (!referenceCode.Validate(ReferenceCode.HUD_OUTCOME_CODE,  forclosureCase.HudOutcomeCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0207, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0207));
-            if (!referenceCode.Validate(ReferenceCode.COUNSELING_DURARION_CODE, forclosureCase.CounselingDurationCd))
+            if (!referenceCode.Validate(ReferenceCode.COUNSELING_DURARION_CODE,  forclosureCase.CounselingDurationCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0208, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0208));
-            if (!referenceCode.Validate(ReferenceCode.GENDER_CODE, forclosureCase.GenderCd))
+            if (!referenceCode.Validate(ReferenceCode.GENDER_CODE,  forclosureCase.GenderCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0209, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0209));
-            if (!referenceCode.Validate(ReferenceCode.STATE, forclosureCase.ContactStateCd))
+            if (!referenceCode.Validate(ReferenceCode.STATE_CODE,  forclosureCase.ContactStateCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0210, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0210));
-            if (!referenceCode.Validate(ReferenceCode.STATE, forclosureCase.PropStateCd))
+            if (!referenceCode.Validate(ReferenceCode.STATE_CODE,  forclosureCase.PropStateCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0211, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0211));
-            if (!referenceCode.Validate(ReferenceCode.EDUCATION_LEVEL_COMPLETED_CODE, forclosureCase.BorrowerEducLevelCompletedCd))
+            if (!referenceCode.Validate(ReferenceCode.EDUCATION_LEVEL_COMPLETED_CODE,  forclosureCase.BorrowerEducLevelCompletedCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0212, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0212));
-            if (!referenceCode.Validate(ReferenceCode.MARITAL_STATUS_CODE, forclosureCase.BorrowerMaritalStatusCd))
+            if (!referenceCode.Validate(ReferenceCode.MARITAL_STATUS_CODE,  forclosureCase.BorrowerMaritalStatusCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0213, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0213));
-            if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE, forclosureCase.BorrowerPreferredLangCd))
+            if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE,  forclosureCase.BorrowerPreferredLangCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0214, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0214));            
-            if (!referenceCode.Validate(ReferenceCode.SUMMARY_SENT_OTHER_CODE, forclosureCase.SummarySentOtherCd))
+            if (!referenceCode.Validate(ReferenceCode.SUMMARY_SENT_OTHER_CODE,  forclosureCase.SummarySentOtherCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0215, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0215));
-            if (!referenceCode.Validate(ReferenceCode.PROPERTY_CODE, forclosureCase.PropertyCd))
+            if (!referenceCode.Validate(ReferenceCode.PROPERTY_CODE,  forclosureCase.PropertyCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0216, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0216));
-            if (!referenceCode.Validate(ReferenceCode.MILITARY_SERVICE_CODE, forclosureCase.MilitaryServiceCd))
+            if (!referenceCode.Validate(ReferenceCode.MILITARY_SERVICE_CODE,  forclosureCase.MilitaryServiceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0217));
-            if (!referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE, forclosureCase.IntakeCreditBureauCd))
+            if (!referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE,  forclosureCase.IntakeCreditBureauCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0218, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0218));
             return msgFcCaseSet;
         }
@@ -1771,13 +1772,13 @@ namespace HPF.FutureState.BusinessLogic
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
                 if (!referenceCode.Validate(ReferenceCode.LOAN_1ST_2ND, caseLoan.Loan1st2nd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0219, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0219) + " working on case loan index " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.MORTGAGE_TYPE_CODE, caseLoan.MortgageTypeCd))
+                if (!referenceCode.Validate(ReferenceCode.MORTGAGE_TYPE_CODE,  caseLoan.MortgageTypeCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0220, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0220) + " working on case loan index " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.TERM_LENGTH_CODE, caseLoan.TermLengthCd))
+                if (!referenceCode.Validate(ReferenceCode.TERM_LENGTH_CODE,  caseLoan.TermLengthCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0221, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0221) + " working on case loan index " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, caseLoan.LoanDelinqStatusCd))
+                if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE,  caseLoan.LoanDelinqStatusCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0222, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0222) + " working on case loan index " + (i + 1));
-                if (!referenceCode.Validate(ReferenceCode.MORTGAGE_PROGRAM_CODE, caseLoan.MortgageProgramCd))
+                if (!referenceCode.Validate(ReferenceCode.MORTGAGE_PROGRAM_CODE,  caseLoan.MortgageProgramCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0223, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0223) + " working on case loan index " + (i + 1));
                 if(!CheckValidServicerId(caseLoan.ServicerId))
                     msgFcCaseSet.AddExceptionMessage("UNKNOWN", "An invalid ID was provided for ServicerId" + " working on case loan index " + (i + 1));
