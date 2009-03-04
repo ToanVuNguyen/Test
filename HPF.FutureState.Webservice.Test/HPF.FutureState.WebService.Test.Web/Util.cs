@@ -16,6 +16,8 @@ namespace HPF.FutureState.WebService.Test.Web
     {
         public static DateTime? ConvertToDateTime(object obj)
         {
+            
+
             if (obj != null && !string.IsNullOrEmpty(obj.ToString()))
             {
                 try
@@ -100,11 +102,73 @@ namespace HPF.FutureState.WebService.Test.Web
         }
 
         public static string ConvertToString(object obj)
-        {
+        {            
             if (obj == null)
                 return null;
             if (string.IsNullOrEmpty(obj.ToString())) return null;
             return obj.ToString();
+        }
+        public static string ConvertToString(XElement obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.Value)) return null;
+            return obj.Value;
+        }
+
+        public static DateTime? ConvertToDateTime(XElement obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.Value)) return null;
+            DateTime dt;
+            if (!DateTime.TryParse(obj.Value, out dt))
+                return null;
+            return dt;
+        }
+
+        public static int? ConvertToInt(XElement obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.Value)) return null;
+            int i;
+            if (!int.TryParse(obj.Value, out i))
+                return null;
+            return i;
+        }
+
+        public static double? ConvertToDouble(XElement obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.Value)) return null;
+            double d;
+            if (!double.TryParse(obj.Value, out d))
+                return null;
+            return d;
+        }
+
+        public static decimal? ConvertToDecimal(XElement obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.Value)) return null;
+            decimal dec;
+            if (!decimal.TryParse(obj.Value, out dec))
+                return null;
+            return dec;
+        }
+
+        public static byte? ConvertToByte(XElement obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.Value)) return null;
+            byte b;
+            if (!byte.TryParse(obj.Value, out b))
+                return null;
+            return b;
         }
     }
 }
