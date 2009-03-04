@@ -27,10 +27,9 @@
         <td align="right" class="sidelinks">
             &nbsp;
             Funding Source*:</td>
-        <td colspan="4">
-            &nbsp;
+        <td colspan="4" align="left">
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
-                AutoPostBack="True">
+                AutoPostBack="True" Width="100%">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
@@ -42,7 +41,7 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks" rowspan="2" style="vertical-align: top">
-            Servicer :</td>
+            Servicers:</td>
         <td colspan="4" rowspan="2" style="vertical-align: top">
             <div style="height:60px; overflow:auto;border:solid 1px #8FC4F6">
             
@@ -75,9 +74,12 @@
     </tr>
     <tr>
         <td rowspan="4" align="right" class="sidelinks" style="vertical-align: top">
-            Non-Servicer Funding
+            Non-Servicer 
             <br />
-            Source Option :</td>
+                        Funding
+            Source 
+            <br />
+                        Option* :</td>
         <td colspan="4" 
             style="border-color: #8FC4F6; border-style: solid; border-width: 1px; vertical-align: top" 
             rowspan="4">
@@ -121,7 +123,7 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            Ignore Funding Consent:</td>
+            Ignore Funding Consent?:</td>
         <td>
             <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
                 <asp:ListItem Value="0">Yes</asp:ListItem>
@@ -178,7 +180,7 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            Hispanic:</td>
+            Ethnicity:</td>
         <td colspan="4">
             <asp:DropDownList ID="dropHispanic" runat="server" CssClass="Text">
                 <asp:ListItem Value="0">Yes</asp:ListItem>
@@ -198,13 +200,13 @@
         <td align="right" class="sidelinks">
             Min:</td>
         <td>
-            <asp:TextBox ID="txtAgeMin" runat="server" CssClass="Text" Width="50px"></asp:TextBox>
+            <asp:TextBox ID="txtAgeMin" runat="server" CssClass="Text" Width="90px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Max:</td>
             
         <td align="left" class="Text">
-            <asp:TextBox ID="txtAgeMax" runat="server" CssClass="Text" Width="50px"></asp:TextBox>
+            <asp:TextBox ID="txtAgeMax" runat="server" CssClass="Text" Width="90px"></asp:TextBox>
         </td>
             
         <td align="right" class="sidelinks">
@@ -214,17 +216,19 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            Household Gross Annual Income:</td>
+            Household Gross 
+            <br />
+            Annual Income:</td>
         <td align="right" class="sidelinks">
             Min:</td>
         <td>
-            <asp:TextBox ID="txtIncomeMin" runat="server" CssClass="Text" Width="50px"></asp:TextBox>
+            <asp:TextBox ID="txtIncomeMin" runat="server" CssClass="Text" Width="90px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Max:</td>
             
         <td align="left" class="Text">
-            <asp:TextBox ID="txtIncomeMax" runat="server" CssClass="Text" Width="50px"></asp:TextBox>
+            <asp:TextBox ID="txtIncomeMax" runat="server" CssClass="Text" Width="90px"></asp:TextBox>
         </td>
         <td>
             &nbsp;</td>

@@ -6,6 +6,13 @@
 <asp:ScriptManager runat="server"></asp:ScriptManager>
 <%--<asp:UpdatePanel runat="server">
 <ContentTemplate>--%>
+<style type="text/css">
+    .style2
+    {
+        width: 270px;
+    }
+</style>
+
 <table style="width:100%;">
     <tr>
         <td align="center" colspan="6">
@@ -14,18 +21,19 @@
         </td>
     </tr>
     <tr>
-        <td align="left" class="sidelinks" colspan="2">
-            Funding Source        
-            <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text">
+        <td align="right" class="sidelinks">
+            Funding Source*:
+        </td>
+        <td align="left">
+            <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
+                Width="300px">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
-            Period Start:</td>
-        <td>
+            Period Start*:</td>
+        <td colspan="2">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
         </td>
-        <td class="style1">
-            &nbsp;</td>
         <td rowspan="4" align="center" style="vertical-align: top">
             <img alt="" src="Styles/Images/HPFLogo.jpg" 
                 style="width: 55px; height: 55px" /><br />
@@ -35,10 +43,10 @@
     <tr>
         <td>
             &nbsp;</td>
-        <td>
+        <td class="style2">
             &nbsp;</td>
         <td align="right" class="sidelinks">
-            Period End:</td>
+            Period End*:</td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
         </td>
@@ -55,7 +63,7 @@
     </tr>
     <tr>
         <td class="sidelinks" colspan="5">
-            <asp:Label ID="lblInvoiceList" runat="server" Text="Invoice List" 
+            <asp:Label ID="lblInvoiceList" runat="server" Text="Invoice List:" 
                 Visible="False"></asp:Label>
         </td>
     </tr>
@@ -63,13 +71,13 @@
         <td colspan="5" rowspan="17">
         <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" 
                  Width="100%" Visible="true">
-                 <asp:UpdatePanel runat="server">
-                 <ContentTemplate>
-                 
+                 <asp:UpdatePanel runat="server"   >                 
+                 <ContentTemplate>                                 
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
                     Width="100%" ondatabound="grvFundingSourceInvoices_DataBound" 
-                    onrowdatabound="grvFundingSourceInvoices_RowDataBound" DataKeyNames="InvoiceId" >
+                    onrowdatabound="grvFundingSourceInvoices_RowDataBound" DataKeyNames="InvoiceId" 
+                         onselectedindexchanged="grvFundingSourceInvoices_SelectedIndexChanged" >
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -93,11 +101,9 @@
                         <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" />
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
-                    <EmptyDataTemplate>
-                    There is no data match !
-                    </EmptyDataTemplate>
                 </asp:GridView>
-                </ContentTemplate>
+                <asp:HiddenField ID="SelectedRowIndex" runat="server"  />
+                </ContentTemplate>                
                  </asp:UpdatePanel>
             </cc1:StatefullScrollPanel>
             
@@ -116,10 +122,8 @@
     </tr>
     <tr>
         <td height="20" width="120">
-            <span onclick="return confirm('Do you really want to cancel the Invoice')">
-                <asp:Button ID="btnCancelInvoice" runat="server" CssClass="MyButton" 
-                    Text="Cancel Invoice" Width="120px" onclick="btnCancelInvoice_Click" />
-            </span>
+            <asp:Button ID="btnCancelInvoice" runat="server" CssClass="MyButton" 
+                Text="Cancel Invoice" Width="120px" onclick="btnCancelInvoice_Click" />
         </td>
     </tr>
     <tr>
@@ -179,5 +183,27 @@
             &nbsp;</td>
     </tr>
 </table>
-<%--</ContentTemplate>
-</asp:UpdatePanel>--%>
+
+<script type="text/javascript" language="javascript">    
+    var id='<%=SelectedRowIndex.ClientID %>';
+    function ViewEditClientClick()
+    {    
+        var SelectedIndex = document.getElementById(id);    
+        if(SelectedIndex.value=='')
+        {
+            alert('ERR0568--You must select an Invoice to View/Edit.');
+            return false;
+        }
+    }
+    function CancelClientClick()
+    {
+        var SelectedIndex = document.getElementById(id);    
+        if(SelectedIndex.value=='')
+        {
+            alert('ERR0567--You must select an Invoice to Cancel.');
+            return false;
+        }
+        else
+            return confirm('WARN0551--Are you sure you wish to cancel this Invoice?');
+    }
+</script>

@@ -275,6 +275,7 @@ namespace HPF.FutureState.Common
         public const string ERR0563 = "ERR0563";
         public const string ERR0564 = "ERR0564";
         public const string ERR0565 = "ERR0565";
+        public const string WARN0566 = "WARN0566";
 
 
         //view edit payable page
@@ -660,6 +661,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0563, "A Period End date is required to search for Invoices.");
                 errorMessageDict.Add(ERR0564, "A Non-Servicer Funding Source Option is required to search for Invoices.");
                 errorMessageDict.Add(ERR0565, "A Program selection is required to search for Invoices.");
+                errorMessageDict.Add(WARN0566, "No Invoice were found that match your search criteria");
 
                 //view edit payable page
                 errorMessageDict.Add(ERR0575, "At least one case must be selected in order to take back a case.");

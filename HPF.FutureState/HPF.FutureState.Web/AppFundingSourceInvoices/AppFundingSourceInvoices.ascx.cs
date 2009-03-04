@@ -24,6 +24,8 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (grvFundingSourceInvoices.SelectedValue == null)
+                SelectedRowIndex.Value = "";
             ClearErrorMessages();
             try
             {
@@ -32,6 +34,8 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 {
                     GetFundingSourceList();
                     SetUpDefaultValue();
+                    btnViewEditInvoice.Attributes.Add("onclick", " return ViewEditClientClick();");
+                    btnCancelInvoice.Attributes.Add("onclick", " return CancelClientClick();");
                 }
             }
             catch (Exception ex)
@@ -165,6 +169,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             try
             {
                 InvoiceDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
+                if (searchResult == null)
+                {
+                    DataValidationException ex = new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0566));
+                    throw ex;
+                }
                 Session["searchResult"] = searchResult;
                 Session["invoiceSearchCriteria"] = searchCriteria;
                 grvFundingSourceInvoices.DataSource = searchResult;
@@ -212,11 +221,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         protected void btnCancelInvoice_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            if (grvFundingSourceInvoices.SelectedIndex == -1)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
-                return;
-            }
+            //if (grvFundingSourceInvoices.SelectedValue == null)
+            //{
+            //    lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
+            //    return;
+            //}
             if (Session["searchResult"] == null)
                 return;
             InvoiceDTOCollection searchResult = Session["searchResult"] as InvoiceDTOCollection;
@@ -249,13 +258,20 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
         protected void btnViewEditInvoice_Click(object sender, EventArgs e)
         {
-            if (grvFundingSourceInvoices.SelectedIndex == -1)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
-                return;
-            }
+            //if (grvFundingSourceInvoices.SelectedValue==null)
+            //{
+            //    lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
+            //    return;
+            //}
             int invoiceId = (int)grvFundingSourceInvoices.SelectedValue;
             Response.Redirect("InvoiceInfo.aspx?id=" + invoiceId.ToString());
+        }
+
+        protected void grvFundingSourceInvoices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (grvFundingSourceInvoices.SelectedValue != null)
+                SelectedRowIndex.Value = grvFundingSourceInvoices.SelectedValue.ToString();
+            
         }
     }
 }
