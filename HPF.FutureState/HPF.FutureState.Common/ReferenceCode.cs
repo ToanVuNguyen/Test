@@ -31,7 +31,7 @@ namespace HPF.FutureState.Common
         public const string INVOICE_STATUS_CODE = "Invoice - Status code";
         public const string INVOICE_CODE = "Invoice code";
         public const string LANGUAGE_CODE = "Preferred language code";
-        public const string LOAN_1ST_2ND = "Loan 1st 2nd";
+        public const string LOAN_1ST_2ND_CODE = "Loan 1st 2nd code";
         public const string LOAN_DELINQUENCY_STATUS_CODE = "Loan delinquency status code";
         public const string MARITAL_STATUS_CODE = "Marital status code";
         public const string MILITARY_SERVICE_CODE = "Military service code";
@@ -44,7 +44,7 @@ namespace HPF.FutureState.Common
         public const string PROPERTY_CODE = "Property code";
         public const string RACE_CODE = "Race code";
         public const string SECURE_DELIVERY_METHOD_CODE = "Secure delivery method code";
-        public const string STATE = "State";
+        public const string STATE_CODE = "State code";
         public const string SUMMARY_SENT_OTHER_CODE = "Summary sent other code";
         public const string SYSTEM_ACTIVITY_CODE = "System activity code";
         public const string TERM_LENGTH_CODE = "Term length code";
