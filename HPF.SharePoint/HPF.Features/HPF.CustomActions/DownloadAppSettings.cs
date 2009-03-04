@@ -10,11 +10,15 @@ namespace HPF.CustomActions
     {
         public const string ReviewStatusFieldKey = "ReviewStatusField";
         public const string ReviewStatusDownloadValueKey = "ReviewStatusDownloadValue";
+        public const string ArchiveListNameKey = "ArchiveListName";
         public static string ReviewStatusField
         {
             get
             {
-                //return ConfigurationManager.AppSettings[ReviewStatusFieldKey];
+                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[ReviewStatusFieldKey]))
+                {
+                    return ConfigurationManager.AppSettings[ReviewStatusFieldKey];
+                }
                 return "Review Status";
             }
         }
@@ -23,8 +27,23 @@ namespace HPF.CustomActions
         {
             get
             {
-                //return ConfigurationManager.AppSettings[ReviewStatusDownloadValueKey];
+                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[ReviewStatusDownloadValueKey]))
+                {
+                    return ConfigurationManager.AppSettings[ReviewStatusDownloadValueKey];
+                }
                 return "Processed";
+            }
+        }
+
+        public static string ArchiveListName
+        {
+            get
+            {
+                if(!String.IsNullOrEmpty(ConfigurationManager.AppSettings[ArchiveListNameKey]))
+                {
+                    return ConfigurationManager.AppSettings[ArchiveListNameKey];
+                }
+                return "{0} Archive";
             }
         }
     }

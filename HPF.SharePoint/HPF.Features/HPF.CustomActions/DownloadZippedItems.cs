@@ -11,7 +11,8 @@ using System.Web;
 namespace HPF.CustomActions
 {
     public class DownloadZippedItems : WebControl
-    {        
+    {
+        #region "Overwrites"
         protected override void CreateChildControls()
         {
             if (!base.ChildControlsCreated)
@@ -25,7 +26,7 @@ namespace HPF.CustomActions
                 PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
                 templateCurrentView.Text = "Items In Current View";
                 templateCurrentView.Description = "Zip and Download All Items";
-                templateCurrentView.ID = "menu3";
+                templateCurrentView.ID = "menuCurrentView";
                 templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);                
                 
                 child.Controls.Add(templateCurrentView);                
@@ -33,6 +34,27 @@ namespace HPF.CustomActions
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            this.EnsureChildControls();
+            base.OnLoad(e);
+        }
+        #endregion
+
+        #region "Event Handlers"
+        private void mnuListItemCurrentView_OnPostBack(object sender, EventArgs e)
+        {
+            this.GetListItems(SPContext.Current.List.ID, false, true);
+        }
+        #endregion
+
+        #region "Helpers"
+        /// <summary>
+        /// Zip all items in current view and put to download and archive them
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="IncludeVersions"></param>
+        /// <param name="isCurrentView"></param>
         private void GetListItems(Guid listId, bool IncludeVersions, bool isCurrentView)
         {
             SPListItemCollection items;
@@ -93,22 +115,16 @@ namespace HPF.CustomActions
             ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty);
             string fileName = String.Format("{0}_{1}.zip", list.Title, DateTime.Now.ToFileTime());
 
-            this.ArchiveFileAndPushToDownload(path + outputPathAndFile, fileName, list.Title + " Archive");
+            ArchiveFiles(path + outputPathAndFile, fileName, string.Format(DownloadAppSettings.ArchiveListName, list.Title));
 
             PushFileToDownload(path + outputPathAndFile, fileName);
         }        
-
-        private void mnuListItemCurrentView_OnPostBack(object sender, EventArgs e)
-        {
-            this.GetListItems(SPContext.Current.List.ID, false, true);
-        }        
-
-        protected override void OnLoad(EventArgs e)
-        {
-            this.EnsureChildControls();
-            base.OnLoad(e);
-        }
-
+        
+        /// <summary>
+        /// Put file to download
+        /// </summary>
+        /// <param name="FilePath"></param>
+        /// <param name="FileName"></param>
         private void PushFileToDownload(string FilePath, string FileName)
         {
             FileInfo info = new FileInfo(FilePath);
@@ -128,39 +144,56 @@ namespace HPF.CustomActions
             return true;
         }
 
+        /// <summary>
+        /// Update Review Status field
+        /// </summary>
+        /// <param name="spListItem"></param>
         private void UpdateReviewStatus(SPListItem spListItem)
         {
-            try
+            SPSecurity.RunWithElevatedPrivileges(delegate()
             {
-                SPField reviewStatusField = spListItem.Fields.GetField(DownloadAppSettings.ReviewStatusField);
-                if (reviewStatusField != null)
+                try
                 {
-                    spListItem[reviewStatusField.Id] = DownloadAppSettings.ReviewStatusDownloadValue;
-                    spListItem.Update();
+                    SPField reviewStatusField = spListItem.Fields.GetField(DownloadAppSettings.ReviewStatusField);
+                    if (reviewStatusField != null)
+                    {
+                        spListItem[reviewStatusField.Id] = DownloadAppSettings.ReviewStatusDownloadValue;
+                        spListItem.Update();
+                    }
                 }
-            }
-            catch { }
+                catch { }
+            });
         }
 
-        private void ArchiveFileAndPushToDownload(string filePath, string fileName, string archiveListPath)
+        /// <summary>
+        /// Archive downloaded items to archive list
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="fileName"></param>
+        /// <param name="archiveListPath"></param>
+        private void ArchiveFiles(string filePath, string fileName, string archiveListPath)
         {
-            FileStream zipFileStream = null;
-            try
+            SPSecurity.RunWithElevatedPrivileges(delegate()
             {
-                SPDocumentLibrary spDocLib = (SPDocumentLibrary)SPContext.Current.Web.Lists[archiveListPath];
-
-                if (spDocLib != null)
+                FileStream zipFileStream = null;
+                try
                 {
-                    zipFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    SPFile returnSPFile = spDocLib.RootFolder.Files.Add(spDocLib.RootFolder.ServerRelativeUrl + @"\" + fileName, zipFileStream);                    
-                }                
-            }
-            catch{}
-            finally
-            {
-                if (zipFileStream != null) { zipFileStream.Close(); }
-                //File.Delete(tempPath + randomFileName);
-            }
+                    SPDocumentLibrary spDocLib = (SPDocumentLibrary)SPContext.Current.Web.Lists[archiveListPath];
+
+                    if (spDocLib != null)
+                    {
+                        zipFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        SPFile returnSPFile = spDocLib.RootFolder.Files.Add(spDocLib.RootFolder.ServerRelativeUrl + @"\" + fileName, zipFileStream);
+                    }
+                }
+                catch { }
+                finally
+                {
+                    if (zipFileStream != null) { zipFileStream.Close(); }
+                    //File.Delete(tempPath + randomFileName);
+                }
+            });
         }
+        #endregion
     }    
 }
