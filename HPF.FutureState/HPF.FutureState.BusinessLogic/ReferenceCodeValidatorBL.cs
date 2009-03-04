@@ -16,7 +16,7 @@ namespace HPF.FutureState.BusinessLogic
             if ((refCodeItemCollectionByCode == null || refCodeItemCollectionByCode.Count < 1) && !string.IsNullOrEmpty(codeValue))
                 return false;
             //
-            return refCodeItemCollectionByCode.ContainCode(codeValue);            
-        }        
+            return refCodeItemCollectionByCode.ContainCode(codeValue);
+        }
     }
 }
