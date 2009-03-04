@@ -1770,7 +1770,7 @@ namespace HPF.FutureState.BusinessLogic
             for (int i = 0; i < caseLoanCollection.Count; i++)
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
-                if (!referenceCode.Validate(ReferenceCode.LOAN_1ST_2ND, caseLoan.Loan1st2nd))
+                if (!referenceCode.Validate(ReferenceCode.LOAN_1ST_2ND_CODE, caseLoan.Loan1st2nd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0219, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0219) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MORTGAGE_TYPE_CODE,  caseLoan.MortgageTypeCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0220, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0220) + " working on case loan index " + (i + 1));
