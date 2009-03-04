@@ -32,15 +32,6 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::System.Web.UI.WebControls.Label lblTotalCases;
         
         /// <summary>
-        /// btnRemoveMarkedCases control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRemoveMarkedCases;
-        
-        /// <summary>
         /// lblPeriodStart control.
         /// </summary>
         /// <remarks>
@@ -59,13 +50,13 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::System.Web.UI.WebControls.Label lblTotalAmount;
         
         /// <summary>
-        /// btnExport control.
+        /// btnRemoveMarkedCases control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExport;
+        protected global::System.Web.UI.WebControls.Button btnRemoveMarkedCases;
         
         /// <summary>
         /// lblPeriodEnd control.

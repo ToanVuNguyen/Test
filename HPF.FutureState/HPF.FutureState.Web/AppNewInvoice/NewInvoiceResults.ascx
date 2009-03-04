@@ -30,10 +30,7 @@
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="center" >
-            <asp:Button ID="btnRemoveMarkedCases" runat="server" CssClass="MyButton" 
-                Text="Remove Marked Cases" Width="150px" 
-                onclick="btnRemoveMarkedCases_Click" />
-        </td>
+            &nbsp;</td>
     </tr>
     <tr>
         <td align="right" class="style1">
@@ -47,8 +44,9 @@
             <asp:Label ID="lblTotalAmount" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="center">
-            <asp:Button ID="btnExport" runat="server" CssClass="MyButton" 
-                Text="Export to Excel" Width="150px" />
+            <asp:Button ID="btnRemoveMarkedCases" runat="server" CssClass="MyButton" 
+                Text="Remove Marked Cases" Width="150px" 
+                onclick="btnRemoveMarkedCases_Click" />
         </td>
     </tr>
     <tr>
@@ -131,10 +129,11 @@
     <tr>
         <td align="center" class="sidelinks" colspan="5">
             <asp:Button ID="btnGenerateInvoice" runat="server" CssClass="MyButton" 
-                Text="Generate Invoice" Width="150px" onclick="btnGenerateInvoice_Click" />
+                Text="Generate Invoice &amp; Exprot File" Width="180px" 
+                onclick="btnGenerateInvoice_Click" />
                 &nbsp
             <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" 
-                Text="Cancel Invoice" Width="150px" onclick="btnCancel_Click" />
+                Text="Cancel Invoice" Width="180px" onclick="btnCancel_Click" />
         </td>
     </tr>
 </table>
