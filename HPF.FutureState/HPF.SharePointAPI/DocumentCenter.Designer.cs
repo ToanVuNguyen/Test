@@ -61,15 +61,6 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Doc")]
-        public string DocumentCenterWeb {
-            get {
-                return ((string)(this["DocumentCenterWeb"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\user1")]
         public string InvoiceLoginName {
             get {
@@ -88,7 +79,16 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\user1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("DocumentCenter")]
+        public string DocumentCenterWeb {
+            get {
+                return ((string)(this["DocumentCenterWeb"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
         public string CounselingSummaryLoginName {
             get {
                 return ((string)(this["CounselingSummaryLoginName"]));
