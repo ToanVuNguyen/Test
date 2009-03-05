@@ -59,7 +59,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlNeverPayReason.DataTextField = "CodeDesc";
             ddlNeverPayReason.DataValueField = "Code";
             ddlNeverPayReason.DataBind();
-            ddlNeverPayReason.Items.Insert(0, string.Empty);
+            ddlNeverPayReason.Items.Insert(0, new ListItem(string.Empty, null));
         }
         protected void BindAccounting(int fc_id)
         {
