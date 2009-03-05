@@ -208,8 +208,7 @@
     </tr>
 </table>
 <script type="text/javascript" language="javascript">
-    var msfWARN0450 = '<%= msgWARN0450 %>';    
-    
+    var msfWARN0450 = '<%= msgWARN0450 %>';
     var hfDoSaving = document.getElementById('<%=hfDoSaving.ClientID %>');
     var ddlAppropriateOutcome = document.getElementById('<%=ddlAppropriateOutcome.ClientID %>');
     var txtAuditComment  = document.getElementById('<%=txtAuditComment.ClientID %>'); 
@@ -267,7 +266,6 @@
         hfDoSaving.value = "NO";    
         return true;
     }
-    
     function IsDifferent(caseAuditBefore, caseAuditAfter)
     {
         if (caseAuditBefore.AuditDt != caseAuditAfter.AuditDt
@@ -285,10 +283,10 @@
                 return true;
                 
          return false;        
-    }   
-    TabControl.onChanged=function()
-    {
-        //return confirm('Changed confirm');
+    }
+    TabControl.onChanged = function() {
         ConfirmToCancel();
-    };    
+    };
+    function ChangeData()
+    { };    
 </script>

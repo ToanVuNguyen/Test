@@ -255,6 +255,8 @@
         if(CompareCaseFollowUpObject(caseFollowUpAfter))
         {
             return confirm('Changed confirm');
-        }        
+        }
     };
+    function ChangeData()
+    { }
 </script>

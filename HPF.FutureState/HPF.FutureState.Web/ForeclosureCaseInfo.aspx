@@ -1,100 +1,114 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ForeclosureCaseInfo.aspx.cs" Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="Forclosure Case Info"  EnableEventValidation="false"%>
-<%@ Register assembly="HPF.FutureState.Web.HPFWebControls" namespace="HPF.FutureState.Web.HPFWebControls" tagprefix="HPF" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ForeclosureCaseInfo.aspx.cs"
+    Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="Forclosure Case Info"
+    EnableEventValidation="false" %>
 
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="HPF" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
-    <table style="width:100%;" align="left"  >
+    <table style="width: 100%;" align="left">
+        <asp:HiddenField ID="hfDoSaving" runat="server" />
         <tr>
             <td align="center" colspan="7">
-                <h1>Foreclosure Case Detail</h1></td>
+                <h1>
+                    Foreclosure Case Detail</h1>
+            </td>
         </tr>
         <tr>
             <td class="sidelinks" align="right">
-                HPF Case ID: </td>
+                HPF Case ID:
+            </td>
             <td>
                 <asp:Label ID="lblHpfID" runat="server" Text="100987654" CssClass="Text"></asp:Label>
             </td>
-            
-            <td align="right" class="sidelinks" >
-                Agency Name:</td>
+            <td align="right" class="sidelinks">
+                Agency Name:
+            </td>
             <td>
-                <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." 
-                    CssClass="Text"></asp:Label>
+                <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." CssClass="Text"></asp:Label>
             </td>
             <td align="right" class="sidelinks">
-              Counselor*:  </td>
+                Counselor*:
+            </td>
             <td>
                 <asp:Label ID="lblCounselor" runat="server" CssClass="Text">Amada - Huggenkiss</asp:Label>
             </td>
             <td align="center">
-                <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" Width="130px"
-                
-                    Text="Print Summary" onclick="btn_Print_Click" />
+                <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" Width="130px" Text="Print Summary"
+                    OnClick="btn_Print_Click" />
             </td>
         </tr>
         <tr>
-            <td class="sidelinks" align="right">Borrower:</td>
-            <td >
+            <td class="sidelinks" align="right">
+                Borrower:
+            </td>
+            <td>
                 <asp:Label ID="lblBorrower" runat="server" CssClass="Text">Ivan A Mustang</asp:Label>
             </td>
             <td colspan="2">
-                &nbsp;</td>
+                &nbsp;
+            </td>
             <td align="right" class="sidelinks">
-                Phone & Ext:</td>
+                Phone & Ext:
+            </td>
             <td>
                 <asp:Label ID="lblPhone" runat="server" CssClass="Text">877-123-1234 x55432</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" Width="130px"
-                    Text="Email Summary" onclick="btnEmailSummary_Click" />
+                    Text="Email Summary" OnClick="btnEmailSummary_Click" />
             </td>
         </tr>
         <tr>
-            <td class="sidelinks" align="right">City, State,Zip:</td>
-            <td >
+            <td class="sidelinks" align="right">
+                City, State,Zip:
+            </td>
+            <td>
                 <asp:Label ID="lblPropertyAddress" runat="server" CssClass="Text">Yourtown, MN 55416</asp:Label>
             </td>
             <td colspan="2">
-                &nbsp;</td>
+                &nbsp;
+            </td>
             <td align="right" class="sidelinks">
-                Counselor Email:</td>
+                Counselor Email:
+            </td>
             <td>
                 <asp:Label ID="lblCounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btnResendServicer" runat="server" CssClass="MyButton" Width="130px"
-                    Text="Resend to Servicer"  />
+                    Text="Resend to Servicer" />
             </td>
         </tr>
         <tr>
-            <td class="sidelinks" align="right">Case Loans:</td>
+            <td class="sidelinks" align="right">
+                Case Loans:
+            </td>
             <td colspan="6">
                 <asp:Label ID="lblLoanList" runat="server" CssClass="Text">1298494593 - Citibank; 554587876 - 
                 Bank of America</asp:Label>
             </td>
         </tr>
         <tr>
-        <td colspan="2">
-        <asp:Label ID="lblErrorMessage" runat="server"  CssClass="ErrorMessage"></asp:Label>
-        </td>
+            <td colspan="2">
+                <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
+            </td>
         </tr>
-        
         <tr>
             <td colspan="7">
-                <table cellpadding="0" cellspacing= "0" width="100%" align="left">
+                <table cellpadding="0" cellspacing="0" width="100%" align="left">
                     <tr>
                         <td>
                             <HPF:TabControl ID="tabControl" runat="server">
-                            </HPF:TabControl>        
+                            </HPF:TabControl>
                         </td>
                     </tr>
                     <tr>
-                        <td  style="border:solid 1px #8FC4F6">
-                            <HPF:UserControlLoader  ID="UserControlLoader" runat="server" >
+                        <td style="border: solid 1px #8FC4F6">
+                            <HPF:UserControlLoader ID="UserControlLoader" runat="server">
                             </HPF:UserControlLoader>
                         </td>
                     </tr>
                 </table>
-                
             </td>
         </tr>
     </table>

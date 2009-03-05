@@ -30,15 +30,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     BindDetailCaseData(caseid);
                 else
                     bulMessage.Items.Add(new ListItem("There is no data with this fc_id"));
-                
             }
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
-            if(!IsPostBack)
-                Session["foreclosureCaseAfter"] = GetUpdateInfo();
+           
         }
         private void ApplySecurity()
         {

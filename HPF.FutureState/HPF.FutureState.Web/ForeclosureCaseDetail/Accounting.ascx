@@ -114,7 +114,7 @@
     }
     var foreclosureCaseBefore = new forecloseCase(neverPayReason.value, neverBillReason.value);
     var foreclosureCaseAfter = new forecloseCase();
-    TabControl.onChanged = function() {
+    TabControl.onChanged = function ChangeData() {
     foreclosureCaseAfter = new forecloseCase(neverPayReason.value, neverBillReason.value);
     
     if (ComparePaymentObject(foreclosureCaseAfter)) {
@@ -130,5 +130,6 @@
         else
             return false;
     }
+   
 </script>
 

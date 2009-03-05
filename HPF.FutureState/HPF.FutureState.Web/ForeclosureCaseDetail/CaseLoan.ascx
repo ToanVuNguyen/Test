@@ -73,4 +73,8 @@
         </tr>
     </SeparatorTemplate>
 </asp:DataList>
+<script language="javascript" type="text/javascript">
+       function ChangeData() {
+        }
+    </script>
 </Div>

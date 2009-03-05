@@ -188,3 +188,7 @@
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
+<script language="javascript" type="text/javascript">
+    function ChangeData()
+    { };
+</script>

@@ -24,17 +24,11 @@ namespace HPF.FutureState.Web
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            btnEmailSummary.Attributes.Add("onclick", "return ChangeData();");
             BindData();
-            ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
-            ForeclosureCaseDTO foreclosureCaseAfter = (ForeclosureCaseDTO)Session["foreclosureCaseAfter"];
-            if (forclosureInfo != null && foreclosureCaseAfter != null)
-                if (!CompareForeclosureCase(forclosureInfo, foreclosureCaseAfter))
-                    btnEmailSummary.Attributes.Add("confirm", "return confirm('Do you want to change?')");
-
             tabControl.TabClick += new HPF.FutureState.Web.HPFWebControls.TabControlEventHandler(tabControl_TabClick);
             if (!IsPostBack)
             {
-
                 tabControl.AddTab("caseDetail", "Case Detail");
                 tabControl.AddTab("caseLoan", "Case Loan(s)");
                 tabControl.AddTab("budget", "Budget(s)");
@@ -57,7 +51,8 @@ namespace HPF.FutureState.Web
             {
                 var ForeclosureCase = GetForeclosureCase(caseid);
                 //store in session to get info for summary email
-                Session["foreclosureInfo"] = ForeclosureCase;
+                if (!IsPostBack)
+                    Session["foreclosureInfo"] = ForeclosureCase;
                 //
                 BindForeclosureCaseToUI(ForeclosureCase);
             }
@@ -94,7 +89,6 @@ namespace HPF.FutureState.Web
             var ForeclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
             return ForeclosureCase;
         }
-
         protected String GetAgencyName(int? agencyID)
         {
             try
@@ -144,11 +138,8 @@ namespace HPF.FutureState.Web
                 case "audit":
                     UserControlLoader.LoadUserControl(UCLOCATION + "Audit.ascx", "ucAudit");
                     break;
-
             }
-
         }
-
         protected void btnEmailSummary_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["CaseID"] == null)
@@ -156,28 +147,12 @@ namespace HPF.FutureState.Web
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
             Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Email Summary", "<script language='javascript'>window.open('EmailSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=500px')</script>");
         }
-
         protected void btn_Print_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["CaseID"] == null)
                 return;
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
             Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
-
         }
-        public bool CompareForeclosureCase(ForeclosureCaseDTO foreclosureCaseBefore, ForeclosureCaseDTO foreclosureCaseAfter)
-        {
-            if (foreclosureCaseBefore.DuplicateInd != foreclosureCaseAfter.DuplicateInd) return false;
-            if (foreclosureCaseBefore.AgencyId != foreclosureCaseAfter.AgencyId) return false;
-            if (foreclosureCaseBefore.DoNotCallInd != foreclosureCaseAfter.DoNotCallInd) return false;
-            if (foreclosureCaseBefore.HpfMediaCandidateInd != foreclosureCaseAfter.HpfMediaCandidateInd) return false;
-            if (foreclosureCaseBefore.HpfSuccessStoryInd != foreclosureCaseAfter.HpfSuccessStoryInd) return false;
-            if (foreclosureCaseBefore.OptOutNewsletterInd != foreclosureCaseAfter.OptOutNewsletterInd) return false;
-            if (foreclosureCaseBefore.OptOutSurveyInd != foreclosureCaseAfter.OptOutSurveyInd) return false;
-            return true;
-        }
-
-
-
     }
 }
