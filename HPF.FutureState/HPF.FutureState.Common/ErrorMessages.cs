@@ -344,6 +344,10 @@ namespace HPF.FutureState.Common
         public const string ERR0803 = "ERR0803";
         public const string ERR0804 = "ERR0804";
         public const string ERR0805 = "ERR0805";
+        public const string ERR0806 = "ERR0806";
+        public const string ERR0807 = "ERR0807";
+        public const string ERR0808 = "ERR0808";
+        public const string ERR0809 = "ERR0809";
 
         //App Email summary
         public const string ERR0850 = "ERR0850";
@@ -728,6 +732,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0803, "Unable to send summary.  The FCId {0} does not belong to your agency.");
                 errorMessageDict.Add(ERR0804, "Unable to send summary. A summary cannot be sent when a case in not complete.");
                 errorMessageDict.Add(ERR0805, "A FCId is required to send a summary.");
+                errorMessageDict.Add(ERR0806, "The 'To:' address has a max length of 255 characters.");
+                errorMessageDict.Add(ERR0807, "The 'Subject:' has a max length of 255 characters.");
+                errorMessageDict.Add(ERR0808, "The 'Body:' has a max length 2000 characters.");
+                errorMessageDict.Add(ERR0809, "The 'SenderID' has a max length 30 characters.");
 
                 //App Email Summary
                 errorMessageDict.Add(ERR0850, "An EmailToAddres is required to send a summary.");
