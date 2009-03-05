@@ -185,6 +185,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id",agencyPayable.ChangeLastUserId);
             sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", agencyPayable.ChangeLastAppName);
             sqlParam[11] = new SqlParameter("@pi_agency_payable_pmt_amt", null);
+            
             //</Parameter>
             command.Parameters.AddRange(sqlParam);
             try
@@ -249,6 +250,7 @@ namespace HPF.FutureState.DataAccess
                         results.TotalAmount = ConvertToDouble(reader["agency_payable_pmt_amt"]);
                         results.PaymentComment = ConvertToString(reader["pmt_comment"]);
                         results.StatusCode = ConvertToString(reader["status_cd"]);
+                        results.StatusDesc = ConvertToString(reader["code_desc"]);
                         result.Add(results);
                     }
                     reader.Close();

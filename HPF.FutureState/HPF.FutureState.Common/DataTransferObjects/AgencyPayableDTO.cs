@@ -19,6 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PaymentComment { get; set; }
         public string StatusCode { get; set; }
         public DateTime? PaymentDate { get; set; }
+        public string StatusDesc { get; set; }
         //---------------
         public int? AgencyPayableId { get; set; }
         //---------------view/edit agency payable

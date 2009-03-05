@@ -34,23 +34,27 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     hidSelectedRowIndex.Value = "";
                 btnViewPayable.Attributes.Add("onclick", " return ViewEditConfirm();");
                 btnCancelPayable.Attributes.Add("onclick", "return CancelConfirm();");
-                AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
                 BindAgencyDropDownList();
-               
-                if (Session["agencyPayableSearchCriteria"] != null)
-                {
-                    searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
-                    txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
-                    txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
-                    ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
-                    BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
-                }
-                else
-                {
-                    SetDefaultPeriodStartEnd();
-                    //default display all agencyaccount within 6 month.
-                    BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
-                }
+                DisplayAgencyAccountPayableSearchResult();
+            }
+        }
+
+        private void DisplayAgencyAccountPayableSearchResult()
+        {
+            AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
+            if (Session["agencyPayableSearchCriteria"] != null)
+            {
+                searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
+                txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
+                txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
+                ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
+                BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
+            }
+            else
+            {
+                SetDefaultPeriodStartEnd();
+                //default display all agencyaccount within 6 month.
+                BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
             }
         }
         private void ApplySecurity()
@@ -140,6 +144,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             try
             {
                 searchCriteria.PeriodStartDate = DateTime.Parse(periodStart);
+                if (((searchCriteria.PeriodStartDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodStartDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0)))
+                { throw ex; }
             }
             catch
             {
@@ -149,23 +155,24 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             try
             {
                 searchCriteria.PeriodEndDate = DateTime.Parse(periodEnd);
+                if (((searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0)))
+                { throw ex; }
             }
             catch
             {
                 ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
                 ex.ExceptionMessages.Add(exMessage);
             }
-
-            if ((searchCriteria.PeriodStartDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodStartDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0))
-            {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0580);
-                ex.ExceptionMessages.Add(exMessage);
-            }
-            if ((searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0))
-            {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
-                ex.ExceptionMessages.Add(exMessage);
-            }
+           
+            //{
+            //    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0580);
+            //    ex.ExceptionMessages.Add(exMessage);
+            //}
+            
+            //{
+            //    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
+            //    ex.ExceptionMessages.Add(exMessage);
+            //}
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
             Session["agencyPayableSearchCriteria"] = searchCriteria;
@@ -220,8 +227,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
-                //if (grvInvoiceList.SelectedIndex != -1)
-                //{
+                
                     agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
@@ -229,14 +235,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     agency[selectedrow].StatusCode = agencystatus.Code;
                     agency[selectedrow].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
-                    //
-                    grvInvoiceList.DataSource = agency;
-                    grvInvoiceList.DataBind();
-                //}
-                //else
-                //{
-                //    bulMessage.Items.Add(new ListItem("Please choose record."));
-               // }
+                   //
+                    DisplayAgencyAccountPayableSearchResult();
             }
             catch (Exception ex)
             {
@@ -244,7 +244,6 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
-       
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {

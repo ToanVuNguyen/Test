@@ -77,7 +77,10 @@ namespace HPF.FutureState.Web.AppNewPayable
                 if (Request.QueryString["agency"] != null)
                 {
                     if (Request.QueryString["agency"] == "-1")
+                    {
+                        ddlAgency.Items.Insert(0,new ListItem ("","-1"));
                         ddlAgency.SelectedIndex = 0;
+                    }
                     else
                         ddlAgency.SelectedValue = Request.QueryString["agency"].ToString();
                 }
@@ -147,7 +150,12 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             DataValidationException ex = new DataValidationException();
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-            agencyPayableSearchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
+            agencyPayableSearchCriteria.AgencyId = Int32.Parse(ddlAgency.SelectedValue);
+            if (agencyPayableSearchCriteria.AgencyId == -1)
+            {
+                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0579);
+                ex.ExceptionMessages.Add(exmsg);
+            }
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlCaseCompleted.SelectedValue.ToString());
             try
             {

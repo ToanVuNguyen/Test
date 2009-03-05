@@ -22,6 +22,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         protected override void OnLoad(EventArgs e)
         {
+            bulMessage.Items.Clear();
             try
             {
                 ApplySecurity();
