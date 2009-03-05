@@ -193,7 +193,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void BindIndicatorToDDL(DropDownList ddl)
         {
             ddl.Items.Clear();
-            ddl.Items.Add(new ListItem(string.Empty));
+            ddl.Items.Add(new ListItem(string.Empty, null));
             ddl.Items.Add(new ListItem(Constant.INDICATOR_YES_FULL));
             ddl.Items.Add(new ListItem(Constant.INDICATOR_NO_FULL));
         }
@@ -208,24 +208,23 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditType.DataTextField = "CodeDesc";
             ddlAuditType.DataSource = auditTypeCodes;
             ddlAuditType.DataBind();
-            ddlAuditType.Items.Insert(0, new ListItem(string.Empty));
+            ddlAuditType.Items.Insert(0, new ListItem(string.Empty, null));
             
 
         }
 
         private void BindDataToReviewedByDDL()
         {
-            ddlReviewedBy.Items.Clear();
-            ddlReviewedBy.Items.Add(new ListItem(string.Empty));
+            ddlReviewedBy.Items.Clear();            
 
             HPFUserDTOCollection hpfUsers = LookupDataBL.Instance.GetHpfUsers();
-            ddlReviewedBy.DataValueField = "HpfUserId";
+            ddlReviewedBy.DataValueField = "UserLoginId";
             //ddlReviewedBy.DataValueField = "FullName";
             ddlReviewedBy.DataTextField = "FullName";
             ddlReviewedBy.DataSource = hpfUsers;
             ddlReviewedBy.DataBind();
 
-            ddlReviewedBy.Items.Insert(0, new ListItem(string.Empty));
+            ddlReviewedBy.Items.Insert(0, new ListItem(string.Empty, null));
         }
 
         private void BindDataToAuditFailureReasonDDL()
@@ -240,7 +239,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditFailureReason.DataTextField = "CodeDesc";
             ddlAuditFailureReason.DataSource = failureReasonCodes;
             ddlAuditFailureReason.DataBind();
-            ddlAuditFailureReason.Items.Insert(0, new ListItem(string.Empty));
+            ddlAuditFailureReason.Items.Insert(0, new ListItem(string.Empty, null));
         }
 
         private void ClearPage()
@@ -266,16 +265,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             return new CaseAuditDTO(){
                 CaseAuditId = id,
                 AppropriateOutcomeInd = GetIndicatorShortValue(ddlAppropriateOutcome.SelectedValue),
-                AuditComments = string.IsNullOrEmpty(txtAuditComment.Text.Trim()) ? null : txtAuditComment.Text,
+                AuditComments = ConvertToString(txtAuditComment.Text),// string.IsNullOrEmpty(txtAuditComment.Text.Trim()) ? null : txtAuditComment.Text,
                 AuditDt = ConvertToDateTime(txtAuditDate.Text.Trim()),
-                AuditFailureReasonCode = ddlAuditFailureReason.SelectedValue,
-                AuditTypeCode = ddlAuditType.SelectedValue,
+                AuditFailureReasonCode = ConvertToString(ddlAuditFailureReason.SelectedValue),
+                AuditTypeCode = ConvertToString(ddlAuditType.SelectedValue),
                 BudgetCompletedInd = GetIndicatorShortValue(ddlBudgetCompleted.SelectedValue),
                 ClientActionPlanInd = GetIndicatorShortValue(ddlClientActionPlan.SelectedValue),
                 CompliantInd = GetIndicatorShortValue(ddlCompliant.SelectedValue),
                 FcId = int.Parse(Request.QueryString["CaseID"].ToString()),
                 ReasonForDefaultInd = GetIndicatorShortValue(ddlReasonForDefault.SelectedValue),
-                ReviewedBy = ddlReviewedBy.SelectedValue,
+                ReviewedBy = ConvertToString(ddlReviewedBy.SelectedValue),
                 VerbalPrivacyConsentInd = GetIndicatorShortValue(ddlVerbalPrivacyConsent.SelectedValue),
                 WrittenActionConsentInd = GetIndicatorShortValue(ddlWrittenPrivacyConsent.SelectedValue)           
             };
@@ -292,7 +291,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlClientActionPlan.Text = GetIndicatorLongValue(caseAudit.ClientActionPlanInd);
             ddlCompliant.Text = GetIndicatorLongValue(caseAudit.CompliantInd);
             ddlReasonForDefault.Text = GetIndicatorLongValue(caseAudit.ReasonForDefaultInd);
-            ddlReviewedBy.SelectedIndex = ddlReviewedBy.Items.IndexOf(ddlReviewedBy.Items.FindByText(caseAudit.ReviewedBy));
+            ddlReviewedBy.SelectedIndex = ddlReviewedBy.Items.IndexOf(ddlReviewedBy.Items.FindByValue(caseAudit.ReviewedBy));
             ddlVerbalPrivacyConsent.Text = GetIndicatorLongValue(caseAudit.VerbalPrivacyConsentInd);
             ddlWrittenPrivacyConsent.Text = GetIndicatorLongValue(caseAudit.WrittenActionConsentInd);
         }
@@ -323,6 +322,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 return dt;
             return null;
         }
+
+        private string ConvertToString(object obj)
+        {
+            if (obj == null)
+                return null;
+            if (string.IsNullOrEmpty(obj.ToString())) return null;
+            return obj.ToString();
+        }
+
         public string msgWARN0450
         {
             get
@@ -351,15 +359,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
         }
         #endregion
-
-        protected void grdvCaseAudit_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    RefCodeItemDTOCollection auditTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_TYPE_CODE);
-            //    Label lblAuditType = e.Row.FindControl("lblAuditType") as Label;
-            //    lblAuditType.Text = (GetRefCode(auditTypeCodes, lblAuditType.Text)).CodeDesc;
-            //}
-        }
+       
     }
 }

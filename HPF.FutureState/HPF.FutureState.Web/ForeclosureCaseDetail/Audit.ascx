@@ -19,8 +19,7 @@
                         <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                             
                             DataKeyNames="CaseAuditId" 
-                            OnRowCreated="grdvCaseAudit_RowCreated" onrowdatabound="grdvCaseAudit_RowDataBound"
-                            >
+                            OnRowCreated="grdvCaseAudit_RowCreated">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -40,16 +39,16 @@
                                     ItemStyle-Width="100px">
                                     <ItemStyle Width="100px" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="AuditTypeCode" HeaderText="Audit Type" ItemStyle-Width="150px">
+                                <asp:BoundField DataField="AuditTypeCodeDesc" HeaderText="Audit Type" ItemStyle-Width="150px">
                                     <ItemStyle Width="150px" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="ReviewedBy" HeaderText="Reviewed By" ItemStyle-Width="200px">
+                                <asp:BoundField DataField="ReviewedByName" HeaderText="Reviewed By" ItemStyle-Width="200px">
                                     <ItemStyle Width="200px" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="CompliantInd" HeaderText="Compliant" ItemStyle-Width="70px">
                                     <ItemStyle Width="70px" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="AuditFailureReasonCode" HeaderText="Audit Failure Reason"
+                                <asp:BoundField DataField="AuditFailureReasonCodeDesc" HeaderText="Audit Failure Reason"
                                     ItemStyle-Width="200px">
                                     <ItemStyle Width="200px" />
                                 </asp:BoundField>
