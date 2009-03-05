@@ -3,28 +3,19 @@
     TagPrefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server"></asp:ScriptManager>
-<style type="text/css">
-    .style1
-    {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: #2271A0;
-        font-size: 11px;
-        font-weight: bold;
-        width: 116px;
-    }
-</style>
-<table style="width:100%;">
+
+<table style="width:100%;" >
     <tr>
         <td colspan="5">
             <h1 align="center">New Invoice Results</h1></td>
     </tr>
     <tr>
-        <td align="right" class="style1">
+        <td align="right" class="sidelinks" width="12%">
             Funding Source:</td>
         <td >
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" >
             Total Cases:</td>
         <td >
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
@@ -33,7 +24,7 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="right" class="style1">
+        <td align="right" class="sidelinks">
             Period Start:</td>
         <td>
             <asp:Label ID="lblPeriodStart" runat="server" CssClass="Text"></asp:Label>
@@ -50,7 +41,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="style1">
+        <td align="right" class="sidelinks">
             Period End:</td>
         <td>
             <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text"></asp:Label>
@@ -59,8 +50,10 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="right" class="style1">
-            Invoice Comments:</td>
+        <td align="right" class="sidelinks">
+            Invoice 
+            <br />
+            Comments:</td>
         <td colspan="4">
             <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Height="70px" 
                 TextMode="MultiLine" Width="100%"></asp:TextBox>

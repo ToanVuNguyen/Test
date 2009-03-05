@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewEditInvoicePaymentUC.ascx.cs" Inherits="HPF.FutureState.Web.InvoicePayments.ViewEditInvoicePayment" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-<table width="800px">
+<table width="100%">
 <colgroup>
-<col width="20%" />
-<col width="80%" />
+<col width="16%" />
+<col width="84%" />
 </colgroup>
     <tr>
-        <td colspan="2">
+        <td colspan="2" align="center">
             <h1>View/Edit Invoice Payment</h1></td>
     </tr>
     <tr>
@@ -16,9 +16,10 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" colspan="2">
-            Payment Infomation:</td>
-       
+        <td class="sidelinks" align="right">
+        <h3>
+            Payment Infomation:</h3></td>        
+       <td>&nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks" align="right">

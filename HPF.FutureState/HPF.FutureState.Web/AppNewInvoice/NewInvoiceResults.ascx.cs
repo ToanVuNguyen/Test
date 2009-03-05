@@ -143,6 +143,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 //insert invoice to the database
                 InvoiceBL.Instance.InsertInvoice(invoiceDraft);
+                Response.Redirect("FundingSourceInvoice.aspx");
             }
             catch(Exception ex)
             {

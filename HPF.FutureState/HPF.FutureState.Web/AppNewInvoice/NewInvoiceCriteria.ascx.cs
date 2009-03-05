@@ -321,7 +321,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         {
             DataValidationException ex = new DataValidationException();
             InvoiceCaseSearchCriteriaDTO searchCriteria = new InvoiceCaseSearchCriteriaDTO();
-            searchCriteria.ServicerConsentQty = 0;
+            searchCriteria.ServicerConsentQty = 1;
             try
             {
                 searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
@@ -433,7 +433,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     searchCriteria.NeighborworkRejected = chkNeighborworksRejected.Checked;
                     searchCriteria.SelectAllServicer = chkFundingAgreement.Checked;
                     searchCriteria.SelectUnfunded = chkUnfunded.Checked;
-                    searchCriteria.ServicerConsentQty = 1;
+                    searchCriteria.ServicerConsentQty = 0;
                 }
             }
             if (ex.ExceptionMessages.Count > 0)
