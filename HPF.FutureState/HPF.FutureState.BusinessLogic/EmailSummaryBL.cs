@@ -3,6 +3,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common.Utils.Exceptions;
 using System.Text;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
@@ -122,7 +123,7 @@ namespace HPF.FutureState.BusinessLogic
 
             CaseLoanDTO caseLoan=CaseLoanBL.Instance.Retrieve1stCaseLoan(fc_Id);
 
-            //loan num>_<lname>_<1st initial>.pdf
+            //<loan num>_<lname>_<1st initial>.pdf
 
             fileName = caseLoan.AcctNum + "_" + foreclosureCase.BorrowerLname + "_" +
                        foreclosureCase.BorrowerFname.Substring(1, 1) + ".pdf";
@@ -146,7 +147,8 @@ namespace HPF.FutureState.BusinessLogic
 
         private ExceptionMessageCollection ValidateSendSummaryRequest(ForeclosureCaseDTO foreclosureCase, SendSummaryRequest sendSummary, int agencyID, int fcId)
         {
-            ExceptionMessageCollection errorCollection = new ExceptionMessageCollection();
+            // validate field length first
+            var errorCollection = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(sendSummary, Constant.RULESET_LENGTH) };
 
             if (sendSummary.EmailToAddress == null)
                 errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));
