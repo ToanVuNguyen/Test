@@ -42,59 +42,120 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(true,"1-1-1753","12-31-9999",Ruleset = Constant.RULESET_LENGTH, MessageTemplate= "IntakeDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? IntakeDt { get; set; }
 
+        private string _incomeEarnersCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0300, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Income Earner Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string IncomeEarnersCd { get; set; }
+        public string IncomeEarnersCd 
+        {
+            get { return _incomeEarnersCd; }
+            set { if (!string.IsNullOrEmpty(value)) _incomeEarnersCd = value.Trim().ToUpper(); }
+        }
 
+        private string _caseSourceCd;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0104, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Case Source Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string CaseSourceCd { get; set; }
+        public string CaseSourceCd 
+        {
+            get { return _caseSourceCd; }
+            set { if (!string.IsNullOrEmpty(value)) _caseSourceCd = value.Trim().ToUpper(); }
+        }
 
+
+        string _raceCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0301, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Race Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string RaceCd { get; set; }
+        public string RaceCd 
+        {
+            get { return _raceCd; }
+            set { if (!string.IsNullOrEmpty(value)) _raceCd = value.Trim().ToUpper(); }
+        }
 
+        string _householdCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0302, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Household Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string HouseholdCd { get; set; }
+        public string HouseholdCd
+        {
+            get { return _householdCd; }
+            set { if (!string.IsNullOrEmpty(value)) _householdCd = value.Trim().ToUpper(); }
+        }
 
+        string _neverBillReasonCd;
         [XmlIgnore]
         [NullableOrStringLengthValidator(true, 15, "Never Bill Reason Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string NeverBillReasonCd { get; set; }
+        public string NeverBillReasonCd
+        {
+            get { return _neverBillReasonCd; }
+            set { if (!string.IsNullOrEmpty(value)) _neverBillReasonCd = value.Trim().ToUpper(); }
+        }
 
+        string _nerverPayReasonCd;
         [XmlIgnore]
         [NullableOrStringLengthValidator(true, 15, "Never Pay Reason Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string NeverPayReasonCd { get; set; }
+        public string NeverPayReasonCd
+        {
+            get { return _nerverPayReasonCd; }
+            set { if (!string.IsNullOrEmpty(value)) _nerverPayReasonCd = value.Trim().ToUpper(); }
+        }
 
+        string _dfltReason1stCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0303, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Default Reason 1st Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string DfltReason1stCd { get; set; }
+        public string DfltReason1stCd
+        {
+            get { return _dfltReason1stCd; }
+            set { if (!string.IsNullOrEmpty(value)) _dfltReason1stCd = value.Trim().ToUpper(); }
+        }
 
+        string _dfltReason2ndCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0304, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Default Reason 2nd Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string DfltReason2ndCd { get; set; }
+        public string DfltReason2ndCd 
+        {
+            get { return _dfltReason2ndCd; }
+            set { if (!string.IsNullOrEmpty(value)) _dfltReason2ndCd = value.Trim().ToUpper(); }
+        }
 
+        string _hudTerminationReasonCd;
         [NullableOrStringLengthValidator(true, 15, "Hud Termination Reason Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string HudTerminationReasonCd { get; set; }
-
+        public string HudTerminationReasonCd 
+        {
+            get { return _hudTerminationReasonCd; }
+            set { if (!string.IsNullOrEmpty(value)) _hudTerminationReasonCd = value.Trim().ToUpper(); }
+        }
+    
         [XmlElement(IsNullable = true)]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "HudTerminationDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? HudTerminationDt { get; set; }
 
+        string _hudOutcomeCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0305, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Hud Outcome code", Ruleset = Constant.RULESET_LENGTH)]
-        public string HudOutcomeCd { get; set; }
+        public string HudOutcomeCd
+        {
+            get { return _hudOutcomeCd; }
+            set { if (!string.IsNullOrEmpty(value)) _hudOutcomeCd = value.Trim().ToUpper(); }
+        }
 
         [XmlIgnore]
         public int? AmiPercentage { get; set; }
 
+        string _counselingDurationCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0306, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Counseling Duration Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string CounselingDurationCd { get; set; }
+        public string CounselingDurationCd
+        {
+            get { return _counselingDurationCd; }
+            set { if (!string.IsNullOrEmpty(value)) _counselingDurationCd = value.Trim().ToUpper(); }
+        }
 
+        string _genderCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0307, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Gender Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string GenderCd { get; set; }
+        public string GenderCd 
+        {
+            get { return _genderCd; }
+            set { if (!string.IsNullOrEmpty(value)) _genderCd = value.Trim().ToUpper(); }
+        }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0105, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 30, "Borrower First Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0003)]
@@ -166,9 +227,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Contact City", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0019)]
         public string ContactCity { get; set; }
 
+        string _contactStateCd;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0110, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Contact State Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string ContactStateCd { get; set; }
+        public string ContactStateCd
+        {
+            get { return _contactStateCd; }
+            set { if (!string.IsNullOrEmpty(value)) _contactStateCd = value.Trim().ToUpper(); }
+        }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0111, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 5, "Contact Zip", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0020)]
@@ -188,9 +254,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Prop City", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0024)]
         public string PropCity { get; set; }
 
+        string _propStateCd;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0114, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Prop State Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string PropStateCd { get; set; }
+        public string PropStateCd
+        {
+            get { return _propStateCd; }
+            set { if (!string.IsNullOrEmpty(value)) _propStateCd = value.Trim().ToUpper(); }
+        }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0115, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 5, "Prop Zip", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0025)]
@@ -228,14 +299,29 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
+        string _borrowerEducLevelCompletedCd;
         [NullableOrStringLengthValidator(true, 15, "Borrower Educucation Level Completed Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string BorrowerEducLevelCompletedCd { get; set; }
+        public string BorrowerEducLevelCompletedCd
+        {
+            get { return _borrowerEducLevelCompletedCd; }
+            set { if (!string.IsNullOrEmpty(value)) _borrowerEducLevelCompletedCd = value.Trim().ToUpper(); }
+        }
 
+        string _borrowerMaritalStatusCd;
         [NullableOrStringLengthValidator(true, 15, "Borrower Marital Status Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string BorrowerMaritalStatusCd { get; set; }
+        public string BorrowerMaritalStatusCd
+        {
+            get { return _borrowerMaritalStatusCd; }
+            set { if (!string.IsNullOrEmpty(value)) _borrowerMaritalStatusCd = value.Trim().ToUpper(); }
+        }
 
+        string _borrowerPreferredLangCd;
         [NullableOrStringLengthValidator(true, 15, "Borrower Preferred Language Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string BorrowerPreferredLangCd { get; set; }
+        public string BorrowerPreferredLangCd
+        {
+            get { return _borrowerPreferredLangCd; }
+            set { if (!string.IsNullOrEmpty(value)) _borrowerPreferredLangCd = value.Trim().ToUpper(); }
+        }
 
         [NullableOrStringLengthValidator(true, 50, "Borrower Occupation", Ruleset = Constant.RULESET_LENGTH)]
         public string BorrowerOccupation { get; set; }
@@ -382,8 +468,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
+        string _summarySentOtherCd;
         [NullableOrStringLengthValidator(true, 15, "Summary Sent Other Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string SummarySentOtherCd { get; set; }
+        public string SummarySentOtherCd
+        {
+            get { return _summarySentOtherCd; }
+            set { if (!string.IsNullOrEmpty(value)) _summarySentOtherCd = value.Trim().ToUpper(); }
+        }
 
         [XmlElement(IsNullable = true)]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SummarySentOtherDt must be between 1/1/1753 and 12/31/9999")]
@@ -566,8 +657,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "Realty Company", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0054)]
         public string RealtyCompany { get; set; }
 
+        string _propertyCd;
         [NullableOrStringLengthValidator(true, 15, "Property Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string PropertyCd { get; set; }
+        public string PropertyCd
+        {
+            get { return _propertyCd; }
+            set { if (!string.IsNullOrEmpty(value)) _propertyCd = value.Trim().ToUpper(); }
+        }
 
         private string forSaleInd = null;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0330, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -598,9 +694,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0074)]        
         public double? HomeCurrentMarketValue { get; set; }
 
-        [NullableOrStringLengthValidator(true, 15, "Military Service Cd", Ruleset = Constant.RULESET_LENGTH)]
-        public string MilitaryServiceCd { get; set; }
 
+        string _militaryServiceCd;
+        [NullableOrStringLengthValidator(true, 15, "Military Service Cd", Ruleset = Constant.RULESET_LENGTH)]
+        public string MilitaryServiceCd
+        {
+            get { return _militaryServiceCd; }
+            set { if (!string.IsNullOrEmpty(value)) _militaryServiceCd = value.Trim().ToUpper(); }
+        }
         [XmlElement(IsNullable = true)]        
         [RequiredObjectValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrInRangeNumberValidator(true, "0.01", "99999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0081)]
@@ -613,8 +714,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 4, "Intake Credit Score", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0056)]
         public string IntakeCreditScore { get; set; }
 
+        string _intakeCreditBureauCd;
         [NullableOrStringLengthValidator(true, 15, "Intake Credit Bureau Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string IntakeCreditBureauCd { get; set; }
+        public string IntakeCreditBureauCd
+        {
+            get { return _intakeCreditBureauCd; }
+            set { if (!string.IsNullOrEmpty(value)) _intakeCreditBureauCd = value.Trim().ToUpper(); }
+        }
 
         [XmlElement(IsNullable = true)]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "FcSaleDate must be between 1/1/1753 and 12/31/9999")]

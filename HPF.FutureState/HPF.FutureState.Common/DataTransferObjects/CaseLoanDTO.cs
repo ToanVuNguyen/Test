@@ -57,9 +57,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Loan 1st 2nd ", Ruleset = Constant.RULESET_LENGTH)]
         public string Loan1st2nd { get; set; }
 
+        string _mortgageTypeCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0321, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Mortgage Type Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string MortgageTypeCd { get; set; }
+        public string MortgageTypeCd 
+        {
+            get { return _mortgageTypeCd; }
+            set { if (!string.IsNullOrEmpty(value)) _mortgageTypeCd = value.Trim().ToUpper(); }
+        }
 
         private string armResetInd = null;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0059)]
@@ -73,14 +78,23 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
 
+        string _termLengthCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0322, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Term Length Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string TermLengthCd { get; set; }
+        public string TermLengthCd
+        {
+            get { return _termLengthCd; }
+            set { if (!string.IsNullOrEmpty(value)) _termLengthCd = value.Trim().ToUpper(); }
+        }
 
+        string _loanDelinqStatusCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0323, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string LoanDelinqStatusCd { get; set; }
-
+        public string LoanDelinqStatusCd
+        {
+            get { return _loanDelinqStatusCd; }
+            set { if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper(); }
+        }
         [XmlElement(IsNullable = true)]
         [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0076)]
         public double? CurrentLoanBalanceAmt { get; set; }
@@ -119,9 +133,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 50, "Investor Name", Ruleset = Constant.RULESET_LENGTH)]
         public string InvestorName { get; set; }
 
+        string _mortgateProgramCd;
         [StringRequiredValidator(Tag=ErrorMessages.WARN0325, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "One or more MortgageProgramCd required to complete a foreclosure case.")]
         [NullableOrStringLengthValidator(true, 15, "Mortgage Program Code", Ruleset = Constant.RULESET_LENGTH)]
-        public string MortgageProgramCd{ get; set; }
+        public string MortgageProgramCd
+        { 
+            get { return _mortgateProgramCd; }
+            set { if (!string.IsNullOrEmpty(value)) _mortgateProgramCd = value; }
+        }
 
         [XmlIgnore]
         public string ChangedAcctNum { get; set; }

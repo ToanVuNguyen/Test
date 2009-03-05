@@ -31,8 +31,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 4, "CallCenter", Ruleset = "Default", Tag = ErrorMessages.ERR0364)]
         public string CallCenter { get; set; }
 
+        string _callSourceCd;
         [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]        
-        public string CallSourceCd { get; set; }
+        public string CallSourceCd 
+        {
+            get { return _callSourceCd; }
+            set {if (!string.IsNullOrEmpty(value)) _callSourceCd = value.Trim().ToUpper();}
+        }
 
         //miss Error for string length
         [NullableOrStringLengthValidator(true, 75, "Reason For Call", Ruleset = "Default")]
@@ -66,8 +71,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default", Tag = ErrorMessages.ERR0369)]
         public string ScreenRout { get; set; }
 
+        string _finalDispoCd;
         [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", Tag = ErrorMessages.ERR0353)]
-        public string FinalDispoCd { get; set; }
+        public string FinalDispoCd
+        {
+            get { return _finalDispoCd; }
+            set { if (!string.IsNullOrEmpty(value)) _finalDispoCd = value.Trim().ToUpper(); }
+        }
 
         [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default", Tag = ErrorMessages.ERR0370)]
         public string TransNumber { get; set; }
@@ -75,10 +85,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", Tag = ErrorMessages.ERR0350)]
         public string CcCallKey { get; set; }
 
-        
+        string _loanDelinqStatusCd;
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
-        public string LoanDelinqStatusCd { get; set; }
-
+        public string LoanDelinqStatusCd
+        {
+            get { return _loanDelinqStatusCd; }
+            set { if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper(); }
+        }
 
         [NullableOrStringLengthValidator(true, 40, "Selected Counselor", Ruleset = "Default", Tag = ErrorMessages.ERR0371)]
         public string SelectedCounselor { get; set; }
