@@ -13,7 +13,7 @@
         <EditRowStyle BackColor="#2461BF" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
         <Columns>
-            <asp:BoundField DataField="ActivityCd" HeaderText="Activity" ItemStyle-Width="80px">
+            <asp:BoundField DataField="ActivityCdDesc" HeaderText="Activity" ItemStyle-Width="80px">
                 <ItemStyle Width="80px" />
             </asp:BoundField>
             <asp:BoundField DataField="ActivityDt" HeaderText="Activity Date" DataFormatString="{0:MM/dd/yyyy}"
