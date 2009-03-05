@@ -279,8 +279,8 @@ namespace HPF.FutureState.BusinessLogic
                 string.IsNullOrEmpty(searchCriteria.LoanNumber) &&
                 string.IsNullOrEmpty(searchCriteria.PropertyZip))
             {
-                string errorCode = "ERROR";// string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                string errorMess = "At least one search criteria option is required"; // string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                string errorCode = "ERROR";
+                string errorMess = "At least one search criteria option is required";
                 dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
             }
         }
@@ -294,7 +294,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
 
                     string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessage(result.Tag);
                     dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
                 }
             }
