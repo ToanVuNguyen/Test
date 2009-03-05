@@ -19,7 +19,7 @@
                         <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                             
                             DataKeyNames="CaseAuditId" 
-                            OnRowCreated="grdvCaseAudit_RowCreated"
+                            OnRowCreated="grdvCaseAudit_RowCreated" onrowdatabound="grdvCaseAudit_RowDataBound"
                             >
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -53,11 +53,11 @@
                                     ItemStyle-Width="200px">
                                     <ItemStyle Width="200px" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="AppropriateOutcomeInd" HeaderText="Appr. Outcome Ind"
+                                <asp:BoundField DataField="AppropriateOutcomeInd" HeaderText="Appropriate Outcome"
                                     ItemStyle-Width="200px">
                                     <ItemStyle Width="200px" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="ReasonForDefaultInd" HeaderText="Reason For Dflt. Ind"
+                                <asp:BoundField DataField="ReasonForDefaultInd" HeaderText="Appropriate Reason for Default"
                                     ItemStyle-Width="200px">
                                     <ItemStyle Width="200px" />
                                 </asp:BoundField>
@@ -103,25 +103,25 @@
                         <asp:Label ID="lblFormTitle" runat="server" Text="Audit Detail" class="sidelinks"></asp:Label>
                     </td>
                     <td align="right" class="sidelinks" valign="bottom">
-                        Budget completed:
-                    </td>
-                    <td align="left" valign="bottom">
-                        <asp:DropDownList ID="ddlBudgetCompleted" runat="server" CssClass="Text"/>
+                        Budget completed?:
+                       <td align="left" valign="bottom">
+                        <asp:DropDownList ID="ddlBudgetCompleted" runat="server" CssClass="Text" 
+                            Width="150px"/>
                         
                     </td>
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Audit Date:
-                    </td>
+                        Audit Date*:                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtAuditDate" runat="server"  CssClass="Text"/>
+                        <asp:TextBox ID="txtAuditDate" runat="server"  CssClass="Text" Width="150px"/>
                     </td>
                     <td align="right" class="sidelinks">
                         Appropriate Outcome:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlAppropriateOutcome" runat="server"  CssClass="Text"/>
+                        <asp:DropDownList ID="ddlAppropriateOutcome" runat="server"  CssClass="Text" 
+                            Width="150px"/>
                         
                     </td>
                 </tr>
@@ -130,44 +130,50 @@
                         Audit Type:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlAuditType" runat="server"  CssClass="Text"/>
+                        <asp:DropDownList ID="ddlAuditType" runat="server"  CssClass="Text" 
+                            Height="16px" Width="150px"/>
                     </td>
                     <td align="right" class="sidelinks">
                         Appropriate Reason for Default:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlReasonForDefault" runat="server"  CssClass="Text"/>
+                        <asp:DropDownList ID="ddlReasonForDefault" runat="server"  CssClass="Text" 
+                            Width="150px"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Review by:
-                    </td>
+                        Reviewed by:                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlReviewedBy" runat="server"  CssClass="Text"/>
+                        <asp:DropDownList ID="ddlReviewedBy" runat="server"  CssClass="Text" 
+                            Width="150px"/>
                     </td>
                     <td align="right" class="sidelinks">
-                        Client Action Plan:
+                        Client Action Plan?:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlClientActionPlan" runat="server"  CssClass="Text"/>
+                        <asp:DropDownList ID="ddlClientActionPlan" runat="server"  CssClass="Text" 
+                            Width="150px"/>
                         
                     </td>
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
                         Compliant:
+            Compliant:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlCompliant" runat="server" CssClass="Text"/>
+                        <asp:DropDownList ID="ddlCompliant" runat="server" CssClass="Text" 
+                            Width="150px"/>
                       
                         
                     </td >
                     <td align="right" class="sidelinks">
-                        Verbal Privacy Consent:
+                        Verbal Privacy Consent?:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlVerbalPrivacyConsent" runat="server" CssClass="Text"/>
+                        <asp:DropDownList ID="ddlVerbalPrivacyConsent" runat="server" CssClass="Text" 
+                            Width="150px"/>
                         
                     </td>
                 </tr>
@@ -176,23 +182,23 @@
                         Audit Failure Reason:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlAuditFailureReason" runat="server" CssClass="Text"/>
+                        <asp:DropDownList ID="ddlAuditFailureReason" runat="server" CssClass="Text" 
+                            Width="150px"/>
                         
                         
                     </td>
                     <td align="right"  class="sidelinks">
-                        Written Privacy Consent:
+                        Written Privacy Consent?:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlWrittenPrivacyConsent" runat="server" CssClass="Text" />
+                        <asp:DropDownList ID="ddlWrittenPrivacyConsent" runat="server" CssClass="Text" 
+                            Width="150px" />
                         
                     </td>
                 </tr>
                 <tr>
                     <td align="right"  class="sidelinks">
-                        Audit Comment:
-                    </td>
-                    <td align="left" colspan="3">
+                        Audit Comments:                      <td align="left" colspan="3">
                         <asp:TextBox ID="txtAuditComment" runat="server" Rows="4" Columns="100" Height="65px" CssClass="Text"></asp:TextBox>
                     </td>
                 </tr>

@@ -93,6 +93,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ClearPage();
             hfAction.Value = ACTION_INSERT;
             lblFormTitle.Text = "Audit detail - Inserting";
+            txtAuditDate.Text = DateTime.Today.ToShortDateString();
         }
         
         protected void grdvCaseAudit_RowCreated(object sender, GridViewRowEventArgs e)
@@ -111,10 +112,17 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     btnEdit.Attributes.Add("onclick", "return ConfirmToCancel();");
                     btnEdit.Click += new EventHandler(btnEdit_Click);
                     btnEdit.CommandArgument = e.Row.RowIndex.ToString();
-                }
-            }
+                }                
+            }            
         }
-        
+
+        private RefCodeItemDTO GetRefCode(RefCodeItemDTOCollection col, string code)
+        {
+            foreach (RefCodeItemDTO refCode in col)
+                if (refCode.Code == code)
+                    return refCode;
+            return new RefCodeItemDTO();
+        }            
         
         #region helper
 
@@ -195,8 +203,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditType.Items.Clear();
             
             RefCodeItemDTOCollection auditTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_TYPE_CODE);
-            //ddlAuditType.DataValueField = "Code";
-            ddlAuditType.DataValueField = "CodeDesc";
+            ddlAuditType.DataValueField = "Code";
+            //ddlAuditType.DataValueField = "CodeDesc";
             ddlAuditType.DataTextField = "CodeDesc";
             ddlAuditType.DataSource = auditTypeCodes;
             ddlAuditType.DataBind();
@@ -211,8 +219,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlReviewedBy.Items.Add(new ListItem(string.Empty));
 
             HPFUserDTOCollection hpfUsers = LookupDataBL.Instance.GetHpfUsers();
-            //ddlReviewedBy.DataValueField = "HpfUserId";
-            ddlReviewedBy.DataValueField = "FullName";
+            ddlReviewedBy.DataValueField = "HpfUserId";
+            //ddlReviewedBy.DataValueField = "FullName";
             ddlReviewedBy.DataTextField = "FullName";
             ddlReviewedBy.DataSource = hpfUsers;
             ddlReviewedBy.DataBind();
@@ -227,8 +235,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditFailureReason.Items.Clear();
 
             RefCodeItemDTOCollection failureReasonCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_FAILURE_REASON_CODE);
-            //ddlAuditFailureReason.DataValueField = "Code";
-            ddlAuditFailureReason.DataValueField = "CodeDesc";
+            ddlAuditFailureReason.DataValueField = "Code";
+            //ddlAuditFailureReason.DataValueField = "CodeDesc";
             ddlAuditFailureReason.DataTextField = "CodeDesc";
             ddlAuditFailureReason.DataSource = failureReasonCodes;
             ddlAuditFailureReason.DataBind();
@@ -279,7 +287,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             txtAuditComment.Text = caseAudit.AuditComments;
             txtAuditDate.Text = (caseAudit.AuditDt.HasValue) ? caseAudit.AuditDt.Value.Date.ToString() : string.Empty;
             //ddlAuditFailureReason.SelectedIndex = ddlAuditFailureReason.Items.IndexOf(ddlAuditFailureReason.Items.FindByText(caseAudit.AuditFailureReasonCode));
-            ddlAuditType.SelectedIndex = ddlAuditType.Items.IndexOf(ddlAuditType.Items.FindByText(caseAudit.AuditTypeCode));
+            ddlAuditType.SelectedIndex = ddlAuditType.Items.IndexOf(ddlAuditType.Items.FindByValue(caseAudit.AuditTypeCode));
             ddlBudgetCompleted.Text = GetIndicatorLongValue(caseAudit.BudgetCompletedInd);
             ddlClientActionPlan.Text = GetIndicatorLongValue(caseAudit.ClientActionPlanInd);
             ddlCompliant.Text = GetIndicatorLongValue(caseAudit.CompliantInd);
@@ -343,5 +351,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
         }
         #endregion
+
+        protected void grdvCaseAudit_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    RefCodeItemDTOCollection auditTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AUDIT_TYPE_CODE);
+            //    Label lblAuditType = e.Row.FindControl("lblAuditType") as Label;
+            //    lblAuditType.Text = (GetRefCode(auditTypeCodes, lblAuditType.Text)).CodeDesc;
+            //}
+        }
     }
 }
