@@ -284,7 +284,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {         
             ddlAppropriateOutcome.Text = GetIndicatorLongValue(caseAudit.AppropriateOutcomeInd);
             txtAuditComment.Text = caseAudit.AuditComments;
-            txtAuditDate.Text = (caseAudit.AuditDt.HasValue) ? caseAudit.AuditDt.Value.Date.ToString() : string.Empty;
+            txtAuditDate.Text = (caseAudit.AuditDt.HasValue) ? caseAudit.AuditDt.Value.Date.ToShortDateString() : string.Empty;
             //ddlAuditFailureReason.SelectedIndex = ddlAuditFailureReason.Items.IndexOf(ddlAuditFailureReason.Items.FindByText(caseAudit.AuditFailureReasonCode));
             ddlAuditType.SelectedIndex = ddlAuditType.Items.IndexOf(ddlAuditType.Items.FindByValue(caseAudit.AuditTypeCode));
             ddlBudgetCompleted.Text = GetIndicatorLongValue(caseAudit.BudgetCompletedInd);
