@@ -50,6 +50,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlNerverBillReason.DataTextField = "CodeDesc";
             ddlNerverBillReason.DataValueField = "Code";
             ddlNerverBillReason.DataBind();
+            ddlNerverBillReason.Items.Insert(0, string.Empty);
         }
         protected void BindNeverPayReasonDropDownList()
         {
@@ -58,6 +59,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlNeverPayReason.DataTextField = "CodeDesc";
             ddlNeverPayReason.DataValueField = "Code";
             ddlNeverPayReason.DataBind();
+            ddlNeverPayReason.Items.Insert(0, string.Empty);
         }
         protected void BindAccounting(int fc_id)
         {
