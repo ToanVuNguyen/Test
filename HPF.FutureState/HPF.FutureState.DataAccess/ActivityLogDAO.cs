@@ -80,6 +80,7 @@ namespace HPF.FutureState.DataAccess
                 {
                     ActivityLogDTO activity = new ActivityLogDTO();
                     activity.ActivityCd = ConvertToString(reader["activity_cd"]);
+                    activity.ActivityCdDesc = ConvertToString(reader["activity_cd_desc"]);
                     activity.ActivityDt = ConvertToDateTime(reader["activity_dt"]);
                     activity.ActivityNote = ConvertToString(reader["activity_note"]);
                     activity.CreateDate = ConvertToDateTime(reader["create_dt"]);

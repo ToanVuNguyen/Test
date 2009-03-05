@@ -106,12 +106,15 @@ namespace HPF.FutureState.DataAccess
                     caseAudit.AuditComments = ConvertToString(reader["audit_comment"]);
                     caseAudit.AuditDt = ConvertToDateTime(reader["audit_dt"]);
                     caseAudit.AuditFailureReasonCode = ConvertToString(reader["audit_failure_reason_cd"]);
+                    caseAudit.AuditFailureReasonCodeDesc = ConvertToString(reader["audit_failure_reason_cd_desc"]);
                     caseAudit.AuditTypeCode = ConvertToString(reader["audit_type_cd"]);
+                    caseAudit.AuditTypeCodeDesc = ConvertToString(reader["audit_type_cd_desc"]);
                     caseAudit.BudgetCompletedInd = ConvertToString(reader["complete_budget_ind"]);
                     caseAudit.ClientActionPlanInd = ConvertToString(reader["client_action_plan_ind"]);
                     caseAudit.CompliantInd = ConvertToString(reader["compliant_ind"]);
                     caseAudit.ReasonForDefaultInd = ConvertToString(reader["appropriate_reason_for_dflt_ind"]);
                     caseAudit.ReviewedBy = ConvertToString(reader["reviewed_by"]);
+                    caseAudit.ReviewedByName = ConvertToString(reader["reviewed_by_name"]);
                     caseAudit.VerbalPrivacyConsentInd = ConvertToString(reader["verbal_privacy_consent_ind"]);
                     caseAudit.WrittenActionConsentInd = ConvertToString(reader["written_privacy_consent_ind"]);                   
 
