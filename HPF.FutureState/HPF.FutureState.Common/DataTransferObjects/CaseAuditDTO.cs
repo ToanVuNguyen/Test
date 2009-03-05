@@ -21,12 +21,21 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(false, 15, "AuditTypeCode", Ruleset = "Default", Tag = ErrorMessages.ERR0702)]
         public string AuditTypeCode { get; set; }
 
+        //extra field
+        public string AuditTypeCodeDesc { get; set; }
         
         [NullableOrStringLengthValidator(true, 30, "ReviewedBy", Ruleset = "Default")]
         public string ReviewedBy { get; set; }
+        
+        //extra field
+        public string ReviewedByName { get; set; }
+
 
         [NullableOrStringLengthValidator(true, 15, "AuditFailureReasonCode", Ruleset = "Default")]
         public string AuditFailureReasonCode { get; set; }
+
+        //extra field
+        public string AuditFailureReasonCodeDesc { get; set; } 
 
         [NullableOrStringLengthValidator(true, 300, "AuditComments", Ruleset = "Default")]
         public string AuditComments { get; set; }
