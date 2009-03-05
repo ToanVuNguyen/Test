@@ -26,7 +26,7 @@
             <td>
                 <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." CssClass="Text"></asp:Label>
             </td>
-            <td align="right" class="sidelinks">
+            <td align="right" class="sidelinks" valign="top">
                 Counselor*:
             </td>
             <td>
@@ -38,10 +38,10 @@
             </td>
         </tr>
         <tr>
-            <td class="sidelinks" align="right">
+            <td class="sidelinks" align="right" valign="top">
                 Borrower:
             </td>
-            <td>
+            <td >
                 <asp:Label ID="lblBorrower" runat="server" CssClass="Text">Ivan A Mustang</asp:Label>
             </td>
             <td colspan="2">
@@ -59,10 +59,10 @@
             </td>
         </tr>
         <tr>
-            <td class="sidelinks" align="right">
+            <td class="sidelinks" align="right" >
                 City, State,Zip:
             </td>
-            <td>
+            <td >
                 <asp:Label ID="lblPropertyAddress" runat="server" CssClass="Text">Yourtown, MN 55416</asp:Label>
             </td>
             <td colspan="2">
@@ -71,7 +71,7 @@
             <td align="right" class="sidelinks">
                 Counselor Email:
             </td>
-            <td>
+            <td valign="bottom">
                 <asp:Label ID="lblCounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
             </td>
             <td align="center">

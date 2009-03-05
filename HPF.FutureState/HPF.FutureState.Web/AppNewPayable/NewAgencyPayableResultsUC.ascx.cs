@@ -39,8 +39,10 @@ namespace HPF.FutureState.Web.AppNewPayable
             ApplySecurity();
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             agencyPayableSearchCriteria = GetCriteria();
+            if (agencyPayableSearchCriteria == null) return;
             if (!IsPostBack)
             {
+                
                 //display all info match criteria to gridview
                 DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
             }
@@ -58,18 +60,25 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <returns>AgencyPayableSearchCriteriaDTO</returns>
         protected AgencyPayableSearchCriteriaDTO GetCriteria()
         {
-            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-            int agencyid = int.Parse(Request.QueryString["agencyid"].ToString());
-            string casecomplete = Request.QueryString["casecomplete"].ToString();
-            DateTime periodenddate = Convert.ToDateTime(Request.QueryString["periodenddate"].ToString());
-            DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
-            int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
-            agencyPayableSearchCriteria.AgencyId = agencyid;
-            agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
-            agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
-            agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
-            agencyPayableSearchCriteria.Indicator = indicator;
-            return agencyPayableSearchCriteria;
+            try
+            {
+                AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+                int agencyid = int.Parse(Request.QueryString["agencyid"].ToString());
+                string casecomplete = Request.QueryString["casecomplete"].ToString();
+                DateTime periodenddate = Convert.ToDateTime(Request.QueryString["periodenddate"].ToString());
+                DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
+                int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
+                agencyPayableSearchCriteria.AgencyId = agencyid;
+                agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
+                agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
+                agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
+                agencyPayableSearchCriteria.Indicator = indicator;
+                return agencyPayableSearchCriteria;
+            }
+            catch 
+            {
+                return null;
+            }
         }
         /// <summary>
         /// bind search data match search criteria into gridview
@@ -111,7 +120,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     grvInvoiceItems.DataBind();
                     AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
                     lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
-                    lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
+                    lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
                     lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
                     lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount);
                     lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();

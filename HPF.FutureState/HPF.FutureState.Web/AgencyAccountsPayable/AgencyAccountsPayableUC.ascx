@@ -10,9 +10,9 @@
     <colgroup>
         <col width="5%" />
         <col width="30%" />
-        <col width="10%" />
+        <col width="15%" />
         <col width="20%" />
-        <col width="20%" />
+        <col width="15%" />
         <col width="15%" />
     </colgroup>
     <tr>
@@ -26,14 +26,14 @@
     </tr>
     <tr>
         <td class="sidelinks" align="right">
-            Agency:
+            Agency*:
         </td>
         <td>
-            <asp:DropDownList ID="ddlAgency" runat="server" Height="16px" CssClass="Text" Width="200px">
+            <asp:DropDownList ID="ddlAgency" runat="server" Height="16px" CssClass="Text" Width="210px">
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
-            Period Start:
+            Period Start*:
         </td>
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Width="150px" MaxLength="100"></asp:TextBox>
@@ -77,10 +77,10 @@
 
             <asp:UpdatePanel ID="myupdatepanel" runat="server">
                 <ContentTemplate>
-                    <asp:Panel ID="panInvoiceList" runat="server" CssClass="ScrollTable" Width="100%">
+                    <%--<asp:Panel ID="panInvoiceList" runat="server" CssClass="ScrollTable" Width="100%">--%>
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
-                            AutoGenerateColumns="false" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
-                            <HeaderStyle CssClass="FixedHeader" />
+                            AutoGenerateColumns="false" DataKeyNames="AgencyPayableId" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
+                            <HeaderStyle CssClass="FixedHeader"  />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -103,7 +103,8 @@
                             <EmptyDataTemplate>
                                 There is no data match.</EmptyDataTemplate>
                         </asp:GridView>
-                    </asp:Panel>
+                   <%-- </asp:Panel>--%>
+                <asp:HiddenField ID="hidSelectedRowIndex" runat="server" Value="" />
                 </ContentTemplate>
             </asp:UpdatePanel>
             </cc1:StatefullScrollPanel>
@@ -125,7 +126,7 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnCancelPayable" runat="server" Text="Cancel Payable" CssClass="MyButton"
-                            Width="130px" OnClick="btnCancelPayable_Click" OnClientClick="return confirm('Do you want to cancel ?')"  />
+                            Width="130px" OnClick="btnCancelPayable_Click"  />
                     </td>
                 </tr>
             </table>
@@ -149,3 +150,22 @@
         </td>
     </tr>
 </table>
+<script language="javascript" type="text/javascript">
+    var id = '<%=hidSelectedRowIndex.ClientID %>'
+    function ViewEditConfirm() {
+        var SelectedIndex = document.getElementById(id);
+        if (SelectedIndex.value=='') {
+            alert('ERR585-An agency account payable must be selected in order to view or edit it.');
+            return false;
+        }
+     };
+     function CancelConfirm() {
+         var SelectedIndex = document.getElementById(id);
+         if (SelectedIndex.value =='') {
+             alert('ERR584-An agency account payable must be selected in order to cancel it.');
+             return false;
+         }
+         else
+             confirm('WAR586-Do you really want to cancel this agency accounting?');
+     };
+</script>

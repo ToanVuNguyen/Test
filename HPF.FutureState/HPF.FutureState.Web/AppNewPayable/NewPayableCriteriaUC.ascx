@@ -3,10 +3,10 @@
 
 <table  width="100%">
     <colgroup>
-    <col width="30%" />
+    <col width="20%" />
     <col width="20%" />
     <col width="15%" />
-    <col width="10%" />
+    <col width="20%" />
     <col width="25%" />
     </colgroup>
     <tr>
@@ -21,7 +21,7 @@
         <td class="sidelinks" align="right">
             Agency*:</td>
         <td>
-            <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text" Width="250px">
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
@@ -39,7 +39,7 @@
         <td class="sidelinks" align="right">
             Period Start*:</td>
         <td>
-            <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Text="1/1/2003"> </asp:TextBox>
+            <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Text="1/1/2003" Width="80px"> </asp:TextBox>
             
         </td>
         <td class="sidelinks" align="right">
@@ -53,7 +53,7 @@
         <td class="sidelinks" align="right">
             Period End*:</td>
         <td>
-            <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text" Text="5/1/2008"></asp:TextBox>
+            <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text" Text="5/1/2008" Width="80px"></asp:TextBox>
         </td>
         <td class="sidelinks" align="right">
             &nbsp;</td>
@@ -66,7 +66,7 @@
         <td class="sidelinks" align="right">
             Completed?*:</td>
         <td>
-            <asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text" Width="250px">
              <asp:ListItem Value="None" Text="Select Both Complete & Incomplete Cases"></asp:ListItem>
             <asp:ListItem Value="Y" Text="Select Only Complete Cases" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="Select Only Incomplete Cases"></asp:ListItem>

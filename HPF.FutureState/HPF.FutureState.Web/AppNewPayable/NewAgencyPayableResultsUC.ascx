@@ -4,11 +4,11 @@
    
 <table width="100%">
 <colgroup>
-<col width="17%" />
+<col width="15%" />
 <col width="15%" />
 <col width="18%" />
 <col width="20%" />
-<col width="30%" />
+<col width="32%" />
 </colgroup>
     <tr>
         <td  class="Header" colspan="5" >
@@ -65,7 +65,7 @@
         <td class="sidelinks" align="right">
             Payment Comments:</td>
         <td colspan="3">
-            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="4" TextMode="MultiLine" Width="100%" Enabled="false" ></asp:TextBox>
+            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="4" TextMode="MultiLine" Width="100%"  ReadOnly="true" ></asp:TextBox>
         </td>
        
         <td>

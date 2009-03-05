@@ -95,15 +95,6 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         protected global::System.Web.UI.UpdatePanel myupdatepanel;
         
         /// <summary>
-        /// panInvoiceList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panInvoiceList;
-        
-        /// <summary>
         /// grvInvoiceList control.
         /// </summary>
         /// <remarks>
@@ -111,6 +102,15 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grvInvoiceList;
+        
+        /// <summary>
+        /// hidSelectedRowIndex control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidSelectedRowIndex;
         
         /// <summary>
         /// btnNewPayable control.

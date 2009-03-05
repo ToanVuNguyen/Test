@@ -152,7 +152,7 @@
                                     Primary Residence<br />
                                     &nbsp;Est. Mkt Value:
                                 </td>
-                                <td>
+                                <td style="vertical-align:bottom">
                                     <asp:Label ID="lblPrimaryRes" runat="server" CssClass="Text">$200,000.00</asp:Label>
                                 </td>
                             </tr>
@@ -703,13 +703,13 @@
                     <td align="right" class="sidelinks">
                         Summary Sent Other*:
                     </td>
-                    <td>
+                    <td valign="bottom">
                         <asp:Label ID="lblSentOrther" runat="server" CssClass="Text">Fax</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
                         Foreclosure Sale Date*:
                     </td>
-                    <td>
+                    <td style="vertical-align:bottom">
                         <asp:Label ID="lblNoticeReceived" runat="server" CssClass="Text">09/25/2008</asp:Label>
                     </td>
                 </tr>
@@ -781,7 +781,7 @@
                     <td align="right" class="sidelinks">
                         Bankruptcy Attomey*:
                     </td>
-                    <td>
+                    <td valign="bottom">
                         <asp:Label ID="lblBankruptcyAttomey" runat="server" CssClass="Text">Jack Prescott</asp:Label>
                     </td>
                 </tr>
@@ -794,7 +794,7 @@
                     <td align="right" class="sidelinks">
                         Bankcruptcy Payments Current Indicator:
                     </td>
-                    <td>
+                    <td valign="bottom">
                         <asp:Label ID="lblCurrentIndicator" runat="server" CssClass="Text">Yes</asp:Label>
                     </td>
                 </tr>
@@ -832,13 +832,13 @@
                     <td align="right" class="sidelinks">
                         Primary Default Reason*:
                     </td>
-                    <td>
+                    <td valign="bottom">
                         <asp:Label ID="lblDefaultReason" runat="server" CssClass="Text">Excessive Obligations</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
                         HUD Termination Reason*:
                     </td>
-                    <td>
+                    <td valign="bottom">
                         <asp:Label ID="lblTerminationReason" runat="server" CssClass="Text">Client terminated counseling</asp:Label>
                     </td>
                 </tr>
@@ -846,13 +846,13 @@
                     <td align="right" class="sidelinks">
                         Secondary Default Reason*:
                     </td>
-                    <td valign="top">
+                    <td  style="vertical-align:bottom">
                         <asp:Label ID="lblSDefaultReason" runat="server" CssClass="Text">Inability to sell</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
                         HUD Termination Date*:
                     </td>
-                    <td>
+                    <td valign="bottom">
                         <asp:Label ID="lblTerminationDate" runat="server" CssClass="Text">11/25/2008</asp:Label>
                     </td>
                 </tr>

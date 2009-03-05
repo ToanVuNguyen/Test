@@ -26,12 +26,17 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             //apply security
             ApplySecurity();
-
+          
             // display grv in the first time
             if (!IsPostBack)
             {
+                if (grvInvoiceList.SelectedIndex == -1)
+                    hidSelectedRowIndex.Value = "";
+                btnViewPayable.Attributes.Add("onclick", " return ViewEditConfirm();");
+                btnCancelPayable.Attributes.Add("onclick", "return CancelConfirm();");
                 AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
                 BindAgencyDropDownList();
+               
                 if (Session["agencyPayableSearchCriteria"] != null)
                 {
                     searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
@@ -215,8 +220,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
-                if (grvInvoiceList.SelectedIndex != -1)
-                {
+                //if (grvInvoiceList.SelectedIndex != -1)
+                //{
                     agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
@@ -227,11 +232,11 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     //
                     grvInvoiceList.DataSource = agency;
                     grvInvoiceList.DataBind();
-                }
-                else
-                {
-                    bulMessage.Items.Add(new ListItem("Please choose record."));
-                }
+                //}
+                //else
+                //{
+                //    bulMessage.Items.Add(new ListItem("Please choose record."));
+               // }
             }
             catch (Exception ex)
             {
@@ -239,10 +244,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
-        protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnCancelPayable.Attributes.Add("onclick", "return confirm('Do you really want to cancel payable?')");
-        }
+       
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
@@ -259,9 +261,14 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch (Exception ex)
             {
-                bulMessage.Items.Add(new ListItem("Please choose record."));
+               // bulMessage.Items.Add(new ListItem("Please choose record."));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+        protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (grvInvoiceList.SelectedIndex!=-1)
+                hidSelectedRowIndex.Value = grvInvoiceList.SelectedValue.ToString();
         }
     }
 }
