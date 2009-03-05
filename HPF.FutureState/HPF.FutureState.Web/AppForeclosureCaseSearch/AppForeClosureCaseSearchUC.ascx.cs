@@ -171,7 +171,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 if (searchResult.Count == 0)
                 {
-                    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0504);//error code
+                    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0504);//error code
                     ex.ExceptionMessages.Add(exMessage);
                     throw ex;
                 }

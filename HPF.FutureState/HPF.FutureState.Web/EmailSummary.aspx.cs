@@ -24,50 +24,50 @@ namespace HPF.FutureState.Web
         {
 
         }
-        public string SendEmailWithAttachment(string SendFrom, string SendTo, string Subject, string Body,string CaseID)
-        {
-            try
-            {
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
-                string from = SendFrom;
-                string to = SendTo; //Danh sách email được ngăn cách nhau bởi dấu ";"
-                string subject = Subject;
-                string body = Body;
+        //public string SendEmailWithAttachment(string SendFrom, string SendTo, string Subject, string Body,string CaseID)
+        //{
+        //    try
+        //    {
+        //        System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
+        //        string from = SendFrom;
+        //        string to = SendTo; //Danh sách email được ngăn cách nhau bởi dấu ";"
+        //        string subject = Subject;
+        //        string body = Body;
 
-                bool result = true;
-                String[] ALL_EMAILS = to.Split(';');
+        //        bool result = true;
+        //        String[] ALL_EMAILS = to.Split(',');
 
-                foreach (string emailaddress in ALL_EMAILS)
-                {
-                    result = regex.IsMatch(emailaddress);
-                    if (result == false)
-                    {
-                        return "Email address is not wellform";
-                    }
-                }
+        //        foreach (string emailaddress in ALL_EMAILS)
+        //        {
+        //            result = regex.IsMatch(emailaddress);
+        //            if (result == false)
+        //            {
+        //                return "Email address is not wellform";
+        //            }
+        //        }
 
-                if (result == true)
-                {
-                    HPFSendMail hpfSendMail = new HPFSendMail();
-                    ReportingExporter reportExport = new ReportingExporter();
-                    hpfSendMail.To = SendTo;
-                    hpfSendMail.Subject = Subject;
-                    hpfSendMail.Body = Body;
-                    reportExport.ReportPath = @"HPF_Report/rpt_CounselingSummary";
-                    reportExport.SetReportParameter("pi_fc_id", CaseID);
-                    byte[] attachContent = reportExport.ExportToPdf();
-                    hpfSendMail.AddAttachment("hpf_report", attachContent);
-                    hpfSendMail.Send();
-                }
+        //        if (result == true)
+        //        {
+        //            HPFSendMail hpfSendMail = new HPFSendMail();
+        //            ReportingExporter reportExport = new ReportingExporter();
+        //            hpfSendMail.To = SendTo;
+        //            hpfSendMail.Subject = Subject;
+        //            hpfSendMail.Body = Body;
+        //            reportExport.ReportPath = @"HPF_Report/rpt_CounselingSummary";
+        //            reportExport.SetReportParameter("pi_fc_id", CaseID);
+        //            byte[] attachContent = reportExport.ExportToPdf();
+        //            hpfSendMail.AddAttachment("hpf_report", attachContent);
+        //            hpfSendMail.Send();
+        //        }
                 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return ex.Message;
-            }
-            return "succesfull";
-        }
+        //        ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+        //        return ex.Message;
+        //    }
+        //    return "succesfull";
+        //}
     }
 }

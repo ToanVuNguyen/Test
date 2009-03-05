@@ -110,6 +110,7 @@ namespace HPF.FutureState.Web.SummaryEmail
 
         private void BuildSendMailInfo()
         {
+            bulMessage.Items.Clear();
             DataValidationException ex = new DataValidationException();
             string CaseID = Request.QueryString["CaseID"];
             string SendTo = txtTo.Text;
