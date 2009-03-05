@@ -5,6 +5,16 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager ID="myScript" runat="server">
 </asp:ScriptManager>
+<style type="text/css">
+    .style1
+    {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: #2271A0;
+        font-size: 11px;
+        font-weight: bold;
+        width: 119px;
+    }
+</style>
 <table width="100%">
     <tr>
         <td colspan="6" class="Header">
@@ -12,13 +22,15 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="left" colspan="2" nowrap>
-            Funding Source:
-            <asp:DropDownList ID="ddlFundingSource" runat="server" Height="16px" CssClass="Text">
+        <td class="sidelinks" align="right" nowrap>
+            Funding Source*:</td>        
+        <td class="sidelinks" align="left" nowrap width="300">
+            <asp:DropDownList ID="ddlFundingSource" runat="server" Height="16px" 
+                CssClass="Text" Width="300px">
             </asp:DropDownList>
         </td>        
-        <td class="sidelinks" align="right">
-            Period Start:
+        <td class="style1" align="right">
+            Period Start*:
         </td>
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text"  MaxLength="100"></asp:TextBox>
@@ -32,8 +44,8 @@
         </td>
         <td>
         </td>
-        <td class="sidelinks" align="right">
-            Period End:
+        <td class="style1" align="right">
+            Period End*:
         </td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server"  MaxLength="100" CssClass="Text"></asp:TextBox>            
@@ -59,7 +71,8 @@
                 <asp:UpdatePanel ID="myUPanel" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
-                            AutoGenerateColumns="false" DataKeyNames="InvoicePaymentID">
+                            AutoGenerateColumns="false" DataKeyNames="InvoicePaymentID" 
+                            onselectedindexchanged="grvInvoicePaymentList_SelectedIndexChanged">
                             <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
@@ -78,9 +91,8 @@
                                 <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                                     ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                             </Columns>
-                            <EmptyDataTemplate>
-                                There is no data match.</EmptyDataTemplate>
                         </asp:GridView>
+                        <asp:HiddenField ID="SelectedRowIndex" runat="server"  />
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </cc1:StatefullScrollPanel>
@@ -112,3 +124,15 @@
         </td>
     </tr>
 </table>
+<script type="text/javascript" language="javascript">    
+var id='<%=SelectedRowIndex.ClientID %>';
+    function ViewEditClientClick()
+    {    
+        var SelectedIndex = document.getElementById(id);    
+        if(SelectedIndex.value=='')
+        {
+            alert('ERR0683--An invoice payment must be selected in order to view or edit it.');
+            return false;
+        }
+    }
+</script>

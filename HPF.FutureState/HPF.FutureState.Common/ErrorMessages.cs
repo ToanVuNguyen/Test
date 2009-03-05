@@ -327,6 +327,10 @@ namespace HPF.FutureState.Common
         public const string ERR0680 = "ERR0680";
         public const string ERR0681 = "ERR0681";
         public const string ERR0682 = "ERR0682";
+        
+        public const string ERR0683 = "ERR0683";
+        public const string WARN0684 = "WARN0684";
+
 
         public const string ERR0701 = "ERR0701";
         public const string ERR0702 = "ERR0702";
@@ -708,6 +712,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0680, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} does not match the case ID on the record retreived by the HPF Invoice Case ID in this row.");
                 errorMessageDict.Add(ERR0681, "Unable to process the reconciliation file. The Funding Source for this payment does not match the Funding Source on the invoice record retreived by the HPF Invoice Case ID in row {0}.");
                 errorMessageDict.Add(ERR0682, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} is not valid.");
+                errorMessageDict.Add(ERR0683, "An invoice payment must be selected in order to view or edit it.");
+                errorMessageDict.Add(WARN0684, "No invoice payments were found that match your search criteria.");
 
                 errorMessageDict.Add(ERR0701, "Audit date must be in the range [1-1-1753, 12-31-9999].");
                 errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");

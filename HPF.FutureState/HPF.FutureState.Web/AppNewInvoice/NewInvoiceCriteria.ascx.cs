@@ -380,6 +380,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.Completed = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropCaseCompleted.SelectedValue);
             searchCriteria.AlreadyBill = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropAlreadyBilled.SelectedValue);
             searchCriteria.IgnoreFundingConsent= (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropFundingConsent.SelectedValue);
+            if (dropFundingConsent.Enabled == false)
+                searchCriteria.IgnoreFundingConsent = CustomBoolean.None;
             try
             {
                 searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text);

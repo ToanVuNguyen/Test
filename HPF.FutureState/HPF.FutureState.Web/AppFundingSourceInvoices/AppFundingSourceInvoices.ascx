@@ -191,7 +191,7 @@
         var SelectedIndex = document.getElementById(id);    
         if(SelectedIndex.value=='')
         {
-            alert('ERR0568--You must select an Invoice to View/Edit.');
+            alert('ERR0568--An invoice must be selected in order to view or edit it.');
             return false;
         }
     }
@@ -200,7 +200,7 @@
         var SelectedIndex = document.getElementById(id);    
         if(SelectedIndex.value=='')
         {
-            alert('ERR0567--You must select an Invoice to Cancel.');
+            alert('ERR0567--An invoice must be selected in order to cancel it.');
             return false;
         }
         else

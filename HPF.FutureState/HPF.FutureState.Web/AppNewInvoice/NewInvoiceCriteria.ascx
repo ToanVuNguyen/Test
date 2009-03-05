@@ -105,8 +105,8 @@
             Duplicates?:</td>
         <td>
             <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
-                <asp:ListItem Value="0">Select Only Original Cases</asp:ListItem>
-                <asp:ListItem Value="1">Select Only Duplicate Cases</asp:ListItem>
+                <asp:ListItem Value="1">Select Only Original Cases</asp:ListItem>
+                <asp:ListItem Value="0">Select Only Duplicate Cases</asp:ListItem>
                 <asp:ListItem Value="-1">Select Both Original & Duplicate Cases</asp:ListItem>
             </asp:DropDownList>
         </td>

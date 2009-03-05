@@ -25,6 +25,8 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
             ClearErrorMessages();
             ApplySecurity();
+            if(grvInvoicePaymentList.SelectedValue ==null)
+                SelectedRowIndex.Value = "";
             try
             {
                 if (!IsPostBack)
@@ -32,13 +34,13 @@ namespace HPF.FutureState.Web.InvoicePayments
                     BindFundingSourceDropDownList();
                     SetDefaultPeriodStartEnd();
                     DefaultSearch();
-
+                    btnViewEditPayable.Attributes.Add("onclick", " return ViewEditClientClick();");
                 }
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0996);
+                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0996);
             }
 
         }
@@ -195,6 +197,11 @@ namespace HPF.FutureState.Web.InvoicePayments
             InvoicePaymentDTOCollection invoicePayment = new InvoicePaymentDTOCollection();
             //get search criteria to AgencyPayableSearchCriteriaDTO
             invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
+            if (invoicePayment == null)
+            {
+                Exception ex = new Exception(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
+                throw (ex);
+            }
             return invoicePayment;
         }
         /// <summary>
@@ -221,18 +228,20 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            if (grvInvoicePaymentList.SelectedIndex != -1)
-            {
+            if (grvInvoicePaymentList.SelectedValue!=null)
                 Response.Redirect("InvoicePaymentInfo.aspx?id=" + grvInvoicePaymentList.SelectedValue.ToString());
-            }
-            else
-                lblErrorMessage.Items.Add(new ListItem("You have to select an invoice payment to view."));
 
         }
 
         protected void btnNewPayable_Click(object sender, EventArgs e)
         {
             Response.Redirect("InvoicePaymentInfo.aspx");
+        }
+
+        protected void grvInvoicePaymentList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (grvInvoicePaymentList.SelectedValue != null)
+                SelectedRowIndex.Value = grvInvoicePaymentList.SelectedValue.ToString();
         }
     }
 }
