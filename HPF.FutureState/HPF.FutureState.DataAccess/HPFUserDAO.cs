@@ -62,6 +62,7 @@ namespace HPF.FutureState.DataAccess
                     {
                        hpfUsers.Add(new HPFUserDTO(){
                            HpfUserId = ConvertToInt(reader["hpf_user_id"]),
+                           UserLoginId = ConvertToString(reader["user_login_id"]),
                            FirstName = ConvertToString(reader["fname"]),
                            LastName = ConvertToString(reader["lname"])
                        });
