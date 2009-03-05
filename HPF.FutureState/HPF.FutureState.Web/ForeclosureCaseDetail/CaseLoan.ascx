@@ -37,7 +37,7 @@
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "OrginalLoanNum")%></td>            
         </tr>       
          <tr>
-            <td align="right" class="sidelinks">Loan 1<sup>st</sup> 2<sup>nd</sup> Code: </td>
+            <td align="right" class="sidelinks">Loan 1<sup>st</sup> 2<sup>nd</sup> Code*: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "Loan1st2nd")%></td>
             <td align="right" class="sidelinks">Current Servicer FDIC/NCUA: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "CurrentServicerFdicNcuaNum")%></td>            
@@ -50,7 +50,7 @@
         </tr>    
         <tr>
             <td align="right" class="sidelinks">Interest Rate*: </td>
-            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InterestRate", "{0:F3}")%>%</td>            
+            <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InterestRate")%>%</td>            
             <td align="right" class="sidelinks">Investor Name: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InvestorName")%></td>            
         </tr>  

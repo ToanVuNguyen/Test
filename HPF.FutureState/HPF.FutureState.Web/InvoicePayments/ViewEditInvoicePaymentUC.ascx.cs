@@ -196,7 +196,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             {
                 try
                 {
-                    int.Parse(txtPaymentAmt.Text);
+                    double.Parse(txtPaymentAmt.Text);
                 }
                 catch
                 {

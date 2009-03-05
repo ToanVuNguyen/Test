@@ -38,7 +38,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 }
             }
             catch (Exception ex)
-            {                
+            {
+                lblMessage.Visible = true;
+                lblMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex);
             }
 
