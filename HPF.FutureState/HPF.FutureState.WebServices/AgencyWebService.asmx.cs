@@ -107,7 +107,7 @@ namespace HPF.FutureState.WebServices
                     else
                     {
                         response.Status = ResponseStatus.Warning;
-                        response.Messages.AddExceptionMessage("Call Log Id does not exist");
+                        response.Messages.AddExceptionMessage("Call Id does not exist");
                     }
                 }
             }
@@ -213,7 +213,7 @@ namespace HPF.FutureState.WebServices
                 catch
                 {
                     var dataValidationException = new DataValidationException();
-                    dataValidationException.ExceptionMessages.AddExceptionMessage("Call Log Id is invalid");
+                    dataValidationException.ExceptionMessages.AddExceptionMessage("Call Id is invalid");
                     throw dataValidationException;
                 }
             }
