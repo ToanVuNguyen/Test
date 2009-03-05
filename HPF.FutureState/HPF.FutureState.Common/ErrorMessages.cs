@@ -747,8 +747,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0993, "An invalid AgeMin/Max was provided.");
                 errorMessageDict.Add(ERR0994, "A Program is required to search.");
                 errorMessageDict.Add(ERR0995, "A Funding Source is required to search.");
-                errorMessageDict.Add(ERR0996, "An invalid date was provided for Period Start.");
-                errorMessageDict.Add(ERR0997, "An invalid date was provided for Period End.");
+                errorMessageDict.Add(ERR0996, "An invalid date was provided for Period End.");
+                errorMessageDict.Add(ERR0997, "An invalid date was provided for Period Start.");
                 errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");
 
