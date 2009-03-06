@@ -110,8 +110,9 @@
       <Platform>Win32</Platform>
       <Options>
         <TargetServerURL>http://hpf-01:8088/</TargetServerURL>
-        <TargetFolder>http://hpf-01:8088/Reports/ReportsLibrary/Reports</TargetFolder>
-        <TargetDataSourceFolder>http://hpf-01:8088/Reports/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <TargetFolder>http://hpf-01:8088/ReportCenter/ReportsLibrary/Reports</TargetFolder>
+        <TargetDataSourceFolder>http://hpf-01:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
+        <OverwriteDataSources>true</OverwriteDataSources>
         <StartItem>rpt_CaseSource.rdl</StartItem>
       </Options>
     </Configuration>
