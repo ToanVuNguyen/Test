@@ -37,7 +37,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             
             if (string.IsNullOrEmpty(codeValue))
-                return true;
+                return false;
 
             return (this.SingleOrDefault(item => item.Code.ToUpper().Trim() == codeValue.ToUpper().Trim()) != null);
             
