@@ -641,10 +641,13 @@ namespace HPF.FutureState.BusinessLogic
         private int? FindOutcomeTypeIdWithNameIsExternalReferral()
         {
             OutcomeTypeDTOCollection outcomeType = foreclosureCaseSetDAO.GetOutcomeType();
-            foreach (OutcomeTypeDTO item in outcomeType)
-            {                
-                if (ConvertStringToUpper(item.OutcomeTypeName) == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
-                    return item.OutcomeTypeID;
+            if (outcomeType != null)
+            {
+                foreach (OutcomeTypeDTO item in outcomeType)
+                {
+                    if (ConvertStringToUpper(item.OutcomeTypeName) == Constant.OUTCOME_TYPE_NAME_EXTERNAL_REFERAL)
+                        return item.OutcomeTypeID;
+                }
             }
             return 0;
         }
@@ -652,10 +655,13 @@ namespace HPF.FutureState.BusinessLogic
         private int FindSubCatWithNameIsMortgage()
         {
             BudgetSubcategoryDTOCollection budgetSubCat = foreclosureCaseSetDAO.GetBudgetSubcategory();
-            foreach (BudgetSubcategoryDTO item in budgetSubCat)
-            {                
-                if (ConvertStringToUpper(item.BudgetSubcategoryName) == Constant.SUB_CATEGORY_NAME_MORTGAGE)
-                    return item.BudgetSubcategoryID;
+            if (budgetSubCat != null)
+            {
+                foreach (BudgetSubcategoryDTO item in budgetSubCat)
+                {
+                    if (ConvertStringToUpper(item.BudgetSubcategoryName) == Constant.SUB_CATEGORY_NAME_MORTGAGE)
+                        return item.BudgetSubcategoryID;
+                }
             }
             return 0;
         }
