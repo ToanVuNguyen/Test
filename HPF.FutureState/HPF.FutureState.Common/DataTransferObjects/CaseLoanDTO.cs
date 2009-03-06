@@ -78,7 +78,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return armResetInd; }
             set
             {
-                armResetInd = value;
+                if (!string.IsNullOrEmpty(value))
+                    armResetInd = value.Trim().ToUpper();
             }
         }
 
@@ -143,7 +144,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string MortgageProgramCd
         { 
             get { return _mortgateProgramCd; }
-            set { if (!string.IsNullOrEmpty(value)) _mortgateProgramCd = value; }
+            set { if (!string.IsNullOrEmpty(value)) _mortgateProgramCd = value.Trim().ToUpper(); }
         }
 
         [XmlIgnore]
