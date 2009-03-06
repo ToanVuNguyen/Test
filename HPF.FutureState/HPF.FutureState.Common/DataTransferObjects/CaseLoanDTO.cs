@@ -54,8 +54,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         //[StringRequiredValidator(Tag = ErrorMessages.WARN0320, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        string _loan1st2nd;
         [NullableOrStringLengthValidator(true, 15, "Loan 1st 2nd ", Ruleset = Constant.RULESET_LENGTH)]
-        public string Loan1st2nd { get; set; }
+        public string Loan1st2nd
+        {
+            get { return _loan1st2nd; }
+            set { if (!string.IsNullOrEmpty(value)) _loan1st2nd = value.Trim().ToUpper(); }
+        }
 
         string _mortgageTypeCd;
         [StringRequiredValidator(Tag = ErrorMessages.WARN0321, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
