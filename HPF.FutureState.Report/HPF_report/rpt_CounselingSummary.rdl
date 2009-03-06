@@ -618,7 +618,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.35417in</Width>
+  <Width>8.375in</Width>
   <Body>
     <ReportItems>
       <Textbox Name="mortgage_program_cd">
@@ -685,6 +685,7 @@
         <ZIndex>211</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.46875in</Left>
+        <Height>0.1875in</Height>
         <Value>www.995hope.org</Value>
       </Textbox>
       <Textbox Name="textbox209">
@@ -773,20 +774,21 @@
         <Value>888-995-HOPE TM.JPG</Value>
       </Image>
       <Textbox Name="textbox230">
-        <Top>18.29687in</Top>
-        <Width>1.20313in</Width>
+        <Top>18.27083in</Top>
+        <Width>1.25in</Width>
         <Style>
           <BorderColor>
-            <Right>Black</Right>
-            <Top>Black</Top>
+            <Left>White</Left>
+            <Bottom>White</Bottom>
           </BorderColor>
           <BorderStyle>
-            <Right>Solid</Right>
-            <Top>Solid</Top>
+            <Default>Solid</Default>
+            <Left>Solid</Left>
+            <Bottom>Solid</Bottom>
           </BorderStyle>
           <BorderWidth>
-            <Right>1pt</Right>
-            <Top>1pt</Top>
+            <Left>1pt</Left>
+            <Bottom>1pt</Bottom>
           </BorderWidth>
           <FontSize>9pt</FontSize>
           <TextAlign>Right</TextAlign>
@@ -797,25 +799,26 @@
         </Style>
         <ZIndex>205</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.21354in</Left>
-        <Height>0.22917in</Height>
+        <Left>4.17708in</Left>
+        <Height>0.25in</Height>
         <Value>=First(Fields!total_income.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox229">
-        <Top>18.53645in</Top>
-        <Width>1.20313in</Width>
+        <Top>18.53125in</Top>
+        <Width>1.25in</Width>
         <Style>
           <BorderColor>
-            <Right>Black</Right>
-            <Top>Black</Top>
+            <Left>White</Left>
+            <Bottom>White</Bottom>
           </BorderColor>
           <BorderStyle>
-            <Right>Solid</Right>
-            <Top>Solid</Top>
+            <Default>Solid</Default>
+            <Left>Solid</Left>
+            <Bottom>Solid</Bottom>
           </BorderStyle>
           <BorderWidth>
-            <Right>1pt</Right>
-            <Top>1pt</Top>
+            <Left>1pt</Left>
+            <Bottom>1pt</Bottom>
           </BorderWidth>
           <FontSize>9pt</FontSize>
           <TextAlign>Right</TextAlign>
@@ -826,28 +829,23 @@
         </Style>
         <ZIndex>204</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.21354in</Left>
-        <Height>0.22917in</Height>
+        <Left>4.17708in</Left>
+        <Height>0.25in</Height>
         <Value>=First(Fields!total_expenses.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox228">
-        <Top>18.77604in</Top>
-        <Width>1.20313in</Width>
+        <Top>18.79167in</Top>
+        <Width>1.25in</Width>
         <Style>
           <BorderColor>
-            <Right>Black</Right>
-            <Top>Black</Top>
-            <Bottom>Black</Bottom>
+            <Left>White</Left>
           </BorderColor>
           <BorderStyle>
-            <Right>Solid</Right>
-            <Top>Solid</Top>
-            <Bottom>Solid</Bottom>
+            <Default>Solid</Default>
+            <Left>Solid</Left>
           </BorderStyle>
           <BorderWidth>
-            <Right>1pt</Right>
-            <Top>1pt</Top>
-            <Bottom>1pt</Bottom>
+            <Left>1pt</Left>
           </BorderWidth>
           <FontSize>9pt</FontSize>
           <TextAlign>Right</TextAlign>
@@ -858,13 +856,13 @@
         </Style>
         <ZIndex>203</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>4.21354in</Left>
-        <Height>0.22917in</Height>
+        <Left>4.17708in</Left>
+        <Height>0.25in</Height>
         <Value>=First(Fields!total_income.Value, "dst_CounselingSummary_get_FC_detail") - First(Fields!total_expenses.Value, "dst_CounselingSummary_get_FC_detail")</Value>
       </Textbox>
       <Textbox Name="textbox227">
-        <Top>18.77604in</Top>
-        <Width>2.40104in</Width>
+        <Top>18.79167in</Top>
+        <Width>2.375in</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
@@ -877,25 +875,23 @@
         </Style>
         <ZIndex>202</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.79166in</Left>
-        <Height>0.22917in</Height>
+        <Left>1.79167in</Left>
+        <Height>0.25in</Height>
         <Value>Total Surplus or Deficit</Value>
       </Textbox>
       <Textbox Name="textbox226">
-        <Top>18.53645in</Top>
-        <Width>2.40104in</Width>
+        <Top>18.53125in</Top>
+        <Width>2.375in</Width>
         <Style>
           <BorderColor>
-            <Left>Black</Left>
-            <Right>Black</Right>
+            <Bottom>White</Bottom>
           </BorderColor>
           <BorderStyle>
-            <Left>Solid</Left>
-            <Right>Solid</Right>
+            <Default>Solid</Default>
+            <Bottom>Solid</Bottom>
           </BorderStyle>
           <BorderWidth>
-            <Left>1pt</Left>
-            <Right>1pt</Right>
+            <Bottom>1pt</Bottom>
           </BorderWidth>
           <FontSize>9pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
@@ -906,22 +902,22 @@
         <ZIndex>201</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>1.79167in</Left>
-        <Height>0.22917in</Height>
+        <Height>0.25in</Height>
         <Value>Expense Total</Value>
       </Textbox>
       <Textbox Name="textbox225">
-        <Top>18.29687in</Top>
-        <Width>2.40104in</Width>
+        <Top>18.27083in</Top>
+        <Width>2.375in</Width>
         <Style>
           <BorderColor>
-            <Right>Black</Right>
+            <Bottom>White</Bottom>
           </BorderColor>
           <BorderStyle>
             <Default>Solid</Default>
-            <Right>Solid</Right>
+            <Bottom>Solid</Bottom>
           </BorderStyle>
           <BorderWidth>
-            <Right>1pt</Right>
+            <Bottom>1pt</Bottom>
           </BorderWidth>
           <FontSize>9pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
@@ -931,15 +927,15 @@
         </Style>
         <ZIndex>200</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.79165in</Left>
-        <Height>0.22917in</Height>
+        <Left>1.79167in</Left>
+        <Height>0.25in</Height>
         <Value>Income Total</Value>
       </Textbox>
       <Table Name="table3">
         <ZIndex>199</ZIndex>
         <DataSetName>dst_CounselingSummary_get_FC_Budget_asset</DataSetName>
         <Top>19.08333in</Top>
-        <Width>4.92708in</Width>
+        <Width>4.91666in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1117,7 +1113,7 @@
             <Width>1.23958in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>2.4375in</Width>
+            <Width>2.42708in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.25in</Width>
@@ -5269,7 +5265,7 @@
         <Value>image.hpf_logo.gif</Value>
       </Image>
     </ReportItems>
-    <Height>21.11458in</Height>
+    <Height>21.125in</Height>
   </Body>
   <Language>en-US</Language>
   <PageFooter>
