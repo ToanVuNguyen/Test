@@ -56,7 +56,7 @@ namespace HPF.FutureState.BusinessLogic
         #region Send Complete Case to Queue
         private void SendCompletedCaseToQueueIfAny(ForeclosureCaseSetDTO fCaseSetFromAgency)
         {
-            int? fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
+            var fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
             if (!IsCaseCompleted)
                 return;
             if (!ShouldSendSummary(fCaseSetFromAgency))
@@ -93,11 +93,18 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool ShouldSendSummary(ForeclosureCaseSetDTO fCaseSetFromAcency)
         {
-            int? fcId = fCaseSetFromAcency.ForeclosureCase.FcId;
+            var fcId = fCaseSetFromAcency.ForeclosureCase.FcId;
+            var caseLoan1st = fCaseSetFromAcency.CaseLoans.GetCaseLoan1st();
+            var primaryServicer =
+                SummaryReportBL.Instance.GetServicerbyFcId(fcId).GetServicerById(caseLoan1st.ServicerId);
+            //
             if (IsFirstTimeCaseCompleted)
-                return CheckDeliveryMethodCode(fcId);
-            else
-                return (CheckDeliveryMethodCode(fcId) && CheckFieldChange(fCaseSetFromAcency));
+                return IsNotNOSENDDeliveryMethod(primaryServicer) &&
+                       (fCaseSetFromAcency.ForeclosureCase.ServicerConsentInd == "Y");
+            //
+            return (IsNotNOSENDDeliveryMethod(primaryServicer) && CheckFieldChange(fCaseSetFromAcency)) &&
+                   (fCaseSetFromAcency.ForeclosureCase.ServicerConsentInd == "Y");
+
         }
 
         /// <summary>
@@ -176,17 +183,12 @@ namespace HPF.FutureState.BusinessLogic
         /// Check Delivery Method Code
         /// <return>bool<return>
         /// </summary>
-        private bool CheckDeliveryMethodCode(int? fcId)
+        private bool IsNotNOSENDDeliveryMethod(ServicerDTO servicers)
         {
-            var summaryBL = SummaryReportBL.Instance;
-            var servicers = summaryBL.GetServicerbyFcId(fcId);
-            foreach (ServicerDTO item in servicers)
-            {
-                if (ConvertStringToUpper(item.SecureDeliveryMethodCd) != Constant.SECURE_DELIVERY_METHOD_NOSEND)
-                    return true;
-            }
-            return false;
+            return (servicers.SecureDeliveryMethodCd.ToUpper() != Constant.SECURE_DELIVERY_METHOD_NOSEND);
         }
+
+
         #endregion
 
         #region Implementation of IForclosureCaseBL        

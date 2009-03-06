@@ -67,7 +67,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fc_id"></param>
         public void SendCompletedCaseSummary(int? fc_id)
-        {
+        {            
             //<Prepare data>
             var foreclosureCase = GetForeclosureCase(fc_id);
             var caseLoan = GetCaseLoans1St(fc_id);
@@ -99,19 +99,19 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="caseLoan"></param>
         private static void SendSummaryMailToServicer(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
         {
-            
             try
-            {                
+            {
                 var attachmentFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan);
                 EmailSummaryBL.Instance.SendEmailSummaryReport(foreclosureCase.FcId, servicer.ContactEmail,
-                                                               attachmentFileName);                
+                                                               attachmentFileName);    
             }
-            catch(Exception Ex)
+            catch(Exception ex)
             {
-                Logger.Write(Ex.Message, "General");
-                Logger.Write(Ex.StackTrace, "General");
-            }
+                Logger.Write(ex.Message);
+                Logger.Write(ex.StackTrace);
+            }            
         }
+
         /// <summary>
         /// Send CounselingSummary information to HPF Portal.
         /// </summary>
@@ -119,18 +119,27 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
-        {            
-            var hpfSharepointSummary = new HPFPortalCounselingSummary
-                                           {
-                                               ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
-                                               LoanNumber = caseLoan.AcctNum,
-                                               CompletedDate = foreclosureCase.CompletedDt,
-                                               ForeclosureSaleDate = foreclosureCase.FcSaleDate,
-                                               Servicer = servicer.ServicerName,
-                                               Delinquency = caseLoan.LoanDelinqStatusCd,
-                                               ReportFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan)
-                                           };            
-            HPFPortalGateway.SendSummary(hpfSharepointSummary);            
+        {
+            try
+            {                
+                var hpfSharepointSummary = new HPFPortalCounselingSummary
+                                               {
+                                                   ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
+                                                   LoanNumber = caseLoan.AcctNum,
+                                                   CompletedDate = foreclosureCase.CompletedDt,
+                                                   ForeclosureSaleDate = foreclosureCase.FcSaleDate,
+                                                   Servicer = servicer.ServicerName,
+                                                   Delinquency = caseLoan.LoanDelinqStatusCd,
+                                                   ReportFileName =
+                                                       BuildPdfAttachmentFileName(foreclosureCase, caseLoan)
+                                               };
+                HPFPortalGateway.SendSummary(hpfSharepointSummary);                
+            }
+            catch(Exception ex)
+            {
+                Logger.Write(ex.Message);
+                Logger.Write(ex.StackTrace);
+            }
         }
 
         /// <summary>

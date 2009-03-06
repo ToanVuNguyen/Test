@@ -44,7 +44,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             CaseLoanDTOCollection caseLoanList=CaseLoanDAO.Instance.ReadCaseLoan(fcId);
 
-            return caseLoanList.Get1stCaseLoanByFCId(fcId);
+            return caseLoanList.GetCaseLoan1st();
         }
     }
 }
