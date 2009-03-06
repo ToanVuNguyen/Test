@@ -10,7 +10,7 @@ namespace HPF.FutureState.Common.Utils
     /// </summary>
     public static class ExcelFileReader
     {
-        private const string CONNECTION_STRING = @"Dsn=Excel Files;dbq={0};defaultdir=C:;driverid=790;fil=excel 8.0;maxbuffersize=2048;pagetimeout=5";
+        private const string CONNECTION_STRING = @"Driver=Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb);DBQ={0}";
 
         private const string SELECT_STATEMENT = "Select * from [Reconciliation$]";
 
