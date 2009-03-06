@@ -1,156 +1,214 @@
 -- =============================================
--- Create date: 27 Feb 2009
+-- Create date: 06 Mar 2009
 -- Project : HPF 
 -- Build 
--- Description:	Apply database changes on: 27 Feb 2009
+-- Description:	Apply database changes on: 06 Mar 2009
 --		Refer to file "DB Track changes.xls"
 -- =============================================
 USE HPF
 GO
 
-ALTER TABLE foreclosure_case ADD ccrc_referral_seq numeric(8) NULL;
-ALTER TABLE foreclosure_case ADD ccrc_sor_ind varchar(1) NULL;
+ALTER TABLE foreclosure_case DROP CONSTRAINT [DF__foreclosu__never__5D95E53A];
+ALTER TABLE foreclosure_case DROP CONSTRAINT [DF__foreclosu__never__5E8A0973];
 
--- delete from outcome_type where outcome_type_id >= 268;
+-- #170
+ALTER TABLE servicer ADD iclear_servicer_num Varchar(30) Null;
+ALTER TABLE servicer ADD fis_servicer_num varchar(30) Null;
 
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Referred to Community Assistance Program',	'Referred to Community Assistance Program', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Additional Counseling Scheduled', 'Additional Counseling Scheduled', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Debt Management Plan', 'Debt Management Plan', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Sell or List Home', 'Sell or List Home', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Client Declined Counseling', 'Client Declined Counseling',	'N',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Unable to Contact Client', 'Unable to Contact Client', 'N',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Session Incomplete', 'Session Incomplete',	'N',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Referred to LifeMatters Counseling', 'Referred to LifeMatters Counseling', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Loan Reinstated',	'Loan Reinstated', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Referred to USA Cares', 'Referred to USA Cares', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Referred to Local Housing Affiliate',	'Referred to Local Housing Affiliate', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Increase Income',	'Increase Income', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Decrease Expenses', 'Decrease Expenses', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Referred Back to BK Attorney (currently in BK)', 'Referred Back to BK Attorney (currently in BK)',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Short Sale', 'Short Sale', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Deed in Leiu', 'Deed in Leiu',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Loan Modification', 'Loan Modification',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Forebearance Plan', 'Forebearance Plan',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
--- INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) 
--- VALUES ('Contact Servicer Regarding Situation (or changes to situation)', 'Contact Servicer Regarding Situation (or changes to situation)',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Government Foreclosure Program (SMP, H4H, etc)',	'Government Foreclosure Program (SMP, H4H, etc)', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Partial Claim', 'Partial Claim', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Repayment Plan', 'Repayment Plan',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Loan Assumption',	'Loan Assumption', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Referred to Legal Assistance',	'Referred to Legal Assistance','Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Refinance Mortgage', 'Refinance Mortgage',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Budget Improvement Needed Prior To Loan Resolution',	'Budget Improvement Needed Prior To Loan Resolution', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Loan Resolution Plan (active foreclosure status)',	'Loan Resolution Plan (active foreclosure status)', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name)  VALUES ('Loan Repayment Plan (Prior To Foreclosure Status)', 'Loan Repayment Plan (Prior To Foreclosure Status)', 'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+update budget_category Set		budget_category_cd = 'INC' where budget_category_cd = '1'
+update budget_category Set		budget_category_cd = 'EXP' where budget_category_cd = '2'
 
--- 26 Feb
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) 
-VALUES('never bill reason code','DUPEMAN', 'Duplicate - Manually Set','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) 
-VALUES('never bill reason code','CCRCBILL', 'Billed in CCRC','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+UPDATE foreclosure_case 
+SET 	intake_credit_bureau_cd = upper(ltrim(rtrim(intake_credit_bureau_cd)))
+	, case_source_cd = replace(case_source_cd, ' ', '');
 
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) 
-VALUES('never pay reason code','DUPEMAN', 'Duplicate - Manually Set','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) 
-VALUES('never pay reason code','CCRCPAID', 'Paid in CCRC','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+UPDATE foreclosure_case SET property_cd = '5' WHERE property_cd IS NOT NULL;
 
-delete from ref_code_item where ref_code_set_name IN ('loan 1st 2nd', 'summary sent other code', 'call source code', 'case source code', 'gender code', 'credit burreau code','preferred language code');
--- #157
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('loan 1st 2nd','1ST','1st Mortgage','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('loan 1st 2nd','2ND','2nd Mortgage','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-Update case_loan set loan_1st_2nd_cd = UPPER (loan_1st_2nd_cd);
+DELETE FROM ref_code_item WHERE ref_code_set_name IN ('loan 1st 2nd', 'state', 'property code');
+DELETE FROM ref_code_set  WHERE ref_code_set_name IN ('loan 1st 2nd', 'state');
 
--- #159
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('summary sent other code','FAX','Fax','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('summary sent other code','PHONE','Phone','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('summary sent other code','MULTIPLE','Multiple Transmission Methods','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('loan 1st 2nd code','Loan 1st 2nd code');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('loan 1st 2nd code','1ST','1st Mortgage','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('loan 1st 2nd code','2ND','2nd Mortgage','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
---#160
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','311/211','311/211','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','BILLBOARD','Billboard','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','CELEBRITY', 'Celebrity', '',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','CELEBRITY VMAIL', 'Celebrity Voicemail', '',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','COUNSELOR REFER','Referred by CCRC counselor', '',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','DOOR HANGER','Door Hanger','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','FAITH COMMUNITY','Church/Faith Community', '',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','HOPE NOW LETTER','Hope Now Letter','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','HUD', 'HUD (Housing & Urban Development)', '',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','INTERNET','Internet','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','MAILING','Mailing','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','MILK JUG AD','Milk Jug Ad','',12,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','MORTGAGE COMP','Mortgage Company', '',13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','NEIGHBORWORKS','Neighborworks/NHS office/staff', '',14,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','NEWSPAPER/ADS','Newspaper/print advertisement', '',15,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','NYC','NYC Subway/Penn Station', '',16,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','PHONATHON','Phonathon','',17,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','RADIO','Radio','',18,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','REFERRAL','Referral (professional\friend\family)', '',19,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','TELEVISION','Television','',20,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','URBAN LEAGUE','Urban League (national/local)', '',21,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','USA CARES','USA Cares','',22,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','UTILITY BILL','Utility Bill','',23,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('call source code','OTHER','Other','',24,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('state code','State code');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','AL','Alabama','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','AK','Alaska','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','AZ','Arizona','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','AR','Arkansas','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','CA','California','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','CO','Colorado','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','CT','Connecticut','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','DE','Delaware','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','DC','District of Columbia','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','FL','Florida','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','GA','Georgia','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','HI','Hawaii','',12,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','ID','Idaho','',13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','IL','Illinois','',14,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','IN','Indiana','',15,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','IA','Iowa','',16,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','KS','Kansas','',17,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','KY','Kentucky','',18,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','LA','Louisiana','',19,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','ME','Maine','',20,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MD','Maryland','',21,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MA','Massachusetts','',22,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MI','Michigan','',23,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MN','Minnesota','',24,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MS','Mississippi','',25,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MO','Missouri','',26,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MT','Montana','',27,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NE','Nebraska','',28,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NV','Nevada','',29,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NH','New Hampshire','',30,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NJ','New Jersey','',31,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NM','New Mexico','',32,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NY','New York','',33,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','NC','North Carolina','',34,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','ND','North Dakota','',35,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','OH','Ohio','',36,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','OK','Oklahoma','',37,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','OR','Oregon','',38,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','PA','Pennsylvania','',39,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','RI','Rhode Island','',40,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','SC','South Carolina','',41,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','SD','South Dakota','',42,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','TN','Tennessee','',43,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','TX','Texas','',44,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','UT','Utah','',45,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','VT','Vermont','',46,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','VA','Virginia','',47,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','WA','Washington','',48,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','WV','West Virginia','',49,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','WI','Wisconsin','',50,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','WY','Wyoming','',51,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','AS','American Samoa','',52,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','GU','Guam','',53,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','MP','Northern Mariana Islands','',54,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','PR','Puerto Rico','',55,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','VI','Virgin Islands of the U.S.','',56,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
-UPDATE call SET call_source_cd = UPPER(ltrim(rtrim(call_source_cd)));
---#161
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','311/211','311/211','311/211',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','BILLBOARD','Billboard','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code', 'CELEBRITY', 'Celebrity', '',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code', 'CELEBRITY VMAIL', 'Celebrity Voicemail', '',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','COUNSELOR REFER', 'Referred by CCRC counselor', '',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','DOOR HANGER','Door Hanger','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','FAITH COMMUNITY', 'Church/Faith Community', '', 7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','HOPE NOW LETTER','Hope Now Letter','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','HUD','HUD (Housing & Urban Development)','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','INTERNET','Internet','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','MAILING','Mailing','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','MILK JUG AD','Milk Jug Ad','',12,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','MORTGAGE COMP', 'Mortgage Company','', 13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','NEIGHBORWORKS','Neighborworks/NHS office/staff','',14,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','NEWSPAPER/ADS' ,'Newspaper/print advertisement','', 15,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','NYC','NYC Subway/Penn Station','', 16,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','PHONATHON','Phonathon','',17,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','RADIO','Radio','',18,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','REFERRAL', 'Referral (professional\friend\family)','',19,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','TELEVISION','Television','',20,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','URBAN LEAGUE', 'Urban League (national/local)', '',21,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','USA CARES','USA Cares','',22,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','UTILITY BILL','Utility Bill','',23,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('case source code','OTHER','Other','',24,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
---#162
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('gender code','FEMALE','Female','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('gender code','MALE','Male','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('gender code','DECLINED','Declined to Specify','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
--- #163
-INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('credit bureau code','Credit bureau code');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('credit bureau code','TU','Trans-Union','Trans-Union',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('credit bureau code','EQUIFAX','Equifax','Equifax',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('credit bureau code','EXPERION','Experion','Experion',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('credit bureau code','TRI-MERGE','Tri-merge','Tri-merge',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','1','Single Family Detached','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','2','Townhouse','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','3','Condominium','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','4','Multifamily','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','5','Other','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','6','Manufactured','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','7','Mobile Home','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','8','2-4 Unit','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','9','Cooperative','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','A','Church','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','B','Commercial Non Residential','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','C','Land and Lots','',12,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','D','Farmland','',13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','E','Mixed Use residential','',14,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','F','Home and Business Combined','',15,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('property code','U','Unsecured','',16,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
-UPDATE case_post_counseling_status SET credit_bureau_cd = upper(ltrim(rtrim(credit_bureau_cd)));
--- #158
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','ALE', 'Aleut','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','CHI', 'Chinese','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','CZE', 'Czech','',3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','ENG',	'English','',4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','FIL',	'Filipino','',5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','FRE',	'French','',6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','GER',	'German','',7,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','HIN',	'Hindi','',8,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','HMN',	'Hmong','',9,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','JPN',	'Japanese','',10,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','KOR',	'Korean','',11,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','LAO',	'Lao','',12,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','RUS',	'Russian','',13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','SOM',	'Somali','',14,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','SPA',	'Spanish','',15,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','TGL',	'Tagalog','',16,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
-INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('preferred language code','VIE',	'Vietnamese','',17,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+UPDATE	call SET call_source_cd = replace(call_source_cd, ' ', '') where call_source_cd IS NOT NULL;
+ALTER TABLE servicer ALTER COLUMN phone varchar(100) NULL;
+ALTER TABLE servicer ALTER COLUMN fax varchar(100) NULL;
 
-Update foreclosure_case 
-set summary_sent_other_cd = upper(ltrim(rtrim(summary_sent_other_cd)))
-	, case_source_cd = upper(ltrim(rtrim(case_source_cd)))
-	, gender_cd = upper(ltrim(rtrim(gender_cd )))
-	, borrower_preferred_lang_cd  = upper(ltrim(rtrim(borrower_preferred_lang_cd)));
-ALTER TABLE outcome_type ADD inactive_dt datetime NULL;
+INSERT INTO outcome_type (outcome_type_name, outcome_type_comment, payable_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES ('Contact Servicer Regarding Situation', 'Contact Servicer Regarding Situation (or changes to situation)',	'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
+/* 05 Mar*/
+DISABLE TRIGGER trg_case_audit_update_audit ON case_audit;
+DISABLE TRIGGER trg_case_loan_delete ON case_loan;
+DISABLE TRIGGER trg_case_loan_insert ON case_loan;
+DISABLE TRIGGER trg_case_loan_update ON case_loan;
+DISABLE TRIGGER trg_case_loan_update_audit ON case_loan;
+DISABLE TRIGGER trg_foreclosure_case_insert ON foreclosure_case;
+DISABLE TRIGGER trg_foreclosure_case_update ON foreclosure_case;
+DISABLE TRIGGER trg_foreclosure_case_update_audit ON foreclosure_case;
+
+UPDATE ref_code_item SET code=UPPER(code);
+
+UPDATE activity_log SET activity_cd=UPPER(activity_cd);
+UPDATE agency_payable SET status_cd = UPPER(status_cd);
+UPDATE agency_payable_case SET takeback_pmt_reason_cd = UPPER(takeback_pmt_reason_cd);
+
+UPDATE call 
+SET call_source_cd = UPPER(call_source_cd)
+	,final_dispo_cd = UPPER(final_dispo_cd)
+	,loan_delinq_status_cd = UPPER(loan_delinq_status_cd);
+UPDATE call_center SET call_center_cd = UPPER(call_center_cd);
+
+UPDATE	case_audit 
+SET		audit_type_cd= UPPER(audit_type_cd)
+		, audit_failure_reason_cd= UPPER(audit_failure_reason_cd);
+
+UPDATE	case_loan 
+SET		loan_1st_2nd_cd = UPPER(loan_1st_2nd_cd)
+		, mortgage_type_cd = UPPER(mortgage_type_cd)
+		, term_length_cd = UPPER(term_length_cd)
+		, loan_delinq_status_cd = UPPER(loan_delinq_status_cd)
+		, mortgage_program_cd = UPPER(mortgage_program_cd);
+
+UPDATE	case_post_counseling_status 
+SET		loan_delinq_status_cd = UPPER(loan_delinq_status_cd)
+		, followup_source_cd = UPPER(followup_source_cd)
+		, credit_bureau_cd = UPPER(credit_bureau_cd);
+
+UPDATE	foreclosure_case
+SET		income_earners_cd=UPPER(income_earners_cd)
+		,case_source_cd=UPPER(case_source_cd)
+		,race_cd=UPPER(race_cd)
+		,household_cd=UPPER(household_cd)
+		,never_bill_reason_cd=UPPER(never_bill_reason_cd)
+		,never_pay_reason_cd=UPPER(never_pay_reason_cd)
+		,dflt_reason_1st_cd=UPPER(dflt_reason_1st_cd)
+		,dflt_reason_2nd_cd=UPPER(dflt_reason_2nd_cd)
+		,hud_termination_reason_cd=UPPER(hud_termination_reason_cd)
+		,hud_outcome_cd=UPPER(hud_outcome_cd)
+		,counseling_duration_cd=UPPER(counseling_duration_cd)
+		,gender_cd=UPPER(gender_cd)
+		,contact_state_cd=UPPER(contact_state_cd)
+		,prop_state_cd=UPPER(prop_state_cd)
+		,borrower_educ_level_completed_cd=UPPER(borrower_educ_level_completed_cd)
+		,borrower_marital_status_cd=UPPER(borrower_marital_status_cd)
+		,borrower_preferred_lang_cd=UPPER(borrower_preferred_lang_cd)
+		,summary_sent_other_cd=UPPER(summary_sent_other_cd)
+		,property_cd=UPPER(property_cd)
+		,military_service_cd=UPPER(military_service_cd)
+		,intake_credit_bureau_cd=UPPER(intake_credit_bureau_cd);
+UPDATE	funding_source
+SET		billing_delivery_method_cd=UPPER(billing_delivery_method_cd)
+		,export_format_cd=UPPER(export_format_cd)
+		,state_cd=UPPER(state_cd);
+
+UPDATE invoice SET status_cd = UPPER(status_cd);
+UPDATE invoice_case SET pmt_reject_reason_cd=UPPER(pmt_reject_reason_cd);
+UPDATE invoice_payment SET pmt_cd=UPPER(pmt_cd);
+
+UPDATE	program SET service_cd=UPPER(service_cd);
+UPDATE	servicer 
+SET		secure_delivery_method_cd=UPPER(secure_delivery_method_cd)
+		,couseling_sum_format_cd=UPPER(couseling_sum_format_cd);
+
+UPDATE system_activity_log SET sys_activity_cd=UPPER(sys_activity_cd);
+
+ENABLE TRIGGER trg_case_audit_update_audit ON case_audit;
+ENABLE TRIGGER trg_case_loan_delete ON case_loan;
+ENABLE TRIGGER trg_case_loan_insert ON case_loan;
+ENABLE TRIGGER trg_case_loan_update ON case_loan;
+ENABLE TRIGGER trg_case_loan_update_audit ON case_loan;
+ENABLE TRIGGER trg_foreclosure_case_insert ON foreclosure_case;
+ENABLE TRIGGER trg_foreclosure_case_update ON foreclosure_case;
+ENABLE TRIGGER trg_foreclosure_case_update_audit ON foreclosure_case;
+
+UPDATE agency SET agency_name = 'Agency ' + cast( agency_id as varchar(20)) WHERE agency_name IS NULL;
+UPDATE servicer SET servicer_name = 'Servicer ' + cast( servicer_id as varchar(20))  WHERE servicer_name IS NULL;
+ALTER TABLE agency ALTER COLUMN agency_name varchar(50) NOT NULL;
+ALTER TABLE servicer ALTER COLUMN servicer_name varchar(50) NOT NULL;
+
+UPDATE	ref_code_item SET code = replace(code, ' ', '') WHERE ref_code_set_name IN ('case source code', 'call source code');
+
+ALTER TABLE funding_source DROP COLUMN billing_frequency;
+ALTER TABLE funding_source DROP COLUMN gen_mult_files_ind;
+ALTER TABLE funding_source DROP COLUMN accounting_link_TBD;
+
+DELETE menu_security WHERE menu_item_id IN (SELECT menu_item_id FROM menu_item WHERE menu_group_id IN (4,6));
+DELETE menu_item WHERE menu_group_id IN (4,6);
+DELETE menu_group WHERE menu_group_id IN (4,6);
+UPDATE menu_item SET item_name = 'Agency Accounts Payable' WHERE item_name = 'Agency Accounts Payables'

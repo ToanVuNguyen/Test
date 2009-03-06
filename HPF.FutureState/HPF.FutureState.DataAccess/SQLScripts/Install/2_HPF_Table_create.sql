@@ -1,19 +1,18 @@
 -- =============================================
--- Create date: 19 Feb 2009
+-- Create date: 06 Mar 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
---		Apply database changes on:  20 Feb 2009
+--		Apply database changes on:  06 Mar 2009
 --		Refer to file "DB Track changes.xls"
--- =============================================
+-- ============================================
 USE HPF
 GO
 
 CREATE TABLE funding_source (
-  funding_source_id INTEGER  NOT NULL   IDENTITY ,
+  funding_source_id INTEGER  NOT NULL   IDENTITY  (1000,1),
   funding_source_name VARCHAR(50)    ,
   funding_source_comment VARCHAR(300)    ,
-  billing_frequency TINYINT    ,
   billing_email VARCHAR(50)    ,
   billing_delivery_method_cd VARCHAR(15)    ,
   export_format_cd VARCHAR(15)    ,
@@ -28,8 +27,6 @@ CREATE TABLE funding_source (
   eff_dt DATETIME    ,
   exp_dt DATETIME    ,
   active_ind VARCHAR(1)    ,
-  gen_mult_files_ind VARCHAR(1)    ,
-  accounting_link_TBD VARCHAR(30)    ,
   funding_source_abbrev VARCHAR(10)  NOT NULL  ,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
@@ -92,6 +89,7 @@ CREATE TABLE hpf_user (
   email VARCHAR(50)    ,
   phone VARCHAR(20)    ,
   last_login_dt DATETIME    ,
+  password	VARCHAR(128)    ,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -130,7 +128,7 @@ GO
 
 
 CREATE TABLE program (
-  program_id INTEGER  NOT NULL   IDENTITY ,
+  program_id INTEGER  NOT NULL   IDENTITY (2000,1),
   program_name VARCHAR(50)    ,
   program_comment VARCHAR(300)    ,
   start_dt DATETIME    ,
@@ -157,18 +155,20 @@ GO
 
 
 CREATE TABLE servicer (
-  servicer_id INTEGER  NOT NULL   IDENTITY ,
-  servicer_name VARCHAR(50)    ,
+  servicer_id INTEGER  NOT NULL   IDENTITY (60000,1),
+  servicer_name VARCHAR(50)     NOT NULL  ,
   contact_fname VARCHAR(30)    ,
   contact_lname VARCHAR(30)    ,
   contact_email VARCHAR(50)    ,
-  phone VARCHAR(20)    ,
-  fax VARCHAR(30)    ,
+  phone VARCHAR(100)    ,
+  fax VARCHAR(100)    ,
   active_ind VARCHAR(1)    ,
   funding_agreement_ind VARCHAR(1)    ,
   secure_delivery_method_cd VARCHAR(15)    ,
   couseling_sum_format_cd VARCHAR(15)    ,
   hud_servicer_num VARCHAR(20)    ,
+  iclear_servicer_num Varchar(30) Null,
+  fis_servicer_num varchar(30) Null,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -181,7 +181,7 @@ GO
 
 
 CREATE TABLE menu_group (
-  menu_group_id INTEGER  NOT NULL   IDENTITY ,
+  menu_group_id INTEGER  NOT NULL,
   group_name VARCHAR(50)  NOT NULL  ,
   group_sort_order INTEGER  NOT NULL  ,
   group_target VARCHAR(200)      ,
@@ -189,7 +189,7 @@ PRIMARY KEY(menu_group_id));
 GO
 
 CREATE TABLE outcome_type (
-  outcome_type_id INTEGER  NOT NULL   IDENTITY ,
+  outcome_type_id INTEGER  NOT NULL   IDENTITY (1000, 1),
   outcome_type_name VARCHAR(50)    ,
   outcome_type_comment VARCHAR(300)    ,
   payable_ind VARCHAR(1)    ,
@@ -206,7 +206,7 @@ GO
 
 
 CREATE TABLE call_center (
-  call_center_id INTEGER  NOT NULL   IDENTITY ,
+  call_center_id INTEGER  NOT NULL   IDENTITY (1000,1),
   call_center_name VARCHAR(50)    ,
   contact_fname VARCHAR(30)    ,
   contact_lname VARCHAR(30)    ,
@@ -277,8 +277,8 @@ GO
 
 
 CREATE TABLE Agency (
-  agency_id INTEGER  NOT NULL   IDENTITY ,
-  agency_name VARCHAR(50)    ,
+  agency_id INTEGER  NOT NULL   IDENTITY (30000,1),
+  agency_name VARCHAR(50)     NOT NULL  ,
   contact_fname VARCHAR(30)    ,
   contact_lname VARCHAR(30)    ,
   phone VARCHAR(20)    ,
@@ -311,7 +311,7 @@ GO
 
 
 CREATE TABLE budget_category (
-  budget_category_id INTEGER  NOT NULL   IDENTITY ,
+  budget_category_id INTEGER  NOT NULL   IDENTITY (1000,1),
   budget_category_cd VARCHAR(15)    ,
   budget_category_name VARCHAR(50)    ,
   budget_category_comment VARCHAR(300)    ,
@@ -395,14 +395,8 @@ PRIMARY KEY(ref_code_item_id)  ,
     REFERENCES ref_code_set(ref_code_set_name));
 GO
 
-
-CREATE INDEX ref_code_item_FKIndex1 ON ref_code_item (ref_code_set_name);
-GO
-
-
-
 CREATE TABLE menu_item (
-  menu_item_id INTEGER  NOT NULL   IDENTITY ,
+  menu_item_id INTEGER  NOT NULL  ,
   menu_group_id INTEGER  NOT NULL  ,
   item_name VARCHAR(50)  NOT NULL  ,
   item_sort_order INTEGER  NOT NULL  ,
@@ -482,7 +476,7 @@ GO
 ALTER TABLE call ADD CONSTRAINT agency_FK1 FOREIGN KEY (selected_agency_id) REFERENCES agency(agency_id);
 
 CREATE TABLE budget_subcategory (
-  budget_subcategory_id INTEGER  NOT NULL   IDENTITY ,
+  budget_subcategory_id INTEGER  NOT NULL   IDENTITY (1000,1),
   budget_category_id INTEGER  NOT NULL  ,
   budget_subcategory_name VARCHAR(50)    ,
   budget_subcategory_comment VARCHAR(300)    ,
@@ -563,7 +557,7 @@ GO
 
 
 CREATE TABLE menu_security (
-  menu_security_id INTEGER  NOT NULL   IDENTITY ,
+  menu_security_id INTEGER  NOT NULL ,
   hpf_user_id INTEGER  NOT NULL  ,
   menu_item_id INTEGER  NOT NULL  ,
   permission_value VARCHAR(1)  NOT NULL    ,
@@ -608,8 +602,8 @@ CREATE TABLE foreclosure_case (
   case_source_cd VARCHAR(15)    ,
   race_cd VARCHAR(15)    ,
   household_cd VARCHAR(15)    ,
-  never_bill_reason_cd VARCHAR(15)   DEFAULT 'N' ,
-  never_pay_reason_cd VARCHAR(15)   DEFAULT 'N' ,
+  never_bill_reason_cd VARCHAR(15) ,
+  never_pay_reason_cd VARCHAR(15),
   dflt_reason_1st_cd VARCHAR(15)    ,
   dflt_reason_2nd_cd VARCHAR(15)    ,
   hud_termination_reason_cd VARCHAR(15)    ,
@@ -721,16 +715,6 @@ PRIMARY KEY(fc_id)      ,
     REFERENCES program(program_id));
 GO
 
-
-CREATE INDEX Counselling_session_FKIndex1 ON foreclosure_case (agency_id);
-GO
-CREATE INDEX foreclosure_case_FKIndex2 ON foreclosure_case (call_id);
-GO
-CREATE INDEX foreclosure_case_FKIndex3 ON foreclosure_case (program_id);
-GO
-
-
-
 CREATE TABLE invoice_case (
   invoice_case_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
@@ -798,8 +782,8 @@ GO
 CREATE TABLE case_audit (
   case_audit_id INTEGER  NOT NULL   IDENTITY ,
   fc_id INTEGER  NOT NULL  ,
-  appropriate_outcome_ind varchar(1) NULL
-  appropriate_reason_for_dflt_ind varchar(1) NULL
+  appropriate_outcome_ind varchar(1) NULL,
+  appropriate_reason_for_dflt_ind varchar(1) NULL,
   complete_budget_ind varchar(1) NULL,
   audit_type_cd varchar(15) Null,
   audit_dt DATETIME    NULL,
@@ -1032,10 +1016,6 @@ CREATE UNIQUE INDEX ws_user_login_username_UK
 GO
 
 /****** Object:  Index [IX_foreclosure_case_Complete_dt_Agency_id]    Script Date: 01/16/2009 14:01:05 ******/
-DROP INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] WITH ( ONLINE = OFF )
-GO
-USE [hpf]
-GO
 CREATE NONCLUSTERED INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] 
 (
 	[completed_dt] ASC
