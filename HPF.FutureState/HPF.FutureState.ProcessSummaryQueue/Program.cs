@@ -13,21 +13,25 @@ namespace HPF.FutureState.ProcessSummaryQueue
 
         private const int SLEEPING_TIME = 5000;//Miliseconds
 
-        static void Main()
+        static void Main(string[] args)
         {
             //Single Instance checking
             bool canRun;
             var mutex = new Mutex(true, MUTEX_NAME, out canRun);
             if (!canRun)
-            {                
+            {
                 return;
             }
             GC.KeepAlive(mutex);
+
             //------------Test Data
-            var queue = new HPFSummaryQueue();
-            //queue.SendACompletedCaseToQueue(243);//Portal
-            //queue.SendACompletedCaseToQueue(876);//E-Mail
-            //------------
+            if (args.Length > 0)
+            {
+                Logger.Write("Test fc_id:" + args[0], "General");
+                var queue = new HPFSummaryQueue();
+                queue.SendACompletedCaseToQueue(Convert.ToInt32(args[0]));
+            }
+            //------------End Test Data
             ProcessSummaryQueue();
         }
 
@@ -59,7 +63,15 @@ namespace HPF.FutureState.ProcessSummaryQueue
         /// <param name="entry"></param>
         private static void ProcessCompletedCaseEntry(HPFSummaryQueueEntry entry)
         {
-            SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);
+            try
+            {
+                SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);    
+            }
+            catch(Exception Ex)
+            {
+                Logger.Write(Ex.Message);
+                Logger.Write(Ex.StackTrace);
+            }
         }
     }
 }

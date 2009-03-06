@@ -14,20 +14,20 @@ namespace HPF.FutureState.Common.Utils
         public static void SendSummary(HPFPortalCounselingSummary summary)
         {
             var counselingSummaryInfo = new CounselingSummaryInfo
-                                           {
-                                               LoanNumber = summary.LoanNumber,
-                                               CompletedDate = summary.CompletedDate,
-                                               ForeclosureSaleDate = summary.ForeclosureSaleDate,
-                                               File = summary.ReportFile,
-                                               Name = summary.ReportFileName,
-                                               Servicer = summary.Servicer,
-                                               Delinquency = summary.Delinquency
-                                           };
+                                            {
+                                                LoanNumber = summary.LoanNumber,
+                                                CompletedDate = summary.CompletedDate,
+                                                ForeclosureSaleDate = summary.ForeclosureSaleDate,
+                                                File = summary.ReportFile,
+                                                Name = summary.ReportFileName,
+                                                Servicer = summary.Servicer,
+                                                Delinquency = summary.Delinquency
+                                            };
+
             var result = DocumentCenterController.Upload(counselingSummaryInfo);
             if (!result.Successful)
-            {
-                Logger.Write(result.Error.Message, "General");                
-            }
+                Logger.Write(result.Error.Message, "General");
+
         }
     }
 }
