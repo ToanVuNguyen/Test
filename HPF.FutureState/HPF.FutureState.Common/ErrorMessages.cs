@@ -288,6 +288,8 @@ namespace HPF.FutureState.Common
         public const string ERR0581 = "ERR0581";
         public const string ERR0582 = "ERR0582";
         //
+        public const string ERR0584 = "ERR0584";
+        public const string ERR0585 = "ERR0585";
         public const string ERR0600 = "ERR0600";
         public const string ERR0601 = "ERR0601";
 
@@ -680,7 +682,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0580, "A Period Start date is required to search for Payables.");
                 errorMessageDict.Add(ERR0581, "A Period End date is required to search for Payables.");
                 errorMessageDict.Add(ERR0582, "All selected cases must be NFMC Eligible to have a NFMC Upcharge applied.");
-
+                //
+                errorMessageDict.Add(ERR0584, "An agency account payable must be selected in order to cancel it.");
+                errorMessageDict.Add(ERR0585, "An agency account payable must be selected in order to view or edit it.");
                 //View/Edit Invoice Payment
                 errorMessageDict.Add(ERR0650, "A Funding Source is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0651, "A Payment Number is required to save an Invoice Payment.");

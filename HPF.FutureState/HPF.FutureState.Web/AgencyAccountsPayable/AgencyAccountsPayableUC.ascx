@@ -77,7 +77,6 @@
 
             <asp:UpdatePanel ID="myupdatepanel" runat="server">
                 <ContentTemplate>
-                    <%--<asp:Panel ID="panInvoiceList" runat="server" CssClass="ScrollTable" Width="100%">--%>
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
                             AutoGenerateColumns="false" DataKeyNames="AgencyPayableId" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
                             <HeaderStyle CssClass="FixedHeader"  />
@@ -103,7 +102,7 @@
                             <EmptyDataTemplate>
                                 There is no data match.</EmptyDataTemplate>
                         </asp:GridView>
-                   <%-- </asp:Panel>--%>
+                 
                 <asp:HiddenField ID="hidSelectedRowIndex" runat="server" Value="" />
                 </ContentTemplate>
             </asp:UpdatePanel>
@@ -150,22 +149,13 @@
         </td>
     </tr>
 </table>
+
 <script language="javascript" type="text/javascript">
     var id = '<%=hidSelectedRowIndex.ClientID %>'
-    function ViewEditConfirm() {
+    function CancelConfirm() {
         var SelectedIndex = document.getElementById(id);
-        if (SelectedIndex.value=='') {
-            alert('ERR585-An agency account payable must be selected in order to view or edit it.');
-            return false;
-        }
-     };
-     function CancelConfirm() {
-         var SelectedIndex = document.getElementById(id);
-         if (SelectedIndex.value =='') {
-             alert('ERR584-An agency account payable must be selected in order to cancel it.');
-             return false;
-         }
-         else
-             confirm('WAR586-Do you really want to cancel this agency accounting?');
-     };
+        if (SelectedIndex.value != '')
+            confirm('ERR586-Are you sure you wish to cancel the selected payable?');
+            
+    };
 </script>

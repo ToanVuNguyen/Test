@@ -32,7 +32,6 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 if (grvInvoiceList.SelectedIndex == -1)
                     hidSelectedRowIndex.Value = "";
-                btnViewPayable.Attributes.Add("onclick", " return ViewEditConfirm();");
                 btnCancelPayable.Attributes.Add("onclick", "return CancelConfirm();");
                 BindAgencyDropDownList();
                 DisplayAgencyAccountPayableSearchResult();
@@ -163,16 +162,6 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
                 ex.ExceptionMessages.Add(exMessage);
             }
-           
-            //{
-            //    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0580);
-            //    ex.ExceptionMessages.Add(exMessage);
-            //}
-            
-            //{
-            //    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
-            //    ex.ExceptionMessages.Add(exMessage);
-            //}
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
             Session["agencyPayableSearchCriteria"] = searchCriteria;
@@ -227,7 +216,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
-                
+                if (grvInvoiceList.SelectedIndex != -1)
+                {
                     agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
@@ -235,8 +225,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     agency[selectedrow].StatusCode = agencystatus.Code;
                     agency[selectedrow].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
-                   //
+                    //
                     DisplayAgencyAccountPayableSearchResult();
+                }
+                else
+                {
+                    bulMessage.Items.Add(new ListItem("ERR584-An agency account payable must be selected in order to cancel it."));
+                }
             }
             catch (Exception ex)
             {
@@ -260,7 +255,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch (Exception ex)
             {
-               // bulMessage.Items.Add(new ListItem("Please choose record."));
+                bulMessage.Items.Add(new ListItem("ERR585-An agency account payable must be selected in order to view or edit it."));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -268,6 +263,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             if (grvInvoiceList.SelectedIndex!=-1)
                 hidSelectedRowIndex.Value = grvInvoiceList.SelectedValue.ToString();
+
         }
     }
 }
