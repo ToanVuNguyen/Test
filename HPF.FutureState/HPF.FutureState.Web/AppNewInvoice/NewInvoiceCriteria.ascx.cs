@@ -83,7 +83,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropDuplicates.Items.FindByValue(((int)searchCriteria.Duplicate).ToString()).Selected = true; ;
             dropCaseCompleted.Items.FindByValue(((int)searchCriteria.Completed).ToString()).Selected = true; ;
             dropAlreadyBilled.Items.FindByValue(((int)searchCriteria.AlreadyBill).ToString()).Selected = true; ;
-            dropFundingConsent.Items.FindByValue(((int)searchCriteria.IgnoreFundingConsent).ToString()).Selected = true; ;
+            if(searchCriteria.IgnoreFundingConsent!=CustomBoolean.None)
+                dropFundingConsent.Items.FindByValue(((int)searchCriteria.IgnoreFundingConsent).ToString()).Selected = true; ;
             txtMaxNumberofCases.Text = searchCriteria.MaxNumOfCases == int.MinValue ? "" : searchCriteria.MaxNumOfCases.ToString();
             dropHouseholdCode.Items.FindByValue(searchCriteria.HouseholdCode).Selected = true;
             txtCity.Text = searchCriteria.City;
