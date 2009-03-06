@@ -26,19 +26,19 @@
                 <td align="right" class="sidelinks">
                     Funding Source:
                 </td>
-                <td class="Text">
+                <td class="Text" style="vertical-align: top">
                     <asp:Label ID="lblFundingSource" runat="server" CssClass="Text" Text="Citi Group"></asp:Label>
                 </td>
                 <td align="right" class="sidelinks">
                     Total Cases:
                 </td>
-                <td class="Text" colspan="2">
+                <td class="Text" colspan="2" style="vertical-align: top">
                     <asp:Label ID="lblTotalCases" runat="server" CssClass="Text" Text="6"></asp:Label>
                 </td>
                 <td align="right" class="sidelinks">
                     Reject Reason:
                 </td>
-                <td>
+                <td style="vertical-align: top">
                     <asp:DropDownList ID="dropRejectReason" runat="server" CssClass="Text">
                     </asp:DropDownList>
                 </td>
@@ -53,13 +53,13 @@
                 <td align="right" class="sidelinks">
                     Period Start:
                 </td>
-                <td class="Text">
+                <td class="Text" style="vertical-align: top">
                     <asp:Label ID="lblPeriodStart" runat="server" CssClass="Text" Text="11/01/2008"></asp:Label>
                 </td>
                 <td align="right" class="sidelinks">
                     Invoice Total:
                 </td>
-                <td class="Text" colspan="2">
+                <td class="Text" colspan="2" style="vertical-align: top">
                     <asp:Label ID="lblInvoiceTotal" runat="server" CssClass="Text" Text="$700.00"></asp:Label>
                 </td>
                 <td>
@@ -79,7 +79,7 @@
                 <td align="right" class="sidelinks">
                     Period End:
                 </td>
-                <td class="Text">
+                <td class="Text" style="vertical-align: top">
                     <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text" Text="11/30/2008"></asp:Label>
                 </td>
                 <td align="right" class="sidelinks" colspan="3">
@@ -88,7 +88,7 @@
                 <td align="right" class="sidelinks">
                     HPF Payment ID:
                 </td>
-                <td>
+                <td style="vertical-align: top">
                     <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text"></asp:TextBox>
                 </td>
                 <td align="center">
@@ -102,13 +102,13 @@
                 <td align="right" class="sidelinks">
                     Invoice Number:
                 </td>
-                <td class="Text">
+                <td class="Text" style="vertical-align: top">
                     <asp:Label ID="lblInvoiceNumber" runat="server" CssClass="Text" Text="50032"></asp:Label>
                 </td>
                 <td align="right" class="sidelinks">
                     Total Paid:
                 </td>
-                <td class="Text" colspan="2">
+                <td class="Text" colspan="2" style="vertical-align: top">
                     <asp:Label ID="lblTotalPaid" runat="server" CssClass="Text" Text="$200.00"></asp:Label>
                 </td>
                 <td>
@@ -131,7 +131,7 @@
                 <td align="right" class="sidelinks">
                     Total Rejected:
                 </td>
-                <td class="Text" colspan="2">
+                <td class="Text" colspan="2" style="vertical-align: top">
                     <asp:Label ID="lblTotalRejected" runat="server" CssClass="Text" Text="$0.00"></asp:Label>
                 </td>
                 <td>
