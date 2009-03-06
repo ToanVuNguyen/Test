@@ -10,7 +10,7 @@
             <h1 align="center">New Invoice Results</h1></td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" width="12%">
+        <td align="right" class="sidelinks" width="15%">
             Funding Source:</td>
         <td >
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text"></asp:Label>
@@ -122,7 +122,7 @@
     <tr>
         <td align="center" class="sidelinks" colspan="5">
             <asp:Button ID="btnGenerateInvoice" runat="server" CssClass="MyButton" 
-                Text="Generate Invoice &amp; Exprot File" Width="180px" 
+                Text="Generate Invoice &amp; Export File" Width="180px" 
                 onclick="btnGenerateInvoice_Click" />
                 &nbsp
             <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" 
