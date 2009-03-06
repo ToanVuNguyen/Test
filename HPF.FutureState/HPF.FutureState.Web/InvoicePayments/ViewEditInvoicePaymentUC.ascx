@@ -16,10 +16,9 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="left" colspan="2">
         <h3>
             Payment Infomation:</h3></td>        
-       <td>&nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks" align="right">
