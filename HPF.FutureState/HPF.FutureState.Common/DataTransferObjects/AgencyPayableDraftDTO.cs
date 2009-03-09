@@ -25,14 +25,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 double? total = 0;
                 foreach (ForeclosureCaseDraftDTO fc in ForclosureCaseDrafts)
-                    total += fc.Amount.Value;
-
+                    total += fc.Amount == null ? 0 : fc.Amount.Value;
                 return total;
             }
             set {
                 double? totalamount = value;
             }
         }
+        public string StatusCode { get; set; }
         public ForeclosureCaseDraftDTOCollection ForclosureCaseDrafts { get; set; }
     }
 }

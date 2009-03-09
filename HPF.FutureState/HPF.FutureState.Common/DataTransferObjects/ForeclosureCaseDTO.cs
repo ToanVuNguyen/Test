@@ -836,5 +836,24 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [StringRequiredValidator(Tag = ErrorMessages.ERR0125, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
         [NullableOrStringLengthValidator(true, 30, "Change Last User ID", Ruleset = Constant.RULESET_LENGTH)]
         public string ChgLstUserId { get; set; }
+        //
+        public string PropertyDesc{get;set;}
+        public string GenderDesc{get;set;}
+        public string RaceDesc{get;set;}
+        public string LanguageDesc{get;set;}
+        public string EducationDesc{get;set;}
+        public string MaritalDesc {get; set; }
+        public string MilitaryDesc{get;set;}
+        public string CounselingDesc{get;set;}
+        public string CaseSourceDesc{get;set;}
+        public string SummaryDesc{get;set;}
+        public string DefaultReason1Desc{get;set;}
+        public string DefaultReason2Desc{get;set;}
+        public string HouseholdDesc{get;set;}
+        public string IncomeDesc{get;set;}
+        public string CreditDesc{get;set;}
+        public string HudTerminationDesc{get;set;}
+        public string HudOutcomeDesc{get;set;}
+        
     }
 }
