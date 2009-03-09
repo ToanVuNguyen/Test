@@ -156,10 +156,10 @@
                                 <asp:BoundField DataField="LoanList" HeaderText="Loan List" />
                                 <asp:BoundField DataField="BorrowerFirstName" HeaderText="Borrower First Name" />
                                 <asp:BoundField DataField="BorrowerLastName" HeaderText="Borrower Last Name" />
-                                <asp:BoundField DataField="Last4SSN" HeaderText="Last 4 of SSN" />
+                                <asp:BoundField DataField="Last4SSN" HeaderText="Last 4 digits of the SSN" />
                                 <asp:BoundField DataField="CoborrowerFirstName" HeaderText="Co-borrower First Name" />
                                 <asp:BoundField DataField="CoborrowerLastName" HeaderText="Co-borrower Last Name" />
-                                <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="Last 4 of SSN" />
+                                <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="Last 4 digits of co-borrower SSN" />
                                 <asp:TemplateField HeaderText="Property Address">
                                     <ItemTemplate>
                                         <asp:Label ID="lblPropertyAddress" runat="server" Text='<%#Eval("PropertyAddress")+" , "+Eval("PropertyCity")+" , "+Eval("PropertyState")+" , "+Eval("PropertyZip") %>'></asp:Label>

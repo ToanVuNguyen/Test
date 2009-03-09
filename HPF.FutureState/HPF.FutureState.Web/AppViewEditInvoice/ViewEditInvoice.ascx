@@ -43,11 +43,11 @@
         <td class="Text" style="vertical-align: top">
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text" Text="Citi Group"></asp:Label>
         </td>
-        <td align="right" class="style1">
+        <td align="right" class="sidelinks">
             Total Cases:
         </td>
-        <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblTotalCases" runat="server" CssClass="Text" Text="6"></asp:Label>
+        <td class="Text" >
+            <asp:Label ID="lblTotalCases" runat="server" Text="6"></asp:Label>
         </td>
         <td align="right" class="sidelinks" nowrap="nowrap">
             Reject Reason:
@@ -68,13 +68,13 @@
             Period Start:
         </td>
         <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblPeriodStart" runat="server" CssClass="Text" Text="11/01/2008"></asp:Label>
+            <asp:Label ID="lblPeriodStart" runat="server" Text="11/01/2008"></asp:Label>
         </td>
-        <td align="right" class="style1">
+        <td align="right" class="sidelinks">
             Invoice Total:
         </td>
-        <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblInvoiceTotal" runat="server" CssClass="Text" Text="$700.00"></asp:Label>
+        <td class="Text" >
+            <asp:Label ID="lblInvoiceTotal" runat="server"  Text="$700.00"></asp:Label>
         </td>
         <td>
             &nbsp;
@@ -94,7 +94,7 @@
             Period End:
         </td>
         <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text" Text="11/30/2008"></asp:Label>
+            <asp:Label ID="lblPeriodEnd" runat="server" Text="11/30/2008"></asp:Label>
         </td>
         <td align="right" class="sidelinks" colspan="2">
             &nbsp;
@@ -102,8 +102,8 @@
         <td align="right" class="sidelinks">
             HPF Payment ID:
         </td>
-        <td style="vertical-align: top">
-            <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text"></asp:TextBox>
+        <td style="vertical-align: top" class="Text">
+            <asp:TextBox ID="txtPaymentID" runat="server" ></asp:TextBox>
         </td>
         <td align="left" class="style2">
             <span onclick="return confirm('Are you sure you wish to unpay the selected case(s)?')">
@@ -117,13 +117,13 @@
             Invoice Number:
         </td>
         <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblInvoiceNumber" runat="server" CssClass="Text" Text="50032"></asp:Label>
+            <asp:Label ID="lblInvoiceNumber" runat="server" Text="50032"></asp:Label>
         </td>
         <td align="right" class="style1">
             Total Paid:
         </td>
         <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblTotalPaid" runat="server" CssClass="Text" Text="$200.00"></asp:Label>
+            <asp:Label ID="lblTotalPaid" runat="server" Text="$200.00"></asp:Label>
         </td>
         <td>
             &nbsp;
@@ -146,7 +146,7 @@
             Total Rejected:
         </td>
         <td class="Text" style="vertical-align: top">
-            <asp:Label ID="lblTotalRejected" runat="server" CssClass="Text" Text="$0.00"></asp:Label>
+            <asp:Label ID="lblTotalRejected" runat="server" Text="$0.00"></asp:Label>
         </td>
         <td>
             &nbsp;

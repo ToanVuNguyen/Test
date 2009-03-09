@@ -17,20 +17,20 @@
             <td class="sidelinks" align="right">
                 HPF Case ID:
             </td>
-            <td>
-                <asp:Label ID="lblHpfID" runat="server" Text="100987654" CssClass="Text"></asp:Label>
+            <td  class="Text">
+                <asp:Label ID="lblHpfID" runat="server" Text="100987654" ></asp:Label>
             </td>
             <td align="right" class="sidelinks">
                 Agency Name:
             </td>
-            <td>
-                <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." CssClass="Text"></asp:Label>
+            <td class="Text">
+                <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." ></asp:Label>
             </td>
             <td align="right" class="sidelinks" valign="top">
                 Counselor*:
             </td>
-            <td>
-                <asp:Label ID="lblCounselor" runat="server" CssClass="Text">Amada - Huggenkiss</asp:Label>
+            <td class="Text">
+                <asp:Label ID="lblCounselor" runat="server" >Amada - Huggenkiss</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" Width="130px" Text="Print Summary"
@@ -41,8 +41,8 @@
             <td class="sidelinks" align="right" valign="top">
                 Borrower:
             </td>
-            <td >
-                <asp:Label ID="lblBorrower" runat="server" CssClass="Text">Ivan A Mustang</asp:Label>
+            <td  class="Text">
+                <asp:Label ID="lblBorrower" runat="server">Ivan A Mustang</asp:Label>
             </td>
             <td colspan="2">
                 &nbsp;
@@ -50,8 +50,8 @@
             <td align="right" class="sidelinks">
                 Phone & Ext:
             </td>
-            <td>
-                <asp:Label ID="lblPhone" runat="server" CssClass="Text">877-123-1234 x55432</asp:Label>
+            <td class="Text">
+                <asp:Label ID="lblPhone" runat="server" >877-123-1234 x55432</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" Width="130px"
@@ -62,8 +62,8 @@
             <td class="sidelinks" align="right" >
                 City, State,Zip:
             </td>
-            <td >
-                <asp:Label ID="lblPropertyAddress" runat="server" CssClass="Text">Yourtown, MN 55416</asp:Label>
+            <td class="Text" >
+                <asp:Label ID="lblPropertyAddress" runat="server" >Yourtown, MN 55416</asp:Label>
             </td>
             <td colspan="2">
                 &nbsp;
@@ -71,8 +71,8 @@
             <td align="right" class="sidelinks">
                 Counselor Email:
             </td>
-            <td valign="bottom">
-                <asp:Label ID="lblCounselorEmail" runat="server" CssClass="Text">ahuggenkiss@moes.com</asp:Label>
+            <td class="Text">
+                <asp:Label ID="lblCounselorEmail" runat="server">ahuggenkiss@moes.com</asp:Label>
             </td>
             <td align="center">
                 <asp:Button ID="btnResendServicer" runat="server" CssClass="MyButton" Width="130px"

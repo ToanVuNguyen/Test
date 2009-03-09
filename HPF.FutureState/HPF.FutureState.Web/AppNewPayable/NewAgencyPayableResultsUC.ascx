@@ -2,6 +2,31 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
    
+<style type="text/css">
+    .style1
+    {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #8FC4F6;
+        height: 6px;
+    }
+    .style2
+    {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: #2271A0;
+        font-size: 11px;
+        font-weight: bold;
+        vertical-align: top;
+        height: 8px;
+    }
+    .style3
+    {
+        height: 8px;
+    }
+</style>
+
+   
 <table width="100%">
 <colgroup>
 <col width="15%" />
@@ -15,21 +40,21 @@
             New Agency Payable Results</td>
     </tr>
     <tr>
-        <td  class="Header" colspan="5" >
-            &nbsp;</td>
+        <td  class="style1" colspan="5" >
+            </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="style2" align="right">
             Agency:</td>
-        <td >
-            <asp:Label ID="lblAgency" runat="server"  CssClass="Text"></asp:Label>
+        <td class="style3"  >
+            <asp:Label ID="lblAgency" runat="server" CssClass="Text" ></asp:Label>
         </td>
-        <td class="sidelinks" align="right">
+        <td class="style2" align="right">
             Total Cases:</td>
-        <td  >
+        <td class="style3"  >
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td >
+        <td class="style3" >
             <asp:Button ID="btnRemoveMarkedCases" runat="server" Text="Remove Marked Cases" 
                 Width="150px" CssClass="MyButton" onclick="btnRemoveMarkedCases_Click" />
         </td>

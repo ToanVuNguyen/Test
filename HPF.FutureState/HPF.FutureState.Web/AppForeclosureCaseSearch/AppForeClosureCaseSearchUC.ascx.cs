@@ -378,7 +378,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     lbtnNext.Enabled = false;
                     lbtnFirst.Enabled = true;
                     lbtnPrev.Enabled = true;
-                    if (totalpage > 10) totalpage = 10;
+                    if (totalpage > 10)
+                    {
+                        totalpage = 10;
+                        this.PageNum = 10;
+                    }
                     break;
                 // button: >
                 case "Next":
@@ -445,6 +449,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 {
                     lbtnLast.Enabled = false;
                     lbtnNext.Enabled = false;
+                }
+                else
+                {
+                    lbtnLast.Enabled = true;
+                    lbtnNext.Enabled = true;
                 }
             }
         }

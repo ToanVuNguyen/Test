@@ -260,7 +260,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
                     BindDetailCaseData(fcid);
-                    bulMessage.Items.Add(new ListItem("Save foreclosure case succesfull"));
+                    bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
                 }
                 else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
             }

@@ -52,6 +52,7 @@ p
     color: #2271A0;
     font-size: 11px;
     font-weight: bold;
+    vertical-align:top;
     
 }
 .Text
@@ -59,7 +60,8 @@ p
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: Black;
     font-size: 10px;
-    vertical-align:bottom;
+    vertical-align:top;
+    
     
 }
 .MyButton
@@ -82,8 +84,6 @@ td
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
     color: #000000;
-    vertical-align:top;
-    
 }
 
 .sidelinks2
