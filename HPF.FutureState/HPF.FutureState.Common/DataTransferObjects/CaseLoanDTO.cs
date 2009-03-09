@@ -59,7 +59,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Loan1st2nd
         {
             get { return _loan1st2nd; }
-            set { if (!string.IsNullOrEmpty(value)) _loan1st2nd = value.Trim().ToUpper(); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _loan1st2nd = value.Trim().ToUpper();
+                else _loan1st2nd = value;
+            }
         }
 
         string _mortgageTypeCd;
@@ -68,7 +72,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string MortgageTypeCd 
         {
             get { return _mortgageTypeCd; }
-            set { if (!string.IsNullOrEmpty(value)) _mortgageTypeCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _mortgageTypeCd = value.Trim().ToUpper();
+                else _mortgageTypeCd = value;
+            }
         }
 
         private string armResetInd = null;
@@ -80,6 +88,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     armResetInd = value.Trim().ToUpper();
+                else armResetInd = value;
             }
         }
 
@@ -89,7 +98,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string TermLengthCd
         {
             get { return _termLengthCd; }
-            set { if (!string.IsNullOrEmpty(value)) _termLengthCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _termLengthCd = value.Trim().ToUpper();
+                else _termLengthCd = value;
+            }
         }
 
         string _loanDelinqStatusCd;
@@ -98,7 +111,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanDelinqStatusCd
         {
             get { return _loanDelinqStatusCd; }
-            set { if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper();
+                else _loanDelinqStatusCd = value;
+            }
         }
         [XmlElement(IsNullable = true)]
         [NullableOrInRangeNumberValidator(true, "-9999999999999.99", "9999999999999.99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0076)]
@@ -144,7 +161,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string MortgageProgramCd
         { 
             get { return _mortgateProgramCd; }
-            set { if (!string.IsNullOrEmpty(value)) _mortgateProgramCd = value.Trim().ToUpper(); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _mortgateProgramCd = value.Trim().ToUpper();
+                else _mortgageTypeCd = value;
+            }
         }
 
         [XmlIgnore]

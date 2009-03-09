@@ -48,7 +48,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string IncomeEarnersCd 
         {
             get { return _incomeEarnersCd; }
-            set { if (!string.IsNullOrEmpty(value)) _incomeEarnersCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _incomeEarnersCd = value.Trim().ToUpper();
+                else _incomeEarnersCd = value;
+            }
         }
 
         private string _caseSourceCd;
@@ -57,7 +61,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CaseSourceCd 
         {
             get { return _caseSourceCd; }
-            set { if (!string.IsNullOrEmpty(value)) _caseSourceCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _caseSourceCd = value.Trim().ToUpper();
+                else _caseSourceCd = value;
+            }
         }
 
 
@@ -67,7 +75,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string RaceCd 
         {
             get { return _raceCd; }
-            set { if (!string.IsNullOrEmpty(value)) _raceCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _raceCd = value.Trim().ToUpper();
+                else _raceCd = value;
+            }
         }
 
         string _householdCd;
@@ -76,7 +88,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HouseholdCd
         {
             get { return _householdCd; }
-            set { if (!string.IsNullOrEmpty(value)) _householdCd = value.Trim().ToUpper(); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _householdCd = value.Trim().ToUpper();
+                else _householdCd = value;
+            }
         }
 
         string _neverBillReasonCd;
@@ -85,7 +101,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string NeverBillReasonCd
         {
             get { return _neverBillReasonCd; }
-            set { if (!string.IsNullOrEmpty(value)) _neverBillReasonCd = value.Trim().ToUpper(); }
+            set 
+            { 
+                if (!string.IsNullOrEmpty(value)) _neverBillReasonCd = value.Trim().ToUpper();
+                else _neverBillReasonCd = value;
+            }
         }
 
         string _nerverPayReasonCd;
@@ -94,7 +114,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string NeverPayReasonCd
         {
             get { return _nerverPayReasonCd; }
-            set { if (!string.IsNullOrEmpty(value)) _nerverPayReasonCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _nerverPayReasonCd = value.Trim().ToUpper();
+                else _nerverPayReasonCd = value;
+            }
         }
 
         string _dfltReason1stCd;
@@ -103,7 +127,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string DfltReason1stCd
         {
             get { return _dfltReason1stCd; }
-            set { if (!string.IsNullOrEmpty(value)) _dfltReason1stCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _dfltReason1stCd = value.Trim().ToUpper();
+                else _dfltReason1stCd = value;
+            }
         }
 
         string _dfltReason2ndCd;
@@ -112,7 +140,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string DfltReason2ndCd 
         {
             get { return _dfltReason2ndCd; }
-            set { if (!string.IsNullOrEmpty(value)) _dfltReason2ndCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _dfltReason2ndCd = value.Trim().ToUpper();
+                else _dfltReason2ndCd = value;
+            }
         }
 
         string _hudTerminationReasonCd;
@@ -120,7 +152,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HudTerminationReasonCd 
         {
             get { return _hudTerminationReasonCd; }
-            set { if (!string.IsNullOrEmpty(value)) _hudTerminationReasonCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _hudTerminationReasonCd = value.Trim().ToUpper();
+                else _hudTerminationReasonCd = value;
+            }
         }
     
         [XmlElement(IsNullable = true)]
@@ -133,7 +169,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HudOutcomeCd
         {
             get { return _hudOutcomeCd; }
-            set { if (!string.IsNullOrEmpty(value)) _hudOutcomeCd = value.Trim().ToUpper(); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _hudOutcomeCd = value.Trim().ToUpper();
+                else _hudOutcomeCd = value;
+            }
         }
 
         [XmlIgnore]
@@ -145,7 +185,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CounselingDurationCd
         {
             get { return _counselingDurationCd; }
-            set { if (!string.IsNullOrEmpty(value)) _counselingDurationCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _counselingDurationCd = value.Trim().ToUpper();
+                else _counselingDurationCd = value;
+            }
         }
 
         string _genderCd;
@@ -154,7 +198,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string GenderCd 
         {
             get { return _genderCd; }
-            set { if (!string.IsNullOrEmpty(value)) _genderCd = value.Trim().ToUpper(); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _genderCd = value.Trim().ToUpper();
+                else _genderCd = value;
+            }
         }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0105, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -233,7 +281,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ContactStateCd
         {
             get { return _contactStateCd; }
-            set { if (!string.IsNullOrEmpty(value)) _contactStateCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _contactStateCd = value.Trim().ToUpper();
+                else _contactStateCd = value;
+            }
         }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0111, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -260,7 +312,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PropStateCd
         {
             get { return _propStateCd; }
-            set { if (!string.IsNullOrEmpty(value)) _propStateCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _propStateCd = value.Trim().ToUpper();
+                else _propStateCd = value;
+            }
         }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0115, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -280,6 +336,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             { 
                 if (!string.IsNullOrEmpty(value))
                     bankruptcyInd = value.ToUpper().Trim();
+                else bankruptcyInd = value;
             } 
         }
 
@@ -292,10 +349,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             get{return bankruptcyPmtCurrentInd;}
             set
-            {
-                
+            {                
                 if (!string.IsNullOrEmpty(value))                
-                    bankruptcyPmtCurrentInd = value.ToUpper().Trim();                
+                    bankruptcyPmtCurrentInd = value.ToUpper().Trim();
+                else bankruptcyPmtCurrentInd = value;
             }
         }
 
@@ -304,7 +361,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerEducLevelCompletedCd
         {
             get { return _borrowerEducLevelCompletedCd; }
-            set { if (!string.IsNullOrEmpty(value)) _borrowerEducLevelCompletedCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _borrowerEducLevelCompletedCd = value.Trim().ToUpper();
+                else _borrowerEducLevelCompletedCd = value;
+            }
         }
 
         string _borrowerMaritalStatusCd;
@@ -312,7 +373,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerMaritalStatusCd
         {
             get { return _borrowerMaritalStatusCd; }
-            set { if (!string.IsNullOrEmpty(value)) _borrowerMaritalStatusCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _borrowerMaritalStatusCd = value.Trim().ToUpper();
+                else _borrowerMaritalStatusCd = value;
+            }
         }
 
         string _borrowerPreferredLangCd;
@@ -320,7 +385,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerPreferredLangCd
         {
             get { return _borrowerPreferredLangCd; }
-            set { if (!string.IsNullOrEmpty(value)) _borrowerPreferredLangCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _borrowerPreferredLangCd = value.Trim().ToUpper();
+                else _borrowerPreferredLangCd = value;
+            }
         }
 
         [NullableOrStringLengthValidator(true, 50, "Borrower Occupation", Ruleset = Constant.RULESET_LENGTH)]
@@ -339,6 +408,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     hispanicInd = value.ToUpper().Trim();
+                else hispanicInd = value;
             }
         }
                 
@@ -352,6 +422,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     duplicateInd = value.ToUpper().Trim();
+                else duplicateInd = value;
             }
         }
 
@@ -365,6 +436,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     fcNoticeReceiveInd = value.ToUpper().Trim();
+                else fcNoticeReceiveInd = value;
             }
         }
 
@@ -378,6 +450,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     fundingConsentInd = value.ToUpper().Trim();
+                else fundingConsentInd = value;
             }
         }
 
@@ -391,6 +464,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     servicerConsentInd = value.ToUpper().Trim();
+                else servicerConsentInd = value;
             }
         }
 
@@ -403,6 +477,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     agencyMediaInterestInd = value.ToUpper().Trim();
+                else agencyMediaInterestInd = value;
             }
         }
         
@@ -416,6 +491,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     hpfMediaCandidateInd = value.ToUpper().Trim();
+                else hpfMediaCandidateInd = value;
             }
         }
 
@@ -429,6 +505,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     hpfSuccessStoryInd = value.ToUpper().Trim();
+                else hpfSuccessStoryInd = value;
             }
         }
 
@@ -441,6 +518,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     agencySuccessStoryInd = value.ToUpper().Trim();
+                else agencySuccessStoryInd = value;
             }
         }
 
@@ -453,6 +531,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     borrowerDisabledInd = value.ToUpper().Trim();
+                else borrowerDisabledInd = value;
             }
         }
 
@@ -465,6 +544,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     coBorrowerDisabledInd = value.ToUpper().Trim();
+                else coBorrowerDisabledInd = value;
             }
         }
 
@@ -473,7 +553,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string SummarySentOtherCd
         {
             get { return _summarySentOtherCd; }
-            set { if (!string.IsNullOrEmpty(value)) _summarySentOtherCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _summarySentOtherCd = value.Trim().ToUpper();
+                else _summarySentOtherCd = value;
+            }
         }
 
         [XmlElement(IsNullable = true)]
@@ -535,6 +619,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     discussedSolutionWithSrvcrInd = value.ToUpper().Trim();
+                else discussedSolutionWithSrvcrInd = value;
             }
         }
 
@@ -548,6 +633,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     workedWithAnotherAgencyInd = value.ToUpper().Trim();
+                else workedWithAnotherAgencyInd = value;
             }
         }
 
@@ -561,6 +647,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     contactedSrvcrRecentlyInd = value.ToUpper().Trim();
+                else contactedSrvcrRecentlyInd = value;
             }
         }
 
@@ -574,6 +661,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     hasWorkoutPlanInd = value.ToUpper().Trim();
+                else hasWorkoutPlanInd = value;
             }
         }
 
@@ -586,6 +674,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     srvcrWorkoutPlanCurrentInd = value.ToUpper().Trim();
+                else srvcrWorkoutPlanCurrentInd = value;
             }
         }
 
@@ -599,6 +688,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     optOutNewsletterInd = value.ToUpper().Trim();
+                else optOutNewsletterInd = value;
             }
         }
 
@@ -612,6 +702,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     optOutSurveyInd = value.ToUpper().Trim();
+                else optOutSurveyInd = value;
             }
         }
 
@@ -625,6 +716,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     doNotCallInd = value.ToUpper().Trim();
+                else doNotCallInd = value;
             }
         }
 
@@ -638,6 +730,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     ownerOccupiedInd = value.ToUpper().Trim();
+                else ownerOccupiedInd = value;
             }
         }
 
@@ -651,6 +744,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     primaryResidenceInd = value.ToUpper().Trim();
+                else primaryResidenceInd = value;
             }
         }
 
@@ -662,7 +756,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PropertyCd
         {
             get { return _propertyCd; }
-            set { if (!string.IsNullOrEmpty(value)) _propertyCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _propertyCd = value.Trim().ToUpper();
+                else _propertyCd = value;
+            }
         }
 
         private string forSaleInd = null;
@@ -675,6 +773,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             {
                 if (!string.IsNullOrEmpty(value))
                     forSaleInd = value.ToUpper().Trim();
+                else forSaleInd = value;
             }
         }
 
@@ -700,7 +799,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string MilitaryServiceCd
         {
             get { return _militaryServiceCd; }
-            set { if (!string.IsNullOrEmpty(value)) _militaryServiceCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _militaryServiceCd = value.Trim().ToUpper();
+                else _militaryServiceCd = value;
+            }
         }
         [XmlElement(IsNullable = true)]        
         [RequiredObjectValidator(Tag = ErrorMessages.WARN0319, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
@@ -719,7 +822,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string IntakeCreditBureauCd
         {
             get { return _intakeCreditBureauCd; }
-            set { if (!string.IsNullOrEmpty(value)) _intakeCreditBureauCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _intakeCreditBureauCd = value.Trim().ToUpper();
+                else _intakeCreditBureauCd = value;
+            }
         }
 
         [XmlElement(IsNullable = true)]

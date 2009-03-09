@@ -36,7 +36,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CallSourceCd 
         {
             get { return _callSourceCd; }
-            set {if (!string.IsNullOrEmpty(value)) _callSourceCd = value.Trim().ToUpper();}
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _callSourceCd = value.Trim().ToUpper();
+                else _callSourceCd = value;
+            }
         }
 
         //miss Error for string length
@@ -76,7 +80,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string FinalDispoCd
         {
             get { return _finalDispoCd; }
-            set { if (!string.IsNullOrEmpty(value)) _finalDispoCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _finalDispoCd = value.Trim().ToUpper();
+                else _finalDispoCd = value;
+            }
         }
 
         [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default", Tag = ErrorMessages.ERR0370)]
@@ -90,7 +98,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanDelinqStatusCd
         {
             get { return _loanDelinqStatusCd; }
-            set { if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper(); }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper();
+                else _loanDelinqStatusCd = value;
+            }
         }
 
         [NullableOrStringLengthValidator(true, 40, "Selected Counselor", Ruleset = "Default", Tag = ErrorMessages.ERR0371)]
@@ -98,18 +110,38 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         string _homeownerInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0372)]
-        public string HomeownerInd { get { return _homeownerInd; } set { if (value != null) _homeownerInd = value.ToUpper(); } }
-
+        public string HomeownerInd
+        {
+            get { return _homeownerInd; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value)) _homeownerInd = value.Trim().ToUpper();
+                else _homeownerInd = value;
+            }
+        }
         string _powerOfAttorneyInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0373)]
-        public string PowerOfAttorneyInd { get { return _powerOfAttorneyInd; } set { if (value != null) _powerOfAttorneyInd = value.ToUpper(); } }
+        public string PowerOfAttorneyInd 
+        {
+            get { return _powerOfAttorneyInd; } 
+            set            
+            {
+                if (!string.IsNullOrEmpty(value)) _powerOfAttorneyInd = value.Trim().ToUpper();
+                else _powerOfAttorneyInd = value;
+            }
+        }
         
         string _authorizedInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0374)]
         public string AuthorizedInd 
         { 
-            get { return _authorizedInd; } 
-            set { if (value != null)_authorizedInd = value.ToUpper(); } }
+            get { return _authorizedInd; }
+            set 
+            {
+                if (!string.IsNullOrEmpty(value)) _authorizedInd = value.Trim().ToUpper();
+                else _authorizedInd = value;
+            }
+        }
 
         [NullableOrStringLengthValidator(true, 30, "City", Ruleset = "Default", Tag = ErrorMessages.ERR0390)]
         public string City {get; set;}  //	varchar(30)
