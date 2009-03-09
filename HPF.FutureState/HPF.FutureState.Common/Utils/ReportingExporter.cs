@@ -51,6 +51,17 @@ namespace HPF.FutureState.Common.Utils
             return Export(format);
         }
 
+        /// <summary>
+        /// Export report to Excel format
+        /// </summary>
+        /// <returns></returns>
+        public byte[] ExportToCSV()
+        {
+            Validate();
+            var format = "CSV";
+            return Export(format);
+        }
+
         private void Validate()
         {
             if (string.IsNullOrEmpty(ReportPath))
