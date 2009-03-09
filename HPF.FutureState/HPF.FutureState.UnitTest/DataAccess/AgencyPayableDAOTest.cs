@@ -148,19 +148,19 @@ namespace HPF.FutureState.UnitTest
 
             //Delete test data insert to InsertAgencyPayableCaseTest
             //
-           
             //Delete test data insert to InsertAgencyPayableTest
             strsql = @"delete from agency_payable where [status_cd] = 'insert agency'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
-            //Delete data test AGENCY
-            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
+            
+            //Delete data test FORECLOSURE 
+            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
-            //Delete data test FORECLOSURE 
-            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
+            //Delete data test AGENCY
+            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
