@@ -45,7 +45,7 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.PeriodStartDate = agencyPayableDraft.PeriodStartDate;
                 agencyPayable.PeriodEndDate = agencyPayableDraft.PeriodEndDate;
                 agencyPayable.AgencyPayablePaymentAmount = agencyPayableDraft.TotalAmount;
-                agencyPayable.StatusCode = "ACTIVE";
+                agencyPayable.StatusCode = agencyPayableDraft.StatusCode;
                 agencyPayable.PaymentDate = DateTime.Now;
                 int agencyPayableId = 0;
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable).Value;
