@@ -35,7 +35,7 @@
                                     </ItemTemplate>
                                     <ItemStyle Width="100px" />
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="AuditDt" HeaderText="Audit Date" DataFormatString="{0:MM/dd/yyyy}"
+                                <asp:BoundField DataField="AuditDt" HeaderText="Audit Date" 
                                     ItemStyle-Width="100px">
                                     <ItemStyle Width="100px" />
                                 </asp:BoundField>
