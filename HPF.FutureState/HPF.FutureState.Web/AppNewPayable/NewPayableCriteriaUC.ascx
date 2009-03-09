@@ -3,10 +3,10 @@
 
 <table  width="100%">
     <colgroup>
-    <col width="20%" />
+    <col width="22%" />
     <col width="20%" />
     <col width="35%" />
-    <col width="25%" />
+    <col width="23%" />
     </colgroup>
     <tr>
         <td class="Header" colspan="4" >
