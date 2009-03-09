@@ -54,6 +54,11 @@ namespace HPF.FutureState.Web.InvoicePayments
             InvoicePaymentDTOCollection invoicePayment = InvoicePaymentSearch(searchCriteria);
             grvInvoicePaymentList.DataSource = invoicePayment;
             grvInvoicePaymentList.DataBind();
+            if (invoicePayment == null)
+            {
+                Exception ex = new Exception(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
+                throw (ex);
+            }
         }
         private void ApplySecurity()
         {
@@ -90,6 +95,11 @@ namespace HPF.FutureState.Web.InvoicePayments
                 grvInvoicePaymentList.DataSource = invoicePayment;
                 ViewState["invoicePayment"] = invoicePayment;
                 grvInvoicePaymentList.DataBind();
+                if (invoicePayment == null)
+                {
+                    Exception ex = new Exception(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
+                    throw (ex);
+                }
                 
             }
             catch (Exception ex)
@@ -122,6 +132,8 @@ namespace HPF.FutureState.Web.InvoicePayments
             DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
             searchCriteria.FundingSourceId = int.Parse(ddlFundingSource.SelectedValue);
+            txtPeriodStart.Text = txtPeriodStart.Text.Trim();
+            txtPeriodEnd.Text = txtPeriodEnd.Text.Trim();
             if (txtPeriodStart.Text == string.Empty)
             {
                 ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0675);
@@ -131,6 +143,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             {
                 try
                 {
+                    
                     searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
                     if (searchCriteria.PeriodStart.Year < 1753)
                         throw (new Exception());
@@ -197,11 +210,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             InvoicePaymentDTOCollection invoicePayment = new InvoicePaymentDTOCollection();
             //get search criteria to AgencyPayableSearchCriteriaDTO
             invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
-            if (invoicePayment == null)
-            {
-                Exception ex = new Exception(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
-                throw (ex);
-            }
+            
             return invoicePayment;
         }
         /// <summary>

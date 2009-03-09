@@ -75,7 +75,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             lblTotalCases.Text = invoiceSet.TotalCases.ToString() ;
             lblTotalPaid.Text = invoiceSet.Invoice.InvoicePaymentAmount == null ? "" : invoiceSet.Invoice.InvoicePaymentAmount.Value.ToString("C");
             lblTotalRejected.Text = invoiceSet.TotalRejected.ToString("C");
-
+            txtInvoiceComments.Text = invoiceSet.Invoice.InvoiceComment;
             lblTotalCase1.Text = invoiceSet.TotalCases.ToString();
             lblTotalPaid1.Text = invoiceSet.TotalPaid.ToString("C");
             lblInvoiceTotal1.Text = invoice.InvoiceBillAmount == null ? "" : invoice.InvoiceBillAmount.Value.ToString("C");

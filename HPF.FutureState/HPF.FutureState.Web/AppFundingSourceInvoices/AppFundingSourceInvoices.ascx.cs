@@ -99,6 +99,8 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
             searchCriteria.FundingSourceId = int.Parse(dropFundingSource.SelectedValue);
+            txtPeriodStart.Text = txtPeriodStart.Text.Trim();
+            txtPeriodEnd.Text = txtPeriodEnd.Text.Trim();
             if (txtPeriodStart.Text == string.Empty)
             {
                 ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0562);
@@ -169,15 +171,15 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             try
             {
                 InvoiceDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
+                Session["searchResult"] = searchResult;
+                Session["invoiceSearchCriteria"] = searchCriteria;
+                grvFundingSourceInvoices.DataSource = searchResult;
+                grvFundingSourceInvoices.DataBind();
                 if (searchResult == null)
                 {
                     DataValidationException ex = new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0566));
                     throw ex;
                 }
-                Session["searchResult"] = searchResult;
-                Session["invoiceSearchCriteria"] = searchCriteria;
-                grvFundingSourceInvoices.DataSource = searchResult;
-                grvFundingSourceInvoices.DataBind();
             }
             
             catch (Exception ex)

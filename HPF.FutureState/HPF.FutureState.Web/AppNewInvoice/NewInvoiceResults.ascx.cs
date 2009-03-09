@@ -134,7 +134,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             ClearErrorMessages();
             if (invoiceDraft.ForeclosureCaseDrafts==null||invoiceDraft.ForeclosureCaseDrafts.Count == 0)
             {
-                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0987)));
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0987)));
                 return;
             }
             try

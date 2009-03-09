@@ -6,12 +6,6 @@
 <asp:ScriptManager runat="server"></asp:ScriptManager>
 <%--<asp:UpdatePanel runat="server">
 <ContentTemplate>--%>
-<style type="text/css">
-    .style2
-    {
-        width: 270px;
-    }
-</style>
 
 <table style="width:100%;">
     <tr>
@@ -25,8 +19,7 @@
             Funding Source*:
         </td>
         <td align="left">
-            <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
-                Width="300px">
+            <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
@@ -43,7 +36,7 @@
     <tr>
         <td>
             &nbsp;</td>
-        <td class="style2">
+        <td>
             &nbsp;</td>
         <td align="right" class="sidelinks">
             Period End*:</td>

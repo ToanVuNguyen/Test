@@ -14,6 +14,14 @@
         font-weight: bold;
         width: 119px;
     }
+    .style2
+    {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        color: #2271A0;
+        font-size: 11px;
+        font-weight: bold;
+        width: 21px;
+    }
 </style>
 <table width="100%">
     <tr>
@@ -24,9 +32,9 @@
     <tr>
         <td class="sidelinks" align="right" nowrap>
             Funding Source*:</td>        
-        <td class="sidelinks" align="left" nowrap width="300">
+        <td class="style2" align="left" nowrap>
             <asp:DropDownList ID="ddlFundingSource" runat="server" Height="16px" 
-                CssClass="Text" Width="300px">
+                CssClass="Text">
             </asp:DropDownList>
         </td>        
         <td class="style1" align="right">
@@ -42,7 +50,7 @@
     <tr>
         <td>
         </td>
-        <td>
+        <td >
         </td>
         <td class="style1" align="right">
             Period End*:
