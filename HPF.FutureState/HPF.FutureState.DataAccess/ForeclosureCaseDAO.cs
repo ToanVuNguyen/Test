@@ -201,6 +201,26 @@ namespace HPF.FutureState.DataAccess
                         returnObject.IntakeCreditScore = ConvertToString(reader["intake_credit_score"]);
                         returnObject.IntakeCreditBureauCd = ConvertToString(reader["intake_credit_bureau_cd"]);
                         returnObject.LoanList = ConvertToString(reader["loan_list"]);
+                        //description
+                        returnObject.PropertyDesc = ConvertToString(reader["property_desc"]);
+                        returnObject.GenderDesc = ConvertToString(reader["gender_desc"]);
+                        returnObject.RaceDesc = ConvertToString(reader["race_desc"]);
+                        returnObject.LanguageDesc = ConvertToString(reader["language_desc"]);
+                        returnObject.EducationDesc = ConvertToString(reader["education_desc"]);
+                        returnObject.MaritalDesc = ConvertToString(reader["marital_desc"]);
+                        returnObject.MilitaryDesc = ConvertToString(reader["military_desc"]);
+                        returnObject.CounselingDesc = ConvertToString(reader["counseling_desc"]);
+                        returnObject.CaseSourceDesc = ConvertToString(reader["case_source_desc"]);
+                        returnObject.SummaryDesc = ConvertToString(reader["summary_desc"]);
+                        returnObject.DefaultReason1Desc = ConvertToString(reader["default_reason1_desc"]);
+                        returnObject.DefaultReason2Desc = ConvertToString(reader["default_reason2_desc"]);
+                        returnObject.HouseholdDesc = ConvertToString(reader["household_desc"]);
+                        returnObject.IncomeDesc = ConvertToString(reader["income_desc"]);
+                        returnObject.CreditDesc = ConvertToString(reader["credit_desc"]);
+                        returnObject.HudTerminationDesc = ConvertToString(reader["hud_termination_desc"]);
+                        returnObject.HudOutcomeDesc = ConvertToString(reader["hud_outcome_desc"]);
+
+
                         #endregion
                     }
                     reader.Close();
