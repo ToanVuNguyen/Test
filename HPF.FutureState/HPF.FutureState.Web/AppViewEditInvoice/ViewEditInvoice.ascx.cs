@@ -85,9 +85,18 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         /// </summary>
         private void ApplySecurity()
         {
-            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
             {
                 Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
+            }
+            if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE))
+            {
+                txtInvoiceComments.Enabled = false;
+                txtPaymentID.Enabled = false;
+                dropRejectReason.Enabled = false;
+                btnPay.Enabled = false;
+                btnReject.Enabled = false;
+                btnUnpay.Enabled = false;
             }
         }
         /// <summary>

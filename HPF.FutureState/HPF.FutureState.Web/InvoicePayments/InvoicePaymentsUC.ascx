@@ -2,7 +2,6 @@
     Inherits="HPF.FutureState.Web.InvoicePayments.InvoicePaymentsUC" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager ID="myScript" runat="server">
 </asp:ScriptManager>
 <style type="text/css">
@@ -34,7 +33,7 @@
             Funding Source*:</td>        
         <td class="style2" align="left" nowrap>
             <asp:DropDownList ID="ddlFundingSource" runat="server" Height="16px" 
-                CssClass="Text">
+                CssClass="Text" Width="280px">
             </asp:DropDownList>
         </td>        
         <td class="style1" align="right">

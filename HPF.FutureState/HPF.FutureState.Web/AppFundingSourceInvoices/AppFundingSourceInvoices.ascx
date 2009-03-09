@@ -25,7 +25,8 @@
             Funding Source*:
         </td>
         <td align="left">
-            <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text">
+            <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
+                Width="280px">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
