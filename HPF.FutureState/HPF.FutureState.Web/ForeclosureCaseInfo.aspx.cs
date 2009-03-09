@@ -154,5 +154,9 @@ namespace HPF.FutureState.Web
             int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
             Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
         }
+
+        protected void btnResendServicer_Click(object sender, EventArgs e)
+        { 
+        }
     }
 }

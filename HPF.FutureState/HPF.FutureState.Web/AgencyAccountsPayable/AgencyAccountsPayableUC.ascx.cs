@@ -32,7 +32,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 if (grvInvoiceList.SelectedIndex == -1)
                     hidSelectedRowIndex.Value = "";
-                btnCancelPayable.Attributes.Add("onclick", "return CancelConfirm();");
+                btnCancelPayable.Attributes.Add("onclick","return CancelConfirm();");
                 BindAgencyDropDownList();
                 DisplayAgencyAccountPayableSearchResult();
             }

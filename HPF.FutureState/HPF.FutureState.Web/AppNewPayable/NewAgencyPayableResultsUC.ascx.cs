@@ -122,7 +122,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
                     lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
                     lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
-                    lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount);
+                    lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount == null ? 0 : agencyPayableDraftDTO.TotalAmount);
                     lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
                     lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
                     double total = 0;
@@ -181,6 +181,11 @@ namespace HPF.FutureState.Web.AppNewPayable
                     AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
                     agencyPayableSearchCriteria = GetCriteria();
                     agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
+                    //default display period_start back 6 months
+                    //but save exactly value in criteria.
+                    agencyPayableDraftDTO.PeriodStartDate = agencyPayableDraftDTO.PeriodStartDate.Value.AddMonths(6);
+                    RefCodeItemDTO StatusCd= LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
+                    agencyPayableDraftDTO.StatusCode = StatusCd.Code;
                     for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
                     {
                         this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());

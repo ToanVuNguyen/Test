@@ -160,6 +160,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
+                if ((agencyPayableSearchCriteria.PeriodStartDate.CompareTo(DateTime.Parse("1/1/1973"))<0) || (agencyPayableSearchCriteria.PeriodStartDate.CompareTo(DateTime.Parse("12/31/9999"))>0))
+                    throw ex;
             }
             catch
             {
@@ -169,12 +171,15 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSearchCriteria.PeriodEndDate = Convert.ToDateTime(txtPeriodEnd.Text.Trim());
+                if ((agencyPayableSearchCriteria.PeriodEndDate.CompareTo(DateTime.Parse("1/1/1973")) < 0) && (agencyPayableSearchCriteria.PeriodEndDate.CompareTo(DateTime.Parse("12/31/9999")) > 0))
+                    throw ex;
             }
             catch
             {
                 ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0996);
                 ex.ExceptionMessages.Add(exmsg);
             }
+            
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
             if (ChkInclude.Checked)// return true or false

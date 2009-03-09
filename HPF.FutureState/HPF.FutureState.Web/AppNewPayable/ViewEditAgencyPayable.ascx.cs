@@ -23,8 +23,18 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void Page_Load(object sender, EventArgs e)
         {
             ApplySecurity();
+            bulErrorMessage.Items.Clear();
+            
+
+            
             if (!IsPostBack)
             {
+                //string selectedcase = GetSelectedRow();
+                //if (string.IsNullOrEmpty(selectedcase))
+                //    hidIsSelected.Value = "";
+                btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
+                btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
+
                 BindTakebackReasonDropDownList();
                 BindViewEditPayable();
             }
@@ -45,9 +55,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             ddlTakebackReason.DataValueField = "code";
             ddlTakebackReason.DataBind();
             //add blank to first item in ddl
-            ddlTakebackReason.Items.Insert(0, new ListItem("","-1"));
+            ddlTakebackReason.Items.Insert(0, new ListItem("", "-1"));
             ddlTakebackReason.Items.FindByText("").Selected = true;
-            //ddlTakebackReason.sel
         }
         protected void BindViewEditPayable()
         {
@@ -62,13 +71,13 @@ namespace HPF.FutureState.Web.AppNewPayable
                 lblPeriodStart.Text = agencyPayableSet.Payable.PeriodStartDate.Value.ToShortDateString();
                 lblPeriodEnd.Text = agencyPayableSet.Payable.PeriodEndDate.Value.ToShortDateString();
                 lblPayableNumber.Text = agencyPayableSet.Payable.PayableNum.ToString();
-                
+
                 //bind from agencypayableDTO
                 lblTotalCases.Text = agencyPayableSet.TotalCases.ToString();
-                lblTotalPayable.Text =String.Format("{0:C}",agencyPayableSet.TotalPayable);
+                lblTotalPayable.Text = String.Format("{0:C}", agencyPayableSet.TotalPayable);
                 lblUnpaidNFMCEligibleCase.Text = agencyPayableSet.UnpaidNFMCEligibleCases.ToString();
-                lblTotalChargePaid.Text = String.Format("{0:C}",agencyPayableSet.TotalNFMCUpChargePaid);
-                lblGrandTotalPaid.Text = String.Format("{0:C}",(agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable));
+                lblTotalChargePaid.Text = String.Format("{0:C}", agencyPayableSet.TotalNFMCUpChargePaid);
+                lblGrandTotalPaid.Text = String.Format("{0:C}", (agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable));
                 //footer
                 lblTotalCase_ft.Text = agencyPayableSet.TotalCases.ToString();
                 lblPayableTotal_ft.Text = agencyPayableSet.TotalPayable.ToString();
@@ -78,9 +87,9 @@ namespace HPF.FutureState.Web.AppNewPayable
                 grvViewEditAgencyPayable.DataSource = agencyPayableSet.PayableCases;
                 grvViewEditAgencyPayable.DataBind();
             }
-           
+
         }
-       
+
         protected void chkCheckAllCheck(object sender, EventArgs e)
         {
             CheckBox headerCheckbox = (CheckBox)sender;
@@ -88,19 +97,26 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
                 if (chkSelected != null)
+                {
                     chkSelected.Checked = headerCheckbox.Checked;
+                }
             }
+            hidIsSelected.Value = GetSelectedRow();
+
         }
-       
+        protected void chkSelected(object sender, EventArgs e)
+        {
+            hidIsSelected.Value = GetSelectedRow();
+        }
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
             bulErrorMessage.Items.Clear();
             string payableCaseIdCollection = GetSelectedRow();
-
+            hidIsSelected.Value = payableCaseIdCollection;
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
             if (payableCaseIdCollection == null)
             {
-                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0577"));
                 return;
             }
             try
@@ -131,7 +147,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                AgencyPayableBL.Instance.TakebackMarkCase(agencyPayableSet,takebackReason,payableCaseIdCollection);
+                AgencyPayableBL.Instance.TakebackMarkCase(agencyPayableSet, takebackReason, payableCaseIdCollection);
                 BindViewEditPayable();
             }
             catch (Exception ex)
@@ -145,7 +161,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             bulErrorMessage.Items.Clear();
             string result = "";
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
-           
+
             foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
             {
                 CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
@@ -154,9 +170,9 @@ namespace HPF.FutureState.Web.AppNewPayable
                     {
                         result += agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ",";
                         if (agencyPayableSet.PayableCases[row.DataItemIndex].NFMCDifferenceEligibleInd == "N")
-                        { 
-                        bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
-                        return null;
+                        {
+                            bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
+                            return null;
                         }
                     }
             }
@@ -173,6 +189,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
         }
 
-        
+
     }
 }

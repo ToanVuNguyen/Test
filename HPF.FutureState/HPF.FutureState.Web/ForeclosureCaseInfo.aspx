@@ -76,7 +76,7 @@
             </td>
             <td align="center">
                 <asp:Button ID="btnResendServicer" runat="server" CssClass="MyButton" Width="130px"
-                    Text="Resend to Servicer" />
+                    Text="Resend to Servicer" onclick="btnResendServicer_Click" />
             </td>
         </tr>
         <tr>

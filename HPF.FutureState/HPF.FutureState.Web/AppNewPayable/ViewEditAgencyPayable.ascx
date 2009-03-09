@@ -55,7 +55,7 @@
                 </td>
                 <td align="center">
                         <asp:Button ID="btnTakeBackMarkCase" runat="server" CssClass="MyButton" Text="Takeback Marked Cases"
-                           Width="150px" OnClick="btnTakeBackMarkCase_Click" OnClientClick="return confirm('Are you sure you wish to takeback the selected case(s)?')" />
+                           Width="150px" OnClick="btnTakeBackMarkCase_Click" />
                 </td>
             </tr>
             <tr>
@@ -79,7 +79,7 @@
                 </td>
                 <td align="center">
                         <asp:Button ID="btnPayUnpayMarkCase" runat="server" CssClass="MyButton" Text="Pay/Unpay NFMC Upcharge"
-                            Width="150px" onclick="btnPayUnpayMarkCase_Click" OnClientClick="return confirm('Are you sure you wish to pay/unpay the selected case(s)?')" />
+                            Width="150px" onclick="btnPayUnpayMarkCase_Click" />
                 </td>
             </tr>
             <tr>
@@ -185,10 +185,10 @@
                                     <Columns>
                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                             <HeaderTemplate>
-                                                <asp:CheckBox ID="chkCheckAll" runat="server" AutoPostBack="True" OnCheckedChanged="chkCheckAllCheck" />
+                                                <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck" AutoPostBack="true" />
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="chkSelected" runat="server" />
+                                                <asp:CheckBox ID="chkSelected" runat="server" OnCheckedChanged="chkSelected" AutoPostBack="true"/>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
@@ -231,6 +231,7 @@
                             </td>
                         </tr>
                     </table>
+                    <asp:HiddenField ID="hidIsSelected" runat="server" Value="" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </cc1:StatefullScrollPanel>
@@ -252,7 +253,22 @@
             </td>
             </tr>
         </table>
-        
+        <script language="javascript" type="text/javascript">
+            var id = '<%=hidIsSelected.ClientID %>';
+            function TakeBackReason() {
+                SelectedCase = document.getElementById(id);
+                if (SelectedCase.value != '') {
+                    confirm('WARN576-Are you sure you wish to takeback the selected case(s)?');
+                }
+             };
+             function PayUnpay() {
+                 SelectedCase = document.getElementById(id);
+                 if (SelectedCase.value != '')
+                 {
+                 confirm('WARN578-Are you sure you wish to pay/unpay the selected case(s)?');
+                 }
+             };
+        </script>
 
     <%--</ContentTemplate>
 </asp:UpdatePanel>--%>
