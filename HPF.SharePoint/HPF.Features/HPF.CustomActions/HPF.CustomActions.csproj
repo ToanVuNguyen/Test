@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Zip Library\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.Dsofile, Version=2.1.0.0, Culture=neutral, PublicKeyToken=10ddf6f9941ad83a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DSO Library\Interop.Dsofile.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />

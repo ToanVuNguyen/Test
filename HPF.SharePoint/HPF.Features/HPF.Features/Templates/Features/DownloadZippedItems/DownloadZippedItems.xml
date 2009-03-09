@@ -4,7 +4,7 @@
 		Id="DownloadZippedItems.MenuLink"
 		Location="Microsoft.SharePoint.StandardMenu"
 		GroupId="ActionsMenu"
-		ControlAssembly="HPF.CustomActions, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=00005ef85cc3d8ee"
+		ControlAssembly="HPF.CustomActions, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=886bf919f6a90bbd"
 		ControlClass="HPF.CustomActions.DownloadZippedItems">
 	</CustomAction>
 </Elements>

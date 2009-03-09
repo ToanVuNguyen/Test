@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using System.IO;
 using System.Web;
+using DSOFile;
 
 namespace HPF.CustomActions
 {
@@ -22,14 +23,14 @@ namespace HPF.CustomActions
                 child.Text = "Zip List Items";
                 child.ImageUrl = "/_layouts/images/TBSPRSHT.GIF";
                 child.Description = "Zip and download List Items";
-                
+
                 PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
                 templateCurrentView.Text = "Items In Current View";
                 templateCurrentView.Description = "Zip and Download All Items";
                 templateCurrentView.ID = "menuCurrentView";
-                templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);                
-                
-                child.Controls.Add(templateCurrentView);                
+                templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
+
+                child.Controls.Add(templateCurrentView);
                 this.Controls.Add(child);
             }
         }
@@ -45,6 +46,17 @@ namespace HPF.CustomActions
         private void mnuListItemCurrentView_OnPostBack(object sender, EventArgs e)
         {
             this.GetListItems(SPContext.Current.List.ID, false, true);
+        }
+        #endregion
+
+        #region "Properties"
+        public SPView MetaDataView
+        {
+            get
+            {
+                SPView view = SPContext.Current.ViewContext.View;
+                return view;
+            }
         }
         #endregion
 
@@ -83,7 +95,7 @@ namespace HPF.CustomActions
                 SPFile file = item.File;
                 if (file != null)
                 {
-                    byte[] bytFile = file.OpenBinary();                    
+                    byte[] bytFile = file.OpenBinary();
                     string serverRelativeUrl = file.ServerRelativeUrl.Remove(0, 1);
                     string fileUrl = serverRelativeUrl.Substring(serverRelativeUrl.IndexOf("/") + 1).Replace(file.Name, "").Replace("/", @"\");
                     if (!string.IsNullOrEmpty(fileUrl))
@@ -91,35 +103,32 @@ namespace HPF.CustomActions
                         Directory.CreateDirectory(path + fileUrl);
                     }
                     string qualifiedFileName = path + fileUrl + file.Name;
-                    this.WriteToFile(bytFile, qualifiedFileName);
-                    if (IncludeVersions && list.EnableVersioning)
-                    {
-                        foreach (SPFileVersion version in file.Versions)
-                        {
-                            if (!version.IsCurrentVersion)
-                            {
-                                byte[] bufferForVersion = version.OpenBinary();
-                                string qualifiedName = qualifiedFileName.Substring(0, qualifiedFileName.LastIndexOf("."));
-                                string ver = qualifiedFileName.Substring(qualifiedFileName.LastIndexOf(".") + 1);
-                                string finalFileName = qualifiedName + "(" + version.VersionLabel + ")." + ver;
-                                this.WriteToFile(bufferForVersion, finalFileName);
-                            }
-                        }
-                        continue;
-                    }
 
                     UpdateReviewStatus(file.Item);
+
+                    this.WriteToFile(bytFile, qualifiedFileName, file.Item);
                 }
             }
             string outputPathAndFile = randomFileName + ".zip";
             ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty);
-            string fileName = String.Format("{0}_{1}.zip", list.Title, DateTime.Now.ToFileTime());
 
-            ArchiveFiles(path + outputPathAndFile, fileName, string.Format(DownloadAppSettings.ArchiveListName, list.Title));
+            string[] names = HttpContext.Current.User.Identity.Name.Split(new char[] { '\\', ':' });
+            string loginName = HttpContext.Current.User.Identity.Name;
+            if (names.Length > 1)
+            {
+                loginName = names[1];
+            }
 
-            PushFileToDownload(path + outputPathAndFile, fileName);
-        }        
-        
+            //DocumentLibraryTitle-USERNAME_MMDDYYYY
+            string newFileName = String.Format("{0}-{1}_{2}.zip",
+                list.Title, loginName,
+                DateTime.Now.ToString("MMddyyyy"));
+
+            ArchiveFiles(path + outputPathAndFile, newFileName, string.Format(DownloadAppSettings.ArchiveListName, list.Title));
+
+            PushFileToDownload(path + outputPathAndFile, newFileName);
+        }
+
         /// <summary>
         /// Put file to download
         /// </summary>
@@ -136,11 +145,17 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.End();
         }
 
-        private bool WriteToFile(byte[] bytFile, string QualifiedFileName)
+        private bool WriteToFile(byte[] bytFile, string QualifiedFileName, SPListItem listItem)
         {
             FileStream stream = new FileStream(QualifiedFileName, FileMode.OpenOrCreate, FileAccess.Write);
             stream.Write(bytFile, 0, bytFile.Length);
             stream.Close();
+
+
+            SPSecurity.RunWithElevatedPrivileges(delegate()
+            {
+                WriteMetaDataAndDelete(QualifiedFileName, listItem);
+            });
             return true;
         }
 
@@ -174,16 +189,32 @@ namespace HPF.CustomActions
         private void ArchiveFiles(string filePath, string fileName, string archiveListPath)
         {
             SPSecurity.RunWithElevatedPrivileges(delegate()
-            {
+            {   
                 FileStream zipFileStream = null;
                 try
                 {
-                    SPDocumentLibrary spDocLib = (SPDocumentLibrary)SPContext.Current.Web.Lists[archiveListPath];
-
-                    if (spDocLib != null)
-                    {
+                    SPWeb sourceWeb = SPContext.Current.Web;
+                    SPDocumentLibrary spArchiveLibrary = (SPDocumentLibrary)sourceWeb.Lists[archiveListPath];
+                    
+                    if (spArchiveLibrary != null)
+                    {   
+                        SPFolder folder = spArchiveLibrary.RootFolder;
+                        if(!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
+                        {
+                            string archiveFolder = Page.Request.QueryString["RootFolder"].Replace(SPContext.Current.List.RootFolder.ServerRelativeUrl,
+                                spArchiveLibrary.RootFolder.ServerRelativeUrl);
+                            folder = EnsureSPFolder(sourceWeb, archiveFolder);
+                        }
+                        
                         zipFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                        SPFile returnSPFile = spDocLib.RootFolder.Files.Add(spDocLib.RootFolder.ServerRelativeUrl + @"\" + fileName, zipFileStream);
+                        try
+                        {
+                            if (folder.Files[fileName] != null) { folder.Files[fileName].Delete(); }
+                        }
+                        catch { }
+
+                        SPFile returnSPFile = folder.Files.Add(
+                            fileName, zipFileStream);
                     }
                 }
                 catch { }
@@ -194,6 +225,102 @@ namespace HPF.CustomActions
                 }
             });
         }
+
+        /// <summary>
+        /// Write metadata to file and delete it
+        /// </summary>
+        /// <param name="qualifiedFileName"></param>
+        /// <param name="item"></param>
+        private void WriteMetaDataAndDelete(string qualifiedFileName, SPListItem spListItem)
+        {
+            try
+            {
+                OleDocumentPropertiesClass document = new OleDocumentPropertiesClass();
+                document.Open(qualifiedFileName, false, dsoFileOpenOptions.dsoOptionOpenReadOnlyIfNoWriteAccess);            
+
+                object value;
+                foreach (string field in this.MetaDataView.ViewFields)
+                {
+                    try
+                    {
+                        value = Convert.ToString(spListItem[field]);
+                        try
+                        {
+                            if (document.CustomProperties[field.Replace("_x0020_", "")] != null)
+                            {
+                                document.CustomProperties[field.Replace("_x0020_", "")].set_Value(ref value);
+                            }
+                            else
+                            {
+                                document.CustomProperties.Add(field.Replace("_x0020_", ""), ref value);
+                            }
+                        }
+                        catch 
+                        {
+                            document.CustomProperties.Add(field.Replace("_x0020_", ""), ref value);
+                        }
+                                               
+                        
+                    }
+                    catch { }
+                }
+                try
+                {
+                    value = spListItem.ContentType.Name;
+                    document.CustomProperties.Add("ContentType", ref value);
+                }
+                catch { }
+            
+                document.Save();
+                document.Close(true);
+            }
+            catch { }
+
+            //check if review status was updated, delete it
+            bool delete = false;
+            try
+            {
+                SPField reviewStatusField = spListItem.Fields.GetField(DownloadAppSettings.ReviewStatusField);
+                if (reviewStatusField != null &&
+                    spListItem[reviewStatusField.Id] != null &&
+                    spListItem[reviewStatusField.Id].ToString() == DownloadAppSettings.ReviewStatusDownloadValue)
+                {
+                    delete = true;
+                }
+            }
+            catch { }
+            if (delete)
+            {
+                spListItem.Delete();
+            }
+        }
+
+        /// <summary>
+        /// Ensure SharePoint folder if exists
+        /// </summary>
+        /// <param name="sourceWeb"></param>
+        /// <param name="docUrl"></param>
+        /// <param name="folderPath"></param>
+        /// <returns></returns>
+        private SPFolder EnsureSPFolder(SPWeb sourceWeb, string folderPath)
+        {
+            SPFolder folder = sourceWeb.GetFolder(folderPath);
+            
+            if (folder.Exists) { return folder; }
+            string tmpPath = "";
+            string[] folders = folderPath.Split(new Char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            for (int i = 1; i < folders.Length; i++)
+            {
+                tmpPath += folders[i] + "/";
+                
+                if (!sourceWeb.GetFolder(tmpPath).Exists)
+                {
+                    folder = sourceWeb.Folders.Add(tmpPath);
+                }
+            }
+            return folder;
+        }
         #endregion
-    }    
+    }
 }

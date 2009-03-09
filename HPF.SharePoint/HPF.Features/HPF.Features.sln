@@ -10,11 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zip Library", "Zip Library"
 		Zip Library\ICSharpCode.SharpZipLib.dll = Zip Library\ICSharpCode.SharpZipLib.dll
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DSO Library", "DSO Library", "{A1C36D50-D753-4C7A-BC0A-93464709D178}"
+	ProjectSection(SolutionItems) = preProject
+		DSO Library\Interop.Dsofile.dll = DSO Library\Interop.Dsofile.dll
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -33,5 +34,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal

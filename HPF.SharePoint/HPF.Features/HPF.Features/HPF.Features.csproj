@@ -44,6 +44,9 @@
     <None Include="Properties\HPF.Features.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\DSO Library\Interop.Dsofile.dll">
+      <Link>Interop.Dsofile.dll</Link>
+    </Content>
     <Content Include="..\HPF.CustomActions\bin\Debug\HPF.CustomActions.dll">
       <Link>HPF.CustomActions.dll</Link>
     </Content>
