@@ -65,7 +65,7 @@
         <td class="sidelinks" align="right">
             Payment Comments:</td>
         <td colspan="3">
-            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="4" TextMode="MultiLine" Width="100%"  ReadOnly="true" ></asp:TextBox>
+            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="4" TextMode="MultiLine" Width="100%" ></asp:TextBox>
         </td>
        
         <td>

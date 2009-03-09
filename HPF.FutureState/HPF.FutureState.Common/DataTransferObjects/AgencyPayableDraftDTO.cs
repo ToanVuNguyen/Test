@@ -33,6 +33,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             }
         }
         public string StatusCode { get; set; }
+        public string PaymentComment { get; set; }
         public ForeclosureCaseDraftDTOCollection ForclosureCaseDrafts { get; set; }
     }
 }

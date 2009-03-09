@@ -194,6 +194,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     //agencyPayableDraftDTO.TotalAmount = double.Parse(lblTotalAmount.Text.ToString());
                     agencyPayableDraftDTO.TotalAmount = this.agencyPayableDraft.TotalAmount;
                     agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
+                    agencyPayableDraftDTO.PaymentComment = txtComment.Text;
                     agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
                     Response.Redirect("AgencyPayable.aspx");

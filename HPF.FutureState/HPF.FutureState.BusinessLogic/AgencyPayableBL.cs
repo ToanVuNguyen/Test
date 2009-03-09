@@ -47,6 +47,7 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.AgencyPayablePaymentAmount = agencyPayableDraft.TotalAmount;
                 agencyPayable.StatusCode = agencyPayableDraft.StatusCode;
                 agencyPayable.PaymentDate = DateTime.Now;
+                agencyPayable.PaymentComment = agencyPayableDraft.PaymentComment;
                 int agencyPayableId = 0;
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable).Value;
                 //Insert Acency Payable Case
