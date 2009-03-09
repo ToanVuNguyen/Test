@@ -723,7 +723,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0683, "An invoice payment must be selected in order to view or edit it.");
                 errorMessageDict.Add(WARN0684, "No invoice payments were found that match your search criteria.");
 
-                errorMessageDict.Add(ERR0701, "Audit date must be in the range [1-1-1753, 12-31-9999].");
+                errorMessageDict.Add(ERR0701, "An Audit Date is required to save an audit record.");
                 errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
                 errorMessageDict.Add(ERR0703, "Follow-Up Date is required to save the case.");
                 errorMessageDict.Add(ERR0704, "Follow-Up Source is required to save the case.");
