@@ -9,8 +9,14 @@
 
 <table style="width:100%;">
     <tr>
-        <td align="center" colspan="6">
+        <td align="center" colspan="5">
             <h1>Funding Source Invoices</h1>
+            
+        </td>
+        <td align="center" rowspan="3">
+            <img alt="" src="Styles/Images/HPFLogo.jpg" 
+                style="width: 55px; height: 55px" /><br />
+            <asp:LinkButton ID="lblPortal" runat="server">Invoices on Portal</asp:LinkButton>
             
         </td>
     </tr>
@@ -26,11 +32,6 @@
             Period Start*:</td>
         <td colspan="2">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
-        </td>
-        <td rowspan="4" align="center" style="vertical-align: top">
-            <img alt="" src="Styles/Images/HPFLogo.jpg" 
-                style="width: 55px; height: 55px" /><br />
-            <asp:LinkButton ID="lblPortal" runat="server">Invoices on Portal</asp:LinkButton>
         </td>
     </tr>
     <tr>
@@ -53,12 +54,16 @@
             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
+        <td align="center" style="vertical-align: top">
+            &nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks" colspan="5">
             <asp:Label ID="lblInvoiceList" runat="server" Text="Invoice List:" 
                 Visible="False"></asp:Label>
         </td>
+        <td align="center" style="vertical-align: top">
+            &nbsp;</td>
     </tr>
     <tr>
         <td colspan="5" rowspan="17">
