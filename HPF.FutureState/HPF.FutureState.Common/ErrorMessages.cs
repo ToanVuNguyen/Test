@@ -679,8 +679,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0577, "At least one case must be selected in order to pay or unpay the case.");
                 errorMessageDict.Add(WARN0578, "will be update soon");
                 errorMessageDict.Add(ERR0579, "An Agency is required to search for Payables.");
-                errorMessageDict.Add(ERR0580, "A Period Start date is required to search for Payables.");
-                errorMessageDict.Add(ERR0581, "A Period End date is required to search for Payables.");
+                errorMessageDict.Add(ERR0580, "A valid Period Start date is required to search for Payables.");
+                errorMessageDict.Add(ERR0581, "A valid Period End date is required to search for Payables.");
                 errorMessageDict.Add(ERR0582, "All selected cases must be NFMC Eligible to have a NFMC Upcharge applied.");
                 //
                 errorMessageDict.Add(ERR0584, "An agency account payable must be selected in order to cancel it.");
