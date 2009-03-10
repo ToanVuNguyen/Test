@@ -198,6 +198,7 @@ namespace HPF.FutureState.Common
         public const string ERR0372 = "ERR0372";
         public const string ERR0373 = "ERR0373";
         public const string ERR0374 = "ERR0374";
+        public const string ERR0378 = "ERR0378";
         public const string ERR0390 = "ERR0390";
         public const string ERR0391 = "ERR0391";
         public const string ERR0392 = "ERR0392";
@@ -600,6 +601,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0372, "HomeownerInd has a maximum length of 1 character.");
                 errorMessageDict.Add(ERR0373, "PowerOfAttorneyInd has a maximum length of 1 character.");
                 errorMessageDict.Add(ERR0374, "AuthorizedInd has a maximum length of 1 character.");
+                errorMessageDict.Add(ERR0378, "At least one search criteria is required.");
                 errorMessageDict.Add(ERR0390, "City has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0391, "State has a maximum length of 2 characters.");
                 errorMessageDict.Add(ERR0392, "NonProfitReferralKeyNum1 has a maximum length of 10 characters.");
