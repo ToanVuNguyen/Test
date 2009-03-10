@@ -185,7 +185,7 @@
                                     <Columns>
                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                             <HeaderTemplate>
-                                                <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck" AutoPostBack="true" />
+                                                <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck" AutoPostBack="true"  />
                                             </HeaderTemplate>
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="chkSelected" runat="server" OnCheckedChanged="chkSelected" AutoPostBack="true"/>
@@ -232,6 +232,7 @@
                         </tr>
                     </table>
                     <asp:HiddenField ID="hidIsSelected" runat="server" Value="" />
+                    <asp:HiddenField ID="hidPayUnpayCheck" runat="server" Value="" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </cc1:StatefullScrollPanel>
@@ -256,17 +257,20 @@
         <script language="javascript" type="text/javascript">
             var id = '<%=hidIsSelected.ClientID %>';
             function TakeBackReason() {
-                SelectedCase = document.getElementById(id);
-                if (SelectedCase.value != '') {
+                  SelectedCase = document.getElementById(id);
+                 
+                if (SelectedCase.value!='') {
                     confirm('WARN576-Are you sure you wish to takeback the selected case(s)?');
                 }
+                else return false;
              };
              function PayUnpay() {
                  SelectedCase = document.getElementById(id);
-                 if (SelectedCase.value != '')
-                 {
-                 confirm('WARN578-Are you sure you wish to pay/unpay the selected case(s)?');
+                 PayUnpayCheck = document.getElementById(payunpaycheck);
+                 if (SelectedCase.value != '')  {
+                     confirm('WARN578-Are you sure you wish to pay/unpay the selected case(s)?');
                  }
+                 else return false;
              };
         </script>
 

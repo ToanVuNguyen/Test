@@ -24,17 +24,18 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             ApplySecurity();
             bulErrorMessage.Items.Clear();
-            
 
-            
+
+
             if (!IsPostBack)
             {
-                //string selectedcase = GetSelectedRow();
+                string selectedcase = GetSelectedRow();
                 //if (string.IsNullOrEmpty(selectedcase))
-                //    hidIsSelected.Value = "";
-                btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
-                btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
-
+                string value = hidIsSelected.Value;
+                //btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
+                //btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
+                //btnPayUnpayMarkCase.Click += new EventHandler(btnPayUnpayMarkCase_Click);
+                //btnTakeBackMarkCase.Click += new EventHandler(btnTakeBackMarkCase_Click);
                 BindTakebackReasonDropDownList();
                 BindViewEditPayable();
             }
@@ -92,6 +93,7 @@ namespace HPF.FutureState.Web.AppNewPayable
 
         protected void chkCheckAllCheck(object sender, EventArgs e)
         {
+            bulErrorMessage.Items.Clear();
             CheckBox headerCheckbox = (CheckBox)sender;
             foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
             {
@@ -102,11 +104,35 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
             }
             hidIsSelected.Value = GetSelectedRow();
-
+            if (hidIsSelected.Value != "")
+            {
+                btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
+                if (hidPayUnpayCheck.Value != "-1")
+                    btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
+            }
+            else
+            {
+                btnTakeBackMarkCase.Attributes.Clear();
+                btnPayUnpayMarkCase.Attributes.Clear();
+            }
         }
         protected void chkSelected(object sender, EventArgs e)
         {
+            bulErrorMessage.Items.Clear();
             hidIsSelected.Value = GetSelectedRow();
+            if (hidIsSelected.Value != "")
+            {
+                btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
+                if (hidPayUnpayCheck.Value != "-1")
+
+                    btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
+            }
+            else
+            {
+                btnTakeBackMarkCase.Attributes.Clear();
+                btnPayUnpayMarkCase.Attributes.Clear();
+
+            }
         }
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
@@ -114,6 +140,12 @@ namespace HPF.FutureState.Web.AppNewPayable
             string payableCaseIdCollection = GetSelectedRow();
             hidIsSelected.Value = payableCaseIdCollection;
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
+            if (hidPayUnpayCheck.Value == "-1")
+            {
+                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
+                hidPayUnpayCheck.Value = "";
+                return;
+            }
             if (payableCaseIdCollection == null)
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0577"));
@@ -171,8 +203,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                         result += agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ",";
                         if (agencyPayableSet.PayableCases[row.DataItemIndex].NFMCDifferenceEligibleInd == "N")
                         {
-                            bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
-                            return null;
+                            hidPayUnpayCheck.Value = "-1";
                         }
                     }
             }
