@@ -15,6 +15,8 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common;
+using HPF.FutureState.Common.Utils;
+using System.Text;
 
 namespace HPF.FutureState.Web.AppNewInvoice
 {
@@ -36,14 +38,14 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     try
                     {
                         invoiceDraft = InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
+                        Session["invoiceDraft"] = invoiceDraft;
+                        InvoiceDraftDataBind();
                     }
                     catch (DataException ex)
                     {
                         lblErrorMessage.Items.Add(new ListItem(ex.Message));
                         ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
                     }
-                    Session["invoiceDraft"] = invoiceDraft;
-                    InvoiceDraftDataBind();
                 }
                 else
                     if (Session["invoiceDraft"] != null)
@@ -85,6 +87,11 @@ namespace HPF.FutureState.Web.AppNewInvoice
             lblTotalAmount.Text = invoiceDraft.TotalAmount.ToString("C");
             grvNewInvoiceResults.DataSource = invoiceDraft.ForeclosureCaseDrafts;
             grvNewInvoiceResults.DataBind();
+            if (invoiceDraft.ForeclosureCaseDrafts == null)
+            {
+                btnGenerateInvoice.Enabled = false;
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0987)));
+            }
         }
 
         protected void grvNewInvoiceResults_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -132,27 +139,105 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void btnGenerateInvoice_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            if (invoiceDraft.ForeclosureCaseDrafts==null||invoiceDraft.ForeclosureCaseDrafts.Count == 0)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0987)));
-                return;
-            }
             try
             {
-                invoiceDraft.InvoiceComment = txtComment.Text;
-                invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                //insert invoice to the database
-                InvoiceBL.Instance.InsertInvoice(invoiceDraft);
+                //Insert Invoice
+                InvoiceDTO invoice = InsertInvoice();
+
+                FundingSourceDTO fundingSource = GetFundingSource(invoice.FundingSourceId.Value);
+
+                //Generate Report
+                //byte[] excelFile = GenerateReport(invoice,fundingSource.ExportFormatCd);
+                //Upload Report
+                //UploadReport(invoice, excelFile,fundingSource);
+
                 Response.Redirect("FundingSourceInvoice.aspx");
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            { 
+                //todo: implement exception message here
+            }
+        }
+        #region InsertInvoice/CreateReport/SendReport
+        private void UploadReport(InvoiceDTO invoice, byte[] excelFile,FundingSourceDTO fundingSource)
+        {
+            try
+            {
+                
+                string fileName = GetExcelFileName(fundingSource, invoice);
+                HPFPortalInvoice portalInvoice = GetPortalInvoice(invoice, excelFile, fundingSource, fileName);
+                HPFPortalGateway.SendInvoiceExcelFile(portalInvoice);
+            }
+            catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
-            
         }
 
+        private byte[] GenerateReport(InvoiceDTO invoice,string fundingSourceFormatCode)
+        {
+            byte[] excelFile = null;
+            try
+            {
+                excelFile = ReportBL.Instance.InvoiceExcelReport(invoice.InvoiceId.Value,fundingSourceFormatCode);
+
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
+            }
+            return excelFile;
+        }
+
+        private InvoiceDTO InsertInvoice()
+        {
+                //insert invoice to the database
+            invoiceDraft.InvoiceComment = txtComment.Text;
+            invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            return InvoiceBL.Instance.InsertInvoice(invoiceDraft);
+        }
+        #endregion
+        #region GetMethods
+        string GetExcelFileName(FundingSourceDTO fundingSource, InvoiceDTO invoice)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append(fundingSource.FundingSourceAbbrev);
+            result.Append("_");
+            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
+            result.Append("_");
+            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
+            result.Append("_HPF_INV#");
+            result.Append(invoice.InvoiceId.ToString());
+            result.Append("_DETAIL.xls");
+            return result.ToString();
+        }
+        FundingSourceDTO GetFundingSource(int fundingSourceId)
+        {
+            var fundingSourceCollection= LookupDataBL.Instance.GetFundingSource();
+            foreach (var i in fundingSourceCollection)
+                if (i.FundingSourceID == fundingSourceId)
+                    return i;
+            return null;
+        }
+        HPFPortalInvoice GetPortalInvoice(InvoiceDTO invoice,byte[] excelFile,FundingSourceDTO fundingSource,string fileName)
+        {
+            HPFPortalInvoice result = new   HPFPortalInvoice 
+                                            {
+                                                File = excelFile,
+                                                FundingSource = fundingSource.FundingSourceName,
+                                                InvoiceDate = invoice.InvoiceDate,
+                                                InvoiceFolderName =  fundingSource.SharePointFolder,
+                                                InvoiceNumber = invoice.InvoiceId.ToString(),
+                                                Month = string.Format("{0:MMM}",invoice.InvoiceDate.Value),
+                                                Year = invoice.InvoiceDate.Value.Year,
+                                                FileName = fileName
+                                            };
+            return result;
+        }
+        #endregion
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("CreateNewInvoice.aspx");

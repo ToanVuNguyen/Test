@@ -112,6 +112,56 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_COUNSELINGSUMMARY_REPORT"];
             }
 
+        }
+        public static string HPF_INVOICE_EXPORT_FIS_HEADER_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_FIS_HEADER_REPORT"];
+            }
+
+        }
+
+        public static string HPF_INVOICE_EXPORT_FIS_DETAIL_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_FIS_DETAIL_REPORT"];
+            }
+
+        }
+
+        public static string HPF_INVOICE_EXPORT_HPFSTD_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_HPFSTD_REPORT"];
+            }
+
+        }
+        public static string HPF_INVOICE_EXPORT_HSBC_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_HSBC_REPORT"];
+            }
+
+        }
+        public static string HPF_INVOICE_EXPORT_ICLEAR_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_ICLEAR_REPORT"];
+            }
+
+        }
+        public static string HPF_INVOICE_EXPORT_NFMC_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_NFMC_REPORT"];
+            }
+
         }        
    
         public static string MapReportPath(string virtualPath)

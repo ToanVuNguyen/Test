@@ -12,12 +12,12 @@
     <tr>
         <td align="right" class="sidelinks" width="15%">
             Funding Source:</td>
-        <td >
+        <td style="vertical-align: top" >
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="right" class="sidelinks" >
             Total Cases:</td>
-        <td >
+        <td style="vertical-align: top" >
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="center" >
@@ -26,12 +26,12 @@
     <tr>
         <td align="right" class="sidelinks">
             Period Start:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:Label ID="lblPeriodStart" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="right" class="sidelinks">
             Total Amount:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:Label ID="lblTotalAmount" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td align="center">
@@ -43,7 +43,7 @@
     <tr>
         <td align="right" class="sidelinks">
             Period End:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:Label ID="lblPeriodEnd" runat="server" CssClass="Text"></asp:Label>
         </td>
         <td colspan="3" align="center">

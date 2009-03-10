@@ -234,6 +234,7 @@
     <Compile Include="Utils\Exceptions\HPFException.cs" />
     <Compile Include="Utils\Exceptions\HPFTextExceptionFormatter.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
+    <Compile Include="Utils\HPFPortalInvoice.cs" />
     <Compile Include="Utils\HPFSendMail.cs" />
     <Compile Include="Utils\HPFPortalGateway.cs" />
     <Compile Include="Utils\HPFPortalCounselingSummary.cs" />

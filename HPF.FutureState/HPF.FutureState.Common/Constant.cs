@@ -72,6 +72,13 @@ namespace HPF.FutureState.Common
         public const string REF_CODE_SET_NEVER_PAY_REASON_CODE = "never pay reason code";
         public const string REF_CODE_SET_PAYMENT_CODE = "payment code";
 
+        public const string REF_CODE_SET_BILLING_EXPORT_FIS_CODE = "FIS";
+        public const string REF_CODE_SET_BILLING_EXPORT_ICLEAR_CODE = "ICLEAR";
+        public const string REF_CODE_SET_BILLING_EXPORT_NFMC_CODE = "NFMC";
+        public const string REF_CODE_SET_BILLING_EXPORT_HPFSTD_CODE = "HPFSTD";
+        public const string REF_CODE_SET_BILLING_EXPORT_HSBC_CODE = "HSBC";
+
+
         //
         public const int HPF_QUEUE_READING_TIMEOUT = 10;//Seconds
         public const string HPF_QUEUE_PATH = @".\Private$\HPFSummaryQueue";

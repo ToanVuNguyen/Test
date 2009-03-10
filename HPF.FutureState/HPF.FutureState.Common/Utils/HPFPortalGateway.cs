@@ -31,5 +31,22 @@ namespace HPF.FutureState.Common.Utils
                 Logger.Write(result.Error.Message, "General");
 
         }
+        public static void SendInvoiceExcelFile(HPFPortalInvoice invoice)
+        {
+            var invoiceInfo = new   InvoiceInfo
+                                    {
+                                        Date = invoice.InvoiceDate,
+                                        File = invoice.File,
+                                        FundingSource = invoice.FundingSource,
+                                        InvoiceNumber = invoice.InvoiceNumber,
+                                        Month = invoice.Month,
+                                        Name = invoice.FileName,
+                                        Year = invoice.Year
+                                    };
+            string spFolderName = invoice.InvoiceFolderName;
+            var result = DocumentCenterController.Upload(invoiceInfo, spFolderName);
+            if (!result.Successful)
+                Logger.Write(result.Error.Message, "General");
+        }
     }
 }

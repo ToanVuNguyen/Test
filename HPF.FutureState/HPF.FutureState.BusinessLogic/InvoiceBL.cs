@@ -48,7 +48,7 @@ namespace HPF.FutureState.BusinessLogic
         /// InsertInvoice and Invoice-Case to the database
         /// </summary>
         /// <param name="invoiceDraft">InvoiceDraft contains Invoice and Invoice Case info</param>
-        public void InsertInvoice(InvoiceDraftDTO invoiceDraft)
+        public InvoiceDTO InsertInvoice(InvoiceDraftDTO invoiceDraft)
         {
 
             try
@@ -90,7 +90,7 @@ namespace HPF.FutureState.BusinessLogic
                     invoiceDAO.InsertInvoiceCase(invoiceCase);
                 }
                 CompleteTransaction();
-                
+                return invoice;
             }
             catch (Exception ex)
             {
