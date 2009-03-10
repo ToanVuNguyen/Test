@@ -280,10 +280,8 @@ namespace HPF.FutureState.BusinessLogic
                 string.IsNullOrEmpty(searchCriteria.LastName) &&
                 string.IsNullOrEmpty(searchCriteria.LoanNumber) &&
                 string.IsNullOrEmpty(searchCriteria.PropertyZip))
-            {
-                string errorCode = "ERROR";
-                string errorMess = "At least one search criteria option is required";
-                dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
+            {                
+                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0378, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0378));
             }
         }
 
