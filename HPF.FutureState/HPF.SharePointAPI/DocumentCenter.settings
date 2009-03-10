@@ -15,10 +15,10 @@
       <Value Profile="(Default)">http://litwaredemo</Value>
     </Setting>
     <Setting Name="InvoiceLoginName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">LITWAREINC\user1</Value>
+      <Value Profile="(Default)">LITWAREINC\Administrator</Value>
     </Setting>
     <Setting Name="AccountPayableLoginName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">LITWAREINC\user1</Value>
+      <Value Profile="(Default)">LITWAREINC\Administrator</Value>
     </Setting>
     <Setting Name="DocumentCenterWeb" Type="System.String" Scope="Application">
       <Value Profile="(Default)">DocumentCenter</Value>

@@ -61,7 +61,7 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\user1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
         public string InvoiceLoginName {
             get {
                 return ((string)(this["InvoiceLoginName"]));
@@ -70,7 +70,7 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\user1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
         public string AccountPayableLoginName {
             get {
                 return ((string)(this["AccountPayableLoginName"]));

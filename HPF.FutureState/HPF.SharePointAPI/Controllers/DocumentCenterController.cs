@@ -12,64 +12,67 @@ namespace HPF.SharePointAPI.Controllers
     public static class DocumentCenterController
     {        
         #region "counseling Summary"
-        public static IList<ResultInfo<CounselingSummaryInfo>> Upload(IList<CounselingSummaryInfo> counselingSummaryList)
+        public static IList<ResultInfo<CounselingSummaryInfo>> Upload(IList<CounselingSummaryInfo> counselingSummaryList, string spFolderName)
         {
             IList<ResultInfo<CounselingSummaryInfo>> results = UploadSPFiles(
                 DocumentCenter.Default.CounselingSummaryLoginName,
                 counselingSummaryList, 
-                DocumentCenter.Default.CounselingSummary, 
+                DocumentCenter.Default.CounselingSummary,
+                spFolderName,
                 UpdateCounselingSummaryInfo);
             
             return results;
         }
 
-        public static ResultInfo<CounselingSummaryInfo> Upload(CounselingSummaryInfo counselingSummary)
+        public static ResultInfo<CounselingSummaryInfo> Upload(CounselingSummaryInfo counselingSummary, string spFolderName)
         {   
             List<CounselingSummaryInfo> counselingSummaryList = new List<CounselingSummaryInfo>();
             counselingSummaryList.Add(counselingSummary);
-            IList<ResultInfo<CounselingSummaryInfo>> results = Upload(counselingSummaryList);
+            IList<ResultInfo<CounselingSummaryInfo>> results = Upload(counselingSummaryList, spFolderName);
         
             return results[0];            
         }
         #endregion
 
         #region "Invoice"
-        public static IList<ResultInfo<InvoiceInfo>> Upload(IList<InvoiceInfo> invoiceList)
+        public static IList<ResultInfo<InvoiceInfo>> Upload(IList<InvoiceInfo> invoiceList, string spFolderName)
         {
             IList<ResultInfo<InvoiceInfo>> results = UploadSPFiles(
                 DocumentCenter.Default.InvoiceLoginName,
                 invoiceList, 
                 DocumentCenter.Default.Invoice, 
+                spFolderName,
                 UpdateInvoiceInfo);
             return results;
         }
 
-        public static ResultInfo<InvoiceInfo> Upload(InvoiceInfo invoice)
+        public static ResultInfo<InvoiceInfo> Upload(InvoiceInfo invoice, string spFolderName)
         {
             List<InvoiceInfo> invoiceList = new List<InvoiceInfo>();
             invoiceList.Add(invoice);
-            IList<ResultInfo<InvoiceInfo>> results = Upload(invoiceList);
+            IList<ResultInfo<InvoiceInfo>> results = Upload(invoiceList, spFolderName);
 
             return results[0];
         }
         #endregion
 
         #region "Account Payable"
-        public static IList<ResultInfo<AccountPayableInfo>> Upload(IList<AccountPayableInfo> accountPayableList)
+        public static IList<ResultInfo<AccountPayableInfo>> Upload(IList<AccountPayableInfo> accountPayableList, string spFolderName)
         {
             IList<ResultInfo<AccountPayableInfo>> results = UploadSPFiles(
                 DocumentCenter.Default.AccountPayableLoginName,
                 accountPayableList, 
                 DocumentCenter.Default.AccountPayable, 
+                spFolderName,
                 UpdateAccountPayableInfo);
             return results;
         }
 
-        public static ResultInfo<AccountPayableInfo> Upload(AccountPayableInfo accountPayable)
+        public static ResultInfo<AccountPayableInfo> Upload(AccountPayableInfo accountPayable, string spFolderName)
         {
             List<AccountPayableInfo> accountPayableList = new List<AccountPayableInfo>();
             accountPayableList.Add(accountPayable);
-            IList<ResultInfo<AccountPayableInfo>> results = Upload(accountPayableList);
+            IList<ResultInfo<AccountPayableInfo>> results = Upload(accountPayableList, spFolderName);
             return results[0];
         }
         #endregion
@@ -84,7 +87,7 @@ namespace HPF.SharePointAPI.Controllers
         /// <param name="listName"></param>
         /// <param name="action"></param>
         /// <returns></returns>
-        private static IList<ResultInfo<T>> UploadSPFiles<T>(string userName, IList<T> items, string listName, UpdateSPListItem<T> action) where T:BaseObject
+        private static IList<ResultInfo<T>> UploadSPFiles<T>(string userName, IList<T> items, string listName, string spFolderName, UpdateSPListItem<T> action) where T:BaseObject
         {
             List<ResultInfo<T>> results = new List<ResultInfo<T>>();
 
@@ -98,7 +101,11 @@ namespace HPF.SharePointAPI.Controllers
                 
                 web.AllowUnsafeUpdates = true;                
                 SPDocumentLibrary docLib = (SPDocumentLibrary)web.Lists[listName];                
-                SPFolder spFolder = docLib.RootFolder;
+
+                //todo: update SPFolder
+                string folder = docLib.RootFolder + "/" + spFolderName;
+                SPFolder spFolder = EnsureSPFolder(web, folder);
+
                 SPFile spFile;
                 foreach (T item in items)
                 {
@@ -231,6 +238,33 @@ namespace HPF.SharePointAPI.Controllers
                 }
             });
             return token;
+        }
+
+        /// <summary>
+        /// Ensure SharePoint folder if exists
+        /// </summary>
+        /// <param name="sourceWeb"></param>
+        /// <param name="docUrl"></param>
+        /// <param name="folderPath"></param>
+        /// <returns></returns>
+        private static SPFolder EnsureSPFolder(SPWeb sourceWeb, string folderPath)
+        {
+            SPFolder folder = sourceWeb.GetFolder(folderPath);
+
+            if (folder.Exists) { return folder; }
+            string tmpPath = "";
+            string[] folders = folderPath.Split(new Char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < folders.Length; i++)
+            {
+                tmpPath += folders[i] + "/";
+
+                if (!sourceWeb.GetFolder(tmpPath).Exists)
+                {
+                    folder = sourceWeb.Folders.Add(tmpPath);
+                }
+            }
+            return folder;
         }
         #endregion
     }
