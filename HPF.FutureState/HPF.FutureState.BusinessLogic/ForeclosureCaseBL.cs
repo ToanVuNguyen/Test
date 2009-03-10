@@ -13,6 +13,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using System.Collections.ObjectModel;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 //using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.BusinessLogic
@@ -102,5 +103,32 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
+        private void ResendToServicer(ForeclosureCaseSetDTO fCaseSetFromAgency)
+        {
+            var fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
+            try
+            {
+                var queue = new HPFSummaryQueue();
+                queue.SendACompletedCaseToQueue(fcId);
+            }
+            catch
+            {
+
+                var QUEUE_ERROR_MESSAGE = "Fail to push completed case to Queue : " + fcId;
+                //Log
+                Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
+                //Send E-mail to support
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = QUEUE_ERROR_MESSAGE
+                };
+                mail.Send();
+                //
+            }
+        }
+
+
     }
 }
