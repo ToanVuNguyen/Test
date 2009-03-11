@@ -103,9 +103,9 @@ namespace HPF.FutureState.BusinessLogic
             }
             throw pe;
         }
-        private void ResendToServicer(ForeclosureCaseSetDTO fCaseSetFromAgency)
+        public void ResendToServicer(ForeclosureCaseDTO foreclosureCase)
         {
-            var fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
+            var fcId = foreclosureCase.FcId;
             try
             {
                 var queue = new HPFSummaryQueue();
