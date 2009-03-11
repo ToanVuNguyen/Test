@@ -123,6 +123,21 @@ namespace HPF.FutureState.Web.InvoicePayments
             exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
             return exMes;
         }
+        DateTime SetToStartDay(DateTime t)
+        {
+            t = t.AddHours(-t.Hour);
+            t = t.AddMinutes(-t.Minute);
+            t = t.AddSeconds(-t.Second);
+            t = t.AddMilliseconds(-t.Millisecond);
+            return t;
+        }
+        DateTime SetToEndDay(DateTime t)
+        {
+            t = SetToStartDay(t);
+            t = t.AddDays(1);
+            t = t.AddMilliseconds(-1);
+            return t;
+        }
         /// <summary>
         /// Get or throw exception if there's any datavalidation error.
         /// </summary>
@@ -145,6 +160,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 {
                     
                     searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+                    searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
                     if (searchCriteria.PeriodStart.Year < 1753)
                         throw (new Exception());
                 }
@@ -164,6 +180,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 try
                 {
                     searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+                    searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
                     if (searchCriteria.PeriodEnd.Year < 1753)
                         throw (new Exception());
                 }

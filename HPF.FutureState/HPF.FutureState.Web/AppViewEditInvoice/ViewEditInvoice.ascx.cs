@@ -221,7 +221,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         }
         private void PayInvoiceCases()
         {
-            string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Reject);
+            string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Pay);
             if (invoiceCaseIdCollection == null)
             {
                 lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0555);

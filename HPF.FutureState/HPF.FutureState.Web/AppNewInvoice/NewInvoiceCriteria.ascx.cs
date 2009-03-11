@@ -89,6 +89,15 @@ namespace HPF.FutureState.Web.AppNewInvoice
             dropHouseholdCode.Items.FindByValue(searchCriteria.HouseholdCode).Selected = true;
             txtCity.Text = searchCriteria.City;
             dropState.Items.FindByValue(searchCriteria.State).Selected = true;
+            //Restore nonservicer 
+            if (lst_FundingSourceGroup.Enabled == true)
+            {
+                chkFundingAgreement.Checked = searchCriteria.SelectAllServicer;
+                chkNeighborworksRejected.Checked = searchCriteria.NeighborworkRejected;
+                chkServicerFreddie.Checked = searchCriteria.ServicerRejectedFreddie;
+                chkServicerRejected.Checked = searchCriteria.ServicerRejected;
+                chkUnfunded.Checked = searchCriteria.SelectUnfunded;
+            }
         }
         /// <summary>
         /// Follow the business rule on the use-case ,Period Start = now - 1 month,Period End = now 
@@ -314,6 +323,21 @@ namespace HPF.FutureState.Web.AppNewInvoice
             exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
             return exMes;
         }
+        DateTime SetToStartDay(DateTime t)
+        {
+            t=t.AddHours(-t.Hour);
+            t=t.AddMinutes(-t.Minute);
+            t=t.AddSeconds(-t.Second);
+            t=t.AddMilliseconds(-t.Millisecond);
+            return t;
+        }
+        DateTime SetToEndDay(DateTime t)
+        {
+            t = SetToStartDay(t);
+            t=t.AddDays(1);
+            t=t.AddMilliseconds(-1);
+            return t;
+        }
         /// <summary>
         /// Collect Invoice Criteria , if  not success the throw DataValidation Exception
         /// </summary>
@@ -325,18 +349,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.ServicerConsentQty = 1;
             try
             {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-                if (searchCriteria.PeriodEnd.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0563);
-                ex.ExceptionMessages.Add(exMes);
-            }
-            try
-            {
                 searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+                searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
+                //subtract PeriodStart 6 months
+                searchCriteria.PeriodStart = searchCriteria.PeriodStart.AddMonths(-6);
                 if (searchCriteria.PeriodStart.Year < 1753)
                     throw (new Exception());
             }
@@ -345,6 +361,19 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0562);
                 ex.ExceptionMessages.Add(exMes);
             }
+            try
+            {
+                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+                searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
+                if (searchCriteria.PeriodEnd.Year < 1753)
+                    throw (new Exception());
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0563);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            
             //a program is require
             searchCriteria.ProgramId = dropProgram.SelectedValue;
             searchCriteria.FundingSourceId = dropFundingSource.SelectedValue;
