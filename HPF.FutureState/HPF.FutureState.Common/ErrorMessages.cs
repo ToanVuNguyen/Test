@@ -288,6 +288,7 @@ namespace HPF.FutureState.Common
         public const string ERR0580 = "ERR0580";
         public const string ERR0581 = "ERR0581";
         public const string ERR0582 = "ERR0582";
+        public const string WARN0583 = "WARN0583";
         //
         public const string ERR0584 = "ERR0584";
         public const string ERR0585 = "ERR0585";
@@ -330,7 +331,7 @@ namespace HPF.FutureState.Common
         public const string ERR0680 = "ERR0680";
         public const string ERR0681 = "ERR0681";
         public const string ERR0682 = "ERR0682";
-        
+      
         public const string ERR0683 = "ERR0683";
         public const string WARN0684 = "WARN0684";
 
@@ -684,6 +685,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0580, "A valid Period Start date is required to search for Payables.");
                 errorMessageDict.Add(ERR0581, "A valid Period End date is required to search for Payables.");
                 errorMessageDict.Add(ERR0582, "All selected cases must be NFMC Eligible to have a NFMC Upcharge applied.");
+                errorMessageDict.Add(WARN0583, "No payables were found that match your search criteria.");
                 //
                 errorMessageDict.Add(ERR0584, "An agency account payable must be selected in order to cancel it.");
                 errorMessageDict.Add(ERR0585, "An agency account payable must be selected in order to view or edit it.");
