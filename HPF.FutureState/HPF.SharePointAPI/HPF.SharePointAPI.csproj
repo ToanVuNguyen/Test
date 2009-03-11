@@ -44,15 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessEntity\AccountPayableInfo.cs" />
+    <Compile Include="BusinessEntity\AgencyPayableInfo.cs" />
     <Compile Include="BusinessEntity\BaseObject.cs" />
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
     <Compile Include="BusinessEntity\InvoiceInfo.cs" />
     <Compile Include="BusinessEntity\ResultInfo.cs" />
-    <Compile Include="ContentTypes\AccountPayable.Designer.cs">
+    <Compile Include="ContentTypes\AgencyPayable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>AccountPayable.settings</DependentUpon>
+      <DependentUpon>AgencyPayable.settings</DependentUpon>
     </Compile>
     <Compile Include="ContentTypes\CounselingSummary.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -74,9 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="ContentTypes\AccountPayable.settings">
+    <None Include="ContentTypes\AgencyPayable.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>AccountPayable.Designer.cs</LastGenOutput>
+      <LastGenOutput>AgencyPayable.Designer.cs</LastGenOutput>
     </None>
     <None Include="ContentTypes\CounselingSummary.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

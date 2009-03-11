@@ -43,10 +43,10 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Accounts Payable")]
-        public string AccountPayable {
+        [global::System.Configuration.DefaultSettingValueAttribute("Agency Payable")]
+        public string AgencyPayable {
             get {
-                return ((string)(this["AccountPayable"]));
+                return ((string)(this["AgencyPayable"]));
             }
         }
         
@@ -71,9 +71,9 @@ namespace HPF.SharePointAPI {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
-        public string AccountPayableLoginName {
+        public string AgencyPayableLoginName {
             get {
-                return ((string)(this["AccountPayableLoginName"]));
+                return ((string)(this["AgencyPayableLoginName"]));
             }
         }
         

@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HPF.SharePointAPI.ContentTypes" GeneratedClassName="AgencyPayable">
+  <Profiles />
+  <Settings>
+    <Setting Name="Date" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Date</Value>
+    </Setting>
+    <Setting Name="Year" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Year</Value>
+    </Setting>
+    <Setting Name="Month" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Month</Value>
+    </Setting>
+    <Setting Name="AgencyName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Agency Name</Value>
+    </Setting>
+    <Setting Name="PayableDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Payable Date</Value>
+    </Setting>
+    <Setting Name="PayableNumber" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Payable Number</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

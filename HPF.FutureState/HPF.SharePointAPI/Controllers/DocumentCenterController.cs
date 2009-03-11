@@ -57,22 +57,22 @@ namespace HPF.SharePointAPI.Controllers
         #endregion
 
         #region "Account Payable"
-        public static IList<ResultInfo<AccountPayableInfo>> Upload(IList<AccountPayableInfo> accountPayableList, string spFolderName)
+        public static IList<ResultInfo<AgencyPayableInfo>> Upload(IList<AgencyPayableInfo> accountPayableList, string spFolderName)
         {
-            IList<ResultInfo<AccountPayableInfo>> results = UploadSPFiles(
-                DocumentCenter.Default.AccountPayableLoginName,
+            IList<ResultInfo<AgencyPayableInfo>> results = UploadSPFiles(
+                DocumentCenter.Default.AgencyPayableLoginName,
                 accountPayableList, 
-                DocumentCenter.Default.AccountPayable, 
+                DocumentCenter.Default.AgencyPayable, 
                 spFolderName,
-                UpdateAccountPayableInfo);
+                UpdateAgencyPayableInfo);
             return results;
         }
 
-        public static ResultInfo<AccountPayableInfo> Upload(AccountPayableInfo accountPayable, string spFolderName)
+        public static ResultInfo<AgencyPayableInfo> Upload(AgencyPayableInfo accountPayable, string spFolderName)
         {
-            List<AccountPayableInfo> accountPayableList = new List<AccountPayableInfo>();
+            List<AgencyPayableInfo> accountPayableList = new List<AgencyPayableInfo>();
             accountPayableList.Add(accountPayable);
-            IList<ResultInfo<AccountPayableInfo>> results = Upload(accountPayableList, spFolderName);
+            IList<ResultInfo<AgencyPayableInfo>> results = Upload(accountPayableList, spFolderName);
             return results[0];
         }
         #endregion
@@ -89,6 +89,10 @@ namespace HPF.SharePointAPI.Controllers
         /// <returns></returns>
         private static IList<ResultInfo<T>> UploadSPFiles<T>(string userName, IList<T> items, string listName, string spFolderName, UpdateSPListItem<T> action) where T:BaseObject
         {
+            if (String.IsNullOrEmpty(spFolderName.Trim()))
+            {
+                throw new ArgumentNullException("SPFolderName");
+            }
             List<ResultInfo<T>> results = new List<ResultInfo<T>>();
 
             SPUserToken token = GetUploadSPUserToken(userName);
@@ -102,9 +106,9 @@ namespace HPF.SharePointAPI.Controllers
                 web.AllowUnsafeUpdates = true;                
                 SPDocumentLibrary docLib = (SPDocumentLibrary)web.Lists[listName];                
 
-                //todo: update SPFolder
+                //get SPFolder
                 string folder = docLib.RootFolder + "/" + spFolderName;
-                SPFolder spFolder = EnsureSPFolder(web, folder);
+                SPFolder spFolder = GetSPFolder(web, folder);
 
                 SPFile spFile;
                 foreach (T item in items)
@@ -208,16 +212,20 @@ namespace HPF.SharePointAPI.Controllers
         /// </summary>
         /// <param name="spItem"></param>
         /// <param name="accountPayable"></param>
-        private static void UpdateAccountPayableInfo(SPListItem spItem, AccountPayableInfo accountPayable)
+        private static void UpdateAgencyPayableInfo(SPListItem spItem, AgencyPayableInfo agencyPayable)
         {
-            if (accountPayable.Date != null)
+            if (agencyPayable.Date != null)
             {
-                spItem[AccountPayable.Default.Date] = accountPayable.Date;
+                spItem[AgencyPayable.Default.Date] = agencyPayable.Date;
             }
-            spItem[AccountPayable.Default.FundingSource] = accountPayable.FundingSource;
-            spItem[AccountPayable.Default.InvoiceNumber] = accountPayable.InvoiceNumber;
-            spItem[AccountPayable.Default.Month] = accountPayable.Month;
-            spItem[AccountPayable.Default.Year] = accountPayable.Year;
+            spItem[AgencyPayable.Default.AgencyName] = agencyPayable.AgencyName;
+            spItem[AgencyPayable.Default.PayableNumber] = agencyPayable.PayableNumber;
+            spItem[AgencyPayable.Default.Month] = agencyPayable.Month;
+            spItem[AgencyPayable.Default.Year] = agencyPayable.Year;
+            if (agencyPayable.PayableDate != null)
+            {
+                spItem[AgencyPayable.Default.PayableDate] = agencyPayable.PayableDate;
+            }
         }
 
         /// <summary>
@@ -265,6 +273,17 @@ namespace HPF.SharePointAPI.Controllers
                 }
             }
             return folder;
+        }
+
+        private static SPFolder GetSPFolder(SPWeb sourceWeb, string folderPath)
+        {
+            SPFolder folder = sourceWeb.GetFolder(folderPath);
+            if (folder.Exists) 
+            { 
+                return folder; 
+            }
+            throw new ArgumentException("SPFolder does not exist.");
+
         }
         #endregion
     }
