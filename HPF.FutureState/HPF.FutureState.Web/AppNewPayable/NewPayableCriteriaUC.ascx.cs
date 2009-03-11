@@ -105,8 +105,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                 txtPeriodStart.Text = priormonth + "/" + 1 + "/" + year;
                 int daysinmonth = DateTime.DaysInMonth(year, priormonth);
                 txtPeriodEnd.Text = priormonth + "/" + daysinmonth + "/" + year;
-                // txtPeriodStart.Text = DateTime.Now.AddMonths(-6).ToShortDateString();
-                // txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
             }
 
         }
@@ -159,7 +157,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlCaseCompleted.SelectedValue.ToString());
             try
             {
-                agencyPayableSearchCriteria.PeriodStartDate = Convert.ToDateTime(txtPeriodStart.Text.Trim());
+                agencyPayableSearchCriteria.PeriodStartDate =Convert.ToDateTime(txtPeriodStart.Text.Trim());
+                agencyPayableSearchCriteria.PeriodStartDate=agencyPayableSearchCriteria.PeriodStartDate.AddHours(-12).AddSeconds(1);
                 if ((agencyPayableSearchCriteria.PeriodStartDate.CompareTo(DateTime.Parse("1/1/1973"))<0) || (agencyPayableSearchCriteria.PeriodStartDate.CompareTo(DateTime.Parse("12/31/9999"))>0))
                     throw ex;
             }
@@ -170,7 +169,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             try
             {
-                agencyPayableSearchCriteria.PeriodEndDate = Convert.ToDateTime(txtPeriodEnd.Text.Trim());
+                agencyPayableSearchCriteria.PeriodEndDate =Convert.ToDateTime(txtPeriodEnd.Text.Trim());
+                agencyPayableSearchCriteria.PeriodEndDate = agencyPayableSearchCriteria.PeriodEndDate.AddHours(12);
                 if ((agencyPayableSearchCriteria.PeriodEndDate.CompareTo(DateTime.Parse("1/1/1973")) < 0) && (agencyPayableSearchCriteria.PeriodEndDate.CompareTo(DateTime.Parse("12/31/9999")) > 0))
                     throw ex;
             }

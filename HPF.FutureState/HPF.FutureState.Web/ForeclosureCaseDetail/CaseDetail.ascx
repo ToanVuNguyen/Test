@@ -67,7 +67,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    Primary Residence:
+                                    Primary Residence*:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblPrimaryResidence" runat="server" CssClass="Text"></asp:Label>
@@ -178,7 +178,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    Middle Name*:
+                                    Middle Name:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMidName" runat="server" CssClass="Text">A</asp:Label>
@@ -274,7 +274,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    Ethnicity*:
+                                    Hispanic Indicator*:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblEthnicity" runat="server" CssClass="Text">Not Hispanic</asp:Label>
@@ -525,7 +525,7 @@
                         <asp:Label ID="lblAgencyCase" runat="server" CssClass="Text">AH123490</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        Income Earner Code*:
+                        Income Earners*:
                     </td>
                     <td>
                         <asp:Label ID="lblEarnerCode" runat="server" CssClass="Text">6+</asp:Label>
@@ -539,7 +539,7 @@
                         <asp:Label ID="lblAgencyClient" runat="server" CssClass="Text">45466</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        AMI Percentage*:
+                        AMI Percentage:
                     </td>
                     <td>
                         <asp:Label ID="lblAMIPercentage" runat="server" CssClass="Text">80%</asp:Label>
@@ -609,7 +609,7 @@
                         <asp:Label ID="lblIntakeDate" runat="server" CssClass="Text">07/14/2008</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        Workout Plan Current*:
+                        Workout Plan Current:
                     </td>
                     <td>
                         <asp:Label ID="lblPlanCurrent" runat="server" CssClass="Text">Yes</asp:Label>
@@ -617,7 +617,7 @@
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Complete Date*:
+                        Completed Date:
                     </td>
                     <td>
                         <asp:Label ID="lblCompleteDate" runat="server" CssClass="Text">08/01/2008</asp:Label>
@@ -687,7 +687,7 @@
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Summary Sent Date*:
+                        Summary Sent Date:
                     </td>
                     <td>
                         <asp:Label ID="lblSentDate" runat="server" CssClass="Text">08/01/2008</asp:Label>
@@ -701,13 +701,13 @@
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Summary Sent Other*:
+                        Summary Sent Other:
                     </td>
                     <td valign="bottom">
                         <asp:Label ID="lblSentOrther" runat="server" CssClass="Text">Fax</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        Foreclosure Sale Date*:
+                        Foreclosure Sale Date:
                     </td>
                     <td style="vertical-align:bottom">
                         <asp:Label ID="lblNoticeReceived" runat="server" CssClass="Text">09/25/2008</asp:Label>
@@ -715,7 +715,7 @@
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Summary Sent Other Date*:
+                        Summary Sent Other Date:
                     </td>
                     <td>
                         <asp:Label ID="lblOtherDate" runat="server" CssClass="Text">08/01/2008</asp:Label>
@@ -779,7 +779,7 @@
                         <asp:Label ID="lblFundingConsent" runat="server" CssClass="Text">No</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        Bankruptcy Attomey*:
+                        Bankruptcy Attorney:
                     </td>
                     <td valign="bottom">
                         <asp:Label ID="lblBankruptcyAttomey" runat="server" CssClass="Text">Jack Prescott</asp:Label>
@@ -792,7 +792,7 @@
                     <td>
                     </td>
                     <td align="right" class="sidelinks">
-                        Bankcruptcy Payments Current Indicator:
+                       Bankruptcy Payments Current:
                     </td>
                     <td valign="bottom">
                         <asp:Label ID="lblCurrentIndicator" runat="server" CssClass="Text">Yes</asp:Label>
@@ -836,7 +836,7 @@
                         <asp:Label ID="lblDefaultReason" runat="server" CssClass="Text">Excessive Obligations</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        HUD Termination Reason*:
+                        HUD Termination Reason:
                     </td>
                     <td valign="bottom">
                         <asp:Label ID="lblTerminationReason" runat="server" CssClass="Text">Client terminated counseling</asp:Label>
@@ -850,7 +850,7 @@
                         <asp:Label ID="lblSDefaultReason" runat="server" CssClass="Text">Inability to sell</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        HUD Termination Date*:
+                        HUD Termination Date:
                     </td>
                     <td valign="bottom">
                         <asp:Label ID="lblTerminationDate" runat="server" CssClass="Text">11/25/2008</asp:Label>
@@ -893,7 +893,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks" style="vertical-align: top">
-                                    Loan Default Reason Notes:
+                                    Loan Default Reason Notes*:
                                 </td>
                                 <td class="Control">
                                     <asp:TextBox ID="txtReasonNote" runat="server" Rows="3" Width="100%" Height="56px"
@@ -902,7 +902,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks" style="vertical-align: top">
-                                    Action Item Notes:
+                                    Action Item Notes*:
                                 </td>
                                 <td class="Control">
                                     <asp:TextBox ID="txtItemNotes" runat="server" Rows="3" Width="100%" Height="56px"
@@ -911,7 +911,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks" style="vertical-align: top">
-                                    FollowUp Notes:
+                                    Follow-Up Notes:
                                 </td>
                                 <td class="Control">
                                     <asp:TextBox ID="txtFollowUpNotes" runat="server" Rows="3" Width="100%" MaxLength="800"
@@ -976,7 +976,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    Do Not Call*:
+                                    Do Not Call:
                                 </td>
                                 <td class="Control">
                                     <asp:DropDownList ID="ddlNotCall" runat="server" CssClass="Text">
@@ -999,7 +999,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    News Letter*:
+                                    NewsLetter:
                                 </td>
                                 <td class="Control">
                                     <asp:DropDownList ID="ddlNewsLetter" runat="server" CssClass="Text">
@@ -1030,7 +1030,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    Survey*:
+                                    Survey:
                                 </td>
                                 <td class="Control">
                                     <asp:DropDownList ID="ddlServey" runat="server" CssClass="Text">

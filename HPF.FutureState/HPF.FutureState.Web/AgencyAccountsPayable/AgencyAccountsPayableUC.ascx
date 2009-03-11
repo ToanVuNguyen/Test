@@ -97,10 +97,7 @@
                                 <asp:BoundField HeaderText="Comments" DataField="PaymentComment" />
                                   <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                                 ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
-
                             </Columns>
-                            <EmptyDataTemplate>
-                                There is no data match.</EmptyDataTemplate>
                         </asp:GridView>
                  
                 <asp:HiddenField ID="hidSelectedRowIndex" runat="server" Value="" />

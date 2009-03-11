@@ -196,7 +196,12 @@ namespace HPF.FutureState.Web.AppNewPayable
                     agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
                     agencyPayableDraftDTO.PaymentComment = txtComment.Text;
                     agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                    AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
+                    int? agencyPayableId=AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
+                    
+                    //export report to xls and pdf
+                    AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencyPayableId);
+                    AgencyPayableDTO agencyPayable = agencyPayableSet.Payable;
+                    ExportSendReportToHPFPortal(agencyPayable);
                     Response.Redirect("AgencyPayable.aspx");
                 }
                 else lblMessage.Text = "Please choose a record.";
@@ -253,5 +258,11 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append(agencyPayableSearchCriteria.Indicator);
             return query.ToString();
         }
+        private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable)
+        {
+            ReportBL.Instance.SendAgencyPayableReportPDFToHPFPortal(agencyPayable);
+            ReportBL.Instance.SendAgencyPayableReportXLSToHPFPortal(agencyPayable);
+        }
+
     }
 }

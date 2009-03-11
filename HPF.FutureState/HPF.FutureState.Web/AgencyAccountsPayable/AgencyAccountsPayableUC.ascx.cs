@@ -41,19 +41,34 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         private void DisplayAgencyAccountPayableSearchResult()
         {
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
-            if (Session["agencyPayableSearchCriteria"] != null)
+            try
             {
-                searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
-                txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
-                txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
-                ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
-                BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
+                if (Session["agencyPayableSearchCriteria"] != null)
+                {
+                    searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
+                    txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
+                    txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
+                    ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
+                    BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
+                }
+                else
+                {
+                    SetDefaultPeriodStartEnd();
+                    //default display all agencyaccount within 6 month.
+                    BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
+                }
             }
-            else
+            catch (DataValidationException ex)
             {
-                SetDefaultPeriodStartEnd();
-                //default display all agencyaccount within 6 month.
-                BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
+                foreach (var mes in ex.ExceptionMessages)
+                    bulMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            catch (Exception ex)
+            {
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                throw ex;
             }
         }
         private void ApplySecurity()
@@ -87,10 +102,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// </summary>
         protected void BindGrvInvoiceList(string periodStart, string periodEnd)
         {
+            bulMessage.Items.Clear();
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
-            try
-            {
+            DataValidationException ex = new DataValidationException();
                 //get search criteria to AgencyPayableSearchCriteriaDTO
                 searchCriteria = GetSearchCriteria(periodStart, periodEnd);
                 //get search data match that search collection
@@ -98,25 +113,20 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 //
                 ViewState["agencycol"] = agencycol;
                 //bind search data to gridview
+                if (agencycol.Count ==0)
+                {
+                    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0583);
+                    ex.ExceptionMessages.Add(exMessage);
+                }
                 grvInvoiceList.DataSource = agencycol;
                 grvInvoiceList.DataBind();
                 if (agencycol.Count == 0)
                 {
                     grvInvoiceList.SelectedIndex = -1;
                 }
-            }
-            catch (DataValidationException ex)
-            {
-                foreach (var mes in ex.ExceptionMessages)
-                    bulMessage.Items.Add(new ListItem(mes.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
-            }
-            catch (Exception ex)
-            {
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                throw ex;
-            }
+                if (ex.ExceptionMessages.Count > 0)
+                    throw ex;
+
         }
         /// <summary>
         /// get default period start:1st\prior month\year

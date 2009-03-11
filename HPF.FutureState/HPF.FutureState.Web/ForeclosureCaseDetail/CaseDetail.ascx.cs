@@ -93,8 +93,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
             ddlAgency.DataBind();
-            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
             ddlAgency.SelectedValue = agencyname;
+            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
+            
         }
 
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)

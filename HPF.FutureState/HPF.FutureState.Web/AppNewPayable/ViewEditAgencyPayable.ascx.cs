@@ -52,8 +52,8 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             RefCodeItemDTOCollection takebackReasonCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_TAKE_BACK_REASON_CODE);
             ddlTakebackReason.DataSource = takebackReasonCol;
-            ddlTakebackReason.DataTextField = "code";
-            ddlTakebackReason.DataValueField = "code";
+            ddlTakebackReason.DataTextField = "CodeDesc";
+            ddlTakebackReason.DataValueField = "Code";
             ddlTakebackReason.DataBind();
             //add blank to first item in ddl
             ddlTakebackReason.Items.Insert(0, new ListItem("", "-1"));
@@ -140,6 +140,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             string payableCaseIdCollection = GetSelectedRow();
             hidIsSelected.Value = payableCaseIdCollection;
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
+            btnTakeBackMarkCase.Attributes.Clear();
+            btnPayUnpayMarkCase.Attributes.Clear();
             if (hidPayUnpayCheck.Value == "-1")
             {
                 bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
@@ -160,6 +162,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             catch (Exception ex)
             {
                 bulErrorMessage.Items.Add(ex.Message);
+              
+
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
         }
@@ -168,9 +172,11 @@ namespace HPF.FutureState.Web.AppNewPayable
 
             bulErrorMessage.Items.Clear();
             string payableCaseIdCollection = GetSelectedRow();
-            string takebackReason = ddlTakebackReason.SelectedItem.Text;
+            string takebackReason = ddlTakebackReason.SelectedItem.Value;
 
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
+            btnTakeBackMarkCase.Attributes.Clear();
+            btnPayUnpayMarkCase.Attributes.Clear();
             if (payableCaseIdCollection == null)
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
@@ -218,6 +224,13 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 Response.Redirect("AgencyPayable.aspx");
             }
+        }
+
+        protected void btnReprintPayable_Click(object sender, EventArgs e)
+        {
+            AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["AgencyPayable"];
+            string agencyPayableId = agencyPayable.AgencyPayableId.ToString();
+            ScriptManager.RegisterStartupScript(Page, this.GetType(),"Print Payable", "window.open('ReprintPayable.aspx?agencyPayableId=" + agencyPayableId + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px');",true);
         }
 
 

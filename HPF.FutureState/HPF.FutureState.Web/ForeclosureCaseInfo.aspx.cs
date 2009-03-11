@@ -156,7 +156,20 @@ namespace HPF.FutureState.Web
         }
 
         protected void btnResendServicer_Click(object sender, EventArgs e)
-        { 
+        {
+            if (Request.QueryString["CaseID"] == null)
+                return;
+            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+            try
+            {
+                var foreclosureCase = GetForeclosureCase(caseid);
+                ForeclosureCaseBL.Instance.ResendToServicer(foreclosureCase);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text += ex.Message;
+                ExceptionProcessor.HandleException(ex);
+            }
         }
     }
 }

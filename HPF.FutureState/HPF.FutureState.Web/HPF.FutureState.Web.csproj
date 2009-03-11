@@ -118,6 +118,13 @@
     <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.designer.cs">
       <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AppNewPayable\ReprintPayable.ascx.cs">
+      <DependentUpon>ReprintPayable.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppNewPayable\ReprintPayable.ascx.designer.cs">
+      <DependentUpon>ReprintPayable.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppNewPayable\ViewEditAgencyPayable.ascx.cs">
       <DependentUpon>ViewEditAgencyPayable.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -152,6 +159,13 @@
     </Compile>
     <Compile Include="NewPayableSelection.aspx.designer.cs">
       <DependentUpon>NewPayableSelection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReprintPayable.aspx.cs">
+      <DependentUpon>ReprintPayable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReprintPayable.aspx.designer.cs">
+      <DependentUpon>ReprintPayable.aspx</DependentUpon>
     </Compile>
     <Compile Include="SearchForeclosureCase.aspx.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
@@ -393,11 +407,13 @@
     <Content Include="AgencyPayable.aspx" />
     <Content Include="AgencyPayableInfo.aspx" />
     <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
+    <Content Include="AppNewPayable\ReprintPayable.ascx" />
     <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="NewPayableSelection.aspx" />
+    <Content Include="ReprintPayable.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="FundingSourceInvoice.aspx" />
