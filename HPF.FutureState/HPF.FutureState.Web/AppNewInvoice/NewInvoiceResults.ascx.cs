@@ -209,7 +209,9 @@ namespace HPF.FutureState.Web.AppNewInvoice
             result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
             result.Append("_");
             result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
-            result.Append("_HPF_INV#");
+            //result.Append("_HPF_INV#");
+            //todo: invalid charater when uploading to SharePoint (#)
+            result.Append("_HPF_INV-");
             result.Append(invoice.InvoiceId.ToString());
             result.Append("_DETAIL.xls");
             return result.ToString();
