@@ -27,6 +27,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ServicerName { get; set; }
         public string BorrowerName { get; set; }
         public string TakebackReason { get; set; }
+        public string TakebackReasonDesc { get; set; }
         public DateTime? TakebackDate { get; set; }
     }
 }
