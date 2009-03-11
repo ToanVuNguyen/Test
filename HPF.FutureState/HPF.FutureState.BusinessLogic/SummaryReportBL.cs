@@ -130,8 +130,8 @@ namespace HPF.FutureState.BusinessLogic
                                                    ForeclosureSaleDate = foreclosureCase.FcSaleDate,
                                                    Servicer = servicer.ServicerName,
                                                    Delinquency = caseLoan.LoanDelinqStatusCd,
-                                                   ReportFileName =
-                                                       BuildPdfAttachmentFileName(foreclosureCase, caseLoan)
+                                                   ReportFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan),
+                                                   SPFolderName = servicer.SPFolderName
                                                };
                 HPFPortalGateway.SendSummary(hpfSharepointSummary);                
             }

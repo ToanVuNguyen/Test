@@ -29,6 +29,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CouselingSumFormatCd { get; set; }
 
-        public string HudServicerNum { get; set; }        
+        public string HudServicerNum { get; set; }
+
+        public string SPFolderName { get; set; }    
+            
     }
 }

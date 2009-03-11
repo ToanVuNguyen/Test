@@ -19,6 +19,8 @@ namespace HPF.FutureState.Common.Utils
 
         public DateTime? ForeclosureSaleDate { get; set; }
 
-        public string Delinquency { get; set; }        
+        public string Delinquency { get; set; }
+
+        public string SPFolderName { get; set; }
     }
 }
