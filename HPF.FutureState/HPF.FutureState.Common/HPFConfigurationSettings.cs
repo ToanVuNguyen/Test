@@ -182,7 +182,13 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_VIEW_EDIT_AGENCY_PAYABLE_REPORT"];
             }
         }
-
+        public static string HPF_AGENCY_PAYABLE_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_AGENCY_PAYABLE_REPORT"];
+            }
+        }
 
     }
 }
