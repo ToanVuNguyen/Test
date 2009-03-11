@@ -147,9 +147,9 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 FundingSourceDTO fundingSource = GetFundingSource(invoice.FundingSourceId.Value);
 
                 //Generate Report
-                //byte[] excelFile = GenerateReport(invoice,fundingSource.ExportFormatCd);
+                byte[] excelFile = GenerateReport(invoice,fundingSource.ExportFormatCd);
                 //Upload Report
-                //UploadReport(invoice, excelFile,fundingSource);
+                UploadReport(invoice, excelFile,fundingSource);
 
                 Response.Redirect("FundingSourceInvoice.aspx");
             }

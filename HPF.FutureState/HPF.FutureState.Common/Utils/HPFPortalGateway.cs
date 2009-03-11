@@ -39,7 +39,7 @@ namespace HPF.FutureState.Common.Utils
                                         File = invoice.File,
                                         FundingSource = invoice.FundingSource,
                                         InvoiceNumber = invoice.InvoiceNumber,
-                                        Month = invoice.Month,
+                                        Month = string.Format("{0:MMM}",invoice.InvoiceDate),
                                         Name = invoice.FileName,
                                         Year = invoice.Year
                                     };

@@ -311,11 +311,11 @@ namespace HPF.FutureState.DataAccess
                             var item = new FundingSourceDTO();
                             item.FundingSourceID = ConvertToInt(reader["funding_source_id"]).Value;
                             item.FundingSourceName = ConvertToString(reader["funding_source_name"]);
-                            //item.BillingEmail = ConvertToString(reader["billing_email"]);
-                            //item.BillingDeliveryMethod = ConvertToString(reader["billing_delivery_method_cd"]);
-                            //item.ExportFormatCd = ConvertToString(reader["export_format_cd"]);
-                            //item.FundingSourceAbbrev = ConvertToString(reader["funding_source_abbrev"]);
-                            //item.SharePointFolder = ConvertToString(reader["sharepoint_foldername"]);
+                            item.BillingEmail = ConvertToString(reader["billing_email"]);
+                            item.BillingDeliveryMethod = ConvertToString(reader["billing_delivery_method_cd"]);
+                            item.ExportFormatCd = ConvertToString(reader["export_format_cd"]);
+                            item.FundingSourceAbbrev = ConvertToString(reader["funding_source_abbrev"]);
+                            item.SharePointFolder = ConvertToString(reader["sharepoint_foldername"]);
                             result.Add(item);
                         }
                         reader.Close();
