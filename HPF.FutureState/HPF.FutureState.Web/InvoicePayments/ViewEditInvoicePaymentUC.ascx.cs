@@ -221,7 +221,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             DataSet dataSet = null;
             try
             {
-                dataSet = ExcelFileReader.Read(fileContents);
+                dataSet = ExcelFileReader.Read(fileContents, "Reconciliation");
             }
             catch 
             {
