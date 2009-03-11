@@ -260,8 +260,8 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable)
         {
-            ReportBL.Instance.SendAgencyPayableReportPDFToHPFPortal(agencyPayable);
-            ReportBL.Instance.SendAgencyPayableReportXLSToHPFPortal(agencyPayable);
+            ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable);
+            
         }
 
     }

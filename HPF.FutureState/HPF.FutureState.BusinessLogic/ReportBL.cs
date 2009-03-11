@@ -5,6 +5,7 @@ using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -21,10 +22,10 @@ namespace HPF.FutureState.BusinessLogic
 
         protected ReportBL()
         {
-            
+
         }
-        public byte[] InvoiceExcelReport(int invoiceId,string fundingSourceExportFormatCd)
-        { 
+        public byte[] InvoiceExcelReport(int invoiceId, string fundingSourceExportFormatCd)
+        {
             //Generate the excel file first, need more info about the pdf file
 
 
@@ -65,5 +66,57 @@ namespace HPF.FutureState.BusinessLogic
             var excelReport = reportExport.ExportToExcel();
             return excelReport;
         }
+        private byte[] AgencyPayableReportPdf(int? agency_payable_id)
+        {
+            var reportExport = new ReportingExporter
+            {
+                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_REPORT)
+            };
+            reportExport.SetReportParameter("pi_agency_payable_id", agency_payable_id.ToString());
+            var pdfReport = reportExport.ExportToPdf();
+            return pdfReport;
+        }
+        private byte[] AgencyPayableReportXls(int? agency_payable_id)
+        {
+            var reportExport = new ReportingExporter
+            {
+                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_REPORT)
+            };
+            reportExport.SetReportParameter("pi_agency_payable_id", agency_payable_id.ToString());
+            var xlsReport = reportExport.ExportToExcel();
+            return xlsReport;
+        }
+        public void SendAgencyPayableToHPFPortal(AgencyPayableDTO agencyPayable)
+        {
+            try
+            {
+                var hpfSharepointSummaryPdf = new HPFPortalNewAgencyPayable
+                {
+                    ReportFile = AgencyPayableReportPdf(agencyPayable.AgencyPayableId),
+                    ReportFileName = "AgencyPayablePDF.pdf",
+                    AgencyName = agencyPayable.AgencyName.ToString(),
+                    PayableNumber = agencyPayable.PayableNum.ToString(),
+                    PayableDate=agencyPayable.PaymentDate,
+                    Date = agencyPayable.CreateDate
+                };
+                var hpfSharepointSummaryXls = new HPFPortalNewAgencyPayable
+                {
+                    ReportFile = AgencyPayableReportPdf(agencyPayable.AgencyPayableId),
+                    ReportFileName = "AgencyPayablePDF.xls",
+                    AgencyName = agencyPayable.AgencyName.ToString(),
+                    PayableNumber = agencyPayable.PayableNum.ToString(),
+                    PayableDate = agencyPayable.PaymentDate,
+                    Date = agencyPayable.CreateDate
+                };
+                HPFPortalGateway.SendSummaryNewAgencyPayable(hpfSharepointSummaryPdf);
+                HPFPortalGateway.SendSummaryNewAgencyPayable(hpfSharepointSummaryXls);
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex.Message);
+                Logger.Write(ex.StackTrace);
+            }
+        }
+
     }
 }

@@ -55,13 +55,12 @@ namespace HPF.FutureState.Common.Utils
         /// <param name="summary"></param>
         public static void SendSummaryNewAgencyPayable(HPFPortalNewAgencyPayable summary)
         {
-            var NewAgencyPayableInfo = new AccountPayableInfo
+            var NewAgencyPayableInfo = new AgencyPayableInfo
             {
                 Date = summary.Date,
-                FundingSource = summary.FundingSource,
-                InvoiceNumber = summary.InvoiceNumber,
-                File = summary.ReportFile,
-                Name = summary.ReportFileName
+                AgencyName=summary.AgencyName,
+                PayableNumber=summary.PayableNumber,
+                PayableDate=summary.PayableDate
             };
 
             //todo: please specify spFolderName
