@@ -379,7 +379,7 @@ namespace HPF.FutureState.DataAccess
                         payableCase.NFMCDifferencePaidAmt = ConvertToDouble(reader["NFMC_difference_paid_amt"]);
                         payableCase.TakebackReason = ConvertToString(reader["takeback_pmt_reason_cd"]);
                         payableCase.TakebackDate = ConvertToDateTime(reader["takeback_pmt_identified_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["takeback_pmt_identified_dt"]).Value;
-
+                        payableCase.TakebackReasonDesc = ConvertToString(reader["takeback_reason_desc"]);
                         result.PayableCases.Add(payableCase);
                     }
                     reader.Close();

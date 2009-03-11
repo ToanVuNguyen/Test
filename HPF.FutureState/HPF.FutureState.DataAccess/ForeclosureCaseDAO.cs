@@ -590,8 +590,8 @@ namespace HPF.FutureState.DataAccess
             sqlParam[8] = new SqlParameter("@pi_hpf_media_candidate_ind", foreclosureCase.HpfMediaCandidateInd);
             sqlParam[9] = new SqlParameter("@pi_hpf_success_story_ind", foreclosureCase.HpfSuccessStoryInd);
             sqlParam[10] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
-            sqlParam[11] = new SqlParameter("@pi_never_pay_reason", null);
-            sqlParam[12] = new SqlParameter("@pi_never_bill_reason", null);
+            sqlParam[11] = new SqlParameter("@pi_never_pay_reason",null);
+            sqlParam[12] = new SqlParameter("@pi_never_bill_reason",null);
             sqlParam[13] = new SqlParameter("@pi_chg_lst_dt",foreclosureCase.ChangeLastDate);
             sqlParam[14] = new SqlParameter("@pi_chg_lst_user_id",foreclosureCase.ChangeLastUserId);
             sqlParam[15] = new SqlParameter("@pi_chg_lst_app_name",foreclosureCase.ChangeLastAppName);
