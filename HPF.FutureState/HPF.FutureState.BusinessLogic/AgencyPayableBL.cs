@@ -33,9 +33,10 @@ namespace HPF.FutureState.BusinessLogic
         {
 
         }
-        public bool InsertAgencyPayable(AgencyPayableDraftDTO agencyPayableDraft)
+        public int? InsertAgencyPayable(AgencyPayableDraftDTO agencyPayableDraft)
         {
-            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();            
+            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();
+            int? agencyPayableId = 0;
             try
             {
                 agencyPayableDAO.BeginTran();
@@ -48,7 +49,7 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.StatusCode = agencyPayableDraft.StatusCode;
                 agencyPayable.PaymentDate = DateTime.Now;
                 agencyPayable.PaymentComment = agencyPayableDraft.PaymentComment;
-                int agencyPayableId = 0;
+                
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable).Value;
                 //Insert Acency Payable Case
                 ForeclosureCaseDraftDTOCollection fCaseDrafColection = agencyPayableDraft.ForclosureCaseDrafts;
@@ -65,6 +66,7 @@ namespace HPF.FutureState.BusinessLogic
                     agencyPayableCase.NFMCDifferenceEligibleInd = "N";
                     agencyPayableDAO.InsertAgencyPayableCase(agencyPayableCase);
                 }
+
                 agencyPayableDAO.CommitTran();
             }
             catch (Exception)
@@ -72,7 +74,7 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayableDAO.RollbackTran();
                 throw;
             }
-            return true;
+            return agencyPayableId;
         }
         ///<summary>
         ///get exception messages.
