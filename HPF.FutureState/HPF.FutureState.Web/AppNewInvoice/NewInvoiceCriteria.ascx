@@ -183,8 +183,8 @@
             Ethnicity:</td>
         <td colspan="4">
             <asp:DropDownList ID="dropHispanic" runat="server" CssClass="Text">
-                <asp:ListItem Value="0">Yes</asp:ListItem>
-                <asp:ListItem Value="1">No</asp:ListItem>
+                <asp:ListItem Value="0">Yes – Hispanic or Latino</asp:ListItem>
+                <asp:ListItem Value="1">No – Not Hispanit or Latino</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">
@@ -221,13 +221,13 @@
             Annual Income:</td>
         <td align="right" class="sidelinks">
             Min:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:TextBox ID="txtIncomeMin" runat="server" CssClass="Text" Width="90px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Max:</td>
             
-        <td align="left" class="Text">
+        <td align="left" class="Text" style="vertical-align: top">
             <asp:TextBox ID="txtIncomeMax" runat="server" CssClass="Text" Width="90px"></asp:TextBox>
         </td>
         <td>

@@ -103,7 +103,7 @@
             HPF Payment ID:
         </td>
         <td style="vertical-align: top" class="Text">
-            <asp:TextBox ID="txtPaymentID" runat="server" ></asp:TextBox>
+            <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
         </td>
         <td align="left" class="style2">
             <span onclick="return confirm('Are you sure you wish to unpay the selected case(s)?')">
