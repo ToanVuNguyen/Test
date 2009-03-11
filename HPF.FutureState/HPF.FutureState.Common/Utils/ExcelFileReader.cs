@@ -12,7 +12,8 @@ namespace HPF.FutureState.Common.Utils
     {
         private const string CONNECTION_STRING = @"Driver=Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb);DBQ={0}";
 
-        private const string SELECT_STATEMENT = "Select * from [Reconciliation$]";
+        private const string SELECT_STATEMENT = "Select * from [{0}$]";
+        //
 
         public static string TempDir = "C:\\";
 
@@ -20,10 +21,11 @@ namespace HPF.FutureState.Common.Utils
         /// Read from file.
         /// </summary>
         /// <param name="filename"></param>
+        /// <param name="sheetName"></param>
         /// <returns></returns>
-        public static DataSet Read(string filename)
+        public static DataSet Read(string filename, string sheetName)
         {            
-            var adapter = GetDataAdapter(filename);            
+            var adapter = GetDataAdapter(filename, sheetName);            
             var ds = new DataSet();
             adapter.Fill(ds);
             adapter.SelectCommand.Connection.Close();            
@@ -34,13 +36,14 @@ namespace HPF.FutureState.Common.Utils
         /// Read from a stream
         /// </summary>
         /// <param name="stream"></param>
+        /// <param name="sheetName"></param>
         /// <returns></returns>
-        public static DataSet Read(Stream stream)
+        public static DataSet Read(Stream stream, string sheetName)
         {
             stream.Seek(0, SeekOrigin.Begin);            
             var tempFileName = TempDir + Guid.NewGuid() + ".xls";
             PushStreamToTempFile(stream, tempFileName);
-            var ds = Read(tempFileName);
+            var ds = Read(tempFileName, sheetName);
             File.Delete(tempFileName);            
             return ds;
         }
@@ -49,11 +52,12 @@ namespace HPF.FutureState.Common.Utils
         /// Read from a data buffer
         /// </summary>
         /// <param name="data"></param>
+        /// <param name="sheetName"></param>
         /// <returns></returns>
-        public static DataSet Read(byte[] data)
+        public static DataSet Read(byte[] data, string sheetName)
         {
             var stream = new MemoryStream(data);
-            var ds = Read(stream);
+            var ds = Read(stream, sheetName);
             stream.Close();
             return ds;
         }
@@ -75,9 +79,9 @@ namespace HPF.FutureState.Common.Utils
             fs.Close();
         }
 
-        private static OdbcDataAdapter GetDataAdapter(string filename)
+        private static OdbcDataAdapter GetDataAdapter(string filename, string sheetName)
         {
-            return new OdbcDataAdapter(GetSelectCommand(GetExcelConnection(filename)));
+            return new OdbcDataAdapter(GetSelectCommand(GetExcelConnection(string.Format(filename,sheetName))));
         }        
 
         private static OdbcConnection GetExcelConnection(string fileName)
