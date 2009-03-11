@@ -48,5 +48,27 @@ namespace HPF.FutureState.Common.Utils
             if (!result.Successful)
                 Logger.Write(result.Error.Message, "General");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="summary"></param>
+        public static void SendSummaryNewAgencyPayable(HPFPortalNewAgencyPayable summary)
+        {
+            var NewAgencyPayableInfo = new AccountPayableInfo
+            {
+                Date = summary.Date,
+                FundingSource = summary.FundingSource,
+                InvoiceNumber = summary.InvoiceNumber,
+                File = summary.ReportFile,
+                Name = summary.ReportFileName
+            };
+
+            //todo: please specify spFolderName
+            string spFolderName = "";
+            var result = DocumentCenterController.Upload(NewAgencyPayableInfo, spFolderName);
+            if (!result.Successful)
+                Logger.Write(result.Error.Message, "General");
+        }
     }
 }
