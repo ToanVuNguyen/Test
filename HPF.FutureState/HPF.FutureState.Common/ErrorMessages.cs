@@ -723,7 +723,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0675, "A valid Period Start date is required to search for Invoice Payments.");
                 errorMessageDict.Add(ERR0676, "A valid Period End date is required to search for Invoice Payments.");
                 errorMessageDict.Add(ERR0677, "Unable to process the reconciliation file. The HPF Invoice Case ID (invoice_case_id) in row {0} is not a valid number.");
-                errorMessageDict.Add(ERR0678, "Unable to process the reconciliation file. Neither a HPF Invoice Case ID nor a HPF Internal Case ID were provided in row {0}.");
+                errorMessageDict.Add(ERR0678, "Unable to process the reconciliation file. Neither valid HPF Invoice Case ID nor HPF Internal Case ID were provided in row {0}.");
                 errorMessageDict.Add(ERR0679, "Unable to process the reconciliation file. Neither a Payment Amount nor a Payment Reject Reason were provided in row {0}.");
                 errorMessageDict.Add(ERR0680, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} does not match the case ID on the record retreived by the HPF Invoice Case ID in this row.");
                 errorMessageDict.Add(ERR0681, "Unable to process the reconciliation file. The Funding Source for this payment does not match the Funding Source on the invoice record retreived by the HPF Invoice Case ID in row {0}.");

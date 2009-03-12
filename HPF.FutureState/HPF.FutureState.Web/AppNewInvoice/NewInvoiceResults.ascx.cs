@@ -189,9 +189,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 //Upload Report
                 UploadPDFReport(invoice,pdfFile,fundingSource);
-                UploadExcelReport(invoice, excelFile1, fundingSource);
                 if (fundingSource.ExportFormatCd == Constant.REF_CODE_SET_BILLING_EXPORT_FIS_CODE)
-                    UploadExcelReport(invoice, excelFile2, fundingSource);
+                    UploadExcelReportForFIS(invoice,excelFile1, excelFile2, fundingSource);
+                else
+                    UploadExcelReport(invoice, excelFile1, fundingSource);
             }
             catch (Exception ex)
             {
@@ -213,6 +214,15 @@ namespace HPF.FutureState.Web.AppNewInvoice
             
         }
         #region InsertInvoice/CreateReport/SendReport
+        private void UploadExcelReportForFIS(InvoiceDTO invoice, byte[] excelFile1,byte[] excelFile2, FundingSourceDTO fundingSource)
+        {
+            //send header
+            string fileNameHeader = GetExcelFileNameForFIS(fundingSource, invoice);
+            HPFPortalInvoice portalInvoice = GetPortalInvoice(invoice, excelFile1, fundingSource, fileNameHeader);
+            HPFPortalGateway.SendInvoiceReportFile(portalInvoice);
+            //send detail
+            UploadExcelReport(invoice, excelFile2, fundingSource);
+        }
         private void UploadExcelReport(InvoiceDTO invoice, byte[] excelFile,FundingSourceDTO fundingSource)
         {
             string fileName = GetExcelFileName(fundingSource, invoice);
@@ -257,6 +267,21 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         #endregion
         #region GetMethods
+        string GetExcelFileNameForFIS(FundingSourceDTO fundingSource, InvoiceDTO invoice)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append(fundingSource.FundingSourceAbbrev);
+            result.Append("_");
+            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
+            result.Append("_");
+            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
+            //result.Append("_HPF_INV#");
+            //todo: invalid charater when uploading to SharePoint (#)
+            result.Append("_HPF_INV-");
+            result.Append(invoice.InvoiceId.ToString());
+            result.Append("_HEADER.xls");
+            return result.ToString();
+        }
         string GetExcelFileName(FundingSourceDTO fundingSource, InvoiceDTO invoice)
         {
             StringBuilder result = new StringBuilder();

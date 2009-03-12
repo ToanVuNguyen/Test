@@ -40,12 +40,18 @@ namespace HPF.FutureState.Common.Utils
         /// <returns></returns>
         public static DataSet Read(Stream stream, string sheetName)
         {
-            stream.Seek(0, SeekOrigin.Begin);            
-            var tempFileName = TempDir + Guid.NewGuid() + ".xls";
-            PushStreamToTempFile(stream, tempFileName);
-            var ds = Read(tempFileName, sheetName);
-            File.Delete(tempFileName);            
-            return ds;
+            var tempFileName = TempDir + "\\" + Guid.NewGuid() + ".xls";
+            try
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                PushStreamToTempFile(stream, tempFileName);
+                var ds = Read(tempFileName, sheetName);                
+                return ds;
+            }
+            finally
+            {
+                File.Delete(tempFileName);
+            }
         }
 
         /// <summary>
@@ -81,7 +87,7 @@ namespace HPF.FutureState.Common.Utils
 
         private static OdbcDataAdapter GetDataAdapter(string filename, string sheetName)
         {
-            return new OdbcDataAdapter(GetSelectCommand(GetExcelConnection(string.Format(filename,sheetName))));
+            return new OdbcDataAdapter(GetSelectCommand(GetExcelConnection(filename), sheetName));
         }        
 
         private static OdbcConnection GetExcelConnection(string fileName)
@@ -89,9 +95,9 @@ namespace HPF.FutureState.Common.Utils
             return new OdbcConnection(string.Format(CONNECTION_STRING, fileName));
         }
 
-        private static OdbcCommand GetSelectCommand(OdbcConnection connection)
+        private static OdbcCommand GetSelectCommand(OdbcConnection connection, string sheetName)
         {
-            return new OdbcCommand(SELECT_STATEMENT, connection);
+            return new OdbcCommand(string.Format(SELECT_STATEMENT,sheetName), connection);
         }
     }
 }
