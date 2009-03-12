@@ -62,7 +62,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!ValidateSearchCriteria(searchCriteria))
             {
                 ExceptionMessage ex = new ExceptionMessage();
-                ex.Message = "At least one search criteria option is required";
+                ex.Message = ErrorMessages.GetExceptionMessageCombined("ERR0378");
                 dataVaidEx.ExceptionMessages.Add(ex);
             }
             if (!validationResults.IsValid)
