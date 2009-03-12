@@ -57,6 +57,8 @@ namespace HPF.FutureState.Common.Utils
         {
             var NewAgencyPayableInfo = new AgencyPayableInfo
             {
+                Name = summary.ReportFileName,
+                File = summary.ReportFile,
                 Date = summary.Date,
                 AgencyName=summary.AgencyName,
                 PayableNumber=summary.PayableNumber,

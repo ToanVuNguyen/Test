@@ -118,9 +118,10 @@ namespace HPF.FutureState.BusinessLogic
                     hpfSharepointSummaryPdf.PayableDate = agencyPayable.PaymentDate;
                     hpfSharepointSummaryPdf.Date = agencyPayable.CreateDate;
                     hpfSharepointSummaryPdf.SPFolderName = agencyPayable.SPFolderName;
+
                 var hpfSharepointSummaryXls = new HPFPortalNewAgencyPayable
                 {
-                    ReportFile = AgencyPayableReportPdf(agencyPayableId),
+                    ReportFile = AgencyPayableReportXls(agencyPayableId),
                     ReportFileName = agencyPayableId.ToString()+"AgencyPayableXLS.xls",
                     AgencyName = agencyPayable.AgencyName.ToString(),
                     PayableNumber = agencyPayable.PayableNum.ToString(),
