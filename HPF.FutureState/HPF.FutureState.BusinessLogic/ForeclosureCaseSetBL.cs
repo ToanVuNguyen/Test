@@ -794,9 +794,11 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private bool CheckCallID(string callId)
         {
-            string callID = callId.Trim();
+            string callID = callId;
             if (callID == null || callID == string.Empty)
                 return true;
+
+            callID = callID.Trim();
             if (callID.Length >= 4 && callID.Substring(0, 3).ToUpper() == "HPF")
             {                
                 try
@@ -810,6 +812,7 @@ namespace HPF.FutureState.BusinessLogic
                     return false;
                 }
             }
+
             return false;
         }
 
