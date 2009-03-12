@@ -106,27 +106,27 @@ namespace HPF.FutureState.BusinessLogic
             var xlsReport = reportExport.ExportToExcel();
             return xlsReport;
         }
-        public void SendAgencyPayableToHPFPortal(AgencyPayableDTO agencyPayable)
+        public void SendAgencyPayableToHPFPortal(AgencyPayableDTO agencyPayable, int? agencyPayableId)
         {
             try
             {
-                var hpfSharepointSummaryPdf = new HPFPortalNewAgencyPayable
-                {
-                    ReportFile = AgencyPayableReportPdf(agencyPayable.AgencyPayableId),
-                    ReportFileName = "AgencyPayablePDF.pdf",
-                    AgencyName = agencyPayable.AgencyName.ToString(),
-                    PayableNumber = agencyPayable.PayableNum.ToString(),
-                    PayableDate=agencyPayable.PaymentDate,
-                    Date = agencyPayable.CreateDate
-                };
+                var hpfSharepointSummaryPdf = new HPFPortalNewAgencyPayable();
+                    hpfSharepointSummaryPdf.ReportFile = AgencyPayableReportPdf(agencyPayableId);
+                    hpfSharepointSummaryPdf.ReportFileName = "AgencyPayablePDF.pdf";
+                    hpfSharepointSummaryPdf.AgencyName = agencyPayable.AgencyName.ToString();
+                    hpfSharepointSummaryPdf.PayableNumber = agencyPayable.PayableNum.ToString();
+                    hpfSharepointSummaryPdf.PayableDate = agencyPayable.PaymentDate;
+                    hpfSharepointSummaryPdf.Date = agencyPayable.CreateDate;
+                    hpfSharepointSummaryPdf.SPFolderName = agencyPayable.SPFolderName;
                 var hpfSharepointSummaryXls = new HPFPortalNewAgencyPayable
                 {
-                    ReportFile = AgencyPayableReportPdf(agencyPayable.AgencyPayableId),
-                    ReportFileName = "AgencyPayablePDF.xls",
+                    ReportFile = AgencyPayableReportPdf(agencyPayableId),
+                    ReportFileName = "AgencyPayableXLS.xls",
                     AgencyName = agencyPayable.AgencyName.ToString(),
                     PayableNumber = agencyPayable.PayableNum.ToString(),
                     PayableDate = agencyPayable.PaymentDate,
-                    Date = agencyPayable.CreateDate
+                    Date = agencyPayable.CreateDate,
+                    SPFolderName=agencyPayable.SPFolderName
                 };
                 HPFPortalGateway.SendSummaryNewAgencyPayable(hpfSharepointSummaryPdf);
                 HPFPortalGateway.SendSummaryNewAgencyPayable(hpfSharepointSummaryXls);

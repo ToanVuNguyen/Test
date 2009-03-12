@@ -60,11 +60,13 @@ namespace HPF.FutureState.Common.Utils
                 Date = summary.Date,
                 AgencyName=summary.AgencyName,
                 PayableNumber=summary.PayableNumber,
-                PayableDate=summary.PayableDate
+                PayableDate=summary.PayableDate,
+                Month=DateTime.Now.Month.ToString(),
+                Year=DateTime.Now.Year
             };
 
             //todo: please specify spFolderName
-            string spFolderName = "";
+            string spFolderName = summary.SPFolderName;
             var result = DocumentCenterController.Upload(NewAgencyPayableInfo, spFolderName);
             if (!result.Successful)
                 Logger.Write(result.Error.Message, "General");

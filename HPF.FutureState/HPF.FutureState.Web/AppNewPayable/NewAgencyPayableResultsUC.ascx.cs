@@ -201,7 +201,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     //export report to xls and pdf
                     AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencyPayableId);
                     AgencyPayableDTO agencyPayable = agencyPayableSet.Payable;
-                    ExportSendReportToHPFPortal(agencyPayable);
+                    ExportSendReportToHPFPortal(agencyPayable,agencyPayableId);
                     Response.Redirect("AgencyPayable.aspx");
                 }
                 else lblMessage.Text = "Please choose a record.";
@@ -258,9 +258,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append(agencyPayableSearchCriteria.Indicator);
             return query.ToString();
         }
-        private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable)
+        private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable,int? agencyPayableId)
         {
-            ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable);
+            ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable,agencyPayableId);
             
         }
 

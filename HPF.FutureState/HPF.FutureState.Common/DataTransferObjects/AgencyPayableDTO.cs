@@ -24,6 +24,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? AgencyPayableId { get; set; }
         //---------------view/edit agency payable
         public int? PayableNum { get; set; }
+        public string SPFolderName { get; set; }
       
         public AgencyPayableCaseDTOCollection AgencyPayableCases { get; set; }
     }

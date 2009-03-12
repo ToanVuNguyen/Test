@@ -357,6 +357,7 @@ namespace HPF.FutureState.DataAccess
                     payable.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["period_end_dt"]).Value;
                     payable.PaymentComment = ConvertToString(reader["pmt_comment"]);
                     payable.PayableNum = ConvertToInt(reader["agency_payable_id"]);
+                    payable.SPFolderName = ConvertToString(reader["sharepoint_foldername"]);
                     result.Payable=payable;
 
                     reader.NextResult();

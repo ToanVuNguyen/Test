@@ -13,5 +13,6 @@ namespace HPF.FutureState.Common.Utils
         public string PayableNumber { get; set; }
         public DateTime? Date { get; set; }
         public DateTime? PayableDate{get;set;}
+        public string SPFolderName { get; set; }
     }
 }

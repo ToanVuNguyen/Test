@@ -26,13 +26,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             //apply security
             ApplySecurity();
-          
+
             // display grv in the first time
             if (!IsPostBack)
             {
                 if (grvInvoiceList.SelectedIndex == -1)
                     hidSelectedRowIndex.Value = "";
-                btnCancelPayable.Attributes.Add("onclick","return CancelConfirm();");
+                btnCancelPayable.Attributes.Add("onclick", "return CancelConfirm();");
                 BindAgencyDropDownList();
                 DisplayAgencyAccountPayableSearchResult();
             }
@@ -43,13 +43,23 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             try
             {
+
                 if (Session["agencyPayableSearchCriteria"] != null)
                 {
                     searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
-                    txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
-                    txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
-                    ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
-                    BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
+                    if (searchCriteria.UserID == HPFWebSecurity.CurrentIdentity.UserId.ToString())
+                    {
+
+                        txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
+                        txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
+                        ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
+                        BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
+                    }
+                    {
+                        SetDefaultPeriodStartEnd();
+                        //default display all agencyaccount within 6 month.
+                        BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
+                    }
                 }
                 else
                 {
@@ -106,26 +116,26 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
             DataValidationException ex = new DataValidationException();
-                //get search criteria to AgencyPayableSearchCriteriaDTO
-                searchCriteria = GetSearchCriteria(periodStart, periodEnd);
-                //get search data match that search collection
-                agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
-                //
-                ViewState["agencycol"] = agencycol;
-                //bind search data to gridview
-                if (agencycol.Count ==0)
-                {
-                    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0583);
-                    ex.ExceptionMessages.Add(exMessage);
-                }
-                grvInvoiceList.DataSource = agencycol;
-                grvInvoiceList.DataBind();
-                if (agencycol.Count == 0)
-                {
-                    grvInvoiceList.SelectedIndex = -1;
-                }
-                if (ex.ExceptionMessages.Count > 0)
-                    throw ex;
+            //get search criteria to AgencyPayableSearchCriteriaDTO
+            searchCriteria = GetSearchCriteria(periodStart, periodEnd);
+            //get search data match that search collection
+            agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
+            //
+            ViewState["agencycol"] = agencycol;
+            //bind search data to gridview
+            if (agencycol.Count == 0)
+            {
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0583);
+                ex.ExceptionMessages.Add(exMessage);
+            }
+            grvInvoiceList.DataSource = agencycol;
+            grvInvoiceList.DataBind();
+            if (agencycol.Count == 0)
+            {
+                grvInvoiceList.SelectedIndex = -1;
+            }
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
 
         }
         /// <summary>
@@ -172,8 +182,11 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
                 ex.ExceptionMessages.Add(exMessage);
             }
+            searchCriteria.UserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
+
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
+
             Session["agencyPayableSearchCriteria"] = searchCriteria;
             return searchCriteria;
         }
@@ -271,7 +284,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         }
         protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (grvInvoiceList.SelectedIndex!=-1)
+            if (grvInvoiceList.SelectedIndex != -1)
                 hidSelectedRowIndex.Value = grvInvoiceList.SelectedValue.ToString();
 
         }
