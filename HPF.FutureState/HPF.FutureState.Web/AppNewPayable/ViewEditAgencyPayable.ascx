@@ -5,8 +5,8 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
-<%--<asp:UpdatePanel ID="myUpdatePanel" runat="server">
-    <ContentTemplate>--%>
+<asp:UpdatePanel ID="myUpdatePanel" runat="server">
+    <ContentTemplate>
 
 <table style="width: 100%;">
     <colgroup>
@@ -265,9 +265,9 @@
         </td>
     </tr>
 </table>
-<%--</ContentTemplate>
+</ContentTemplate>
 </asp:UpdatePanel>
---%>
+
 <script language="javascript" type="text/javascript">
     var id = '<%=hidIsSelected.ClientID %>';
     function TakeBackReason() {
