@@ -5,8 +5,8 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
-<asp:UpdatePanel ID="myUpdatePanel" runat="server">
-    <ContentTemplate>
+<%--<asp:UpdatePanel ID="myUpdatePanel" runat="server">
+    <ContentTemplate>--%>
 
 <table style="width: 100%;">
     <colgroup>
@@ -173,8 +173,11 @@
                 <%--asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate
                     --%>
-                        <asp:GridView ID="grvViewEditAgencyPayable" runat="server" CellPadding="2" ForeColor="#333333"
-                            GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%">
+                        <asp:GridView ID="grvViewEditAgencyPayable" runat="server" 
+                    CellPadding="2" ForeColor="#333333"
+                            GridLines="Vertical" AutoGenerateColumns="false" 
+                    CssClass="GridViewStyle" Width="100%" 
+                    onrowdatabound="grvViewEditAgencyPayable_RowDataBound">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -195,7 +198,11 @@
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="AgencyCaseID" HeaderText="Agency Case ID" />
-                                <asp:BoundField DataField="CompleteDt" HeaderText="Complete Dt." DataFormatString="{0:d}" />
+                                <asp:TemplateField HeaderText="Complete Dt.">
+                                <ItemTemplate>
+                                <asp:Label ID="lblCompleteDate" runat="server" Text='<%#Eval("CompleteDt","{0:d}") %>'></asp:Label>
+                                </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:BoundField DataField="PaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
                                     HeaderText="Amount" />
                                 <asp:BoundField DataField="LoanNum" HeaderText="Loan Num" />
@@ -205,7 +212,11 @@
                                 <asp:BoundField DataField="NFMCDifferencePaidAmt" HeaderText="NFMC_Pmt" DataFormatString="{0:C}"
                                     ItemStyle-HorizontalAlign="Right" />
                                 <asp:BoundField DataField="TakebackReasonDesc" HeaderText="Takeback Reason" />
-                                <asp:BoundField DataField="TakebackDate" HeaderText="Takeback Date" DataFormatString="{0:d}" />
+                                <asp:TemplateField HeaderText="Takeback Date">
+                                <ItemTemplate>
+                                <asp:Label ID="lblTakeBackDate" runat="server" Text='<%#Eval("TakebackDate","{0:d}") %>'></asp:Label>
+                                </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EmptyDataTemplate>
                                 There is no data match !
@@ -254,9 +265,9 @@
         </td>
     </tr>
 </table>
-</ContentTemplate>
+<%--</ContentTemplate>
 </asp:UpdatePanel>
-
+--%>
 <script language="javascript" type="text/javascript">
     var id = '<%=hidIsSelected.ClientID %>';
     function TakeBackReason() {

@@ -30,12 +30,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             if (!IsPostBack)
             {
                 string selectedcase = GetSelectedRow();
-                //if (string.IsNullOrEmpty(selectedcase))
                 string value = hidIsSelected.Value;
-                //btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
-                //btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
-                //btnPayUnpayMarkCase.Click += new EventHandler(btnPayUnpayMarkCase_Click);
-                //btnTakeBackMarkCase.Click += new EventHandler(btnTakeBackMarkCase_Click);
                 BindTakebackReasonDropDownList();
                 BindViewEditPayable();
             }
@@ -156,13 +151,19 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection);
+                foreach (var agencyPayableCase in agencyPayableSet.PayableCases)
+                {
+                    if (agencyPayableCase.NFMCDifferencePaidAmt == null)
+                        AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection, 1);
+                    else
+                        AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection, 2);
+                }
                 BindViewEditPayable();
             }
             catch (Exception ex)
             {
                 bulErrorMessage.Items.Add(ex.Message);
-              
+
 
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
@@ -230,7 +231,25 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["AgencyPayable"];
             string agencyPayableId = agencyPayable.AgencyPayableId.ToString();
-            ScriptManager.RegisterStartupScript(Page, this.GetType(),"Print Payable", "window.open('ReprintPayable.aspx?agencyPayableId=" + agencyPayableId + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px');",true);
+            ScriptManager.RegisterStartupScript(Page, this.GetType(), "Print Payable", "window.open('ReprintPayable.aspx?agencyPayableId=" + agencyPayableId + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px');", true);
+        }
+
+        protected void grvViewEditAgencyPayable_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblComleteDate = (Label)e.Row.FindControl("lblCompleteDate");
+                Label lblTakeBackDate = (Label)e.Row.FindControl("lblTakeBackDate");
+                DateTime mindate = DateTime.MinValue;
+                if (mindate.CompareTo(Convert.ToDateTime(lblComleteDate.Text)) == 0)
+                {
+                    lblComleteDate.Text = "";
+                }
+                if (mindate.CompareTo(Convert.ToDateTime(lblTakeBackDate.Text)) == 0)
+                {
+                    lblTakeBackDate.Text = "";
+                }
+            }
         }
 
 

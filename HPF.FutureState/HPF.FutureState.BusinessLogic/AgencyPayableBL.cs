@@ -172,9 +172,9 @@ namespace HPF.FutureState.BusinessLogic
         {
             AgencyPayableDAO.CreateInstance().TakebackMarkCase(agencyPayableSet,takebackReason,agencyPayableIDCol);
         }
-        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol)
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol,int flag)
         {
-            AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet,agencyPayableIDCol);
+            AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet,agencyPayableIDCol,flag);
         }
 
     }

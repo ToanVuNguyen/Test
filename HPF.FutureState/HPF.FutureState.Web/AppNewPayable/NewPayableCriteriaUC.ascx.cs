@@ -154,7 +154,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0579);
                 ex.ExceptionMessages.Add(exmsg);
             }
-            agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), ddlCaseCompleted.SelectedValue.ToString());
+            agencyPayableSearchCriteria.CaseComplete = ddlCaseCompleted.SelectedValue.ToString();
             try
             {
                 agencyPayableSearchCriteria.PeriodStartDate =Convert.ToDateTime(txtPeriodStart.Text.Trim());

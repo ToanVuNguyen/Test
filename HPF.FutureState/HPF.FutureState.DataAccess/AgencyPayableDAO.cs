@@ -287,7 +287,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayableCriteria.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodStartDate);
                 sqlParam[2] = new SqlParameter("@pi_end_dt", agencyPayableCriteria.PeriodEndDate);
-                sqlParam[3] = new SqlParameter("@pi_case_completed_ind", (agencyPayableCriteria.CaseComplete == CustomBoolean.None) ? null : agencyPayableCriteria.CaseComplete.ToString());
+                sqlParam[3] = new SqlParameter("@pi_case_completed_ind", agencyPayableCriteria.CaseComplete);
                 sqlParam[4] = new SqlParameter("@pi_consent_flag", (agencyPayableCriteria.Indicator ));
                 command.Parameters.AddRange(sqlParam);
                 dbConnection.Open();
@@ -428,13 +428,13 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
         }
-        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol)
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol,int flag)
         {
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_agency_payable_case_update", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@pi_update_flag",ConvertToInt(1));
+            sqlParam[0] = new SqlParameter("@pi_update_flag",ConvertToInt(flag));
             sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIDCol);// payableid collection
             sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", "");
             sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);

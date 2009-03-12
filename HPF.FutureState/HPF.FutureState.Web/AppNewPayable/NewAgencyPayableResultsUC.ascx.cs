@@ -69,7 +69,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
                 int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
                 agencyPayableSearchCriteria.AgencyId = agencyid;
-                agencyPayableSearchCriteria.CaseComplete = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), casecomplete);
+                agencyPayableSearchCriteria.CaseComplete = casecomplete;
                 agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
                 agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
                 agencyPayableSearchCriteria.Indicator = indicator;
