@@ -1082,7 +1082,7 @@
     </tr>
     <tr>
         <td align="right">
-        <asp:HiddenField ID="hidChkAgencyActive" runat="server" Value="" />
+        <asp:HiddenField ID="hidChkAgencyActive"  runat="server"  Value=""/>
         </td>
     </tr>
 </table>
