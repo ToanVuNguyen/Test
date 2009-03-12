@@ -36,7 +36,7 @@
                                     <ItemStyle Width="100px" />
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="AuditDt" HeaderText="Audit Date" 
-                                    ItemStyle-Width="100px">
+                                    ItemStyle-Width="100px" DataFormatString="{0:MM/dd/yyyy}">
                                     <ItemStyle Width="100px" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="AuditTypeCodeDesc" HeaderText="Audit Type" ItemStyle-Width="150px">
@@ -159,7 +159,6 @@
                 <tr>
                     <td align="right" class="sidelinks">
                         Compliant:
-            Compliant:
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlCompliant" runat="server" CssClass="Text" 
