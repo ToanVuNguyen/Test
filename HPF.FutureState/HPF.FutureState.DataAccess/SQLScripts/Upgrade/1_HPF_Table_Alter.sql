@@ -20,3 +20,5 @@ UPDATE  ref_code_item  SET code = 'FREDDUPE'  WHERE ref_code_set_name = 'payment
 UPDATE  invoice_case SET		pmt_reject_reason_cd = 'FREDDUPE' WHERE pmt_reject_reason_cd = 'FREDDUP';
 
 ALTER TABLE Funding_source Add phone varchar(20) null ;
+
+UPDATE agency SET active_ind = 'Y';
