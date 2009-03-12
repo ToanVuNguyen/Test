@@ -160,6 +160,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                btnGenerateInvoice.Enabled = false;
                 return;
             }
             try
@@ -178,9 +179,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 string exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0985);
                 lblErrorMessage.Items.Add(exMes);
                 //Generate file fail.
-                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984);
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984)+ex.Message;
                 lblErrorMessage.Items.Add(exMes);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                btnGenerateInvoice.Enabled = false;
                 return;
             }
             try
@@ -203,6 +205,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0982);
                 lblErrorMessage.Items.Add(exMes);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                btnGenerateInvoice.Enabled = false;
                 return;
             }
             //if all successful , redirect to fudning source invoice page

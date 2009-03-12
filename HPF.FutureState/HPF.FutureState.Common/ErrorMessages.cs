@@ -757,9 +757,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0854, "The 'Body:' has a max length 2000 characters.");
 
                 //
-                errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail.");
+                errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail. Error Message: ");
                 errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
-                errorMessageDict.Add(ERR0984, "Generate Invoice reports fail.");
+                errorMessageDict.Add(ERR0984, "Generate Invoice reports fail. Error Message: ");
                 errorMessageDict.Add(ERR0985, "Insert Invoice successful.");
                 errorMessageDict.Add(ERR0986, "You must select one Invoice.");
                 errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");
