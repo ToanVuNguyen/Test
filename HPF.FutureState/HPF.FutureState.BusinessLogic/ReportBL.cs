@@ -24,7 +24,21 @@ namespace HPF.FutureState.BusinessLogic
         {
 
         }
-        public byte[] InvoiceExcelReport(int invoiceId, string fundingSourceExportFormatCd)
+        /// <summary>
+        /// Generate PDF Report
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <returns></returns>
+        public byte[] InvoicePDFReport(int invoiceId)
+        {
+            string reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_INVOICE_SUMMARY_REPORT);
+            var reportExport = new ReportingExporter { ReportPath = reportPath };
+            reportExport.SetReportParameter("pi_invoice_id", invoiceId.ToString());
+            var pdfReport = reportExport.ExportToPdf();
+            return pdfReport;
+        }
+            
+        public byte[] InvoiceExcelReport(int invoiceId, string fundingSourceExportFormatCd,bool getFISDetail)
         {
             //Generate the excel file first, need more info about the pdf file
 
@@ -35,7 +49,10 @@ namespace HPF.FutureState.BusinessLogic
             {
                 case (Constant.REF_CODE_SET_BILLING_EXPORT_FIS_CODE):
                     {
-                        reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_FIS_DETAIL_REPORT);
+                        reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_FIS_HEADER_REPORT);
+                        // if isFIS
+                        if (getFISDetail)
+                            reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_FIS_DETAIL_REPORT);
                         break;
                     }
                 case (Constant.REF_CODE_SET_BILLING_EXPORT_HPFSTD_CODE):

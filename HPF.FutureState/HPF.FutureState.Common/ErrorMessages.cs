@@ -360,6 +360,10 @@ namespace HPF.FutureState.Common
         public const string ERR0853 = "ERR0853";
         public const string ERR0854 = "ERR0854";
         //
+        public const string ERR0981 = "ERR0981";
+        public const string ERR0982 = "ERR0982";
+        public const string ERR0983 = "ERR0983";
+        public const string ERR0984 = "ERR0984";
         public const string ERR0985 = "ERR0985";
         public const string ERR0986 = "ERR0986";
         public const string ERR0987 = "ERR0987";
@@ -753,6 +757,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0854, "The 'Body:' has a max length 2000 characters.");
 
                 //
+                errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail.");
+                errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
+                errorMessageDict.Add(ERR0984, "Generate Invoice reports fail.");
+                errorMessageDict.Add(ERR0985, "Insert Invoice successful.");
                 errorMessageDict.Add(ERR0986, "You must select one Invoice.");
                 errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");
                 errorMessageDict.Add(ERR0988, "GrossAnnualIncome Min can not larger than GrossAnnualIncome Max.");

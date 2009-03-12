@@ -31,7 +31,7 @@ namespace HPF.FutureState.Common.Utils
                 Logger.Write(result.Error.Message, "General");
 
         }
-        public static void SendInvoiceExcelFile(HPFPortalInvoice invoice)
+        public static void SendInvoiceReportFile(HPFPortalInvoice invoice)
         {
             var invoiceInfo = new   InvoiceInfo
                                     {

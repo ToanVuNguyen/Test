@@ -139,57 +139,110 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void btnGenerateInvoice_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
+            SaveAndSendInvoiceReport();
+        }
+
+        private void SaveAndSendInvoiceReport()
+        {
+
+            FundingSourceDTO fundingSource = null;
+            InvoiceDTO invoice = null;
+            byte[] excelFile1 = null;
+            byte[] excelFile2 = null;
+            byte[] pdfFile = null;
             try
             {
-                //Insert Invoice
-                InvoiceDTO invoice = InsertInvoice();
-
-                FundingSourceDTO fundingSource = GetFundingSource(invoice.FundingSourceId.Value);
-
-                //Generate Report
-                byte[] excelFile = GenerateReport(invoice,fundingSource.ExportFormatCd);
-                //Upload Report
-                UploadReport(invoice, excelFile,fundingSource);
-
-                Response.Redirect("FundingSourceInvoice.aspx");
+                //Insert Invoice to Database
+                invoice = InsertInvoice();
+                fundingSource = GetFundingSource(invoice.FundingSourceId.Value);
             }
             catch (Exception ex)
-            { 
-                //todo: implement exception message here
+            {
+                lblErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
+            try
+            {
+                //Generate Report
+                pdfFile = GeneratePDFReport(invoice.InvoiceId);
+                excelFile1 = GenerateExcelReport(invoice, fundingSource.ExportFormatCd,false);
+                //If ExportFormatCd = FIS so we will get the detail 
+                if (fundingSource.ExportFormatCd == Constant.REF_CODE_SET_BILLING_EXPORT_FIS_CODE)
+                    excelFile2 = GenerateExcelReport(invoice, fundingSource.ExportFormatCd, true);
+
+            }
+            catch (Exception ex)
+            {
+                //Insert Successful
+                string exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0985);
+                lblErrorMessage.Items.Add(exMes);
+                //Generate file fail.
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984);
+                lblErrorMessage.Items.Add(exMes);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            try
+            {
+                //Upload Report
+                UploadPDFReport(invoice,pdfFile,fundingSource);
+                UploadExcelReport(invoice, excelFile1, fundingSource);
+                if (fundingSource.ExportFormatCd == Constant.REF_CODE_SET_BILLING_EXPORT_FIS_CODE)
+                    UploadExcelReport(invoice, excelFile2, fundingSource);
+            }
+            catch (Exception ex)
+            {
+                //Insert Successful
+                string exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0985);
+                lblErrorMessage.Items.Add(exMes);
+                //Generate file successful.
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0983);
+                lblErrorMessage.Items.Add(exMes);
+                //Deliver fail.
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0982);
+                lblErrorMessage.Items.Add(exMes);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            //if all successful , redirect to fudning source invoice page
+            Response.Redirect("FundingSourceInvoice.aspx");
+            
         }
         #region InsertInvoice/CreateReport/SendReport
-        private void UploadReport(InvoiceDTO invoice, byte[] excelFile,FundingSourceDTO fundingSource)
+        private void UploadExcelReport(InvoiceDTO invoice, byte[] excelFile,FundingSourceDTO fundingSource)
         {
-            try
-            {
-                
-                string fileName = GetExcelFileName(fundingSource, invoice);
-                HPFPortalInvoice portalInvoice = GetPortalInvoice(invoice, excelFile, fundingSource, fileName);
-                HPFPortalGateway.SendInvoiceExcelFile(portalInvoice);
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+            string fileName = GetExcelFileName(fundingSource, invoice);
+            HPFPortalInvoice portalInvoice = GetPortalInvoice(invoice, excelFile, fundingSource, fileName);
+            HPFPortalGateway.SendInvoiceReportFile(portalInvoice);
         }
-
-        private byte[] GenerateReport(InvoiceDTO invoice,string fundingSourceFormatCode)
+        private void UploadPDFReport(InvoiceDTO invoice, byte[] pdfFile, FundingSourceDTO fundingSource)
         {
-            byte[] excelFile = null;
-            try
-            {
-                excelFile = ReportBL.Instance.InvoiceExcelReport(invoice.InvoiceId.Value,fundingSourceFormatCode);
-
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-
-            }
-            return excelFile;
+            string fileName = GetPDFFileName(fundingSource, invoice);
+            HPFPortalInvoice portalInvoice = GetPortalInvoice(invoice, pdfFile, fundingSource, fileName);
+            HPFPortalGateway.SendInvoiceReportFile(portalInvoice);
+        }
+        /// <summary>
+        /// Call REport Bl
+        /// </summary>
+        /// <param name="invoice"></param>
+        /// <param name="fundingSourceFormatCode"></param>
+        /// <param name="getFISDetail"></param>
+        /// <returns></returns>
+        private byte[] GenerateExcelReport(InvoiceDTO invoice, string fundingSourceFormatCode, bool getFISDetail)
+        {
+            return ReportBL.Instance.InvoiceExcelReport(invoice.InvoiceId.Value,fundingSourceFormatCode,getFISDetail);
+        }
+        /// <summary>
+        /// Call REport Bl
+        /// </summary>
+        /// <param name="invoice"></param>
+        /// <param name="fundingSourceFormatCode"></param>
+        /// <param name="getFISDetail"></param>
+        /// <returns></returns>
+        private byte[] GeneratePDFReport(int? invoiceId)
+        {
+            return ReportBL.Instance.InvoicePDFReport(invoiceId.Value);
         }
 
         private InvoiceDTO InsertInvoice()
@@ -214,6 +267,21 @@ namespace HPF.FutureState.Web.AppNewInvoice
             result.Append("_HPF_INV-");
             result.Append(invoice.InvoiceId.ToString());
             result.Append("_DETAIL.xls");
+            return result.ToString();
+        }
+        string GetPDFFileName(FundingSourceDTO fundingSource, InvoiceDTO invoice)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append(fundingSource.FundingSourceAbbrev);
+            result.Append("_");
+            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
+            result.Append("_");
+            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
+            //result.Append("_HPF_INV#");
+            //todo: invalid charater when uploading to SharePoint (#)
+            result.Append("_HPF_INV-");
+            result.Append(invoice.InvoiceId.ToString());
+            result.Append("_DETAIL.pdf");
             return result.ToString();
         }
         FundingSourceDTO GetFundingSource(int fundingSourceId)

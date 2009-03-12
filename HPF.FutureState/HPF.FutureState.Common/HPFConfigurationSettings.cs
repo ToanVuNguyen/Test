@@ -162,7 +162,15 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_NFMC_REPORT"];
             }
 
-        }        
+        }
+        public static string HPF_INVOICE_EXPORT_INVOICE_SUMMARY_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_INVOICE_SUMMARY_REPORT"];
+            }
+
+        }    
    
         public static string MapReportPath(string virtualPath)
         {
