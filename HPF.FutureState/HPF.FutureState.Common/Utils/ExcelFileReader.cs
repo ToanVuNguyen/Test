@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.Odbc;
 using System.IO;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.Common.Utils
 {
@@ -45,8 +46,13 @@ namespace HPF.FutureState.Common.Utils
             {
                 stream.Seek(0, SeekOrigin.Begin);
                 PushStreamToTempFile(stream, tempFileName);
-                var ds = Read(tempFileName, sheetName);                
+                var ds = Read(tempFileName, sheetName);
                 return ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex.Message);                
+                throw;
             }
             finally
             {
