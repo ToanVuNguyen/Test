@@ -294,6 +294,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             txt_CreditScore.Text = string.Empty;
             ddl_CreditReportBureau.SelectedIndex = ddl_CreditReportBureau.Items.IndexOf(ddl_CreditReportBureau.Items.FindByText(string.Empty));
             txt_CreditReportDt.Text = string.Empty;
+            txt_FollowUpComment.Text = string.Empty;
         }
         #endregion
 
