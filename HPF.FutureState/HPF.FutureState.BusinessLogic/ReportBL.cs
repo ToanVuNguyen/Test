@@ -112,7 +112,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 var hpfSharepointSummaryPdf = new HPFPortalNewAgencyPayable();
                     hpfSharepointSummaryPdf.ReportFile = AgencyPayableReportPdf(agencyPayableId);
-                    hpfSharepointSummaryPdf.ReportFileName = "AgencyPayablePDF.pdf";
+                    hpfSharepointSummaryPdf.ReportFileName = agencyPayableId.ToString()+"AgencyPayablePDF.pdf";
                     hpfSharepointSummaryPdf.AgencyName = agencyPayable.AgencyName.ToString();
                     hpfSharepointSummaryPdf.PayableNumber = agencyPayable.PayableNum.ToString();
                     hpfSharepointSummaryPdf.PayableDate = agencyPayable.PaymentDate;
@@ -121,7 +121,7 @@ namespace HPF.FutureState.BusinessLogic
                 var hpfSharepointSummaryXls = new HPFPortalNewAgencyPayable
                 {
                     ReportFile = AgencyPayableReportPdf(agencyPayableId),
-                    ReportFileName = "AgencyPayableXLS.xls",
+                    ReportFileName = agencyPayableId.ToString()+"AgencyPayableXLS.xls",
                     AgencyName = agencyPayable.AgencyName.ToString(),
                     PayableNumber = agencyPayable.PayableNum.ToString(),
                     PayableDate = agencyPayable.PaymentDate,
