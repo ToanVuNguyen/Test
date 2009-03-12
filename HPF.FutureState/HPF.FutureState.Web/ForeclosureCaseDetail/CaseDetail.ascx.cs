@@ -27,7 +27,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 ApplySecurity();
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-                if (Request.QueryString["CaseID"]!=null)
+                if (Request.QueryString["CaseID"] != null)
                     BindDetailCaseData(caseid);
                 else
                     bulMessage.Items.Add(new ListItem("There is no data with this fc_id"));
@@ -35,9 +35,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
-           
+
         }
         private void ApplySecurity()
         {
@@ -64,7 +64,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -86,16 +86,29 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// 
         /// </summary>
         /// <param name="agencyname"></param>
-        protected void BindDDLAgency(string agencyname)
+        protected void BindDDLAgency(string agencyid)
         {
-            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
-            ddlAgency.DataValueField = "AgencyID";
-            ddlAgency.DataTextField = "AgencyName";
-            ddlAgency.DataSource = agencyCollection;
-            ddlAgency.DataBind();
-            ddlAgency.SelectedValue = agencyname;
-            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
-            
+            try
+            {
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                ddlAgency.DataValueField = "AgencyID";
+                ddlAgency.DataTextField = "AgencyName";
+                ddlAgency.DataSource = agencyCollection;
+                ddlAgency.DataBind();
+                //check agency active or not
+                foreach (var agency in agencyCollection)
+                    if (agency.AgencyID == agencyid)
+                        hidChkAgencyActive.Value = "1";
+                if (hidChkAgencyActive.Value == "1")
+                    ddlAgency.SelectedValue = agencyid;
+                else ddlAgency.SelectedIndex = -1;
+                ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
+            }
+            catch
+            {
+
+            }
+
         }
 
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
@@ -112,7 +125,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 else
                     lblStateZip.Text = foreclosureCase.PropStateCd + " , " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
                 lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
-                lblOwnerOccupied.Text=DisplayInd(foreclosureCase.OwnerOccupiedInd);
+                lblOwnerOccupied.Text = DisplayInd(foreclosureCase.OwnerOccupiedInd);
                 lblPropertyCode.Text = foreclosureCase.PropertyDesc;
                 lblNumberOfOccupants.Text = foreclosureCase.OccupantNum.ToString();
                 lblPurchaseYear.Text = foreclosureCase.HomePurchaseYear.ToString();
@@ -127,7 +140,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblMidName.Text = foreclosureCase.BorrowerMname;
                 lblLastName.Text = foreclosureCase.BorrowerLname;
                 lblDOB.Text = foreclosureCase.BorrowerDob == null ? "" : foreclosureCase.BorrowerDob.Value.ToShortDateString();
-                if(String.IsNullOrEmpty(foreclosureCase.BorrowerLast4Ssn))
+                if (String.IsNullOrEmpty(foreclosureCase.BorrowerLast4Ssn))
                     lblLast4SSN.Text = "";
                 else lblLast4SSN.Text = "XXX-XX-" + foreclosureCase.BorrowerLast4Ssn;
                 lblPrimaryContact.Text = foreclosureCase.PrimaryContactNo;
@@ -162,7 +175,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (String.IsNullOrEmpty(foreclosureCase.ContactZipPlus4))
                     lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip;
                 else lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip + " - " + foreclosureCase.ContactZipPlus4;
-                
+
                 //case status
                 ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
                 if (foreclosureCase.DuplicateInd == "Y")
@@ -235,7 +248,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     else ddlMediaCondirmation.SelectedIndex = 0;//blank
                 //success story
                 lblSuccessStory.Text = DisplayInd(foreclosureCase.AgencySuccessStoryInd);
-                ddlSuccessStory.SelectedValue =DisplayInd(foreclosureCase.HpfSuccessStoryInd);
+                ddlSuccessStory.SelectedValue = DisplayInd(foreclosureCase.HpfSuccessStoryInd);
                 if (foreclosureCase.HpfSuccessStoryInd == "Y")
                     ddlSuccessStory.SelectedIndex = 1;//yes
                 else
@@ -250,10 +263,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         protected void UpdateForecloseCase()
         {
             //get update datacollection from UI
-            ForeclosureCaseDTO foreclosureCase=null;
-            if(ddlAgency.SelectedValue!="") 
-            foreclosureCase = GetUpdateInfo();
-            
+            ForeclosureCaseDTO foreclosureCase = null;
+            if (ddlAgency.SelectedValue != "")
+                foreclosureCase = GetUpdateInfo();
+
             try
             {
                 if (foreclosureCase != null)
@@ -268,7 +281,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         /// <summary>
@@ -277,36 +290,36 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <returns></returns>
         private ForeclosureCaseDTO GetUpdateInfo()
         {
-                
-                
-                ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
-                //case status
-                foreclosureCase.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
-                foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
-                foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
-                //couselor notes
-                foreclosureCase.LoanDfltReasonNotes = txtReasonNote.Text;
-                foreclosureCase.ActionItemsNotes = txtItemNotes.Text;
-                foreclosureCase.FollowupNotes = txtFollowUpNotes.Text;
-                //Opt In/Out
-                foreclosureCase.DoNotCallInd = ddlNotCall.SelectedItem.Value;
-                foreclosureCase.OptOutNewsletterInd = ddlNewsLetter.SelectedItem.Value;
-                foreclosureCase.OptOutSurveyInd = ddlServey.SelectedItem.Value;
-                //media cadidate
-                if (ddlMediaCondirmation.SelectedValue == "") foreclosureCase.HpfMediaCandidateInd = null;
-                else
-                    foreclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
-                //success story
-                if (ddlSuccessStory.SelectedValue == "") foreclosureCase.HpfSuccessStoryInd = null;
-                else
-                    foreclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
-                return foreclosureCase;
+
+
+            ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
+            //case status
+            foreclosureCase.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
+            foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
+            foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
+            //couselor notes
+            foreclosureCase.LoanDfltReasonNotes = txtReasonNote.Text;
+            foreclosureCase.ActionItemsNotes = txtItemNotes.Text;
+            foreclosureCase.FollowupNotes = txtFollowUpNotes.Text;
+            //Opt In/Out
+            foreclosureCase.DoNotCallInd = ddlNotCall.SelectedItem.Value;
+            foreclosureCase.OptOutNewsletterInd = ddlNewsLetter.SelectedItem.Value;
+            foreclosureCase.OptOutSurveyInd = ddlServey.SelectedItem.Value;
+            //media cadidate
+            if (ddlMediaCondirmation.SelectedValue == "") foreclosureCase.HpfMediaCandidateInd = null;
+            else
+                foreclosureCase.HpfMediaCandidateInd = ddlMediaCondirmation.SelectedItem.Value;
+            //success story
+            if (ddlSuccessStory.SelectedValue == "") foreclosureCase.HpfSuccessStoryInd = null;
+            else
+                foreclosureCase.HpfSuccessStoryInd = ddlSuccessStory.SelectedItem.Value;
+            return foreclosureCase;
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
-             UpdateForecloseCase();
+            UpdateForecloseCase();
         }
 
-        
+
     }
 }
