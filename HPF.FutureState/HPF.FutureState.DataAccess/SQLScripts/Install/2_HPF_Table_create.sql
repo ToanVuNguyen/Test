@@ -1,9 +1,9 @@
 -- =============================================
--- Create date: 06 Mar 2009
+-- Create date: 12 Mar 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
---		Apply database changes on:  06 Mar 2009
+--		Apply database changes on:  12 Mar 2009
 --		Refer to file "DB Track changes.xls"
 -- ============================================
 USE HPF
@@ -28,6 +28,8 @@ CREATE TABLE funding_source (
   exp_dt DATETIME    ,
   active_ind VARCHAR(1)    ,
   funding_source_abbrev VARCHAR(10)  NOT NULL  ,
+  sharepoint_foldername varchar(256) NULL,
+  phone varchar(20) NULL,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -169,6 +171,7 @@ CREATE TABLE servicer (
   hud_servicer_num VARCHAR(20)    ,
   iclear_servicer_num Varchar(30) Null,
   fis_servicer_num varchar(30) Null,
+  sharepoint_foldername varchar(256) NULL,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
@@ -299,6 +302,7 @@ CREATE TABLE Agency (
   finance_zip varchar(5) null,
   finance_zip_plus_4 varchar(4) null,
   NFMC_branch_num varchar(30) Null,
+  sharepoint_foldername varchar(256) NULL,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
