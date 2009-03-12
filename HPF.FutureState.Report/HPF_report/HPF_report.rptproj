@@ -75,8 +75,8 @@
       <FullPath>rpt_InvoiceExportFile_HSBC.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_InvoiceSummary.rdl</Name>
-      <FullPath>rpt_InvoiceSummary.rdl</FullPath>
+      <Name>rpt_PayableSummary.rdl</Name>
+      <FullPath>rpt_PayableSummary.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_PotentialDuplicates.rdl</Name>
@@ -85,6 +85,14 @@
     <ProjectItem>
       <Name>rpt_UnbilledCaseReport.rdl</Name>
       <FullPath>rpt_UnbilledCaseReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_InvoiceSummary.rdl</Name>
+      <FullPath>rpt_InvoiceSummary.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CaseFundingSourceSummary.rdl</Name>
+      <FullPath>rpt_CaseFundingSourceSummary.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

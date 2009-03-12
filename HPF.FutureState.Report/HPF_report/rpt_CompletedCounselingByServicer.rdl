@@ -39,7 +39,7 @@
           <ValueField>servicer_id</ValueField>
         </DataSetReference>
       </DefaultValue>
-      <Prompt>pi_servicer_id</Prompt>
+      <Prompt>Servicer</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>dst_hpf_servicer_get</DataSetName>
