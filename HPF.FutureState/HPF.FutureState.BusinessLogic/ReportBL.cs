@@ -38,7 +38,7 @@ namespace HPF.FutureState.BusinessLogic
             return pdfReport;
         }
             
-        public byte[] InvoiceExcelReport(int invoiceId, string fundingSourceExportFormatCd,bool getFISDetail)
+        public byte[] InvoiceExcelReport(int invoiceId, string fundingSourceExportFormatCd,bool getFISDetail,string userLoginName)
         {
             //Generate the excel file first, need more info about the pdf file
 
@@ -80,6 +80,9 @@ namespace HPF.FutureState.BusinessLogic
                 return null;
             var reportExport = new ReportingExporter { ReportPath = reportPath };
             reportExport.SetReportParameter("pi_invoice_id", invoiceId.ToString());
+            //if export formatCd = Fis and current report is fis-header ,one more parameter
+            if(fundingSourceExportFormatCd==Constant.REF_CODE_SET_BILLING_EXPORT_FIS_CODE&&getFISDetail==false)
+                reportExport.SetReportParameter("pi_user_id", userLoginName);
             var excelReport = reportExport.ExportToExcel();
             return excelReport;
         }

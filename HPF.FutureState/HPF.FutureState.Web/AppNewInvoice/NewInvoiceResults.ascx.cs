@@ -231,7 +231,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         /// <returns></returns>
         private byte[] GenerateExcelReport(InvoiceDTO invoice, string fundingSourceFormatCode, bool getFISDetail)
         {
-            return ReportBL.Instance.InvoiceExcelReport(invoice.InvoiceId.Value,fundingSourceFormatCode,getFISDetail);
+            return ReportBL.Instance.InvoiceExcelReport(invoice.InvoiceId.Value,fundingSourceFormatCode,getFISDetail,HPFWebSecurity.CurrentIdentity.LoginName);
         }
         /// <summary>
         /// Call REport Bl
