@@ -137,15 +137,16 @@ namespace HPF.FutureState.Web.AppNewPayable
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
             btnTakeBackMarkCase.Attributes.Clear();
             btnPayUnpayMarkCase.Attributes.Clear();
+            
+            if (payableCaseIdCollection == null)
+            {
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0577"));
+                return;
+            }
             if (hidPayUnpayCheck.Value == "-1")
             {
                 bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("ERR0582")));
                 hidPayUnpayCheck.Value = "";
-                return;
-            }
-            if (payableCaseIdCollection == null)
-            {
-                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0577"));
                 return;
             }
             try
