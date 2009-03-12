@@ -25,7 +25,7 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Counseling Summary")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Counseling Summaries")]
         public string CounselingSummary {
             get {
                 return ((string)(this["CounselingSummary"]));
@@ -43,37 +43,10 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Agency Payable")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Agency Payables")]
         public string AgencyPayable {
             get {
                 return ((string)(this["AgencyPayable"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://litwaredemo")]
-        public string SharePointSite {
-            get {
-                return ((string)(this["SharePointSite"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
-        public string InvoiceLoginName {
-            get {
-                return ((string)(this["InvoiceLoginName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
-        public string AgencyPayableLoginName {
-            get {
-                return ((string)(this["AgencyPayableLoginName"]));
             }
         }
         
@@ -88,7 +61,71 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LITWAREINC\\Administrator")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Error Folder")]
+        public string ErrorFolderName {
+            get {
+                return ((string)(this["ErrorFolderName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Upload report error")]
+        public string ErrorSubject {
+            get {
+                return ((string)(this["ErrorSubject"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Error when upload report file {0} to {1} folder. The {1} folder does not exist. I" +
+            "t was moved to {2}")]
+        public string ErrorBodyDoesNotExistSPFolder {
+            get {
+                return ((string)(this["ErrorBodyDoesNotExistSPFolder"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Error when upload report file {0} to empty folder. It was moved to {1}")]
+        public string ErrorBodyEmptySPFolderName {
+            get {
+                return ((string)(this["ErrorBodyEmptySPFolderName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8088")]
+        public string SharePointSite {
+            get {
+                return ((string)(this["SharePointSite"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
+        public string InvoiceLoginName {
+            get {
+                return ((string)(this["InvoiceLoginName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
+        public string AgencyPayableLoginName {
+            get {
+                return ((string)(this["AgencyPayableLoginName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
         public string CounselingSummaryLoginName {
             get {
                 return ((string)(this["CounselingSummaryLoginName"]));

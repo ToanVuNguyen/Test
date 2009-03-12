@@ -5,6 +5,8 @@ using HPF.SharePointAPI.BusinessEntity;
 using Microsoft.SharePoint;
 using System.Security;
 using HPF.SharePointAPI.ContentTypes;
+using System.Net.Mail;
+using System.Configuration;
 
 namespace HPF.SharePointAPI.Controllers
 {
@@ -87,11 +89,7 @@ namespace HPF.SharePointAPI.Controllers
         /// <param name="action"></param>
         /// <returns></returns>
         private static IList<ResultInfo<T>> UploadSPFiles<T>(string userName, IList<T> items, string listName, string spFolderName, UpdateSPListItem<T> action) where T:BaseObject
-        {
-            if (String.IsNullOrEmpty(spFolderName.Trim()))
-            {
-                throw new ArgumentNullException("SPFolderName");
-            }
+        {   
             List<ResultInfo<T>> results = new List<ResultInfo<T>>();
 
             SPUserToken token = GetUploadSPUserToken(userName);
@@ -105,9 +103,15 @@ namespace HPF.SharePointAPI.Controllers
                 web.AllowUnsafeUpdates = true;                
                 SPDocumentLibrary docLib = (SPDocumentLibrary)web.Lists[listName];                
 
-                //get SPFolder
-                string folder = docLib.RootFolder + "/" + spFolderName;
-                SPFolder spFolder = GetSPFolder(web, folder);
+                //get SPFolder       
+                StringBuilder fileName = new StringBuilder();
+                foreach (BaseObject file in items)
+                {
+                    fileName.Append(file.Name + Environment.NewLine);
+                }
+                SPFolder spFolder = GetSPFolder(web, 
+                    docLib.RootFolder.ServerRelativeUrl, 
+                    spFolderName, fileName.ToString());
 
                 SPFile spFile;
                 foreach (T item in items)
@@ -274,14 +278,63 @@ namespace HPF.SharePointAPI.Controllers
             return folder;
         }
 
-        private static SPFolder GetSPFolder(SPWeb sourceWeb, string folderPath)
-        {
-            SPFolder folder = sourceWeb.GetFolder(folderPath);
-            if (folder.Exists) 
-            { 
-                return folder; 
+        private static SPFolder GetSPFolder(SPWeb sourceWeb, string docLibRootFolderUrl, string folderName, string fileName)
+        {            
+            if (String.IsNullOrEmpty(folderName))
+            {
+                //notify support team with empty folder name
+                //Email Body: Error when upload report file {0} to empty folder. It was moved to {1}
+                string body = String.Format(DocumentCenter.Default.ErrorBodyEmptySPFolderName,
+                    fileName, DocumentCenter.Default.ErrorFolderName);
+                SendMail(HPF_SUPPORT_EMAIL, DocumentCenter.Default.ErrorSubject, body);
+
+                return sourceWeb.GetFolder(docLibRootFolderUrl + "/" +
+                    DocumentCenter.Default.ErrorFolderName);
             }
-            throw new ArgumentException("SPFolder does not exist.");
+            else
+            {
+                string folderPath = docLibRootFolderUrl + "/" + folderName;
+                SPFolder folder = sourceWeb.GetFolder(folderPath);
+                if (!folder.Exists)
+                {
+                    //notify support team with folder name not exists
+                    //Email Body: Error when upload report file {0} to {1} folder. The {1} folder does not exist. It was moved to {2}
+                    string body = String.Format(DocumentCenter.Default.ErrorBodyDoesNotExistSPFolder,
+                        fileName, folderPath, DocumentCenter.Default.ErrorFolderName);
+                    SendMail(HPF_SUPPORT_EMAIL, DocumentCenter.Default.ErrorSubject, body);
+
+                    return sourceWeb.GetFolder(docLibRootFolderUrl + "/" +
+                        DocumentCenter.Default.ErrorFolderName);
+                }
+                else
+                {
+                    return folder;
+                }
+            }
+        }
+
+        private static void SendMail(string to, string subject, string body)
+        {
+            try
+            {
+                using (MailMessage message = new MailMessage())
+                {
+                    message.To.Add(new MailAddress(to));
+                    message.Subject = subject;
+                    message.Body = body;
+                    SmtpClient sender = new SmtpClient();
+                    sender.Send(message);
+                }
+            }
+            catch { }
+        }
+
+        public static string HPF_SUPPORT_EMAIL
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_SUPPORT_EMAIL"];
+            }
 
         }
         #endregion
