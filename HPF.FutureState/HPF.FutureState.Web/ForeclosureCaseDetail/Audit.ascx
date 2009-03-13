@@ -212,7 +212,7 @@
     </tr>
 </table>
 <script type="text/javascript" language="javascript">
-    var msfWARN0450 = '<%= msgWARN0450 %>';
+    //var msfWARN0450 = '<%= msgWARN0450 %>';
     var hfDoSaving = document.getElementById('<%=hfDoSaving.ClientID %>');
     var ddlAppropriateOutcome = document.getElementById('<%=ddlAppropriateOutcome.ClientID %>');
     var txtAuditComment  = document.getElementById('<%=txtAuditComment.ClientID %>'); 
@@ -251,7 +251,8 @@
             , ddlVerbalPrivacyConsent.value, ddlWrittenPrivacyConsent.value);
     var caseAuditAfter = new CaseAudit();
     
-    function ConfirmToCancel()
+    
+    function ConfirmToSave(message)
     {   
         caseAuditAfter = new CaseAudit(ddlAppropriateOutcome.value, txtAuditComment.value, txtAuditDate.value
             , ddlAuditFailureReason.value, ddlAuditType.value, ddlBudgetCompleted.value, ddlClientActionPlan.value
@@ -259,7 +260,7 @@
         
         if(IsDifferent(caseAuditBefore, caseAuditAfter))
         {
-            var b = confirm(msfWARN0450);
+            var b = confirm(message);
             if (b)
                 hfDoSaving.value = "YES";       
             else
@@ -270,6 +271,7 @@
         hfDoSaving.value = "NO";    
         return true;
     }
+    
     function IsDifferent(caseAuditBefore, caseAuditAfter)
     {
         if (caseAuditBefore.AuditDt != caseAuditAfter.AuditDt
@@ -289,8 +291,10 @@
          return false;        
     }
     TabControl.onChanged = function() {
-        ConfirmToCancel();
+        ConfirmToSave("Your data is changed. Do you want to save it?");
     };
     function ChangeData()
-    { };    
+    {
+        ConfirmToSave("Your data is changed. Do you want to save it?");
+    };    
 </script>

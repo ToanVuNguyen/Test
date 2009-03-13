@@ -28,10 +28,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             hidChkAgencyActive.Value = "";
             try
             {
-                ApplySecurity();
-                int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+                ApplySecurity();                
+                
                 if (Request.QueryString["CaseID"] != null)
+                {
+                    int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+                    ViewState["CaseID"] = caseid.ToString();
                     BindDetailCaseData(caseid);
+                }
             }
             catch (Exception ex)
             {
@@ -264,6 +268,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void UpdateForecloseCase()
         {
+            hidSaveIsYes.Value = "";
             //get update datacollection from UI
             ForeclosureCaseDTO foreclosureCase = null;
             if (ddlAgency.SelectedValue != "inactive")
@@ -303,7 +308,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             //case status
-            foreclosureCase.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
+            foreclosureCase.FcId = int.Parse(ViewState["CaseID"].ToString());
             foreclosureCase.DuplicateInd = ddlDuplicate.SelectedItem.Value;
             foreclosureCase.AgencyId = int.Parse(ddlAgency.SelectedItem.Value);
             //couselor notes
@@ -329,6 +334,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             UpdateForecloseCase();
         }
 
-
+        protected override void OnUnload(EventArgs e)
+        {
+            base.OnUnload(e);
+            if (hidSaveIsYes.Value != string.Empty)
+                UpdateForecloseCase();
+        }
     }
 }

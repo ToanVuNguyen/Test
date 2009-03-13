@@ -146,7 +146,7 @@
 </table>
 
 <script type="text/javascript" language="javascript">
-    var msfWARN0450 = '<%= msgWARN0450 %>';    
+   // var msfWARN0450 = '<%= msgWARN0450 %>';    
     var status = document.getElementById('<%=hdf_Confirm.ClientID %>');
     var confirmFlag = true;
     var followUpDate = document.getElementById('<%=txt_FollowUpDt.ClientID %>');
@@ -229,33 +229,29 @@
         confirmFlag = false;   
     }
     
-    function ConfirmEdit()
-    {
-        if(confirmFlag = true)
-            return true;   
+    function ConfirmEdit(message)
+    {        
         caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
             , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
         if(CompareCaseFollowUpObject(caseFollowUpAfter))
         {            
-            if (confirm(msfWARN0450)==true)            
+            if (confirm(message)==true)            
                 status.value = "TRUE";                            
             else            
                 status.value = "FALSE";            
         } 
         else        
-            status.value = "FALSE";                    
+            status.value = "FALSE";    
+                            
         return true;
     }
     
     TabControl.onChanged=function()
     {
-        caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
-            , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);
-        if(CompareCaseFollowUpObject(caseFollowUpAfter))
-        {
-            return confirm('Changed confirm');
-        }
+        ConfirmEdit("Your data is changed. Do you want to save it?");
     };
     function ChangeData()
-    { }
+    { 
+        ConfirmEdit("Your data is changed. Do you want to save it?");
+    }
 </script>

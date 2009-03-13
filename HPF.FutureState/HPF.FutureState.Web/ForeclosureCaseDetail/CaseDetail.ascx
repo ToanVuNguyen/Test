@@ -1083,6 +1083,7 @@
     <tr>
         <td align="right">
         <asp:HiddenField ID="hidChkAgencyActive"  runat="server"  Value=""/>
+        <asp:HiddenField ID="hidSaveIsYes"  runat="server"  Value=""/>
         </td>
     </tr>
 </table>
@@ -1106,10 +1107,15 @@
     }
     var detailCaseBefore = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
     var detailCaseAfter = new detailCase();
+    
     TabControl.onChanged = function ChangeData() {
         detailCaseAfter = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
-        if (ComparePaymentObject(detailCaseAfter)) {
-            return (confirm('Your data is changed, You do not want to save it.'));
+        if (ComparePaymentObject(detailCaseAfter))
+        {
+            if(confirm('Your data is changed. Do you want to save it?'))
+            {            
+                document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
+            }
         }
         return true;
     }

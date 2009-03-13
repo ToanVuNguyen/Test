@@ -31,6 +31,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ApplySecurity();
                 if (IsPostBack)
                 {
+                    ViewState["CaseID"] = Request.QueryString["CaseID"];
                     grdvCaseFollowUpBinding();
 
                     ddlFollowUpSourceBinding();
@@ -41,7 +42,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
                     GenerateDefaultData();
 
-                    btn_Cancel.Attributes.Add("onclick", "return ConfirmToCancel();");                    
+                    btn_Cancel.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");
+                    btn_New.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");    
                 }
             }
             catch (Exception ex)
@@ -50,10 +52,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
         }
 
+        protected override void OnUnload(EventArgs e)
+        {
+            base.OnUnload(e);
+            if (hdf_Confirm.Value != string.Empty && hdf_Confirm.Value == "TRUE")
+                DoSaving();
+        }
         #region BindDataToControl
         private void grdvCaseFollowUpBinding()
         {
-            int caseID = int.Parse(Request.QueryString["CaseID"].ToString());
+            int caseID = int.Parse(ViewState["CaseID"].ToString());
             caseFollowUps = RetrieveCaseFollowUps(caseID);
             if (caseFollowUps.Count > 0)
             {
@@ -140,7 +148,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 Button _button = (Button)e.Row.FindControl("btn_Edit");
                 if (_button != null)
                 {
-                    _button.Attributes.Add("onclick", "return ConfirmEdit();");
+                    _button.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");
                     _button.Click += new EventHandler(btn_Edit_Click);
                     _button.CommandArgument = e.Row.RowIndex.ToString();
                 }
@@ -166,6 +174,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btn_New_Click(object sender, EventArgs e)
         {
+            if (hdf_Confirm.Value != string.Empty && hdf_Confirm.Value == "TRUE")
+                DoSaving();
             hfAction.Value = ACTION_INSERT;
             grd_FollowUpList.SelectedIndex = -1;
             GenerateDefaultData();
@@ -225,6 +235,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 errorList.DataSource = err;
                 errorList.DataBind();
             }
+            hdf_Confirm.Value = "";
         }
         #endregion
 
@@ -238,8 +249,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             caseFollowUp.CasePostCounselingStatusId = id;
 
-            if (Request.QueryString["CaseID"] != null && !string.IsNullOrEmpty(Request.QueryString["CaseID"].ToString()))
-                caseFollowUp.FcId = int.Parse(Request.QueryString["CaseID"].ToString());
+            if (ViewState["CaseID"] != null && !string.IsNullOrEmpty(ViewState["CaseID"].ToString()))
+                caseFollowUp.FcId = int.Parse(ViewState["CaseID"].ToString());
             else
                 caseFollowUp.FcId = null;
 
@@ -368,9 +379,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         public string msgWARN0450
         {
             get
-            {
-                Object msg = ViewState["msgWARN0450"];
-                return (msg == null) ? ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450) : (string)msg;
+            {                
+                return ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450);                
             }            
         }                      
         #endregion

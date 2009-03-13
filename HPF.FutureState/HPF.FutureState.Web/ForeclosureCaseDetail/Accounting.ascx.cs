@@ -28,6 +28,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 BindNeverBillReasonDropDownList();
                 BindNeverPayReasonDropDownList();
                 int fc_id = int.Parse(Request.QueryString["CaseID"].ToString());
+                ViewState["CaseID"] = fc_id;
                 BindAccounting(fc_id);
             }
    
@@ -90,8 +91,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             try
             {
+                hidSaveIsYes.Value = "";
                 ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
-                foreclosureCase.FcId= int.Parse(Request.QueryString["CaseID"]);
+                foreclosureCase.FcId= int.Parse(ViewState["CaseID"].ToString());
                 foreclosureCase.NeverBillReasonCd = ddlNerverBillReason.SelectedValue;
                 foreclosureCase.NeverPayReasonCd = ddlNeverPayReason.SelectedValue;
                 foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
@@ -118,6 +120,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                         lblRejectReasonDesc.Text = PaymentRejectReasonDTO.CodeDesc;
                 }
             }
+        }
+
+        protected override void OnUnload(EventArgs e)
+        {
+            base.OnUnload(e);
+            if (hidSaveIsYes.Value != string.Empty)
+                UpdateForclosureCase();
         }
     }
 }

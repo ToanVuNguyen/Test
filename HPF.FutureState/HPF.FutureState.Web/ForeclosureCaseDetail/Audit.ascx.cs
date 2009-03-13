@@ -40,6 +40,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ApplySecurity();
                 if (IsPostBack)
                 {
+                    ViewState["CaseID"] = Request.QueryString["CaseID"];
                     BindingDataToGrdvCaseAudit();
 
                     BindDataToIndicatorDropDownLists();
@@ -48,7 +49,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     BindDataToAuditFailureReasonDDL();
                     
                     hfAction.Value = ACTION_INSERT;
-                    btnCancel.Attributes.Add("onclick", "return ConfirmToCancel();");
+                    btnCancel.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "');");
+                    btnNew.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "');");                    
                 }
                 
             }
@@ -75,7 +77,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             Button btnEdit = sender as Button;
 
-            if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL)
+            if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL.ToUpper())
                 DoSaving();
 
             int index = int.Parse(btnEdit.CommandArgument.ToString());
@@ -108,8 +110,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 int idxCommandFieldColumn = 8;
                 Button btnEdit = e.Row.Cells[idxCommandFieldColumn].FindControl("btnEdit") as Button;
                 if (btnEdit != null)
-                {
-                    btnEdit.Attributes.Add("onclick", "return ConfirmToCancel();");
+                {                    
+                    btnEdit.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "');");
                     btnEdit.Click += new EventHandler(btnEdit_Click);
                     btnEdit.CommandArgument = e.Row.RowIndex.ToString();
                 }                
@@ -122,14 +124,21 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (refCode.Code == code)
                     return refCode;
             return new RefCodeItemDTO();
-        }            
-        
+        }
+        protected override void OnUnload(EventArgs e)
+        {
+            if (hfDoSaving.Value != string.Empty && hfDoSaving.Value == Constant.INDICATOR_YES_FULL.ToUpper())
+                DoSaving();
+
+            base.OnUnload(e);
+        }
         #region helper
 
         private void DoSaving()
         {
             try
             {
+                hfDoSaving.Value = "";
                 CaseAuditDTO caseAudit = FormToCaseAuditDTO();
                 if (!string.IsNullOrEmpty(hfAction.Value))
                 {
@@ -157,7 +166,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void BindingDataToGrdvCaseAudit()
         {
             int caseID = 0;
-            int.TryParse(Request.QueryString["CaseID"].ToString(), out caseID);
+            int.TryParse(ViewState["CaseID"].ToString(), out caseID);
             CaseAuditDTOCollection caseAudits = RetrieveCaseAudits(caseID);
             if (caseAudits.Count > 0)
             {
@@ -262,22 +271,24 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             int? id = null;
             if (Session[Constant.SS_CASE_AUDIT_OBJECT] != null)
                 id = ((CaseAuditDTO)Session[Constant.SS_CASE_AUDIT_OBJECT]).CaseAuditId;
-            return new CaseAuditDTO(){
-                CaseAuditId = id,
-                AppropriateOutcomeInd = GetIndicatorShortValue(ddlAppropriateOutcome.SelectedValue),
-                AuditComments = ConvertToString(txtAuditComment.Text),// string.IsNullOrEmpty(txtAuditComment.Text.Trim()) ? null : txtAuditComment.Text,
-                AuditDt = ConvertToDateTime(txtAuditDate.Text.Trim()),
-                AuditFailureReasonCode = ConvertToString(ddlAuditFailureReason.SelectedValue),
-                AuditTypeCode = ConvertToString(ddlAuditType.SelectedValue),
-                BudgetCompletedInd = GetIndicatorShortValue(ddlBudgetCompleted.SelectedValue),
-                ClientActionPlanInd = GetIndicatorShortValue(ddlClientActionPlan.SelectedValue),
-                CompliantInd = GetIndicatorShortValue(ddlCompliant.SelectedValue),
-                FcId = int.Parse(Request.QueryString["CaseID"].ToString()),
-                ReasonForDefaultInd = GetIndicatorShortValue(ddlReasonForDefault.SelectedValue),
-                ReviewedBy = ConvertToString(ddlReviewedBy.SelectedValue),
-                VerbalPrivacyConsentInd = GetIndicatorShortValue(ddlVerbalPrivacyConsent.SelectedValue),
-                WrittenActionConsentInd = GetIndicatorShortValue(ddlWrittenPrivacyConsent.SelectedValue)           
-            };
+            CaseAuditDTO caseAudit = new CaseAuditDTO();
+
+            caseAudit.CaseAuditId = id;
+            caseAudit.AppropriateOutcomeInd = GetIndicatorShortValue(ddlAppropriateOutcome.SelectedValue);
+            caseAudit.AuditComments = ConvertToString(txtAuditComment.Text);// string.IsNullOrEmpty(txtAuditComment.Text.Trim()) ? null : txtAuditComment.Text,
+            caseAudit.AuditDt = ConvertToDateTime(txtAuditDate.Text.Trim());
+            caseAudit.AuditFailureReasonCode = ConvertToString(ddlAuditFailureReason.SelectedValue);
+            caseAudit.AuditTypeCode = ConvertToString(ddlAuditType.SelectedValue);
+            caseAudit.BudgetCompletedInd = GetIndicatorShortValue(ddlBudgetCompleted.SelectedValue);
+            caseAudit.ClientActionPlanInd = GetIndicatorShortValue(ddlClientActionPlan.SelectedValue);
+            caseAudit.CompliantInd = GetIndicatorShortValue(ddlCompliant.SelectedValue);
+            caseAudit.FcId = int.Parse(ViewState["CaseID"].ToString());
+            caseAudit.ReasonForDefaultInd = GetIndicatorShortValue(ddlReasonForDefault.SelectedValue);
+            caseAudit.ReviewedBy = ConvertToString(ddlReviewedBy.SelectedValue);
+            caseAudit.VerbalPrivacyConsentInd = GetIndicatorShortValue(ddlVerbalPrivacyConsent.SelectedValue);
+            caseAudit.WrittenActionConsentInd = GetIndicatorShortValue(ddlWrittenPrivacyConsent.SelectedValue);
+
+            return caseAudit;
         }
 
         private void CaseAuditDTOToForm(CaseAuditDTO caseAudit)
@@ -335,8 +346,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             get
             {
-                Object msg = ViewState["msgWARN0450"];
-                return (msg == null) ? ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450) : (string)msg;
+                return ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450);                
             }
         }  
         private void ApplySecurity()

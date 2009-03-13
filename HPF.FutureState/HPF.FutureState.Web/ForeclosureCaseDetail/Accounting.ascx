@@ -105,6 +105,7 @@
  <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
          Width="100px" onclick="btnSave_Click"  />
  </div>
+ <asp:HiddenField ID="hidSaveIsYes"  runat="server"  Value=""/>
 <script type="text/javascript" language="javascript">
     var neverPayReason = document.getElementById('<%=ddlNeverPayReason.ClientID %>');
     var neverBillReason = document.getElementById('<%=ddlNerverBillReason.ClientID %>');
@@ -118,7 +119,8 @@
     foreclosureCaseAfter = new forecloseCase(neverPayReason.value, neverBillReason.value);
     
     if (ComparePaymentObject(foreclosureCaseAfter)) {
-            return (confirm('Your data is changed, You do not want to save it. ') );
+            if(confirm('Your data is changed. Do you want to save it?') )
+                document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
         }
         return true;
     }
