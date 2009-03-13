@@ -21,26 +21,24 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Funding Source*:
         </td>
-        <td align="left">
+        <td align="left" >
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
                 Width="280px">
             </asp:DropDownList>
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Period Start*:</td>
         <td colspan="2">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             &nbsp;</td>
-        <td>
-            &nbsp;</td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Period End*:</td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>

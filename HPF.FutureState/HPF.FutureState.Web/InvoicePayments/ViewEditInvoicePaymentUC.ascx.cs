@@ -203,6 +203,10 @@ namespace HPF.FutureState.Web.InvoicePayments
                     ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0654));
                 }
             }
+            if (txtComment.Text.Length > Constant.PAYMENT_COMMENT_MAX_LENGTH)
+                ex.ExceptionMessages.Add(GetExceptionMessageWithoutCode(ErrorMessages.ERR0981));
+            if (txtPaymentNum.Text.Length > Constant.PAYMENT_NUMBER_MAX_LENGTH)
+                ex.ExceptionMessages.Add(GetExceptionMessageWithoutCode(ErrorMessages.ERR0980));
             if (ex.ExceptionMessages.Count > 0)
                 throw (ex);
         }
@@ -443,6 +447,13 @@ namespace HPF.FutureState.Web.InvoicePayments
             return exMes;
         }
 
+        private ExceptionMessage GetExceptionMessageWithoutCode(string errorCode)
+        {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
+            return exMes;
+        }
         private ExceptionMessage GetExceptionMessage(string errorCode)
         {
             var exMes = new ExceptionMessage();

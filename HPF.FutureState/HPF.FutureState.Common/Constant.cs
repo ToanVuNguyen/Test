@@ -2,6 +2,8 @@ namespace HPF.FutureState.Common
 {
     public class Constant
     {
+        public const int PAYMENT_COMMENT_MAX_LENGTH = 300;
+        public const int PAYMENT_NUMBER_MAX_LENGTH = 30;
         public const string LOAN_1ST = "1ST";
         public const string INCOME = "1";
         public const string EXPENSES = "2";        

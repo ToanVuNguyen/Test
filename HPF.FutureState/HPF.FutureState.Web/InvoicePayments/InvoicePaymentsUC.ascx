@@ -4,24 +4,7 @@
     TagPrefix="cc1" %>
 <asp:ScriptManager ID="myScript" runat="server">
 </asp:ScriptManager>
-<style type="text/css">
-    .style1
-    {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: #2271A0;
-        font-size: 11px;
-        font-weight: bold;
-        width: 119px;
-    }
-    .style2
-    {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: #2271A0;
-        font-size: 11px;
-        font-weight: bold;
-        width: 21px;
-    }
-</style>
+
 <table width="100%">
     <tr>
         <td colspan="6" class="Header">
@@ -29,14 +12,14 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right" nowrap>
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Funding Source*:</td>        
-        <td class="style2" align="left" nowrap>
+        <td  align="left" nowrap>
             <asp:DropDownList ID="ddlFundingSource" runat="server" Height="16px" 
                 CssClass="Text" Width="280px">
             </asp:DropDownList>
         </td>        
-        <td class="style1" align="right">
+        <td  align="right" class="sidelinks" nowrap="nowrap">
             Period Start*:
         </td>
         <td>
@@ -51,7 +34,7 @@
         </td>
         <td >
         </td>
-        <td class="style1" align="right">
+        <td  align="right" class="sidelinks" nowrap="nowrap">
             Period End*:
         </td>
         <td>

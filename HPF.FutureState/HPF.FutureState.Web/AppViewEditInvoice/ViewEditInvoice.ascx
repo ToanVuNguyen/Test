@@ -238,6 +238,12 @@
             </cc1:StatefullScrollPanel>
         </td>
     </tr>
+    <tr>
+        <td align="center" colspan="7">
+            <asp:Button ID="Button1" runat="server" CssClass="MyButton" 
+                onclick="Button1_Click" Text="Close" Width="130px" />
+        </td>
+    </tr>
 </table>
 <%--</ContentTemplate>
 </asp:UpdatePanel>--%>

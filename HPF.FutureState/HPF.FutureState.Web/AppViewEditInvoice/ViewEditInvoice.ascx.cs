@@ -111,7 +111,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 dropRejectReason.DataTextField = "CodeDesc";
                 dropRejectReason.DataSource = paymentRejectCode;
                 dropRejectReason.DataBind();
-                dropRejectReason.Items.Insert(0, new ListItem(" ", null));
+                dropRejectReason.Items.Insert(0, new ListItem(" ",string.Empty));
             }
             catch (Exception ex)
             {
@@ -187,6 +187,8 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             if (invoiceSet == null)
                 return;
             invoiceSet.PaymentRejectReason = dropRejectReason.SelectedValue;
+            if (invoiceSet.PaymentRejectReason == string.Empty)
+                invoiceSet.PaymentRejectReason = null;
             //Update invoice amount
             invoiceSet.Invoice.InvoicePaymentAmount = invoiceSet.TotalPaid;
             invoiceSet.Invoice.InvoiceBillAmount = invoiceSet.InvoiceTotal;
@@ -289,6 +291,11 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
 
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FundingSourceInvoice.aspx");
         }
 
         

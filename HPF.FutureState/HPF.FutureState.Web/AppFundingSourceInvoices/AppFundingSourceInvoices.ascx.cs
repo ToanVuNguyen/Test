@@ -26,6 +26,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             if (grvFundingSourceInvoices.SelectedValue == null)
                 SelectedRowIndex.Value = "";
+            lblPortal.PostBackUrl = HPFConfigurationSettings.HPF_INVOICE_PORTAL_URL;
             ClearErrorMessages();
             try
             {
@@ -131,7 +132,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 }
                 catch
                 {
-                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0996);
+                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0997);
                     ex.ExceptionMessages.Add(exMes);
                 }
             }
@@ -151,7 +152,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 }
                 catch
                 {
-                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0997);
+                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0996);
                     ex.ExceptionMessages.Add(exMes);
                 }
             }

@@ -96,7 +96,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             if (invoiceDraft.ForeclosureCaseDrafts == null)
             {
                 btnGenerateInvoice.Enabled = false;
-                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0987)));
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0552)));
             }
         }
 

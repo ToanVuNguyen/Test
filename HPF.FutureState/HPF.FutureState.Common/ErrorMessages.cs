@@ -360,6 +360,7 @@ namespace HPF.FutureState.Common
         public const string ERR0853 = "ERR0853";
         public const string ERR0854 = "ERR0854";
         //
+        public const string ERR0980 = "ERR0980";
         public const string ERR0981 = "ERR0981";
         public const string ERR0982 = "ERR0982";
         public const string ERR0983 = "ERR0983";
@@ -757,6 +758,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0854, "The 'Body:' has a max length 2000 characters.");
 
                 //
+                errorMessageDict.Add(ERR0980, "Invoice Payment Number has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0981, "Invoice Payment Comments has a maximum length of 300 characters.");
                 errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail. Error Message: ");
                 errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
                 errorMessageDict.Add(ERR0984, "Generate Invoice reports fail. Error Message: ");

@@ -34,7 +34,7 @@
         </td>
         <td align="right" class="sidelinks">
             Program*:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:DropDownList ID="dropProgram" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
@@ -61,14 +61,14 @@
         </td>
         <td align="right" class="sidelinks">
             Period Start*:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
         </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks">
             Period End*:&nbsp; </td>
-        <td>
+        <td style="vertical-align: top">
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2009</asp:TextBox>
         </td>
     </tr>
@@ -92,7 +92,7 @@
         <td align="right" class="sidelinks">
             &nbsp;Completed?:&nbsp;
             </td>
-        <td>
+        <td style="vertical-align: top">
             <asp:DropDownList ID="dropCaseCompleted" runat="server" CssClass="Text">
                 <asp:ListItem Value="0">Select Only Complete Cases</asp:ListItem>
                 <asp:ListItem Value="1">Select Only Incomplete Cases</asp:ListItem>
@@ -103,7 +103,7 @@
     <tr>
         <td align="right" class="sidelinks">
             Duplicates?:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
                 <asp:ListItem Value="1">Select Only Original Cases</asp:ListItem>
                 <asp:ListItem Value="0">Select Only Duplicate Cases</asp:ListItem>
@@ -112,9 +112,9 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" style="vertical-align: top">
             Allow Multiple Billing?:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:DropDownList ID="dropAlreadyBilled" runat="server" CssClass="Text">
                 <asp:ListItem Value="0">Yes</asp:ListItem>
                 <asp:ListItem Value="1">No</asp:ListItem>
@@ -122,9 +122,9 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" style="vertical-align: top">
             Ignore Funding Consent?:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
                 <asp:ListItem Value="0">Yes</asp:ListItem>
                 <asp:ListItem Value="1">No</asp:ListItem>

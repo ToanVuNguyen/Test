@@ -13,7 +13,7 @@
     <ContentTemplate>
         <div style="border-bottom: solid 1 #8FC4F6">
             <asp:Panel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" Width="100%"
-                Height="90" Visible="true">
+                Height="110" Visible="true">
                 <asp:GridView ID="grvBudgetSet" runat="server" CellPadding="2" ForeColor="#333333"
                     DataKeyNames="BudgetSetId" GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle"
                     Width="100%" OnSelectedIndexChanged="grvBudgetSet_SelectedIndexChanged" OnRowDataBound="grvBudgetSet_RowDataBound">
