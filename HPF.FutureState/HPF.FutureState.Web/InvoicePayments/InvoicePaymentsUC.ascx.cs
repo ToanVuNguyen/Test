@@ -135,7 +135,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
             t = SetToStartDay(t);
             t = t.AddDays(1);
-            t = t.AddMilliseconds(-1);
+            t = t.AddSeconds(-1);
             return t;
         }
         /// <summary>

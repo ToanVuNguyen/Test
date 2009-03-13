@@ -64,7 +64,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             InvoiceSearchCriteriaDTO defaultSearchCriteria = new InvoiceSearchCriteriaDTO();
             defaultSearchCriteria.FundingSourceId = -1;
             defaultSearchCriteria.PeriodStart = DateTime.Today.AddMonths(-6);
-            defaultSearchCriteria.PeriodEnd = DateTime.Today;
+            defaultSearchCriteria.PeriodEnd = SetToEndDay(DateTime.Today);
             txtPeriodStart.Text = defaultSearchCriteria.PeriodStart.ToShortDateString();
             txtPeriodEnd.Text = defaultSearchCriteria.PeriodEnd.ToShortDateString();
             InvoiceSearch(defaultSearchCriteria);
@@ -105,7 +105,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             t = SetToStartDay(t);
             t = t.AddDays(1);
-            t = t.AddMilliseconds(-1);
+            t = t.AddSeconds(-1);
             return t;
         }
         private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()

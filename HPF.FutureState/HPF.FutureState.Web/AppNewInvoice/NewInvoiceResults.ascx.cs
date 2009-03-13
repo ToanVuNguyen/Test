@@ -37,8 +37,14 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     //Get the Invoice Case Draft
                     try
                     {
+
+                        searchCriteria.PeriodStart = searchCriteria.PeriodStart.AddMonths(-6);
                         invoiceDraft = InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
+                        searchCriteria.PeriodStart = searchCriteria.PeriodStart.AddMonths(6);
+                        invoiceDraft.PeriodStartDate= invoiceDraft.PeriodStartDate.AddMonths(6);
                         Session["invoiceDraft"] = invoiceDraft;
+                        //Add 6 month back for periodStartDate
+                        
                         InvoiceDraftDataBind();
                     }
                     catch (DataException ex)

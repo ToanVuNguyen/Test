@@ -668,7 +668,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0553, "At least one case must be selected in order to reject.");
                 errorMessageDict.Add(WARN0554, "Are you sure you wish to reject the selected case(s)?");
                 errorMessageDict.Add(ERR0555, "At least one case must be selected to be paid.");
-                errorMessageDict.Add(ERR0556, "An HPF Payment ID is required to apply payments.");
+                errorMessageDict.Add(ERR0556, "A valid HPF Payment ID is required to apply payments.");
                 errorMessageDict.Add(WARN0557, "Are you sure you wish to pay the selected case(s)?");
                 errorMessageDict.Add(ERR0558, "The HPF Payment ID provided in not a valid HPF Payment ID.");
                 errorMessageDict.Add(ERR0559, "At least one case must be selected to be unpaid.");

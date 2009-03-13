@@ -30,10 +30,9 @@
     </tr>
     <tr>
         <td class="Text" colspan="7">
-            <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
-            <asp:RegularExpressionValidator ID="valPaymentId" runat="server" ControlToValidate="txtPaymentID"
-                CssClass="ErrorMessage" ErrorMessage="RegularExpressionValidator" ValidationExpression="^[\d ]*$">HPF 
-                    Payment ID field is a numberic only entry field.</asp:RegularExpressionValidator>
+            <asp:BulletedList ID="lblErrorMessage" runat="server" BulletStyle="Square" 
+                CssClass="ErrorMessage">
+            </asp:BulletedList>
         </td>
     </tr>
     <tr>

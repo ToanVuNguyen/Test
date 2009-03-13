@@ -76,10 +76,10 @@
                                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                                     <Columns>
                                         <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" />
-                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="250" />
-                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
-                                            HeaderText="Amount" ItemStyle-Width="70" />
-                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" />
+                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" />
+                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"
+                                            HeaderText="Amount"  />
+                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  />
                                     </Columns>
                                 </asp:GridView>
                             </asp:Panel>
@@ -134,10 +134,10 @@
                                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                                     <Columns>
                                         <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" />
-                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="250" />
-                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
-                                            HeaderText="Amount" ItemStyle-Width="70" />
-                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" />
+                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" />
+                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"
+                                            HeaderText="Amount"  />
+                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  />
                                     </Columns>
                                 </asp:GridView>
                             </asp:Panel>
@@ -154,7 +154,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="center" colspan="3">
+                <td align="right">
                     <div style="width: 100%;">
                         <table width="320" id="tbTotal" cellpadding="0" cellspacing="0">
                             <tr>
@@ -183,6 +183,8 @@
                             </tr>
                         </table>
                     </div>
+                </td>
+                <td>
                 </td>
             </tr>
         </table>

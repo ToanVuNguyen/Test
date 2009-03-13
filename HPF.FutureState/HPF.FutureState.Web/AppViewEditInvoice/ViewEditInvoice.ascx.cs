@@ -39,7 +39,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
         }
@@ -115,8 +115,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                lblErrorMessage.Visible = true;
+                lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
         }
@@ -181,7 +180,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Reject);
             if (invoiceCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0553);
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0553));
                 return;
             }
             InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
@@ -199,7 +198,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.DisplayName);
             }
             ////Refresh Data again
@@ -207,7 +206,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         }
         private void HideErrorMessage()
         {
-            lblErrorMessage.Text = "";
+            lblErrorMessage.Items.Clear();
         }
         protected void btnPay_Click(object sender, EventArgs e)
         {
@@ -219,23 +218,32 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             HideErrorMessage();
             UnPayInvoiceCases();
         }
+        private void ClearErrorMessage()
+        {
+            lblErrorMessage.Items.Clear();
+        }
         private void PayInvoiceCases()
         {
             string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Pay);
             if (invoiceCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0555);
-                return;
-            }
-            if (txtPaymentID.Text == "")
-            {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0556);
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0555));
                 return;
             }
             InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
             if (invoiceSet == null)
                 return;
-            invoiceSet.InvoicePaymentId = int.Parse(txtPaymentID.Text);
+            try
+            {
+                invoiceSet.InvoicePaymentId = int.Parse(txtPaymentID.Text);
+                if (invoiceSet.InvoicePaymentId < 0)
+                    throw (new Exception());
+            }
+            catch
+            {
+                lblErrorMessage.Items.Add( ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0558));
+                return;
+            }
             invoiceSet.Invoice.InvoicePaymentAmount = invoiceSet.TotalPaid;
             invoiceSet.Invoice.InvoiceBillAmount = invoiceSet.InvoiceTotal;
             bool result=false;
@@ -244,13 +252,13 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                result= InvoiceBL.Instance.UpdateInvoiceCase(invoiceSet, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
                if (result == false)
-                   lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0558);
+                   lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0558));
                else
                    LoadInvoiceSet();
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
             
@@ -260,7 +268,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Unpay);
             if (invoiceCaseIdCollection == null)
             {
-                lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0559);
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0559));
                 return;
             }
             InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
@@ -277,7 +285,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
 

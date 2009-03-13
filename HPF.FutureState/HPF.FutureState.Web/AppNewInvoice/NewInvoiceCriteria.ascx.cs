@@ -342,7 +342,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         {
             t = SetToStartDay(t);
             t=t.AddDays(1);
-            t=t.AddMilliseconds(-1);
+            t = t.AddSeconds(-1);
             return t;
         }
         /// <summary>
@@ -358,8 +358,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
                 searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
-                //subtract PeriodStart 6 months
-                searchCriteria.PeriodStart = searchCriteria.PeriodStart.AddMonths(-6);
                 if (searchCriteria.PeriodStart.Year < 1753)
                     throw (new Exception());
             }
