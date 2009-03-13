@@ -22,20 +22,22 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         protected override void OnLoad(EventArgs e)
         {
+
+            
             bulMessage.Items.Clear();
+            hidChkAgencyActive.Value = "";
             try
             {
                 ApplySecurity();
                 int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
                 if (Request.QueryString["CaseID"] != null)
                     BindDetailCaseData(caseid);
-                else
-                    bulMessage.Items.Add(new ListItem("There is no data with this fc_id"));
             }
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                Response.Redirect("SearchForeclosureCase.aspx");
             }
 
         }
@@ -88,27 +90,27 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <param name="agencyname"></param>
         protected void BindDDLAgency(string agencyid)
         {
-            try
-            {
-                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
-                ddlAgency.DataValueField = "AgencyID";
-                ddlAgency.DataTextField = "AgencyName";
-                ddlAgency.DataSource = agencyCollection;
-                ddlAgency.DataBind();
-                //check agency active or not
-                foreach (var agency in agencyCollection)
-                    if (agency.AgencyID == agencyid)
-                        hidChkAgencyActive.Value = "1";
-                if (hidChkAgencyActive.Value == "1")
-                    ddlAgency.SelectedValue = agencyid;
-                else ddlAgency.SelectedIndex = -1;
-                ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
-            }
-            catch
-            {
 
-            }
+            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+            ddlAgency.DataValueField = "AgencyID";
+            ddlAgency.DataTextField = "AgencyName";
+            ddlAgency.DataSource = agencyCollection;
+            ddlAgency.DataBind();
+            ////check agency active or not
+            foreach (var agency in agencyCollection)
+                if (agency.AgencyID == agencyid)
+                    hidChkAgencyActive.Value = "1";
 
+            if (hidChkAgencyActive.Value == "1")
+            {
+                ddlAgency.SelectedValue = agencyid;
+            }
+            else
+            {
+                ddlAgency.Items.Insert(0, new ListItem("", "inactive"));
+                ddlAgency.SelectedValue = "inactive";
+            }
+            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
         }
 
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
@@ -181,7 +183,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (foreclosureCase.DuplicateInd == "Y")
                     ddlDuplicate.SelectedIndex = 0;
                 else ddlDuplicate.SelectedIndex = 1;
-                ddlAgency.SelectedValue = foreclosureCase.AgencyId.ToString();
+                //ddlAgency.SelectedValue = foreclosureCase.AgencyId.ToString();
                 lblAgencyCase.Text = foreclosureCase.AgencyCaseNum;
                 lblAgencyClient.Text = foreclosureCase.AgencyClientNum;
                 lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
@@ -264,24 +266,31 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             //get update datacollection from UI
             ForeclosureCaseDTO foreclosureCase = null;
-            if (ddlAgency.SelectedValue != "")
+            if (ddlAgency.SelectedValue != "inactive")
+            {
                 foreclosureCase = GetUpdateInfo();
 
-            try
-            {
-                if (foreclosureCase != null)
+                try
                 {
-                    foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                    int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                    BindDetailCaseData(fcid);
-                    bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
+                    if (foreclosureCase != null)
+                    {
+                        foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                        int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
+                        BindDetailCaseData(fcid);
+                        bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
+                    }
+                    else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
                 }
-                else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
+                catch (Exception ex)
+                {
+                    bulMessage.Items.Add(new ListItem(ex.Message));
+                    ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                bulMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                bulMessage.Items.Add(new ListItem("Can't Save foreclosure case because agency inactive."));
+                return;
             }
         }
         /// <summary>

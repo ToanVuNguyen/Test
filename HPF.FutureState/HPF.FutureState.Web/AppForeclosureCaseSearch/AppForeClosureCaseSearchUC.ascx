@@ -37,7 +37,7 @@
             Foreclosure Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" CssClass="Text" Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Duplicate:
@@ -61,7 +61,7 @@
             Agency Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Agency:
@@ -82,7 +82,7 @@
             Property Zip:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Program:
@@ -103,7 +103,7 @@
             Property State:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="60px" CssClass="Text">
+            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="140px" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
