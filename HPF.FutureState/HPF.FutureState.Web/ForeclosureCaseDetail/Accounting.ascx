@@ -33,7 +33,7 @@
         <td>
         <asp:Panel runat="server" ID="panBillingInfo" CssClass="ScrollTable" BorderStyle="None">
         <asp:GridView ID="grvBillingInfo" runat="server" AutoGenerateColumns="false" 
-                Width="100%" onrowdatabound="grvBillingInfo_RowDataBound">
+                Width="100%" onrowdatabound="grvBillingInfo_RowDataBound"  BorderStyle="None">
         <HeaderStyle CssClass="FixedHeader" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
         <RowStyle CssClass="RowStyle" />
@@ -82,7 +82,7 @@
         <tr>
         <td>
         <asp:Panel ID="panPaymentInfo" runat="server" CssClass="ScrollTable" BorderStyle="None">
-        <asp:GridView ID="grvPaymentInfo" runat="server" AutoGenerateColumns="false" Width="80%">
+        <asp:GridView ID="grvPaymentInfo" runat="server" AutoGenerateColumns="false" Width="80%" BorderStyle="None">
         <HeaderStyle CssClass="FixedHeader" />
         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
         <RowStyle CssClass="RowStyle" />

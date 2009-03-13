@@ -146,7 +146,7 @@
                             <Columns>
                                 <asp:HyperLinkField DataTextField="CaseID" DataNavigateUrlFields="CaseID" DataNavigateUrlFormatString="../ForeclosureCaseInfo.aspx?CaseID={0}"
                                     HeaderText="Case ID" />
-                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" />
                                 <asp:TemplateField HeaderText="Counseled">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCounseled" runat="server" Text='<%#Eval("CaseCompleteDate") %>'></asp:Label>

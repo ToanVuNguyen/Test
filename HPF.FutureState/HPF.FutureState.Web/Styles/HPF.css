@@ -52,17 +52,14 @@ p
     color: #2271A0;
     font-size: 11px;
     font-weight: bold;
-    vertical-align:top;
-    
+    vertical-align: top;
 }
 .Text
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: Black;
     font-size: 10px;
-    vertical-align:top;
-    
-    
+    vertical-align: top;
 }
 .MyButton
 {
@@ -91,7 +88,7 @@ td
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: #FFFFFF;
     font-size: 10px;
-    font-weight:bold;
+    font-weight: bold;
     text-decoration: none;
 }
 .sidelinks2:a:hover
@@ -145,18 +142,17 @@ h2
     top: expression(offsetParent.scrollTop);
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
-    background-color:#507CD1;
-    color:White;
-  
+    background-color: #507CD1;
+    color: White;
+    text-align: center;
 }
 .NormalHeader
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
-     background-color:#507CD1;
-     color:White;
-     font-weight:bold;
-  
+    background-color: #507CD1;
+    color: White;
+    font-weight: bold;
 }
 .ScrollTable
 {
@@ -170,8 +166,8 @@ h2
 {
     border-top-style: none;
     border-bottom-style: none;
-    border-left-style:none;
-    border-right-style:none;
+    border-left-style: none;
+    border-right-style: none;
 }
 .Header
 {
@@ -212,8 +208,8 @@ h2
 
 .SelectedRowStyle
 {
-    background-color:#D1DDF1;
-    color:#333333;
+    background-color: #D1DDF1;
+    color: #333333;
 }
 .AlternatingRowStyle
 {
@@ -227,32 +223,31 @@ h2
 }
 .CellBorderRight
 {
-	border-top: solid 1px #D4D0C8;
-	border-bottom-style : none;
-	border-left-style: none;
-	}
-	.CellBorderLeft
-{	border-top: solid 1px #D4D0C8;
-	border-bottom-style : none;
-	border-right-style: none;
-	}
+    border-top: solid 1px #D4D0C8;
+    border-bottom-style: none;
+    border-left-style: none;
+}
+.CellBorderLeft
+{
+    border-top: solid 1px #D4D0C8;
+    border-bottom-style: none;
+    border-right-style: none;
+}
 .TextBoldCell
 {
-	font-weight:bold;
-	
-	}
+    font-weight: bold;
+}
 #tbTotal
 {
-	border-color:#D4D0C8;
+    border-color: #D4D0C8;
     border-width: 0 0 1px 1px;
     border-style: solid;
 }
 #tbTotal td
 {
-	border-color: #D4D0C8;
+    border-color: #D4D0C8;
     border-width: 1px 1px 0 0;
     border-style: solid;
     margin: 0;
     padding: 4px;
-
 }

@@ -92,7 +92,7 @@
                                         <asp:Label ID="lblPayablePeriod" runat="server" Text='<%#Eval("PeriodStartDate","{0:d}")+" - "+Eval("PeriodEndDate","{0:d}") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField HeaderText="Amount" DataField="TotalAmount" DataFormatString="{0:C}" />
+                                <asp:BoundField HeaderText="Amount" DataField="TotalAmount" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"/>
                                 <asp:BoundField HeaderText="Status" DataField="StatusDesc" />
                                 <asp:BoundField HeaderText="Comments" DataField="PaymentComment" />
                                   <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
