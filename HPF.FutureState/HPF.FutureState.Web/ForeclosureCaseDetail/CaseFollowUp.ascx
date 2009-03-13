@@ -49,7 +49,7 @@
                                 ItemStyle-Width="15%"  ItemStyle-CssClass="Text">
                                     <ItemStyle Width="100px" />
                                 </asp:BoundField>                                
-                                <asp:TemplateField HeaderText = "Select" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText = "View/Edit" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Button ID="btn_Edit" Text="View/Edit" CommandName="Select" runat="server" CssClass="MyButton" />
                                     </ItemTemplate>

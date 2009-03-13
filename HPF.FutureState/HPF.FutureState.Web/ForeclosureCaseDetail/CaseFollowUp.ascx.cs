@@ -338,12 +338,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             var msgFolowUp = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(followUp, Constant.RULESET_FOLLOW_UP) };
             if (followUp.FollowUpSourceCd.ToUpper().Trim() == Constant.FOLLOW_UP_CD_CREDIT_REPORT)
             {
-                if (string.IsNullOrEmpty(followUp.CreditScore))
-                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700-Credit Score is require to save this case");
-                if (string.IsNullOrEmpty(followUp.CreditBureauCd))
-                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700-Credit Report Bureau is require to save this case");
-                if (followUp.CreditReportDt == null)
-                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700-Credit Report Date is require to save this case");
+                if (string.IsNullOrEmpty(followUp.CreditScore) || string.IsNullOrEmpty(followUp.CreditBureauCd) || followUp.CreditReportDt == null)
+                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700--A Credit Score, Credit Report Bureau and Credit Report Date are all required together to save a Credit Report follow-up record.");
+                 
             }
             return msgFolowUp;
         }

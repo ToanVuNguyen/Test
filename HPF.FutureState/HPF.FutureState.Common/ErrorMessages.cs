@@ -733,8 +733,8 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(ERR0701, "An Audit Date is required to save an audit record.");
                 errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
-                errorMessageDict.Add(ERR0703, "Follow-Up Date is required to save the case.");
-                errorMessageDict.Add(ERR0704, "Follow-Up Source is required to save the case.");
+                errorMessageDict.Add(ERR0703, "A Follow-Up Date is required to save a follow-up record.");
+                errorMessageDict.Add(ERR0704, "A Follow-Up Source is required to save a follow-up record.");
 
                 //WS Send Summary
                 

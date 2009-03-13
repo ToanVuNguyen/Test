@@ -24,9 +24,6 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             ApplySecurity();
             bulErrorMessage.Items.Clear();
-
-
-
             if (!IsPostBack)
             {
                 string selectedcase = GetSelectedRow();
@@ -83,9 +80,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 grvViewEditAgencyPayable.DataSource = agencyPayableSet.PayableCases;
                 grvViewEditAgencyPayable.DataBind();
             }
-
         }
-
         protected void chkCheckAllCheck(object sender, EventArgs e)
         {
             bulErrorMessage.Items.Clear();
@@ -126,7 +121,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 btnTakeBackMarkCase.Attributes.Clear();
                 btnPayUnpayMarkCase.Attributes.Clear();
-
             }
         }
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
@@ -222,23 +216,19 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         protected void btnClose_Click(object sender, EventArgs e)
         {
-            //if (Session["agencyPayable"] != null)
-            {
                 Response.Redirect("AgencyPayable.aspx");
-            }
         }
-
         protected void btnReprintPayable_Click(object sender, EventArgs e)
         {
             AgencyPayableDTO agencyPayable = (AgencyPayableDTO)Session["AgencyPayable"];
             string agencyPayableId = agencyPayable.AgencyPayableId.ToString();
             ScriptManager.RegisterStartupScript(Page, this.GetType(), "Print Payable", "window.open('ReprintPayable.aspx?agencyPayableId=" + agencyPayableId + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px');", true);
         }
-
         protected void grvViewEditAgencyPayable_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                //when datetime=mindate -> display blank
                 Label lblComleteDate = (Label)e.Row.FindControl("lblCompleteDate");
                 Label lblTakeBackDate = (Label)e.Row.FindControl("lblTakeBackDate");
                 DateTime mindate = DateTime.MinValue;
@@ -252,7 +242,5 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
             }
         }
-
-
     }
 }
