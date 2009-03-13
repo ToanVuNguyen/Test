@@ -651,7 +651,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
-                errorMessageDict.Add(WARN0450, "Do you want to save changes?");
+                errorMessageDict.Add(WARN0450, "Data has been changed.  Are you sure you want to cancel?");
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "* cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
                 errorMessageDict.Add(ERR0501, "The 'Last 4 of SSN' search criteria must be exactly 4 numeric digits");
