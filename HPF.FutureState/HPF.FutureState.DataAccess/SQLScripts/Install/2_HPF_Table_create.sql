@@ -168,7 +168,6 @@ CREATE TABLE servicer (
   funding_agreement_ind VARCHAR(1)    ,
   secure_delivery_method_cd VARCHAR(15)    ,
   couseling_sum_format_cd VARCHAR(15)    ,
-  hud_servicer_num VARCHAR(20)    ,
   iclear_servicer_num Varchar(30) Null,
   fis_servicer_num varchar(30) Null,
   sharepoint_foldername varchar(256) NULL,
