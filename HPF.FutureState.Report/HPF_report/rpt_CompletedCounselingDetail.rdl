@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="ds_HPF">
+      <rd:DataSourceID>a4d605da-e85b-4a72-9c2b-b9229c747e43</rd:DataSourceID>
+      <DataSourceReference>ds_HPF</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="pi_agency_id">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>dst_hpf_agency_get</DataSetName>
+          <ValueField>agency_id</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Agency</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>dst_hpf_agency_get</DataSetName>
+          <ValueField>agency_id</ValueField>
+          <LabelField>agency_name</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="pi_from_dt">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=DateAdd(DateInterval.Month,- 1, DateAdd(DateInterval.Year,- 1, Today))</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>From</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_dt">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=DateAdd(DateInterval.Year,- 1, Today)</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>To</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_program_id">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>dst_Program_get</DataSetName>
+          <ValueField>program_id</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Program</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>dst_Program_get</DataSetName>
+          <ValueField>program_id</ValueField>
+          <LabelField>program_name</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <rd:ReportID>c71f55f0-5bd3-478a-a412-5cb78f390449</rd:ReportID>
+  <PageWidth>50in</PageWidth>
+  <DataSets>
+    <DataSet Name="dst_hpf_agency_get">
+      <Fields>
+        <Field Name="agency_id">
+          <DataField>agency_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="agency_name">
+          <DataField>agency_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>hpf_agency_get</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="dst_hpf_rpt_CompletedCounselingDetail">
+      <Fields>
+        <Field Name="fc_id">
+          <DataField>fc_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="agency_id">
+          <DataField>agency_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="call_id">
+          <DataField>call_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="program_id">
+          <DataField>program_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="agency_case_num">
+          <DataField>agency_case_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="agency_client_num">
+          <DataField>agency_client_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="intake_dt">
+          <DataField>intake_dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="income_earners_cd">
+          <DataField>income_earners_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="case_source_cd">
+          <DataField>case_source_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="race_cd">
+          <DataField>race_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="household_cd">
+          <DataField>household_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="never_bill_reason_cd">
+          <DataField>never_bill_reason_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="never_pay_reason_cd">
+          <DataField>never_pay_reason_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dflt_reason_1st_cd">
+          <DataField>dflt_reason_1st_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dflt_reason_2nd_cd">
+          <DataField>dflt_reason_2nd_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="hud_termination_reason_cd">
+          <DataField>hud_termination_reason_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="hud_termination_dt">
+          <DataField>hud_termination_dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="hud_outcome_cd">
+          <DataField>hud_outcome_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AMI_percentage">
+          <DataField>AMI_percentage</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="counseling_duration_cd">
+          <DataField>counseling_duration_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="gender_cd">
+          <DataField>gender_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_fname">
+          <DataField>borrower_fname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_lname">
+          <DataField>borrower_lname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_mname">
+          <DataField>borrower_mname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="mother_maiden_lname">
+          <DataField>mother_maiden_lname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_ssn">
+          <DataField>borrower_ssn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_last4_SSN">
+          <DataField>borrower_last4_SSN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_DOB">
+          <DataField>borrower_DOB</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_fname">
+          <DataField>co_borrower_fname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_lname">
+          <DataField>co_borrower_lname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_mname">
+          <DataField>co_borrower_mname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_ssn">
+          <DataField>co_borrower_ssn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_last4_SSN">
+          <DataField>co_borrower_last4_SSN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_DOB">
+          <DataField>co_borrower_DOB</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="primary_contact_no">
+          <DataField>primary_contact_no</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="second_contact_no">
+          <DataField>second_contact_no</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="email_1">
+          <DataField>email_1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contact_zip_plus4">
+          <DataField>contact_zip_plus4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="email_2">
+          <DataField>email_2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contact_addr1">
+          <DataField>contact_addr1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contact_addr2">
+          <DataField>contact_addr2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contact_city">
+          <DataField>contact_city</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contact_state_cd">
+          <DataField>contact_state_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contact_zip">
+          <DataField>contact_zip</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prop_addr1">
+          <DataField>prop_addr1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prop_addr2">
+          <DataField>prop_addr2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prop_city">
+          <DataField>prop_city</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prop_state_cd">
+          <DataField>prop_state_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prop_zip">
+          <DataField>prop_zip</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prop_zip_plus_4">
+          <DataField>prop_zip_plus_4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="bankruptcy_ind">
+          <DataField>bankruptcy_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="bankruptcy_attorney">
+          <DataField>bankruptcy_attorney</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="bankruptcy_pmt_current_ind">
+          <DataField>bankruptcy_pmt_current_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_educ_level_completed_cd">
+          <DataField>borrower_educ_level_completed_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_marital_status_cd">
+          <DataField>borrower_marital_status_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_preferred_lang_cd">
+          <DataField>borrower_preferred_lang_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_occupation">
+          <DataField>borrower_occupation</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_occupation">
+          <DataField>co_borrower_occupation</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="hispanic_ind">
+          <DataField>hispanic_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="duplicate_ind">
+          <DataField>duplicate_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fc_notice_received_ind">
+          <DataField>fc_notice_received_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="completed_dt">
+          <DataField>completed_dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="funding_consent_ind">
+          <DataField>funding_consent_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="servicer_consent_ind">
+          <DataField>servicer_consent_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="hpf_media_candidate_ind">
+          <DataField>hpf_media_candidate_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="hpf_success_story_ind">
+          <DataField>hpf_success_story_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="agency_success_story_ind">
+          <DataField>agency_success_story_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="borrower_disabled_ind">
+          <DataField>borrower_disabled_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="co_borrower_disabled_ind">
+          <DataField>co_borrower_disabled_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="summary_sent_other_cd">
+          <DataField>summary_sent_other_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="summary_sent_other_dt">
+          <DataField>summary_sent_other_dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="summary_sent_dt">
+          <DataField>summary_sent_dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="occupant_num">
+          <DataField>occupant_num</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="loan_dflt_reason_notes">
+          <DataField>loan_dflt_reason_notes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="action_items_notes">
+          <DataField>action_items_notes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="followup_notes">
+          <DataField>followup_notes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prim_res_est_mkt_value">
+          <DataField>prim_res_est_mkt_value</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="counselor_email">
+          <DataField>counselor_email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="counselor_phone">
+          <DataField>counselor_phone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="counselor_ext">
+          <DataField>counselor_ext</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="discussed_solution_with_srvcr_ind">
+          <DataField>discussed_solution_with_srvcr_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="worked_with_another_agency_ind">
+          <DataField>worked_with_another_agency_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contacted_srvcr_recently_ind">
+          <DataField>contacted_srvcr_recently_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="has_workout_plan_ind">
+          <DataField>has_workout_plan_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="srvcr_workout_plan_current_ind">
+          <DataField>srvcr_workout_plan_current_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="opt_out_newsletter_ind">
+          <DataField>opt_out_newsletter_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="opt_out_survey_ind">
+          <DataField>opt_out_survey_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="do_not_call_ind">
+          <DataField>do_not_call_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="owner_occupied_ind">
+          <DataField>owner_occupied_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="primary_residence_ind">
+          <DataField>primary_residence_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="realty_company">
+          <DataField>realty_company</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="property_cd">
+          <DataField>property_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="for_sale_ind">
+          <DataField>for_sale_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="home_sale_price">
+          <DataField>home_sale_price</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="home_purchase_year">
+          <DataField>home_purchase_year</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="home_purchase_price">
+          <DataField>home_purchase_price</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="home_current_market_value">
+          <DataField>home_current_market_value</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="military_service_cd">
+          <DataField>military_service_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="household_gross_annual_income_amt">
+          <DataField>household_gross_annual_income_amt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="loan_list">
+          <DataField>loan_list</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="counselor_fname">
+          <DataField>counselor_fname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="counselor_lname">
+          <DataField>counselor_lname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="intake_credit_score">
+          <DataField>intake_credit_score</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="intake_credit_bureau_cd">
+          <DataField>intake_credit_bureau_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="counselor_id_ref">
+          <DataField>counselor_id_ref</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="fc_sale_dt">
+          <DataField>fc_sale_dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="agency_media_interest_ind">
+          <DataField>agency_media_interest_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="case_loan_id">
+          <DataField>case_loan_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="servicer_id">
+          <DataField>servicer_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="other_servicer_name">
+          <DataField>other_servicer_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="acct_num">
+          <DataField>acct_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="loan_1st_2nd_cd">
+          <DataField>loan_1st_2nd_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="mortgage_type_cd">
+          <DataField>mortgage_type_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="arm_reset_ind">
+          <DataField>arm_reset_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="term_length_cd">
+          <DataField>term_length_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="loan_delinq_status_cd">
+          <DataField>loan_delinq_status_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="current_loan_balance_amt">
+          <DataField>current_loan_balance_amt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="orig_loan_amt">
+          <DataField>orig_loan_amt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="interest_rate">
+          <DataField>interest_rate</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="originating_lender_name">
+          <DataField>originating_lender_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="orig_mortgage_co_FDIC_NCUA_num">
+          <DataField>orig_mortgage_co_FDIC_NCUA_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="orig_mortgage_co_name">
+          <DataField>orig_mortgage_co_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="orginal_loan_num">
+          <DataField>orginal_loan_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="investor_loan_num">
+          <DataField>investor_loan_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="current_servicer_FDIC_NCUA_num">
+          <DataField>current_servicer_FDIC_NCUA_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="investor_num">
+          <DataField>investor_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="investor_name">
+          <DataField>investor_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="changed_acct_num">
+          <DataField>changed_acct_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="mortgage_program_cd">
+          <DataField>mortgage_program_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="freddie_servicer_num">
+          <DataField>freddie_servicer_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="outcome_item_id1">
+          <DataField>outcome_item_id1</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_type_id1">
+          <DataField>outcome_type_id1</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_dt1">
+          <DataField>outcome_dt1</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="outcome_deleted_dt1">
+          <DataField>outcome_deleted_dt1</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="nonprofitreferral_key_num1">
+          <DataField>nonprofitreferral_key_num1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ext_ref_other_name1">
+          <DataField>ext_ref_other_name1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="outcome_item_id2">
+          <DataField>outcome_item_id2</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_type_id2">
+          <DataField>outcome_type_id2</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_dt2">
+          <DataField>outcome_dt2</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="outcome_deleted_dt2">
+          <DataField>outcome_deleted_dt2</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="nonprofitreferral_key_num2">
+          <DataField>nonprofitreferral_key_num2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ext_ref_other_name2">
+          <DataField>ext_ref_other_name2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="outcome_item_id3">
+          <DataField>outcome_item_id3</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_type_id3">
+          <DataField>outcome_type_id3</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_dt3">
+          <DataField>outcome_dt3</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="outcome_deleted_dt3">
+          <DataField>outcome_deleted_dt3</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="nonprofitreferral_key_num3">
+          <DataField>nonprofitreferral_key_num3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ext_ref_other_name3">
+          <DataField>ext_ref_other_name3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="outcome_item_id4">
+          <DataField>outcome_item_id4</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_type_id4">
+          <DataField>outcome_type_id4</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="outcome_dt4">
+          <DataField>outcome_dt4</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="outcome_deleted_dt4">
+          <DataField>outcome_deleted_dt4</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="nonprofitreferral_key_num4">
+          <DataField>nonprofitreferral_key_num4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ext_ref_other_name4">
+          <DataField>ext_ref_other_name4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>hpf_rpt_CompletedCounselingDetail</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@pi_agency_id">
+            <Value>=Parameters!pi_agency_id.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_program_id">
+            <Value>=Parameters!pi_program_id.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_from_dt">
+            <Value>=Parameters!pi_from_dt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_dt">
+            <Value>=Parameters!pi_to_dt.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="dst_Program_get">
+      <Fields>
+        <Field Name="program_id">
+          <DataField>program_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="program_name">
+          <DataField>program_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandText>Select -1 program_id, ' None' program_name
+UNION
+SELECT program_id, ltrim(program_name)
+FROM program
+ORDER BY program_name</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>13.375in</Width>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox10">
+        <rd:DefaultName>textbox10</rd:DefaultName>
+        <Top>1.01042in</Top>
+        <Width>9in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+      </Textbox>
+      <Textbox Name="textbox5">
+        <rd:DefaultName>textbox5</rd:DefaultName>
+        <Top>0.75in</Top>
+        <Width>2.6875in</Width>
+        <Style>
+          <FontStyle>Italic</FontStyle>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>= "Report date " &amp; Today</Value>
+      </Textbox>
+      <Textbox Name="textbox2">
+        <Top>0.375in</Top>
+        <Width>3.25in</Width>
+        <Style>
+          <Color>MidnightBlue</Color>
+          <FontSize>14pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.36458in</Height>
+        <Value>Completed Counseling Detail</Value>
+      </Textbox>
+      <Image Name="image1">
+        <Sizing>Fit</Sizing>
+        <Width>2.125in</Width>
+        <Source>External</Source>
+        <Style />
+        <Height>0.36458in</Height>
+        <Value>image.hpf_logo.gif</Value>
+      </Image>
+    </ReportItems>
+    <Height>2in</Height>
+    <Style>
+      <BorderColor>
+        <Bottom>Black</Bottom>
+      </BorderColor>
+      <BorderStyle>
+        <Bottom>Solid</Bottom>
+      </BorderStyle>
+      <BorderWidth>
+        <Bottom>1pt</Bottom>
+      </BorderWidth>
+    </Style>
+  </Body>
+  <Language>en-US</Language>
+</Report>
