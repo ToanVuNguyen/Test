@@ -7,7 +7,7 @@
 </colgroup>
     <tr>
         <td colspan="2" align="center">
-            <h1>View/Edit Invoice Payment</h1></td>
+            <h1><asp:Label ID="lblTitle" runat="server" Text="New Invoice Payment"></asp:Label></h1></td>
     </tr>
     <tr>
         <td colspan="2" class="ErrorMessage">

@@ -60,7 +60,7 @@ namespace HPF.FutureState.DataAccess
                         item.FundingAgreementInd = ConvertToString(reader["funding_agreement_ind"]);
                         item.SecureDeliveryMethodCd = ConvertToString(reader["secure_delivery_method_cd"]);
                         item.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);
-                        item.HudServicerNum = ConvertToString(reader["hud_servicer_num"]);
+                        //item.HudServicerNum = ConvertToString(reader["hud_servicer_num"]);
                         item.SPFolderName = ConvertToString(reader["sharepoint_foldername"]);                        
                         servicers.Add(item);
                     }

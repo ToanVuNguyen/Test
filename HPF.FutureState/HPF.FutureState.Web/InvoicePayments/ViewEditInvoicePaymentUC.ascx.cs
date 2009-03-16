@@ -52,8 +52,11 @@ namespace HPF.FutureState.Web.InvoicePayments
                 {
                     BindPaymentTypeDropDownList();
                     BindFundingSourceDropDownList();
-                    if(paymentId!=-1)
+                    if (paymentId != -1)
+                    {
                         BindViewEditInvoicePayment();
+                        lblTitle.Text = "View/Edit Invoice Payment";
+                    }
                 }
                 btnCancel.Attributes.Add("onclick", "return ConfirmToCancel();");
             }

@@ -7,7 +7,7 @@
 
 <table width="100%">
     <tr>
-        <td colspan="6" >
+        <td colspan="6" align="center" >
             <h1>
             Invoice Payments
             </h1>
@@ -34,7 +34,7 @@
     <tr>
         <td>
         </td>
-        <td >
+        <td width="280" >
         </td>
         <td  align="right" class="sidelinks" nowrap="nowrap">
             Period End*:
