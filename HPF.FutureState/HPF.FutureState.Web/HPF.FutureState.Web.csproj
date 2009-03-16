@@ -411,7 +411,6 @@
     <Content Include="AppNewPayable\ReprintPayable.ascx" />
     <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
-    <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="NewPayableSelection.aspx" />
