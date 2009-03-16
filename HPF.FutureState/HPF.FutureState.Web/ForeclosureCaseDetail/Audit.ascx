@@ -197,7 +197,8 @@
                 <tr>
                     <td align="right"  class="sidelinks">
                         Audit Comments:                      <td align="left" colspan="3">
-                        <asp:TextBox ID="txtAuditComment" runat="server" Rows="4" Columns="100" Height="65px" CssClass="Text"></asp:TextBox>
+                        <asp:TextBox ID="txtAuditComment" runat="server" Rows="4" Columns="100" 
+                            Height="65px" CssClass="Text" TextMode="MultiLine"></asp:TextBox>
                     </td>
                 </tr>
                 <tr align="center">
@@ -212,7 +213,7 @@
     </tr>
 </table>
 <script type="text/javascript" language="javascript">
-    //var msfWARN0450 = '<%= msgWARN0450 %>';
+    var msfWARN0450 = '<%= msgWARN0450 %>';
     var hfDoSaving = document.getElementById('<%=hfDoSaving.ClientID %>');
     var ddlAppropriateOutcome = document.getElementById('<%=ddlAppropriateOutcome.ClientID %>');
     var txtAuditComment  = document.getElementById('<%=txtAuditComment.ClientID %>'); 
@@ -291,10 +292,10 @@
          return false;        
     }
     TabControl.onChanged = function() {
-        ConfirmToSave("Your data is changed. Do you want to save it?");
+        ConfirmToSave(msfWARN0450);
     };
     function ChangeData()
     {
-        ConfirmToSave("Your data is changed. Do you want to save it?");
+        ConfirmToSave(msfWARN0450);
     };    
 </script>

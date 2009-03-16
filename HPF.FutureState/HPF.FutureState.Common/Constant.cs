@@ -5,8 +5,8 @@ namespace HPF.FutureState.Common
         public const int PAYMENT_COMMENT_MAX_LENGTH = 300;
         public const int PAYMENT_NUMBER_MAX_LENGTH = 30;
         public const string LOAN_1ST = "1ST";
-        public const string INCOME = "1";
-        public const string EXPENSES = "2";        
+        public const string INCOME = "INC";
+        public const string EXPENSES = "EXP";        
         public const string RULESET_MIN_REQUIRE_FIELD = "RequirePartialValidate";
         public const string RULESET_COMPLETE = "Complete";
         public const string RULESET_LENGTH = "Length";

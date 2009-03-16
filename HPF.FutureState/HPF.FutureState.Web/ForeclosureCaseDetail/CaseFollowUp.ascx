@@ -146,7 +146,7 @@
 </table>
 
 <script type="text/javascript" language="javascript">
-   // var msfWARN0450 = '<%= msgWARN0450 %>';    
+    var msfWARN0450 = '<%= msgWARN0450 %>';    
     var status = document.getElementById('<%=hdf_Confirm.ClientID %>');
     var confirmFlag = true;
     var followUpDate = document.getElementById('<%=txt_FollowUpDt.ClientID %>');
@@ -248,10 +248,10 @@
     
     TabControl.onChanged=function()
     {
-        ConfirmEdit("Your data is changed. Do you want to save it?");
+        ConfirmEdit(msfWARN0450);
     };
     function ChangeData()
     { 
-        ConfirmEdit("Your data is changed. Do you want to save it?");
+        ConfirmEdit(msfWARN0450);
     }
 </script>

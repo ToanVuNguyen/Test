@@ -737,7 +737,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0684, "No invoice payments were found that match your search criteria.");
 
                 errorMessageDict.Add(ERR0701, "An Audit Date is required to save an audit record.");
-                errorMessageDict.Add(ERR0702, "Audit type is required to save the case.");
+                errorMessageDict.Add(ERR0702, "An Audit Type is required to save an audit record.");
                 errorMessageDict.Add(ERR0703, "A Follow-Up Date is required to save a follow-up record.");
                 errorMessageDict.Add(ERR0704, "A Follow-Up Source is required to save a follow-up record.");
 
