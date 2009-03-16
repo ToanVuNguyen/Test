@@ -15,7 +15,7 @@
   </ReportParameters>
   <rd:DrawGrid>true</rd:DrawGrid>
   <InteractiveWidth>8.5in</InteractiveWidth>
-  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <rd:SnapToGrid>false</rd:SnapToGrid>
   <PageHeader>
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <Height>0.25in</Height>
@@ -31,7 +31,7 @@
         </Field>
         <Field Name="invoice_dt">
           <DataField>invoice_dt</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="funding_source_name">
           <DataField>funding_source_name</DataField>
@@ -116,6 +116,22 @@
   <Width>8.375in</Width>
   <Body>
     <ReportItems>
+      <Textbox Name="textbox32">
+        <rd:DefaultName>textbox32</rd:DefaultName>
+        <Top>2.79167in</Top>
+        <Width>3.19792in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>18</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.67708in</Left>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!City_info.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
+      </Textbox>
       <Textbox Name="textbox31">
         <rd:DefaultName>textbox31</rd:DefaultName>
         <Top>2.01042in</Top>
@@ -219,7 +235,7 @@
       <Table Name="table1">
         <ZIndex>11</ZIndex>
         <DataSetName>dst_hpf_rpt_InvoiceSummary_detail</DataSetName>
-        <Top>4in</Top>
+        <Top>4.16667in</Top>
         <Width>7.625in</Width>
         <Details>
           <TableRows>
@@ -869,7 +885,7 @@
       </Table>
       <Textbox Name="textbox11">
         <rd:DefaultName>textbox11</rd:DefaultName>
-        <Top>3.05208in</Top>
+        <Top>3.3125in</Top>
         <Width>3.19792in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
@@ -885,7 +901,7 @@
       </Textbox>
       <Textbox Name="phone">
         <rd:DefaultName>phone</rd:DefaultName>
-        <Top>2.79167in</Top>
+        <Top>3.05208in</Top>
         <Width>3.19792in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1018,8 +1034,8 @@ gakailvi@995hope.org
         <Value>=First(Fields!invoice_dt.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
       </Textbox>
       <Textbox Name="textbox2">
-        <Top>3.46875in</Top>
-        <Width>5.72917in</Width>
+        <Top>3.75in</Top>
+        <Width>6.63542in</Width>
         <Style>
           <Color>MidnightBlue</Color>
           <FontSize>20pt</FontSize>
@@ -1031,9 +1047,9 @@ gakailvi@995hope.org
         </Style>
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.52083in</Left>
+        <Left>1.125in</Left>
         <Height>0.375in</Height>
-        <Value>I          V          O          I          C          E</Value>
+        <Value>I          N          V          O          I          C          E</Value>
       </Textbox>
       <Image Name="image1">
         <Sizing>AutoSize</Sizing>
