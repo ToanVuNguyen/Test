@@ -9,8 +9,8 @@
     <col width="23%" />
     </colgroup>
     <tr>
-        <td class="Header" colspan="4" >
-            New Payable Criteria</td>
+        <td  align="center" colspan="4" >
+            <h1>New Payable Criteria</h1></td>
     </tr>
     <tr>
         <td colspan="4" >

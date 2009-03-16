@@ -16,8 +16,8 @@
         <col width="30%" />
     </colgroup>
     <tr style="">
-        <td colspan="6" class="Header">
-            Foreclosure Case Search
+        <td colspan="6"  align="center">
+            <h1>Foreclosure Case Search</h1>
         </td>
     </tr>
     <tr>

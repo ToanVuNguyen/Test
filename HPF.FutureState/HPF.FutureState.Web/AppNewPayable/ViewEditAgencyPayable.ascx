@@ -19,7 +19,7 @@
         <col width="12%" />
     </colgroup>
     <tr>
-        <td colspan="8" align="center" class="style1">
+        <td colspan="8" align="center">
             <h1>
                 View/Edit Agency Payable</h1>
         </td>

@@ -36,8 +36,8 @@
 <col width="32%" />
 </colgroup>
     <tr>
-        <td  class="Header" colspan="5" >
-            New Agency Payable Results</td>
+        <td   colspan="5" align="center" >
+            <h1>New Agency Payable Results</h1></td>
     </tr>
     <tr>
         <td  class="style1" colspan="5" >
