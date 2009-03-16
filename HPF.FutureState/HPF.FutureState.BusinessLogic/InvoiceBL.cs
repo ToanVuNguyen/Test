@@ -59,6 +59,7 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.PeriodStartDate = invoiceDraft.PeriodStartDate;
                 invoice.PeriodEndDate = invoiceDraft.PeriodEndDate;
                 invoice.InvoiceBillAmount = (double)invoiceDraft.TotalAmount;
+                invoice.InvoicePaymentAmount = 0;
                 invoice.FundingSourceId = int.Parse(invoiceDraft.FundingSourceId);
                 //Get Set Invoice status to Active
                 invoice.StatusCode = LookupDataBL.Instance.GetRefCode("invoice status code")[0].Code;

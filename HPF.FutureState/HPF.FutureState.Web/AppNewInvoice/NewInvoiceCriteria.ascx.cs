@@ -394,8 +394,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             try
             {
                 searchCriteria.Age.Min = (txtAgeMin.Text == "") ? int.MinValue : int.Parse(txtAgeMin.Text);
-                searchCriteria.Age.Max = (txtAgeMax.Text == "") ? int.MinValue : int.Parse(txtAgeMax.Text);
-                if (searchCriteria.Age.Min > 999 || searchCriteria.Age.Max > 999)
+                if (searchCriteria.Age.Min > 999)
                     throw (new Exception());
             }
             catch
@@ -403,16 +402,39 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0993);
                 ex.ExceptionMessages.Add(exMes);
             }
+
+            try
+            {
+                searchCriteria.Age.Max = (txtAgeMax.Text == "") ? int.MinValue : int.Parse(txtAgeMax.Text);
+                if (searchCriteria.Age.Max > 999)
+                    throw (new Exception());
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0994);
+                ex.ExceptionMessages.Add(exMes);
+            }
             try
             {
                 searchCriteria.HouseholdGrossAnnualIncome.Min = (txtIncomeMin.Text == "") ? double.MinValue : double.Parse(txtIncomeMin.Text);
-                searchCriteria.HouseholdGrossAnnualIncome.Max = (txtIncomeMax.Text == "") ? double.MinValue : double.Parse(txtIncomeMax.Text);
-                if (searchCriteria.HouseholdGrossAnnualIncome.Min >= 1000000000 || searchCriteria.HouseholdGrossAnnualIncome.Max >= 1000000000)
+                if (searchCriteria.HouseholdGrossAnnualIncome.Min >= 1000000000)
                     throw (new Exception());
             }
             catch
             {
                 ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0992);
+                ex.ExceptionMessages.Add(exMes);
+            }
+
+            try
+            {
+                searchCriteria.HouseholdGrossAnnualIncome.Max = (txtIncomeMax.Text == "") ? double.MinValue : double.Parse(txtIncomeMax.Text);
+                if (searchCriteria.HouseholdGrossAnnualIncome.Max >= 1000000000)
+                    throw (new Exception());
+            }
+            catch
+            {
+                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0990);
                 ex.ExceptionMessages.Add(exMes);
             }
 
@@ -433,24 +455,14 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ex.ExceptionMessages.Add(exMes);
             }
             searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
-            searchCriteria.City = txtCity.Text;
+            if (txtCity.Text.Length > 30)
+            {
+                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0985);
+                ex.ExceptionMessages.Add(exMes);
+            }
+            else
+                searchCriteria.City = txtCity.Text;
             searchCriteria.State = dropState.SelectedValue;
-            if(searchCriteria.PeriodStart!=null&&searchCriteria.PeriodEnd!=null)
-                if ((searchCriteria.PeriodStart > searchCriteria.PeriodEnd))
-                {
-                    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0990);
-                    ex.ExceptionMessages.Add(exMes);
-                }
-            if (searchCriteria.Age.Min > searchCriteria.Age.Max)
-            {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0989);
-                ex.ExceptionMessages.Add(exMes);
-            }
-            if (searchCriteria.HouseholdGrossAnnualIncome.Min > searchCriteria.HouseholdGrossAnnualIncome.Max)
-            {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0988);
-                ex.ExceptionMessages.Add(exMes);
-            }
             if (chkUnfunded.Enabled == false)
             {
                 searchCriteria.ServicerRejected = false;

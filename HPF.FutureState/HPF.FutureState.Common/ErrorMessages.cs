@@ -277,6 +277,8 @@ namespace HPF.FutureState.Common
         public const string ERR0564 = "ERR0564";
         public const string ERR0565 = "ERR0565";
         public const string WARN0566 = "WARN0566";
+        public const string ERR0567 = "ERR0567";
+        public const string ERR0568 = "ERR0568";
 
 
         //view edit payable page
@@ -675,11 +677,13 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0559, "At least one case must be selected to be unpaid.");
                 errorMessageDict.Add(WARN0560, "Are you sure you wish to unpay the selected case(s)?");
                 errorMessageDict.Add(ERR0561, "A Funding Source is required to search for Invoices.");
-                errorMessageDict.Add(ERR0562, "A Period Start date is required to search for Invoices.");
-                errorMessageDict.Add(ERR0563, "A Period End date is required to search for Invoices.");
+                errorMessageDict.Add(ERR0562, "A valid Period Start date is required to search for Invoices.");
+                errorMessageDict.Add(ERR0563, "A valid Period End date is required to search for Invoices.");
                 errorMessageDict.Add(ERR0564, "A Non-Servicer Funding Source Option is required to search for Invoices.");
                 errorMessageDict.Add(ERR0565, "A Program selection is required to search for Invoices.");
-                errorMessageDict.Add(WARN0566, "No Invoice were found that match your search criteria");
+                errorMessageDict.Add(WARN0566, "No Invoice were found that match your search criteria.");
+                errorMessageDict.Add(ERR0567, "An invoice must be selected in order to cancel it.");
+                errorMessageDict.Add(ERR0568, "An invoice must be selected in order to view or edit it.");
 
                 //view edit payable page
                 errorMessageDict.Add(ERR0575, "At least one case must be selected in order to take back a case.");
@@ -706,7 +710,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The HPF Inetrnal Case ID (fc_id) in row {0} is not a valid number.");
                 errorMessageDict.Add(ERR0659, "Unable to process the reconciliation file. The Pmt Amt in row {0} is not a valid amount.");
                 errorMessageDict.Add(ERR0660, "Unable to process the reconciliation file  The Payment Reject Reason Code in row {0} is not a valid code.");
-                errorMessageDict.Add(ERR0661, "Unable to process the reconciliation file. It has {0} rows with payments totaling {1} which does not match the entered Payment Amount of {2}.");
+                errorMessageDict.Add(ERR0661, "Unable to process the reconciliation file. It has {0} row(s) with payments totaling {1} which does not match the entered Payment Amount of {2}.");
                 errorMessageDict.Add(ERR0662, "The column 'HPF Internal Case ID' could not be found in the reconciliation file.");
                 errorMessageDict.Add(ERR0663, "The column 'HPF Invoice Case ID' could not be found in the reconciliation file.");
                 errorMessageDict.Add(ERR0664, "The column 'Payment Amount' could not be found in the reconciliation file.");
@@ -760,19 +764,17 @@ namespace HPF.FutureState.Common
                 //
                 errorMessageDict.Add(ERR0980, "Invoice Payment Number has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0981, "Invoice Payment Comments has a maximum length of 300 characters.");
-                errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail. Error Message: ");
+                errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail.");
                 errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
-                errorMessageDict.Add(ERR0984, "Generate Invoice reports fail. Error Message: ");
-                errorMessageDict.Add(ERR0985, "Insert Invoice successful.");
+                errorMessageDict.Add(ERR0984, "Generate Invoice reports fail.");
+                errorMessageDict.Add(ERR0985, "City has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0986, "You must select one Invoice.");
                 errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");
-                errorMessageDict.Add(ERR0988, "GrossAnnualIncome Min can not larger than GrossAnnualIncome Max.");
-                errorMessageDict.Add(ERR0989, "AgeMin can not larger than AgeMax.");
-                errorMessageDict.Add(ERR0990, "Period Start can not larger than Period End.");
+                errorMessageDict.Add(ERR0990, "An invalid Household Gross Annual Income Max was provided.");
                 errorMessageDict.Add(ERR0991, "An invalid Max Num of Cases was provided.");
-                errorMessageDict.Add(ERR0992, "An invalid Household Gross Annual Income Min/Max was provided.");
-                errorMessageDict.Add(ERR0993, "An invalid AgeMin/Max was provided.");
-                errorMessageDict.Add(ERR0994, "A Program is required to search.");
+                errorMessageDict.Add(ERR0992, "An invalid Household Gross Annual Income Min was provided.");
+                errorMessageDict.Add(ERR0993, "An invalid Age Min was provided.");
+                errorMessageDict.Add(ERR0994, "An invalid Age Max was provided.");
                 errorMessageDict.Add(ERR0995, "A Funding Source is required to search.");
                 errorMessageDict.Add(ERR0996, "An invalid date was provided for Period End.");
                 errorMessageDict.Add(ERR0997, "An invalid date was provided for Period Start.");

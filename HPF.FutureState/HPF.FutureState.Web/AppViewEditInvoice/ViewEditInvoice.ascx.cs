@@ -29,6 +29,9 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             ApplySecurity();
             try
             {
+                btnReject.Attributes.Add("onclick", " return onRejectClick();");
+                btnPay.Attributes.Add("onclick", " return onPayClick();");
+                btnUnpay.Attributes.Add("onclick", " return onUnPayClick();");
                 invoiceID = int.Parse(Request.QueryString["id"]);
                 if (!IsPostBack)
                 {
@@ -298,6 +301,15 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             Response.Redirect("FundingSourceInvoice.aspx");
         }
 
+        protected void grvViewEditInvoice_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            CheckBox chk = (CheckBox)e.Row.FindControl("chkSelected");
+            if (chk != null)
+                chk.Attributes.Add("onclick", " validate(this)");
+
+        }
+
+        
         
      
     }

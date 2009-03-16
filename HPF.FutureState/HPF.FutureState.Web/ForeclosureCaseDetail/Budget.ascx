@@ -25,18 +25,17 @@
                     <EditRowStyle BackColor="#2461BF" />
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <Columns>
-                        <asp:BoundField DataField="BudgetSetDt" DataFormatString="{0:d}" HeaderText="Budget Date" />
-                        <asp:TemplateField HeaderText="Surplus/Deficit">
+                        <asp:BoundField DataField="BudgetSetDt" DataFormatString="{0:d}" HeaderText="Budget Date" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                        <asp:TemplateField HeaderText="Surplus/Deficit" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right">
                             <ItemTemplate>
                                 <asp:Label ID="lblSurplus" runat="server"></asp:Label>
                             </ItemTemplate>
-                            <ItemStyle HorizontalAlign="Right" />
                         </asp:TemplateField>
-                        <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                        <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                             HeaderText="Total Income" />
-                        <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                        <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                             HeaderText="Total Expenses" />
-                        <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                        <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                             HeaderText="Total Asset" />
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                             ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
@@ -75,11 +74,11 @@
                                     <EditRowStyle BackColor="#2461BF" />
                                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                                     <Columns>
-                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" />
-                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" />
-                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"
+                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                                             HeaderText="Amount"  />
-                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  />
+                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left"  />
                                     </Columns>
                                 </asp:GridView>
                             </asp:Panel>
@@ -102,8 +101,8 @@
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             <Columns>
-                                <asp:BoundField DataField="AssetName" HeaderText="Asset Name" ItemStyle-Width="180" />
-                                <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                                <asp:BoundField DataField="AssetName" HeaderText="Asset Name" ItemStyle-Width="180" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                                     HeaderText="Asset Value" ItemStyle-Width="120" />
                             </Columns>
                         </asp:GridView>
@@ -133,11 +132,11 @@
                                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                                     <Columns>
-                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" />
-                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" />
-                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"
+                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                                             HeaderText="Amount"  />
-                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  />
+                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left"  />
                                     </Columns>
                                 </asp:GridView>
                             </asp:Panel>

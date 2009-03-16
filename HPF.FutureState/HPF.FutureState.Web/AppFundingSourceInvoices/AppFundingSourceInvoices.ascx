@@ -84,18 +84,18 @@
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle"  />
                     <Columns>
-                        <asp:BoundField DataField="FundingSourceName" HeaderText="Funding Source" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField DataField="InvoiceId" HeaderText="Invoice#" />
-                        <asp:TemplateField HeaderText="Invoice Date">
+                        <asp:BoundField DataField="FundingSourceName" HeaderText="Funding Source" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="InvoiceId" HeaderText="Invoice#" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" />
+                        <asp:TemplateField HeaderText="Invoice Date" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left">
                             <ItemTemplate>
                                 <asp:Label ID="lblInvoiceDate" runat="server"> </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" />
-                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Invoice Amount" />
-                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderText="Payment Amount" />
-                        <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" />
-                        <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" />
+                        <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" HeaderText="Invoice Amount" />
+                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" HeaderText="Payment Amount" />
+                        <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" />
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                     </Columns>
                 </asp:GridView>
@@ -183,22 +183,13 @@
 
 <script type="text/javascript" language="javascript">    
     var id='<%=SelectedRowIndex.ClientID %>';
-    function ViewEditClientClick()
-    {    
-        var SelectedIndex = document.getElementById(id);    
-        if(SelectedIndex.value=='')
-        {
-            alert('ERR0568--An invoice must be selected in order to view or edit it.');
-            return false;
-        }
-    }
+
     function CancelClientClick()
     {
         var SelectedIndex = document.getElementById(id);    
         if(SelectedIndex.value=='')
         {
-            alert('ERR0567--An invoice must be selected in order to cancel it.');
-            return false;
+            return true;
         }
         else
             return confirm('WARN0551--Are you sure you wish to cancel this Invoice?');

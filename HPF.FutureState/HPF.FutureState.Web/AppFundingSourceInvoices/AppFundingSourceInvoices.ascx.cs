@@ -35,7 +35,6 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 {
                     GetFundingSourceList();
                     SetUpDefaultValue();
-                    btnViewEditInvoice.Attributes.Add("onclick", " return ViewEditClientClick();");
                     btnCancelInvoice.Attributes.Add("onclick", " return CancelClientClick();");
                 }
             }
@@ -240,11 +239,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         protected void btnCancelInvoice_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            //if (grvFundingSourceInvoices.SelectedValue == null)
-            //{
-            //    lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
-            //    return;
-            //}
+            if (grvFundingSourceInvoices.SelectedValue == null)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0567)));
+                return;
+            }
             if (Session["searchResult"] == null)
                 return;
             InvoiceDTOCollection searchResult = Session["searchResult"] as InvoiceDTOCollection;
@@ -277,17 +276,19 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
         protected void btnViewEditInvoice_Click(object sender, EventArgs e)
         {
-            //if (grvFundingSourceInvoices.SelectedValue==null)
-            //{
-            //    lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0986)));
-            //    return;
-            //}
+            ClearErrorMessages();
+            if (grvFundingSourceInvoices.SelectedValue == null)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0568)));
+                return;
+            }
             int invoiceId = (int)grvFundingSourceInvoices.SelectedValue;
             Response.Redirect("InvoiceInfo.aspx?id=" + invoiceId.ToString());
         }
 
         protected void grvFundingSourceInvoices_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             if (grvFundingSourceInvoices.SelectedValue != null)
                 SelectedRowIndex.Value = grvFundingSourceInvoices.SelectedValue.ToString();
             

@@ -97,22 +97,20 @@
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" />
-                                <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" />
-                                <asp:TemplateField HeaderText="Complete Dt.">
+                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="HPF Case ID" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="CreateDate" HeaderText="Create Dt" DataFormatString="{0:d}"  HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:TemplateField HeaderText="Complete Dt." HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCompleteDate" runat="server"> </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="Amount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                                <asp:BoundField DataField="Amount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right"
                                     HeaderText="Amount" />
-                                <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" />
-                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
-                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
+                                <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
                             </Columns>
-                            <EmptyDataTemplate>
-                                There is no data match !
-                            </EmptyDataTemplate>
                         </asp:GridView>
                     </ContentTemplate>
                 </asp:UpdatePanel>

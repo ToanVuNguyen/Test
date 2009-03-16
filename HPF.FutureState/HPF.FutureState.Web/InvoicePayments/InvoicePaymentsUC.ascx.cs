@@ -25,8 +25,6 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
             ClearErrorMessages();
             ApplySecurity();
-            if(grvInvoicePaymentList.SelectedValue ==null)
-                SelectedRowIndex.Value = "";
             try
             {
                 if (!IsPostBack)
@@ -34,7 +32,6 @@ namespace HPF.FutureState.Web.InvoicePayments
                     BindFundingSourceDropDownList();
                     SetDefaultPeriodStartEnd();
                     DefaultSearch();
-                    btnViewEditPayable.Attributes.Add("onclick", " return ViewEditClientClick();");
                 }
             }
             catch (Exception ex)
@@ -254,7 +251,12 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            if (grvInvoicePaymentList.SelectedValue!=null)
+            if (grvInvoicePaymentList.SelectedValue == null)
+            {
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0683));
+                return;
+            }
+            else
                 Response.Redirect("InvoicePaymentInfo.aspx?id=" + grvInvoicePaymentList.SelectedValue.ToString());
 
         }
@@ -266,6 +268,7 @@ namespace HPF.FutureState.Web.InvoicePayments
 
         protected void grvInvoicePaymentList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClearErrorMessages();
             if (grvInvoicePaymentList.SelectedValue != null)
                 SelectedRowIndex.Value = grvInvoicePaymentList.SelectedValue.ToString();
         }

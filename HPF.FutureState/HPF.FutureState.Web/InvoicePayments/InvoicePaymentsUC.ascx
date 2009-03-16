@@ -7,8 +7,10 @@
 
 <table width="100%">
     <tr>
-        <td colspan="6" class="Header">
+        <td colspan="6" >
+            <h1>
             Invoice Payments
+            </h1>
         </td>
     </tr>
     <tr>
@@ -70,14 +72,14 @@
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             <Columns>
-                                <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName" />
-                                <asp:BoundField HeaderText="HPF Payment ID" DataField="InvoicePaymentID" />
-                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" />
-                                <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" />
-                                <asp:BoundField HeaderText="Payment Code" DataField="PaymentTypeDesc" />
+                                <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField HeaderText="HPF Payment ID" DataField="InvoicePaymentID" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField HeaderText="Payment Code" DataField="PaymentTypeDesc" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
                                 <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}"
-                                    ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField HeaderText="Comments" DataField="Comments"/>
+                                    HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField HeaderText="Comments" DataField="Comments" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left"/>
                                 <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                                     ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
                             </Columns>
@@ -114,15 +116,3 @@
         </td>
     </tr>
 </table>
-<script type="text/javascript" language="javascript">    
-var id='<%=SelectedRowIndex.ClientID %>';
-    function ViewEditClientClick()
-    {    
-        var SelectedIndex = document.getElementById(id);    
-        if(SelectedIndex.value=='')
-        {
-            alert('ERR0683--An invoice payment must be selected in order to view or edit it.');
-            return false;
-        }
-    }
-</script>

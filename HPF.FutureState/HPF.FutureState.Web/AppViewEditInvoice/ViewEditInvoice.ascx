@@ -56,10 +56,10 @@
             </asp:DropDownList>
         </td>
         <td align="left" class="style2" style="vertical-align: bottom">
-            <span onclick="return confirm('Are you sure you wish to reject the selected case(s)?')">
+            
                 <asp:Button ID="btnReject" runat="server" CssClass="MyButton" Text="Reject Marked Cases"
                     Width="130px" OnClick="btnReject_Click" />
-            </span>
+            
         </td>
     </tr>
     <tr>
@@ -82,10 +82,10 @@
             &nbsp;
         </td>
         <td align="left" class="style2">
-            <span onclick="return confirm('Are you sure you wish to pay the selected case(s)?')">
+            
                 <asp:Button ID="btnPay" runat="server" CssClass="MyButton" Text="Pay Marked Cases"
                     Width="130px" OnClick="btnPay_Click" />
-            </span>
+            
         </td>
     </tr>
     <tr>
@@ -105,10 +105,10 @@
             <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
         </td>
         <td align="left" class="style2">
-            <span onclick="return confirm('Are you sure you wish to unpay the selected case(s)?')">
+            
                 <asp:Button ID="btnUnpay" runat="server" CssClass="MyButton" Text="Unpay Marked Cases"
                     Width="130px" OnClick="btnUnpay_Click" />
-            </span>
+            
         </td>
     </tr>
     <tr>
@@ -178,7 +178,8 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvViewEditInvoice" runat="server" CellPadding="2" ForeColor="#333333"
-                            GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" Width="100%">
+                            GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
+                            Width="100%" onrowcreated="grvViewEditInvoice_RowCreated">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -196,19 +197,19 @@
                                         <asp:CheckBox ID="chkSelected" runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
-                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" />
-                                <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Dt." />
-                                <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"
+                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Dt." HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
                                     HeaderText="Amount" />
-                                <asp:BoundField DataField="LoanNumber" HeaderText="Loan Number" />
-                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer" />
-                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
-                                <asp:BoundField DataField="PaidDate" HeaderText="Paid Date" />
+                                <asp:BoundField DataField="LoanNumber" HeaderText="Loan Number" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="PaidDate" HeaderText="Paid Date" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
                                 <asp:BoundField DataField="InvoiceCasePaymentAmount" HeaderText="Paid Amt" DataFormatString="{0:C}"
-                                    ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField DataField="PaymentRejectReasonCode" HeaderText="Reject Reason" />
-                                <asp:BoundField DataField="InvenstorLoanId" HeaderText="Investor Loan ID" />
+                                    HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField DataField="PaymentRejectReasonCode" HeaderText="Reject Reason" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="InvenstorLoanId" HeaderText="Investor Loan ID" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
                             </Columns>
                         </asp:GridView>
                         <table width="100%">
@@ -233,6 +234,7 @@
                                 </td>
                             </tr>
                         </table>
+                        <asp:HiddenField ID="SelectedRowIndex" runat="server"  />
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </cc1:StatefullScrollPanel>
@@ -245,5 +247,36 @@
         </td>
     </tr>
 </table>
+<script type="text/javascript" language="javascript">    
+var id='<%=SelectedRowIndex.ClientID %>';
+function validate(chk)
+{
+    var SelectedIndex = document.getElementById(id);    
+  if (chk.checked == 1)
+    SelectedIndex.value='true';
+}
+function onRejectClick()
+{
+    var SelectedIndex = document.getElementById(id);
+    if(SelectedIndex.value!='')
+        return confirm('Are you sure you wish to reject the selected case(s)?')
+    return true;
+}
+function onPayClick()
+{
+    var SelectedIndex = document.getElementById(id);
+    if(SelectedIndex.value!='')
+        return confirm('Are you sure you wish to pay the selected case(s)?')
+    return true;
+}
+function onUnPayClick()
+{
+    var SelectedIndex = document.getElementById(id);
+    if(SelectedIndex.value!='')
+        return confirm('Are you sure you wish to unpay the selected case(s)?')
+    return true;
+}
+</script>
+
 <%--</ContentTemplate>
 </asp:UpdatePanel>--%>

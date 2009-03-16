@@ -432,6 +432,7 @@ namespace HPF.FutureState.DataAccess
                         caseDraft.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
                         caseDraft.AgencyCaseId = ConvertToString(reader["agency_case_num"]);
                         caseDraft.CompletedDate = ConvertToDateTime(reader["completed_dt"]);
+                        caseDraft.CreateDate= ConvertToDateTime(reader["create_dt"]);
                         caseDraft.Amount = ConvertToDouble(reader["bill_rate"]);
                         caseDraft.AccountLoanNumber = ConvertToString(reader["acct_num"]);
                         caseDraft.ServicerName = ConvertToString(reader["servicer_name"]);

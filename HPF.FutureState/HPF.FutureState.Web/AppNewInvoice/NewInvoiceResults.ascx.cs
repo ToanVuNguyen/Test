@@ -96,7 +96,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             if (invoiceDraft.ForeclosureCaseDrafts == null)
             {
                 btnGenerateInvoice.Enabled = false;
-                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0552)));
+                lblErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0552)));
             }
         }
 
@@ -185,7 +185,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 string exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0985);
                 lblErrorMessage.Items.Add(exMes);
                 //Generate file fail.
-                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984)+ex.Message;
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984);
                 lblErrorMessage.Items.Add(exMes);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 btnGenerateInvoice.Enabled = false;
