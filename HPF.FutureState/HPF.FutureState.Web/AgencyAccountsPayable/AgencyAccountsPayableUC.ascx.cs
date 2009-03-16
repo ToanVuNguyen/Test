@@ -26,7 +26,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             //apply security
             ApplySecurity();
-
+            lblPortal.PostBackUrl = HPFConfigurationSettings.HPF_PAYABLE_PORTAL_URL;
             // display grv in the first time
             if (!IsPostBack)
             {
@@ -55,6 +55,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                         ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
                         BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
                     }
+                    else
                     {
                         SetDefaultPeriodStartEnd();
                         //default display all agencyaccount within 6 month.

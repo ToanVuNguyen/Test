@@ -14,6 +14,24 @@ namespace HPF.FutureState.Web.AppNewPayable {
     public partial class NewPayableCriteriaUC {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// bulMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.BulletedList bulMessage;
+        
+        /// <summary>
         /// ddlAgency control.
         /// </summary>
         /// <remarks>
@@ -41,6 +59,15 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.TextBox txtPeriodStart;
         
         /// <summary>
+        /// txtPeriodStart_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtPeriodStart_CalendarExtender;
+        
+        /// <summary>
         /// txtPeriodEnd control.
         /// </summary>
         /// <remarks>
@@ -48,6 +75,15 @@ namespace HPF.FutureState.Web.AppNewPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPeriodEnd;
+        
+        /// <summary>
+        /// txtPeriodEnd_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtPeriodEnd_CalendarExtender;
         
         /// <summary>
         /// ddlCaseCompleted control.
@@ -66,14 +102,5 @@ namespace HPF.FutureState.Web.AppNewPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ChkInclude;
-        
-        /// <summary>
-        /// bulMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList bulMessage;
     }
 }

@@ -332,6 +332,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         protected void btn_Save_Click(object sender, EventArgs e)
         {
             UpdateForecloseCase();
+            int caseid =Int32.Parse(Request.QueryString["CaseID"]);
+            Response.Redirect("ForeclosureCaseInfo.aspx?CaseID="+caseid);
         }
 
         protected override void OnUnload(EventArgs e)

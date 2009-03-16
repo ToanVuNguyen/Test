@@ -9,6 +9,11 @@
     <col width="35%" />
     <col width="23%" />
     </colgroup>
+     <tr>
+        <td colspan="4">
+           <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
+           </td>
+    </tr>
     <tr>
         <td  align="center" colspan="4" >
             <h1>New Payable Criteria</h1></td>
@@ -89,14 +94,5 @@
         <td>
             &nbsp;</td>
     </tr>
-    <tr>
-        <td colspan="4">
-           <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
-           <%--<asp:RequiredFieldValidator ID="reqtxtPeriodStart"  Display="Dynamic" runat="server" ErrorMessage="Must input date" ControlToValidate="txtPeriodStart"></asp:RequiredFieldValidator>
-    <asp:RequiredFieldValidator ID="reqtxtPeriodEnd" Display="Dynamic"  runat="server" ErrorMessage="Must input date" ControlToValidate="txtPeriodEnd"></asp:RequiredFieldValidator>
-    <asp:CompareValidator ID="cmptxtPeriodStart" runat="server" Display="Dynamic" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodStart" ValueToCompare="1/1/1900" Operator="GreaterThan"></asp:CompareValidator>
-    <asp:CompareValidator ID="cmptxtPeriodEnd" Display="Dynamic" runat="server" ErrorMessage="Input correct date format" ControlToValidate="txtPeriodEnd" ValueToCompare="1/1/1900" Operator="GreaterThan"></asp:CompareValidator>--%>
    
-           </td>
-    </tr>
 </table>

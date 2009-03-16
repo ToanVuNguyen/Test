@@ -204,6 +204,11 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_INVOICE_PORTAL_URL"];
             }
         }
-
+        public static string HPF_PAYABLE_PORTAL_URL
+        {
+            get {
+                return ConfigurationManager.AppSettings["HPF_PAYABLE_PORTAL_URL"];
+            }
+        }
     }
 }

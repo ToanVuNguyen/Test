@@ -8,12 +8,12 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <table width="100%">
     <colgroup>
-        <col width="10%" />
+        <col width="15%" />
         <col width="15%" />
         <col width="20%" />
         <col width="15%" />
         <col width="10%" />
-        <col width="30%" />
+        <col width="25%" />
     </colgroup>
     <tr style="">
         <td colspan="6"  align="center">
