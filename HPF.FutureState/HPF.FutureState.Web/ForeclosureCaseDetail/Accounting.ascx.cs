@@ -69,6 +69,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 AccountingDTO accountinginfo = AccountingBL.Instance.GetAccountingDetailInfo(fc_id);
                 ddlNeverPayReason.SelectedValue = accountinginfo.NerverPayReason;
                 ddlNerverBillReason.SelectedValue = accountinginfo.NeverBillReason;
+                if (accountinginfo.BillingInfo.Count == 0)
+                    panBillingInfo.Height= Unit.Parse("20px");
+                else panBillingInfo.Height = Unit.Parse("300px");
+
+                if (accountinginfo.BillingInfo.Count == 0)
+                    panPaymentInfo.Height = Unit.Parse("20px");
+                else panPaymentInfo.Height = Unit.Parse("300px");
                 grvBillingInfo.DataSource = accountinginfo.BillingInfo;
                 grvBillingInfo.DataBind();
                 grvPaymentInfo.DataSource = accountinginfo.AgencyPayableCase;
@@ -80,7 +87,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblMessage.Text = ex.Message;
                 throw;
             }
-            
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
