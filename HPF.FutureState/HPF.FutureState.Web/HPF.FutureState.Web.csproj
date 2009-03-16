@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Enterprise Library\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
@@ -410,6 +411,7 @@
     <Content Include="AppNewPayable\ReprintPayable.ascx" />
     <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="NewPayableSelection.aspx" />
