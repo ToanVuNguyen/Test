@@ -452,8 +452,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
                 else
                 {
-                    lbtnLast.Enabled = true;
-                    lbtnNext.Enabled = true;
+                    if (this.PageNum != totalpage)
+                    {
+                        lbtnLast.Enabled = true;
+                        lbtnNext.Enabled = true;
+                    }
                 }
             }
         }

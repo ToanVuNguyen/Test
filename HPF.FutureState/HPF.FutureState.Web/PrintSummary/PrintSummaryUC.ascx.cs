@@ -40,7 +40,6 @@ namespace HPF.FutureState.Web.PrintSummary
             ReportParameter reportParameter = new ReportParameter("pi_fc_id", caseid.ToString());
             ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] {reportParameter});
 
-
         }
 
         private void SetReportServerUrl()

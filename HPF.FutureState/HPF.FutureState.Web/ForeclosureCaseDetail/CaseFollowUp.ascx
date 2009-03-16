@@ -22,11 +22,11 @@
                         CellPadding="2" ForeColor="#333333"
                         GridLines="Vertical" AutoGenerateColumns="False"                         
                         DataKeyNames="CasePostCounselingStatusId"                        
-                        onrowcreated="grd_FollowUpList_RowCreated" Width="100%">
+                        onrowcreated="grd_FollowUpList_RowCreated" Width="100%" BorderStyle="None">
                             <RowStyle CssClass="RowStyle"  />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <SelectedRowStyle  CssClass="SelectedRowStyle" />
                             <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" 
                             ForeColor="White" HorizontalAlign="Left"/>
                             <EditRowStyle BackColor="#2461BF" />

@@ -31,19 +31,22 @@
             Loan Number:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text" Width="140px" 
+                TabIndex="1"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Foreclosure Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtForeclosureCaseID" runat="server" MaxLength="10" 
+                CssClass="Text" Width="140px" TabIndex="5"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Duplicate:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text" Width="60px">
+            <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text" Width="60px" 
+                TabIndex="9">
                 <asp:ListItem Selected="True" Value=''></asp:ListItem>
                 <asp:ListItem Value='Y'>Yes</asp:ListItem>
                 <asp:ListItem Value='N'>No</asp:ListItem>
@@ -52,22 +55,25 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            Last 4 or SSN:
+            Last 4 of SSN:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="140px" 
+                TabIndex="2"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Agency Case ID:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtAgencyCaseID" runat="server" CssClass="Text" Width="140px" 
+                TabIndex="6"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Agency:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlAgency" runat="server" Width="130px" CssClass="Text">
+            <asp:DropDownList ID="ddlAgency" runat="server" Width="130px" CssClass="Text" 
+                Height="16px" TabIndex="10">
             </asp:DropDownList>
         </td>
     </tr>
@@ -76,19 +82,22 @@
             Last Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text" 
+                Width="140px" TabIndex="3"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property Zip:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtPropertyZip" runat="server" CssClass="Text" Width="140px" 
+                TabIndex="7"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Program:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlProgram" runat="server" Width="130px" CssClass="Text">
+            <asp:DropDownList ID="ddlProgram" runat="server" Width="130px" CssClass="Text" 
+                TabIndex="11">
             </asp:DropDownList>
         </td>
     </tr>
@@ -97,20 +106,23 @@
             First Name:
         </td>
         <td class="Control">
-            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text" Width="140px"></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text" 
+                Width="140px" TabIndex="4"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property State:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="140px" CssClass="Text">
+            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="140px" 
+                CssClass="Text" TabIndex="8">
             </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
             Servicer:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlServicer" runat="server" Width="130px" CssClass="Text">
+            <asp:DropDownList ID="ddlServicer" runat="server" Width="130px" CssClass="Text" 
+                TabIndex="12">
             </asp:DropDownList>
         </td>
     </tr>
@@ -121,7 +133,7 @@
         </td>
         <td class="Control">
             <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"
-                CssClass="MyButton" />
+                CssClass="MyButton" TabIndex="12" />
         </td>
     </tr>
     <tr>
@@ -156,13 +168,13 @@
                                 <asp:BoundField DataField="LoanList" HeaderText="Loan List" />
                                 <asp:BoundField DataField="BorrowerFirstName" HeaderText="Borrower First Name" />
                                 <asp:BoundField DataField="BorrowerLastName" HeaderText="Borrower Last Name" />
-                                <asp:BoundField DataField="Last4SSN" HeaderText="Last 4 digits of the SSN" />
+                                <asp:BoundField DataField="Last4SSN" HeaderText="Borrower Last 4 of SSN" />
                                 <asp:BoundField DataField="CoborrowerFirstName" HeaderText="Co-borrower First Name" />
                                 <asp:BoundField DataField="CoborrowerLastName" HeaderText="Co-borrower Last Name" />
-                                <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="Last 4 digits of co-borrower SSN" />
+                                <asp:BoundField DataField="CoborrowerLast4SSN" HeaderText="Co-borrower Last 4 of SSN" />
                                 <asp:TemplateField HeaderText="Property Address">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblPropertyAddress" runat="server" Text='<%#Eval("PropertyAddress")+" , "+Eval("PropertyCity")+" , "+Eval("PropertyState")+" , "+Eval("PropertyZip") %>'></asp:Label>
+                                        <asp:Label ID="lblPropertyAddress" runat="server" Text='<%#Eval("PropertyAddress")+", "+Eval("PropertyCity")+", "+Eval("PropertyState")+", "+Eval("PropertyZip") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="AgencyName" HeaderText="Agency Name" />
