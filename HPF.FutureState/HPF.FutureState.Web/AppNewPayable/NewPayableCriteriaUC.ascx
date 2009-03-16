@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewPayableCriteriaUC.ascx.cs" Inherits="HPF.FutureState.Web.AppNewPayable.NewPayableCriteriaUC" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <table  width="100%">
     <colgroup>
     <col width="22%" />
@@ -38,6 +39,10 @@
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Text="1/1/2003" Width="80px"> </asp:TextBox>
             
+            <cc1:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodStart">
+            </cc1:CalendarExtender>
+            
         </td>
         <td>
             &nbsp;</td>
@@ -49,6 +54,9 @@
             Period End*:</td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text" Text="5/1/2008" Width="80px"></asp:TextBox>
+            <cc1:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodEnd">
+            </cc1:CalendarExtender>
         </td>
         <td>
             &nbsp;</td>

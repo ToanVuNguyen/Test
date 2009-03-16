@@ -1,9 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewEditInvoicePaymentUC.ascx.cs" Inherits="HPF.FutureState.Web.InvoicePayments.ViewEditInvoicePayment" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <table width="100%">
 <colgroup>
 <col width="16%" />
 <col width="84%" />
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 </colgroup>
     <tr>
         <td colspan="2" align="center">
@@ -50,6 +52,9 @@
             Payment Date*:</td>
         <td>
             <asp:TextBox ID="txtPaymentDt" runat="server" CssClass="Text" Width="150px"></asp:TextBox>
+            <cc1:CalendarExtender ID="txtPaymentDt_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPaymentDt">
+            </cc1:CalendarExtender>
         </td>
     </tr>
     <tr>

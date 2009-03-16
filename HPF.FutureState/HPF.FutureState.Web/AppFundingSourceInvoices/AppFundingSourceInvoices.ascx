@@ -1,9 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppFundingSourceInvoices.ascx.cs" Inherits="HPF.FutureState.Web.AppFundingSourceInvoices.AppFundingSourceInvoices" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc2" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 
 <asp:ScriptManager runat="server"></asp:ScriptManager>
+<%--<style type="text/css">
+    .topall { }
+</style>--%>
 <%--<asp:UpdatePanel runat="server">
 <ContentTemplate>--%>
 
@@ -24,7 +28,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Funding Source*:
         </td>
-        <td align="left" >
+        <td align="left" width="280" >
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
                 Width="280px">
             </asp:DropDownList>
@@ -33,15 +37,23 @@
             Period Start*:</td>
         <td colspan="2">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
+            <cc2:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodStart">
+            </cc2:CalendarExtender>
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td>
+            &nbsp;</td>
+        <td width="280">
             &nbsp;</td>
         <td align="right" class="sidelinks" nowrap="nowrap">
             Period End*:</td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
+            <cc2:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodEnd">
+            </cc2:CalendarExtender>
         </td>
         <td align="right">
             <asp:Button ID="btnRefreshList" runat="server" CssClass="MyButton" 

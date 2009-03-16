@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewInvoiceCriteria.ascx.cs" Inherits="HPF.FutureState.Web.AppNewInvoice.AppNewInvoice" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<asp:ScriptManager runat="server"></asp:ScriptManager>
 <table style="width: 100%;">
     <tr>
         <td colspan="7">
@@ -59,17 +61,23 @@
             
             </div>
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Period Start*:</td>
         <td style="vertical-align: top">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
+            <cc1:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodStart">
+            </cc1:CalendarExtender>
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Period End*:&nbsp; </td>
         <td style="vertical-align: top">
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2009</asp:TextBox>
+            <cc1:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodEnd">
+            </cc1:CalendarExtender>
         </td>
     </tr>
     <tr>

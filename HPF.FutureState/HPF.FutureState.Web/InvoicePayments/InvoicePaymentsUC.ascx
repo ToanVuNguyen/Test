@@ -2,6 +2,7 @@
     Inherits="HPF.FutureState.Web.InvoicePayments.InvoicePaymentsUC" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc2" %>
 <asp:ScriptManager ID="myScript" runat="server">
 </asp:ScriptManager>
 
@@ -26,6 +27,9 @@
         </td>
         <td>
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text"  MaxLength="100"></asp:TextBox>
+            <cc2:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodStart">
+            </cc2:CalendarExtender>
         </td>
         <td colspan="2">
             &nbsp;
@@ -41,6 +45,9 @@
         </td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server"  MaxLength="100" CssClass="Text"></asp:TextBox>            
+            <cc2:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 
+                Enabled="True" TargetControlID="txtPeriodEnd">
+            </cc2:CalendarExtender>
         </td>        
         <td align="right"><asp:Button ID="btnRefreshList" runat="server" Text="Search" Width="120px"
                 CssClass="MyButton" OnClick="btnRefreshList_Click" /></td>
