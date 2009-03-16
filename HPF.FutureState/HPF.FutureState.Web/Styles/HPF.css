@@ -144,8 +144,15 @@ h2
     font-size: 10px;
     background-color: #507CD1;
     color: White;
-    text-align: center;
+    text-align: center;    
 }
+
+/*Overwrite*/
+.ajax__calendar_container
+{
+	z-index: 1000 !important;
+}
+
 .NormalHeader
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
