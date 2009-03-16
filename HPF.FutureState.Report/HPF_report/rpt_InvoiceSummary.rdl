@@ -257,7 +257,7 @@
                       </Style>
                       <ZIndex>7</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!period_start_dt.Value</Value>
+                      <Value>=FormatDateTime(Fields!period_start_dt.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -277,7 +277,7 @@
                       </Style>
                       <ZIndex>6</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!period_end_dt.Value</Value>
+                      <Value>=FormatDateTime(Fields!period_end_dt.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
