@@ -91,7 +91,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         
         protected void btnNew_Click(object sender, EventArgs e)
-        {            
+        {
+            if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL.ToUpper())
+                DoSaving();
+
             ClearPage();
             hfAction.Value = ACTION_INSERT;
             lblFormTitle.Text = "Audit detail - Inserting";
@@ -234,6 +237,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlReviewedBy.DataBind();
 
             ddlReviewedBy.Items.Insert(0, new ListItem(string.Empty, null));
+            ListItem all = ddlReviewedBy.Items.FindByValue("ALL");
+            if (all != null)
+            {
+                ddlReviewedBy.Items.Remove(all);
+                ddlReviewedBy.Items.Insert(1, all);
+            }
         }
 
         private void BindDataToAuditFailureReasonDDL()
@@ -263,7 +272,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             txtAuditComment.Text = null;
             grdvCaseAudit.SelectedIndex = -1;
 
-            hfAction.Value = ACTION_INSERT;
+            hfAction.Value = null;
         }
 
         private CaseAuditDTO FormToCaseAuditDTO()
@@ -360,13 +369,20 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 btnNew.Enabled = false;
                 btnSave.Enabled = false;
                 btnCancel.Enabled = false;
-            }
-            else
-            {
-                btnNew.Enabled = true;
-                btnSave.Enabled = true;
-                btnCancel.Enabled = true;
-            }
+
+                txtAuditDate.Enabled = false;
+                txtAuditComment.Enabled = false;
+                ddlAppropriateOutcome.Enabled = false;
+                ddlAuditFailureReason.Enabled = false;
+                ddlAuditType.Enabled = false;
+                ddlBudgetCompleted.Enabled = false;
+                ddlClientActionPlan.Enabled = false;
+                ddlCompliant.Enabled = false;
+                ddlReasonForDefault.Enabled = false;
+                ddlReviewedBy.Enabled = false;
+                ddlVerbalPrivacyConsent.Enabled = false;
+                ddlWrittenPrivacyConsent.Enabled = false;
+            }            
         }
         #endregion
        

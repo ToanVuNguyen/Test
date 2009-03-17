@@ -169,7 +169,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         
         protected void btn_Cancel_Click(object sender, EventArgs e)
         {
-            DoSaving();     
+            if (hdf_Confirm.Value != string.Empty && hdf_Confirm.Value == "TRUE")
+                DoSaving();
+
+            grd_FollowUpList.SelectedIndex = -1;
+            ClearControls();
         }        
 
         protected void btn_New_Click(object sender, EventArgs e)
@@ -211,7 +215,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             if (string.IsNullOrEmpty(hfAction.Value))
             {
-                hfAction.Value = ACTION_INSERT;
+                return;
             }
             var caseFollowUp = CreateCaseFollowUpDTO();
             var msgFollowUp = ValidateFollowUpDTO(caseFollowUp);
