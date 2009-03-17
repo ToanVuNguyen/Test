@@ -68,6 +68,15 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::System.Web.UI.WebControls.TextBox txtPeriodStart;
         
         /// <summary>
+        /// txtPeriodStart_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtPeriodStart_CalendarExtender;
+        
+        /// <summary>
         /// txtPeriodEnd control.
         /// </summary>
         /// <remarks>
@@ -75,6 +84,15 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPeriodEnd;
+        
+        /// <summary>
+        /// txtPeriodEnd_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtPeriodEnd_CalendarExtender;
         
         /// <summary>
         /// chkServicerRejected control.

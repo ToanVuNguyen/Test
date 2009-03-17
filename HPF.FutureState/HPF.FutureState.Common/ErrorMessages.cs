@@ -362,6 +362,7 @@ namespace HPF.FutureState.Common
         public const string ERR0853 = "ERR0853";
         public const string ERR0854 = "ERR0854";
         //
+        public const string ERR0979 = "ERR0979";
         public const string ERR0980 = "ERR0980";
         public const string ERR0981 = "ERR0981";
         public const string ERR0982 = "ERR0982";
@@ -762,13 +763,14 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0854, "The 'Body:' has a max length 2000 characters.");
 
                 //
+                errorMessageDict.Add(ERR0979, "At least one case must be selected in order to remove.");
                 errorMessageDict.Add(ERR0980, "Invoice Payment Number has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0981, "Invoice Payment Comments has a maximum length of 300 characters.");
                 errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail.");
                 errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
                 errorMessageDict.Add(ERR0984, "Generate Invoice reports fail.");
-                errorMessageDict.Add(ERR0985, "City has a maximum length of 30 characters.");
-                errorMessageDict.Add(ERR0986, "You must select one Invoice.");
+                errorMessageDict.Add(ERR0985, "Insert Invoice successful.");
+                errorMessageDict.Add(ERR0986, "City has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");
                 errorMessageDict.Add(ERR0990, "An invalid Household Gross Annual Income Max was provided.");
                 errorMessageDict.Add(ERR0991, "An invalid Max Num of Cases was provided.");

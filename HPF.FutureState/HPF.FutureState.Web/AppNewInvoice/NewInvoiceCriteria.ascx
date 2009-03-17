@@ -192,7 +192,7 @@
         <td colspan="4">
             <asp:DropDownList ID="dropHispanic" runat="server" CssClass="Text">
                 <asp:ListItem Value="0">Yes – Hispanic or Latino</asp:ListItem>
-                <asp:ListItem Value="1">No – Not Hispanit or Latino</asp:ListItem>
+                <asp:ListItem Value="1">No – Not Hispanic or Latino</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks">

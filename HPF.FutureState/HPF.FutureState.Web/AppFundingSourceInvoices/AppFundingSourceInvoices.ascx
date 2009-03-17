@@ -25,17 +25,17 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" nowrap="nowrap">
+        <td align="right" class="sidelinks" nowrap="nowrap" style="vertical-align: top">
             Funding Source*:
         </td>
-        <td align="left" width="280" >
+        <td align="left" width="280" style="vertical-align: top" >
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
                 Width="280px">
             </asp:DropDownList>
         </td>
-        <td align="right" class="sidelinks" nowrap="nowrap">
+        <td align="right" class="sidelinks" nowrap="nowrap" style="vertical-align: top">
             Period Start*:</td>
-        <td colspan="2">
+        <td colspan="2" style="vertical-align: top">
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
             <cc2:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
                 Enabled="True" TargetControlID="txtPeriodStart">
@@ -47,9 +47,9 @@
             &nbsp;</td>
         <td width="280">
             &nbsp;</td>
-        <td align="right" class="sidelinks" nowrap="nowrap">
+        <td align="right" class="sidelinks" nowrap="nowrap" style="vertical-align: top">
             Period End*:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
             <cc2:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 
                 Enabled="True" TargetControlID="txtPeriodEnd">
@@ -61,20 +61,16 @@
         </td>
     </tr>
     <tr>
-        <td class="ErrorMessage" colspan="5">
+        <td class="ErrorMessage" colspan="6">
             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
-        <td align="center" style="vertical-align: top">
-            &nbsp;</td>
     </tr>
     <tr>
-        <td class="sidelinks" colspan="5">
+        <td class="sidelinks" colspan="6">
             <asp:Label ID="lblInvoiceList" runat="server" Text="Invoice List:" 
                 Visible="False"></asp:Label>
         </td>
-        <td align="center" style="vertical-align: top">
-            &nbsp;</td>
     </tr>
     <tr>
         <td colspan="5" rowspan="17">
@@ -103,7 +99,7 @@
                                 <asp:Label ID="lblInvoiceDate" runat="server"> </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" ItemStyle-Width="140" />
                         <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" HeaderText="Invoice Amount" />
                         <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" HeaderText="Payment Amount" />
                         <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" ItemStyle-HorizontalAlign="Left" HeaderStyle-HorizontalAlign="Left" />

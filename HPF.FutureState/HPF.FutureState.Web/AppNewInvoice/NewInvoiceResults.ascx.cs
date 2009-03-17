@@ -119,6 +119,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
+            bool f = false;
             if (invoiceDraft == null)
                 return;
             for (int i = grvNewInvoiceResults.Rows.Count - 1; i >= 0; i--)
@@ -132,11 +133,18 @@ namespace HPF.FutureState.Web.AppNewInvoice
                         {
                             //remove from the grid and remove from the collection 
                             invoiceDraft.ForeclosureCaseDrafts.RemoveAt(row.RowIndex);
+                            f = true;
                         }
                 }
             }
             Session["invoiceDraft"] = invoiceDraft;
+            if (f == false)
+            {
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0979));
+                return;
+            }
             InvoiceDraftDataBind();
+            
         }
         private void ClearErrorMessages()
         {
@@ -278,9 +286,9 @@ namespace HPF.FutureState.Web.AppNewInvoice
             StringBuilder result = new StringBuilder();
             result.Append(fundingSource.FundingSourceAbbrev);
             result.Append("_");
-            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
+            result.Append(string.Format("{0:yyyyMMdd}", invoice.PeriodStartDate.Value));
             result.Append("_");
-            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
+            result.Append(string.Format("{0:yyyyMMdd}", invoice.PeriodEndDate.Value));
             //result.Append("_HPF_INV#");
             //todo: invalid charater when uploading to SharePoint (#)
             result.Append("_HPF_INV-");
@@ -293,9 +301,9 @@ namespace HPF.FutureState.Web.AppNewInvoice
             StringBuilder result = new StringBuilder();
             result.Append(fundingSource.FundingSourceAbbrev);
             result.Append("_");
-            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
+            result.Append(string.Format("{0:yyyyMMdd}", invoice.PeriodStartDate.Value));
             result.Append("_");
-            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
+            result.Append(string.Format("{0:yyyyMMdd}", invoice.PeriodEndDate.Value));
             //result.Append("_HPF_INV#");
             //todo: invalid charater when uploading to SharePoint (#)
             result.Append("_HPF_INV-");
@@ -308,14 +316,14 @@ namespace HPF.FutureState.Web.AppNewInvoice
             StringBuilder result = new StringBuilder();
             result.Append(fundingSource.FundingSourceAbbrev);
             result.Append("_");
-            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodStartDate.Value));
+            result.Append(string.Format("{0:yyyyMMdd}", invoice.PeriodStartDate.Value));
             result.Append("_");
-            result.Append(string.Format("{0:yyyymmdd}", invoice.PeriodEndDate.Value));
+            result.Append(string.Format("{0:yyyyMMdd}", invoice.PeriodEndDate.Value));
             //result.Append("_HPF_INV#");
             //todo: invalid charater when uploading to SharePoint (#)
             result.Append("_HPF_INV-");
             result.Append(invoice.InvoiceId.ToString());
-            result.Append("_DETAIL.pdf");
+            result.Append(".pdf");
             return result.ToString();
         }
         FundingSourceDTO GetFundingSource(int fundingSourceId)

@@ -457,7 +457,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
             if (txtCity.Text.Length > 30)
             {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0985);
+                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0986);
                 ex.ExceptionMessages.Add(exMes);
             }
             else
