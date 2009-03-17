@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.Odbc;
 using System.IO;
+using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.Common.Utils
@@ -25,12 +26,23 @@ namespace HPF.FutureState.Common.Utils
         /// <param name="sheetName"></param>
         /// <returns></returns>
         public static DataSet Read(string filename, string sheetName)
-        {            
-            var adapter = GetDataAdapter(filename, sheetName);            
-            var ds = new DataSet();
-            adapter.Fill(ds);
-            adapter.SelectCommand.Connection.Close();            
-            return ds;            
+        {
+            try
+            {
+                var adapter = GetDataAdapter(filename, sheetName);
+                var ds = new DataSet();
+                adapter.Fill(ds);
+                adapter.SelectCommand.Connection.Close();
+                return ds;
+            }
+            catch (OdbcException Ex)
+            {
+                if (Ex.Errors[0].NativeError == -1002)
+                    throw new ExcelFileReaderException("ExcelSheet name does not exist.") {ErrorCode = -1};
+                if (Ex.Errors[0].NativeError == -5015)
+                    throw new ExcelFileReaderException("Invalid ExcelFile format.") { ErrorCode = -2 };
+                throw;
+            }
         }
 
         /// <summary>
