@@ -204,6 +204,10 @@ namespace HPF.FutureState.Common
         public const string ERR0392 = "ERR0392";
         public const string ERR0393 = "ERR0393";
         public const string ERR0394 = "ERR0394";
+
+        public const string ERR0900 = "ERR0900";
+        public const string ERR0901 = "ERR0901";
+        public const string ERR0902 = "ERR0902";
         
 
 
@@ -620,6 +624,10 @@ namespace HPF.FutureState.Common
                 
                 errorMessageDict.Add(ERR0376, "The Last4_SSN search criteria must be exactly 4 numeric digits.");
                 errorMessageDict.Add(ERR0377, "The PropertyZip search criteria must be a valid 5 digit numeric zip.");
+
+                errorMessageDict.Add(ERR0900, "A CallID is required to retrieve a call.");
+                errorMessageDict.Add(ERR0901, "The CallID provided could not be found.");
+                errorMessageDict.Add(ERR0902, "The CallID provided was not a valid call it.  The proper format is HPF####, where #### is an integer value.");
 
                 errorMessageDict.Add(WARN0300, "An IncomeEarnersCd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0301, "A RaceCd is required to complete a foreclosure case.");

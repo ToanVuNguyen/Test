@@ -127,7 +127,7 @@ namespace HPF.FutureState.BusinessLogic
             
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
             if (aCallLog.CallCenterID.HasValue && callCenterID == 0)
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "CallCenterID does not exist"});
+                errorList.AddException(ErrorMessages.ERR0901);
             if (aCallLog.PrevAgencyId.HasValue && prevAgencyID == 0)
                 errorList.AddException(ErrorMessages.ERR0360);
             if (aCallLog.ServicerId.HasValue && servicerID == 0)
@@ -158,7 +158,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 if (string.IsNullOrEmpty(aCallLog.CallCenter))
                 {
-                    errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Call center is required" });
+                    errorList.AddException(ErrorMessages.ERR0900);
                     return errorList;
                 }
 

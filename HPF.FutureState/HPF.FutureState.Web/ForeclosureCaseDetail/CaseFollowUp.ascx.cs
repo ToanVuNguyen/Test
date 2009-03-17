@@ -38,9 +38,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     ddlCreditReportBureauBinding();
                     ddlOutcomeBinding();
                     ddlDelinquencyStatusBinding();
-                    ddlStillInHomeBinding();
-
-                    GenerateDefaultData();
+                    ddlStillInHomeBinding();                    
 
                     btn_Cancel.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");
                     btn_New.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");    

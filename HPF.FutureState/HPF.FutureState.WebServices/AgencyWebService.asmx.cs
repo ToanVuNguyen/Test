@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
@@ -106,8 +107,8 @@ namespace HPF.FutureState.WebServices
                     }
                     else
                     {
-                        response.Status = ResponseStatus.Warning;
-                        response.Messages.AddExceptionMessage("Call Id does not exist");
+                        response.Status = ResponseStatus.Fail;
+                        response.Messages.AddExceptionMessage(ErrorMessages.ERR0901 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0901));
                     }
                 }
             }
@@ -188,13 +189,13 @@ namespace HPF.FutureState.WebServices
             request.callLogId = request.callLogId.Trim();
             if (string.IsNullOrEmpty(request.callLogId))
             {
-                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Id is required");
+                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0900 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0900));
                 throw dataValidationException;
             }
             var validationResults = HPFValidator.Validate(request);
             if (!validationResults.IsValid)
             {
-                dataValidationException.ExceptionMessages.AddExceptionMessage("Call Id is invalid");
+                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0902));
                 throw dataValidationException;
             }
             return true;
@@ -213,7 +214,7 @@ namespace HPF.FutureState.WebServices
                 catch
                 {
                     var dataValidationException = new DataValidationException();
-                    dataValidationException.ExceptionMessages.AddExceptionMessage("Call Id is invalid");
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0902));
                     throw dataValidationException;
                 }
             }
