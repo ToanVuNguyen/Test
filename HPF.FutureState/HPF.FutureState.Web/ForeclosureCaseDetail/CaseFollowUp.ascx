@@ -83,52 +83,60 @@
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Date*: </td>
         <td align="left">
-            <asp:TextBox ID="txt_FollowUpDt" width="30%" runat="server" MaxLength="10" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txt_FollowUpDt" width="100px" runat="server" MaxLength="10" 
+                CssClass="Text"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks"  width="20%">Credit Score: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditScore" width="30%" runat="server" MaxLength="4" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txt_CreditScore" width="100px" runat="server" MaxLength="4" 
+                CssClass="Text"></asp:TextBox>
         </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Source*: </td>
         <td align="left"  width="30%">
-            <asp:DropDownList ID="ddl_FollowUpSource" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddl_FollowUpSource" runat="server" CssClass="Text" 
+                Width="100px">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Bureau: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_CreditReportBureau" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddl_CreditReportBureau" runat="server" CssClass="Text" 
+                Width="100px">
             </asp:DropDownList>
         </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Outcome: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server" CssClass="Text" 
+                Width="100px">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Date: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="30%" MaxLength="10" CssClass="Text"></asp:TextBox>
+            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="100px" 
+                MaxLength="10" CssClass="Text"></asp:TextBox>
         </td>
     </tr>    
     <tr>
         <td align="right" class="sidelinks" width="20%">Delinquency Status: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_DelinqencyStatus" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddl_DelinqencyStatus" runat="server" CssClass="Text" 
+                Width="100px">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Follow-Up Comment: </td>        
         <td rowspan="2" width="30%">
             <asp:TextBox ID="txt_FollowUpComment" runat="server"  CssClass="Text"
-                TextMode="MultiLine" MaxLength="8000"></asp:TextBox>
+                TextMode="MultiLine" MaxLength="8000" Width="200px"></asp:TextBox>
         </td>
     </tr>    
     <tr>
         <td align="right" class="sidelinks" width="20%">Still in Home?: </td>
         <td align="left" width="30%">
-            <asp:DropDownList ID="ddl_StillInHome" runat="server" CssClass="Text">
+            <asp:DropDownList ID="ddl_StillInHome" runat="server" CssClass="Text" 
+                Width="100px">
             </asp:DropDownList>
         </td>        
         <td>&nbsp;</td>        
