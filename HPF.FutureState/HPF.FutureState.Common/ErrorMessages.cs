@@ -603,8 +603,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0361, "An invalid Servicer ID was provided for ServicerId.");
                 errorMessageDict.Add(ERR0362, "An invalid Agency ID was provided for SelectedAgencyID.");
                 errorMessageDict.Add(ERR0363, "DNIS has a maximum length of 10 characters.");
-                errorMessageDict.Add(ERR0364, "CallCenter has a maximum length of 10 characters.");
-                errorMessageDict.Add(ERR0365, "LoanAcctNum has a maximum length of 10 characters.");
+                errorMessageDict.Add(ERR0364, "CallCenter has a maximum length of 4 characters.");
+                errorMessageDict.Add(ERR0365, "LoanAcctNum has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0366, "FName has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0367, "LName has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0368, "PropZipFull9 has a maximum length of 9 characters.");
