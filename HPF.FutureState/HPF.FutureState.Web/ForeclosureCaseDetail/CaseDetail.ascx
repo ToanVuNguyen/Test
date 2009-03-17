@@ -1089,6 +1089,7 @@
 </table>
 
 <script type="text/javascript" language="javascript">
+    var msfWARN0450 = '<%= msgWARN0450 %>';
     var duplicate = document.getElementById('<%=ddlDuplicate.ClientID %>');
     var agency = document.getElementById('<%=ddlAgency.ClientID %>');
     var doNotCall = document.getElementById('<%=ddlNotCall.ClientID %>');
@@ -1112,7 +1113,7 @@
         detailCaseAfter = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
         if (ComparePaymentObject(detailCaseAfter))
         {
-            if(confirm('Your data is changed. Do you want to save it?'))
+            if(confirm(msfWARN0450))
             {            
                 document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
             }

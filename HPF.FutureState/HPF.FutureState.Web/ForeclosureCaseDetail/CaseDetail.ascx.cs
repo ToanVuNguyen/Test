@@ -349,5 +349,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             if (hidSaveIsYes.Value != string.Empty)
                 UpdateForecloseCase();
         }
+
+        public string msgWARN0450
+        {
+            get
+            {
+                return ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450);
+            }
+        }  
     }
 }

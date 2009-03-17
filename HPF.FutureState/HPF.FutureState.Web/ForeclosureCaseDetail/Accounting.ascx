@@ -107,6 +107,7 @@
  </div>
  <asp:HiddenField ID="hidSaveIsYes"  runat="server"  Value=""/>
 <script type="text/javascript" language="javascript">
+    var msfWARN0450 = '<%= msgWARN0450 %>';
     var neverPayReason = document.getElementById('<%=ddlNeverPayReason.ClientID %>');
     var neverBillReason = document.getElementById('<%=ddlNerverBillReason.ClientID %>');
     var forecloseCase = function(neverPayReason, neverBillReason) {
@@ -119,7 +120,7 @@
     foreclosureCaseAfter = new forecloseCase(neverPayReason.value, neverBillReason.value);
     
     if (ComparePaymentObject(foreclosureCaseAfter)) {
-            if(confirm('Your data is changed. Do you want to save it?') )
+            if(confirm(msfWARN0450) )
                 document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
         }
         return true;
