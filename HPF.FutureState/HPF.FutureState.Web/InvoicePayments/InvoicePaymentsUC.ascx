@@ -72,23 +72,23 @@
                         <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
                             AutoGenerateColumns="false" DataKeyNames="InvoicePaymentID" 
                             onselectedindexchanged="grvInvoicePaymentList_SelectedIndexChanged">
-                            <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle Wrap="false" CssClass="FixedHeader"  HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             <Columns>
-                                <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField HeaderText="HPF Payment ID" DataField="InvoicePaymentID" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField HeaderText="Payment Code" DataField="PaymentTypeDesc" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}"
-                                    HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField HeaderText="Comments" DataField="Comments" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left"/>
+                                <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false"/>
+                                <asp:BoundField HeaderText="HPF Payment ID" DataField="InvoicePaymentID"  ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum"  ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Payment Code" DataField="PaymentTypeDesc"  ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}" HeaderStyle-Wrap="false"
+                                     ItemStyle-HorizontalAlign="Right"  />
+                                <asp:BoundField HeaderText="Comments" DataField="Comments"  ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false"/>
                                 <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
-                                    ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+                                    ItemStyle-HorizontalAlign="Center" HeaderText="Select" HeaderStyle-Wrap="false" />
                             </Columns>
                         </asp:GridView>
                         <asp:HiddenField ID="SelectedRowIndex" runat="server"  />

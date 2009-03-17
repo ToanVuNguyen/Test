@@ -86,7 +86,7 @@
                 <ContentTemplate>
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
                             AutoGenerateColumns="false" DataKeyNames="AgencyPayableId" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
-                            <HeaderStyle CssClass="FixedHeader"  />
+                            <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center"  />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />

@@ -184,7 +184,7 @@
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                             <SelectedRowStyle BackColor="#D1DDF1" ForeColor="#333333" />
-                            <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -197,19 +197,19 @@
                                         <asp:CheckBox ID="chkSelected" runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Dt." HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                                <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Dt."  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false"
                                     HeaderText="Amount" />
-                                <asp:BoundField DataField="LoanNumber" HeaderText="Loan Number" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="PaidDate" HeaderText="Paid Date" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="InvoiceCasePaymentAmount" HeaderText="Paid Amt" DataFormatString="{0:C}"
-                                    HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right" />
-                                <asp:BoundField DataField="PaymentRejectReasonCode" HeaderText="Reject Reason" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="InvenstorLoanId" HeaderText="Investor Loan ID" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="LoanNumber" HeaderText="Loan Number"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="ServicerName" HeaderText="Servicer"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="PaidDate" HeaderText="Paid Date"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="InvoiceCasePaymentAmount" HeaderText="Paid Amt" DataFormatString="{0:C}" HeaderStyle-Wrap="false"
+                                     ItemStyle-HorizontalAlign="Right" />
+                                <asp:BoundField DataField="PaymentRejectReasonCode" HeaderText="Reject Reason"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="InvenstorLoanId" HeaderText="Investor Loan ID"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
                             </Columns>
                         </asp:GridView>
                         <table width="100%">

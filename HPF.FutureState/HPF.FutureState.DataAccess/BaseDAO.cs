@@ -125,7 +125,7 @@ namespace HPF.FutureState.DataAccess
                 return null;
 
             if (!string.IsNullOrEmpty(obj.ToString()))
-                return obj.ToString().Trim();
+                return obj.ToString();
             return null;
 
         }

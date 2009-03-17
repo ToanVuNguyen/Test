@@ -21,24 +21,24 @@
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                     <SelectedRowStyle BackColor="#D1DDF1" ForeColor="#333333" />
-                    <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <EditRowStyle BackColor="#2461BF" />
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <Columns>
-                        <asp:BoundField DataField="BudgetSetDt" DataFormatString="{0:d}" HeaderText="Budget Date" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                        <asp:TemplateField HeaderText="Surplus/Deficit" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right">
+                        <asp:BoundField DataField="BudgetSetDt" DataFormatString="{0:d}" HeaderText="Budget Date"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                        <asp:TemplateField HeaderText="Surplus/Deficit"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblSurplus" runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                        <asp:BoundField DataField="TotalIncome" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false"
                             HeaderText="Total Income" />
-                        <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                        <asp:BoundField DataField="TotalExpenses" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false"
                             HeaderText="Total Expenses" />
-                        <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                        <asp:BoundField DataField="TotalAssets" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false"
                             HeaderText="Total Asset" />
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
-                            ItemStyle-HorizontalAlign="Center" HeaderText="Select" />
+                            ItemStyle-HorizontalAlign="Center" HeaderText="Select" HeaderStyle-Wrap="false" />
                     </Columns>
                 </asp:GridView>
             </asp:Panel>
@@ -70,15 +70,15 @@
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                                     <SelectedRowStyle BackColor="#D1DDF1" ForeColor="#333333" />
-                                    <HeaderStyle CssClass="NormalHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle CssClass="NormalHeader" BackColor="#507CD1" Font-Bold="True" HorizontalAlign="Center" ForeColor="White" />
                                     <EditRowStyle BackColor="#2461BF" />
                                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                                     <Columns>
-                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120"  ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200"  ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"   ItemStyle-HorizontalAlign="Right"
                                             HeaderText="Amount"  />
-                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left"  />
+                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  ItemStyle-HorizontalAlign="Left"  />
                                     </Columns>
                                 </asp:GridView>
                             </asp:Panel>
@@ -96,13 +96,13 @@
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                             <SelectedRowStyle BackColor="#D1DDF1" ForeColor="#333333" />
-                            <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" Wrap="false" />
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             <Columns>
-                                <asp:BoundField DataField="AssetName" HeaderText="Asset Name" ItemStyle-Width="180" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                                <asp:BoundField DataField="AssetName" HeaderText="Asset Name" ItemStyle-Width="180"  ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"
                                     HeaderText="Asset Value" ItemStyle-Width="120" />
                             </Columns>
                         </asp:GridView>
@@ -127,16 +127,16 @@
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                                     <SelectedRowStyle BackColor="#D1DDF1" ForeColor="#333333" />
-                                    <HeaderStyle CssClass="NormalHeader" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle CssClass="NormalHeader" HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" Wrap="false" />
                                     <EditRowStyle BackColor="#2461BF" />
                                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                                     <Columns>
-                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" />
-                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"  HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right"
+                                        <asp:BoundField DataField="BudgetCategory" HeaderText="Budget Category" ItemStyle-Width="120"  ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetSubCategory" HeaderText="Budget Subcategory" ItemStyle-Width="200"  ItemStyle-HorizontalAlign="Left" />
+                                        <asp:BoundField DataField="BudgetItemAmt" DataFormatString="{0:C}"   ItemStyle-HorizontalAlign="Right"
                                             HeaderText="Amount"  />
-                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left"  />
+                                        <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  ItemStyle-HorizontalAlign="Left"  />
                                     </Columns>
                                 </asp:GridView>
                             </asp:Panel>

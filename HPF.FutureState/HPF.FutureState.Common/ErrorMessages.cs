@@ -774,9 +774,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0979, "At least one case must be selected in order to remove.");
                 errorMessageDict.Add(ERR0980, "Invoice Payment Number has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0981, "Invoice Payment Comments has a maximum length of 300 characters.");
-                errorMessageDict.Add(ERR0982, "Deliver Invoice reports to Portal fail.");
+                errorMessageDict.Add(ERR0982, "Delivering Invoice reports to Portal failed.");
                 errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
-                errorMessageDict.Add(ERR0984, "Generate Invoice reports fail.");
+                errorMessageDict.Add(ERR0984, "Generating Invoice reports failed.");
                 errorMessageDict.Add(ERR0985, "Insert Invoice successful.");
                 errorMessageDict.Add(ERR0986, "City has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");

@@ -15,8 +15,8 @@
         <td colspan="2" class="ErrorMessage">
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
                 ControlToValidate="fileUpload" CssClass="ErrorMessage" 
-                ErrorMessage="An invalid file name was provided." 
-                ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.xls|.xlsx|.XLS|.XLSX)$"></asp:RegularExpressionValidator>
+                ErrorMessage="<ul style='list-style-type:square;'><li>ERR0685--An invalid file name was provided.</li></ul>" 
+                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.xls|.xlsx|.XLS|.XLSX)$"></asp:RegularExpressionValidator>
             <asp:BulletedList ID="lblErrorMessage" runat="server" BulletStyle="Square">
             </asp:BulletedList>
         </td>

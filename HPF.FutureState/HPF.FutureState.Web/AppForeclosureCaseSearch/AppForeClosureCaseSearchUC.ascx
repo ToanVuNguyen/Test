@@ -152,7 +152,7 @@
                             AutoGenerateColumns="false" CssClass="GridViewStyle" Width="2900px" OnRowDataBound="grvForeClosureCaseSearch_RowDataBound">
                             <RowStyle CssClass="RowStyle" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                            <HeaderStyle CssClass="FixedHeader" />
+                            <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             <Columns>

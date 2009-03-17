@@ -193,7 +193,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 string exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0985);
                 lblErrorMessage.Items.Add(exMes);
                 //Generate file fail.
-                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984);
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0984)+" Error message: "+ ex.Message;
                 lblErrorMessage.Items.Add(exMes);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 btnGenerateInvoice.Enabled = false;
@@ -217,7 +217,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0983);
                 lblErrorMessage.Items.Add(exMes);
                 //Deliver fail.
-                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0982);
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0982)+" Error message: "+ ex.Message;
                 lblErrorMessage.Items.Add(exMes);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 btnGenerateInvoice.Enabled = false;

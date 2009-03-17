@@ -20,7 +20,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lblPortal;
+        protected global::System.Web.UI.WebControls.HyperLink lblPortal;
         
         /// <summary>
         /// dropFundingSource control.

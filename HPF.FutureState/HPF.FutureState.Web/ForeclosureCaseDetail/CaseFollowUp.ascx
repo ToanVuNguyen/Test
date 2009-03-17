@@ -28,7 +28,7 @@
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                             <SelectedRowStyle  CssClass="SelectedRowStyle" />
                             <HeaderStyle CssClass="FixedHeader" BackColor="#507CD1" Font-Bold="True" 
-                            ForeColor="White" HorizontalAlign="Left"/>
+                            ForeColor="White" HorizontalAlign="Center"/>
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <Columns>

@@ -14,6 +14,15 @@ namespace HPF.FutureState.Web.InvoicePayments {
     public partial class ViewEditInvoicePayment {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// lblTitle control.
         /// </summary>
         /// <remarks>
@@ -75,6 +84,15 @@ namespace HPF.FutureState.Web.InvoicePayments {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPaymentDt;
+        
+        /// <summary>
+        /// txtPaymentDt_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtPaymentDt_CalendarExtender;
         
         /// <summary>
         /// ddlPaymentType control.

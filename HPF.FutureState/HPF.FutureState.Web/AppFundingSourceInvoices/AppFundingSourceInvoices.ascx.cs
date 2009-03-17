@@ -26,7 +26,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         {
             if (grvFundingSourceInvoices.SelectedValue == null)
                 SelectedRowIndex.Value = "";
-            lblPortal.PostBackUrl = HPFConfigurationSettings.HPF_INVOICE_PORTAL_URL;
+            lblPortal.NavigateUrl = HPFConfigurationSettings.HPF_INVOICE_PORTAL_URL;
             ClearErrorMessages();
             try
             {
