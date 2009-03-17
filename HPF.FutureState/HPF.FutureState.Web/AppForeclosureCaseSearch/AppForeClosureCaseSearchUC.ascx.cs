@@ -132,7 +132,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlProgram.DataBind();
             //selected item of drop down list : all
             ddlProgram.Items.RemoveAt(ddlProgram.Items.IndexOf(ddlProgram.Items.FindByValue("-1")));
-            ddlProgram.Items.Insert(0, new ListItem("ALL","-1"));
+            ddlProgram.Items.Insert(0, new ListItem("ALL", "-1"));
             ddlProgram.Items.FindByText("ALL").Selected = true;
         }
         protected void BindServicerDropDownList()
@@ -154,6 +154,17 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
             return exMess;
         }
+        private bool CheckChosenCriteria(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
+        {
+            if (searchCriteria.Last4SSN == null && searchCriteria.LastName == null
+                && searchCriteria.LoanNumber == null && searchCriteria.FirstName == null
+                && searchCriteria.AgencyCaseID == null && searchCriteria.ForeclosureCaseID == -1
+                && searchCriteria.PropertyZip == null && searchCriteria.PropertyState == null
+                && searchCriteria.Agency == -1 && searchCriteria.Program == -1
+                && searchCriteria.Duplicates == null && searchCriteria.Servicer == -1)
+                return true;
+            else return false;
+        }
         /// <summary>
         /// Bind data search result to gridview. Depend on that display pager controls.
         /// </summary>
@@ -162,11 +173,18 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             try
             {
+                bulErrorMessage.Items.Clear();
                 DataValidationException ex = new DataValidationException();
                 myPannel.Visible = true;
                 ManageControls(false);
                 //get search criteria
                 var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
+                if (CheckChosenCriteria(appForeclosureCaseSearchCriteriaDTO))
+                {
+                    bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0378"));
+                    return;
+                }
+
                 //get search info match search criteria
                 var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 if (searchResult.Count == 0)
@@ -250,7 +268,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
             string textchangeFirstName = "";
             string textchangeLastName = "";
-            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text == string.Empty ? null : txtSSN.Text;
+            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text.Trim() == string.Empty ? null : txtSSN.Text.Trim();
             //replace * by % to search like in fristname
             if (txtFirstName.Text != string.Empty)
             {
@@ -261,19 +279,19 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             {
                 textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
             }
-            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text == string.Empty ? null : textchangeLastName;
-            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text == string.Empty ? null : textchangeFirstName;
+            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text.Trim() == string.Empty ? null : textchangeLastName.Trim();
+            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : textchangeFirstName.Trim();
             try
             {
-                appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
+                appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text.Trim() == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
             }
             catch
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0503"));
             }
-            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text == string.Empty ? null : txtAgencyCaseID.Text;
-            appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text);
-            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty ? null : txtPropertyZip.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text.Trim() == string.Empty ? null : txtAgencyCaseID.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text.Trim()) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text.Trim());
+            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty.Trim() ? null : txtPropertyZip.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
             appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
             appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
@@ -306,7 +324,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             //store searchcriteria in session to keep searchcriteria when you click on menu item.
-
+            bulErrorMessage.Items.Clear();
             Session["searchcriteria"] = GetAppForeclosureCaseSearchCriteriaDTO(1);
 
 
@@ -352,7 +370,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     //datecompare is earlier than datecounseled--> counseled >1 yr
                     else
                         lblcounseled.Text = ">1 yr";
-                }                
+                }
             }
         }
         /// <summary>

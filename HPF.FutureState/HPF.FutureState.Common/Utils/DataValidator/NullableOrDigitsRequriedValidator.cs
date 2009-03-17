@@ -43,7 +43,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                 string pattern = "^\\d{" + _numberOfDigits + "}$";
                 Regex exp = new Regex(pattern);
 
-                isValid = exp.Match(objectToValidate).Success;
+                isValid = exp.Match(objectToValidate.Trim()).Success;
                 if (!isValid) MessageTemplate = string.Format("{0} must be numeric and contain {1} digits", _fieldName, _numberOfDigits);
             }
             if (!isValid)

@@ -42,6 +42,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
             {
                 btnSave.Enabled = false;
+                ddlNerverBillReason.Enabled = false;
+                ddlNeverPayReason.Enabled = false;
             }
         }
         protected void BindNeverBillReasonDropDownList()

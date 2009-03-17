@@ -25,10 +25,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
         public string LastName { get; set; }
 
-        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_APPSEARCH)]
+        //[RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_APPSEARCH)]
+        [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
         public int ForeclosureCaseID { get; set; }
 
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
+        
         public string LoanNumber
         {
             get;
@@ -52,7 +54,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Duplicates { get; set; }
 
         [NotNullValidator(Ruleset = Constant.RULESET_APPSEARCH)]
-        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = Constant.RULESET_CRITERIAVALID,Tag=ErrorMessages.ERR0501)]
+        //[NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = Constant.RULESET_CRITERIAVALID,Tag=ErrorMessages.ERR0501)]
         public string Last4SSN { get; set; }
 
         [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = Constant.RULESET_APPSEARCH)]

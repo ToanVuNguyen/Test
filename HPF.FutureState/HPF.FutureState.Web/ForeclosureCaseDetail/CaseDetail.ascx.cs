@@ -55,6 +55,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 btn_Save.Enabled = false;
                 btn_Save0.Enabled = false;
+                ddlAgency.Enabled = false;
+                ddlDuplicate.Enabled = false;
+                ddlMediaCondirmation.Enabled = false;
+                ddlNewsLetter.Enabled = false;
+                ddlNotCall.Enabled = false;
+                ddlServey.Enabled = false;
+                ddlSuccessStory.Enabled = false;
             }
         }
         private void BindDetailCaseData(int? caseid)

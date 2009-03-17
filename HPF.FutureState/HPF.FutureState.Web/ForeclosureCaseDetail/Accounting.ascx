@@ -18,7 +18,7 @@
                Never Bill Reason: 
                </td>
                <td>
-               <asp:DropDownList ID="ddlNerverBillReason" runat="server" CssClass="Text" Width="150px"></asp:DropDownList>
+               <asp:DropDownList ID="ddlNerverBillReason" runat="server" CssClass="Text" Width="150px" Enabled="true"></asp:DropDownList>
                </td>
                </tr>
                </table>
@@ -68,7 +68,7 @@
         Never Pay Reason: 
         </td>
         <td>
-        <asp:DropDownList ID="ddlNeverPayReason" runat="server" CssClass="Text" Width="150px"></asp:DropDownList>
+        <asp:DropDownList ID="ddlNeverPayReason" runat="server" CssClass="Text" Width="150px" Enabled="true"></asp:DropDownList>
         </td>
         </tr>
         </table>
