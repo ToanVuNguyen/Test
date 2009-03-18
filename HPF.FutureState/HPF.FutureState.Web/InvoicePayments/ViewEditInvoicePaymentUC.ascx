@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewEditInvoicePaymentUC.ascx.cs" Inherits="HPF.FutureState.Web.InvoicePayments.ViewEditInvoicePayment" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <table width="100%">
 <colgroup>
 <col width="16%" />
 <col width="84%" />
-<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 </colgroup>
     <tr>
         <td colspan="2" align="center">
@@ -13,12 +13,12 @@
     </tr>
     <tr>
         <td colspan="2" class="ErrorMessage">
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
-                ControlToValidate="fileUpload" CssClass="ErrorMessage" 
-                ErrorMessage="<ul style='list-style-type:square;'><li>ERR0685--An invalid file name was provided.</li></ul>" 
-                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.xls|.xlsx|.XLS|.XLSX)$"></asp:RegularExpressionValidator>
             <asp:BulletedList ID="lblErrorMessage" runat="server" BulletStyle="Square">
             </asp:BulletedList>
+             <asp:RegularExpressionValidator ID="FileNameValidator" runat="server" 
+                ControlToValidate="fileUpload" CssClass="ErrorMessage" 
+                ErrorMessage="<ul style='list-style-type:square;'><li>ERR0685--An invalid file name was provided.</li></ul>" 
+                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.{3})$"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>

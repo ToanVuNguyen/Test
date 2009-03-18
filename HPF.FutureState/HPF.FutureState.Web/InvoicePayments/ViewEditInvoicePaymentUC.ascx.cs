@@ -43,6 +43,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void Page_Load(object sender, EventArgs e)
         {
             ApplySecurity();
+            ClearErrorMessage();
             try
             {
                 if (Request.QueryString["id"] != null)
@@ -136,10 +137,14 @@ namespace HPF.FutureState.Web.InvoicePayments
             SaveInvoicePayment();
             
         }
-
-        private void SaveInvoicePayment()
+        private void ClearErrorMessage()
         {
             lblErrorMessage.Items.Clear();
+            FileNameValidator.IsValid = true; ;
+        }
+        private void SaveInvoicePayment()
+        {
+            ClearErrorMessage();
             try
             {
                 //Validate the data input 

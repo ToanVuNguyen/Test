@@ -394,47 +394,51 @@ namespace HPF.FutureState.Web.AppNewInvoice
             try
             {
                 searchCriteria.Age.Min = (txtAgeMin.Text == "") ? int.MinValue : int.Parse(txtAgeMin.Text);
-                if (searchCriteria.Age.Min > 999)
-                    throw (new Exception());
+                if(searchCriteria.Age.Min!=int.MinValue)
+                    if (searchCriteria.Age.Min > 200||searchCriteria.Age.Min<0)
+                        throw (new Exception());
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0993);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0570);
                 ex.ExceptionMessages.Add(exMes);
             }
 
             try
             {
                 searchCriteria.Age.Max = (txtAgeMax.Text == "") ? int.MinValue : int.Parse(txtAgeMax.Text);
-                if (searchCriteria.Age.Max > 999)
-                    throw (new Exception());
+                if (searchCriteria.Age.Max !=int.MinValue)
+                    if (searchCriteria.Age.Max > 200||searchCriteria.Age.Max<0)
+                        throw (new Exception());
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0994);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0571);
                 ex.ExceptionMessages.Add(exMes);
             }
             try
             {
                 searchCriteria.HouseholdGrossAnnualIncome.Min = (txtIncomeMin.Text == "") ? double.MinValue : double.Parse(txtIncomeMin.Text);
-                if (searchCriteria.HouseholdGrossAnnualIncome.Min >= 1000000000)
-                    throw (new Exception());
+                if(searchCriteria.HouseholdGrossAnnualIncome.Min!=double.MinValue)
+                    if (searchCriteria.HouseholdGrossAnnualIncome.Min >=  100000000||searchCriteria.HouseholdGrossAnnualIncome.Min<0)
+                        throw (new Exception());
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0992);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0572);
                 ex.ExceptionMessages.Add(exMes);
             }
 
             try
             {
                 searchCriteria.HouseholdGrossAnnualIncome.Max = (txtIncomeMax.Text == "") ? double.MinValue : double.Parse(txtIncomeMax.Text);
-                if (searchCriteria.HouseholdGrossAnnualIncome.Max >= 1000000000)
-                    throw (new Exception());
+                if (searchCriteria.HouseholdGrossAnnualIncome.Max !=double.MinValue)
+                    if (searchCriteria.HouseholdGrossAnnualIncome.Max >= 100000000||searchCriteria.HouseholdGrossAnnualIncome.Max<0)
+                        throw (new Exception());
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0990);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0573);
                 ex.ExceptionMessages.Add(exMes);
             }
 
@@ -443,15 +447,17 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.IgnoreFundingConsent= (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropFundingConsent.SelectedValue);
             if (dropFundingConsent.Enabled == false)
                 searchCriteria.IgnoreFundingConsent = CustomBoolean.None;
+            //Max Num of cases
             try
             {
                 searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text);
-                if (searchCriteria.MaxNumOfCases > 999)
-                    throw (new Exception());
+                if(searchCriteria.MaxNumOfCases!=int.MinValue)
+                    if (searchCriteria.MaxNumOfCases > 65000||searchCriteria.MaxNumOfCases<0)
+                        throw (new Exception());
             }
             catch
             {
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0991);
+                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0569);
                 ex.ExceptionMessages.Add(exMes);
             }
             searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;

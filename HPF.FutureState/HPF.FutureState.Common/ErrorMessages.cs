@@ -284,6 +284,11 @@ namespace HPF.FutureState.Common
         public const string WARN0566 = "WARN0566";
         public const string ERR0567 = "ERR0567";
         public const string ERR0568 = "ERR0568";
+        public const string ERR0569 = "ERR0569";
+        public const string ERR0570 = "ERR0570";
+        public const string ERR0571 = "ERR0571";
+        public const string ERR0572 = "ERR0572";
+        public const string ERR0573 = "ERR0573";
 
 
         //view edit payable page
@@ -696,6 +701,12 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0566, "No Invoice were found that match your search criteria.");
                 errorMessageDict.Add(ERR0567, "An invoice must be selected in order to cancel it.");
                 errorMessageDict.Add(ERR0568, "An invoice must be selected in order to view or edit it.");
+                errorMessageDict.Add(ERR0569, "Max Number of cases must be 1-65,000.");
+                errorMessageDict.Add(ERR0570, "Min. Age must be an integer between 0 & 200.");
+                errorMessageDict.Add(ERR0571, "Max Age must be an integer between 0 & 200.");
+                errorMessageDict.Add(ERR0572, "Min Household Gross Annual Income must be a valid decimal number between 0.00 and $99,999,999.99.");
+                errorMessageDict.Add(ERR0573, "Max Household Gross Annual Income must be a valid decimal number between 0.00 and $99,999,999.99.");
+
 
                 //view edit payable page
                 errorMessageDict.Add(ERR0575, "At least one case must be selected in order to take back a case.");
