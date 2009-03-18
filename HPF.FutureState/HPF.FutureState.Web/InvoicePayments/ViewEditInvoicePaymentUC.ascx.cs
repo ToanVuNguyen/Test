@@ -230,10 +230,24 @@ namespace HPF.FutureState.Web.InvoicePayments
             {
                 dataSet = ExcelFileReader.Read(fileContents, "Reconciliation");
             }
-            catch 
+            catch (ExcelFileReaderException ex)
             {
-                DataValidationException ex = new DataValidationException();
-                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0656));
+                if (ex.ErrorCode == -1)
+                {
+                    DataValidationException dataEx = new DataValidationException();
+                    dataEx.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0673));
+                    throw dataEx;
+                }
+                else
+                {
+                    DataValidationException dataEx = new DataValidationException();
+                    dataEx.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0656));
+                    throw dataEx;
+                }
+
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             if (dataSet == null||dataSet.Tables.Count==0)
