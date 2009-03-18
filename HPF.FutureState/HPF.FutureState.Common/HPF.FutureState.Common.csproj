@@ -81,6 +81,8 @@
     <Compile Include="BusinessLogicInterface\IRefCodeItemBL.cs" />
     <Compile Include="BusinessLogicInterface\ISecurityBL.cs" />
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
+    <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
     <Compile Include="HPFConfigurationSettings.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="DataTransferObjects\AccountingDTO.cs" />

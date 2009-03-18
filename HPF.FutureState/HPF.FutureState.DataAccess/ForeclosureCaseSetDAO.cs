@@ -1689,6 +1689,52 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }            
         }
+
+        public ForeclosureCaseCallSearchResultDTOCollection GetForclosureCaseFromCall(int callId)
+        {
+            var dbConnection = CreateConnection();
+            ForeclosureCaseCallSearchResultDTOCollection result = new ForeclosureCaseCallSearchResultDTOCollection();
+            try
+            {
+                var command = CreateSPCommand("hpf_foreclosure_case_detail_get_call", dbConnection);
+                //<Parameter>            
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_call_id", callId);                
+                //</Parameter> 
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ForeclosureCaseCallSearchResultDTO itemRead = new ForeclosureCaseCallSearchResultDTO();
+                    itemRead.AccountNum = ConvertToString(reader["acct_num"]);
+                    itemRead.AgencyName = ConvertToString(reader["agency_name"]);
+                    itemRead.BorrowFName = ConvertToString(reader["borrower_fname"]);
+                    itemRead.BorrowLName = ConvertToString(reader["borrower_lname"]);
+                    itemRead.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                    itemRead.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                    itemRead.CounselorFName = ConvertToString(reader["counselor_fname"]);
+                    itemRead.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                    itemRead.CountselorLName = ConvertToString(reader["counselor_lname"]);
+                    itemRead.OutcomeDate = ConvertToDateTime(reader["outcome_dt"]).Value;
+                    itemRead.OutcomeTypeName = ConvertToString(reader["acct_num"]);
+                    itemRead.PropZip = ConvertToString(reader["acct_num"]);
+                    itemRead.ServicerName = ConvertToString(reader["acct_num"]);
+                    result.Add(itemRead);
+                }
+            }
+            catch (Exception Ex)
+            {                
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return result;
+        }
     }
 }
 

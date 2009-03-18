@@ -104,6 +104,12 @@ namespace HPF.FutureState.WebServices
                         var callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
                         response.CallLog = callLogWSDTO;
                         response.Status = ResponseStatus.Success;
+                        string warningMsg = GetCallWarningMessage(callLogDTO.CallId.Value);
+                        if (warningMsg.Length > 0)
+                        {
+                            response.Status = ResponseStatus.Warning;
+                            response.Messages.AddExceptionMessage(warningMsg);
+                        }
                     }
                     else
                     {
@@ -251,6 +257,22 @@ namespace HPF.FutureState.WebServices
             destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
             destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
             return destObject;
-        }                         
+        }
+
+        private string GetCallWarningMessage(int callId)
+        {
+            string warningMsg = "";
+            string msgFormat = ErrorMessages.GetExceptionMessage(ErrorMessages.WARN0903);
+            ForeclosureCaseCallSearchResultDTOCollection results = ForeclosureCaseSetBL.Instance.GetForclosureCaseFromCall(callId);
+            
+            foreach (ForeclosureCaseCallSearchResultDTO fc in results)
+            {                
+                string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
+                if (warningMsg != "") warningMsg += "<br>";
+                warningMsg += buffer;
+            }
+
+            return warningMsg;
+        }
     }
 }

@@ -300,6 +300,10 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        public ForeclosureCaseCallSearchResultDTOCollection GetForclosureCaseFromCall(int callId)
+        {
+            return foreclosureCaseSetDAO.GetForclosureCaseFromCall(callId);
+        }
         #endregion
 
         #region Functions to serve SaveForeclosureCaseSet

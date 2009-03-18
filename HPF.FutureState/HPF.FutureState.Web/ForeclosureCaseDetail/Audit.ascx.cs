@@ -87,7 +87,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             CaseAuditDTOToForm(caseAudit);
             hfAction.Value = ACTION_UPDATE;
             lblFormTitle.Text = "Audit detail - Editing";
-
+            txtAuditDate.Focus();
         }
         
         protected void btnNew_Click(object sender, EventArgs e)
@@ -99,6 +99,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             hfAction.Value = ACTION_INSERT;
             lblFormTitle.Text = "Audit detail - Inserting";
             txtAuditDate.Text = DateTime.Today.ToShortDateString();
+            txtAuditDate.Focus();
         }
         
         protected void grdvCaseAudit_RowCreated(object sender, GridViewRowEventArgs e)

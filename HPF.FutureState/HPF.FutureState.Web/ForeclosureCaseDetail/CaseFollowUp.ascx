@@ -64,7 +64,7 @@
                     </td>
                     <td align="left" valign="bottom" width="5%">
                         <asp:Button ID="btn_New" runat="server" Text="  New  " CssClass="MyButton" 
-                            onclick="btn_New_Click" />
+                            onclick="btn_New_Click" TabIndex="1" />
                     </td>
                 </tr>
             </table>
@@ -84,25 +84,25 @@
         <td align="right" class="sidelinks" width="20%">Follow-Up Date*: </td>
         <td align="left">
             <asp:TextBox ID="txt_FollowUpDt" width="100px" runat="server" MaxLength="10" 
-                CssClass="Text"></asp:TextBox>
+                CssClass="Text" TabIndex="2"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks"  width="20%">Credit Score: </td>
         <td align="left">
             <asp:TextBox ID="txt_CreditScore" width="100px" runat="server" MaxLength="4" 
-                CssClass="Text"></asp:TextBox>
+                CssClass="Text" TabIndex="7"></asp:TextBox>
         </td>
     </tr>
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Source*: </td>
         <td align="left"  width="30%">
             <asp:DropDownList ID="ddl_FollowUpSource" runat="server" CssClass="Text" 
-                Width="100px">
+                Width="100px" TabIndex="3">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Bureau: </td>
         <td align="left" width="30%">
             <asp:DropDownList ID="ddl_CreditReportBureau" runat="server" CssClass="Text" 
-                Width="100px">
+                Width="100px" TabIndex="8">
             </asp:DropDownList>
         </td>
     </tr>
@@ -110,33 +110,33 @@
         <td align="right" class="sidelinks" width="20%">Follow-Up Outcome: </td>
         <td align="left" width="30%">
             <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server" CssClass="Text" 
-                Width="100px">
+                Width="100px" TabIndex="4">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Date: </td>
         <td align="left">
             <asp:TextBox ID="txt_CreditReportDt" runat="server" width="100px" 
-                MaxLength="10" CssClass="Text"></asp:TextBox>
+                MaxLength="10" CssClass="Text" TabIndex="9"></asp:TextBox>
         </td>
     </tr>    
     <tr>
         <td align="right" class="sidelinks" width="20%">Delinquency Status: </td>
         <td align="left" width="30%">
             <asp:DropDownList ID="ddl_DelinqencyStatus" runat="server" CssClass="Text" 
-                Width="100px">
+                Width="100px" TabIndex="5">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Follow-Up Comment: </td>        
         <td rowspan="2" width="30%">
             <asp:TextBox ID="txt_FollowUpComment" runat="server"  CssClass="Text"
-                TextMode="MultiLine" MaxLength="8000" Width="200px"></asp:TextBox>
+                TextMode="MultiLine" MaxLength="8000" Width="200px" TabIndex="10"></asp:TextBox>
         </td>
     </tr>    
     <tr>
         <td align="right" class="sidelinks" width="20%">Still in Home?: </td>
         <td align="left" width="30%">
             <asp:DropDownList ID="ddl_StillInHome" runat="server" CssClass="Text" 
-                Width="100px">
+                Width="100px" TabIndex="6">
             </asp:DropDownList>
         </td>        
         <td>&nbsp;</td>        
@@ -144,11 +144,11 @@
     <tr>
         <td colspan="2" align="right">
             <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" 
-                onclick="btn_Save_Click" />
+                onclick="btn_Save_Click" TabIndex="11" Width="50px" />
         </td>
         <td colspan="2" align="left">
             <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CssClass="MyButton" 
-                onclick="btn_Cancel_Click" />
+                onclick="btn_Cancel_Click" TabIndex="12" Width="50px" />
         </td>
     </tr>  
 </table>

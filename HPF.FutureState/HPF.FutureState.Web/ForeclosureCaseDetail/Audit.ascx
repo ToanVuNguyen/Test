@@ -78,7 +78,8 @@
                 </asp:Panel>
         </td>
         <td valign="bottom">
-            <asp:Button ID="btnNew" runat="server" Text="New" CssClass="MyButton" OnClick="btnNew_Click" Width = "70px"/>
+            <asp:Button ID="btnNew" runat="server" Text="New" CssClass="MyButton" 
+                OnClick="btnNew_Click" Width = "70px" TabIndex="1"/>
         </td>
     </tr>
     <tr>
@@ -105,7 +106,7 @@
                         Budget completed?:
                        <td align="left" valign="bottom">
                         <asp:DropDownList ID="ddlBudgetCompleted" runat="server" CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="7"/>
                         
                     </td>
                 </tr>
@@ -113,14 +114,15 @@
                     <td align="right" class="sidelinks">
                         Audit Date*:                     </td>
                     <td align="left">
-                        <asp:TextBox ID="txtAuditDate" runat="server"  CssClass="Text" Width="150px"/>
+                        <asp:TextBox ID="txtAuditDate" runat="server"  CssClass="Text" Width="150px" 
+                            TabIndex="2"/>
                     </td>
                     <td align="right" class="sidelinks">
                         Appropriate Outcome:
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlAppropriateOutcome" runat="server"  CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="8"/>
                         
                     </td>
                 </tr>
@@ -130,14 +132,14 @@
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlAuditType" runat="server"  CssClass="Text" 
-                            Height="16px" Width="150px"/>
+                            Height="16px" Width="150px" TabIndex="3"/>
                     </td>
                     <td align="right" class="sidelinks">
                         Appropriate Reason for Default:
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlReasonForDefault" runat="server"  CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="9"/>
                     </td>
                 </tr>
                 <tr>
@@ -145,14 +147,14 @@
                         Reviewed by:                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlReviewedBy" runat="server"  CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="4"/>
                     </td>
                     <td align="right" class="sidelinks">
                         Client Action Plan?:
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlClientActionPlan" runat="server"  CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="10"/>
                         
                     </td>
                 </tr>
@@ -162,7 +164,7 @@
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlCompliant" runat="server" CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="5"/>
                       
                         
                     </td >
@@ -171,7 +173,7 @@
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlVerbalPrivacyConsent" runat="server" CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="11"/>
                         
                     </td>
                 </tr>
@@ -181,7 +183,7 @@
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlAuditFailureReason" runat="server" CssClass="Text" 
-                            Width="150px"/>
+                            Width="150px" TabIndex="6"/>
                         
                         
                     </td>
@@ -190,7 +192,7 @@
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlWrittenPrivacyConsent" runat="server" CssClass="Text" 
-                            Width="150px" />
+                            Width="150px" TabIndex="12" />
                         
                     </td>
                 </tr>
@@ -198,14 +200,17 @@
                     <td align="right"  class="sidelinks">
                         Audit Comments:                      <td align="left" colspan="3">
                         <asp:TextBox ID="txtAuditComment" runat="server" Rows="4" Columns="100" 
-                            Height="65px" CssClass="Text" TextMode="MultiLine"></asp:TextBox>
+                            Height="65px" CssClass="Text" TextMode="MultiLine" TabIndex="13"></asp:TextBox>
                     </td>
                 </tr>
                 <tr align="center">
-                    <td colspan="4">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" OnClick="btnSave_Click" />
-                        
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" OnClick="btnCancel_Click" />
+                    <td colspan="2" align="right">
+                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
+                            OnClick="btnSave_Click" TabIndex="14" Width="50px" />
+                     </td>
+                     <td colspan="2" align="left">   
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" 
+                            OnClick="btnCancel_Click" TabIndex="15" Width="50px" />
                     </td>
                 </tr>
             </table>

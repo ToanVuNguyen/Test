@@ -181,6 +181,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             hfAction.Value = ACTION_INSERT;
             grd_FollowUpList.SelectedIndex = -1;
             GenerateDefaultData();
+            txt_FollowUpDt.Focus();
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
@@ -196,6 +197,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
             CaseFollowUpDTOToForm(caseFollowUp);
             hfAction.Value = ACTION_UPDATE;
+            txt_FollowUpDt.Focus();
         }        
 
         private void ClearControls()

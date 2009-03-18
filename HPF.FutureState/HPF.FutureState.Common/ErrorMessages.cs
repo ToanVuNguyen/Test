@@ -255,6 +255,7 @@ namespace HPF.FutureState.Common
         public const string WARN0337 = "WARN0337";
         public const string WARN0375 = "WARN0375";
         public const string WARN0450 = "WARN0450";
+        public const string WARN0903 = "WARN0903";
 
 
         //App foreclosure Case Search
@@ -663,6 +664,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
                 errorMessageDict.Add(WARN0450, "Data has been changed.  Are you sure you want to cancel?");
+
+                errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}");
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "* cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
                 errorMessageDict.Add(ERR0501, "The 'Last 4 of SSN' search criteria must be exactly 4 numeric digits");
