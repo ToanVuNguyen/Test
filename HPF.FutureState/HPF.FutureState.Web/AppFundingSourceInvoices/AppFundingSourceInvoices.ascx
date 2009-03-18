@@ -63,7 +63,7 @@
     </tr>
     <tr>
         <td class="ErrorMessage" colspan="6">
-            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            <asp:BulletedList ID="lblErrorMessage" BulletStyle="Square" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
     </tr>
