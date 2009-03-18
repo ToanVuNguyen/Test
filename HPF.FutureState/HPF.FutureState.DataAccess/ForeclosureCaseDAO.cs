@@ -556,8 +556,8 @@ namespace HPF.FutureState.DataAccess
         {
             StringBuilder whereClause = new StringBuilder();
             whereClause.Append((searchCriteria.Last4SSN == null) ? "" : " AND(borrower_last4_SSN = @pi_last4SSN  OR co_borrower_last4_SSN = @pi_last4SSN)");
-            whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname  OR co_borrower_fname like @pi_fname)");
-            whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname  OR co_borrower_lname like @pi_lname)");
+            whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname ESCAPE '/'  OR co_borrower_fname like @pi_fname ESCAPE '/')");
+            whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname ESCAPE '/'  OR co_borrower_lname like @pi_lname ESCAPE '/')");
             whereClause.Append((searchCriteria.ForeclosureCaseID == -1) ? "" : "AND ( f.fc_id = @pi_fc_id)");
             whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "AND( l.acct_num  = @pi_loannum)");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND( f.prop_zip = @pi_propzip)");

@@ -279,8 +279,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             {
                 textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
             }
-            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text.Trim() == string.Empty ? null : textchangeLastName.Trim();
-            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : textchangeFirstName.Trim();
+            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeLastName.Trim());
+            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeFirstName.Trim());
             try
             {
                 appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text.Trim() == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
@@ -528,7 +528,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             return result;
 
         }
-        string DeleteSpecialChar(string mystring)
+        private string DeleteSpecialChar(string mystring)
         {
             string result = "";
             if (mystring != null)
@@ -543,6 +543,20 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             return result;
         }
-
+        private string AddToSearchSpecialChar(string mystring)
+        {
+            string result = mystring;
+            if (mystring != null)
+            {
+                for (int i = mystring.Length-1; i >= 0; i--)
+                {
+                    if (mystring[i] == '[' || mystring[i] == ']' || mystring[i] == '\\')
+                    {
+                        result = result.Insert(i, "/");
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
