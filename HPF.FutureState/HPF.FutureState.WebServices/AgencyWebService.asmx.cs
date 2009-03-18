@@ -269,7 +269,7 @@ namespace HPF.FutureState.WebServices
             {                
                 string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
                 if (warningMsg != "") warningMsg += "<br>";
-                warningMsg += buffer;
+                warningMsg += buffer.Replace("  ", " ");
             }
 
             return warningMsg;

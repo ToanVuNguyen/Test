@@ -1718,9 +1718,9 @@ namespace HPF.FutureState.DataAccess
                     itemRead.CounselorPhone = ConvertToString(reader["counselor_phone"]);
                     itemRead.CountselorLName = ConvertToString(reader["counselor_lname"]);
                     itemRead.OutcomeDate = ConvertToDateTime(reader["outcome_dt"]).Value;
-                    itemRead.OutcomeTypeName = ConvertToString(reader["acct_num"]);
-                    itemRead.PropZip = ConvertToString(reader["acct_num"]);
-                    itemRead.ServicerName = ConvertToString(reader["acct_num"]);
+                    itemRead.OutcomeTypeName = ConvertToString(reader["outcome_type_name"]);
+                    itemRead.PropZip = ConvertToString(reader["prop_zip"]);
+                    itemRead.ServicerName = ConvertToString(reader["servicer_name"]);
                     result.Add(itemRead);
                 }
             }
