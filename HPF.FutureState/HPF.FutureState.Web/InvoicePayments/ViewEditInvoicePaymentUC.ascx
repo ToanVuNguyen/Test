@@ -138,10 +138,8 @@
                                             paymentAmt.value, fileUpload.value, txtComment.value);        
         if(ComparePaymentObject(paymentAfter))
         {            
-             if (confirm("Do you want to save changes?")==true)
-                hidden.value ="true";
-             else
-                hidden.value ="false";
+             Popup.showModal('modal');
+             return false;
         }
         else
             hidden.value ="false";
@@ -165,3 +163,23 @@
             return false;
     }
 </script>
+<div id="modal" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    Do you want to save changes?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('modal');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" OnClientClick="Popup.hide('modal');" 
+                        CssClass="MyButton" Width="70px" Text="No" onclick="btnNo_Click" />
+                </td>
+            </tr>
+        </table>        
+    </div>

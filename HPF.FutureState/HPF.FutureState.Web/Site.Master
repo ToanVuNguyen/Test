@@ -11,6 +11,7 @@
 
 <META NAME="Content-Language" CONTENT="english">
 <link href="Styles/HPF.css" rel="stylesheet" type="text/css" />
+<script src="Scripts/popup.js" type="text/javascript"></script>
 </head>
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >

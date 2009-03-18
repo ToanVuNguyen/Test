@@ -418,6 +418,7 @@
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="ReprintPayable.aspx" />
+    <Content Include="Scripts\popup.js" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="FundingSourceInvoice.aspx" />

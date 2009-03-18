@@ -259,24 +259,91 @@ function onRejectClick()
 {
     var SelectedIndex = document.getElementById(id);
     if(SelectedIndex.value!='')
-        return confirm('Are you sure you wish to reject the selected case(s)?')
+    {
+        Popup.showModal('modalReject');
+        return false;
+    }
     return true;
 }
 function onPayClick()
 {
     var SelectedIndex = document.getElementById(id);
     if(SelectedIndex.value!='')
-        return confirm('Are you sure you wish to pay the selected case(s)?')
+    {
+        Popup.showModal('modalPay');
+        return false;
+    }
     return true;
 }
 function onUnPayClick()
 {
     var SelectedIndex = document.getElementById(id);
     if(SelectedIndex.value!='')
-        return confirm('Are you sure you wish to unpay the selected case(s)?')
+    {
+        Popup.showModal('modalUnPay');
+        return false;
+    }
     return true;
 }
 </script>
-
+<div id="modalPay" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN0557--Are you sure you wish to pay the selected case(s)?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYesPay" runat="server" OnClientClick="Popup.hide('modalPay');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYesPay_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNoPay" runat="server" OnClientClick="Popup.hide('modalPay');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+</div>
+<div id="modalUnPay" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN0560--Are you sure you wish to unpay the selected case(s)
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYesUnPay" runat="server" OnClientClick="Popup.hide('modalUnPay');" 
+                        CssClass="MyButton" Text="Yes"  Width="70px" onclick="btnYesUnPay_Click" />
+                    &nbsp;
+                    <asp:Button ID="btnNoUnPay" runat="server" OnClientClick="Popup.hide('modalUnPay');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+</div>
+<div id="modalReject" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN0554--Are you sure you wish to reject the selected case(s)?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYesReject" runat="server" OnClientClick="Popup.hide('modalReject');" 
+                        CssClass="MyButton" Text="Yes"  Width="70px" 
+                        onclick="btnYesReject_Click" />
+                    &nbsp;
+                    <asp:Button ID="btnNoReject" runat="server" OnClientClick="Popup.hide('modalReject');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+</div>
+    
 <%--</ContentTemplate>
 </asp:UpdatePanel>--%>

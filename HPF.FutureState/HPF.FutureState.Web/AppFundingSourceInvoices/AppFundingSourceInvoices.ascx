@@ -201,6 +201,29 @@
             return true;
         }
         else
-            return confirm('WARN0551--Are you sure you wish to cancel this Invoice?');
+        {
+            Popup.showModal('modal');
+            return false;
+        }
     }
+    
 </script>
+<div id="modal" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN0551--Are you sure you wish to cancel this Invoice?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('modal');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" OnClientClick="Popup.hide('modal');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+    </div>

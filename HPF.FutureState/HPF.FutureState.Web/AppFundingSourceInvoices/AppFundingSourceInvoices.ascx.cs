@@ -222,6 +222,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
 
         protected void btnCancelInvoice_Click(object sender, EventArgs e)
         {
+            CancelInvoice();
+        }
+
+        private void CancelInvoice()
+        {
             ClearErrorMessages();
             if (grvFundingSourceInvoices.SelectedValue == null)
             {
@@ -276,6 +281,11 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             if (grvFundingSourceInvoices.SelectedValue != null)
                 SelectedRowIndex.Value = grvFundingSourceInvoices.SelectedValue.ToString();
             
+        }
+
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            CancelInvoice();
         }
     }
 }

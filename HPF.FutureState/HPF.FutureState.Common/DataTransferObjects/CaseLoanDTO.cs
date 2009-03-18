@@ -126,9 +126,19 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public double? OrigLoanAmt { get; set; }
 
         [XmlElement(IsNullable = true)]
-        [NotNullValidator(Tag = ErrorMessages.WARN0324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]        
+        [NotNullValidator(Tag = ErrorMessages.WARN0324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
+        private double? _InterestRate;
         [NullableOrInRangeNumberValidator(true, "-99.999", "99.999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InterestRate must be numeric(5,3)")]
-        public double? InterestRate { get; set; }
+        public double? InterestRate
+        {
+            get { return _InterestRate; }
+            set
+            {
+                _InterestRate = value;
+                if (value != null)
+                    _InterestRate = value / 100;
+            }
+        }
 
         [NullableOrStringLengthValidator(true, 50, "Originating Lender Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0060)]
         public string OriginatingLenderName { get; set; }

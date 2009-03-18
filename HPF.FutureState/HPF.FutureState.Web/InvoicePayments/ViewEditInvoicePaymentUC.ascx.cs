@@ -123,12 +123,6 @@ namespace HPF.FutureState.Web.InvoicePayments
         #endregion
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            if (hiddenIsSave.Value == "true")
-            {
-                isCancel = true;
-                SaveInvoicePayment();
-            }
-
             Response.Redirect("InvoicePayment.aspx");
         }
 
@@ -157,7 +151,8 @@ namespace HPF.FutureState.Web.InvoicePayments
                     ExcelProcessing();
                 else
                     UpdateInvoicePaymentOnly();
-
+                if(isCancel)
+                    Response.Redirect("InvoicePayment.aspx");
             }
             catch (DataValidationException ex)
             {
@@ -495,5 +490,17 @@ namespace HPF.FutureState.Web.InvoicePayments
             return result;
         }
         #endregion
+
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            isCancel = true;
+            SaveInvoicePayment();
+            
+        }
+
+        protected void btnNo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("InvoicePayment.aspx");
+        }
     }
 }

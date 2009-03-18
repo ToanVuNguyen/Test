@@ -308,6 +308,23 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 chk.Attributes.Add("onclick", " validate(this)");
 
         }
+        protected void btnYesPay_Click(object sender, EventArgs e)
+        {
+            HideErrorMessage();
+            PayInvoiceCases();
+        }
+
+        protected void btnYesUnPay_Click(object sender, EventArgs e)
+        {
+            HideErrorMessage();
+            UnPayInvoiceCases();
+        }
+
+        protected void btnYesReject_Click(object sender, EventArgs e)
+        {
+            HideErrorMessage();
+            RejectInvoiceCases();
+        }
 
         
         

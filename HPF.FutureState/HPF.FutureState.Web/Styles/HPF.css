@@ -259,3 +259,27 @@ h2
     margin: 0;
     padding: 4px;
 }
+.PopUpHeader
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    background-color: #507CD1;
+    color: White;
+    font-weight: bold;
+}
+.PopUpBody
+{
+	border: 1px solid black; 
+	background-color: #60A5DE;
+	padding: 1px;
+    text-align: center; 
+    display: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    
+}	
+.PopUpMessage
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color:White;
+}
