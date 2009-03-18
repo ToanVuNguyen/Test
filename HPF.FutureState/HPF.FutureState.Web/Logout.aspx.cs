@@ -19,6 +19,7 @@ namespace HPF.FutureState.Web
         {
             FormsAuthentication.SignOut();
             Session["searchcriteria"] = null;
+            Session["agencyPayableSearchCriteria"] = null;
             Response.Redirect("~/Login.aspx");
         }
     }

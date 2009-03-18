@@ -163,7 +163,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch
             {
-                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0997);
+                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0580);
                 ex.ExceptionMessages.Add(exmsg);
             }
             try
@@ -175,7 +175,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch
             {
-                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0996);
+                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0581);
                 ex.ExceptionMessages.Add(exmsg);
             }
             

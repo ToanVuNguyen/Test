@@ -47,20 +47,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 if (Session["agencyPayableSearchCriteria"] != null)
                 {
                     searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
-                    if (searchCriteria.UserID == HPFWebSecurity.CurrentIdentity.UserId.ToString())
-                    {
-
-                        txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
-                        txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
-                        ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
-                        BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
-                    }
-                    else
-                    {
-                        SetDefaultPeriodStartEnd();
-                        //default display all agencyaccount within 6 month.
-                        BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
-                    }
+                    txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
+                    txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
+                    ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
+                    BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
                 }
                 else
                 {
