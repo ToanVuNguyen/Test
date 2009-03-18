@@ -27,10 +27,10 @@
 <table width="100%">
     <colgroup>
         <col width="15%" />
-        <col width="15%" />
-        <col width="18%" />
         <col width="20%" />
-        <col width="32%" />
+        <col width="20%" />
+        <col width="30%" />
+        <col width="15%" />
     </colgroup>
     <tr>
         <td colspan="5" align="center">
@@ -42,6 +42,7 @@
         <td class="style1" colspan="5">
         </td>
     </tr>
+  
     <tr>
         <td class="style2" align="right">
             Agency:
@@ -55,7 +56,7 @@
         <td class="style3">
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text"></asp:Label>
         </td>
-        <td class="style3">
+        <td  align="right">
             <asp:Button ID="btnRemoveMarkedCases" runat="server" Text="Remove Marked Cases" Width="150px"
                 CssClass="MyButton" OnClick="btnRemoveMarkedCases_Click" />
         </td>
@@ -106,9 +107,9 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
-        <td colspan="5">
-            <asp:Label ID="lblMessage" runat="server" CssClass="ErrorMessage" Text=""></asp:Label>
+      <tr  >
+        <td class="ErrorMessage" colspan="5" >
+        <asp:BulletedList ID="bulErrorMessage" runat="server" ></asp:BulletedList>
         </td>
     </tr>
     <tr>
@@ -123,9 +124,10 @@
     <tr>
         <td colspan="5">
             <asp:Panel ID="panInvoiceItems" runat="server" CssClass="ScrollTable">
+                
                 <asp:GridView ID="grvInvoiceItems" runat="server" BorderStyle="None" Width="100%"
-                    AutoGenerateColumns="false" RowStyle-HorizontalAlign="Center">
-                    <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    AutoGenerateColumns="false">
+                    <HeaderStyle CssClass="FixedHeader" Wrap="false" />
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <RowStyle CssClass="RowStyle" />
                     <Columns>
@@ -135,22 +137,22 @@
                                     AutoPostBack="true" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkCaseID" runat="server" />
+                                <asp:CheckBox ID="chkCaseID" runat="server" OnCheckedChanged="chkCaseIDCheck" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="ForeclosureCaseId" HeaderText="HPF Case ID" ItemStyle-HorizontalAlign="Left" />
-                        <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" ItemStyle-HorizontalAlign="Left" />
-                        <asp:BoundField DataField="CreateDate" HeaderText="Create Date" ItemStyle-HorizontalAlign="Left"
+                        <asp:BoundField DataField="ForeclosureCaseId" HeaderText="HPF Case ID" />
+                        <asp:BoundField DataField="AgencyCaseId" HeaderText="Agency Case ID" />
+                        <asp:BoundField DataField="CreateDate" HeaderText="Create Date" 
                             DataFormatString="{0:d}" />
-                        <asp:BoundField DataField="CompletedDate" HeaderText="Complete Dt" ItemStyle-HorizontalAlign="Left"
+                        <asp:BoundField DataField="CompletedDate" HeaderText="Complete Dt"
                             DataFormatString="{0:d}" />
                         <asp:BoundField DataField="Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="Right"
                             DataFormatString="{0:C}" />
-                        <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" ItemStyle-HorizontalAlign="Left" />
-                        <asp:BoundField DataField="ServicerName" HeaderText="Servicer" ItemStyle-HorizontalAlign="Left" />
-                        <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" ItemStyle-HorizontalAlign="Left" />
-                        <asp:BoundField DataField="Srvcr" HeaderText="Srvcr" ItemStyle-HorizontalAlign="Left" />
-                        <asp:BoundField DataField="Fund" HeaderText="Fund" ItemStyle-HorizontalAlign="Right" />
+                        <asp:BoundField DataField="AccountLoanNumber" HeaderText="Primary Loan Num" />
+                        <asp:BoundField DataField="ServicerName" HeaderText="Servicer"  />
+                        <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
+                        <asp:BoundField DataField="Srvcr" HeaderText="Srvcr" ItemStyle-HorizontalAlign="Center" />
+                        <asp:BoundField DataField="Fund" HeaderText="Fund" ItemStyle-HorizontalAlign="Center" />
                     </Columns>
                     <EmptyDataTemplate>
                         There is no data match</EmptyDataTemplate>
@@ -194,7 +196,7 @@
     </tr>
     <tr>
         <td colspan="5">
-            <table width="50%" align="center">
+            <table width="40%" align="center">
                 <tr>
                     <td>
                         <asp:Button ID="btnGeneratePayable" runat="server" Text="Generate Payable & Export File"

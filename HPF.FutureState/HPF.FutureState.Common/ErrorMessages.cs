@@ -301,6 +301,7 @@ namespace HPF.FutureState.Common
         public const string ERR0581 = "ERR0581";
         public const string ERR0582 = "ERR0582";
         public const string WARN0583 = "WARN0583";
+        public const string ERR0587 = "ERR0587";
         //
         public const string ERR0584 = "ERR0584";
         public const string ERR0585 = "ERR0585";
@@ -721,6 +722,7 @@ namespace HPF.FutureState.Common
                 //
                 errorMessageDict.Add(ERR0584, "An agency account payable must be selected in order to cancel it.");
                 errorMessageDict.Add(ERR0585, "An agency account payable must be selected in order to view or edit it.");
+                errorMessageDict.Add(ERR0587, "At least one case must be selected in order to remove the case from the payable.");
                 //View/Edit Invoice Payment
                 errorMessageDict.Add(ERR0650, "A Funding Source is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0651, "A Payment Number is required to save an Invoice Payment.");

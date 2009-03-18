@@ -4,19 +4,20 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <table  width="100%">
     <colgroup>
-    <col width="22%" />
+    <col width="24%" />
     <col width="20%" />
     <col width="35%" />
-    <col width="23%" />
+    <col width="21%" />
     </colgroup>
-     <tr>
-        <td colspan="4">
-           <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
-           </td>
-    </tr>
+     
     <tr>
         <td  align="center" colspan="4" >
             <h1>New Payable Criteria</h1></td>
+    </tr>
+    <tr>
+        <td colspan="4">
+           <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
+           </td>
     </tr>
     <tr>
         <td colspan="4" >

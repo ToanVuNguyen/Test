@@ -42,7 +42,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             if (agencyPayableSearchCriteria == null) return;
             if (!IsPostBack)
             {
-                
+
                 //display all info match criteria to gridview
                 DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
             }
@@ -75,7 +75,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 agencyPayableSearchCriteria.Indicator = indicator;
                 return agencyPayableSearchCriteria;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -138,17 +138,17 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
                 else
                 {
-                    lblMessage.Text = "no data";
+                    bulErrorMessage.Text = "no data";
 
                 }
                 if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count == 0)
                 {
-                    btnGeneratePayable.Enabled = false; 
+                    btnGeneratePayable.Enabled = false;
                 }
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                bulErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -159,12 +159,17 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void chkHeaderCaseIDCheck(object sender, EventArgs e)
         {
+            bulErrorMessage.Items.Clear();
             CheckBox chkdelall = (CheckBox)grvInvoiceItems.HeaderRow.FindControl("chkHeaderCaseID");
             foreach (GridViewRow row in grvInvoiceItems.Rows)
             {
                 CheckBox chkdel = (CheckBox)row.FindControl("chkCaseID");
                 chkdel.Checked = chkdelall.Checked;
             }
+        }
+        protected void chkCaseIDCheck(object sender, EventArgs e)
+        {
+            bulErrorMessage.Items.Clear();
         }
         /// <summary>
         /// save data in gridview to suitable tables.
@@ -184,7 +189,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                     //default display period_start back 6 months
                     //but save exactly value in criteria.
                     agencyPayableDraftDTO.PeriodStartDate = agencyPayableDraftDTO.PeriodStartDate.Value.AddMonths(6);
-                    RefCodeItemDTO StatusCd= LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
+                    RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
                     agencyPayableDraftDTO.StatusCode = StatusCd.Code;
                     for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
                     {
@@ -196,19 +201,19 @@ namespace HPF.FutureState.Web.AppNewPayable
                     agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
                     agencyPayableDraftDTO.PaymentComment = txtComment.Text;
                     agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                    int? agencyPayableId=AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
-                    
+                    int? agencyPayableId = AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
+
                     //export report to xls and pdf
                     AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencyPayableId);
                     AgencyPayableDTO agencyPayable = agencyPayableSet.Payable;
-                    ExportSendReportToHPFPortal(agencyPayable,agencyPayableId);
+                    ExportSendReportToHPFPortal(agencyPayable, agencyPayableId);
                     Response.Redirect("AgencyPayable.aspx");
                 }
-                else lblMessage.Text = "Please choose a record.";
+
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                bulErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -220,6 +225,8 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnRemoveMarkedCases_Click(object sender, EventArgs e)
         {
+            bulErrorMessage.Items.Clear();
+            bool IsCheck = false;
             for (int i = grvInvoiceItems.Rows.Count - 1; i >= 0; i--)
             {
                 CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
@@ -227,8 +234,11 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     ForeclosureCaseDraftDTO agency = this.agencyPayableDraft.ForclosureCaseDrafts[i];
                     this.agencyPayableDraft.ForclosureCaseDrafts.Remove(agency);
+                    IsCheck = true;
                 }
             }
+            if (IsCheck == false)
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0587"));
             BindGridView();
 
         }
@@ -258,10 +268,10 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append(agencyPayableSearchCriteria.Indicator);
             return query.ToString();
         }
-        private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable,int? agencyPayableId)
+        private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable, int? agencyPayableId)
         {
-            ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable,agencyPayableId);
-            
+            ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable, agencyPayableId);
+
         }
 
     }
