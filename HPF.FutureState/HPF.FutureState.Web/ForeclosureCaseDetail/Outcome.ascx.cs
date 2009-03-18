@@ -67,14 +67,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 grdvOutcomeItems.Rows[0].Cells[0].Text = "No Records Found";
             }
         }
-
         protected void grvForeClosureCaseSearch_RowCreated(object sender, GridViewRowEventArgs e)
         {
             int idxIdColumn = 0;
             e.Row.Cells[idxIdColumn].Visible = false;
-            
         }
-
         protected void grdvOutcomeItems_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -86,7 +83,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     lblOutcomeDeletedDt.Text = "";
             }
         }
-        
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int selectedIdx = grdvOutcomeItems.SelectedIndex;            
@@ -122,10 +118,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     OutcomeItemBL.Instance.InstateOutcomeItem( outcomeId, HPFWebSecurity.CurrentIdentity.LoginName);
                     grdvOutcomeItemsBinding();
                 }
-                    
             }   
         }
-
         private void ApplySecurity()
         {
             if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
