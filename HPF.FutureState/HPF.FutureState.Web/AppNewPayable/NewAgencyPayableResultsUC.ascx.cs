@@ -40,9 +40,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
             agencyPayableSearchCriteria = GetCriteria();
             if (agencyPayableSearchCriteria == null) return;
+            if (Session["Comment"] != null) txtComment.Text = Session["Comment"].ToString();
             if (!IsPostBack)
             {
-
                 //display all info match criteria to gridview
                 DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
             }
@@ -251,6 +251,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
             string query = GetQueryString(criteria);
+            Session["Comment"] = txtComment.Text;
             Response.Redirect("CreateNewPayable.aspx" + query);
         }
         private string GetQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)

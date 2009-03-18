@@ -5,18 +5,18 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
-<asp:UpdatePanel ID="myUpdatePanel" runat="server">
-    <ContentTemplate>
+<%--<asp:UpdatePanel ID="myUpdatePanel" runat="server">
+    <ContentTemplate>--%>
 
-<table style="width: 100%;">
+<table style="width:100%;" cellspacing="0px">
     <colgroup>
-        <col width="20%" />
+        <col width="16%" />
+        <col width="9%" />
+        <col width="24%" />
         <col width="8%" />
-        <col width="29%" />
-        <col width="8%" />
-        <col width="3%" />
         <col width="20%" />
-        <col width="12%" />
+        <col width="13%" />
+        <col width="10%" />
     </colgroup>
     <tr>
         <td colspan="8" align="center">
@@ -266,8 +266,8 @@
         </td>
     </tr>
 </table>
-</ContentTemplate>
-</asp:UpdatePanel>
+<%--</ContentTemplate>
+</asp:UpdatePanel>--%>
 
 <script language="javascript" type="text/javascript">
     var id = '<%=hidIsSelected.ClientID %>';

@@ -99,11 +99,9 @@
         <td class="sidelinks" align="right">
             Payment Comments:
         </td>
-        <td colspan="3">
-            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="4" TextMode="MultiLine"
+        <td colspan="4">
+            <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="5" TextMode="MultiLine"
                 Width="100%"></asp:TextBox>
-        </td>
-        <td>
             &nbsp;
         </td>
     </tr>
