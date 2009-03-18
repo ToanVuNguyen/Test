@@ -113,7 +113,7 @@
             Property State:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="140px" 
+            <asp:DropDownList ID="ddlPropertyState" runat="server" Width="170px" 
                 CssClass="Text" TabIndex="8">
             </asp:DropDownList>
         </td>

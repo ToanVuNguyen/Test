@@ -134,9 +134,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblAddress2.Text = foreclosureCase.PropAddr2;
                 lblCity.Text = foreclosureCase.PropCity;
                 if (String.IsNullOrEmpty(foreclosureCase.PropZipPlus4))
-                    lblStateZip.Text = foreclosureCase.PropStateCd + " , " + foreclosureCase.PropZip;
+                    lblStateZip.Text = foreclosureCase.PropStateCd + ", " + foreclosureCase.PropZip;
                 else
-                    lblStateZip.Text = foreclosureCase.PropStateCd + " , " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
+                    lblStateZip.Text = foreclosureCase.PropStateCd + ", " + foreclosureCase.PropZip + " - " + foreclosureCase.PropZipPlus4;
                 lblPrimaryResidence.Text = DisplayInd(foreclosureCase.PrimaryResidenceInd);
                 lblOwnerOccupied.Text = DisplayInd(foreclosureCase.OwnerOccupiedInd);
                 lblPropertyCode.Text = foreclosureCase.PropertyDesc;
@@ -186,8 +186,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblContactAdd2.Text = foreclosureCase.ContactAddr2;
                 lblContactCity.Text = foreclosureCase.ContactCity;
                 if (String.IsNullOrEmpty(foreclosureCase.ContactZipPlus4))
-                    lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip;
-                else lblContactStateZip.Text = foreclosureCase.ContactStateCd + " , " + foreclosureCase.ContactZip + " - " + foreclosureCase.ContactZipPlus4;
+                    lblContactStateZip.Text = foreclosureCase.ContactStateCd + ", " + foreclosureCase.ContactZip;
+                else lblContactStateZip.Text = foreclosureCase.ContactStateCd + ", " + foreclosureCase.ContactZip + " - " + foreclosureCase.ContactZipPlus4;
 
                 //case status
                 ddlDuplicate.SelectedValue = foreclosureCase.DuplicateInd;
@@ -200,7 +200,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
                 lblPhoneExt.Text = foreclosureCase.CounselorPhone + " " + foreclosureCase.CounselorExt;
                 lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
-                lblProgram.Text = foreclosureCase.ProgramId.ToString();
+                lblProgram.Text = foreclosureCase.ProgramName.ToString();
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
                 lblCompleteDate.Text = foreclosureCase.CompletedDt == null ? "" : foreclosureCase.CompletedDt.Value.ToShortDateString();
                 lblCounsellingDuration.Text = foreclosureCase.CounselingDesc;

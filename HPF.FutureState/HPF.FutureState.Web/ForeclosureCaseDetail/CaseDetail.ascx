@@ -437,7 +437,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    State,Zip*:
+                                    State, Zip*:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblContactStateZip" runat="server" CssClass="Text">MN, 
@@ -852,7 +852,7 @@
                     <td align="right" class="sidelinks">
                         HUD Termination Date:
                     </td>
-                    <td valign="bottom">
+                    <td  valign="top">
                         <asp:Label ID="lblTerminationDate" runat="server" CssClass="Text">11/25/2008</asp:Label>
                     </td>
                 </tr>

@@ -60,7 +60,7 @@
         </tr>
         <tr>
             <td class="sidelinks" align="right" >
-                City, State,Zip:
+                City, State, Zip:
             </td>
             <td class="Text" >
                 <asp:Label ID="lblPropertyAddress" runat="server" >Yourtown, MN 55416</asp:Label>

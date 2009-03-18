@@ -18,6 +18,7 @@ namespace HPF.FutureState.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             FormsAuthentication.SignOut();
+            Session["searchcriteria"] = null;
             Response.Redirect("~/Login.aspx");
         }
     }

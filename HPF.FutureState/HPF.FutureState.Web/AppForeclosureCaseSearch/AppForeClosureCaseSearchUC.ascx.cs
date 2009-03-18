@@ -74,11 +74,11 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// </summary>
         protected void ReBindSearchCriteria()
         {
-            string currentUserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
+            //string currentUserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
             if (Session["searchcriteria"] != null)
             {
                 AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
-                if (currentUserID == searchcriteria.UserID)
+                //if (currentUserID == searchcriteria.UserID)
                 {
                     //set search control the values from session searchcriteria.               
 

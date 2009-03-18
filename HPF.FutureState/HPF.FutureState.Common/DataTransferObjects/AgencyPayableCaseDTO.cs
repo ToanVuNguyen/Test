@@ -20,7 +20,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 	    public string TakebackPmtReasonCd {get;set;}
         public double? NFMCDifferencePaidAmt { get; set; }
         //---------view/edit agency payable
-        public int? AgencyCaseID { get; set; }
+        public string AgencyCaseID { get; set; }
         public DateTime? CreateDt { get; set; }
         public DateTime? CompleteDt { get; set; }
         public string LoanNum { get; set; }

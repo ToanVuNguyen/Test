@@ -175,7 +175,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             try
             {
                 searchCriteria.PeriodEndDate = DateTime.Parse(periodEnd);
-                searchCriteria.PeriodStartDate = searchCriteria.PeriodStartDate.AddDays(1).AddSeconds(-1);
+                searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
                 if (((searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0)))
                 { throw ex; }
             }

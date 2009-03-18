@@ -198,6 +198,7 @@
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
                                 <asp:BoundField DataField="AgencyCaseID" HeaderText="Agency Case ID" />
+                                <asp:BoundField DataField="CreateDt" HeaderText="Create Date" DataFormatString="{0:MM/dd/yyyy}" />
                                 <asp:TemplateField HeaderText="Complete Dt.">
                                 <ItemTemplate>
                                 <asp:Label ID="lblCompleteDate" runat="server" Text='<%#Eval("CompleteDt","{0:d}") %>'></asp:Label>

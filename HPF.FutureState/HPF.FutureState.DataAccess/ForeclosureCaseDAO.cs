@@ -219,6 +219,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.CreditDesc = ConvertToString(reader["credit_desc"]);
                         returnObject.HudTerminationDesc = ConvertToString(reader["hud_termination_desc"]);
                         returnObject.HudOutcomeDesc = ConvertToString(reader["hud_outcome_desc"]);
+                        returnObject.ProgramName = ConvertToString(reader["program_name"]);
 
 
                         #endregion

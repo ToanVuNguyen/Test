@@ -369,7 +369,7 @@ namespace HPF.FutureState.DataAccess
 
                         payableCase.ForeclosureCaseId = ConvertToInt(reader["fc_id"]);
                         payableCase.AgencyPayableId = ConvertToInt(reader["agency_payable_case_id"]);
-                        payableCase.AgencyCaseID = ConvertToInt(reader["agency_case_num"]);
+                        payableCase.AgencyCaseID = ConvertToString(reader["agency_case_num"]);
                         payableCase.CreateDt = ConvertToDateTime(reader["create_dt"])==null? DateTime.MinValue : ConvertToDateTime(reader["create_dt"]).Value;
                         payableCase.CompleteDt = ConvertToDateTime(reader["completed_dt"]) == null ? DateTime.MinValue : ConvertToDateTime(reader["completed_dt"]).Value;
                         payableCase.PaymentAmount = ConvertToDouble(reader["pmt_amt"])==null?0:ConvertToDouble(reader["pmt_amt"]).Value;

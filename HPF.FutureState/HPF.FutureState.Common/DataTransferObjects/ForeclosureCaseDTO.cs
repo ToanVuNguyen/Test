@@ -854,6 +854,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CreditDesc{get;set;}
         public string HudTerminationDesc{get;set;}
         public string HudOutcomeDesc{get;set;}
+        public string ProgramName { get; set; }
         
     }
 }
