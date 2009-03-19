@@ -732,7 +732,7 @@
                       </Style>
                       <ZIndex>7</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>="$" &amp; Sum(Fields!sessions.Value * Fields!Rate.Value)</Value>
+                      <Value>="$" &amp; Sum(Fields!sessions.Value*Fields!Rate.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -907,7 +907,7 @@ gakailvi@995hope.org
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.875in</Left>
-        <Height>0.375in</Height>
+        <Height>0.40625in</Height>
         <Value>P          A          Y          A          B          L          E</Value>
       </Textbox>
       <Image Name="image1">

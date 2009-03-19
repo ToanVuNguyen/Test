@@ -125,7 +125,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>47.25in</Width>
+  <Width>47.375in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
@@ -1109,7 +1109,7 @@
                       </Style>
                       <ZIndex>94</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>LOAN ID</Value>
+                      <Value>LOAN_ID</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1137,7 +1137,7 @@
                       </Style>
                       <ZIndex>93</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>LAST NAME</Value>
+                      <Value>LAST_NAME</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1165,7 +1165,7 @@
                       </Style>
                       <ZIndex>92</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>FIRST NAME</Value>
+                      <Value>FIRST_NAME</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1193,7 +1193,7 @@
                       </Style>
                       <ZIndex>91</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>ADDR LINE 1</Value>
+                      <Value>ADDR_LINE_1</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2414,10 +2414,10 @@
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>1.125in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>1.125in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.125in</Width>
@@ -2549,7 +2549,7 @@
             <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.875in</Width>
+            <Width>0.75in</Width>
           </TableColumn>
         </TableColumns>
       </Table>
@@ -2566,7 +2566,7 @@
         <CanGrow>true</CanGrow>
         <Left>2in</Left>
         <Height>0.25in</Height>
-        <Value>="Invoice: " &amp; First(Fields!invoice_id.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " Date: "  &amp; First(Fields!invoice_dt.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " Total Counseling Sessions "&amp; First(Fields!Total_sessions.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " " &amp; First(Fields!period_start_dt.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; "-" &amp; First(Fields!period_end_dt.Value, "dst_hpf_rpt_InvoiceExportFile_header")</Value>
+        <Value>="Invoice: " &amp; First(Fields!invoice_id.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " Date: "  &amp; First(Fields!invoice_dt.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " "&amp; First(Fields!Total_sessions.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " Total Counseling Sessions " &amp; First(Fields!period_start_dt.Value, "dst_hpf_rpt_InvoiceExportFile_header") &amp; " - " &amp; First(Fields!period_end_dt.Value, "dst_hpf_rpt_InvoiceExportFile_header")</Value>
       </Textbox>
       <Image Name="image1">
         <Sizing>Fit</Sizing>

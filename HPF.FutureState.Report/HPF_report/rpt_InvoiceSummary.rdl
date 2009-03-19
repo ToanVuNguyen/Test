@@ -77,11 +77,11 @@
       <Fields>
         <Field Name="period_start_dt">
           <DataField>period_start_dt</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="period_end_dt">
           <DataField>period_end_dt</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="servicer_name">
           <DataField>servicer_name</DataField>

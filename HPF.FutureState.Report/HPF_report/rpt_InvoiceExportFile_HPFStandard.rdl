@@ -799,7 +799,7 @@
                       </Style>
                       <ZIndex>44</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Freddie Mac Loan</Value>
+                      <Value>Freddie Mac Loan Number</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -880,7 +880,7 @@
                       </Style>
                       <ZIndex>41</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Servicer</Value>
+                      <Value>Servicer Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1412,7 +1412,7 @@
         <CanGrow>true</CanGrow>
         <Left>2.125in</Left>
         <Height>0.25in</Height>
-        <Value>="Invoice: " &amp; First(Fields!invoice_id.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; " Date: " &amp; First(Fields!invoice_dt.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; "       " &amp; Sum(Fields!Total_sessions.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; " Total Counseling Sessions " &amp; First(Fields!period_start_dt.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; "-" &amp; First(Fields!period_end_dt.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header")</Value>
+        <Value>="Invoice: " &amp; First(Fields!invoice_id.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; " Date: " &amp; First(Fields!invoice_dt.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; "       " &amp; Sum(Fields!Total_sessions.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; " Total Counseling Sessions " &amp; First(Fields!period_start_dt.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header") &amp; " - " &amp; First(Fields!period_end_dt.Value, "dst_rpt_InvoiceExportFile_HPFStandard_header")</Value>
       </Textbox>
       <Image Name="image1">
         <Sizing>Fit</Sizing>

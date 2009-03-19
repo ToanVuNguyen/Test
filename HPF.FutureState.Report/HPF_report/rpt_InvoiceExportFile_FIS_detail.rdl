@@ -10,7 +10,7 @@
   <ReportParameters>
     <ReportParameter Name="pi_invoice_id">
       <DataType>Integer</DataType>
-      <Prompt>pi_invoice_id</Prompt>
+      <Prompt>Invoice ID</Prompt>
     </ReportParameter>
   </ReportParameters>
   <rd:DrawGrid>true</rd:DrawGrid>
@@ -57,8 +57,7 @@
               <TableCells>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox4">
-                      <rd:DefaultName>textbox4</rd:DefaultName>
+                    <Textbox Name="Invoice_ID">
                       <Style>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -73,8 +72,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="invoice_case_id">
-                      <rd:DefaultName>invoice_case_id</rd:DefaultName>
+                    <Textbox Name="Invoice_case_id">
                       <Style>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -90,8 +88,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox6">
-                      <rd:DefaultName>textbox6</rd:DefaultName>
+                    <Textbox Name="Line_Item">
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -107,8 +104,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="intake_dt">
-                      <rd:DefaultName>intake_dt</rd:DefaultName>
+                    <Textbox Name="Line_Item_date">
                       <Style>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -123,8 +119,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox14">
-                      <rd:DefaultName>textbox14</rd:DefaultName>
+                    <Textbox Name="Qty">
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -140,8 +135,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox17">
-                      <rd:DefaultName>textbox17</rd:DefaultName>
+                    <Textbox Name="Note">
                       <Style>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -156,8 +150,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="invoice_case_pmt_amt">
-                      <rd:DefaultName>invoice_case_pmt_amt</rd:DefaultName>
+                    <Textbox Name="Price">
                       <Style>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>

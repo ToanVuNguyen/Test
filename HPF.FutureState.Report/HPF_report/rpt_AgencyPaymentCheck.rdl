@@ -161,7 +161,7 @@
       <Query>
         <DataSourceName>ds_HPF</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>[Hpf_rpt_ AgencyPaymentCheck]</CommandText>
+        <CommandText>Hpf_rpt_AgencyPaymentCheck</CommandText>
         <QueryParameters>
           <QueryParameter Name="@pi_agency_id">
             <Value>=Parameters!pi_agency_id.Value</Value>
