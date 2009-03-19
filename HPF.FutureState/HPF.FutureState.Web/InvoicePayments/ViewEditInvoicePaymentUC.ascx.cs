@@ -286,7 +286,8 @@ namespace HPF.FutureState.Web.InvoicePayments
         ReconciliationDTOCollection FrontEndPreProcessing(DataSet dataSet)
         {
             DataTable fileContent = dataSet.Tables[0];
-            
+            foreach (DataColumn col in fileContent.Columns)
+                col.ColumnName = col.ColumnName.Trim().ToLower();
             double paymentAmount = double.Parse(txtPaymentAmt.Text);
             ColumnsValidate(fileContent);
             RowsValidate(fileContent,paymentAmount);
@@ -298,21 +299,24 @@ namespace HPF.FutureState.Web.InvoicePayments
             foreach(DataRow row in fileContent.Rows)
             {
                 ReconciliationDTO item = new ReconciliationDTO();
-                if (row[COLUMN_NAME[0]].ToString() != string.Empty)
+                if (row[COLUMN_NAME[0].ToLower()].ToString() != string.Empty)
                     item.ForeclosureCaseId = int.Parse(row[COLUMN_NAME[0]].ToString());
                 else
                     item.ForeclosureCaseId = -1;
-                if (row[COLUMN_NAME[1]].ToString() != string.Empty)
-                    item.InvoiceCaseId = int.Parse(row[COLUMN_NAME[1]].ToString());
+                if (row[COLUMN_NAME[1].ToLower()].ToString() != string.Empty)
+                    item.InvoiceCaseId = int.Parse(row[COLUMN_NAME[1].ToLower()].ToString());
                 else
                     item.InvoiceCaseId = -1;
-                item.PaymentAmount = double.Parse(row[COLUMN_NAME[2]].ToString());
-                item.PaymentRejectReasonCode = row[COLUMN_NAME[3]].ToString();
-                item.FreddieMacServicerNumber = row[COLUMN_NAME[4]].ToString();
-                item.FreddieMacLoanNumber = row[COLUMN_NAME[5]].ToString();
-                item.InvestorNumber = row[COLUMN_NAME[6]].ToString();
-                item.InvestorName = row[COLUMN_NAME[7]].ToString();
-                item.LoanNumber = row[COLUMN_NAME[9]].ToString();
+                if (row[COLUMN_NAME[2].ToLower()].ToString() != string.Empty)
+                    item.PaymentAmount = double.Parse(row[COLUMN_NAME[2].ToLower()].ToString());
+                else
+                    item.PaymentAmount = 0;
+                item.PaymentRejectReasonCode = row[COLUMN_NAME[3].ToLower()].ToString();
+                item.FreddieMacServicerNumber = row[COLUMN_NAME[4].ToLower()].ToString();
+                item.FreddieMacLoanNumber = row[COLUMN_NAME[5].ToLower()].ToString();
+                item.InvestorNumber = row[COLUMN_NAME[6].ToLower()].ToString();
+                item.InvestorName = row[COLUMN_NAME[7].ToLower()].ToString();
+                //item.LoanNumber = row[COLUMN_NAME[9]].ToString();
                 result.Add(item);
             }
             result.FundingSourceId = ddlFundingSource.SelectedValue;
@@ -358,7 +362,10 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //Payment Amounts
                 try
                 {
-                    double pmtAmt = double.Parse(row[COLUMN_NAME[2]].ToString());
+                    string temp = row[COLUMN_NAME[2]].ToString();
+                    double pmtAmt=0;
+                    if(temp!=string.Empty)
+                         pmtAmt = double.Parse(temp);
                     if (pmtAmt < 0)
                         throw (new Exception());
                     //if the row doesnt have a payment reject reason code, add it to the payment amount total for the file.
@@ -403,7 +410,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             DataValidationException ex = new DataValidationException();
             List<string> columnName = new List<string>();
             foreach (string name in COLUMN_NAME)
-                columnName.Add(name);
+                columnName.Add(name.ToLower());
             //if (fileContent.Columns.Count != columnName.Count)
             //{
             //    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
@@ -412,7 +419,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             int columnIndex = 0;
             foreach (DataColumn col in fileContent.Columns)
             {
-                int index = columnName.IndexOf(col.ColumnName);
+                int index = columnName.IndexOf(col.ColumnName.ToLower().Trim());
                 if (index == -1)
                 {
                     ExceptionMessage exMes = GetColumnExceptionMessage(columnIndex);
