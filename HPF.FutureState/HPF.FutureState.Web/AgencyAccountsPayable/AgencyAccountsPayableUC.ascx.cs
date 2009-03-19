@@ -32,7 +32,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 if (grvInvoiceList.SelectedIndex == -1)
                     hidSelectedRowIndex.Value = "";
-                btnCancelPayable.Attributes.Add("onclick", "return CancelConfirm();");
+                btnCancelPayable.Attributes.Add("onclick", "return CancelClientClick();");
                 BindAgencyDropDownList();
                 DisplayAgencyAccountPayableSearchResult();
             }
@@ -228,6 +228,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             //clear the error message
             bulMessage.Items.Clear();
             //
+            CancelPayable();
+        }
+        private void CancelPayable()
+        {
             AgencyPayableDTOCollection agency = new AgencyPayableDTOCollection();
             try
             {
@@ -245,7 +249,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 }
                 else
                 {
-                    bulMessage.Items.Add(new ListItem("ERR584-An agency account payable must be selected in order to cancel it."));
+                    bulMessage.Items.Add(new ListItem("ERR0584--An agency account payable must be selected in order to cancel it."));
                 }
             }
             catch (Exception ex)
@@ -270,7 +274,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch (Exception ex)
             {
-                bulMessage.Items.Add(new ListItem("ERR585-An agency account payable must be selected in order to view or edit it."));
+                bulMessage.Items.Add(new ListItem("ERR0585--An agency account payable must be selected in order to view or edit it."));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -279,6 +283,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             if (grvInvoiceList.SelectedIndex != -1)
                 hidSelectedRowIndex.Value = grvInvoiceList.SelectedValue.ToString();
 
+        }
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            CancelPayable();
         }
     }
 }
