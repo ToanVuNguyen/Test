@@ -94,5 +94,7 @@ namespace HPF.FutureState.Common
         //appforeclosurecase search
         public const string RULESET_CRITERIAVALID = "CriteriaValidation";
         public const string RULESET_APPSEARCH = "AppSearchRequireCriteria";
+
+        public const string EXCEL_FILE_TAB_NAME = "rpt_invoiceexportfile_hpfstanda";
     }
 }

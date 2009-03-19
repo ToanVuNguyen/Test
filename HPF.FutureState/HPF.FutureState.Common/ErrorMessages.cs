@@ -748,7 +748,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0670, "Unable to process the reconciliation file. The HPF Invoice Case ID in row {0} is not valid.");
                 errorMessageDict.Add(ERR0671, "Unable to process the reconciliation file. The Invoice Case ID in row {0} belongs to an invoice that has been cancelled.");
                 errorMessageDict.Add(ERR0672, "Unable to process the reconciliation file. The Pmt Amt in row {0} does not match the amount billed on the invoice.");
-                errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"Reconciliation\" tab cannot be located.");
+                errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"rpt_invoiceexportfile_hpfstanda\" tab cannot be located.");
                 errorMessageDict.Add(ERR0674, "A Funding Source is required to search for Invoice Payments.");
                 errorMessageDict.Add(ERR0675, "A valid Period Start date is required to search for Invoice Payments.");
                 errorMessageDict.Add(ERR0676, "A valid Period End date is required to search for Invoice Payments.");
