@@ -14,13 +14,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
     public partial class CaseFollowUp {
         
         /// <summary>
-        /// hdf_Confirm control.
+        /// selRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdf_Confirm;
+        protected global::System.Web.UI.WebControls.HiddenField selRow;
         
         /// <summary>
         /// hfAction control.
@@ -165,5 +165,32 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_Cancel;
+        
+        /// <summary>
+        /// selTabCtrl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField selTabCtrl;
+        
+        /// <summary>
+        /// btnYes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnYes;
+        
+        /// <summary>
+        /// btnNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNo;
     }
 }

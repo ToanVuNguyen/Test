@@ -1084,6 +1084,7 @@
         <td align="right">
         <asp:HiddenField ID="hidChkAgencyActive"  runat="server"  Value=""/>
         <asp:HiddenField ID="hidSaveIsYes"  runat="server"  Value=""/>
+        <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
         </td>
     </tr>
 </table>
@@ -1109,14 +1110,28 @@
     var detailCaseBefore = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
     var detailCaseAfter = new detailCase();
     
+    var tempTabId = document.getElementById('<%=selTabCtrl.ClientID%>');
+    if(tempTabId.value!='')
+    {
+        tabid = tempTabId.value;
+        tempTabId.value='';
+        TabControl.SelectTab(tabid);
+    }
+    
     TabControl.onChanged = function ChangeData(toTabId) {            
+    
+        tempTabId.value = toTabId;
+        
         detailCaseAfter = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
         if (ComparePaymentObject(detailCaseAfter))
         {
-            if(confirm(msfWARN0450))
+            /*if(confirm(msfWARN0450))
             {            
                 document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
-            }
+            }*/
+            Popup.showModal('mdgCaseDetail');             
+            //TabControl.SelectTab(tempTabId.value)
+            return false;                       
         }
         return true;
     }
@@ -1135,4 +1150,24 @@
             return false;
     }
 </script>
+
+<div id="mdgCaseDetail" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    <%=msgWARN0450%>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('mdgCaseDetail');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" OnClientClick="Popup.hide('mdgCaseDetail');" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+    </div>
 

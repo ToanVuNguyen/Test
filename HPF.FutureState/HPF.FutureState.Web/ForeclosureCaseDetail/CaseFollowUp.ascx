@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseFollowUp.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseFollowUp" %>
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
-<asp:HiddenField ID="hdf_Confirm" runat="server" />
+<asp:HiddenField ID="selRow" runat="server" />
 <asp:HiddenField ID="hfAction" runat="server" />
 <br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
@@ -152,10 +152,11 @@
         </td>
     </tr>  
 </table>
+<asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
 
 <script type="text/javascript" language="javascript">
     var msfWARN0450 = '<%= msgWARN0450 %>';    
-    var status = document.getElementById('<%=hdf_Confirm.ClientID %>');
+    var selRow = document.getElementById('<%=selRow.ClientID %>');
     var confirmFlag = true;
     var followUpDate = document.getElementById('<%=txt_FollowUpDt.ClientID %>');
     var creditScore = document.getElementById('<%=txt_CreditScore.ClientID %>');
@@ -180,9 +181,18 @@
         this.StillInHome = stillInHome;
     }
     
+    var tempTabId = document.getElementById('<%=selTabCtrl.ClientID%>');
+    if(tempTabId.value!='')
+    {
+        tabid = tempTabId.value;
+        tempTabId.value='';
+        TabControl.SelectTab(tabid);
+    }
+    
     var caseFollowUpBefore = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
             , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);
     var caseFollowUpAfter = new CaseFollowUp();
+    
     function ConfirmToCancel()
     {   
         caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
@@ -237,29 +247,57 @@
         confirmFlag = false;   
     }
     
-    function ConfirmEdit(message)
+    function ConfirmEdit(message, selDataRow)
     {        
+        if(selDataRow != "")
+            selRow.value = selDataRow;
+        
         caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
             , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
+        
+        
         if(CompareCaseFollowUpObject(caseFollowUpAfter))
-        {            
-            if (confirm(message)==true)            
-                status.value = "TRUE";                            
-            else            
-                status.value = "FALSE";            
+        {                      
+            Popup.showModal('mdgCaseFollowup');             
+            return false;                            
         } 
-        else        
-            status.value = "FALSE";    
-                            
-        return true;
+                
+        return true;      
     }
     
-    TabControl.onChanged=function()
+    TabControl.onChanged= function ChangeTabData(toTabId)
     {
-        ConfirmEdit(msfWARN0450);
+        tempTabId.value = toTabId;
+        return ConfirmEdit(msfWARN0450);
     };
+        
     function ChangeData()
-    { 
-        ConfirmEdit(msfWARN0450);
+    {
+      return ConfirmEdit(msfWARN0450);
+    }
+    
+    function setSelectedRow(index)
+    {
+        selRow.value = index;
     }
 </script>
+
+<div id="mdgCaseFollowup" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    <%=msgWARN0450%>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('mdgCaseFollowup');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" onclick="btnNo_Click" OnClientClick="Popup.hide('mdgCaseFollowup');TabControl.SelectTab(tempTabId.value)" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+    </div>

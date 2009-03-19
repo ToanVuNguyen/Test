@@ -40,6 +40,11 @@ namespace HPF.FutureState.Web
                 tabControl.SelectedTab = "caseDetail";
                 UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
             }
+            if (emailSummary.Value == "EMAILSUMMARY")
+            {
+                emailSummary.Value = string.Empty;
+                PopupEmail();
+            }
         }
         private void BindData()
         {
@@ -141,6 +146,11 @@ namespace HPF.FutureState.Web
             }
         }
         protected void btnEmailSummary_Click(object sender, EventArgs e)
+        {
+            PopupEmail();
+        }
+
+        private void PopupEmail()
         {
             if (Request.QueryString["CaseID"] == null)
                 return;

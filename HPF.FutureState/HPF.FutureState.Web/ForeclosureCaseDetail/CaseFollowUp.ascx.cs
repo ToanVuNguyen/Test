@@ -40,9 +40,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     ddlDelinquencyStatusBinding();
                     ddlStillInHomeBinding();                    
 
-                    btn_Cancel.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");
-                    btn_New.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");    
-                }
+                    btn_Cancel.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "','-1');");
+                    btn_New.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "','0');");                                        
+                }                
             }
             catch (Exception ex)
             {
@@ -50,12 +50,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
         }
 
-        protected override void OnUnload(EventArgs e)
-        {
-            base.OnUnload(e);
-            if (hdf_Confirm.Value != string.Empty && hdf_Confirm.Value == "TRUE")
-                DoSaving();
-        }
         #region BindDataToControl
         private void grdvCaseFollowUpBinding()
         {
@@ -146,7 +140,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 Button _button = (Button)e.Row.FindControl("btn_Edit");
                 if (_button != null)
                 {
-                    _button.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "');");
+                    _button.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "', '"+ e.Row.DataItemIndex+"');");
                     _button.Click += new EventHandler(btn_Edit_Click);
                     _button.CommandArgument = e.Row.RowIndex.ToString();
                 }
@@ -166,18 +160,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         
         protected void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            if (hdf_Confirm.Value != string.Empty && hdf_Confirm.Value == "TRUE")
-                DoSaving();
-
+        {            
             grd_FollowUpList.SelectedIndex = -1;
             ClearControls();
         }        
 
         protected void btn_New_Click(object sender, EventArgs e)
         {
-            if (hdf_Confirm.Value != string.Empty && hdf_Confirm.Value == "TRUE")
-                DoSaving();
             hfAction.Value = ACTION_INSERT;
             grd_FollowUpList.SelectedIndex = -1;
             GenerateDefaultData();
@@ -186,10 +175,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            Button btnEdit = sender as Button;
-
-            if (hdf_Confirm.Value == "TRUE")
-                DoSaving();
+            Button btnEdit = sender as Button;            
 
             int index = int.Parse(btnEdit.CommandArgument.ToString());
             grd_FollowUpList.SelectedIndex = index;
@@ -238,8 +224,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 }
                 errorList.DataSource = err;
                 errorList.DataBind();
-            }
-            hdf_Confirm.Value = "";
+            }            
         }
         #endregion
 
@@ -347,6 +332,35 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         #endregion
 
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            DoSaving();
+            UpdateUI();
+        }
+        protected void btnNo_Click(object sender, EventArgs e)
+        {
+            UpdateUI();
+        }
+        private void UpdateUI()
+        {
+            if (selRow.Value == "0")
+            {
+                grd_FollowUpList.SelectedIndex = -1;
+                GenerateDefaultData();
+                txt_FollowUpDt.Focus();
+            }
+            else if (selRow.Value == "-1")
+            {
+                grd_FollowUpList.SelectedIndex = -1;
+                ClearControls();                
+            }
+            else if (selRow.Value != string.Empty && selRow.Value.ToUpper() != "UNDEFINED")
+            {
+                grd_FollowUpList.SelectedIndex = int.Parse(selRow.Value);
+            }
+
+            selRow.Value = string.Empty;
+        }
         #region ValidateData
         private ExceptionMessageCollection ValidateFollowUpDTO(CaseFollowUpDTO followUp)
         {

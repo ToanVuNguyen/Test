@@ -117,6 +117,7 @@
         OnClick="btnSave_Click" />
 </div>
 <asp:HiddenField ID="hidSaveIsYes" runat="server" Value="" />
+<asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
 
 <script type="text/javascript" language="javascript">
     var msfWARN0450 = '<%= msgWARN0450 %>';
@@ -128,15 +129,27 @@
     }
     var foreclosureCaseBefore = new forecloseCase(neverPayReason.value, neverBillReason.value);
     var foreclosureCaseAfter = new forecloseCase();
-    TabControl.onChanged = function ChangeData() {
-    foreclosureCaseAfter = new forecloseCase(neverPayReason.value, neverBillReason.value);
     
-    if (ComparePaymentObject(foreclosureCaseAfter)) {
-            if(confirm(msfWARN0450) )
-                document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
+    var tempTabId = document.getElementById('<%=selTabCtrl.ClientID%>');
+        if(tempTabId.value!='')
+        {
+            tabid = tempTabId.value;
+            tempTabId.value='';
+            TabControl.SelectTab(tabid);
+        }
+        
+    TabControl.onChanged = function ChangeData(toTabId) {    
+        foreclosureCaseAfter = new forecloseCase(neverPayReason.value, neverBillReason.value);            
+    
+        if (ComparePaymentObject(foreclosureCaseAfter))
+        {
+            tempTabId.value = toTabId;
+            Popup.showModal('mdgCaseAccounting');             
+            return false;     
         }
         return true;
     }
+    
     function ComparePaymentObject(foreclosureCaseAfter) {
         if (foreclosureCaseAfter.neverPayReason != foreclosureCaseBefore.neverPayReason
             || foreclosureCaseAfter.neverBillReason != foreclosureCaseBefore.neverBillReason
@@ -147,4 +160,24 @@
     }
    
 </script>
+
+<div id="mdgCaseAccounting" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    <%=msgWARN0450%>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('mdgCaseAccounting');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" OnClientClick="Popup.hide('mdgCaseAccounting');TabControl.SelectTab(tempTabId.value)" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+    </div>
 

@@ -339,16 +339,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         protected void btn_Save_Click(object sender, EventArgs e)
         {
             UpdateForecloseCase();
-            int caseid =Int32.Parse(Request.QueryString["CaseID"]);
-            Response.Redirect("ForeclosureCaseInfo.aspx?CaseID="+caseid);
-        }
-
-        protected override void OnUnload(EventArgs e)
-        {
-            base.OnUnload(e);
-            if (hidSaveIsYes.Value != string.Empty)
-                UpdateForecloseCase();
-        }
+            //int caseid =Int32.Parse(Request.QueryString["CaseID"]);
+            //Response.Redirect("ForeclosureCaseInfo.aspx?CaseID="+caseid);
+        }        
 
         public string msgWARN0450
         {
@@ -356,6 +349,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 return ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450);
             }
-        }  
+        }
+
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            UpdateForecloseCase();
+        }
     }
 }

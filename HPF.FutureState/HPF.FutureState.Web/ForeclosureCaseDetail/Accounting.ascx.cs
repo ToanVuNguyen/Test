@@ -143,6 +143,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 return ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0450);
             }
-        }  
+        }
+
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            UpdateForclosureCase();
+        }
     }
 }

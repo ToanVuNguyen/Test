@@ -55,7 +55,7 @@
             </td>
             <td align="center">
                 <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" Width="130px"
-                    Text="Email Summary" OnClick="btnEmailSummary_Click" />
+                    Text="Email Summary" OnClick="btnEmailSummary_Click" OnClientClick="btnEmailSummary_Click();" />
             </td>
         </tr>
         <tr>
@@ -112,4 +112,12 @@
             </td>
         </tr>
     </table>
+    <asp:HiddenField ID="emailSummary"  runat="server"  Value=""/>
+    <script language="jscript" type="text/jscript">
+    var email = document.getElementById('<%=emailSummary.ClientID %>');
+    function btnEmailSummary_Click()
+    {
+        email.value = "EMAILSUMMARY";
+    }
+    </script>
 </asp:Content>
