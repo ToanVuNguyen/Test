@@ -310,7 +310,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 if (row[COLUMN_NAME[2].ToLower()].ToString() != string.Empty)
                     item.PaymentAmount = double.Parse(row[COLUMN_NAME[2].ToLower()].ToString());
                 else
-                    item.PaymentAmount = 0;
+                    item.PaymentAmount = int.MinValue;
                 item.PaymentRejectReasonCode = row[COLUMN_NAME[3].ToLower()].ToString();
                 item.FreddieMacServicerNumber = row[COLUMN_NAME[4].ToLower()].ToString();
                 item.FreddieMacLoanNumber = row[COLUMN_NAME[5].ToLower()].ToString();
@@ -330,6 +330,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             double sumOfPaymentAmount = 0;
             foreach (DataRow row in fileContent.Rows)
             {
+                rowIndex++;
                 //Internal Case IDs
                 try
                 {
@@ -359,23 +360,12 @@ namespace HPF.FutureState.Web.InvoicePayments
                     var exMes = GetExceptionMessage(ErrorMessages.ERR0678, rowIndex);
                     ex.ExceptionMessages.Add(exMes);
                 }
-                //Payment Amounts
-                try
+                //Neither a payment amount nor payment reject reason code exist for the record
+                if (row[COLUMN_NAME[3]].ToString() == string.Empty && row[COLUMN_NAME[2]].ToString() == string.Empty)
                 {
-                    string temp = row[COLUMN_NAME[2]].ToString();
-                    double pmtAmt=0;
-                    if(temp!=string.Empty)
-                         pmtAmt = double.Parse(temp);
-                    if (pmtAmt < 0)
-                        throw (new Exception());
-                    //if the row doesnt have a payment reject reason code, add it to the payment amount total for the file.
-                    if(row[COLUMN_NAME[3]].ToString() == string.Empty)
-                        sumOfPaymentAmount += pmtAmt;
-                }
-                catch
-                {
-                    var exMes = GetExceptionMessage(ErrorMessages.ERR0659, rowIndex);
+                    var exMes = GetExceptionMessage(ErrorMessages.ERR0679, rowIndex);
                     ex.ExceptionMessages.Add(exMes);
+                    continue;
                 }
 
                 //Reject Reaon Code
@@ -384,15 +374,30 @@ namespace HPF.FutureState.Web.InvoicePayments
                     {
                         var exMes = GetExceptionMessage(ErrorMessages.ERR0660, rowIndex);
                         ex.ExceptionMessages.Add(exMes);
+                        continue;
                     }
-                //Neither a payment amount nor payment reject reason code exist for the record
-                if (row[COLUMN_NAME[3]].ToString() == string.Empty && row[COLUMN_NAME[2]].ToString() == "0")
+                
+                
+                //Payment Amounts
+                try
                 {
-                    var exMes = GetExceptionMessage(ErrorMessages.ERR0679, rowIndex);
+                    if (row[COLUMN_NAME[3]].ToString() == string.Empty)
+                    {
+                        string temp = row[COLUMN_NAME[2]].ToString();
+                        double pmtAmt = 0;
+                        if (temp != string.Empty)
+                            pmtAmt = double.Parse(temp);
+                        if (pmtAmt <= 0)
+                            throw (new Exception());
+                        sumOfPaymentAmount += pmtAmt;
+                        //if the row doesnt have a payment reject reason code, add it to the payment amount total for the file.
+                    }
+                }
+                catch
+                {
+                    var exMes = GetExceptionMessage(ErrorMessages.ERR0659, rowIndex);
                     ex.ExceptionMessages.Add(exMes);
                 }
-
-                rowIndex++;
             }
             //sumOfpaymentAmount must equal total paymentAmount
             if(sumOfPaymentAmount!=paymentAmount)
