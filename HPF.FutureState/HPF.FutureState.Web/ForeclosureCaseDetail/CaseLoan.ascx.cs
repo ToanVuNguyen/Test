@@ -68,6 +68,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <returns></returns>
         private string DisplayInd(string ind)
         {
+            if (ind == null)
+                return "";
             if (ind.ToUpper() == "Y")
                 return "Yes";
             if (ind.ToUpper() == "N")
