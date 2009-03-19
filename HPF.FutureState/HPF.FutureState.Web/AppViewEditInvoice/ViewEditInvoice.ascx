@@ -42,7 +42,7 @@
         <td class="Text" style="vertical-align: top">
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text" Text="Citi Group"></asp:Label>
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Total Cases:
         </td>
         <td class="Text" >
@@ -51,7 +51,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Reject Reason:
         </td>
-        <td style="vertical-align: top">
+        <td style="vertical-align: top" width="180">
             <asp:DropDownList ID="dropRejectReason" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
@@ -63,23 +63,23 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Period Start:
         </td>
         <td class="Text" style="vertical-align: top">
             <asp:Label ID="lblPeriodStart" runat="server" Text="11/01/2008"></asp:Label>
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Invoice Total:
         </td>
         <td class="Text" >
             <asp:Label ID="lblInvoiceTotal" runat="server"  Text="$700.00"></asp:Label>
         </td>
-        <td>
+        <td align="right" class="sidelinks" nowrap="nowrap">
             &nbsp;
-        </td>
+            HPF Payment ID:</td>
         <td>
-            &nbsp;
+            <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
         </td>
         <td align="left" class="style2">
             
@@ -89,7 +89,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Period End:
         </td>
         <td class="Text" style="vertical-align: top">
@@ -99,11 +99,9 @@
             &nbsp;
         </td>
         <td align="right" class="sidelinks">
-            HPF Payment ID:
-        </td>
+            &nbsp;</td>
         <td style="vertical-align: top" class="Text">
-            <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
-        </td>
+            &nbsp;</td>
         <td align="left" class="style2">
             
                 <asp:Button ID="btnUnpay" runat="server" CssClass="MyButton" Text="Unpay Marked Cases"
@@ -112,13 +110,13 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Invoice Number:
         </td>
         <td class="Text" style="vertical-align: top">
             <asp:Label ID="lblInvoiceNumber" runat="server" Text="50032"></asp:Label>
         </td>
-        <td align="right" class="style1">
+        <td align="right" class="style1" style="vertical-align: top">
             Total Paid:
         </td>
         <td class="Text" style="vertical-align: top">
@@ -141,7 +139,7 @@
         <td class="Text">
             &nbsp;
         </td>
-        <td align="right" class="style1">
+        <td align="right" class="style1" style="vertical-align: top">
             Total Rejected:
         </td>
         <td class="Text" style="vertical-align: top">

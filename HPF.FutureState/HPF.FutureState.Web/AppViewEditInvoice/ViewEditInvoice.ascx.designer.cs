@@ -86,6 +86,15 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         protected global::System.Web.UI.WebControls.Label lblInvoiceTotal;
         
         /// <summary>
+        /// txtPaymentID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPaymentID;
+        
+        /// <summary>
         /// btnPay control.
         /// </summary>
         /// <remarks>
@@ -102,15 +111,6 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPeriodEnd;
-        
-        /// <summary>
-        /// txtPaymentID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPaymentID;
         
         /// <summary>
         /// btnUnpay control.
