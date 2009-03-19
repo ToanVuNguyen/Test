@@ -5,8 +5,8 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
-<%--<asp:UpdatePanel ID="myUpdatePanel" runat="server">
-    <ContentTemplate>--%>
+<asp:UpdatePanel ID="myUpdatePanel" runat="server">
+    <ContentTemplate>
 
 <table style="width:100%;" cellspacing="0px">
     <colgroup>
@@ -76,7 +76,7 @@
         </td>
         <td align="center">
             <asp:Button ID="btnPayUnpayMarkCase" runat="server" CssClass="MyButton" Text="Pay/Unpay NFMC Upcharge"
-                Width="170px" OnClick="btnPayUnpayMarkCase_Click" />
+                Width="170px" OnClick="btnPayUnpayMarkCase_Click"  />
         </td>
     </tr>
     <tr>
@@ -170,9 +170,8 @@
         <td align="left" class="sidelinks" colspan="8">
             <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
                 Width="100%" Visible="true" ScrollBars="Auto">
-                <%--asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate
-                    --%>
+               <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>--%>
                         <asp:GridView ID="grvViewEditAgencyPayable" runat="server" 
                     CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="false" 
@@ -247,9 +246,8 @@
                         </table>
                         <asp:HiddenField ID="hidIsSelected" runat="server" Value="" />
                         <asp:HiddenField ID="hidPayUnpayCheck" runat="server" Value="" />
-                    <%--/ContentTemplate>
-                </asp:UpdatePanel
-                --%>
+                <%--    </ContentTemplate>
+                </asp:UpdatePanel>--%>
             </cc1:StatefullScrollPanel>
         </td>
     </tr>
@@ -266,24 +264,75 @@
         </td>
     </tr>
 </table>
-<%--</ContentTemplate>
-</asp:UpdatePanel>--%>
+</ContentTemplate>
+</asp:UpdatePanel>
 
 <script language="javascript" type="text/javascript">
     var id = '<%=hidIsSelected.ClientID %>';
-    function TakeBackReason() {
+//    function IsSelectedCheck(chk) 
+//    {
+//        SelectedCase = document.getElementById(id);
+//        if (chk.checked == 1)
+//            SelectedCase.value = 'true';
+//    };
+    function TakeBackReason() 
+    {
         SelectedCase = document.getElementById(id);
-        if (SelectedCase.value != '') {
-            confirm('WARN576-Are you sure you wish to takeback the selected case(s)?');
+        if (SelectedCase.value != '') 
+        {
+            Popup.showModal('modalTakeBackReason')
+            return false;
         }
-        else return false;
+        else return true;
     };
-    function PayUnpay() {
+
+    function PayUnpay() 
+    {
         SelectedCase = document.getElementById(id);
-        if (SelectedCase.value != '' ) {
-            confirm('WARN578-Are you sure you wish to pay/unpay the selected case(s)?');
+        if (SelectedCase.value != '') 
+        {
+            Popup.showModal('modalPayUnpay')
+            return false;
         }
-        else return false;
+        else return true;
     };
 </script>
+<div id="modalTakeBackReason" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN576-Are you sure you wish to takeback the selected case(s)?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYesTakeBackReason" runat="server" OnClientClick="Popup.hide('modalTakeBackReason');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYesTakeBackReason_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNoTakeBackReason" runat="server" OnClientClick="Popup.hide('modalTakeBackReason');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+</div>
+<div id="modalPayUnpay" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN578-Are you sure you wish to pay/unpay the selected case(s)?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYesPayUnpay" runat="server" OnClientClick="Popup.hide('modalPayUnpay');" 
+                        CssClass="MyButton" Text="Yes"  Width="70px" onclick="btnYesPayUnpay_Click" />
+                    &nbsp;
+                    <asp:Button ID="btnNoPayUnpay" runat="server" OnClientClick="Popup.hide('modalPayUnpay');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+</div>
 

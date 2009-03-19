@@ -126,12 +126,17 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
             bulErrorMessage.Items.Clear();
+            PayUnPay();
+        }
+
+        private void PayUnPay()
+        {
             string payableCaseIdCollection = GetSelectedRow();
             hidIsSelected.Value = payableCaseIdCollection;
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
             btnTakeBackMarkCase.Attributes.Clear();
             btnPayUnpayMarkCase.Attributes.Clear();
-            
+
             if (payableCaseIdCollection == null)
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0577"));
@@ -146,20 +151,24 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                foreach (var agencyPayableCase in agencyPayableSet.PayableCases)
+                int i;
+                for (i = 0; i < agencyPayableSet.PayableCases.Count; i++)
+                //foreach (var agencyPayableCase in agencyPayableSet.PayableCases)
                 {
-                    if (agencyPayableCase.NFMCDifferencePaidAmt == null)
-                        AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection, 1);
-                    else
-                        AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection, 2);
+                    if (payableCaseIdCollection.Contains(agencyPayableSet.PayableCases[i].AgencyPayableId.ToString()))
+                    {
+                        if (agencyPayableSet.PayableCases[i].NFMCDifferencePaidAmt == null)
+                            AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection, 1);
+                        else AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payableCaseIdCollection, 2);
+                        payableCaseIdCollection = payableCaseIdCollection.Replace(agencyPayableSet.PayableCases[i].AgencyPayableId.ToString() + ",", "");
+                        payableCaseIdCollection = payableCaseIdCollection.Replace(agencyPayableSet.PayableCases[i].AgencyPayableId.ToString(), "");
+                    }
                 }
                 BindViewEditPayable();
             }
             catch (Exception ex)
             {
                 bulErrorMessage.Items.Add(ex.Message);
-
-
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
         }
@@ -167,6 +176,11 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
 
             bulErrorMessage.Items.Clear();
+            TakeBackReason();
+        }
+
+        private void TakeBackReason()
+        {
             string payableCaseIdCollection = GetSelectedRow();
             string takebackReason = ddlTakebackReason.SelectedItem.Value;
 
@@ -216,7 +230,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         protected void btnClose_Click(object sender, EventArgs e)
         {
-                Response.Redirect("AgencyPayable.aspx");
+            Response.Redirect("AgencyPayable.aspx");
         }
         protected void btnReprintPayable_Click(object sender, EventArgs e)
         {
@@ -240,7 +254,21 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     lblTakeBackDate.Text = "";
                 }
+                //add attribute to check isselected
+                //CheckBox chkSelected = e.Row.FindControl("chkSelected") as CheckBox;
+                //chkSelected.Attributes.Add("onclick", "IsSelectedCheck(this)");
             }
+        }
+        protected void btnYesTakeBackReason_Click(object sender, EventArgs e)
+        {
+            TakeBackReason();
+
+        }
+
+        protected void btnYesPayUnpay_Click(object sender, EventArgs e)
+        {
+            PayUnPay();
+
         }
     }
 }

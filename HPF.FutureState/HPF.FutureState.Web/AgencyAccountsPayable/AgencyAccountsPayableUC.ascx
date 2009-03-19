@@ -16,8 +16,8 @@
         <col width="15%" />
     </colgroup>
     <tr>
-        <td colspan="5" class="Header">
-            Agency Accounts Payable page
+        <td colspan="5" align="center" >
+           <h1> Agency Accounts Payable page</h1>
         </td>
         <td rowspan="3" align="center">
             <img alt="" src="Styles/Images/HPFLogo.jpg" style="width: 55px; height: 55px" /><br />
