@@ -123,7 +123,7 @@ namespace HPF.FutureState.Web.HPFWebControls
                     foreach (var i in this.Controls)
                         if(i is LinkButton)
                         {
-                            ((LinkButton)i).Attributes.Add("onclick", "return TabControl.onChanged();");
+                            ((LinkButton)i).Attributes.Add("onclick", string.Format("return TabControl.onChanged('{0}');",(i as LinkButton).ClientID.Replace("_","$")));
                             writer.Write("<td align='center'>");
                                ((LinkButton)i).RenderControl(writer);
                             writer.Write("</td>");

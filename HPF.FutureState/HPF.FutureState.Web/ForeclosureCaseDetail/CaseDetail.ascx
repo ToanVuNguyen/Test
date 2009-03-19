@@ -1109,7 +1109,7 @@
     var detailCaseBefore = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
     var detailCaseAfter = new detailCase();
     
-    TabControl.onChanged = function ChangeData() {
+    TabControl.onChanged = function ChangeData(toTabId) {            
         detailCaseAfter = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
         if (ComparePaymentObject(detailCaseAfter))
         {
