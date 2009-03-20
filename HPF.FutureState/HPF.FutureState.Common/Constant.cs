@@ -79,6 +79,7 @@ namespace HPF.FutureState.Common
         public const string REF_CODE_SET_BILLING_EXPORT_NFMC_CODE = "NFMC";
         public const string REF_CODE_SET_BILLING_EXPORT_HPFSTD_CODE = "HPFSTD";
         public const string REF_CODE_SET_BILLING_EXPORT_HSBC_CODE = "HSBC";
+        public const string REF_CODE_SET_BILLING_EXPORT_HUD_CODE = "HUD";
 
 
         //

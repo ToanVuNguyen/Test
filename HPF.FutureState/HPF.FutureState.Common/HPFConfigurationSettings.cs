@@ -163,6 +163,14 @@ namespace HPF.FutureState.Common
             }
 
         }
+        public static string HPF_INVOICE_EXPORT_HUD_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_HUD_REPORT"];
+            }
+
+        }
         public static string HPF_INVOICE_EXPORT_INVOICE_SUMMARY_REPORT
         {
             get

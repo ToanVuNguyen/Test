@@ -75,6 +75,11 @@ namespace HPF.FutureState.BusinessLogic
                         reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_NFMC_REPORT);
                         break;
                     }
+                case (Constant.REF_CODE_SET_BILLING_EXPORT_HUD_CODE):
+                    {
+                        reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_HUD_REPORT);
+                        break;
+                    }
             }
             if (reportPath == string.Empty)
                 return null;
