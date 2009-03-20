@@ -46,6 +46,7 @@ namespace HPF.FutureState.DataAccess
                         result.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
                         result.NFMCDifferenceEligibleInd = ConvertToString(reader["NFMC_difference_eligible_ind"]);
                         result.PaymentAmount = ConvertToDouble(reader["agency_payable_pmt_amt"]);
+                        result.NFMCDifferencePaidAmt = ConvertToDouble(reader["NFMC_difference_paid_amt"]);
                         results.Add(result);
                     }
                     reader.Close();

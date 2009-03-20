@@ -103,6 +103,8 @@
                                 ItemStyle-HorizontalAlign="Right" />
                             <asp:BoundField HeaderText="NFMC Diff Elig" DataField="NFMCDifferenceEligibleInd"
                                 ItemStyle-HorizontalAlign="Center" />
+                                  <asp:BoundField HeaderText="NFMC Diff Pd" DataField="NFMCDifferencePaidAmt" DataFormatString="{0:C}"
+                                ItemStyle-HorizontalAlign="Right" />
                         </Columns>
                         <EmptyDataTemplate>
                             There is not payment information</EmptyDataTemplate>
