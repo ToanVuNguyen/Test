@@ -37,7 +37,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0996);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
 
         }

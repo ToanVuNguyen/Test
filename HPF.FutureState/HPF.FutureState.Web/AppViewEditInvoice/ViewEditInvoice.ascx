@@ -78,7 +78,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             &nbsp;
             HPF Payment ID:</td>
-        <td>
+        <td style="vertical-align: top">
             <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
         </td>
         <td align="left" class="style2">

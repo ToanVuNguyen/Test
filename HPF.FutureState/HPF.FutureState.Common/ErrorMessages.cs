@@ -791,19 +791,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0980, "Invoice Payment Number has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0981, "Invoice Payment Comments has a maximum length of 300 characters.");
                 errorMessageDict.Add(ERR0982, "Delivering Invoice reports to Portal failed.");
-                errorMessageDict.Add(ERR0983, "Generate Invoice reports successful.");
+                errorMessageDict.Add(ERR0983, "Generated Invoice reports successfully.");
                 errorMessageDict.Add(ERR0984, "Generating Invoice reports failed.");
-                errorMessageDict.Add(ERR0985, "Insert Invoice successful.");
+                errorMessageDict.Add(ERR0985, "Inserted Invoice successfully.");
                 errorMessageDict.Add(ERR0986, "City has a maximum length of 30 characters.");
-                errorMessageDict.Add(ERR0987, "There must be at least one Invoice Item to generate an invoice.");
-                errorMessageDict.Add(ERR0990, "An invalid Household Gross Annual Income Max was provided.");
-                errorMessageDict.Add(ERR0991, "An invalid Max Num of Cases was provided.");
-                errorMessageDict.Add(ERR0992, "An invalid Household Gross Annual Income Min was provided.");
-                errorMessageDict.Add(ERR0993, "An invalid Age Min was provided.");
-                errorMessageDict.Add(ERR0994, "An invalid Age Max was provided.");
-                errorMessageDict.Add(ERR0995, "A Funding Source is required to search.");
-                errorMessageDict.Add(ERR0996, "An invalid date was provided for Period End.");
-                errorMessageDict.Add(ERR0997, "An invalid date was provided for Period Start.");
                 errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");
 

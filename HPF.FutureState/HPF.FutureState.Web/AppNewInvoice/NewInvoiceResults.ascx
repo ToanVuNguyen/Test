@@ -72,7 +72,7 @@
     <tr>
         <td align="center" colspan="5">
             <cc1:StatefullScrollPanel ID="panInvoiceResultsPage" runat="server" CssClass="ScrollTable"
-                BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
+                  Width="100%">
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvNewInvoiceResults" runat="server" CellPadding="2" ForeColor="#333333"
