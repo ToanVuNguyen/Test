@@ -167,7 +167,7 @@ namespace HPF.FutureState.BusinessLogic
             }
 
             if (foreclosureCase == null)
-                errorCollection.AddExceptionMessage(ErrorMessages.ERR0802, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0802, fcId));
+                errorCollection.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805, fcId));
 
             else
             {

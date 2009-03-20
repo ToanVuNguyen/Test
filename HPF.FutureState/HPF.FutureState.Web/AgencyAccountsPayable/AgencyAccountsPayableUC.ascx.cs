@@ -188,7 +188,6 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             bulMessage.Items.Clear();
             try
             {
-
                 BindGrvInvoiceList(txtPeriodStart.Text, txtPeriodEnd.Text);
                 grvInvoiceList.SelectedIndex = -1;
             }
@@ -249,7 +248,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 }
                 else
                 {
-                    bulMessage.Items.Add(new ListItem("ERR0584--An agency account payable must be selected in order to cancel it."));
+                    bulMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0584"));//(new ListItem("ERR0584--An agency account payable must be selected in order to cancel it."));
                 }
             }
             catch (Exception ex)
@@ -261,7 +260,29 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {
-            bulMessage.Items.Clear();
+            try
+            {
+                bulMessage.Items.Clear();
+                ViewPayable();
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    bulMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+        }
+
+        private void ViewPayable()
+        {
+            DataValidationException ex = new DataValidationException();
             try
             {
                 AgencyPayableDTOCollection agencyPayableCol = (AgencyPayableDTOCollection)ViewState["agencycol"];
@@ -271,11 +292,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     Session["agencyPayable"] = agencyPayable;
                     Response.Redirect("AgencyPayableInfo.aspx");
                 }
+                else throw ex;
             }
-            catch (Exception ex)
+            catch
             {
-                bulMessage.Items.Add(new ListItem("ERR0585--An agency account payable must be selected in order to view or edit it."));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0585);
+                ex.ExceptionMessages.Add(exMessage);
+                throw ex;
             }
         }
         protected void grvInvoiceList_SelectedIndexChanged(object sender, EventArgs e)

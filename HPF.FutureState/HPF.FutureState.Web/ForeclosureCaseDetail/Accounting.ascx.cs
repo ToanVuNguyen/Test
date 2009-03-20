@@ -86,7 +86,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             catch (Exception ex)
             {
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                lblMessage.Text = ex.Message;
+                bullblErrorMessage.Text = ex.Message;
                 throw;
             }
         }
@@ -106,16 +106,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 foreclosureCase.NeverPayReasonCd = ddlNeverPayReason.SelectedValue;
                 foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 AccountingBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                lblMessage.Text = "Update Forclosurecase successfully";
+                bullblErrorMessage.Text = "Update Forclosurecase successfully";
             }
             catch (Exception ex)
             {
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 throw;
             }
-            
         }
-
         protected void grvBillingInfo_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)

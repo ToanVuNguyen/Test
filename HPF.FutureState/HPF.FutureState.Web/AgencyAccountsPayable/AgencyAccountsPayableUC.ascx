@@ -21,7 +21,7 @@
         </td>
         <td rowspan="3" align="center">
             <img alt="" src="Styles/Images/HPFLogo.jpg" style="width: 55px; height: 55px" /><br />
-            <asp:LinkButton ID="lblPortal" runat="server" PostBackUrl="http:\\hpfportal.org">Invoices on Portal</asp:LinkButton>
+            <asp:LinkButton ID="lblPortal" runat="server" PostBackUrl="http:\\hpfportal.org">Payables on Portal</asp:LinkButton>
         </td>
     </tr>
     <tr>

@@ -112,6 +112,18 @@ namespace HPF.FutureState.BusinessLogic
             return xlsReport;
         }
 
+        private string GenerateReportName(AgencyPayableDTO agencyPayable, int? agencyPayableId)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append(agencyPayable.AgencyName);
+            result.Append("_");
+            result.Append(string.Format("{0:yyyyMMdd}", agencyPayable.PeriodStartDate.Value));
+            result.Append("_");
+            result.Append(string.Format("{0:yyyyMMdd}", agencyPayable.PeriodEndDate.Value));
+            result.Append("_HPF_Payable_");
+            result.Append(agencyPayableId.ToString());
+            return result.ToString();
+        }
         public void SendAgencyPayableToHPFPortal(AgencyPayableDTO agencyPayable, int? agencyPayableId)
         {
             try
@@ -122,7 +134,7 @@ namespace HPF.FutureState.BusinessLogic
                 var hpfSharepointSummaryPdf = new HPFPortalNewAgencyPayable
                 {
                     ReportFile = AgencyPayableReportPdf(agencyPayableId),
-                    ReportFileName = periodstart + "_" + periodend + "HPF_Payable" + agencyPayableId.ToString() + ".pdf",
+                    ReportFileName = GenerateReportName(agencyPayable, agencyPayableId) + ".pdf",
                     AgencyName = agencyPayable.AgencyName.ToString(),
                     PayableNumber = agencyPayable.PayableNum.ToString(),
                     PayableDate = agencyPayable.PaymentDate,
@@ -132,7 +144,7 @@ namespace HPF.FutureState.BusinessLogic
                 var hpfSharepointSummaryXls = new HPFPortalNewAgencyPayable
                 {
                     ReportFile = AgencyPayableReportXls(agencyPayableId),
-                    ReportFileName = periodstart + "_" + periodend + "HPF_Payable" + agencyPayableId.ToString() + ".xls",
+                    ReportFileName = GenerateReportName(agencyPayable, agencyPayableId) + ".xls",
                     AgencyName = agencyPayable.AgencyName.ToString(),
                     PayableNumber = agencyPayable.PayableNum.ToString(),
                     PayableDate = agencyPayable.PaymentDate,
