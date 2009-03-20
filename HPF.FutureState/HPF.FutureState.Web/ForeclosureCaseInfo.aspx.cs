@@ -24,57 +24,57 @@ namespace HPF.FutureState.Web
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            btnEmailSummary.Attributes.Add("onclick", "return ChangeData();");
-            BindData();
-            tabControl.TabClick += new HPF.FutureState.Web.HPFWebControls.TabControlEventHandler(tabControl_TabClick);
-            if (!IsPostBack)
-            {
-                tabControl.AddTab("caseDetail", "Case Detail");
-                tabControl.AddTab("caseLoan", "Case Loan(s)");
-                tabControl.AddTab("budget", "Budget(s)");
-                tabControl.AddTab("outcome", "Outcome(s)");
-                tabControl.AddTab("accounting", "Accounting");
-                tabControl.AddTab("activityLog", "Activity Log");
-                tabControl.AddTab("caseFollowUp", "Case Follow-Up");
-                tabControl.AddTab("audit", "Audit");
-                tabControl.SelectedTab = "caseDetail";
-                UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
-            }
-            if (emailSummary.Value == "EMAILSUMMARY")
-            {
-                emailSummary.Value = string.Empty;
-                PopupEmail();
-            }
-        }
-        private void BindData()
-        {
-            if (Request.QueryString["CaseID"] == null)
-                return;
-            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-
             try
             {
-                var ForeclosureCase = GetForeclosureCase(caseid);
-                //store in session to get info for summary email
+                btnEmailSummary.Attributes.Add("onclick", "return ChangeData();");
+                ClearErrorMessage();
+                BindData();
+                tabControl.TabClick += new HPF.FutureState.Web.HPFWebControls.TabControlEventHandler(tabControl_TabClick);
                 if (!IsPostBack)
-                    Session["foreclosureInfo"] = ForeclosureCase;
-                //
-                BindForeclosureCaseToUI(ForeclosureCase);
-            }
-            catch (DataValidationException ex)
-            {
-                for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
-                    lblErrorMessage.Text += ex.ExceptionMessages[i].Message;
-                    lblErrorMessage.Text += " <br>";
+                    tabControl.AddTab("caseDetail", "Case Detail");
+                    tabControl.AddTab("caseLoan", "Case Loan(s)");
+                    tabControl.AddTab("budget", "Budget(s)");
+                    tabControl.AddTab("outcome", "Outcome(s)");
+                    tabControl.AddTab("accounting", "Accounting");
+                    tabControl.AddTab("activityLog", "Activity Log");
+                    tabControl.AddTab("caseFollowUp", "Case Follow-Up");
+                    tabControl.AddTab("audit", "Audit");
+                    tabControl.SelectedTab = "caseDetail";
+                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
                 }
-                ExceptionProcessor.HandleException(ex);
+                if (emailSummary.Value == "EMAILSUMMARY")
+                {
+                    emailSummary.Value = string.Empty;
+                    PopupEmail();
+                }
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text += ex.Message;
+                AddErrorMessage(ex.Message);
                 ExceptionProcessor.HandleException(ex);
             }
+        }
+        private void ClearErrorMessage()
+        {
+            lblErrorMessage.Items.Clear();
+        }
+        private void AddErrorMessage(string errMes)
+        {
+            lblErrorMessage.Items.Add(new ListItem(errMes));
+        }
+        private void BindData()
+        {
+            ClearErrorMessage();
+            if (Request.QueryString["CaseID"] == null)
+                return;
+            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+            var ForeclosureCase = GetForeclosureCase(caseid);
+            //store in session to get info for summary email
+            if (!IsPostBack)
+                Session["foreclosureInfo"] = ForeclosureCase;
+            //
+            BindForeclosureCaseToUI(ForeclosureCase);
         }
 
         private void BindForeclosureCaseToUI(ForeclosureCaseDTO ForeclosureCase)
@@ -106,10 +106,11 @@ namespace HPF.FutureState.Web
                     if (i.AgencyID == agencyID.ToString())
                         return i.AgencyName;
                 }
+                
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                AddErrorMessage(ex.Message);
                 ExceptionProcessor.HandleException(ex);
             }
             return string.Empty;
@@ -117,33 +118,42 @@ namespace HPF.FutureState.Web
         //display message when you click out casedetail tab
         void tabControl_TabClick(object sender, HPF.FutureState.Web.HPFWebControls.TabControlEventArgs e)
         {
-            switch (e.SelectedTabID)
+            try
             {
-                case "caseDetail":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
-                    break;
-                case "caseLoan":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseLoan.ascx", "ucCaseLoan");
-                    break;
-                case "budget":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "Budget.ascx", "ucBudget");
-                    break;
-                case "outcome":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "Outcome.ascx", "ucOutcome");
-                    break;
-                case "accounting":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "Accounting.ascx", "ucAccounting");
-                    break;
-                case "activityLog":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "ActivityLog.ascx", "ucActivityLog");
-                    break;
-                case "caseFollowUp":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "CaseFollowUp.ascx", "ucCaseFollowUp");
-                    break;
-                case "audit":
-                    UserControlLoader.LoadUserControl(UCLOCATION + "Audit.ascx", "ucAudit");
-                    break;
+                switch (e.SelectedTabID)
+                {
+                    case "caseDetail":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
+                        break;
+                    case "caseLoan":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "CaseLoan.ascx", "ucCaseLoan");
+                        break;
+                    case "budget":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "Budget.ascx", "ucBudget");
+                        break;
+                    case "outcome":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "Outcome.ascx", "ucOutcome");
+                        break;
+                    case "accounting":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "Accounting.ascx", "ucAccounting");
+                        break;
+                    case "activityLog":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "ActivityLog.ascx", "ucActivityLog");
+                        break;
+                    case "caseFollowUp":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "CaseFollowUp.ascx", "ucCaseFollowUp");
+                        break;
+                    case "audit":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "Audit.ascx", "ucAudit");
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                AddErrorMessage(ex.Message);
+                ExceptionProcessor.HandleException(ex);
+            }
+            
         }
         protected void btnEmailSummary_Click(object sender, EventArgs e)
         {
@@ -152,32 +162,49 @@ namespace HPF.FutureState.Web
 
         private void PopupEmail()
         {
-            if (Request.QueryString["CaseID"] == null)
-                return;
-            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Email Summary", "<script language='javascript'>window.open('EmailSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=500px')</script>");
+            try
+            {
+                if (Request.QueryString["CaseID"] == null)
+                    return;
+                int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+                Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Email Summary", "<script language='javascript'>window.open('EmailSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=500px')</script>");
+            }
+            catch (Exception ex)
+            {
+                AddErrorMessage(ex.Message);
+                ExceptionProcessor.HandleException(ex);
+            }
         }
         protected void btn_Print_Click(object sender, EventArgs e)
         {
-            if (Request.QueryString["CaseID"] == null)
-                return;
-            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
-            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
+            try
+            {
+                if (Request.QueryString["CaseID"] == null)
+                    return;
+                int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+                Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print Summary", "<script language='javascript'>window.open('PrintSummary.aspx?CaseID=" + caseid + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
+            }
+            catch (Exception ex)
+            {
+                AddErrorMessage(ex.Message);
+                ExceptionProcessor.HandleException(ex);
+            }
         }
 
         protected void btnResendServicer_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["CaseID"] == null)
                 return;
-            int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
+            
             try
             {
+                int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
                 var foreclosureCase = GetForeclosureCase(caseid);
                 ForeclosureCaseBL.Instance.ResendToServicer(foreclosureCase);
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text += ex.Message;
+                AddErrorMessage(ex.Message);
                 ExceptionProcessor.HandleException(ex);
             }
         }

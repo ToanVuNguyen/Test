@@ -48,7 +48,7 @@
                 &nbsp;
             </td>
             <td align="right" class="sidelinks">
-                Phone & Ext:
+                Phone &amp; Ext:
             </td>
             <td class="Text">
                 <asp:Label ID="lblPhone" runat="server" >877-123-1234 x55432</asp:Label>
@@ -84,13 +84,14 @@
                 Case Loans:
             </td>
             <td colspan="6">
-                <asp:Label ID="lblLoanList" runat="server" CssClass="Text">1298494593 - Citibank; 554587876 - 
-                Bank of America</asp:Label>
+                <asp:Label ID="lblLoanList" runat="server" CssClass="Text">1298494593 - 
+                Citibank; 554587876 - Bank of America</asp:Label>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
+            <td colspan="7">
+                <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+                </asp:BulletedList>
             </td>
         </tr>
         <tr>
