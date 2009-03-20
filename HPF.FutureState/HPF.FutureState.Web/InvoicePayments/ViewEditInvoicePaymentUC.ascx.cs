@@ -129,7 +129,6 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void btnSave_Click(object sender, EventArgs e)
         {
             SaveInvoicePayment();
-            
         }
         private void ClearErrorMessage()
         {

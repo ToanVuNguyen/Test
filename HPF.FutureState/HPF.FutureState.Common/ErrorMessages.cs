@@ -699,7 +699,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0563, "A valid Period End date is required to search for Invoices.");
                 errorMessageDict.Add(ERR0564, "A Non-Servicer Funding Source Option is required to search for Invoices.");
                 errorMessageDict.Add(ERR0565, "A Program selection is required to search for Invoices.");
-                errorMessageDict.Add(WARN0566, "No Invoice were found that match your search criteria.");
+                errorMessageDict.Add(WARN0566, "No Invoices were found that match your search criteria.");
                 errorMessageDict.Add(ERR0567, "An invoice must be selected in order to cancel it.");
                 errorMessageDict.Add(ERR0568, "An invoice must be selected in order to view or edit it.");
                 errorMessageDict.Add(ERR0569, "Max Number of cases must be 1-65,000.");
