@@ -70,7 +70,7 @@ namespace HPF.FutureState.BusinessLogic
             catch
             {
 
-                var QUEUE_ERROR_MESSAGE = "Fail to push completed case to Queue : " + fcId;
+                var QUEUE_ERROR_MESSAGE = "Fail to push completed case into Queue : " + fcId;
                 //Log
                 Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
                 //Send E-mail to support
