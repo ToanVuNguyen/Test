@@ -93,7 +93,7 @@
         <td>
             &nbsp;</td>
         <td align="center">
-            <asp:Button ID="btnSave" runat="server" Text="Save" OnClientClick="hidFileName.value=fileUpload.value;" CssClass="MyButton" 
+            <asp:Button ID="btnSave" runat="server" Text="Save"  CssClass="MyButton" 
                 width="100px" onclick="btnSave_Click"/>
             &nbsp;&nbsp;
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" Width="100px"
@@ -118,10 +118,6 @@
     var fileUpload = document.getElementById('<%=fileUpload.ClientID %>');
     var txtComment = document.getElementById('<%=txtComment.ClientID %>');
     var hidden = document.getElementById('<%=hiddenIsSave.ClientID %>');
-    var hidFileName = document.getElementById('<%=hidFileName.ClientID %>');
-    if(hidFileName.value!='')
-        fileUpload.value = hidFileName.value;
-    alert(hidFileName.value);
     var invoicePayment = function(paymentId, fundingSource, paymentNum, paymentDt, paymentType, 
     paymentAmt, fileUpload, txtComment)
     {        
