@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<DTSDeploymentManifest GeneratedBy="PC\Administrator" GeneratedFromProjectName="HPF" GeneratedDate="2009-03-04T01:05:04.6875000+07:00" AllowConfigurationChanges="true">
+	<Package>Main.dtsx</Package>
+	<Package>Referral.dtsx</Package>
+	<Package>Referral_budget.dtsx</Package>
+	<Package>Ref_result_type_hist.dtsx</Package>
+	<ConfigurationFile>HPF_Config.dtsConfig</ConfigurationFile>
+</DTSDeploymentManifest>

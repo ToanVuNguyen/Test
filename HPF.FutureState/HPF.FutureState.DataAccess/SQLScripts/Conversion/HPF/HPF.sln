@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "HPF", "HPF.dtproj", "{D564C25C-BE6D-40D9-AEDC-DAE9BA234D9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D564C25C-BE6D-40D9-AEDC-DAE9BA234D9A}.Development|Default.ActiveCfg = Development
+		{D564C25C-BE6D-40D9-AEDC-DAE9BA234D9A}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

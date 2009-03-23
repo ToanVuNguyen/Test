@@ -440,7 +440,7 @@ CREATE TABLE call (
   start_dt DATETIME    NOT NULL,
   end_dt DATETIME    NOT NULL,
   dnis VARCHAR(10)    ,
-  call_center VARCHAR(4)    ,
+  call_center_name VARCHAR(4)    ,
   call_source_cd VARCHAR(15)    ,
   reason_for_call VARCHAR(75)    ,
   loan_acct_num VARCHAR(30)    ,
