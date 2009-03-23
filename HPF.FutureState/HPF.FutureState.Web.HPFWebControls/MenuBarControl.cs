@@ -11,6 +11,8 @@ namespace HPF.FutureState.Web.HPFWebControls
 
         private readonly List<string> _enabledMenus;
 
+        private readonly List<string> _DisabledGroupMenus;
+
         public string XmlMenuFile
         {
             get
@@ -40,6 +42,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         {
             _disabledMenus = new List<string>();
             _enabledMenus = new List<string>();
+            _DisabledGroupMenus=new List<string>();
         }
         /// <summary>
         /// Enabled Menu by menu id
@@ -59,11 +62,23 @@ namespace HPF.FutureState.Web.HPFWebControls
             _disabledMenus.Add(id);
         }
 
+        public void DisableAGroupMenu(string id)
+        {
+            _DisabledGroupMenus.Add(id);
+        }
+
         protected override void Render(HtmlTextWriter writer)
         {
             if (DesignMode)
                 return;
             var menuBar = GetMenuBar();
+            foreach (var menuGroup in menuBar)
+            {
+                if(_DisabledGroupMenus.Contains(menuGroup.Id))
+                {
+                    menuGroup.Enabled = false;
+                }
+            }
             //Render Menu
             writer.Write("<table id='sddm'>");
             writer.Write("<tr>");

@@ -15,9 +15,11 @@ namespace HPF.FutureState.Web.HPFWebControls
     {
         private readonly Dictionary<string, Menu> _MenuList;
 
+        
+
         public MenuBar()
         {
-            _MenuList = new Dictionary<string, Menu>();
+            _MenuList = new Dictionary<string, Menu>();            
         }
 
         public void AddMenu(Menu menu)
@@ -81,7 +83,8 @@ namespace HPF.FutureState.Web.HPFWebControls
             {
                 menu = new Menu { Id = menuGroup.GroupId.ToString(), Title = menuGroup.GroupName, Url = menuGroup.GroupTarget, Visibled = true };
                 if (menuGroup.MenuItemList.Count==0&&menuGroup.GroupTarget=="#")
-                    menu.Enabled = false;
+                    menu.Enabled = false;              
+
                 foreach (MenuItemDTO menuItem in menuGroup.MenuItemList)
                 {
                     if (menuItem.Visible)

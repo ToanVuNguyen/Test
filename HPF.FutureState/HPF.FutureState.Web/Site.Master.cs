@@ -23,6 +23,10 @@ namespace HPF.FutureState.Web
             MenuBarControl.UserId = HPFWebSecurity.CurrentIdentity.UserId;
             lblUserName.Text = HPFWebSecurity.CurrentIdentity.DisplayName;
             lblVersion.Text = HPFConfigurationSettings.HPF_VERSION;
+            if(!HPFWebSecurity.CurrentIdentity.CanView("ForeclosureCaseInfo.aspx"))
+            {
+                MenuBarControl.DisableAGroupMenu("3");
+            }
         }
     }
 }
