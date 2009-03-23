@@ -119,7 +119,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
-        {
+        {            
             try
             {                
                 var hpfSharepointSummary = new HPFPortalCounselingSummary
@@ -155,7 +155,7 @@ namespace HPF.FutureState.BusinessLogic
             pdfFile.Append("_");
             pdfFile.Append(foreclosureCase.BorrowerLname);
             pdfFile.Append("_");
-            pdfFile.Append(foreclosureCase.BorrowerFname.Substring(1, 1));
+            pdfFile.Append(foreclosureCase.BorrowerFname.Substring(0, 1));
             if (caseLoan.LoanDelinqStatusCd == "120+" || foreclosureCase.FcNoticeReceiveInd == "Y")
             {
                 pdfFile.Append("_");
