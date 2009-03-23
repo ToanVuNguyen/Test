@@ -29,6 +29,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             ApplySecurity();
             try
             {
+                UpdateCheckedStatus();
                 btnReject.Attributes.Add("onclick", " return onRejectClick();");
                 btnPay.Attributes.Add("onclick", " return onPayClick();");
                 btnUnpay.Attributes.Add("onclick", " return onUnPayClick();");
@@ -56,6 +57,8 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             Session["invoiceSet"] = invoiceSet;
             BindInvoice(invoiceSet);
             BindInvoiceCases(invoiceSet);
+            SelectedRowIndex.Value = "";
+
         }
         private void BindInvoiceCases(InvoiceSetDTO invoiceSet)
         {
@@ -131,6 +134,10 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 if (chkSelected != null)
                     chkSelected.Checked = headerCheckbox.Checked;
             }
+            if (headerCheckbox.Checked == true)
+                SelectedRowIndex.Value = "true";
+            else
+                SelectedRowIndex.Value = "";
         }
         /// <summary>
         /// Get selected InvoiceCase list
@@ -155,7 +162,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                         //if pay then set invoice case payment equal Invoice case bill 
                         else if (updateFlag == InvoiceCaseUpdateFlag.Pay)
                             invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCasePaymentAmount = invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseBillAmount;
-                        else
+                        else if (updateFlag == InvoiceCaseUpdateFlag.Unpay)
                             invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCasePaymentAmount = 0;
                     }
             }
@@ -305,8 +312,18 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         {
             CheckBox chk = (CheckBox)e.Row.FindControl("chkSelected");
             if (chk != null)
-                chk.Attributes.Add("onclick", " validate(this)");
+                chk.AutoPostBack = true;
+        }
 
+        
+
+        private void UpdateCheckedStatus()
+        {
+            string idCollection = GetSelectedRows(InvoiceCaseUpdateFlag.None);
+            if (idCollection == null)
+                SelectedRowIndex.Value = "";
+            else
+                SelectedRowIndex.Value = "true";
         }
         protected void btnYesPay_Click(object sender, EventArgs e)
         {
