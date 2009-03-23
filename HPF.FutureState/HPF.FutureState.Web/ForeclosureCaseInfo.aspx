@@ -1,6 +1,6 @@
 <%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ForeclosureCaseInfo.aspx.cs"
     Inherits="HPF.FutureState.Web.AppForeclosureCaseDetailPage" Title="Forclosure Case Info"
-    EnableEventValidation="false" %>
+    EnableEventValidation="false" enableViewStateMac="false" viewstateencryptionmode="Never"%>
 
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="HPF" %>
