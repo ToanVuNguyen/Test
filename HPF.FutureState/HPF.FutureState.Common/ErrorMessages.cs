@@ -353,6 +353,9 @@ namespace HPF.FutureState.Common
         public const string ERR0702 = "ERR0702";
         public const string ERR0703 = "ERR0703";
         public const string ERR0704 = "ERR0704";
+        public const string ERR0705 = "ERR0705";
+        public const string ERR0706 = "ERR0706";
+        public const string ERR0707 = "ERR0705";
 
         //WS Send summary
         public const string ERR0800 = "ERR0800";
@@ -765,6 +768,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0702, "An Audit Type is required to save an audit record.");
                 errorMessageDict.Add(ERR0703, "A Follow-Up Date is required to save a follow-up record.");
                 errorMessageDict.Add(ERR0704, "A Follow-Up Source is required to save a follow-up record.");
+                errorMessageDict.Add(ERR0705, "Follow-Up Date must be a valid date between 1/1/1753 and 12/31/9999.");
+                errorMessageDict.Add(ERR0706, "Follow-Up Comment's max length is 8000 chars.");
+                errorMessageDict.Add(ERR0707, "Credit Date must be a valid date between 1/1/1753 and 12/31/9999.");
 
                 //WS Send Summary
                 
