@@ -38,7 +38,7 @@
                 </tr>
                 <tr>
                     <td class="sidelinks" align="right">
-                        Subject:
+                        Subject*:
                     </td>
                     <td align="left">
                         <asp:TextBox ID="txtSubject" runat="server" Width="900px" CssClass="Text"  ></asp:TextBox>
