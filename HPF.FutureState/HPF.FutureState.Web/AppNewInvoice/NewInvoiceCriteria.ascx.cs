@@ -452,7 +452,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text);
                 if(searchCriteria.MaxNumOfCases!=int.MinValue)
-                    if (searchCriteria.MaxNumOfCases > 65000||searchCriteria.MaxNumOfCases<0)
+                    if (searchCriteria.MaxNumOfCases > 65000||searchCriteria.MaxNumOfCases<=0)
                         throw (new Exception());
             }
             catch
@@ -467,7 +467,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ex.ExceptionMessages.Add(exMes);
             }
             else
-                searchCriteria.City = txtCity.Text;
+                searchCriteria.City = txtCity.Text.Trim();
             searchCriteria.State = dropState.SelectedValue;
             if (chkUnfunded.Enabled == false)
             {
