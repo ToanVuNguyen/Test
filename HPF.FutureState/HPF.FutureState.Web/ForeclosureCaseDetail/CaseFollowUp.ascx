@@ -88,7 +88,7 @@
         </td>
         <td align="right" class="sidelinks"  width="20%">Credit Score: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditScore" width="150px" runat="server" MaxLength="4" 
+            <asp:TextBox ID="txt_CreditScore" width="200px" runat="server" MaxLength="4" 
                 CssClass="Text" TabIndex="7"></asp:TextBox>
         </td>
     </tr>
@@ -96,13 +96,13 @@
         <td align="right" class="sidelinks" width="20%">Follow-Up Source*: </td>
         <td align="left"  width="30%">
             <asp:DropDownList ID="ddl_FollowUpSource" runat="server" CssClass="Text" 
-                Width="150px" TabIndex="3">
+                Width="300px" TabIndex="3">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Bureau: </td>
         <td align="left" width="30%">
             <asp:DropDownList ID="ddl_CreditReportBureau" runat="server" CssClass="Text" 
-                Width="150px" TabIndex="8">
+                Width="200px" TabIndex="8">
             </asp:DropDownList>
         </td>
     </tr>
@@ -110,12 +110,12 @@
         <td align="right" class="sidelinks" width="20%">Follow-Up Outcome: </td>
         <td align="left" width="30%">
             <asp:DropDownList ID="ddl_FollowUpOutcome" runat="server" CssClass="Text" 
-                Width="150px" TabIndex="4">
+                Width="350px" TabIndex="4">
             </asp:DropDownList>
         </td>
         <td align="right" class="sidelinks" width="20%">Credit Report Date: </td>
         <td align="left">
-            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="150px" 
+            <asp:TextBox ID="txt_CreditReportDt" runat="server" width="200px" 
                 MaxLength="10" CssClass="Text" TabIndex="9"></asp:TextBox>
         </td>
     </tr>    
