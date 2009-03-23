@@ -16,6 +16,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils.DataValidator;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
@@ -365,12 +366,29 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         #region ValidateData
         private ExceptionMessageCollection ValidateFollowUpDTO(CaseFollowUpDTO followUp)
         {
-            var msgFolowUp = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(followUp, Constant.RULESET_FOLLOW_UP) };
+            ExceptionMessageCollection msgFolowUp = new ExceptionMessageCollection();
+            ValidationResults validResults = HPFValidator.Validate<CaseFollowUpDTO>(followUp, Constant.RULESET_FOLLOW_UP);
+            DataValidationException dataValidExp = new DataValidationException();
+            string errorCode = "";
+            string errorMessage = "";
+            if (!validResults.IsValid)
+            {
+                foreach (var validResult in validResults)
+                {
+                    errorCode = string.IsNullOrEmpty(validResult.Tag) ? "ERROR" : validResult.Tag;
+                    errorMessage = string.IsNullOrEmpty(validResult.Tag) ? validResult.Message : ErrorMessages.GetExceptionMessageCombined(validResult.Tag);
+                    dataValidExp.ExceptionMessages.AddExceptionMessage(errorCode, errorMessage);
+                }
+            }
+            if (dataValidExp.ExceptionMessages.Count != 0)
+            {
+                msgFolowUp.AddExceptionMessage(errorCode, errorMessage);
+            }
+            //var msgFolowUp = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(followUp, Constant.RULESET_FOLLOW_UP) };
             if (followUp.FollowUpSourceCd.ToUpper().Trim() == Constant.FOLLOW_UP_CD_CREDIT_REPORT)
             {
                 if (string.IsNullOrEmpty(followUp.CreditScore) || string.IsNullOrEmpty(followUp.CreditBureauCd) || followUp.CreditReportDt == null)
                     msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700--A Credit Score, Credit Report Bureau and Credit Report Date are all required together to save a Credit Report follow-up record.");
-                 
             }
             return msgFolowUp;
         }

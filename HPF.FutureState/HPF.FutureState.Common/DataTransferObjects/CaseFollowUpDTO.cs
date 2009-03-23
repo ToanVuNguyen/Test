@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "ERR0705--Follow-Up Date must be a valid date between 1/1/1753 and 12/31/9999.")]
         public DateTime? FollowUpDt { get; set; }
 
-        [NullableOrStringLengthValidator(true, 8000, "Follow-Up Comment", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "ERR706--The Follow-Up Comment has a max length of 8,000 characters.")]
+        [NullableOrStringLengthValidator(true, 15, "Follow-Up Comment", Ruleset = Constant.RULESET_FOLLOW_UP, Tag = ErrorMessages.ERR0706)]
         public string FollowUpComment { get; set; }
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR0704, Ruleset = Constant.RULESET_FOLLOW_UP)]
