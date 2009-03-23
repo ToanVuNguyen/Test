@@ -26,6 +26,7 @@ namespace HPF.FutureState.WebService.Test.Web
             int fcid = 0;
             if (!int.TryParse(txtFcId.Text.Trim(), out fcid))
                 fcid = int.MinValue;
+
             SendSummaryRequest request = new SendSummaryRequest()
             {
                 FCId = fcid,
