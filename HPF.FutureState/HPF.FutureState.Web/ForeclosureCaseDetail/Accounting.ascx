@@ -7,7 +7,7 @@
     <table width="100%">
         <tr>
             <td>
-                <asp:BulletedList ID="bullblErrorMessage" runat="server" CssClass="ErrorMessage" Text=""></asp:BulletedList>
+                <asp:BulletedList ID="bullblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
             </td>
         </tr>
         <tr>

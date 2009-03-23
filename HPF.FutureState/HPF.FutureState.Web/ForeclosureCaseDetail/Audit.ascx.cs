@@ -47,10 +47,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     BindDataToReviewedByDDL();
                     BindDataToAuditTypeDDL();
                     BindDataToAuditFailureReasonDDL();
-                    
-                    hfAction.Value = ACTION_INSERT;
-                    btnCancel.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "');");
-                    btnNew.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "');");                    
+                                        
+                    btnCancel.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "','-2');");
+                    btnNew.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "','-1');");                    
                 }
                 
             }
@@ -66,20 +65,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL)
-                DoSaving();
-
+        {            
             ClearPage();
         }
         
         private void btnEdit_Click(object sender, EventArgs e)
         {
             Button btnEdit = sender as Button;
-
-            if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL.ToUpper())
-                DoSaving();
-
+         
             int index = int.Parse(btnEdit.CommandArgument.ToString());
             grdvCaseAudit.SelectedIndex = index;
             CaseAuditDTO caseAudit = ((CaseAuditDTOCollection)grdvCaseAudit.DataSource)[index];
@@ -92,9 +85,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            if (hfDoSaving.Value == Constant.INDICATOR_YES_FULL.ToUpper())
-                DoSaving();
-
             ClearPage();
             hfAction.Value = ACTION_INSERT;
             lblFormTitle.Text = "Audit detail - Inserting";
@@ -115,7 +105,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 Button btnEdit = e.Row.Cells[idxCommandFieldColumn].FindControl("btnEdit") as Button;
                 if (btnEdit != null)
                 {                    
-                    btnEdit.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "');");
+                    btnEdit.Attributes.Add("onclick", "return ConfirmToSave('" + msgWARN0450 + "','" + e.Row.DataItemIndex +"');");
                     btnEdit.Click += new EventHandler(btnEdit_Click);
                     btnEdit.CommandArgument = e.Row.RowIndex.ToString();
                 }                
@@ -129,20 +119,45 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     return refCode;
             return new RefCodeItemDTO();
         }
-        protected override void OnUnload(EventArgs e)
-        {
-            if (hfDoSaving.Value != string.Empty && hfDoSaving.Value == Constant.INDICATOR_YES_FULL.ToUpper())
-                DoSaving();
 
-            base.OnUnload(e);
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            DoSaving();
+            UpdateUI();
+        }
+        protected void btnNo_Click(object sender, EventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            if (selRow.Value == "-1")
+            {
+                hfAction.Value = ACTION_INSERT;
+                grdvCaseAudit.SelectedIndex = -1;
+                lblFormTitle.Text = "Audit detail - Inserting";
+                txtAuditDate.Text = DateTime.Today.ToShortDateString();
+                txtAuditDate.Focus();
+            }
+            else if (selRow.Value == "-2")
+            {
+                grdvCaseAudit.SelectedIndex = -1;
+                ClearPage();
+            }
+            else if (selRow.Value != string.Empty && selRow.Value.ToUpper() != "UNDEFINED")
+            {
+                grdvCaseAudit.SelectedIndex = int.Parse(selRow.Value);
+            }
+
+            selRow.Value = string.Empty;
         }
         #region helper
 
         private void DoSaving()
         {
             try
-            {
-                hfDoSaving.Value = "";
+            {        
                 CaseAuditDTO caseAudit = FormToCaseAuditDTO();
                 if (!string.IsNullOrEmpty(hfAction.Value))
                 {

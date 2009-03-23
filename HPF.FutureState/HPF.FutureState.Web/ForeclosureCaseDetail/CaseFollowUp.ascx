@@ -192,28 +192,7 @@
     var caseFollowUpBefore = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
             , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);
     var caseFollowUpAfter = new CaseFollowUp();
-    
-    function ConfirmToCancel()
-    {   
-        caseFollowUpAfter = new CaseFollowUp(followUpDate.value, creditScore.value, followUpSource.value
-            , creditReportBureau.value, followUpOutcome.value, creditReportDt.value, delinqencyStatus.value, followUpComment.value, stillInHome.value);        
-        if(CompareCaseFollowUpObject(caseFollowUpAfter))
-        {            
-             if (confirm(msfWARN0450)==true)
-                return true;
-             else
-             {
-                ClearAllControl();
-                return false;         
-             }
-        }
-        else
-        {            
-            ClearAllControl();
-            return false;
-        }
-    }
-    
+        
     function CompareCaseFollowUpObject(caseFollowUpAfter)
     {
         if(caseFollowUpAfter.FollowUpDate != caseFollowUpBefore.FollowUpDate
@@ -268,18 +247,14 @@
     TabControl.onChanged= function ChangeTabData(toTabId)
     {
         tempTabId.value = toTabId;
-        return ConfirmEdit(msfWARN0450);
+        return ConfirmEdit(msfWARN0450, "");
     };
         
     function ChangeData()
     {
-      return ConfirmEdit(msfWARN0450);
+      //return ConfirmEdit(msfWARN0450, "");
     }
-    
-    function setSelectedRow(index)
-    {
-        selRow.value = index;
-    }
+        
 </script>
 
 <div id="mdgCaseFollowup" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">

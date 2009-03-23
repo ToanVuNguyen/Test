@@ -94,8 +94,9 @@
                     <td>
                         <asp:HiddenField ID="hfAction" runat="server" />
                     </td>
-                    <td>
-                        <asp:HiddenField ID="hfDoSaving" runat = "server"/>
+                    <td> 
+                    <asp:HiddenField ID="selRow" runat="server" />
+                    <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>                       
                     </td>
                 </tr>
                 <tr>
@@ -217,9 +218,10 @@
         </td>
     </tr>
 </table>
+
 <script type="text/javascript" language="javascript">
-    var msfWARN0450 = '<%= msgWARN0450 %>';
-    var hfDoSaving = document.getElementById('<%=hfDoSaving.ClientID %>');
+    var msfWARN0450 = '<%= msgWARN0450 %>';    
+    var selRow = document.getElementById('<%=selRow.ClientID %>');
     var ddlAppropriateOutcome = document.getElementById('<%=ddlAppropriateOutcome.ClientID %>');
     var txtAuditComment  = document.getElementById('<%=txtAuditComment.ClientID %>'); 
     var txtAuditDate  = document.getElementById('<%=txtAuditDate.ClientID %>');
@@ -233,6 +235,13 @@
     var ddlVerbalPrivacyConsent = document.getElementById('<%=ddlVerbalPrivacyConsent.ClientID %>');
     var ddlWrittenPrivacyConsent = document.getElementById('<%=ddlWrittenPrivacyConsent.ClientID %>');
     
+    var tempTabId = document.getElementById('<%=selTabCtrl.ClientID%>');
+    if(tempTabId.value!='')
+    {
+        tabid = tempTabId.value;
+        tempTabId.value='';
+        TabControl.SelectTab(tabid);
+    }
     
     var CaseAudit = function(appropriateOutcomeInd, auditComments, auditDt, auditFailureReasonCode, auditTypeCode, 
     budgetCompletedInd, clientActionPlanInd, compliantInd, reasonForDefaultInd, reviewedBy, verbalPrivacyConsentInd, writtenActionConsentInd)
@@ -258,23 +267,21 @@
     var caseAuditAfter = new CaseAudit();
     
     
-    function ConfirmToSave(message)
+    function ConfirmToSave(message, selDataRow)
     {   
+        if(selDataRow != "")
+            selRow.value = selDataRow;
+            
         caseAuditAfter = new CaseAudit(ddlAppropriateOutcome.value, txtAuditComment.value, txtAuditDate.value
             , ddlAuditFailureReason.value, ddlAuditType.value, ddlBudgetCompleted.value, ddlClientActionPlan.value
             , ddlCompliant.value, ddlReasonForDefault.value, ddlReviewedBy.value, ddlVerbalPrivacyConsent.value, ddlWrittenPrivacyConsent.value);
         
         if(IsDifferent(caseAuditBefore, caseAuditAfter))
         {
-            var b = confirm(message);
-            if (b)
-                hfDoSaving.value = "YES";       
-            else
-                hfDoSaving.value = "NO";
-            return true;
+            Popup.showModal('mdgCaseAudit');             
+            return false;  
         }
-        
-        hfDoSaving.value = "NO";    
+                
         return true;
     }
     
@@ -296,11 +303,34 @@
                 
          return false;        
     }
-    TabControl.onChanged = function() {
-        ConfirmToSave(msfWARN0450);
+    TabControl.onChanged = function ChangeTabData(toTabId)
+    {
+        tempTabId.value = toTabId;
+        return ConfirmToSave(msfWARN0450, "");
     };
+    
     function ChangeData()
     {
-        ConfirmToSave(msfWARN0450);
-    };    
+      return ConfirmToSave(msfWARN0450, "");
+    }
 </script>
+
+<div id="mdgCaseAudit" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    <%=msgWARN0450%>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('mdgCaseAudit');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" onclick="btnNo_Click" OnClientClick="Popup.hide('mdgCaseAudit');TabControl.SelectTab(tempTabId.value)" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+    </div>

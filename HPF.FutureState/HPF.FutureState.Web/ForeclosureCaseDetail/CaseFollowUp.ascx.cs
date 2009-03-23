@@ -40,8 +40,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     ddlDelinquencyStatusBinding();
                     ddlStillInHomeBinding();                    
 
-                    btn_Cancel.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "','-1');");
-                    btn_New.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "','0');");                                        
+                    btn_Cancel.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "','-2');");
+                    btn_New.Attributes.Add("onclick", "return ConfirmEdit('" + msgWARN0450 + "','-1');");                                        
                 }                
             }
             catch (Exception ex)
@@ -343,13 +343,14 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         private void UpdateUI()
         {
-            if (selRow.Value == "0")
+            if (selRow.Value == "-1")
             {
+                hfAction.Value = ACTION_INSERT;
                 grd_FollowUpList.SelectedIndex = -1;
                 GenerateDefaultData();
                 txt_FollowUpDt.Focus();
             }
-            else if (selRow.Value == "-1")
+            else if (selRow.Value == "-2")
             {
                 grd_FollowUpList.SelectedIndex = -1;
                 ClearControls();                
