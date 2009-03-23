@@ -732,7 +732,7 @@
                       </Style>
                       <ZIndex>7</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>="$" &amp; Sum(Fields!sessions.Value*Fields!Rate.Value)</Value>
+                      <Value>=Sum(Fields!sessions.Value*Fields!Rate.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>

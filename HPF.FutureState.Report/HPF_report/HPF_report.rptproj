@@ -129,7 +129,7 @@
       <Name>Production</Name>
       <Platform>Win32</Platform>
       <Options>
-        <TargetServerURL>http://hpf-04:8088/ReportCenter/</TargetServerURL>
+        <TargetServerURL>http://hpf-04:8088/</TargetServerURL>
         <TargetFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/Reports</TargetFolder>
         <TargetDataSourceFolder>http://hpf-02:8088/ReportCenter/ReportsLibrary/DataSources</TargetDataSourceFolder>
         <OverwriteDataSources>true</OverwriteDataSources>
