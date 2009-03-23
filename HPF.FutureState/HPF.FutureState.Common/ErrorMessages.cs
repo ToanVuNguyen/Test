@@ -607,7 +607,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0358, "An invalid code was provided for CallSourceCd.");
                 errorMessageDict.Add(ERR0359, "An invalid code was provided for LoanDelinqStatusCd.");
                 errorMessageDict.Add(ERR0360, "An invalid Agency ID was provided for PrevAgencyID.");
-                errorMessageDict.Add(ERR0361, "An invalid Servicer ID was provided for ServicerId.");
+                errorMessageDict.Add(ERR0361, "An invalid Servicer ID was provided for AcctNum: {0}.");
                 errorMessageDict.Add(ERR0362, "An invalid Agency ID was provided for SelectedAgencyID.");
                 errorMessageDict.Add(ERR0363, "DNIS has a maximum length of 10 characters.");
                 errorMessageDict.Add(ERR0364, "CallCenter has a maximum length of 4 characters.");

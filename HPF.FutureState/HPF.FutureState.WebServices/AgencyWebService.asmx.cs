@@ -57,8 +57,8 @@ namespace HPF.FutureState.WebServices
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
-                //response.Messages.AddExceptionMessage("Data access error.");
-                response.Messages.AddExceptionMessage(Ex.Message);
+                response.Messages.AddExceptionMessage("Data access error.");
+                //response.Messages.AddExceptionMessage(Ex.Message);
                 HandleException(Ex);
             }            
             catch (DuplicateException Ex)
@@ -108,13 +108,13 @@ namespace HPF.FutureState.WebServices
                         if (warningMsg.Length > 0)
                         {
                             response.Status = ResponseStatus.Warning;
-                            response.Messages.AddExceptionMessage(warningMsg);
+                            response.Messages.AddExceptionMessage(ErrorMessages.WARN0903, warningMsg);
                         }
                     }
                     else
                     {
                         response.Status = ResponseStatus.Fail;
-                        response.Messages.AddExceptionMessage(ErrorMessages.ERR0901 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0901));
+                        response.Messages.AddExceptionMessage(ErrorMessages.ERR0901, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0901));
                     }
                 }
             }
@@ -195,13 +195,13 @@ namespace HPF.FutureState.WebServices
             request.callLogId = request.callLogId.Trim();
             if (string.IsNullOrEmpty(request.callLogId))
             {
-                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0900 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0900));
+                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0900, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0900));
                 throw dataValidationException;
             }
             var validationResults = HPFValidator.Validate(request);
             if (!validationResults.IsValid)
             {
-                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0902));
+                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0902));
                 throw dataValidationException;
             }
             return true;
@@ -220,7 +220,7 @@ namespace HPF.FutureState.WebServices
                 catch
                 {
                     var dataValidationException = new DataValidationException();
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902 + "-" + ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0902));
+                    dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0902));
                     throw dataValidationException;
                 }
             }
@@ -262,13 +262,14 @@ namespace HPF.FutureState.WebServices
         private string GetCallWarningMessage(int callId)
         {
             string warningMsg = "";
-            string msgFormat = ErrorMessages.GetExceptionMessage(ErrorMessages.WARN0903);
+            string msgFormat = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0903);
             ForeclosureCaseCallSearchResultDTOCollection results = ForeclosureCaseSetBL.Instance.GetForclosureCaseFromCall(callId);
             
             foreach (ForeclosureCaseCallSearchResultDTO fc in results)
             {                
                 string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
-                if (warningMsg != "") warningMsg += "<br>";
+                if (warningMsg != "")
+                    warningMsg += "<br>";
                 warningMsg += buffer.Replace("  ", " ");
             }
 

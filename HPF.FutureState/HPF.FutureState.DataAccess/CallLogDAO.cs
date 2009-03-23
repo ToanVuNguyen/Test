@@ -212,7 +212,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
                         callLogDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
                         callLogDTO.DNIS = ConvertToString(reader["dnis"]);
-                        callLogDTO.CallCenter = ConvertToString(reader["call_center"]);
+                        callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
                         callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
                         callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
                         callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);

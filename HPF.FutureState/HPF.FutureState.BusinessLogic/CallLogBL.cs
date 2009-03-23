@@ -87,7 +87,7 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (ValidationResult result in validationResults)
                 {
                     string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessage(result.Tag);
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
                     errorList.AddExceptionMessage(errorCode, errorMess);
                 }
             }
@@ -100,13 +100,13 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();            
                       
             if (!referenceCode.Validate(ReferenceCode.CALL_SOURCE_CODE, aCallLog.CallSourceCd))
-                errorList.AddException(ErrorMessages.ERR0358);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0358, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0358));
 
             if (!referenceCode.Validate(ReferenceCode.FINAL_DISPO_CD, aCallLog.FinalDispoCd))
-                errorList.AddException(ErrorMessages.ERR0355);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0355, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0355));
 
             if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, aCallLog.LoanDelinqStatusCd))
-                errorList.AddException(ErrorMessages.ERR0359);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0359, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0359));
             
             
             return errorList;
@@ -127,13 +127,17 @@ namespace HPF.FutureState.BusinessLogic
             
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
             if (aCallLog.CallCenterID.HasValue && callCenterID == 0)
-                errorList.AddException(ErrorMessages.ERR0901);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0901, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0901));
             if (aCallLog.PrevAgencyId.HasValue && prevAgencyID == 0)
-                errorList.AddException(ErrorMessages.ERR0360);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0360, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0360));
             if (aCallLog.ServicerId.HasValue && servicerID == 0)
-                errorList.AddException(ErrorMessages.ERR0361);
+            {
+                string format = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0361);
+                string message = string.Format(format, aCallLog.LoanAccountNumber);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0361, message);
+            }
             if (aCallLog.SelectedAgencyId.HasValue && selectedAgencyId == 0)
-                errorList.AddException(ErrorMessages.ERR0362);
+                errorList.AddExceptionMessage(ErrorMessages.ERR0362, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0362));
             return errorList;
         }
 
@@ -178,7 +182,7 @@ namespace HPF.FutureState.BusinessLogic
             {                                
                 TimeSpan sp = new TimeSpan();
                 if (aCallLog.StartDate.Value.TimeOfDay == sp && aCallLog.EndDate.Value.TimeOfDay == sp)
-                    errorList.AddException(ErrorMessages.ERR0354);
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0354, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0354));
             }            
             return errorList;
         }
@@ -199,7 +203,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 if (string.IsNullOrEmpty(aCallLog.OtherServicerName))
                 {
-                    errorList.AddException(ErrorMessages.ERR0357);
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0357, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0357));
                     return errorList;
                 }
 
