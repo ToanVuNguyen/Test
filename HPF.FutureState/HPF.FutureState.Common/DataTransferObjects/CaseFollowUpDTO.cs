@@ -22,7 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Follow-Up Date must be between 1/1/1753 and 12/31/9999")]
         public DateTime? FollowUpDt { get; set; }
 
-        [NullableOrStringLengthValidator(true, 15, "Follow-Up Source", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Follow-Up Comment has a maximum length of 8000 characters.")]
+        [NullableOrStringLengthValidator(true, 8000, "Follow-Up Comment", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Follow-Up Comment has a maximum length of 8000 characters.")]
         public string FollowUpComment { get; set; }
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR0704, Ruleset = Constant.RULESET_FOLLOW_UP)]
@@ -37,7 +37,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string StillInHouseInd { get; set; }
 
-        [NullableOrStringLengthValidator(true, 15, "Follow-Up Source", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Credit Score has a maximum length of 4 characters.")]
+        [NullableOrStringLengthValidator(true, 4, "Creadit Score", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Credit Score has a maximum length of 4 characters.")]
         public string CreditScore { get; set; }
 
         public string CreditBureauCd { get; set; }
