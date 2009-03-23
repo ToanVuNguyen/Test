@@ -8,12 +8,12 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <table width="100%">
     <colgroup>
+        <col width="10%" />
         <col width="15%" />
         <col width="15%" />
-        <col width="20%" />
         <col width="15%" />
         <col width="10%" />
-        <col width="25%" />
+        <col width="35%" />
     </colgroup>
     <tr style="">
         <td colspan="6"  align="center">
@@ -72,7 +72,7 @@
             Agency:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlAgency" runat="server" Width="130px" CssClass="Text" 
+            <asp:DropDownList ID="ddlAgency" runat="server" Width="200px" CssClass="Text" 
                 Height="16px" TabIndex="10">
             </asp:DropDownList>
         </td>
@@ -96,7 +96,7 @@
             Program:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlProgram" runat="server" Width="130px" CssClass="Text" 
+            <asp:DropDownList ID="ddlProgram" runat="server" Width="200px" CssClass="Text" 
                 TabIndex="11">
             </asp:DropDownList>
         </td>
@@ -121,7 +121,7 @@
             Servicer:
         </td>
         <td class="Control">
-            <asp:DropDownList ID="ddlServicer" runat="server" Width="130px" CssClass="Text" 
+            <asp:DropDownList ID="ddlServicer" runat="server"  CssClass="Text" 
                 TabIndex="12">
             </asp:DropDownList>
         </td>

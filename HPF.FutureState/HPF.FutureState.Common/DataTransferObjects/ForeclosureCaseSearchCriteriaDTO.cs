@@ -101,7 +101,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrDigitsRequriedValidator(true, 5, "Property Zip",  Ruleset = "Default", Tag=ErrorMessages.ERR0377)]
         public string PropertyZip { get; set; }
 
-        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN" , Ruleset = "Default", Tag=ErrorMessages.ERR0376)]
+        [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = "Default", Tag = ErrorMessages.ERR0376)]
         public string Last4_SSN { get; set; }
 
         private string ProcessSQLSpecialCharacter(string sInput)

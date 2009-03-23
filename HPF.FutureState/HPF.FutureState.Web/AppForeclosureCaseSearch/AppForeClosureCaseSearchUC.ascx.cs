@@ -276,7 +276,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
             string textchangeFirstName = "";
             string textchangeLastName = "";
-            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text.Trim() == string.Empty ? null : txtSSN.Text.Trim();
+            
             //replace * by % to search like in fristname
             if (txtFirstName.Text != string.Empty)
             {
@@ -299,7 +299,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text.Trim() == string.Empty ? null : txtAgencyCaseID.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text.Trim()) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text.Trim());
-            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text == string.Empty.Trim() ? null : txtPropertyZip.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text.Trim() == string.Empty ? null : txtPropertyZip.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text.Trim() == string.Empty ? null : txtSSN.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
             appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
             appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
