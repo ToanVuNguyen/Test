@@ -23,7 +23,8 @@ namespace HPF.FutureState.Web
             MenuBarControl.UserId = HPFWebSecurity.CurrentIdentity.UserId;
             lblUserName.Text = HPFWebSecurity.CurrentIdentity.DisplayName;
             lblVersion.Text = HPFConfigurationSettings.HPF_VERSION;
-            if(!HPFWebSecurity.CurrentIdentity.CanView("ForeclosureCaseInfo.aspx"))
+            //Disable ForeclosureCaseInfo when user dont has neither read nor write permision 
+            if(!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
             {
                 MenuBarControl.DisableAGroupMenu("3");
             }

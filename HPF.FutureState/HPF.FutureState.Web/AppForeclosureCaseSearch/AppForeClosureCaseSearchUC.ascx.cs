@@ -52,6 +52,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             if (!IsPostBack)
             {
+                ApplySecurity();
                 //Bind data to dropdownlist.
                 BindProgramDropdownlist();
                 BindStateDropdownlist();
@@ -67,6 +68,13 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
                     GeneratePages(totalpage);
                 }
+            }
+        }
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
         }
         /// <summary>

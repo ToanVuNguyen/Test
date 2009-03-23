@@ -37,7 +37,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
             {
-                Response.Redirect("ErrorPage.aspx?CODE=ERR999");
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
             if (!HPFWebSecurity.CurrentIdentity.CanEdit(Constant.MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL))
             {

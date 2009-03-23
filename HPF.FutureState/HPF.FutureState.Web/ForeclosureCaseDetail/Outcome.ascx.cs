@@ -131,11 +131,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 btnDelete.Enabled = false;
                 btnReinstate.Enabled = false;
             }
-            else
-            {
-                btnDelete.Enabled = true;
-                btnReinstate.Enabled = true;
-            }
+            
         }
         private OutcomeItemDTOCollection RetrieveOutcomeItems(int fcid)
         {
