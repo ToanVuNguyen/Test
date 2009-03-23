@@ -355,7 +355,7 @@ namespace HPF.FutureState.Common
         public const string ERR0704 = "ERR0704";
         public const string ERR0705 = "ERR0705";
         public const string ERR0706 = "ERR0706";
-        public const string ERR0707 = "ERR0705";
+        public const string ERR0707 = "ERR0707";
 
         //WS Send summary
         public const string ERR0800 = "ERR0800";
