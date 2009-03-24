@@ -170,6 +170,7 @@ namespace HPF.FutureState.Common
         public const string ERR0271 = "ERR0271";
         public const string ERR0272 = "ERR0272";
         public const string ERR0273 = "ERR0273";
+        public const string ERR0283 = "ERR0283";
 
         public const string ERR0350 = "ERR0350";
         public const string ERR0351 = "ERR0351";
@@ -216,6 +217,15 @@ namespace HPF.FutureState.Common
 
         public const string ERR0376 = "ERR0376";
         public const string ERR0377 = "ERR0377";
+
+        public const string WARN0274 = "WARN0274";
+        public const string WARN0275 = "WARN0275";
+        public const string WARN0276 = "WARN0276";        
+        public const string WARN0278 = "WARN0278";
+        public const string WARN0279 = "WARN0279";
+        public const string WARN0280 = "WARN0280";
+        public const string WARN0281 = "WARN0281";
+        public const string WARN0282 = "WARN0282";
 
         public const string WARN0300 = "WARN0300";
         public const string WARN0301 = "WARN0301";
@@ -606,6 +616,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0271, "Invalid BorrowerDOB.  The Borrower's age must be 12 to 110.");
                 errorMessageDict.Add(ERR0272, "Invalid CoBorrowerDOB.  The CoBorrower's age must be 12 to 110.");
                 errorMessageDict.Add(ERR0273, "One Loan with a 1ST2NDCd of '1ST' is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0283, "The CallID provided was not a valid call ID.  The proper format is HPF####, where #### is an integer value that exists in the call table.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A valid StartDt is required to save a call.");
@@ -683,6 +694,15 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
                 errorMessageDict.Add(WARN0450, "Data has been changed.  Are you sure you want to cancel?");
+
+                errorMessageDict.Add(WARN0274, "The BankruptcyInd = Y is required to save a complete foreclosure case since a BankruptcyAttorney was provided.");
+                errorMessageDict.Add(WARN0275, "A BankruptcyAttorney is required to save a complete foreclosure case since the BankruptcyInd is Y.");
+                errorMessageDict.Add(WARN0276, "A BankruptcyPmtCurrentInd is required to save a complete foreclosure case since the BankruptcyInd = Y");                
+                errorMessageDict.Add(WARN0278, "A SummarySentOtherCd is required to save a complete foreclosure case since the a SummarySentOtherDt was provided.");
+                errorMessageDict.Add(WARN0279, "A SummarySentOtherDt is required to save a complete foreclosure case. Since the SummarySentOtherCd was provided.");
+                errorMessageDict.Add(WARN0280, "A SrvcrWorkoutPlanCurrentInd is required to save a complete foreclosure case since HasWorkoutPlanInd = Y.");
+                errorMessageDict.Add(WARN0281, "A HomeSalePrice is required to save a complete foreclosure case since the ForSaleInd = Y.");
+                errorMessageDict.Add(WARN0282, "An ArmResetInd is required on AcctNum: [XXX] to save a complete foreclosure case.");
 
                 errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}");
                 // App foreclosure Case Search

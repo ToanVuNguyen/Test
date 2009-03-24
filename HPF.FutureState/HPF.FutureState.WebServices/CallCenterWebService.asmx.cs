@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using HPF.FutureState.BusinessLogic;
+
+using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
@@ -35,7 +37,7 @@ namespace HPF.FutureState.WebServices
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
-                response.Messages.AddExceptionMessage(Ex.Message);
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
                 HandleException(Ex);
             }
             catch (DataValidationException Ex)

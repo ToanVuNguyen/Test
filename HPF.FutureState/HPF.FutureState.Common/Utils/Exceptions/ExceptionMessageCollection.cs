@@ -19,6 +19,8 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         public void AddExceptionMessage(string errorCode, string message)
         {
+            if (GetExceptionMessage(errorCode) != null)
+                return;
             Add(new ExceptionMessage
             {
                 ErrorCode = errorCode,
@@ -28,6 +30,9 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         public void AddException(string errorCode)
         {
+            if (GetExceptionMessage(errorCode) != null)
+                return;
+
             Add(new ExceptionMessage
             {
                 ErrorCode = errorCode,
@@ -42,6 +47,17 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                 result += message + "|";
             }
             return result;
+        }
+
+        public ExceptionMessage GetExceptionMessage(string errorCode)
+        {
+            foreach (ExceptionMessage msg in this)
+            {
+                if (msg.ErrorCode == errorCode)
+                    return msg;
+            }
+
+            return null;
         }
     }
 }
