@@ -95,7 +95,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             UpdateForclosureCase();
         }
-        protected void UpdateForclosureCase()
+        protected bool UpdateForclosureCase()
         {
             try
             {
@@ -107,11 +107,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                 AccountingBL.Instance.UpdateForeclosureCase(foreclosureCase);
                 bullblErrorMessage.Items.Add("Update Forclosurecase successfully");
+                return true;
             }
             catch (Exception ex)
             {
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                throw;
+                return false;
             }
         }
         protected void grvBillingInfo_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -145,7 +146,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            UpdateForclosureCase();
+            if (!UpdateForclosureCase())
+                selTabCtrl.Value = string.Empty;
         }
     }
 }

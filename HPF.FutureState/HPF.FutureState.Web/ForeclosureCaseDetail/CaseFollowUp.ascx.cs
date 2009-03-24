@@ -198,11 +198,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             hfAction.Value = null;
         }
 
-        protected void DoSaving()
+        protected bool DoSaving()
         {
             if (string.IsNullOrEmpty(hfAction.Value))
             {
-                return;
+                return false;
             }
             var caseFollowUp = CreateCaseFollowUpDTO();
             var msgFollowUp = ValidateFollowUpDTO(caseFollowUp);
@@ -225,7 +225,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 }
                 errorList.DataSource = err;
                 errorList.DataBind();
-            }            
+                return false;
+            }
+
+            return true;
         }
         #endregion
 
@@ -335,8 +338,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            DoSaving();
-            UpdateUI();
+            if (!DoSaving())
+                selTabCtrl.Value = string.Empty;
+            else
+                UpdateUI();
         }
         protected void btnNo_Click(object sender, EventArgs e)
         {
@@ -377,18 +382,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 {
                     errorCode = string.IsNullOrEmpty(validResult.Tag) ? "ERROR" : validResult.Tag;
                     errorMessage = string.IsNullOrEmpty(validResult.Tag) ? validResult.Message : ErrorMessages.GetExceptionMessageCombined(validResult.Tag);
-                    dataValidExp.ExceptionMessages.AddExceptionMessage(errorCode, errorMessage);
+                    //dataValidExp.ExceptionMessages.AddExceptionMessage(errorCode, errorMessage);
+                    msgFolowUp.AddExceptionMessage(errorCode, errorMessage);
                 }
             }
-            if (dataValidExp.ExceptionMessages.Count != 0)
-            {
-                msgFolowUp.AddExceptionMessage(errorCode, errorMessage);
-            }
+            
             //var msgFolowUp = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(followUp, Constant.RULESET_FOLLOW_UP) };
             if (followUp.FollowUpSourceCd.ToUpper().Trim() == Constant.FOLLOW_UP_CD_CREDIT_REPORT)
             {
                 if (string.IsNullOrEmpty(followUp.CreditScore) || string.IsNullOrEmpty(followUp.CreditBureauCd) || followUp.CreditReportDt == null)
-                    msgFolowUp.AddExceptionMessage("ERR0700", "ERR0700--A Credit Score, Credit Report Bureau and Credit Report Date are all required together to save a Credit Report follow-up record.");
+                    msgFolowUp.AddExceptionMessage(ErrorMessages.ERR0700, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0700));
             }
             return msgFolowUp;
         }

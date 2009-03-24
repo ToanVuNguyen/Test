@@ -259,30 +259,39 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             else
                 bulMessage.Items.Add(new ListItem("There is no data with this agency"));
         }
-        protected void UpdateForecloseCase()
+        protected bool UpdateForecloseCase()
         {
-            hidSaveIsYes.Value = "";
-            //get update datacollection from UI
-            ForeclosureCaseDTO foreclosureCase = null;
-            if (ddlAgency.SelectedValue != "inactive")
+            try
             {
-                foreclosureCase = GetUpdateInfo();
-
-
-                if (foreclosureCase != null)
+                bulMessage.Items.Clear();
+                hidSaveIsYes.Value = "";
+                //get update datacollection from UI
+                ForeclosureCaseDTO foreclosureCase = null;
+                if (ddlAgency.SelectedValue != "inactive")
                 {
-                    foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                    int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                    bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
+                    foreclosureCase = GetUpdateInfo();
+
+
+                    if (foreclosureCase != null)
+                    {
+                        foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                        int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
+                        bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
+                        return true;
+                    }
+                    else                    
+                        bulMessage.Items.Add(new ListItem("Agency null value, can't save"));                        
                 }
-                else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
+                else
+                    bulMessage.Items.Add(new ListItem("Can't Save foreclosure case because agency inactive."));                
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
 
-            else
-            {
-                bulMessage.Items.Add(new ListItem("Can't Save foreclosure case because agency inactive."));
-                return;
-            }
+            return false;
         }
         /// <summary>
         /// get update info from UI
@@ -315,17 +324,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
-            try
-            {
-                UpdateForecloseCase();
-                int caseid = Int32.Parse(Request.QueryString["CaseID"]);
-                Response.Redirect("ForeclosureCaseInfo.aspx?CaseID=" + caseid);
-            }
-            catch (Exception ex)
-            {
-                bulMessage.Items.Add(ex.Message);
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+            UpdateForecloseCase();
+            int caseid = Int32.Parse(Request.QueryString["CaseID"]);
+            Response.Redirect("ForeclosureCaseInfo.aspx?CaseID=" + caseid);
         }
 
         public string msgWARN0450
@@ -338,15 +339,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            try
-            {
-                UpdateForecloseCase();
-            }
-            catch (Exception ex)
-            {
-                bulMessage.Items.Add(ex.Message);
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+            if (!UpdateForecloseCase())
+                selTabCtrl.Value = string.Empty;
         }
     }
 }

@@ -122,8 +122,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            DoSaving();
-            UpdateUI();
+            if (!DoSaving())
+                selTabCtrl.Value = string.Empty;
+            else
+                UpdateUI();
         }
         protected void btnNo_Click(object sender, EventArgs e)
         {
@@ -154,7 +156,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         #region helper
 
-        private void DoSaving()
+        private bool DoSaving()
         {
             try
             {        
@@ -168,13 +170,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
                     BindingDataToGrdvCaseAudit();
                     ClearPage();
+                    return true;
                 }
             }
             catch (DataValidationException ex)
             {
                 errorList.DataSource = ex.ExceptionMessages;
-                errorList.DataBind();
-            }            
+                errorList.DataBind();                
+            }
+
+            return false;
         }
 
         private CaseAuditDTOCollection RetrieveCaseAudits(int fcid)
