@@ -51,7 +51,7 @@ namespace HPF.FutureState.Web
                     PopupEmail();
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 Response.Redirect("SearchForeclosureCase.aspx");
             }
@@ -159,7 +159,7 @@ namespace HPF.FutureState.Web
             catch (Exception ex)
             {
                 AddErrorMessage(ex.Message);
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             
         }
@@ -180,7 +180,7 @@ namespace HPF.FutureState.Web
             catch (Exception ex)
             {
                 AddErrorMessage(ex.Message);
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         protected void btn_Print_Click(object sender, EventArgs e)
@@ -195,7 +195,7 @@ namespace HPF.FutureState.Web
             catch (Exception ex)
             {
                 AddErrorMessage(ex.Message);
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
 
@@ -213,7 +213,7 @@ namespace HPF.FutureState.Web
             catch (Exception ex)
             {
                 AddErrorMessage(ex.Message);
-                ExceptionProcessor.HandleException(ex);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
     }

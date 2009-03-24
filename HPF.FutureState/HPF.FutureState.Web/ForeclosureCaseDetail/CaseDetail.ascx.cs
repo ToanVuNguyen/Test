@@ -22,14 +22,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
     {
         protected override void OnLoad(EventArgs e)
         {
-
-            
             bulMessage.Items.Clear();
             hidChkAgencyActive.Value = "";
             try
             {
-                ApplySecurity();                
-                
+                ApplySecurity();
                 if (Request.QueryString["CaseID"] != null)
                 {
                     int caseid = int.Parse(Request.QueryString["CaseID"].ToString());
@@ -41,9 +38,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                //Response.Redirect("SearchForeclosureCase.aspx");
             }
-
         }
         private void ApplySecurity()
         {
@@ -67,18 +62,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void BindDetailCaseData(int? caseid)
         {
             bulMessage.Items.Clear();
-            try
-            {
-                ForeclosureCaseDTO foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
-                if (foreclosureCase == null)
-                    return;
-                BindForeclosureCaseDetail(foreclosureCase);
-            }
-            catch (Exception ex)
-            {
-                bulMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(caseid);
+            if (foreclosureCase == null)
+                return;
+            BindForeclosureCaseDetail(foreclosureCase);
         }
         /// <summary>
         /// help to return Y: Yes, N: No and Null: ""
@@ -101,7 +88,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <param name="agencyname"></param>
         protected void BindDDLAgency(string agencyid)
         {
-
             AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataTextField = "AgencyName";
@@ -194,7 +180,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 if (foreclosureCase.DuplicateInd == "Y")
                     ddlDuplicate.SelectedIndex = 0;
                 else ddlDuplicate.SelectedIndex = 1;
-                //ddlAgency.SelectedValue = foreclosureCase.AgencyId.ToString();
                 lblAgencyCase.Text = foreclosureCase.AgencyCaseNum;
                 lblAgencyClient.Text = foreclosureCase.AgencyClientNum;
                 lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
@@ -268,6 +253,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     if (foreclosureCase.HpfSuccessStoryInd == "N")
                         ddlSuccessStory.SelectedIndex = 2;//no
                     else ddlSuccessStory.SelectedIndex = 0;//blank
+                //if (ddlAgency.SelectedIndex == -1)
                 BindDDLAgency(foreclosureCase.AgencyId.ToString());
             }
             else
@@ -282,23 +268,16 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 foreclosureCase = GetUpdateInfo();
 
-                try
+
+                if (foreclosureCase != null)
                 {
-                    if (foreclosureCase != null)
-                    {
-                        foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                        int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
-                        BindDetailCaseData(fcid);
-                        bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
-                    }
-                    else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
+                    foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
+                    bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
                 }
-                catch (Exception ex)
-                {
-                    bulMessage.Items.Add(new ListItem(ex.Message));
-                    ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                }
+                else bulMessage.Items.Add(new ListItem("Agency null value, can't save"));
             }
+
             else
             {
                 bulMessage.Items.Add(new ListItem("Can't Save foreclosure case because agency inactive."));
@@ -311,8 +290,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <returns></returns>
         private ForeclosureCaseDTO GetUpdateInfo()
         {
-
-
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             //case status
             foreclosureCase.FcId = int.Parse(ViewState["CaseID"].ToString());
@@ -338,10 +315,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void btn_Save_Click(object sender, EventArgs e)
         {
-            UpdateForecloseCase();
-            //int caseid =Int32.Parse(Request.QueryString["CaseID"]);
-            //Response.Redirect("ForeclosureCaseInfo.aspx?CaseID="+caseid);
-        }        
+            try
+            {
+                UpdateForecloseCase();
+                int caseid = Int32.Parse(Request.QueryString["CaseID"]);
+                Response.Redirect("ForeclosureCaseInfo.aspx?CaseID=" + caseid);
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
 
         public string msgWARN0450
         {
@@ -353,7 +338,15 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            UpdateForecloseCase();
+            try
+            {
+                UpdateForecloseCase();
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
     }
 }

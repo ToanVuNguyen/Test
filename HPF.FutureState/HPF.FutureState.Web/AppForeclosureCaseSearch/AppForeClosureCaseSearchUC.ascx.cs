@@ -418,7 +418,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                     lbtnLast.Enabled = true;
                     lbtnPrev.Enabled = true;
                     if (this.PageNum > 10) this.PageNum = 10;
-                    if (this.PageNum == totalpage)
+                    if (this.PageNum == totalpage||this.PageNum==10)
                     {
                         lbtnNext.Enabled = false;
                         lbtnLast.Enabled = false;
