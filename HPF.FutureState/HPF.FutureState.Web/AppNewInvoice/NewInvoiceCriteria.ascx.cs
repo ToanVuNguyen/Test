@@ -450,7 +450,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             //Max Num of cases
             try
             {
-                searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text);
+                searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text.Replace(",",""));
                 if(searchCriteria.MaxNumOfCases!=int.MinValue)
                     if (searchCriteria.MaxNumOfCases > 65000||searchCriteria.MaxNumOfCases<=0)
                         throw (new Exception());
