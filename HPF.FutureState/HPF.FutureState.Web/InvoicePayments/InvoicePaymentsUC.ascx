@@ -81,7 +81,7 @@
                             <Columns>
                                 <asp:BoundField HeaderText="Funding Source" DataField="FundingSourceName"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false"/>
                                 <asp:BoundField HeaderText="HPF Payment ID" DataField="InvoicePaymentID"  ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" />
-                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum"  ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Payment#" DataField="PaymentNum"  ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="Payment Date" DataField="PaymentDate" DataFormatString="{0:d}"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="Payment Code" DataField="PaymentTypeDesc"  ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="Payment Amt" DataField="PaymentAmount" DataFormatString="{0:C}" HeaderStyle-Wrap="false"
