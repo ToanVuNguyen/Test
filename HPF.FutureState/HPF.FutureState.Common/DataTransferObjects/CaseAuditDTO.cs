@@ -15,10 +15,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? FcId { get; set; }
         public int? CaseAuditId { get; set; }
 
-        [NullableOrInRangeNumberValidator(false, "1-1-1753", "12-31-9999", Ruleset = "Default", Tag=ErrorMessages.ERR0701)]
+        [RequiredObjectValidator(Tag = ErrorMessages.ERR0701, Ruleset = "Default")]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = "Default", Tag=ErrorMessages.ERR0708)]
         public DateTime? AuditDt { get; set; }
 
-        [NullableOrStringLengthValidator(false, 15, "AuditTypeCode", Ruleset = "Default", Tag = ErrorMessages.ERR0702)]
+        [RequiredObjectValidator(Tag = ErrorMessages.ERR0702, Ruleset = "Default")]        
         public string AuditTypeCode { get; set; }
 
         //extra field
@@ -35,9 +36,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string AuditFailureReasonCode { get; set; }
 
         //extra field
-        public string AuditFailureReasonCodeDesc { get; set; } 
+        public string AuditFailureReasonCodeDesc { get; set; }
 
-        [NullableOrStringLengthValidator(true, 300, "AuditComments", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 300, "AuditComments", Ruleset = "Default", Tag = ErrorMessages.ERR0709)]
         public string AuditComments { get; set; }
 
         

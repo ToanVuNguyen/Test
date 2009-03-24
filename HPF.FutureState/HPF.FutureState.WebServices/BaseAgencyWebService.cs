@@ -15,7 +15,7 @@ namespace HPF.FutureState.WebServices
                 CurrentAgencyID = user.AgencyId;
                 return true;
             }
-            throw new AuthenticationException(ErrorMessages.AUTHENTICATION_ERROR_MSG);
+            throw new AuthenticationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0451));
         }        
     }
 }

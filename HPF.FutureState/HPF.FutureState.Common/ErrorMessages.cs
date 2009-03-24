@@ -7,8 +7,6 @@ namespace HPF.FutureState.Common
 {
     public static class ErrorMessages
     {
-        public const string AUTHENTICATION_ERROR_MSG = "Authentication failed, access to web service is denied";
-
         public const string ERR0001 = "ERR0001";
         public const string ERR0002 = "ERR0002";
         public const string ERR0003 = "ERR0003";
@@ -204,6 +202,11 @@ namespace HPF.FutureState.Common
         public const string ERR0392 = "ERR0392";
         public const string ERR0393 = "ERR0393";
         public const string ERR0394 = "ERR0394";
+        public const string ERR0451 = "ERR0451";
+
+        public const string ERR0700 = "ERR0700";
+        public const string ERR0708 = "ERR0708";
+        public const string ERR0709 = "ERR0709";
 
         public const string ERR0900 = "ERR0900";
         public const string ERR0901 = "ERR0901";
@@ -635,6 +638,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0376, "The Last4_SSN search criteria must be exactly 4 numeric digits.");
                 errorMessageDict.Add(ERR0377, "The PropertyZip search criteria must be a valid 5 digit numeric zip.");
 
+                errorMessageDict.Add(ERR0451, "Web Service Authentication failed, access to web service is denied.");                
+
                 errorMessageDict.Add(ERR0900, "A CallID is required to retrieve a call.");
                 errorMessageDict.Add(ERR0901, "The CallID provided could not be found.");
                 errorMessageDict.Add(ERR0902, "The CallID provided was not a valid call it.  The proper format is HPF####, where #### is an integer value.");
@@ -764,6 +769,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0683, "An invoice payment must be selected in order to view or edit it.");
                 errorMessageDict.Add(WARN0684, "No invoice payments were found that match your search criteria.");
 
+                errorMessageDict.Add(ERR0700, "A Credit Score, Credit Report Bureau and Credit Report Date are all required together to save a Credit Report Follow-Up record.");
                 errorMessageDict.Add(ERR0701, "An Audit Date is required to save an audit record.");
                 errorMessageDict.Add(ERR0702, "An Audit Type is required to save an audit record.");
                 errorMessageDict.Add(ERR0703, "A Follow-Up Date is required to save a follow-up record.");
@@ -771,7 +777,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0705, "Follow-Up Date must be a valid date between 1/1/1753 and 12/31/9999.");
                 errorMessageDict.Add(ERR0706, "Follow-Up Comment's max length is 8000 chars.");
                 errorMessageDict.Add(ERR0707, "Credit Date must be a valid date between 1/1/1753 and 12/31/9999.");
-
+                errorMessageDict.Add(ERR0708, "Audit Date must be a valid date between 1/1/1753 and 12/31/9999.");
+                errorMessageDict.Add(ERR0709, "The Audit Comment has a max length of 300 characters.");
                 //WS Send Summary
                 
                 errorMessageDict.Add(ERR0800, "An EmailToAddres is required to send a summary.");

@@ -19,14 +19,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string OutcomeTypeName { get; set; }
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR0703, Ruleset = Constant.RULESET_FOLLOW_UP)]
-        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "ERR0705--Follow-Up Date must be a valid date between 1/1/1753 and 12/31/9999.")]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FOLLOW_UP, Tag=ErrorMessages.ERR0705)]
         public DateTime? FollowUpDt { get; set; }
 
-        [NullableOrStringLengthValidator(true, 15, "Follow-Up Comment", Ruleset = Constant.RULESET_FOLLOW_UP, Tag = ErrorMessages.ERR0706)]
+        [NullableOrStringLengthValidator(true, 8000, "Follow-Up Comment", Ruleset = Constant.RULESET_FOLLOW_UP, Tag = ErrorMessages.ERR0706)]
         public string FollowUpComment { get; set; }
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR0704, Ruleset = Constant.RULESET_FOLLOW_UP)]
-        [NullableOrStringLengthValidator(true, 15, "Follow-Up Source", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Follow-Up Source has a maximum length of 15 characters.")]
+        //[NullableOrStringLengthValidator(true, 15, "Follow-Up Source", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "Follow-Up Source has a maximum length of 15 characters.")]
         public string FollowUpSourceCd { get; set; }
 
         public string FollowUpSourceCdDesc{ get; set; }
@@ -44,7 +44,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public string CreditBureauCdDesc { get; set; }
 
-        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FOLLOW_UP, MessageTemplate = "ERR0707--Credit Date must be a valid date between 1/1/1753 and 12/31/9999.")]
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FOLLOW_UP, Tag=ErrorMessages.ERR0707)]
         public DateTime? CreditReportDt { get; set; }        
     }
 }

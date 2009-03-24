@@ -104,12 +104,7 @@ namespace HPF.FutureState.WebServices
                         var callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
                         response.CallLog = callLogWSDTO;
                         response.Status = ResponseStatus.Success;
-                        string warningMsg = GetCallWarningMessage(callLogDTO.CallId.Value);
-                        if (warningMsg.Length > 0)
-                        {
-                            response.Status = ResponseStatus.Warning;
-                            response.Messages.AddExceptionMessage(ErrorMessages.WARN0903, warningMsg);
-                        }
+                        GetCallWarningMessage(callLogDTO.CallId.Value, response);                                                    
                     }
                     else
                     {
@@ -259,21 +254,19 @@ namespace HPF.FutureState.WebServices
             return destObject;
         }
 
-        private string GetCallWarningMessage(int callId)
-        {
-            string warningMsg = "";
+        private void GetCallWarningMessage(int callId, CallLogRetrieveResponse response)
+        {           
             string msgFormat = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0903);
             ForeclosureCaseCallSearchResultDTOCollection results = ForeclosureCaseSetBL.Instance.GetForclosureCaseFromCall(callId);
             
+            if (results.Count > 0)
+                response.Status = ResponseStatus.Warning;
+
             foreach (ForeclosureCaseCallSearchResultDTO fc in results)
             {                
                 string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
-                if (warningMsg != "")
-                    warningMsg += "<br>";
-                warningMsg += buffer.Replace("  ", " ");
-            }
-
-            return warningMsg;
+                response.Messages.AddExceptionMessage(ErrorMessages.WARN0903, buffer);
+            }            
         }
     }
 }
