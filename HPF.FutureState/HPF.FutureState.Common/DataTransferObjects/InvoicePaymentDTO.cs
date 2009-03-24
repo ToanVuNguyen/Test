@@ -17,5 +17,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PaymentTypeDesc { get; set; }
         public double? PaymentAmount { get; set; }
         public string Comments { get; set; }
+        public string PaymentFile { get; set; }
     }
 }

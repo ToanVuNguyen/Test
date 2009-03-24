@@ -112,6 +112,7 @@ namespace HPF.FutureState.DataAccess
                         invoicePayment.PaymentNum = ConvertToString(reader["pmt_num"]);
                         invoicePayment.PaymentAmount = ConvertToDouble(reader["pmt_amt"]);
                         invoicePayment.Comments = ConvertToString(reader["invoice_payment_comment"]);
+                        invoicePayment.PaymentFile = ConvertToString(reader["payment_file"]);
                     }
                     reader.Close();
                 }

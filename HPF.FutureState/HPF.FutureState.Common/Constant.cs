@@ -96,6 +96,6 @@ namespace HPF.FutureState.Common
         public const string RULESET_CRITERIAVALID = "CriteriaValidation";
         public const string RULESET_APPSEARCH = "AppSearchRequireCriteria";
 
-        public const string EXCEL_FILE_TAB_NAME = "rpt_InvoiceExportFile_HPFStanda";
+        public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
     }
 }

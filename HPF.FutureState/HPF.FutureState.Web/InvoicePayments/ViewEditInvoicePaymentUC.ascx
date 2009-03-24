@@ -76,6 +76,14 @@
     </tr>
     <tr>
         <td class="sidelinks" align="right">
+            Payment File:</td>
+        <td>
+            <asp:TextBox ID="txtPaymentFile" runat="server"  CssClass="Text" Width="100%" 
+                ReadOnly="True"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td class="sidelinks" align="right">
             Reconciliation File:</td>
         <td>
             <asp:FileUpload ID="fileUpload"  runat="server" Width="100%" CssClass="Text" 

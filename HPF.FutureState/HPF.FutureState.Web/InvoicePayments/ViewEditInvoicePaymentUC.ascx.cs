@@ -99,6 +99,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             ddlPaymentType.SelectedValue = invoicePaymentInfo.PaymentType;
             txtPaymentAmt.Text = invoicePaymentInfo.PaymentAmount.ToString();
             txtComment.Text = invoicePaymentInfo.Comments;
+            txtPaymentFile.Text = invoicePaymentInfo.PaymentFile;
         }
         protected void BindPaymentTypeDropDownList()
         {
@@ -145,7 +146,7 @@ namespace HPF.FutureState.Web.InvoicePayments
                 //remember to remove this line 
 
                 ControlValidation();
-                if (fileUpload.FileName != string.Empty)
+                if (fileUpload.HasFile)
                     //Validate Excel file
                     ExcelProcessing();
                 else
@@ -512,6 +513,8 @@ namespace HPF.FutureState.Web.InvoicePayments
             result.PaymentNum = txtPaymentNum.Text;
             result.PaymentDate = DateTime.Parse(txtPaymentDt.Text);
             result.InvoicePaymentID = paymentId;
+            if(fileUpload.HasFile)
+                result.PaymentFile = fileUpload.PostedFile.FileName;
             return result;
         }
         #endregion
