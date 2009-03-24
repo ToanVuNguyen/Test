@@ -4,6 +4,7 @@ namespace HPF.FutureState.Common
     {
         public const int PAYMENT_COMMENT_MAX_LENGTH = 300;
         public const int PAYMENT_NUMBER_MAX_LENGTH = 30;
+        public const int PAYMENT_FILE_NAME_MAX_LENGTH = 300;
         public const string LOAN_1ST = "1ST";
         public const string INCOME = "INC";
         public const string EXPENSES = "EXP";        

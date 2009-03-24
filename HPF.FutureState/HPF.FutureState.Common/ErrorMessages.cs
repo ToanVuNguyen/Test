@@ -351,6 +351,11 @@ namespace HPF.FutureState.Common
         public const string ERR0683 = "ERR0683";
         public const string WARN0684 = "WARN0684";
 
+        public const string ERR0686 = "ERR0686";
+        public const string ERR0687 = "ERR0687";
+        public const string ERR0688 = "ERR0688";
+
+
 
         public const string ERR0701 = "ERR0701";
         public const string ERR0702 = "ERR0702";
@@ -768,6 +773,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0682, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} is not valid.");
                 errorMessageDict.Add(ERR0683, "An invoice payment must be selected in order to view or edit it.");
                 errorMessageDict.Add(WARN0684, "No invoice payments were found that match your search criteria.");
+
+                errorMessageDict.Add(ERR0686, "Payment Number has a maximum length of 30 characters.");
+                errorMessageDict.Add(ERR0687, "Reconciliation File has a maximum length of 300 characters.");
+                errorMessageDict.Add(ERR0688, "Comments has a maximum length of 300 characters.");
 
                 errorMessageDict.Add(ERR0700, "A Credit Score, Credit Report Bureau and Credit Report Date are all required together to save a Credit Report Follow-Up record.");
                 errorMessageDict.Add(ERR0701, "An Audit Date is required to save an audit record.");

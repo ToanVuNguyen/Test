@@ -193,23 +193,21 @@ namespace HPF.FutureState.Web.InvoicePayments
             }
             if (ddlPaymentType.SelectedValue == "-1")
                 ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0653));
-            if (txtPaymentAmt.Text == string.Empty)
-                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0654));
-            else
+            try
             {
-                try
-                {
-                    double.Parse(txtPaymentAmt.Text);
-                }
-                catch
-                {
-                    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0654));
-                }
+                double.Parse(txtPaymentAmt.Text);
+            }
+            catch
+            {
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0654));
             }
             if (txtComment.Text.Length > Constant.PAYMENT_COMMENT_MAX_LENGTH)
-                ex.ExceptionMessages.Add(GetExceptionMessageWithoutCode(ErrorMessages.ERR0981));
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0688));
             if (txtPaymentNum.Text.Length > Constant.PAYMENT_NUMBER_MAX_LENGTH)
-                ex.ExceptionMessages.Add(GetExceptionMessageWithoutCode(ErrorMessages.ERR0980));
+                ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0686));
+            if(fileUpload.HasFile)
+                if(fileUpload.PostedFile.FileName.Length>Constant.PAYMENT_FILE_NAME_MAX_LENGTH)
+                    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0687));
             if (ex.ExceptionMessages.Count > 0)
                 throw (ex);
         }
