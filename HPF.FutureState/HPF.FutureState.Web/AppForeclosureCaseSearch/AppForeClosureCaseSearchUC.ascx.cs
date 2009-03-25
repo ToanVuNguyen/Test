@@ -182,6 +182,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// <param name="PageNum">initial pagenum =1</param>
         protected void BindGrvForeClosureCaseSearch(int PageNum)
         {
+            AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
             try
             {
                 bulErrorMessage.Items.Clear();
@@ -189,15 +190,40 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 myPannel.Visible = true;
                 ManageControls(false);
                 //get search criteria
-                var appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
+                appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
+                if (appForeclosureCaseSearchCriteriaDTO == null)
+                    throw ex;
                 if (CheckChosenCriteria(appForeclosureCaseSearchCriteriaDTO))
                 {
                     bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0378"));
                     return;
                 }
+            }
+            catch (DataValidationException ex)
+            {
+                myPannel.Visible = false;
+                //return exception message check input search criteria
+                for (int i = 0; i < ex.ExceptionMessages.Count; i++)
+                {
+                    bulErrorMessage.Items.Add(new ListItem(ex.ExceptionMessages[i].Message));
+                }
+                this.TotalRowNum = 0;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            catch (Exception ex)
+            {
+                myPannel.Visible = false;
+                bulErrorMessage.Items.Add(new ListItem(ex.Message));
+                this.TotalRowNum = 0;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
 
+                try{
                 //get search info match search criteria
-                var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
+                    DataValidationException ex = new DataValidationException();
+                    var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
                 if (searchResult.Count == 0)
                 {
                     ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0504);//error code
@@ -276,8 +302,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// <returns></returns>
         private AppForeclosureCaseSearchCriteriaDTO GetAppForeclosureCaseSearchCriteriaDTO(int PageNum)
         {
+            bulErrorMessage.Items.Clear();
             var appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
-
+            DataValidationException dataEx = new DataValidationException();
             string textchangeFirstName = "";
             string textchangeLastName = "";
             
@@ -300,6 +327,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             catch
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0503"));
+                //ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0503);//error code
+                //dataEx.ExceptionMessages.Add(exMessage);
+
             }
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text.Trim() == string.Empty ? null : txtAgencyCaseID.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text.Trim()) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text.Trim());
@@ -315,7 +345,9 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
             txtLoanNum.Text = DeleteSpecialChar(txtLoanNum.Text);
             appForeclosureCaseSearchCriteriaDTO.UserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
-            return appForeclosureCaseSearchCriteriaDTO;
+            if (bulErrorMessage.Items.Count > 0)
+                return null;
+            else return appForeclosureCaseSearchCriteriaDTO;
         }
         /// <summary>
         /// display or not display pager controls
