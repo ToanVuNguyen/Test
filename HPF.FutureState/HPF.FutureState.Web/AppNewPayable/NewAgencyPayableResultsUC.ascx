@@ -132,7 +132,7 @@
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:CheckBox ID="chkHeaderCaseID" runat="server" OnCheckedChanged="chkHeaderCaseIDCheck"
-                                    AutoPostBack="true" />
+                                     AutoPostBack="true"/>
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkCaseID" runat="server" OnCheckedChanged="chkCaseIDCheck" />

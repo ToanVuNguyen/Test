@@ -53,16 +53,15 @@ namespace HPF.FutureState.Web.AppNewPayable
             if (Request.QueryString["periodenddate"] != null)
             {
                 txtPeriodEnd.Text = Request.QueryString["periodenddate"].ToString();
-                txtPeriodStart.Text = Request.QueryString["periodstartdate"].ToString();
+                DateTime periodstart = DateTime.Parse(Request.QueryString["periodstartdate"]).AddMonths(-6);
+                txtPeriodStart.Text = periodstart.ToShortDateString();
                 ddlCaseCompleted.SelectedValue = Request.QueryString["casecomplete"].ToString();
                 if (Convert.ToInt16(Request.QueryString["indicator"]) == 1)
                     ChkInclude.Checked = true;
                 else ChkInclude.Checked = false;
                 ddlAgency.SelectedValue = Request.QueryString["agencyid"].ToString();
             }
-
         }
-
         protected void BindDDLAgency()
         {
             try
