@@ -26,7 +26,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             //apply security
             ApplySecurity();
-            lblPortal.PostBackUrl = HPFConfigurationSettings.HPF_PAYABLE_PORTAL_URL;
+            lblPortal.NavigateUrl = HPFConfigurationSettings.HPF_PAYABLE_PORTAL_URL;
             // display grv in the first time
             if (!IsPostBack)
             {

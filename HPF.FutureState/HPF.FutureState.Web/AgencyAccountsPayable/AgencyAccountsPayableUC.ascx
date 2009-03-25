@@ -20,8 +20,8 @@
            <h1> Agency Accounts Payable page</h1>
         </td>
         <td rowspan="3" align="center">
-            <img alt="" src="Styles/Images/HPFLogo.jpg" style="width: 55px; height: 55px" /><br />
-            <asp:LinkButton ID="lblPortal" runat="server" PostBackUrl="http:\\hpfportal.org">Payables on Portal</asp:LinkButton>
+            <img alt="" src="Styles/Images/HPFLogo.jpg" style="width: 55px; height: 55px" /><br />            
+            <asp:HyperLink ID="lblPortal" runat="server" Target="_blank">Invoices on Portal</asp:HyperLink>
         </td>
     </tr>
     <tr>
