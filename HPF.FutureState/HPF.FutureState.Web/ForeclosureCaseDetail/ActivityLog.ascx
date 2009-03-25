@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ActivityLog.ascx.cs"
     Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.ActivityLog" %>
+<h3>Activity Log List:</h3>
 <asp:Panel ID="pnlActivity" runat="server" CssClass="ScrollTable" Width="100%" BorderStyle="Inset"
     BorderColor="Gray" BorderWidth="0px" Height="337px">
     <asp:GridView ID="grdvActivityLogs" runat="server" CellPadding="2" ForeColor="#333333"

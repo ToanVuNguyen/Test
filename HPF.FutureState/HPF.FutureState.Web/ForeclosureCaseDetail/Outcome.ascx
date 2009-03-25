@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Outcome.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Outcome" %>
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage">    
 </asp:BulletedList>
-<asp:Label ID="Label1" runat="server" Text="Outcome List" CssClass="sidelinks"></asp:Label>
+<h3>Outcome List:</h3>
 <table width="100%">
     <tr>
         <td>

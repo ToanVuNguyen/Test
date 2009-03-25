@@ -2,12 +2,11 @@
 <%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <asp:HiddenField ID="selRow" runat="server" />
 <asp:HiddenField ID="hfAction" runat="server" />
-<br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
 <table width="100%" id="tbl_main">
     <tr>
         <td colspan="4" class="sidelinks">
-            Follow-Up List:
+            <h3>Follow-Up List:</h3>
         </td>
     </tr>
     <tr>

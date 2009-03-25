@@ -5,8 +5,8 @@
 <div class="Text">
     <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
 </div>
-<h1>
-    Budget Set</h1>
+<h3>
+    Budget Set :</h3>
 <asp:ScriptManager runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel runat="server">
@@ -44,8 +44,8 @@
             </asp:Panel>
             &nbsp; &nbsp;
         </div>
-        <h1>
-            Budget Detail</h1>
+        <h3>
+            Budget Detail:</h3>
         <table style="width: 100%;">
             <tr>
                 <td align="left">

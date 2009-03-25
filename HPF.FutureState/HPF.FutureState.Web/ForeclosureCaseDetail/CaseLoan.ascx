@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseLoan.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseLoan" %>
-<br />
-<div class="sidelinks"><h1>Loan Details:</h1></div>
+<div class="sidelinks"><h3>Loan Details:</h3></div>
 <Div style="Height:210px;Overflow:Auto">
 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 <asp:DataList ID="dtlCaseLoan" runat="server" Width=100%>        
@@ -69,7 +68,7 @@
     </ItemTemplate>
     <SeparatorTemplate>
         <tr>
-        <td colspan="4"><hr /></td>
+        <td colspan="4"><hr style="color: #8FC4F6; border-style: solid; border-width: 1px" /></td>
         </tr>
     </SeparatorTemplate>
 </asp:DataList>

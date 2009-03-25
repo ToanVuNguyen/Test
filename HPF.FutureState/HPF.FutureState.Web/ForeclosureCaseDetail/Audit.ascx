@@ -2,13 +2,12 @@
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
     
-    <br />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage">
 </asp:BulletedList>
 <table>
     <tr>
         <td colspan="2"  class="sidelinks">
-            Audit List
+            <h3>Audit List:</h3>
             
         </td>
     </tr>
