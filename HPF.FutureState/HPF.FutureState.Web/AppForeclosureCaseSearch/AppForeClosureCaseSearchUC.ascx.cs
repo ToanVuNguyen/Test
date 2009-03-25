@@ -51,6 +51,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         protected void Page_Load(object sender, EventArgs e)
         {
             lblResult.Visible = false;
+            myPannel.Visible = false;
             if (!IsPostBack)
             {
                 ApplySecurity();
@@ -217,6 +218,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 if (this.TotalRowNum != 0)
                 {
                     lblResult.Visible = true;
+                    myPannel.Visible = true;
                     //display pagers controls
                     ManageControls(true);
                     grvForeClosureCaseSearch.Visible = true;
