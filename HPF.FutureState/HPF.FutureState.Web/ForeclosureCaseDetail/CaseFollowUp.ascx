@@ -16,7 +16,7 @@
                     <td align="left" valign="bottom" width="95%">
                     <!--Display Follow-Up list-->
                     <asp:Panel ID="pnlActivity" runat="server" CssClass="ScrollTable"  
-                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="0px" Height="100%" Width="100%">
+                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
                         <asp:GridView ID="grd_FollowUpList" runat="server" 
                         CellPadding="2" ForeColor="#333333"
                         GridLines="Vertical" AutoGenerateColumns="False"                         
