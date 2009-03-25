@@ -14,7 +14,7 @@
     <tr>
         <td>
                 <asp:Panel ID="pnlAudit" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Width="820px">
+                BorderColor="Gray" BorderWidth="1px" Width="100%">
                         <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                             
                             DataKeyNames="CaseAuditId" 
