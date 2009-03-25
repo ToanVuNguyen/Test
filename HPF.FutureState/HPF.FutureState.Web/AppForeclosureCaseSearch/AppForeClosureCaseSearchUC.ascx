@@ -138,7 +138,7 @@
     </tr>
     <tr>
         <td colspan="6" class="sidelinks">
-            Search Results:
+            &nbsp;<asp:Label ID="lblResult" runat="server" Text="Search Results:" Visible="False"></asp:Label>
         </td>
     </tr>
     <tr>

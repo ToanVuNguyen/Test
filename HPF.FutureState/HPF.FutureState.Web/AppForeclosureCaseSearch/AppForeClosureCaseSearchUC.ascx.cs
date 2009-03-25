@@ -50,6 +50,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblResult.Visible = false;
             if (!IsPostBack)
             {
                 ApplySecurity();
@@ -59,7 +60,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindAgencyDropdownlist();
                 BindServicerDropDownList();
                 //redisplay search criteria when you click on menu item.
-                ReBindSearchCriteria();
+                ReBindSearchCriteria();                
             }
             else
             {
@@ -214,7 +215,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //there have data search result
                 if (this.TotalRowNum != 0)
                 {
-
+                    lblResult.Visible = true;
                     //display pagers controls
                     ManageControls(true);
                     grvForeClosureCaseSearch.Visible = true;
