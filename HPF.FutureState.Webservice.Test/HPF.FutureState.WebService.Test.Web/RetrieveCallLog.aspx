@@ -51,14 +51,7 @@
     <td><asp:Button ID="btn_Submit" runat="server" Text="Submit" 
             onclick="btn_Submit_Click" CssClass="MyButton" /></td>
     </tr>
-    <tr>
-        <td class="Text">Status: </td>
-        <td class="Text"><asp:Label ID="lbl_Status" runat="server" Text=""></asp:Label></td>
-    </tr>
-    <tr>
-        <td class="Text">Message: </td>
-        <td class="Text"><asp:Label ID="lbl_Message" runat="server" Text=""></asp:Label></td>
-    </tr>
+    
     </table>
         <asp:GridView ID="gv_results" runat="server" CellPadding="4" 
             ForeColor="#333333" GridLines="None">
@@ -72,5 +65,34 @@
         </asp:GridView>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server">
         </asp:ObjectDataSource>
+        <br />
+    <table>
+    <tr>
+        <td class="Text">Status: </td>
+        <td class="Text"><asp:Label ID="lbl_Status" runat="server" Text=""></asp:Label></td>
+    </tr>
+    <tr>
+        <td class="Text">Message: </td>
+        <td class="Text"><asp:Label ID="lbl_Message" runat="server" Text=""></asp:Label></td>
+    </tr>
+    </table>
+    <asp:GridView ID="grdvMsg" runat="server" CellPadding="4" 
+            AutoGenerateColumns="False" BorderStyle="None" >
+        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <RowStyle BackColor="#EFF3FB" />
+        <Columns>
+            <asp:BoundField DataField="ErrorCode" HeaderText="Error Code" />
+            <asp:BoundField DataField="Message" HeaderText="Message"></asp:BoundField>
+        </Columns>
+        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+        <HeaderStyle Font-Bold="True" />
+        <EditRowStyle BackColor="#2461BF" />
+        <AlternatingRowStyle BackColor="White" />
+    </asp:GridView>
+    
+   
+    
+
     </div>
 </asp:Content>

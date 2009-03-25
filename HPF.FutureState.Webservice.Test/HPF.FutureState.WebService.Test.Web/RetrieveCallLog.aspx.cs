@@ -45,7 +45,9 @@ namespace HPF.FutureState.WebService.Test.Web
             lbl_Status.Text = callLogRetrieveResponse.Status.ToString();
             if (lbl_Status.Text != "Success")
             {
-                lbl_Message.Text = callLogRetrieveResponse.Messages[0].Message.ToString();
+                lbl_Message.Text = "";
+                grdvMsg.DataSource = callLogRetrieveResponse.Messages;
+                grdvMsg.DataBind();
             }
             else
             {
