@@ -18,9 +18,10 @@
             
         </td>
         <td align="center" rowspan="3">
-            <img alt="" src="Styles/Images/HPFLogo.jpg" 
-                style="width: 55px; height: 55px" /><br />
-            <asp:HyperLink ID="lblPortal" runat="server" Target="_blank">Invoices on Portal</asp:HyperLink>
+            <asp:HyperLink ID="lblPortal" runat="server" Target="_blank">
+            <img alt="Invoices on Portal" src="Styles/Images/HPFLogo.jpg" 
+                style="width: 55px; height: 55px" border="0"/><br />
+            Invoices on Portal</asp:HyperLink>
             <br />
             
         </td>
