@@ -113,18 +113,21 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
                 agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
-                if (agencyPayableDraftDTO.ForclosureCaseDrafts != null)
+                //
+                AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
+                lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
+                lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
+                lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
+                lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount == null ? 0 : agencyPayableDraftDTO.TotalAmount);
+                lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
+                lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
+                //
+                if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count!= 0)
                 {
                     grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
                     this.agencyPayableDraft = agencyPayableDraftDTO;
                     grvInvoiceItems.DataBind();
-                    AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
-                    lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
-                    lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
-                    lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
-                    lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount == null ? 0 : agencyPayableDraftDTO.TotalAmount);
-                    lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
-                    lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
+                    //
                     double total = 0;
                     //calculate total amount of cases - search data match  search criteria.
                     foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
@@ -132,13 +135,11 @@ namespace HPF.FutureState.Web.AppNewPayable
                         total += item.Amount == null ? 0 : item.Amount.Value;
                     }
                     lblInvoiceTotalFooter.Text = total.ToString();
-
                     lblTotalAmount.Text = String.Format("{0:C}", total);
-
                 }
                 else
                 {
-                    bulErrorMessage.Text = "no data";
+                    bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("WARN0583"));
 
                 }
                 if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count == 0)

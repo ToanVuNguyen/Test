@@ -152,24 +152,23 @@
                         <asp:BoundField DataField="Srvcr" HeaderText="Srvcr" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField DataField="Fund" HeaderText="Fund" ItemStyle-HorizontalAlign="Center" />
                     </Columns>
-                    <EmptyDataTemplate>
-                        There is no data match</EmptyDataTemplate>
+                   
                 </asp:GridView>
                 <table>
                     <tr>
                         <td>
-                            Total Cases:
+                            <asp:Label ID="lbl1" runat="server" Visible="false">Total Cases:</asp:Label> 
                         </td>
                         <td>
-                            <asp:Label ID="lblTotalCasesFooter" runat="server"></asp:Label>
+                            <asp:Label ID="lblTotalCasesFooter" runat="server" Visible="false"></asp:Label>
                         </td>
                         <td>
                         </td>
                         <td>
-                            Invoice Total:
+                           <asp:Label ID="lbl2" runat="server" Visible="false" >Invoice Total:</asp:Label> 
                         </td>
                         <td>
-                            <asp:Label ID="lblInvoiceTotalFooter" runat="server"></asp:Label>
+                            <asp:Label ID="lblInvoiceTotalFooter" Visible="false" runat="server"></asp:Label>
                         </td>
                     </tr>
                 </table>
