@@ -73,11 +73,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ddlNerverBillReason.SelectedValue = accountinginfo.NeverBillReason;
                 if (accountinginfo.BillingInfo.Count == 0)
                     panBillingInfo.Height= Unit.Parse("20px");
-                else panBillingInfo.Height = Unit.Parse("300px");
+                else panBillingInfo.Height = Unit.Parse("250px");
 
-                if (accountinginfo.BillingInfo.Count == 0)
+                if (accountinginfo.AgencyPayableCase.Count == 0)
                     panPaymentInfo.Height = Unit.Parse("20px");
-                else panPaymentInfo.Height = Unit.Parse("300px");
+                else panPaymentInfo.Height = Unit.Parse("250px");
                 grvBillingInfo.DataSource = accountinginfo.BillingInfo;
                 grvBillingInfo.DataBind();
                 grvPaymentInfo.DataSource = accountinginfo.AgencyPayableCase;

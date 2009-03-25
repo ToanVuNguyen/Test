@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseFollowUp.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseFollowUp" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <asp:HiddenField ID="selRow" runat="server" />
 <asp:HiddenField ID="hfAction" runat="server" />
 <br />

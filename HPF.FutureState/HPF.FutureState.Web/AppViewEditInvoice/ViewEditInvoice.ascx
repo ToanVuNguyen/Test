@@ -2,7 +2,7 @@
     Inherits="HPF.FutureState.Web.AppViewEditInvoice.ViewEditInvoice" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
 <%--<asp:UpdatePanel runat="server">

@@ -3,7 +3,7 @@
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc2" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <asp:ScriptManager ID="myscript" runat="server">
 </asp:ScriptManager>
 <table width="100%">

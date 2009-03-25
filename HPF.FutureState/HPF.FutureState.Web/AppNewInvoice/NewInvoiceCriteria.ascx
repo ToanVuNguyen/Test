@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewInvoiceCriteria.ascx.cs"
     Inherits="HPF.FutureState.Web.AppNewInvoice.AppNewInvoice" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <asp:ScriptManager runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel runat="server">

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Budget.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Budget" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <div class="Text">
     <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
 </div>

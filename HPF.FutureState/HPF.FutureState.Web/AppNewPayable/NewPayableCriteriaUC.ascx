@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewPayableCriteriaUC.ascx.cs" Inherits="HPF.FutureState.Web.AppNewPayable.NewPayableCriteriaUC" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <table  width="100%">
     <colgroup>

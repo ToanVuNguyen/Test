@@ -1,9 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Accounting.ascx.cs"
     Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.Accounting" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
-<div style="overflow: auto; height: 400px;">
     <table width="100%">
         <tr>
             <td>
@@ -90,7 +89,7 @@
         <tr>
             <td>
                 <asp:Panel ID="panPaymentInfo" runat="server" CssClass="ScrollTable" BorderStyle="None">
-                    <asp:GridView ID="grvPaymentInfo" runat="server" AutoGenerateColumns="false" Width="80%"
+                    <asp:GridView ID="grvPaymentInfo" runat="server" AutoGenerateColumns="false" Width="99%"
                         BorderStyle="None">
                         <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" />
                         <AlternatingRowStyle CssClass="AlternatingRowStyle" />
@@ -181,5 +180,3 @@
                 </td>
             </tr>
         </table>        
-    </div>
-
