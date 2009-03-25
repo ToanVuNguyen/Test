@@ -2209,7 +2209,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (DuplicatedCaseLoanDTO obj in collection)
             {
                 ExceptionMessage em = new ExceptionMessage();
-                em.ErrorCode = "WARNING";
+                em.ErrorCode = "WAR0253";
                 em.Message = string.Format("The duplicated Case Loan is Loan Number: {0}, Servicer Name: {1}, Borrower First Name: {2}, Borrower Last Name: {3}, Agency Name: {4}, Agency Case Number: {5}, Counselor Full Name: {6} {7},Counselor Phone {8} - Ext: {9}, Counselor Email: {10} "
                              , obj.LoanNumber, obj.ServicerName, obj.BorrowerFirstName, obj.BorrowerLastName, obj.AgencyName, obj.AgencyCaseNumber
                              , obj.CounselorFName, obj.CounselorLName, obj.CounselorPhone, obj.CounselorExt, obj.CounselorEmail);
