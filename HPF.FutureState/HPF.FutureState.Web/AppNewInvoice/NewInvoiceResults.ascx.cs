@@ -140,7 +140,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             Session["invoiceDraft"] = invoiceDraft;
             if (f == false)
             {
-                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0979));
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0574));
                 return;
             }
             InvoiceDraftDataBind();

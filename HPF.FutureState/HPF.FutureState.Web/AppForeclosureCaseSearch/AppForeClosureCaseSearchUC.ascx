@@ -30,8 +30,8 @@
         <td align="right" class="sidelinks">
             Loan Number:
         </td>
-        <td class="Control">
-            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text" Width="140px" 
+        <td class="Control" width="110 px">
+            <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text" Width="110px" 
                 TabIndex="1"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
@@ -57,8 +57,8 @@
         <td align="right" class="sidelinks">
             Last 4 of SSN:
         </td>
-        <td class="Control">
-            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="140px" 
+        <td class="Control" width="110 px">
+            <asp:TextBox ID="txtSSN" runat="server" CssClass="Text" Width="110px" 
                 TabIndex="2"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
@@ -81,9 +81,9 @@
         <td align="right" class="sidelinks">
             Last Name:
         </td>
-        <td class="Control">
+        <td class="Control" width="110 px">
             <asp:TextBox ID="txtLastName" runat="server" MaxLength="30" CssClass="Text" 
-                Width="140px" TabIndex="3"></asp:TextBox>
+                Width="110px" TabIndex="3"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property Zip:
@@ -105,9 +105,9 @@
         <td align="right" class="sidelinks">
             First Name:
         </td>
-        <td class="Control">
+        <td class="Control" width="110 px">
             <asp:TextBox ID="txtFirstName" runat="server" MaxLength="30" CssClass="Text" 
-                Width="140px" TabIndex="4"></asp:TextBox>
+                Width="110px" TabIndex="4"></asp:TextBox>
         </td>
         <td align="right" class="sidelinks">
             Property State:

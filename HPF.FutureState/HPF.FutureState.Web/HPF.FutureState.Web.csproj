@@ -505,7 +505,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3312</DevelopmentServerPort>
+          <DevelopmentServerPort>1559</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/HPF.FutureState.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

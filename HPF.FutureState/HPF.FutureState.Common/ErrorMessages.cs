@@ -302,6 +302,7 @@ namespace HPF.FutureState.Common
         public const string ERR0571 = "ERR0571";
         public const string ERR0572 = "ERR0572";
         public const string ERR0573 = "ERR0573";
+        public const string ERR0574 = "ERR0574";
 
 
         //view edit payable page
@@ -740,6 +741,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0571, "Max Age must be an integer between 0 & 200.");
                 errorMessageDict.Add(ERR0572, "Min Household Gross Annual Income must be a valid decimal number between 0.00 and $99,999,999.99.");
                 errorMessageDict.Add(ERR0573, "Max Household Gross Annual Income must be a valid decimal number between 0.00 and $99,999,999.99.");
+                errorMessageDict.Add(ERR0574, "At least one case must be selected in order to remove it from the invoice.");
 
 
                 //view edit payable page
