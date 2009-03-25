@@ -245,7 +245,8 @@ namespace HPF.FutureState.BusinessLogic
                 if (invoicePayment.InvoicePaymentID == -1)
                     invoicePayment.InvoicePaymentID= invoiceDAO.InsertInvoicePayment(invoicePayment);
                 else
-                    invoiceDAO.UpdateInvoicePayment(invoicePayment);
+                    //UPdate with file
+                    invoiceDAO.UpdateInvoicePayment(invoicePayment,true);
                 invoiceDAO.InvoiceCaseUpdateForPayment(xmlString,invoicePayment.InvoicePaymentID.Value,invoicePayment.ChangeLastDate.Value, invoicePayment.ChangeLastUserId, invoicePayment.ChangeLastAppName);
                 CompleteTransaction();
                 return invoicePayment.InvoicePaymentID.Value;
@@ -269,7 +270,8 @@ namespace HPF.FutureState.BusinessLogic
                 if (invoicePayment.InvoicePaymentID == -1)
                     invoiceDAO.InsertInvoicePayment(invoicePayment);
                 else
-                    invoiceDAO.UpdateInvoicePayment(invoicePayment);
+                    //update without file
+                    invoiceDAO.UpdateInvoicePayment(invoicePayment,false);
                 CompleteTransaction();
                 return invoicePayment.InvoicePaymentID.Value;
             }

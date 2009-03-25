@@ -607,11 +607,11 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
-        public void UpdateInvoicePayment(InvoicePaymentDTO invoicePayment)
+        public void UpdateInvoicePayment(InvoicePaymentDTO invoicePayment,bool withFile)
         {
             var command = CreateSPCommand("hpf_invoice_payment_update", dbConnection);
             //<Parameter>
-            var sqlParam = new SqlParameter[11];
+            var sqlParam = new SqlParameter[12];
             sqlParam[0] = new SqlParameter("@pi_funding_source_id", invoicePayment.FundingSourceID);
             sqlParam[1] = new SqlParameter("@pi_pmt_num", invoicePayment.PaymentNum);
             sqlParam[2] = new SqlParameter("@pi_pmt_dt", NullableDateTime(invoicePayment.PaymentDate));
@@ -623,6 +623,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[8] = new SqlParameter("@pi_invoice_payment_id", invoicePayment.InvoicePaymentID);
             sqlParam[9] = new SqlParameter("@pi_invoice_payment_comment", invoicePayment.Comments);
             sqlParam[10] = new SqlParameter("@pi_payment_file", invoicePayment.PaymentFile);
+            sqlParam[11] = new SqlParameter("@pi_with_file", withFile==true?1:0);
+
+            
             
             //</Parameter>
             command.Parameters.AddRange(sqlParam);

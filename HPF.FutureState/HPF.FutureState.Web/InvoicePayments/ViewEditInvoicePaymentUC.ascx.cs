@@ -268,11 +268,11 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         private void UpdateInvoicePaymentOnly()
         {
+
             InvoicePaymentDTO invoicePayment = GetInvoicePayment();
             invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            //Update and cleared old data.
             paymentId = InvoiceBL.Instance.UpdateInvoicePaymentOnly(invoicePayment);
-            //if(!isCancel)
-            //    Response.Redirect("InvoicePaymentInfo.aspx?id=" + paymentId.ToString());
             Response.Redirect("InvoicePayment.aspx");
         }
         #region FrontEnd PreProcessing
@@ -414,11 +414,6 @@ namespace HPF.FutureState.Web.InvoicePayments
             List<string> columnName = new List<string>();
             foreach (string name in COLUMN_NAME)
                 columnName.Add(name.ToLower());
-            //if (fileContent.Columns.Count != columnName.Count)
-            //{
-            //    ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0657));
-            //    throw ex;
-            //}
             int columnIndex = 0;
             foreach (DataColumn col in fileContent.Columns)
             {
@@ -527,6 +522,12 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void btnNo_Click(object sender, EventArgs e)
         {
             Response.Redirect("InvoicePayment.aspx");
+        }
+
+        protected void saveYes_Click(object sender, EventArgs e)
+        {
+            isCancel = true;
+            SaveInvoicePayment();
         }
     }
 }

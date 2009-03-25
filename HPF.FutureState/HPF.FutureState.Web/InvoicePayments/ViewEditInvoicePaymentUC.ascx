@@ -102,7 +102,7 @@
             &nbsp;</td>
         <td align="center">
             <asp:Button ID="btnSave" runat="server" Text="Save"  CssClass="MyButton" 
-                width="100px" onclick="btnSave_Click"/>
+                width="100px" OnClientClick="return ConfirmToUpdate();" onclick="btnSave_Click"/>
             &nbsp;&nbsp;
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" Width="100px"
                     OnClick="btnCancel_Click" />
@@ -126,6 +126,7 @@
     var fileUpload = document.getElementById('<%=fileUpload.ClientID %>');
     var txtComment = document.getElementById('<%=txtComment.ClientID %>');
     var hidden = document.getElementById('<%=hiddenIsSave.ClientID %>');
+    var paymentFile = document.getElementById('<%=txtPaymentFile.ClientID %>');
     var invoicePayment = function(paymentId, fundingSource, paymentNum, paymentDt, paymentType, 
     paymentAmt, fileUpload, txtComment)
     {        
@@ -172,6 +173,15 @@
         else
             return false;
     }
+    function ConfirmToUpdate()
+    {
+        if(fileUpload.value=='' && paymentFile.value!='')
+        {
+            Popup.showModal('confirm');
+            return false;
+        }
+        return true;
+    }
 </script>
 <div id="modal" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
         <div class="PopUpHeader">HPF Billing&amp;Admin</div>
@@ -184,11 +194,32 @@
             </tr>
             <tr>
                 <td align="center">
-                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('modal');" 
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('modal');return ConfirmToUpdate();" 
                         CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
                     &nbsp;
                     <asp:Button ID="btnNo" runat="server" OnClientClick="Popup.hide('modal');" 
                         CssClass="MyButton" Width="70px" Text="No" onclick="btnNo_Click" />
+                </td>
+            </tr>
+        </table>        
+    </div>
+ 
+ <div id="confirm" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="350" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    WARN689--This payment was originally created with a Reconcilition file. Do you really want to update it without a Reconciliation File?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="saveYes" runat="server" OnClientClick="Popup.hide('confirm');" 
+                        CssClass="MyButton" Text="Yes" Width="70px" onclick="saveYes_Click"  />
+                    &nbsp;
+                    <asp:Button ID="saveNo" runat="server" OnClientClick="Popup.hide('confirm');return false;" 
+                        CssClass="MyButton" Width="70px" Text="No"  />
                 </td>
             </tr>
         </table>        
