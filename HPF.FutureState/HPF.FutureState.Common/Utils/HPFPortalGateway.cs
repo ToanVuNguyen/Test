@@ -23,9 +23,8 @@ namespace HPF.FutureState.Common.Utils
                                                 Servicer = summary.Servicer,
                                                 Delinquency = summary.Delinquency
                                             };
-
-            //todo: please specify spFolderName
-            string spFolderName = "";
+            
+            var spFolderName = summary.SPFolderName;
             var result = DocumentCenterController.Upload(counselingSummaryInfo, spFolderName);
             if (!result.Successful)
                 Logger.Write(result.Error.Message, "General");
