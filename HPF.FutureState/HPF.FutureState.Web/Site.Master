@@ -51,7 +51,7 @@
                 <td height="29" colspan="3" background="Styles/Images/navbasebg.jpg"><img src="Styles/Images/navbasebg.jpg" width="1" height="29"></td>
               </tr>
               <tr> 
-                <td width="10">&nbsp;</td>
+                <td width="10" align="left">&nbsp;&nbsp;&nbsp;&nbsp; </td>
                 <td>
                     <br />
                     <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server"></asp:ContentPlaceHolder>
