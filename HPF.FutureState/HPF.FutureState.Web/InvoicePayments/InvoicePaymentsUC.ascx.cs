@@ -48,7 +48,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             searchCriteria.FundingSourceId = -1;
             searchCriteria.PeriodStart = DateTime.Today.AddMonths(-6);
             searchCriteria.PeriodEnd = DateTime.Today;
-            InvoicePaymentDTOCollection invoicePayment = InvoicePaymentSearch(searchCriteria);
+            InvoicePaymentDTOCollection invoicePayment = GetSearchResult(searchCriteria);
             grvInvoicePaymentList.DataSource = invoicePayment;
             grvInvoicePaymentList.DataBind();
             if (invoicePayment == null)
@@ -83,11 +83,11 @@ namespace HPF.FutureState.Web.InvoicePayments
         /// <summary>
         /// Bind search data into gridview
         /// </summary>
-        protected void BindGrvInvoicePaymentList()
+        protected void SearchInvoicePayment()
         {
             try
             {
-                InvoicePaymentDTOCollection invoicePayment = GetInvoicePaymentInfo();
+                InvoicePaymentDTOCollection invoicePayment = GetInvoicePaymentSearchResult();
                 //bind search data to gridview
                 grvInvoicePaymentList.DataSource = invoicePayment;
                 ViewState["invoicePayment"] = invoicePayment;
@@ -98,6 +98,12 @@ namespace HPF.FutureState.Web.InvoicePayments
                     throw (ex);
                 }
                 
+            }
+            catch (DataValidationException ex)
+            {
+                foreach (var mes in ex.ExceptionMessages)
+                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
             catch (Exception ex)
             {
@@ -180,34 +186,17 @@ namespace HPF.FutureState.Web.InvoicePayments
         /// Get the searchCriteria and then perform a search
         /// </summary>
         /// <returns></returns>
-        protected InvoicePaymentDTOCollection GetInvoicePaymentInfo()
+        protected InvoicePaymentDTOCollection GetInvoicePaymentSearchResult()
         {
-            try
-            {
-                InvoiceSearchCriteriaDTO searchCriteria = GetInvoicePaymentSearchCriterial();
-                InvoicePaymentDTOCollection invoicePayment = InvoicePaymentSearch(searchCriteria);
-                return invoicePayment;
-            }
-            catch (DataValidationException ex)
-            {
-                foreach (var mes in ex.ExceptionMessages)
-                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
-            }
-            return null;
-            
+            InvoiceSearchCriteriaDTO searchCriteria = GetInvoicePaymentSearchCriterial();
+            InvoicePaymentDTOCollection invoicePayment = GetSearchResult(searchCriteria);
+            return invoicePayment;
         }
 
-        private static InvoicePaymentDTOCollection InvoicePaymentSearch(InvoiceSearchCriteriaDTO searchCriteria)
+        private static InvoicePaymentDTOCollection GetSearchResult(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            InvoicePaymentDTOCollection invoicePayment = new InvoicePaymentDTOCollection();
             //get search criteria to AgencyPayableSearchCriteriaDTO
-            invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
+             InvoicePaymentDTOCollection invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
             
             return invoicePayment;
         }
@@ -228,7 +217,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            BindGrvInvoicePaymentList();
+            SearchInvoicePayment();
         }
        
 
