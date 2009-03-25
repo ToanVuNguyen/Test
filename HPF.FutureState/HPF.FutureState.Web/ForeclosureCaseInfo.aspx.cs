@@ -51,9 +51,10 @@ namespace HPF.FutureState.Web
                     PopupEmail();
                 }
             }
-            catch 
+            catch (Exception ex)
             {
-                Response.Redirect("SearchForeclosureCase.aspx");
+                lblErrorMessage.Items.Add(ex.Message);
+                //Response.Redirect("SearchForeclosureCase.aspx");
             }
         }
         private void ApplySecurity()

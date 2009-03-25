@@ -2,15 +2,15 @@
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage">    
 </asp:BulletedList>
 <asp:Label ID="Label1" runat="server" Text="Outcome List" CssClass="sidelinks"></asp:Label>
-<table>
+<table width="100%">
     <tr>
         <td>
-            <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="820px">
+            <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
                 <asp:GridView ID="grdvOutcomeItems" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                     
                     onrowcreated="grvForeClosureCaseSearch_RowCreated" 
                     onrowdatabound="grdvOutcomeItems_RowDataBound"                     
-                    DataKeyNames="OutcomeItemId">
+                    DataKeyNames="OutcomeItemId" Width="100%">
                     <RowStyle CssClass="RowStyle"  />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />

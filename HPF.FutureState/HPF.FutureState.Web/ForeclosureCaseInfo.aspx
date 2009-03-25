@@ -41,10 +41,8 @@
             <td class="sidelinks" align="right" valign="top">
                 Borrower:
             </td>
-            <td  class="Text">
+            <td  class="Text" colspan="3">
                 <asp:Label ID="lblBorrower" runat="server">Ivan A Mustang</asp:Label>
-            </td>
-            <td colspan="2">
                 &nbsp;
             </td>
             <td align="right" class="sidelinks">
@@ -62,10 +60,8 @@
             <td class="sidelinks" align="right" >
                 City, State, Zip:
             </td>
-            <td class="Text" >
+            <td class="Text" colspan="3" >
                 <asp:Label ID="lblPropertyAddress" runat="server" >Yourtown, MN 55416</asp:Label>
-            </td>
-            <td colspan="2">
                 &nbsp;
             </td>
             <td align="right" class="sidelinks">
@@ -103,7 +99,7 @@
                             </HPF:TabControl>
                         </td>
                     </tr>
-                    <tr>
+                    <tr >
                         <td style="border: solid 1px #8FC4F6">
                             <HPF:UserControlLoader ID="UserControlLoader" runat="server">
                             </HPF:UserControlLoader>
