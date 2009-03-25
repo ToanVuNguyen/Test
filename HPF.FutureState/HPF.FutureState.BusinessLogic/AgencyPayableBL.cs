@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class AgencyPayableBL: BaseBusinessLogic
+    public class AgencyPayableBL : BaseBusinessLogic
     {
         private static readonly AgencyPayableBL instance = new AgencyPayableBL();
         /// <summary>
@@ -49,9 +49,10 @@ namespace HPF.FutureState.BusinessLogic
                 agencyPayable.StatusCode = agencyPayableDraft.StatusCode;
                 agencyPayable.PaymentDate = DateTime.Now;
                 agencyPayable.PaymentComment = agencyPayableDraft.PaymentComment;
-                
+
                 agencyPayableId = agencyPayableDAO.InsertAgencyPayable(agencyPayable).Value;
                 //Insert Acency Payable Case
+
                 ForeclosureCaseDraftDTOCollection fCaseDrafColection = agencyPayableDraft.ForclosureCaseDrafts;
                 foreach (ForeclosureCaseDraftDTO fCaseDraf in fCaseDrafColection)
                 {
@@ -85,7 +86,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (string item in collection)
             {
                 ExceptionMessage ex = new ExceptionMessage();
-                ex.Message=item;
+                ex.Message = item;
                 exception.ExceptionMessages.Add(ex);
             }
             throw exception;
@@ -101,7 +102,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
         }
@@ -130,7 +131,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
 
-       
+
         public AgencyPayableDraftDTO CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
             AgencyPayableDraftDTO result = new AgencyPayableDraftDTO();
@@ -157,7 +158,7 @@ namespace HPF.FutureState.BusinessLogic
             return msgAppForeclosureCaseSearch;
         }
         void RequireNewPayableCriteria(AgencyPayableSearchCriteriaDTO searchCriteria, ref Collection<string> msg, string ruleset)
-        {            
+        {
             ValidationResults validationResults = HPFValidator.Validate<AgencyPayableSearchCriteriaDTO>(searchCriteria, ruleset);
             foreach (ValidationResult result in validationResults)
             {
@@ -165,16 +166,16 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
         public AgencyPayableSetDTO AgencyPayableSetGet(int? agencyPayableID)
-        { 
-        return (AgencyPayableDAO.CreateInstance().AgencyPayableSetGet(agencyPayableID));
+        {
+            return (AgencyPayableDAO.CreateInstance().AgencyPayableSetGet(agencyPayableID));
         }
         public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet, string takebackReason, string agencyPayableIDCol)
         {
-            AgencyPayableDAO.CreateInstance().TakebackMarkCase(agencyPayableSet,takebackReason,agencyPayableIDCol);
+            AgencyPayableDAO.CreateInstance().TakebackMarkCase(agencyPayableSet, takebackReason, agencyPayableIDCol);
         }
-        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol,int flag)
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol, int flag)
         {
-            AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet,agencyPayableIDCol,flag);
+            AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet, agencyPayableIDCol, flag);
         }
 
     }

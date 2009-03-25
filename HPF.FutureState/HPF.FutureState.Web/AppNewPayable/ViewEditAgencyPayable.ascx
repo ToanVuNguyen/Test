@@ -5,8 +5,8 @@
 <link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
-<asp:UpdatePanel ID="myUpdatePanel" runat="server">
-    <ContentTemplate>
+<%--<asp:UpdatePanel ID="myUpdatePanel" runat="server">
+    <ContentTemplate>--%>
 
 <table style="width:100%;" cellspacing="0px">
     <colgroup>
@@ -170,8 +170,8 @@
         <td align="left" class="sidelinks" colspan="8">
             <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
                 Width="100%" Visible="true" ScrollBars="Auto">
-               <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>--%>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
                         <asp:GridView ID="grvViewEditAgencyPayable" runat="server" 
                     CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="false" 
@@ -189,10 +189,10 @@
                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                     <HeaderTemplate>
                                         <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck"
-                                            AutoPostBack="true" />
+                                             />
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkSelected" runat="server" OnCheckedChanged="chkSelected" AutoPostBack="true" />
+                                        <asp:CheckBox ID="chkSelected" runat="server" OnCheckedChanged="chkSelected" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
@@ -244,10 +244,10 @@
                                 </td>
                             </tr>
                         </table>
-                        <asp:HiddenField ID="hidIsSelected" runat="server" Value="" />
-                        <asp:HiddenField ID="hidPayUnpayCheck" runat="server" Value="" />
-                <%--    </ContentTemplate>
-                </asp:UpdatePanel>--%>
+                        <asp:HiddenField ID="hidIsSelected" runat="server" />
+                        <asp:HiddenField ID="hidPayUnpayCheck" runat="server" />
+                   </ContentTemplate>
+                </asp:UpdatePanel>
             </cc1:StatefullScrollPanel>
         </td>
     </tr>
@@ -264,19 +264,15 @@
         </td>
     </tr>
 </table>
-</ContentTemplate>
-</asp:UpdatePanel>
+<%--</ContentTemplate>
+</asp:UpdatePanel>--%>
 
 <script language="javascript" type="text/javascript">
     var id = '<%=hidIsSelected.ClientID %>';
-//    function IsSelectedCheck(chk) 
-//    {
-//        SelectedCase = document.getElementById(id);
-//        if (chk.checked == 1)
-//            SelectedCase.value = 'true';
-//    };
-    function TakeBackReason() 
-    {
+    var payunpay = '<%=hidPayUnpayCheck.ClientID %>';
+
+    function TakeBackReason() {
+
         SelectedCase = document.getElementById(id);
         if (SelectedCase.value != '') 
         {
@@ -288,8 +284,9 @@
 
     function PayUnpay() 
     {
-        SelectedCase = document.getElementById(id);
-        if (SelectedCase.value != '') 
+        var SelectedCase = document.getElementById(id);
+        var PayUnpayCase = document.getElementById(payunpay);
+        if (SelectedCase.value != '' && PayUnpayCase.value != -1) 
         {
             Popup.showModal('modalPayUnpay')
             return false;

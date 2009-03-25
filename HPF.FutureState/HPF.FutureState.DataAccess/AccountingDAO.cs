@@ -158,8 +158,8 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             var sqlParam = new SqlParameter[16];
             sqlParam[0] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
-            sqlParam[1] = new SqlParameter("@pi_never_pay_reason", foreclosureCase.NeverPayReasonCd);
-            sqlParam[2] = new SqlParameter("@pi_never_bill_reason",foreclosureCase.NeverBillReasonCd);
+            sqlParam[1] = new SqlParameter("@pi_never_pay_reason", foreclosureCase.NeverPayReasonCd == string.Empty ? null : foreclosureCase.NeverPayReasonCd);
+            sqlParam[2] = new SqlParameter("@pi_never_bill_reason", foreclosureCase.NeverBillReasonCd == string.Empty ? null : foreclosureCase.NeverBillReasonCd);
             sqlParam[3] = new SqlParameter("@pi_agency_id",null);
             sqlParam[4] = new SqlParameter("@pi_duplicate_ind", null);
             sqlParam[5] = new SqlParameter("@pi_loan_dflt_reason_notes", null);

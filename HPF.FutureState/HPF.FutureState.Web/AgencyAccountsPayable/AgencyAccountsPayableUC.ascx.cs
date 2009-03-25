@@ -68,8 +68,9 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch (Exception ex)
             {
+                bulMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                throw ex;
+                return;
             }
         }
         private void ApplySecurity()
@@ -89,14 +90,22 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// </summary>
         protected void BindAgencyDropDownList()
         {
-            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
-            ddlAgency.DataValueField = "AgencyID";
-            ddlAgency.DataTextField = "AgencyName";
-            ddlAgency.DataSource = agencyCollection;
-            ddlAgency.DataBind();
-            ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
-            ddlAgency.Items.Insert(0, new ListItem("ALL", "-1"));
-            ddlAgency.Items.FindByText("ALL").Selected = true;
+            try
+            {
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                ddlAgency.DataValueField = "AgencyID";
+                ddlAgency.DataTextField = "AgencyName";
+                ddlAgency.DataSource = agencyCollection;
+                ddlAgency.DataBind();
+                ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
+                ddlAgency.Items.Insert(0, new ListItem("ALL", "-1"));
+                ddlAgency.Items.FindByText("ALL").Selected = true;
+            }
+            catch (Exception ex)
+            {
+                bulMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         /// <summary>
         /// Bind search data into gridview

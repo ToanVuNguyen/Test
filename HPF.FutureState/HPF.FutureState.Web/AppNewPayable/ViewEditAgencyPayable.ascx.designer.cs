@@ -23,15 +23,6 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.ScriptManager myscriptManager;
         
         /// <summary>
-        /// myUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel myUpdatePanel;
-        
-        /// <summary>
         /// bulErrorMessage control.
         /// </summary>
         /// <remarks>
@@ -174,6 +165,15 @@ namespace HPF.FutureState.Web.AppNewPayable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panForeClosureCaseSearch;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// grvViewEditAgencyPayable control.

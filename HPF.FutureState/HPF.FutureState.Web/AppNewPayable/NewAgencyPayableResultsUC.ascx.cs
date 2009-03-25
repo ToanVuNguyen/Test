@@ -148,7 +148,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                bulErrorMessage.Text = ex.Message;
+                bulErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -196,7 +196,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                         this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     }
                     agencyPayableDraftDTO.ForclosureCaseDrafts = this.agencyPayableDraft.ForclosureCaseDrafts;
-                    //agencyPayableDraftDTO.TotalAmount = double.Parse(lblTotalAmount.Text.ToString());
                     agencyPayableDraftDTO.TotalAmount = this.agencyPayableDraft.TotalAmount;
                     agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
                     agencyPayableDraftDTO.PaymentComment = txtComment.Text;
@@ -227,19 +226,27 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             bulErrorMessage.Items.Clear();
             bool IsCheck = false;
-            for (int i = grvInvoiceItems.Rows.Count - 1; i >= 0; i--)
+            try
             {
-                CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
-                if (chkdel.Checked == true)
+                for (int i = grvInvoiceItems.Rows.Count - 1; i >= 0; i--)
                 {
-                    ForeclosureCaseDraftDTO agency = this.agencyPayableDraft.ForclosureCaseDrafts[i];
-                    this.agencyPayableDraft.ForclosureCaseDrafts.Remove(agency);
-                    IsCheck = true;
+                    CheckBox chkdel = (CheckBox)grvInvoiceItems.Rows[i].FindControl("chkCaseID");
+                    if (chkdel.Checked == true)
+                    {
+                        ForeclosureCaseDraftDTO agency = this.agencyPayableDraft.ForclosureCaseDrafts[i];
+                        this.agencyPayableDraft.ForclosureCaseDrafts.Remove(agency);
+                        IsCheck = true;
+                    }
                 }
+                if (IsCheck == false)
+                    bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0587"));
+                BindGridView();
             }
-            if (IsCheck == false)
-                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0587"));
-            BindGridView();
+            catch (Exception ex)
+            {
+                bulErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
 
         }
         /// <summary>
@@ -249,10 +256,18 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
-            AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
-            string query = GetQueryString(criteria);
-            Session["Comment"] = txtComment.Text;
-            Response.Redirect("CreateNewPayable.aspx" + query);
+            try
+            {
+                AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
+                string query = GetQueryString(criteria);
+                Session["Comment"] = txtComment.Text;
+                Response.Redirect("CreateNewPayable.aspx" + query);
+            }
+            catch (Exception ex)
+            {
+                bulErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         private string GetQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {
@@ -271,7 +286,16 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable, int? agencyPayableId)
         {
-            ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable, agencyPayableId);
+            try
+            {
+                ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable, agencyPayableId);
+            }
+            catch (Exception ex)
+            {
+                string exMessage="Can't upload report to hpf-portal. " +ex.Message;
+                bulErrorMessage.Items.Add(exMessage);
+                throw ex;
+            }
 
         }
 

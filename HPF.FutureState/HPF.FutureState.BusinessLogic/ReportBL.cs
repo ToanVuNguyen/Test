@@ -158,6 +158,7 @@ namespace HPF.FutureState.BusinessLogic
             {
                 Logger.Write(ex.Message);
                 Logger.Write(ex.StackTrace);
+                throw ex;
             }
         }
 

@@ -490,7 +490,7 @@
                         Duplicate:
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDuplicate" runat="server" CssClass="Text">
+                        <asp:DropDownList ID="ddlDuplicate" runat="server" CssClass="Text" TabIndex="1">
                             <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                             <asp:ListItem Value="N" Text="No"></asp:ListItem>
                         </asp:DropDownList>
@@ -507,7 +507,7 @@
                         Agency:
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text">
+                        <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text" TabIndex="2">
                         </asp:DropDownList>
                     </td>
                     <td align="right" class="sidelinks">
@@ -979,7 +979,7 @@
                                     Do Not Call:
                                 </td>
                                 <td class="Control">
-                                    <asp:DropDownList ID="ddlNotCall" runat="server" CssClass="Text">
+                                    <asp:DropDownList ID="ddlNotCall" runat="server" CssClass="Text" TabIndex="3">
                                         <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                         <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                     </asp:DropDownList>
@@ -1002,7 +1002,8 @@
                                     NewsLetter:
                                 </td>
                                 <td class="Control">
-                                    <asp:DropDownList ID="ddlNewsLetter" runat="server" CssClass="Text">
+                                    <asp:DropDownList ID="ddlNewsLetter" runat="server" CssClass="Text" 
+                                        TabIndex="4">
                                         <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                         <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                     </asp:DropDownList>
@@ -1011,7 +1012,8 @@
                                     HPF Media Confirmation:
                                 </td>
                                 <td class="Control">
-                                    <asp:DropDownList ID="ddlMediaCondirmation" runat="server" CssClass="Text">
+                                    <asp:DropDownList ID="ddlMediaCondirmation" runat="server" CssClass="Text" 
+                                        TabIndex="6">
                                         <asp:ListItem Value="" Text=""></asp:ListItem>
                                         <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                         <asp:ListItem Value="N" Text="No"></asp:ListItem>
@@ -1021,7 +1023,8 @@
                                     HPF Success Story:
                                 </td>
                                 <td class="Control">
-                                    <asp:DropDownList ID="ddlSuccessStory" runat="server" CssClass="Text">
+                                    <asp:DropDownList ID="ddlSuccessStory" runat="server" CssClass="Text" 
+                                        TabIndex="7">
                                         <asp:ListItem Value="" Text=""></asp:ListItem>
                                         <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                         <asp:ListItem Value="N" Text="No"></asp:ListItem>
@@ -1033,7 +1036,7 @@
                                     Survey:
                                 </td>
                                 <td class="Control">
-                                    <asp:DropDownList ID="ddlServey" runat="server" CssClass="Text">
+                                    <asp:DropDownList ID="ddlServey" runat="server" CssClass="Text" TabIndex="5">
                                         <asp:ListItem Value="Y" Text="Yes"></asp:ListItem>
                                         <asp:ListItem Value="N" Text="No"></asp:ListItem>
                                     </asp:DropDownList>

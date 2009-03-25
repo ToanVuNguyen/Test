@@ -24,10 +24,12 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             ApplySecurity();
             bulErrorMessage.Items.Clear();
+            hidIsSelected.Value = GetSelectedRow();
+            btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
+            btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
+           
             if (!IsPostBack)
             {
-                string selectedcase = GetSelectedRow();
-                string value = hidIsSelected.Value;
                 BindTakebackReasonDropDownList();
                 BindViewEditPayable();
             }
@@ -79,6 +81,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                 //Bind Agency Payable Case, from agencypayableDTO.payablecase
                 grvViewEditAgencyPayable.DataSource = agencyPayableSet.PayableCases;
                 grvViewEditAgencyPayable.DataBind();
+                hidIsSelected.Value = "";
+                hidPayUnpayCheck.Value = "";
             }
         }
         protected void chkCheckAllCheck(object sender, EventArgs e)
@@ -93,35 +97,14 @@ namespace HPF.FutureState.Web.AppNewPayable
                     chkSelected.Checked = headerCheckbox.Checked;
                 }
             }
-            hidIsSelected.Value = GetSelectedRow();
-            if (hidIsSelected.Value != "")
-            {
-                btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
-                if (hidPayUnpayCheck.Value != "-1")
-                    btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
-            }
-            else
-            {
-                btnTakeBackMarkCase.Attributes.Clear();
-                btnPayUnpayMarkCase.Attributes.Clear();
-            }
+            if (headerCheckbox.Checked == true)
+                hidIsSelected.Value = "true";
+            else hidIsSelected.Value = "";
+           
         }
         protected void chkSelected(object sender, EventArgs e)
         {
-            bulErrorMessage.Items.Clear();
-            hidIsSelected.Value = GetSelectedRow();
-            if (hidIsSelected.Value != "")
-            {
-                btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
-                if (hidPayUnpayCheck.Value != "-1")
-
-                    btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
-            }
-            else
-            {
-                btnTakeBackMarkCase.Attributes.Clear();
-                btnPayUnpayMarkCase.Attributes.Clear();
-            }
+          
         }
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
@@ -132,10 +115,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         private void PayUnPay()
         {
             string payableCaseIdCollection = GetSelectedRow();
-            hidIsSelected.Value = payableCaseIdCollection;
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
-            btnTakeBackMarkCase.Attributes.Clear();
-            btnPayUnpayMarkCase.Attributes.Clear();
 
             if (payableCaseIdCollection == null)
             {
@@ -185,8 +165,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             string takebackReason = ddlTakebackReason.SelectedItem.Value;
 
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
-            btnTakeBackMarkCase.Attributes.Clear();
-            btnPayUnpayMarkCase.Attributes.Clear();
             if (payableCaseIdCollection == null)
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
@@ -254,21 +232,20 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     lblTakeBackDate.Text = "";
                 }
+                
                 //add attribute to check isselected
-                //CheckBox chkSelected = e.Row.FindControl("chkSelected") as CheckBox;
-                //chkSelected.Attributes.Add("onclick", "IsSelectedCheck(this)");
+                CheckBox chkSelected = e.Row.FindControl("chkSelected") as CheckBox;
+                if (chkSelected != null)
+                    chkSelected.AutoPostBack = true;
             }
         }
         protected void btnYesTakeBackReason_Click(object sender, EventArgs e)
         {
             TakeBackReason();
-
         }
-
         protected void btnYesPayUnpay_Click(object sender, EventArgs e)
         {
             PayUnPay();
-
         }
     }
 }
