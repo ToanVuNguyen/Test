@@ -60,7 +60,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindAgencyDropdownlist();
                 BindServicerDropDownList();
                 //redisplay search criteria when you click on menu item.
-                ReBindSearchCriteria();                
+                ReBindSearchCriteria();
+                this.PageNum = 1;
             }
             else
             {
@@ -349,7 +350,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 //lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
                 bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")).ToString().Replace("*", this.TotalRowNum.ToString()));
             //every click search button, set 
-            this.PageNum = 0;
+            //this.PageNum = 0;
             lbtnLast.Enabled = true;
             lbtnNext.Enabled = true;
 
