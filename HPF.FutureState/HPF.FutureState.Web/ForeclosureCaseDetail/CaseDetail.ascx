@@ -1075,7 +1075,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Button ID="btn_Save0" runat="server" Text="Save" CssClass="MyButton" Width="100px" OnClick="btn_Save_Click" />
+            <asp:Button ID="btn_Save0" runat="server" Text="Save" Width="100px" CssClass="MyButton" OnClick="btn_Save_Click" />
         </td>
     </tr>
     <tr>

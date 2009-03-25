@@ -25,6 +25,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ApplySecurity();
             if (IsPostBack)
             {
+                if (Request.QueryString["CaseID"] == null)
+                    return;
                 BindNeverBillReasonDropDownList();
                 BindNeverPayReasonDropDownList();
                 int fc_id = int.Parse(Request.QueryString["CaseID"].ToString());

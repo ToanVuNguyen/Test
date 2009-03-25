@@ -60,6 +60,7 @@ p
     color: Black;
     font-size: 10px;
     vertical-align: top;
+    padding:0;
 }
 .MyButton
 {

@@ -178,12 +178,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" nowrap="nowrap">
                         Audit Failure Reason:
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlAuditFailureReason" runat="server" CssClass="Text" 
-                            Width="150px" TabIndex="6"/>
+                        <asp:DropDownList ID="ddlAuditFailureReason" runat="server" CssClass="Text" style=" padding-right:0;"  
+                            TabIndex="6"/>
                         
                         
                     </td>
