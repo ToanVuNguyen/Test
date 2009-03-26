@@ -175,7 +175,7 @@
         </Field>
         <Field Name="borrower_DOB">
           <DataField>borrower_DOB</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="primary_contact_no">
           <DataField>primary_contact_no</DataField>
@@ -335,7 +335,7 @@
         </Field>
         <Field Name="interest_rate">
           <DataField>interest_rate</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <Query>
