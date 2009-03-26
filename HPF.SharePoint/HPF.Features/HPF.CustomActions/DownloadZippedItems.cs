@@ -16,22 +16,28 @@ namespace HPF.CustomActions
         #region "Overwrites"
         protected override void CreateChildControls()
         {
-            if (!base.ChildControlsCreated)
+            SPList spList = SPContext.Current.List;
+            if ((DownloadAppSettings.RenderForDocumentLibrary.Count == 0) ||
+                (DownloadAppSettings.RenderForDocumentLibrary.Count > 0 && DownloadAppSettings.RenderForDocumentLibrary.Contains(spList.Title)))
             {
-                base.CreateChildControls();
-                SubMenuTemplate child = new SubMenuTemplate();
-                child.Text = "Zip List Items";
-                child.ImageUrl = "/_layouts/images/TBSPRSHT.GIF";
-                child.Description = "Zip and download List Items";
+                if (!base.ChildControlsCreated)
+                {
+                    base.CreateChildControls();
+                    SubMenuTemplate child = new SubMenuTemplate();
+                    child.Text = "Zip List Items";
+                    child.ImageUrl = "/_layouts/images/TBSPRSHT.GIF";
+                    child.Description = "Zip and download List Items";
 
-                PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
-                templateCurrentView.Text = "Items In Current View";
-                templateCurrentView.Description = "Zip and Download All Items";
-                templateCurrentView.ID = "menuCurrentView";
-                templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
+                    PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
+                    templateCurrentView.Text = "Items In Current View";
+                    templateCurrentView.Description = "Zip and Download All Items";
+                    templateCurrentView.ID = "menuCurrentView";
+                    templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
 
-                child.Controls.Add(templateCurrentView);
-                this.Controls.Add(child);
+                    child.Controls.Add(templateCurrentView);
+                    this.Controls.Add(child);
+
+                }
             }
         }
 
@@ -189,23 +195,23 @@ namespace HPF.CustomActions
         private void ArchiveFiles(string filePath, string fileName, string archiveListPath)
         {
             SPSecurity.RunWithElevatedPrivileges(delegate()
-            {   
+            {
                 FileStream zipFileStream = null;
                 try
                 {
                     SPWeb sourceWeb = SPContext.Current.Web;
                     SPDocumentLibrary spArchiveLibrary = (SPDocumentLibrary)sourceWeb.Lists[archiveListPath];
-                    
+
                     if (spArchiveLibrary != null)
-                    {   
+                    {
                         SPFolder folder = spArchiveLibrary.RootFolder;
-                        if(!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
+                        if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
                         {
                             string archiveFolder = Page.Request.QueryString["RootFolder"].Replace(SPContext.Current.List.RootFolder.ServerRelativeUrl,
                                 spArchiveLibrary.RootFolder.ServerRelativeUrl);
                             folder = EnsureSPFolder(sourceWeb, archiveFolder);
                         }
-                        
+
                         zipFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                         try
                         {
@@ -236,7 +242,7 @@ namespace HPF.CustomActions
             try
             {
                 OleDocumentPropertiesClass document = new OleDocumentPropertiesClass();
-                document.Open(qualifiedFileName, false, dsoFileOpenOptions.dsoOptionOpenReadOnlyIfNoWriteAccess);            
+                document.Open(qualifiedFileName, false, dsoFileOpenOptions.dsoOptionOpenReadOnlyIfNoWriteAccess);
 
                 object value;
                 foreach (string field in this.MetaDataView.ViewFields)
@@ -255,12 +261,12 @@ namespace HPF.CustomActions
                                 document.CustomProperties.Add(field.Replace("_x0020_", ""), ref value);
                             }
                         }
-                        catch 
+                        catch
                         {
                             document.CustomProperties.Add(field.Replace("_x0020_", ""), ref value);
                         }
-                                               
-                        
+
+
                     }
                     catch { }
                 }
@@ -270,7 +276,7 @@ namespace HPF.CustomActions
                     document.CustomProperties.Add("ContentType", ref value);
                 }
                 catch { }
-            
+
                 document.Save();
                 document.Close(true);
             }
@@ -305,15 +311,15 @@ namespace HPF.CustomActions
         private SPFolder EnsureSPFolder(SPWeb sourceWeb, string folderPath)
         {
             SPFolder folder = sourceWeb.GetFolder(folderPath);
-            
+
             if (folder.Exists) { return folder; }
             string tmpPath = "";
             string[] folders = folderPath.Split(new Char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            
+
             for (int i = 1; i < folders.Length; i++)
             {
                 tmpPath += folders[i] + "/";
-                
+
                 if (!sourceWeb.GetFolder(tmpPath).Exists)
                 {
                     folder = sourceWeb.Folders.Add(tmpPath);

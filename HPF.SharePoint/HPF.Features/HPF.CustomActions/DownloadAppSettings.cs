@@ -11,6 +11,7 @@ namespace HPF.CustomActions
         public const string ReviewStatusFieldKey = "ReviewStatusField";
         public const string ReviewStatusDownloadValueKey = "ReviewStatusDownloadValue";
         public const string ArchiveListNameKey = "ArchiveListName";
+        public const string RenderForDocumentLibraryKey = "RenderForDocumentLibrary";
         public static string ReviewStatusField
         {
             get
@@ -44,6 +45,19 @@ namespace HPF.CustomActions
                     return ConfigurationManager.AppSettings[ArchiveListNameKey];
                 }
                 return "{0} Archive";
+            }
+        }
+
+        public static IList<string> RenderForDocumentLibrary
+        {
+            get
+            {
+                List<string> documentLibraryNames = new List<string>();
+                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[RenderForDocumentLibraryKey]))
+                {
+                    documentLibraryNames.AddRange(ConfigurationManager.AppSettings[RenderForDocumentLibraryKey].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+                }
+                return documentLibraryNames;
             }
         }
     }
