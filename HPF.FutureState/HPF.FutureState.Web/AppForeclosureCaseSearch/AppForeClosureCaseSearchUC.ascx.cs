@@ -186,8 +186,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             try
             {
                 bulErrorMessage.Items.Clear();
-                DataValidationException ex = new DataValidationException();
-                myPannel.Visible = true;
+                DataValidationException ex = new DataValidationException();                
                 ManageControls(false);
                 //get search criteria
                 appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
@@ -200,8 +199,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
             }
             catch (DataValidationException ex)
-            {
-                myPannel.Visible = false;
+            {                
                 //return exception message check input search criteria
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
@@ -212,8 +210,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 return;
             }
             catch (Exception ex)
-            {
-                myPannel.Visible = false;
+            {             
                 bulErrorMessage.Items.Add(new ListItem(ex.Message));
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
@@ -278,7 +275,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (DataValidationException ex)
             {
-                myPannel.Visible = false;
                 //return exception message check input search criteria
                 for (int i = 0; i < ex.ExceptionMessages.Count; i++)
                 {
@@ -289,7 +285,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             catch (Exception ex)
             {
-                myPannel.Visible = false;
                 bulErrorMessage.Items.Add(new ListItem(ex.Message));
                 this.TotalRowNum = 0;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
