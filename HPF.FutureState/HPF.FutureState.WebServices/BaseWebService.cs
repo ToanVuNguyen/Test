@@ -62,7 +62,7 @@ namespace HPF.FutureState.WebServices
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
-                response.Messages.AddExceptionMessage(Ex.Message);
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
                 HandleException(Ex);
             }
             catch (DataValidationException Ex)
