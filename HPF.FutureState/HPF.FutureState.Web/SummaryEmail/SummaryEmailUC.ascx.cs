@@ -154,7 +154,7 @@ namespace HPF.FutureState.Web.SummaryEmail
             activityLog.FcId = forclosureInfo.FcId;
             activityLog.ActivityCd = "EMAIL";
             activityLog.ActivityDt = DateTime.Now;
-            activityLog.ActivityNote = string.Concat(" To: ", txtTo.Text,"From:",HPFWebSecurity.CurrentIdentity.UserId.ToString(), " Subject: ", txtSubject.Text, " Body: ", txtBody.Text);
+            activityLog.ActivityNote = string.Concat(" To: ", txtTo.Text," From:",HPFWebSecurity.CurrentIdentity.UserId.ToString(), " Subject: ", txtSubject.Text, " Body: ", txtBody.Text);
             return activityLog;
         }
     }

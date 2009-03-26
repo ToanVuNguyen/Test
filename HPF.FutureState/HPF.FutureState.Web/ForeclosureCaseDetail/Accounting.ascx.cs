@@ -89,7 +89,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             {
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 bullblErrorMessage.Items.Add(ex.Message);
-                throw;
             }
         }
 
@@ -113,6 +112,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
             catch (Exception ex)
             {
+                bullblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 return false;
             }

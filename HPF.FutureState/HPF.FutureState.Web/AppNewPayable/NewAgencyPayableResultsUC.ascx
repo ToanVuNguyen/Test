@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewAgencyPayableResultsUC.ascx.cs"
     Inherits="HPF.FutureState.Web.AppNewPayable.NewAgencyPayableResultsUC" %>
+    <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 <%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <style type="text/css">
     .style1
@@ -23,6 +25,8 @@
         height: 8px;
     }
 </style>
+<asp:ScriptManager runat="server" ID="myscriptManager">
+</asp:ScriptManager>
 <table width="100%">
     <colgroup>
         <col width="15%" />
@@ -98,11 +102,13 @@
         <td class="sidelinks" align="right">
             Payment Comments:
         </td>
+        
         <td colspan="4">
             <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="5" TextMode="MultiLine"
-                Width="100%"></asp:TextBox>
+                Width="100%" ontextchanged="txtComment_TextChanged"></asp:TextBox>
             &nbsp;
         </td>
+        
     </tr>
       <tr  >
         <td class="ErrorMessage" colspan="5" >
@@ -120,7 +126,10 @@
     </tr>
     <tr>
         <td colspan="5">
-            <asp:Panel ID="panInvoiceItems" runat="server" CssClass="ScrollTable">
+            <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
+                Width="100%" Visible="true" ScrollBars="Auto">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
                 
                 <asp:GridView ID="grvInvoiceItems" runat="server" BorderStyle="None" Width="100%"
                     AutoGenerateColumns="false">
@@ -153,6 +162,7 @@
                     </Columns>
                    
                 </asp:GridView>
+               
                 <table>
                     <tr>
                         <td>
@@ -171,7 +181,10 @@
                         </td>
                     </tr>
                 </table>
-            </asp:Panel>
+             </ContentTemplate>
+                
+                </asp:UpdatePanel>
+            </cc1:StatefullScrollPanel>
         </td>
     </tr>
     <tr>

@@ -39,15 +39,21 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 //get search criteria.
                 ApplySecurity();
-
+                
                 AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
                 agencyPayableSearchCriteria = GetCriteria();
                 if (agencyPayableSearchCriteria == null) return;
-                if (Session["Comment"] != null) txtComment.Text = Session["Comment"].ToString();
+
                 if (!IsPostBack)
                 {
+                    if (Session["Comment"] != null)
+                    {
+                        txtComment.Text = Session["Comment"].ToString();
+                    }
+
                     //display all info match criteria to gridview
                     DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
+                    
                 }
             }
             catch (Exception ex)
@@ -151,6 +157,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void chkHeaderCaseIDCheck(object sender, EventArgs e)
         {
             bulErrorMessage.Items.Clear();
+            //Session["Comment"] = txtComment.Text;
             CheckBox chkdelall = (CheckBox)grvInvoiceItems.HeaderRow.FindControl("chkHeaderCaseID");
             foreach (GridViewRow row in grvInvoiceItems.Rows)
             {
@@ -199,7 +206,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                     ExportSendReportToHPFPortal(agencyPayable, agencyPayableId);
                     Response.Redirect("AgencyPayable.aspx");
                 }
-
             }
             catch (Exception ex)
             {
@@ -251,7 +257,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
                 string query = GetQueryString(criteria);
-                Session["Comment"] = txtComment.Text;
+                //Session["Comment"] = txtComment.Text;
                 Response.Redirect("CreateNewPayable.aspx" + query);
             }
             catch (Exception ex)
@@ -283,11 +289,16 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                string exMessage="Can't upload report to hpf-portal. " +ex.Message;
+                string exMessage = "Can't upload report to hpf-portal. " + ex.Message;
                 bulErrorMessage.Items.Add(exMessage);
                 throw ex;
             }
 
+        }
+
+        protected void txtComment_TextChanged(object sender, EventArgs e)
+        {
+            Session["Comment"] = txtComment.Text;
         }
 
     }
