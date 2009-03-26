@@ -93,7 +93,9 @@ namespace HPF.FutureState.Web
             lblPropertyAddress.Text = ForeclosureCase.PropCity + ", " + ForeclosureCase.PropStateCd + ", " + ForeclosureCase.PropZip;
             lblLoanList.Text = ForeclosureCase.LoanList;
             lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
-            lblPhone.Text = ForeclosureCase.CounselorPhone + " " + ForeclosureCase.CounselorExt;
+            if(string.IsNullOrEmpty(ForeclosureCase.CounselorExt))
+                lblPhone.Text = ForeclosureCase.CounselorPhone ;
+                else lblPhone.Text = ForeclosureCase.CounselorPhone + " (ext:" + ForeclosureCase.CounselorExt+")";
             lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
             lblAgencyName.Text = GetAgencyName(ForeclosureCase.AgencyId);
         }

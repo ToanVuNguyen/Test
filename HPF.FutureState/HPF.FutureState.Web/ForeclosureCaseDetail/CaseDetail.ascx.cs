@@ -183,10 +183,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblAgencyCase.Text = foreclosureCase.AgencyCaseNum;
                 lblAgencyClient.Text = foreclosureCase.AgencyClientNum;
                 lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
-                if (foreclosureCase.CounselorExt != null)
-                    lblPhoneExt.Text = foreclosureCase.CounselorPhone + "(ext:" + foreclosureCase.CounselorExt + ")";
-                else
+                if (string.IsNullOrEmpty(foreclosureCase.CounselorExt))
                     lblPhoneExt.Text = foreclosureCase.CounselorPhone;
+                else
+                    lblPhoneExt.Text = foreclosureCase.CounselorPhone + " (ext:"+ foreclosureCase.CounselorExt + ")";
                 lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
                 lblProgram.Text = foreclosureCase.ProgramName.ToString();
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
