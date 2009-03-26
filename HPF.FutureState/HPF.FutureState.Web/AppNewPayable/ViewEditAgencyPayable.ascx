@@ -10,13 +10,13 @@
 
 <table style="width:100%;" cellspacing="0px">
     <colgroup>
-        <col width="16%" />
+        <col width="15%" />
         <col width="9%" />
-        <col width="24%" />
+        <col width="23%" />
         <col width="8%" />
         <col width="20%" />
         <col width="13%" />
-        <col width="10%" />
+        <col width="14%" />
     </colgroup>
     <tr>
         <td colspan="8" align="center">
@@ -43,11 +43,11 @@
         <td class="Text" colspan="2">
             <asp:Label ID="lblTotalCases" runat="server" CssClass="Text" Text="6"></asp:Label>
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Takeback Reason:
         </td>
         <td>
-            <asp:DropDownList ID="ddlTakebackReason" runat="server" CssClass="Text" Width="200px">
+            <asp:DropDownList ID="ddlTakebackReason" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
         <td align="center">
