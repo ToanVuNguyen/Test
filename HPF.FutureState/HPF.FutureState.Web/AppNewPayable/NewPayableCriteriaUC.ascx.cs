@@ -53,7 +53,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             if (Request.QueryString["periodenddate"] != null)
             {
                 txtPeriodEnd.Text = Request.QueryString["periodenddate"].ToString();
-                DateTime periodstart = DateTime.Parse(Request.QueryString["periodstartdate"]).AddMonths(-6);
+                //Sinh 
+                DateTime periodstart = DateTime.Parse(Request.QueryString["periodstartdate"]).AddMonths(6);
                 txtPeriodStart.Text = periodstart.ToShortDateString();
                 ddlCaseCompleted.SelectedValue = Request.QueryString["casecomplete"].ToString();
                 if (Convert.ToInt16(Request.QueryString["indicator"]) == 1)
