@@ -35,16 +35,25 @@ namespace HPF.FutureState.Web.AppNewPayable
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //get search criteria.
-            ApplySecurity();
-            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-            agencyPayableSearchCriteria = GetCriteria();
-            if (agencyPayableSearchCriteria == null) return;
-            if (Session["Comment"] != null) txtComment.Text = Session["Comment"].ToString();
-            if (!IsPostBack)
+            try
             {
-                //display all info match criteria to gridview
-                DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
+                //get search criteria.
+                ApplySecurity();
+
+                AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+                agencyPayableSearchCriteria = GetCriteria();
+                if (agencyPayableSearchCriteria == null) return;
+                if (Session["Comment"] != null) txtComment.Text = Session["Comment"].ToString();
+                if (!IsPostBack)
+                {
+                    //display all info match criteria to gridview
+                    DisplayNewAgencyPayableResult(agencyPayableSearchCriteria);
+                }
+            }
+            catch (Exception ex)
+            {
+                bulErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         private void ApplySecurity()
@@ -60,25 +69,18 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <returns>AgencyPayableSearchCriteriaDTO</returns>
         protected AgencyPayableSearchCriteriaDTO GetCriteria()
         {
-            try
-            {
-                AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-                int agencyid = int.Parse(Request.QueryString["agencyid"].ToString());
-                string casecomplete = Request.QueryString["casecomplete"].ToString();
-                DateTime periodenddate = Convert.ToDateTime(Request.QueryString["periodenddate"].ToString());
-                DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
-                int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
-                agencyPayableSearchCriteria.AgencyId = agencyid;
-                agencyPayableSearchCriteria.CaseComplete = casecomplete;
-                agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
-                agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
-                agencyPayableSearchCriteria.Indicator = indicator;
-                return agencyPayableSearchCriteria;
-            }
-            catch
-            {
-                return null;
-            }
+            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+            int agencyid = int.Parse(Request.QueryString["agencyid"].ToString());
+            string casecomplete = Request.QueryString["casecomplete"].ToString();
+            DateTime periodenddate = Convert.ToDateTime(Request.QueryString["periodenddate"].ToString());
+            DateTime periodstartdate = Convert.ToDateTime(Request.QueryString["periodstartdate"].ToString());
+            int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
+            agencyPayableSearchCriteria.AgencyId = agencyid;
+            agencyPayableSearchCriteria.CaseComplete = casecomplete;
+            agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
+            agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
+            agencyPayableSearchCriteria.Indicator = indicator;
+            return agencyPayableSearchCriteria;
         }
         /// <summary>
         /// bind search data match search criteria into gridview
@@ -109,48 +111,36 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="agencyPayableSearchCriteria"></param>
         protected void DisplayNewAgencyPayableResult(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {
-            try
+            AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
+            agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
+            //
+            AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
+            lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
+            lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
+            lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
+            lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount == null ? 0 : agencyPayableDraftDTO.TotalAmount);
+            lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
+            lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
+            //
+            if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count != 0)
             {
-                AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
-                agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
+                grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
+                this.agencyPayableDraft = agencyPayableDraftDTO;
+                grvInvoiceItems.DataBind();
                 //
-                AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
-                lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
-                lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
-                lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
-                lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount == null ? 0 : agencyPayableDraftDTO.TotalAmount);
-                lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
-                lblTotalCasesFooter.Text = agencyPayableDraftDTO.ForclosureCaseDrafts.Count.ToString();
-                //
-                if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count!= 0)
+                double total = 0;
+                //calculate total amount of cases - search data match  search criteria.
+                foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
                 {
-                    grvInvoiceItems.DataSource = agencyPayableDraftDTO.ForclosureCaseDrafts;
-                    this.agencyPayableDraft = agencyPayableDraftDTO;
-                    grvInvoiceItems.DataBind();
-                    //
-                    double total = 0;
-                    //calculate total amount of cases - search data match  search criteria.
-                    foreach (var item in agencyPayableDraftDTO.ForclosureCaseDrafts)
-                    {
-                        total += item.Amount == null ? 0 : item.Amount.Value;
-                    }
-                    lblInvoiceTotalFooter.Text = total.ToString();
-                    lblTotalAmount.Text = String.Format("{0:C}", total);
+                    total += item.Amount == null ? 0 : item.Amount.Value;
                 }
-                else
-                {
-                    bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("WARN0583"));
-
-                }
-                if (agencyPayableDraftDTO.ForclosureCaseDrafts.Count == 0)
-                {
-                    btnGeneratePayable.Enabled = false;
-                }
+                lblInvoiceTotalFooter.Text = total.ToString();
+                lblTotalAmount.Text = String.Format("{0:C}", total);
             }
-            catch (Exception ex)
+            else
             {
-                bulErrorMessage.Items.Add(ex.Message);
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                btnGeneratePayable.Enabled = false;
+                throw new Exception(ErrorMessages.GetExceptionMessageCombined("WARN0583"));
             }
         }
         /// <summary>

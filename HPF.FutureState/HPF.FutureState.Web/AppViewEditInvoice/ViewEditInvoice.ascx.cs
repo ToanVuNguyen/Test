@@ -253,7 +253,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             }
             catch
             {
-                lblErrorMessage.Items.Add( ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0558));
+                lblErrorMessage.Items.Add( ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0556));
                 return;
             }
             invoiceSet.Invoice.InvoicePaymentAmount = invoiceSet.TotalPaid;
