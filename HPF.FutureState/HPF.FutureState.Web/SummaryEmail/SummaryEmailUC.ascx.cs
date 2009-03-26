@@ -86,7 +86,7 @@ namespace HPF.FutureState.Web.SummaryEmail
                 //
                 InsertActivityLogInfo();
                 //
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "hi", "javascript:window.close();");
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "", "<script language='javascript'>window.close();</script>");
             }
             catch (DataValidationException ex)
             {
