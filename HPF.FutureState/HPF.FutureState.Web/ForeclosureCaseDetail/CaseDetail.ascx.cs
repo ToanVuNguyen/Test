@@ -128,12 +128,12 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblPropertyCode.Text = foreclosureCase.PropertyDesc;
                 lblNumberOfOccupants.Text = foreclosureCase.OccupantNum.ToString();
                 lblPurchaseYear.Text = foreclosureCase.HomePurchaseYear.ToString();
-                lblPurchasePrice.Text = foreclosureCase.HomePurchasePrice.ToString();
-                lblCurrentMarketValue.Text = foreclosureCase.HomeCurrentMarketValue.ToString();
+                lblPurchasePrice.Text = foreclosureCase.HomePurchasePrice.HasValue ? foreclosureCase.HomePurchasePrice.Value.ToString("C"):null;
+                lblCurrentMarketValue.Text = foreclosureCase.HomeCurrentMarketValue.HasValue?foreclosureCase.HomeCurrentMarketValue.Value.ToString("C"):null;
                 lblForSaleIndicator.Text = DisplayInd(foreclosureCase.ForSaleInd);
                 lblRealtyCompany.Text = foreclosureCase.RealtyCompany;
-                lblHomeAskingPrice.Text = foreclosureCase.HomeSalePrice.ToString();
-                lblPrimaryRes.Text = foreclosureCase.PrimResEstMktValue.ToString();
+                lblHomeAskingPrice.Text = foreclosureCase.HomeSalePrice.HasValue?foreclosureCase.HomeSalePrice.Value.ToString("C"):null;
+                lblPrimaryRes.Text = foreclosureCase.PrimResEstMktValue.HasValue?foreclosureCase.PrimResEstMktValue.Value.ToString("C"):null;
                 //Borrower
                 lblFirstName.Text = foreclosureCase.BorrowerFname;
                 lblMidName.Text = foreclosureCase.BorrowerMname;
@@ -183,7 +183,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblAgencyCase.Text = foreclosureCase.AgencyCaseNum;
                 lblAgencyClient.Text = foreclosureCase.AgencyClientNum;
                 lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
-                lblPhoneExt.Text = foreclosureCase.CounselorPhone + " " + foreclosureCase.CounselorExt;
+                if (foreclosureCase.CounselorExt != null)
+                    lblPhoneExt.Text = foreclosureCase.CounselorPhone + "(ext:" + foreclosureCase.CounselorExt + ")";
+                else
+                    lblPhoneExt.Text = foreclosureCase.CounselorPhone;
                 lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
                 lblProgram.Text = foreclosureCase.ProgramName.ToString();
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();
@@ -202,9 +205,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblSDefaultReason.Text = foreclosureCase.DefaultReason2Desc;
                 //case financial
                 lblHouseholdType.Text = foreclosureCase.HouseholdDesc;
-                lblAnnualIncome.Text = foreclosureCase.HouseholdGrossAnnualIncomeAmt.ToString();
+                lblAnnualIncome.Text = foreclosureCase.HouseholdGrossAnnualIncomeAmt.HasValue?foreclosureCase.HouseholdGrossAnnualIncomeAmt.Value.ToString("C"):null;
                 lblEarnerCode.Text = foreclosureCase.IncomeDesc;
-                lblAMIPercentage.Text = foreclosureCase.AmiPercentage.ToString();
+                if(foreclosureCase.AmiPercentage.HasValue)
+                    lblAMIPercentage.Text = (foreclosureCase.AmiPercentage.Value).ToString()+"%";
                 lblWServicer.Text = DisplayInd(foreclosureCase.DiscussedSolutionWithSrvcrInd);
                 lblAnotherAgency.Text = DisplayInd(foreclosureCase.WorkedWithAnotherAgencyInd);
                 lblSevicerRecently.Text = DisplayInd(foreclosureCase.ContactedSrvcrRecentlyInd);
