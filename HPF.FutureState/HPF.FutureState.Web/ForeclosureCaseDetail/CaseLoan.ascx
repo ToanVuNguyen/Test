@@ -39,7 +39,7 @@
             <td align="right" class="sidelinks">Loan 1<sup>st</sup> 2<sup>nd</sup> Code*: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "Loan1st2nd")%></td>
             <td align="right" class="sidelinks" nowrap="nowrap">Current Servicer FDIC/NCUA: </td>
-            <td align="left" class ="Text" style="vertical-align:top;"><%# DataBinder.Eval(Container.DataItem, "CurrentServicerFdicNcuaNum")%></td>            
+            <td align="left" class ="Text" ><%# DataBinder.Eval(Container.DataItem, "CurrentServicerFdicNcuaNum")%></td>            
         </tr>     
         <tr>
             <td align="right" class="sidelinks">ARM Reset Indicator: </td>
