@@ -54,30 +54,27 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="searchCriteria">Search criteria</param>
         /// <returns>Collection of AppForeclosureCaseSearchResult</returns>
         public AppForeclosureCaseSearchResultDTOCollection AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
-        {
-            AppForeclosureCaseSearchResultDTOCollection result = new AppForeclosureCaseSearchResultDTOCollection();
+        {            
             ExceptionMessageCollection exCol = new ExceptionMessageCollection();
             DataValidationException dataVaidEx = new DataValidationException();
             ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, Constant.RULESET_CRITERIAVALID);
-            if (!ValidateSearchCriteria(searchCriteria))
-            {
-                ExceptionMessage ex = new ExceptionMessage();
-                ex.Message = ErrorMessages.GetExceptionMessageCombined("ERR0378");
-                dataVaidEx.ExceptionMessages.Add(ex);
-            }
+            
             if (!validationResults.IsValid)
             {
                 foreach (ValidationResult validationResult in validationResults)
                 {
                     string errorCode = string.IsNullOrEmpty(validationResult.Tag) ? "ERROR" : validationResult.Tag;
-                    string errorMess = string.IsNullOrEmpty(validationResult.Tag) ? validationResult.Message : ErrorMessages.GetExceptionMessageCombined(validationResult.Tag);
+                    string errorMess = string.IsNullOrEmpty(validationResult.Tag) ? validationResult.Message : ErrorMessages.GetExceptionMessage(validationResult.Tag);
                     dataVaidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
                 }
             }
-            if(dataVaidEx.ExceptionMessages.Count>0)
+            else if (!ValidateSearchCriteria(searchCriteria))
+                dataVaidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0378, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0378));
+          
+            if (dataVaidEx.ExceptionMessages.Count > 0)
                 throw dataVaidEx;
-            result = ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);
-            return result;
+
+            return ForeclosureCaseDAO.CreateInstance().AppSearchForeclosureCase(searchCriteria);            
         }
         /// <summary>
         /// Get ForeclosureCase to display on the detail page

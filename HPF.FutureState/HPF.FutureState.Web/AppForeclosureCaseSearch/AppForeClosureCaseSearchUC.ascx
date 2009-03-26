@@ -5,12 +5,6 @@
 <%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>
-<style type="text/css">
-    .style1
-    {
-        height: 210px;
-    }
-</style>
 <%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <table width="100%">
     <colgroup>
@@ -227,15 +221,19 @@
             <asp:Label ID="lblMaxRow" runat="server" Visible="false"></asp:Label>
             <asp:Label ID="lbl2" runat="server" Text=" of " Visible="false"></asp:Label>
             <asp:Label ID="lblTotalRowNum" runat="server" Visible="false"></asp:Label>
+            &nbsp;
             <asp:LinkButton ID="lbtnFirst" CommandName="First" OnCommand="lbtnNavigate_Click"
-                runat="server" Text="<<  " Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                runat="server" Text="&lt;&lt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+            &nbsp;
             <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server"
-                Text="<" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
-            <asp:PlaceHolder ID="phPages" runat="server" Visible="true"></asp:PlaceHolder>
+                Text="&lt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+            &nbsp;<asp:PlaceHolder ID="phPages" runat="server" Visible="true"></asp:PlaceHolder>
+            &nbsp;
             <asp:LinkButton ID="lbtnNext" CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server"
-                Text=">  " Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                Text="&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+            &nbsp;
             <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server"
-                Text=">>" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
             <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
         </td>
     </tr>

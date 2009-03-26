@@ -22,6 +22,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
     public partial class AppForeClosureCaseSearchUC : System.Web.UI.UserControl
     {
+        #region Properties
         //session store search criteria
         protected AppForeclosureCaseSearchCriteriaDTO SearchCriteria
         {
@@ -48,6 +49,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             get { return Convert.ToInt16(ViewState["pagenum"]); }
             set { ViewState["pagenum"] = value; }
         }
+        #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblResult.Visible = false;
@@ -61,8 +64,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindAgencyDropdownlist();
                 BindServicerDropDownList();
                 //redisplay search criteria when you click on menu item.
-                ReBindSearchCriteria();
                 this.PageNum = 1;
+                BindSearchCriteria();                
             }
             else
             {
@@ -83,36 +86,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// <summary>
         /// Redisplay search criteria.
         /// </summary>
-        protected void ReBindSearchCriteria()
-        {
-            //string currentUserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
-            if (Session["searchcriteria"] != null)
-            {
-                AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
-                //if (currentUserID == searchcriteria.UserID)
-                {
-                    //set search control the values from session searchcriteria.               
 
-                    //bind criteria
-                    txtLastName.Text = searchcriteria.LastName;
-                    txtFirstName.Text = searchcriteria.FirstName;
-                    txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
-                    if (searchcriteria.ForeclosureCaseID == -1)
-                        txtForeclosureCaseID.Text = "";
-                    else txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
-                    txtLoanNum.Text = searchcriteria.LoanNumber;
-                    txtPropertyZip.Text = searchcriteria.PropertyZip;
-                    txtSSN.Text = searchcriteria.Last4SSN;
-                    ddlAgency.SelectedValue = searchcriteria.Agency.ToString();
-                    ddlDup.SelectedValue = searchcriteria.Duplicates;
-                    ddlProgram.SelectedValue = searchcriteria.Program.ToString();
-                    ddlPropertyState.SelectedValue = searchcriteria.PropertyState;
-                    ddlServicer.SelectedValue = searchcriteria.Servicer.ToString();
-                    //bind gridview
-                    BindGrvForeClosureCaseSearch(1);
-                }
-            }
-        }
+        #region Binding Data
         protected void BindStateDropdownlist()
         {
             RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_STATE_CODE);
@@ -157,240 +132,48 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             ddlServicer.Items.Insert(0, new ListItem("ALL", "-1"));
             ddlServicer.Items.FindByText("ALL").Selected = true;
         }
-
-        private ExceptionMessage GetExceptionMessage(string exCode)
+        protected void BindSearchCriteria()
         {
-            ExceptionMessage exMess = new ExceptionMessage();
-            exMess.ErrorCode = exCode;
-            exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
-            return exMess;
-        }
-        private bool CheckChosenCriteria(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
-        {
-            if (searchCriteria.Last4SSN == null && searchCriteria.LastName == null
-                && searchCriteria.LoanNumber == null && searchCriteria.FirstName == null
-                && searchCriteria.AgencyCaseID == null && searchCriteria.ForeclosureCaseID == -1
-                && searchCriteria.PropertyZip == null && searchCriteria.PropertyState == null
-                && searchCriteria.Agency == -1 && searchCriteria.Program == -1
-                && searchCriteria.Duplicates == null && searchCriteria.Servicer == -1)
-                return true;
-            else return false;
-        }
-        /// <summary>
-        /// Bind data search result to gridview. Depend on that display pager controls.
-        /// </summary>
-        /// <param name="PageNum">initial pagenum =1</param>
-        protected void BindGrvForeClosureCaseSearch(int PageNum)
-        {
-            AppForeclosureCaseSearchCriteriaDTO appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
             try
             {
-                bulErrorMessage.Items.Clear();
-                DataValidationException ex = new DataValidationException();                
-                ManageControls(false);
-                //get search criteria
-                appForeclosureCaseSearchCriteriaDTO = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
-                if (appForeclosureCaseSearchCriteriaDTO == null)
-                    throw ex;
-                if (CheckChosenCriteria(appForeclosureCaseSearchCriteriaDTO))
+                if (Session["searchcriteria"] != null)
                 {
-                    bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0378"));
-                    return;
-                }
-            }
-            catch (DataValidationException ex)
-            {                
-                //return exception message check input search criteria
-                for (int i = 0; i < ex.ExceptionMessages.Count; i++)
-                {
-                    bulErrorMessage.Items.Add(new ListItem(ex.ExceptionMessages[i].Message));
-                }
-                this.TotalRowNum = 0;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
-            }
-            catch (Exception ex)
-            {             
-                bulErrorMessage.Items.Add(new ListItem(ex.Message));
-                this.TotalRowNum = 0;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
-            }
-
-                try{
-                //get search info match search criteria
-                    DataValidationException ex = new DataValidationException();
-                    var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appForeclosureCaseSearchCriteriaDTO);
-                if (searchResult.Count == 0)
-                {
-                    ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0504);//error code
-                    ex.ExceptionMessages.Add(exMessage);
-                    throw ex;
-                }
-                //Bind data search result to gridview
-                grvForeClosureCaseSearch.DataSource = searchResult;
-                grvForeClosureCaseSearch.DataBind();
-                //The first time you click search button, page 1 is choose, disable button: << <
-                if (lblTemp.Text != "1")
-                {
-                    lbtnFirst.Enabled = false;
-                    lbtnPrev.Enabled = false;
-                }
-                this.TotalRowNum = searchResult.SearchResultCount;
-                //there have data search result
-                if (this.TotalRowNum != 0)
-                {
-                    lblResult.Visible = true;
-                    myPannel.Visible = true;
-                    //display pagers controls
-                    ManageControls(true);
-                    grvForeClosureCaseSearch.Visible = true;
-                    int MinRow = (this.PageSize * (PageNum - 1) + 1);
-                    int MaxRow = PageNum * this.PageSize;
-                    lblTotalRowNum.Text = this.TotalRowNum.ToString();
-                    lblMinRow.Text = MinRow.ToString();
-                    lblMaxRow.Text = MaxRow.ToString();
-                    if (MaxRow > this.TotalRowNum)
-                        lblMaxRow.Text = this.TotalRowNum.ToString();
-                    else lblMaxRow.Text = MaxRow.ToString();
-                    double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-                    if (totalpage == 1)
+                    AppForeclosureCaseSearchCriteriaDTO searchcriteria = (AppForeclosureCaseSearchCriteriaDTO)Session["searchcriteria"];
+                    //if (currentUserID == searchcriteria.UserID)
                     {
-                        lbtnFirst.Enabled = false;
-                        lbtnLast.Enabled = false;
-                        lbtnPrev.Enabled = false;
-                        lbtnNext.Enabled = false;
-                    }
-                    //generate pages
-                    GeneratePages(totalpage);
-                    lblTemp.Text = "1";
+                        //set search control the values from session searchcriteria.               
 
-                }
-                //there is no data search result
-                else
-                {
-                    //not display pagers control.
-                    ManageControls(false);
+                        //bind criteria
+                        txtLastName.Text = searchcriteria.LastName;
+                        txtFirstName.Text = searchcriteria.FirstName;
+                        txtAgencyCaseID.Text = searchcriteria.AgencyCaseID;
+                        if (searchcriteria.ForeclosureCaseID == -1)
+                            txtForeclosureCaseID.Text = "";
+                        else txtForeclosureCaseID.Text = searchcriteria.ForeclosureCaseID.ToString();
+                        txtLoanNum.Text = searchcriteria.LoanNumber;
+                        txtPropertyZip.Text = searchcriteria.PropertyZip;
+                        txtSSN.Text = searchcriteria.Last4SSN;
+                        ddlAgency.SelectedValue = searchcriteria.Agency.ToString();
+                        ddlDup.SelectedValue = searchcriteria.Duplicates;
+                        ddlProgram.SelectedValue = searchcriteria.Program.ToString();
+                        ddlPropertyState.SelectedValue = searchcriteria.PropertyState;
+                        ddlServicer.SelectedValue = searchcriteria.Servicer.ToString();
+
+                        SearchForeclosureCase(searchcriteria);
+                    }
                 }
             }
-            catch (DataValidationException ex)
+            catch (DataValidationException Exdata)
             {
-                //return exception message check input search criteria
-                for (int i = 0; i < ex.ExceptionMessages.Count; i++)
-                {
-                    bulErrorMessage.Items.Add(new ListItem(ex.ExceptionMessages[i].Message));
-                }
-                this.TotalRowNum = 0;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                bulErrorMessage.DataSource = Exdata.ExceptionMessages;
+                bulErrorMessage.DataBind();
             }
             catch (Exception ex)
             {
-                bulErrorMessage.Items.Add(new ListItem(ex.Message));
-                this.TotalRowNum = 0;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                bulErrorMessage.Items.Add(ex.Message);
             }
         }
-        /// <summary>
-        /// get all search criteria from controls put into AppForeclosureCaseSearchCriteriaDTO
-        /// </summary>
-        /// <param name="PageNum"></param>
-        /// <returns></returns>
-        private AppForeclosureCaseSearchCriteriaDTO GetAppForeclosureCaseSearchCriteriaDTO(int PageNum)
-        {
-            bulErrorMessage.Items.Clear();
-            var appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
-            DataValidationException dataEx = new DataValidationException();
-            string textchangeFirstName = "";
-            string textchangeLastName = "";
-            
-            //replace * by % to search like in fristname
-            if (txtFirstName.Text != string.Empty)
-            {
-                textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
-            }
-            //replace * by % to search like in fristname
-            if (txtLastName.Text != string.Empty)
-            {
-                textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
-            }
-            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeLastName.Trim());
-            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeFirstName.Trim());
-            try
-            {
-                appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = txtForeclosureCaseID.Text.Trim() == string.Empty ? -1 : int.Parse(txtForeclosureCaseID.Text.Trim());
-            }
-            catch
-            {
-                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0503"));
-                //ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0503);//error code
-                //dataEx.ExceptionMessages.Add(exMessage);
 
-            }
-            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text.Trim() == string.Empty ? null : txtAgencyCaseID.Text.Trim();
-            appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text.Trim()) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text.Trim());
-            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text.Trim() == string.Empty ? null : txtPropertyZip.Text.Trim();
-            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text.Trim() == string.Empty ? null : txtSSN.Text.Trim();
-            appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
-            appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
-            appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
-            appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
-            appForeclosureCaseSearchCriteriaDTO.Servicer = int.Parse(ddlServicer.SelectedValue);
-            appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
-            appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
-            appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
-            txtLoanNum.Text = DeleteSpecialChar(txtLoanNum.Text);
-            appForeclosureCaseSearchCriteriaDTO.UserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
-            if (bulErrorMessage.Items.Count > 0)
-                return null;
-            else return appForeclosureCaseSearchCriteriaDTO;
-        }
-        /// <summary>
-        /// display or not display pager controls
-        /// </summary>
-        /// <param name="isEnable"></param>
-        protected void ManageControls(bool isEnable)
-        {
-            lbl1.Visible = isEnable;
-            lbl2.Visible = isEnable;
-            lblMaxRow.Visible = isEnable;
-            lblMinRow.Visible = isEnable;
-            lblTotalRowNum.Visible = isEnable;
-            lbtnFirst.Visible = isEnable;
-            lbtnLast.Visible = isEnable;
-            lbtnNext.Visible = isEnable;
-            lbtnPrev.Visible = isEnable;
-            phPages.Visible = isEnable;
-        }
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            //store searchcriteria in session to keep searchcriteria when you click on menu item.
-            bulErrorMessage.Items.Clear();
-            Session["searchcriteria"] = GetAppForeclosureCaseSearchCriteriaDTO(1);
-
-
-            //lblErrorMessage.Text = "";
-            bulErrorMessage.Items.Clear();
-            //Bind search data meet search criteria to gridview, display page 1.
-            lblTemp.Text = " ";
-            BindGrvForeClosureCaseSearch(1);
-            //calculate totalpage from search data to display warning message if there are greater than 500 cases.
-            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            if (totalpage > 10)
-                //lblErrorMessage.Text = ErrorMessages.GetExceptionMessageCombined("WARN0500");
-                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined("WARN0500")).ToString().Replace("*", this.TotalRowNum.ToString()));
-            //every click search button, set 
-            //this.PageNum = 0;
-            lbtnLast.Enabled = true;
-            lbtnNext.Enabled = true;
-
-            //
-            GeneratePages(totalpage);
-        }
-        /// <summary>
-        /// display 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void grvForeClosureCaseSearch_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -413,71 +196,117 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
             }
         }
-        /// <summary>
-        /// when click on button:  << < > >>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
-        {
-            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            switch (e.CommandName)
-            {
-                // button: <<
-                case "First":
-                    this.PageNum = 1;
-                    lbtnFirst.Enabled = false;
-                    lbtnPrev.Enabled = false;
-                    break;
-                // button: >>
-                case "Last":
-                    this.PageNum = Convert.ToInt16(totalpage);
-                    lbtnLast.Enabled = false;
-                    lbtnNext.Enabled = false;
-                    lbtnFirst.Enabled = true;
-                    lbtnPrev.Enabled = true;
-                    if (totalpage > 10)
-                    {
-                        totalpage = 10;
-                        this.PageNum = 10;
-                    }
-                    break;
-                // button: >
-                case "Next":
-                    this.PageNum = Convert.ToInt16(this.PageNum) + 1;
-                    lbtnFirst.Enabled = true;
-                    lbtnLast.Enabled = true;
-                    lbtnPrev.Enabled = true;
-                    if (this.PageNum > 10) this.PageNum = 10;
-                    if (this.PageNum == totalpage||this.PageNum==10)
-                    {
-                        lbtnNext.Enabled = false;
-                        lbtnLast.Enabled = false;
-                    }
+        #endregion
 
-                    break;
-                // button: <
-                case "Prev":
-                    this.PageNum = Convert.ToInt16(this.PageNum) - 1;
-                    lbtnFirst.Enabled = true;
-                    lbtnLast.Enabled = true;
-                    lbtnNext.Enabled = true;
-                    if (this.PageNum < 1 || this.PageNum == 1)
-                    {
-                        this.PageNum = 1;
-                        lbtnPrev.Enabled = false;
-                        lbtnFirst.Enabled = false;
-                    }
-                    break;
+        private void SearchForeclosureCase(AppForeclosureCaseSearchCriteriaDTO appFCSearchCriteriaDTO)
+        {
+            var searchResult = ForeclosureCaseBL.Instance.AppSearchforeClosureCase(appFCSearchCriteriaDTO);
+            bulErrorMessage.Items.Clear();
+
+            if (searchResult.Count > 0)
+            {
+                lblResult.Visible = true;
+                myPannel.Visible = true;
+                grvForeClosureCaseSearch.DataSource = searchResult;
+                grvForeClosureCaseSearch.DataBind();
+
+                CalculatePaging(searchResult.SearchResultCount);                
             }
-            //
-            BindGrvForeClosureCaseSearch(this.PageNum);
+            else
+            {
+                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0504));
+            }
         }
-        /// <summary>
-        /// generate pages
-        /// </summary>
-        /// <param name="totalpage"></param>
-        void GeneratePages(double totalpage)
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {            
+            try
+            {                                
+                AppForeclosureCaseSearchCriteriaDTO fcDTO = GetAppForeclosureCaseSearchCriteriaDTO(1);
+                Session["searchcriteria"] = fcDTO;
+
+                bulErrorMessage.Items.Clear();                
+                lblTemp.Text = " ";
+
+                SearchForeclosureCase(fcDTO);
+            }
+            catch (DataValidationException Exdata)
+            {
+                bulErrorMessage.DataSource = Exdata.ExceptionMessages;
+                bulErrorMessage.DataBind();
+            }
+            catch (Exception ex)
+            {
+                bulErrorMessage.Items.Add(ex.Message);                
+            }
+        }
+
+        private AppForeclosureCaseSearchCriteriaDTO GetAppForeclosureCaseSearchCriteriaDTO(int PageNum)
+        {
+            var appForeclosureCaseSearchCriteriaDTO = new AppForeclosureCaseSearchCriteriaDTO();
+            
+            string textchangeFirstName = "";
+            string textchangeLastName = "";
+
+            //replace * by % to search like in fristname
+            if (txtFirstName.Text != string.Empty)           
+                textchangeFirstName = Replace1Char(txtFirstName.Text, "*", "%");
+            
+            //replace * by % to search like in fristname
+            if (txtLastName.Text != string.Empty)           
+                textchangeLastName = Replace1Char(txtLastName.Text, "*", "%");
+            
+            appForeclosureCaseSearchCriteriaDTO.LastName = txtLastName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeLastName.Trim());
+            appForeclosureCaseSearchCriteriaDTO.FirstName = txtFirstName.Text.Trim() == string.Empty ? null : AddToSearchSpecialChar(textchangeFirstName.Trim());            
+            int temp = -1;
+            if (txtForeclosureCaseID.Text.Trim() != string.Empty)
+                int.TryParse(txtForeclosureCaseID.Text.Trim(), out temp);
+            if (temp == 0) temp = -2;
+            appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = temp;         
+            appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text.Trim() == string.Empty ? null : txtAgencyCaseID.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text.Trim()) == string.Empty ? null : DeleteSpecialChar(txtLoanNum.Text.Trim());
+            appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text.Trim() == string.Empty ? null : txtPropertyZip.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text.Trim() == string.Empty ? null : txtSSN.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
+            appForeclosureCaseSearchCriteriaDTO.Duplicates = ddlDup.SelectedValue.ToString() == string.Empty ? null : ddlDup.SelectedValue.ToString();
+            appForeclosureCaseSearchCriteriaDTO.Agency = int.Parse(ddlAgency.SelectedValue);
+            appForeclosureCaseSearchCriteriaDTO.Program = int.Parse(ddlProgram.SelectedValue);
+            appForeclosureCaseSearchCriteriaDTO.Servicer = int.Parse(ddlServicer.SelectedValue);
+            appForeclosureCaseSearchCriteriaDTO.PageNum = PageNum;
+            appForeclosureCaseSearchCriteriaDTO.PageSize = PageSize;
+            appForeclosureCaseSearchCriteriaDTO.TotalRowNum = 1;
+            txtLoanNum.Text = DeleteSpecialChar(txtLoanNum.Text);
+            appForeclosureCaseSearchCriteriaDTO.UserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
+            
+            return appForeclosureCaseSearchCriteriaDTO;
+        }
+
+        private void CalculatePaging(double searchResultCount)
+        {
+            this.TotalRowNum = searchResultCount;
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+            ShowHidePagingControl(false);
+
+            if (totalpage > 10)
+                bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0500)).ToString().Replace("*", this.TotalRowNum.ToString()));
+
+            if (totalpage > 1)
+            {
+                GeneratePages(totalpage);
+                lblTemp.Text = "1";
+                ShowHidePagingControl(true);
+                int MinRow = (this.PageSize * (PageNum - 1) + 1);
+                int MaxRow = PageNum * this.PageSize;
+                lblTotalRowNum.Text = this.TotalRowNum.ToString();
+                lblMinRow.Text = MinRow.ToString();
+                lblMaxRow.Text = MaxRow.ToString();
+                if (MaxRow > this.TotalRowNum)
+                    lblMaxRow.Text = this.TotalRowNum.ToString();
+                else lblMaxRow.Text = MaxRow.ToString();
+            }
+        }
+
+        private void GeneratePages(double totalpage)
         {
             if (totalpage > 10) totalpage = 10;
             phPages.Controls.Clear();
@@ -518,18 +347,91 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
             }
         }
+
+        protected void ShowHidePagingControl(bool isEnable)
+        {
+            lbl1.Visible = isEnable;
+            lbl2.Visible = isEnable;
+            lblMaxRow.Visible = isEnable;
+            lblMinRow.Visible = isEnable;
+            lblTotalRowNum.Visible = isEnable;
+            lbtnFirst.Visible = isEnable;
+            lbtnLast.Visible = isEnable;
+            lbtnNext.Visible = isEnable;
+            lbtnPrev.Visible = isEnable;
+            phPages.Visible = isEnable;
+        }
         /// <summary>
-        /// when click pages link button 
+        /// when click on button:  << < > >>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
+        {
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+            switch (e.CommandName)
+            {
+                // button: <<
+                case "First":
+                    this.PageNum = 1;
+                    lbtnFirst.Enabled = false;
+                    lbtnPrev.Enabled = false;
+                    break;
+                // button: >>
+                case "Last":
+                    this.PageNum = Convert.ToInt16(totalpage);
+                    lbtnLast.Enabled = false;
+                    lbtnNext.Enabled = false;
+                    lbtnFirst.Enabled = true;
+                    lbtnPrev.Enabled = true;
+                    if (totalpage > 10)
+                    {
+                        totalpage = 10;
+                        this.PageNum = 10;
+                    }
+                    break;
+                // button: >
+                case "Next":
+                    this.PageNum = Convert.ToInt16(this.PageNum) + 1;
+                    lbtnFirst.Enabled = true;
+                    lbtnLast.Enabled = true;
+                    lbtnPrev.Enabled = true;
+                    if (this.PageNum > 10) this.PageNum = 10;
+                    if (this.PageNum == totalpage || this.PageNum == 10)
+                    {
+                        lbtnNext.Enabled = false;
+                        lbtnLast.Enabled = false;
+                    }
+
+                    break;
+                // button: <
+                case "Prev":
+                    this.PageNum = Convert.ToInt16(this.PageNum) - 1;
+                    lbtnFirst.Enabled = true;
+                    lbtnLast.Enabled = true;
+                    lbtnNext.Enabled = true;
+                    if (this.PageNum < 1 || this.PageNum == 1)
+                    {
+                        this.PageNum = 1;
+                        lbtnPrev.Enabled = false;
+                        lbtnFirst.Enabled = false;
+                    }
+                    break;
+            }
+
+           AppForeclosureCaseSearchCriteriaDTO appFCCriteria = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
+           SearchForeclosureCase(appFCCriteria);
+        }
+
         void myLinkBtn_Command(object sender, CommandEventArgs e)
         {
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
             this.PageNum = pagenum;
 
-            BindGrvForeClosureCaseSearch(pagenum);
+            AppForeclosureCaseSearchCriteriaDTO appFCCriteria = GetAppForeclosureCaseSearchCriteriaDTO(PageNum);
+            SearchForeclosureCase(appFCCriteria);
+
             lbtnFirst.Enabled = true;
             lbtnLast.Enabled = true;
             lbtnNext.Enabled = true;
@@ -547,13 +449,22 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 lbtnNext.Enabled = false;
             }
         }
-        /// <summary>
-        /// replace oldchar in mystring by newchar.
-        /// </summary>
-        /// <param name="mystring"></param>
-        /// <param name="oldchar"></param>
-        /// <param name="newchar"></param>
-        /// <returns></returns>
+        #region Ultility
+        private string AddToSearchSpecialChar(string mystring)
+        {
+            string result = mystring;
+            if (mystring != null)
+            {
+                for (int i = mystring.Length - 1; i >= 0; i--)
+                {
+                    if (mystring[i] == '[' || mystring[i] == ']' || mystring[i] == '\\')
+                    {
+                        result = result.Insert(i, "/");
+                    }
+                }
+            }
+            return result;
+        }	
         string Replace1Char(string mystring, string oldchar, string newchar)
         {
             if (mystring == "" || oldchar == "" || newchar == "")
@@ -568,6 +479,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             return result;
 
         }
+
         private string DeleteSpecialChar(string mystring)
         {
             string result = "";
@@ -583,20 +495,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             }
             return result;
         }
-        private string AddToSearchSpecialChar(string mystring)
-        {
-            string result = mystring;
-            if (mystring != null)
-            {
-                for (int i = mystring.Length-1; i >= 0; i--)
-                {
-                    if (mystring[i] == '[' || mystring[i] == ']' || mystring[i] == '\\')
-                    {
-                        result = result.Insert(i, "/");
-                    }
-                }
-            }
-            return result;
-        }
+        #endregion
     }
 }
