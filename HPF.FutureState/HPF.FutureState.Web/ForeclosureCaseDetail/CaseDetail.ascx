@@ -322,7 +322,7 @@
                             </tr>
                         </table>
                     </td>
-                    <td style="vertical-align: top">
+                    <td >
                         <table style="width: 100%;">
                             <tr>
                                 <td align="right">
@@ -892,7 +892,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks" style="vertical-align: top">
+                                <td align="right" class="sidelinks" >
                                     Loan Default Reason Notes*:
                                 </td>
                                 <td class="Control">
@@ -901,7 +901,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks" style="vertical-align: top">
+                                <td align="right" class="sidelinks" >
                                     Action Item Notes*:
                                 </td>
                                 <td class="Control">
@@ -910,7 +910,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks" style="vertical-align: top">
+                                <td align="right" class="sidelinks" >
                                     Follow-Up Notes:
                                 </td>
                                 <td class="Control">

@@ -39,7 +39,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Funding Source:
         </td>
-        <td class="Text" style="vertical-align: top">
+        <td class="Text" >
             <asp:Label ID="lblFundingSource" runat="server" CssClass="Text" Text="Citi Group"></asp:Label>
         </td>
         <td align="right" class="sidelinks" nowrap="nowrap">
@@ -51,7 +51,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Reject Reason:
         </td>
-        <td style="vertical-align: top" width="180">
+        <td  width="180">
             <asp:DropDownList ID="dropRejectReason" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
@@ -66,7 +66,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Period Start:
         </td>
-        <td class="Text" style="vertical-align: top">
+        <td class="Text" >
             <asp:Label ID="lblPeriodStart" runat="server" Text="11/01/2008"></asp:Label>
         </td>
         <td align="right" class="sidelinks" nowrap="nowrap">
@@ -78,7 +78,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             &nbsp;
             HPF Payment ID:</td>
-        <td style="vertical-align: top">
+        <td >
             <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
         </td>
         <td align="left" class="style2">
@@ -92,7 +92,7 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Period End:
         </td>
-        <td class="Text" style="vertical-align: top">
+        <td class="Text" >
             <asp:Label ID="lblPeriodEnd" runat="server" Text="11/30/2008"></asp:Label>
         </td>
         <td align="right" class="sidelinks" colspan="2">
@@ -100,7 +100,7 @@
         </td>
         <td align="right" class="sidelinks">
             &nbsp;</td>
-        <td style="vertical-align: top" class="Text">
+        <td  class="Text">
             &nbsp;</td>
         <td align="left" class="style2">
             
@@ -113,13 +113,13 @@
         <td align="right" class="sidelinks" nowrap="nowrap">
             Invoice Number:
         </td>
-        <td class="Text" style="vertical-align: top">
+        <td class="Text" >
             <asp:Label ID="lblInvoiceNumber" runat="server" Text="50032"></asp:Label>
         </td>
-        <td align="right" class="style1" style="vertical-align: top">
+        <td align="right" class="style1" >
             Total Paid:
         </td>
-        <td class="Text" style="vertical-align: top">
+        <td class="Text" >
             <asp:Label ID="lblTotalPaid" runat="server" Text="$200.00"></asp:Label>
         </td>
         <td>
@@ -139,10 +139,10 @@
         <td class="Text">
             &nbsp;
         </td>
-        <td align="right" class="style1" style="vertical-align: top">
+        <td align="right" class="style1" >
             Total Rejected:
         </td>
-        <td class="Text" style="vertical-align: top">
+        <td class="Text" >
             <asp:Label ID="lblTotalRejected" runat="server" Text="$0.00"></asp:Label>
         </td>
         <td>
@@ -156,7 +156,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" style="vertical-align: top">
+        <td align="right" class="sidelinks" >
             Invoice Comments:
         </td>
         <td colspan="6">

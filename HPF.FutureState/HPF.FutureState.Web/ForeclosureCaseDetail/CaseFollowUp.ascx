@@ -33,19 +33,19 @@
                             <Columns>
                                 <asp:BoundField DataField="CasePostCounselingStatusId" HeaderText="ID" />                                     
                                 <asp:BoundField DataField="FollowUpDt" HeaderText="Follow-Up Date"  
-                                DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="13%" ItemStyle-CssClass="Text">
+                                DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="13%" >
                                     <ItemStyle Width="13%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="FollowUpSourceCdDesc" HeaderText="Source" 
-                                ItemStyle-Width="37%"  ItemStyle-CssClass="Text">
+                                ItemStyle-Width="37%"  >
                                     <ItemStyle Width="37%" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="OutcomeTypeName" 
-                                HeaderText="Follow-Up Outcome"  ItemStyle-Width="20%"  ItemStyle-CssClass="Text">
+                                HeaderText="Follow-Up Outcome"  ItemStyle-Width="20%"  >
                                     <ItemStyle Width="100px" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="LoanDelinqStatusCdDesc" HeaderText="Delinquency Status" 
-                                ItemStyle-Width="15%"  ItemStyle-CssClass="Text">
+                                ItemStyle-Width="15%"  >
                                     <ItemStyle Width="100px" />
                                 </asp:BoundField>                                
                                 <asp:TemplateField HeaderText = "View/Edit" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Center">

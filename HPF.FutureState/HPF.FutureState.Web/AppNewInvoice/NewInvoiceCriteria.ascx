@@ -40,16 +40,16 @@
                 <td align="right" class="sidelinks">
                     Program*:
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:DropDownList ID="dropProgram" runat="server" CssClass="Text">
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr>
-                <td align="right" class="sidelinks" rowspan="2" style="vertical-align: top">
+                <td align="right" class="sidelinks" rowspan="2" >
                     Servicers:
                 </td>
-                <td colspan="4" rowspan="2" style="vertical-align: top">
+                <td colspan="4" rowspan="2" >
                     <div style="height: 60px; overflow: auto; border: solid 1px #8FC4F6">
                         <asp:DataList ID="lst_FundingSourceGroup" runat="server" Width="100%" CellPadding="4"
                             ForeColor="#333333" CssClass="Text">
@@ -67,7 +67,7 @@
                 <td align="right" class="sidelinks" nowrap="nowrap">
                     Period Start*:
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
                     <cc1:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" Enabled="True"
                         TargetControlID="txtPeriodStart">
@@ -78,7 +78,7 @@
                 <td align="right" class="sidelinks" nowrap="nowrap">
                     Period End*:&nbsp;
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2009</asp:TextBox>
                     <cc1:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" Enabled="True"
                         TargetControlID="txtPeriodEnd">
@@ -86,7 +86,7 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="4" align="right" class="sidelinks" style="vertical-align: top">
+                <td rowspan="4" align="right" class="sidelinks" >
                     Non-Servicer
                     <br />
                     Funding Source
@@ -104,7 +104,7 @@
                 <td align="right" class="sidelinks">
                     &nbsp;Completed?:&nbsp;
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:DropDownList ID="dropCaseCompleted" runat="server" CssClass="Text">
                         <asp:ListItem Value="0">Select Only Complete Cases</asp:ListItem>
                         <asp:ListItem Value="1">Select Only Incomplete Cases</asp:ListItem>
@@ -116,7 +116,7 @@
                 <td align="right" class="sidelinks">
                     Duplicates?:
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:DropDownList ID="dropDuplicates" runat="server" CssClass="Text">
                         <asp:ListItem Value="1">Select Only Original Cases</asp:ListItem>
                         <asp:ListItem Value="0">Select Only Duplicate Cases</asp:ListItem>
@@ -125,10 +125,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" class="sidelinks" style="vertical-align: top">
+                <td align="right" class="sidelinks" >
                     Allow Multiple Billing?:
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:DropDownList ID="dropAlreadyBilled" runat="server" CssClass="Text">
                         <asp:ListItem Value="0">Yes</asp:ListItem>
                         <asp:ListItem Value="1">No</asp:ListItem>
@@ -136,10 +136,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" class="sidelinks" style="vertical-align: top">
+                <td align="right" class="sidelinks" >
                     Ignore Funding Consent?:
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:DropDownList ID="dropFundingConsent" runat="server" CssClass="Text">
                         <asp:ListItem Value="0">Yes</asp:ListItem>
                         <asp:ListItem Value="1">No</asp:ListItem>
@@ -252,13 +252,13 @@
                 <td align="right" class="sidelinks">
                     Min:
                 </td>
-                <td style="vertical-align: top">
+                <td >
                     <asp:TextBox ID="txtIncomeMin" runat="server" CssClass="Text" Width="120px"></asp:TextBox>
                 </td>
                 <td align="right" class="sidelinks">
                     Max:
                 </td>
-                <td align="left" class="Text" style="vertical-align: top">
+                <td align="left" class="Text" >
                     <asp:TextBox ID="txtIncomeMax" runat="server" CssClass="Text" Width="120px"></asp:TextBox>
                 </td>
                 <td>

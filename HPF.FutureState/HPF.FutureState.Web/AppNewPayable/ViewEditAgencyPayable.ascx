@@ -150,7 +150,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" style="vertical-align: top">
+        <td align="right" class="sidelinks" >
             Payable Comments:
         </td>
         <td colspan="7">

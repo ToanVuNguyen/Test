@@ -27,17 +27,17 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" nowrap="nowrap" style="vertical-align: top">
+        <td align="right" class="sidelinks" nowrap="nowrap" >
             Funding Source*:
         </td>
-        <td align="left" width="280" style="vertical-align: top" >
+        <td align="left" width="280"  >
             <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" 
                 Width="280px">
             </asp:DropDownList>
         </td>
-        <td align="right" class="sidelinks" nowrap="nowrap" style="vertical-align: top">
+        <td align="right" class="sidelinks" nowrap="nowrap" >
             Period Start*:</td>
-        <td colspan="2" style="vertical-align: top">
+        <td colspan="2" >
             <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text">1/1/2003</asp:TextBox>
             <cc2:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
                 Enabled="True" TargetControlID="txtPeriodStart">
@@ -49,9 +49,9 @@
             &nbsp;</td>
         <td width="280">
             &nbsp;</td>
-        <td align="right" class="sidelinks" nowrap="nowrap" style="vertical-align: top">
+        <td align="right" class="sidelinks" nowrap="nowrap" >
             Period End*:</td>
-        <td style="vertical-align: top">
+        <td >
             <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text">1/1/2010</asp:TextBox>
             <cc2:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 
                 Enabled="True" TargetControlID="txtPeriodEnd">

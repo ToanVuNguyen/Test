@@ -52,14 +52,14 @@ p
     color: #2271A0;
     font-size: 11px;
     font-weight: bold;
-    vertical-align: top;
+    
 }
 .Text
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: Black;
     font-size: 10px;
-    vertical-align: top;
+    
     padding:0;
 }
 .MyButton

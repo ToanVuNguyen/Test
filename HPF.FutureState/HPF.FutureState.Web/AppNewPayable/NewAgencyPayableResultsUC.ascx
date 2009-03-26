@@ -16,7 +16,6 @@
         color: #2271A0;
         font-size: 11px;
         font-weight: bold;
-        vertical-align: top;
         height: 8px;
     }
     .style3
