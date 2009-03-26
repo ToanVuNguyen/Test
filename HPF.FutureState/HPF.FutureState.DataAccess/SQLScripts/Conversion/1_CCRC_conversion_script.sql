@@ -161,6 +161,7 @@ begin
 			join CCRC_USER u on u.CCRC_USER_SEQ_ID = r.COUNSELOR_SEQ_ID
 				and r.CHG_LST_DATE >= @logicalDate
 			left join @ref_result_type_hist t on t.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+		WHERE r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)
 		order by REFERRAL_SEQ_ID
 
 	end else begin
@@ -273,6 +274,7 @@ begin
 			join CCRC_USER u on u.CCRC_USER_SEQ_ID = r.COUNSELOR_SEQ_ID
 				and r.CHG_LST_DATE >= @logicalDate
 			left join @ref_result_type_hist t on t.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+		WHERE r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)
 		order by REFERRAL_SEQ_ID
 	end
 
@@ -299,16 +301,20 @@ begin
 	--get REFERRAL_SEQ_IDs which have at least one budget items change
 	if @debug = 1 begin
 		insert into @referral_budget_id
-		select top 1000 REFERRAL_SEQ_ID
-		from REFERRAL_BUDGET
-		where CHG_LST_DATE >= @logicalDate
-		group by REFERRAL_SEQ_ID
+		select top 1000  rb.REFERRAL_SEQ_ID
+		from REFERRAL_BUDGET rb, REFERRAL r
+		where rb.CHG_LST_DATE >= @logicalDate
+			AND rb.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+			AND r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)			
+		group by rb.REFERRAL_SEQ_ID
 	end else begin
 		insert into @referral_budget_id
-		select REFERRAL_SEQ_ID
-		from REFERRAL_BUDGET
-		where CHG_LST_DATE >= @logicalDate
-		group by REFERRAL_SEQ_ID
+		select rb.REFERRAL_SEQ_ID
+		from REFERRAL_BUDGET rb, REFERRAL r
+		where rb.CHG_LST_DATE >= @logicalDate
+			AND rb.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+			AND r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)			
+		group by rb.REFERRAL_SEQ_ID
 	end
 
 	select r.REFERRAL_SEQ_ID, r.BUDGET_SUBCATEGORY_SEQ_ID, bs.BUDGET_CATEGORY_SEQ_ID
