@@ -227,17 +227,7 @@ namespace HPF.FutureState.UnitTest
             strsql = @"delete activity_log where fc_id=" + fc_id;
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
-
-            
-            //Delete data test AGENCY
-            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
-
-            //Delete data test PROGRAM
-            strsql = @"delete from program where create_user_id='" + working_user_id + "'";
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
+                                    
             //
             //delete data test DisplayInvoiceCase
             //case_loan,servicer,invoice_case,invoice_payment,invoice,funding_source
@@ -265,6 +255,16 @@ namespace HPF.FutureState.UnitTest
             command.ExecuteNonQuery();
             //Delete data test FORECLOSURE_CASE 
             strsql = @"delete from  foreclosure_case where create_user_id='"+working_user_id+"'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //Delete data test AGENCY
+            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //Delete data test PROGRAM
+            strsql = @"delete from program where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -304,8 +304,8 @@ namespace HPF.FutureState.UnitTest
             var command = new SqlCommand(strsql, dbConnection);
             //set foreclosureCase data
             foreclosureCase.FcId = Convert.ToInt32(command.ExecuteScalar());
-            foreclosureCase.NeverPayReasonCd = "pay accounting";
-            foreclosureCase.NeverBillReasonCd = "bill accounting";
+            foreclosureCase.NeverPayReasonCd = "PAY ACCOUNTING";
+            foreclosureCase.NeverBillReasonCd = "BILL ACCOUNTING";
             foreclosureCase.ChangeLastDate = DateTime.Now;
             foreclosureCase.ChangeLastUserId = working_user_id;
             foreclosureCase.ChangeLastAppName = "HPF";

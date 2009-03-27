@@ -103,6 +103,9 @@
     <Shadow Include="Test References\HPF.FutureState.BusinessLogic.accessor" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Common\WebServices\" />
     <Folder Include="WebServices\" />
   </ItemGroup>
