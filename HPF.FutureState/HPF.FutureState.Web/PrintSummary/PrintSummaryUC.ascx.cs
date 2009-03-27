@@ -53,8 +53,4 @@ namespace HPF.FutureState.Web.PrintSummary
                 HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT);
         }
     }
-
-
-
-
 }
