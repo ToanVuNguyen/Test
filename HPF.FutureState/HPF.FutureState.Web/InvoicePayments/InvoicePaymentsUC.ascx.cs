@@ -30,9 +30,14 @@ namespace HPF.FutureState.Web.InvoicePayments
                 if (!IsPostBack)
                 {
                     BindFundingSourceDropDownList();
-                    SetDefaultPeriodStartEnd();
                     DefaultSearch();
                 }
+            }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
@@ -48,14 +53,9 @@ namespace HPF.FutureState.Web.InvoicePayments
             searchCriteria.FundingSourceId = -1;
             searchCriteria.PeriodStart = DateTime.Today.AddMonths(-6);
             searchCriteria.PeriodEnd = DateTime.Today;
-            InvoicePaymentDTOCollection invoicePayment = GetSearchResult(searchCriteria);
-            grvInvoicePaymentList.DataSource = invoicePayment;
-            grvInvoicePaymentList.DataBind();
-            if (invoicePayment == null)
-            {
-                Exception ex = new Exception(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
-                throw (ex);
-            }
+            txtPeriodStart.Text = searchCriteria.PeriodStart.ToShortDateString();
+            txtPeriodEnd.Text = searchCriteria.PeriodEnd.ToShortDateString();
+            InvoicePaymentSearch(searchCriteria);
         }
         private void ApplySecurity()
         {
@@ -80,51 +80,43 @@ namespace HPF.FutureState.Web.InvoicePayments
             ddlFundingSource.DataValueField = "FundingSourceID";
             ddlFundingSource.DataBind();
         }
-        /// <summary>
-        /// Bind search data into gridview
-        /// </summary>
-        protected void SearchInvoicePayment()
+        private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()
         {
-            try
-            {
-                InvoicePaymentDTOCollection invoicePayment = GetInvoicePaymentSearchResult();
-                //bind search data to gridview
-                grvInvoicePaymentList.DataSource = invoicePayment;
-                ViewState["invoicePayment"] = invoicePayment;
-                grvInvoicePaymentList.DataBind();
-                if (invoicePayment == null)
-                {
-                    Exception ex = new Exception(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
-                    throw (ex);
-                }
-                
-            }
-            catch (DataValidationException ex)
-            {
-                foreach (var mes in ex.ExceptionMessages)
-                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.DisplayName);
-            }
-        }
+            InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
+            searchCriteria.FundingSourceId = ConvertToInt(ddlFundingSource.SelectedValue);
+            searchCriteria.PeriodStart = ConvertToDateTime(txtPeriodStart.Text);
+            if (searchCriteria.PeriodStart != DateTime.MinValue)
+                searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
+            searchCriteria.PeriodEnd = ConvertToDateTime(txtPeriodEnd.Text);
+            if (searchCriteria.PeriodEnd != DateTime.MinValue)
+                searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
+            return searchCriteria;
 
-        private ExceptionMessage GetExceptionMessage(string errorCode)
-        {
-            var exMes = new ExceptionMessage();
-            exMes.ErrorCode = errorCode;
-            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
-            return exMes;
         }
-        private ExceptionMessage GetExceptionMessageWithoutCode(string errorCode)
+        private DateTime ConvertToDateTime(object obj)
         {
-            var exMes = new ExceptionMessage();
-            exMes.ErrorCode = errorCode;
-            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
-            return exMes;
+            DateTime dt;
+            if (DateTime.TryParse(obj.ToString().Trim(), out dt))
+                return dt;
+            return DateTime.MinValue;
+        }
+        private int ConvertToInt(object obj)
+        {
+            int value;
+            if (int.TryParse(obj.ToString().Trim(), out value))
+                return value;
+            return int.MinValue;
+        }
+        private void InvoicePaymentSearch(InvoiceSearchCriteriaDTO searchCriteria)
+        {
+            InvoicePaymentDTOCollection searchResult = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
+            ViewState["invoicePayment"] = searchResult;
+            grvInvoicePaymentList.DataSource = searchResult;
+            grvInvoicePaymentList.DataBind();
+            if (searchResult == null)
+            {
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0684));
+            }
         }
         DateTime SetToStartDay(DateTime t)
         {
@@ -141,75 +133,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             t = t.AddSeconds(-1);
             return t;
         }
-        /// <summary>
-        /// Get or throw exception if there's any datavalidation error.
-        /// </summary>
-        /// <returns></returns>
-        private InvoiceSearchCriteriaDTO GetInvoicePaymentSearchCriterial()
-        {
-            DataValidationException ex = new DataValidationException();
-            InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
-            searchCriteria.FundingSourceId = int.Parse(ddlFundingSource.SelectedValue);
-            txtPeriodStart.Text = txtPeriodStart.Text.Trim();
-            txtPeriodEnd.Text = txtPeriodEnd.Text.Trim();
-            try
-            {
-                
-                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
-                searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
-                if (searchCriteria.PeriodStart.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0675);
-                ex.ExceptionMessages.Add(exMes);
-            }
-            try
-            {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-                searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
-                if (searchCriteria.PeriodEnd.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0676);
-                ex.ExceptionMessages.Add(exMes);
-            }
-            if (ex.ExceptionMessages.Count > 0)
-                throw (ex);
-            return searchCriteria;
-
-        }
-        /// <summary>
-        /// Get the searchCriteria and then perform a search
-        /// </summary>
-        /// <returns></returns>
-        protected InvoicePaymentDTOCollection GetInvoicePaymentSearchResult()
-        {
-            InvoiceSearchCriteriaDTO searchCriteria = GetInvoicePaymentSearchCriterial();
-            InvoicePaymentDTOCollection invoicePayment = GetSearchResult(searchCriteria);
-            return invoicePayment;
-        }
-
-        private static InvoicePaymentDTOCollection GetSearchResult(InvoiceSearchCriteriaDTO searchCriteria)
-        {
-            //get search criteria to AgencyPayableSearchCriteriaDTO
-             InvoicePaymentDTOCollection invoicePayment = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
-            
-            return invoicePayment;
-        }
-        /// <summary>
-        /// get default period start:1st\prior month\year
-        /// get default period end: lastday\prior month\year
-        /// </summary>
-        protected void SetDefaultPeriodStartEnd()
-        {
-            txtPeriodStart.Text = DateTime.Today.AddMonths(-6).ToShortDateString() ;
-            txtPeriodEnd.Text = DateTime.Today.ToShortDateString();
-        }
-
+        
         private void ClearErrorMessages()
         {
             lblErrorMessage.Items.Clear();
@@ -217,9 +141,24 @@ namespace HPF.FutureState.Web.InvoicePayments
         protected void btnRefreshList_Click(object sender, EventArgs e)
         {
             ClearErrorMessages();
-            SearchInvoicePayment();
+            InvoiceSearchCriteriaDTO searchCriteria = null;
+            try
+            {
+                searchCriteria = GetInvoiceSearchCriterial();
+                InvoicePaymentSearch(searchCriteria);
+            }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
-       
 
         protected void btnViewPayable_Click(object sender, EventArgs e)
         {

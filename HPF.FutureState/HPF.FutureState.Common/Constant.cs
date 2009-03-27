@@ -101,6 +101,8 @@ namespace HPF.FutureState.Common
         public const string RULESET_FUNDINGSOURCE = "FundingSourceCriteria";
         public const string RULESET_FUNDINGSOURCEVALIDATION = "FundingSourceCriteriaValidation";
 
+        public const string RULESET_PAYMENTVALIDATION= "PaymentCriteriaValidation";
+
         public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
     }
 }
