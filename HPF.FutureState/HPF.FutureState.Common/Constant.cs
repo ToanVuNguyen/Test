@@ -12,6 +12,7 @@ namespace HPF.FutureState.Common
         public const string RULESET_COMPLETE = "Complete";
         public const string RULESET_LENGTH = "Length";
         public const string RULESET_FOLLOW_UP = "FollowUp";
+        public const string RULESET_AGENCY_PAYABLE_SEARCH = "AgencyPayableSearch";
         public const string PAYABLE_IND = "Y";
         public const string BANKRUPTCY_IND_YES = "Y";
         public const string HAS_WORKOUT_PLAN_IND_YES = "Y";
