@@ -31,6 +31,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
 
        
         static string prop_zip = "68686";
+        static string prop_zip_search = "99991";
         
         static string ssn = "6868";
         static string agency_case_number = "686868";
@@ -120,7 +121,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value
             
             ForeclosureCaseSearchCriteriaDTO searchCriteria = new ForeclosureCaseSearchCriteriaDTO();
-            searchCriteria.PropertyZip = prop_zip;
+            searchCriteria.PropertyZip = prop_zip_search;
 
             ForeclosureCaseSearchResult actual = target.SearchForeclosureCase(searchCriteria, 50);
 
@@ -289,8 +290,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             dbConnection.Open();
             
             string sql = "Insert into Agency "
-                + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt ) values "
-                + " ('" + agency_name + "', 'HPF' ,'" + working_user_id+ "' ,'" + DateTime.Now + "', 'HPF', '"+working_user_id+"', '" + DateTime.Now + "' )";
+                + " (agency_name, chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name , create_user_id,create_dt, active_ind ) values "
+                + " ('" + agency_name + "', 'HPF' ,'" + working_user_id+ "' ,'" + DateTime.Now + "', 'HPF', '"+working_user_id+"', '" + DateTime.Now + "','Y')";
             ExecuteSql(sql, dbConnection);
             agency_id = SearchFcCase_GetAgencyID();
             
@@ -313,7 +314,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                 + ", 'phone', 'Y', 'Y'"
                 + ", 'Y', 'Y', 'Y'"
                 + ", 'cfname', 'clname', 'cidref'"
-                + ", '" + prop_zip + "', '" + agency_case_number + "', '" + ssn + "'"
+                + ", '" + prop_zip_search + "', '" + agency_case_number + "', '" + ssn + "'"
                 + ", 'HPF' ,'" + working_user_id +"' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id +"', '" + DateTime.Now + "' )";
              ExecuteSql(sql, dbConnection);
 
@@ -507,7 +508,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             int result = 0;
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             string sql = "SELECT fc_id FROM foreclosure_case " +
-                            " WHERE prop_zip = '" + prop_zip + "'"
+                            " WHERE prop_zip = '" + prop_zip_search + "'"
                             + " and agency_case_num = '" + agency_case_number + "'";
             var command = new SqlCommand(sql, dbConnection);
             dbConnection.Open();
@@ -810,9 +811,10 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             {
                 FcId = fcCase.FcId,
                 AcctNum = acct_num_dupe,
-                ServicerId = servicer_id_dupe
+                ServicerId = servicer_id_dupe,
+                Loan1st2nd = "1ST"
             };
-
+            
             var bi = new BudgetItemDTO()
             {
                 BudgetSubcategoryId = budget_subcategory_id,
@@ -1277,16 +1279,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             actual = target.MiscErrorException(foreclosureCaseSet);            
             Assert.AreEqual(0, actual.Count);
         }
-
-        [TestMethod()]
-        public void GetActivityLogTest()
-        {
-            ActivityLogBL_Accessor target = new ActivityLogBL_Accessor();
-            ActivityLogDTOCollection actual = target.GetActivityLog(fc_id);
-            Assert.AreEqual(1, actual.Count);
-        }
-
-
+        
          /// <summary>
         ///A test for MiscErrorException
         ///</summary>
@@ -1390,7 +1383,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ProgramId = Convert.ToInt32("1");
             foreclosureCase.AgencyCaseNum = "Test";
             foreclosureCase.IntakeDt = Convert.ToDateTime("12/12/2007");
-            foreclosureCase.CaseSourceCd = "HPF";
+            foreclosureCase.CaseSourceCd = "HUD";
             foreclosureCase.BorrowerFname = "Test";
             foreclosureCase.BorrowerLname = "Test";
             foreclosureCase.PrimaryContactNo = "Y";
@@ -1421,6 +1414,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCase.ContactStateCd = "HPF";
             foreclosureCase.PropStateCd = "HPF";
             foreclosureCase.GenderCd = "ABC";
+            foreclosureCase.HouseholdCd = "SINGLE";
+            foreclosureCase.HudTerminationReasonCd = "501";
+            foreclosureCase.HudOutcomeCd = "100";
             if (status == "TRUE")
             {
                 //foreclosureCase.CompletedDt = Convert.ToDateTime("12/12/2007");
@@ -1702,13 +1698,13 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             foreclosureCase.IncomeEarnersCd = "1";
-            foreclosureCase.CaseSourceCd = "Faith Community";
+            foreclosureCase.CaseSourceCd = "INTERNET";
             foreclosureCase.RaceCd = "2";
-            foreclosureCase.HouseholdCd = "SINGL";            
+            foreclosureCase.HouseholdCd = "SINGLE";            
             foreclosureCase.DfltReason1stCd = "17";
             foreclosureCase.DfltReason2ndCd = "18";
-            foreclosureCase.HudTerminationReasonCd = "1";
-            foreclosureCase.HudOutcomeCd = "3";
+            foreclosureCase.HudTerminationReasonCd = "501";
+            foreclosureCase.HudOutcomeCd = "100";
             foreclosureCase.CounselingDurationCd = "30-59";            
             foreclosureCase.SummarySentOtherCd = "Phone";            
             foreclosureCase.MilitaryServiceCd = "ACTV";
@@ -1725,7 +1721,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
             foreclosureCase.IncomeEarnersCd = "ABC";
-            foreclosureCase.CaseSourceCd = "Faith Community";
+            foreclosureCase.CaseSourceCd = "INTERNET";
             foreclosureCase.RaceCd = "2";
             foreclosureCase.HouseholdCd = "123";
             foreclosureCase.DfltReason1stCd = "17";
@@ -2119,7 +2115,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         {
             ForeclosureCaseBL_Accessor target = new ForeclosureCaseBL_Accessor(); // TODO: Initialize to an appropriate value
             //empty Search criteria, default value of interger is -1 and string is null
-            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = -1, Program = -1 };
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = -1, Program = -1, Servicer =-1 };
             target.AppSearchforeClosureCase(criteria);
         }
         #endregion
@@ -2129,12 +2125,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void AppSearchForeclosureCaseTest()
         {
             ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
-            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { PropertyZip = prop_zip, Last4SSN = ssn, Agency = agency_id, ForeclosureCaseID = -1, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0 };
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { PropertyZip = prop_zip_search, Last4SSN = ssn, Agency = agency_id, ForeclosureCaseID = fc_id, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0, Servicer =-1 };
             var result = target.AppSearchForeclosureCase(criteria);
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(ssn, result[0].Last4SSN);
             Assert.AreEqual(agency_id.ToString(), result[0].AgencyCaseID);
-            Assert.AreEqual(prop_zip, result[0].PropertyZip);
+            Assert.AreEqual(prop_zip_search, result[0].PropertyZip);
         }
         /// <summary>
         /// Search case which has id = 23
@@ -2143,12 +2139,12 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void AppSearchForeclosureCasebyID()
         {
             ForeclosureCaseDAO_Accessor target = new ForeclosureCaseDAO_Accessor();
-            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = fc_id, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0 };
+            AppForeclosureCaseSearchCriteriaDTO criteria = new AppForeclosureCaseSearchCriteriaDTO { Agency = -1, ForeclosureCaseID = fc_id, Program = -1, PageSize = 50, PageNum = 1, TotalRowNum = 0, Servicer =-1 };
             AppForeclosureCaseSearchResultDTOCollection searchResult = target.AppSearchForeclosureCase(criteria);
-            Assert.AreEqual(searchResult.Count, 1);
+            Assert.AreEqual(1, searchResult.Count);
             Assert.AreEqual(ssn, searchResult[0].Last4SSN);
             Assert.AreEqual(agency_id.ToString(), searchResult[0].AgencyCaseID);
-            Assert.AreEqual(prop_zip, searchResult[0].PropertyZip);
+            Assert.AreEqual(prop_zip_search, searchResult[0].PropertyZip);
             
         }
 
