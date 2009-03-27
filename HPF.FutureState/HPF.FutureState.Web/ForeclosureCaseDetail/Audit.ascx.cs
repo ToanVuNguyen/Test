@@ -19,6 +19,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
+using System.Globalization;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
@@ -362,11 +363,18 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private DateTime? ConvertToDateTime(object obj)
         {
             DateTime dt;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            DateTimeStyles style = DateTimeStyles.None;
+            
             if (obj.ToString() == string.Empty)
                 return null;
-            if (DateTime.TryParse(obj.ToString(), out dt))
-                return dt;
+            
+            if(DateTime.TryParseExact(txtAuditDate.Text, "M/d/yyyy", culture, style, out dt))
             return dt;
+            return dt;
+            //if (DateTime.TryParse(obj.ToString(), out dt))
+            //    return dt;
+            //return dt;
         }
 
         private string ConvertToString(object obj)
