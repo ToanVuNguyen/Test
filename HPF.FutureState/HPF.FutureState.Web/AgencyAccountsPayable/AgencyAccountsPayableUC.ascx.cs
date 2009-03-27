@@ -121,24 +121,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             //get search data match that search collection
             agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
             //
-
-
             ViewState["agencycol"] = agencycol;
             //bind search data to gridview
             if (agencycol.Count == 0)
-            {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.WARN0583);
-                ex.ExceptionMessages.Add(exMessage);
-            }
+                bulMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0583));                
+            
             grvInvoiceList.DataSource = agencycol;
-            grvInvoiceList.DataBind();
-            if (agencycol.Count == 0)
-            {
-                grvInvoiceList.SelectedIndex = -1;
-            }
-            if (ex.ExceptionMessages.Count > 0)
-                throw ex;
-
+            grvInvoiceList.DataBind();                        
         }
         /// <summary>
         /// get default period start:1st\prior month\year
