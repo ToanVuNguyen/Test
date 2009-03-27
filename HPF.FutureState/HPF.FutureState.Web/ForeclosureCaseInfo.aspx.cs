@@ -85,19 +85,27 @@ namespace HPF.FutureState.Web
             //
             BindForeclosureCaseToUI(ForeclosureCase);
         }
-
-        private void BindForeclosureCaseToUI(ForeclosureCaseDTO ForeclosureCase)
+        private string PhoneNumberFormat(string phoneNumber)
         {
-            lblHpfID.Text = ForeclosureCase.FcId.ToString();
-            lblBorrower.Text = ForeclosureCase.BorrowerFname + " " + ForeclosureCase.BorrowerMname + " " + ForeclosureCase.BorrowerLname;
-            lblPropertyAddress.Text = ForeclosureCase.PropCity + ", " + ForeclosureCase.PropStateCd + ", " + ForeclosureCase.PropZip;
-            lblLoanList.Text = ForeclosureCase.LoanList;
-            lblCounselor.Text = ForeclosureCase.CounselorFname + " " + ForeclosureCase.CounselorLname;
-            if(string.IsNullOrEmpty(ForeclosureCase.CounselorExt))
-                lblPhone.Text = ForeclosureCase.CounselorPhone ;
-                else lblPhone.Text = ForeclosureCase.CounselorPhone + " (ext:" + ForeclosureCase.CounselorExt+")";
-            lblCounselorEmail.Text = ForeclosureCase.CounselorEmail;
-            lblAgencyName.Text = GetAgencyName(ForeclosureCase.AgencyId);
+           return string.Format("{0}-{1}-{2}", phoneNumber.Substring(0, 3), phoneNumber.Substring(3, 3), phoneNumber.Substring(6));
+        }
+
+        private void BindForeclosureCaseToUI(ForeclosureCaseDTO foreclosureCase)
+        {
+            lblHpfID.Text = foreclosureCase.FcId.ToString();
+            lblBorrower.Text = foreclosureCase.BorrowerFname + " " + foreclosureCase.BorrowerMname + " " + foreclosureCase.BorrowerLname;
+            lblPropertyAddress.Text = foreclosureCase.PropCity + ", " + foreclosureCase.PropStateCd + ", " + foreclosureCase.PropZip;
+            lblLoanList.Text = foreclosureCase.LoanList;
+            lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
+            if (!string.IsNullOrEmpty(foreclosureCase.CounselorPhone))
+            {
+                if (string.IsNullOrEmpty(foreclosureCase.CounselorExt))
+                    lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone);
+                else
+                    lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext: " + foreclosureCase.CounselorExt + ")";
+            }
+            lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
+            lblAgencyName.Text = GetAgencyName(foreclosureCase.AgencyId);
         }
 
         private ForeclosureCaseDTO GetForeclosureCase(int caseid)

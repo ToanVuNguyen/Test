@@ -29,7 +29,7 @@
                         <td class="Text">
                             <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." ></asp:Label>
                         </td>
-                        <td align="right" class="sidelinks" valign="top">
+                        <td align="right" class="sidelinks" >
                             Counselor*:
                         </td>
                         <td class="Text">
@@ -41,7 +41,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="sidelinks" align="right" valign="top">
+                        <td class="sidelinks" align="right" >
                             Borrower:
                         </td>
                         <td  class="Text" colspan="3">

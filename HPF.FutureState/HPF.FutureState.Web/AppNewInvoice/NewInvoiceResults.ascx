@@ -50,9 +50,9 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Invoice 
-            <br />
+         
             Comments:</td>
         <td colspan="4">
             <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Height="70px" 
