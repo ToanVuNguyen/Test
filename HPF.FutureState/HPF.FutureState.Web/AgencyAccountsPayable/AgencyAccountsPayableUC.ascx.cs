@@ -124,10 +124,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             ViewState["agencycol"] = agencycol;
             //bind search data to gridview
             if (agencycol.Count == 0)
-                bulMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0583));                
-            
+                bulMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0583));
+
             grvInvoiceList.DataSource = agencycol;
-            grvInvoiceList.DataBind();                        
+            grvInvoiceList.DataBind();
         }
         /// <summary>
         /// get default period start:1st\prior month\year
@@ -145,21 +145,26 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
             return exMess;
         }
+        private DateTime ConvertToDateTime(string obj)
+        {
+            DateTime dt;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            DateTimeStyles style = DateTimeStyles.None;
+            if (DateTime.TryParseExact(obj, "M/d/yyyy", culture, style, out dt))
+                return dt;
+            return dt;
+        }
         private AgencyPayableSearchCriteriaDTO GetSearchCriteria(string periodStart, string periodEnd)
         {
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             DataValidationException ex = new DataValidationException();
             searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-            DateTime dtperiodstart, dtperiodend;
-            CultureInfo culture=CultureInfo.CreateSpecificCulture("en-US");
-            DateTimeStyles styles=DateTimeStyles.None;
-            if (DateTime.TryParseExact(periodStart, "M/d/yyyy", culture, styles, out dtperiodstart))
-                searchCriteria.PeriodStartDate = dtperiodstart;
-            if (DateTime.TryParseExact(periodEnd,"M/d/yyyy",culture,styles,out dtperiodend))
-            {
-                searchCriteria.PeriodEndDate = dtperiodend;
-                searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
-            }
+            
+            searchCriteria.PeriodStartDate = ConvertToDateTime(periodStart);
+            
+            searchCriteria.PeriodEndDate = ConvertToDateTime(periodEnd);
+            searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
+            
             Session["agencyPayableSearchCriteria"] = searchCriteria;
             return searchCriteria;
         }

@@ -20,6 +20,5 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime PeriodEndDate { get; set; }
         public string CaseComplete { get; set; }
         public int Indicator { get; set; }
-        //public string UserID { get; set; }
     }
 }
