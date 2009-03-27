@@ -136,7 +136,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-
             }
         }
         private string BuildQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)

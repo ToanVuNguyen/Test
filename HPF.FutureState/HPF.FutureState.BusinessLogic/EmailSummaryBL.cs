@@ -35,16 +35,14 @@ namespace HPF.FutureState.BusinessLogic
             //
             hpfSendMail.To = sendTo;
             hpfSendMail.Subject = subject;
-            hpfSendMail.Body = body;
+            hpfSendMail.Body = body+"                  ";
             hpfSendMail.AddAttachment(fileName, pdfSummaryReport);
             hpfSendMail.Send();
         }
 
         public void SendEmailSummaryReport(string sendTo, string subject, string body, int fc_id)
         {
-
             SendEmailSummaryReport(sendTo, subject, body, fc_id, HPF_ATTACHMENT_REPORT_FILE_NAME);
-
         }
 
         public void SendEmailSummaryReport(int? fc_id, string sendTo, string attachmentReportFileName)

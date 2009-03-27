@@ -63,6 +63,8 @@ namespace HPF.FutureState.Common.Utils
         {
             var mailMessage = new MailMessage();
             mailMessage.To.Add(To);
+            mailMessage.Body = Body;
+            //
             if (!IsEncrypted)
                 mailMessage.Subject = Subject;
             else
