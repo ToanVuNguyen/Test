@@ -320,8 +320,8 @@ namespace HPF.FutureState.UnitTest
                     NeverPayReason = dr["never_pay_reason_cd"].ToString();
                     NeverBillReason = dr["never_bill_reason_cd"].ToString();
                 }
-            Assert.AreEqual(NeverPayReason, "pay accounting");
-            Assert.AreEqual(NeverBillReason, "bill accounting");
+            Assert.AreEqual("PAY ACCOUNTING", NeverPayReason);
+            Assert.AreEqual("BILL ACCOUNTING", NeverBillReason);
             dbConnection.Close();
         }
 
@@ -424,8 +424,8 @@ namespace HPF.FutureState.UnitTest
             var command = new SqlCommand(strsql, dbConnection);
             int fc_id = Convert.ToInt32(command.ExecuteScalar());
             actual = target.DisplayAccounting(fc_id);
-            Assert.AreEqual(actual.NerverPayReason, "accounting pay");
-            Assert.AreEqual(actual.NeverBillReason, "accounting bill");
+            Assert.AreEqual("PAY ACCOUNTING", actual.NerverPayReason);
+            Assert.AreEqual("BILL ACCOUNTING", actual.NeverBillReason);
             dbConnection.Close();
         }
     }
