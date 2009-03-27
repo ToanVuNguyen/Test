@@ -362,6 +362,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private DateTime? ConvertToDateTime(object obj)
         {
             DateTime dt;
+            if (obj.ToString() == string.Empty)
+                return null;
             if (DateTime.TryParse(obj.ToString(), out dt))
                 return dt;
             return dt;
