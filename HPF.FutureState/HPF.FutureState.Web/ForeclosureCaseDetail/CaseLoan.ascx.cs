@@ -95,5 +95,10 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             }
             return s1 + s2;
         }
+
+        protected void dtlCaseLoan_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            
+        }
     }
 }

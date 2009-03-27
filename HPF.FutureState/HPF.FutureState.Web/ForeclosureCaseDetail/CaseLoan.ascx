@@ -2,7 +2,8 @@
 <div class="sidelinks"><h3>Loan Details:</h3></div>
 <Div style="Height:210px;Overflow:Auto">
 &nbsp;&nbsp;&nbsp;<asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
-<asp:DataList ID="dtlCaseLoan" runat="server" Width=100%>        
+<asp:DataList ID="dtlCaseLoan" runat="server" Width=100% 
+        onitemdatabound="dtlCaseLoan_ItemDataBound">        
     <ItemTemplate>
         <tr>
             <td align="right" class="sidelinks" width="25%">Loan Number*: </td>

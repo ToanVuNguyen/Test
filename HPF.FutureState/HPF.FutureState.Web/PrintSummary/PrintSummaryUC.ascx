@@ -3,7 +3,7 @@
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 <rsweb:ReportViewer ID="ReportViewerPrintSummary" runat="server" Width="100%" 
-    Font-Names="Verdana" Font-Size="8pt" Height="610px" ProcessingMode="Remote">
+    Font-Names="Verdana" Font-Size="8pt" Height="610px" ProcessingMode="Remote"  ShowParameterPrompts="false"  ShowExportControls="false" >
 
     
 </rsweb:ReportViewer>

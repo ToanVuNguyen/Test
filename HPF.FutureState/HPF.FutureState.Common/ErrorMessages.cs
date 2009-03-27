@@ -594,8 +594,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0252, "An invalid AgencyID was provided for the Corresponding FcId.  Your agency does not own this foreclosure case. ");
                 errorMessageDict.Add(ERR0253, "Duplicate Case Found for Servicer: {0}, Account Number: {1}, Zip Code: {2}. "
                                               + "Borrower Name: {3} {4} The case is currently being worked on by: {5} {6} of {7}. "
-                                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} "
-                                              + "Last Outcome: {12} ");
+                                              + "Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11}. "
+                                              + "Last Outcome: {12}. ");
                 errorMessageDict.Add(ERR0254, "An update was submitted without a FcID. All updates require a HPF FcId. Please correct and resubmit the case.");
                 errorMessageDict.Add(ERR0255, "A previously completed case cannot become uncompleted. An update was submitted without all fields required to complete.");
                 errorMessageDict.Add(ERR0256, "Only one loan can be designated as '1st'.");
@@ -698,20 +698,20 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(WARN0274, "The BankruptcyInd = Y is required to save a complete foreclosure case since a BankruptcyAttorney was provided.");
                 errorMessageDict.Add(WARN0275, "A BankruptcyAttorney is required to save a complete foreclosure case since the BankruptcyInd is Y.");
-                errorMessageDict.Add(WARN0276, "A BankruptcyPmtCurrentInd is required to save a complete foreclosure case since the BankruptcyInd = Y");                
+                errorMessageDict.Add(WARN0276, "A BankruptcyPmtCurrentInd is required to save a complete foreclosure case since the BankruptcyInd = Y.");                
                 errorMessageDict.Add(WARN0278, "A SummarySentOtherCd is required to save a complete foreclosure case since the a SummarySentOtherDt was provided.");
                 errorMessageDict.Add(WARN0279, "A SummarySentOtherDt is required to save a complete foreclosure case. Since the SummarySentOtherCd was provided.");
                 errorMessageDict.Add(WARN0280, "A SrvcrWorkoutPlanCurrentInd is required to save a complete foreclosure case since HasWorkoutPlanInd = Y.");
                 errorMessageDict.Add(WARN0281, "A HomeSalePrice is required to save a complete foreclosure case since the ForSaleInd = Y.");
                 errorMessageDict.Add(WARN0282, "An ArmResetInd is required on AcctNum: [XXX] to save a complete foreclosure case.");
 
-                errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}");
+                errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}.");
                 // App foreclosure Case Search
                 errorMessageDict.Add(WARN0500, "* cases matched your search criteria, only the first 500 will be presented. To reduce the number of results, please refine your search criteria.");
-                errorMessageDict.Add(ERR0501, "The 'Last 4 of SSN' search criteria must be exactly 4 numeric digits");
+                errorMessageDict.Add(ERR0501, "The 'Last 4 of SSN' search criteria must be exactly 4 numeric digits.");
                 errorMessageDict.Add(ERR0502, "The 'Property Zip' search criteria must be a valid 5 digit numeric zip.");
-                errorMessageDict.Add(ERR0503, "The 'Foreclosure Case ID' search criteria must be only numeric digits");
-                errorMessageDict.Add(WARN0504, "No cases were found that match your search criteria");
+                errorMessageDict.Add(ERR0503, "The 'Foreclosure Case ID' search criteria must be only numeric digits.");
+                errorMessageDict.Add(WARN0504, "No cases were found that match your search criteria.");
                 //
                 errorMessageDict.Add(ERR0550, "This Invoice cannot be cancelled since one or more cases have been paid.");
                 errorMessageDict.Add(WARN0551, "Are you sure you wish to cancel this Invoice?");
@@ -765,7 +765,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0653, "A Payment Type is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0654, "A valid Payment Amount is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0655, "Unable to open payment reconciliation file.");
-                errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file.  It is not in the proper format, it must be Excel 2003 or newer");
+                errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file.  It is not in the proper format, it must be Excel 2003 or newer.");
                 errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: HPF Internal Case ID, HPF Invoice Case ID, Payment Amount, Payment Reject Reason Code, Freddie Mac Servicer Number, Freddie Mac Loan Number, Investor Number, and Investor Name.");
                 errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The HPF Inetrnal Case ID (fc_id) in row {0} is not a valid number.");
                 errorMessageDict.Add(ERR0659, "Unable to process the reconciliation file. The Pmt Amt in row {0} is not a valid amount.");
