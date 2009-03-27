@@ -7,6 +7,9 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
 using System.Xml;
+using Microsoft.Practices.EnterpriseLibrary.Validation;
+using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Common;
 //using HPF.FutureState.Web.Security;
 
 namespace HPF.FutureState.BusinessLogic
@@ -135,6 +138,18 @@ namespace HPF.FutureState.BusinessLogic
         
         public InvoiceDTOCollection InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
+            ExceptionMessageCollection exCol = new ExceptionMessageCollection();
+            DataValidationException dataValidEx = new DataValidationException();
+            ValidationResults valResult = HPFValidator.Validate<InvoiceSearchCriteriaDTO>(searchCriteria,Constant.RULESET_FUNDINGSOURCEVALIDATION);
+            if (!valResult.IsValid)
+                foreach (var valMes in valResult)
+                {
+                    string errorCode = string.IsNullOrEmpty(valMes.Tag) ? "Error" : valMes.Tag;
+                    string errorMes = string.IsNullOrEmpty(valMes.Tag) ? valMes.Message:ErrorMessages.GetExceptionMessage(valMes.Tag);
+                    dataValidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMes);
+                }
+            if (dataValidEx.ExceptionMessages.Count > 0)
+                throw dataValidEx;
             return InvoiceDAO.CreateInstance().SearchInvoice(searchCriteria);
         }
         public ForeclosureCaseDraftDTOCollection InvoiceCaseSearch(InvoiceCaseSearchCriteriaDTO searchCriteria)

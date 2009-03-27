@@ -38,9 +38,15 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                     btnCancelInvoice.Attributes.Add("onclick", " return CancelClientClick();");
                 }
             }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
             catch (Exception ex)
             {
-                lblErrorMessage.Items.Add(new ListItem( ex.Message));
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -110,39 +116,30 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         }
         private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()
         {
-            DataValidationException ex = new DataValidationException();
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
-            searchCriteria.FundingSourceId = int.Parse(dropFundingSource.SelectedValue);
-            txtPeriodStart.Text = txtPeriodStart.Text.Trim();
-            txtPeriodEnd.Text = txtPeriodEnd.Text.Trim();
-            try
-            {
-                searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
+            searchCriteria.FundingSourceId = ConvertToInt(dropFundingSource.SelectedValue);
+            searchCriteria.PeriodStart = ConvertToDateTime(txtPeriodStart.Text);
+            if (searchCriteria.PeriodStart != DateTime.MinValue)
                 searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
-                if (searchCriteria.PeriodStart.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0562);
-                ex.ExceptionMessages.Add(exMes);
-            }
-            try
-            {
-                searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
+            searchCriteria.PeriodEnd = ConvertToDateTime(txtPeriodEnd.Text);
+            if (searchCriteria.PeriodEnd != DateTime.MinValue)
                 searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
-                if (searchCriteria.PeriodEnd.Year < 1753)
-                    throw (new Exception());
-            }
-            catch
-            {
-                ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0563);
-                ex.ExceptionMessages.Add(exMes);
-            }
-            if (ex.ExceptionMessages.Count > 0)
-                throw (ex);
             return searchCriteria;
 
+        }
+        private DateTime ConvertToDateTime(object obj)
+        {
+            DateTime dt;
+            if (DateTime.TryParse(obj.ToString().Trim(), out dt))
+                return dt;
+            return DateTime.MinValue;
+        }
+        private int ConvertToInt(object obj)
+        {
+            int value;
+            if (int.TryParse(obj.ToString().Trim(), out value))
+                return value;
+            return int.MinValue;
         }
         private void ClearErrorMessages()
         {
@@ -155,38 +152,31 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             try
             {
                 searchCriteria = GetInvoiceSearchCriterial();
+                InvoiceSearch(searchCriteria);
             }
             catch (DataValidationException ex)
             {
-                foreach (var mes in ex.ExceptionMessages)
-                    lblErrorMessage.Items.Add(new ListItem(mes.Message));
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
             }
-            InvoiceSearch(searchCriteria);
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add(ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+            
         }
 
         private void InvoiceSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
-            try
-            {
-                InvoiceDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
-                Session["searchResult"] = searchResult;
-                Session["invoiceSearchCriteria"] = searchCriteria;
-                grvFundingSourceInvoices.DataSource = searchResult;
-                grvFundingSourceInvoices.DataBind();
-                if (searchResult == null)
-                {
-                    DataValidationException ex = new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0566));
-                    throw ex;
-                }
-            }
-            
-            catch (Exception ex)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+            InvoiceDTOCollection searchResult = InvoiceBL.Instance.InvoiceSearch(searchCriteria);
+            Session["searchResult"] = searchResult;
+            Session["invoiceSearchCriteria"] = searchCriteria;
+            grvFundingSourceInvoices.DataSource = searchResult;
+            grvFundingSourceInvoices.DataBind();
+            if (searchResult == null)
+                lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0566));
         }
 
         /// <summary>

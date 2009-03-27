@@ -98,6 +98,9 @@ namespace HPF.FutureState.Common
         public const string RULESET_CRITERIAVALID = "CriteriaValidation";
         public const string RULESET_APPSEARCH = "AppSearchRequireCriteria";
 
+        public const string RULESET_FUNDINGSOURCE = "FundingSourceCriteria";
+        public const string RULESET_FUNDINGSOURCEVALIDATION = "FundingSourceCriteriaValidation";
+
         public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
     }
 }
