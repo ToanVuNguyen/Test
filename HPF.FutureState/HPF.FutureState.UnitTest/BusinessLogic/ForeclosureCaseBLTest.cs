@@ -956,22 +956,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             bool expected = true;
             bool actual = target.CheckCallID(callId);            
             Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for RequireFieldsValidation
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CompleteValidation()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value            
-            ForeclosureCaseSetDTO foreclosureCaseSet = SetForeclosureCaseSet("FALSE"); // TODO: Initialize to an appropriate value            
-            bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.CheckComplete(foreclosureCaseSet);            
-            Assert.AreEqual(expected, actual);
-        }
+        }       
 
         /// <summary>
         ///A test for RequireFieldsValidation

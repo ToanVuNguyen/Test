@@ -23,9 +23,7 @@ namespace HPF.FutureState.BusinessLogic
 {
     public class ForeclosureCaseSetBL : BaseBusinessLogic
     {
-        ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
-
-        ForeclosureCaseDTO _oldFCase = null;
+        ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();        
 
         private string _workingUserID;
 
@@ -898,17 +896,17 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>     
         private bool CheckForeclosureCaseComplete(int? fcId)
         {
-            ForeclosureCaseDTO fcCase = GetForeclosureCase(fcId);            
+            if (FCaseSetFromDB.ForeclosureCase == null || FCaseSetFromDB.ForeclosureCase.FcId == null)
+                FCaseSetFromDB.ForeclosureCase = GetForeclosureCase(fcId);            
             bool caseComplete = false;
             //use for send queue
             IsFirstTimeCaseCompleted = true;
-            if (fcCase != null && fcCase.CompletedDt != null && !CheckInactiveCase(fcId))
+            if (FCaseSetFromDB.ForeclosureCase != null && FCaseSetFromDB.ForeclosureCase.CompletedDt != null && !CheckInactiveCase(fcId))
             {
                 caseComplete = true;
                 IsFirstTimeCaseCompleted = false;
                 //use for send queue
-                //get case from DB
-                FCaseSetFromDB.ForeclosureCase = _oldFCase;
+                //get case from DB                                
                 FCaseSetFromDB.CaseLoans = foreclosureCaseSetDAO.GetCaseLoanCollection(fcId);
                 FCaseSetFromDB.BudgetSet = foreclosureCaseSetDAO.GetBudgetSet(fcId);                
             }
@@ -2023,58 +2021,23 @@ namespace HPF.FutureState.BusinessLogic
             }
             return false;
         }
-        #endregion
-
-        #region CheckCaseIsComplete
-        // <summary>
-        /// Check Data Input is Complete or not base on warning message   
-        /// </summary>        
-        private bool CheckComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            if (foreclosureCaseSetInput == null)
-                return false;
-            if (WarningMessage.Count == 0)
-                return true;
-            else
-                return false;          
-        }        
-        #endregion
+        #endregion        
 
         #region Funcrions Set HP-Auto
         /// <summary>
         /// Add value HPF-Auto for ForclosureCase        
         /// </summary>
         private ForeclosureCaseDTO AssignForeclosureCaseHPFAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {                                            
-            ForeclosureCaseDTO foreclosureCase = foreclosureCaseSet.ForeclosureCase;            
-            int? fcId = foreclosureCase.FcId;
-            IsCaseCompleted = CheckComplete(foreclosureCaseSet);            
-            if (IsCaseCompleted)
-            {                
-                foreclosureCase.CompletedDt = GetCompleteDate(fcId);                                
-            }
-            return foreclosureCase;
-        }        
-
-        /// <summary>
-        /// Set value for Complete Date
-        /// </summary>
-        private DateTime? GetCompleteDate(int? fcId)
         {
-            ForeclosureCaseDTO foreclosureCase;
-            if (fcId != int.MinValue && fcId > 0)
-            {
-                foreclosureCase = GetForeclosureCase(fcId);
-                if (foreclosureCase.CompletedDt == null)
-                    return DateTime.Now;
-                if(CheckInactiveCase(fcId))
-                    return DateTime.Now;
-                return foreclosureCase.CompletedDt;
-            }
-            return DateTime.Now;
-        }     
+            if (CheckForeclosureCaseComplete(foreclosureCaseSet.ForeclosureCase.FcId))            
+                foreclosureCaseSet.ForeclosureCase.CompletedDt = FCaseSetFromDB.ForeclosureCase.CompletedDt;                
+            
+            else if (WarningMessage.Count == 0)
+                foreclosureCaseSet.ForeclosureCase.CompletedDt = DateTime.Now;
+            
+            return foreclosureCaseSet.ForeclosureCase;
+        }        
               
-
         /// <summary>
         /// Add value HPF-Auto for Outcome
         /// </summary>
@@ -2181,11 +2144,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="fcId">id for a ForeclosureCase</param>
         /// <returns>object of ForeclosureCase </returns>
         private ForeclosureCaseDTO GetForeclosureCase(int? fcId)
-        {
-            if (_oldFCase == null || (_oldFCase != null && _oldFCase.FcId != fcId))
-                _oldFCase = foreclosureCaseSetDAO.GetForeclosureCase(fcId);
-
-            return _oldFCase;
+        {            
+            return foreclosureCaseSetDAO.GetForeclosureCase(fcId);
         }
 
         #region Throw Detail Exception
