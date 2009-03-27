@@ -55,7 +55,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>Collection of AppForeclosureCaseSearchResult</returns>
         public AppForeclosureCaseSearchResultDTOCollection AppSearchforeClosureCase(AppForeclosureCaseSearchCriteriaDTO searchCriteria)
         {            
-            ExceptionMessageCollection exCol = new ExceptionMessageCollection();
+            //ExceptionMessageCollection exCol = new ExceptionMessageCollection();
             DataValidationException dataVaidEx = new DataValidationException();
             ValidationResults validationResults = HPFValidator.Validate<AppForeclosureCaseSearchCriteriaDTO>(searchCriteria, Constant.RULESET_CRITERIAVALID);
             

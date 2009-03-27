@@ -116,13 +116,21 @@ namespace HPF.FutureState.BusinessLogic
         {
 
             AgencyPayableDTOCollection result = new AgencyPayableDTOCollection();
-            Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
-            if (ErrorMess != null)
+            CheckSeachAgencyPayable(agencyPayableCriteria);
+            return AgencyPayableDAO.CreateInstance().SearchAgencyPayable(agencyPayableCriteria);
+        }
+        public void CheckSeachAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        {
+            DataValidationException dataEx = new DataValidationException();
+            ValidationResults validResults = HPFValidator.Validate<AgencyPayableSearchCriteriaDTO>(agencyPayableCriteria, Constant.RULESET_AGENCY_PAYABLE_SEARCH);
+            foreach(ValidationResult validResult in validResults)
             {
-                NewPayableThrowMissingRequiredFieldsException(ErrorMess);
+                string errorCode = string.IsNullOrEmpty(validResult.Tag) ? "ERROR" : validResult.Tag;
+                string errorMessage = string.IsNullOrEmpty(validResult.Tag) ? validResult.Message : ErrorMessages.GetExceptionMessageCombined(validResult.Tag);
+                dataEx.ExceptionMessages.AddExceptionMessage(errorMessage);
             }
-            result = AgencyPayableDAO.CreateInstance().SearchAgencyPayable(agencyPayableCriteria);
-            return result;
+            if (dataEx.ExceptionMessages.Count > 0)
+                throw dataEx;
         }
 
         /// <summary>

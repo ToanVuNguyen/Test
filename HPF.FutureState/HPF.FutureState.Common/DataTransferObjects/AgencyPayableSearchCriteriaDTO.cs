@@ -12,12 +12,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
     [Serializable]
     public class AgencyPayableSearchCriteriaDTO
-    {        
-        public int AgencyId { get; set; }
+    {   [RequiredObjectValidator(Tag=ErrorMessages.ERR0579,Ruleset=Constant.RULESET_AGENCY_PAYABLE_SEARCH)] 
+        public int? AgencyId { get; set; }
+        [NullableOrInRangeNumberValidator(false,"1-1-1753","12-31-9999",Tag=ErrorMessages.ERR0580,Ruleset=Constant.RULESET_AGENCY_PAYABLE_SEARCH)]
         public DateTime PeriodStartDate { get; set; }
+        [NullableOrInRangeNumberValidator(false,"1-1-1753","12-31-9999",Tag=ErrorMessages.ERR0581,Ruleset=Constant.RULESET_AGENCY_PAYABLE_SEARCH)]
         public DateTime PeriodEndDate { get; set; }
         public string CaseComplete { get; set; }
         public int Indicator { get; set; }
-        public string UserID { get; set; }
+        //public string UserID { get; set; }
     }
 }

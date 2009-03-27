@@ -7,7 +7,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class AgencyDTOCollection:BaseDTOCollection<AgencyDTO>
     {
-        public String GetAgencyName(int agencyID)
+        public String GetAgencyName(int? agencyID)
         {
             foreach (AgencyDTO agency in Items)
             {

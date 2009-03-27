@@ -257,7 +257,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
                 string query = GetQueryString(criteria);
-                //Session["Comment"] = txtComment.Text;
                 Response.Redirect("CreateNewPayable.aspx" + query);
             }
             catch (Exception ex)
@@ -274,9 +273,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append("&casecomplete=");
             query.Append(agencyPayableSearchCriteria.CaseComplete);
             query.Append("&periodenddate=");
-            query.Append(agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString());
+            query.Append(agencyPayableSearchCriteria.PeriodEndDate);
             query.Append("&periodstartdate=");
-            query.Append(agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString());
+            query.Append(agencyPayableSearchCriteria.PeriodStartDate);
             query.Append("&indicator=");
             query.Append(agencyPayableSearchCriteria.Indicator);
             return query.ToString();

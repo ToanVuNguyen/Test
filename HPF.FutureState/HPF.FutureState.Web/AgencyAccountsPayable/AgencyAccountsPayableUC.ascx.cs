@@ -16,7 +16,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.Utils.DataValidator;
-
+using System.Globalization;
 namespace HPF.FutureState.Web.AgencyAccountsPayable
 {
     public partial class AgencyAccountsPayableUC : System.Web.UI.UserControl
@@ -121,6 +121,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             //get search data match that search collection
             agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
             //
+
+
             ViewState["agencycol"] = agencycol;
             //bind search data to gridview
             if (agencycol.Count == 0)
@@ -159,35 +161,16 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             DataValidationException ex = new DataValidationException();
             searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-
-            try
+            DateTime dtperiodstart, dtperiodend;
+            CultureInfo culture=CultureInfo.CreateSpecificCulture("en-US");
+            DateTimeStyles styles=DateTimeStyles.None;
+            if (DateTime.TryParseExact(periodStart, "M/d/yyyy", culture, styles, out dtperiodstart))
+                searchCriteria.PeriodStartDate = dtperiodstart;
+            if (DateTime.TryParseExact(periodEnd,"M/d/yyyy",culture,styles,out dtperiodend))
             {
-                searchCriteria.PeriodStartDate = DateTime.Parse(periodStart);
-                if (((searchCriteria.PeriodStartDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodStartDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0)))
-                { throw ex; }
-            }
-            catch
-            {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0580);//error code
-                ex.ExceptionMessages.Add(exMessage);
-            }
-            try
-            {
-                searchCriteria.PeriodEndDate = DateTime.Parse(periodEnd);
+                searchCriteria.PeriodEndDate = dtperiodend;
                 searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
-                if (((searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("1/1/1753")) < 0) || (searchCriteria.PeriodEndDate.CompareTo(Convert.ToDateTime("12/31/9999")) > 0)))
-                { throw ex; }
             }
-            catch
-            {
-                ExceptionMessage exMessage = GetExceptionMessage(ErrorMessages.ERR0581);
-                ex.ExceptionMessages.Add(exMessage);
-            }
-            searchCriteria.UserID = HPFWebSecurity.CurrentIdentity.UserId.ToString();
-
-            if (ex.ExceptionMessages.Count > 0)
-                throw ex;
-
             Session["agencyPayableSearchCriteria"] = searchCriteria;
             return searchCriteria;
         }
@@ -202,6 +185,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             }
             catch (DataValidationException ex)
             {
+                //bulMessage.DataSource = ex.ExceptionMessages;
+                //bulMessage.DataBind();
                 foreach (var mes in ex.ExceptionMessages)
                     bulMessage.Items.Add(new ListItem(mes.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);

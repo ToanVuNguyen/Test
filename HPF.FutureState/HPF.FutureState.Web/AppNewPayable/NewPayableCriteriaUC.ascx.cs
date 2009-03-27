@@ -17,6 +17,7 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common;
 using System.Text;
+using System.Globalization;
 
 
 namespace HPF.FutureState.Web.AppNewPayable
@@ -78,7 +79,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     if (Request.QueryString["agency"] == "-1")
                     {
-                        ddlAgency.Items.Insert(0,new ListItem ("","-1"));
+                        ddlAgency.Items.Insert(0,new ListItem ("",""));
                         ddlAgency.SelectedIndex = 0;
                     }
                     else
@@ -118,7 +119,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             bulMessage.Items.Clear();
             try
             {
-                string query = GetQueryString();
+                AgencyPayableSearchCriteriaDTO agencyPayableCriteria=BuildSearchAgencyPayableCriteria();
+                AgencyPayableBL.Instance.CheckSeachAgencyPayable(agencyPayableCriteria);
+                string query=BuildQueryString(agencyPayableCriteria);
                 Response.Redirect("NewPayableSelection.aspx" + query);
             }
             catch (DataValidationException ex)
@@ -144,47 +147,15 @@ namespace HPF.FutureState.Web.AppNewPayable
             return ex;
         }
         //get all criterias pass to next page.
-        private string GetQueryString()
-        {
-            DataValidationException ex = new DataValidationException();
-            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-            agencyPayableSearchCriteria.AgencyId = Int32.Parse(ddlAgency.SelectedValue);
-            if (agencyPayableSearchCriteria.AgencyId == -1)
-            {
-                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0579);
-                ex.ExceptionMessages.Add(exmsg);
-            }
-            agencyPayableSearchCriteria.CaseComplete = ddlCaseCompleted.SelectedValue.ToString();
-            try
-            {
-                agencyPayableSearchCriteria.PeriodStartDate =Convert.ToDateTime(txtPeriodStart.Text.Trim());
-                if ((agencyPayableSearchCriteria.PeriodStartDate.CompareTo(DateTime.Parse("1/1/1973"))<0) || (agencyPayableSearchCriteria.PeriodStartDate.CompareTo(DateTime.Parse("12/31/9999"))>0))
-                    throw ex;
-            }
-            catch
-            {
-                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0580);
-                ex.ExceptionMessages.Add(exmsg);
-            }
-            try
-            {
-                agencyPayableSearchCriteria.PeriodEndDate =Convert.ToDateTime(txtPeriodEnd.Text.Trim());
-                agencyPayableSearchCriteria.PeriodEndDate = agencyPayableSearchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
-                if ((agencyPayableSearchCriteria.PeriodEndDate.CompareTo(DateTime.Parse("1/1/1973")) < 0) && (agencyPayableSearchCriteria.PeriodEndDate.CompareTo(DateTime.Parse("12/31/9999")) > 0))
-                    throw ex;
-            }
-            catch
-            {
-                ExceptionMessage exmsg = GetExceptionMess(ErrorMessages.ERR0581);
-                ex.ExceptionMessages.Add(exmsg);
-            }
-            
-            if (ex.ExceptionMessages.Count > 0)
-                throw ex;
-            if (ChkInclude.Checked)// return true or false
-                agencyPayableSearchCriteria.Indicator = 1;
-            else agencyPayableSearchCriteria.Indicator = 0;
+        //private string GetQueryString()
+        //{
+        //    AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = BuildSearchAgencyPayableCriteria();
 
+        //    return BuildQueryString(agencyPayableSearchCriteria);
+        //}
+
+        private string BuildQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
+        {
             StringBuilder query = new StringBuilder();
             query.Append("?agencyid=");
             query.Append(agencyPayableSearchCriteria.AgencyId);
@@ -197,6 +168,31 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append("&indicator=");
             query.Append(agencyPayableSearchCriteria.Indicator);
             return query.ToString();
+        }
+
+        private AgencyPayableSearchCriteriaDTO BuildSearchAgencyPayableCriteria()
+        {
+            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+            int agencyid;
+            if (Int32.TryParse(ddlAgency.SelectedValue, out agencyid))
+                agencyPayableSearchCriteria.AgencyId = agencyid;
+            else agencyPayableSearchCriteria.AgencyId = null;
+
+            DateTime dtperiodstart, dtperiodend;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            DateTimeStyles styles = DateTimeStyles.None;
+            if (DateTime.TryParseExact(txtPeriodStart.Text.Trim(),"M/d/yyyy",culture,styles, out dtperiodstart))
+                agencyPayableSearchCriteria.PeriodStartDate = dtperiodstart;
+            if (DateTime.TryParseExact(txtPeriodEnd.Text.Trim(),"M/d/yyyy",culture,styles, out dtperiodend))
+            {
+                agencyPayableSearchCriteria.PeriodEndDate = dtperiodend;
+                agencyPayableSearchCriteria.PeriodEndDate = agencyPayableSearchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
+            }
+            agencyPayableSearchCriteria.CaseComplete = ddlCaseCompleted.SelectedValue.ToString();
+            if (ChkInclude.Checked)// return true or false
+                agencyPayableSearchCriteria.Indicator = 1;
+            else agencyPayableSearchCriteria.Indicator = 0;
+            return agencyPayableSearchCriteria;
         }
 
     }
