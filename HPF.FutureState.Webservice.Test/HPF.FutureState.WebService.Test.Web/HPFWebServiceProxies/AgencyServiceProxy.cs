@@ -3490,7 +3490,7 @@ namespace HPF.Webservice.Agency
 
         private string emailBodyField;
 
-        private int fCIdField;
+        private int? fCIdField;
 
         /// <remarks/>
         public string SenderId
@@ -3545,7 +3545,7 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public int FCId
+        public int? FCId
         {
             get
             {

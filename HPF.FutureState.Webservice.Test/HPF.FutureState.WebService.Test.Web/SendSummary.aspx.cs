@@ -23,9 +23,15 @@ namespace HPF.FutureState.WebService.Test.Web
         }
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            int fcid = 0;
-            if (!int.TryParse(txtFcId.Text.Trim(), out fcid))
-                fcid = int.MinValue;
+            int? fcid = null;
+            int fcIdValue = int.MaxValue;
+
+            if (txtFcId.Text.Trim() != string.Empty)
+            {
+                int.TryParse(txtFcId.Text.Trim(), out fcIdValue);
+                if (fcIdValue == 0) fcIdValue = int.MinValue;
+                fcid = fcIdValue;
+            }
 
             SendSummaryRequest request = new SendSummaryRequest()
             {
