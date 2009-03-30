@@ -55,6 +55,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             lblResult.Visible = false;
             myPannel.Visible = false;
+            ShowHidePagingControl(false);
             if (!IsPostBack)
             {
                 ApplySecurity();
@@ -64,7 +65,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 BindAgencyDropdownlist();
                 BindServicerDropDownList();
                 //redisplay search criteria when you click on menu item.
-                this.PageNum = 1;
+                this.PageNum = 1;                
                 BindSearchCriteria();                
             }
             else
@@ -285,7 +286,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             this.TotalRowNum = searchResultCount;
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
-            ShowHidePagingControl(false);
 
             if (totalpage > 10)
                 bulErrorMessage.Items.Add(new ListItem(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0500)).ToString().Replace("*", this.TotalRowNum.ToString()));
