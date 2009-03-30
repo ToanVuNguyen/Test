@@ -7,8 +7,7 @@
 <table>
     <tr>
         <td colspan="2"  class="sidelinks">
-            <h3>Audit List:</h3>
-            
+            <h3>Audit List:</h3>            
         </td>
     </tr>
     <tr>
@@ -88,7 +87,7 @@
     </tr>
     <tr align="center">
         <td>
-            <table width="820px">
+            <table width="100%">
                 <tr>
                     <td>
                         <asp:HiddenField ID="hfAction" runat="server" />
@@ -99,9 +98,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="left">
+                    <td align="right">
                         <asp:Label ID="lblFormTitle" runat="server" Text="Audit Detail" class="sidelinks"></asp:Label>
                     </td>
+                    <td>&nbsp;</td>
                     <td align="right" class="sidelinks" valign="bottom">
                         Budget completed?:
                        <td align="left" valign="bottom">
@@ -198,9 +198,10 @@
                 </tr>
                 <tr>
                     <td align="right"  class="sidelinks">
-                        Audit Comments:                      <td align="left" colspan="3">
+                        Audit Comments:                      <td align="left" colspan="2">
                         <asp:TextBox ID="txtAuditComment" runat="server" Rows="4" Columns="100" 
-                            Height="65px" CssClass="Text" TextMode="MultiLine" TabIndex="13"></asp:TextBox>
+                            Height="65px" CssClass="Text" TextMode="MultiLine" TabIndex="13" 
+                            Width="100%"></asp:TextBox>
                     </td>
                 </tr>
                 <tr align="center">
