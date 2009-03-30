@@ -21,6 +21,7 @@ namespace HPF.FutureState.UnitTest
 
 
         private TestContext testContextInstance;
+        public static int paymentId;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -46,18 +47,18 @@ namespace HPF.FutureState.UnitTest
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext)
         {
-            //insert FUNDING_SOURCE (funding_source_name='fs thao test', funding_source_comment='fs test')
+            //insert FUNDING_SOURCE (funding_source_name='fs sinh test', funding_source_comment='fs test')
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             string strsql = @"insert into [dbo].funding_source([funding_source_name],[funding_source_comment]
            ,[city],[state_cd],[create_dt],[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id]
-           ,[chg_lst_app_name],[funding_source_abbrev]) values ('fs thao test','fs test','hcm test'
+           ,[chg_lst_app_name],[funding_source_abbrev]) values ('fs sinh test','fs test','hcm test'
            ,'test','1/1/2222','HPF','fs test app','1/1/2222','Test data','CCRC','5')";
             dbConnection.Open();
             var command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
             
             // get Funding Source Id of test data .
-            strsql = @"select funding_source_id from funding_source where funding_source_name='fs thao test'";
+            strsql = @"select funding_source_id from funding_source where funding_source_name='fs sinh test'";
             command = new SqlCommand(strsql, dbConnection);
             int fsID = Convert.ToInt16(command.ExecuteScalar());
             
@@ -67,6 +68,11 @@ namespace HPF.FutureState.UnitTest
             VALUES (" + fsID + ",'invoice thao test','1/1/2222','test test','1/1/2222','HPF','fs test app','1/1/2222','Test data','CCRC')";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
+            
+
+            strsql = @"select invoice_payment_id from invoice_payment where pmt_num='invoice thao test'";
+            command = new SqlCommand(strsql, dbConnection);
+            paymentId = Convert.ToInt16(command.ExecuteScalar());
             dbConnection.Close();
         }
         //
@@ -76,13 +82,16 @@ namespace HPF.FutureState.UnitTest
         {
             //delete insert INVOICE_PAYMENT(pmt_num='invoice thao test')
              var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-             string strsql = @"delete invoice_payment where pmt_num='invoice thao test'";
-             var command = new SqlCommand(strsql, dbConnection);
              dbConnection.Open();
+             string strsql = @"delete invoice_case where invoice_payment_id="+paymentId.ToString();
+             var command = new SqlCommand(strsql, dbConnection);
+
+             strsql = @"delete invoice_payment where pmt_num='invoice thao test'";
+             command = new SqlCommand(strsql, dbConnection);
              command.ExecuteNonQuery();
             
-             //delete FUNDING_SOURCE (funding_source_name='fs thao test', funding_source_comment='fs test') 
-             strsql = @"delete funding_source where funding_source_name='fs thao test'";
+             //delete FUNDING_SOURCE (funding_source_name='fs sinh test', funding_source_comment='fs test') 
+             strsql = @"delete funding_source where funding_source_name='fs sinh test'";
              command = new SqlCommand(strsql, dbConnection); 
             command.ExecuteNonQuery();
              dbConnection.Close();
@@ -115,7 +124,7 @@ namespace HPF.FutureState.UnitTest
             
             // get Funding Source Id of test data.
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
-            string strsql = @"select funding_source_id from funding_source where funding_source_name='fs thao test'";
+            string strsql = @"select funding_source_id from funding_source where funding_source_name='fs sinh test'";
             var command = new SqlCommand(strsql, dbConnection);
             dbConnection.Open();
             int fsID = Convert.ToInt16(command.ExecuteScalar());
@@ -126,7 +135,7 @@ namespace HPF.FutureState.UnitTest
             searchCriteria.PeriodEnd = Convert.ToDateTime("2222/1/1");
             //search criteria  
 
-            List<string> expectlist = new List<string> { fsID.ToString(), "fs thao test","invoice thao test","1/1/2222" };
+            List<string> expectlist = new List<string> { fsID.ToString(), "fs sinh test","invoice thao test","1/1/2222" };
 
             InvoicePaymentDTOCollection actual = target.InvoicePaymentSearch(searchCriteria);
             List<string> actuallist = new List<string> {actual[0].FundingSourceID.ToString(),actual[0].FundingSourceName,

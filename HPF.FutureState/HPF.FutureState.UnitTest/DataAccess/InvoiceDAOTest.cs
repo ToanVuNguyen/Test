@@ -23,8 +23,10 @@ namespace HPF.FutureState.UnitTest
         public static int invoiceId;
         public static int fundingSourceId;
         public static int paymentId;
+        public static int fc_id;
         private TestContext testContextInstance;
         static string working_user_id = "SinhUnitTest";
+        static string first_name = "invoice test";
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -69,7 +71,7 @@ namespace HPF.FutureState.UnitTest
             //Insert Funding Source
             command.CommandText = @"insert into [dbo].funding_source([funding_source_name],[funding_source_comment]
            ,[city],[state_cd],[create_dt],[create_user_id],[create_app_name],[chg_lst_dt],[chg_lst_user_id]
-           ,[chg_lst_app_name],[funding_source_abbrev]) values ('fs accounting test','fs test','hcm test'
+           ,[chg_lst_app_name],[funding_source_abbrev]) values ('fs sinh accounting test','fs test','hcm test'
            ,'test','1/1/2222','" + working_user_id + "','fs test app','1/1/2222','Test data','CCRC','5')";
             command.ExecuteNonQuery();
             //-- get Funding Source Id of test data .
@@ -105,15 +107,89 @@ namespace HPF.FutureState.UnitTest
             reader.Read();
             invoiceId = int.Parse(reader["Invoice_id"].ToString());
             reader.Close();
+
+            string strsql = @"INSERT INTO [Agency]([agency_name],[contact_fname],[contact_lname],[phone],[fax]
+           ,[email],[active_ind],[hud_agency_num],[hud_agency_sub_grantee_num],[create_dt],[create_user_id]
+           ,[create_app_name],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])VALUES
+           ('payable test','payable','test',99990000,00009999,'payable@yahoo.com','N','9999','9999','2222/1/1'
+            ,'" + working_user_id + "','payable test','2222/1/1','aaaa','aaaa')";
+            command.CommandText = strsql;
+            command.ExecuteNonQuery();
+
+            //get Agency id to insert agency_payable
+            strsql = @"select agency_id from agency where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            int agency_id = Convert.ToInt32(command.ExecuteScalar());
+
+            //insert program for test
+            strsql = @"INSERT INTO [hpf].[dbo].[program]
+           ([program_name],[program_comment],[create_dt],[create_user_id],[create_app_name]
+           ,[chg_lst_dt] ,[chg_lst_user_id],[chg_lst_app_name])
+            VALUES('accounting test','test','2/2/2222','" + working_user_id + "','test','2/2/2222','test' ,'test')";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //select program id test data
+            strsql = @"select program_id from program where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            int program_id = Convert.ToInt32(command.ExecuteScalar());
+
+            //insert foreclosure_case test info
+            strsql = "Insert into foreclosure_case "
+                + " (agency_id, program_id, intake_dt"
+               + ", borrower_fname, borrower_lname, primary_contact_no"
+               + ", contact_addr1, contact_city, contact_state_cd, contact_zip"
+               + ", funding_consent_ind, servicer_consent_ind, counselor_email"
+               + ", counselor_phone, opt_out_newsletter_ind, opt_out_survey_ind"
+               + ", do_not_call_ind, owner_occupied_ind, primary_residence_ind"
+               + ", counselor_fname, counselor_lname, counselor_id_ref"
+               + ", prop_zip, agency_case_num, borrower_last4_SSN"
+               + ", chg_lst_app_name, chg_lst_user_id, chg_lst_dt ,create_app_name"
+               + ", create_user_id,create_dt,never_pay_reason_cd,never_bill_reason_cd,prop_addr1,prop_city,prop_state_cd,duplicate_ind ) values "
+
+               + " (" + agency_id + "," + program_id + ", '" + DateTime.Now + "'"
+               + ",'" + first_name + "', 'accounting test', 'pcontactno'"
+               + ", 'address1', 'cty', 'scod', 'czip'"
+               + ", 'Y', 'Y', 'email'"
+               + ", 'phone', 'Y', 'Y'"
+               + ", 'Y', 'Y', 'Y'"
+               + ", 'cfname', 'clname', 'cidref'"
+               + ", '" + "9999" + "', '" + "abc" + "', '" + "1111" + "'"
+               + ", 'HPF' ,'HPF' ,'" + DateTime.Now + "', 'HPF', '" + working_user_id + "', '" + DateTime.Now + "','accounting pay','accounting bill','nguyen hong','hcm','bt','N' )";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //get fc_id to insert agency_payable
+            strsql = @"select fc_id from foreclosure_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            fc_id = Convert.ToInt32(command.ExecuteScalar());
+
+            //insert SERVICER to insert test data to CASE_LOAN
+            command.CommandText = @"INSERT INTO [servicer]([servicer_name],[create_dt],[create_user_id]" +
+           ",[create_app_name],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])VALUES" +
+           "('test servicer','2/2/2222','" + working_user_id + "','HPF','2/2/2222','test','test')";
+            command.ExecuteNonQuery();
+            //--get servicer_id
+            command.CommandText = "select servicer_id from servicer where create_user_id='" + working_user_id + "'";
+            int servicer_id = Convert.ToInt32(command.ExecuteScalar());
+            //insert test data CASE_LOAN
+            command.CommandText = @"INSERT INTO [dbo].[case_loan]" +
+           "([fc_id],[servicer_id],[acct_num],[loan_1st_2nd_cd],[create_dt],[create_app_name]" +
+           ",[create_user_id],[chg_lst_dt],[chg_lst_user_id],[chg_lst_app_name])VALUES" +
+           "(" + fc_id + "," + servicer_id + ",99999,'1st','2/2/2222','test','" + working_user_id + "','2/2/2222','test','test')";
+            command.ExecuteNonQuery();
+
+
+
             //Insert invoice Case
             command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (100,234769," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test')";
+                                    " values (100,"+fc_id.ToString()+"," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase1', '1/1/2008', 'InvoiceCase1', 'test')";
             command.ExecuteNonQuery();
             command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (200,234769," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase2', '1/1/2008', 'InvoiceCase2', 'test')";
+                                    " values (200," + fc_id.ToString() + "," + invoiceId.ToString() + ",'1/1/2208', '" + working_user_id + "', 'InvoiceCase2', '1/1/2008', 'InvoiceCase2', 'test')";
             command.ExecuteNonQuery();
             command.CommandText = "Insert Into invoice_case(invoice_case_pmt_amt,fc_id,invoice_id,create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)" +
-                                    " values (300,234769," + invoiceId.ToString() + ",'1/1/2208', '"+working_user_id+"', 'InvoiceCase3', '1/1/2008', 'InvoiceCase3', 'test')";
+                                    " values (300," + fc_id.ToString() + "," + invoiceId.ToString() + ",'1/1/2208', '" + working_user_id + "', 'InvoiceCase3', '1/1/2008', 'InvoiceCase3', 'test')";
             command.ExecuteNonQuery();
             dbConnection.Close();
 
@@ -126,16 +202,42 @@ namespace HPF.FutureState.UnitTest
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
             var command = new SqlCommand();
-            command.Connection = dbConnection;
-            
 
-            command.CommandText = "Delete invoice_case where create_user_id='"+working_user_id+"'";
+            command.Connection = dbConnection;
+            command.CommandText = "Delete invoice_case where create_user_id='" + working_user_id + "'";
             command.ExecuteNonQuery();
 
-            command.CommandText = "Delete Invoice where invoice_comment='"+working_user_id+"'";
+            command.CommandText = "Delete Invoice where invoice_comment='" + working_user_id + "'";
             command.ExecuteNonQuery();
             command.CommandText = @"delete invoice_payment where pmt_num='" + working_user_id + "'";
+            command.ExecuteNonQuery();
 
+            //Delete data test PROGRAM
+            //Delete data test FORECLOSURE_CASE 
+            //delete CASE_LOAN
+            command.CommandText = "delete from case_loan where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+            //delete SERVICER
+            command.CommandText = "delete from servicer where create_user_id='" + working_user_id + "'";
+            command.ExecuteNonQuery();
+
+            command.CommandText = "delete from activity_log where fc_id=" + fc_id.ToString();
+            command.ExecuteNonQuery();
+
+            string strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            strsql = @"delete from program where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //Delete data test AGENCY
+            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            command.CommandText = "Delete funding_source where funding_source_name='fs sinh accounting test'";
             command.ExecuteNonQuery();
 
             dbConnection.Close();
@@ -283,8 +385,8 @@ namespace HPF.FutureState.UnitTest
             }
             while(reader.Read())
             {
-                Assert.AreEqual(234769, int.Parse(reader["fc_id"].ToString()));
-                Assert.AreEqual(""+working_user_id+"", reader["create_user_id"].ToString());
+                Assert.AreEqual(fc_id, int.Parse(reader["fc_id"].ToString()));
+                Assert.AreEqual(working_user_id, reader["create_user_id"].ToString());
                 Assert.AreEqual("REO", reader["pmt_reject_reason_cd"].ToString());
                 Assert.AreEqual(string.Empty, reader["invoice_case_pmt_amt"].ToString());
             }
@@ -320,7 +422,7 @@ namespace HPF.FutureState.UnitTest
             }
             while (reader.Read())
             {
-                Assert.AreEqual(234769, int.Parse(reader["fc_id"].ToString()));
+                Assert.AreEqual(fc_id, int.Parse(reader["fc_id"].ToString()));
                 Assert.AreEqual(""+working_user_id+"", reader["create_user_id"].ToString());
                 Assert.AreEqual(string.Empty, reader["pmt_reject_reason_cd"].ToString());
                 Assert.AreEqual(string.Empty, reader["invoice_case_pmt_amt"].ToString());
@@ -361,7 +463,7 @@ namespace HPF.FutureState.UnitTest
             }
             while (reader.Read())
             {
-                Assert.AreEqual(234769, int.Parse(reader["fc_id"].ToString()));
+                Assert.AreEqual(fc_id, int.Parse(reader["fc_id"].ToString()));
                 Assert.AreEqual(""+working_user_id+"", reader["create_user_id"].ToString());
                 Assert.AreEqual(string.Empty, reader["pmt_reject_reason_cd"].ToString());
                 Assert.AreEqual(reader["invoice_case_bill_amt"].ToString(), reader["invoice_case_pmt_amt"].ToString());
