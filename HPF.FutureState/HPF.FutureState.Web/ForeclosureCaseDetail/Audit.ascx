@@ -205,14 +205,14 @@
                     </td>
                 </tr>
                 <tr align="center">
-                    <td colspan="2" align="right">
+                    <td>&nbsp;</td>
+                    <td colspan="2" align="Center">
                         <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" 
-                            OnClick="btnSave_Click" TabIndex="14" Width="50px" />
-                     </td>
-                     <td colspan="2" align="left">   
+                            OnClick="btnSave_Click" TabIndex="14" Width="50px" />                     
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="MyButton" 
                             OnClick="btnCancel_Click" TabIndex="15" Width="50px" />
-                    </td>
+                    </td>    
+                    <td>&nbsp;</td>                
                 </tr>
             </table>
         </td>

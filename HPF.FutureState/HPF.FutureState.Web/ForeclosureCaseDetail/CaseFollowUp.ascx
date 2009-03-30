@@ -75,9 +75,10 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4" class="sidelinks">
+        <td class="sidelinks" align="right">
             Follow-Up Details:
         </td>
+        <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
         <td align="right" class="sidelinks" width="20%">Follow-Up Date*: </td>
@@ -141,14 +142,14 @@
         <td>&nbsp;</td>        
     </tr>  
     <tr>
-        <td colspan="2" align="right">
+        <td>&nbsp;</td>
+        <td colspan="2" align="center">
             <asp:Button ID="btn_Save" runat="server" Text="Save" CssClass="MyButton" 
-                onclick="btn_Save_Click" TabIndex="11" Width="50px" />
-        </td>
-        <td colspan="2" align="left">
+                onclick="btn_Save_Click" TabIndex="11" Width="50px" />        
             <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CssClass="MyButton" 
                 onclick="btn_Cancel_Click" TabIndex="12" Width="50px" />
         </td>
+        <td>&nbsp;</td>
     </tr>  
 </table>
 <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
