@@ -357,132 +357,40 @@ namespace HPF.FutureState.Web.AppNewInvoice
             searchCriteria.PeriodStart = ConvertToDateTime(txtPeriodStart.Text);
             if(searchCriteria.PeriodStart!=DateTime.MinValue)
                 searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
-            //try
-            //{
-            //    searchCriteria.PeriodStart = DateTime.Parse(txtPeriodStart.Text);
-            //    searchCriteria.PeriodStart = SetToStartDay(searchCriteria.PeriodStart);
-            //    if (searchCriteria.PeriodStart.Year < 1753)
-            //        throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0562);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
+            
             searchCriteria.PeriodEnd = ConvertToDateTime(txtPeriodEnd.Text);
             if (searchCriteria.PeriodEnd != DateTime.MinValue)
                 searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
-            //try
-            //{
-            //    searchCriteria.PeriodEnd = DateTime.Parse(txtPeriodEnd.Text);
-            //    searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
-            //    if (searchCriteria.PeriodEnd.Year < 1753)
-            //        throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0563);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
             
             //a program is require
             searchCriteria.ProgramId = dropProgram.SelectedValue;
             searchCriteria.FundingSourceId = ConvertToInt(dropFundingSource.SelectedValue);
-            //if (searchCriteria.FundingSourceId == -1)
-            //{ 
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0561);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
+            
             searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
             searchCriteria.Gender = dropGender.SelectedValue;
             searchCriteria.Race = dropRace.SelectedValue;
             searchCriteria.Hispanic = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropHispanic.SelectedValue);
             searchCriteria.AgeMin = ConvertToInt(txtAgeMin.Text);
-            //try
-            //{
-            //    searchCriteria.AgeMin = (txtAgeMin.Text == "") ? -1 : int.Parse(txtAgeMin.Text);
-            //    if(searchCriteria.AgeMin!=int.MinValue)
-            //        if (searchCriteria.AgeMin > 200||searchCriteria.AgeMin<0)
-            //            throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0570);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
+            
             searchCriteria.AgeMax = ConvertToInt(txtAgeMax.Text);
-            //try
-            //{
-            //    searchCriteria.AgeMax = (txtAgeMax.Text == "") ? -1 : int.Parse(txtAgeMax.Text);
-            //    if (searchCriteria.AgeMax !=int.MinValue)
-            //        if (searchCriteria.AgeMax > 200||searchCriteria.AgeMax<0)
-            //            throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0571);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
+            
             searchCriteria.HouseholdGrossAnnualIncomeMin = ConvertToDouble(txtIncomeMin.Text);
-            //try
-            //{
-            //    searchCriteria.HouseholdGrossAnnualIncomeMin = (txtIncomeMin.Text == "") ? -1 : double.Parse(txtIncomeMin.Text);
-            //    if(searchCriteria.HouseholdGrossAnnualIncomeMin!=double.MinValue)
-            //        if (searchCriteria.HouseholdGrossAnnualIncomeMin >=  100000000||searchCriteria.HouseholdGrossAnnualIncomeMin<0)
-            //            throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0572);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
+            
             searchCriteria.HouseholdGrossAnnualIncomeMax = ConvertToDouble(txtIncomeMax.Text);
-            //try
-            //{
-            //    searchCriteria.HouseholdGrossAnnualIncomeMax = (txtIncomeMax.Text == "") ? -1 : double.Parse(txtIncomeMax.Text);
-            //    if (searchCriteria.HouseholdGrossAnnualIncomeMax !=double.MinValue)
-            //        if (searchCriteria.HouseholdGrossAnnualIncomeMax >= 100000000||searchCriteria.HouseholdGrossAnnualIncomeMax<0)
-            //            throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0573);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
-
+            
             searchCriteria.Completed = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropCaseCompleted.SelectedValue);
             searchCriteria.AlreadyBill = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropAlreadyBilled.SelectedValue);
             searchCriteria.IgnoreFundingConsent= (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropFundingConsent.SelectedValue);
             if (dropFundingConsent.Enabled == false)
                 searchCriteria.IgnoreFundingConsent = CustomBoolean.None;
             searchCriteria.MaxNumOfCases = ConvertToInt(txtMaxNumberofCases.Text);
-            //Max Num of cases
-            //try
-            //{
-            //    searchCriteria.MaxNumOfCases = txtMaxNumberofCases.Text == "" ? int.MinValue : int.Parse(txtMaxNumberofCases.Text.Replace(",",""));
-            //    if(searchCriteria.MaxNumOfCases!=int.MinValue)
-            //        if (searchCriteria.MaxNumOfCases > 65000||searchCriteria.MaxNumOfCases<=0)
-            //            throw (new Exception());
-            //}
-            //catch
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessage(ErrorMessages.ERR0569);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
+            
             searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
             searchCriteria.City = txtCity.Text.Trim();
-            //if (txtCity.Text.Length > 30)
-            //{
-            //    ExceptionMessage exMes = GetExceptionMessageWithoutCode(ErrorMessages.ERR0986);
-            //    ex.ExceptionMessages.Add(exMes);
-            //}
-            //else
-                
             searchCriteria.State = dropState.SelectedValue;
             if (chkUnfunded.Enabled == false)
                 SetNonServicerToFalse(searchCriteria);
             else
-                //Check for error 0564 here
                 if (dropFundingSource.SelectedValue!="-1")
                     GetNonServicer(searchCriteria);
             return searchCriteria;
