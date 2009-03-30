@@ -190,7 +190,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                     if (string.IsNullOrEmpty(foreclosureCase.CounselorExt))
                         lblPhoneExt.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone);
                     else
-                        lblPhoneExt.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext:"+ foreclosureCase.CounselorExt + ")";
+                        lblPhoneExt.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext: "+ foreclosureCase.CounselorExt + ")";
                 lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
                 lblProgram.Text = foreclosureCase.ProgramName.ToString();
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();

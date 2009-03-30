@@ -102,7 +102,7 @@ namespace HPF.FutureState.Web
                 if (string.IsNullOrEmpty(foreclosureCase.CounselorExt))
                     lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone);
                 else
-                    lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext:" + foreclosureCase.CounselorExt + ")";
+                    lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext: " + foreclosureCase.CounselorExt + ")";
             }
             lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
             lblAgencyName.Text = GetAgencyName(foreclosureCase.AgencyId);
