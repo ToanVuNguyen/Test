@@ -52,17 +52,15 @@ namespace HPF.FutureState.BusinessLogic
 
         #region Send Complete Case to Queue
         private void SendCompletedCaseToQueueIfAny(ForeclosureCaseSetDTO fCaseSetFromAgency)
-        {
+        {            
             var fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
             //
             try
             {                
                 if (WarningMessage.Count > 0) //not completed case
-                    return;
-
+                    return;                
                 if (!ShouldSendSummary(fCaseSetFromAgency))
-                    return;
-
+                    return;                
                 var queue = new HPFSummaryQueue();
                 queue.SendACompletedCaseToQueue(fcId);
             }
@@ -70,9 +68,9 @@ namespace HPF.FutureState.BusinessLogic
             {
                 var QUEUE_ERROR_MESSAGE = "Fail to push completed case into Queue : " + fcId;
                 //Log
-                Logger.Write(QUEUE_ERROR_MESSAGE);
-                Logger.Write(Ex.Message);
-                Logger.Write(Ex.StackTrace);                
+                Logger.Write(QUEUE_ERROR_MESSAGE, "General");
+                Logger.Write(Ex.Message, "General");
+                Logger.Write(Ex.StackTrace, "General");                
                 Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
                 
                 //Send E-mail to support
@@ -200,8 +198,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="foreclosureCaseSet">ForeclosureCaseSetDTO</param>
         public int? SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-
+        {            
             int? fcId;            
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
                 throw new DataValidationException(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0998));
