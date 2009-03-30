@@ -328,9 +328,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAppropriateOutcome.Text = GetIndicatorLongValue(caseAudit.AppropriateOutcomeInd);
             txtAuditComment.Text = caseAudit.AuditComments;
             txtAuditDate.Text = (caseAudit.AuditDt.HasValue) ? caseAudit.AuditDt.Value.Date.ToShortDateString() : string.Empty;
-            //ddlAuditFailureReason.SelectedIndex = ddlAuditFailureReason.Items.IndexOf(ddlAuditFailureReason.Items.FindByText(caseAudit.AuditFailureReasonCode));
-            if (!string.IsNullOrEmpty(caseAudit.AuditFailureReasonCodeDesc))
-                ddlAuditFailureReason.SelectedItem.Text = caseAudit.AuditFailureReasonCodeDesc.ToString();
+            ddlAuditFailureReason.SelectedIndex = ddlAuditFailureReason.Items.IndexOf(ddlAuditFailureReason.Items.FindByValue(caseAudit.AuditFailureReasonCode));            
             ddlAuditType.SelectedIndex = ddlAuditType.Items.IndexOf(ddlAuditType.Items.FindByValue(caseAudit.AuditTypeCode));
             ddlBudgetCompleted.Text = GetIndicatorLongValue(caseAudit.BudgetCompletedInd);
             ddlClientActionPlan.Text = GetIndicatorLongValue(caseAudit.ClientActionPlanInd);

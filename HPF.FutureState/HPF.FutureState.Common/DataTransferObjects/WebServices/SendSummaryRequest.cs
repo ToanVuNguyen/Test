@@ -20,6 +20,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         [NullableOrStringLengthValidator(true, 2000, "Email Body", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0808)]
         public string EmailBody { get; set; }
 
-        public int FCId { get; set; }
+        public int? FCId { get; set; }
     }
 }

@@ -93,19 +93,22 @@ namespace HPF.FutureState.BusinessLogic
             var response = new SendSummaryResponse();
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
 
-            if (sendSummary.FCId == null)
-            {
-                errorList.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805));
+            //comment here because need show all error messages in ValidateSendSummaryRequest
+            //if (sendSummary.FCId == null)
+            //{
+            //    errorList.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805));
 
-                response.Status = ResponseStatus.Fail;
-                response.Messages = errorList;
+            //    response.Status = ResponseStatus.Fail;
+            //    response.Messages = errorList;
 
-                return response;
-            }
+            //    return response;
+            //}
 
-            int fc_Id = sendSummary.FCId;
+            int? fc_Id = sendSummary.FCId;
 
-            ForeclosureCaseDTO foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_Id);
+            ForeclosureCaseDTO foreclosureCase = null;
+            if(fc_Id.HasValue && fc_Id.Value > 0)
+                foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_Id);
 
             errorList = ValidateSendSummaryRequest(foreclosureCase, sendSummary, agencyID, fc_Id);
 
@@ -130,7 +133,7 @@ namespace HPF.FutureState.BusinessLogic
             SendEmailSummaryReport(sendSummary.EmailToAddress,
                                     sendSummary.EmailSubject + Constant.HPF_SECURE_EMAIL, 
                                     sendSummary.EmailBody, 
-                                    sendSummary.FCId, 
+                                    sendSummary.FCId.Value, 
                                     fileName);
 
             //log to activity log
@@ -143,7 +146,7 @@ namespace HPF.FutureState.BusinessLogic
             return response;
         }
 
-        private ExceptionMessageCollection ValidateSendSummaryRequest(ForeclosureCaseDTO foreclosureCase, SendSummaryRequest sendSummary, int agencyID, int fcId)
+        private ExceptionMessageCollection ValidateSendSummaryRequest(ForeclosureCaseDTO foreclosureCase, SendSummaryRequest sendSummary, int agencyID, int? fcId)
         {
             // validate field length first
             var errorCollection = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(sendSummary, Constant.RULESET_LENGTH) };
@@ -156,17 +159,26 @@ namespace HPF.FutureState.BusinessLogic
                     errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));
             }
 
-            if (sendSummary.SenderId == null)
+            if (sendSummary.SenderId == null || sendSummary.SenderId.Trim().Length == 0)
                 errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
             else
             {
-                if (sendSummary.SenderId.Trim().Length == 0)
-                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
+                //if (sendSummary.SenderId.Trim().Length == 0)
+                //    errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
             }
 
             if (foreclosureCase == null)
-                errorCollection.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805, fcId));
-
+            {
+                if (sendSummary.FCId == null)
+                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805));
+                else
+                {
+                    if(!fcId.HasValue || fcId.Value == int.MinValue)
+                        errorCollection.AddExceptionMessage(ErrorMessages.ERR0802, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0802, ""));
+                    else
+                        errorCollection.AddExceptionMessage(ErrorMessages.ERR0802, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0802, fcId));
+                }
+            }
             else
             {
                 if (foreclosureCase.AgencyId != agencyID)
@@ -174,7 +186,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 if (foreclosureCase.CompletedDt == null)
                     errorCollection.AddExceptionMessage(ErrorMessages.ERR0804, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0804));
-    
+
             }
             
             return errorCollection;
