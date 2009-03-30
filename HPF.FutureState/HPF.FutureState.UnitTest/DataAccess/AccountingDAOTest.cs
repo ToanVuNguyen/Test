@@ -21,7 +21,7 @@ namespace HPF.FutureState.UnitTest
 
         static string first_name = "accounting test";
         static string acct_num = "test test";
-        static string working_user_id = "accounting test user";
+        static string working_user_id = "accounting test 2";
 
         static string agency_name = "accounting agency";
 
@@ -210,7 +210,11 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
 
             //Delete data test AGENCY_PAYABLE_CASE
-            string strsql = @"delete from agency_payable_case where create_user_id='" + working_user_id + "'";
+            //string strsql = @"select agency_payable_id where create_user_id='" + working_user_id + "'";
+            //var command = new SqlCommand(strsql, dbConnection);
+            //int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
+
+            string strsql = @"delete from agency_payable_case where create_user_id='"+working_user_id+"'";
             var command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -251,6 +255,7 @@ namespace HPF.FutureState.UnitTest
             command.ExecuteNonQuery();
 
             //delete data activity_log
+            
             command.CommandText = @"delete activity_log where create_user_id='" + working_user_id + "'";
             command.ExecuteNonQuery();
             //Delete data test FORECLOSURE_CASE 
@@ -264,7 +269,7 @@ namespace HPF.FutureState.UnitTest
             command.ExecuteNonQuery();
 
             //Delete data test PROGRAM
-            strsql = @"delete from program where create_user_id='" + working_user_id + "'";
+            strsql = @"delete from program where create_user_id='"+working_user_id+"'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 

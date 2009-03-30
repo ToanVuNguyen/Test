@@ -15,7 +15,7 @@ namespace HPF.FutureState.UnitTest
     [TestClass()]
     public class AgencyPayableDAOTest
     {
-        static string working_user_id = "agencypayable test user";
+        static string working_user_id = "agencypayable test 2";
         static string agency_name = "payable test";
         static string status_cd = "payable test";
 
@@ -170,6 +170,15 @@ namespace HPF.FutureState.UnitTest
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
+            //Delete data test FORECLOSURE 
+            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
+            //Delete data test AGENCY
+            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
 
             dbConnection.Close();
         }
