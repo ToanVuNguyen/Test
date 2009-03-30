@@ -93,20 +93,7 @@ namespace HPF.FutureState.Web.InvoicePayments
             return searchCriteria;
 
         }
-        private DateTime ConvertToDateTime(object obj)
-        {
-            DateTime dt;
-            if (DateTime.TryParse(obj.ToString().Trim(), out dt))
-                return dt;
-            return DateTime.MinValue;
-        }
-        private int ConvertToInt(object obj)
-        {
-            int value;
-            if (int.TryParse(obj.ToString().Trim(), out value))
-                return value;
-            return int.MinValue;
-        }
+        
         private void InvoicePaymentSearch(InvoiceSearchCriteriaDTO searchCriteria)
         {
             InvoicePaymentDTOCollection searchResult = InvoicePaymentBL.Instance.InvoicePaymentSearch(searchCriteria);
@@ -183,6 +170,20 @@ namespace HPF.FutureState.Web.InvoicePayments
             ClearErrorMessages();
             if (grvInvoicePaymentList.SelectedValue != null)
                 SelectedRowIndex.Value = grvInvoicePaymentList.SelectedValue.ToString();
+        }
+        private DateTime ConvertToDateTime(object obj)
+        {
+            DateTime dt;
+            if (DateTime.TryParse(obj.ToString().Trim(), out dt))
+                return dt;
+            return DateTime.MinValue;
+        }
+        private int ConvertToInt(object obj)
+        {
+            int value;
+            if (int.TryParse(obj.ToString().Trim(), out value))
+                return value;
+            return int.MinValue;
         }
     }
 }

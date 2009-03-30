@@ -164,11 +164,32 @@ namespace HPF.FutureState.BusinessLogic
         public InvoiceDraftDTO CreateInvoiceDraft(InvoiceCaseSearchCriteriaDTO searchCriteria)
         {
             InvoiceDraftDTO invoiceDraft = new InvoiceDraftDTO();
-            invoiceDraft.FundingSourceId = searchCriteria.FundingSourceId;
+            invoiceDraft.FundingSourceId = searchCriteria.FundingSourceId.ToString();
             invoiceDraft.PeriodEndDate = searchCriteria.PeriodEnd;
             invoiceDraft.PeriodStartDate = searchCriteria.PeriodStart;
             invoiceDraft.ForeclosureCaseDrafts = this.InvoiceCaseSearch(searchCriteria);
             return invoiceDraft;
+        }
+        bool CheckOneNonServicerFundingSourceOption(InvoiceCaseSearchCriteriaDTO searchCriteria)
+        {
+            return (searchCriteria.ServicerRejected || searchCriteria.ServicerRejectedFreddie || searchCriteria.NeighborworkRejected || searchCriteria.SelectAllServicer || searchCriteria.SelectUnfunded);
+        }
+        public void ValidateInvoiceCaseSearchCriteria(InvoiceCaseSearchCriteriaDTO searchCriteria)
+        {
+            ExceptionMessageCollection exCol = new ExceptionMessageCollection();
+            DataValidationException dataValidEx = new DataValidationException();
+            ValidationResults valResult = HPFValidator.Validate<InvoiceCaseSearchCriteriaDTO>(searchCriteria, Constant.RULESET_INVOICE_CASE_VALIDATION);
+            if (!valResult.IsValid)
+                foreach (var valMes in valResult)
+                {
+                    string errorCode = string.IsNullOrEmpty(valMes.Tag) ? "Error" : valMes.Tag;
+                    string errorMes = string.IsNullOrEmpty(valMes.Tag) ? valMes.Message : ErrorMessages.GetExceptionMessage(valMes.Tag);
+                    dataValidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMes);
+                }
+            if (searchCriteria.ServicerConsentQty == 0 && !CheckOneNonServicerFundingSourceOption(searchCriteria))
+                dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0564, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0564));
+            if (dataValidEx.ExceptionMessages.Count > 0)
+                throw dataValidEx;
         }
         /// <summary>
         /// Get invoice Set 
