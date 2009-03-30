@@ -115,9 +115,10 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             bulMessage.Items.Clear();
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
-            DataValidationException ex = new DataValidationException();
+            //DataValidationException ex = new DataValidationException();
+            
             //get search criteria to AgencyPayableSearchCriteriaDTO
-            searchCriteria = GetSearchCriteria(periodStart, periodEnd);
+                searchCriteria = GetSearchCriteria(periodStart, periodEnd);
             //get search data match that search collection
             agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
             //
@@ -159,12 +160,12 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
             DataValidationException ex = new DataValidationException();
             searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-            
+
             searchCriteria.PeriodStartDate = ConvertToDateTime(periodStart);
-            
+
             searchCriteria.PeriodEndDate = ConvertToDateTime(periodEnd);
             searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
-            
+
             Session["agencyPayableSearchCriteria"] = searchCriteria;
             return searchCriteria;
         }
@@ -184,13 +185,15 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                 foreach (var mes in ex.ExceptionMessages)
                     bulMessage.Items.Add(new ListItem(mes.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
+                grvInvoiceList.DataSource = null;
+                grvInvoiceList.DataBind();
             }
             catch (Exception ex)
             {
                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
+                grvInvoiceList.DataSource = null;
+                grvInvoiceList.DataBind();
             }
         }
         /// <summary>
