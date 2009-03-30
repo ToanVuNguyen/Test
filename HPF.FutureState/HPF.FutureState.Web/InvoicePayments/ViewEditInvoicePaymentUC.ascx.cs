@@ -134,7 +134,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         private void ClearErrorMessage()
         {
             lblErrorMessage.Items.Clear();
-            FileNameValidator.IsValid = true; ;
+            //FileNameValidator.IsValid = true; ;
         }
         private void SaveInvoicePayment()
         {
@@ -150,7 +150,14 @@ namespace HPF.FutureState.Web.InvoicePayments
                     //Validate Excel file
                     ExcelProcessing();
                 else
-                    UpdateInvoicePaymentOnly();
+                    if(string.IsNullOrEmpty(hidFileName.Value))
+                        UpdateInvoicePaymentOnly();
+                    else
+                    {
+                        DataValidationException ex = new DataValidationException();
+                        ex.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0685, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0685));
+                        throw ex;
+                    }
                 if(isCancel)
                     Response.Redirect("InvoicePayment.aspx");
             }

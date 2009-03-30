@@ -361,6 +361,7 @@ namespace HPF.FutureState.Common
       
         public const string ERR0683 = "ERR0683";
         public const string WARN0684 = "WARN0684";
+        public const string ERR0685 = "ERR0685";
 
         public const string ERR0686 = "ERR0686";
         public const string ERR0687 = "ERR0687";
@@ -795,6 +796,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0682, "Unable to process the reconciliation file. The HPF Internal Case ID in row {0} is not valid.");
                 errorMessageDict.Add(ERR0683, "An invoice payment must be selected in order to view or edit it.");
                 errorMessageDict.Add(WARN0684, "No invoice payments were found that match your search criteria.");
+                errorMessageDict.Add(ERR0685, "The Reconcilliation File must contain a valid path and file name.");
 
                 errorMessageDict.Add(ERR0686, "Payment Number has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0687, "Reconciliation File has a maximum length of 300 characters.");

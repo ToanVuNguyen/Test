@@ -17,10 +17,10 @@
         <td colspan="2" class="ErrorMessage">
             <asp:BulletedList ID="lblErrorMessage" runat="server" BulletStyle="Square">
             </asp:BulletedList>
-             <asp:RegularExpressionValidator ID="FileNameValidator" runat="server" 
+             <%--<asp:RegularExpressionValidator ID="FileNameValidator" runat="server" 
                 ControlToValidate="fileUpload" CssClass="ErrorMessage" 
                 ErrorMessage="<ul style='list-style-type:square;'><li>ERR0685--The Reconcilliation File must contain a valid path and file name.</li></ul>" 
-                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.{3})$"></asp:RegularExpressionValidator>
+                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.{3})$"></asp:RegularExpressionValidator>--%>
         </td>
     </tr>
     <tr>
@@ -127,6 +127,7 @@
     var txtComment = document.getElementById('<%=txtComment.ClientID %>');
     var hidden = document.getElementById('<%=hiddenIsSave.ClientID %>');
     var paymentFile = document.getElementById('<%=txtPaymentFile.ClientID %>');
+    var hidFileName = document.getElementById('<%=hidFileName.ClientID %>');
     var invoicePayment = function(paymentId, fundingSource, paymentNum, paymentDt, paymentType, 
     paymentAmt, fileUpload, txtComment)
     {        
@@ -145,6 +146,7 @@
     var paymentAfter = new invoicePayment();
     function ConfirmToCancel()
     {   
+        hidFileName.value=fileUpload.value;
         paymentAfter = new invoicePayment(paymentId.value, fundingSource.value, paymentNum.value, paymentDt.value, paymentType.value, 
                                             paymentAmt.value, fileUpload.value, txtComment.value);        
         if(ComparePaymentObject(paymentAfter))
@@ -175,6 +177,8 @@
     }
     function ConfirmToUpdate()
     {
+        hidFileName.value=fileUpload.value;
+        alert(hidFileName.value);
         if(fileUpload.value=='' && paymentFile.value!='')
         {
             Popup.showModal('confirm');
