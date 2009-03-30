@@ -178,7 +178,6 @@
     function ConfirmToUpdate()
     {
         hidFileName.value=fileUpload.value;
-        alert(hidFileName.value);
         if(fileUpload.value=='' && paymentFile.value!='')
         {
             Popup.showModal('confirm');
