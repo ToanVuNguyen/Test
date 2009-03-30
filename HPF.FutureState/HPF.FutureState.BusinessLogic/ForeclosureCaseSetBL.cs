@@ -26,8 +26,7 @@ namespace HPF.FutureState.BusinessLogic
         ForeclosureCaseSetDAO foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();        
 
         private string _workingUserID;
-
-        private bool IsCaseCompleted;
+        
         private bool IsFirstTimeCaseCompleted;        
         //
         ForeclosureCaseSetDTO FCaseSetFromDB = new ForeclosureCaseSetDTO();
@@ -58,7 +57,7 @@ namespace HPF.FutureState.BusinessLogic
             //
             try
             {                
-                if (!IsCaseCompleted)
+                if (WarningMessage.Count > 0) //not completed case
                     return;
 
                 if (!ShouldSendSummary(fCaseSetFromAgency))
