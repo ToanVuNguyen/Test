@@ -55,22 +55,27 @@ namespace HPF.FutureState.BusinessLogic
         private void SendCompletedCaseToQueueIfAny(ForeclosureCaseSetDTO fCaseSetFromAgency)
         {
             var fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
-            if (!IsCaseCompleted)
-                return;
-            if (!ShouldSendSummary(fCaseSetFromAgency))
-                return;
             //
             try
-            {
+            {                
+                if (!IsCaseCompleted)
+                    return;
+
+                if (!ShouldSendSummary(fCaseSetFromAgency))
+                    return;
+
                 var queue = new HPFSummaryQueue();
                 queue.SendACompletedCaseToQueue(fcId);
             }
-            catch
+            catch(Exception Ex)
             {
-
                 var QUEUE_ERROR_MESSAGE = "Fail to push completed case into Queue : " + fcId;
                 //Log
+                Logger.Write(QUEUE_ERROR_MESSAGE);
+                Logger.Write(Ex.Message);
+                Logger.Write(Ex.StackTrace);                
                 Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
+                
                 //Send E-mail to support
                 var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
                 var mail = new HPFSendMail
