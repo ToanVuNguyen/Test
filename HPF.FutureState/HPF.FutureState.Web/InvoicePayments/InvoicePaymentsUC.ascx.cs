@@ -37,11 +37,13 @@ namespace HPF.FutureState.Web.InvoicePayments
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
 
@@ -79,6 +81,11 @@ namespace HPF.FutureState.Web.InvoicePayments
             ddlFundingSource.DataTextField = "FundingSourceName";
             ddlFundingSource.DataValueField = "FundingSourceID";
             ddlFundingSource.DataBind();
+        }
+        private void BindNullData()
+        {
+            grvInvoicePaymentList.DataSource = null;
+            grvInvoicePaymentList.DataBind();
         }
         private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()
         {
@@ -138,11 +145,13 @@ namespace HPF.FutureState.Web.InvoicePayments
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(ex.Message);
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }

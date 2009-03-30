@@ -42,13 +42,21 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+        private void BindNullData()
+        {
+            grvFundingSourceInvoices.DataSource = null;
+            grvFundingSourceInvoices.DataBind();
         }
         private void ApplySecurity()
         {
@@ -158,11 +166,13 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(ex.Message);
+                BindNullData();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             

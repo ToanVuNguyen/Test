@@ -11,7 +11,7 @@
 <%--<asp:UpdatePanel runat="server">
 <ContentTemplate>--%>
 
-<table style="width:100%;">
+<table style="width:100%;" >
     <tr>
         <td align="center" colspan="5">
             <h1>Funding Source Invoices</h1>
@@ -75,7 +75,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="5" rowspan="17">
+        <td colspan="5" >
         <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" 
                  Width="100%" Visible="true">
                  <asp:UpdatePanel runat="server"   >                 
@@ -115,81 +115,17 @@
             </cc1:StatefullScrollPanel>
             
         </td>
-        <td height="20" width="120">
+        <td width="120" style="vertical-align: top">
             <asp:Button ID="btnNewInvoice" runat="server" CssClass="MyButton" 
                 Text="New Invoice" Width="120px" onclick="btnNewInvoice_Click" />
-        </td>
-    </tr>
-    <tr>
-        <td height="20" width="120">
             <asp:Button ID="btnViewEditInvoice" runat="server" CssClass="MyButton" 
                 Text="View/Edit Invoice" Width="120px" 
                 onclick="btnViewEditInvoice_Click" />
-        </td>
-    </tr>
-    <tr>
-        <td height="20" width="120">
             <asp:Button ID="btnCancelInvoice" runat="server" CssClass="MyButton" 
                 Text="Cancel Invoice" Width="120px" onclick="btnCancelInvoice_Click" />
         </td>
     </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-</table>
+    </table>
 
 <script type="text/javascript" language="javascript">    
     var id='<%=SelectedRowIndex.ClientID %>';

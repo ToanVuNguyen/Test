@@ -96,30 +96,12 @@
                 </asp:UpdatePanel>
             </cc1:StatefullScrollPanel>
         </td>
-        <td valign="top">
-            <table style="vertical-align: top;">
-                <tr>
-                    <td>
-                        <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="120px" CssClass="MyButton"
-                            OnClick="btnNewPayable_Click" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnViewEditPayable" runat="server" Text="View/Edit Payment" CssClass="MyButton"
-                            Width="120px" OnClick="btnViewPayable_Click" />
-                    </td>
-                </tr>
-                </table>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
+        <td valign="top" width="120">
+                    <asp:Button ID="btnNewPayable" runat="server" Text="New Payment" Width="120px" CssClass="MyButton"
+                        OnClick="btnNewPayable_Click" />
+                    
+                    <asp:Button ID="btnViewEditPayable" runat="server" Text="View/Edit Payment" CssClass="MyButton"
+                        Width="120px" OnClick="btnViewPayable_Click" />
         </td>
     </tr>
 </table>
