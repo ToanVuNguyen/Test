@@ -606,6 +606,7 @@
                               <Bottom>1pt</Bottom>
                             </BorderWidth>
                             <FontSize>8pt</FontSize>
+                            <TextAlign>Right</TextAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>

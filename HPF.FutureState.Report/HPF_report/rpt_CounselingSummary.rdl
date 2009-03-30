@@ -34,7 +34,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.32292in</Left>
         <Height>0.21875in</Height>
-        <Value>= IIF(Globals!PageNumber&gt; 1, First(ReportItems!txtHidden.Value), "")</Value>
+        <Value>= First(ReportItems!txtHidden.Value)</Value>
       </Textbox>
     </ReportItems>
     <Height>0.33333in</Height>
@@ -637,45 +637,9 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.18749in</Width>
+  <Width>8.25in</Width>
   <Body>
     <ReportItems>
-      <Textbox Name="txtHidden1">
-        <Visibility>
-          <Hidden>true</Hidden>
-        </Visibility>
-        <Top>16.5in</Top>
-        <Width>0.375in</Width>
-        <Style>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>215</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>0.5in</Left>
-        <Height>0.25in</Height>
-        <Value>="HPF Counseling Summary for Loan: " &amp; First(Fields!acct_num.Value, "dst_CounselingSummary_get_FC_detail")  &amp; " Last Name: "&amp; First(Fields!borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
-      <Textbox Name="txtHidden">
-        <Visibility>
-          <Hidden>true</Hidden>
-        </Visibility>
-        <Top>14.75in</Top>
-        <Width>0.375in</Width>
-        <Style>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>214</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>0.125in</Left>
-        <Height>0.25in</Height>
-        <Value>="HPF Counseling Summary for Loan: " &amp; First(Fields!acct_num.Value, "dst_CounselingSummary_get_FC_detail")  &amp; " Last Name: "&amp; First(Fields!borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
-      </Textbox>
       <Textbox Name="mortgage_program_cd">
         <rd:DefaultName>mortgage_program_cd</rd:DefaultName>
         <Top>1.48958in</Top>
@@ -1295,7 +1259,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>15</ZIndex>
+                          <ZIndex>19</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!budget_category_name.Value</Value>
                         </Textbox>
@@ -1327,7 +1291,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>14</ZIndex>
+                          <ZIndex>18</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1356,7 +1320,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>13</ZIndex>
+                          <ZIndex>17</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Amount</Value>
                         </Textbox>
@@ -1385,9 +1349,41 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>12</ZIndex>
+                          <ZIndex>16</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>Note</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox211">
+                          <rd:DefaultName>textbox211</rd:DefaultName>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                          </Visibility>
+                          <Style>
+                            <BorderColor>
+                              <Bottom>Black</Bottom>
+                            </BorderColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                              <Bottom>Solid</Bottom>
+                            </BorderStyle>
+                            <BorderWidth>
+                              <Bottom>1pt</Bottom>
+                            </BorderWidth>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>15</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -1420,7 +1416,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>7</ZIndex>
+                          <ZIndex>9</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1448,7 +1444,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>6</ZIndex>
+                          <ZIndex>8</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!budget_category_name.Value &amp; " Total"</Value>
                         </Textbox>
@@ -1470,7 +1466,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>5</ZIndex>
+                          <ZIndex>7</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!SUM_budget_item_amt.Value</Value>
                         </Textbox>
@@ -1496,7 +1492,36 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>4</ZIndex>
+                          <ZIndex>6</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox215">
+                          <rd:DefaultName>textbox215</rd:DefaultName>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                          </Visibility>
+                          <Style>
+                            <BorderColor>
+                              <Left>Black</Left>
+                            </BorderColor>
+                            <BorderStyle>
+                              <Left>Solid</Left>
+                            </BorderStyle>
+                            <BorderWidth>
+                              <Left>1pt</Left>
+                            </BorderWidth>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>5</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1518,7 +1543,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>11</ZIndex>
+                          <ZIndex>14</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1545,7 +1570,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>10</ZIndex>
+                          <ZIndex>13</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1573,7 +1598,7 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>9</ZIndex>
+                          <ZIndex>12</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1590,7 +1615,27 @@
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                          <ZIndex>8</ZIndex>
+                          <ZIndex>11</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox221">
+                          <rd:DefaultName>textbox221</rd:DefaultName>
+                          <Visibility>
+                            <Hidden>true</Hidden>
+                          </Visibility>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>10</ZIndex>
                           <CanGrow>true</CanGrow>
                           <Value />
                         </Textbox>
@@ -1603,7 +1648,7 @@
             </Footer>
           </TableGroup>
         </TableGroups>
-        <Width>7.25526in</Width>
+        <Width>7.63026in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1628,7 +1673,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>3</ZIndex>
+                      <ZIndex>4</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value />
                     </Textbox>
@@ -1649,7 +1694,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>2</ZIndex>
+                      <ZIndex>3</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!budget_subcategory_name.Value</Value>
                     </Textbox>
@@ -1670,7 +1715,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>1</ZIndex>
+                      <ZIndex>2</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!budget_item_amt.Value</Value>
                     </Textbox>
@@ -1691,8 +1736,31 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
+                      <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!budget_note.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="txtHidden">
+                      <Visibility>
+                        <Hidden>true</Hidden>
+                      </Visibility>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontSize>8pt</FontSize>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>="HPF Counseling Summary for Loan: " &amp; First(Fields!acct_num.Value, "dst_CounselingSummary_get_FC_detail")  &amp; " Last Name: "&amp; First(Fields!borrower_lname.Value, "dst_CounselingSummary_get_FC_detail")</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1716,6 +1784,9 @@
           </TableColumn>
           <TableColumn>
             <Width>2.375in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.375in</Width>
           </TableColumn>
         </TableColumns>
         <Height>1in</Height>
