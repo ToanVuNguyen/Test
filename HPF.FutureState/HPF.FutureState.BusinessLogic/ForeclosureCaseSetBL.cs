@@ -280,7 +280,7 @@ namespace HPF.FutureState.BusinessLogic
                 string.IsNullOrEmpty(searchCriteria.LoanNumber) &&
                 string.IsNullOrEmpty(searchCriteria.PropertyZip))
             {                
-                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0378, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0378));
+                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0378, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0378));
             }
         }
 
@@ -293,7 +293,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
 
                     string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
-                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessage(result.Tag);
+                    string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
                     dataValidationException.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
                 }
             }
@@ -2154,7 +2154,7 @@ namespace HPF.FutureState.BusinessLogic
         private void ThrowDataValidationException(string errorCode)
         {
             DataValidationException ex = new DataValidationException();
-            ex.ExceptionMessages.AddExceptionMessage(errorCode, ErrorMessages.GetExceptionMessage(errorCode));
+            ex.ExceptionMessages.AddExceptionMessage(errorCode, ErrorMessages.GetExceptionMessageCombined(errorCode));
             throw ex;
         }
 

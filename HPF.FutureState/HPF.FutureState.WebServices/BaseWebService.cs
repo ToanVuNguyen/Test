@@ -52,7 +52,7 @@ namespace HPF.FutureState.WebServices
                         var em = new ExceptionMessage()
                         {
                             ErrorCode = ErrorMessages.WARN0375,
-                            Message = ErrorMessages.GetExceptionMessage(ErrorMessages.WARN0375, response.SearchResultCount)
+                            Message = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0375, response.SearchResultCount)
 
                         };
                         response.Messages.Add(em);
