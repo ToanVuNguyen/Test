@@ -93,17 +93,6 @@ namespace HPF.FutureState.BusinessLogic
             var response = new SendSummaryResponse();
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
 
-            //comment here because need show all error messages in ValidateSendSummaryRequest
-            //if (sendSummary.FCId == null)
-            //{
-            //    errorList.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805));
-
-            //    response.Status = ResponseStatus.Fail;
-            //    response.Messages = errorList;
-
-            //    return response;
-            //}
-
             int? fc_Id = sendSummary.FCId;
 
             ForeclosureCaseDTO foreclosureCase = null;
@@ -153,21 +142,11 @@ namespace HPF.FutureState.BusinessLogic
             // validate field length first
             var errorCollection = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(sendSummary, Constant.RULESET_LENGTH) };
 
-            if (sendSummary.EmailToAddress == null)
-                errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));
-            else
-            {
-                if (sendSummary.EmailToAddress.Trim().Length == 0)
-                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));
-            }
+            if (sendSummary.EmailToAddress == null || sendSummary.EmailToAddress.Length == 0)
+                errorCollection.AddExceptionMessage(ErrorMessages.ERR0800, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0800));            
 
             if (sendSummary.SenderId == null || sendSummary.SenderId.Trim().Length == 0)
                 errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
-            else
-            {
-                //if (sendSummary.SenderId.Trim().Length == 0)
-                //    errorCollection.AddExceptionMessage(ErrorMessages.ERR0801, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0801));
-            }
 
             if (foreclosureCase == null)
             {
