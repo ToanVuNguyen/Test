@@ -154,7 +154,7 @@ namespace HPF.FutureState.BusinessLogic
                     errorCollection.AddExceptionMessage(ErrorMessages.ERR0805, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0805));
                 else
                 {
-                    if(!fcId.HasValue || fcId.Value == int.MinValue)
+                    if(fcId.Value == int.MinValue)
                         errorCollection.AddExceptionMessage(ErrorMessages.ERR0802, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0802, ""));
                     else
                         errorCollection.AddExceptionMessage(ErrorMessages.ERR0802, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0802, fcId));
