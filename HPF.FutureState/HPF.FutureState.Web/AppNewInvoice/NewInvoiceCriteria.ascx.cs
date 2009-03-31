@@ -384,6 +384,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
             if (dropFundingConsent.Enabled == false)
                 searchCriteria.IgnoreFundingConsent = CustomBoolean.None;
             searchCriteria.MaxNumOfCases = ConvertToInt(txtMaxNumberofCases.Text);
+            if (searchCriteria.MaxNumOfCases == 0)
+                searchCriteria.MaxNumOfCases = int.MinValue;
             
             searchCriteria.HouseholdCode = dropHouseholdCode.SelectedValue;
             searchCriteria.City = txtCity.Text.Trim();
@@ -457,7 +459,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             if (string.IsNullOrEmpty(obj.ToString().Trim()))
                 return -1;
             int value;
-            if (int.TryParse(obj.ToString().Trim(), out value))
+            if (int.TryParse(obj.ToString().Trim().Replace(",",""), out value))
                 if(value>=0)
                     return value;
             return int.MinValue;
