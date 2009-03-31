@@ -887,8 +887,8 @@
     <asp:Label ID="Label115" runat="server" Text="Case Loan"></asp:Label>
     <br />
     <asp:GridView ID="grdvCaseLoan" runat="server" 
-        ShowFooter = "true" 
-        AutoGenerateColumns = "false" 
+        ShowFooter = "True" 
+        AutoGenerateColumns = "False" 
         onrowediting="grdvCaseLoan_RowEditing"
         OnRowCancelingEdit = "grdvCaseLoan_RowCancelEditing"
         onrowupdating="grdvCaseLoan_RowUpdating"
@@ -1102,7 +1102,7 @@
                     <asp:Label ID="Label22" runat="server" Text='<%# Bind("InvestorNum") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Case Loan ID" >  
+            <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>
                 </EditItemTemplate>--%>
@@ -1118,8 +1118,8 @@
     <asp:Label ID="Label116" runat="server" Text="Budget Item"></asp:Label>
     <br />
     <asp:GridView ID="grdvBudgetItem" runat="server" 
-        ShowFooter = "true" 
-        AutoGenerateColumns = "false" 
+        ShowFooter = "True" 
+        AutoGenerateColumns = "False" 
         onrowediting="grdvBudgetItem_RowEditing"
         OnRowCancelingEdit = "grdvBudgetItem_RowCancelEditing"
         onrowupdating="grdvBudgetItem_RowUpdating"
@@ -1187,7 +1187,7 @@
                 </ItemTemplate>
             </asp:TemplateField>--%>
             
-            <asp:TemplateField HeaderText="ID" >  
+            <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtBudgetItemId" runat="server" Text='<%# Eval("BudgetItemId") %>'></asp:TextBox>
                 </EditItemTemplate>--%>
@@ -1202,8 +1202,8 @@
     <br />
     <asp:Label ID="Label113" runat="server" Text="Budget Asset"></asp:Label>
     <asp:GridView ID="grdvBudgetAsset" runat="server" 
-        ShowFooter = "true" 
-        AutoGenerateColumns = "false" 
+        ShowFooter = "True" 
+        AutoGenerateColumns = "False" 
         onrowediting="grdvBudgetAsset_RowEditing"
         OnRowCancelingEdit = "grdvBudgetAsset_RowCancelEditing"
         onrowupdating="grdvBudgetAsset_RowUpdating"
@@ -1258,7 +1258,7 @@
                 </ItemTemplate>
             </asp:TemplateField>--%>
             
-            <asp:TemplateField HeaderText="Budget Asset ID" >  
+            <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtServicerId" runat="server" Text='<%# Eval("BudgetAssetId") %>'></asp:TextBox>
                 </EditItemTemplate>--%>
@@ -1361,8 +1361,8 @@
     <asp:Label ID="Label118" runat="server" Text="Outcome"></asp:Label>
     <br />
     <asp:GridView ID="grdvOutcomeItem" runat="server" 
-        ShowFooter = "true" 
-        AutoGenerateColumns = "false" 
+        ShowFooter = "True" 
+        AutoGenerateColumns = "False" 
         onrowediting="grdvOutcomeItem_RowEditing"
         OnRowCancelingEdit = "grdvOutcomeItem_RowCancelEditing"
         onrowupdating="grdvOutcomeItem_RowUpdating"
@@ -1462,7 +1462,7 @@
                     <asp:Label ID="Label3" runat="server" Text='<%# Bind("OutcomeDt") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField--%>
-            <asp:TemplateField HeaderText="ID" >  
+            <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtOutcomeItemId" runat="server" Text='<%# Eval("OutcomeItemId") %>'></asp:TextBox>
                 </EditItemTemplate>--%>
