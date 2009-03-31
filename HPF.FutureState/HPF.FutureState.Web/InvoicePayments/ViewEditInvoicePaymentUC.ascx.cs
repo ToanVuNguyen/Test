@@ -134,7 +134,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         private void ClearErrorMessage()
         {
             lblErrorMessage.Items.Clear();
-            //FileNameValidator.IsValid = true; ;
+            FileNameValidator.IsValid = true; ;
         }
         private void SaveInvoicePayment()
         {

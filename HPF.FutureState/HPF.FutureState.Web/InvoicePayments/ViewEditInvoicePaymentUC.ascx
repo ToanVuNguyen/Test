@@ -17,10 +17,10 @@
         <td colspan="2" class="ErrorMessage">
             <asp:BulletedList ID="lblErrorMessage" runat="server" BulletStyle="Square">
             </asp:BulletedList>
-             <%--<asp:RegularExpressionValidator ID="FileNameValidator" runat="server" 
+             <asp:RegularExpressionValidator ID="FileNameValidator" runat="server" 
                 ControlToValidate="fileUpload" CssClass="ErrorMessage" 
                 ErrorMessage="<ul style='list-style-type:square;'><li>ERR0685--The Reconcilliation File must contain a valid path and file name.</li></ul>" 
-                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.{3})$"></asp:RegularExpressionValidator>--%>
+                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.{3})$"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -87,7 +87,7 @@
             Reconciliation File:</td>
         <td>
             <asp:FileUpload ID="fileUpload"  runat="server" Width="100%" CssClass="Text" 
-                Height="18px" />
+                Height="18px" onkeypress="javascript:ResetErrorMessage();"/>
         </td>
     </tr>
     <tr>
@@ -184,6 +184,13 @@
             return false;
         }
         return true;
+    }
+    
+    function ResetErrorMessage()
+    {
+        var lblError = document.getElementById('<%=lblErrorMessage.ClientID %>');
+        if(lblError == null) return;        
+        lblError.innerText = "";
     }
 </script>
 <div id="modal" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
