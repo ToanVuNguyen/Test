@@ -127,9 +127,11 @@ namespace HPF.FutureState.BusinessLogic
             //<loan num>_<lname>_<1st initial>.pdf
 
             fileName = caseLoan.AcctNum + "_" + foreclosureCase.BorrowerLname + "_" +
-                       foreclosureCase.BorrowerFname.Substring(1, 1) + ".pdf";
+                       foreclosureCase.BorrowerFname.Substring(0, 1) + ".pdf";
 
 
+            if (sendSummary.EmailSubject == null || sendSummary.EmailSubject == string.Empty)
+                sendSummary.EmailSubject = CreateEmailSummarySubject(fc_Id);
             SendEmailSummaryReport(sendSummary.EmailToAddress,
                                     sendSummary.EmailSubject + Constant.HPF_SECURE_EMAIL, 
                                     sendSummary.EmailBody, 
