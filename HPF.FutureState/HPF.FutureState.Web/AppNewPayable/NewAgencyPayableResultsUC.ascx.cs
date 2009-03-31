@@ -83,7 +83,10 @@ namespace HPF.FutureState.Web.AppNewPayable
             int indicator = Convert.ToInt16(Request.QueryString["indicator"]);
             agencyPayableSearchCriteria.AgencyId = agencyid;
             agencyPayableSearchCriteria.CaseComplete = casecomplete;
+            //DateTime PeriodStartBK = periodenddate;
+            agencyPayableSearchCriteria.PeriodStartDateBK = periodstartdate;
             agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
+            //agencyPayableSearchCriteria.PeriodStartDate = periodstartdate.AddMonths(-6);
             agencyPayableSearchCriteria.PeriodEndDate = periodenddate;
             agencyPayableSearchCriteria.Indicator = indicator;
             return agencyPayableSearchCriteria;
@@ -122,7 +125,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             //
             AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
             lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
-            lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.AddMonths(6).ToShortDateString();
+            lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDateBK.ToShortDateString();
             lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
             lblTotalAmount.Text = String.Format("{0:C}", agencyPayableDraftDTO.TotalAmount == null ? 0 : agencyPayableDraftDTO.TotalAmount);
             lblTotalCases.Text = agencyPayableDraftDTO.TotalCases.ToString();
@@ -275,7 +278,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append("&periodenddate=");
             query.Append(agencyPayableSearchCriteria.PeriodEndDate);
             query.Append("&periodstartdate=");
-            query.Append(agencyPayableSearchCriteria.PeriodStartDate);
+            query.Append(agencyPayableSearchCriteria.PeriodStartDateBK);
             query.Append("&indicator=");
             query.Append(agencyPayableSearchCriteria.Indicator);
             return query.ToString();

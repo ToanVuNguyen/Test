@@ -56,7 +56,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                 DateTime periodend=DateTime.Parse(Request.QueryString["periodenddate"]);
                 txtPeriodEnd.Text = periodend.ToShortDateString();
                 //Sinh 
-                DateTime periodstart = DateTime.Parse(Request.QueryString["periodstartdate"]).AddMonths(6);
+                
+                DateTime periodstart = DateTime.Parse(Request.QueryString["periodstartdate"]);
                 txtPeriodStart.Text = periodstart.ToShortDateString();
                 ddlCaseCompleted.SelectedValue = Request.QueryString["casecomplete"].ToString();
                 if (Convert.ToInt16(Request.QueryString["indicator"]) == 1)
@@ -146,7 +147,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             query.Append("&casecomplete=");
             query.Append(agencyPayableSearchCriteria.CaseComplete);
             query.Append("&periodenddate=");
-            query.Append(agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString());
+            query.Append(agencyPayableSearchCriteria.PeriodEndDate);
             query.Append("&periodstartdate=");
             query.Append(agencyPayableSearchCriteria.PeriodStartDate);
             query.Append("&indicator=");
@@ -171,7 +172,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             else agencyPayableSearchCriteria.AgencyId = null;
             
             agencyPayableSearchCriteria.PeriodStartDate = ConvertToDateTime(txtPeriodStart.Text.Trim());
-            
+            agencyPayableSearchCriteria.PeriodStartDateBK = agencyPayableSearchCriteria.PeriodStartDate;
             agencyPayableSearchCriteria.PeriodEndDate = ConvertToDateTime(txtPeriodEnd.Text.Trim());
             agencyPayableSearchCriteria.PeriodEndDate = agencyPayableSearchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
             

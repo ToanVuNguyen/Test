@@ -2,9 +2,9 @@
     Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc2" %>
-<%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
+<%--<%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
-    TagPrefix="cc1" %>
+    TagPrefix="cc1" %>--%>
 <%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <table width="100%">
     <colgroup>
