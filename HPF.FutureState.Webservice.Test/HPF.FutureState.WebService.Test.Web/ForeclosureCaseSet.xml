@@ -2,20 +2,20 @@
 <ForeclosureCaseSet>
   <ForeclosureCase>
     <AgencyId>2</AgencyId>
-    <CallId>HPF123</CallId>
+    <CallId>HPF5</CallId>
     <ProgramId>101</ProgramId>
     <AgencyCaseNum>123456</AgencyCaseNum>
     <AgencyClientNum>AgencyClientNum</AgencyClientNum>
     <IntakeDt>10/10/2008</IntakeDt>
     <IncomeEarnersCd>1</IncomeEarnersCd>
-    <CaseSourceCd>Faith Community</CaseSourceCd>
+    <CaseSourceCd>HUD</CaseSourceCd>
     <RaceCd>2</RaceCd>
-    <HouseholdCd>SINGL</HouseholdCd>
+    <HouseholdCd>SINGLE</HouseholdCd>
     <DfltReason1stCd>17</DfltReason1stCd>
     <DfltReason2ndCd>18</DfltReason2ndCd>
-    <HudTerminationReasonCd>1</HudTerminationReasonCd>
+    <HudTerminationReasonCd>501</HudTerminationReasonCd>
     <HudTerminationDt>10/10/2008</HudTerminationDt>
-    <HudOutcomeCd>3</HudOutcomeCd>
+    <HudOutcomeCd>100</HudOutcomeCd>
     <CounselingDurationCd>30-59</CounselingDurationCd>
     <GenderCd>Female</GenderCd>
     <BorrowerFname>BorrowerFname</BorrowerFname>
@@ -63,7 +63,7 @@
     <CoBorrowerDisabledInd></CoBorrowerDisabledInd>
     <SummarySentOtherCd>Fax</SummarySentOtherCd>
     <SummarySentOtherDt>10/10/2008</SummarySentOtherDt>
-    <OccupantNum>aa</OccupantNum>
+    <OccupantNum>123</OccupantNum>
     <LoanDfltReasonNotes>abc</LoanDfltReasonNotes>
     <ActionItemsNotes>AA</ActionItemsNotes>
     <FollowupNotes></FollowupNotes>
@@ -100,7 +100,7 @@
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>      
-      <ServicerId>5</ServicerId>
+      <ServicerId>401</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum1</AcctNum>
       <Loan1st2nd>1st</Loan1st2nd>
@@ -123,7 +123,7 @@
       <InvestorNum>inum</InvestorNum>
     </CaseLoan>
     <CaseLoan>
-      <ServicerId>5</ServicerId>
+      <ServicerId>401</ServicerId>
       <OtherServicerName >OtherServicerName</OtherServicerName>
       <AcctNum>AcctNum2</AcctNum>
       <Loan1st2nd>2nd</Loan1st2nd>
