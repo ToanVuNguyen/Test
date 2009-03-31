@@ -18,6 +18,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string RebuildIndicator { get; set; }
         public int? IntentToPayFlagBTD { get; set; }
         public int? ForeclosureCaseId { get; set; }
+        public DateTime? CaseCreateDt { get; set; }
         
         //For View/Edit Invoice UC
         public string AgencyCaseNum { get; set; }

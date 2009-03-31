@@ -514,7 +514,7 @@ namespace HPF.FutureState.DataAccess
                         invoiceCase.InvoiceCasePaymentAmount = ConvertToDouble(reader["invoice_case_pmt_amt"]);
                         invoiceCase.PaymentRejectReasonCode = ConvertToString(reader["pmt_reject_reason_cd"]);
                         invoiceCase.InvenstorLoanId = ConvertToString(reader["investor_loan_num"]);
-
+                        invoiceCase.CaseCreateDt = ConvertToDateTime(reader["foreclosure_case_create_dt"]);
                         invoiceCase.CreateDate = ConvertToDateTime(reader["create_dt"]);
                         invoiceCase.CreateUserId = ConvertToString(reader["create_user_id"]);
                         invoiceCase.CreateAppName = ConvertToString(reader["create_app_name"]);

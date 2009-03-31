@@ -44,6 +44,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
             ApplySecurity();
             ClearErrorMessage();
+          
             try
             {
                 if (Request.QueryString["id"] != null)

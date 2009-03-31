@@ -6,8 +6,8 @@
 <table width="100%">
 <colgroup>
     
-<col width="16%" />
-<col width="84%" />
+<col width="12%" />
+<col width="88%" />
 </colgroup>
     <tr>
         <td colspan="2" align="center">
@@ -29,13 +29,13 @@
             Payment Infomation:</h3></td>        
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             HPF Payment ID:</td>
         <td>
             <asp:Label ID="lblPaymentID" runat="server" CssClass="Text"></asp:Label></td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Funding Source*:</td>
         <td>
             <asp:DropDownList ID="ddlFundingSource" runat="server" CssClass="Text" >
@@ -43,14 +43,14 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Payment Number*:</td>
         <td>
             <asp:TextBox ID="txtPaymentNum" runat="server" CssClass="Text" Width="150px"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Payment Date*:</td>
         <td>
             <asp:TextBox ID="txtPaymentDt" runat="server" CssClass="Text" Width="150px"></asp:TextBox>
@@ -60,7 +60,7 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Payment Type*:</td>
         <td>
             <asp:DropDownList ID="ddlPaymentType" runat="server" CssClass="Text" >
@@ -68,14 +68,14 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Payment Amount*:</td>
         <td>
             <asp:TextBox ID="txtPaymentAmt" runat="server"  CssClass="Text" Width="150px"></asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Payment File:</td>
         <td>
             <asp:TextBox ID="txtPaymentFile" runat="server"  CssClass="Text" Width="100%" 
@@ -83,7 +83,7 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Reconciliation File:</td>
         <td>
             <asp:FileUpload ID="fileUpload"  runat="server" Width="100%" CssClass="Text" 
@@ -108,13 +108,7 @@
                     OnClick="btnCancel_Click" />
         </td>
     </tr>
-    <tr>
-        <td>
-            &nbsp;</td>
-        <td>
-            &nbsp;</td>
-    </tr>
-</table>
+    </table>
 <asp:HiddenField runat="server" ID="hiddenIsSave" />
 <script type="text/javascript" language="javascript">
     var paymentId = document.getElementById('<%=lblPaymentID.ClientID %>');

@@ -197,6 +197,7 @@
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
                                 <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="CaseCreateDt" HeaderText="Create Dt." DataFormatString="{0:d}"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
                                 <asp:BoundField DataField="CaseCompleteDate" HeaderText="Complete Dt."  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />
                                 <asp:BoundField DataField="InvoiceCaseBillAmount" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false"
                                     HeaderText="Amount" />
