@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
+using System.Net.Mime;
 
 namespace HPF.FutureState.Common.Utils
 {
@@ -49,7 +50,9 @@ namespace HPF.FutureState.Common.Utils
             foreach (var attachment in _attachments)
             {
                 var mem = new MemoryStream(attachment.Value, false);
-                var att = new Attachment(mem, null, null) {Name = attachment.Key};
+                var att = new Attachment(mem, null, null) { Name = attachment.Key };
+                //added attachment disposition type to work with secure email
+                att.ContentDisposition.DispositionType = DispositionTypeNames.Attachment + "; filename=\"" + attachment.Key.ToString() + "\"";
                 mailMessage.Attachments.Add(att);
             }
         }
@@ -64,13 +67,12 @@ namespace HPF.FutureState.Common.Utils
             var mailMessage = new MailMessage();
             mailMessage.To.Add(To);
             mailMessage.Body = Body;
-            //
+
             if (!IsEncrypted)
                 mailMessage.Subject = Subject;
             else
                 mailMessage.Subject = Subject + "$S$";
             return mailMessage;
-            //
         }
 
         public void AddAttachment(string filename, byte[] content)
