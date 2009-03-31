@@ -76,6 +76,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             int index = int.Parse(btnEdit.CommandArgument.ToString());
             grdvCaseAudit.SelectedIndex = index;
+            BindingSelectedData(index);
+        }
+
+        private void BindingSelectedData(int index)
+        {
             CaseAuditDTO caseAudit = ((CaseAuditDTOCollection)grdvCaseAudit.DataSource)[index];
             Session[Constant.SS_CASE_AUDIT_OBJECT] = caseAudit;
             CaseAuditDTOToForm(caseAudit);
@@ -151,6 +156,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             else if (selRow.Value != string.Empty && selRow.Value.ToUpper() != "UNDEFINED")
             {
                 grdvCaseAudit.SelectedIndex = int.Parse(selRow.Value);
+                BindingSelectedData(grdvCaseAudit.SelectedIndex);
             }
 
             selRow.Value = string.Empty;

@@ -180,6 +180,11 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
             int index = int.Parse(btnEdit.CommandArgument.ToString());
             grd_FollowUpList.SelectedIndex = index;
+            BindingSelectedData(index);
+        }
+
+        private void BindingSelectedData(int index)
+        {
             CaseFollowUpDTO caseFollowUp = ((CaseFollowUpDTOCollection)grd_FollowUpList.DataSource)[index];
             Session[Constant.SS_CASE_FOLLOW_UP_OBJECT] = caseFollowUp;
             CaseFollowUpDTOToForm(caseFollowUp);
@@ -364,6 +369,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             else if (selRow.Value != string.Empty && selRow.Value.ToUpper() != "UNDEFINED")
             {
                 grd_FollowUpList.SelectedIndex = int.Parse(selRow.Value);
+                BindingSelectedData(grd_FollowUpList.SelectedIndex);
             }
 
             selRow.Value = string.Empty;
