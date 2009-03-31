@@ -20,7 +20,7 @@
              <asp:RegularExpressionValidator ID="FileNameValidator" runat="server" 
                 ControlToValidate="fileUpload" CssClass="ErrorMessage" 
                 ErrorMessage="<ul style='list-style-type:square;'><li>ERR0685--The Reconcilliation File must contain a valid path and file name.</li></ul>" 
-                ValidationExpression="^(([a-zA-Z]:)|(\\{1}\w+)\$?)(\\(\w[\w].*))(.{3})$"></asp:RegularExpressionValidator>
+                ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.xls|.XLS|.XLSX|.xlsx)$"></asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>

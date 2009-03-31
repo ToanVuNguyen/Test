@@ -458,7 +458,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 return -1;
             int value;
             if (int.TryParse(obj.ToString().Trim(), out value))
-                return value;
+                if(value>=0)
+                    return value;
             return int.MinValue;
         }
         private double ConvertToDouble(object obj)
@@ -467,7 +468,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 return -1;
             double value;
             if (double.TryParse(obj.ToString().Trim(), out value))
-                return value;
+                if(value>=0)
+                    return value;
             return double.MinValue;
         }
     }
