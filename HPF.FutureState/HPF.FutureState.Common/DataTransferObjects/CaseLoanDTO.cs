@@ -128,7 +128,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlElement(IsNullable = true)]
         [NotNullValidator(Tag = ErrorMessages.WARN0324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
         private double? _InterestRate;
-        [NullableOrInRangeNumberValidator(true, "-99.999", "99.999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InterestRate must be numeric(5,3)")]
+        [NullableOrInRangeNumberValidator(true, "0", "99.999", Ruleset = Constant.RULESET_LENGTH, Tag= ErrorMessages.ERR0395)]
         public double? InterestRate
         {
             get { return _InterestRate; }
