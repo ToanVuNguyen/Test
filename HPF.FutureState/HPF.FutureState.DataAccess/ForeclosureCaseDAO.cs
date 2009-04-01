@@ -384,7 +384,7 @@ namespace HPF.FutureState.DataAccess
         }
         private string GetCounseledProperty(DateTime? completedDt)
         {
-            DateTime oneYearBefore = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day - 1);
+            DateTime oneYearBefore = new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day);
             if (!completedDt.HasValue)
                 return COUNSELED_LESS_THAN_1YEAR;
             if (completedDt.Value.CompareTo(oneYearBefore) >= 0 && completedDt.Value.CompareTo(DateTime.Now) <= 0)
