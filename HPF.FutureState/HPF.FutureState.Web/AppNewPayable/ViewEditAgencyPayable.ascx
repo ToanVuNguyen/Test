@@ -237,7 +237,7 @@
                                     <asp:Label ID="lblPayableTotal_ft" runat="server"></asp:Label>
                                 </td>
                                 <td align="right" class="sidelinks">
-                                    Total NFMC Up change Paid:
+                                    Total NFMC Up Change Paid:
                                 </td>
                                 <td class="Text">
                                     <asp:Label ID="lblTotalNFMCUpChangePaid_ft" runat="server"></asp:Label>
