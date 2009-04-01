@@ -562,11 +562,13 @@ namespace HPF.FutureState.DataAccess
                         if (errorCodes == null)
                             continue;
                         int rowIndex = ConvertToInt(reader["row_index"]).Value;
+                        //rowIndex = rowIndex + 1;(count from 1)
+                        rowIndex++;
                         string[] errorList = errorCodes.Split(',');
                         foreach (string errorCode in errorList)
                         {
                             ExceptionMessage exMes = new ExceptionMessage();
-                            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode, rowIndex);
+                            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode, rowIndex);
                             exMes.ErrorCode = errorCode;
                             result.ExceptionMessages.Add(exMes);
                         }

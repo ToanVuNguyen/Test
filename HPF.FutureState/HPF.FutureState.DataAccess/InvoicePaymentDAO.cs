@@ -59,7 +59,7 @@ namespace HPF.FutureState.DataAccess
                     {
                         InvoicePaymentDTO invoicePayment = new InvoicePaymentDTO();
                         invoicePayment.FundingSourceName = ConvertToString(reader["funding_source_name"]);
-                        invoicePayment.FundingSourceID = ConvertToString(reader["funding_source_id"]);
+                        invoicePayment.FundingSourceID = ConvertToInt(reader["funding_source_id"]);
                         invoicePayment.InvoicePaymentID = ConvertToInt(reader["invoice_payment_id"]);
                         invoicePayment.PaymentType = ConvertToString(reader["pmt_cd"]);
                         invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);
@@ -105,7 +105,7 @@ namespace HPF.FutureState.DataAccess
                     while (reader.Read())
                     {
                         invoicePayment.FundingSourceName = ConvertToString(reader["funding_source_name"]);
-                        invoicePayment.FundingSourceID = ConvertToString(reader["funding_source_id"]);
+                        invoicePayment.FundingSourceID = ConvertToInt(reader["funding_source_id"]);
                         invoicePayment.InvoicePaymentID = ConvertToInt(reader["invoice_payment_id"]);
                         invoicePayment.PaymentType = ConvertToString(reader["pmt_cd"]);
                         invoicePayment.PaymentDate = ConvertToDateTime(reader["pmt_dt"]);

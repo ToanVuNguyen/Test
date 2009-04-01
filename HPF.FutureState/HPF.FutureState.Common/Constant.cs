@@ -103,6 +103,7 @@ namespace HPF.FutureState.Common
 
         public const string RULESET_PAYMENTVALIDATION= "PaymentCriteriaValidation";
         public const string RULESET_INVOICE_CASE_VALIDATION = "PaymentCriteriaValidation";
+        public const string RULESET_INVOICE_PAYMENT_VALIDATION = "InvoicePaymentValidation";
 
         public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
     }
