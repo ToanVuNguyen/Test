@@ -143,6 +143,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             if (selRow.Value == "-1")
             {
                 hfAction.Value = ACTION_INSERT;
+                ClearPage();
                 grdvCaseAudit.SelectedIndex = -1;
                 lblFormTitle.Text = "Audit detail - Inserting";
                 txtAuditDate.Text = DateTime.Today.ToShortDateString();
