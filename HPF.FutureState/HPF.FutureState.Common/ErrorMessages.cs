@@ -203,6 +203,7 @@ namespace HPF.FutureState.Common
         public const string ERR0392 = "ERR0392";
         public const string ERR0393 = "ERR0393";
         public const string ERR0394 = "ERR0394";
+        public const string ERR0395 = "ERR0395";
         public const string ERR0451 = "ERR0451";
 
         public const string ERR0700 = "ERR0700";
@@ -651,7 +652,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0392, "NonProfitReferralKeyNum1 has a maximum length of 10 characters.");
                 errorMessageDict.Add(ERR0393, "NonProfitReferralKeyNum2 has a maximum length of 10 characters.");
                 errorMessageDict.Add(ERR0394, "NonProfitReferralKeyNum3 has a maximum length of 10 characters.");
-
+                errorMessageDict.Add(ERR0395, "An InterestRate must be a valid number between 0 and 99.999.");
                 
                 errorMessageDict.Add(ERR0376, "The Last4_SSN search criteria must be exactly 4 numeric digits.");
                 errorMessageDict.Add(ERR0377, "The PropertyZip search criteria must be a valid 5 digit numeric zip.");
@@ -754,7 +755,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0580, "A valid Period Start date is required to search for Payables.");
                 errorMessageDict.Add(ERR0581, "A valid Period End date is required to search for Payables.");
                 errorMessageDict.Add(ERR0582, "All selected cases must be NFMC Eligible to have a NFMC Upcharge applied.");
-                errorMessageDict.Add(WARN0583, "No payables were found that match your search criteria.");
+                errorMessageDict.Add(WARN0583, "There were zero cases matching your selection criteria.");
                 //
                 errorMessageDict.Add(ERR0584, "An agency account payable must be selected in order to cancel it.");
                 errorMessageDict.Add(ERR0585, "An agency account payable must be selected in order to view or edit it.");
@@ -766,11 +767,11 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0653, "A Payment Type is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0654, "A valid Payment Amount is required to save an Invoice Payment.");
                 errorMessageDict.Add(ERR0655, "Unable to open payment reconciliation file.");
-                errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file.  It is not in the proper format, it must be Excel 2003 or newer.");
-                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file.  The file must have a header row with the following column headers: HPF Internal Case ID, HPF Invoice Case ID, Payment Amount, Payment Reject Reason Code, Freddie Mac Servicer Number, Freddie Mac Loan Number, Investor Number, and Investor Name.");
+                errorMessageDict.Add(ERR0656, "Unable to process the reconciliation file. It is not in the proper format, it must be Excel 2003 or newer.");
+                errorMessageDict.Add(ERR0657, "Unable to process the reconciliation file. The file must have a header row with the following column headers: HPF Internal Case ID, HPF Invoice Case ID, Payment Amount, Payment Reject Reason Code, Freddie Mac Servicer Number, Freddie Mac Loan Number, Investor Number, and Investor Name.");
                 errorMessageDict.Add(ERR0658, "Unable to process the reconciliation file. The HPF Inetrnal Case ID (fc_id) in row {0} is not a valid number.");
                 errorMessageDict.Add(ERR0659, "Unable to process the reconciliation file. The Pmt Amt in row {0} is not a valid amount.");
-                errorMessageDict.Add(ERR0660, "Unable to process the reconciliation file  The Payment Reject Reason Code in row {0} is not a valid code.");
+                errorMessageDict.Add(ERR0660, "Unable to process the reconciliation file. The Payment Reject Reason Code in row {0} is not a valid code.");
                 errorMessageDict.Add(ERR0661, "Unable to process the reconciliation file. It has {0} row(s) with payments totaling {1} which does not match the entered Payment Amount of {2}.");
                 errorMessageDict.Add(ERR0662, "The column 'HPF Internal Case ID' could not be found in the reconciliation file.");
                 errorMessageDict.Add(ERR0663, "The column 'HPF Invoice Case ID' could not be found in the reconciliation file.");
@@ -784,7 +785,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0670, "Unable to process the reconciliation file. The HPF Invoice Case ID in row {0} is not valid.");
                 errorMessageDict.Add(ERR0671, "Unable to process the reconciliation file. The Invoice Case ID in row {0} belongs to an invoice that has been cancelled.");
                 errorMessageDict.Add(ERR0672, "Unable to process the reconciliation file. The Pmt Amt in row {0} does not match the amount billed on the invoice.");
-                errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file.  The \"Reconciliation\" tab cannot be located.");
+                errorMessageDict.Add(ERR0673, "Unable to process the reconciliation file. The \"Reconciliation\" tab cannot be located.");
                 errorMessageDict.Add(ERR0674, "A Funding Source is required to search for Invoice Payments.");
                 errorMessageDict.Add(ERR0675, "A valid Period Start date is required to search for Invoice Payments.");
                 errorMessageDict.Add(ERR0676, "A valid Period End date is required to search for Invoice Payments.");
