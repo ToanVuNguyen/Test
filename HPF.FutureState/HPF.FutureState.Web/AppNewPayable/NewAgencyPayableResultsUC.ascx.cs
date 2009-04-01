@@ -291,7 +291,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             catch (Exception ex)
             {
-                string exMessage = "Can't upload report to hpf-portal. " + ex.Message;
+                string exMessage = "Could not upload report to hpf-portal. " + ex.Message;
                 bulErrorMessage.Items.Add(exMessage);
                 throw ex;
             }
