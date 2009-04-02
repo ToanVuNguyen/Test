@@ -17,7 +17,6 @@
   <InteractiveWidth>8.5in</InteractiveWidth>
   <rd:SnapToGrid>true</rd:SnapToGrid>
   <PageHeader>
-    <PrintOnFirstPage>true</PrintOnFirstPage>
     <ReportItems>
       <Textbox Name="textbox214">
         <rd:DefaultName>textbox214</rd:DefaultName>
@@ -25,7 +24,8 @@
         <Width>7.67708in</Width>
         <Style>
           <FontSize>8pt</FontSize>
-          <TextAlign>Right</TextAlign>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Center</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
@@ -5425,9 +5425,11 @@
     <ReportItems>
       <Textbox Name="textbox204">
         <rd:DefaultName>textbox204</rd:DefaultName>
-        <Top>0.0625in</Top>
+        <Top>0.02083in</Top>
         <Width>2.08333in</Width>
         <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
           <TextAlign>Center</TextAlign>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -5435,12 +5437,11 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
         <CanGrow>true</CanGrow>
-        <Left>3.02083in</Left>
-        <Height>0.25in</Height>
+        <Left>3.25in</Left>
         <Value>="Page " &amp; Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
       </Textbox>
     </ReportItems>
-    <Height>0.35417in</Height>
+    <Height>0.27083in</Height>
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageFooter>
   <PageHeight>12.3in</PageHeight>
