@@ -227,6 +227,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0995);
                 bulErrorMessage.Items.Add(exMes + " Error message: " + ex.Message);
                 btnGeneratePayable.Enabled = false;
+                Session["Comment"] = null;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
