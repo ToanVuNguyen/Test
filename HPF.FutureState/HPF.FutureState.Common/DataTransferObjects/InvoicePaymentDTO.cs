@@ -25,7 +25,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(false, 50, "PaymentType", Ruleset = Constant.RULESET_INVOICE_PAYMENT_VALIDATION, Tag = ErrorMessages.ERR0653)]
         public string PaymentType { get; set; }
         public string PaymentTypeDesc { get; set; }
-        [NullableOrInRangeNumberValidator(false, "0", "10000000000000", Ruleset = Constant.RULESET_INVOICE_PAYMENT_VALIDATION, Tag = ErrorMessages.ERR0654)]      
+        [NullableOrInRangeNumberValidator(false, "0", "9999999999999.99", Ruleset = Constant.RULESET_INVOICE_PAYMENT_VALIDATION, Tag = ErrorMessages.ERR0654)]      
         public double? PaymentAmount { get; set; }
         [NullableOrStringLengthValidator(true, 300, "Comments", Ruleset = Constant.RULESET_INVOICE_PAYMENT_VALIDATION, Tag = ErrorMessages.ERR0688)]
         public string Comments { get; set; }

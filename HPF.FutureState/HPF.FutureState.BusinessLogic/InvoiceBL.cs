@@ -208,6 +208,9 @@ namespace HPF.FutureState.BusinessLogic
                     string errorMes = string.IsNullOrEmpty(valMes.Tag) ? valMes.Message : ErrorMessages.GetExceptionMessage(valMes.Tag);
                     dataValidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMes);
                 }
+            double testValue = (double)Math.Round(invoicePayment.PaymentAmount.Value, 2);
+            if (testValue != invoicePayment.PaymentAmount && dataValidEx.ExceptionMessages.GetExceptionMessage(ErrorMessages.ERR0654) == null)
+                dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0654, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0654));
             if (dataValidEx.ExceptionMessages.Count > 0)
                 throw dataValidEx;
         }
