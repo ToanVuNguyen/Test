@@ -204,7 +204,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             invoiceSet.Invoice.InvoiceBillAmount = invoiceSet.InvoiceTotal;
             try
             {
-                invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 InvoiceBL.Instance.UpdateInvoiceCase(invoiceSet, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Reject);
                 LoadInvoiceSet();
             }
@@ -261,7 +261,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             bool result=false;
             try
             {
-                invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                result= InvoiceBL.Instance.UpdateInvoiceCase(invoiceSet, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
                if (result == false)
                    lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0558));
@@ -291,7 +291,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             bool result = false;
             try
             {
-                invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                invoiceSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 result = InvoiceBL.Instance.UpdateInvoiceCase(invoiceSet, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Unpay);
                 LoadInvoiceSet();
             }

@@ -132,7 +132,7 @@ namespace HPF.FutureState.Web.InvoicePayments
 
                 //remember to remove this line 
                 InvoicePaymentDTO invoicePayment = GetInvoicePayment();
-                invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 InvoiceBL.Instance.ValidateInvoicePayment(invoicePayment);
                 if (fileUpload.HasFile)
                     //Validate Excel file
@@ -171,7 +171,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
 
             InvoicePaymentDTO invoicePayment = GetInvoicePayment();
-            invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            invoicePayment.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
             //Update and cleared old data.
             paymentId = InvoiceBL.Instance.UpdateInvoicePaymentOnly(invoicePayment);
             Response.Redirect("InvoicePayment.aspx");

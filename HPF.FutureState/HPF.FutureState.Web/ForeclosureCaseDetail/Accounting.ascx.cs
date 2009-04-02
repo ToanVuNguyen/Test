@@ -104,7 +104,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 foreclosureCase.FcId= int.Parse(ViewState["CaseID"].ToString());
                 foreclosureCase.NeverBillReasonCd = ddlNerverBillReason.SelectedValue;
                 foreclosureCase.NeverPayReasonCd = ddlNeverPayReason.SelectedValue;
-                foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 AccountingBL.Instance.UpdateForeclosureCase(foreclosureCase);
                 bullblErrorMessage.Items.Add("Update Forclosurecase successfully");
                 return true;

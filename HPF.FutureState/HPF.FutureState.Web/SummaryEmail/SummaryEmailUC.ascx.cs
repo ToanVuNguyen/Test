@@ -106,7 +106,7 @@ namespace HPF.FutureState.Web.SummaryEmail
         private void InsertActivityLogInfo()
         {
             ActivityLogDTO activityLog = BuildActivityLogInfo();
-            activityLog.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            activityLog.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
             ActivityLogBL.Instance.InsertActivityLog(activityLog);
         }
 
@@ -154,7 +154,7 @@ namespace HPF.FutureState.Web.SummaryEmail
             activityLog.FcId = forclosureInfo.FcId;
             activityLog.ActivityCd = "EMAIL";
             activityLog.ActivityDt = DateTime.Now;
-            activityLog.ActivityNote = string.Concat(" To: ", txtTo.Text," From:",HPFWebSecurity.CurrentIdentity.UserId.ToString(), " Subject: ", txtSubject.Text, " Body: ", txtBody.Text);
+            activityLog.ActivityNote = string.Concat(" To: ", txtTo.Text," From:",HPFWebSecurity.CurrentIdentity.LoginName, " Subject: ", txtSubject.Text, " Body: ", txtBody.Text);
             return activityLog;
         }
     }

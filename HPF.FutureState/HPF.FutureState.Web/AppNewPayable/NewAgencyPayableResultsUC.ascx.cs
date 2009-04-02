@@ -191,12 +191,12 @@ namespace HPF.FutureState.Web.AppNewPayable
             RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
             agencyPayableDraftDTO.StatusCode = StatusCd.Code;
             for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
-                this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
             agencyPayableDraftDTO.ForclosureCaseDrafts = this.agencyPayableDraft.ForclosureCaseDrafts;
             agencyPayableDraftDTO.TotalAmount = this.agencyPayableDraft.TotalAmount;
             agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
             agencyPayableDraftDTO.PaymentComment = txtComment.Text;
-            agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
             int? agencyPayableId = -1;
             try
             {

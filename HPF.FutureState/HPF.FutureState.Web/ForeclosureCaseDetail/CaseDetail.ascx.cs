@@ -269,7 +269,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
 
                 if (foreclosureCase != null)
                 {
-                    foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                    foreclosureCase.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     int? fcid = ForeclosureCaseBL.Instance.UpdateForeclosureCase(foreclosureCase);
                     bulMessage.Items.Add(new ListItem("Save foreclosure case succesfully"));
                     return true;

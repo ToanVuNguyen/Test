@@ -130,7 +130,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             try
             {
-                agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 int i;
                 for (i = 0; i < agencyPayableSet.PayableCases.Count; i++)
                 //foreach (var agencyPayableCase in agencyPayableSet.PayableCases)
@@ -172,7 +172,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
             try
             {
-                agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+                agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 AgencyPayableBL.Instance.TakebackMarkCase(agencyPayableSet, takebackReason, payableCaseIdCollection);
                 BindViewEditPayable();
             }

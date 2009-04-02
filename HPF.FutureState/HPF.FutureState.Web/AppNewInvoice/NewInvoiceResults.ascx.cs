@@ -276,7 +276,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         {
                 //insert invoice to the database
             invoiceDraft.InvoiceComment = txtComment.Text;
-            invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            invoiceDraft.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName.ToString());
             return InvoiceBL.Instance.InsertInvoice(invoiceDraft);
         }
         #endregion
