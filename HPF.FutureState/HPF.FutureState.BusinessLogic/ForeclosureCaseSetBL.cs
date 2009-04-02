@@ -506,7 +506,7 @@ namespace HPF.FutureState.BusinessLogic
                     for (int j = 0; j < ex.Count; j++)
                     {
                         var exItem = ex[j];
-                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on outcome item index " + (i + 1));
+                        msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " on outcome item index " + (i + 1));
                     }
                 }
 
@@ -865,9 +865,9 @@ namespace HPF.FutureState.BusinessLogic
             {
                 var item = budgetCollection[i];
                 if (item.BudgetItemAmt == null)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetItemAmt can not be null working on budget item index " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0079, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0079) +  " on budget item index " + (i + 1));
                 if (item.BudgetSubcategoryId == null)
-                    msgFcCaseSet.AddExceptionMessage("UNKNOWN", "BudgetSubCategory can not be null working on budget item index " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0262, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0262) + "on budget item index " + (i + 1));
             }            
             return msgFcCaseSet;
         }
@@ -951,7 +951,10 @@ namespace HPF.FutureState.BusinessLogic
                 if (isBillable) break;
             }
             if (!isBillable && caseComplete)
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0255, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255));
+            {
+                if (msgFcCaseSet.GetExceptionMessage(ErrorMessages.ERR0255) == null)                    
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0255, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255));
+            }
             if (!isBillable)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0326, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0326));
             
@@ -2002,7 +2005,7 @@ namespace HPF.FutureState.BusinessLogic
                 OutcomeItemDTO item = outcomeItem[i];
                 bool isValid = CheckOutcomeType(item);
                 if (!isValid)
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0263, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0263) + " working on outcome item index " + (i + 1));   
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0263, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0263) + " on outcome item index " + (i + 1));   
             }
             return msgFcCaseSet;
         }

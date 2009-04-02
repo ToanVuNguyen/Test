@@ -530,7 +530,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0076, "CurrntLoanBalanceAmt must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0077, "OrigLoanAmt must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0078, "AssetValue must be a valid number with 2 decimal places.");
-                errorMessageDict.Add(ERR0079, "BudgetItemAmt must be a valid number with 2 decimal places.");
+                errorMessageDict.Add(ERR0079, "BudgetItemAmt must be a valid number with 2 decimal places");
                 errorMessageDict.Add(ERR0080, "HomePurchasePrice must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0081, "HouseholdGrossAnnualIncomeAmt must be a valid number with 2 decimal places. It must be greater than Zero and less than or equal to 99,999,999.99.");
 
@@ -607,8 +607,8 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(ERR0260, "PropZip and PropStateCd must be a valid state-zip combinaton.");
                 errorMessageDict.Add(ERR0261, "An invalid ProgramId was provided.");
-                errorMessageDict.Add(ERR0262, "An invalid BudgetSubcategoryId was provided.");
-                errorMessageDict.Add(ERR0263, "An invalid OutcomeTypeId was provided.");
+                errorMessageDict.Add(ERR0262, "An invalid BudgetSubcategoryId was provided");
+                errorMessageDict.Add(ERR0263, "An invalid OutcomeTypeId was provided");
                 errorMessageDict.Add(ERR0264, "An invalid CallId was provided.");
                 errorMessageDict.Add(ERR0265, "An Esternal Referral outcome requires the entry of either a NonprofitreferralKeyNum1 or ExeRefOtherName1.");
                 errorMessageDict.Add(ERR0266, "A Serivcer selection of Other requires the entry of OtherServicerName.");
