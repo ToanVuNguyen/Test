@@ -51,7 +51,7 @@
         </tr>    
         <tr>
             <td align="right" class="sidelinks">Interest Rate*: </td>
-            <td align="left" class ="Text"><%#string.Format("{0:P}", DataBinder.Eval(Container.DataItem, "InterestRate"))%></td>            
+            <td align="left" class ="Text"><%#string.Format("{0:P3}", DataBinder.Eval(Container.DataItem, "InterestRate"))%></td>            
             <td align="right" class="sidelinks">Investor Name: </td>
             <td align="left" class ="Text"><%# DataBinder.Eval(Container.DataItem, "InvestorName")%></td>            
         </tr>  
