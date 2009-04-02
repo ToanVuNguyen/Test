@@ -696,7 +696,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
-                errorMessageDict.Add(WARN0450, "Data has been changed.  Are you sure you want to save?");
+                errorMessageDict.Add(WARN0450, "Data has been changed. Do you want to save?");
 
                 errorMessageDict.Add(WARN0274, "The BankruptcyInd = Y is required to save a complete foreclosure case since a BankruptcyAttorney was provided.");
                 errorMessageDict.Add(WARN0275, "A BankruptcyAttorney is required to save a complete foreclosure case since the BankruptcyInd is Y.");
