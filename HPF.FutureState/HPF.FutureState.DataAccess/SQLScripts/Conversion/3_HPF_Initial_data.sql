@@ -23,7 +23,7 @@ GO
 --servicers
 DELETE FROM ccrc_servicer;
 insert into ccrc_servicer(ccrc_servicer_seq_id, servicer_id)
-select servicer_id, servicer_id from servicer;
+select servicer_id, servicer_id from servicer  where servicer_id <> 18601;
 
 insert into ccrc_servicer values(16581,16641)
 insert into ccrc_servicer values(18481,18411)
@@ -36,6 +36,7 @@ insert into ccrc_servicer values(17442,17441)
 insert into ccrc_servicer values(17741,15503)
 insert into ccrc_servicer values(19524,14951)
 insert into ccrc_servicer values(10,4422)
+insert into ccrc_servicer values(18601, 12982)
 
 --map_type_code
 DELETE FROM MAP_TYPE_CODE;
