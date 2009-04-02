@@ -34,43 +34,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     hidSelectedRowIndex.Value = "";
                 btnCancelPayable.Attributes.Add("onclick", "return CancelClientClick();");
                 BindAgencyDropDownList();
-                DisplayAgencyAccountPayableSearchResult();
-            }
-        }
-
-        private void DisplayAgencyAccountPayableSearchResult()
-        {
-            AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
-            try
-            {
-
-                if (Session["agencyPayableSearchCriteria"] != null)
-                {
-                    searchCriteria = (AgencyPayableSearchCriteriaDTO)Session["agencyPayableSearchCriteria"];
-                    txtPeriodStart.Text = searchCriteria.PeriodStartDate.ToShortDateString();
-                    txtPeriodEnd.Text = searchCriteria.PeriodEndDate.ToShortDateString();
-                    ddlAgency.SelectedValue = searchCriteria.AgencyId.ToString();
-                    BindGrvInvoiceList(searchCriteria.PeriodStartDate.ToShortDateString(), searchCriteria.PeriodEndDate.ToShortDateString());
-                }
-                else
-                {
-                    SetDefaultPeriodStartEnd();
-                    //default display all agencyaccount within 6 month.
-                    BindGrvInvoiceList(DateTime.Now.AddMonths(-6).ToShortDateString(), DateTime.Now.ToShortDateString());
-                }
-            }
-            catch (DataValidationException ex)
-            {
-                foreach (var mes in ex.ExceptionMessages)
-                    bulMessage.Items.Add(new ListItem(mes.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
-            }
-            catch (Exception ex)
-            {
-                bulMessage.Items.Add(ex.Message);
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-                return;
+                SetUpDefaultValue();
             }
         }
         private void ApplySecurity()
@@ -110,34 +74,30 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         /// <summary>
         /// Bind search data into gridview
         /// </summary>
-        protected void BindGrvInvoiceList(string periodStart, string periodEnd)
+        protected void PayableSearch(AgencyPayableSearchCriteriaDTO searchCriteria)
         {
             bulMessage.Items.Clear();
-            AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
-            AgencyPayableDTOCollection agencycol = new AgencyPayableDTOCollection();
-            //DataValidationException ex = new DataValidationException();
-            
-            //get search criteria to AgencyPayableSearchCriteriaDTO
-                searchCriteria = GetSearchCriteria(periodStart, periodEnd);
-            //get search data match that search collection
-            agencycol = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria);
-            //
-            ViewState["agencycol"] = agencycol;
-            //bind search data to gridview
-            if (agencycol.Count == 0)
-                bulMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0583));
-
-            grvInvoiceList.DataSource = agencycol;
+            AgencyPayableDTOCollection searchResult = AgencyPayableBL.Instance.SearchAgencyPayable(searchCriteria); 
+            Session["PayableSearchResult"] = searchResult;
+            Session["PayableSearchCriteria"] = searchCriteria;
+            grvInvoiceList.DataSource = searchResult;
             grvInvoiceList.DataBind();
+            if (searchResult.Count == 0)
+                bulMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0583));
         }
         /// <summary>
         /// get default period start:1st\prior month\year
         /// get default period end: lastday\prior month\year
         /// </summary>
-        protected void SetDefaultPeriodStartEnd()
+        protected void SetUpDefaultValue()
         {
-            txtPeriodStart.Text = DateTime.Now.AddMonths(-6).ToShortDateString();
-            txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
+            AgencyPayableSearchCriteriaDTO defaultSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+            defaultSearchCriteria.AgencyId = -1;
+            defaultSearchCriteria.PeriodStartDate = DateTime.Today.AddMonths(-6);
+            defaultSearchCriteria.PeriodEndDate = DateTime.Today.AddDays(1).AddSeconds(-1);
+            txtPeriodStart.Text = defaultSearchCriteria.PeriodStartDate.ToShortDateString();
+            txtPeriodEnd.Text = defaultSearchCriteria.PeriodEndDate.ToShortDateString();
+            PayableSearch(defaultSearchCriteria);
         }
         private ExceptionMessage GetExceptionMessage(string exCode)
         {
@@ -146,27 +106,28 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             exMess.Message = ErrorMessages.GetExceptionMessageCombined(exCode);
             return exMess;
         }
-        private DateTime ConvertToDateTime(string obj)
+        private DateTime ConvertToDateTime(object obj)
         {
             DateTime dt;
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
-            DateTimeStyles style = DateTimeStyles.None;
-            if (DateTime.TryParseExact(obj, "M/d/yyyy", culture, style, out dt))
+            if (DateTime.TryParse(obj.ToString().Trim(), out dt))
                 return dt;
-            return dt;
+            return DateTime.MinValue;
         }
-        private AgencyPayableSearchCriteriaDTO GetSearchCriteria(string periodStart, string periodEnd)
+        private int ConvertToInt(object obj)
+        {
+            int value;
+            if (int.TryParse(obj.ToString().Trim(), out value))
+                return value;
+            return int.MinValue;
+        }
+        private AgencyPayableSearchCriteriaDTO GetSearchCriteria()
         {
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
-            DataValidationException ex = new DataValidationException();
-            searchCriteria.AgencyId = int.Parse(ddlAgency.SelectedValue);
-
-            searchCriteria.PeriodStartDate = ConvertToDateTime(periodStart);
-
-            searchCriteria.PeriodEndDate = ConvertToDateTime(periodEnd);
-            searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
-
-            Session["agencyPayableSearchCriteria"] = searchCriteria;
+            searchCriteria.AgencyId = ConvertToInt(ddlAgency.SelectedValue);
+            searchCriteria.PeriodStartDate = ConvertToDateTime(txtPeriodStart.Text);
+            searchCriteria.PeriodEndDate = ConvertToDateTime(txtPeriodEnd.Text);
+            if (searchCriteria.PeriodEndDate != DateTime.MinValue)
+                searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
             return searchCriteria;
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)
@@ -175,15 +136,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             bulMessage.Items.Clear();
             try
             {
-                BindGrvInvoiceList(txtPeriodStart.Text, txtPeriodEnd.Text);
-                grvInvoiceList.SelectedIndex = -1;
+                AgencyPayableSearchCriteriaDTO searchCriterial = GetSearchCriteria();
+                PayableSearch(searchCriterial);
             }
             catch (DataValidationException ex)
             {
-                //bulMessage.DataSource = ex.ExceptionMessages;
-                //bulMessage.DataBind();
-                foreach (var mes in ex.ExceptionMessages)
-                    bulMessage.Items.Add(new ListItem(mes.Message));
+                bulMessage.DataSource = ex.ExceptionMessages;
+                bulMessage.DataBind();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 grvInvoiceList.DataSource = null;
                 grvInvoiceList.DataBind();
@@ -228,7 +187,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             {
                 if (grvInvoiceList.SelectedIndex != -1)
                 {
-                    agency = (AgencyPayableDTOCollection)ViewState["agencycol"];
+                    agency = (AgencyPayableDTOCollection)Session["PayableSearchResult"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
                     RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[1];
@@ -236,7 +195,8 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     agency[selectedrow].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);
                     //
-                    DisplayAgencyAccountPayableSearchResult();
+                    AgencyPayableSearchCriteriaDTO searchCriterial = Session["PayableSearchCriteria"] as AgencyPayableSearchCriteriaDTO;
+                    PayableSearch(searchCriterial);
                 }
                 else
                 {
@@ -277,7 +237,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             DataValidationException ex = new DataValidationException();
             try
             {
-                AgencyPayableDTOCollection agencyPayableCol = (AgencyPayableDTOCollection)ViewState["agencycol"];
+                AgencyPayableDTOCollection agencyPayableCol = (AgencyPayableDTOCollection)Session["PayableSearchResult"];
                 AgencyPayableDTO agencyPayable = agencyPayableCol[grvInvoiceList.SelectedIndex];
                 if (agencyPayable != null)
                 {

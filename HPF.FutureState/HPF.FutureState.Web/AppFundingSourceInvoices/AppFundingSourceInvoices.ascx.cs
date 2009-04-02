@@ -93,35 +93,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
                 dropFundingSource.Items.FindByText(" ALL").Selected = true;
             
         }
-        private ExceptionMessage GetExceptionMessage(string errorCode)
-        {
-            var exMes = new ExceptionMessage();
-            exMes.ErrorCode = errorCode;
-            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
-            return exMes;
-        }
-        private ExceptionMessage GetExceptionMessageWithoutCode(string errorCode)
-        {
-            var exMes = new ExceptionMessage();
-            exMes.ErrorCode = errorCode;
-            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
-            return exMes;
-        }
-        DateTime SetToStartDay(DateTime t)
-        {
-            t = t.AddHours(-t.Hour);
-            t = t.AddMinutes(-t.Minute);
-            t = t.AddSeconds(-t.Second);
-            t = t.AddMilliseconds(-t.Millisecond);
-            return t;
-        }
-        DateTime SetToEndDay(DateTime t)
-        {
-            t = SetToStartDay(t);
-            t = t.AddDays(1);
-            t = t.AddSeconds(-1);
-            return t;
-        }
+        
         private InvoiceSearchCriteriaDTO GetInvoiceSearchCriterial()
         {
             InvoiceSearchCriteriaDTO searchCriteria = new InvoiceSearchCriteriaDTO();
@@ -274,7 +246,35 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             int invoiceId = (int)grvFundingSourceInvoices.SelectedValue;
             Response.Redirect("InvoiceInfo.aspx?id=" + invoiceId.ToString());
         }
-
+        private ExceptionMessage GetExceptionMessage(string errorCode)
+        {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessageCombined(errorCode);
+            return exMes;
+        }
+        private ExceptionMessage GetExceptionMessageWithoutCode(string errorCode)
+        {
+            var exMes = new ExceptionMessage();
+            exMes.ErrorCode = errorCode;
+            exMes.Message = ErrorMessages.GetExceptionMessage(errorCode);
+            return exMes;
+        }
+        DateTime SetToStartDay(DateTime t)
+        {
+            t = t.AddHours(-t.Hour);
+            t = t.AddMinutes(-t.Minute);
+            t = t.AddSeconds(-t.Second);
+            t = t.AddMilliseconds(-t.Millisecond);
+            return t;
+        }
+        DateTime SetToEndDay(DateTime t)
+        {
+            t = SetToStartDay(t);
+            t = t.AddDays(1);
+            t = t.AddSeconds(-1);
+            return t;
+        }
         protected void grvFundingSourceInvoices_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearErrorMessages();

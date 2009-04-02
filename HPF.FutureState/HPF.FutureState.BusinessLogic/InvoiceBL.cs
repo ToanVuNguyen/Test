@@ -387,7 +387,9 @@ namespace HPF.FutureState.BusinessLogic
             }
             catch (Exception ex)
             {
-                throw ex;
+                DataValidationException ex1 = new DataValidationException();
+                ex1.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0655));
+                throw ex1;
             }
             if (dataSet == null || dataSet.Tables.Count == 0)
             {
