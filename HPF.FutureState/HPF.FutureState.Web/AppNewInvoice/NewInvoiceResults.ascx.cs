@@ -172,7 +172,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Items.Add(ex.Message);
+                lblErrorMessage.Items.Add("Insert Invoice failed. Error message: "+ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 btnGenerateInvoice.Enabled = false;
                 return;

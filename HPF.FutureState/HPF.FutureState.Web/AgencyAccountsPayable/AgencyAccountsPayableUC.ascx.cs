@@ -205,6 +205,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             bulMessage.Items.Clear();
             string query = "?agency=" + ddlAgency.SelectedValue;
+            Session["Comment"] = null;
             Response.Redirect("CreateNewPayable.aspx" + query);
         }
 

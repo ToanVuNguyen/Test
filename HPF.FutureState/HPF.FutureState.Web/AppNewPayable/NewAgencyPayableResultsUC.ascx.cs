@@ -179,40 +179,54 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnGeneratePayable_Click(object sender, EventArgs e)
         {
+            if(this.agencyPayableDraft.ForclosureCaseDrafts.Count<=0)
+                return;
+            AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
+            AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
+            agencyPayableSearchCriteria = GetCriteria();
+            agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
+            //default display period_start back 6 months
+            //but save exactly value in criteria.
+            agencyPayableDraftDTO.PeriodStartDate = agencyPayableDraftDTO.PeriodStartDate.Value.AddMonths(6);
+            RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
+            agencyPayableDraftDTO.StatusCode = StatusCd.Code;
+            for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
+                this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            agencyPayableDraftDTO.ForclosureCaseDrafts = this.agencyPayableDraft.ForclosureCaseDrafts;
+            agencyPayableDraftDTO.TotalAmount = this.agencyPayableDraft.TotalAmount;
+            agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
+            agencyPayableDraftDTO.PaymentComment = txtComment.Text;
+            agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
+            int? agencyPayableId = -1;
             try
             {
-                if (this.agencyPayableDraft.ForclosureCaseDrafts.Count > 0)
-                {
-                    AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
-                    AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria = new AgencyPayableSearchCriteriaDTO();
-                    agencyPayableSearchCriteria = GetCriteria();
-                    agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
-                    //default display period_start back 6 months
-                    //but save exactly value in criteria.
-                    agencyPayableDraftDTO.PeriodStartDate = agencyPayableDraftDTO.PeriodStartDate.Value.AddMonths(6);
-                    RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
-                    agencyPayableDraftDTO.StatusCode = StatusCd.Code;
-                    for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
-                    {
-                        this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                    }
-                    agencyPayableDraftDTO.ForclosureCaseDrafts = this.agencyPayableDraft.ForclosureCaseDrafts;
-                    agencyPayableDraftDTO.TotalAmount = this.agencyPayableDraft.TotalAmount;
-                    agencyPayableDraftDTO.TotalCases = this.agencyPayableDraft.ForclosureCaseDrafts.Count;
-                    agencyPayableDraftDTO.PaymentComment = txtComment.Text;
-                    agencyPayableDraftDTO.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                    int? agencyPayableId = AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
-
-                    //export report to xls and pdf
-                    AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencyPayableId);
-                    AgencyPayableDTO agencyPayable = agencyPayableSet.Payable;
-                    ExportSendReportToHPFPortal(agencyPayable, agencyPayableId);
-                    Response.Redirect("AgencyPayable.aspx");
-                }
+                agencyPayableId = AgencyPayableBL.Instance.InsertAgencyPayable(agencyPayableDraftDTO);
+            }
+            catch(Exception ex)
+            {
+                bulErrorMessage.Items.Add(ex.Message);
+                btnGeneratePayable.Enabled = false;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
+            }
+            try
+            {
+                //export report to xls and pdf
+                AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencyPayableId);
+                AgencyPayableDTO agencyPayable = agencyPayableSet.Payable;
+                ExportSendReportToHPFPortal(agencyPayable, agencyPayableId);
+                Session["Comment"] = null;
+                Response.Redirect("AgencyPayable.aspx");
             }
             catch (Exception ex)
             {
-                bulErrorMessage.Items.Add(ex.Message);
+                //Inserted successful
+                string exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0994);
+                bulErrorMessage.Items.Add(exMes);
+                //Deliver fail
+                exMes = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0995);
+                bulErrorMessage.Items.Add(exMes + " Error message: " + ex.Message);
+                btnGeneratePayable.Enabled = false;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -260,6 +274,8 @@ namespace HPF.FutureState.Web.AppNewPayable
             {
                 AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
                 string query = GetQueryString(criteria);
+                if (!string.IsNullOrEmpty(txtComment.Text))
+                    Session["Comment"] = txtComment.Text;
                 Response.Redirect("CreateNewPayable.aspx" + query);
             }
             catch (Exception ex)
@@ -285,23 +301,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         }
         private void ExportSendReportToHPFPortal(AgencyPayableDTO agencyPayable, int? agencyPayableId)
         {
-            try
-            {
                 ReportBL.Instance.SendAgencyPayableToHPFPortal(agencyPayable, agencyPayableId);
-            }
-            catch (Exception ex)
-            {
-                string exMessage = "Could not upload report to hpf-portal. " + ex.Message;
-                bulErrorMessage.Items.Add(exMessage);
-                throw ex;
-            }
-
         }
-
-        protected void txtComment_TextChanged(object sender, EventArgs e)
-        {
-            Session["Comment"] = txtComment.Text;
-        }
-
     }
 }

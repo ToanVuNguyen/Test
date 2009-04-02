@@ -834,6 +834,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0854, "The 'Body:' has a max length 2000 characters.");
 
                 //
+                errorMessageDict.Add(ERR0994, "Inserted Payable successfully.");
+                errorMessageDict.Add(ERR0995, "Delivering Payable reports to Portal failed.");
+                
+
                 errorMessageDict.Add(ERR0979, "At least one case must be selected in order to remove.");
                 errorMessageDict.Add(ERR0980, "Invoice Payment Number has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0981, "Invoice Payment Comments has a maximum length of 300 characters.");

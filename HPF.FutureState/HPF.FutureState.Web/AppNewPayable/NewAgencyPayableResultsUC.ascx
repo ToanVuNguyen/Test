@@ -105,8 +105,7 @@
         
         <td colspan="4">
             <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="5" TextMode="MultiLine"
-                Width="100%" ontextchanged="txtComment_TextChanged"></asp:TextBox>
-            &nbsp;
+                Width="100%"></asp:TextBox>
         </td>
         
     </tr>

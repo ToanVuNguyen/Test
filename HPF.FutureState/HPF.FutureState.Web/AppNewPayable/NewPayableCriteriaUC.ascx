@@ -4,16 +4,16 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <table  width="100%">    
     <tr>
-        <td  align="center" colspan="4" >
+        <td  align="center" colspan="3" >
             <h1>New Payable Criteria</h1></td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="3">
            <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
            </td>
     </tr>
     <tr>
-        <td colspan="4" >
+        <td colspan="3" >
             <h1>Primary Selection Criteria:</h1></td>
     </tr>
     <tr>
@@ -23,8 +23,6 @@
             &nbsp;<asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text" Width="350px">
             </asp:DropDownList>
         </td>
-        <td>
-            &nbsp;</td>
         <td>
             <asp:Button ID="btnDraftNewPayable" runat="server"  Text="Draft New Payable"  
                 CssClass="MyButton" Width="120px" onclick="btnDraftNewPayable_Click" />
@@ -44,8 +42,6 @@
             
         </td>
         <td>
-            &nbsp;</td>
-        <td>
            </td>
     </tr>
     <tr>
@@ -57,8 +53,6 @@
                 Enabled="True" TargetControlID="txtPeriodEnd">
             </cc1:CalendarExtender>
         </td>
-        <td>
-            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>
@@ -74,8 +68,6 @@
         </td>
         <td>
             &nbsp;</td>
-        <td>
-            &nbsp;</td>
     </tr>
     <tr>
         <td class="sidelinks" align="right">
@@ -83,8 +75,6 @@
         <td>
             <asp:CheckBox ID="ChkInclude" runat="server" Text="" />
         </td>
-        <td>
-            &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>
