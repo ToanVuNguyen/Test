@@ -86,15 +86,6 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// hidSaveIsYes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidSaveIsYes;
-        
-        /// <summary>
         /// selTabCtrl control.
         /// </summary>
         /// <remarks>

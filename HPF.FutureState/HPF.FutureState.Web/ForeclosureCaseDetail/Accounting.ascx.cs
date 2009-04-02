@@ -99,8 +99,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         protected bool UpdateForclosureCase()
         {
             try
-            {
-                hidSaveIsYes.Value = "";
+            {                
                 ForeclosureCaseDTO foreclosureCase = new ForeclosureCaseDTO();
                 foreclosureCase.FcId= int.Parse(ViewState["CaseID"].ToString());
                 foreclosureCase.NeverBillReasonCd = ddlNerverBillReason.SelectedValue;
@@ -129,14 +128,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                         lblRejectReasonDesc.Text = PaymentRejectReasonDTO.CodeDesc;
                 }
             }
-        }
-
-        protected override void OnUnload(EventArgs e)
-        {
-            base.OnUnload(e);
-            if (hidSaveIsYes.Value != string.Empty)
-                UpdateForclosureCase();
-        }
+        }        
 
         public string msgWARN0450
         {

@@ -1084,9 +1084,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right">
-        <asp:HiddenField ID="hidChkAgencyActive"  runat="server"  Value=""/>
-        <asp:HiddenField ID="hidSaveIsYes"  runat="server"  Value=""/>
+        <td align="right">        
         <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
         </td>
     </tr>
@@ -1127,13 +1125,8 @@
         
         detailCaseAfter = new detailCase(duplicate.value, agency.value, doNotCall.value, newsLetter.value, survey.value, hpfMediaConfirmation.value, hpfSuccessStory.value);
         if (ComparePaymentObject(detailCaseAfter))
-        {
-            /*if(confirm(msfWARN0450))
-            {            
-                document.getElementById('<%=hidSaveIsYes.ClientID %>').value = "True";
-            }*/
-            Popup.showModal('mdgCaseDetail');             
-            //TabControl.SelectTab(tempTabId.value)
+        {            
+            Popup.showModal('mdgCaseDetail');                      
             return false;                       
         }
         return true;

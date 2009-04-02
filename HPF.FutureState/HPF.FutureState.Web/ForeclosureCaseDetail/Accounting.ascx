@@ -117,7 +117,6 @@
     <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" Width="100px"
         OnClick="btnSave_Click" />
 </div>
-<asp:HiddenField ID="hidSaveIsYes" runat="server" Value="" />
 <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
 
 <script type="text/javascript" language="javascript">
