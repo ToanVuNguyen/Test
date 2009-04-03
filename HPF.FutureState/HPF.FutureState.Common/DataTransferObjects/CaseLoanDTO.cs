@@ -127,18 +127,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [XmlElement(IsNullable = true)]
         [NotNullValidator(Tag = ErrorMessages.WARN0324, Ruleset = Constant.RULESET_COMPLETE, MessageTemplate = "Required!")]
-        private double? _InterestRate;
-        [NullableOrInRangeNumberValidator(true, "0", "99.999", Ruleset = Constant.RULESET_LENGTH, Tag= ErrorMessages.ERR0395)]
-        public double? InterestRate
-        {
-            get { return _InterestRate; }
-            set
-            {
-                _InterestRate = value;
-                if (value != null)
-                    _InterestRate = value / 100;
-            }
-        }
+
+        [NullableOrInRangeNumberValidator(true, "0", "99.999", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0395)]
+        public double? InterestRate { get; set;}
 
         [NullableOrStringLengthValidator(true, 50, "Originating Lender Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0060)]
         public string OriginatingLenderName { get; set; }

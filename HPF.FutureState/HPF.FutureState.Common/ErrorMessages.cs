@@ -652,7 +652,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0392, "NonProfitReferralKeyNum1 has a maximum length of 10 characters.");
                 errorMessageDict.Add(ERR0393, "NonProfitReferralKeyNum2 has a maximum length of 10 characters.");
                 errorMessageDict.Add(ERR0394, "NonProfitReferralKeyNum3 has a maximum length of 10 characters.");
-                errorMessageDict.Add(ERR0395, "An InterestRate must be a valid number between 0 and 99.999.");
+                errorMessageDict.Add(ERR0395, "An InterestRate must be a valid number between 0 and 99.999");
                 
                 errorMessageDict.Add(ERR0376, "The Last4_SSN search criteria must be exactly 4 numeric digits.");
                 errorMessageDict.Add(ERR0377, "The PropertyZip search criteria must be a valid 5 digit numeric zip.");

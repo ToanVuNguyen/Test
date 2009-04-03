@@ -564,20 +564,26 @@ namespace HPF.FutureState.BusinessLogic
                     {
                         var exItem = ex[j];
                         if (exItem.ErrorCode != null)
-                            msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " working on case loan index " + (i + 1));
+                            msgFcCaseSet.AddExceptionMessage(exItem.ErrorCode, ErrorMessages.GetExceptionMessageCombined(exItem.ErrorCode) + " on case loan index " + (i + 1));
                         else
-                            msgFcCaseSet.AddExceptionMessage("UNKNOWN", "UNKNOWN--" + exItem.Message + " working on case loan index " + (i + 1));
+                           msgFcCaseSet.AddExceptionMessage("UNKNOWN", "UNKNOWN--" + exItem.Message + " on case loan index " + (i + 1));
                     }
                 }
                 if (ruleSet == Constant.RULESET_MIN_REQUIRE_FIELD)
                 {
                     if (item.ServicerId == null)
                         msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0127, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0127, item.AcctNum));
-                    if (CompareString(item.Loan1st2nd , null))
+                    if (CompareString(item.Loan1st2nd, null))
                         msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0130, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0130, item.AcctNum));
-                    if(i == 0)
+                    if (i == 0)
                         msgFcCaseSet.Add(CheckAtLeastFirstMortgages(caseLoanDTOCollection));
-                    msgFcCaseSet.Add(CheckOtherFieldCaseLoanForPartial(servicerId, item, i));                        
+                    msgFcCaseSet.Add(CheckOtherFieldCaseLoanForPartial(servicerId, item, i));
+                }
+                else if (ruleSet == Constant.RULESET_LENGTH && item.InterestRate.HasValue)
+                {
+                    double testValue = Math.Round(item.InterestRate.Value, 3);
+                    if (testValue != item.InterestRate.Value && msgFcCaseSet.GetExceptionMessage(ErrorMessages.ERR0395) == null)
+                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0395, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0395));
                 }
             }            
             return msgFcCaseSet;
