@@ -35,9 +35,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int AgeMin { get; set; }
         [NullableOrInRangeNumberValidator(false,"-1",  "200",  Ruleset = Constant.RULESET_INVOICE_CASE_VALIDATION, Tag = ErrorMessages.ERR0571)]
         public int AgeMax { get; set; }
-        [NullableOrInRangeNumberValidator(false, "-1",  "100000000",  Ruleset = Constant.RULESET_INVOICE_CASE_VALIDATION, Tag = ErrorMessages.ERR0572)]
+        [NullableOrInRangeNumberValidator(false, "-1", "99,999,999.99", Ruleset = Constant.RULESET_INVOICE_CASE_VALIDATION, Tag = ErrorMessages.ERR0572)]
         public double HouseholdGrossAnnualIncomeMin { get; set; }
-        [NullableOrInRangeNumberValidator(false ,"-1",  "100000000",  Ruleset = Constant.RULESET_INVOICE_CASE_VALIDATION, Tag = ErrorMessages.ERR0573)]
+        [NullableOrInRangeNumberValidator(false, "-1", "99,999,999.99", Ruleset = Constant.RULESET_INVOICE_CASE_VALIDATION, Tag = ErrorMessages.ERR0573)]
         public double HouseholdGrossAnnualIncomeMax { get; set; }
         public string HouseholdCode { get; set; }
         [NullableOrStringLengthValidator(true, 30, "City", Ruleset = Constant.RULESET_INVOICE_CASE_VALIDATION, MessageTemplate = "City has a maximum length of 30 characters.")]

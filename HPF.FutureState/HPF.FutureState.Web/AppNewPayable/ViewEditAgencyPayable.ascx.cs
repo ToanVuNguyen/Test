@@ -161,17 +161,20 @@ namespace HPF.FutureState.Web.AppNewPayable
 
         private void TakeBackReason()
         {
-            string payableCaseIdCollection = GetSelectedRow();
-            string takebackReason = ddlTakebackReason.SelectedItem.Value;
-
-            AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
-            if (payableCaseIdCollection == null)
-            {
-                bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
-                return;
-            }
+            
             try
             {
+                string payableCaseIdCollection = GetSelectedRow();
+                string takebackReason = ddlTakebackReason.SelectedItem.Value;
+                if (takebackReason == "-1")
+                    takebackReason = null;
+
+                AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
+                if (payableCaseIdCollection == null)
+                {
+                    bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0575"));
+                    return;
+                }
                 agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 AgencyPayableBL.Instance.TakebackMarkCase(agencyPayableSet, takebackReason, payableCaseIdCollection);
                 BindViewEditPayable();
