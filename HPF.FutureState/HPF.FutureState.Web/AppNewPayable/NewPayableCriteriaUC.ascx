@@ -60,10 +60,10 @@
         <td class="sidelinks" align="right">
             Completed?*:</td>
         <td>
-            &nbsp;<asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text" Width="350px">
-             <asp:ListItem Value="B" Text="Select Both Complete & Incomplete Cases"></asp:ListItem>
+            &nbsp;<asp:DropDownList ID="ddlCaseCompleted" runat="server" CssClass="Text" Width="350px">             
             <asp:ListItem Value="Y" Text="Select Only Complete Cases" Selected="True"></asp:ListItem>
             <asp:ListItem Value="N" Text="Select Only Incomplete Cases"></asp:ListItem>
+            <asp:ListItem Value="B" Text="Select Both Complete & Incomplete Cases"></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
