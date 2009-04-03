@@ -87,6 +87,7 @@ namespace HPF.FutureState.Web
         }
         private string PhoneNumberFormat(string phoneNumber)
         {
+            if (phoneNumber.Length < 7) return phoneNumber;
            return string.Format("{0}-{1}-{2}", phoneNumber.Substring(0, 3), phoneNumber.Substring(3, 3), phoneNumber.Substring(6));
         }
 

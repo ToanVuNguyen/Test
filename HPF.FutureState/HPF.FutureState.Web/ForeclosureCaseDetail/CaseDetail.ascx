@@ -4,15 +4,19 @@
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
 <style type="text/css">
-    .style1
+    .style2
     {
-        width: 100%;
+        width: 245px;
+    }
+    .style3
+    {
+        width: 161px;
     }
 </style>
-<table style="width: 100%;">
+<table>
     <tr>
         <td>
-            <table style="width: 100%; border-bottom-style: none;">
+            <table>
                 <tr>
                     <td colspan="2" align="left">
                         <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage">
@@ -23,29 +27,29 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top; width: 35%">
-                        <table style="width: 100%; border-bottom-style: none;">
+                    <td style="vertical-align: top;">
+                        <table>
                             <tr>
-                                <td align="right">
-                                    <h1>
+                                <td align="left" width="150">
+                                    <h1 align="right">
                                         Property:</h1>
                                 </td>
-                                <td>
-                                </td>
+                                <td align="left" width="150">
+                                    &nbsp;</td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Address 1*:
                                 </td>
-                                <td align="left">
+                                <td align="left" valign="top">
                                     <asp:Label ID="lblAddress1" runat="server" CssClass="Text" Text="1234 Any Street NW"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Address 2:
                                 </td>
-                                <td>
+                                <td valign="top">
                                     <asp:Label ID="lblAddress2" runat="server" CssClass="Text">#2</asp:Label>
                                 </td>
                             </tr>
@@ -82,16 +86,16 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Property Code:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblPropertyCode" runat="server" CssClass="Text">Single Family 
-                                    Detached</asp:Label>
+                                    Detached:</asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" nowrap="nowrap">
                                     Number of Occupants*:
                                 </td>
                                 <td>
@@ -131,7 +135,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Realty Company:
                                 </td>
                                 <td>
@@ -152,21 +156,20 @@
                                     Primary Residence<br />
                                     &nbsp;Est. Mkt Value:
                                 </td>
-                                <td style="vertical-align:bottom">
+                                <td style="vertical-align:bottom" valign="top">
                                     <asp:Label ID="lblPrimaryRes" runat="server" CssClass="Text">$200,000.00</asp:Label>
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td style="vertical-align: top; width: 35%">
-                        <table style="width: 100%;">
+                    <td style="vertical-align: top;">
+                        <table>
                             <tr>
-                                <td align="right">
-                                    <h1>
-                                        Borrower:</h1>
+                                <td align="left" class="sidelinks" width="150">
+                                    <h1 align="right">Borrower:</h1>
                                 </td>
-                                <td>
-                                </td>
+                                <td align="left" width="150">
+                                    &nbsp;</td>
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
@@ -185,10 +188,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Last Name*:
                                 </td>
-                                <td>
+                                <td valign="top">
                                     <asp:Label ID="lblLastName" runat="server" CssClass="Text">Mustang</asp:Label>
                                 </td>
                             </tr>
@@ -289,7 +292,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right"  nowrap="nowrap" class="sidelinks">
                                     Education Level Completed:
                                 </td>
                                 <td>
@@ -322,15 +325,15 @@
                             </tr>
                         </table>
                     </td>
-                    <td >
-                        <table style="width: 100%;">
+                    <td valign="top">
+                        <table>
                             <tr>
-                                <td align="right">
-                                    <h1>
+                                <td align="left" width="150">
+                                    <h1 align="right">
                                         Co-Borrower:</h1>
                                 </td>
-                                <td>
-                                </td>
+                                <td align="left" width="150">
+                                    &nbsp;</td>
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
@@ -341,7 +344,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" nowrap="nowrap">
                                     Middle Name:
                                 </td>
                                 <td>
@@ -405,25 +408,27 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
-                                    <h1>
+                                <td nowrap="nowrap">
+                                    <h1 align="right">
                                         Contact Address:</h1>
                                 </td>
+                                <td nowrap="nowrap">
+                                    &nbsp;</td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Address 1*:
                                 </td>
-                                <td>
+                                <td valign="top">
                                     <asp:Label ID="lblContactAdd1" runat="server" CssClass="Text">1234 Any Street 
                                     NW</asp:Label>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Address 2:
                                 </td>
-                                <td>
+                                <td valign="top">
                                     <asp:Label ID="lblContactAdd2" runat="server" CssClass="Text">#2</asp:Label>
                                 </td>
                             </tr>
@@ -462,26 +467,18 @@
     </tr>
     <tr>
         <td>
-            <table class="style1">
-                <colgroup>
-                    <col width="20%" />
-                    <col width="20%" />
-                    <col width="30%" />
-                    <col width="30%" />
-                </colgroup>
+            <table>                
                 <tr>
-                    <td align="right">
-                        <h1>
-                            Case Status:</h1>
+                    <td align="right" width="200">
+                        <h1>Case Status:</h1>
                     </td>
-                    <td>
+                    <td width="250">
                         &nbsp;
                     </td>
-                    <td align="right">
-                        <h1>
-                            Case Financials:</h1>
+                    <td align="right" width="230">
+                        <h1>Case Financials:</h1>
                     </td>
-                    <td>
+                    <td width="260">
                         &nbsp;
                     </td>
                 </tr>
@@ -510,7 +507,7 @@
                         <asp:DropDownList ID="ddlAgency" runat="server" CssClass="Text" TabIndex="2">
                         </asp:DropDownList>
                     </td>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" nowrap="nowrap">
                         Household Gross Annual Income*:
                     </td>
                     <td>
@@ -672,14 +669,14 @@
                 <tr>
                     <td align="right">
                         <h1>
-                            Case Summary :</h1>
+                            Case Summary:</h1>
                     </td>
                     <td>
                         &nbsp;
                     </td>
                     <td align="right">
                         <h1>
-                            Foreclosure Notice :</h1>
+                            Foreclosure Notice:</h1>
                     </td>
                     <td>
                         &nbsp;
@@ -743,15 +740,13 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <h1>
-                            Consent:</h1>
+                        <h1>Consent:</h1>
                     </td>
                     <td>
                         &nbsp;
                     </td>
                     <td align="right">
-                        <h1>
-                            Bankruptcy:</h1>
+                        <h1>Bankruptcy:</h1>
                     </td>
                     <td>
                         &nbsp;
@@ -814,39 +809,37 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <h1>
-                            Default Reason:</h1>
+                        <h1>Default Reason:</h1>
                     </td>
                     <td>
                         &nbsp;
                     </td>
                     <td align="right">
-                        <h1>
-                            HUD:</h1>
+                        <h1>HUD:</h1>
                     </td>
                     <td>
                         &nbsp;
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Primary Default Reason*:
                     </td>
-                    <td valign="bottom">
+                    <td valign="top">
                         <asp:Label ID="lblDefaultReason" runat="server" CssClass="Text">Excessive Obligations</asp:Label>
                     </td>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         HUD Termination Reason:
                     </td>
-                    <td valign="bottom">
+                    <td valign="top">
                         <asp:Label ID="lblTerminationReason" runat="server" CssClass="Text">Client terminated counseling</asp:Label>
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" nowrap="nowrap">
                         Secondary Default Reason*:
                     </td>
-                    <td  style="vertical-align:bottom">
+                    <td valign="top">
                         <asp:Label ID="lblSDefaultReason" runat="server" CssClass="Text">Inability to sell</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
@@ -863,10 +856,10 @@
                     <td>
                         &nbsp;
                     </td>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         HUD Outcome*:
                     </td>
-                    <td>
+                    <td valign="top">
                         <asp:Label ID="lblHUDOutcome" runat="server" CssClass="Text">Currently receiving foreclosure prevention/buget counseling</asp:Label>
                     </td>
                 </tr>
@@ -877,17 +870,12 @@
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <table width="100%">
-                            <colgroup>
-                                <col width="25%" />
-                                <col width="80%" />
-                            </colgroup>
+                        <table>                            
                             <tr>
-                                <td align="right">
-                                    <h1>
-                                        Counselor Notes:</h1>
+                                <td align="right" width="200" class="sidelinks">
+                                    <h1>Counselor Notes:</h1>
                                 </td>
-                                <td>
+                                <td width="750">
                                     &nbsp;
                                 </td>
                             </tr>
@@ -941,36 +929,25 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="style7">
-                        <table width="100%">
-                            <colgroup>
-                                <col width="15%" />
-                                <col width="15%" />
-                                <col width="20%" />
-                                <col width="15%" />
-                                <col width="20%" />
-                                <col width="15%" />
-                            </colgroup>
+                    <td colspan="4">
+                        <table>                           
                             <tr>
-                                <td align="right">
-                                    <h1>
-                                        Opt In/Out:</h1>
+                                <td align="right" width="150">
+                                    <h1>Opt In/Out:</h1>
                                 </td>
-                                <td>
+                                <td width="150">
                                     &nbsp;
                                 </td>
-                                <td align="right">
-                                    <h1>
-                                        Media Candidate:</h1>
+                                <td align="right" width="170">
+                                    <h1>Media Candidate:</h1>
                                 </td>
-                                <td>
+                                <td width="150">
                                     &nbsp;
                                 </td>
-                                <td align="right">
-                                    <h1>
-                                        Success Story:</h1>
+                                <td align="right" width="150">
+                                    <h1>Success Story:</h1>
                                 </td>
-                                <td>
+                                <td width="150">
                                     &nbsp;
                                 </td>
                             </tr>
