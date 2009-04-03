@@ -122,7 +122,7 @@ namespace HPF.FutureState.BusinessLogic
             if (sendSummary.EmailSubject == null || sendSummary.EmailSubject == string.Empty)
                 sendSummary.EmailSubject = CreateEmailSummarySubject(fc_Id);
             SendEmailSummaryReport(sendSummary.EmailToAddress,
-                                    sendSummary.EmailSubject + Constant.HPF_SECURE_EMAIL, 
+                                    sendSummary.EmailSubject, 
                                     sendSummary.EmailBody, 
                                     sendSummary.FCId.Value, 
                                     fileName);
