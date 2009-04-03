@@ -71,7 +71,7 @@ namespace HPF.FutureState.Common.Utils
             if (!IsEncrypted)
                 mailMessage.Subject = Subject;
             else
-                mailMessage.Subject = Subject + "$S$";
+                mailMessage.Subject = Subject + Constant.HPF_SECURE_EMAIL;
             return mailMessage;
         }
 
