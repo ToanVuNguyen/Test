@@ -294,11 +294,19 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             //reset session
             Session[Constant.SS_CASE_AUDIT_OBJECT] = null;
 
-            //clear controls
-            foreach (DropDownList ddl in this.Controls.OfType<DropDownList>())
-                ddl.Text = string.Empty;
+            //clear controls            
             txtAuditDate.Text = null;
             txtAuditComment.Text = null;
+            ddlAppropriateOutcome.SelectedIndex = -1;
+            ddlAuditFailureReason.SelectedIndex = -1;
+            ddlAuditType.SelectedIndex = -1;
+            ddlBudgetCompleted.SelectedIndex = -1;
+            ddlClientActionPlan.SelectedIndex = -1;
+            ddlCompliant.SelectedIndex = -1;
+            ddlReasonForDefault.SelectedIndex = -1;
+            ddlReviewedBy.SelectedIndex = -1;
+            ddlVerbalPrivacyConsent.SelectedIndex = -1;
+            ddlWrittenPrivacyConsent.SelectedIndex = -1;
             grdvCaseAudit.SelectedIndex = -1;
 
             hfAction.Value = null;

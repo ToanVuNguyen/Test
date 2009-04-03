@@ -14,15 +14,6 @@ namespace HPF.FutureState.Web {
     public partial class AppForeclosureCaseDetailPage {
         
         /// <summary>
-        /// hfDoSaving control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfDoSaving;
-        
-        /// <summary>
         /// lblHpfID control.
         /// </summary>
         /// <remarks>

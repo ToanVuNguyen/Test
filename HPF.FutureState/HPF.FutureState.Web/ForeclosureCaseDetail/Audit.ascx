@@ -4,6 +4,7 @@
     
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage">
 </asp:BulletedList>
+
 <table>
     <tr>
         <td colspan="2"  class="sidelinks">
@@ -86,7 +87,8 @@
         </td>
     </tr>
     <tr align="center">
-        <td>
+        <td>            
+            <asp:Panel DefaultButton ="btnSave" runat="server">
             <table width="100%">
                 <tr>
                     <td>
@@ -128,7 +130,7 @@
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks">
-                        Audit Type:
+                        Audit Type*:
                     </td>
                     <td align="left">
                         <asp:DropDownList ID="ddlAuditType" runat="server"  CssClass="Text" 
@@ -214,7 +216,8 @@
                     </td>    
                     <td>&nbsp;</td>                
                 </tr>
-            </table>
+            </table>            
+            </asp:Panel>
         </td>
     </tr>
 </table>

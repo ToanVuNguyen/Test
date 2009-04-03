@@ -3,6 +3,7 @@
 <asp:HiddenField ID="selRow" runat="server" />
 <asp:HiddenField ID="hfAction" runat="server" />
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage"></asp:BulletedList>
+<asp:Panel runat="server" DefaultButton = "btn_Save">
 <table width="100%" id="tbl_main">
     <tr>
         <td colspan="4" class="sidelinks">
@@ -152,6 +153,7 @@
         <td>&nbsp;</td>
     </tr>  
 </table>
+</asp:Panel>
 <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
 
 <script type="text/javascript" language="javascript">

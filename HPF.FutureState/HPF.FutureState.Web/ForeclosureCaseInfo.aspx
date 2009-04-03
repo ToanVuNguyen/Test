@@ -5,8 +5,7 @@
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="HPF" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
-    <table style="width: 100%;" align="left">
-        <asp:HiddenField ID="hfDoSaving" runat="server" />
+    <table style="width: 100%;" align="left">        
         <tr>
             <td align="center">
                 <h1>
