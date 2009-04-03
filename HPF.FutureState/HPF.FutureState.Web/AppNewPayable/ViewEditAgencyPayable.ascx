@@ -9,15 +9,7 @@
     <ContentTemplate>--%>
 
 <table style="width:100%;" cellspacing="0px">
-    <colgroup>
-        <col width="15%" />
-        <col width="9%" />
-        <col width="23%" />
-        <col width="8%" />
-        <col width="20%" />
-        <col width="13%" />
-        <col width="14%" />
-    </colgroup>
+    
     <tr>
         <td colspan="8" align="center">
             <h1>
@@ -133,7 +125,7 @@
         <td class="Text">
             &nbsp;
         </td>
-        <td align="right" class="sidelinks">
+        <td align="right" class="sidelinks" nowrap="nowrap">
             Unpaid NFMC Eligible Cases:
         </td>
         <td class="Text" colspan="2">
@@ -188,7 +180,7 @@
                             <Columns>
                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                     <HeaderTemplate>
-                                        <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck"
+                                        <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck" AutoPostBack="true"
                                              />
                                     </HeaderTemplate>
                                     <ItemTemplate>
