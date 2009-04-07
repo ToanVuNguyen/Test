@@ -21,7 +21,7 @@
       <Value Profile="(Default)">Review Status</Value>
     </Setting>
     <Setting Name="ReviewStatusDefaultValue" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">New</Value>
+      <Value Profile="(Default)">NEW</Value>
     </Setting>
   </Settings>
 </SettingsFile>

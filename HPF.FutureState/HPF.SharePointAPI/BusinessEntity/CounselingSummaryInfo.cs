@@ -54,8 +54,8 @@ namespace HPF.SharePointAPI.BusinessEntity
             _reviewStatus = HPF.SharePointAPI.ContentTypes.CounselingSummary.Default.ReviewStatusDefaultValue;
         }
         public CounselingSummaryInfo(string name, byte[] file,
-             string loanNumber, string servicer, DateTime completedDate, 
-             DateTime foreclosureSaleDate, string delinquency):
+             string loanNumber, string servicer, DateTime? completedDate, 
+             DateTime? foreclosureSaleDate, string delinquency):
             base(name, file)
         {
             _loanNumber = loanNumber;

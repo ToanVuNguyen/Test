@@ -191,6 +191,7 @@ namespace HPF.SharePointAPI.Controllers
             }
             spItem[CounselingSummary.Default.LoanNumber] = counselingSummary.LoanNumber;            
             spItem[CounselingSummary.Default.Servicer] = counselingSummary.Servicer;
+            spItem[CounselingSummary.Default.ReviewStatus] = counselingSummary.ReviewStatus;
         }
 
         /// <summary>

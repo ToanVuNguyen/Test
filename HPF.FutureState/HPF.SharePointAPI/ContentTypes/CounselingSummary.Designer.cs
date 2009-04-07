@@ -79,7 +79,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("New")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NEW")]
         public string ReviewStatusDefaultValue {
             get {
                 return ((string)(this["ReviewStatusDefaultValue"]));
