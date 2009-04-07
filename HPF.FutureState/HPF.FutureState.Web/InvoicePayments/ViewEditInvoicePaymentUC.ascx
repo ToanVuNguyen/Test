@@ -72,7 +72,7 @@
     </tr>
     <tr>
         <td class="sidelinks" align="right" nowrap="nowrap">
-            Payment File:</td>
+            Previous Reconciliation File:</td>
         <td>
             <asp:TextBox ID="txtPaymentFile" runat="server"  CssClass="Text" Width="100%" 
                 ReadOnly="True" BackColor="#EBEBE4"></asp:TextBox>
@@ -80,6 +80,7 @@
     </tr>
     <tr>
         <td class="sidelinks" align="right" nowrap="nowrap">
+            &nbsp;New
             Reconciliation File:</td>
         <td>
             <asp:FileUpload ID="fileUpload" runat="server" Width="100%" CssClass="Text" Height="18px" 
@@ -87,7 +88,7 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" valign="top">
             Comments:</td>
         <td>
             <asp:TextBox ID="txtComment" runat="server" CssClass="Text" Rows="6" TextMode="MultiLine"  Width="100%"></asp:TextBox>
