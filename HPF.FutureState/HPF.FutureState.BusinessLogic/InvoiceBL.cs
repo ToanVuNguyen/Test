@@ -511,7 +511,7 @@ namespace HPF.FutureState.BusinessLogic
                 }
                 catch
                 {
-                    var exMes = GetExceptionMessage(ErrorMessages.ERR0662, rowIndex);
+                    var exMes = GetExceptionMessage(ErrorMessages.ERR0677, rowIndex);
                     ex.ExceptionMessages.Add(exMes);
                 }
                 //Internal Case ID and Invoice Case ID = null
