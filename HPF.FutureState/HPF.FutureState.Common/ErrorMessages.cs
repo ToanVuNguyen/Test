@@ -162,7 +162,7 @@ namespace HPF.FutureState.Common
         public const string ERR0263 = "ERR0263";
         public const string ERR0264 = "ERR0264";
         public const string ERR0265 = "ERR0265";
-        public const string ERR0266 = "ERR0266";
+        public const string WARN0266 = "WARN0266";
         public const string ERR0267 = "ERR0267";
         public const string ERR0268 = "ERR0268";
         public const string ERR0269 = "ERR0269";
@@ -611,7 +611,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0263, "An invalid OutcomeTypeId was provided");
                 errorMessageDict.Add(ERR0264, "An invalid CallId was provided.");
                 errorMessageDict.Add(ERR0265, "An Esternal Referral outcome requires the entry of either a NonprofitreferralKeyNum1 or ExeRefOtherName1.");
-                errorMessageDict.Add(ERR0266, "A Serivcer selection of Other requires the entry of OtherServicerName.");
+                errorMessageDict.Add(WARN0266, "A Serivcer selection of Other requires the entry of OtherServicerName.");
                 errorMessageDict.Add(ERR0267, "BorrowerFnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
                 errorMessageDict.Add(ERR0268, "BorrowerLname may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
                 errorMessageDict.Add(ERR0269, "CoBorrowerFnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
@@ -690,7 +690,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0324, "A InterestRate is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0325, "A MortgageProgramCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0326, "A billable OutcomeTypeID is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0327, "The budget item \"Mortgage Amount\" is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0327, "The budget item \"Mortgage Amount\" is required to complete a foreclosure case");
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
@@ -705,7 +705,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0279, "A SummarySentOtherDt is required to save a complete foreclosure case. Since the SummarySentOtherCd was provided.");
                 errorMessageDict.Add(WARN0280, "A SrvcrWorkoutPlanCurrentInd is required to save a complete foreclosure case since HasWorkoutPlanInd = Y.");
                 errorMessageDict.Add(WARN0281, "A HomeSalePrice is required to save a complete foreclosure case since the ForSaleInd = Y.");
-                errorMessageDict.Add(WARN0282, "An ArmResetInd is required on AcctNum: [XXX] to save a complete foreclosure case.");
+                errorMessageDict.Add(WARN0282, "An ArmResetInd is required on AcctNum: [{0}] to save a complete foreclosure case.");
 
                 errorMessageDict.Add(WARN0903, "The CallID provided already exists in a foreclosure case:  Servicer: {0}, Account Number: {1}, Zip Code: {2}. Borrower Name: {3} {4}. The case is currently being worked on by: {5} {6} of {7}. Counselor Phone: {8} {9} Counselor Email: {10} Last Outcome Date: {11} Last Outcome: {12}.");
                 // App foreclosure Case Search

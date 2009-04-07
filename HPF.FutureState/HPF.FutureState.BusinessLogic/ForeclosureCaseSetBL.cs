@@ -592,16 +592,16 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int? servicerId, CaseLoanDTO item, int i)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.ServicerId == servicerId && CompareString(item.OtherServicerName, null))
-            {                
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0266));
+            if (item.ServicerId == servicerId && CompareString(item.OtherServicerName, null) && WarningMessage.GetExceptionMessage(ErrorMessages.WARN0266) == null)
+            {
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0266));
             }            
             if((CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_ARM)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_HYBARM)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_POA)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_INTONLY))
-               && CompareString(item.ArmResetInd, null))
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0282, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0282));                
+               && CompareString(item.ArmResetInd, null) && WarningMessage.GetExceptionMessage(ErrorMessages.WARN0282) == null)
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0282, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0282, item.AcctNum));                
             return msgFcCaseSet;
         }
 
@@ -845,7 +845,7 @@ namespace HPF.FutureState.BusinessLogic
             //Cannot resubmit the case complete without billable outcome
             msgFcCaseSet.Add(CheckBillableOutCome(foreclosureCaseSet, caseComplete));
             //Budget Item must have atleast 1 budget_item = 'Mortgage Amount'.(If case completed)
-            msgFcCaseSet.Add(CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete));
+            CheckMortgageBudgetItem(foreclosureCaseSet, caseComplete);
             //Budget Item valid or not
             msgFcCaseSet.Add(CheckBugetItemIsValid(foreclosureCaseSet));
             WarningMessage.Add(CheckCrossFields(foreclosureCaseSet.ForeclosureCase));
@@ -979,28 +979,9 @@ namespace HPF.FutureState.BusinessLogic
             return false;
         }
 
-        private ExceptionMessageCollection CheckMortgageBudgetItem(ForeclosureCaseSetDTO foreclosureCaseSetInput, bool caseComplete)
-        {            
-            ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            bool isbudgetHaveMortgate = CheckBudgetItemHaveMortgage(foreclosureCaseSetInput);
-            if (!isbudgetHaveMortgate && caseComplete)
-            {
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
-                return msgFcCaseSet;
-            }
-            bool isbudgetHaveMortgateGreaterThanZero = CheckBudgetItemHaveMortgageGreaterZero(foreclosureCaseSetInput);
-            if (!isbudgetHaveMortgateGreaterThanZero && caseComplete)
-            {
-                msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
-                return msgFcCaseSet;
-            }
-            if (foreclosureCaseSetInput.BudgetItems == null || foreclosureCaseSetInput.BudgetItems.Count < 1)
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
-            else if (!isbudgetHaveMortgate)
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
-            else if (!isbudgetHaveMortgateGreaterThanZero)
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
-            return msgFcCaseSet;            
+        private void CheckMortgageBudgetItem(ForeclosureCaseSetDTO foreclosureCaseSetInput, bool caseComplete)
+        {                        
+            CheckBudgetItemHaveMortgage(foreclosureCaseSetInput);             
         }
 
         /// <summary>
@@ -1008,39 +989,26 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="foreclosureCaseSetInput"></param>
         /// <returns></returns>
-        private bool CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
+        private void CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
+            bool addErr329 = false;
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
             if (budgetItemCollection == null || budgetItemCollection.Count < 1)
-                return false;
+                return;
             int subCatId = FindSubCatWithNameIsMortgage();
-            foreach (BudgetItemDTO item in budgetItemCollection)
+            for(int i=0;i<budgetItemCollection.Count; i++)
             {
-                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != null)
-                    return true;
-            }
-            return false;
+                BudgetItemDTO item = budgetItemCollection[i];
+                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt <= 0)
+                    WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327) + " on case loan index " + (i+1));
+                else if (!addErr329 && item.BudgetSubcategoryId != subCatId && item.BudgetItemAmt <= 0)
+                {
+                    WarningMessage.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
+                    addErr329 = true;
+                }
+            }                    
         }
-
-        /// <summary>
-        /// Check BudgetItem have least  item Mortgate
-        /// and have value greater than ZERO
-        /// </summary>
-        /// <param name="foreclosureCaseSetInput"></param>
-        /// <returns></returns>
-        private bool CheckBudgetItemHaveMortgageGreaterZero(ForeclosureCaseSetDTO foreclosureCaseSetInput)
-        {
-            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
-            if (budgetItemCollection == null || budgetItemCollection.Count < 1)
-                return false;
-            int subCatId = FindSubCatWithNameIsMortgage();
-            foreach (BudgetItemDTO item in budgetItemCollection)
-            {
-                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt != null && item.BudgetItemAmt > 0)
-                    return true;
-            }
-            return false;
-        }
+       
         #endregion        
 
         #region Function Update Fore Closure Case Set
