@@ -7,14 +7,7 @@
 <asp:ScriptManager ID="myscript" runat="server">
 </asp:ScriptManager>
 <table width="100%">
-    <colgroup>
-        <col width="5%" />
-        <col width="30%" />
-        <col width="15%" />
-        <col width="20%" />
-        <col width="15%" />
-        <col width="15%" />
-    </colgroup>
+    
     <tr>
         <td colspan="5" align="center" >
            <h1> Agency Accounts Payable page</h1>
@@ -52,7 +45,7 @@
         <td>
         </td>
         <td class="sidelinks" align="right">
-            Period End:
+            Period End*:
         </td>
         <td>
             <asp:TextBox ID="txtPeriodEnd" runat="server" Width="150px" MaxLength="100" CssClass="Text"></asp:TextBox>
@@ -67,7 +60,7 @@
     </tr>
     <tr>
         <td colspan="6">
-            <asp:BulletedList ID="bulMessage" runat="server" CssClass="ErrorMessage">
+            <asp:BulletedList ID="bulMessage" BulletStyle="Square" runat="server" CssClass="ErrorMessage">
             </asp:BulletedList>
         </td>
     </tr>

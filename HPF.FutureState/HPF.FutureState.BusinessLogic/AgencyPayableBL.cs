@@ -126,8 +126,8 @@ namespace HPF.FutureState.BusinessLogic
             foreach(ValidationResult validResult in validResults)
             {
                 string errorCode = string.IsNullOrEmpty(validResult.Tag) ? "ERROR" : validResult.Tag;
-                string errorMessage = string.IsNullOrEmpty(validResult.Tag) ? validResult.Message : ErrorMessages.GetExceptionMessageCombined(validResult.Tag);
-                dataEx.ExceptionMessages.AddExceptionMessage(errorMessage);
+                string errorMessage = string.IsNullOrEmpty(validResult.Tag) ? validResult.Message : ErrorMessages.GetExceptionMessage(validResult.Tag);
+                dataEx.ExceptionMessages.AddExceptionMessage(errorCode,errorMessage);
             }
             if (dataEx.ExceptionMessages.Count > 0)
                 throw dataEx;
