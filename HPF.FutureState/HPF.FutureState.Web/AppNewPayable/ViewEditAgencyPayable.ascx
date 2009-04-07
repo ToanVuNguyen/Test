@@ -142,7 +142,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" >
+        <td align="right" class="sidelinks" valign="top" >
             Payable Comments:
         </td>
         <td colspan="7">

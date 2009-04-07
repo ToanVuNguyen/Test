@@ -99,7 +99,7 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right">
+        <td class="sidelinks" align="right" valign="top">
             Payment Comments:
         </td>
         

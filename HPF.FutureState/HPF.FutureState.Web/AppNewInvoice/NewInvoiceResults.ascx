@@ -50,7 +50,7 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td align="right" class="sidelinks" nowrap="nowrap">
+        <td align="right" class="sidelinks" nowrap="nowrap" valign="top">
             Invoice 
          
             Comments:</td>
