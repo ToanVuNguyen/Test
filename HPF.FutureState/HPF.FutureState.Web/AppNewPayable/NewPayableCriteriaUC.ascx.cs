@@ -157,9 +157,9 @@ namespace HPF.FutureState.Web.AppNewPayable
         private DateTime ConvertToDateTime(string obj)
         {
             DateTime dt;
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
-            DateTimeStyles styles = DateTimeStyles.None;
-            if (DateTime.TryParseExact(obj, "M/d/yyyy", culture, styles, out dt))
+            //CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            //DateTimeStyles styles = DateTimeStyles.None;
+            if (DateTime.TryParse(obj, out dt))
                 return dt;
             return dt;
         }
@@ -171,10 +171,9 @@ namespace HPF.FutureState.Web.AppNewPayable
                 agencyPayableSearchCriteria.AgencyId = agencyid;
             else agencyPayableSearchCriteria.AgencyId = null;
             
-            agencyPayableSearchCriteria.PeriodStartDate = ConvertToDateTime(txtPeriodStart.Text.Trim());
+            agencyPayableSearchCriteria.PeriodStartDate = SetToStartDay(ConvertToDateTime(txtPeriodStart.Text.Trim()));
             agencyPayableSearchCriteria.PeriodStartDateBK = agencyPayableSearchCriteria.PeriodStartDate;
-            agencyPayableSearchCriteria.PeriodEndDate = ConvertToDateTime(txtPeriodEnd.Text.Trim());
-            agencyPayableSearchCriteria.PeriodEndDate = agencyPayableSearchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
+            agencyPayableSearchCriteria.PeriodEndDate = SetToEndDay(ConvertToDateTime(txtPeriodEnd.Text.Trim()));
             
             agencyPayableSearchCriteria.CaseComplete = ddlCaseCompleted.SelectedValue.ToString();
             
@@ -184,5 +183,20 @@ namespace HPF.FutureState.Web.AppNewPayable
             return agencyPayableSearchCriteria;
         }
 
+        DateTime SetToStartDay(DateTime t)
+        {
+            t = t.AddHours(-t.Hour);
+            t = t.AddMinutes(-t.Minute);
+            t = t.AddSeconds(-t.Second);
+            t = t.AddMilliseconds(-t.Millisecond);
+            return t;
+        }
+        DateTime SetToEndDay(DateTime t)
+        {
+            t = SetToStartDay(t);
+            t = t.AddDays(1);
+            t = t.AddSeconds(-1);
+            return t;
+        }
     }
 }
