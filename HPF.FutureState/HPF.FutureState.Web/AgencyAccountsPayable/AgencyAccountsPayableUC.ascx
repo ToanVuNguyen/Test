@@ -76,7 +76,7 @@
                 <asp:UpdatePanel ID="myupdatepanel" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
-                            AutoGenerateColumns="false" DataKeyNames="AgencyPayableId" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
+                            AutoGenerateColumns="false" GridLines="Vertical" DataKeyNames="AgencyPayableId" OnSelectedIndexChanged="grvInvoiceList_SelectedIndexChanged">
                             <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
