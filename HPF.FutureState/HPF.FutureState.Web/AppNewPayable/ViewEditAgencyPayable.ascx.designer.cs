@@ -158,13 +158,13 @@ namespace HPF.FutureState.Web.AppNewPayable {
         protected global::System.Web.UI.WebControls.TextBox txtPayableComments;
         
         /// <summary>
-        /// panForeClosureCaseSearch control.
+        /// pnlPayableCases control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panForeClosureCaseSearch;
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel pnlPayableCases;
         
         /// <summary>
         /// UpdatePanel1 control.

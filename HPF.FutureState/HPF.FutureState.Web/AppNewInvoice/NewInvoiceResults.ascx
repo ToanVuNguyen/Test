@@ -72,7 +72,7 @@
     <tr>
         <td align="center" colspan="5">
             <cc1:StatefullScrollPanel ID="panInvoiceResultsPage" runat="server" CssClass="ScrollTable"
-                  Width="100%">
+                  Width="100%" BorderWidth="1" BorderColor="LightGray">
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvNewInvoiceResults" runat="server" CellPadding="2" ForeColor="#333333"
@@ -128,3 +128,12 @@
         </td>
     </tr>
 </table>
+
+<script type="text/javascript">
+    var mypanel = document.getElementById('<%=panInvoiceResultsPage.ClientID %>');
+    
+    if(mypanel != null)
+    {                        
+        mypanel.style.height = screen.height - 595; 
+    }
+</script>

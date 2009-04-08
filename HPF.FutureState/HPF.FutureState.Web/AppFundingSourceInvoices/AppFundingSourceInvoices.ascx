@@ -77,7 +77,7 @@
     <tr>
         <td colspan="5" >
         <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable" 
-                 Width="100%" Visible="true">
+                 Width="100%" Visible="true" BorderColor="LightGray" BorderWidth="1">
                  <asp:UpdatePanel runat="server"   >                 
                  <ContentTemplate>                                 
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
@@ -129,7 +129,12 @@
 
 <script type="text/javascript" language="javascript">    
     var id='<%=SelectedRowIndex.ClientID %>';
-
+     var mypanel = document.getElementById('<%=panForeClosureCaseSearch.ClientID %>');
+            if(mypanel != null)
+            {                
+                mypanel.style.height = screen.height - 510;
+            }
+        
     function CancelClientClick()
     {
         var SelectedIndex = document.getElementById(id);    

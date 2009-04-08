@@ -27,7 +27,7 @@
 </style>
 <asp:ScriptManager runat="server" ID="myscriptManager">
 </asp:ScriptManager>
-<table width="100%">
+<table width="100%" cellpadding="0" cellspacing="0">
     <colgroup>
         <col width="15%" />
         <col width="20%" />
@@ -125,8 +125,8 @@
     </tr>
     <tr>
         <td colspan="5">
-            <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
-                Width="100%" Visible="true" ScrollBars="Auto">
+            <cc1:StatefullScrollPanel ID="pnlPayableCases" runat="server" CssClass="ScrollTable"
+                Width="100%" Visible="true" ScrollBars="Auto" BorderColor="LightGray" BorderWidth="1">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                 
@@ -187,22 +187,6 @@
         </td>
     </tr>
     <tr>
-        <td>
-        </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
         <td colspan="5">
             <table width="40%" align="center">
                 <tr>
@@ -217,3 +201,10 @@
         </td>
     </tr>
 </table>
+<script type="text/javascript">
+    var mypanel = document.getElementById('<%=pnlPayableCases.ClientID %>');
+    if(mypanel != null)
+    {                
+        mypanel.style.height = screen.height - 570;
+    }
+</script>

@@ -2,6 +2,12 @@
     Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc2" %>
+<style type="text/css">
+    .style1
+    {
+        width: 100%;
+    }
+</style>
 <%--<%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>--%>
@@ -12,28 +18,27 @@
         <col width="90%" />
     </colgroup>
     <tr style="">
-        <td align="center">
-            <h1>Foreclosure Case Search</h1>
+        <td align="center" class="sidelinks">
+            <b><font size="3">Foreclosure Case Search</font></b>
+        </td>
+    </tr>
+    <tr>
+        <td class="sidelinks">
+           <b><font size="2">Search Criteria:</font> </b>
         </td>
     </tr>
     <tr>
         <td>
-            <h1>
-                Search Criteria:</h1>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table style="width: 940px">
+            <table width="100%">
             <tr>
-               <td align="right" class="sidelinks">
+               <td align="right" class="sidelinks" nowrap="nowrap">
                         Loan Number:
                     </td>
-                    <td class="Control" width="110 px">
+                    <td class="Control" width="110px">
                         <asp:TextBox ID="txtLoanNum" runat="server" CssClass="Text" Width="110px" 
                             TabIndex="1"></asp:TextBox>
                     </td>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" nowrap="nowrap">
                         Foreclosure Case ID:
                     </td>
                     <td class="Control">
@@ -44,12 +49,22 @@
                         Duplicate:
                     </td>
                     <td class="Control">
+                        <table width="100%">
+                            <tr>
+                                <td>
                         <asp:DropDownList ID="ddlDup" runat="server" CssClass="Text" Width="60px" 
                             TabIndex="9">
                             <asp:ListItem Selected="True" Value=''></asp:ListItem>
                             <asp:ListItem Value='Y'>Yes</asp:ListItem>
                             <asp:ListItem Value='N'>No</asp:ListItem>
                         </asp:DropDownList>
+                                </td>
+                                <td align="right">
+                    <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"
+                CssClass="MyButton" TabIndex="12" />
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -124,22 +139,7 @@
                             TabIndex="12">
                         </asp:DropDownList>
                     </td>
-                <tr>
-                    <td align="right" class="sidelinks">
-                        &nbsp;</td>
-                    <td class="Control" width="110 px">
-                        &nbsp;</td>
-                    <td align="right" class="sidelinks">
-                        &nbsp;</td>
-                    <td class="Control">
-                        &nbsp;</td>
-                    <td class="sidelinks" align="right">
-                        &nbsp;</td>
-                    <td class="Control">
-                    <asp:Button ID="btnSearch" runat="server" Text="Search" Width="100px" OnClick="btnSearch_Click"
-                CssClass="MyButton" TabIndex="12" />
-                    </td>
-            </table>
+                    </table>
         </td>
     </tr>
     <tr>
@@ -243,5 +243,6 @@
             if(mypanel != null)
             {
                 mypanel.style.width= screen.width - 50;             
+                mypanel.style.height = screen.height - 580;
             }
 </script>

@@ -171,8 +171,8 @@
     </tr>
     <tr>
         <td align="left" class="sidelinks" colspan="7">
-            <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
-                Width="100%" Visible="true">
+            <cc1:StatefullScrollPanel ID="panInvoiceCases" runat="server" CssClass="ScrollTable"
+                Width="100%" Visible="true" BorderWidth="1" BorderColor="LightGray">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvViewEditInvoice" runat="server" CellPadding="2" ForeColor="#333333"
@@ -248,6 +248,13 @@
 </table>
 <script type="text/javascript" language="javascript">    
 var id='<%=SelectedRowIndex.ClientID %>';
+var mypanel = document.getElementById('<%=panInvoiceCases.ClientID %>');
+    
+if(mypanel != null)
+{                        
+    mypanel.style.height = screen.height - 650; 
+}
+    
 function validate(chk)
 {
     var SelectedIndex = document.getElementById(id);    
@@ -343,6 +350,3 @@ function onUnPayClick()
             </tr>
         </table>        
 </div>
-    
-<%--</ContentTemplate>
-</asp:UpdatePanel>--%>

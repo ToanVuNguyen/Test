@@ -66,7 +66,7 @@
     <tr>
         <td colspan="5">
             <cc1:StatefullScrollPanel ID="panInvoiceList" runat="server" CssClass="ScrollTable"
-                Width="100%">
+                Width="100%" BorderColor="LightGray" BorderWidth="1">
                 <asp:UpdatePanel ID="myUPanel" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
@@ -105,3 +105,12 @@
         </td>
     </tr>
 </table>
+
+<script type="text/javascript">
+var mypanel = document.getElementById('<%=panInvoiceList.ClientID %>');
+    
+if(mypanel != null)
+{                        
+    mypanel.style.height = screen.height - 500; 
+}
+</script>

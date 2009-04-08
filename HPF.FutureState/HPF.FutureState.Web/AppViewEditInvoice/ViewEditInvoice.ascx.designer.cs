@@ -158,13 +158,13 @@ namespace HPF.FutureState.Web.AppViewEditInvoice {
         protected global::System.Web.UI.WebControls.TextBox txtInvoiceComments;
         
         /// <summary>
-        /// panForeClosureCaseSearch control.
+        /// panInvoiceCases control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panForeClosureCaseSearch;
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel panInvoiceCases;
         
         /// <summary>
         /// UpdatePanel1 control.

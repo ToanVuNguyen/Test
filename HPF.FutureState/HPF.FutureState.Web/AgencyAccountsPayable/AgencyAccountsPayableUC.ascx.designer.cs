@@ -95,13 +95,13 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         protected global::System.Web.UI.WebControls.BulletedList bulMessage;
         
         /// <summary>
-        /// StatefullScrollPanel1 control.
+        /// pnlPayables control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel StatefullScrollPanel1;
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel pnlPayables;
         
         /// <summary>
         /// myupdatepanel control.

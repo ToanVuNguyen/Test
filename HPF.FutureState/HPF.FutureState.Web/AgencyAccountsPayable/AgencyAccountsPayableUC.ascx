@@ -71,8 +71,8 @@
     </tr>
     <tr>
         <td colspan="5">
-            <cc1:StatefullScrollPanel ID="StatefullScrollPanel1" runat="server" CssClass="ScrollTable"
-                Width="100%">
+            <cc1:StatefullScrollPanel ID="pnlPayables" runat="server" CssClass="ScrollTable"
+                Width="100%" BorderColor="LightGray" BorderWidth="1">
                 <asp:UpdatePanel ID="myupdatepanel" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvInvoiceList" runat="server" BorderStyle="None" Width="100%"
@@ -116,6 +116,13 @@
 
 <script language="javascript" type="text/javascript">
     var id = '<%=hidSelectedRowIndex.ClientID %>'
+    var mypanel = document.getElementById('<%=pnlPayables.ClientID %>');
+    
+    if(mypanel != null)
+    {                        
+        mypanel.style.height = screen.height - 500; 
+    }
+
     function CancelClientClick() {
         var SelectedIndex = document.getElementById(id);
         if (SelectedIndex.value == '') {

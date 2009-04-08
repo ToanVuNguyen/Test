@@ -160,8 +160,8 @@
     </tr>
     <tr>
         <td align="left" class="sidelinks" colspan="8">
-            <cc1:StatefullScrollPanel ID="panForeClosureCaseSearch" runat="server" CssClass="ScrollTable"
-                Width="100%" Visible="true" ScrollBars="Auto">
+            <cc1:StatefullScrollPanel ID="pnlPayableCases" runat="server" CssClass="ScrollTable"
+                Width="100%" Visible="true" ScrollBars="Auto" BorderWidth="1" BorderColor="LightGray">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvViewEditAgencyPayable" runat="server" 
@@ -262,7 +262,12 @@
 <script language="javascript" type="text/javascript">
     var id = '<%=hidIsSelected.ClientID %>';
     var payunpay = '<%=hidPayUnpayCheck.ClientID %>';
-
+    var mypanel = document.getElementById('<%=pnlPayableCases.ClientID %>');
+    if(mypanel != null)
+    {                
+        mypanel.style.height = screen.height - 630;
+    }
+                
     function TakeBackReason() {
 
         SelectedCase = document.getElementById(id);
