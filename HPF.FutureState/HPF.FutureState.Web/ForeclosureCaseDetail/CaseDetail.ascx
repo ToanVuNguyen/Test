@@ -54,7 +54,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     City*:
                                 </td>
                                 <td>
@@ -62,7 +62,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     State, Zip*:
                                 </td>
                                 <td>
@@ -70,7 +70,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Primary Residence*:
                                 </td>
                                 <td>
@@ -78,7 +78,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Owner Occupied*:
                                 </td>
                                 <td>
@@ -95,7 +95,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks" nowrap="nowrap">
+                                <td align="right" class="sidelinks" nowrap="nowrap" valign="top">
                                     Number of Occupants*:
                                 </td>
                                 <td>
@@ -103,7 +103,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Purchase Year:
                                 </td>
                                 <td>
@@ -111,7 +111,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Purchase Price:
                                 </td>
                                 <td>
@@ -119,7 +119,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Current Market Value:
                                 </td>
                                 <td>
@@ -127,7 +127,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     For Sale Indicator*:
                                 </td>
                                 <td>
@@ -144,7 +144,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Home Asking Price:
                                 </td>
                                 <td>
@@ -172,7 +172,7 @@
                                     &nbsp;</td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     First Name*:
                                 </td>
                                 <td>
@@ -180,7 +180,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Middle Name:
                                 </td>
                                 <td>
@@ -228,7 +228,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Primary Email*:
                                 </td>
                                 <td>
@@ -236,7 +236,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Secondary Email:
                                 </td>
                                 <td>
@@ -252,7 +252,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Morther&#39;s Maiden Name:
                                 </td>
                                 <td>
@@ -268,7 +268,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Race*:
                                 </td>
                                 <td>
@@ -284,7 +284,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Preferred Language:
                                 </td>
                                 <td>
@@ -292,7 +292,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right"  nowrap="nowrap" class="sidelinks">
+                                <td align="right"  nowrap="nowrap" class="sidelinks" valign="top">
                                     Education Level Completed:
                                 </td>
                                 <td>
@@ -300,7 +300,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Marital Status:
                                 </td>
                                 <td>
@@ -308,7 +308,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Occupation:
                                 </td>
                                 <td>
@@ -316,7 +316,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Military Service:
                                 </td>
                                 <td>
@@ -336,7 +336,7 @@
                                     &nbsp;</td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     First Name:
                                 </td>
                                 <td>
@@ -344,7 +344,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks" nowrap="nowrap">
+                                <td align="right" class="sidelinks" nowrap="nowrap" valign="top">
                                     Middle Name:
                                 </td>
                                 <td>
@@ -352,7 +352,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Last Name:
                                 </td>
                                 <td>
@@ -384,7 +384,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     Occupation:
                                 </td>
                                 <td>
@@ -433,7 +433,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     City*:
                                 </td>
                                 <td>
@@ -441,7 +441,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks">
+                                <td align="right" class="sidelinks" valign="top">
                                     State, Zip*:
                                 </td>
                                 <td>
@@ -492,7 +492,7 @@
                             <asp:ListItem Value="N" Text="No"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Household Type*:
                     </td>
                     <td>
@@ -515,7 +515,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Agency Case*:
                     </td>
                     <td>
@@ -543,7 +543,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Counselor*:
                     </td>
                     <td>
@@ -557,7 +557,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Phone &amp; Ext.*:
                     </td>
                     <td>
@@ -571,7 +571,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Counselor Email*:
                     </td>
                     <td>
@@ -585,7 +585,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Program*:
                     </td>
                     <td>
@@ -627,7 +627,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Counselling Duration*:
                     </td>
                     <td>
@@ -641,7 +641,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks">
+                    <td align="right" class="sidelinks" valign="top">
                         Case Source Code*:
                     </td>
                     <td>
@@ -836,7 +836,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" class="sidelinks" nowrap="nowrap">
+                    <td align="right" class="sidelinks" nowrap="nowrap" valign="top">
                         Secondary Default Reason*:
                     </td>
                     <td valign="top">
