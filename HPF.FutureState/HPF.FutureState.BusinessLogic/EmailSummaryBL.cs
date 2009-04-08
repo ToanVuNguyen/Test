@@ -82,7 +82,7 @@ namespace HPF.FutureState.BusinessLogic
 
             var loanDelinqStatus = caseLoanDTOCol[0].LoanDelinqStatusCd;
             if (foreclosurecaseInfo.FcNoticeReceiveInd == "Y" || loanDelinqStatus == "120+")
-                strSubject.Append(" ,priority URGENT");
+                strSubject.Append(", Urgent");
             return strSubject.ToString();
 
         }
