@@ -611,7 +611,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0263, "An invalid OutcomeTypeId was provided");
                 errorMessageDict.Add(ERR0264, "An invalid CallId was provided.");
                 errorMessageDict.Add(ERR0265, "An Esternal Referral outcome requires the entry of either a NonprofitreferralKeyNum1 or ExeRefOtherName1.");
-                errorMessageDict.Add(WARN0266, "A Serivcer selection of Other requires the entry of OtherServicerName.");
+                errorMessageDict.Add(WARN0266, "A Serivcer selection of Other requires the entry of OtherServicerName to complete foreclosure case.");
                 errorMessageDict.Add(ERR0267, "BorrowerFnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
                 errorMessageDict.Add(ERR0268, "BorrowerLname may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
                 errorMessageDict.Add(ERR0269, "CoBorrowerFnam may not conatin the following characters:  !@#$%^*(){}|:;?><567890");
