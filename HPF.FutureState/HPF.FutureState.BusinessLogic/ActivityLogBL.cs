@@ -44,8 +44,8 @@ namespace HPF.FutureState.BusinessLogic
             activityLog.FcId = sendRequest.FCId;
             activityLog.ActivityCd = "EMAIL";
             activityLog.ActivityDt = DateTime.Now;
-            activityLog.ActivityNote = string.Concat(" Subject: ", sendRequest.EmailSubject + Constant.HPF_SECURE_EMAIL,
-                " To: ", sendRequest.EmailToAddress, " Body: ", sendRequest.EmailBody);
+            activityLog.ActivityNote = string.Concat(" To: ", sendRequest.EmailToAddress, " From:", sendRequest.SenderId, " Subject: ", sendRequest.EmailSubject + Constant.HPF_SECURE_EMAIL, " Body: ", sendRequest.EmailBody);
+                
             return activityLog;
         }  
     }
