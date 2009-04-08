@@ -5,7 +5,7 @@
 <asp:BulletedList ID="errorList" runat="server" CssClass="ErrorMessage">
 </asp:BulletedList>
 
-<table>
+<table width="100%">
     <tr>
         <td colspan="2"  class="sidelinks">
             <h3>Audit List:</h3>            
@@ -14,11 +14,11 @@
     <tr>
         <td>
                 <asp:Panel ID="pnlAudit" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" Width="100%">
+                BorderColor="Gray" BorderWidth="1px" width="100%">
                    <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                             
                             DataKeyNames="CaseAuditId" 
-                            OnRowCreated="grdvCaseAudit_RowCreated">
+                            OnRowCreated="grdvCaseAudit_RowCreated" width="100%">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
