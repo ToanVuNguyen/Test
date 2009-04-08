@@ -69,11 +69,10 @@
                 Width="100%" BorderColor="LightGray" BorderWidth="1">
                 <asp:UpdatePanel ID="myUPanel" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="grvInvoicePaymentList" runat="server" BorderStyle="None" Width="100%"
+                        <asp:GridView ID="grvInvoicePaymentList" runat="server" GridLines="Vertical"  Width="100%"
                             AutoGenerateColumns="false" DataKeyNames="InvoicePaymentID" 
                             onselectedindexchanged="grvInvoicePaymentList_SelectedIndexChanged">
                             <HeaderStyle Wrap="false" CssClass="FixedHeader"  HorizontalAlign="Center" BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                            <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                             <RowStyle CssClass="RowStyle" />
                             <EditRowStyle BackColor="#2461BF" />
                             <AlternatingRowStyle CssClass="AlternatingRowStyle" />
