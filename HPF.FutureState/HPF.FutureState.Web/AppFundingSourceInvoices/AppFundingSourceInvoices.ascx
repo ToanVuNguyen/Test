@@ -132,7 +132,7 @@
      var mypanel = document.getElementById('<%=panForeClosureCaseSearch.ClientID %>');
             if(mypanel != null)
             {                
-                mypanel.style.height = screen.height - 510;
+                mypanel.style.height = screen.height - 495;
             }
         
     function CancelClientClick()
