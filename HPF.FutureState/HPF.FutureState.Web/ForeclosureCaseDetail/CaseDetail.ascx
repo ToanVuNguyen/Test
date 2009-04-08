@@ -13,7 +13,7 @@
         width: 161px;
     }
 </style>
-<table>
+<table width="100%">
     <tr>
         <td>
             <table>
@@ -27,7 +27,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top;">
+                    <td style="vertical-align: top;" width="35%">
                         <table>
                             <tr>
                                 <td align="left" width="150">
@@ -162,7 +162,7 @@
                             </tr>
                         </table>
                     </td>
-                    <td style="vertical-align: top;">
+                    <td style="vertical-align: top;" width="35%">
                         <table>
                             <tr>
                                 <td align="left" class="sidelinks" width="150">
@@ -325,7 +325,7 @@
                             </tr>
                         </table>
                     </td>
-                    <td valign="top">
+                    <td valign="top" width="30%">
                         <table>
                             <tr>
                                 <td align="left" width="150">
@@ -467,18 +467,18 @@
     </tr>
     <tr>
         <td>
-            <table>                
+            <table width="100%">                
                 <tr>
-                    <td align="right" width="200">
+                    <td align="right" width="25%">
                         <h1>Case Status:</h1>
                     </td>
-                    <td width="250">
+                    <td width="25%">
                         &nbsp;
                     </td>
-                    <td align="right" width="230">
+                    <td align="right" width="25%">
                         <h1>Case Financials:</h1>
                     </td>
-                    <td width="260">
+                    <td width="25%">
                         &nbsp;
                     </td>
                 </tr>
@@ -870,7 +870,7 @@
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <table>                            
+                        <table width="100%">                            
                             <tr>
                                 <td align="right" width="200" class="sidelinks">
                                     <h1>Counselor Notes:</h1>
@@ -929,7 +929,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="4" align="center">
                         <table>                           
                             <tr>
                                 <td align="right" width="150">

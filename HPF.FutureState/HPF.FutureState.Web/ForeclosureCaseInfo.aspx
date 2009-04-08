@@ -7,14 +7,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <table style="width: 100%;" align="left">        
         <tr>
-            <td align="center">
-                <h1>
-                    Foreclosure Case Detail</h1>
+            <td align="center" colspan="2">
+                <h1>Foreclosure Case Detail</h1>
             </td>
         </tr>
         <tr>
             <td>
-                <table style="width: 975px">
+                <table width="100%">
                  <tr>
                         <td class="sidelinks" align="right">
                             HPF Case ID:
@@ -34,10 +33,6 @@
                         <td class="Text">
                             <asp:Label ID="lblCounselor" runat="server" >Amada - Huggenkiss</asp:Label>
                         </td>
-                        <td align="center">
-                            <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" Width="130px" Text="Print Summary"
-                                OnClick="btn_Print_Click" />
-                        </td>
                     </tr>
                     <tr>
                         <td class="sidelinks" align="right" >
@@ -52,10 +47,6 @@
                         </td>
                         <td class="Text">
                             <asp:Label ID="lblPhone" runat="server" >877-123-1234 x55432</asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" Width="130px"
-                                Text="Email Summary" OnClick="btnEmailSummary_Click" OnClientClick="btnEmailSummary_Click();" />
                         </td>
                     </tr>
                     <tr>
@@ -72,24 +63,42 @@
                         <td class="Text">
                             <asp:Label ID="lblCounselorEmail" runat="server">ahuggenkiss@moes.com</asp:Label>
                         </td>
-                        <td align="center">
-                            <asp:Button ID="btnResendServicer" runat="server" CssClass="MyButton" Width="130px"
-                                Text="Resend to Servicer" onclick="btnResendServicer_Click" />
-                        </td>
                     </tr>
                     <tr>
                         <td class="sidelinks" align="right">
                             Case Loans:
                         </td>
-                        <td colspan="6">
+                        <td colspan="5">
                             <asp:Label ID="lblLoanList" runat="server" CssClass="Text">1298494593 - 
                             Citibank; 554587876 - Bank of America</asp:Label>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="7">
+                        <td colspan="6">
                             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
                             </asp:BulletedList>
+                        </td>
+                    </tr>
+                </table>
+             </td>
+            <td align="right" valign="top">            
+                <table>
+                    <tr>
+                        <td>
+                            <asp:Button ID="btn_Print" runat="server" CssClass="MyButton" Width="130px" Text="Print Summary"
+                                OnClick="btn_Print_Click" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Button ID="btnEmailSummary" runat="server" CssClass="MyButton" Width="130px"
+                                Text="Email Summary" OnClick="btnEmailSummary_Click" OnClientClick="btnEmailSummary_Click();" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Button ID="btnResendServicer" runat="server" CssClass="MyButton" Width="130px"
+                                Text="Resend to Servicer" onclick="btnResendServicer_Click" />
                         </td>
                     </tr>
                 </table>
@@ -97,7 +106,7 @@
         </tr>
        
         <tr>
-            <td>
+            <td  colspan="2">
                 <table cellpadding="0" cellspacing="0" width="100%" align="left">
                     <tr>
                         <td>

@@ -41,15 +41,6 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblCounselor;
         
         /// <summary>
-        /// btn_Print control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Print;
-        
-        /// <summary>
         /// lblBorrower control.
         /// </summary>
         /// <remarks>
@@ -66,15 +57,6 @@ namespace HPF.FutureState.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPhone;
-        
-        /// <summary>
-        /// btnEmailSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEmailSummary;
         
         /// <summary>
         /// lblPropertyAddress control.
@@ -95,15 +77,6 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblCounselorEmail;
         
         /// <summary>
-        /// btnResendServicer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnResendServicer;
-        
-        /// <summary>
         /// lblLoanList control.
         /// </summary>
         /// <remarks>
@@ -120,6 +93,33 @@ namespace HPF.FutureState.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
+        
+        /// <summary>
+        /// btn_Print control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Print;
+        
+        /// <summary>
+        /// btnEmailSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEmailSummary;
+        
+        /// <summary>
+        /// btnResendServicer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResendServicer;
         
         /// <summary>
         /// tabControl control.
