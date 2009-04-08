@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SummaryEmailUC.ascx.cs"
     Inherits="HPF.FutureState.Web.SummaryEmail.SummaryEmailUC" %>
-<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />
+<link href="Styles/HPF.css" rel="stylesheet" type="text/css" />
 
 <table width="1000px">
     <tr>
