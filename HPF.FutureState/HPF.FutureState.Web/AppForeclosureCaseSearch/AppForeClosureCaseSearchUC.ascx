@@ -154,10 +154,10 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td>            
             <asp:ScriptManager ID="myscript" runat="server">
             </asp:ScriptManager>
-            <asp:Panel ID="myPannel" runat="server" CssClass="ScrollTable" Width="960px" 
+            <asp:Panel CssClass="ScrollTable" ID="myPannel" runat="server"
                 Visible="False">
                 <asp:UpdatePanel ID="myupdatepan" runat="server">
                     <ContentTemplate>
@@ -238,3 +238,10 @@
         </td>
     </tr>
     </table>
+<script type="text/javascript">
+    var mypanel = document.getElementById('<%=myPannel.ClientID %>');
+            if(mypanel != null)
+            {
+                mypanel.style.width= screen.width - 50;             
+            }
+</script>
