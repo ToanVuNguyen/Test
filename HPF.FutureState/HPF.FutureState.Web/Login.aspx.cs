@@ -23,7 +23,7 @@ namespace HPF.FutureState.Web
 
         protected void btn_login_Click(object sender, EventArgs e)
         {
-            if (HPFWebSecurity.IsAuthenticated(txt_username.Text, txt_password.Text == string.Empty ? null : txt_password.Text))
+            if (HPFWebSecurity.IsAuthenticated(txt_username.Text, txt_password.Text))
                 FormsAuthentication.RedirectFromLoginPage(txt_username.Text, false);
             else
                 lb_message.Text = "Login failed.";

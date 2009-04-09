@@ -157,6 +157,8 @@ namespace HPF.FutureState.DataAccess
                             webUser.HPFUserId = ConvertToInt(reader["hpf_user_id"]);
                             webUser.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                             webUser.Password = ConvertToString(reader["password"]);
+                            if (webUser.Password == null)
+                                webUser.Password = "";
                             webUser.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                             webUser.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
                             webUser.CreateAppName = ConvertToString(reader["create_app_name"]);
