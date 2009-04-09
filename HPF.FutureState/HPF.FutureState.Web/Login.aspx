@@ -7,6 +7,13 @@
     <title>Login</title>
     <link href="Styles/HPF.css" rel="stylesheet" type="text/css" />
 </head>
+<%
+    Response.Expires = 0;
+    Response.ExpiresAbsolute = DateTime.Now.AddDays(-1);
+    Response.AddHeader("pragma","no-cache");
+    Response.AddHeader("cache-control","private");
+    Response.CacheControl = "no-cache";
+%>
 <body>
     <form id="form1" runat="server">
     <table style="width:100%;">
