@@ -13,7 +13,7 @@ namespace HPF.FutureState.DataAccess
     public class SecurityDAO: BaseDAO
     {
         private static readonly SecurityDAO instance = new SecurityDAO();
-        private UserDTO _user = null;
+        
         /// <summary>
         /// Singleton
         /// </summary>
@@ -41,11 +41,12 @@ namespace HPF.FutureState.DataAccess
         {
             //Get user and compare with the password.
 
-            _user = GetWebUser(userName);
-            if (_user == null)
+            UserDTO user = GetWebUser(userName);
+            if (user == null)
                 return false;
-            if (_user.UserName.ToLower() == userName.ToLower() && _user.Password == password)
+            if (user.UserName.ToLower() == userName.ToLower() && user.Password == password)
                 return true;
+
             return false;
         }
 
@@ -129,63 +130,58 @@ namespace HPF.FutureState.DataAccess
         /// <returns>UserDTO object if user exists in database, null for non-exists</returns>
         public UserDTO GetWebUser(string userName)
         {
-            if (_user != null && _user.UserName.ToUpper() == userName.ToUpper())
-                return _user;
-            else
+            UserDTO webUser = null;
+            var dbConnection = CreateConnection();
+            //Add store here
+            var command = CreateSPCommand("hpf_hpf_user_get_from_login", dbConnection);
+
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_username", userName);
+            //</Parameter>            
+            try
             {
-                UserDTO webUser = null;
-                var dbConnection = CreateConnection();
-                //Add store here
-                var command = CreateSPCommand("hpf_hpf_user_get_from_login", dbConnection);
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
 
-                //<Parameter>
-                var sqlParam = new SqlParameter[1];
-                sqlParam[0] = new SqlParameter("@pi_username", userName);
-                //</Parameter>            
-                try
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    command.Parameters.AddRange(sqlParam);
-                    command.CommandType = CommandType.StoredProcedure;
-                    dbConnection.Open();
-
-                    var reader = command.ExecuteReader();
-                    if (reader.HasRows)
+                    webUser = new UserDTO();
+                    while (reader.Read())
                     {
-                        webUser = new UserDTO();
-                        while (reader.Read())
-                        {
-                            webUser.HPFUserId = ConvertToInt(reader["hpf_user_id"]);
-                            webUser.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
-                            webUser.Password = ConvertToString(reader["password"]);
-                            if (webUser.Password == null)
-                                webUser.Password = "";
-                            webUser.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
-                            webUser.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
-                            webUser.CreateAppName = ConvertToString(reader["create_app_name"]);
-                            webUser.CreateDate = ConvertToDateTime(reader["create_dt"]);
-                            webUser.CreateUserId = ConvertToString(reader["create_user_id"]);
-                            webUser.Email = ConvertToString(reader["email"]);
-                            webUser.FirstName = ConvertToString(reader["fname"]);
-                            webUser.IsActivate = ConvertToString(reader["active_ind"])[0];
-                            webUser.LastLogin = ConvertToDateTime(reader["last_login_dt"]);
-                            webUser.LastName = ConvertToString(reader["lname"]);
-                            webUser.Phone = ConvertToString(reader["phone"]);
-                            webUser.UserName = ConvertToString(reader["user_login_id"]);
-                        }
+                        webUser.HPFUserId = ConvertToInt(reader["hpf_user_id"]);
+                        webUser.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        webUser.Password = ConvertToString(reader["password"]);
+                        if (webUser.Password == null)
+                            webUser.Password = "";
+                        webUser.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        webUser.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        webUser.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        webUser.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        webUser.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        webUser.Email = ConvertToString(reader["email"]);
+                        webUser.FirstName = ConvertToString(reader["fname"]);
+                        webUser.IsActivate = ConvertToString(reader["active_ind"])[0];
+                        webUser.LastLogin = ConvertToDateTime(reader["last_login_dt"]);
+                        webUser.LastName = ConvertToString(reader["lname"]);
+                        webUser.Phone = ConvertToString(reader["phone"]);
+                        webUser.UserName = ConvertToString(reader["user_login_id"]);
                     }
                 }
-                catch (Exception Ex)
-                {
-                    throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-
-                }
-                finally
-                {
-                    dbConnection.Close();
-                }
-
-                return webUser;
             }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return webUser;
         }
         /// <summary>
         /// Update user DTO
