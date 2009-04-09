@@ -332,7 +332,7 @@ GO
 
 
 CREATE TABLE invoice_payment (
-  invoice_payment_id INTEGER  NOT NULL   IDENTITY ,
+  invoice_payment_id INTEGER  NOT NULL   IDENTITY(1000, 1) ,
   funding_source_id INTEGER  NOT NULL  ,
   pmt_num VARCHAR(30)    ,
   pmt_dt DATETIME    ,
@@ -352,7 +352,7 @@ PRIMARY KEY(invoice_payment_id)  ,
 GO
 
 CREATE TABLE Invoice (
-  Invoice_id INTEGER  NOT NULL   IDENTITY ,
+  Invoice_id INTEGER  NOT NULL   IDENTITY(1000, 1) ,
   funding_source_id INTEGER  NOT NULL  ,
   invoice_dt DATETIME    ,
   status_cd VARCHAR(15)    ,
@@ -412,7 +412,7 @@ GO
 
 
 CREATE TABLE agency_payable (
-  agency_payable_id INTEGER  NOT NULL   IDENTITY ,
+  agency_payable_id INTEGER  NOT NULL   IDENTITY (1000, 1),
   agency_id INTEGER  NOT NULL  ,
   pmt_dt DATETIME    ,
   status_cd VARCHAR(15)    ,
@@ -434,7 +434,7 @@ GO
 
 
 CREATE TABLE call (
-  call_id INTEGER  NOT NULL   IDENTITY ,
+  call_id INTEGER  NOT NULL   IDENTITY (1000, 1),
   call_center_id INTEGER    NOT NULL,
   cc_agent_id_key VARCHAR(55)    ,
   start_dt DATETIME    NOT NULL,
