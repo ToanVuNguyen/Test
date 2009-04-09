@@ -13,6 +13,7 @@ namespace HPF.FutureState.BusinessLogic
     public class EmailSummaryBL
     {
         private const string HPF_ATTACHMENT_REPORT_FILE_NAME = "hpf_report.pdf";
+        private const string HPF_SUMMARY_EMAIL_BODY_INITIAL ="A counseling summary pdf file is attached to this message.";
 
         private static readonly EmailSummaryBL instance = new EmailSummaryBL();
         /// <summary>
@@ -32,10 +33,15 @@ namespace HPF.FutureState.BusinessLogic
         {
             var hpfSendMail = GetHpfSendMail();
             var pdfSummaryReport = GetPdfSummaryReport(fc_id);
-            //
+            
             hpfSendMail.To = sendTo;
             hpfSendMail.Subject = subject;
-            hpfSendMail.Body = body+"                  ";
+            
+            if (body!=string.Empty || body!=null)
+                hpfSendMail.Body = HPF_SUMMARY_EMAIL_BODY_INITIAL + Environment.NewLine + Environment.NewLine + body + Environment.NewLine;
+            else
+                hpfSendMail.Body = HPF_SUMMARY_EMAIL_BODY_INITIAL + Environment.NewLine;
+
             hpfSendMail.AddAttachment(fileName, pdfSummaryReport);
             hpfSendMail.Send();
         }
@@ -121,6 +127,7 @@ namespace HPF.FutureState.BusinessLogic
 
             if (sendSummary.EmailSubject == null || sendSummary.EmailSubject == string.Empty)
                 sendSummary.EmailSubject = CreateEmailSummarySubject(fc_Id);
+
             SendEmailSummaryReport(sendSummary.EmailToAddress,
                                     sendSummary.EmailSubject, 
                                     sendSummary.EmailBody, 
