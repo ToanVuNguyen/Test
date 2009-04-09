@@ -16,8 +16,8 @@
                 <tr>
                     <td align="left" valign="bottom" width="95%">
                     <!--Display Follow-Up list-->
-                    <asp:Panel ID="pnlActivity" runat="server" CssClass="ScrollTable"  
-                    BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
+                    <asp:Panel ID="pnlFollowUp" runat="server" CssClass="ScrollTable"  
+                    BorderStyle="Inset" BorderColor="LightGray" BorderWidth="1px" Width="100%">
                         <asp:GridView ID="grd_FollowUpList" runat="server" 
                         CellPadding="2" ForeColor="#333333"
                         GridLines="Vertical" AutoGenerateColumns="False"                         
@@ -256,7 +256,15 @@
     {
       //return ConfirmEdit(msfWARN0450, "");
     }
-        
+     
+    var mypanel = document.getElementById('<%=pnlFollowUp.ClientID %>');
+    if(mypanel != null)
+    {                
+        var height = screen.height - 760;
+        if(height < 100)
+            height = 100;
+        mypanel.style.height = height;
+    }   
 </script>
 
 <div id="mdgCaseFollowup" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CaseLoan.ascx.cs" Inherits="HPF.FutureState.Web.ForeclosureCaseDetail.CaseLoan" %>
 <div class="sidelinks"><h3>Loan Details:</h3></div>
-<Div style="Height:210px;Overflow:Auto">
+<Div style="Height:210px;Overflow:Auto"  id="pnlCaseLoans">
 <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
 <asp:DataList ID="dtlCaseLoan" runat="server" Width=100% 
         onitemdatabound="dtlCaseLoan_ItemDataBound" CellPadding="2" 
@@ -76,6 +76,12 @@
 </asp:DataList>
 <script language="javascript" type="text/javascript">
        function ChangeData() {
+        }
+        
+        var mypanel = document.getElementById('pnlCaseLoans');
+        if(mypanel != null)
+        {                
+            mypanel.style.height = screen.height - 570;
         }
     </script>
 </Div>

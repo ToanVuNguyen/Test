@@ -14,7 +14,7 @@
     <tr>
         <td>
                 <asp:Panel ID="pnlAudit" runat="server" CssClass="ScrollTable" BorderStyle="Inset"
-                BorderColor="Gray" BorderWidth="1px" width="100%">
+                BorderColor="LightGray" BorderWidth="1px" width="100%">
                    <asp:GridView ID="grdvCaseAudit" runat="server" CellPadding="2" ForeColor="#333333"
                             GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                             
                             DataKeyNames="CaseAuditId" 
@@ -202,7 +202,7 @@
                     <td align="right"  class="sidelinks">
                         Audit Comments:                      <td align="left" colspan="2">
                         <asp:TextBox ID="txtAuditComment" runat="server" Rows="4" Columns="100" 
-                            Height="65px" CssClass="Text" TextMode="MultiLine" TabIndex="13" 
+                            Height="40px" CssClass="Text" TextMode="MultiLine" TabIndex="13" 
                             Width="100%"></asp:TextBox>
                     </td>
                 </tr>
@@ -315,6 +315,15 @@
     function ChangeData()
     {
       return ConfirmToSave(msfWARN0450, "");
+    }
+    
+     var mypanel = document.getElementById('<%=pnlAudit.ClientID %>');
+    if(mypanel != null)
+    {                
+        var height = screen.height - 810;
+        if(height < 100)
+            height = 100;
+        mypanel.style.height = height;
     }
 </script>
 

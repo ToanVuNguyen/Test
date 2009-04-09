@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Panel runat="server" ID="panBillingInfo" CssClass="ScrollTable" BorderStyle="None">
+                <asp:Panel runat="server" ID="panBillingInfo" CssClass="ScrollTable" BorderColor="LightGray" BorderWidth="1">
                     <asp:GridView ID="grvBillingInfo" runat="server" AutoGenerateColumns="false" Width="100%"
                         OnRowDataBound="grvBillingInfo_RowDataBound" BorderStyle="None">
                         <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" />
@@ -88,7 +88,7 @@
         </tr>
         <tr>
             <td>
-                <asp:Panel ID="panPaymentInfo" runat="server" CssClass="ScrollTable" BorderStyle="None">
+                <asp:Panel ID="panPaymentInfo" runat="server" CssClass="ScrollTable" BorderColor="LightGray" BorderWidth="1">
                     <asp:GridView ID="grvPaymentInfo" runat="server" AutoGenerateColumns="false" Width="99%"
                         BorderStyle="None">
                         <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" />
@@ -111,12 +111,13 @@
                 </asp:Panel>
             </td>
         </tr>
-    </table>
-</div>
-<div align="center">
-    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" Width="100px"
+        <tr>
+        <td align="center">
+        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="MyButton" Width="100px"
         OnClick="btnSave_Click" />
-</div>
+        </td>
+        </tr>
+    </table>
 <asp:HiddenField ID="selTabCtrl"  runat="server"  Value=""/>
 
 <script type="text/javascript" language="javascript">
@@ -159,6 +160,17 @@
             return false;
     }
    
+    var panelHeight = (screen.height - 660)/2;
+    var panBillingInfo = document.getElementById('<%=panBillingInfo.ClientID %>');
+    if(panBillingInfo != null)
+    {                
+        panBillingInfo.style.height = panelHeight;
+    }
+    var panPaymentInfo = document.getElementById('<%=panPaymentInfo.ClientID %>');
+    if(panPaymentInfo != null)
+    {                
+        panPaymentInfo.style.height = panelHeight;
+    }
 </script>
 
 <div id="mdgCaseAccounting" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">

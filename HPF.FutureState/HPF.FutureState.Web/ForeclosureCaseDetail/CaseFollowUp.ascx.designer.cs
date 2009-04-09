@@ -41,13 +41,13 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.BulletedList errorList;
         
         /// <summary>
-        /// pnlActivity control.
+        /// pnlFollowUp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlActivity;
+        protected global::System.Web.UI.WebControls.Panel pnlFollowUp;
         
         /// <summary>
         /// grd_FollowUpList control.

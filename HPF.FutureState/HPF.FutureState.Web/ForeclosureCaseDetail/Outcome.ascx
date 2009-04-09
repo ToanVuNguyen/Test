@@ -70,4 +70,9 @@
     <script language="javascript" type="text/javascript">
        function ChangeData() {
         }
+        var mypanel = document.getElementById('<%=pnlOutcome.ClientID %>');
+        if(mypanel != null)
+        {                
+            mypanel.style.height = screen.height - 580;
+        }
     </script>
