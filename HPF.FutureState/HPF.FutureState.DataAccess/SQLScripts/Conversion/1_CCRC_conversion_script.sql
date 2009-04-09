@@ -5,8 +5,66 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hpf_r
 DROP PROCEDURE [dbo].[hpf_referral_budget]
 GO
 
+CREATE procedure [dbo].[hpf_referral_budget]
+	 @logicalDate	datetime
+	,@debug			bit = 0		--Debug mode?
+with execute as caller
+as
+/*
+	This procedure is a wrapper for the relevant UDF because the RTM version of
+	SQL2005 does not parse paramaters in UDFs correctly. Once this issue is fixed
+	the packages can call the UDFs directly.
+
+	exec hpf_referral_budget '2008-03-01', 1
+*/
+begin
+	set nocount on
+	declare @referral_budget_id table(REFERRAL_SEQ_ID int)
+
+	--get REFERRAL_SEQ_IDs which have at least one budget items change
+	if @debug = 1 begin
+		insert into @referral_budget_id
+		select top 1000  rb.REFERRAL_SEQ_ID
+		from REFERRAL_BUDGET rb, REFERRAL r
+		where rb.CHG_LST_DATE >= @logicalDate
+			AND rb.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+			AND r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)			
+		group by rb.REFERRAL_SEQ_ID
+	end else begin
+		insert into @referral_budget_id
+		select rb.REFERRAL_SEQ_ID
+		from REFERRAL_BUDGET rb, REFERRAL r
+		where rb.CHG_LST_DATE >= @logicalDate
+			AND rb.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+			AND r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)			
+		group by rb.REFERRAL_SEQ_ID
+	end
+
+	select r.REFERRAL_SEQ_ID, r.BUDGET_SUBCATEGORY_SEQ_ID, bs.BUDGET_CATEGORY_SEQ_ID
+		, r.AMT
+		, case when ltrim(r.BUDGET_NOTE) = '' then NULL ELSE ltrim(r.BUDGET_NOTE) END BUDGET_NOTE
+		, case when ltrim(r.CREATE_PROG_NAME) = '' then NULL ELSE ltrim(r.CREATE_PROG_NAME) END CREATE_PROG_NAME
+		, r.CREATE_DATE
+		, case when ltrim(r.CREATE_USER_ID) = '' then NULL ELSE ltrim(r.CREATE_USER_ID) END CREATE_USER_ID
+		, case when ltrim(r.CHG_LST_PROG_NAME) = '' then NULL ELSE ltrim(r.CHG_LST_PROG_NAME) END CHG_LST_PROG_NAME
+		, r.CHG_LST_DATE
+		, case when ltrim(r.CHG_LST_USER_ID) = '' then NULL ELSE ltrim(r.CHG_LST_USER_ID) END CHG_LST_USER_ID
+	from REFERRAL_BUDGET r
+		inner join @referral_budget_id i on i.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
+		inner join BUDGET_SUBCATEGORY bs on r.BUDGET_SUBCATEGORY_SEQ_ID = bs.BUDGET_SUBCATEGORY_SEQ_ID
+	order by r.REFERRAL_SEQ_ID, r.CHG_LST_DATE
+
+	set nocount off
+end --proc
+GO
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+
+
 /****** Object:  StoredProcedure [dbo].[hpf_referral]    Script Date: 02/25/2009 17:54:06 ******/
-CREATE procedure [dbo].[hpf_referral]
+ALTER procedure [dbo].[hpf_referral]
 	 @logicalDate	datetime
 	,@debug			bit = 0		--Debug mode?
 with execute as caller
@@ -120,7 +178,7 @@ begin
 			case when ltrim(r.SECOND_MORTGAGE_TYPE_CODE)= '' then NULL ELSE r.SECOND_MORTGAGE_TYPE_CODE END SECOND_MORTGAGE_TYPE_CODE,
 			case when ltrim(r.FIRST_MORTGAGE_TYPE_CODE)= '' then NULL ELSE r.FIRST_MORTGAGE_TYPE_CODE END FIRST_MORTGAGE_TYPE_CODE,
 			case when ltrim(r.ARM_RESET_IND)= '' then NULL ELSE r.ARM_RESET_IND END ARM_RESET_IND,
-			substring(isnull(u.agency_user_id, u.nt_userid),1,30) counselor_id_ref, 
+			substring(isnull(case when ltrim(u.agency_user_id) = '' then NULL ELSE u.agency_user_id END, u.nt_userid),1,30) counselor_id_ref, 
 			isnull(u.first_name, 'unknown at convert') counselor_fname, 
 			isnull(u.last_name, 'unknown at convert') counselor_lname, 
 			substring(isnull(u.primary_email_addr, 'unknown at convert'),1,50) counselor_email, 
@@ -233,7 +291,7 @@ begin
 			case when ltrim(r.SECOND_MORTGAGE_TYPE_CODE)= '' then NULL ELSE r.SECOND_MORTGAGE_TYPE_CODE END SECOND_MORTGAGE_TYPE_CODE,
 			case when ltrim(r.FIRST_MORTGAGE_TYPE_CODE)= '' then NULL ELSE r.FIRST_MORTGAGE_TYPE_CODE END FIRST_MORTGAGE_TYPE_CODE,
 			case when ltrim(r.ARM_RESET_IND)= '' then NULL ELSE r.ARM_RESET_IND END ARM_RESET_IND,
-			substring(isnull(u.agency_user_id, u.nt_userid),1,30) counselor_id_ref, 
+			substring(isnull(case when ltrim(u.agency_user_id) = '' then NULL ELSE u.agency_user_id END, u.nt_userid),1,30) counselor_id_ref, 
 			isnull(u.first_name, 'unknown at convert') counselor_fname, 
 			isnull(u.last_name, 'unknown at convert') counselor_lname, 
 			substring(isnull(u.primary_email_addr, 'unknown at convert'),1,50) counselor_email, 
@@ -280,57 +338,5 @@ begin
 
 	set nocount off
 end --proc
-GO
 
-CREATE procedure [dbo].[hpf_referral_budget]
-	 @logicalDate	datetime
-	,@debug			bit = 0		--Debug mode?
-with execute as caller
-as
-/*
-	This procedure is a wrapper for the relevant UDF because the RTM version of
-	SQL2005 does not parse paramaters in UDFs correctly. Once this issue is fixed
-	the packages can call the UDFs directly.
-
-	exec hpf_referral_budget '2008-03-01', 1
-*/
-begin
-	set nocount on
-	declare @referral_budget_id table(REFERRAL_SEQ_ID int)
-
-	--get REFERRAL_SEQ_IDs which have at least one budget items change
-	if @debug = 1 begin
-		insert into @referral_budget_id
-		select top 1000  rb.REFERRAL_SEQ_ID
-		from REFERRAL_BUDGET rb, REFERRAL r
-		where rb.CHG_LST_DATE >= @logicalDate
-			AND rb.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
-			AND r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)			
-		group by rb.REFERRAL_SEQ_ID
-	end else begin
-		insert into @referral_budget_id
-		select rb.REFERRAL_SEQ_ID
-		from REFERRAL_BUDGET rb, REFERRAL r
-		where rb.CHG_LST_DATE >= @logicalDate
-			AND rb.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
-			AND r.AGENCY_SEQ_ID IN (2, 3, 4, 2821, 15881, 17081, 18361, 18382, 18383, 18381)			
-		group by rb.REFERRAL_SEQ_ID
-	end
-
-	select r.REFERRAL_SEQ_ID, r.BUDGET_SUBCATEGORY_SEQ_ID, bs.BUDGET_CATEGORY_SEQ_ID
-		, r.AMT
-		, case when ltrim(r.BUDGET_NOTE) = '' then NULL ELSE ltrim(r.BUDGET_NOTE) END BUDGET_NOTE
-		, case when ltrim(r.CREATE_PROG_NAME) = '' then NULL ELSE ltrim(r.CREATE_PROG_NAME) END CREATE_PROG_NAME
-		, r.CREATE_DATE
-		, case when ltrim(r.CREATE_USER_ID) = '' then NULL ELSE ltrim(r.CREATE_USER_ID) END CREATE_USER_ID
-		, case when ltrim(r.CHG_LST_PROG_NAME) = '' then NULL ELSE ltrim(r.CHG_LST_PROG_NAME) END CHG_LST_PROG_NAME
-		, r.CHG_LST_DATE
-		, case when ltrim(r.CHG_LST_USER_ID) = '' then NULL ELSE ltrim(r.CHG_LST_USER_ID) END CHG_LST_USER_ID
-	from REFERRAL_BUDGET r
-		inner join @referral_budget_id i on i.REFERRAL_SEQ_ID = r.REFERRAL_SEQ_ID
-		inner join BUDGET_SUBCATEGORY bs on r.BUDGET_SUBCATEGORY_SEQ_ID = bs.BUDGET_SUBCATEGORY_SEQ_ID
-	order by r.REFERRAL_SEQ_ID, r.CHG_LST_DATE
-
-	set nocount off
-end --proc
 GO
