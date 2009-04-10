@@ -143,7 +143,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     total += item.Amount == null ? 0 : item.Amount.Value;
                 }
-                lblInvoiceTotalFooter.Text = total.ToString();
+                lblInvoiceTotalFooter.Text = string.Format("{0:C}", total);
                 lblTotalAmount.Text = String.Format("{0:C}", total);
             }
             else
