@@ -105,7 +105,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 total += item.Amount == null ? 0 : item.Amount.Value;
             }
             //add the values you just calculate to lable in UI
-            lblInvoiceTotalFooter.Text = String.Format("{0:c}", total);
+            lblInvoiceTotalFooter.Text = String.Format("{0:C}", total);
             lblTotalCasesFooter.Text = this.agencyPayableDraft.TotalCases.ToString();
             lblTotalAmount.Text = String.Format("{0:C}", total);
             lblTotalCases.Text = this.agencyPayableDraft.TotalCases.ToString();

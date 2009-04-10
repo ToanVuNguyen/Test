@@ -59,8 +59,7 @@ p
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: Black;
     font-size: 10px;
-    
-    padding:0;
+    padding-left:1px;
 }
 .MyButton
 {

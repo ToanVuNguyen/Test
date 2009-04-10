@@ -5,11 +5,7 @@
 <%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 
 <asp:ScriptManager runat="server"></asp:ScriptManager>
-<%--<style type="text/css">
-    .topall { }
-</style>--%>
-<%--<asp:UpdatePanel runat="server">
-<ContentTemplate>--%>
+
 
 <table style="width:100%;" >
     <tr>

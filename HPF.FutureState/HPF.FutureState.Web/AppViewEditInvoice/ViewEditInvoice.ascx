@@ -21,7 +21,7 @@
         width: 31px;
     }
 </style>
-<table style="width: 100%;">
+<table style="width: 100%;" cellpadding="1" cellspacing="1">
     <tr>
         <td colspan="7" align="center">
             <h1>
