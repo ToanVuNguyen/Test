@@ -228,6 +228,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
                 bulErrorMessage.Items.Clear();                
                 lblTemp.Text = " ";
+                PageNum = 1;
 
                 SearchForeclosureCase(fcDTO);
             }
