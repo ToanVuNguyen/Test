@@ -42,7 +42,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                         invoiceDraft = InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
                         searchCriteria.PeriodStart = backUpDt;
                         invoiceDraft.PeriodStartDate= backUpDt;
-                        Session["invoiceDraft"] = invoiceDraft;
+                        ViewState["invoiceDraft"] = invoiceDraft;
                         //Add 6 month back for periodStartDate
                         
                         InvoiceDraftDataBind();
@@ -54,8 +54,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                     }
                 }
                 else
-                    if (Session["invoiceDraft"] != null)
-                        invoiceDraft = (InvoiceDraftDTO)Session["invoiceDraft"];
+                    if (ViewState["invoiceDraft"] != null)
+                        invoiceDraft = (InvoiceDraftDTO)ViewState["invoiceDraft"];
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                         }
                 }
             }
-            Session["invoiceDraft"] = invoiceDraft;
+            ViewState["invoiceDraft"] = invoiceDraft;
             if (f == false)
             {
                 lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0574));
@@ -352,7 +352,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         #endregion
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Session["invoiceDraft"] = null;
+            ViewState["invoiceDraft"] = null;
             Response.Redirect("CreateNewInvoice.aspx");
         }
     }
