@@ -155,7 +155,7 @@ namespace HPF.FutureState.Web.SummaryEmail
                                                                         HPFWebSecurity.CurrentIdentity.LoginName,
                                                                         txtTo.Text,
                                                                         txtSubject.Text,
-                                                                        txtBody.Text);                        
+                                                                        EmailSummaryBL.Instance.CreateEmailBody(txtBody.Text));
         }
     }
 }
