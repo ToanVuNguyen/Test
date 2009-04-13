@@ -218,5 +218,13 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_PAYABLE_PORTAL_URL"];
             }
         }
+
+        public static string HPF_EXPORT_FORMATS
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_EXPORT_FORMATS"];
+            }
+        }
     }
 }

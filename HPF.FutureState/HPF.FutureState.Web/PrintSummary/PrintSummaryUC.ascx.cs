@@ -17,14 +17,24 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Web.Security;
 using System.Net;
 
+using System.Reflection;
+
 namespace HPF.FutureState.Web.PrintSummary
 {
     public partial class PrintSummaryUC : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadReport();
+            LoadReport();            
         }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+            //[Nam Cao]: just enable export formats which are configured in web.config
+            DisableUnwantedExportFormats();
+        }        
+
         protected void LoadReport()
         {
             int caseid = Convert.ToInt32(Request.QueryString["CaseID"].ToString());
@@ -52,5 +62,64 @@ namespace HPF.FutureState.Web.PrintSummary
             ReportViewerPrintSummary.ServerReport.ReportPath =
                 HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT);
         }
+
+        #region "Disable Unwanted Export Formats"
+        private void DisableUnwantedExportFormats()
+        {
+            if (!String.IsNullOrEmpty(HPFConfigurationSettings.HPF_EXPORT_FORMATS))
+            {
+                DropDownList exportFormatCtl = FindExportFormatControl(ReportViewerPrintSummary.Controls);
+                if (exportFormatCtl != null)
+                {
+                    exportFormatCtl.PreRender += delegate(object sender, EventArgs e)
+                    {
+                        string[] exportFormats = HPFConfigurationSettings.HPF_EXPORT_FORMATS.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        int index = 1;
+                        ListItem item;
+                        while(index < exportFormatCtl.Items.Count)
+                        {
+                            item = exportFormatCtl.Items[index];
+                            if (!Array.Exists<string>(exportFormats,
+                                delegate(string match) { return match.Equals(item.Value, StringComparison.OrdinalIgnoreCase); }))
+                            {
+                                exportFormatCtl.Items.Remove(item);
+                            }
+                            else
+                            {
+                                index++;
+                            }
+                        }
+                    };
+                }
+            }
+            else
+            {
+                this.ReportViewerPrintSummary.ShowExportControls = false;
+            }
+        }
+
+        private DropDownList FindExportFormatControl(ControlCollection controls)
+        {
+            if (controls == null) return null;
+            foreach (Control ctl in controls)
+            {   
+                if ((ctl.GetType() == typeof(DropDownList)) && 
+                    (((DropDownList)ctl).ToolTip == "Export Formats"))
+                {
+                    return ctl as DropDownList;
+                }
+                else
+                {
+                    Control child = FindExportFormatControl(ctl.Controls);
+                    if (child != null)
+                    {
+                        return child as DropDownList;
+                    }
+                }
+            }
+            return null;
+        }
+        #endregion
     }
 }
