@@ -70,9 +70,9 @@ namespace HPF.FutureState.Web.HPFWebControls
 
             //
             //Add JavaScript to client page
-            string resourceName = "HPF.FutureState.Web.HPFWebControls.Tab.js";
-            ClientScriptManager cs = this.Page.ClientScript;
-            cs.RegisterClientScriptResource(this.GetType(), resourceName);
+            //string resourceName = "HPF.FutureState.Web.HPFWebControls.Tab.js";
+            //ClientScriptManager cs = this.Page.ClientScript;
+            //cs.RegisterClientScriptResource(this.GetType(), resourceName);
 
             
         }

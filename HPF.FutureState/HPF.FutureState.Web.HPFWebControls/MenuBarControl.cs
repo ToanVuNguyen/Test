@@ -145,15 +145,15 @@ namespace HPF.FutureState.Web.HPFWebControls
             if (DesignMode)
                 return;
             //Add CSS to client page
-            string includeTemplate = "<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
-            string includeLocation = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HPF.FutureState.Web.HPFWebControls.MenuBarControl.css");
-            LiteralControl include = new LiteralControl(String.Format(includeTemplate, includeLocation));
-            Page.Header.Controls.Add(include);
+            //string includeTemplate = "<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />";
+            //string includeLocation = Page.ClientScript.GetWebResourceUrl(this.GetType(), "HPF.FutureState.Web.HPFWebControls.MenuBarControl.css");
+            //LiteralControl include = new LiteralControl(String.Format(includeTemplate, includeLocation));
+            //Page.Header.Controls.Add(include);
             
-            //Add JavaScript to client page
-            string resourceName = "HPF.FutureState.Web.HPFWebControls.MenuBarControl.js";
-            ClientScriptManager cs = this.Page.ClientScript;
-            cs.RegisterClientScriptResource(this.GetType(), resourceName);
+            ////Add JavaScript to client page
+            //string resourceName = "HPF.FutureState.Web.HPFWebControls.MenuBarControl.js";
+            //ClientScriptManager cs = this.Page.ClientScript;
+            //cs.RegisterClientScriptResource(this.GetType(), resourceName);
         }
     }
 }

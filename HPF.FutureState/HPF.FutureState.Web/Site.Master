@@ -11,7 +11,11 @@
 
 <META NAME="Content-Language" CONTENT="english">
 <link href="./Styles/HPF.css" rel="stylesheet" type="text/css" />
-<script src="Scripts/popup.js" type="text/javascript"></script>
+<link href="./Styles/MenuBarControl.css" rel="stylesheet" type="text/css" />
+<link href="./Styles/TabControl.css" rel="stylesheet" type="text/css" />
+<script src="./Scripts/popup.js" type="text/javascript"></script>
+<script src="./Scripts/MenuBarControl.js" type="text/javascript"></script>
+<script src="./Scripts/Tab.js" type="text/javascript"></script>
 <style type="text/css">
     html body {
         overflow: auto;
