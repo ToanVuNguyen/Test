@@ -418,9 +418,9 @@
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="ReprintPayable.aspx" />
-    <EmbeddedResource Include="Scripts\MenuBarControl.js" />
+    <Content Include="Scripts\MenuBarControl.js" />
     <Content Include="Scripts\popup.js" />
-    <EmbeddedResource Include="Scripts\Tab.js" />
+    <Content Include="Scripts\Tab.js" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="AppForeclosureCaseSearch\AppForeClosureCaseSearchUC.ascx" />
     <Content Include="FundingSourceInvoice.aspx" />
@@ -471,8 +471,8 @@
     <Content Include="Styles\Images\toplogo.jpg" />
     <Content Include="Styles\Images\topmidspace.jpg" />
     <Content Include="Styles\Images\topnavbg.jpg" />
-    <EmbeddedResource Include="Styles\TabControl.css" />
-    <EmbeddedResource Include="Styles\MenuBarControl.css" />
+    <Content Include="Styles\TabControl.css" />
+    <Content Include="Styles\MenuBarControl.css" />
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
     <Content Include="InvoicePaymentInfo.aspx" />
     <Content Include="Temp\Description.txt" />

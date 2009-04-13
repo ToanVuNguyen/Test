@@ -122,9 +122,9 @@
             <asp:Button ID="btnGenerateInvoice" runat="server" CssClass="MyButton" 
                 Text="Generate Invoice &amp; Export File" Width="180px" 
                 onclick="btnGenerateInvoice_Click" />
-                &nbsp
-            <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" 
-                Text="Cancel Invoice" Width="180px" onclick="btnCancel_Click" />
+                &nbsp            
+            <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" OnClientClick="javascript:window.location ='CreateNewInvoice.aspx';return false;"
+                Text="Cancel Invoice" Width="180px"/> 
         </td>
     </tr>
 </table>
