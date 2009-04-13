@@ -294,6 +294,14 @@ function selectAll(involker)
                 myElement.checked = involker.checked;
             }
         }
+        var SelectedIndex = document.getElementById(id);
+        if(SelectedIndex!=null)
+        {
+            if(involker.checked==true)
+                SelectedIndex.value='true';
+            else      
+                SelectedIndex.value='';
+        }
     }
 </script>
 <div id="modalPay" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">

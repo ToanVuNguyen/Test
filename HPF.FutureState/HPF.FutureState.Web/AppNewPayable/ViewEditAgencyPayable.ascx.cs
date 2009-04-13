@@ -86,10 +86,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             }
         }
         
-        protected void chkSelected(object sender, EventArgs e)
-        {
-          
-        }
         protected void btnPayUnpayMarkCase_Click(object sender, EventArgs e)
         {
             bulErrorMessage.Items.Clear();

@@ -183,7 +183,7 @@
                                         <asp:CheckBox ID="chkCheckAll" runat="server" OnClick="selectAll(this)"/>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkSelected" runat="server" OnCheckedChanged="chkSelected" />
+                                        <asp:CheckBox ID="chkSelected" runat="server"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
@@ -304,6 +304,14 @@
                //  for our checkbox status
                 myElement.checked = involker.checked;
             }
+        }
+        var SelectedIndex = document.getElementById(id);
+        if(SelectedIndex!=null)
+        {
+            if(involker.checked==true)
+                SelectedIndex.value='true';
+            else      
+                SelectedIndex.value='';
         }
     }
 </script>
