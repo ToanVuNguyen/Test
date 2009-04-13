@@ -149,13 +149,13 @@ namespace HPF.FutureState.Web.SummaryEmail
         }
         protected ActivityLogDTO BuildActivityLogInfo()
         {
-            ActivityLogDTO activityLog = new ActivityLogDTO();
             ForeclosureCaseDTO forclosureInfo = (ForeclosureCaseDTO)Session["foreclosureInfo"];
-            activityLog.FcId = forclosureInfo.FcId;
-            activityLog.ActivityCd = "EMAIL";
-            activityLog.ActivityDt = DateTime.Now;
-            activityLog.ActivityNote = string.Concat(" To: ", txtTo.Text," From:",HPFWebSecurity.CurrentIdentity.LoginName, " Subject: ", txtSubject.Text, " Body: ", txtBody.Text);
-            return activityLog;
+
+            return ActivityLogBL.Instance.CreateSendSummaryWSActivityLog(forclosureInfo.FcId.Value,
+                                                                        HPFWebSecurity.CurrentIdentity.LoginName,
+                                                                        txtTo.Text,
+                                                                        txtSubject.Text,
+                                                                        txtBody.Text);                        
         }
     }
 }

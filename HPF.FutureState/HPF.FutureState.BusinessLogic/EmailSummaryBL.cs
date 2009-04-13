@@ -36,12 +36,7 @@ namespace HPF.FutureState.BusinessLogic
             
             hpfSendMail.To = sendTo;
             hpfSendMail.Subject = subject;
-            
-            if (body!=string.Empty || body!=null)
-                hpfSendMail.Body = HPF_SUMMARY_EMAIL_BODY_INITIAL + Environment.NewLine + Environment.NewLine + body + Environment.NewLine;
-            else
-                hpfSendMail.Body = HPF_SUMMARY_EMAIL_BODY_INITIAL + Environment.NewLine;
-
+            hpfSendMail.Body = CreateEmailBody(body);            
             hpfSendMail.AddAttachment(fileName, pdfSummaryReport);
             hpfSendMail.Send();
         }
@@ -93,6 +88,17 @@ namespace HPF.FutureState.BusinessLogic
 
         }
 
+        public string CreateEmailBody(string body)
+        {
+            string hpfEmailBody;
+            if (body != string.Empty && body != null)
+                hpfEmailBody = HPF_SUMMARY_EMAIL_BODY_INITIAL + Environment.NewLine + Environment.NewLine + body + Environment.NewLine;
+            else
+                hpfEmailBody = HPF_SUMMARY_EMAIL_BODY_INITIAL + Environment.NewLine;
+
+            return hpfEmailBody;
+        }
+
         public SendSummaryResponse ProcessWebServiceSendSummary(SendSummaryRequest sendSummary, int agencyID)
         {
 
@@ -135,7 +141,12 @@ namespace HPF.FutureState.BusinessLogic
                                     fileName);
 
             //log to activity log
-            ActivityLogDTO activityLog = ActivityLogBL.Instance.CreateSendSummaryWSActivityLog(sendSummary);
+            ActivityLogDTO activityLog = ActivityLogBL.Instance.CreateSendSummaryWSActivityLog(
+                                                                                               sendSummary.FCId.Value,
+                                                                                               sendSummary.SenderId,
+                                                                                               sendSummary.EmailToAddress,
+                                                                                               sendSummary.EmailSubject,
+                                                                                               CreateEmailBody(sendSummary.EmailBody));
             activityLog.SetInsertTrackingInformation(sendSummary.SenderId.ToString());
             ActivityLogBL.Instance.InsertActivityLog(activityLog);
 

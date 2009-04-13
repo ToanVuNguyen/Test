@@ -38,13 +38,13 @@ namespace HPF.FutureState.BusinessLogic
             return ActivityLogDAO.Instance.GetActivityLog(fcId);
         }
 
-        public ActivityLogDTO CreateSendSummaryWSActivityLog(SendSummaryRequest sendRequest)
+        public ActivityLogDTO CreateSendSummaryWSActivityLog(int fcId, string sender, string toEmail, string subject, string body)
         {
             ActivityLogDTO activityLog = new ActivityLogDTO();
-            activityLog.FcId = sendRequest.FCId;
+            activityLog.FcId = fcId;
             activityLog.ActivityCd = "EMAIL";
             activityLog.ActivityDt = DateTime.Now;
-            activityLog.ActivityNote = string.Concat(" To: ", sendRequest.EmailToAddress, " From:", sendRequest.SenderId, " Subject: ", sendRequest.EmailSubject + Constant.HPF_SECURE_EMAIL, " Body: ", sendRequest.EmailBody);
+            activityLog.ActivityNote = string.Concat(" To: ", toEmail, " From:", sender, " Subject: ", subject + Constant.HPF_SECURE_EMAIL, " Body: ", body);
                 
             return activityLog;
         }  
