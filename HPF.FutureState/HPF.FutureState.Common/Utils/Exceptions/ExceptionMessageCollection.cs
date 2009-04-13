@@ -44,15 +44,17 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             return result;
         }
 
-        public ExceptionMessage GetExceptionMessage(string errorCode)
+        public ExceptionMessageCollection GetExceptionMessages(string errorCode)
         {
+            ExceptionMessageCollection result = new ExceptionMessageCollection();
             foreach (ExceptionMessage msg in this)
             {
                 if (msg.ErrorCode == errorCode)
-                    return msg;
+                    result.Add(msg);
+
             }
 
-            return null;
+            return result;
         }
     }
 }

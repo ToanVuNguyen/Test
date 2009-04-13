@@ -209,7 +209,7 @@ namespace HPF.FutureState.BusinessLogic
                     dataValidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMes);
                 }
             double testValue = (double)Math.Round(invoicePayment.PaymentAmount.Value, 2);
-            if (testValue != invoicePayment.PaymentAmount && dataValidEx.ExceptionMessages.GetExceptionMessage(ErrorMessages.ERR0654) == null)
+            if (testValue != invoicePayment.PaymentAmount && dataValidEx.ExceptionMessages.GetExceptionMessages(ErrorMessages.ERR0654).Count == 0)
                 dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0654, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0654));
             if (dataValidEx.ExceptionMessages.Count > 0)
                 throw dataValidEx;

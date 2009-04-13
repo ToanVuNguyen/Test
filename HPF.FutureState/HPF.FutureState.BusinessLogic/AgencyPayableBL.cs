@@ -148,7 +148,12 @@ namespace HPF.FutureState.BusinessLogic
             {
                 NewPayableThrowMissingRequiredFieldsException(ErrorMess);
             }
-            result = AgencyPayableDAO.CreateInstance().CreateDraftAgencyPayable(agencyPayableCriteria);
+            AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
+            searchCriteria.AgencyId = agencyPayableCriteria.AgencyId;
+            searchCriteria.CaseComplete = agencyPayableCriteria.CaseComplete;            
+            searchCriteria.PeriodStartDate = SetToStartDay(agencyPayableCriteria.PeriodStartDate);
+            searchCriteria.PeriodEndDate = SetToEndDay(agencyPayableCriteria.PeriodEndDate);
+            result = AgencyPayableDAO.CreateInstance().CreateDraftAgencyPayable(searchCriteria);
             return result;
         }
         ///<summary>
@@ -186,5 +191,24 @@ namespace HPF.FutureState.BusinessLogic
             AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet, agencyPayableIDCol, flag);
         }
 
+        DateTime SetToStartDay(DateTime t)
+        {
+            t = t.AddMonths(-6);
+            t = t.AddHours(-t.Hour);
+            t = t.AddMinutes(-t.Minute);
+            t = t.AddSeconds(-t.Second);
+            t = t.AddMilliseconds(-t.Millisecond);
+            return t;
+        }
+        DateTime SetToEndDay(DateTime t)
+        {
+            t = t.AddHours(-t.Hour);
+            t = t.AddMinutes(-t.Minute);
+            t = t.AddSeconds(-t.Second);
+
+            t = t.AddDays(1);
+            t = t.AddMilliseconds(-1);
+            return t;
+        }
     }
 }

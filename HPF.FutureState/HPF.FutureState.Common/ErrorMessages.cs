@@ -690,7 +690,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0324, "A InterestRate is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0325, "A MortgageProgramCd is required on all loans to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0326, "A billable OutcomeTypeID is required to complete a foreclosure case.");
-                errorMessageDict.Add(WARN0327, "The budget item \"Mortgage Amount\" is required to complete a foreclosure case");
+                errorMessageDict.Add(WARN0327, "The budget item \"Mortgage Amount\" is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");

@@ -171,9 +171,8 @@ namespace HPF.FutureState.Web.AppNewPayable
                 agencyPayableSearchCriteria.AgencyId = agencyid;
             else agencyPayableSearchCriteria.AgencyId = null;
             
-            agencyPayableSearchCriteria.PeriodStartDate = SetToStartDay(ConvertToDateTime(txtPeriodStart.Text.Trim()));
-            agencyPayableSearchCriteria.PeriodStartDateBK = agencyPayableSearchCriteria.PeriodStartDate;
-            agencyPayableSearchCriteria.PeriodEndDate = SetToEndDay(ConvertToDateTime(txtPeriodEnd.Text.Trim()));
+            agencyPayableSearchCriteria.PeriodStartDate = ConvertToDateTime(txtPeriodStart.Text.Trim());            
+            agencyPayableSearchCriteria.PeriodEndDate = ConvertToDateTime(txtPeriodEnd.Text.Trim());
             
             agencyPayableSearchCriteria.CaseComplete = ddlCaseCompleted.SelectedValue.ToString();
             
@@ -181,22 +180,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                 agencyPayableSearchCriteria.Indicator = 1;
             else agencyPayableSearchCriteria.Indicator = 0;
             return agencyPayableSearchCriteria;
-        }
-
-        DateTime SetToStartDay(DateTime t)
-        {
-            t = t.AddHours(-t.Hour);
-            t = t.AddMinutes(-t.Minute);
-            t = t.AddSeconds(-t.Second);
-            t = t.AddMilliseconds(-t.Millisecond);
-            return t;
-        }
-        DateTime SetToEndDay(DateTime t)
-        {
-            t = SetToStartDay(t);
-            t = t.AddDays(1);
-            t = t.AddSeconds(-1);
-            return t;
-        }
+        }   
     }
 }

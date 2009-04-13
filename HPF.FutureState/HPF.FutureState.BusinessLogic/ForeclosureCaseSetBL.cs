@@ -582,7 +582,7 @@ namespace HPF.FutureState.BusinessLogic
                 else if (ruleSet == Constant.RULESET_LENGTH && item.InterestRate.HasValue)
                 {
                     double testValue = Math.Round(item.InterestRate.Value, 3);
-                    if (testValue != item.InterestRate.Value && msgFcCaseSet.GetExceptionMessage(ErrorMessages.ERR0395) == null)
+                    if (testValue != item.InterestRate.Value && msgFcCaseSet.GetExceptionMessages(ErrorMessages.ERR0395).Count == 0)
                         msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0395, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0395));
                 }
             }            
@@ -592,16 +592,29 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckOtherFieldCaseLoanForPartial(int? servicerId, CaseLoanDTO item, int i)
         {
             var msgFcCaseSet = new ExceptionMessageCollection();
-            if (item.ServicerId == servicerId && CompareString(item.OtherServicerName, null) && WarningMessage.GetExceptionMessage(ErrorMessages.WARN0266) == null)
+            if (item.ServicerId == servicerId && CompareString(item.OtherServicerName, null) && WarningMessage.GetExceptionMessages(ErrorMessages.WARN0266).Count == 0)
             {
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0266));
-            }            
-            if((CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_ARM)
+            }
+            if ((CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_ARM)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_HYBARM)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_POA)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_INTONLY))
-               && CompareString(item.ArmResetInd, null) && WarningMessage.GetExceptionMessage(ErrorMessages.WARN0282) == null)
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0282, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0282, item.AcctNum));                
+               && CompareString(item.ArmResetInd, null))
+            {
+                bool warn282 = true;
+                ExceptionMessageCollection exCol = WarningMessage.GetExceptionMessages(ErrorMessages.WARN0282);
+                
+                foreach (ExceptionMessage ex in exCol)
+                {
+                    if (ex.Message.IndexOf(item.AcctNum) > 0)
+                    {
+                        warn282 = false; break;
+                    }
+                }
+                if(warn282)
+                    WarningMessage.AddExceptionMessage(ErrorMessages.WARN0282, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0282, item.AcctNum));
+            }
             return msgFcCaseSet;
         }
 
@@ -849,7 +862,7 @@ namespace HPF.FutureState.BusinessLogic
             //Budget Item valid or not
             msgFcCaseSet.Add(CheckBugetItemIsValid(foreclosureCaseSet));
             WarningMessage.Add(CheckCrossFields(foreclosureCaseSet.ForeclosureCase));
-            if (caseComplete && WarningMessage.Count != 0 && msgFcCaseSet.GetExceptionMessage(ErrorMessages.ERR0255) == null)
+            if (caseComplete && WarningMessage.Count != 0 && msgFcCaseSet.GetExceptionMessages(ErrorMessages.ERR0255).Count == 0)
             {
                 var msg = new ExceptionMessage
                               {
@@ -873,7 +886,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (item.BudgetItemAmt == null)
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0079, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0079) +  " on budget item index " + (i + 1));
                 if (item.BudgetSubcategoryId == null)
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0262, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0262) + "on budget item index " + (i + 1));
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0262, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0262) + " on budget item index " + (i + 1));
             }            
             return msgFcCaseSet;
         }
@@ -958,7 +971,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             if (!isBillable && caseComplete)
             {
-                if (msgFcCaseSet.GetExceptionMessage(ErrorMessages.ERR0255) == null)                    
+                if (msgFcCaseSet.GetExceptionMessages(ErrorMessages.ERR0255).Count == 0)                    
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0255, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0255));
             }
             if (!isBillable)
@@ -991,22 +1004,32 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         private void CheckBudgetItemHaveMortgage(ForeclosureCaseSetDTO foreclosureCaseSetInput)
         {
-            bool addErr329 = false;
+            bool isInvalidAmount = false;
+            bool isFoundMortgage = false;
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
             if (budgetItemCollection == null || budgetItemCollection.Count < 1)
+            {
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
                 return;
+            }
+
             int subCatId = FindSubCatWithNameIsMortgage();
             for(int i=0;i<budgetItemCollection.Count; i++)
             {
                 BudgetItemDTO item = budgetItemCollection[i];
-                if (item.BudgetSubcategoryId == subCatId && item.BudgetItemAmt <= 0)
-                    WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327) + " on case loan index " + (i+1));
-                else if (!addErr329 && item.BudgetSubcategoryId != subCatId && item.BudgetItemAmt <= 0)
+                if (item.BudgetSubcategoryId == subCatId)
                 {
-                    WarningMessage.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
-                    addErr329 = true;
+                    isFoundMortgage = true;
+                    if (item.BudgetItemAmt <= 0)
+                    {
+                        isInvalidAmount = true;
+                        break;
+                    }
                 }
-            }                    
+            }
+
+            if (isFoundMortgage && !isInvalidAmount)
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
         }
        
         #endregion        

@@ -61,7 +61,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _loan1st2nd; }
             set
             {
-                if (!string.IsNullOrEmpty(value)) _loan1st2nd = value.Trim().ToUpper();
+                if (value != null) _loan1st2nd = value.Trim().ToUpper();
                 else _loan1st2nd = value;
             }
         }
@@ -74,7 +74,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _mortgageTypeCd; }
             set 
             {
-                if (!string.IsNullOrEmpty(value)) _mortgageTypeCd = value.Trim().ToUpper();
+                if (value != null) _mortgageTypeCd = value.Trim().ToUpper();
                 else _mortgageTypeCd = value;
             }
         }
@@ -86,7 +86,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return armResetInd; }
             set
             {
-                if (!string.IsNullOrEmpty(value))
+                if (value != null)
                     armResetInd = value.Trim();
                 else armResetInd = value;
             }
@@ -100,7 +100,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _termLengthCd; }
             set 
             {
-                if (!string.IsNullOrEmpty(value)) _termLengthCd = value.Trim().ToUpper();
+                if (value != null) _termLengthCd = value.Trim().ToUpper();
                 else _termLengthCd = value;
             }
         }
@@ -113,7 +113,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _loanDelinqStatusCd; }
             set 
             {
-                if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper();
+                if (value != null) _loanDelinqStatusCd = value.Trim().ToUpper();
                 else _loanDelinqStatusCd = value;
             }
         }
@@ -164,7 +164,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _mortgateProgramCd; }
             set
             {
-                if (!string.IsNullOrEmpty(value)) _mortgateProgramCd = value.Trim().ToUpper();
+                if (value != null) _mortgateProgramCd = value.Trim().ToUpper();
                 else _mortgageTypeCd = value;
             }
         }

@@ -74,6 +74,12 @@ namespace HPF.FutureState.BusinessLogic
             var servicers = GetServicerbyFcId(fc_id);
             var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
             //</Prepare data>           
+
+            //Update Summary sent datetime if any
+            if (primaryServicer.SecureDeliveryMethodCd != Constant.SECURE_DELIVERY_METHOD_NOSEND)
+            {
+                UpdateSummarySentDateTime(fc_id);
+            }
             //Send summary
             switch (primaryServicer.SecureDeliveryMethodCd)
             {
@@ -83,12 +89,7 @@ namespace HPF.FutureState.BusinessLogic
                 case Constant.SECURE_DELIVERY_METHOD_PORTAL:
                     SendSummaryToHPFPortal(foreclosureCase, primaryServicer, caseLoan);
                     break;
-            }            
-            //Update Summary sent datetime if any
-            if (primaryServicer.SecureDeliveryMethodCd != Constant.SECURE_DELIVERY_METHOD_NOSEND)
-            {
-                UpdateSummarySentDateTime(fc_id);
-            }
+            }                        
         }
 
         /// <summary>

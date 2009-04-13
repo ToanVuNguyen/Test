@@ -5,7 +5,7 @@
 <table width="100%">
     <tr>
         <td>
-            <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderStyle="Inset" BorderColor="Gray" BorderWidth="1px" Width="100%">
+            <asp:Panel ID="pnlOutcome" runat="server" CssClass="ScrollTable" BorderColor="LightGray" BorderWidth="1px" Width="100%">
                 <asp:GridView ID="grdvOutcomeItems" runat="server" CellPadding="2" ForeColor="#333333"
                     GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle"                     
                     onrowcreated="grvForeClosureCaseSearch_RowCreated" 
