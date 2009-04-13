@@ -68,7 +68,10 @@ namespace HPF.FutureState.Web.PrintSummary
         {
             if (!String.IsNullOrEmpty(HPFConfigurationSettings.HPF_EXPORT_FORMATS))
             {
+                this.ReportViewerPrintSummary.ShowExportControls = true;
+
                 DropDownList exportFormatCtl = FindExportFormatControl(ReportViewerPrintSummary.Controls);
+                
                 if (exportFormatCtl != null)
                 {
                     exportFormatCtl.PreRender += delegate(object sender, EventArgs e)
@@ -92,10 +95,6 @@ namespace HPF.FutureState.Web.PrintSummary
                         }
                     };
                 }
-            }
-            else
-            {
-                this.ReportViewerPrintSummary.ShowExportControls = false;
             }
         }
 
