@@ -352,6 +352,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         #endregion
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Session["invoiceDraft"] = null;
             Response.Redirect("CreateNewInvoice.aspx");
         }
     }
