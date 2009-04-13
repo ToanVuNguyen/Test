@@ -73,16 +73,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
         }
-        protected void chkHeaderCaseIDCheck(object sender, EventArgs e)
-        {
-            CheckBox headerCheckbox = (CheckBox)sender;
-            foreach (GridViewRow row in grvNewInvoiceResults.Rows)
-            {
-                CheckBox chkSelected = (CheckBox)row.FindControl("chkCaseSelected");
-                if (chkSelected != null)
-                    chkSelected.Checked = headerCheckbox.Checked;
-            }
-        }
         private void InvoiceDraftDataBind()
         {
             if (Session["fundingSource"] != null)
@@ -144,6 +134,11 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 return;
             }
             InvoiceDraftDataBind();
+            if (invoiceDraft.ForeclosureCaseDrafts.Count == 0)
+            {
+                btnGenerateInvoice.Enabled = false;
+                return;
+            }
             
         }
         private void ClearErrorMessages()

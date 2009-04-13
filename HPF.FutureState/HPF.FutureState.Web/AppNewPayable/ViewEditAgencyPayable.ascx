@@ -180,8 +180,7 @@
                             <Columns>
                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                     <HeaderTemplate>
-                                        <asp:CheckBox ID="chkCheckAll" runat="server" OnCheckedChanged="chkCheckAllCheck" AutoPostBack="true"
-                                             />
+                                        <asp:CheckBox ID="chkCheckAll" runat="server" OnClick="selectAll(this)"/>
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" OnCheckedChanged="chkSelected" />
@@ -290,6 +289,23 @@
         }
         else return true;
     };
+    function selectAll(involker) 
+    {
+        // Since ASP.NET checkboxes are really HTML input elements
+        //  let's get all the inputs 
+        var inputElements = document.getElementsByTagName('input');
+        for (var i = 0 ; i < inputElements.length ; i++) 
+        {
+            var myElement = inputElements[i];
+            // Filter through the input types looking for checkboxes
+            if (myElement.type === "checkbox") 
+            {
+               // Use the involker (our calling element) as the reference 
+               //  for our checkbox status
+                myElement.checked = involker.checked;
+            }
+        }
+    }
 </script>
 <div id="modalTakeBackReason" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
         <div class="PopUpHeader">HPF Billing&amp;Admin</div>

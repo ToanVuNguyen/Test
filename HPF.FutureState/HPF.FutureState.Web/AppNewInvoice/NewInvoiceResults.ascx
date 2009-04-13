@@ -89,7 +89,7 @@
                             <Columns>
                                 <asp:TemplateField>
                                     <HeaderTemplate>
-                                        <asp:CheckBox runat="server" AutoPostBack="true" OnCheckedChanged="chkHeaderCaseIDCheck"
+                                        <asp:CheckBox runat="server" OnClick="selectAll(this)"  
                                             ID="chkCheckAll" />
                                     </HeaderTemplate>
                                     <ItemTemplate>
@@ -136,4 +136,21 @@
     {                        
         mypanel.style.height = screen.height - 595; 
     }
+    function selectAll(involker) 
+    {
+        // Since ASP.NET checkboxes are really HTML input elements
+        //  let's get all the inputs 
+        var inputElements = document.getElementsByTagName('input');
+        for (var i = 0 ; i < inputElements.length ; i++) 
+        {
+            var myElement = inputElements[i];
+            // Filter through the input types looking for checkboxes
+            if (myElement.type === "checkbox") 
+            {
+               // Use the involker (our calling element) as the reference 
+               //  for our checkbox status
+                myElement.checked = involker.checked;
+            }
+        }
+    }  
 </script>

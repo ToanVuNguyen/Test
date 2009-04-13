@@ -85,23 +85,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 hidPayUnpayCheck.Value = "";
             }
         }
-        protected void chkCheckAllCheck(object sender, EventArgs e)
-        {
-            bulErrorMessage.Items.Clear();
-            CheckBox headerCheckbox = (CheckBox)sender;
-            foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
-            {
-                CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
-                if (chkSelected != null)
-                {
-                    chkSelected.Checked = headerCheckbox.Checked;
-                }
-            }
-            if (headerCheckbox.Checked == true)
-                hidIsSelected.Value = "true";
-            else hidIsSelected.Value = "";
-           
-        }
+        
         protected void chkSelected(object sender, EventArgs e)
         {
           

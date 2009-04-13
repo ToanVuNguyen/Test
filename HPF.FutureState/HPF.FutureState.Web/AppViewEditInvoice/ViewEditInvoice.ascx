@@ -7,20 +7,7 @@
 </asp:ScriptManager>
 <%--<asp:UpdatePanel runat="server">
     <ContentTemplate>--%>
-<style type="text/css">
-    .style1
-    {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        color: #2271A0;
-        font-size: 11px;
-        font-weight: bold;
-        width: 150px;
-    }
-    .style2
-    {
-        width: 31px;
-    }
-</style>
+
 <table style="width: 100%;" cellpadding="1" cellspacing="1">
     <tr>
         <td colspan="7" align="center">
@@ -55,7 +42,7 @@
             <asp:DropDownList ID="dropRejectReason" runat="server" CssClass="Text">
             </asp:DropDownList>
         </td>
-        <td align="left" class="style2" style="vertical-align: bottom">
+        <td align="left"  style="vertical-align: bottom">
             
                 <asp:Button ID="btnReject" runat="server" CssClass="MyButton" Text="Reject Marked Cases"
                     Width="130px" OnClick="btnReject_Click" />
@@ -81,7 +68,7 @@
         <td >
             <asp:TextBox ID="txtPaymentID" runat="server" CssClass="Text" ></asp:TextBox>
         </td>
-        <td align="left" class="style2">
+        <td align="left" >
             
                 <asp:Button ID="btnPay" runat="server" CssClass="MyButton" Text="Pay Marked Cases"
                     Width="130px" OnClick="btnPay_Click" />
@@ -102,7 +89,7 @@
             &nbsp;</td>
         <td  class="Text">
             &nbsp;</td>
-        <td align="left" class="style2">
+        <td align="left" >
             
                 <asp:Button ID="btnUnpay" runat="server" CssClass="MyButton" Text="Unpay Marked Cases"
                     Width="130px" OnClick="btnUnpay_Click" />
@@ -116,7 +103,7 @@
         <td class="Text" >
             <asp:Label ID="lblInvoiceNumber" runat="server" Text="50032"></asp:Label>
         </td>
-        <td align="right" class="style1" >
+        <td align="right" class="sidelinks" >
             Total Paid:
         </td>
         <td class="Text" >
@@ -128,7 +115,7 @@
         <td>
             &nbsp;
         </td>
-        <td class="style2">
+        <td >
             &nbsp;
         </td>
     </tr>
@@ -139,7 +126,7 @@
         <td class="Text">
             &nbsp;
         </td>
-        <td align="right" class="style1" >
+        <td align="right" class="sidelinks" >
             Total Rejected:
         </td>
         <td class="Text" >
@@ -151,7 +138,7 @@
         <td>
             &nbsp;
         </td>
-        <td class="style2">
+        <td >
             &nbsp;
         </td>
     </tr>
@@ -189,7 +176,7 @@
                             <Columns>
                                 <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                     <HeaderTemplate>
-                                        <asp:CheckBox ID="chkCheckAll" runat="server" AutoPostBack="True" OnCheckedChanged="chkCheckAllCheck" />
+                                        <asp:CheckBox ID="chkCheckAll" runat="server" OnClick="selectAll(this)" />
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSelected" runat="server" />
@@ -291,6 +278,23 @@ function onUnPayClick()
     }
     return true;
 }
+function selectAll(involker) 
+    {
+        // Since ASP.NET checkboxes are really HTML input elements
+        //  let's get all the inputs 
+        var inputElements = document.getElementsByTagName('input');
+        for (var i = 0 ; i < inputElements.length ; i++) 
+        {
+            var myElement = inputElements[i];
+            // Filter through the input types looking for checkboxes
+            if (myElement.type === "checkbox") 
+            {
+               // Use the involker (our calling element) as the reference 
+               //  for our checkbox status
+                myElement.checked = involker.checked;
+            }
+        }
+    }
 </script>
 <div id="modalPay" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
         <div class="PopUpHeader">HPF Billing&amp;Admin</div>
