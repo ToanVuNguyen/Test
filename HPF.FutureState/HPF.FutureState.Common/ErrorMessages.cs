@@ -661,7 +661,8 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(ERR0900, "A CallID is required to retrieve a call.");
                 errorMessageDict.Add(ERR0901, "The CallID provided could not be found.");
-                errorMessageDict.Add(ERR0902, "The CallID provided was not a valid call it.  The proper format is HPF####, where #### is an integer value.");
+                errorMessageDict.Add(ERR0902,
+                                     "The CallID provided was not a valid Call ID.  The proper format is HPF####, where #### is an integer value.");
 
                 errorMessageDict.Add(WARN0300, "An IncomeEarnersCd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0301, "A RaceCd is required to complete a foreclosure case.");
