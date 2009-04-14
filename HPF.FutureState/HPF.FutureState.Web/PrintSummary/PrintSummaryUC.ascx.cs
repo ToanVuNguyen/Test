@@ -84,7 +84,7 @@ namespace HPF.FutureState.Web.PrintSummary
                         {
                             item = exportFormatCtl.Items[index];
                             if (!Array.Exists<string>(exportFormats,
-                                delegate(string match) { return match.Equals(item.Value, StringComparison.OrdinalIgnoreCase); }))
+                                delegate(string match) { return match.Trim().Equals(item.Value, StringComparison.OrdinalIgnoreCase); }))
                             {
                                 exportFormatCtl.Items.Remove(item);
                             }
