@@ -24,7 +24,6 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             ApplySecurity();
             bulErrorMessage.Items.Clear();
-            hidIsSelected.Value = GetSelectedRow();
             btnTakeBackMarkCase.Attributes.Add("onclick", "return TakeBackReason();");
             btnPayUnpayMarkCase.Attributes.Add("onclick", "return PayUnpay();");
            
@@ -217,9 +216,6 @@ namespace HPF.FutureState.Web.AppNewPayable
                 }
                 
                 //add attribute to check isselected
-                CheckBox chkSelected = e.Row.FindControl("chkSelected") as CheckBox;
-                if (chkSelected != null)
-                    chkSelected.AutoPostBack = true;
             }
         }
         protected void btnYesTakeBackReason_Click(object sender, EventArgs e)

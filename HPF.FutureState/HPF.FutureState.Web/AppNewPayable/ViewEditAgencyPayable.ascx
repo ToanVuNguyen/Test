@@ -183,7 +183,7 @@
                                         <asp:CheckBox ID="chkCheckAll" runat="server" OnClick="selectAll(this)"/>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="chkSelected" runat="server"/>
+                                        <asp:CheckBox ID="chkSelected" runat="server" OnClick="checkBoxClick()"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ForeclosureCaseId" HeaderText="Case ID" ItemStyle-HorizontalAlign="Center" />
@@ -314,6 +314,25 @@
                 SelectedIndex.value='';
         }
     }
+function checkBoxClick()
+{
+    var SelectedIndex = document.getElementById(id);
+    var inputElements = document.getElementsByTagName('input');
+    for (var i = 0 ; i < inputElements.length ; i++) 
+    {
+        var myElement = inputElements[i];
+        // Filter through the input types looking for checkboxes
+        if (myElement.type === "checkbox") 
+        {
+            if(myElement.checked ==true)
+            {
+                SelectedIndex.value='true';
+                return;
+            }
+        }
+    }
+    SelectedIndex.value='';
+}    
 </script>
 <div id="modalTakeBackReason" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
         <div class="PopUpHeader">HPF Billing&amp;Admin</div>

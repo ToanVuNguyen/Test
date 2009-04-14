@@ -29,7 +29,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             ApplySecurity();
             try
             {
-                UpdateCheckedStatus();
+                //UpdateCheckedStatus();
                 btnReject.Attributes.Add("onclick", " return onRejectClick();");
                 btnPay.Attributes.Add("onclick", " return onPayClick();");
                 btnUnpay.Attributes.Add("onclick", " return onUnPayClick();");
@@ -124,20 +124,6 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
-        }
-        protected void chkCheckAllCheck(object sender, EventArgs e)
-        {
-            CheckBox headerCheckbox = (CheckBox)sender;
-            foreach (GridViewRow row in grvViewEditInvoice.Rows)
-            {
-                CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
-                if (chkSelected != null)
-                    chkSelected.Checked = headerCheckbox.Checked;
-            }
-            if (headerCheckbox.Checked == true)
-                SelectedRowIndex.Value = "true";
-            else
-                SelectedRowIndex.Value = "";
         }
         /// <summary>
         /// Get selected InvoiceCase list
@@ -310,9 +296,9 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
 
         protected void grvViewEditInvoice_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            CheckBox chk = (CheckBox)e.Row.FindControl("chkSelected");
-            if (chk != null)
-                chk.AutoPostBack = true;
+            //CheckBox chk = (CheckBox)e.Row.FindControl("chkSelected");
+            //if (chk != null)
+            //    chk.AutoPostBack = true;
         }
 
         
