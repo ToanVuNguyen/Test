@@ -827,7 +827,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[94] = new SqlParameter("@pi_military_service_cd", NullableString(foreclosureCase.MilitaryServiceCd));
                 sqlParam[95] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
                 sqlParam[96] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
-                sqlParam[97] = new SqlParameter("@pi_Intake_credit_bureau_cd ", foreclosureCase.IntakeCreditBureauCd);
+                sqlParam[97] = new SqlParameter("@pi_Intake_credit_bureau_cd ", NullableString(foreclosureCase.IntakeCreditBureauCd));
                 sqlParam[98] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
                 sqlParam[99] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
                 sqlParam[100] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
