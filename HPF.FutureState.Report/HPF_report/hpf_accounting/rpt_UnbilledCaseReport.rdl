@@ -25,24 +25,6 @@
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
-    <ReportParameter Name="pi_from_dt">
-      <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=DateAdd(DateInterval.Month,- 1, DateAdd(DateInterval.Year,0, Today))</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>From</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="pi_to_dt">
-      <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=DateAdd(DateInterval.Year,0, Today)</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>To</Prompt>
-    </ReportParameter>
     <ReportParameter Name="pi_showNeverBillCases">
       <DataType>Boolean</DataType>
       <DefaultValue>
@@ -51,6 +33,14 @@
         </Values>
       </DefaultValue>
       <Prompt>Show never bill cases?</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_from_dt">
+      <DataType>DateTime</DataType>
+      <Prompt>From</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_dt">
+      <DataType>DateTime</DataType>
+      <Prompt>To</Prompt>
     </ReportParameter>
   </ReportParameters>
   <rd:DrawGrid>true</rd:DrawGrid>

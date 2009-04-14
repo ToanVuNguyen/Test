@@ -27,21 +27,28 @@
     </ReportParameter>
     <ReportParameter Name="pi_from_dt">
       <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=DateAdd(DateInterval.Month,- 1, DateAdd(DateInterval.Year,0, Today))</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>From date</Prompt>
     </ReportParameter>
     <ReportParameter Name="pi_to_dt">
       <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=DateAdd(DateInterval.Year,0, Today)</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>To date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_program_id">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>dst_hpf_program_get</DataSetName>
+          <ValueField>program_id</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Program ID</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>dst_hpf_program_get</DataSetName>
+          <ValueField>program_id</ValueField>
+          <LabelField>program_name</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
   </ReportParameters>
   <rd:DrawGrid>true</rd:DrawGrid>
@@ -132,6 +139,9 @@
           <QueryParameter Name="@pi_Agency_id">
             <Value>=Parameters!pi_agency_id.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@pi_program_id">
+            <Value>=Parameters!pi_program_id.Value</Value>
+          </QueryParameter>
         </QueryParameters>
       </Query>
     </DataSet>
@@ -151,6 +161,23 @@
         <CommandType>StoredProcedure</CommandType>
         <CommandText>Hpf_agency_get</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="dst_hpf_program_get">
+      <Fields>
+        <Field Name="program_id">
+          <DataField>program_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="program_name">
+          <DataField>program_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>hpf_program_get</CommandText>
       </Query>
     </DataSet>
   </DataSets>

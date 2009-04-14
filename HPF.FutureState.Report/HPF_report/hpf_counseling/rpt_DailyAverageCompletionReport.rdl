@@ -10,11 +10,6 @@
   <ReportParameters>
     <ReportParameter Name="pi_Mon">
       <DataType>Integer</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>= month(today)</Value>
-        </Values>
-      </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Month</Prompt>
       <ValidValues>
@@ -72,11 +67,6 @@
     </ReportParameter>
     <ReportParameter Name="pi_Year">
       <DataType>Integer</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>= year(today)</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>Year</Prompt>
       <ValidValues>
         <ParameterValues>

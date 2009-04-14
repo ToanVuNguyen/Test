@@ -27,20 +27,10 @@
     </ReportParameter>
     <ReportParameter Name="pi_from_dt">
       <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=DateAdd(DateInterval.Month,- 1, DateAdd(DateInterval.Year,- 1, Today))</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>From</Prompt>
     </ReportParameter>
     <ReportParameter Name="pi_to_dt">
       <DataType>DateTime</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=DateAdd(DateInterval.Year,- 1, Today)</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>To</Prompt>
     </ReportParameter>
     <ReportParameter Name="pi_program_id">

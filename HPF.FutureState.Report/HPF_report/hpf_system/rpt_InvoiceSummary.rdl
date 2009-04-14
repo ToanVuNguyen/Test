@@ -169,7 +169,7 @@
       <Textbox Name="textbox28">
         <rd:DefaultName>textbox28</rd:DefaultName>
         <Top>6.15625in</Top>
-        <Width>7.5in</Width>
+        <Width>7.52083in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -185,7 +185,7 @@
       <Textbox Name="textbox26">
         <rd:DefaultName>textbox26</rd:DefaultName>
         <Top>5.52083in</Top>
-        <Width>7.5in</Width>
+        <Width>7.52083in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -201,7 +201,7 @@
       <Textbox Name="textbox9">
         <rd:DefaultName>textbox9</rd:DefaultName>
         <Top>5.26042in</Top>
-        <Width>7.5in</Width>
+        <Width>7.52083in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -218,7 +218,7 @@
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
         <Top>5in</Top>
-        <Width>7.5in</Width>
+        <Width>7.52083in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -236,7 +236,7 @@
         <ZIndex>10</ZIndex>
         <DataSetName>dst_hpf_rpt_InvoiceSummary_detail</DataSetName>
         <Top>4.16667in</Top>
-        <Width>7.625in</Width>
+        <Width>7.53125in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -336,26 +336,6 @@
                       </Style>
                       <ZIndex>3</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!sessions.Value</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="program_name">
-                      <rd:DefaultName>program_name</rd:DefaultName>
-                      <Style>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <TextAlign>Left</TextAlign>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>2</ZIndex>
-                      <CanGrow>true</CanGrow>
                       <Value>=Fields!program_name.Value</Value>
                     </Textbox>
                   </ReportItems>
@@ -373,9 +353,28 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>1</ZIndex>
+                      <ZIndex>2</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!rate.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox20">
+                      <rd:DefaultName>textbox20</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>1</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!sessions.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -424,6 +423,7 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -454,6 +454,7 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -484,6 +485,7 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -514,6 +516,7 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -544,6 +547,7 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -552,36 +556,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <ZIndex>19</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value>Sessions</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox27">
-                      <rd:DefaultName>textbox27</rd:DefaultName>
-                      <Style>
-                        <Color>White</Color>
-                        <BackgroundColor>Navy</BackgroundColor>
-                        <BorderColor>
-                          <Bottom>Black</Bottom>
-                        </BorderColor>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <BorderWidth>
-                          <Bottom>1pt</Bottom>
-                        </BorderWidth>
-                        <FontWeight>700</FontWeight>
-                        <TextAlign>Center</TextAlign>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>18</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Program</Value>
                     </Textbox>
@@ -604,6 +578,38 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>18</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Rate</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox8">
+                      <rd:DefaultName>textbox8</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>Navy</BackgroundColor>
+                        <BorderColor>
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <BorderWidth>
+                          <Bottom>1pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -613,7 +619,7 @@
                       </Style>
                       <ZIndex>17</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Rate</Value>
+                      <Value>Sessions</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -634,6 +640,7 @@
                         <BorderWidth>
                           <Bottom>1pt</Bottom>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>700</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -660,19 +667,22 @@
             <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
+            <Visibility>
+              <Hidden>= IIF( Fields!servicer_name.Value = "Multiple", True, False)</Hidden>
+            </Visibility>
             <Width>1.125in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.75in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>1.25in</Width>
+            <Width>1.20833in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.625in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.69792in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
@@ -810,34 +820,6 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox20">
-                      <rd:DefaultName>textbox20</rd:DefaultName>
-                      <Style>
-                        <BorderColor>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                        </BorderColor>
-                        <BorderStyle>
-                          <Right>Solid</Right>
-                          <Top>Solid</Top>
-                        </BorderStyle>
-                        <BorderWidth>
-                          <Right>1pt</Right>
-                          <Top>1pt</Top>
-                        </BorderWidth>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>10</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value />
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
                     <Textbox Name="textbox23">
                       <rd:DefaultName>textbox23</rd:DefaultName>
                       <Style>
@@ -850,9 +832,29 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>9</ZIndex>
+                      <ZIndex>10</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>TOTAL:</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox27">
+                      <rd:DefaultName>textbox27</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>9</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Sum(Fields!sessions.Value, "dst_hpf_rpt_InvoiceSummary_detail")</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>

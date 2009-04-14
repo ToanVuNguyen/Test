@@ -10,11 +10,6 @@
   <ReportParameters>
     <ReportParameter Name="pi_year">
       <DataType>Integer</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>=Year(Today)</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>Year</Prompt>
       <ValidValues>
         <ParameterValues>

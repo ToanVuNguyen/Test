@@ -7,6 +7,7 @@
     </DataSource>
   </DataSources>
   <InteractiveHeight>11in</InteractiveHeight>
+  <Description>Test desc 1</Description>
   <ReportParameters>
     <ReportParameter Name="pi_agency_payable_id">
       <DataType>Integer</DataType>
