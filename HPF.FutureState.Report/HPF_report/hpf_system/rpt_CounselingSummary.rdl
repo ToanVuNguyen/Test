@@ -5429,7 +5429,6 @@
     <ReportItems>
       <Textbox Name="textbox204">
         <rd:DefaultName>textbox204</rd:DefaultName>
-        <Top>0.04167in</Top>
         <Width>2.08333in</Width>
         <Style>
           <FontSize>8pt</FontSize>
