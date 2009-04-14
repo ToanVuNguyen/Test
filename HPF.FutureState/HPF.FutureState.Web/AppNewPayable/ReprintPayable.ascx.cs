@@ -46,7 +46,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         private void SetReportPath()
         {
             ReportViewerPrintSummary.ServerReport.ReportPath =
-                HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_REPORT);
+                HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_SUMMARY_PDF_REPORT);
         }
     }
 }

@@ -1028,7 +1028,7 @@ namespace HPF.FutureState.BusinessLogic
                 }
             }
 
-            if (isFoundMortgage && !isInvalidAmount)
+            if ((isFoundMortgage && isInvalidAmount) || !isFoundMortgage)
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));            
         }
        

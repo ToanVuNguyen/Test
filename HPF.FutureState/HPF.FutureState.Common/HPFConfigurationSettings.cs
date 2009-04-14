@@ -198,11 +198,18 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_VIEW_EDIT_AGENCY_PAYABLE_REPORT"];
             }
         }
-        public static string HPF_AGENCY_PAYABLE_REPORT
+        public static string HPF_AGENCY_PAYABLE_SUMMARY_PDF_REPORT
         {
             get
             {
-                return ConfigurationManager.AppSettings["HPF_AGENCY_PAYABLE_REPORT"];
+                return ConfigurationManager.AppSettings["HPF_AGENCY_PAYABLE_SUMMARY_PDF_REPORT"];
+            }
+        }
+        public static string HPF_AGENCY_PAYABLE_EXPORT_XLS_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_AGENCY_PAYABLE_EXPORT_XLS_REPORT"];
             }
         }
         public static string HPF_INVOICE_PORTAL_URL

@@ -95,7 +95,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             var reportExport = new ReportingExporter
             {
-                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_REPORT)
+                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_SUMMARY_PDF_REPORT)
             };
             reportExport.SetReportParameter("pi_agency_payable_id", agency_payable_id.ToString());
             var pdfReport = reportExport.ExportToPdf();
@@ -105,7 +105,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             var reportExport = new ReportingExporter
             {
-                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_REPORT)
+                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_EXPORT_XLS_REPORT)
             };
             reportExport.SetReportParameter("pi_agency_payable_id", agency_payable_id.ToString());
             var xlsReport = reportExport.ExportToExcel();
