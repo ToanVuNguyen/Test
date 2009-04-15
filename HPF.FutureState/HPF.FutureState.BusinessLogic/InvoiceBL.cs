@@ -279,8 +279,8 @@ namespace HPF.FutureState.BusinessLogic
             foreach (var reconciliationDTO in reconciliationDTOCollection)
             {
                 XmlElement item = doc.CreateElement("invoice_case");
-                item.SetAttribute("fc_id", reconciliationDTO.ForeclosureCaseId.ToString());
-                item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId.ToString());
+                item.SetAttribute("fc_id",reconciliationDTO.ForeclosureCaseId==-1?"":reconciliationDTO.ForeclosureCaseId.ToString());
+                item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId==-1?"":reconciliationDTO.InvoiceCaseId.ToString());
                 item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
                 item.SetAttribute("reject_reason_cd", reconciliationDTO.PaymentRejectReasonCode);
                 item.SetAttribute("investor_loan_num", reconciliationDTO.FreddieMacLoanNumber);
