@@ -86,10 +86,17 @@ namespace HPF.CustomActions
             SPList list = SPContext.Current.Web.Lists[listId];
             if (isCurrentView)
             {
+                SPFolder folder = null;
+                if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
+                {
+                    string rootFolder = Page.Request.QueryString["RootFolder"];
+                    folder = SPContext.Current.Web.GetFolder(rootFolder);
+                }
                 SPView view = SPContext.Current.ViewContext.View;
                 SPQuery query = new SPQuery();
                 query.Query = view.Query;
                 query.ViewAttributes = " Scope=\"Recursive\"";
+                if (folder != null) { query.Folder = folder; }
                 items = list.GetItems(query);
             }
             else
