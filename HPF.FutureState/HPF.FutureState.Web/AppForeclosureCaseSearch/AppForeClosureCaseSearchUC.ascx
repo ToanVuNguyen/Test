@@ -2,12 +2,6 @@
     Inherits="HPF.FutureState.Web.AppForeClosureCaseSearch.AppForeClosureCaseSearchUC" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc2" %>
-<style type="text/css">
-    .style1
-    {
-        width: 100%;
-    }
-</style>
 <%--<%@ Register Assembly="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     Namespace="Microsoft.Practices.EnterpriseLibrary.Validation.Integration.AspNet"
     TagPrefix="cc1" %>--%>
@@ -228,7 +222,6 @@
             <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server"
                 Text="&lt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
             &nbsp;<asp:PlaceHolder ID="phPages" runat="server" Visible="true"></asp:PlaceHolder>
-            &nbsp;
             <asp:LinkButton ID="lbtnNext" CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server"
                 Text="&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
             &nbsp;

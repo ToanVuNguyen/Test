@@ -463,9 +463,11 @@
     <Content Include="Styles\Images\basebg2.jpg" />
     <Content Include="Styles\Images\HPFLogo.jpg" />
     <Content Include="Styles\Images\hpf_logo.gif" />
+    <Content Include="Styles\Images\left.gif" />
     <Content Include="Styles\Images\mainpic1.jpg" />
     <Content Include="Styles\Images\navbasebg.jpg" />
     <Content Include="Styles\Images\navspacer.jpg" />
+    <Content Include="Styles\Images\right.gif" />
     <Content Include="Styles\Images\spacer.gif" />
     <Content Include="Styles\Images\topbg.jpg" />
     <Content Include="Styles\Images\toplogo.jpg" />
