@@ -3,16 +3,6 @@
 <%--<link href="../Styles/HPF.css" rel="stylesheet" type="text/css" />--%>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="cc1" %>
-<style type="text/css">
-    .style2
-    {
-        width: 245px;
-    }
-    .style3
-    {
-        width: 161px;
-    }
-</style>
 <table width="100%">
     <tr>
         <td>
@@ -128,7 +118,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks" valign="top">
-                                    For Sale Indicator*:
+                                    For Sale Indicator:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblForSaleIndicator" runat="server" CssClass="Text">Yes</asp:Label>
@@ -229,7 +219,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks" valign="top">
-                                    Primary Email*:
+                                    Primary Email:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblPrimaryEmail" runat="server" CssClass="Text">IvanAMustang@hotmail.com</asp:Label>
@@ -252,7 +242,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="sidelinks" valign="top">
+                                <td align="right" class="sidelinks" valign="top" nowrap="nowrap">
                                     Morther&#39;s Maiden Name:
                                 </td>
                                 <td>
@@ -544,7 +534,7 @@
                 </tr>
                 <tr>
                     <td align="right" class="sidelinks" valign="top">
-                        Counselor*:
+                        Counselor:
                     </td>
                     <td>
                         <asp:Label ID="lblCounselor" runat="server" CssClass="Text">Amada Huggenkiss</asp:Label>
@@ -620,7 +610,7 @@
                         <asp:Label ID="lblCompleteDate" runat="server" CssClass="Text">08/01/2008</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        Intake Credit Scores*:
+                                                Intake Credit Score:
                     </td>
                     <td>
                         <asp:Label ID="lblCreditScores" runat="server" CssClass="Text">Yes</asp:Label>
@@ -634,7 +624,7 @@
                         <asp:Label ID="lblCounsellingDuration" runat="server" CssClass="Text">31-6- minutes</asp:Label>
                     </td>
                     <td align="right" class="sidelinks">
-                        Intake Credit Bureau*:
+                        Intake Credit Bureau:
                     </td>
                     <td>
                         <asp:Label ID="lblCreditBureau" runat="server" CssClass="Text">Yes</asp:Label>

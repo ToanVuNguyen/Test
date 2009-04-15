@@ -98,11 +98,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 ddlAgency.Items.RemoveAt(index);
             ddlAgency.SelectedIndex = ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue(agencyid));
         }
-        private string PhoneNumberFormat(string phoneNumber)
-        {
-            if (phoneNumber.Length < 7) return phoneNumber;
-            return string.Format("{0}-{1}-{2}", phoneNumber.Substring(0, 3), phoneNumber.Substring(3, 3), phoneNumber.Substring(6));
-        }
+        
         private void BindForeclosureCaseDetail(ForeclosureCaseDTO foreclosureCase)
         {
             if (foreclosureCase.AgencyId != null)
@@ -178,9 +174,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblCounselor.Text = foreclosureCase.CounselorFname + " " + foreclosureCase.CounselorLname;
                 if(!string.IsNullOrEmpty(foreclosureCase.CounselorPhone))
                     if (string.IsNullOrEmpty(foreclosureCase.CounselorExt))
-                        lblPhoneExt.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone);
+                        lblPhoneExt.Text = foreclosureCase.CounselorPhone;
                     else
-                        lblPhoneExt.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext: "+ foreclosureCase.CounselorExt + ")";
+                        lblPhoneExt.Text = foreclosureCase.CounselorPhone + " (ext: "+ foreclosureCase.CounselorExt + ")";
                 lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
                 lblProgram.Text = foreclosureCase.ProgramName.ToString();
                 lblIntakeDate.Text = foreclosureCase.IntakeDt == null ? "" : foreclosureCase.IntakeDt.Value.ToShortDateString();

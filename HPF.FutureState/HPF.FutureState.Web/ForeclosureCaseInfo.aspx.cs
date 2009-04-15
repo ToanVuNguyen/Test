@@ -85,12 +85,6 @@ namespace HPF.FutureState.Web
             //
             BindForeclosureCaseToUI(ForeclosureCase);
         }
-        private string PhoneNumberFormat(string phoneNumber)
-        {
-            if (phoneNumber.Length < 7) return phoneNumber;
-           return string.Format("{0}-{1}-{2}", phoneNumber.Substring(0, 3), phoneNumber.Substring(3, 3), phoneNumber.Substring(6));
-        }
-
         private void BindForeclosureCaseToUI(ForeclosureCaseDTO foreclosureCase)
         {
             lblHpfID.Text = foreclosureCase.FcId.ToString();
@@ -101,9 +95,9 @@ namespace HPF.FutureState.Web
             if (!string.IsNullOrEmpty(foreclosureCase.CounselorPhone))
             {
                 if (string.IsNullOrEmpty(foreclosureCase.CounselorExt))
-                    lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone);
+                    lblPhone.Text = foreclosureCase.CounselorPhone;
                 else
-                    lblPhone.Text = PhoneNumberFormat(foreclosureCase.CounselorPhone) + " (ext: " + foreclosureCase.CounselorExt + ")";
+                    lblPhone.Text = foreclosureCase.CounselorPhone + " (ext: " + foreclosureCase.CounselorExt + ")";
             }
             lblCounselorEmail.Text = foreclosureCase.CounselorEmail;
             lblAgencyName.Text = GetAgencyName(foreclosureCase.AgencyId);
