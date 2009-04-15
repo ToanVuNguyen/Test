@@ -365,7 +365,8 @@ namespace HPF.FutureState.UnitTest
             actual.ChangeLastDate = new DateTime(2007, 4, 4);
             actual.ChangeLastAppName = "Unit TEst";
             actual.ChangeLastUserId = "1";
-            string invoiceCaseIdCollection = actual.InvoiceCases[1].InvoiceCaseId.ToString()+","+actual.InvoiceCases[2].InvoiceCaseId.ToString();
+            List<string> invoiceCaseIdCollection = new List<string>();
+            invoiceCaseIdCollection.Add(actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString());
             //set RejectReason
             actual.PaymentRejectReason = "REO";
             //reject invoiceCase 1 and invoiceCase2
@@ -403,7 +404,8 @@ namespace HPF.FutureState.UnitTest
             actual.ChangeLastDate = new DateTime(2007, 4, 4);
             actual.ChangeLastAppName = "Unit TEst";
             actual.ChangeLastUserId = "1";
-            string invoiceCaseIdCollection = actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString();
+            List<string> invoiceCaseIdCollection = new List<string>();
+            invoiceCaseIdCollection.Add(actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString());
             //set RejectReason
             //reject invoiceCase 1 and invoiceCase2
             target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Unpay);
@@ -442,10 +444,12 @@ namespace HPF.FutureState.UnitTest
             actual.ChangeLastUserId = "1";
             //set payment id
             actual.InvoicePaymentId = paymentId;
-            string invoiceCaseIdCollection = "";
+            List<string> invoiceCaseIdCollection = new List<string>();
+            string temp="";
             foreach (var i in actual.InvoiceCases)
-                invoiceCaseIdCollection = invoiceCaseIdCollection + i.InvoiceCaseId.ToString() + ",";
-            invoiceCaseIdCollection = invoiceCaseIdCollection.Remove(invoiceCaseIdCollection.Length - 1, 1);
+                temp = invoiceCaseIdCollection + i.InvoiceCaseId.ToString() + ",";
+            temp = temp.Remove(temp.Length - 1, 1);
+            invoiceCaseIdCollection.Add(temp);
             //set RejectReason
             bool result = target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
             Assert.IsTrue(result);
@@ -483,7 +487,8 @@ namespace HPF.FutureState.UnitTest
             actual.ChangeLastUserId = "1";
             //set payment id
             actual.InvoicePaymentId = 13423425;
-            string invoiceCaseIdCollection = actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString();
+            List<string> invoiceCaseIdCollection = new List<string>();
+            invoiceCaseIdCollection.Add(actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString());
             //set RejectReason
             //reject invoiceCase 1 and invoiceCase2
             bool result = target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);

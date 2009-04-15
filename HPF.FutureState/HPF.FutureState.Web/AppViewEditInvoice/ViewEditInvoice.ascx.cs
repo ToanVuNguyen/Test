@@ -54,7 +54,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         private void LoadInvoiceSet()
         {
             InvoiceSetDTO invoiceSet= InvoiceBL.Instance.GetInvoiceSet(invoiceID);
-            Session["invoiceSet"] = invoiceSet;
+            ViewState["invoiceSet"] = invoiceSet;
             BindInvoice(invoiceSet);
             BindInvoiceCases(invoiceSet);
             SelectedRowIndex.Value = "";
@@ -129,10 +129,11 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         /// Get selected InvoiceCase list
         /// </summary>
         /// <returns></returns>
-        string GetSelectedRows(InvoiceCaseUpdateFlag updateFlag)
+        List<string> GetSelectedRows(InvoiceCaseUpdateFlag updateFlag)
         {
-            string result ="";
-            InvoiceSetDTO invoiceSet=(InvoiceSetDTO) Session["invoiceSet"];
+            List<string> resultCollection = new List<string>();
+            string result = "";
+            InvoiceSetDTO invoiceSet=(InvoiceSetDTO) ViewState["invoiceSet"];
             if(invoiceSet==null)
                 return null;
             foreach(GridViewRow row in grvViewEditInvoice.Rows)
@@ -141,7 +142,14 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 if (chkSelected != null)
                     if (chkSelected.Checked == true)
                     {
-                        result += invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString() + ",";
+                        if (result.Length + invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString().Length < Constant.CASE_ID_COLLECTION_MAX_LENGTH)
+                            result += invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString() + ",";
+                        else
+                        {
+                            result = result.Remove(result.LastIndexOf(","), 1);
+                            resultCollection.Add(result);
+                            result = invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString() + ","; 
+                        }
                         //if Reject then set invoiceCase payment to 0
                         if (updateFlag == InvoiceCaseUpdateFlag.Reject)
                             invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCasePaymentAmount = 0;
@@ -152,10 +160,14 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                             invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCasePaymentAmount = 0;
                     }
             }
-            if (result == "")
+            if (result != "")
+            {
+                result = result.Remove(result.LastIndexOf(","), 1);
+                resultCollection.Add(result);
+            }
+            if (resultCollection.Count==0)
                 return null;
-            result= result.Remove(result.LastIndexOf(","),1);
-            return result;
+            return resultCollection;
         }
          /// <summary>
          /// Reject Selected Invoice Case
@@ -173,13 +185,13 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         
         private void RejectInvoiceCases()
         {
-            string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Reject);
+            List<string> invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Reject);
             if (invoiceCaseIdCollection == null)
             {
                 lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0553));
                 return;
             }
-            InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
+            InvoiceSetDTO invoiceSet = (InvoiceSetDTO)ViewState["invoiceSet"];
             if (invoiceSet == null)
                 return;
             invoiceSet.PaymentRejectReason = dropRejectReason.SelectedValue;
@@ -222,13 +234,13 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         }
         private void PayInvoiceCases()
         {
-            string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Pay);
+            List<string> invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Pay);
             if (invoiceCaseIdCollection == null)
             {
                 lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0555));
                 return;
             }
-            InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
+            InvoiceSetDTO invoiceSet = (InvoiceSetDTO)ViewState["invoiceSet"];
             if (invoiceSet == null)
                 return;
             try
@@ -263,13 +275,13 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         }
         private void UnPayInvoiceCases()
         {
-            string invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Unpay);
+            List<string> invoiceCaseIdCollection = GetSelectedRows(InvoiceCaseUpdateFlag.Unpay);
             if (invoiceCaseIdCollection == null)
             {
                 lblErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0559));
                 return;
             }
-            InvoiceSetDTO invoiceSet = (InvoiceSetDTO)Session["invoiceSet"];
+            InvoiceSetDTO invoiceSet = (InvoiceSetDTO)ViewState["invoiceSet"];
             if (invoiceSet == null)
                 return;
             invoiceSet.Invoice.InvoicePaymentAmount = invoiceSet.TotalPaid;
@@ -292,24 +304,6 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
         protected void Button1_Click(object sender, EventArgs e)
         {
             Response.Redirect("FundingSourceInvoice.aspx");
-        }
-
-        protected void grvViewEditInvoice_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-            //CheckBox chk = (CheckBox)e.Row.FindControl("chkSelected");
-            //if (chk != null)
-            //    chk.AutoPostBack = true;
-        }
-
-        
-
-        private void UpdateCheckedStatus()
-        {
-            string idCollection = GetSelectedRows(InvoiceCaseUpdateFlag.None);
-            if (idCollection == null)
-                SelectedRowIndex.Value = "";
-            else
-                SelectedRowIndex.Value = "true";
         }
         protected void btnYesPay_Click(object sender, EventArgs e)
         {

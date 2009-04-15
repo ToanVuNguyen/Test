@@ -112,14 +112,18 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="invoiceSet">Invoice set containts Invoice and Invoice Cases info</param>
         /// <param name="invoiceCaseIdCollection">a string that collect all invoice Case Ids to REject</param>
         /// <param name="updateFlag">Let the store procedure know which method should be used</param>
-        public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet, string invoiceCaseIdCollection, InvoiceCaseUpdateFlag updateFlag)
+        public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet, List<string> invoiceCaseIdCollection, InvoiceCaseUpdateFlag updateFlag)
         {
             try
             {
-                return InvoiceDAO.CreateInstance().UpdateInvoiceCase(invoiceSet,invoiceCaseIdCollection,updateFlag);
+                InitiateTransaction();
+                bool result = invoiceDAO.UpdateInvoiceCase(invoiceSet,invoiceCaseIdCollection,updateFlag);
+                CompleteTransaction();
+                return result;
             }
             catch (Exception ex)
             {
+                RollbackTransaction();
                 throw (ex);
             }
 

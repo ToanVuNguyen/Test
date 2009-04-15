@@ -2,6 +2,7 @@ namespace HPF.FutureState.Common
 {
     public class Constant
     {
+        public const int CASE_ID_COLLECTION_MAX_LENGTH = 6000;
         public const int PAYMENT_COMMENT_MAX_LENGTH = 300;
         public const int PAYMENT_NUMBER_MAX_LENGTH = 30;
         public const int PAYMENT_FILE_NAME_MAX_LENGTH = 300;

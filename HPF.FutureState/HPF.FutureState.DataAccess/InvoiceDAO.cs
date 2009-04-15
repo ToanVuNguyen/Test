@@ -109,40 +109,38 @@ namespace HPF.FutureState.DataAccess
         /// <param name="invoiceCaseIdCollection">a string that contains all invoiceCaseId to change</param>
         /// <param name="updateFlag">0:Reject, 1:Unpay, 2:Pay</param>
         /// <returns>true: Update Sucessfull;false:Payment_id does not exists</returns>
-        public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet, string invoiceCaseIdCollection, InvoiceCaseUpdateFlag updateFlag)
+        public bool UpdateInvoiceCase(InvoiceSetDTO invoiceSet, List<string> invoiceCaseIdCollection, InvoiceCaseUpdateFlag updateFlag)
         {
             InvoiceDTO invoice = invoiceSet.Invoice;
             InvoiceCaseDTOCollection invoiceCases = invoiceSet.InvoiceCases;
-            dbConnection = base.CreateConnection();
             var command = CreateSPCommand("hpf_invoice_case_update_for_invoice", dbConnection);
-            //<Parameter>
+            command.Transaction = trans;
             var sqlParam = new SqlParameter[11];
-            sqlParam[0] = new SqlParameter("@pi_update_flag", (int)updateFlag);
-            sqlParam[1] = new SqlParameter("@pi_Invoice_id", invoice.InvoiceId);
-            sqlParam[2] = new SqlParameter("@pi_str_invoice_case_id", invoiceCaseIdCollection);
-            sqlParam[3] = new SqlParameter("@pi_pmt_reject_reason_cd", invoiceSet.PaymentRejectReason);
-            sqlParam[4] = new SqlParameter("@pi_invoice_payment_id", invoiceSet.InvoicePaymentId);
-            sqlParam[5] = new SqlParameter("@pi_invoice_pmt_amt", invoiceSet.Invoice.InvoicePaymentAmount);
-            sqlParam[6] = new SqlParameter("@pi_chg_lst_dt", invoiceSet.ChangeLastDate);
-            sqlParam[7] = new SqlParameter("@pi_chg_lst_user_id", invoiceSet.ChangeLastUserId);
-            sqlParam[8] = new SqlParameter("@pi_chg_lst_app_name", invoiceSet.ChangeLastAppName);
-            sqlParam[9] = new SqlParameter("@po_valid_invoice_payment_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            sqlParam[10] = new SqlParameter("@pi_invoice_bill_amt", invoiceSet.Invoice.InvoiceBillAmount);
-            command.Parameters.AddRange(sqlParam);
+            //<Parameter>
             //</Parameter>
             try
             {
-
-                dbConnection.Open();
-                command.ExecuteNonQuery();
+                foreach (var s in invoiceCaseIdCollection)
+                {
+                    sqlParam[0] = new SqlParameter("@pi_update_flag", (int)updateFlag);
+                    sqlParam[1] = new SqlParameter("@pi_Invoice_id", invoice.InvoiceId);
+                    sqlParam[3] = new SqlParameter("@pi_pmt_reject_reason_cd", invoiceSet.PaymentRejectReason);
+                    sqlParam[4] = new SqlParameter("@pi_invoice_payment_id", invoiceSet.InvoicePaymentId);
+                    sqlParam[5] = new SqlParameter("@pi_invoice_pmt_amt", invoiceSet.Invoice.InvoicePaymentAmount);
+                    sqlParam[6] = new SqlParameter("@pi_chg_lst_dt", invoiceSet.ChangeLastDate);
+                    sqlParam[7] = new SqlParameter("@pi_chg_lst_user_id", invoiceSet.ChangeLastUserId);
+                    sqlParam[8] = new SqlParameter("@pi_chg_lst_app_name", invoiceSet.ChangeLastAppName);
+                    sqlParam[9] = new SqlParameter("@po_valid_invoice_payment_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                    sqlParam[10] = new SqlParameter("@pi_invoice_bill_amt", invoiceSet.Invoice.InvoiceBillAmount);
+                    sqlParam[2] = new SqlParameter("@pi_str_invoice_case_id", s);
+                    command.Parameters.Clear();
+                    command.Parameters.AddRange(sqlParam);
+                    command.ExecuteNonQuery();
+                }
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
             }
             // @po_valid_invoice_payment_id: 
             // 0 : Not exitst in invoice payment
