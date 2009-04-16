@@ -144,17 +144,23 @@ namespace HPF.FutureState.BusinessLogic
         public AgencyPayableDraftDTO CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
         {
             AgencyPayableDraftDTO result = new AgencyPayableDraftDTO();
+
+            result.AgencyId = agencyPayableCriteria.AgencyId;
+            result.PeriodStartDate = agencyPayableCriteria.PeriodStartDate;
+            result.PeriodEndDate = agencyPayableCriteria.PeriodEndDate;
+
             Collection<string> ErrorMess = NewPayabeCriteriaRequireFieldValidation(agencyPayableCriteria);
             if (ErrorMess != null)
             {
                 NewPayableThrowMissingRequiredFieldsException(ErrorMess);
             }
             AgencyPayableSearchCriteriaDTO searchCriteria = new AgencyPayableSearchCriteriaDTO();
-            searchCriteria.AgencyId = agencyPayableCriteria.AgencyId;
+            searchCriteria.AgencyId = agencyPayableCriteria.AgencyId.Value;
             searchCriteria.CaseComplete = agencyPayableCriteria.CaseComplete;            
-            searchCriteria.PeriodStartDate = SetToStartDay(agencyPayableCriteria.PeriodStartDate);
-            searchCriteria.PeriodEndDate = SetToEndDay(agencyPayableCriteria.PeriodEndDate);
-            result = AgencyPayableDAO.CreateInstance().CreateDraftAgencyPayable(searchCriteria);
+            searchCriteria.PeriodStartDate = GetStartSearchDate(agencyPayableCriteria.PeriodStartDate);
+            searchCriteria.PeriodEndDate = GetEndSearchDate(agencyPayableCriteria.PeriodEndDate);
+            result.ForclosureCaseDrafts = AgencyPayableDAO.CreateInstance().CreateDraftAgencyPayable(searchCriteria);            
+            
             return result;
         }
         ///<summary>
@@ -214,24 +220,20 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        DateTime SetToStartDay(DateTime t)
+        DateTime GetStartSearchDate(DateTime t)
         {
-            t = t.AddMonths(-6);
-            t = t.AddHours(-t.Hour);
-            t = t.AddMinutes(-t.Minute);
-            t = t.AddSeconds(-t.Second);
-            t = t.AddMilliseconds(-t.Millisecond);
-            return t;
+            DateTime result = new DateTime(t.Year, t.Month, t.Day);
+            result = result.AddMonths(-6);
+            
+            return result;
         }
-        DateTime SetToEndDay(DateTime t)
+        DateTime GetEndSearchDate(DateTime t)
         {
-            t = t.AddHours(-t.Hour);
-            t = t.AddMinutes(-t.Minute);
-            t = t.AddSeconds(-t.Second);
+            DateTime result = new DateTime(t.Year, t.Month, t.Day);
 
-            t = t.AddDays(1);
-            t = t.AddMilliseconds(-1);
-            return t;
+            result = result.AddDays(1);
+            result = result.AddMilliseconds(-1);
+            return result;
         }
     }
 }

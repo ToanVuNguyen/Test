@@ -274,9 +274,8 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="agencyPayableCriteria"></param>
         /// <returns></returns>
-        public AgencyPayableDraftDTO CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
-        {
-            AgencyPayableDraftDTO results = new AgencyPayableDraftDTO();
+        public ForeclosureCaseDraftDTOCollection CreateDraftAgencyPayable(AgencyPayableSearchCriteriaDTO agencyPayableCriteria)
+        {            
             var dbConnection = CreateConnection();
 
             var command = CreateSPCommand("hpf_agency_payable_search_draft", dbConnection);
@@ -294,10 +293,7 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
 
                 if (reader.HasRows)
-                {
-                    results.AgencyId = agencyPayableCriteria.AgencyId;
-                    results.PeriodStartDate = agencyPayableCriteria.PeriodStartDate;
-                    results.PeriodEndDate = agencyPayableCriteria.PeriodEndDate;
+                {                    
                     while (reader.Read())
                     {
                         ForeclosureCaseDraftDTO item = new ForeclosureCaseDraftDTO();
@@ -315,8 +311,7 @@ namespace HPF.FutureState.DataAccess
                         fCaseDraftCollection.Add(item);
                     }
                     reader.Close();
-                }
-                results.ForclosureCaseDrafts = fCaseDraftCollection;
+                }                
             }
             catch (Exception ex)
             {
@@ -326,7 +321,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            return results;
+            return fCaseDraftCollection;
         }
         /// <summary>
         /// 

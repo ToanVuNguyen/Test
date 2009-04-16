@@ -183,7 +183,6 @@ namespace HPF.FutureState.Web.AppNewPayable
             agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
             //default display period_start back 6 months
             //but save exactly value in criteria.
-            agencyPayableDraftDTO.PeriodStartDate = agencyPayableDraftDTO.PeriodStartDate.Value.AddMonths(6);
             RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
             agencyPayableDraftDTO.StatusCode = StatusCd.Code;
             for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)

@@ -237,7 +237,10 @@ namespace HPF.FutureState.Common
         {
             get
             {
-                return int.Parse(ConfigurationManager.AppSettings["CASE_ID_COLLECTION_MAX_LENGTH"]);
+                int value;
+                if(!int.TryParse(ConfigurationManager.AppSettings["CASE_ID_COLLECTION_MAX_LENGTH"], out value))
+                    value = 6000;
+                return value;
             }
         }
     }
