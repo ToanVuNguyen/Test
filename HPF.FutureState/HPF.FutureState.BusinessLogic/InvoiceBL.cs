@@ -243,7 +243,7 @@ namespace HPF.FutureState.BusinessLogic
                 item.SetAttribute("row_index", rowIndex.ToString());
                 item.SetAttribute("fc_id", reconciliationDTO.ForeclosureCaseId==-1?"":reconciliationDTO.ForeclosureCaseId.ToString());
                 item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId==-1?"":reconciliationDTO.InvoiceCaseId.ToString());
-                item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
+                item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount == int.MinValue ? "-1" : reconciliationDTO.PaymentAmount.ToString());
                 item.SetAttribute("reject_reason_code", reconciliationDTO.PaymentRejectReasonCode);
                 root.AppendChild(item);
                 rowIndex++;
@@ -281,7 +281,7 @@ namespace HPF.FutureState.BusinessLogic
                 XmlElement item = doc.CreateElement("invoice_case");
                 item.SetAttribute("fc_id",reconciliationDTO.ForeclosureCaseId==-1?"":reconciliationDTO.ForeclosureCaseId.ToString());
                 item.SetAttribute("invoice_case_id", reconciliationDTO.InvoiceCaseId==-1?"":reconciliationDTO.InvoiceCaseId.ToString());
-                item.SetAttribute("invoice_case_pmt_amt", reconciliationDTO.PaymentAmount.ToString());
+                item.SetAttribute("invoice_case_pmt_amt",reconciliationDTO.PaymentAmount==int.MinValue?"-1": reconciliationDTO.PaymentAmount.ToString());
                 item.SetAttribute("reject_reason_cd", reconciliationDTO.PaymentRejectReasonCode);
                 item.SetAttribute("investor_loan_num", reconciliationDTO.FreddieMacLoanNumber);
                 item.SetAttribute("investor_num", reconciliationDTO.InvestorNumber);
