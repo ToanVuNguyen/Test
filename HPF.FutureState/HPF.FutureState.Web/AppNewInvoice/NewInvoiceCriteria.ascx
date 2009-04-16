@@ -99,7 +99,9 @@
                     <asp:CheckBox ID="chkServicerFreddie" runat="server" CssClass="Text" Text="Select Servicer Rejected because it's Freddie" /><br />
                     <asp:CheckBox ID="chkNeighborworksRejected" runat="server" CssClass="Text" Text="Select Neighborworks Rejected as Freddie Dupe" /><br />
                     <asp:CheckBox ID="chkFundingAgreement" runat="server" CssClass="Text" Text="Select All Servicers w/o a Funding Agreement" /><br />
-                    <asp:CheckBox ID="chkUnfunded" runat="server" CssClass="Text" Text="Select Still Unfunded(billed and rejected)" />
+                    <asp:CheckBox ID="chkUnfunded" runat="server" CssClass="Text" 
+                        Text="Select Still Unfunded(billed and rejected)" AutoPostBack="True" 
+                        oncheckedchanged="chkUnfunded_CheckedChanged" />
                 </td>
                 <td align="right" class="sidelinks">
                     &nbsp;Completed?:&nbsp;

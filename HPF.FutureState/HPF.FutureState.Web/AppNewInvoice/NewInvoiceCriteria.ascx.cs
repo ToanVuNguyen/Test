@@ -97,6 +97,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 chkServicerFreddie.Checked = searchCriteria.ServicerRejectedFreddie;
                 chkServicerRejected.Checked = searchCriteria.ServicerRejected;
                 chkUnfunded.Checked = searchCriteria.SelectUnfunded;
+                if (chkUnfunded.Checked)
+                    Set4NonServicerOptions(false);
             }
         }
         /// <summary>
@@ -167,15 +169,25 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 GetServicerList();
             }
         }
-        private void ServicerExists(bool flag)
+        private void Set5NonServicerOptions(bool flag)
         {
-            chkFundingAgreement.Enabled = !flag;
-            chkNeighborworksRejected.Enabled = !flag;
-            chkServicerFreddie.Enabled = !flag;
-            chkServicerRejected.Enabled = !flag;
-            chkUnfunded.Enabled = !flag;
-
-            dropFundingConsent.Enabled = !flag;
+            if (flag == false)
+            {
+                chkFundingAgreement.Checked = false;
+                chkNeighborworksRejected.Checked = false;
+                chkServicerFreddie.Checked = false;
+                chkServicerRejected.Checked = false;
+                chkUnfunded.Checked = false;
+            }
+            chkFundingAgreement.Enabled = flag;
+            chkNeighborworksRejected.Enabled = flag;
+            chkServicerFreddie.Enabled = flag;
+            chkServicerRejected.Enabled = flag;
+            chkUnfunded.Enabled = flag;
+            dropFundingConsent.Enabled = flag;
+            if (flag == true && chkUnfunded.Checked == true)
+                Set4NonServicerOptions(false);
+            
 
         }
         #region DataBind
@@ -297,7 +309,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
                         break;
                     }
                 //Non-Servicer
-                ServicerExists(!(servicers.Count==0));
+                Set5NonServicerOptions(servicers.Count==0);
             }
             catch (Exception ex)
             {
@@ -473,6 +485,30 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 if(value>=0)
                     return value;
             return double.MinValue;
+        }
+
+        protected void chkUnfunded_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUnfunded.Checked)
+            {
+                chkFundingAgreement.Checked = false;
+                chkNeighborworksRejected.Checked = false;
+                chkServicerFreddie.Checked = false;
+                chkServicerRejected.Checked = false;
+                Set4NonServicerOptions(false);
+            }
+            else
+            {
+                Set4NonServicerOptions(true);
+            }
+        }
+
+        private void Set4NonServicerOptions(bool value)
+        {
+            chkFundingAgreement.Enabled = value;
+            chkNeighborworksRejected.Enabled = value;
+            chkServicerFreddie.Enabled = value;
+            chkServicerRejected.Enabled = value;
         }
     }
 }
