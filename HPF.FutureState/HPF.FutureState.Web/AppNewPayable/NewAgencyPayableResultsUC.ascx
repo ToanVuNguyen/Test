@@ -48,7 +48,7 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right" nowrap="nowrap" width="155">
+        <td class="sidelinks" align="right" nowrap="nowrap">
             Period End:
         </td>
         <td width="200">
@@ -65,7 +65,7 @@
         </td>
     </tr>
     <tr>
-        <td class="sidelinks" align="right" valign="top" nowrap="nowrap" width="155" >
+        <td class="sidelinks" align="right" valign="top" nowrap="nowrap">
             Payment Comments:
         </td>
         <td colspan="4">
@@ -136,7 +136,6 @@
                                 </td>
                                 
                             </tr>
-                            <tr>
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
