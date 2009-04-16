@@ -42,7 +42,6 @@
     <ReportItems>
       <Line Name="line1">
         <Top>0.5in</Top>
-        <Width>11.25in</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
@@ -66,7 +65,7 @@
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <rd:ReportID>c71f55f0-5bd3-478a-a412-5cb78f390449</rd:ReportID>
-  <PageWidth>13in</PageWidth>
+  <PageWidth>14in</PageWidth>
   <DataSets>
     <DataSet Name="dst_hpf_agency_get">
       <Fields>
@@ -97,7 +96,7 @@
         </Field>
         <Field Name="Completed_dt">
           <DataField>Completed_dt</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Agency_case_num">
           <DataField>Agency_case_num</DataField>
@@ -105,7 +104,7 @@
         </Field>
         <Field Name="Intake_dt">
           <DataField>Intake_dt</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Acct_num">
           <DataField>Acct_num</DataField>
@@ -141,7 +140,7 @@
         </Field>
         <Field Name="summary_sent_dt">
           <DataField>summary_sent_dt</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="counselor_id_ref">
           <DataField>counselor_id_ref</DataField>
@@ -171,7 +170,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>13.75in</Width>
+  <Width>13.875in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
@@ -1256,7 +1255,7 @@
                       </Style>
                       <ZIndex>43</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Agency case #</Value>
+                      <Value>Agency Case #</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1282,7 +1281,7 @@
                       </Style>
                       <ZIndex>42</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Completed date</Value>
+                      <Value>Completed Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1308,7 +1307,7 @@
                       </Style>
                       <ZIndex>41</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Intake date</Value>
+                      <Value>Intake Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1568,7 +1567,7 @@
                       </Style>
                       <ZIndex>31</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>ID ref</Value>
+                      <Value>ID Ref</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1594,7 +1593,7 @@
                       </Style>
                       <ZIndex>30</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Summary sent date</Value>
+                      <Value>Summary Sent Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1611,7 +1610,7 @@
             <Width>0.625in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>1.125in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.125in</Width>
@@ -1670,7 +1669,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>

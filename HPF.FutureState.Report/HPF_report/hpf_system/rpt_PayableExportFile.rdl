@@ -10,7 +10,6 @@
   <ReportParameters>
     <ReportParameter Name="pi_agency_payable_id">
       <DataType>Integer</DataType>
-      <AllowBlank>true</AllowBlank>
       <Prompt>Agency Payable ID</Prompt>
     </ReportParameter>
   </ReportParameters>
@@ -86,7 +85,7 @@
         </Field>
         <Field Name="NFMC_difference_paid_amt">
           <DataField>NFMC_difference_paid_amt</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="takeback_pmt_identified_dt">
           <DataField>takeback_pmt_identified_dt</DataField>
@@ -281,6 +280,7 @@
                       <rd:DefaultName>pmt_amt</rd:DefaultName>
                       <Style>
                         <FontSize>8pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -333,7 +333,7 @@
                       <rd:DefaultName>takeback_pmt_identified_dt</rd:DefaultName>
                       <Style>
                         <FontSize>8pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -487,6 +487,7 @@
                       <rd:DefaultName>prop_zip</rd:DefaultName>
                       <Style>
                         <FontSize>8pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -538,7 +539,7 @@
                       <rd:DefaultName>create_dt</rd:DefaultName>
                       <Style>
                         <FontSize>8pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -556,7 +557,7 @@
                       <rd:DefaultName>completed_dt</rd:DefaultName>
                       <Style>
                         <FontSize>8pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -574,7 +575,7 @@
                       <rd:DefaultName>summary_sent_dt</rd:DefaultName>
                       <Style>
                         <FontSize>8pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>

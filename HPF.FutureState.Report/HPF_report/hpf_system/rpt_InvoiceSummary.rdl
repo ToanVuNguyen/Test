@@ -113,11 +113,11 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.375in</Width>
+  <Width>8.41667in</Width>
   <Body>
     <ReportItems>
-      <Textbox Name="textbox32">
-        <rd:DefaultName>textbox32</rd:DefaultName>
+      <Textbox Name="textbox11">
+        <rd:DefaultName>textbox11</rd:DefaultName>
         <Top>2.53125in</Top>
         <Width>3.19792in</Width>
         <Style>
@@ -126,11 +126,11 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>17</ZIndex>
+        <ZIndex>15</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.67708in</Left>
         <Height>0.25in</Height>
-        <Value>=First(Fields!City_info.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
+        <Value>=First(Fields!billing_email.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
       </Textbox>
       <Textbox Name="textbox31">
         <rd:DefaultName>textbox31</rd:DefaultName>
@@ -143,7 +143,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>16</ZIndex>
+        <ZIndex>14</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>3.875in</Left>
         <Height>0.25in</Height>
@@ -160,7 +160,7 @@
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>15</ZIndex>
+        <ZIndex>13</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>4.16667in</Left>
         <Height>0.25in</Height>
@@ -171,12 +171,13 @@
         <Top>6.15625in</Top>
         <Width>7.52083in</Width>
         <Style>
+          <FontSize>9pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>14</ZIndex>
+        <ZIndex>12</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.59375in</Height>
@@ -185,14 +186,15 @@
       <Textbox Name="textbox26">
         <rd:DefaultName>textbox26</rd:DefaultName>
         <Top>5.52083in</Top>
-        <Width>7.52083in</Width>
+        <Width>7.64583in</Width>
         <Style>
+          <FontSize>9pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>13</ZIndex>
+        <ZIndex>11</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.625in</Height>
@@ -201,14 +203,15 @@
       <Textbox Name="textbox9">
         <rd:DefaultName>textbox9</rd:DefaultName>
         <Top>5.26042in</Top>
-        <Width>7.52083in</Width>
+        <Width>7.64583in</Width>
         <Style>
+          <FontSize>9pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>12</ZIndex>
+        <ZIndex>10</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
@@ -218,14 +221,15 @@
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
         <Top>5in</Top>
-        <Width>7.52083in</Width>
+        <Width>7.64583in</Width>
         <Style>
+          <FontSize>9pt</FontSize>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
-        <ZIndex>11</ZIndex>
+        <ZIndex>9</ZIndex>
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
@@ -233,10 +237,10 @@
 </Value>
       </Textbox>
       <Table Name="table1">
-        <ZIndex>10</ZIndex>
+        <ZIndex>8</ZIndex>
         <DataSetName>dst_hpf_rpt_InvoiceSummary_detail</DataSetName>
         <Top>4.16667in</Top>
-        <Width>7.53125in</Width>
+        <Width>7.63182in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -249,6 +253,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -269,6 +274,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Center</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -289,6 +295,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Left</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -309,6 +316,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Left</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -329,6 +337,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -348,6 +357,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -367,6 +377,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -386,6 +397,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -661,31 +673,31 @@
         </Header>
         <TableColumns>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>0.92708in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.875in</Width>
+            <Width>0.84375in</Width>
           </TableColumn>
           <TableColumn>
             <Visibility>
               <Hidden>= IIF( Fields!servicer_name.Value = "Multiple", True, False)</Hidden>
             </Visibility>
-            <Width>1.125in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>1in</Width>
-          </TableColumn>
-          <TableColumn>
             <Width>1.20833in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.625in</Width>
+            <Width>1.01241in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.22333in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.69792in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>0.70658in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.01241in</Width>
           </TableColumn>
         </TableColumns>
         <Height>0.75in</Height>
@@ -707,6 +719,7 @@
                         <BorderWidth>
                           <Top>1pt</Top>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -732,6 +745,7 @@
                         <BorderWidth>
                           <Top>1pt</Top>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -757,6 +771,7 @@
                         <BorderWidth>
                           <Top>1pt</Top>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -782,6 +797,7 @@
                         <BorderWidth>
                           <Top>1pt</Top>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -807,6 +823,7 @@
                         <BorderWidth>
                           <Top>1pt</Top>
                         </BorderWidth>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -826,6 +843,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -846,6 +864,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -866,6 +885,7 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -885,38 +905,6 @@
         </Footer>
         <Left>0.5in</Left>
       </Table>
-      <Textbox Name="textbox11">
-        <rd:DefaultName>textbox11</rd:DefaultName>
-        <Top>3.05208in</Top>
-        <Width>3.19792in</Width>
-        <Style>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>9</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>4.67708in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!billing_email.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
-      </Textbox>
-      <Textbox Name="phone">
-        <rd:DefaultName>phone</rd:DefaultName>
-        <Top>2.79166in</Top>
-        <Width>3.19792in</Width>
-        <Style>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>8</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>4.67708in</Left>
-        <Height>0.25in</Height>
-        <Value>=First(Fields!phone.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
-      </Textbox>
       <Textbox Name="textbox7">
         <rd:DefaultName>textbox7</rd:DefaultName>
         <Top>2.27083in</Top>
@@ -931,7 +919,7 @@
         <CanGrow>true</CanGrow>
         <Left>4.67708in</Left>
         <Height>0.25in</Height>
-        <Value>=First(Fields!billing_addr_1.Value, "dst_hpf_rpt_InvoiceSummary_header") &amp; VBCRLF &amp; First(Fields!billing_addr_2.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
+        <Value>=First(Fields!billing_addr_1.Value, "dst_hpf_rpt_InvoiceSummary_header") &amp; VBCRLF &amp; First(Fields!billing_addr_2.Value, "dst_hpf_rpt_InvoiceSummary_header") &amp; VBCRLF &amp; First(Fields!City_info.Value, "dst_hpf_rpt_InvoiceSummary_header") &amp; VBCRLF &amp; First(Fields!phone.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
       </Textbox>
       <Textbox Name="textbox6">
         <rd:DefaultName>textbox6</rd:DefaultName>

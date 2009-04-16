@@ -310,7 +310,7 @@
                       </Style>
                       <ZIndex>13</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Agency name</Value>
+                      <Value>Agency Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -370,7 +370,7 @@
                       </Style>
                       <ZIndex>11</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value># Cases</Value>
+                      <Value>#Cases</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -533,7 +533,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
