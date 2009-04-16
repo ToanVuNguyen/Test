@@ -150,9 +150,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 30, "Investor Loan Number", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0065)]
         public string InvestorLoanNum { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 30, "Investor Number", Ruleset = Constant.RULESET_LENGTH)]
         public string InvestorNum { get; set; }
 
+        [XmlIgnore]
         [NullableOrStringLengthValidator(true, 50, "Investor Name", Ruleset = Constant.RULESET_LENGTH)]
         public string InvestorName { get; set; }
 
