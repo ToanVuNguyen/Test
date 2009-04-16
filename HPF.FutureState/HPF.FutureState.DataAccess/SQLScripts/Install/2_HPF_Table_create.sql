@@ -373,12 +373,6 @@ PRIMARY KEY(Invoice_id)  ,
     REFERENCES funding_source(funding_source_id));
 GO
 
-
-CREATE INDEX Invoice_FKIndex1 ON Invoice (funding_source_id);
-GO
-
-
-
 CREATE TABLE ref_code_item (
   ref_code_item_id INTEGER  NOT NULL   IDENTITY ,
   ref_code_set_name VARCHAR(30)  NOT NULL  ,
@@ -1006,23 +1000,6 @@ CREATE TABLE [dbo].[CategoryLog](
  CONSTRAINT [PK_CategoryLog] PRIMARY KEY CLUSTERED ([CategoryLogID] ASC)
     WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
-/******** INDEXES *****************************/
-
-IF EXISTS (SELECT name from sys.indexes
-             WHERE name = N'ws_user_login_username_UK')
-    DROP INDEX ws_user_login_username_UK ON ws_user;
-GO
-CREATE UNIQUE INDEX ws_user_login_username_UK
-    ON ws_user(login_username);
-GO
-
-/****** Object:  Index [IX_foreclosure_case_Complete_dt_Agency_id]    Script Date: 01/16/2009 14:01:05 ******/
-CREATE NONCLUSTERED INDEX [IX_foreclosure_case_Complete_dt_Agency_id] ON [dbo].[foreclosure_case] 
-(
-	[completed_dt] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 
 ALTER TABLE foreclosure_case WITH CHECK ADD  CONSTRAINT [FK_call_id] FOREIGN KEY(call_id) REFERENCES call(call_id)

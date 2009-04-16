@@ -63,8 +63,16 @@ set QUOTED_IDENTIFIER ON
 go
 
 
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+
+
+
+
 /****** Object:  StoredProcedure [dbo].[hpf_referral]    Script Date: 02/25/2009 17:54:06 ******/
-ALTER procedure [dbo].[hpf_referral]
+CREATE procedure [dbo].[hpf_referral]
 	 @logicalDate	datetime
 	,@debug			bit = 0		--Debug mode?
 with execute as caller
@@ -153,7 +161,7 @@ begin
 			case when ltrim(r.SECONDARY_DFLT_RSN_TYPE_CODE)= '' then NULL ELSE r.SECONDARY_DFLT_RSN_TYPE_CODE END SECONDARY_DFLT_RSN_TYPE_CODE, 
 			case when ltrim(r.HISPANIC_IND)= '' then NULL ELSE r.HISPANIC_IND END HISPANIC_IND,
 			case when ltrim(r.RACE_TYPE_CODE)= '' then NULL ELSE r.RACE_TYPE_CODE END RACE_TYPE_CODE, 
-			'N' as DUPE_IND, 
+			case when r.check_nbr = 'DUPE' then 'Y' else 'N' END DUPE_IND, 
 			r.AGE,
 			case when ltrim(r.GENDER_TYPE_CODE)= '' then NULL ELSE r.GENDER_TYPE_CODE END GENDER_TYPE_CODE, 
 			case when ltrim(r.HOUSEHOLD_TYPE_CODE)= '' then NULL ELSE r.HOUSEHOLD_TYPE_CODE END HOUSEHOLD_TYPE_CODE,
@@ -266,7 +274,7 @@ begin
 			case when ltrim(r.SECONDARY_DFLT_RSN_TYPE_CODE)= '' then NULL ELSE r.SECONDARY_DFLT_RSN_TYPE_CODE END SECONDARY_DFLT_RSN_TYPE_CODE, 
 			case when ltrim(r.HISPANIC_IND)= '' then NULL ELSE r.HISPANIC_IND END HISPANIC_IND,
 			case when ltrim(r.RACE_TYPE_CODE)= '' then NULL ELSE r.RACE_TYPE_CODE END RACE_TYPE_CODE, 
-			'N' as DUPE_IND, 
+			case when r.check_nbr = 'DUPE' then 'Y' else 'N' END DUPE_IND, 
 			r.AGE,
 			case when ltrim(r.GENDER_TYPE_CODE)= '' then NULL ELSE r.GENDER_TYPE_CODE END GENDER_TYPE_CODE, 
 			case when ltrim(r.HOUSEHOLD_TYPE_CODE)= '' then NULL ELSE r.HOUSEHOLD_TYPE_CODE END HOUSEHOLD_TYPE_CODE,
@@ -338,5 +346,4 @@ begin
 
 	set nocount off
 end --proc
-
 GO
