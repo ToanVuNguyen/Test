@@ -200,7 +200,7 @@
                                 <asp:BoundField DataField="ServicerName" HeaderText="Servicer Name" />
                                 <asp:BoundField DataField="BorrowerName" HeaderText="Borrower Name" />
                                 <asp:BoundField DataField="NFMCDifferenceEligibleInd" HeaderText="NFMC?" />
-                                <asp:BoundField DataField="NFMCDifferencePaidAmt" HeaderText="NFMC_Pmt" DataFormatString="{0:C}"
+                                <asp:BoundField DataField="NFMCDifferencePaidAmt" HeaderText="NFMC Pmt" DataFormatString="{0:C}"
                                     ItemStyle-HorizontalAlign="Right" />
                                 <asp:BoundField DataField="TakebackReasonDesc" HeaderText="Takeback Reason" />
                                 <asp:TemplateField HeaderText="Takeback Date">

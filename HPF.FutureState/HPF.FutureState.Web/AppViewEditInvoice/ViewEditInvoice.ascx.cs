@@ -142,7 +142,7 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
                 if (chkSelected != null)
                     if (chkSelected.Checked == true)
                     {
-                        if (result.Length + invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString().Length < Constant.CASE_ID_COLLECTION_MAX_LENGTH)
+                        if (result.Length + invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString().Length < HPFConfigurationSettings.CASE_ID_COLLECTION_MAX_LENGTH)
                             result += invoiceSet.InvoiceCases[row.DataItemIndex].InvoiceCaseId.ToString() + ",";
                         else
                         {

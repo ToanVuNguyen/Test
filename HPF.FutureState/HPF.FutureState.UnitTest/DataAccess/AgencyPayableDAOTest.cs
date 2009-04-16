@@ -4,6 +4,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using System.Data.SqlClient;
 using System.Configuration;
 using System;
+using System.Collections.Generic;
 namespace HPF.FutureState.UnitTest
 {
 
@@ -442,7 +443,8 @@ namespace HPF.FutureState.UnitTest
             agencyPayableSet.ChangeLastDate = Convert.ToDateTime("2/2/2222");
             agencyPayableSet.ChangeLastUserId = working_user_id;
             string takebackReason = "";
-            string agencyPayableIDCol = agency_payable_case_id.ToString();
+            List<string> agencyPayableIDCol = new List<string>();
+            agencyPayableIDCol.Add(agency_payable_case_id.ToString());
             //
             target.TakebackMarkCase(agencyPayableSet, takebackReason, agencyPayableIDCol);
             //

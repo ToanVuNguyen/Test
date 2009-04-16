@@ -233,5 +233,12 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_EXPORT_FORMATS"];
             }
         }
+        public static int CASE_ID_COLLECTION_MAX_LENGTH
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["CASE_ID_COLLECTION_MAX_LENGTH"]);
+            }
+        }
     }
 }

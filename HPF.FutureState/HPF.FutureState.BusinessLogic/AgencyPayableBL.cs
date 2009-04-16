@@ -33,6 +33,7 @@ namespace HPF.FutureState.BusinessLogic
         {
 
         }
+
         public int? InsertAgencyPayable(AgencyPayableDraftDTO agencyPayableDraft)
         {
             AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();
@@ -182,13 +183,35 @@ namespace HPF.FutureState.BusinessLogic
         {
             return (AgencyPayableDAO.CreateInstance().AgencyPayableSetGet(agencyPayableID));
         }
-        public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet, string takebackReason, string agencyPayableIDCol)
+        public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet, string takebackReason, List<string> agencyPayableIDCol)
         {
-            AgencyPayableDAO.CreateInstance().TakebackMarkCase(agencyPayableSet, takebackReason, agencyPayableIDCol);
+            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();
+            try
+            {
+                agencyPayableDAO.BeginTran();
+                agencyPayableDAO.TakebackMarkCase(agencyPayableSet, takebackReason, agencyPayableIDCol);
+                agencyPayableDAO.CommitTran();
+            }
+            catch (Exception ex)
+            {
+                agencyPayableDAO.RollbackTran();
+                throw (ex);
+            }
         }
-        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol, int flag)
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, List<string> agencyPayableIDCol, int flag)
         {
-            AgencyPayableDAO.CreateInstance().PayUnPayMarkCase(agencyPayableSet, agencyPayableIDCol, flag);
+            AgencyPayableDAO agencyPayableDAO = AgencyPayableDAO.CreateInstance();
+            try
+            {
+                agencyPayableDAO.BeginTran();
+                agencyPayableDAO.PayUnPayMarkCase(agencyPayableSet, agencyPayableIDCol, flag);
+                agencyPayableDAO.CommitTran();
+            }
+            catch (Exception ex)
+            {
+                agencyPayableDAO.RollbackTran();
+                throw (ex);
+            }
         }
 
         DateTime SetToStartDay(DateTime t)

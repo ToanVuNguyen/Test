@@ -400,62 +400,58 @@ namespace HPF.FutureState.DataAccess
         /// 
         /// </summary>
         /// <param name="invoicePayment"></param>
-        public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet,string takebackReason,string agencyPayableIDCol )
+        public void TakebackMarkCase(AgencyPayableSetDTO agencyPayableSet, string takebackReason, List<string> agencyPayableIDCol)
         {
-            var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_agency_payable_case_update", dbConnection);
+            command.Transaction = trans;
             //<Parameter>
             var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@pi_update_flag",ConvertToInt(0));
-            sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIDCol);// payableid collection
-            sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", takebackReason);
-            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);
-            sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableSet.ChangeLastUserId);
-            sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name",agencyPayableSet.ChangeLastAppName);
-            
             //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-
             try
             {
-                dbConnection.Open();
-                command.ExecuteNonQuery();
+                foreach (var s in agencyPayableIDCol)
+                {
+                    sqlParam[0] = new SqlParameter("@pi_update_flag", ConvertToInt(0));
+                    sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", s);// payableid collection
+                    sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", takebackReason);
+                    sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);
+                    sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableSet.ChangeLastUserId);
+                    sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableSet.ChangeLastAppName);
+                    command.Parameters.Clear();
+                    command.Parameters.AddRange(sqlParam);
+                    command.ExecuteNonQuery();
+                }
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally {
-                dbConnection.Close();
             }
         }
-        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, string agencyPayableIDCol,int flag)
+        public void PayUnPayMarkCase(AgencyPayableSetDTO agencyPayableSet, List<string> agencyPayableIDCol, int flag)
         {
-            var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_agency_payable_case_update", dbConnection);
+            command.Transaction = trans;
             //<Parameter>
             var sqlParam = new SqlParameter[6];
-            sqlParam[0] = new SqlParameter("@pi_update_flag",ConvertToInt(flag));
-            sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", agencyPayableIDCol);// payableid collection
-            sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", "");
-            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);
-            sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableSet.ChangeLastUserId);
-            sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableSet.ChangeLastAppName);
-
             //</Parameter>
-            command.Parameters.AddRange(sqlParam);
             try
             {
-                dbConnection.Open();
-                command.ExecuteNonQuery();
+                foreach (var s in agencyPayableIDCol)
+                {
+                    sqlParam[0] = new SqlParameter("@pi_update_flag", ConvertToInt(flag));
+                    sqlParam[1] = new SqlParameter("@pi_str_agency_payable_case_id", s);// payableid collection
+                    sqlParam[2] = new SqlParameter("@pi_takeback_pmt_reason_cd", "");
+                    sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", agencyPayableSet.ChangeLastDate);
+                    sqlParam[4] = new SqlParameter("@pi_chg_lst_user_id", agencyPayableSet.ChangeLastUserId);
+                    sqlParam[5] = new SqlParameter("@pi_chg_lst_app_name", agencyPayableSet.ChangeLastAppName);
+                    command.Parameters.Clear();
+                    command.Parameters.AddRange(sqlParam);
+                    command.ExecuteNonQuery();
+                }
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
             }
         }
        

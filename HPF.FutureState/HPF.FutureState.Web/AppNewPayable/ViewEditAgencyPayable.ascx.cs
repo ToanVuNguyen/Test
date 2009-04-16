@@ -76,7 +76,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 lblGrandTotalPaid.Text = String.Format("{0:C}", (agencyPayableSet.TotalNFMCUpChargePaid + agencyPayableSet.TotalPayable));
                 //footer
                 lblTotalCase_ft.Text = agencyPayableSet.TotalCases.ToString();
-                lblPayableTotal_ft.Text = agencyPayableSet.TotalPayable.ToString();
+                lblPayableTotal_ft.Text = agencyPayableSet.TotalPayable.ToString("C");
                 lblTotalNFMCUpChangePaid_ft.Text = agencyPayableSet.TotalNFMCUpChargePaid.ToString();
                 txtPayableComments.Text = agencyPayableSet.Payable.PaymentComment;
                 //Bind Agency Payable Case, from agencypayableDTO.payablecase
@@ -95,10 +95,10 @@ namespace HPF.FutureState.Web.AppNewPayable
 
         private void PayUnPay()
         {
-            List<string> payableCaseIdCollection = GetPayUnpayList();
+            List<List<string>> payableCaseIdCollection = GetPayUnpayList();
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
-            string payList = payableCaseIdCollection[0];
-            string unpayList = payableCaseIdCollection[1];
+            List<string> payList = payableCaseIdCollection[0];
+            List<string> unpayList = payableCaseIdCollection[1];
             if (payableCaseIdCollection == null)
             {
                 bulErrorMessage.Items.Add(ErrorMessages.GetExceptionMessageCombined("ERR0577"));
@@ -113,9 +113,9 @@ namespace HPF.FutureState.Web.AppNewPayable
             try
             {
                 agencyPayableSet.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.UserId.ToString());
-                if(payList.Length>0)
+                if(payList.Count>0)
                     AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, payList, 1);
-                if(unpayList.Length>0)
+                if(unpayList.Count>0)
                     AgencyPayableBL.Instance.PayUnPayMarkCase(agencyPayableSet, unpayList, 2);
                 BindViewEditPayable();
             }
@@ -137,7 +137,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             
             try
             {
-                string payableCaseIdCollection = GetSelectedRow();
+                List<string> payableCaseIdCollection = GetSelectedRow();
                 string takebackReason = ddlTakebackReason.SelectedItem.Value;
                 if (takebackReason == "-1")
                     takebackReason = null;
@@ -158,11 +158,13 @@ namespace HPF.FutureState.Web.AppNewPayable
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
             }
         }
-        protected List<string> GetPayUnpayList()
+        protected List<List<string>> GetPayUnpayList()
         {
             bulErrorMessage.Items.Clear();
-            StringBuilder  payList = new StringBuilder();
-            StringBuilder unpayList = new StringBuilder();
+            List<string> payListCollection = new List<string>();
+            List<string> unpayListCollection = new List<string>();
+            string  payList = "";
+            string unpayList = "";
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
 
             foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
@@ -174,13 +176,25 @@ namespace HPF.FutureState.Web.AppNewPayable
                         AgencyPayableCaseDTO selectedPayableCase = agencyPayableSet.PayableCases[row.DataItemIndex];
                         if (selectedPayableCase.NFMCDifferencePaidAmt != null)
                         {
-                            unpayList.Append(selectedPayableCase.AgencyPayableId.ToString());
-                            unpayList.Append(",");
+                            if (unpayList.Length + selectedPayableCase.AgencyPayableId.ToString().Length < HPFConfigurationSettings.CASE_ID_COLLECTION_MAX_LENGTH)
+                                unpayList += selectedPayableCase.AgencyPayableId.ToString() + ",";
+                            else
+                            {
+                                unpayList = unpayList.Remove(unpayList.LastIndexOf(","), 1);
+                                unpayListCollection.Add(unpayList);
+                                unpayList = selectedPayableCase.AgencyPayableId.ToString()+",";
+                            }
                         }
                         else
                         {
-                            payList.Append(selectedPayableCase.AgencyPayableId.ToString());
-                            payList.Append(",");
+                            if (payList.Length + selectedPayableCase.AgencyPayableId.ToString().Length < HPFConfigurationSettings.CASE_ID_COLLECTION_MAX_LENGTH)
+                                payList += selectedPayableCase.AgencyPayableId.ToString() + ",";
+                            else
+                            {
+                                payList = payList.Remove(payList.LastIndexOf(","), 1);
+                                payListCollection.Add(payList);
+                                payList = selectedPayableCase.AgencyPayableId.ToString() + ",";
+                            }
                         }
                         if (agencyPayableSet.PayableCases[row.DataItemIndex].NFMCDifferenceEligibleInd == "N")
                         {
@@ -189,42 +203,55 @@ namespace HPF.FutureState.Web.AppNewPayable
                     }
             }
             
-            string sPayList = payList.ToString();
-            string sUnpayList = unpayList.ToString();
-            if (sPayList.Length==0&&sUnpayList.Length==0)
+            if (payList.Length==0&&unpayList.Length==0)
                 return null;
-            if (sPayList.Length > 0)
-                sPayList = sPayList.Remove(sPayList.LastIndexOf(","), 1);
-            if (sUnpayList.Length > 0)
-                sUnpayList = sUnpayList.Remove(sUnpayList.LastIndexOf(","), 1);
-            List<string> result = new List<string>();
-            result.Add(sPayList);
-            result.Add(sUnpayList);
+            if (payList.Length > 0)
+            {
+                payList = payList.Remove(payList.LastIndexOf(","), 1);
+                payListCollection.Add(payList);
+            }
+            if (unpayList.Length > 0)
+            {
+                unpayList = unpayList.Remove(unpayList.LastIndexOf(","), 1);
+                unpayListCollection.Add(unpayList);
+            }
+            List<List<string>> result = new List<List<string>>();
+            result.Add(payListCollection);
+            result.Add(unpayListCollection);
             return result;
         }
-        protected string GetSelectedRow()
+        protected List<string> GetSelectedRow()
         {
             bulErrorMessage.Items.Clear();
+            List<string> resultCollection = new List<string>();
             string result = "";
             AgencyPayableSetDTO agencyPayableSet = (AgencyPayableSetDTO)ViewState["agencyPayableSet"];
-
+            if (agencyPayableSet == null)
+                return null;
             foreach (GridViewRow row in grvViewEditAgencyPayable.Rows)
             {
                 CheckBox chkSelected = (CheckBox)row.FindControl("chkSelected");
                 if (chkSelected != null)
                     if (chkSelected.Checked == true)
                     {
-                        result += agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ",";
-                        if (agencyPayableSet.PayableCases[row.DataItemIndex].NFMCDifferenceEligibleInd == "N")
+                        if (result.Length + agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString().Length < HPFConfigurationSettings.CASE_ID_COLLECTION_MAX_LENGTH)
+                            result += agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ",";
+                        else
                         {
-                            hidPayUnpayCheck.Value = "-1";
+                            result = result.Remove(result.LastIndexOf(","), 1);
+                            resultCollection.Add(result);
+                            result = agencyPayableSet.PayableCases[row.DataItemIndex].AgencyPayableId.ToString() + ","; 
                         }
                     }
             }
-            if (result == "")
+            if (result != "")
+            {
+                result = result.Remove(result.LastIndexOf(","), 1);
+                resultCollection.Add(result);
+            }
+            if (resultCollection.Count == 0)
                 return null;
-            result = result.Remove(result.LastIndexOf(","), 1);
-            return result;
+            return resultCollection;
         }
         protected void btnClose_Click(object sender, EventArgs e)
         {

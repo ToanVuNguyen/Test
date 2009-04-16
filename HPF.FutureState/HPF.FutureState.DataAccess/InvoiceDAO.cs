@@ -29,9 +29,16 @@ namespace HPF.FutureState.DataAccess
 
         public void BeginTransaction()
         {
-            dbConnection = CreateConnection();
-            dbConnection.Open();
-            trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            try
+            {
+                dbConnection = CreateConnection();
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -44,9 +51,9 @@ namespace HPF.FutureState.DataAccess
                 trans.Commit();
                 dbConnection.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw ex;
             }
         }
         /// <summary>
@@ -59,9 +66,9 @@ namespace HPF.FutureState.DataAccess
                 trans.Rollback();
                 dbConnection.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                throw ex;
             }
         }
 
