@@ -8,6 +8,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -273,6 +274,10 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
                 results = new ForeclosureCaseSearchResult();
+                int rowCount = 0;
+                int limitRowCount;
+                if (!int.TryParse(HPFConfigurationSettings.WS_SEARCH_RESULT_MAXROW, out limitRowCount))
+                    limitRowCount = 50;
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -309,6 +314,8 @@ namespace HPF.FutureState.DataAccess
                         item.Counseled = GetCounseledProperty(item.CompletedDt);
                         #endregion
                         results.Add(item);
+                        rowCount++;
+                        if (rowCount >= limitRowCount) break;
                     }
                     reader.Close();
                 }
