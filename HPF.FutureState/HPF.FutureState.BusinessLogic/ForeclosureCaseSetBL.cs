@@ -1064,12 +1064,13 @@ namespace HPF.FutureState.BusinessLogic
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
                 OutcomeItemDTOCollection outcomeCollecionNew = null;
-                outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+                OutcomeItemDTOCollection outcomeDB = foreclosureCaseSetDAO.GetOutcomeItemCollection(fcId);
+                outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, outcomeDB, fcId);
                 InsertOutcomeItem(foreclosureCaseSetDAO, outcomeCollecionNew, fcId);
 
                 //check outcome item DB with outcome item input
                 //if not exit, update outcome_deleted_dt = today()
-                outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, fcId);
+                outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, outcomeDB, fcId);
                 UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);                
 
                 //Get list case loan wil be deleted
@@ -1422,10 +1423,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int? fcId)
+        private OutcomeItemDTOCollection CheckOutcomeItemInputwithDB(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, OutcomeItemDTOCollection outcomeItemCollectionDB, int? fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
-            OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);
+            //OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);
             //Compare OutcomeItem input with OutcomeItem DB
             if (outcomeItemCollectionDB != null)
             {
@@ -1451,10 +1452,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>OutcomeItemDTOCollection, fc_id </param>
         /// <returns>new OutcomeItemDTOCollection use for Insert</returns>
-        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, int? fcId)
+        private OutcomeItemDTOCollection CheckOutcomeItemDBwithInput(ForeclosureCaseSetDAO foreClosureCaseSetDAO, OutcomeItemDTOCollection outcomeItemCollectionInput, OutcomeItemDTOCollection outcomeItemCollectionDB, int? fcId)
         {
             OutcomeItemDTOCollection outcomeItemNew = new OutcomeItemDTOCollection();
-            OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
+            //OutcomeItemDTOCollection outcomeItemCollectionDB = foreClosureCaseSetDAO.GetOutcomeItemCollection(fcId);            
             //Compare OutcomeItem input with OutcomeItem DB
             if (outcomeItemCollectionDB == null || outcomeItemCollectionDB.Count < 1)   
                 return null;            
@@ -1561,9 +1562,11 @@ namespace HPF.FutureState.BusinessLogic
                         || ConvertStringToUpper(caseLoan.OrigMortgageCoName) != ConvertStringToUpper(item.OrigMortgageCoName)
                         || ConvertStringToUpper(caseLoan.OrginalLoanNum) != ConvertStringToUpper(item.OrginalLoanNum)
                         || ConvertStringToUpper(caseLoan.CurrentServicerFdicNcuaNum) != ConvertStringToUpper(item.CurrentServicerFdicNcuaNum)
-                        || ConvertStringToUpper(caseLoan.InvestorLoanNum) != ConvertStringToUpper(item.InvestorLoanNum)
-                        || ConvertStringToUpper(caseLoan.InvestorNum) != ConvertStringToUpper(item.InvestorNum)
-                        || ConvertStringToUpper(caseLoan.InvestorName) != ConvertStringToUpper(item.InvestorName)
+//Comment these checking because these oness are hidden for WS
+//                        || ConvertStringToUpper(caseLoan.InvestorLoanNum) != ConvertStringToUpper(item.InvestorLoanNum)
+//                        || ConvertStringToUpper(caseLoan.InvestorNum) != ConvertStringToUpper(item.InvestorNum)
+//                        || ConvertStringToUpper(caseLoan.InvestorName) != ConvertStringToUpper(item.InvestorName)
+                        || ConvertStringToUpper(caseLoan.MortgageProgramCd) != ConvertStringToUpper(item.MortgageProgramCd)
                         )
                         return false;
                 }                
@@ -1770,6 +1773,8 @@ namespace HPF.FutureState.BusinessLogic
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (caseLoanCollection == null || caseLoanCollection.Count < 1)
                 return null;
+            bool error131 = false;
+
             for (int i = 0; i < caseLoanCollection.Count; i++)
             {
                 CaseLoanDTO caseLoan = caseLoanCollection[i];
@@ -1788,7 +1793,21 @@ namespace HPF.FutureState.BusinessLogic
                     string msg = string.Format(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0361), caseLoan.AcctNum);
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0361, msg);
                 }
+
+                if (!error131 && i < caseLoanCollection.Count - 1)
+                {   
+                    for (int j = i + 1; j < caseLoanCollection.Count; j++)
+                    {
+                        if (caseLoanCollection[i].AcctNum.ToUpper().CompareTo(caseLoanCollection[j].AcctNum.ToUpper()) == 0)
+                        {
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0131, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0131));
+                            error131 = true;
+                            break;
+                        }
+                    }
+                }
             }
+
             return msgFcCaseSet;  
         }
 

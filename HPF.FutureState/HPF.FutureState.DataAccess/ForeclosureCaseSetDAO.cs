@@ -1089,7 +1089,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>OutcomeItemDTOCollection</returns>
         public OutcomeItemDTOCollection GetOutcomeItemCollection(int? fcId)
         {
-            OutcomeItemDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>(Constant.HPF_CACHE_OUTCOME_ITEM);            
+            OutcomeItemDTOCollection results = null;// HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>(Constant.HPF_CACHE_OUTCOME_ITEM);            
             if (results == null)
             {
                 var dbConnection = CreateConnection();

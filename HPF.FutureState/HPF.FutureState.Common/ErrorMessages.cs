@@ -120,6 +120,7 @@ namespace HPF.FutureState.Common
         public const string ERR0128 = "ERR0128";
         public const string ERR0129 = "ERR0129";
         public const string ERR0130 = "ERR0130";
+        public const string ERR0131 = "ERR0131";
 
         public const string ERR0200 = "ERR0200";
         public const string ERR0201 = "ERR0201";
@@ -565,6 +566,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0128, "One or more of your loans is missing a Loan Num.");
                 errorMessageDict.Add(ERR0129, "An OutcomeTypeID is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0130, "A 1ST2NDCd for Loan {0} is required to save a foreclosure case.");
+                errorMessageDict.Add(ERR0131, "Loan AcctNum must be unique within a case.");
                 errorMessageDict.Add(ERR0200, "An invalid code was provided for IncomeEarnersCd.");
                 errorMessageDict.Add(ERR0201, "An invalid code was provided for CaseSourceCd.");
                 errorMessageDict.Add(ERR0202, "An invalid code was provided for RaceCd.");
