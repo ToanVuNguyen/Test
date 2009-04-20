@@ -572,6 +572,13 @@ namespace HPF.FutureState.DataAccess
                         string[] errorList = errorCodes.Split(',');
                         foreach (string errorCode in errorList)
                         {
+                            int firstIndex = errorCodes.IndexOf(errorCode);
+                            int lastIndex = errorCodes.LastIndexOf(errorCode);
+                            if (firstIndex != lastIndex)
+                            {
+                                errorCodes= errorCodes.Remove(firstIndex, errorCode.Length);
+                                continue;
+                            }
                             ExceptionMessage exMes = new ExceptionMessage();
                             exMes.Message = ErrorMessages.GetExceptionMessage(errorCode, rowIndex);
                             exMes.ErrorCode = errorCode;
