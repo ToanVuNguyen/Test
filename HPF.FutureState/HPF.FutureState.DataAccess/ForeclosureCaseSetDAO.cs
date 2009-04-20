@@ -477,7 +477,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[23];
+                var sqlParam = new SqlParameter[21];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", caseLoan.FcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", NullableString(caseLoan.OtherServicerName));
@@ -495,12 +495,12 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[14] = new SqlParameter("@pi_Orig_mortgage_co_name", NullableString(caseLoan.OrigMortgageCoName));
                 sqlParam[15] = new SqlParameter("@pi_Orginal_Loan_Num", NullableString(caseLoan.OrginalLoanNum));
                 sqlParam[16] = new SqlParameter("@pi_current_servicer_FDIC_NCUA_num", NullableString(caseLoan.CurrentServicerFdicNcuaNum));
-                sqlParam[17] = new SqlParameter("@pi_investor_num", NullableString(caseLoan.InvestorNum));
-                sqlParam[18] = new SqlParameter("@pi_investor_name", NullableString(caseLoan.InvestorName));
-                sqlParam[19] = new SqlParameter("@pi_mortgage_program_cd", NullableString(caseLoan.MortgageProgramCd));
-                sqlParam[20] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
-                sqlParam[21] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
-                sqlParam[22] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
+                //sqlParam[17] = new SqlParameter("@pi_investor_num", NullableString(caseLoan.InvestorNum));
+                //sqlParam[18] = new SqlParameter("@pi_investor_name", NullableString(caseLoan.InvestorName));
+                sqlParam[17] = new SqlParameter("@pi_mortgage_program_cd", NullableString(caseLoan.MortgageProgramCd));
+                sqlParam[18] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseLoan.ChangeLastDate));
+                sqlParam[19] = new SqlParameter("@pi_chg_lst_user_id", caseLoan.ChangeLastUserId);
+                sqlParam[20] = new SqlParameter("@pi_chg_lst_app_name", caseLoan.ChangeLastAppName);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -1020,7 +1020,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns>OutcomeItemDTOCollection</returns>
         public CaseLoanDTOCollection GetCaseLoanCollection(int? fcId)
         {
-            CaseLoanDTOCollection results = HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>(Constant.HPF_CACHE_CASE_LOAN);            
+            CaseLoanDTOCollection results = null; // HPFCacheManager.Instance.GetData<CaseLoanDTOCollection>(Constant.HPF_CACHE_CASE_LOAN);            
             if (results == null)
             {
                 var dbConnection = CreateConnection();
@@ -1068,7 +1068,7 @@ namespace HPF.FutureState.DataAccess
                         }
                     }
                     reader.Close();
-                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_CASE_LOAN, results);
+                    //HPFCacheManager.Instance.Add(Constant.HPF_CACHE_CASE_LOAN, results);
                 }
                 catch (Exception Ex)
                 {
@@ -1124,7 +1124,7 @@ namespace HPF.FutureState.DataAccess
                         }
                     }
                     reader.Close();
-                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_OUTCOME_ITEM, results);
+                    //HPFCacheManager.Instance.Add(Constant.HPF_CACHE_OUTCOME_ITEM, results);
                 }
                 catch (Exception Ex)
                 {
