@@ -118,9 +118,7 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <MortgageProgramCd>va</MortgageProgramCd>
-      <InvestorName>investor name</InvestorName>
-      <InvestorNum>inum</InvestorNum>
+      <MortgageProgramCd>va</MortgageProgramCd>      
     </CaseLoan>
     <CaseLoan>
       <ServicerId>401</ServicerId>
@@ -141,9 +139,7 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <MortgageProgramCd>va</MortgageProgramCd>
-      <InvestorName>investor name</InvestorName>
-      <InvestorNum>inum</InvestorNum>
+      <MortgageProgramCd>va</MortgageProgramCd>      
     </CaseLoan>    
   </CaseLoanSet>
   <OutcomeSet>

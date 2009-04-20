@@ -1082,26 +1082,6 @@
                 
             </asp:TemplateField>
             
-            <asp:TemplateField HeaderText="InvestorName" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtInvestorName" runat="server" Text='<%# Eval("InvestorName") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtInvestorName" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label19" runat="server" Text='<%# Bind("InvestorName") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>            
-            <asp:TemplateField HeaderText="InvestorNum" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtInvestorNum" runat="server" Text='<%# Eval("InvestorNum") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtInvestorNum" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label22" runat="server" Text='<%# Bind("InvestorNum") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
             <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>

@@ -41,8 +41,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                ServicerId = Util.ConvertToInt(obj.Element("ServicerId")),
                                TermLengthCd = Util.ConvertToString(obj.Element("TermLengthCd")),
                                MortgageProgramCd = Util.ConvertToString(obj.Element("MortgageProgramCd")),                               
-                               InvestorName = Util.ConvertToString(obj.Element("InvestorName")),
-                               InvestorNum = Util.ConvertToString(obj.Element("InvestorNum"))                              
+                               //InvestorName = Util.ConvertToString(obj.Element("InvestorName")),
+                               //InvestorNum = Util.ConvertToString(obj.Element("InvestorNum"))                              
                            };
                 int i = 1;
                 List<CaseLoanDTO_App> list = objs.ToList<CaseLoanDTO_App>();
@@ -299,8 +299,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 CurrentLoanBalanceAmt = this.CurrentLoanBalanceAmt,
                 CurrentServicerFdicNcuaNum = this.CurrentServicerFdicNcuaNum,
                 InterestRate = this.InterestRate,
-                InvestorName = this.InvestorName,
-                InvestorNum = this.InvestorNum,
+                //InvestorName = this.InvestorName,
+                //InvestorNum = this.InvestorNum,
                 Loan1st2nd = this.Loan1st2nd,
                 LoanDelinqStatusCd = this.LoanDelinqStatusCd,
                 MortgageTypeCd = this.MortgageTypeCd,

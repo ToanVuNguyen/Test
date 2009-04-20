@@ -461,8 +461,8 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtServicerId = (TextBox)row.FindControl("txtServicerId");
             TextBox txtTermLengthCd = (TextBox)row.FindControl("txtTermLengthCd");
             TextBox txtMortgageProgramCd = (TextBox)row.FindControl("txtMortgageProgramCd");
-            TextBox txtInvestorName = (TextBox)row.FindControl("txtInvestorName");
-            TextBox txtInvestorNum = (TextBox)row.FindControl("txtInvestorNum");
+            //TextBox txtInvestorName = (TextBox)row.FindControl("txtInvestorName");
+            //TextBox txtInvestorNum = (TextBox)row.FindControl("txtInvestorNum");
             Label lblCaseLoanId = (Label)row.FindControl("lblCaseLoanId");
             #endregion
 
@@ -484,8 +484,9 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.ServicerId = Util.ConvertToInt(txtServicerId.Text.Trim());
             caseLoan.TermLengthCd = txtTermLengthCd.Text.Trim();
             caseLoan.MortgageProgramCd = txtMortgageProgramCd.Text.Trim();
-            caseLoan.InvestorName = txtInvestorName.Text.Trim();
-            caseLoan.InvestorNum = txtInvestorNum.Text.Trim();
+            //comment because of hidden fields
+            //caseLoan.InvestorName = txtInvestorName.Text.Trim();
+            //caseLoan.InvestorNum = txtInvestorNum.Text.Trim();
             return caseLoan;
 
         }
