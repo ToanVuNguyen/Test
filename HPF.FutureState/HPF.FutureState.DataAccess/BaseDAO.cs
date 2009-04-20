@@ -189,11 +189,17 @@ namespace HPF.FutureState.DataAccess
         /// <param name="obj"></param>
         /// <returns></returns>
         protected static DateTime? ConvertToDateTime(object obj)
-        {
-            DateTime returnValue = DateTime.MinValue;
-            if (obj == null || !DateTime.TryParse(obj.ToString(), out returnValue))
+        {            
+            if (obj == null)
                 return null;
-            return returnValue;
+            try
+            {
+                return  (DateTime?)obj;
+            }
+            catch 
+            {
+                return null;
+            }            
         }
 
         /// <summary>
