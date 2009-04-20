@@ -53,6 +53,7 @@ namespace HPF.FutureState.BusinessLogic
             //
             hpfSendMail.To = sendTo;
             hpfSendMail.Subject = CreateEmailSummarySubject(Convert.ToInt32(fc_id));
+            hpfSendMail.Body = CreateEmailBody(string.Empty);
             hpfSendMail.AddAttachment(attachmentReportFileName, pdfSummaryReport);            
             hpfSendMail.Send();            
         }
