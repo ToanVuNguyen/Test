@@ -118,7 +118,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks" valign="top">
-                                    For Sale Indicator:
+                                    For Sale Indicator*:
                                 </td>
                                 <td>
                                     <asp:Label ID="lblForSaleIndicator" runat="server" CssClass="Text">Yes</asp:Label>

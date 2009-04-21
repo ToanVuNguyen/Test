@@ -71,7 +71,7 @@
                                 
                             </Columns>
                             <EmptyDataTemplate>
-                                There is no data match !
+                                No records were found.
                             </EmptyDataTemplate>
                         </asp:GridView>
                 </asp:Panel>

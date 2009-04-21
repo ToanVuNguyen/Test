@@ -36,7 +36,7 @@
             </asp:BoundField>
         </Columns>
         <EmptyDataTemplate>
-            There is no Activity logs!
+            No records were found.
         </EmptyDataTemplate>
     </asp:GridView>
 

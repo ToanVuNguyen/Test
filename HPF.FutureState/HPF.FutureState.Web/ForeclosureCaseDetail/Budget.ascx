@@ -40,6 +40,9 @@
                         <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                             ItemStyle-HorizontalAlign="Center" HeaderText="Select" HeaderStyle-Wrap="false" />
                     </Columns>
+                    <EmptyDataTemplate>
+                            No records were found.
+                        </EmptyDataTemplate>
                 </asp:GridView>
             </asp:Panel>
             &nbsp; &nbsp;
@@ -80,6 +83,9 @@
                                             HeaderText="Amount"  />
                                         <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  ItemStyle-HorizontalAlign="Left"  />
                                     </Columns>
+                                    <EmptyDataTemplate>
+                            No records were found.
+                        </EmptyDataTemplate>
                                 </asp:GridView>
                             </asp:Panel>
                             <br />
@@ -105,7 +111,11 @@
                                 <asp:BoundField DataField="AssetValue" DataFormatString="{0:C}"  ItemStyle-HorizontalAlign="Right"
                                     HeaderText="Asset Value" ItemStyle-Width="120" />
                             </Columns>
+                            <EmptyDataTemplate>
+                            No records were found.
+                        </EmptyDataTemplate>
                         </asp:GridView>
+                        
                     </asp:Panel>
                 </td>
             </tr>
@@ -138,6 +148,9 @@
                                             HeaderText="Amount"  />
                                         <asp:BoundField DataField="BudgetNote" HeaderText="Note" ItemStyle-Width="130"  ItemStyle-HorizontalAlign="Left"  />
                                     </Columns>
+                                    <EmptyDataTemplate>
+                            No records were found.
+                        </EmptyDataTemplate>
                                 </asp:GridView>
                             </asp:Panel>
                             <br />

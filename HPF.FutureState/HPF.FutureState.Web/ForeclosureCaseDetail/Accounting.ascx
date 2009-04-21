@@ -56,7 +56,7 @@
                             </asp:TemplateField>
                         </Columns>
                         <EmptyDataTemplate>
-                            There is no billing information</EmptyDataTemplate>
+                            No records were found.</EmptyDataTemplate>
                     </asp:GridView>
                 </asp:Panel>
             </td>
@@ -106,7 +106,8 @@
                                 ItemStyle-HorizontalAlign="Right" />
                         </Columns>
                         <EmptyDataTemplate>
-                            There is not payment information</EmptyDataTemplate>
+                            No records were found.
+                        </EmptyDataTemplate>
                     </asp:GridView>
                 </asp:Panel>
             </td>

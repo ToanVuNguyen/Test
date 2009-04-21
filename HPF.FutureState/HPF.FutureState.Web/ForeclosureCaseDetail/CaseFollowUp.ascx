@@ -56,7 +56,7 @@
                                 </asp:TemplateField>                              
                             </Columns>
                             <EmptyDataTemplate>
-                                There is no Follow-Up!
+                                No records were found.
                             </EmptyDataTemplate>
                         </asp:GridView>
                     </asp:Panel>                
