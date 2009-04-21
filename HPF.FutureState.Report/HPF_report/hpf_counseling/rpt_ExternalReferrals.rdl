@@ -551,7 +551,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.02083in</Top>
@@ -568,7 +568,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.27083in</Height>
-        <Value>External Referrals</Value>
+        <Value>EXTERNAL REFERRALS</Value>
       </Textbox>
     </ReportItems>
     <Height>1.875in</Height>

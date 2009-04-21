@@ -182,14 +182,14 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>10.95313in</Width>
+  <Width>10.53646in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
         <ZIndex>9</ZIndex>
         <DataSetName>Dst_completedCounselingSummary</DataSetName>
         <Top>1.63542in</Top>
-        <Width>9.55886in</Width>
+        <Width>9.62136in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -511,7 +511,7 @@
                       </Style>
                       <ZIndex>14</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Property address</Value>
+                      <Value>Property Address</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -635,7 +635,7 @@
                       </Style>
                       <ZIndex>10</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor last name</Value>
+                      <Value>Counselor Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -666,7 +666,7 @@
                       </Style>
                       <ZIndex>9</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor first name</Value>
+                      <Value>Counselor First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -698,7 +698,7 @@
             <Width>0.57994in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1.41667in</Width>
+            <Width>1.47917in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.4375in</Width>
@@ -768,7 +768,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.875in</Left>
         <Height>0.25in</Height>
-        <Value>="Total completed counseling sessions " &amp; Count(Fields!Agency.Value, "Dst_completedCounselingSummary")</Value>
+        <Value>="Total Completed Counseling Sessions " &amp; Count(Fields!Agency.Value, "Dst_completedCounselingSummary")</Value>
       </Textbox>
       <Textbox Name="textbox11">
         <Top>0.83334in</Top>
@@ -783,7 +783,7 @@
         <CanGrow>true</CanGrow>
         <Left>4.36458in</Left>
         <Height>0.25in</Height>
-        <Value>="From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; "   To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>="From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; "   To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox3">
         <rd:DefaultName>textbox3</rd:DefaultName>
@@ -816,7 +816,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.75in</Left>
         <Height>0.25in</Height>
-        <Value>= "Report date " &amp; today</Value>
+        <Value>= "Report Date " &amp; today</Value>
       </Textbox>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>

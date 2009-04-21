@@ -1316,7 +1316,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
                       </Style>
                       <ZIndex>38</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Completed date</Value>
+                      <Value>Completed Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1346,7 +1346,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
                       </Style>
                       <ZIndex>37</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Intake date</Value>
+                      <Value>Intake Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1376,7 +1376,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
                       </Style>
                       <ZIndex>36</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>First name</Value>
+                      <Value>First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1406,7 +1406,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
                       </Style>
                       <ZIndex>35</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Last name</Value>
+                      <Value>Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1616,7 +1616,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
                       </Style>
                       <ZIndex>28</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Loan list</Value>
+                      <Value>Loan List</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1689,7 +1689,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "Servicer " &amp;Parameters!pi_servicer_id.Label &amp; " - From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "Servicer " &amp;Parameters!pi_servicer_id.Label &amp; " - From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
@@ -1707,7 +1707,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.02083in</Top>
@@ -1724,7 +1724,7 @@ EXEC	@return_value = [dbo].[hpf_servicer_get]
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.35417in</Height>
-        <Value>Completed Counseling By Servicer</Value>
+        <Value>COMPLETED COUNSELING BY SERVICER</Value>
       </Textbox>
     </ReportItems>
     <Height>2.42708in</Height>

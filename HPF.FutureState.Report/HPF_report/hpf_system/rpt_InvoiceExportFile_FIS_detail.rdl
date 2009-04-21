@@ -46,7 +46,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.125in</Width>
+  <Width>7.125in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
@@ -55,21 +55,6 @@
           <TableRows>
             <TableRow>
               <TableCells>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Invoice_ID">
-                      <Style>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>6</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value>=Parameters!pi_invoice_id.Value</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Invoice_case_id">
@@ -169,9 +154,6 @@
           </TableRows>
         </Details>
         <TableColumns>
-          <TableColumn>
-            <Width>1in</Width>
-          </TableColumn>
           <TableColumn>
             <Width>1in</Width>
           </TableColumn>

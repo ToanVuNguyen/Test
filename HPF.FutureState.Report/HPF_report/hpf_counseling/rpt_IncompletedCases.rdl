@@ -364,7 +364,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>49.94792in</Width>
+  <Width>49.76042in</Width>
   <Body>
     <ReportItems>
       <Textbox Name="textbox29">
@@ -397,7 +397,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.51041in</Left>
         <Height>0.25in</Height>
-        <Value>="Total incompleted counseling sessions " &amp; Count(Fields!fc_id.Value, "dst_IncompletedCase")</Value>
+        <Value>="Total Incompleted Counseling Sessions " &amp; Count(Fields!fc_id.Value, "dst_IncompletedCase")</Value>
       </Textbox>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
@@ -415,7 +415,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Table Name="table1">
         <ZIndex>3</ZIndex>
@@ -1483,7 +1483,7 @@
             </Header>
           </TableGroup>
         </TableGroups>
-        <Width>49.01043in</Width>
+        <Width>49.04168in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -3694,7 +3694,7 @@
                       </Style>
                       <ZIndex>166</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Call id</Value>
+                      <Value>Call ID</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3770,7 +3770,7 @@
                       </Style>
                       <ZIndex>163</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Intake date</Value>
+                      <Value>Intake Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3800,7 +3800,7 @@
                       </Style>
                       <ZIndex>162</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Income earners </Value>
+                      <Value>Income Earners </Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3830,7 +3830,7 @@
                       </Style>
                       <ZIndex>161</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Household  annual income amt</Value>
+                      <Value>Household  Annual Income Amt</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3949,7 +3949,7 @@
                       </Style>
                       <ZIndex>157</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Default reason 1st</Value>
+                      <Value>Default Reason 1st</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3979,7 +3979,7 @@
                       </Style>
                       <ZIndex>156</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Default reason 2nd</Value>
+                      <Value>Default Reason 2nd</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4009,7 +4009,7 @@
                       </Style>
                       <ZIndex>155</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>HUD outcome</Value>
+                      <Value>HUD Outcome</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4039,7 +4039,7 @@
                       </Style>
                       <ZIndex>154</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counseling duration</Value>
+                      <Value>Counseling Duration</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4069,7 +4069,7 @@
                       </Style>
                       <ZIndex>153</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Borrower       first name</Value>
+                      <Value>Borrower       First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4099,7 +4099,7 @@
                       </Style>
                       <ZIndex>152</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Borrower         last name</Value>
+                      <Value>Borrower         Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4189,7 +4189,7 @@
                       </Style>
                       <ZIndex>149</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Primary contact no</Value>
+                      <Value>Primary Contact No</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4219,7 +4219,7 @@
                       </Style>
                       <ZIndex>148</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Contact address 1</Value>
+                      <Value>Contact Address 1</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4368,7 +4368,7 @@
                       </Style>
                       <ZIndex>143</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Bankruptcy attorney</Value>
+                      <Value>Bankruptcy Attorney</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4398,7 +4398,7 @@
                       </Style>
                       <ZIndex>142</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Owner occupied</Value>
+                      <Value>Owner Occupied</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4458,7 +4458,7 @@
                       </Style>
                       <ZIndex>140</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Fc notice received</Value>
+                      <Value>Fc Notice Received</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4488,7 +4488,7 @@
                       </Style>
                       <ZIndex>139</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Funding consent</Value>
+                      <Value>Funding Consent</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4518,7 +4518,7 @@
                       </Style>
                       <ZIndex>138</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Servicer consent</Value>
+                      <Value>Servicer Consent</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4578,7 +4578,7 @@
                       </Style>
                       <ZIndex>136</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Loan default reason notes</Value>
+                      <Value>Loan Default Reason Notes</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4608,7 +4608,7 @@
                       </Style>
                       <ZIndex>135</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Action items notes</Value>
+                      <Value>Action Items Notes</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4638,7 +4638,7 @@
                       </Style>
                       <ZIndex>134</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Discussed solution with servicer</Value>
+                      <Value>Discussed Solution With Servicer</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4668,7 +4668,7 @@
                       </Style>
                       <ZIndex>133</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Worked with another agency</Value>
+                      <Value>Worked With Another Agency</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4698,7 +4698,7 @@
                       </Style>
                       <ZIndex>132</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Contacted srvcr recently ind</Value>
+                      <Value>Contacted Srvcr Recently Ind</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4728,7 +4728,7 @@
                       </Style>
                       <ZIndex>131</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Has workout plan</Value>
+                      <Value>Has Workout Plan</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4758,7 +4758,7 @@
                       </Style>
                       <ZIndex>130</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Opt out newsletter</Value>
+                      <Value>Opt Out Newsletter</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4788,7 +4788,7 @@
                       </Style>
                       <ZIndex>129</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Opt out survey</Value>
+                      <Value>Opt Out Survey</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4818,7 +4818,7 @@
                       </Style>
                       <ZIndex>128</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Do not call</Value>
+                      <Value>Do Not Call</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4848,7 +4848,7 @@
                       </Style>
                       <ZIndex>127</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Primary residence</Value>
+                      <Value>Primary Residence</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4878,7 +4878,7 @@
                       </Style>
                       <ZIndex>126</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor id</Value>
+                      <Value>Counselor ID</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4908,7 +4908,7 @@
                       </Style>
                       <ZIndex>125</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor name</Value>
+                      <Value>Counselor Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4938,7 +4938,7 @@
                       </Style>
                       <ZIndex>124</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor email</Value>
+                      <Value>Counselor Email</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4968,7 +4968,7 @@
                       </Style>
                       <ZIndex>123</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor phone</Value>
+                      <Value>Counselor Phone</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -4998,7 +4998,7 @@
                       </Style>
                       <ZIndex>122</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Counselor ext</Value>
+                      <Value>Counselor Ext</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -5144,7 +5144,7 @@
             <Width>1.25in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>1.03125in</Width>
           </TableColumn>
         </TableColumns>
         <Height>1.17708in</Height>
@@ -5176,8 +5176,8 @@
         <CanGrow>true</CanGrow>
         <Left>0.51041in</Left>
         <Height>0.25in</Height>
-        <Value>="From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value)
-&amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>="From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value)
+&amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <rd:DefaultName>textbox2</rd:DefaultName>

@@ -1051,7 +1051,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.75in</Left>
         <Height>0.21875in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>

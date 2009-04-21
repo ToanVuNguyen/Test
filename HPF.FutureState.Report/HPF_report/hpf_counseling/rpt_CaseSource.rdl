@@ -486,7 +486,7 @@
                       </Style>
                       <ZIndex>5</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Case source</Value>
+                      <Value>Case Source</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -509,7 +509,7 @@
                       </Style>
                       <ZIndex>4</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Completed case quantity</Value>
+                      <Value>Completed Case Quantity</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -594,7 +594,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.73958in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>

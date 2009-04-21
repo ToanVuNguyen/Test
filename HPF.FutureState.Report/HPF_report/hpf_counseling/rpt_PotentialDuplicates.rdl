@@ -214,7 +214,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>31in</Width>
+  <Width>31.375in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
@@ -1015,7 +1015,6 @@
             </Header>
           </TableGroup>
         </TableGroups>
-        <Width>30.375in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -2060,7 +2059,7 @@
                       </Style>
                       <ZIndex>94</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>FC id</Value>
+                      <Value>FC ID</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2150,7 +2149,7 @@
                       </Style>
                       <ZIndex>91</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Mortgage type</Value>
+                      <Value>Mortgage Type</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2180,7 +2179,7 @@
                       </Style>
                       <ZIndex>90</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Term length</Value>
+                      <Value>Term Length</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2240,7 +2239,7 @@
                       </Style>
                       <ZIndex>88</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Loan list</Value>
+                      <Value>Loan List</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2330,7 +2329,7 @@
                       </Style>
                       <ZIndex>85</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>First name</Value>
+                      <Value>First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2360,7 +2359,7 @@
                       </Style>
                       <ZIndex>84</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Last name</Value>
+                      <Value>Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2390,7 +2389,7 @@
                       </Style>
                       <ZIndex>83</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>SSN last 4</Value>
+                      <Value>SSN Last 4</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2420,7 +2419,7 @@
                       </Style>
                       <ZIndex>82</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Primary contact number</Value>
+                      <Value>Primary Contact Number</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2450,7 +2449,7 @@
                       </Style>
                       <ZIndex>81</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>First name</Value>
+                      <Value>First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2480,7 +2479,7 @@
                       </Style>
                       <ZIndex>80</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Last name</Value>
+                      <Value>Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2510,7 +2509,7 @@
                       </Style>
                       <ZIndex>79</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>SSN last 4</Value>
+                      <Value>SSN Last 4</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2840,7 +2839,7 @@
                       </Style>
                       <ZIndex>68</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Intake date</Value>
+                      <Value>Intake Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2870,7 +2869,7 @@
                       </Style>
                       <ZIndex>67</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Completed date</Value>
+                      <Value>Completed Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2900,7 +2899,7 @@
                       </Style>
                       <ZIndex>66</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Summary sent date</Value>
+                      <Value>Summary Sent Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2930,7 +2929,7 @@
                       </Style>
                       <ZIndex>65</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Last name</Value>
+                      <Value>Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2960,7 +2959,7 @@
                       </Style>
                       <ZIndex>64</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>First name</Value>
+                      <Value>First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2990,7 +2989,7 @@
                       </Style>
                       <ZIndex>63</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Mortgage program</Value>
+                      <Value>Mortgage Program</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3020,7 +3019,7 @@
                       </Style>
                       <ZIndex>62</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Never bill reason</Value>
+                      <Value>Never Bill Reason</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3050,7 +3049,7 @@
                       </Style>
                       <ZIndex>61</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Never pay reason</Value>
+                      <Value>Never Pay Reason</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3073,10 +3072,10 @@
             <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1in</Width>
+            <Width>1.125in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.875in</Width>
+            <Width>1in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.875in</Width>
@@ -3091,7 +3090,7 @@
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.75in</Width>
+            <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.75in</Width>
@@ -3109,7 +3108,7 @@
             <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.75in</Width>
+            <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.25in</Width>
@@ -3182,7 +3181,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
@@ -3200,7 +3199,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.02083in</Top>

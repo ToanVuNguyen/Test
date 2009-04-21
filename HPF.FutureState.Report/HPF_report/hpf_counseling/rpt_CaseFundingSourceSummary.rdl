@@ -398,7 +398,7 @@
                       </Style>
                       <ZIndex>11</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Funding souce</Value>
+                      <Value>Funding Souce</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -594,7 +594,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
@@ -612,7 +612,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.02083in</Top>

@@ -184,7 +184,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.25in</Height>
-        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "Agency " &amp; Parameters!pi_agency_id.Label &amp; " - From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Table Name="table1">
         <ZIndex>2</ZIndex>
@@ -506,7 +506,6 @@
             </Header>
           </TableGroup>
         </TableGroups>
-        <Width>10in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1028,7 +1027,7 @@
                       </Style>
                       <ZIndex>29</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>First name</Value>
+                      <Value>First Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1061,7 +1060,7 @@
                       </Style>
                       <ZIndex>28</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Last name</Value>
+                      <Value>Last Name</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1226,7 +1225,7 @@
                       </Style>
                       <ZIndex>23</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Never bill</Value>
+                      <Value>Never Bill</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1259,7 +1258,7 @@
                       </Style>
                       <ZIndex>22</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Never pay</Value>
+                      <Value>Never Pay</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1282,10 +1281,10 @@
             <Width>1.375in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.75in</Width>
+            <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.75in</Width>
+            <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.5in</Width>
@@ -1300,7 +1299,7 @@
             <Width>0.5in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.625in</Width>
+            <Width>0.75in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.75in</Width>
@@ -1325,7 +1324,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.5in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; Today</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.02083in</Top>
