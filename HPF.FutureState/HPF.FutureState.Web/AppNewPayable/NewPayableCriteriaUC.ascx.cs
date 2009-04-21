@@ -118,12 +118,15 @@ namespace HPF.FutureState.Web.AppNewPayable
         protected void btnDraftNewPayable_Click(object sender, EventArgs e)
         {
             bulMessage.Items.Clear();
+            bool error = true;
+            string query = "";
+
             try
             {
                 AgencyPayableSearchCriteriaDTO agencyPayableCriteria = BuildSearchAgencyPayableCriteria();
                 AgencyPayableBL.Instance.CheckSeachAgencyPayable(agencyPayableCriteria);
-                string query = BuildQueryString(agencyPayableCriteria);
-                Response.Redirect("NewPayableSelection.aspx" + query);
+                query = BuildQueryString(agencyPayableCriteria);
+                error = false;
             }
             catch (DataValidationException ex)
             {
@@ -131,13 +134,15 @@ namespace HPF.FutureState.Web.AppNewPayable
                 {
                     bulMessage.Items.Add(new ListItem(mes.Message));
                 }
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);                
             }
             catch (Exception ex)
-            {
+            {                
                 bulMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+            if(!error)
+                Response.Redirect("NewPayableSelection.aspx" + query);
         }
         private string BuildQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {

@@ -159,6 +159,7 @@ namespace HPF.FutureState.BusinessLogic
             searchCriteria.CaseComplete = agencyPayableCriteria.CaseComplete;            
             searchCriteria.PeriodStartDate = GetStartSearchDate(agencyPayableCriteria.PeriodStartDate);
             searchCriteria.PeriodEndDate = GetEndSearchDate(agencyPayableCriteria.PeriodEndDate);
+            searchCriteria.Indicator = agencyPayableCriteria.Indicator;
             result.ForclosureCaseDrafts = AgencyPayableDAO.CreateInstance().CreateDraftAgencyPayable(searchCriteria);            
             
             return result;
