@@ -161,6 +161,8 @@
     }
    
     var panelHeight = (screen.height - 660)/2;
+    if(panelHeight < 70)
+        panelHeight = 70;
     var panBillingInfo = document.getElementById('<%=panBillingInfo.ClientID %>');
     if(panBillingInfo != null)
     {                
