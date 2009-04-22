@@ -410,7 +410,7 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_search_app_dynamic", dbConnection);
             string whereclause = AppGenerateWhereClause(searchCriteria);
-            var sqlParam = new SqlParameter[16];
+            var sqlParam = new SqlParameter[14];
             sqlParam[0] = new SqlParameter("@pi_last4SSN", searchCriteria.Last4SSN);
             sqlParam[1] = new SqlParameter("@pi_fname", searchCriteria.FirstName);
             sqlParam[2] = new SqlParameter("@pi_lname", searchCriteria.LastName);
@@ -422,11 +422,11 @@ namespace HPF.FutureState.DataAccess
             sqlParam[8] = new SqlParameter("@pi_duplicate", searchCriteria.Duplicates);
             sqlParam[9] = new SqlParameter("@pi_agencyid", searchCriteria.Agency);
             sqlParam[10] = new SqlParameter("@pi_programid ", searchCriteria.Program);
-            sqlParam[11] = new SqlParameter("@pi_pagesize", searchCriteria.PageSize);
-            sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
-            sqlParam[13] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
-            sqlParam[14] = new SqlParameter("@whereclause", whereclause);
-            sqlParam[15] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
+            //sqlParam[11] = new SqlParameter("@pi_pagesize", searchCriteria.PageSize);
+            //sqlParam[12] = new SqlParameter("@pi_pagenum", searchCriteria.PageNum);
+            sqlParam[11] = new SqlParameter("@po_totalrownum", searchCriteria.TotalRowNum) { Direction = ParameterDirection.Output };
+            sqlParam[12] = new SqlParameter("@whereclause", whereclause);
+            sqlParam[13] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
             command.Parameters.AddRange(sqlParam);
             //command.CommandType = CommandType.StoredProcedure;
             try
@@ -465,7 +465,7 @@ namespace HPF.FutureState.DataAccess
                         results.Add(item);
                     }
                     reader.Close();
-                    results.SearchResultCount = Convert.ToDouble(sqlParam[13].Value);
+                    results.SearchResultCount = Convert.ToDouble(sqlParam[11].Value);
                 }
             }
             catch (Exception ex)

@@ -156,7 +156,10 @@
                 <asp:UpdatePanel ID="myupdatepan" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="grvForeClosureCaseSearch" runat="server" CellPadding="2" GridLines="Vertical"
-                            AutoGenerateColumns="false" CssClass="GridViewStyle" Width="2900px" OnRowDataBound="grvForeClosureCaseSearch_RowDataBound">
+                            AutoGenerateColumns="false" CssClass="GridViewStyle" Width="2900px" 
+                            OnRowDataBound="grvForeClosureCaseSearch_RowDataBound" AllowPaging="True" 
+                            onpageindexchanging="grvForeClosureCaseSearch_PageIndexChanging" PageSize="50">
+                            <PagerSettings Visible="False" />
                             <RowStyle CssClass="RowStyle" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                             <HeaderStyle CssClass="FixedHeader" HorizontalAlign="Center" />
@@ -164,8 +167,8 @@
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                             <Columns>
                                 <asp:HyperLinkField DataTextField="CaseID" DataNavigateUrlFields="CaseID" DataNavigateUrlFormatString="../ForeclosureCaseInfo.aspx?CaseID={0}"
-                                    HeaderText="Case ID" />
-                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" />
+                                    HeaderText="Case ID" ItemStyle-Width="60" />
+                                <asp:BoundField DataField="AgencyCaseNum" HeaderText="Agency Case ID" ItemStyle-Width="100"/>
                                 <asp:TemplateField HeaderText="Counseled">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCounseled" runat="server" Text='<%#Eval("CaseCompleteDate") %>'></asp:Label>
@@ -210,6 +213,8 @@
     </tr>
     <tr>
         <td>
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+         <ContentTemplate>
             <asp:Label ID="lblMinRow" runat="server" Visible="false"></asp:Label>
             <asp:Label ID="lbl1" runat="server" Text=" - " Visible="false"></asp:Label>
             <asp:Label ID="lblMaxRow" runat="server" Visible="false"></asp:Label>
@@ -228,6 +233,8 @@
             <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server"
                 Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
             <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
+            </ContentTemplate>
+            </asp:UpdatePanel>
         </td>
     </tr>
     </table>
