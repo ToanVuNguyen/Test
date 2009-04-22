@@ -31,7 +31,7 @@ namespace HPF.CustomActions
                     PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
                     templateCurrentView.Text = "Items In Current View";
                     templateCurrentView.Description = "Zip and Download All Items";
-                    templateCurrentView.ID = "menuCurrentView";
+                    templateCurrentView.ID = "menuDownloadCurrentView";
                     templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
 
                     child.Controls.Add(templateCurrentView);
