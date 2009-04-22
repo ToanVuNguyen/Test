@@ -4,8 +4,7 @@
 		 Scope="Site" Version="1.0.0.0" 
 		 Hidden="FALSE" 
 		 DefaultResourceFile="core" 
-		 xmlns="http://schemas.microsoft.com/sharepoint/"
-		 ActivateOnDefault="true">
+		 xmlns="http://schemas.microsoft.com/sharepoint/">
 	<ElementManifests>
 		<ElementManifest Location="DownloadZippedItems.xml" />		
 	</ElementManifests>	

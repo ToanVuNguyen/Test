@@ -119,7 +119,7 @@ namespace HPF.CustomActions
 
                     UpdateReviewStatus(file.Item);
 
-                    this.WriteToFile(bytFile, qualifiedFileName, file.Item);
+                    WriteToFileAndUpdateMetaData(bytFile, qualifiedFileName, file.Item);
                 }
             }
             string outputPathAndFile = randomFileName + ".zip";
@@ -138,6 +138,8 @@ namespace HPF.CustomActions
                 DateTime.Now.ToString("MMddyyyy"));
 
             ArchiveFiles(path + outputPathAndFile, newFileName, string.Format(DownloadAppSettings.ArchiveListName, list.Title));
+
+            DeleteSPFiles(items);
 
             PushFileToDownload(path + outputPathAndFile, newFileName);
         }
@@ -158,7 +160,7 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.End();
         }
 
-        private bool WriteToFile(byte[] bytFile, string QualifiedFileName, SPListItem listItem)
+        private bool WriteToFileAndUpdateMetaData(byte[] bytFile, string QualifiedFileName, SPListItem listItem)
         {
             FileStream stream = new FileStream(QualifiedFileName, FileMode.OpenOrCreate, FileAccess.Write);
             stream.Write(bytFile, 0, bytFile.Length);
@@ -167,7 +169,7 @@ namespace HPF.CustomActions
 
             SPSecurity.RunWithElevatedPrivileges(delegate()
             {
-                WriteMetaDataAndDelete(QualifiedFileName, listItem);
+                WriteMetaData(QualifiedFileName, listItem);
             });
             return true;
         }
@@ -201,6 +203,7 @@ namespace HPF.CustomActions
         /// <param name="archiveListPath"></param>
         private void ArchiveFiles(string filePath, string fileName, string archiveListPath)
         {
+            if (!Page.Response.IsClientConnected) return;
             SPSecurity.RunWithElevatedPrivileges(delegate()
             {
                 FileStream zipFileStream = null;
@@ -244,7 +247,7 @@ namespace HPF.CustomActions
         /// </summary>
         /// <param name="qualifiedFileName"></param>
         /// <param name="item"></param>
-        private void WriteMetaDataAndDelete(string qualifiedFileName, SPListItem spListItem)
+        private void WriteMetaData(string qualifiedFileName, SPListItem spListItem)
         {
             try
             {
@@ -288,23 +291,31 @@ namespace HPF.CustomActions
                 document.Close(true);
             }
             catch { }
+        }
 
-            //check if review status was updated, delete it
-            bool delete = false;
-            try
+        private void DeleteSPFiles(SPListItemCollection items)
+        {
+            if (Page.Response.IsClientConnected)
             {
-                SPField reviewStatusField = spListItem.Fields.GetField(DownloadAppSettings.ReviewStatusField);
-                if (reviewStatusField != null &&
-                    spListItem[reviewStatusField.Id] != null &&
-                    spListItem[reviewStatusField.Id].ToString() == DownloadAppSettings.ReviewStatusDownloadValue)
+                SPSecurity.RunWithElevatedPrivileges(delegate()
                 {
-                    delete = true;
-                }
-            }
-            catch { }
-            if (delete)
-            {
-                spListItem.Delete();
+                    List<int> deletedIds = new List<int>();
+
+                    foreach (SPListItem spListItem in items)
+                    {
+                        //check if review status was updated, delete it
+                        try
+                        {
+                            deletedIds.Add(spListItem.ID);
+                        }
+                        catch { }
+                    }
+
+                    deletedIds.ForEach(delegate(int id)
+                    {
+                        items.DeleteItemById(id);
+                    });
+                });
             }
         }
 
