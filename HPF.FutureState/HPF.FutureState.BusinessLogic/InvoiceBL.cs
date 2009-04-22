@@ -251,12 +251,12 @@ namespace HPF.FutureState.BusinessLogic
             doc.AppendChild(root);
             return doc.InnerXml;
         }
-        public void BackEndPreProcessing(ReconciliationDTOCollection reconciliationDTOCollection)
+        public void BackEndPreProcessing(ReconciliationDTOCollection reconciliationDTOCollection,int invoicePaymentId)
         {
             string xml = GetXmlString(reconciliationDTOCollection);
             try
             {
-                InvoiceDAO.CreateInstance().BackEndPreProcessing(xml,reconciliationDTOCollection.FundingSourceId);
+                InvoiceDAO.CreateInstance().BackEndPreProcessing(xml,reconciliationDTOCollection.FundingSourceId,invoicePaymentId);
             }
             catch (DataValidationException ex)
             {
@@ -401,10 +401,10 @@ namespace HPF.FutureState.BusinessLogic
                 ex.ExceptionMessages.Add(GetExceptionMessage(ErrorMessages.ERR0673));
                 throw ex;
             }
-            //FrontEndPreProcessing on the Presentation Layer
+            //FrontEndPreProcessing 
             ReconciliationDTOCollection reconciliationCollection = FrontEndPreProcessing(dataSet,invoicePayment.PaymentAmount,invoicePayment.FundingSourceID.Value);
-            //BackEndPreProcessing on Business Layer
-            InvoiceBL.Instance.BackEndPreProcessing(reconciliationCollection);
+            //BackEndPreProcessing 
+            InvoiceBL.Instance.BackEndPreProcessing(reconciliationCollection,invoicePayment.InvoicePaymentID.Value);
             //Update Invoice CAses
             int paymentId = InvoiceBL.Instance.UpdateInvoicePayment(reconciliationCollection, invoicePayment);
             return paymentId;

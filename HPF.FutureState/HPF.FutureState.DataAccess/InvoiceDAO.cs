@@ -546,15 +546,16 @@ namespace HPF.FutureState.DataAccess
         /// Get InvoiceSet to display in View/Edit Invoice Page
         /// </summary>
         /// <returns> InvoiceSetDTO containts info about the Invoice and InvoiceCases</returns>
-        public void BackEndPreProcessing(string xmlString,string fundingSourceId)
+        public void BackEndPreProcessing(string xmlString,string fundingSourceId,int invoicePaymentId)
         {
             DataValidationException result = new DataValidationException();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_Invoice_case_validate", dbConnection);
             command.Connection = dbConnection;
-            SqlParameter[] sqlParam = new SqlParameter[2];
+            SqlParameter[] sqlParam = new SqlParameter[3];
             sqlParam[0] = new SqlParameter("@pi_XMLDOC", xmlString);
             sqlParam[1] = new SqlParameter("@pi_funding_source_id", fundingSourceId);
+            sqlParam[2] = new SqlParameter("@pi_invoice_payment_id", invoicePaymentId);
             command.Parameters.AddRange(sqlParam);
             try
             {
