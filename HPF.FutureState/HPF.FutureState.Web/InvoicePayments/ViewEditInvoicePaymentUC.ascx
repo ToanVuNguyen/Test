@@ -176,6 +176,8 @@
         }
         return true;
     }
+    paymentFile.style.width= screen.width - 230;
+    fileUpload.style.width = screen.width - 230;
 </script>
 <div id="modal" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
         <div class="PopUpHeader">HPF Billing&amp;Admin</div>
