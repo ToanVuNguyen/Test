@@ -367,6 +367,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// <param name="e"></param>
         protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
         {
+            lblStatus.Visible = true;
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             if (totalpage > 10)
                 totalpage = 10;                        
@@ -421,13 +422,15 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)ViewState["SearchFCResult"];
             grvForeClosureCaseSearch.DataBind();
             CalculatePaging(this.TotalRowNum);
+            lblStatus.Visible = false;
         }
 
         void myLinkBtn_Command(object sender, CommandEventArgs e)
         {
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
-            this.PageNum = pagenum - 1;            
+            this.PageNum = pagenum - 1;
+            lblStatus.Visible = true;            
 
             lbtnFirst.Enabled = true;
             lbtnLast.Enabled = true;
@@ -453,6 +456,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)ViewState["SearchFCResult"];
             grvForeClosureCaseSearch.DataBind();
             CalculatePaging(this.TotalRowNum);
+            lblStatus.Visible = false;
         }
         #region Ultility
         private string AddToSearchSpecialChar(string mystring)

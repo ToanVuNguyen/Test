@@ -233,6 +233,8 @@
             <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server"
                 Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
             <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <asp:Label ID="lblStatus" runat="server" Text="Please wait..." Visible="false"></asp:Label>
             </ContentTemplate>
             </asp:UpdatePanel>
         </td>
