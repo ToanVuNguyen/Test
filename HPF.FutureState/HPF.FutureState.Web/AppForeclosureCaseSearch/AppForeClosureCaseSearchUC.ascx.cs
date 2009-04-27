@@ -325,6 +325,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
                 myLinkBtn.CommandName = i.ToString();
                 myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
+                myLinkBtn.Attributes.Add("onclick", "ShowWaitPanel();");
                 phPages.Controls.Add(myLinkBtn);
                 //add spaces beetween pages link button.
                 Literal lit = new Literal();
@@ -366,8 +367,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
-        {
-            lblStatus.Visible = true;
+        {            
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             if (totalpage > 10)
                 totalpage = 10;                        
@@ -421,8 +421,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
             grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)ViewState["SearchFCResult"];
             grvForeClosureCaseSearch.DataBind();
-            CalculatePaging(this.TotalRowNum);
-            lblStatus.Visible = false;
+            CalculatePaging(this.TotalRowNum);            
         }
 
         void myLinkBtn_Command(object sender, CommandEventArgs e)
@@ -430,7 +429,6 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
             int pagenum = int.Parse(e.CommandName);
             this.PageNum = pagenum - 1;
-            lblStatus.Visible = true;            
 
             lbtnFirst.Enabled = true;
             lbtnLast.Enabled = true;
@@ -455,8 +453,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
 
             grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)ViewState["SearchFCResult"];
             grvForeClosureCaseSearch.DataBind();
-            CalculatePaging(this.TotalRowNum);
-            lblStatus.Visible = false;
+            CalculatePaging(this.TotalRowNum);            
         }
         #region Ultility
         private string AddToSearchSpecialChar(string mystring)

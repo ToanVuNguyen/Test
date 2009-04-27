@@ -215,6 +215,9 @@
         <td>
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
          <ContentTemplate>
+            <table>
+            <tr>
+            <td>
             <asp:Label ID="lblMinRow" runat="server" Visible="false"></asp:Label>
             <asp:Label ID="lbl1" runat="server" Text=" - " Visible="false"></asp:Label>
             <asp:Label ID="lblMaxRow" runat="server" Visible="false"></asp:Label>
@@ -233,18 +236,27 @@
             <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server"
                 Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
             <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
-             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-             <asp:Label ID="lblStatus" runat="server" Text="Please wait..." Visible="false"></asp:Label>
+            </td>
+            <td width="40">&nbsp;</td>
+             <td><div id="waitPanel" style="display:none">Please wait...</div></td>
+             </tr>
+            </table>
             </ContentTemplate>
-            </asp:UpdatePanel>
+            </asp:UpdatePanel>            
         </td>
     </tr>
     </table>
 <script type="text/javascript">
     var mypanel = document.getElementById('<%=myPannel.ClientID %>');
-            if(mypanel != null)
-            {
-                mypanel.style.width= screen.width - 50;             
-                mypanel.style.height = screen.height - 580;
-            }
+    if(mypanel != null)
+    {
+        mypanel.style.width= screen.width - 50;             
+        mypanel.style.height = screen.height - 580;
+    }
+            
+   function ShowWaitPanel()
+   {
+        var mypanel = document.getElementById('waitPanel');
+        mypanel.style.display ="block";
+   }
 </script>
