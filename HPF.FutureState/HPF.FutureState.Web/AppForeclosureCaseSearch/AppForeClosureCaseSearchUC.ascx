@@ -225,16 +225,16 @@
             <asp:Label ID="lblTotalRowNum" runat="server" Visible="false"></asp:Label>
             &nbsp;
             <asp:LinkButton ID="lbtnFirst" CommandName="First" OnCommand="lbtnNavigate_Click"
-                runat="server" Text="&lt;&lt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                runat="server" Text="&lt;&lt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
             &nbsp;
             <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server"
-                Text="&lt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                Text="&lt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
             &nbsp;<asp:PlaceHolder ID="phPages" runat="server" Visible="true"></asp:PlaceHolder>
             <asp:LinkButton ID="lbtnNext" CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server"
-                Text="&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                Text="&gt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
             &nbsp;
             <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server"
-                Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine"></asp:LinkButton>
+                Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
             <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
             </td>
             <td width="40">&nbsp;</td>
