@@ -166,7 +166,6 @@
     <ReportItems>
       <Textbox Name="textbox10">
         <rd:DefaultName>textbox10</rd:DefaultName>
-        <Width>7.23958in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>

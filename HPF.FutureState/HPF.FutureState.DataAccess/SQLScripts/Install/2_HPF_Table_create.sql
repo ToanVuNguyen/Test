@@ -339,7 +339,7 @@ CREATE TABLE invoice_payment (
   pmt_cd VARCHAR(15)    ,
   pmt_amt NUMERIC(15,2)    ,
   invoice_payment_comment varchar(300) null,
-  payment_file varchar(100) null,
+  payment_file varchar(255) null,
   create_dt DATETIME  NOT NULL  ,
   create_user_id VARCHAR(30)  NOT NULL  ,
   create_app_name VARCHAR(20)  NOT NULL  ,
