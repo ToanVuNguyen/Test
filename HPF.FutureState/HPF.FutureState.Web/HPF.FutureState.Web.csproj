@@ -454,7 +454,6 @@
     <Content Include="NewInvoiceSelection.aspx" />
     <Content Include="PrintSummary.aspx" />
     <Content Include="PrintSummary\PrintSummaryUC.ascx" />
-    <Content Include="Scripts\HPF.js" />
     <Content Include="Site.Master" />
     <Content Include="Styles\HPF.css" />
     <Content Include="Styles\Images\arrow.jpg" />

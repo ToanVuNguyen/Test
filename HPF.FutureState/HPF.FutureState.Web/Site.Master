@@ -32,14 +32,14 @@
           <td width="342" rowspan="2"><img src="Styles/Images/toplogo.jpg" width="342" height="87"></td>
           <td width="34" rowspan="2"><img src="Styles/Images/topmidspace.jpg" width="34" 
                   style="height: 87px"></td>
-          <td background="Styles/Images/topbg.jpg" height="54" align="right" class="sidelinks2"
+          <td background="Styles/Images/topbg.jpg" height="50" align="right" class="sidelinks2"
                 style="vertical-align:top;color: #60A5DE;padding-top:2px" >
             Welcome: <asp:Label ID="lblUserName" runat="server" Text=""  style="color: #60A5DE; padding-right:5px;"  class="sidelinks2"></asp:Label>
           </td>
         </tr>
         
         <tr> 
-          <td background="Styles/Images/topnavbg.jpg">
+          <td background="Styles/Images/topnavbg.jpg" height="32">
               <HPF:MenuBarControl ID="MenuBarControl" runat="server">
               </HPF:MenuBarControl>
           </td>

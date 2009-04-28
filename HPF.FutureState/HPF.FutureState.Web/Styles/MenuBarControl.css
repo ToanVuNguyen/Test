@@ -1,83 +1,55 @@
 ﻿#sddm
-{
-    margin: 0;
-    padding: 0;
-    z-index: 30;
-    width:600px;
+{        		
+	height:26px;
+    width:600px;    
+    z-index: 30;    
 }
 
 #sddm td
-{
-    margin: 0;
-    padding: 0;
+{   	
+	display: block;
     font-family: Tahoma;
     font-size: 13px;
-    font-weight: bold;
-    height: 29;
+    font-weight: bold;    
 }
 
-#sddm td a
+#menuItem
 {
-    display: block;
-    margin: 0 1 0 0;
-    padding: 6 6;
+    display: block;    
     background: transparent;
     color: #FFF;
     text-align: center;
     text-decoration: none;
-    width: auto;
+    width: auto;       
 }
 
-
-
-.TopMenu
-{
-    display: block;
-    margin: 0 1 0 0;
-    padding: 6 6;
-    background: transparent;
-    color: #FFF;
-    text-align: center;
-    text-decoration: none;
-    width: auto;
-}
-.TopMenuMouseOver
-{
-    background: #49A3FF;
-}
 #sddm table
-{
-    position: absolute;
-    visibility: hidden;
-    margin: 0;
-    padding: 0;
-    background: #8FC4F6;
-    border: 1px solid #000;
-    width: auto;
-    z-index:500;
+{			
+	position:absolute;	
+    visibility:hidden;    
+    background: #60A5DE;/* #8FC4F6;*/
+    border: 0px solid #60A5DE;
+    width: auto;   
+    z-index:500;   
 }
-#sddm table tr td
-{
-    height: 20px;
-    width: 100%;
-}
-#sddm table tr td a
-{
-    position: relative;
-    display: block;
-    margin: 0;
-    padding: 5 10;
+
+#subMenuItem
+{    	
+	display:block;  
     width: auto;
     white-space: nowrap;
     text-align: left;
     text-decoration: none;
     background: #8FC4F6;
     color: #fff;
-    font: 11 Tahoma;
-    height: 11;
+    font-size: 11px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;    
+    font-weight:normal;
+    height:20px;
+    vertical-align:middle;       
 }
-#sddm table tr td a:hover
+#subMenuItem:hover
 {
-    background: #49A3FF;
+    background: #66B3FF;
     color: #fff;
 }

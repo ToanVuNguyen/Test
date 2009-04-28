@@ -1,10 +1,11 @@
 ﻿
 
-var timeout	= 500;
+var timeout	= 200;
 var closetimer	= 0;
 var ddmenuitem	= 0;
 var currentItem = 0;
-var backcolor = '#49A3FF';
+var parentItem = 0;
+var backcolor =  '#55AAFF';// '#49A3FF';
 
 function MenuMouseOver(sender)
 {
@@ -17,7 +18,7 @@ function MenuMouseLeave(sender)
 }
 
 // open hidden layer
-function mopen(id,selid)
+function mopen(parent, id, selid)
 {	
     if(currentItem) currentItem.style.background='transparent';
 	currentItem = document.getElementById(selid);
@@ -30,8 +31,8 @@ function mopen(id,selid)
 	// get new layer and show it
 	ddmenuitem = document.getElementById(id);
 	ddmenuitem.style.visibility = 'visible';
-	
-	
+	parentItem = parent;
+	parentItem.style.background = backcolor;
     
 }
 // close showed layer
@@ -39,7 +40,7 @@ function mclose()
 {
 	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
 	if(currentItem) currentItem.style.background = 'transparent';
-
+    if(parentItem) parentItem.style.background = 'transparent';
 }
 
 // go close timer
