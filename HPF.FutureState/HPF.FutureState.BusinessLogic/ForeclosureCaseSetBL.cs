@@ -71,14 +71,15 @@ namespace HPF.FutureState.BusinessLogic
                 Logger.Write(QUEUE_ERROR_MESSAGE, "General");
                 Logger.Write(Ex.Message, "General");
                 Logger.Write(Ex.StackTrace, "General");                
-                Logger.Write(QUEUE_ERROR_MESSAGE, Constant.DB_LOG_CATEGORY);
+                Logger.Write(QUEUE_ERROR_MESSAGE + " with error message: " + Ex.Message, Constant.DB_LOG_CATEGORY);
                 
                 //Send E-mail to support
                 var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
                 var mail = new HPFSendMail
                 {
                     To = hpfSupportEmail,
-                    Subject = QUEUE_ERROR_MESSAGE
+                    Subject = QUEUE_ERROR_MESSAGE,
+                    Body = Ex.Message
                 };
                 mail.Send();
                 //
