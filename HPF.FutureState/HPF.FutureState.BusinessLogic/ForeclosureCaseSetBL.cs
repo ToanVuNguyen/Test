@@ -79,7 +79,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     To = hpfSupportEmail,
                     Subject = QUEUE_ERROR_MESSAGE,
-                    Body = Ex.Message
+                    Body = "Messsage: " + Ex.Message + "\n.Trace: " + Ex.StackTrace
                 };
                 mail.Send();
                 //
