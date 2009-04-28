@@ -3,13 +3,13 @@
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="HPF" %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head runat="server">
 <title>HPF Template</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 
-<META NAME="Content-Language" CONTENT="english">
+<meta name="Content-Language" content="english"/>
 <link href="./Styles/HPF.css" rel="stylesheet" type="text/css" />
 <link href="./Styles/MenuBarControl.css" rel="stylesheet" type="text/css" />
 <link href="./Styles/TabControl.css" rel="stylesheet" type="text/css" />
@@ -17,45 +17,44 @@
 <script src="./Scripts/MenuBarControl.js" type="text/javascript"></script>
 <script src="./Scripts/Tab.js" type="text/javascript"></script>
 <style type="text/css">
-    html body {
-        overflow: auto;
-        }
+    body 
+    {
+    	height:100%;
+        overflow: auto;        
+    }
 </style>
 </head>
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" >
 <form runat="server" id="mainform">
-<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+<table width="100%" height="100%" cellpadding="0" cellspacing="0">
   <tr> 
-    <td height="87"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <td height="87" colspan="2" class="SiteBar">
+       <table width="100%" cellspacing="0" cellpadding="0" height="87">
         <tr> 
           <td width="342" rowspan="2"><img src="Styles/Images/toplogo.jpg" width="342" height="87"></td>
           <td width="34" rowspan="2"><img src="Styles/Images/topmidspace.jpg" width="34" 
-                  style="height: 87px"></td>
+                  style="height: 87px" border="0"></td>
           <td background="Styles/Images/topbg.jpg" height="50" align="right" class="sidelinks2"
                 style="vertical-align:top;color: #60A5DE;padding-top:2px" >
             Welcome: <asp:Label ID="lblUserName" runat="server" Text=""  style="color: #60A5DE; padding-right:5px;"  class="sidelinks2"></asp:Label>
           </td>
-        </tr>
-        
+        </tr>        
         <tr> 
-          <td background="Styles/Images/topnavbg.jpg" height="32">
-              <HPF:MenuBarControl ID="MenuBarControl" runat="server">
-              </HPF:MenuBarControl>
+          <td background="Styles/Images/topnavbg.jpg" height="32">            
+            <HPF:MenuBarControl ID="MenuBarControl" runat="server"/>            
           </td>
         </tr>
-      </table></td>
+      </table>      
+   </td>
   </tr>
-  <tr> 
-    <td valign="top">
-    <table width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="e7f3ff">
-        <tr> 
-          <td height="9" colspan="2" class="SiteBar"></td>
-        </tr>
-        <tr> 
-          <td width="9" valign="top" class="SiteBar">&nbsp;</td>
-          <td valign="top" bgcolor="#FFFFFF"> 
+  <tr height="80%"> 
+    <td width="1%" class="SiteBar">&nbsp;</td>
+    <td valign="top">   
             <table width="100%" cellpadding="0" cellspacing="0">
+                <tr> 
+                <td colspan="3" class="SiteBar" height="10"></td>
+              </tr>
               <tr> 
                 <td height="29" colspan="3" background="Styles/Images/navbasebg.jpg"><img src="Styles/Images/navbasebg.jpg" width="1" height="29"></td>
               </tr>
@@ -67,22 +66,20 @@
                 </td>
                 <td width="10">&nbsp;</td>
               </tr>
-            </table></td>
-        </tr>
-        </table></td>
-  </tr>
-  <tr> 
-    <td height="9" class="SiteBar"></td>
+            </table>
+   </td>
   </tr>
   <tr>
-    <td height="44" valign="top" background="Styles/Images/basebg2.jpg">    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td height="26" class="baseline">&nbsp;&nbsp;© Copyright 2008 Homeownership Preservation 
-            Foundation. All Rights Reserved.</td>
-        <td align="right" class="baseline">
-            Design by HPF Team - <asp:Label ID="lblVersion" runat=server Text=""></asp:Label>&nbsp;&nbsp;</td>
-      </tr>
-    </table></td>
+    <td height="5%" valign="top" background="Styles/Images/basebg2.jpg" colspan="2">
+        <table width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="26" class="baseline">&nbsp;&nbsp;© Copyright 2008 Homeownership Preservation 
+                Foundation. All Rights Reserved.</td>
+            <td align="right" class="baseline">
+                Design by HPF Team - <asp:Label ID="lblVersion" runat=server Text=""></asp:Label>&nbsp;&nbsp;</td>
+          </tr>
+        </table>
+    </td>
   </tr>
 </table>
 </form>
