@@ -233,7 +233,7 @@ namespace HPF.FutureState.BusinessLogic
             DateTime result = new DateTime(t.Year, t.Month, t.Day);
 
             result = result.AddDays(1);
-            result = result.AddMilliseconds(-1);
+            result = result.AddSeconds(-1);
             return result;
         }
     }
