@@ -61,6 +61,7 @@
     <Compile Include="DownloadAppSettings.cs" />
     <Compile Include="DownloadZippedItems.cs" />
     <Compile Include="PostBackMenuItemTemplate.cs" />
+    <Compile Include="ProgressContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZipUtilities.cs" />
   </ItemGroup>

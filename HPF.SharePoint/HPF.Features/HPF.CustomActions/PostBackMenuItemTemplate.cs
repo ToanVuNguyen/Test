@@ -12,6 +12,9 @@ namespace HPF.CustomActions
         // Events
         public event EventHandler<EventArgs> OnPostBack;
 
+        //public PostBackMenuItemTemplate(string text, string imageUrl, string clientOnClickScript) :
+        //    base(text, imageUrl, clientOnClickScript) { }
+
         // Methods
         protected override void EnsureChildControls()
         {

@@ -55,6 +55,7 @@
     </Content>
     <Content Include="Templates\Features\DownloadZippedItems\DownloadZippedItems.xml" />
     <Content Include="Templates\Features\DownloadZippedItems\feature.xml" />
+    <Content Include="Templates\Layouts\1033\DownloadZippedItems.js" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -8,11 +8,24 @@ using Microsoft.SharePoint;
 using System.IO;
 using System.Web;
 using DSOFile;
+using System.Web.UI;
+using System.Threading;
 
 namespace HPF.CustomActions
 {
-    public class DownloadZippedItems : WebControl
+    public class DownloadZippedItems : WebControl, ICallbackEventHandler
     {
+        #region "Consts"
+        public const string IN_PROGRESS = "InProgress";
+        public const string PROGRESS_PERCENTAGE = "ProcessPercentage";
+        public const string PROGRESS_ACTION = "ProgressAction";
+        #endregion
+
+        #region "Fields"
+        ProgressContext _progressContext = ProgressContext.Current;
+        uint _rowLimit = 15;
+        #endregion
+
         #region "Overwrites"
         protected override void CreateChildControls()
         {
@@ -32,6 +45,8 @@ namespace HPF.CustomActions
                     templateCurrentView.Text = "Items In Current View";
                     templateCurrentView.Description = "Zip and Download All Items";
                     templateCurrentView.ID = "menuDownloadCurrentView";
+
+                    templateCurrentView.Attributes.Add("onclick", "InvokeProgressViaServerSide(this);");
                     templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
 
                     child.Controls.Add(templateCurrentView);
@@ -45,6 +60,16 @@ namespace HPF.CustomActions
         {
             this.EnsureChildControls();
             base.OnLoad(e);
+
+            String cbReference = Page.ClientScript.GetCallbackEventReference(this,
+                "arg", "ReceiveProgressDataFromServer", "context");
+
+            String callbackScript = "function CallProgressData(arg, context)" +
+                "{ " + cbReference + ";}";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
+                "CallServer", callbackScript, true);
+            
+            Page.ClientScript.RegisterClientScriptInclude("DownloadZippedItems", "/_layouts/1033/DownloadZippedItems.js?rev=" + DateTime.Now.ToFileTime());
         }
         #endregion
 
@@ -75,6 +100,8 @@ namespace HPF.CustomActions
         /// <param name="isCurrentView"></param>
         private void GetListItems(Guid listId, bool IncludeVersions, bool isCurrentView)
         {
+            _progressContext[IN_PROGRESS] = "true";
+
             SPListItemCollection items;
             string tempPath = Path.GetTempPath();
             string randomFileName = Path.GetRandomFileName();
@@ -95,6 +122,7 @@ namespace HPF.CustomActions
                 SPView view = SPContext.Current.ViewContext.View;
                 SPQuery query = new SPQuery();
                 query.Query = view.Query;
+                //_rowLimit = view.RowLimit - 1;
                 query.ViewAttributes = " Scope=\"Recursive\"";
                 if (folder != null) { query.Folder = folder; }
                 items = list.GetItems(query);
@@ -103,6 +131,13 @@ namespace HPF.CustomActions
             {
                 items = list.Items;
             }
+
+            /******************************************************/
+            //Update progress bar: Updating meta data
+            /******************************************************/
+            int index = 0;
+            _progressContext[PROGRESS_ACTION] = "Updating Meta Data";
+            _progressContext[PROGRESS_PERCENTAGE] = "0";
             foreach (SPListItem item in items)
             {
                 SPFile file = item.File;
@@ -118,12 +153,29 @@ namespace HPF.CustomActions
                     string qualifiedFileName = path + fileUrl + file.Name;
 
                     UpdateReviewStatus(file.Item);
-
                     WriteToFileAndUpdateMetaData(bytFile, qualifiedFileName, file.Item);
+
+                    /******************************************************/
+                    //Update progress bar: updating meta data
+                    /******************************************************/
+                    if (++index % _rowLimit == 0) Thread.Sleep(500);
+                    updateProgressAction(20/items.Count);
                 }
             }
             string outputPathAndFile = randomFileName + ".zip";
-            ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty);
+
+            /******************************************************/
+            //Update progress bar: zipping files
+            /******************************************************/
+            _progressContext[PROGRESS_ACTION] = "Zipping files";
+            _progressContext[PROGRESS_PERCENTAGE] = "20";
+
+            ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty, _rowLimit, updateProgressAction);
+
+            /******************************************************/
+            //update progress bar: Finish zipping files
+            /******************************************************/            
+            _progressContext[PROGRESS_PERCENTAGE] = "50";
 
             string[] names = HttpContext.Current.User.Identity.Name.Split(new char[] { '\\', ':' });
             string loginName = HttpContext.Current.User.Identity.Name;
@@ -133,15 +185,36 @@ namespace HPF.CustomActions
             }
 
             //DocumentLibraryTitle-USERNAME_MMDDYYYY
-            string newFileName = String.Format("{0}-{1}_{2}.zip",
+            string newFileName = String.Format("{0}-{1}_{2}_{3}.zip",
                 list.Title, loginName,
-                DateTime.Now.ToString("MMddyyyy"));
+                DateTime.Now.ToString("MMddyyyy"),
+                DateTime.Now.ToFileTime());
 
-            ArchiveFiles(path + outputPathAndFile, newFileName, string.Format(DownloadAppSettings.ArchiveListName, list.Title));
+            /******************************************************/
+            //Update progress bar: Start archieving files
+            /******************************************************/
+            _progressContext[PROGRESS_ACTION] = "Archiving zipped file";
+            Thread.Sleep(500);
 
-            DeleteSPFiles(items);
+            string archiveFileUrl = "";
+            if (ArchiveFiles(path + outputPathAndFile, newFileName,
+                string.Format(DownloadAppSettings.ArchiveListName, list.Title), out archiveFileUrl))
+            {
+                _progressContext[PROGRESS_PERCENTAGE] = "80";                
+                _progressContext[PROGRESS_ACTION] = "Deleting files";                
 
-            PushFileToDownload(path + outputPathAndFile, newFileName);
+                DeleteSPFiles(items);
+                _progressContext[PROGRESS_PERCENTAGE] = "100";
+                Thread.Sleep(500);
+
+                /******************************************************/
+                //Update progress bar: Done!
+                /******************************************************/
+                _progressContext[IN_PROGRESS] = "false";
+
+                PushFileToDownload(path + outputPathAndFile, newFileName);
+                //PushFileToDownload(archiveFileUrl);
+            }
         }
 
         /// <summary>
@@ -159,6 +232,12 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.Flush();
             HttpContext.Current.Response.End();
         }
+
+        //private void PushFileToDownload(string archiveFileUrl)
+        //{
+        //    string script = string.Format("downloadArchiveFile('{0}');", archiveFileUrl);
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "download", script, true);
+        //}
 
         private bool WriteToFileAndUpdateMetaData(byte[] bytFile, string QualifiedFileName, SPListItem listItem)
         {
@@ -201,9 +280,15 @@ namespace HPF.CustomActions
         /// <param name="filePath"></param>
         /// <param name="fileName"></param>
         /// <param name="archiveListPath"></param>
-        private void ArchiveFiles(string filePath, string fileName, string archiveListPath)
+        private bool ArchiveFiles(string filePath, string fileName, string archiveListPath, out string archiveFileUrl)
         {
-            if (!Page.Response.IsClientConnected) return;
+            string returnArchiveUrl = "";
+            bool archiveSuccess = false;
+            if (!Page.Response.IsClientConnected)
+            {
+                archiveFileUrl = returnArchiveUrl;
+                return archiveSuccess;
+            }
             SPSecurity.RunWithElevatedPrivileges(delegate()
             {
                 FileStream zipFileStream = null;
@@ -231,15 +316,21 @@ namespace HPF.CustomActions
 
                         SPFile returnSPFile = folder.Files.Add(
                             fileName, zipFileStream);
+
+                        returnArchiveUrl = Microsoft.SharePoint.Utilities.SPUtility.GetFullUrl(sourceWeb.Site, "/" + returnSPFile.Url);
+
+                        archiveSuccess = true;
                     }
                 }
-                catch { }
+                catch { archiveSuccess = false; }
                 finally
                 {
-                    if (zipFileStream != null) { zipFileStream.Close(); }
-                    //File.Delete(tempPath + randomFileName);
+                    if (zipFileStream != null) { zipFileStream.Close(); }                    
                 }
             });
+
+            archiveFileUrl = returnArchiveUrl;
+            return archiveSuccess;
         }
 
         /// <summary>
@@ -293,30 +384,38 @@ namespace HPF.CustomActions
             catch { }
         }
 
+        /// <summary>
+        /// Delete Zipped SPListItem collection
+        /// </summary>
+        /// <param name="items"></param>
         private void DeleteSPFiles(SPListItemCollection items)
         {
-            if (Page.Response.IsClientConnected)
+            SPSecurity.RunWithElevatedPrivileges(delegate()
             {
-                SPSecurity.RunWithElevatedPrivileges(delegate()
-                {
-                    List<int> deletedIds = new List<int>();
+                int total = items.Count;
+                List<int> deletedIds = new List<int>();
 
-                    foreach (SPListItem spListItem in items)
+                foreach (SPListItem spListItem in items)
+                {
+                    deletedIds.Add(spListItem.ID);
+                }
+
+                int index = 0;
+                deletedIds.ForEach(delegate(int id)
+                {
+                    if (Page.Response.IsClientConnected)
                     {
-                        //check if review status was updated, delete it
                         try
                         {
-                            deletedIds.Add(spListItem.ID);
+                            //todo: rem for test
+                            items.DeleteItemById(id);
+                            if (++index % _rowLimit == 0) Thread.Sleep(500);
+                            updateProgressAction(20 / total);
                         }
                         catch { }
-                    }
-
-                    deletedIds.ForEach(delegate(int id)
-                    {
-                        items.DeleteItemById(id);
-                    });
+                    }                    
                 });
-            }
+            });            
         }
 
         /// <summary>
@@ -344,6 +443,36 @@ namespace HPF.CustomActions
                 }
             }
             return folder;
+        }
+        #endregion
+
+        #region ICallbackEventHandler Members
+
+        public string GetCallbackResult()
+        {
+            return _progressContext.SerializeToJSonObject();
+        }
+
+        public void RaiseCallbackEvent(string eventArgument)
+        {
+            //Remove Progress Context if Download done
+            if (_progressContext[IN_PROGRESS] == "false")
+            {
+                _progressContext.RemoveProgressContext();
+            }
+        }
+
+        #endregion        
+
+        #region "Progress Helpers"
+        void updateProgressAction(double percentage)
+        {
+            if (string.IsNullOrEmpty(_progressContext[PROGRESS_PERCENTAGE]))
+            {
+                _progressContext[PROGRESS_PERCENTAGE] = "0";
+            }
+            double currentPercentage = double.Parse(_progressContext[PROGRESS_PERCENTAGE]) + percentage;
+            _progressContext[PROGRESS_PERCENTAGE] = currentPercentage.ToString();
         }
         #endregion
     }
