@@ -8,6 +8,7 @@ using System.Data.SqlTypes;
 
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.DataAccess;
 using HPF.FutureState.Common.Utils.DataValidator;
 using HPF.FutureState.Common;
@@ -267,7 +268,73 @@ namespace HPF.FutureState.BusinessLogic
 
             return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteria, pageSize);
         }
-        
+
+
+        // <summary>
+        // return ForeclosureCase search result 
+        // </summary>
+        // <param name="searchCriteria">search criteria</param>
+        // <returns>collection of ForeclosureCaseWSDTO and collection of exception messages if there are any</returns>
+        public ForeclosureCaseSearchResult ICTSearchForeclosureCase(ICTForeclosureCaseSearchRequest searchCriteria, int pageSize)
+        {
+            ForeclosureCaseSearchResult searchResult = new ForeclosureCaseSearchResult();
+            var dataValidationException = new DataValidationException();
+            ForeclosureCaseSearchCriteriaDTO searchCriteriaCheck = new ForeclosureCaseSearchCriteriaDTO();
+
+            searchCriteriaCheck.LoanNumber = searchCriteria.LoanNumber;
+            searchCriteriaCheck.FirstName = searchCriteria.FirstName;
+            searchCriteriaCheck.LastName = searchCriteria.LastName;
+            searchCriteriaCheck.PropertyZip = searchCriteria.PropertyZip;
+
+            ValidateFcCaseSearchCriteriaNotNull(searchCriteriaCheck, dataValidationException);
+
+            ValidateFcCaseSearchCriteriaData(searchCriteriaCheck, dataValidationException);
+
+            if (dataValidationException.ExceptionMessages.Count > 0)
+                throw dataValidationException;
+            
+            //search by loan number
+            if (!string.IsNullOrEmpty(searchCriteria.LoanNumber))
+            {
+                ForeclosureCaseSearchCriteriaDTO loanNumberSearch=new ForeclosureCaseSearchCriteriaDTO();
+                loanNumberSearch.LoanNumber = searchCriteria.LoanNumber;
+
+                searchResult = ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(loanNumberSearch, pageSize);
+
+                if (searchResult.SearchResultCount>0)
+                    return searchResult;
+            }
+            //search by zip code, first name, last name
+            if (!string.IsNullOrEmpty(searchCriteria.LoanNumber) && !string.IsNullOrEmpty(searchCriteria.LastName)
+                && !string.IsNullOrEmpty(searchCriteria.FirstName))
+            {
+                ForeclosureCaseSearchCriteriaDTO loanNumberFullNameSearch = new ForeclosureCaseSearchCriteriaDTO();
+                loanNumberFullNameSearch.LoanNumber = searchCriteria.LoanNumber;
+                loanNumberFullNameSearch.LastName = searchCriteria.LastName;
+                loanNumberFullNameSearch.FirstName = searchCriteria.FirstName;
+
+                searchResult = ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(loanNumberFullNameSearch, pageSize);
+
+                if (searchResult.SearchResultCount > 0)
+                    return searchResult;
+            }
+
+            //search by zip code, last name
+            if (!string.IsNullOrEmpty(searchCriteria.LoanNumber) && !string.IsNullOrEmpty(searchCriteria.LastName))
+            {
+                ForeclosureCaseSearchCriteriaDTO loanNumberLastNameSearch = new ForeclosureCaseSearchCriteriaDTO();
+                loanNumberLastNameSearch.LoanNumber = searchCriteria.LoanNumber;
+                loanNumberLastNameSearch.LastName = searchCriteria.LastName;
+
+                searchResult = ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(loanNumberLastNameSearch, pageSize);
+
+                if (searchResult.SearchResultCount > 0)
+                    return searchResult;
+            }
+
+            return ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(searchCriteriaCheck, pageSize);
+        }
+
         #endregion
 
         #region Function to serve SearchForeclosureCase
