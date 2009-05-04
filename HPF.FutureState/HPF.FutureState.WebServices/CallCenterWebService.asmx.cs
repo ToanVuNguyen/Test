@@ -64,6 +64,72 @@ namespace HPF.FutureState.WebServices
             return response;
         }
 
+
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public ForeclosureCaseSearchResponse ICTSearchForeclosureCase(ICTForeclosureCaseSearchRequest request)
+        {
+            var response = new ForeclosureCaseSearchResponse();
+            try
+            {
+                if (IsAuthenticated())
+                {
+                    int pageSize;
+                    if (!int.TryParse(HPFConfigurationSettings.WS_SEARCH_RESULT_MAXROW, out pageSize))
+                        pageSize = 50;
+
+                    var results = ForeclosureCaseSetBL.Instance.ICTSearchForeclosureCase(request, pageSize);
+
+                    response = new ForeclosureCaseSearchResponse
+                    {
+                        Results = results,
+                        SearchResultCount = results.SearchResultCount,
+                        Status = ResponseStatus.Success
+                    };
+                    if (response.SearchResultCount > pageSize)
+                    {
+                        response.Status = ResponseStatus.Warning;
+                        var em = new ExceptionMessage()
+                        {
+                            ErrorCode = ErrorMessages.WARN0375,
+                            Message = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0375, response.SearchResultCount)
+
+                        };
+                        response.Messages.Add(em);
+                    }
+                }
+            }
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            catch (Exception Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            return response;
+        }
+
+
         private CallLogDTO ConvertToCallLogDTO(CallLogWSDTO sourceObject)
         {
             var destObject = new CallLogDTO();
