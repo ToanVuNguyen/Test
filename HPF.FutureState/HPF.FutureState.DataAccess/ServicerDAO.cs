@@ -28,14 +28,14 @@ namespace HPF.FutureState.DataAccess
         }               
 
 
-        public ServicerDTOCollection GetServicersByFcId(int? fcId)
+        public ServicerDTO GetServicer(int servicerId)
         {
-            ServicerDTOCollection servicers = null;
+            ServicerDTO servicer = null;
             var dbConnection = CreateConnection();
-            var command = CreateCommand("hpf_servicer_get_from_FcId", dbConnection);
+            var command = CreateCommand("hpf_servicer_detail_get", dbConnection);
             //<Parameter>            
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+            sqlParam[0] = new SqlParameter("@pi_servicer_id", servicerId);
             //</Parameter>   
             command.Parameters.AddRange(sqlParam);
             command.CommandType = CommandType.StoredProcedure;
@@ -45,24 +45,22 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    servicers = new ServicerDTOCollection();
+                    servicer = new ServicerDTO();
                     while (reader.Read())
-                    {
-                        var item = new ServicerDTO();
-                        item.ServicerID = ConvertToInt(reader["servicer_id"]);
-                        item.ServicerName = ConvertToString(reader["servicer_name"]);
-                        item.ContactFName = ConvertToString(reader["contact_fname"]);
-                        item.ContactLName= ConvertToString(reader["contact_lname"]);
-                        item.ContactEmail = ConvertToString(reader["contact_email"]);
-                        item.Phone = ConvertToString(reader["phone"]);
-                        item.Fax = ConvertToString(reader["fax"]);
-                        item.ActiveInd = ConvertToString(reader["active_ind"]);
-                        item.FundingAgreementInd = ConvertToString(reader["funding_agreement_ind"]);
-                        item.SecureDeliveryMethodCd = ConvertToString(reader["secure_delivery_method_cd"]);
-                        item.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);
+                    {                     
+                        servicer.ServicerID = ConvertToInt(reader["servicer_id"]);
+                        servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                        servicer.ContactFName = ConvertToString(reader["contact_fname"]);
+                        servicer.ContactLName = ConvertToString(reader["contact_lname"]);
+                        servicer.ContactEmail = ConvertToString(reader["contact_email"]);
+                        servicer.Phone = ConvertToString(reader["phone"]);
+                        servicer.Fax = ConvertToString(reader["fax"]);
+                        servicer.ActiveInd = ConvertToString(reader["active_ind"]);
+                        servicer.FundingAgreementInd = ConvertToString(reader["funding_agreement_ind"]);
+                        servicer.SecureDeliveryMethodCd = ConvertToString(reader["secure_delivery_method_cd"]);
+                        servicer.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);
                         //item.HudServicerNum = ConvertToString(reader["hud_servicer_num"]);
-                        item.SPFolderName = ConvertToString(reader["sharepoint_foldername"]);                        
-                        servicers.Add(item);
+                        servicer.SPFolderName = ConvertToString(reader["sharepoint_foldername"]);                                                
                     }
                     reader.Close();
                 }                
@@ -76,7 +74,7 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-            return servicers;
+            return servicer;
         }
     }
 }

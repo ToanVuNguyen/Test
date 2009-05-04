@@ -79,7 +79,7 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     To = hpfSupportEmail,
                     Subject = QUEUE_ERROR_MESSAGE,
-                    Body = "Messsage: " + Ex.Message + "\n.Trace: " + Ex.StackTrace
+                    Body = "Messsage: " + Ex.Message + "\nTrace: " + Ex.StackTrace
                 };
                 mail.Send();
                 //
@@ -96,8 +96,7 @@ namespace HPF.FutureState.BusinessLogic
         {
             var fcId = fCaseSetFromAcency.ForeclosureCase.FcId;
             var caseLoan1st = fCaseSetFromAcency.CaseLoans.GetCaseLoan1st();
-            var primaryServicer =
-                SummaryReportBL.Instance.GetServicerbyFcId(fcId).GetServicerById(caseLoan1st.ServicerId);
+            var primaryServicer = ServicerDAO.Instance.GetServicer(caseLoan1st.ServicerId.Value);
             //
             if (IsFirstTimeCaseCompleted)
                 return IsNotNOSENDDeliveryMethod(primaryServicer) &&

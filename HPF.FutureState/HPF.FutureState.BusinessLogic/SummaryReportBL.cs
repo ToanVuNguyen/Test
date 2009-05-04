@@ -46,9 +46,9 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fcId"></param>
         /// <returns></returns>
-        public ServicerDTOCollection GetServicerbyFcId(int? fcId)
+        public ServicerDTO GetServicer(int servicerId)
         {
-            return ServicerDAO.Instance.GetServicersByFcId(fcId);
+            return ServicerDAO.Instance.GetServicer(servicerId);
         }        
 
         public void UpdateSummarySentDateTime(int? fcId)
@@ -71,8 +71,8 @@ namespace HPF.FutureState.BusinessLogic
             //<Prepare data>
             var foreclosureCase = GetForeclosureCase(fc_id);
             var caseLoan = GetCaseLoans1St(fc_id);
-            var servicers = GetServicerbyFcId(fc_id);
-            var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
+            var primaryServicer = GetServicer(caseLoan.ServicerId.Value);
+            //var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
             //</Prepare data>           
 
             //Update Summary sent datetime if any
