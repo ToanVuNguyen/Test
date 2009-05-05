@@ -46,7 +46,7 @@ namespace HPF.Webservice.CallCenter
         /// <remarks/>
         public CallCenterService()
         {
-            this.Url = "http://localhost:1314/CallCenterWebService.asmx";
+            this.Url = ConfigurationManager.AppSettings["CallCenterServiceProxy"];
         }
 
         public AuthenticationInfo AuthenticationInfoValue
