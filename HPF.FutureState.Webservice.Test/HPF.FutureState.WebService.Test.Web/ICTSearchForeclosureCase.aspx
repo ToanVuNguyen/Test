@@ -35,8 +35,7 @@
         </td>
         </tr>
         </table>
-    <div>
-    <table>
+    <div>    
     <br />    
 
 <asp:Table ID="Table1" runat="server">
@@ -98,6 +97,5 @@
 </asp:GridView>
 <br />
 <br />
-    </div>
-    </div>
+    </div>    
 </asp:Content>
