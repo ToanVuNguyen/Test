@@ -305,11 +305,11 @@ namespace HPF.FutureState.BusinessLogic
                     return searchResult;
             }
             //search by zip code, first name, last name
-            if (!string.IsNullOrEmpty(searchCriteria.LoanNumber) && !string.IsNullOrEmpty(searchCriteria.LastName)
+            if (!string.IsNullOrEmpty(searchCriteria.PropertyZip) && !string.IsNullOrEmpty(searchCriteria.LastName)
                 && !string.IsNullOrEmpty(searchCriteria.FirstName))
             {
                 ForeclosureCaseSearchCriteriaDTO loanNumberFullNameSearch = new ForeclosureCaseSearchCriteriaDTO();
-                loanNumberFullNameSearch.LoanNumber = searchCriteria.LoanNumber;
+                loanNumberFullNameSearch.PropertyZip = searchCriteria.PropertyZip;
                 loanNumberFullNameSearch.LastName = searchCriteria.LastName;
                 loanNumberFullNameSearch.FirstName = searchCriteria.FirstName;
 
@@ -320,10 +320,10 @@ namespace HPF.FutureState.BusinessLogic
             }
 
             //search by zip code, last name
-            if (!string.IsNullOrEmpty(searchCriteria.LoanNumber) && !string.IsNullOrEmpty(searchCriteria.LastName))
+            if (!string.IsNullOrEmpty(searchCriteria.PropertyZip) && !string.IsNullOrEmpty(searchCriteria.LastName))
             {
                 ForeclosureCaseSearchCriteriaDTO loanNumberLastNameSearch = new ForeclosureCaseSearchCriteriaDTO();
-                loanNumberLastNameSearch.LoanNumber = searchCriteria.LoanNumber;
+                loanNumberLastNameSearch.PropertyZip = searchCriteria.PropertyZip;
                 loanNumberLastNameSearch.LastName = searchCriteria.LastName;
 
                 searchResult = ForeclosureCaseDAO.CreateInstance().SearchForeclosureCase(loanNumberLastNameSearch, pageSize);
