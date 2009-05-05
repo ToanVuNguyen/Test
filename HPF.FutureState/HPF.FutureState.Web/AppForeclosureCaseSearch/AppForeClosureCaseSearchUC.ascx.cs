@@ -207,7 +207,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 myPannel.Visible = true;
                 grvForeClosureCaseSearch.DataSource = searchResult;
                 grvForeClosureCaseSearch.DataBind();
-                ViewState["SearchFCResult"] = searchResult;
+                Session["SearchFCResult"] = searchResult;
                 CalculatePaging(searchResult.SearchResultCount);                
             }
             else
@@ -419,7 +419,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             myPannel.Visible = true;
             ShowHidePagingControl(true);
 
-            grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)ViewState["SearchFCResult"];
+            grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)Session["SearchFCResult"];
             grvForeClosureCaseSearch.DataBind();
             CalculatePaging(this.TotalRowNum);            
         }
@@ -451,7 +451,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             myPannel.Visible = true;
             ShowHidePagingControl(true);
 
-            grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)ViewState["SearchFCResult"];
+            grvForeClosureCaseSearch.DataSource = (AppForeclosureCaseSearchResultDTOCollection)Session["SearchFCResult"];
             grvForeClosureCaseSearch.DataBind();
             CalculatePaging(this.TotalRowNum);            
         }
