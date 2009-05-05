@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Serialization;
-
 using System.Configuration;
 
 // 
@@ -23,6 +22,7 @@ using System.Configuration;
 
 namespace HPF.Webservice.CallCenter
 {
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -31,6 +31,7 @@ namespace HPF.Webservice.CallCenter
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseDTO))]
+
     public partial class CallCenterService : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
@@ -38,12 +39,14 @@ namespace HPF.Webservice.CallCenter
 
         private System.Threading.SendOrPostCallback SaveCallLogOperationCompleted;
 
+        private System.Threading.SendOrPostCallback ICTSearchForeclosureCaseOperationCompleted;
+
         private System.Threading.SendOrPostCallback SearchForeclosureCaseOperationCompleted;
 
         /// <remarks/>
         public CallCenterService()
         {
-            this.Url = ConfigurationManager.AppSettings["CallCenterServiceProxy"];
+            this.Url = "http://localhost:1314/CallCenterWebService.asmx";
         }
 
         public AuthenticationInfo AuthenticationInfoValue
@@ -60,6 +63,9 @@ namespace HPF.Webservice.CallCenter
 
         /// <remarks/>
         public event SaveCallLogCompletedEventHandler SaveCallLogCompleted;
+
+        /// <remarks/>
+        public event ICTSearchForeclosureCaseCompletedEventHandler ICTSearchForeclosureCaseCompleted;
 
         /// <remarks/>
         public event SearchForeclosureCaseCompletedEventHandler SearchForeclosureCaseCompleted;
@@ -111,6 +117,56 @@ namespace HPF.Webservice.CallCenter
             {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.SaveCallLogCompleted(this, new SaveCallLogCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/ICTSearchForeclosureCase", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ForeclosureCaseSearchResponse ICTSearchForeclosureCase(ICTForeclosureCaseSearchRequest request)
+        {
+            object[] results = this.Invoke("ICTSearchForeclosureCase", new object[] {
+                    request});
+            return ((ForeclosureCaseSearchResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public System.IAsyncResult BeginICTSearchForeclosureCase(ICTForeclosureCaseSearchRequest request, System.AsyncCallback callback, object asyncState)
+        {
+            return this.BeginInvoke("ICTSearchForeclosureCase", new object[] {
+                    request}, callback, asyncState);
+        }
+
+        /// <remarks/>
+        public ForeclosureCaseSearchResponse EndICTSearchForeclosureCase(System.IAsyncResult asyncResult)
+        {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((ForeclosureCaseSearchResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public void ICTSearchForeclosureCaseAsync(ICTForeclosureCaseSearchRequest request)
+        {
+            this.ICTSearchForeclosureCaseAsync(request, null);
+        }
+
+        /// <remarks/>
+        public void ICTSearchForeclosureCaseAsync(ICTForeclosureCaseSearchRequest request, object userState)
+        {
+            if ((this.ICTSearchForeclosureCaseOperationCompleted == null))
+            {
+                this.ICTSearchForeclosureCaseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnICTSearchForeclosureCaseOperationCompleted);
+            }
+            this.InvokeAsync("ICTSearchForeclosureCase", new object[] {
+                    request}, this.ICTSearchForeclosureCaseOperationCompleted, userState);
+        }
+
+        private void OnICTSearchForeclosureCaseOperationCompleted(object arg)
+        {
+            if ((this.ICTSearchForeclosureCaseCompleted != null))
+            {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ICTSearchForeclosureCaseCompleted(this, new ICTSearchForeclosureCaseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
 
@@ -330,6 +386,7 @@ namespace HPF.Webservice.CallCenter
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ICTForeclosureCaseSearchRequest))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -360,6 +417,76 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.searchCriteriaField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class ICTForeclosureCaseSearchRequest : BaseRequest
+    {
+
+        private string firstNameField;
+
+        private string lastNameField;
+
+        private string loanNumberField;
+
+        private string propertyZipField;
+
+        /// <remarks/>
+        public string FirstName
+        {
+            get
+            {
+                return this.firstNameField;
+            }
+            set
+            {
+                this.firstNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LastName
+        {
+            get
+            {
+                return this.lastNameField;
+            }
+            set
+            {
+                this.lastNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanNumber
+        {
+            get
+            {
+                return this.loanNumberField;
+            }
+            set
+            {
+                this.loanNumberField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PropertyZip
+        {
+            get
+            {
+                return this.propertyZipField;
+            }
+            set
+            {
+                this.propertyZipField = value;
             }
         }
     }
@@ -1447,6 +1574,36 @@ namespace HPF.Webservice.CallCenter
             {
                 this.RaiseExceptionIfNecessary();
                 return ((CallLogInsertResponse)(this.results[0]));
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    public delegate void ICTSearchForeclosureCaseCompletedEventHandler(object sender, ICTSearchForeclosureCaseCompletedEventArgs e);
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ICTSearchForeclosureCaseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
+        private object[] results;
+
+        internal ICTSearchForeclosureCaseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+
+        /// <remarks/>
+        public ForeclosureCaseSearchResponse Result
+        {
+            get
+            {
+                this.RaiseExceptionIfNecessary();
+                return ((ForeclosureCaseSearchResponse)(this.results[0]));
             }
         }
     }

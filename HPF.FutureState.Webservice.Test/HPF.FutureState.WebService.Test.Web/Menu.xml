@@ -2,6 +2,7 @@
 <MenuBar>
   
   <Menu Id="searchCase" Title="Search FcCase" Url="SearchForeclosureCase.aspx" Enabled="True"/>
+  <Menu Id="ictsearchCase" Title="ICT Search FcCase" Url="ICTSearchForeclosureCase.aspx" Enabled="True"/>
   <Menu Id="insertCallLog" Title="Insert Call" Url="InsertCallLog.aspx" Enabled="True"/>
   <Menu Id="retrieveCallLog" Title="Retrieve Call" Url="RetrieveCallLog.aspx" Enabled="True"/>
   <Menu Id="saveCase" Title="Save FcCase" Url="SaveForeclosureCase.aspx" Enabled="True"/>

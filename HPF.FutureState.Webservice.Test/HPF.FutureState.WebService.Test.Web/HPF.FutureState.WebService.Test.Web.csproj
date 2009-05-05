@@ -65,7 +65,15 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="HPFWebServiceProxies\AgencyServiceProxy.cs" />
-    <Compile Include="HPFWebServiceProxies\CallCenterServiceProxy.cs" />
+    <Compile Include="HPFWebServiceProxies\CallCenterServiceProxy.cs">
+    </Compile>
+    <Compile Include="ICTSearchForeclosureCase.aspx.cs">
+      <DependentUpon>ICTSearchForeclosureCase.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ICTSearchForeclosureCase.aspx.designer.cs">
+      <DependentUpon>ICTSearchForeclosureCase.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InsertCallLog.aspx.cs">
       <DependentUpon>InsertCallLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -117,6 +125,7 @@
     <Content Include="CallLogWSDTO.xml" />
     <Content Include="Default.aspx" />
     <Content Include="ForeclosureCaseSet.xml" />
+    <Content Include="ICTSearchForeclosureCase.aspx" />
     <Content Include="InsertCallLog.aspx" />
     <Content Include="Menu.xml" />
     <Content Include="RetrieveCallLog.aspx" />
