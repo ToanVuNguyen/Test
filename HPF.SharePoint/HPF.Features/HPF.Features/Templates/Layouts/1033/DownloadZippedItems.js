@@ -11,7 +11,7 @@ function InvokeProgressViaServerSide(me)
 	}
 }
 function ReceiveProgressDataFromServer(progressData) 
-{   
+{
     progressDataFromServer = eval(progressData);
     updateProgressBar(progressDataFromServer);
 }
@@ -46,10 +46,10 @@ function createProgressContainer()
         progressStatus.style.color = "white";
         progressStatus.style.fontWeight = 'bold';
         
-        var slider = document.createElement("div");
-        slider.id = "slider";
-        loadingDiv.appendChild(slider);
-        slider.style.backgroundColor = "blue";
+//        var slider = document.createElement("div");
+//        slider.id = "slider";
+//        loadingDiv.appendChild(slider);
+//        slider.style.backgroundColor = "blue";
     }
     loadingDiv.style.display = "";
 }
@@ -60,10 +60,13 @@ function updateProgressBar(progressData)
     
     //clear interval if no data returned from server
 	if(progressData && !progressData.InProgress) {
-	    loadingDiv.style.display = "none";	    
+	    loadingDiv.style.display = "none";
+	    if(progressData.HasError) {
+	        alert(progressData.ErrorMessage);
+	    }
     }
     else {        
-        if(progressData.ProcessPercentage && progressData.ProgressAction && progressData.InProgress) {
+        if(progressData && progressData.InProgress) {
             var progressStatus = document.getElementById("progressStatus");
             progressStatus.innerHTML = progressData.ProcessPercentage + "%" + ":" + progressData.ProgressAction;
             setTimeout("CallProgressDataInterval()", 0);

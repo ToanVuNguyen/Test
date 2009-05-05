@@ -82,7 +82,7 @@ namespace HPF.CustomActions
             }
         }
 
-        public static void ZipFiles(string inputFolderPath, string outputPathAndFile, string password, uint rowLimit, UpdateProgressStatus updateProgressAction)
+        public static long ZipFiles(string inputFolderPath, string outputPathAndFile, string password, uint rowLimit, UpdateProgressStatus updateProgressAction)
         {
             ArrayList list = GenerateFileList(inputFolderPath);
             int count = Directory.GetParent(inputFolderPath).ToString().Length + 1;
@@ -106,10 +106,14 @@ namespace HPF.CustomActions
                     stream2.Write(buffer, 0, buffer.Length);
                 }
                 if (++index % rowLimit == 0) Thread.Sleep(500);
-                updateProgressAction(20 / list.Count);
+                updateProgressAction((double)20 / list.Count);
             }
+
+            long zippedFileLength = stream2.Length;
             stream2.Finish();
             stream2.Close();
+
+            return zippedFileLength;
         }
     }
 }

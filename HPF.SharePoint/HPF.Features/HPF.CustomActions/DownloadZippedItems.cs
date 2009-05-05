@@ -19,11 +19,13 @@ namespace HPF.CustomActions
         public const string IN_PROGRESS = "InProgress";
         public const string PROGRESS_PERCENTAGE = "ProcessPercentage";
         public const string PROGRESS_ACTION = "ProgressAction";
+        public const string HAS_ERROR = "HasError";
+        public const string ERROR_MESSAGE = "ErrorMessage";
         #endregion
 
         #region "Fields"
         ProgressContext _progressContext = ProgressContext.Current;
-        uint _rowLimit = 15;
+        uint _rowLimit = 50;
         #endregion
 
         #region "Overwrites"
@@ -68,7 +70,7 @@ namespace HPF.CustomActions
                 "{ " + cbReference + ";}";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(),
                 "CallServer", callbackScript, true);
-            
+
             Page.ClientScript.RegisterClientScriptInclude("DownloadZippedItems", "/_layouts/1033/DownloadZippedItems.js?rev=" + DateTime.Now.ToFileTime());
         }
         #endregion
@@ -159,7 +161,7 @@ namespace HPF.CustomActions
                     //Update progress bar: updating meta data
                     /******************************************************/
                     if (++index % _rowLimit == 0) Thread.Sleep(500);
-                    updateProgressAction(20/items.Count);
+                    updateProgressAction((double)20 / items.Count);
                 }
             }
             string outputPathAndFile = randomFileName + ".zip";
@@ -168,14 +170,25 @@ namespace HPF.CustomActions
             //Update progress bar: zipping files
             /******************************************************/
             _progressContext[PROGRESS_ACTION] = "Zipping files";
-            _progressContext[PROGRESS_PERCENTAGE] = "20";
+            //_progressContext[PROGRESS_PERCENTAGE] = "20";
 
-            ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty, _rowLimit, updateProgressAction);
+            long length = ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty, _rowLimit, updateProgressAction);
+
+            //The size of the file that is uploaded cannot exceed 2 GB.
+            //http://msdn.microsoft.com/en-us/library/ms454491.aspx
+            if (ConvertToGigabytes((ulong)length) > 2)
+            {
+                _progressContext[PROGRESS_PERCENTAGE] = "100";
+                _progressContext[IN_PROGRESS] = "false";
+                _progressContext[HAS_ERROR] = "true";
+                _progressContext[ERROR_MESSAGE] = "Can not archive zipped file because the size of the file exceed 2 GB";
+                return;
+            }
 
             /******************************************************/
             //update progress bar: Finish zipping files
-            /******************************************************/            
-            _progressContext[PROGRESS_PERCENTAGE] = "50";
+            /******************************************************/
+            //_progressContext[PROGRESS_PERCENTAGE] = "50";
 
             string[] names = HttpContext.Current.User.Identity.Name.Split(new char[] { '\\', ':' });
             string loginName = HttpContext.Current.User.Identity.Name;
@@ -185,10 +198,9 @@ namespace HPF.CustomActions
             }
 
             //DocumentLibraryTitle-USERNAME_MMDDYYYY
-            string newFileName = String.Format("{0}-{1}_{2}_{3}.zip",
+            string newFileName = String.Format("{0}-{1}_{2}.zip",
                 list.Title, loginName,
-                DateTime.Now.ToString("MMddyyyy"),
-                DateTime.Now.ToFileTime());
+                DateTime.Now.ToString("MMddyyyy hhmmsstt"));
 
             /******************************************************/
             //Update progress bar: Start archieving files
@@ -200,8 +212,8 @@ namespace HPF.CustomActions
             if (ArchiveFiles(path + outputPathAndFile, newFileName,
                 string.Format(DownloadAppSettings.ArchiveListName, list.Title), out archiveFileUrl))
             {
-                _progressContext[PROGRESS_PERCENTAGE] = "80";                
-                _progressContext[PROGRESS_ACTION] = "Deleting files";                
+                updateProgressAction(30);
+                _progressContext[PROGRESS_ACTION] = "Cleaning up files";
 
                 DeleteSPFiles(items);
                 _progressContext[PROGRESS_PERCENTAGE] = "100";
@@ -325,7 +337,7 @@ namespace HPF.CustomActions
                 catch { archiveSuccess = false; }
                 finally
                 {
-                    if (zipFileStream != null) { zipFileStream.Close(); }                    
+                    if (zipFileStream != null) { zipFileStream.Close(); }
                 }
             });
 
@@ -393,29 +405,73 @@ namespace HPF.CustomActions
             SPSecurity.RunWithElevatedPrivileges(delegate()
             {
                 int total = items.Count;
-                List<int> deletedIds = new List<int>();
+                //List<int> deletedIds = new List<int>();
 
+                //foreach (SPListItem spListItem in items)
+                //{
+                //    deletedIds.Add(spListItem.ID);
+                //}
+                //int index = 0;
+                //deletedIds.ForEach(delegate(int id)
+                //{
+                //    if (Page.Response.IsClientConnected)
+                //    {
+                //        try
+                //        {
+                //            //todo: rem for test
+                //            //items.DeleteItemById(id);
+                //            if (++index % _rowLimit == 0) Thread.Sleep(500);
+                //            updateProgressAction((double)20 / total);
+                //        }
+                //        catch { }
+                //    }
+                //});
+
+                /*****************************************/
+                /*Delete a batch of items*/
+                List<KeyValuePair<int, string>> deletedIds = new List<KeyValuePair<int, string>>();
                 foreach (SPListItem spListItem in items)
                 {
-                    deletedIds.Add(spListItem.ID);
+                    deletedIds.Add(new KeyValuePair<int, string>(spListItem.ID, spListItem.File.ServerRelativeUrl));
+                }
+                StringBuilder sbDelete = new StringBuilder();
+
+                sbDelete.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Batch OnError='Return'>");
+
+                int batchSize = 20;
+                int count = 0, index = 0;
+                SPContext.Current.Web.AllowUnsafeUpdates = true;
+                while (index < total)
+                {
+                    count = index + 100 > total ? total - index : batchSize;
+                    List<KeyValuePair<int, string>> itemIds = deletedIds.GetRange(index, count);
+                    foreach (KeyValuePair<int, string> item in itemIds)
+                    {
+                        sbDelete.Append("<Method>");
+                        sbDelete.Append("<SetList Scope=\"Request\">" +
+                        SPContext.Current.List.ID + "</SetList>");
+                        sbDelete.Append("<SetVar Name=\"ID\">" +
+                        Convert.ToString(item.Key) + "</SetVar>");
+                        sbDelete.Append("<SetVar Name=\"Cmd\">Delete</SetVar>");
+                        sbDelete.Append("<SetVar Name=\"owsfileref\">" + item.Value + "</SetVar>");
+                        sbDelete.Append("</Method>");
+                    }
+                    sbDelete.Append("</Batch>");
+                    try
+                    {
+                        string processBatch = SPContext.Current.Web.ProcessBatchData(sbDelete.ToString());
+                        Thread.Sleep(500);
+                        updateProgressAction((double)20 * batchSize / total);
+                    }
+                    catch (Exception ex)
+                    {
+                        //Log Error
+                    }
+                    index += batchSize;
                 }
 
-                int index = 0;
-                deletedIds.ForEach(delegate(int id)
-                {
-                    if (Page.Response.IsClientConnected)
-                    {
-                        try
-                        {
-                            //todo: rem for test
-                            items.DeleteItemById(id);
-                            if (++index % _rowLimit == 0) Thread.Sleep(500);
-                            updateProgressAction(20 / total);
-                        }
-                        catch { }
-                    }                    
-                });
-            });            
+                /*****************************************/
+            });
         }
 
         /// <summary>
@@ -444,6 +500,11 @@ namespace HPF.CustomActions
             }
             return folder;
         }
+
+        static decimal ConvertToGigabytes(ulong bytes)
+        {            
+            return ((decimal)bytes / 1024M / 1024M / 1024M);
+        } 
         #endregion
 
         #region ICallbackEventHandler Members
@@ -462,7 +523,7 @@ namespace HPF.CustomActions
             }
         }
 
-        #endregion        
+        #endregion
 
         #region "Progress Helpers"
         void updateProgressAction(double percentage)
@@ -472,7 +533,7 @@ namespace HPF.CustomActions
                 _progressContext[PROGRESS_PERCENTAGE] = "0";
             }
             double currentPercentage = double.Parse(_progressContext[PROGRESS_PERCENTAGE]) + percentage;
-            _progressContext[PROGRESS_PERCENTAGE] = currentPercentage.ToString();
+            _progressContext[PROGRESS_PERCENTAGE] = currentPercentage.ToString("N2");
         }
         #endregion
     }
