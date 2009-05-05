@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <DataSources>
-    <DataSource Name="ds_HPF">
-      <rd:DataSourceID>a4d605da-e85b-4a72-9c2b-b9229c747e43</rd:DataSourceID>
-      <DataSourceReference>ds_HPF</DataSourceReference>
+    <DataSource Name="ds_HPF_Agency">
+      <rd:DataSourceID>90baae2d-6351-40e9-901b-ae6dba259721</rd:DataSourceID>
+      <DataSourceReference>ds_HPF_Agency</DataSourceReference>
     </DataSource>
   </DataSources>
   <InteractiveHeight>11in</InteractiveHeight>
@@ -11,12 +11,10 @@
     <ReportParameter Name="pi_agency_id">
       <DataType>Integer</DataType>
       <DefaultValue>
-        <DataSetReference>
-          <DataSetName>dst_hpf_agency_get</DataSetName>
-          <ValueField>agency_id</ValueField>
-        </DataSetReference>
+        <Values>
+          <Value>=3</Value>
+        </Values>
       </DefaultValue>
-      <Prompt>Agency</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>dst_hpf_agency_get</DataSetName>
@@ -28,12 +26,10 @@
     <ReportParameter Name="pi_program_id">
       <DataType>Integer</DataType>
       <DefaultValue>
-        <DataSetReference>
-          <DataSetName>dst_Program_get</DataSetName>
-          <ValueField>program_id</ValueField>
-        </DataSetReference>
+        <Values>
+          <Value>=-1</Value>
+        </Values>
       </DefaultValue>
-      <Prompt>Program</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>dst_Program_get</DataSetName>
@@ -67,9 +63,13 @@
           <DataField>agency_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ID">
+          <DataField />
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
+        <DataSourceName>ds_HPF_Agency</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_agency_get</CommandText>
       </Query>
@@ -334,7 +334,7 @@
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
+        <DataSourceName>ds_HPF_Agency</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>hpf_rpt_CompletedCounselingDetail</CommandText>
         <QueryParameters>
@@ -365,7 +365,7 @@
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
+        <DataSourceName>ds_HPF_Agency</DataSourceName>
         <CommandText>Select -1 program_id, ' ALL' program_name
 UNION
 SELECT program_id, ltrim(program_name)

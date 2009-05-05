@@ -120,7 +120,7 @@
                       </Style>
                       <ZIndex>50</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>HOPE NOW</Value>
+                      <Value>HOPENOW</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>

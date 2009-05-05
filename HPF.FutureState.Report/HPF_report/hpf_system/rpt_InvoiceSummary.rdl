@@ -61,6 +61,10 @@
           <DataField>phone</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="item_total">
+          <DataField>item_total</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>ds_HPF</DataSourceName>
@@ -97,7 +101,11 @@
         </Field>
         <Field Name="rate">
           <DataField>rate</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="item_total">
+          <DataField>item_total</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <Query>
@@ -240,7 +248,7 @@
         <ZIndex>8</ZIndex>
         <DataSetName>dst_hpf_rpt_InvoiceSummary_detail</DataSetName>
         <Top>4.16667in</Top>
-        <Width>7.63182in</Width>
+        <Width>7.63181in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -254,7 +262,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>9pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -275,7 +283,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>9pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -358,6 +366,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>9pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -405,7 +414,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!sessions.Value * Fields!rate.Value</Value>
+                      <Value>=Fields!item_total.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -894,7 +903,7 @@
                       </Style>
                       <ZIndex>8</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>="$" &amp; Sum(Fields!sessions.Value * Fields!rate.Value)</Value>
+                      <Value>=First(Fields!item_total.Value, "dst_hpf_rpt_InvoiceSummary_header")</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
