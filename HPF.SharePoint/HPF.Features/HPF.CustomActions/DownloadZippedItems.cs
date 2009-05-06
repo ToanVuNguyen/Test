@@ -253,7 +253,7 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.Name);
             HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
 
-            byte[] bytes = file.OpenBinary(SPOpenBinaryOptions.SkipVirusScan);
+            byte[] bytes = file.OpenBinary();
             HttpContext.Current.Response.BinaryWrite(bytes);
         }
         
