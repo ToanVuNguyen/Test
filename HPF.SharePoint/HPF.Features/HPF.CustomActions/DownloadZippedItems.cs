@@ -498,8 +498,7 @@ namespace HPF.CustomActions
                 if (folder != null) { query.Folder = folder; }
                 items = list.GetItems(query);
                 if (items.Count > 0)
-                {
-                    total = items.Count;
+                {                    
                     PortalLog.LogString("[HPF] Remain {0} file(s)", items.Count);
                     List<int> ids = new List<int>();
                     foreach (SPListItem item in items) { ids.Add(item.ID); }
