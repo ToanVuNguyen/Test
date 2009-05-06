@@ -60,10 +60,7 @@ function updateProgressBar(progressData)
     
     //clear interval if no data returned from server
 	if(progressData && !progressData.InProgress) {
-	    loadingDiv.style.display = "none";
-	    if(progressData.HasError) {
-	        alert(progressData.ErrorMessage);
-	    }
+	    loadingDiv.style.display = "none";	    
     }
     else {        
         if(progressData && progressData.InProgress) {

@@ -10,6 +10,7 @@ using System.Web;
 using DSOFile;
 using System.Web.UI;
 using System.Threading;
+using Microsoft.Office.Server.Diagnostics;
 
 namespace HPF.CustomActions
 {
@@ -78,7 +79,7 @@ namespace HPF.CustomActions
         #region "Event Handlers"
         private void mnuListItemCurrentView_OnPostBack(object sender, EventArgs e)
         {
-            this.GetListItems(SPContext.Current.List.ID, false, true);
+            this.GetListItems(SPContext.Current.List.ID);
         }
         #endregion
 
@@ -100,7 +101,7 @@ namespace HPF.CustomActions
         /// <param name="listId"></param>
         /// <param name="IncludeVersions"></param>
         /// <param name="isCurrentView"></param>
-        private void GetListItems(Guid listId, bool IncludeVersions, bool isCurrentView)
+        private void GetListItems(Guid listId)
         {
             _progressContext[IN_PROGRESS] = "true";
 
@@ -113,37 +114,37 @@ namespace HPF.CustomActions
                 Directory.CreateDirectory(path);
             }
             SPList list = SPContext.Current.Web.Lists[listId];
-            if (isCurrentView)
+            SPFolder folder = null;
+            if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
             {
-                SPFolder folder = null;
-                if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
-                {
-                    string rootFolder = Page.Request.QueryString["RootFolder"];
-                    folder = SPContext.Current.Web.GetFolder(rootFolder);
-                }
-                SPView view = SPContext.Current.ViewContext.View;
-                SPQuery query = new SPQuery();
-                query.Query = view.Query;
-                //_rowLimit = view.RowLimit - 1;
-                query.ViewAttributes = " Scope=\"Recursive\"";
-                if (folder != null) { query.Folder = folder; }
-                items = list.GetItems(query);
+                string rootFolder = Page.Request.QueryString["RootFolder"];
+                folder = SPContext.Current.Web.GetFolder(rootFolder);
             }
-            else
+            SPView view = SPContext.Current.ViewContext.View;
+            SPQuery query = new SPQuery();
+            query.Query = view.Query;
+
+            query.ViewAttributes = " Scope=\"Recursive\"";
+            if (folder != null) { query.Folder = folder; }
+            items = list.GetItems(query);
+
+            if (DownloadAppSettings.TotalFilesAllow > 0 &&
+                items.Count > DownloadAppSettings.TotalFilesAllow)
             {
-                items = list.Items;
+                Alert(String.Format(DownloadAppSettings.TOTAL_FILES_EXCEED, DownloadAppSettings.TotalFilesAllow));
+                return;
             }
 
             /******************************************************/
             //Update progress bar: Updating meta data
             /******************************************************/
             int index = 0;
-            _progressContext[PROGRESS_ACTION] = "Updating Meta Data";
+            _progressContext[PROGRESS_ACTION] = DownloadAppSettings.UPDATE_META_DATA;
             _progressContext[PROGRESS_PERCENTAGE] = "0";
             foreach (SPListItem item in items)
             {
                 SPFile file = item.File;
-                if (file != null)
+                if (file != null && Page.Response.IsClientConnected)
                 {
                     byte[] bytFile = file.OpenBinary();
                     string serverRelativeUrl = file.ServerRelativeUrl.Remove(0, 1);
@@ -169,8 +170,7 @@ namespace HPF.CustomActions
             /******************************************************/
             //Update progress bar: zipping files
             /******************************************************/
-            _progressContext[PROGRESS_ACTION] = "Zipping files";
-            //_progressContext[PROGRESS_PERCENTAGE] = "20";
+            _progressContext[PROGRESS_ACTION] = DownloadAppSettings.ZIPPING_FILES;            
 
             long length = ZipUtilities.ZipFiles(path, outputPathAndFile, string.Empty, _rowLimit, updateProgressAction);
 
@@ -178,18 +178,10 @@ namespace HPF.CustomActions
             //http://msdn.microsoft.com/en-us/library/ms454491.aspx
             if (ConvertToGigabytes((ulong)length) > 2)
             {
-                _progressContext[PROGRESS_PERCENTAGE] = "100";
-                _progressContext[IN_PROGRESS] = "false";
-                _progressContext[HAS_ERROR] = "true";
-                _progressContext[ERROR_MESSAGE] = "Can not archive zipped file because the size of the file exceed 2 GB";
+                Alert(DownloadAppSettings.SIZE_EXCEED_2G);
                 return;
             }
-
-            /******************************************************/
-            //update progress bar: Finish zipping files
-            /******************************************************/
-            //_progressContext[PROGRESS_PERCENTAGE] = "50";
-
+            
             string[] names = HttpContext.Current.User.Identity.Name.Split(new char[] { '\\', ':' });
             string loginName = HttpContext.Current.User.Identity.Name;
             if (names.Length > 1)
@@ -205,27 +197,37 @@ namespace HPF.CustomActions
             /******************************************************/
             //Update progress bar: Start archieving files
             /******************************************************/
-            _progressContext[PROGRESS_ACTION] = "Archiving zipped file";
+            _progressContext[PROGRESS_ACTION] = DownloadAppSettings.ARCHIVING_ZIPPED_FILE;
             Thread.Sleep(500);
 
-            string archiveFileUrl = "";
-            if (ArchiveFiles(path + outputPathAndFile, newFileName,
-                string.Format(DownloadAppSettings.ArchiveListName, list.Title), out archiveFileUrl))
+
+            SPFile spFile = null;
+            bool archiveSuccess = ArchiveFiles(path + outputPathAndFile, newFileName,
+                string.Format(DownloadAppSettings.ArchiveListName, list.Title), ref spFile);
+            if (archiveSuccess)
             {
-                updateProgressAction(30);
-                _progressContext[PROGRESS_ACTION] = "Cleaning up files";
+                updateProgressAction(20);
+                _progressContext[PROGRESS_ACTION] = DownloadAppSettings.CLEANING_UP_FILES;
 
                 DeleteSPFiles(items);
                 _progressContext[PROGRESS_PERCENTAGE] = "100";
                 Thread.Sleep(500);
+            }
 
-                /******************************************************/
-                //Update progress bar: Done!
-                /******************************************************/
-                _progressContext[IN_PROGRESS] = "false";
+            /******************************************************/
+            //Update progress bar: Done!
+            /******************************************************/
+            _progressContext[IN_PROGRESS] = "false";
+            _progressContext.RemoveProgressContext();
 
+            if (archiveSuccess && spFile != null)
+            {
+                Directory.Delete(path, true);
+                PushFileToDownload(spFile);
+            }
+            else
+            {
                 PushFileToDownload(path + outputPathAndFile, newFileName);
-                //PushFileToDownload(archiveFileUrl);
             }
         }
 
@@ -245,12 +247,16 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.End();
         }
 
-        //private void PushFileToDownload(string archiveFileUrl)
-        //{
-        //    string script = string.Format("downloadArchiveFile('{0}');", archiveFileUrl);
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "download", script, true);
-        //}
+        private void PushFileToDownload(SPFile file)
+        {            
+            HttpContext.Current.Response.ContentType = "application/x-download";
+            HttpContext.Current.Response.AppendHeader("Content-Disposition", "attachment; filename=" + file.Name);
+            HttpContext.Current.Response.AddHeader("Content-Length", file.Length.ToString());
 
+            byte[] bytes = file.OpenBinary(SPOpenBinaryOptions.SkipVirusScan);
+            HttpContext.Current.Response.BinaryWrite(bytes);
+        }
+        
         private bool WriteToFileAndUpdateMetaData(byte[] bytFile, string QualifiedFileName, SPListItem listItem)
         {
             FileStream stream = new FileStream(QualifiedFileName, FileMode.OpenOrCreate, FileAccess.Write);
@@ -279,7 +285,7 @@ namespace HPF.CustomActions
                     if (reviewStatusField != null)
                     {
                         spListItem[reviewStatusField.Id] = DownloadAppSettings.ReviewStatusDownloadValue;
-                        spListItem.Update();
+                        spListItem.SystemUpdate();
                     }
                 }
                 catch { }
@@ -292,13 +298,12 @@ namespace HPF.CustomActions
         /// <param name="filePath"></param>
         /// <param name="fileName"></param>
         /// <param name="archiveListPath"></param>
-        private bool ArchiveFiles(string filePath, string fileName, string archiveListPath, out string archiveFileUrl)
+        private bool ArchiveFiles(string filePath, string fileName, string archiveListPath, ref SPFile file)
         {
-            string returnArchiveUrl = "";
+            SPFile retSPFile = null;
             bool archiveSuccess = false;
             if (!Page.Response.IsClientConnected)
             {
-                archiveFileUrl = returnArchiveUrl;
                 return archiveSuccess;
             }
             SPSecurity.RunWithElevatedPrivileges(delegate()
@@ -326,22 +331,28 @@ namespace HPF.CustomActions
                         }
                         catch { }
 
-                        SPFile returnSPFile = folder.Files.Add(
-                            fileName, zipFileStream);
-
-                        returnArchiveUrl = Microsoft.SharePoint.Utilities.SPUtility.GetFullUrl(sourceWeb.Site, "/" + returnSPFile.Url);
-
-                        archiveSuccess = true;
+                        if (Page.Response.IsClientConnected)
+                        {
+                            SPFile spFile = folder.Files.Add(
+                                fileName, zipFileStream);
+                            retSPFile = spFile;
+                            archiveSuccess = true;
+                        }
                     }
                 }
-                catch { archiveSuccess = false; }
+                catch (Exception error)
+                {
+                    _progressContext[ERROR_MESSAGE] = error.Message;
+                    archiveSuccess = false;
+                    PortalLog.LogString("[HPF]Exception Occurred: {0} || {1}",
+                        error.Message, error.StackTrace);
+                }
                 finally
                 {
                     if (zipFileStream != null) { zipFileStream.Close(); }
                 }
             });
-
-            archiveFileUrl = returnArchiveUrl;
+            file = retSPFile;
             return archiveSuccess;
         }
 
@@ -405,28 +416,6 @@ namespace HPF.CustomActions
             SPSecurity.RunWithElevatedPrivileges(delegate()
             {
                 int total = items.Count;
-                //List<int> deletedIds = new List<int>();
-
-                //foreach (SPListItem spListItem in items)
-                //{
-                //    deletedIds.Add(spListItem.ID);
-                //}
-                //int index = 0;
-                //deletedIds.ForEach(delegate(int id)
-                //{
-                //    if (Page.Response.IsClientConnected)
-                //    {
-                //        try
-                //        {
-                //            //todo: rem for test
-                //            //items.DeleteItemById(id);
-                //            if (++index % _rowLimit == 0) Thread.Sleep(500);
-                //            updateProgressAction((double)20 / total);
-                //        }
-                //        catch { }
-                //    }
-                //});
-
                 /*****************************************/
                 /*Delete a batch of items*/
                 List<KeyValuePair<int, string>> deletedIds = new List<KeyValuePair<int, string>>();
@@ -434,43 +423,103 @@ namespace HPF.CustomActions
                 {
                     deletedIds.Add(new KeyValuePair<int, string>(spListItem.ID, spListItem.File.ServerRelativeUrl));
                 }
-                StringBuilder sbDelete = new StringBuilder();
 
-                sbDelete.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Batch OnError='Return'>");
-
-                int batchSize = 20;
-                int count = 0, index = 0;
                 SPContext.Current.Web.AllowUnsafeUpdates = true;
-                while (index < total)
+                int batchSize = DownloadAppSettings.DeleteBatchSize;
+                StringBuilder sbDelete = new StringBuilder();
+                sbDelete.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Batch>");
+                string listguid = SPContext.Current.List.ID.ToString();
+                int bcount = 0;
+
+                for (int i = 0; i < deletedIds.Count; i++)
                 {
-                    count = index + 100 > total ? total - index : batchSize;
-                    List<KeyValuePair<int, string>> itemIds = deletedIds.GetRange(index, count);
-                    foreach (KeyValuePair<int, string> item in itemIds)
+                    if (bcount > batchSize)
                     {
-                        sbDelete.Append("<Method>");
-                        sbDelete.Append("<SetList Scope=\"Request\">" +
-                        SPContext.Current.List.ID + "</SetList>");
-                        sbDelete.Append("<SetVar Name=\"ID\">" +
-                        Convert.ToString(item.Key) + "</SetVar>");
-                        sbDelete.Append("<SetVar Name=\"Cmd\">Delete</SetVar>");
-                        sbDelete.Append("<SetVar Name=\"owsfileref\">" + item.Value + "</SetVar>");
-                        sbDelete.Append("</Method>");
-                    }
-                    sbDelete.Append("</Batch>");
-                    try
-                    {
-                        string processBatch = SPContext.Current.Web.ProcessBatchData(sbDelete.ToString());
+                        sbDelete.Append("</Batch>");
+                        try
+                        {
+                            if (!Page.Response.IsClientConnected) return;
+                            string processMessage = SPContext.Current.Web.ProcessBatchData(sbDelete.ToString());
+                            PortalLog.LogString("[HPF] Deleted {0} file(s)\n {1}", bcount, processMessage);
+                        }
+                        catch (Exception error)
+                        {
+                            PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}",
+                                error.Message, error.StackTrace);
+                        }
                         Thread.Sleep(500);
                         updateProgressAction((double)20 * batchSize / total);
+                        sbDelete = new StringBuilder();
+                        sbDelete.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Batch>");
+                        bcount = 0;
+
                     }
-                    catch (Exception ex)
-                    {
-                        //Log Error
-                    }
-                    index += batchSize;
+                    bcount++;
+                    sbDelete.Append("<Method>");
+                    sbDelete.Append("<SetList Scope=\"Request\">" + listguid + "</SetList>");
+                    sbDelete.Append("<SetVar Name=\"ID\">" + deletedIds[i].Key.ToString() + "</SetVar>");
+                    sbDelete.Append("<SetVar Name=\"Cmd\">Delete</SetVar>");
+                    sbDelete.Append("<SetVar Name=\"owsfileref\">" + deletedIds[i].Value + "</SetVar>");
+                    sbDelete.Append("</Method>");
                 }
 
-                /*****************************************/
+                sbDelete.Append("</Batch>");
+                try
+                {
+                    if (!Page.Response.IsClientConnected) return;
+                    string processMessage = SPContext.Current.Web.ProcessBatchData(sbDelete.ToString());
+                    PortalLog.LogString("[HPF] Deleted {0} file(s)\n {1}", bcount, processMessage);
+                }
+                catch (Exception error) 
+                {
+                    PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}", 
+                        error.Message, error.StackTrace);
+                }
+                Thread.Sleep(500);
+                updateProgressAction((double)20 * batchSize / total);
+                /*********************************************/
+
+                /******************************************************/
+                /*Get all items again and try delete one by one if any*/
+                /******************************************************/                
+                Guid listId = SPContext.Current.List.ID;
+                SPList list = SPContext.Current.Web.Lists[listId];
+                SPFolder folder = null;
+                if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
+                {
+                    string rootFolder = Page.Request.QueryString["RootFolder"];
+                    folder = SPContext.Current.Web.GetFolder(rootFolder);
+                }
+                SPView view = SPContext.Current.ViewContext.View;
+                SPQuery query = new SPQuery();
+                query.Query = view.Query;
+
+                query.ViewAttributes = " Scope=\"Recursive\"";
+                if (folder != null) { query.Folder = folder; }
+                items = list.GetItems(query);
+                if (items.Count > 0)
+                {
+                    total = items.Count;
+                    PortalLog.LogString("[HPF] Remain {0} file(s)", items.Count);
+                    List<int> ids = new List<int>();
+                    foreach (SPListItem item in items) { ids.Add(item.ID); }
+                    ids.ForEach(delegate(int id)
+                    {
+                        try
+                        {
+                            if (!Page.Response.IsClientConnected) return;
+                            items.DeleteItemById(id);
+                            updateProgressAction((double)10 / total);
+                            Thread.Sleep(200);
+                        }
+                        catch (Exception error)
+                        {
+                            PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}",
+                                error.Message, error.StackTrace);
+                        }
+                    });
+                }
+                /*********************************************/
             });
         }
 
@@ -502,9 +551,9 @@ namespace HPF.CustomActions
         }
 
         static decimal ConvertToGigabytes(ulong bytes)
-        {            
+        {
             return ((decimal)bytes / 1024M / 1024M / 1024M);
-        } 
+        }
         #endregion
 
         #region ICallbackEventHandler Members
@@ -534,6 +583,12 @@ namespace HPF.CustomActions
             }
             double currentPercentage = double.Parse(_progressContext[PROGRESS_PERCENTAGE]) + percentage;
             _progressContext[PROGRESS_PERCENTAGE] = currentPercentage.ToString("N2");
+        }
+
+        void Alert(string message)
+        {
+            string script = String.Format("alert('{0}');", message);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
         }
         #endregion
     }
