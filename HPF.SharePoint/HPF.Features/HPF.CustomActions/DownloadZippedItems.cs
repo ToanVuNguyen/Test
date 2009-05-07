@@ -41,13 +41,13 @@ namespace HPF.CustomActions
                     base.CreateChildControls();
                     SubMenuTemplate child = new SubMenuTemplate();
                     child.Text = "Zip List Items";
-                    child.ImageUrl = "/_layouts/images/TBSPRSHT.GIF";
+                    child.ImageUrl = "/_layouts/1033/images/download_zip.png";
                     child.Description = "Zip and download List Items";
 
                     PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
                     templateCurrentView.Text = "Items In Current View";
                     templateCurrentView.Description = "Zip and Download All Items";
-                    templateCurrentView.ID = "menuDownloadCurrentView";
+                    templateCurrentView.ID = "menuDownloadCurrentView";                    
 
                     templateCurrentView.Attributes.Add("onclick", "InvokeProgressViaServerSide(this);");
                     templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
