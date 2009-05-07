@@ -18,7 +18,8 @@ function ReceiveProgressDataFromServer(progressData)
 }
 
 function CallProgressDataInterval() {
-    CallProgressData('', '');
+    var progressContextIdentifier = document.getElementById("_ProgressContext");
+    CallProgressData(progressContextIdentifier.value, '');
 }
 
 function moveIt(obj, mvTop, mvLeft) {
@@ -60,7 +61,9 @@ function updateProgressBar(progressData)
 	if(progressData != undefined || progressData != null) {	    
 	    if(progressData.InProgress) {
 	        var progressStatus = document.getElementById("progressStatus");
-            progressStatus.innerHTML = progressData.ProcessPercentage + "%" + ":" + progressData.ProgressAction;                
+	        if(progressData.ProcessPercentage != undefined && progressData.ProgressAction != undefined) {	        
+                progressStatus.innerHTML = progressData.ProcessPercentage + "%" + ":" + progressData.ProgressAction;
+            }
             setTimeout("CallProgressDataInterval()", 0);
 	    } else {	        
 	        progressContainer.style.display = "none";

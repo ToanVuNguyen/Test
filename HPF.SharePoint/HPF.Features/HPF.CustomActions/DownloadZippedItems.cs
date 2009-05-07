@@ -24,11 +24,11 @@ namespace HPF.CustomActions
         public const string ERROR_MESSAGE = "ErrorMessage";
         #endregion
 
-        #region "Fields"
-        ProgressContext _progressContext = ProgressContext.Current;
+        #region "Fields"        
+        ProgressContext _progressContext;
         uint _rowLimit = 50;
         #endregion
-
+        
         #region "Overwrites"
         protected override void CreateChildControls()
         {
@@ -41,7 +41,7 @@ namespace HPF.CustomActions
                     base.CreateChildControls();
                     SubMenuTemplate child = new SubMenuTemplate();
                     child.Text = "Zip List Items";
-                    child.ImageUrl = "/_layouts/1033/images/download_zip.png";
+                    child.ImageUrl = "/_layouts/1033/images/hpf_zip.gif";
                     child.Description = "Zip and download List Items";
 
                     PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
@@ -54,7 +54,6 @@ namespace HPF.CustomActions
 
                     child.Controls.Add(templateCurrentView);
                     this.Controls.Add(child);
-
                 }
             }
         }
@@ -73,12 +72,17 @@ namespace HPF.CustomActions
                 "CallServer", callbackScript, true);
 
             Page.ClientScript.RegisterClientScriptInclude("DownloadZippedItems", "/_layouts/1033/DownloadZippedItems.js?rev=" + DateTime.Now.ToFileTime());
+
+            Page.RegisterHiddenField("_ProgressContext", Guid.NewGuid().ToString());
         }
         #endregion
 
         #region "Event Handlers"
         private void mnuListItemCurrentView_OnPostBack(object sender, EventArgs e)
         {
+            _progressContext = ProgressContext.GetCurrentProgressContext(
+                Page.Request["_ProgressContext"]);
+
             this.GetListItems(SPContext.Current.List.ID);
         }
         #endregion
@@ -596,6 +600,7 @@ namespace HPF.CustomActions
 
         public void RaiseCallbackEvent(string eventArgument)
         {
+            _progressContext = ProgressContext.GetCurrentProgressContext(eventArgument);
             //Remove Progress Context if Download done
             if (_progressContext[IN_PROGRESS] == "false")
             {

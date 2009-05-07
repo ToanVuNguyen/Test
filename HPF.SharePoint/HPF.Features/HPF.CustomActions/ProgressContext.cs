@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace HPF.CustomActions
 {
@@ -11,30 +12,31 @@ namespace HPF.CustomActions
     {
         #region "const"
         public const string PROGRESS_DATA = "ProgressData = {";
+        public const string PROGRESSUNIQUEIDENTIFIER = "ProgressUniqueIdentifier";
         #endregion
 
-        #region "members"
-        private static string _progressUniqueIdentifier;
+        #region "members"        
         private Hashtable _progressCounters = new Hashtable();
         private object _progressLock = new object();
         #endregion
 
         #region "constructor"
-        private ProgressContext() { _progressUniqueIdentifier = Guid.NewGuid().ToString(); }
+        private ProgressContext() 
+        { 
+            
+        }
         #endregion
 
         #region "public"
-        public static ProgressContext Current
+        public static ProgressContext GetCurrentProgressContext(string id)
         {
-            get
+            HttpContext.Current.Items.Add("HPFProgressContext", id);
+            ProgressContext progressContext = GetProgressContext(HttpContext.Current);
+            if (progressContext == null)
             {
-                ProgressContext progressContext = GetProgressContext(HttpContext.Current);
-                if (progressContext == null)
-                {
-                    progressContext = SetProgressContext(HttpContext.Current);
-                }
-                return progressContext;
+                progressContext = SetProgressContext(HttpContext.Current);
             }
+            return progressContext;
         }
 
         public string this[string key]
@@ -69,6 +71,7 @@ namespace HPF.CustomActions
             script.Append("};");
             return script.ToString();
         }
+
         public void RemoveProgressContext()
         {            
             HttpContext.Current.Application.Remove(ProgressContextIdentifier);
@@ -89,10 +92,13 @@ namespace HPF.CustomActions
             return progressContext;
         }
 
-        private static string ProgressContextIdentifier
+        public static string ProgressContextIdentifier
         {
-            get { return "HPFProgressContext_" + _progressUniqueIdentifier; }
-        }
+            get 
+            {
+                return HttpContext.Current.Items["HPFProgressContext"].ToString();
+            }
+        }        
         #endregion
     }
 }

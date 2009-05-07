@@ -57,7 +57,7 @@
     <Content Include="Templates\Features\DownloadZippedItems\feature.xml" />
     <Content Include="Templates\Layouts\1033\DownloadZippedItems.js" />
     <Content Include="Templates\Layouts\1033\Images\progress.gif" />
-    <Content Include="Templates\Layouts\1033\Images\download_zip.png" />
+    <Content Include="Templates\Layouts\1033\Images\hpf_zip.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
