@@ -104,8 +104,6 @@ namespace HPF.CustomActions
         private void GetListItems(Guid listId)
         {
             _progressContext[IN_PROGRESS] = "true";
-
-            SPListItemCollection items;
             string tempPath = Path.GetTempPath();
             string randomFileName = Path.GetRandomFileName();
             string path = tempPath + randomFileName + @"\";
@@ -113,20 +111,9 @@ namespace HPF.CustomActions
             {
                 Directory.CreateDirectory(path);
             }
-            SPList list = SPContext.Current.Web.Lists[listId];
-            SPFolder folder = null;
-            if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
-            {
-                string rootFolder = Page.Request.QueryString["RootFolder"];
-                folder = SPContext.Current.Web.GetFolder(rootFolder);
-            }
-            SPView view = SPContext.Current.ViewContext.View;
-            SPQuery query = new SPQuery();
-            query.Query = view.Query;
 
-            query.ViewAttributes = " Scope=\"Recursive\"";
-            if (folder != null) { query.Folder = folder; }
-            items = list.GetItems(query);
+            SPList list = SPContext.Current.Web.Lists[listId];
+            SPListItemCollection items = GetItemsOnCurrentViewAndFolder(list);
 
             if (DownloadAppSettings.TotalFilesAllow > 0 &&
                 items.Count > DownloadAppSettings.TotalFilesAllow)
@@ -155,13 +142,18 @@ namespace HPF.CustomActions
                     }
                     string qualifiedFileName = path + fileUrl + file.Name;
 
+                    if (!Page.Response.IsClientConnected) return;
                     UpdateReviewStatus(file.Item);
-                    WriteToFileAndUpdateMetaData(bytFile, qualifiedFileName, file.Item);
+                    try
+                    {
+                        WriteToFileAndUpdateMetaData(bytFile, qualifiedFileName, file.Item);
+                    }
+                    catch { }
 
                     /******************************************************/
                     //Update progress bar: updating meta data
                     /******************************************************/
-                    if (++index % _rowLimit == 0) Thread.Sleep(500);
+                    if (++index % _rowLimit == 0) Thread.Sleep(200);
                     updateProgressAction((double)20 / items.Count);
                 }
             }
@@ -220,9 +212,19 @@ namespace HPF.CustomActions
             _progressContext[IN_PROGRESS] = "false";
             _progressContext.RemoveProgressContext();
 
+            //If zipped file was archived successfully, 
+            //push file to download from SPFile
             if (archiveSuccess && spFile != null)
             {
-                Directory.Delete(path, true);
+                try
+                {                    
+                    Directory.Delete(path, true);
+                }
+                catch (Exception error)
+                {
+                    PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}",
+                        error.Message, error.StackTrace);
+                }
                 PushFileToDownload(spFile);
             }
             else
@@ -232,7 +234,31 @@ namespace HPF.CustomActions
         }
 
         /// <summary>
-        /// Put file to download
+        /// Get SPListItems on current view and folder
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private SPListItemCollection GetItemsOnCurrentViewAndFolder(SPList list)
+        {            
+            SPFolder folder = null;
+            if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
+            {
+                string rootFolder = Page.Request.QueryString["RootFolder"];
+                folder = SPContext.Current.Web.GetFolder(rootFolder);
+            }
+            SPView view = SPContext.Current.ViewContext.View;
+            SPQuery query = new SPQuery();
+            query.Query = view.Query;
+
+            query.ViewAttributes = " Scope=\"Recursive\"";
+            if (folder != null) { query.Folder = folder; }
+            SPListItemCollection items = list.GetItems(query);
+
+            return items;
+        }
+
+        /// <summary>
+        /// Put file to download from temp folder
         /// </summary>
         /// <param name="FilePath"></param>
         /// <param name="FileName"></param>
@@ -247,6 +273,10 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.End();
         }
 
+        /// <summary>
+        /// Put file to download from archived file
+        /// </summary>
+        /// <param name="file"></param>
         private void PushFileToDownload(SPFile file)
         {            
             HttpContext.Current.Response.ContentType = "application/x-download";
@@ -257,6 +287,13 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.BinaryWrite(bytes);
         }
         
+        /// <summary>
+        /// Write file to temp folder and update its meta-data
+        /// </summary>
+        /// <param name="bytFile"></param>
+        /// <param name="QualifiedFileName"></param>
+        /// <param name="listItem"></param>
+        /// <returns></returns>
         private bool WriteToFileAndUpdateMetaData(byte[] bytFile, string QualifiedFileName, SPListItem listItem)
         {
             FileStream stream = new FileStream(QualifiedFileName, FileMode.OpenOrCreate, FileAccess.Write);
@@ -363,9 +400,9 @@ namespace HPF.CustomActions
         /// <param name="item"></param>
         private void WriteMetaData(string qualifiedFileName, SPListItem spListItem)
         {
+            OleDocumentPropertiesClass document = new OleDocumentPropertiesClass();
             try
-            {
-                OleDocumentPropertiesClass document = new OleDocumentPropertiesClass();
+            {   
                 document.Open(qualifiedFileName, false, dsoFileOpenOptions.dsoOptionOpenReadOnlyIfNoWriteAccess);
 
                 object value;
@@ -401,10 +438,10 @@ namespace HPF.CustomActions
                 }
                 catch { }
 
-                document.Save();
-                document.Close(true);
+                document.Save();                
             }
             catch { }
+            finally { document.Close(true); }
         }
 
         /// <summary>
@@ -416,8 +453,9 @@ namespace HPF.CustomActions
             SPSecurity.RunWithElevatedPrivileges(delegate()
             {
                 int total = items.Count;
-                /*****************************************/
-                /*Delete a batch of items*/
+                /******************************************************/
+                /***************Delete a batch of items****************/
+                /******************************************************/
                 List<KeyValuePair<int, string>> deletedIds = new List<KeyValuePair<int, string>>();
                 foreach (SPListItem spListItem in items)
                 {
@@ -468,6 +506,8 @@ namespace HPF.CustomActions
                 {
                     if (!Page.Response.IsClientConnected) return;
                     string processMessage = SPContext.Current.Web.ProcessBatchData(sbDelete.ToString());
+                    Thread.Sleep(500);
+                    updateProgressAction((double)20 / total);
                     PortalLog.LogString("[HPF] Deleted {0} file(s)\n {1}", bcount, processMessage);
                 }
                 catch (Exception error) 
@@ -475,28 +515,15 @@ namespace HPF.CustomActions
                     PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}", 
                         error.Message, error.StackTrace);
                 }
-                Thread.Sleep(500);
-                updateProgressAction((double)20 * batchSize / total);
-                /*********************************************/
+                /******************************************************/
 
                 /******************************************************/
                 /*Get all items again and try delete one by one if any*/
                 /******************************************************/                
                 Guid listId = SPContext.Current.List.ID;
                 SPList list = SPContext.Current.Web.Lists[listId];
-                SPFolder folder = null;
-                if (!String.IsNullOrEmpty(Page.Request.QueryString["RootFolder"]))
-                {
-                    string rootFolder = Page.Request.QueryString["RootFolder"];
-                    folder = SPContext.Current.Web.GetFolder(rootFolder);
-                }
-                SPView view = SPContext.Current.ViewContext.View;
-                SPQuery query = new SPQuery();
-                query.Query = view.Query;
+                items = GetItemsOnCurrentViewAndFolder(list);
 
-                query.ViewAttributes = " Scope=\"Recursive\"";
-                if (folder != null) { query.Folder = folder; }
-                items = list.GetItems(query);
                 if (items.Count > 0)
                 {                    
                     PortalLog.LogString("[HPF] Remain {0} file(s)", items.Count);
@@ -549,6 +576,11 @@ namespace HPF.CustomActions
             return folder;
         }
 
+        /// <summary>
+        /// Convert bytes to gigabytes for validating zipped file
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
         static decimal ConvertToGigabytes(ulong bytes)
         {
             return ((decimal)bytes / 1024M / 1024M / 1024M);

@@ -104,8 +104,9 @@ namespace HPF.CustomActions
                     byte[] buffer = new byte[stream.Length];
                     stream.Read(buffer, 0, buffer.Length);
                     stream2.Write(buffer, 0, buffer.Length);
+                    stream.Close();
                 }
-                if (++index % rowLimit == 0) Thread.Sleep(500);
+                if (++index % rowLimit == 0) Thread.Sleep(200);
                 updateProgressAction((double)20 / list.Count);
             }
 

@@ -1,5 +1,6 @@
 ﻿var invoked = 0;
 var progressDataFromServer;
+
 function InvokeProgressViaServerSide(me) 
 {
     if(invoked % 2 == 0)
@@ -11,7 +12,7 @@ function InvokeProgressViaServerSide(me)
 	}
 }
 function ReceiveProgressDataFromServer(progressData) 
-{
+{   
     progressDataFromServer = eval(progressData);
     updateProgressBar(progressDataFromServer);
 }
@@ -27,31 +28,28 @@ function moveIt(obj, mvTop, mvLeft) {
 }
 
 function createProgressContainer()
-{
-    var loadingDiv= document.getElementById("loadingDiv");    
+{    
+    var progressContainer = document.getElementById("progressContainer");    
     
-    if(!loadingDiv)
-    {
-        loadingDiv = document.createElement("div");
-        loadingDiv.id = "loadingDiv";
-        document.body.appendChild(loadingDiv);
-        loadingDiv.style.backgroundColor = "red";        
+    if(!progressContainer)
+    {   
+        var progressContainer = document.createElement("div");
+        progressContainer.id = "progressContainer";
+        progressContainer.innerHTML = "<table><tr><td><img src='/_layouts/1033/Images/progress.gif' /></td> <td id='loadingDiv'></td> </tr></table>";
+        document.body.appendChild(progressContainer);
+        progressContainer.style.backgroundColor = "red"; 
+        
+        var loadingDiv= document.getElementById("loadingDiv");
         loadingDiv.style.zIndex = 1000;
-        moveIt(loadingDiv, 0, 0);        
+        moveIt(progressContainer, 0, 0);
         
         var progressStatus = document.createElement("div");
         progressStatus.id = "progressStatus";
         loadingDiv.appendChild(progressStatus);
         progressStatus.innerHTML = "Please wait...";
         progressStatus.style.color = "white";
-        progressStatus.style.fontWeight = 'bold';
-        
-//        var slider = document.createElement("div");
-//        slider.id = "slider";
-//        loadingDiv.appendChild(slider);
-//        slider.style.backgroundColor = "blue";
     }
-    loadingDiv.style.display = "";
+    progressContainer.style.display = "";
 }
 
 function updateProgressBar(progressData)
@@ -59,14 +57,25 @@ function updateProgressBar(progressData)
     var loadingDiv= document.getElementById("loadingDiv");
     
     //clear interval if no data returned from server
-	if(progressData && !progressData.InProgress) {
-	    loadingDiv.style.display = "none";	    
+	if(progressData != undefined || progressData != null) {	    
+	    if(progressData.InProgress) {
+	        var progressStatus = document.getElementById("progressStatus");
+            progressStatus.innerHTML = progressData.ProcessPercentage + "%" + ":" + progressData.ProgressAction;                
+            setTimeout("CallProgressDataInterval()", 0);
+	    } else {	        
+	        progressContainer.style.display = "none";
+        }
     }
     else {        
-        if(progressData && progressData.InProgress) {
-            var progressStatus = document.getElementById("progressStatus");
-            progressStatus.innerHTML = progressData.ProcessPercentage + "%" + ":" + progressData.ProgressAction;
-            setTimeout("CallProgressDataInterval()", 0);
+        setTimeout("CallProgressDataInterval()", 0);
+    }
+}
+
+window.onbeforeunload = function() {
+    var trackingMessage = "The download is in progress. Are you sure to cancel it ?";
+    if(progressDataFromServer != undefined || progressDataFromServer != null) {
+        if(progressDataFromServer.InProgress == true) {
+            return trackingMessage;
         }
     }
 }
