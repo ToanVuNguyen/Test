@@ -214,7 +214,6 @@ namespace HPF.CustomActions
             //Update progress bar: Done!
             /******************************************************/
             _progressContext[IN_PROGRESS] = "false";
-            _progressContext.RemoveProgressContext();
 
             //If zipped file was archived successfully, 
             //push file to download from SPFile
@@ -595,17 +594,18 @@ namespace HPF.CustomActions
 
         public string GetCallbackResult()
         {
-            return _progressContext.SerializeToJSonObject();
-        }
-
-        public void RaiseCallbackEvent(string eventArgument)
-        {
-            _progressContext = ProgressContext.GetCurrentProgressContext(eventArgument);
+            string result = _progressContext.SerializeToJSonObject();
             //Remove Progress Context if Download done
             if (_progressContext[IN_PROGRESS] == "false")
             {
                 _progressContext.RemoveProgressContext();
             }
+            return result;
+        }
+
+        public void RaiseCallbackEvent(string eventArgument)
+        {
+            _progressContext = ProgressContext.GetCurrentProgressContext(eventArgument);            
         }
 
         #endregion
