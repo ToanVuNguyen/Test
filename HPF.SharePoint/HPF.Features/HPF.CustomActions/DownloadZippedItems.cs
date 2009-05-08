@@ -39,21 +39,23 @@ namespace HPF.CustomActions
                 if (!base.ChildControlsCreated)
                 {
                     base.CreateChildControls();
-                    SubMenuTemplate child = new SubMenuTemplate();
-                    child.Text = "Zip List Items";
-                    child.ImageUrl = "/_layouts/1033/images/hpf_zip.gif";
-                    child.Description = "Zip and download List Items";
+                    //SubMenuTemplate child = new SubMenuTemplate();
+                    //child.Text = "Zip List Items";
+                    //child.ImageUrl = "/_layouts/1033/images/hpf_zip.gif";
+                    //child.Description = "Zip and download List Items";
 
                     PostBackMenuItemTemplate templateCurrentView = new PostBackMenuItemTemplate();
-                    templateCurrentView.Text = "Items In Current View";
+                    templateCurrentView.Text = "Zip Items In Current View";
                     templateCurrentView.Description = "Zip and Download All Items";
-                    templateCurrentView.ID = "menuDownloadCurrentView";                    
+                    templateCurrentView.ID = "menuDownloadCurrentView";
+                    templateCurrentView.ImageUrl = "/_layouts/1033/images/hpf_zip.gif";
 
                     templateCurrentView.Attributes.Add("onclick", "InvokeProgressViaServerSide(this);");
                     templateCurrentView.OnPostBack += new EventHandler<EventArgs>(this.mnuListItemCurrentView_OnPostBack);
 
-                    child.Controls.Add(templateCurrentView);
-                    this.Controls.Add(child);
+                    //child.Controls.Add(templateCurrentView);
+                    //this.Controls.Add(child);
+                    this.Controls.Add(templateCurrentView);
                 }
             }
         }
