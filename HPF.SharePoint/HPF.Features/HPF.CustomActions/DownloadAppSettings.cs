@@ -14,6 +14,7 @@ namespace HPF.CustomActions
         private const string ArchiveListNameKey = "ArchiveListName";
         private const string RenderForDocumentLibraryKey = "RenderForDocumentLibrary";
         private const string TotalFilesAllowKey = "TotalFilesAllow";
+        private const string DeleteBatchSizeKey = "DeleteBatchSize";
         #endregion
 
         #region "const for progress bar"
@@ -22,11 +23,7 @@ namespace HPF.CustomActions
         public const string ARCHIVING_ZIPPED_FILE = "Archiving zipped file";
         public const string CLEANING_UP_FILES = "Cleaning up files";
         #endregion
-
-        #region "const for general settings"
-        public const int DeleteBatchSize = 1000;
-        #endregion
-
+        
         #region "settings in web.config file"
         public static string ReviewStatusField
         {
@@ -86,6 +83,18 @@ namespace HPF.CustomActions
                     return int.Parse(ConfigurationManager.AppSettings[TotalFilesAllowKey]);
                 }
                 return -1;
+            }
+        }
+
+        public static int DeleteBatchSize
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[DeleteBatchSizeKey]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings[DeleteBatchSizeKey]);
+                }
+                return 100;
             }
         }
         #endregion

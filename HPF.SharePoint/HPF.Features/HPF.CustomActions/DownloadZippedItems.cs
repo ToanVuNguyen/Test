@@ -123,6 +123,7 @@ namespace HPF.CustomActions
                 items.Count > DownloadAppSettings.TotalFilesAllow)
             {
                 Alert(String.Format(DownloadAppSettings.TOTAL_FILES_EXCEED, DownloadAppSettings.TotalFilesAllow));
+                _progressContext.RemoveProgressContext();
                 return;
             }
 
@@ -175,6 +176,7 @@ namespace HPF.CustomActions
             if (ConvertToGigabytes((ulong)length) > 2)
             {
                 Alert(DownloadAppSettings.SIZE_EXCEED_2G);
+                _progressContext.RemoveProgressContext();
                 return;
             }
             
