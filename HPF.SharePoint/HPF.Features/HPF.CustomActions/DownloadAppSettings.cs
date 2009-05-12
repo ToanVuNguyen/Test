@@ -45,7 +45,7 @@ namespace HPF.CustomActions
                 {
                     return ConfigurationManager.AppSettings[ReviewStatusDownloadValueKey];
                 }
-                return "Processed";
+                return "PROCESSED";
             }
         }
 

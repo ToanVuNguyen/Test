@@ -64,6 +64,7 @@
     <Compile Include="PostBackMenuItemTemplate.cs" />
     <Compile Include="ProgressContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateReviewStatusHttpModule.cs" />
     <Compile Include="ZipUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
