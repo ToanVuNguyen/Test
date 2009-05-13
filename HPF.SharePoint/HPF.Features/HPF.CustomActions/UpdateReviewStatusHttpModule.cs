@@ -38,10 +38,11 @@ namespace HPF.CustomActions
                 string documentUrl = HttpContext.Current.Request.RawUrl;
                 SPWeb web = SPContext.Current.Web;
                 SPFile file = web.GetFile(documentUrl);                
-                if (file != null)
+                if (file != null && file.InDocumentLibrary)
                 {
-                    SPListItem item = file.Item;
-                    if (item != null)
+                    SPListItem item = file.Item;                    
+                    if (item != null &&
+                        DownloadAppSettings.RenderForDocumentLibrary.Contains(item.ParentList.Title))
                     {
                         web.AllowUnsafeUpdates = true;
                         item[DownloadAppSettings.ReviewStatusField] =
