@@ -120,6 +120,27 @@
     </Compile>
     <Compile Include="AgencyHelper.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="RetieveRefCodes.aspx.cs">
+      <DependentUpon>RetieveRefCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetieveRefCodes.aspx.designer.cs">
+      <DependentUpon>RetieveRefCodes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetrieveServicerList.aspx.cs">
+      <DependentUpon>RetrieveServicerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetrieveServicerList.aspx.designer.cs">
+      <DependentUpon>RetrieveServicerList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetrieveForeclosureCaseDetail.aspx.cs">
+      <DependentUpon>RetrieveForeclosureCaseDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetrieveForeclosureCaseDetail.aspx.designer.cs">
+      <DependentUpon>RetrieveForeclosureCaseDetail.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CallLogWSDTO.xml" />
@@ -147,6 +168,9 @@
     <Content Include="Styles\Images\toplogo.jpg" />
     <Content Include="Styles\Images\topmidspace.jpg" />
     <Content Include="Styles\Images\topnavbg.jpg" />
+    <Content Include="RetieveRefCodes.aspx" />
+    <Content Include="RetrieveServicerList.aspx" />
+    <Content Include="RetrieveForeclosureCaseDetail.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.Web.HPFWebControls\HPF.FutureState.Web.HPFWebControls.csproj">
