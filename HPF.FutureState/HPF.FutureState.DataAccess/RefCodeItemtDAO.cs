@@ -65,6 +65,7 @@ namespace HPF.FutureState.DataAccess
                         item.CodeComment = ConvertToString(reader["code_comment"]);     
                         item.SortOrder = ConvertToInt(reader["sort_order"]);
                         item.ActiveInd = ConvertToString(reader["active_ind"]);
+                        item.AgencyUsageInd = ConvertToString(reader["agency_usage_ind"]);
                         refCodeItems.Add(item);
                     }
                     reader.Close();

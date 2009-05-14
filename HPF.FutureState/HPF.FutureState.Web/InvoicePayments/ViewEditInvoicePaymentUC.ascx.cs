@@ -91,7 +91,7 @@ namespace HPF.FutureState.Web.InvoicePayments
         }
         protected void BindPaymentTypeDropDownList()
         {
-            var invoicePaymentCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_PAYMENT_CODE);
+            var invoicePaymentCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_PAYMENT_CODE);
             ddlPaymentType.DataSource = invoicePaymentCol;
             ddlPaymentType.DataTextField = "CodeDesc";
             ddlPaymentType.DataValueField = "Code";
@@ -101,7 +101,7 @@ namespace HPF.FutureState.Web.InvoicePayments
 
         protected void BindFundingSourceDropDownList()
         {
-            FundingSourceDTOCollection fundingSourceCol = LookupDataBL.Instance.GetFundingSource();
+            FundingSourceDTOCollection fundingSourceCol = LookupDataBL.Instance.GetFundingSources();
             ddlFundingSource.DataSource = fundingSourceCol;
             ddlFundingSource.DataTextField = "FundingSourceName";
             ddlFundingSource.DataValueField = "FundingSourceID";

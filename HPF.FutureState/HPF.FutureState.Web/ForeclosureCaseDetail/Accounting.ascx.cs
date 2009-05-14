@@ -50,7 +50,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void BindNeverBillReasonDropDownList()
         {
-            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_NEVER_BILL_REASON_CODE);
+            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_NEVER_BILL_REASON_CODE);
             ddlNerverBillReason.DataSource = refCodeCol;
             ddlNerverBillReason.DataTextField = "CodeDesc";
             ddlNerverBillReason.DataValueField = "Code";
@@ -59,7 +59,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         protected void BindNeverPayReasonDropDownList()
         {
-            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_NEVER_PAY_REASON_CODE);
+            RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_NEVER_PAY_REASON_CODE);
             ddlNeverPayReason.DataSource = refCodeCol;
             ddlNeverPayReason.DataTextField = "CodeDesc";
             ddlNeverPayReason.DataValueField = "Code";
@@ -121,7 +121,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblRejectReasonDesc = e.Row.FindControl("lblPaymentRejectReasonDesc") as Label;
-                RefCodeItemDTOCollection PaymentRejectReasonDTOCol = LookupDataBL.Instance.GetRefCode("payment reject reason code");
+                RefCodeItemDTOCollection PaymentRejectReasonDTOCol = LookupDataBL.Instance.GetRefCodes("payment reject reason code");
                 foreach (var PaymentRejectReasonDTO in PaymentRejectReasonDTOCol)
                 {
                     if (lblRejectReasonDesc.Text == PaymentRejectReasonDTO.Code)

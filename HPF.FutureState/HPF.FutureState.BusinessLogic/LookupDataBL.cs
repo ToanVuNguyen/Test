@@ -42,21 +42,12 @@ namespace HPF.FutureState.BusinessLogic
         {
             ProgramDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetProgram();
             return result;
-        }
-        /// <summary>
-        /// Get State Name and State ID to display in DDLB
-        /// </summary>
-        /// <returns>StateDTOCollection containts all State</returns>
-        //public StateDTOCollection GetState()
-        //{
-        //    StateDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetState();
-        //    return result;
-        //}
+        }        
         /// <summary>
         /// Get Agency Name and Agency ID to display in DDLB
         /// </summary>
         /// <returns>AgencyDTOCollection containts all Agency</returns>
-        public AgencyDTOCollection GetAgency()
+        public AgencyDTOCollection GetAgencies()
         {
             AgencyDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetAgency();
             return result;
@@ -65,7 +56,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Get Funding Source ID and Funding Source Name to display in DDLB
         /// </summary>
         /// <returns>FundingSourceDTOCollection containts all FundingSource</returns>
-        public FundingSourceDTOCollection GetFundingSource()
+        public FundingSourceDTOCollection GetFundingSources()
         {
             FundingSourceDTOCollection result = InvoiceDAO.CreateInstance().AppGetFundingSource();
             return result;
@@ -75,9 +66,9 @@ namespace HPF.FutureState.BusinessLogic
         /// Get ServicerDTOCollection contains all ServicerDTO 
         /// </summary>
         /// <returns></returns>
-        public ServicerDTOCollection GetServicer()
+        public ServicerDTOCollection GetServicers()
         {
-            ServicerDTOCollection result = ForeclosureCaseDAO.CreateInstance().AppGetServicer();
+            ServicerDTOCollection result = ServicerBL.Instance.GetServicers();
             return result;
         }
         /// <summary>
@@ -90,9 +81,9 @@ namespace HPF.FutureState.BusinessLogic
             ServicerDTOCollection result = InvoiceDAO.CreateInstance().AppGetServicerByFundingSourceId(fundingSourceId);
             return result;
         }
-        public RefCodeItemDTOCollection GetRefCode(string refCodeSetName)
+        public RefCodeItemDTOCollection GetRefCodes(string refCodeSetName)
         {
-            var refCodeItemCollection = RefCodeItemBL.Instance.GetRefCodeItems();
+            var refCodeItemCollection = RefCodeItemBL.Instance.GetRefCodeItems();            
             return refCodeItemCollection.GetRefCodeItemsByRefCode(refCodeSetName);            
         }
         

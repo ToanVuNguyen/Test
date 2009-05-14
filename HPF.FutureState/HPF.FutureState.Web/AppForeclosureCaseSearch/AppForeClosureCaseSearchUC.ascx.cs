@@ -88,7 +88,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         #region Binding Data
         protected void BindStateDropdownlist()
         {
-            RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_STATE_CODE);
+            RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_STATE_CODE);
             //Bind data
             ddlPropertyState.DataValueField = "Code";
             ddlPropertyState.DataTextField = "CodeDesc";
@@ -98,7 +98,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindAgencyDropdownlist()
         {
-            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
@@ -121,14 +121,14 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         }
         protected void BindServicerDropDownList()
         {
-            ServicerDTOCollection servicerCollection = LookupDataBL.Instance.GetServicer();
+            ServicerDTOCollection servicerCollection = LookupDataBL.Instance.GetServicers();
             ddlServicer.DataValueField = "ServicerID";
             ddlServicer.DataTextField = "ServicerName";
             ddlServicer.DataSource = servicerCollection;
             ddlServicer.DataBind();
-            ddlServicer.Items.RemoveAt(ddlServicer.Items.IndexOf(ddlServicer.Items.FindByValue("-1")));
-            ddlServicer.Items.Insert(0, new ListItem("ALL", "-1"));
-            ddlServicer.Items.FindByText("ALL").Selected = true;
+
+            if (ddlServicer.Items.Count > 0)
+                ddlServicer.SelectedIndex = 0;
         }
         protected void BindSearchCriteria()
         {

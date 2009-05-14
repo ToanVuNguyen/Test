@@ -84,9 +84,12 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\WebServices\ICTForeclosureCaseSearchRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ReferenceCodeRetrieveRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\ReferenceCodeRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\SendSummaryRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataTransferObjects\WebServices\ServicerListRetrieveResponse.cs" />
     <Compile Include="HPFConfigurationSettings.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="DataTransferObjects\AccountingDTO.cs" />

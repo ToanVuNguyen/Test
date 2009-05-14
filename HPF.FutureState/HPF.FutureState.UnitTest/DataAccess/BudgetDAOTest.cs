@@ -118,20 +118,7 @@ namespace HPF.FutureState.UnitTest
         //{
         //}
         //
-        #endregion
-
-        /// <summary>
-        ///A test for GetBudgetSet
-        ///</summary>
-        [TestMethod()]
-        public void GetBudgetSetTest()
-        {
-            BudgetDAO_Accessor target = new BudgetDAO_Accessor(); // TODO: Initialize to an appropriate value
-            BudgetSetDTOCollection actual;
-            actual = target.GetBudgetSet(fc_id);
-            Assert.AreEqual(1, actual.Count);
-            Assert.AreEqual(fc_id, actual[0].FcId);
-        }
+        #endregion       
 
     }
 }

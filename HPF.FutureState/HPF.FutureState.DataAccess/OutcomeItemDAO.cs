@@ -10,13 +10,13 @@ using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.DataAccess
 {
-    public class OutcomeItemDAO : BaseDAO
+    public class OutcomeDAO : BaseDAO
     {
         private static readonly OutcomeItemDAO instance = new OutcomeItemDAO();
         /// <summary>
         /// Singleton
         /// </summary>
-        public static OutcomeItemDAO Instance
+        public static OutcomeDAO Instance
         {
             get
             {
@@ -24,11 +24,12 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
-        protected OutcomeItemDAO()
+        protected OutcomeDAO()
         {
 
         }
 
+        #region Outcomde Item
         /// <summary>
         /// Select all OutcomeItem from database by Fc_ID. 
         /// </summary>
@@ -144,5 +145,62 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
         }
+        
+        /// <summary>
+        /// Select all OutcomeItem from database by Fc_ID. 
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>OutcomeItemDTOCollection</returns>
+        public OutcomeItemDTOCollection GetOutcomeItemCollection(int? fcId)
+        {
+            OutcomeItemDTOCollection results = null;// HPFCacheManager.Instance.GetData<OutcomeItemDTOCollection>(Constant.HPF_CACHE_OUTCOME_ITEM);            
+            if (results == null)
+            {
+                var dbConnection = CreateConnection();
+                var command = new SqlCommand("hpf_outcome_item_get", dbConnection);
+                //<Parameter>            
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                try
+                {
+                    //</Parameter>                   
+                    command.Parameters.AddRange(sqlParam);
+                    command.CommandType = CommandType.StoredProcedure;
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        results = new OutcomeItemDTOCollection();
+                        while (reader.Read())
+                        {
+                            OutcomeItemDTO item = new OutcomeItemDTO();
+                            item.OutcomeItemId = ConvertToInt(reader["outcome_item_id"]);
+                            item.FcId = ConvertToInt(reader["fc_id"]);
+                            item.OutcomeTypeId = ConvertToInt(reader["outcome_type_id"]);
+                            item.OutcomeDt = ConvertToDateTime(reader["outcome_dt"]);
+                            item.OutcomeDeletedDt = ConvertToDateTime(reader["outcome_deleted_dt"]);
+                            item.NonprofitreferralKeyNum = ConvertToString(reader["nonprofitreferral_key_num"]);
+                            item.ExtRefOtherName = ConvertToString(reader["ext_ref_other_name"]);
+                            item.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                            item.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                            item.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                            results.Add(item);
+                        }
+                    }
+                    reader.Close();
+                    //HPFCacheManager.Instance.Add(Constant.HPF_CACHE_OUTCOME_ITEM, results);
+                }
+                catch (Exception Ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+            return results;
+        }
+        #endregion
     }
 }

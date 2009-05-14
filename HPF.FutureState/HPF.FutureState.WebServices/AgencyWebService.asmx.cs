@@ -19,6 +19,7 @@ namespace HPF.FutureState.WebServices
     [ToolboxItem(false)]    
     public class AgencyWebService : BaseAgencyWebService
     {
+        #region WebMethods
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
         public ForeclosureCaseSaveResponse SaveForeclosureCase(ForeclosureCaseSaveRequest request)
@@ -113,6 +114,7 @@ namespace HPF.FutureState.WebServices
                     }
                 }
             }
+            #region Exception Handling
             catch (AuthenticationException Ex)
             {
                 response.Status = ResponseStatus.AuthenticationFail;
@@ -136,6 +138,7 @@ namespace HPF.FutureState.WebServices
                 response.Messages.AddExceptionMessage(Ex.Message);
                 HandleException(Ex);
             }
+            #endregion
             return response;
         }
         
@@ -184,6 +187,98 @@ namespace HPF.FutureState.WebServices
             return response;
         }
 
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public ServicerListRetrieveResponse RetrieveServicerList()
+        {
+            ServicerListRetrieveResponse response = new ServicerListRetrieveResponse();
+            response.Status = ResponseStatus.Fail;
+            try
+            {
+                if (IsAuthenticated())//Authentication checking
+                {
+                    response.Servicers = LookupDataBL.Instance.GetServicers();
+                    response.Status = ResponseStatus.Success;
+                    if (response.Servicers.Count == 0)
+                    {
+                        response.Status = ResponseStatus.Fail;
+                        response.Messages.AddExceptionMessage("ERR0", "ERR0--There is no marched data found. Please contact administrator for more information");
+                    }
+                }
+            }
+            #region Exception Handling
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Messages = Ex.ExceptionMessages;
+                HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Messages.AddExceptionMessage("Data access error.");
+                HandleException(Ex);
+            }
+            catch (Exception Ex)
+            {
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            #endregion
+            return response;
+        }
+
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public ReferenceCodeRetrieveResponse RetrieveReferenceCodes(ReferenceCodeRetrieveRequest request)
+        {
+            ReferenceCodeRetrieveResponse response = new ReferenceCodeRetrieveResponse();
+            response.Status = ResponseStatus.Fail;
+            try
+            {
+                if (IsAuthenticated())//Authentication checking
+                {
+                    response.Status = ResponseStatus.Success;                    
+                    response.ReferenceCodes = RefCodeItemBL.Instance.GetRefCodeItemsForAgency(request.ReferenceCodeName);
+                    if (response.ReferenceCodes.Count == 0)
+                    {
+                        response.Status = ResponseStatus.Fail;
+                        response.Messages.AddExceptionMessage("ERR0", "ERR0--There is no marched data found. Please contact administrator for more information");
+                    }
+                }
+            }
+            #region Exception Handling
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {             
+                response.Messages = Ex.ExceptionMessages;
+                HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {                
+                response.Messages.AddExceptionMessage("Data access error.");
+                HandleException(Ex);
+            }
+            catch (Exception Ex)
+            {
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            #endregion
+            return response;
+        }
+        #endregion
+        
+        #region Privates Methods
         private static bool ValidateCallLogID(CallLogRetrieveRequest request)
         {
             var dataValidationException = new DataValidationException();
@@ -266,7 +361,8 @@ namespace HPF.FutureState.WebServices
             {                
                 string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
                 response.Messages.AddExceptionMessage(ErrorMessages.WARN0903, buffer);
-            }            
+            }
         }
+        #endregion
     }
 }

@@ -56,7 +56,7 @@
     <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="CaseFollowUpDAO.cs" />
     <Compile Include="ServicerDAO.cs" />
-    <Compile Include="OutcomeTypeDAO.cs" />
+    <Compile Include="OutcomeDAO.cs" />
     <Compile Include="ForeclosureCaseDAO.cs" />
     <Compile Include="ForeclosureCaseSetDAO.cs" />
     <Compile Include="GeoCodeRefDAO.cs" />
@@ -65,7 +65,6 @@
     <Compile Include="InvoicePaymentDAO.cs" />
     <Compile Include="MenuGroupDAO.cs" />
     <Compile Include="MenuSecurityDAO.cs" />
-    <Compile Include="OutcomeItemDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseDAO.cs" />
     <Compile Include="RefCodeItemtDAO.cs" />

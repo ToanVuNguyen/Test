@@ -12,13 +12,13 @@ using System;
 
 namespace HPF.FutureState.BusinessLogic
 {
-    public class OutcomeItemBL : BaseBusinessLogic
+    public class OutcomeBL : BaseBusinessLogic
     {
-        private static readonly OutcomeItemBL instance = new OutcomeItemBL();
+        private static readonly OutcomeBL instance = new OutcomeBL();
         /// <summary>
         /// Singleton
         /// </summary>
-        public static OutcomeItemBL Instance
+        public static OutcomeBL Instance
         {
             get
             {
@@ -26,14 +26,14 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
-        protected OutcomeItemBL()
+        protected OutcomeBL()
         {
 
         }
 
         public OutcomeItemDTOCollection RetrieveOutcomeItems(int fcId)
         {
-            return OutcomeItemDAO.Instance.RetrieveOutcomeItems(fcId);
+            return OutcomeDAO.Instance.RetrieveOutcomeItems(fcId);
         }
 
         public bool DeleteOutcomeItem(int? outcomeItemId, string workingUserId)
@@ -41,7 +41,7 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTO item = new OutcomeItemDTO();
             item.OutcomeItemId = outcomeItemId;
             item.SetUpdateTrackingInformation(workingUserId);
-            return OutcomeItemDAO.Instance.DeleteOutcomeItem(item);
+            return OutcomeDAO.Instance.DeleteOutcomeItem(item);
         }
 
         public bool InstateOutcomeItem(int? outcomeItemId, string workingUserId)
@@ -49,9 +49,26 @@ namespace HPF.FutureState.BusinessLogic
             OutcomeItemDTO item = new OutcomeItemDTO();
             item.OutcomeItemId = outcomeItemId;
             item.SetUpdateTrackingInformation(workingUserId);
-            return OutcomeItemDAO.Instance.InstateOutcomeItem(item);
+            return OutcomeDAO.Instance.InstateOutcomeItem(item);
         }
-        
 
+        public OutcomeTypeDTOCollection GetOutcomeType()
+        {
+            return OutcomeDAO.Instance.GetOutcomeType();
+        }        
+
+        public bool DeleteOutcomeItem(OutcomeItemDTO outcomeItem)
+        {
+            return OutcomeDAO.Instance.DeleteOutcomeItem(outcomeItem);
+        }
+
+        public bool InstateOutcomeItem(OutcomeItemDTO outcomeItem)
+        {
+            return OutcomeDAO.Instance.InstateOutcomeItem(outcomeItem);
+        }
+        public OutcomeItemDTOCollection GetOutcomeItemCollection(int? fcId)
+        {
+            return OutcomeDAO.Instance.GetOutcomeItemCollection(fcId);
+        }
     }
 }

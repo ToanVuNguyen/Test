@@ -36,7 +36,7 @@ namespace HPF.FutureState.BusinessLogic
 
         public OutcomeTypeDTOCollection RetrieveOutcomeTypes()
         {
-            return OutcomeTypeDAO.Instance.GetOutcomeType();
+            return OutcomeDAO.Instance.GetOutcomeType();
         }
 
         public bool SaveCaseFollowUp(CaseFollowUpDTO caseFollowUp, string workingUserId, bool isUpdated)

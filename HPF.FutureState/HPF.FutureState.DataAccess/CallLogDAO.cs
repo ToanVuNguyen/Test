@@ -314,6 +314,43 @@ namespace HPF.FutureState.DataAccess
 
         }
 
+        public bool GetCall(string callID)
+        {
+            bool results = false;
+            var dbConnection = CreateConnection();
+            try
+            {
+                SqlCommand command = base.CreateCommand("hpf_call_get", dbConnection);
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_call_id", callID);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    results = true;
+                    reader.Close();
+                }
+                else
+                {
+                    reader.Close();
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return results;
+        }    
+
         public CallCenterDTO GetCallCenter(CallLogDTO aCallLog)
         {
             CallCenterDTO callCenter = null;
@@ -350,54 +387,7 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
             return callCenter;
-        }
-
-        public ServicerDTO GetServicer(CallLogDTO aCallLog)
-        {
-            ServicerDTO servicer = null;
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_servicer_get", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_servicer_id", aCallLog.ServicerId);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            try
-            {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    
-                    int? servicerId = 0;
-                    while (reader.Read())
-                    {
-                        servicerId = ConvertToInt(reader["servicer_id"]);
-                        if (servicerId.HasValue && servicerId.Value == aCallLog.ServicerId)
-                        {
-                            servicer = new ServicerDTO();
-                            servicer.ServicerID = aCallLog.ServicerId;
-                            servicer.ServicerName = ConvertToString(reader["servicer_name"]);
-                            break;
-                        }
-                    }
-                    
-                    reader.Close();
-                }
-                dbConnection.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return servicer;
-
-        }
-        
+        }     
+          
     }
 }

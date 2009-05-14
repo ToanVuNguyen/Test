@@ -15,7 +15,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public ServicerDTOCollection ExtractServicerByDeliveryMethod(string deliveryMethod)
         {
             var returnValue = new ServicerDTOCollection();
-            var result = this.Where(c => c.SecureDeliveryMethodCd == deliveryMethod);
+            var result = this.Where(c => c.SummaryDeliveryMethod == deliveryMethod);
             foreach (var servicer in result)
             {
                 returnValue.Add(servicer);

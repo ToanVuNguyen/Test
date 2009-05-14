@@ -323,7 +323,7 @@ namespace HPF.FutureState.Web.AppNewInvoice
         }
         FundingSourceDTO GetFundingSource(int fundingSourceId)
         {
-            var fundingSourceCollection= LookupDataBL.Instance.GetFundingSource();
+            var fundingSourceCollection= LookupDataBL.Instance.GetFundingSources();
             foreach (var i in fundingSourceCollection)
                 if (i.FundingSourceID == fundingSourceId)
                     return i;

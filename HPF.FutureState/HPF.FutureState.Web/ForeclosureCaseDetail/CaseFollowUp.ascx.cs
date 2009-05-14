@@ -78,7 +78,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void ddlFollowUpSourceBinding()
         {
             ddl_FollowUpSource.Items.Clear();
-            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_FOLLOW_UP_SOURCE_CODE);
+            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_FOLLOW_UP_SOURCE_CODE);
             ddl_FollowUpSource.DataValueField = "Code";
             ddl_FollowUpSource.DataTextField = "CodeDesc";
             ddl_FollowUpSource.DataSource = followUpTypeCodes;
@@ -90,7 +90,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void ddlCreditReportBureauBinding()
         {
             ddl_CreditReportBureau.Items.Clear();
-            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_CREDIR_BERREAU_CODE);
+            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_CREDIR_BERREAU_CODE);
             ddl_CreditReportBureau.DataValueField = "Code";
             ddl_CreditReportBureau.DataTextField = "CodeDesc";
             ddl_CreditReportBureau.DataSource = followUpTypeCodes;
@@ -114,7 +114,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private void ddlDelinquencyStatusBinding()
         {
             ddl_DelinqencyStatus.Items.Clear();
-            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_LOAN_DELINQUENCY_CODE);
+            RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_LOAN_DELINQUENCY_CODE);
             ddl_DelinqencyStatus.DataValueField = "Code";
             ddl_DelinqencyStatus.DataTextField = "CodeDesc";
             ddl_DelinqencyStatus.DataSource = followUpTypeCodes;

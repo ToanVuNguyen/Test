@@ -119,7 +119,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             AgencyPayableDraftDTO agencyPayableDraftDTO = new AgencyPayableDraftDTO();
             agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
             //
-            AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgency();
+            AgencyDTOCollection agencyCol = LookupDataBL.Instance.GetAgencies();
             lblAgency.Text = agencyCol.GetAgencyName(agencyPayableSearchCriteria.AgencyId);
             lblPeriodStart.Text = agencyPayableSearchCriteria.PeriodStartDate.ToShortDateString();
             lblPeriodEnd.Text = agencyPayableSearchCriteria.PeriodEndDate.ToShortDateString();
@@ -183,7 +183,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             agencyPayableDraftDTO = AgencyPayableBL.Instance.CreateDraftAgencyPayable(agencyPayableSearchCriteria);
             //default display period_start back 6 months
             //but save exactly value in criteria.
-            RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
+            RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
             agencyPayableDraftDTO.StatusCode = StatusCd.Code;
             for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
                 this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);

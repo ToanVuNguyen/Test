@@ -93,7 +93,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 {
                     int outcomeId = 0;
                     int.TryParse(grdvOutcomeItems.SelectedDataKey.Value.ToString(), out outcomeId);
-                    OutcomeItemBL.Instance.DeleteOutcomeItem(outcomeId, HPFWebSecurity.CurrentIdentity.LoginName);
+                    OutcomeBL.Instance.DeleteOutcomeItem(outcomeId, HPFWebSecurity.CurrentIdentity.LoginName);
                     grdvOutcomeItemsBinding();                    
                 }
                 else
@@ -115,7 +115,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 {
                     int outcomeId = 0;
                     int.TryParse(grdvOutcomeItems.SelectedDataKey.Value.ToString(), out outcomeId);
-                    OutcomeItemBL.Instance.InstateOutcomeItem( outcomeId, HPFWebSecurity.CurrentIdentity.LoginName);
+                    OutcomeBL.Instance.InstateOutcomeItem( outcomeId, HPFWebSecurity.CurrentIdentity.LoginName);
                     grdvOutcomeItemsBinding();
                 }
             }   
@@ -135,7 +135,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         }
         private OutcomeItemDTOCollection RetrieveOutcomeItems(int fcid)
         {
-            return OutcomeItemBL.Instance.RetrieveOutcomeItems(fcid);
+            return OutcomeBL.Instance.RetrieveOutcomeItems(fcid);
         }
     }
 }

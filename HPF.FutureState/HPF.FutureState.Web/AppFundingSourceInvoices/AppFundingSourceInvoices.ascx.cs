@@ -85,7 +85,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
         }
         private void GetFundingSourceList()
         {
-                FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSource();
+                FundingSourceDTOCollection fundingSourceCollection = LookupDataBL.Instance.GetFundingSources();
                 dropFundingSource.DataValueField = "FundingSourceID";
                 dropFundingSource.DataTextField = "FundingSourceName";
                 dropFundingSource.DataSource = fundingSourceCollection;
@@ -216,7 +216,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             }
             try
             {
-                string cancelCode = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_INVOICE_STATUS_CODE)[1].Code;
+                string cancelCode = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_INVOICE_STATUS_CODE)[1].Code;
                 //Update to Database
                 invoice.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 invoice.StatusCode = cancelCode;

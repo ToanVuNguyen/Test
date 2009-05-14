@@ -112,7 +112,7 @@ namespace HPF.FutureState.Web
         {
             try
             {
-                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
                 AgencyDTO item = agencyCollection[0];
                 agencyCollection.Remove(item);
                 foreach (var i in agencyCollection)

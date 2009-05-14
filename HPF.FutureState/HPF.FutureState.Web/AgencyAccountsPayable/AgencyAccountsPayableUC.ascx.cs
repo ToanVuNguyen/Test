@@ -56,7 +56,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
         {
             try
             {
-                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
                 ddlAgency.DataValueField = "AgencyID";
                 ddlAgency.DataTextField = "AgencyName";
                 ddlAgency.DataSource = agencyCollection;
@@ -190,7 +190,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
                     agency = (AgencyPayableDTOCollection)Session["PayableSearchResult"];
                     //
                     int selectedrow = grvInvoiceList.SelectedIndex;
-                    RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[1];
+                    RefCodeItemDTO agencystatus = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[1];
                     agency[selectedrow].StatusCode = agencystatus.Code;
                     agency[selectedrow].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     AgencyPayableBL.Instance.CancelAgencyPayable(agency[selectedrow]);

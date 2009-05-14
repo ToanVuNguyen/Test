@@ -70,7 +70,7 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             try
             {
-                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
 
                 ddlAgency.DataTextField = "AgencyName";
                 ddlAgency.DataValueField = "AgencyID";

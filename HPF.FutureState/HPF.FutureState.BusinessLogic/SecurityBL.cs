@@ -132,7 +132,7 @@ namespace HPF.FutureState.BusinessLogic
                         return null;
                 }
             }
-            catch (Exception)
+            catch (Exception Ex)
             {
                 return null;
             }

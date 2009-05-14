@@ -30,7 +30,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             try
             {
                 caseId = int.Parse(Request.QueryString["CaseID"].ToString());
-                BudgetSetDTOCollection budgetSets = BudgetBL.Instance.GetBudgetSet(caseId);
+                BudgetSetDTOCollection budgetSets = BudgetBL.Instance.GetBudgetSetList(caseId);
                 if (budgetSets != null)
                 {
                     grvBudgetSet.DataSource = budgetSets;

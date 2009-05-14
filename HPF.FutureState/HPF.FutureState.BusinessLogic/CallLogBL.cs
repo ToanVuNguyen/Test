@@ -189,7 +189,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private ExceptionMessageCollection CheckDependingServicer(CallLogDTO aCallLog)
         {
-            ServicerDTO servicer = CallLogDAO.Instance.GetServicer(aCallLog);
+            ServicerDTO servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerId.Value);
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
 
 
@@ -213,7 +213,11 @@ namespace HPF.FutureState.BusinessLogic
                 errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name max length is 50" });
             }
             return errorList;
-        }       
+        }
 
+        public bool GetCall(string callID)
+        {
+            return CallLogDAO.Instance.GetCall(callID);
+        }
     }
 }

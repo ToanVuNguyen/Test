@@ -39,17 +39,7 @@ namespace HPF.FutureState.BusinessLogic
             reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
             var pdfReport = reportExport.ExportToPdf();
             return pdfReport;            
-        }
-        
-        /// <summary>
-        /// Get All servicer of a case
-        /// </summary>
-        /// <param name="fcId"></param>
-        /// <returns></returns>
-        public ServicerDTO GetServicer(int servicerId)
-        {
-            return ServicerDAO.Instance.GetServicer(servicerId);
-        }        
+        }               
 
         public void UpdateSummarySentDateTime(int? fcId)
         {
@@ -71,17 +61,17 @@ namespace HPF.FutureState.BusinessLogic
             //<Prepare data>
             var foreclosureCase = GetForeclosureCase(fc_id);
             var caseLoan = GetCaseLoans1St(fc_id);
-            var primaryServicer = GetServicer(caseLoan.ServicerId.Value);
+            var primaryServicer = ServicerBL.Instance.GetServicer(caseLoan.ServicerId.Value);
             //var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
             //</Prepare data>           
 
             //Update Summary sent datetime if any
-            if (primaryServicer.SecureDeliveryMethodCd != Constant.SECURE_DELIVERY_METHOD_NOSEND)
+            if (primaryServicer.SummaryDeliveryMethod != Constant.SECURE_DELIVERY_METHOD_NOSEND)
             {
                 UpdateSummarySentDateTime(fc_id);
             }
             //Send summary
-            switch (primaryServicer.SecureDeliveryMethodCd)
+            switch (primaryServicer.SummaryDeliveryMethod)
             {
                 case Constant.SECURE_DELIVERY_METHOD_SECEMAIL:
                     SendSummaryMailToServicer(foreclosureCase, primaryServicer, caseLoan);

@@ -7,6 +7,8 @@ using System.Text;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -69,5 +71,49 @@ namespace HPF.FutureState.DataAccess
             }
             return returnString;
         }
+
+        /// <summary>
+        /// Get ID and Name from table Program
+        /// </summary>
+        /// <returns>ProgramDTOCollection contains all Program </returns>
+        public AgencyDTOCollection GetAgency()
+        {
+            AgencyDTOCollection results = HPFCacheManager.Instance.GetData<AgencyDTOCollection>(Constant.HPF_CACHE_AGENCY);
+            if (results == null)
+            {
+                var dbConnection = CreateConnection();
+                var command = new SqlCommand("hpf_agency_get", dbConnection);
+                try
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        results = new AgencyDTOCollection();
+                        while (reader.Read())
+                        {
+                            var item = new AgencyDTO();
+                            item.AgencyID = ConvertToString(reader["agency_id"]);
+                            item.AgencyName = ConvertToString(reader["agency_name"]);
+                            if (item.AgencyID != "-1")
+                                results.Add(item);
+                        }
+                        reader.Close();
+                    }
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_AGENCY, results);
+                }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+            return results;
+        }        
+
     }
 }

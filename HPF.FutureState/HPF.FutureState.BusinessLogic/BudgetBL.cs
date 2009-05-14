@@ -52,9 +52,13 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="caseId">ForeclosureCaseId</param>
         /// <returns>BudgetSEtDTOCollection</returns>
-        public BudgetSetDTOCollection GetBudgetSet(int caseId)
+        public BudgetSetDTO GetBudgetSet(int? fcId)
         {
-            return BudgetDAO.Instance.GetBudgetSet(caseId);
+            return BudgetDAO.Instance.GetBudgetSet(fcId);
+        }
+        public BudgetSetDTOCollection GetBudgetSetList(int caseId)
+        {
+            return BudgetDAO.Instance.GetBudgetSetList(caseId);
         }
         /// <summary>
         /// Group all the Budget Item by BudgetCategory
@@ -92,6 +96,24 @@ namespace HPF.FutureState.BusinessLogic
                 budgetGroup.Add(totalRow);
             }
             return result;
+        }
+
+        public BudgetSubcategoryDTOCollection GetBudgetSubcategory()
+        {
+            return BudgetDAO.Instance.GetBudgetSubcategory();
+        }
+
+        public BudgetItemDTOCollection GetBudgetItemSet(int? fcId)
+        {
+            return BudgetDAO.Instance.GetBudgetItemSet(fcId);
+        }
+        public BudgetAssetDTOCollection GetBudgetAssetSet(int? fcId)
+        {
+            return BudgetDAO.Instance.GetBudgetAssetSet(fcId);
+        }
+        public BudgetDTOCollection GetBudget()
+        {
+            return BudgetDAO.Instance.GetBudget();
         }
     }
 }

@@ -76,7 +76,7 @@ namespace HPF.FutureState.Web.InvoicePayments
 
         protected void BindFundingSourceDropDownList()
         {
-            FundingSourceDTOCollection fundingSourceCol = LookupDataBL.Instance.GetFundingSource();
+            FundingSourceDTOCollection fundingSourceCol = LookupDataBL.Instance.GetFundingSources();
             ddlFundingSource.DataSource = fundingSourceCol;
             ddlFundingSource.DataTextField = "FundingSourceName";
             ddlFundingSource.DataValueField = "FundingSourceID";

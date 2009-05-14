@@ -69,7 +69,7 @@ namespace HPF.FutureState.BusinessLogic
                 invoice.InvoicePaymentAmount = 0;
                 invoice.FundingSourceId = int.Parse(invoiceDraft.FundingSourceId);
                 //Get Set Invoice status to Active
-                invoice.StatusCode = LookupDataBL.Instance.GetRefCode("invoice status code")[0].Code;
+                invoice.StatusCode = LookupDataBL.Instance.GetRefCodes("invoice status code")[0].Code;
                 invoice.ChangeLastAppName = invoiceDraft.ChangeLastAppName;
                 invoice.ChangeLastDate = invoiceDraft.ChangeLastDate;
                 invoice.ChangeLastUserId = invoiceDraft.ChangeLastUserId;
@@ -481,7 +481,7 @@ namespace HPF.FutureState.BusinessLogic
         private List<string> GetRejectReasonCode()
         {
             List<string> result = new List<string>();
-            var rejectReason = LookupDataBL.Instance.GetRefCode(Constant.REF_CODE_SET_PAYMENT_REJECT_REASON_CODE);
+            var rejectReason = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_PAYMENT_REJECT_REASON_CODE);
             foreach (var i in rejectReason)
                 result.Add(i.Code);
             return result;

@@ -87,7 +87,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         /// <param name="agencyname"></param>
         protected void BindDDLAgency(string agencyid)
         {
-            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgency();
+            AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
             ddlAgency.DataValueField = "AgencyID";
             ddlAgency.DataTextField = "AgencyName";
             ddlAgency.DataSource = agencyCollection;
