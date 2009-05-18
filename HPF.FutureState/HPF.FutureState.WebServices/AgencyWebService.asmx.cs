@@ -197,13 +197,13 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    response.Servicers = LookupDataBL.Instance.GetServicers();
-                    response.Status = ResponseStatus.Success;
-                    if (response.Servicers.Count == 0)
-                    {
-                        response.Status = ResponseStatus.Fail;
-                        response.Messages.AddExceptionMessage("ERR0", "ERR0--There is no marched data found. Please contact administrator for more information");
-                    }
+                    response.Servicers = LookupDataBL.Instance.GetServicers();                    
+                    //if (response.Servicers.Count == 0)
+                    //{
+                    //    response.Status = ResponseStatus.Fail;
+                    //    response.Messages.AddExceptionMessage("ERR0", "ERR0--There is no marched data found. Please contact administrator for more information");
+                    //}
+                    response.Status = ResponseStatus.Success;                    
                 }
             }
             #region Exception Handling
@@ -234,21 +234,21 @@ namespace HPF.FutureState.WebServices
 
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
-        public ReferenceCodeRetrieveResponse RetrieveReferenceCodes(ReferenceCodeRetrieveRequest request)
+        public ReferenceCodeRetrieveResponse RetrieveReferenceCode(ReferenceCodeRetrieveRequest request)
         {
             ReferenceCodeRetrieveResponse response = new ReferenceCodeRetrieveResponse();
             response.Status = ResponseStatus.Fail;
             try
             {
                 if (IsAuthenticated())//Authentication checking
-                {
-                    response.Status = ResponseStatus.Success;                    
+                {                    
                     response.ReferenceCodes = RefCodeItemBL.Instance.GetRefCodeItemsForAgency(request.ReferenceCodeName);
-                    if (response.ReferenceCodes.Count == 0)
-                    {
-                        response.Status = ResponseStatus.Fail;
-                        response.Messages.AddExceptionMessage("ERR0", "ERR0--There is no marched data found. Please contact administrator for more information");
-                    }
+                    //if (response.ReferenceCodes.Count == 0)
+                    //{
+                    //    response.Status = ResponseStatus.Fail;
+                    //    response.Messages.AddExceptionMessage("ERR0", "ERR0--There is no marched data found. Please contact administrator for more information");
+                    //}
+                    response.Status = ResponseStatus.Success;                    
                 }
             }
             #region Exception Handling
@@ -265,6 +265,56 @@ namespace HPF.FutureState.WebServices
             }
             catch (DataAccessException Ex)
             {                
+                response.Messages.AddExceptionMessage("Data access error.");
+                HandleException(Ex);
+            }
+            catch (Exception Ex)
+            {
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            #endregion
+            return response;
+        }
+
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public SummaryRetrieveResponse RetrieveSummary(SummaryRetrieveRequest request)
+        {
+            SummaryRetrieveResponse response = new SummaryRetrieveResponse();
+            response.Status = ResponseStatus.Fail;
+            try
+            {
+                if (IsAuthenticated())//Authentication checking                
+                {
+                    ExceptionMessageCollection exCol = ValidateRetrieveSummary(request);
+                    if (exCol.Count > 0)
+                    {
+                        response.Messages = exCol;
+                        return response;
+                    }
+                    string reportFormat = request.ReportOutput.ToUpper();
+                    if (reportFormat == null || reportFormat == string.Empty || reportFormat == "NONE")
+                        response.ForeclosureCaseSet = ForeclosureCaseSetBL.Instance.GetForeclosureCaseDetail(request.ForeclosureId.Value);
+                    else
+                        response.ReportSummary = SummaryReportBL.Instance.GenerateSummaryReport(request.ForeclosureId);
+                    response.Status = ResponseStatus.Success;
+                }
+            }
+            #region Exception Handling
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Messages = Ex.ExceptionMessages;
+                HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
                 response.Messages.AddExceptionMessage("Data access error.");
                 HandleException(Ex);
             }
@@ -362,6 +412,22 @@ namespace HPF.FutureState.WebServices
                 string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
                 response.Messages.AddExceptionMessage(ErrorMessages.WARN0903, buffer);
             }
+        }
+
+        private ExceptionMessageCollection ValidateRetrieveSummary(SummaryRetrieveRequest request)
+        {
+            string reportFormat = request.ReportOutput;
+            if(reportFormat != null)
+                reportFormat = reportFormat.Trim().ToUpper();
+
+            ExceptionMessageCollection ex = new ExceptionMessageCollection();
+            if (request.ForeclosureId == null)
+                ex.AddExceptionMessage("A FCId is required to retrieve a summary.");
+
+            if (reportFormat != null && reportFormat!= string.Empty && reportFormat != "PDF")
+                ex.AddExceptionMessage("The report format is specifed not supported.");
+
+            return ex;
         }
         #endregion
     }

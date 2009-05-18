@@ -90,6 +90,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataTransferObjects\WebServices\ServicerListRetrieveResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\SummaryRetrieveRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\SummaryRetrieveResponse.cs" />
     <Compile Include="HPFConfigurationSettings.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="DataTransferObjects\AccountingDTO.cs" />

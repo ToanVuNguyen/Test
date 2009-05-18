@@ -2343,5 +2343,26 @@ namespace HPF.FutureState.BusinessLogic
         #endregion
 
         #endregion             
+        
+        public ForeclosureCaseSetDTO GetForeclosureCaseDetail(int fcId)
+        {            
+            ForeclosureCaseSetDTO fcs = new ForeclosureCaseSetDTO();
+            ExceptionMessageCollection ex = new ExceptionMessageCollection();
+            
+            fcs.ForeclosureCase = GetForeclosureCase(fcId);
+
+            if (fcs.ForeclosureCase == null)                            
+                ex.AddExceptionMessage("Invalid FCId is provided. Please supplied correct FCId");                            
+            if (ex.Count > 0)
+                ThrowDataValidationException(ex);
+            //fcs.ActivityLog = ActivityLogBL.Instance.GetActivityLog(fcId);
+            fcs.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fcId);
+            fcs.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fcId);
+            fcs.BudgetSet = BudgetBL.Instance.GetBudgetSet(fcId);
+            fcs.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
+            fcs.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
+
+            return fcs;
+        }
     }
 }

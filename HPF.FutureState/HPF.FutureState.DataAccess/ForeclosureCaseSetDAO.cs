@@ -139,6 +139,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
                         returnObject.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
                         returnObject.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        returnObject.ChgLstUserId = returnObject.ChangeLastUserId;
                         returnObject.CoBorrowerDisabledInd = ConvertToString(reader["co_borrower_disabled_ind"]);
                         returnObject.CoBorrowerDob = ConvertToDateTime(reader["co_borrower_DOB"]);
                         returnObject.CoBorrowerFname = ConvertToString(reader["co_borrower_fname"]);

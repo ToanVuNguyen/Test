@@ -34,7 +34,7 @@ namespace HPF.FutureState.BusinessLogic
             string reportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_INVOICE_EXPORT_INVOICE_SUMMARY_REPORT);
             var reportExport = new ReportingExporter { ReportPath = reportPath };
             reportExport.SetReportParameter("pi_invoice_id", invoiceId.ToString());
-            var pdfReport = reportExport.ExportToPdf();
+            var pdfReport = reportExport.ExportTo(ReportFormat.PDF);
             return pdfReport;
         }
 
@@ -88,7 +88,7 @@ namespace HPF.FutureState.BusinessLogic
             //if export formatCd = Fis and current report is fis-header ,one more parameter
             if (fundingSourceExportFormatCd == Constant.REF_CODE_SET_BILLING_EXPORT_FIS_CODE && getFISDetail == false)
                 reportExport.SetReportParameter("pi_user_id", userLoginName);
-            var excelReport = reportExport.ExportToExcel();
+            var excelReport = reportExport.ExportTo(ReportFormat.EXCEL);
             return excelReport;
         }
         private byte[] AgencyPayableReportPdf(int? agency_payable_id)
@@ -98,7 +98,7 @@ namespace HPF.FutureState.BusinessLogic
                 ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_SUMMARY_PDF_REPORT)
             };
             reportExport.SetReportParameter("pi_agency_payable_id", agency_payable_id.ToString());
-            var pdfReport = reportExport.ExportToPdf();
+            var pdfReport = reportExport.ExportTo(ReportFormat.PDF);
             return pdfReport;
         }
         private byte[] AgencyPayableReportXls(int? agency_payable_id)
@@ -108,7 +108,7 @@ namespace HPF.FutureState.BusinessLogic
                 ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_AGENCY_PAYABLE_EXPORT_XLS_REPORT)
             };
             reportExport.SetReportParameter("pi_agency_payable_id", agency_payable_id.ToString());
-            var xlsReport = reportExport.ExportToExcel();
+            var xlsReport = reportExport.ExportTo(ReportFormat.EXCEL);
             return xlsReport;
         }
 

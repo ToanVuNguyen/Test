@@ -67,7 +67,8 @@ namespace HPF.FutureState.DataAccess
                         }
                         reader.Close();
                     }
-                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_SERVICER, results);
+                    if (!servicerId.HasValue)
+                        HPFCacheManager.Instance.Add(Constant.HPF_CACHE_SERVICER, results);
                 }
                 catch (Exception ex)
                 {

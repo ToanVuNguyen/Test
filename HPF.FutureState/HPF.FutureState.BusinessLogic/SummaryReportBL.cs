@@ -8,7 +8,7 @@ using HPF.FutureState.DataAccess;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace HPF.FutureState.BusinessLogic
-{
+{    
     public class SummaryReportBL : BaseBusinessLogic
     {
         private static readonly SummaryReportBL instance = new SummaryReportBL();
@@ -31,14 +31,24 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="fc_id"></param>
         /// <returns>PDF file buffer</returns>
         public byte[] GenerateSummaryReport(int? fc_id)
-        {            
+        {
+            return GenerateSummaryReport(fc_id, ReportFormat.PDF);         
+        }
+
+        /// <summary>
+        /// Generate summary report as pdf format
+        /// </summary>
+        /// <param name="fc_id"></param>
+        /// <returns>PDF file buffer</returns>
+        public byte[] GenerateSummaryReport(int? fc_id, ReportFormat format)
+        {
             var reportExport = new ReportingExporter
-                                   {
-                                       ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT)
-                                   };
+            {
+                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT)
+            };
             reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
-            var pdfReport = reportExport.ExportToPdf();
-            return pdfReport;            
+            var report = reportExport.ExportTo(format);
+            return report;
         }               
 
         public void UpdateSummarySentDateTime(int? fcId)
@@ -59,7 +69,7 @@ namespace HPF.FutureState.BusinessLogic
         public void SendCompletedCaseSummary(int? fc_id)
         {            
             //<Prepare data>
-            var foreclosureCase = GetForeclosureCase(fc_id);
+            var foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_id);
             var caseLoan = GetCaseLoans1St(fc_id);
             var primaryServicer = ServicerBL.Instance.GetServicer(caseLoan.ServicerId.Value);
             //var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
@@ -166,12 +176,6 @@ namespace HPF.FutureState.BusinessLogic
         {
             var caseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
             return caseLoans.SingleOrDefault(i => i.Loan1st2nd.ToUpper() == Constant.LOAN_1ST);
-        }
-
-        private static ForeclosureCaseDTO GetForeclosureCase(int? fc_id)
-        {
-            return ForeclosureCaseBL.Instance.GetForeclosureCase(fc_id);
-        }
-
+        }        
     }
 }

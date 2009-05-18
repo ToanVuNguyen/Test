@@ -36,36 +36,7 @@ namespace HPF.FutureState.BusinessLogic
 
         public RefCodeItemDTOCollection GetRefCodeItemsForAgency(string refCodeName)
         {
-            RefCodeItemDTOCollection refCodes = RefCodeItemDAO.Instance.GetRefCodeItems();
-
-            if (refCodeName == null || refCodeName == string.Empty)
-                return GetRefCodeItemsForAgency(refCodes);
-
-            return GetRefCodeItemsForAgency(refCodes, refCodeName);                
-        }
-
-        private RefCodeItemDTOCollection GetRefCodeItemsForAgency(RefCodeItemDTOCollection refCodes)
-        {
-            RefCodeItemDTOCollection output = new RefCodeItemDTOCollection();
-            foreach (RefCodeItemDTO refCode in refCodes)
-            {
-                if (refCode.AgencyUsageInd == "Y")
-                    output.Add(refCode);
-            }
-            return output;
-        }
-
-        private RefCodeItemDTOCollection GetRefCodeItemsForAgency(RefCodeItemDTOCollection refCodes, string codeName)
-        {
-            string codeNameUpper = codeName.ToUpper();
-            RefCodeItemDTOCollection output = new RefCodeItemDTOCollection();
-            foreach (RefCodeItemDTO refCode in refCodes)
-            {
-                if (refCode.AgencyUsageInd == "Y" && refCode.Code.ToUpper().CompareTo(codeNameUpper) == 0)
-                    output.Add(refCode);
-            }
-
-            return output;
-        }
+            return RefCodeItemDAO.Instance.GetRefCodeItemsFromDatabase("Y", refCodeName);            
+        }        
     }
 }

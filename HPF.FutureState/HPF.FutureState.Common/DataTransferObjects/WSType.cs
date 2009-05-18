@@ -12,4 +12,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         CallCenter = 1,
         Any = 2
     }
+
+    public enum ReportFormat 
+    { 
+        NONE = 0, 
+        PDF = 1, 
+        EXCEL = 2, 
+        CVS = 3 
+    };
 }

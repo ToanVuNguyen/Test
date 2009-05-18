@@ -189,9 +189,11 @@ namespace HPF.FutureState.BusinessLogic
 
         private ExceptionMessageCollection CheckDependingServicer(CallLogDTO aCallLog)
         {
-            ServicerDTO servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerId.Value);
             ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+            ServicerDTO servicer = null;
 
+            if (aCallLog.ServicerId.HasValue)
+                servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerId.Value);
 
             if (servicer != null)
             {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
+using System.Collections;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
@@ -36,20 +38,30 @@ namespace HPF.FutureState.DataAccess
             var results = HPFCacheManager.Instance.GetData<RefCodeItemDTOCollection>(Constant.HPF_CACHE_REF_CODE_ITEM);
             if (results == null)//not in cached
             {
-                results = GetRefCodeItemsFromDatabase();
+                results = GetRefCodeItemsFromDatabase(null, null);
                 HPFCacheManager.Instance.Add(Constant.HPF_CACHE_REF_CODE_ITEM, results);
             }
             return results;
         }
 
-        private RefCodeItemDTOCollection GetRefCodeItemsFromDatabase()
+        public RefCodeItemDTOCollection GetRefCodeItemsFromDatabase(string agencyUsageInd, string codeName)
         {
             RefCodeItemDTOCollection refCodeItems = null;
             var dbConnection = CreateConnection();
             var command = CreateCommand("hpf_ref_code_item_get", dbConnection);            
             command.CommandType = CommandType.StoredProcedure;
+            ArrayList sqlParams = new ArrayList();            
+
             try
             {
+                if (agencyUsageInd != null && agencyUsageInd != string.Empty)
+                    sqlParams.Add(new SqlParameter("@pi_agency_usage_ind", agencyUsageInd));
+                if (codeName != null && codeName != string.Empty)
+                    sqlParams.Add(new SqlParameter("@pi_code_name", codeName));
+
+                if (sqlParams.Count > 0)
+                    command.Parameters.AddRange((SqlParameter[])sqlParams.ToArray(typeof(SqlParameter)));
+
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
@@ -65,7 +77,7 @@ namespace HPF.FutureState.DataAccess
                         item.CodeComment = ConvertToString(reader["code_comment"]);     
                         item.SortOrder = ConvertToInt(reader["sort_order"]);
                         item.ActiveInd = ConvertToString(reader["active_ind"]);
-                        item.AgencyUsageInd = ConvertToString(reader["agency_usage_ind"]);
+                        //item.AgencyUsageInd = ConvertToString(reader["agency_usage_ind"]);
                         refCodeItems.Add(item);
                     }
                     reader.Close();

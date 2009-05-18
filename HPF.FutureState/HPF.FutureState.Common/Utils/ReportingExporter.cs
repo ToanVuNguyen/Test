@@ -5,6 +5,8 @@ using System.Text;
 using System.Net;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
+using HPF.FutureState.Common.DataTransferObjects;
+
 namespace HPF.FutureState.Common.Utils
 {
     /// <summary>
@@ -29,6 +31,14 @@ namespace HPF.FutureState.Common.Utils
             _Parameter = new Dictionary<string, string>();
             _ReportServer = HPFConfigurationSettings.REPORTSERVER_URL;
         }
+
+        public byte[] ExportTo(ReportFormat format)
+        {
+            Validate();
+            return Export(format.ToString());
+        } 
+
+        /*
         /// <summary>
         /// Export report to Pdf format.
         /// </summary>
@@ -61,6 +71,7 @@ namespace HPF.FutureState.Common.Utils
             var format = "CSV";
             return Export(format);
         }
+        */
 
         private void Validate()
         {

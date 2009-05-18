@@ -20,7 +20,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? SortOrder { get; set; }
         [XmlIgnore]
         public string ActiveInd { get; set; }
-        [XmlIgnore]
-        public string AgencyUsageInd { get; set; }
+        //[XmlIgnore]
+        //public string AgencyUsageInd { get; set; }
     }
 }
