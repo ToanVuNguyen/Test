@@ -65,8 +65,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="HPFWebServiceProxies\AgencyServiceProxy.cs" />
-    <Compile Include="HPFWebServiceProxies\CallCenterServiceProxy.cs">
-    </Compile>
+    <Compile Include="HPFWebServiceProxies\CallCenterServiceProxy.cs" />
     <Compile Include="ICTSearchForeclosureCase.aspx.cs">
       <DependentUpon>ICTSearchForeclosureCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -134,12 +133,12 @@
     <Compile Include="RetrieveServicerList.aspx.designer.cs">
       <DependentUpon>RetrieveServicerList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="RetrieveForeclosureCaseDetail.aspx.cs">
-      <DependentUpon>RetrieveForeclosureCaseDetail.aspx</DependentUpon>
+    <Compile Include="RetrieveSummary.aspx.cs">
+      <DependentUpon>RetrieveSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RetrieveForeclosureCaseDetail.aspx.designer.cs">
-      <DependentUpon>RetrieveForeclosureCaseDetail.aspx</DependentUpon>
+    <Compile Include="RetrieveSummary.aspx.designer.cs">
+      <DependentUpon>RetrieveSummary.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +169,7 @@
     <Content Include="Styles\Images\topnavbg.jpg" />
     <Content Include="RetieveRefCodes.aspx" />
     <Content Include="RetrieveServicerList.aspx" />
-    <Content Include="RetrieveForeclosureCaseDetail.aspx" />
+    <Content Include="RetrieveSummary.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.Web.HPFWebControls\HPF.FutureState.Web.HPFWebControls.csproj">

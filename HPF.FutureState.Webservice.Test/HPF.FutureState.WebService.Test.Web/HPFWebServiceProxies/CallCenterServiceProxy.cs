@@ -22,7 +22,6 @@ using System.Configuration;
 
 namespace HPF.Webservice.CallCenter
 {
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -31,7 +30,6 @@ namespace HPF.Webservice.CallCenter
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BaseDTO))]
-
     public partial class CallCenterService : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
@@ -1637,4 +1635,5 @@ namespace HPF.Webservice.CallCenter
             }
         }
     }
+
 }

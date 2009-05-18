@@ -11,11 +11,11 @@
   </Menu>
   <Menu Id="FcCase" Title="Fc Case" Url="" Enabled="true">
     <MenuItem Id="saveCase" Title="Save FcCase" Url="SaveForeclosureCase.aspx" Enabled="True"/>
-    <MenuItem Id="getFcCase" Title="Get FcCase Detail" Url="RetrieveForeclosureCaseDetail.aspx" Enabled="True"/>
+    <MenuItem Id="getFcCase" Title="Retriece Summary" Url="RetrieveSummary.aspx" Enabled="True"/>
+    <MenuItem Id="SendSummary" Title="Send Summary" Url="SendSummary.aspx" Enabled="True"/>
   </Menu>
   <Menu Id="inFor" Title="System" Url="" Enabled="true">
     <MenuItem Id="retrieceRefCodes" Title="Retrieve Ref Codes" Url="RetieveRefCodes.aspx" Enabled="True"/>
     <MenuItem Id="retrieveServicerList" Title="Retrieve Servicer List" Url="RetrieveServicerList.aspx" Enabled="True"/>
-  </Menu>
-  <Menu Id="SendSummary" Title="Send Summary" Url="SendSummary.aspx" Enabled="True"/>
+  </Menu>  
 </MenuBar>

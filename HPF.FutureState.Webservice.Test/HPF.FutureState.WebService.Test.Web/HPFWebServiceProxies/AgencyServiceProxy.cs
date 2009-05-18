@@ -44,6 +44,8 @@ namespace HPF.Webservice.Agency
 
         private System.Threading.SendOrPostCallback RetrieveReferenceCodeOperationCompleted;
 
+        private System.Threading.SendOrPostCallback RetrieveSummaryOperationCompleted;
+
         private System.Threading.SendOrPostCallback SearchForeclosureCaseOperationCompleted;
 
         /// <remarks/>
@@ -78,6 +80,9 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         public event RetrieveReferenceCodeCompletedEventHandler RetrieveReferenceCodeCompleted;
+
+        /// <remarks/>
+        public event RetrieveSummaryCompletedEventHandler RetrieveSummaryCompleted;
 
         /// <remarks/>
         public event SearchForeclosureCaseCompletedEventHandler SearchForeclosureCaseCompleted;
@@ -281,10 +286,10 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/RetrieveReferenceCodes", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public ReferenceCodeRetrieveResponse RetrieveReferenceCodes(ReferenceCodeRetrieveRequest request)
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/RetrieveReferenceCode", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ReferenceCodeRetrieveResponse RetrieveReferenceCode(ReferenceCodeRetrieveRequest request)
         {
-            object[] results = this.Invoke("RetrieveReferenceCodes", new object[] {
+            object[] results = this.Invoke("RetrieveReferenceCode", new object[] {
                     request});
             return ((ReferenceCodeRetrieveResponse)(results[0]));
         }
@@ -292,7 +297,7 @@ namespace HPF.Webservice.Agency
         /// <remarks/>
         public System.IAsyncResult BeginRetrieveReferenceCode(ReferenceCodeRetrieveRequest request, System.AsyncCallback callback, object asyncState)
         {
-            return this.BeginInvoke("RetrieveReferenceCodes", new object[] {
+            return this.BeginInvoke("RetrieveReferenceCode", new object[] {
                     request}, callback, asyncState);
         }
 
@@ -316,7 +321,7 @@ namespace HPF.Webservice.Agency
             {
                 this.RetrieveReferenceCodeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRetrieveReferenceCodeOperationCompleted);
             }
-            this.InvokeAsync("RetrieveReferenceCodes", new object[] {
+            this.InvokeAsync("RetrieveReferenceCode", new object[] {
                     request}, this.RetrieveReferenceCodeOperationCompleted, userState);
         }
 
@@ -326,6 +331,56 @@ namespace HPF.Webservice.Agency
             {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.RetrieveReferenceCodeCompleted(this, new RetrieveReferenceCodeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/RetrieveSummary", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public SummaryRetrieveResponse RetrieveSummary(SummaryRetrieveRequest request)
+        {
+            object[] results = this.Invoke("RetrieveSummary", new object[] {
+                    request});
+            return ((SummaryRetrieveResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public System.IAsyncResult BeginRetrieveSummary(SummaryRetrieveRequest request, System.AsyncCallback callback, object asyncState)
+        {
+            return this.BeginInvoke("RetrieveSummary", new object[] {
+                    request}, callback, asyncState);
+        }
+
+        /// <remarks/>
+        public SummaryRetrieveResponse EndRetrieveSummary(System.IAsyncResult asyncResult)
+        {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((SummaryRetrieveResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public void RetrieveSummaryAsync(SummaryRetrieveRequest request)
+        {
+            this.RetrieveSummaryAsync(request, null);
+        }
+
+        /// <remarks/>
+        public void RetrieveSummaryAsync(SummaryRetrieveRequest request, object userState)
+        {
+            if ((this.RetrieveSummaryOperationCompleted == null))
+            {
+                this.RetrieveSummaryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRetrieveSummaryOperationCompleted);
+            }
+            this.InvokeAsync("RetrieveSummary", new object[] {
+                    request}, this.RetrieveSummaryOperationCompleted, userState);
+        }
+
+        private void OnRetrieveSummaryOperationCompleted(object arg)
+        {
+            if ((this.RetrieveSummaryCompleted != null))
+            {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RetrieveSummaryCompleted(this, new RetrieveSummaryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
 
@@ -885,6 +940,7 @@ namespace HPF.Webservice.Agency
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchResponse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SummaryRetrieveResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ReferenceCodeRetrieveResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ServicerListRetrieveResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SendSummaryResponse))]
@@ -1417,7 +1473,8 @@ namespace HPF.Webservice.Agency
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
     public partial class RefCodeItemDTO : BaseDTO
-    {        
+    {
+
         private string codeField;
 
         private string codeDescField;
@@ -1425,19 +1482,6 @@ namespace HPF.Webservice.Agency
         private string refCodeSetNameField;
 
         private string codeCommentField;
-
-        /// <remarks/>
-        public string RefCodeSetName
-        {
-            get
-            {
-                return this.refCodeSetNameField;
-            }
-            set
-            {
-                this.refCodeSetNameField = value;
-            }
-        }
 
         /// <remarks/>
         public string Code
@@ -1463,8 +1507,21 @@ namespace HPF.Webservice.Agency
             {
                 this.codeDescField = value;
             }
-        }        
-        
+        }
+
+        /// <remarks/>
+        public string RefCodeSetName
+        {
+            get
+            {
+                return this.refCodeSetNameField;
+            }
+            set
+            {
+                this.refCodeSetNameField = value;
+            }
+        }
+
         /// <remarks/>
         public string CodeComment
         {
@@ -3475,6 +3532,132 @@ namespace HPF.Webservice.Agency
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class SummaryRetrieveResponse : BaseResponse
+    {
+
+        private ForeclosureCaseSetDTO foreclosureCaseSetField;
+
+        private byte[] reportSummaryField;
+
+        /// <remarks/>
+        public ForeclosureCaseSetDTO ForeclosureCaseSet
+        {
+            get
+            {
+                return this.foreclosureCaseSetField;
+            }
+            set
+            {
+                this.foreclosureCaseSetField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType = "base64Binary")]
+        public byte[] ReportSummary
+        {
+            get
+            {
+                return this.reportSummaryField;
+            }
+            set
+            {
+                this.reportSummaryField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class ForeclosureCaseSetDTO
+    {
+
+        private ForeclosureCaseDTO foreclosureCaseField;
+
+        private CaseLoanDTO[] caseLoansField;
+
+        private BudgetItemDTO[] budgetItemsField;
+
+        private BudgetAssetDTO[] budgetAssetsField;
+
+        private OutcomeItemDTO[] outcomeField;
+
+        /// <remarks/>
+        public ForeclosureCaseDTO ForeclosureCase
+        {
+            get
+            {
+                return this.foreclosureCaseField;
+            }
+            set
+            {
+                this.foreclosureCaseField = value;
+            }
+        }
+
+        /// <remarks/>
+        public CaseLoanDTO[] CaseLoans
+        {
+            get
+            {
+                return this.caseLoansField;
+            }
+            set
+            {
+                this.caseLoansField = value;
+            }
+        }
+
+        /// <remarks/>
+        public BudgetItemDTO[] BudgetItems
+        {
+            get
+            {
+                return this.budgetItemsField;
+            }
+            set
+            {
+                this.budgetItemsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public BudgetAssetDTO[] BudgetAssets
+        {
+            get
+            {
+                return this.budgetAssetsField;
+            }
+            set
+            {
+                this.budgetAssetsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public OutcomeItemDTO[] Outcome
+        {
+            get
+            {
+                return this.outcomeField;
+            }
+            set
+            {
+                this.outcomeField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
     public partial class ReferenceCodeRetrieveResponse : BaseResponse
     {
 
@@ -3681,92 +3864,8 @@ namespace HPF.Webservice.Agency
     }
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
-    public partial class ForeclosureCaseSetDTO
-    {
-
-        private ForeclosureCaseDTO foreclosureCaseField;
-
-        private CaseLoanDTO[] caseLoansField;
-
-        private BudgetItemDTO[] budgetItemsField;
-
-        private BudgetAssetDTO[] budgetAssetsField;
-
-        private OutcomeItemDTO[] outcomeField;
-
-        /// <remarks/>
-        public ForeclosureCaseDTO ForeclosureCase
-        {
-            get
-            {
-                return this.foreclosureCaseField;
-            }
-            set
-            {
-                this.foreclosureCaseField = value;
-            }
-        }
-
-        /// <remarks/>
-        public CaseLoanDTO[] CaseLoans
-        {
-            get
-            {
-                return this.caseLoansField;
-            }
-            set
-            {
-                this.caseLoansField = value;
-            }
-        }
-
-        /// <remarks/>
-        public BudgetItemDTO[] BudgetItems
-        {
-            get
-            {
-                return this.budgetItemsField;
-            }
-            set
-            {
-                this.budgetItemsField = value;
-            }
-        }
-
-        /// <remarks/>
-        public BudgetAssetDTO[] BudgetAssets
-        {
-            get
-            {
-                return this.budgetAssetsField;
-            }
-            set
-            {
-                this.budgetAssetsField = value;
-            }
-        }
-
-        /// <remarks/>
-        public OutcomeItemDTO[] Outcome
-        {
-            get
-            {
-                return this.outcomeField;
-            }
-            set
-            {
-                this.outcomeField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SummaryRetrieveRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ReferenceCodeRetrieveRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SendSummaryRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSaveRequest))]
@@ -3800,6 +3899,47 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.searchCriteriaField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class SummaryRetrieveRequest : BaseRequest
+    {
+
+        private System.Nullable<int> foreclosureIdField;
+
+        private string reportOutputField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ForeclosureId
+        {
+            get
+            {
+                return this.foreclosureIdField;
+            }
+            set
+            {
+                this.foreclosureIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ReportOutput
+        {
+            get
+            {
+                return this.reportOutputField;
+            }
+            set
+            {
+                this.reportOutputField = value;
             }
         }
     }
@@ -4092,6 +4232,36 @@ namespace HPF.Webservice.Agency
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    public delegate void RetrieveSummaryCompletedEventHandler(object sender, RetrieveSummaryCompletedEventArgs e);
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RetrieveSummaryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
+        private object[] results;
+
+        internal RetrieveSummaryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+
+        /// <remarks/>
+        public SummaryRetrieveResponse Result
+        {
+            get
+            {
+                this.RaiseExceptionIfNecessary();
+                return ((SummaryRetrieveResponse)(this.results[0]));
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     public delegate void SearchForeclosureCaseCompletedEventHandler(object sender, SearchForeclosureCaseCompletedEventArgs e);
 
     /// <remarks/>
@@ -4119,4 +4289,5 @@ namespace HPF.Webservice.Agency
             }
         }
     }
+
 }
