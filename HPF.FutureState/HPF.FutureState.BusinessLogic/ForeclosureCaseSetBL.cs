@@ -1871,7 +1871,8 @@ namespace HPF.FutureState.BusinessLogic
                 {   
                     for (int j = i + 1; j < caseLoanCollection.Count; j++)
                     {
-                        if (caseLoanCollection[i].AcctNum == null || caseLoanCollection[j].AcctNum == null)
+                        if (caseLoanCollection[i].AcctNum == null || caseLoanCollection[j].AcctNum == null
+                            || caseLoanCollection[i].AcctNum == string.Empty || caseLoanCollection[j].AcctNum == string.Empty)
                             continue;
                         if (caseLoanCollection[i].AcctNum.ToUpper().CompareTo(caseLoanCollection[j].AcctNum.ToUpper()) == 0)
                         {
