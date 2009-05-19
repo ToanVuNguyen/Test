@@ -25,52 +25,65 @@ namespace HPF.FutureState.WebService.Test.Web
 
         protected void btnRetrieveSummary_Click(object sender, EventArgs e)
         {
-            AgencyWebService proxy = new AgencyWebService();
-            HPF.Webservice.Agency.AuthenticationInfo ai = new HPF.Webservice.Agency.AuthenticationInfo();
-            ai.UserName = txtUsername.Text.Trim();
-            ai.Password = txtPassword.Text.Trim();
-            proxy.AuthenticationInfoValue = ai;
-            
-            grdvMessages.Visible = false;
-            int fcid = 0;
-            SummaryRetrieveRequest request = new SummaryRetrieveRequest();
-            if (Int32.TryParse(txtFcID.Text.Trim(), out fcid))
-                request.ForeclosureId = fcid;
-
-            lblMessage.Text = "Messsage: Success";
-            request.ReportOutput = txtReportFormat.Text.Trim();
-            SummaryRetrieveResponse response = proxy.RetrieveSummary(request);
-            Panel1.Visible = false;
-            if (response.Status != ResponseStatus.Success)
-            {                                
-                grdvMessages.Visible = true;
-                grdvMessages.DataSource = response.Messages;
-                grdvMessages.DataBind();
-            }
-            else if (request.ReportOutput.ToUpper() != "PDF")
+            try
             {
-                Panel1.Visible = true;
-                ForeclosureCaseToForm(response.ForeclosureCaseSet.ForeclosureCase);
+                int fcid = 0;
+                AgencyWebService proxy = new AgencyWebService();
+                SummaryRetrieveRequest request = new SummaryRetrieveRequest();
+                HPF.Webservice.Agency.AuthenticationInfo ai = new HPF.Webservice.Agency.AuthenticationInfo();
+                ai.UserName = txtUsername.Text.Trim();
+                ai.Password = txtPassword.Text.Trim();
+                proxy.AuthenticationInfoValue = ai;                                                               
 
-                grdvBudgetAsset.DataSource = response.ForeclosureCaseSet.BudgetAssets;
-                grdvBudgetAsset.DataBind();
-                grdvBudgetItem.DataSource = response.ForeclosureCaseSet.BudgetItems;
-                grdvBudgetItem.DataBind();
-                grdvCaseLoan.DataSource = response.ForeclosureCaseSet.CaseLoans;
-                grdvCaseLoan.DataBind();
-                grdvOutcomeItem.DataSource = response.ForeclosureCaseSet.Outcome;
-                grdvOutcomeItem.DataBind();
+                grdvMessages.Visible = false;
+                Panel1.Visible = false;
+                lblMessage.Text = "Messsage: Success";
+
+                if (Int32.TryParse(txtFcID.Text.Trim(), out fcid))
+                    request.ForeclosureId = fcid;
+                request.ReportOutput = txtReportFormat.Text.Trim();
+
+                SummaryRetrieveResponse response = proxy.RetrieveSummary(request);                
+
+                if (response.Status != ResponseStatus.Success)
+                {
+                    grdvMessages.Visible = true;
+                    grdvMessages.DataSource = response.Messages;
+                    grdvMessages.DataBind();
+                }
+                else if (request.ReportOutput.ToUpper() != "PDF")
+                {
+                    #region Update UI
+                    Panel1.Visible = true;
+                    ForeclosureCaseToForm(response.ForeclosureCaseSet.ForeclosureCase);
+
+                    grdvBudgetAsset.DataSource = response.ForeclosureCaseSet.BudgetAssets;
+                    grdvBudgetAsset.DataBind();
+                    grdvBudgetItem.DataSource = response.ForeclosureCaseSet.BudgetItems;
+                    grdvBudgetItem.DataBind();
+                    grdvCaseLoan.DataSource = response.ForeclosureCaseSet.CaseLoans;
+                    grdvCaseLoan.DataBind();
+                    grdvOutcomeItem.DataSource = response.ForeclosureCaseSet.Outcome;
+                    grdvOutcomeItem.DataBind();
+                    #endregion
+                }
+                else if (response.ReportSummary.Length > 0)
+                {
+                    #region Write PDF to file
+                    //demo to write report to file
+                    string ext = "PDF";
+                    FileStream fs = File.Create(txtReportFolder.Text + "\\Report_" + txtReportFormat.Text + "_" + txtFcID.Text + "." + ext);
+                    BinaryWriter bw = new BinaryWriter(fs);
+                    bw.Write(response.ReportSummary);
+                    lblMessage.Text = "Messsage: Please check the output!";
+                    bw.Close();
+                    fs.Close();
+                    #endregion
+                }
             }
-            else if(response.ReportSummary.Length > 0)
+            catch (Exception ex)
             {
-                //demo to write report to file
-                string ext = "PDF";                
-                FileStream fs = File.Create(txtReportFolder.Text + "\\Report_" + txtReportFormat.Text + "_" + txtFcID.Text + "." + ext);
-                BinaryWriter bw = new BinaryWriter(fs);
-                bw.Write(response.ReportSummary);
-                lblMessage.Text = "Messsage: Please check the output!";
-                bw.Close();
-                fs.Close();
+                lblMessage.Text = "Messsage:" + ex.Message;
             }
         }
 
