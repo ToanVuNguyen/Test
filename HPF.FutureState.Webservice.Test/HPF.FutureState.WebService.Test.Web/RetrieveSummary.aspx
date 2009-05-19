@@ -38,21 +38,14 @@
         <table style="border-bottom-style: solid; border-bottom-width: medium; border-bottom-color: #49A3FF" width="100%">
             <tr>
                 <td align="left">
-                    <table style="width: 878px">
+                    <table>
                         <tr>
                             <td align="center" class="sidelinks" style="width: 131px">
                                 <asp:Label CssClass = "sidelinks" ID="Label1" runat="server" Text="FCID"></asp:Label>
                                 &nbsp;</td>
                             <td style="width: 141px">
                                 <asp:TextBox CssClass = "Text" ID="txtFcID" runat="server"></asp:TextBox>
-                            &nbsp;*</td>
-                            <td style="width: 44px">
-                                &nbsp;</td>
-                            <td style="width: 132px" class="sidelinks">
-                                Report Ouput Folder</td>
-                            <td style="width: 282px">
-                                <asp:TextBox ID="txtReportFolder" runat="server" Width="294px">C:\Temp\</asp:TextBox>
-                            </td>
+                                &nbsp;*</td>
                         </tr>
                         <tr>
                             <td align="center" class="sidelinks" style="width: 131px">
@@ -60,24 +53,12 @@
                             <td style="width: 141px">
                                 <asp:TextBox CssClass = "Text" ID="txtReportFormat" runat="server"></asp:TextBox>
                                                                     &nbsp;?</td>
-                            <td style="width: 44px">
-                                &nbsp;</td>
-                            <td style="width: 132px">
-                                &nbsp;</td>
-                            <td style="width: 282px">
-                                &nbsp;</td>
                         </tr>
                         <tr>
                             <td align="center" class="sidelinks" style="width: 131px">
                                 &nbsp;</td>
                             <td style="width: 141px">
                                 [Empty], PDF</td>
-                            <td style="width: 44px">
-                                &nbsp;</td>
-                            <td style="width: 132px">
-                                &nbsp;</td>
-                            <td style="width: 282px">
-                                &nbsp;</td>
                         </tr>
                     </table>
         <asp:Button ID="btnRetrieveSummary" runat="server" Text="Retrieve Summary" 

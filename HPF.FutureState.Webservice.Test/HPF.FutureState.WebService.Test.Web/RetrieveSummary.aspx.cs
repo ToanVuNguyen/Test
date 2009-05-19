@@ -71,13 +71,18 @@ namespace HPF.FutureState.WebService.Test.Web
                 {
                     #region Write PDF to file
                     //demo to write report to file
+                    /*
                     string ext = "PDF";
                     FileStream fs = File.Create(txtReportFolder.Text + "\\Report_" + txtReportFormat.Text + "_" + txtFcID.Text + "." + ext);
                     BinaryWriter bw = new BinaryWriter(fs);
                     bw.Write(response.ReportSummary);
                     lblMessage.Text = "Messsage: Please check the output!";
                     bw.Close();
-                    fs.Close();
+                    fs.Close();*/
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("content-disposition", "attachment; filename=download.pdf");
+                    Response.BinaryWrite(response.ReportSummary);
+                    Response.End();
                     #endregion
                 }
             }
