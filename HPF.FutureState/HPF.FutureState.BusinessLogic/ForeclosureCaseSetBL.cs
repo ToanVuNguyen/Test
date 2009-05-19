@@ -2352,8 +2352,8 @@ namespace HPF.FutureState.BusinessLogic
             
             fcs.ForeclosureCase = GetForeclosureCase(fcId);
 
-            if (fcs.ForeclosureCase == null)                            
-                ex.AddExceptionMessage("Invalid FCId is provided. Please supplied correct FCId");                            
+            if (fcs.ForeclosureCase == null)
+                ex.AddExceptionMessage("The FCId is not a valid foreclosure case ID.");                            
             if (ex.Count > 0)
                 ThrowDataValidationException(ex);
             //fcs.ActivityLog = ActivityLogBL.Instance.GetActivityLog(fcId);
