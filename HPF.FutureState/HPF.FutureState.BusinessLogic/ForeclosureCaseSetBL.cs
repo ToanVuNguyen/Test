@@ -663,6 +663,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 WarningMessage.AddExceptionMessage(ErrorMessages.WARN0266, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0266));
             }
+            else if (item.ServicerId != servicerId)
+                item.OtherServicerName = null;
             if ((CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_ARM)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_HYBARM)
                || CompareString(item.MortgageTypeCd, Constant.MORTGATE_TYPE_CODE_POA)
