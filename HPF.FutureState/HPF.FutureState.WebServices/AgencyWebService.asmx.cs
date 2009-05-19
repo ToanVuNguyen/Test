@@ -294,7 +294,7 @@ namespace HPF.FutureState.WebServices
                         return response;
                     }
                     string reportFormat = request.ReportOutput.ToUpper();
-                    if (reportFormat == null || reportFormat == string.Empty || reportFormat == "NONE")
+                    if (reportFormat == null || reportFormat == string.Empty)
                         response.ForeclosureCaseSet = ForeclosureCaseSetBL.Instance.GetForeclosureCaseDetail(request.ForeclosureId.Value);
                     else
                         response.ReportSummary = SummaryReportBL.Instance.GenerateSummaryReport(request.ForeclosureId);
