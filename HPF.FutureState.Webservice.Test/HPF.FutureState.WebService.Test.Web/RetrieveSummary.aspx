@@ -42,10 +42,10 @@
                         <tr>
                             <td align="center" class="sidelinks" style="width: 131px">
                                 <asp:Label CssClass = "sidelinks" ID="Label1" runat="server" Text="FCID"></asp:Label>
-&nbsp;</td>
+                                &nbsp;</td>
                             <td style="width: 141px">
                                 <asp:TextBox CssClass = "Text" ID="txtFcID" runat="server"></asp:TextBox>
-                            </td>
+                            &nbsp;*</td>
                             <td style="width: 44px">
                                 &nbsp;</td>
                             <td style="width: 132px" class="sidelinks">
@@ -58,8 +58,8 @@
                             <td align="center" class="sidelinks" style="width: 131px">
                                 Report Ouput As</td>
                             <td style="width: 141px">
-                                <asp:TextBox CssClass = "Text" ID="txtReportFormat" runat="server">PDF</asp:TextBox>
-                                                                    </td>
+                                <asp:TextBox CssClass = "Text" ID="txtReportFormat" runat="server"></asp:TextBox>
+                                                                    &nbsp;?</td>
                             <td style="width: 44px">
                                 &nbsp;</td>
                             <td style="width: 132px">
@@ -71,7 +71,7 @@
                             <td align="center" class="sidelinks" style="width: 131px">
                                 &nbsp;</td>
                             <td style="width: 141px">
-                                [Empty], NONE, PDF</td>
+                                [Empty], PDF</td>
                             <td style="width: 44px">
                                 &nbsp;</td>
                             <td style="width: 132px">
