@@ -423,13 +423,14 @@ namespace HPF.FutureState.WebServices
             ExceptionMessageCollection ex = new ExceptionMessageCollection();
             if (request.ForeclosureId == null)
                 ex.AddExceptionMessage("A FCId is required to retrieve a summary.");
-
+            else
+            {
+                ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.ForeclosureId);
+                if (fc == null)
+                    ex.AddExceptionMessage("The FCId is not a valid foreclosure case ID.");                            
+            }
             if (reportFormat != null && reportFormat!= string.Empty && reportFormat != "PDF")
-                ex.AddExceptionMessage("The report format is specifed not supported.");
-
-            ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.ForeclosureId);
-            if (fc == null)
-                ex.AddExceptionMessage("The FCId is not a valid foreclosure case ID.");                            
+                ex.AddExceptionMessage("The report format is specifed not supported.");            
 
             return ex;
         }
