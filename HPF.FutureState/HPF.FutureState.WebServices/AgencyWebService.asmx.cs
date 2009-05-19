@@ -427,6 +427,10 @@ namespace HPF.FutureState.WebServices
             if (reportFormat != null && reportFormat!= string.Empty && reportFormat != "PDF")
                 ex.AddExceptionMessage("The report format is specifed not supported.");
 
+            ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.ForeclosureId);
+            if (fc == null)
+                ex.AddExceptionMessage("The FCId is not a valid foreclosure case ID.");                            
+
             return ex;
         }
         #endregion
