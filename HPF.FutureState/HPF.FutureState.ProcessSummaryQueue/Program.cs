@@ -68,7 +68,7 @@ namespace HPF.FutureState.ProcessSummaryQueue
                 var mail = new HPFSendMail
                 {
                     To = hpfSupportEmail,
-                    Subject = "Proccessing Quece Error. FCid " + entry.FC_ID.Value.ToString(),
+                    Subject = "Proccessing Queue Error. FCid " + entry.FC_ID.Value.ToString(),
                     Body = "Messsage: " + Ex.Message + "\nTrace: " + Ex.StackTrace
                 };
                 mail.Send();
