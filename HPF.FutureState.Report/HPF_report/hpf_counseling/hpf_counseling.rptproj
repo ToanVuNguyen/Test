@@ -38,12 +38,16 @@
       <FullPath>rpt_CompletedCounselingDetail.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_DailyActivityReport.rdl</Name>
+      <FullPath>rpt_DailyActivityReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_DailyAverageCompletionReport.rdl</Name>
       <FullPath>rpt_DailyAverageCompletionReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_DailyActivityReport.rdl</Name>
-      <FullPath>rpt_DailyActivityReport.rdl</FullPath>
+      <Name>rpt_DailyCompletionByServicerReport.rdl</Name>
+      <FullPath>rpt_DailyCompletionByServicerReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_ExternalReferrals.rdl</Name>
