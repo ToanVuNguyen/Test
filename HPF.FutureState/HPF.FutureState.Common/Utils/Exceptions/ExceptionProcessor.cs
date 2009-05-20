@@ -20,6 +20,11 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             return ExceptionPolicy.HandleException(exception, policyName);
         }
 
+        public static bool HandleExceptionPolicyName(Exception exception, string policyName)
+        {
+            return ExceptionPolicy.HandleException(exception, policyName);
+        }
+
         public static bool HandleException(Exception exception, string userName, string agencyId, string callCenterId)
         {
             var hpfException = GetHpfException(exception, userName, agencyId, callCenterId);
@@ -41,6 +46,14 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             return hpfException;
         }
 
+        public static HPFException GetHpfException(Exception exception, string fcId, string fucntionName)
+        {
+            var hpfException = GetHpfException(exception);
+            hpfException.FcId = fcId;
+            hpfException.FunctionName = fucntionName;
+            
+            return hpfException;
+        }
         private static HPFException GetHpfException(Exception exception)
         {
             HPFException hpfException;

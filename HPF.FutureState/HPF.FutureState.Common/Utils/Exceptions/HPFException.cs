@@ -17,6 +17,9 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         internal string UserName { get; set; }
 
+        public string FunctionName { get; set; }
+        public string FcId { get; set; }        
+
         public HPFException()
         {
             Initialize();
@@ -24,10 +27,16 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         private void Initialize()
         {
-            ApplicationName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
-            AgencyId = string.Empty;
-            CallCenterId = string.Empty;
-            UserName = string.Empty;
+            try
+            {
+                ApplicationName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
+                AgencyId = string.Empty;
+                CallCenterId = string.Empty;
+                UserName = string.Empty;
+            }
+            catch
+            { 
+            }
         }
 
         public HPFException(string message)

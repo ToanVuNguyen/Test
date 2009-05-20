@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
+using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.Common.Utils
@@ -92,10 +93,8 @@ namespace HPF.FutureState.Common.Utils
                 return buffer;
             }
             catch(Exception ex)
-            {
-                Logger.Write(ex.Message);                 
-                Logger.Write(reportUrl);
-                throw;
+            {                
+                throw ExceptionProcessor.GetHpfException(ex, "", "ReportingExporter.Export");
             }
         }
 

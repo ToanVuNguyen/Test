@@ -5,6 +5,7 @@ using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.Utils.Exceptions;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
+using HPF.FutureState.Common;
 namespace HPF.FutureState.ProcessSummaryQueue
 {
     class Program
@@ -30,32 +31,23 @@ namespace HPF.FutureState.ProcessSummaryQueue
                 Logger.Write("Test fc_id:" + args[0], "General");
                 var queue = new HPFSummaryQueue();
                 queue.SendACompletedCaseToQueue(Convert.ToInt32(args[0]));
-            }
+                return;
+            }            
             //------------End Test Data
             ProcessSummaryQueue();
         }
 
         private static void ProcessSummaryQueue()
         {
-            var queue = new HPFSummaryQueue();            
-            var entry = GetCompleteCaseEntry(queue);
+            var queue = new HPFSummaryQueue();
+            var entry = queue.ReceiveCompletedCaseFromQueue();
             while (entry != null)
             {                
                 ProcessCompletedCaseEntry(entry);                
                 Thread.Sleep(SLEEPING_TIME);//Make a thread safe
                 entry = queue.ReceiveCompletedCaseFromQueue();                
             }
-        }
-
-        /// <summary>
-        /// Get a completed Case Entry from MSMQ
-        /// </summary>
-        /// <param name="queue"></param>
-        /// <returns></returns>
-        private static HPFSummaryQueueEntry GetCompleteCaseEntry(HPFSummaryQueue queue)
-        {
-            return queue.ReceiveCompletedCaseFromQueue();
-        }
+        }        
 
         /// <summary>
         /// Process a completed Case Entry
@@ -65,13 +57,22 @@ namespace HPF.FutureState.ProcessSummaryQueue
         {
             try
             {
-                SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);    
+                SummaryReportBL.Instance.SendCompletedCaseSummary(entry.FC_ID);
             }
-            catch(Exception Ex)
-            {
-                Logger.Write(Ex.Message);
-                Logger.Write(Ex.StackTrace);
-            }
+            catch (Exception Ex)
+            {                
+                //Log Error down the text file
+                ExceptionProcessor.HandleException(Ex);
+                //Send E-mail to support
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = "Proccessing Quece Error. FCid " + entry.FC_ID.Value.ToString(),
+                    Body = "Messsage: " + Ex.Message + "\nTrace: " + Ex.StackTrace
+                };
+                mail.Send();
+            }     
         }
     }
 }

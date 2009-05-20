@@ -4,6 +4,7 @@ using System.Text;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils;
+using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
@@ -42,19 +43,37 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>PDF file buffer</returns>
         public byte[] GenerateSummaryReport(int? fc_id, ReportFormat format)
         {
-            var reportExport = new ReportingExporter
+            try
+            {                
+                var reportExport = new ReportingExporter
+                {
+                    ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT)
+                };
+                reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
+                var report = reportExport.ExportTo(format);
+
+                return report;
+            }
+            catch (Exception ex)
             {
-                ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COUNSELINGSUMMARY_REPORT)
-            };
-            reportExport.SetReportParameter("pi_fc_id", fc_id.ToString());
-            var report = reportExport.ExportTo(format);
-            return report;
+                string functionTrace = "[Report]SummaryReportBL.GenerateSummaryReport";
+                if (ex is HPFException)
+                    functionTrace += "-->" + (ex as HPFException).FunctionName;
+                throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), functionTrace);
+            }            
         }               
 
         public void UpdateSummarySentDateTime(int? fcId)
         {
-            var foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
-            foreclosureCaseSetDAO.UpdateSendSummaryDate(fcId);
+            try
+            {
+                var foreclosureCaseSetDAO = ForeclosureCaseSetDAO.CreateInstance();
+                foreclosureCaseSetDAO.UpdateSendSummaryDate(fcId);                
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.GetHpfException(ex, fcId.ToString(), "[UpdateDB]foreclosureCaseSetDAO.UpdateSendSummaryDate in SummaryReportBL");
+            }
         }
 
         public DateTime? GetCurrentSummarySentDateTime(int? fcId)
@@ -74,12 +93,7 @@ namespace HPF.FutureState.BusinessLogic
             var primaryServicer = ServicerBL.Instance.GetServicer(caseLoan.ServicerId.Value);
             //var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
             //</Prepare data>           
-
-            //Update Summary sent datetime if any
-            if (primaryServicer.SummaryDeliveryMethod != Constant.SECURE_DELIVERY_METHOD_NOSEND)
-            {
-                UpdateSummarySentDateTime(fc_id);
-            }
+            
             //Send summary
             switch (primaryServicer.SummaryDeliveryMethod)
             {
@@ -89,7 +103,13 @@ namespace HPF.FutureState.BusinessLogic
                 case Constant.SECURE_DELIVERY_METHOD_PORTAL:
                     SendSummaryToHPFPortal(foreclosureCase, primaryServicer, caseLoan);
                     break;
-            }                        
+            }
+
+            //Update Summary sent datetime if any
+            if (primaryServicer.SummaryDeliveryMethod != Constant.SECURE_DELIVERY_METHOD_NOSEND)
+            {
+                UpdateSummarySentDateTime(fc_id);
+            }
         }
 
         /// <summary>
@@ -107,9 +127,8 @@ namespace HPF.FutureState.BusinessLogic
                                                                attachmentFileName);    
             }
             catch(Exception ex)
-            {
-                Logger.Write(ex.Message);
-                Logger.Write(ex.StackTrace);
+            {                
+                throw ExceptionProcessor.GetHpfException(ex, foreclosureCase.FcId.ToString(),"[Email]SummaryReportBL.SendSummaryMailToServicer");
             }            
         }
 
@@ -120,27 +139,28 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="servicer"></param>
         /// <param name="caseLoan"></param>
         private void SendSummaryToHPFPortal(ForeclosureCaseDTO foreclosureCase, ServicerDTO servicer, CaseLoanDTO caseLoan)
-        {            
+        {
+
+            var hpfSharepointSummary = new HPFPortalCounselingSummary
+                                           {
+                                               ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
+                                               LoanNumber = caseLoan.AcctNum,
+                                               CompletedDate = foreclosureCase.CompletedDt,
+                                               ForeclosureSaleDate = foreclosureCase.FcSaleDate,
+                                               Servicer = servicer.ServicerName,
+                                               Delinquency = caseLoan.LoanDelinqStatusCd,
+                                               ReportFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan),
+                                               SPFolderName = servicer.SPFolderName
+                                           };
             try
             {                
-                var hpfSharepointSummary = new HPFPortalCounselingSummary
-                                               {
-                                                   ReportFile = GenerateSummaryReport(foreclosureCase.FcId),
-                                                   LoanNumber = caseLoan.AcctNum,
-                                                   CompletedDate = foreclosureCase.CompletedDt,
-                                                   ForeclosureSaleDate = foreclosureCase.FcSaleDate,
-                                                   Servicer = servicer.ServicerName,
-                                                   Delinquency = caseLoan.LoanDelinqStatusCd,
-                                                   ReportFileName = BuildPdfAttachmentFileName(foreclosureCase, caseLoan),
-                                                   SPFolderName = servicer.SPFolderName
-                                               };
-                HPFPortalGateway.SendSummary(hpfSharepointSummary);                
+                HPFPortalGateway.SendSummary(hpfSharepointSummary);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Logger.Write(ex.Message);
-                Logger.Write(ex.StackTrace);
+                throw ExceptionProcessor.GetHpfException(ex, foreclosureCase.FcId.ToString(), "[Sharepoint API]HPFPortalGateway.SendSummary in SummaryReportBL.SendSummaryToHPFPortal");
             }
+
         }
 
         /// <summary>
@@ -174,8 +194,16 @@ namespace HPF.FutureState.BusinessLogic
 
         private static CaseLoanDTO GetCaseLoans1St(int? fc_id)
         {
-            var caseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
-            return caseLoans.SingleOrDefault(i => i.Loan1st2nd.ToUpper() == Constant.LOAN_1ST);
+            try
+            {
+                var caseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
+                return caseLoans.SingleOrDefault(i => i.Loan1st2nd.ToUpper() == Constant.LOAN_1ST);
+            }
+            catch
+            {
+                Exception ex = new Exception("Database Error: There are two case loan hase 1ST for FC ID ");                
+                throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), "SummaryReportBL.GetCaseLoans1St");
+            }
         }        
     }
 }

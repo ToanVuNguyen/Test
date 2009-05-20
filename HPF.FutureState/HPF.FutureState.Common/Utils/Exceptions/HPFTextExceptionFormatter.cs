@@ -91,10 +91,20 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             if (exceptionToFormat is HPFException)
             {
                 var ex = exceptionToFormat as HPFException;
-                writer.WriteLine("Application Name : {0}", ex.ApplicationName);
-                writer.WriteLine("User Name : {0}", ex.UserName);
-                writer.WriteLine("Agency Id : {0}", ex.AgencyId);
-                writer.WriteLine("CallCenter Id : {0}", ex.CallCenterId);
+                if (ex.ApplicationName != string.Empty && ex.ApplicationName != null)
+                    writer.WriteLine("Application Name : {0}", ex.ApplicationName);
+                if (ex.UserName != string.Empty && ex.UserName != null)
+                    writer.WriteLine("User Name : {0}", ex.UserName);
+                if (ex.AgencyId != string.Empty && ex.AgencyId != null)
+                    writer.WriteLine("Agency Id : {0}", ex.AgencyId);
+                if (ex.AgencyId != string.Empty && ex.AgencyId != null)
+                    writer.WriteLine("CallCenter Id : {0}", ex.AgencyId);
+
+                if (ex.FcId != string.Empty && ex.FcId != null)
+                    writer.WriteLine("FC Id : {0}", ex.FcId);
+
+                if (ex.FunctionName != string.Empty && ex.FunctionName != null)
+                    writer.WriteLine("Function : {0}", ex.FunctionName);                
             }
             if (outerException != null)
             {
