@@ -56,9 +56,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             catch (Exception ex)
             {
-                string functionTrace = "[Report]SummaryReportBL.GenerateSummaryReport";
-                if (ex is HPFException)
-                    functionTrace += "-->" + (ex as HPFException).FunctionName;
+                string functionTrace = "[Report]SummaryReportBL.GenerateSummaryReport";                
                 throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), functionTrace);
             }            
         }               

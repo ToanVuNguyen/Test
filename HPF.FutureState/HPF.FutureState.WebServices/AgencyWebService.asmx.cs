@@ -44,7 +44,8 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
-                HandleException(Ex);
+
+                HandleException(Ex, GetFcId(request));
             }
             catch (DataValidationException Ex)
             {
@@ -53,14 +54,14 @@ namespace HPF.FutureState.WebServices
                     response.Messages = Ex.ExceptionMessages;
                 else
                     response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, GetFcId(request));
             }
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage("Data access error.");
                 //response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, GetFcId(request));
             }            
             catch (DuplicateException Ex)
             {
@@ -69,7 +70,7 @@ namespace HPF.FutureState.WebServices
                     response.Messages = Ex.ExceptionMessages;
                 else
                     response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, GetFcId(request));
             }
             catch (Exception Ex)
             {
@@ -160,7 +161,7 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, request.FCId.HasValue?request.FCId.Value.ToString():"");
             }
             catch (DataValidationException Ex)
             {
@@ -169,19 +170,19 @@ namespace HPF.FutureState.WebServices
                     response.Messages = Ex.ExceptionMessages;
                 else
                     response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, request.FCId.HasValue ? request.FCId.Value.ToString() : "");
             }
             catch (DataAccessException Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, request.FCId.HasValue ? request.FCId.Value.ToString() : "");
             }            
             catch (Exception Ex)
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, request.FCId.HasValue ? request.FCId.Value.ToString() : "");
             }
 
             return response;
@@ -433,6 +434,17 @@ namespace HPF.FutureState.WebServices
                 ex.AddExceptionMessage("The report format is specifed not supported.");            
 
             return ex;
+        }
+        private string GetFcId(ForeclosureCaseSaveRequest request)
+        {
+            try
+            {
+                return request.ForeclosureCaseSet.ForeclosureCase.FcId.Value.ToString();
+            }
+            catch 
+            {
+                return "";
+            }
         }
         #endregion
     }

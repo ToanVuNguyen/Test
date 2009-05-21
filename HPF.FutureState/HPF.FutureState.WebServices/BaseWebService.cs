@@ -92,8 +92,13 @@ namespace HPF.FutureState.WebServices
 
         protected void HandleException(Exception Ex)
         {
+            HandleException(Ex, "");
+        }
+
+        protected void HandleException(Exception Ex, string fcId)
+        {
             ExceptionProcessor.HandleException(Ex, Authentication.UserName, CurrentAgencyID.ToString(),
-                                               CurrentCallCenterID.ToString());
+                                               CurrentCallCenterID.ToString(), fcId);
         }
     }
 }

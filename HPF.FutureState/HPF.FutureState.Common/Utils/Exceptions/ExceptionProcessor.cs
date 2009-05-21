@@ -25,24 +25,25 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             return ExceptionPolicy.HandleException(exception, policyName);
         }
 
-        public static bool HandleException(Exception exception, string userName, string agencyId, string callCenterId)
+        public static bool HandleException(Exception exception, string userName, string agencyId, string callCenterId, string fcId)
         {
-            var hpfException = GetHpfException(exception, userName, agencyId, callCenterId);
+            var hpfException = GetHpfException(exception, userName, agencyId, callCenterId, fcId);
             return ExceptionPolicy.HandleException(hpfException, policyName);
         }
 
         public static bool HandleException(Exception exception, string userName)
         {
-            var hpfException = GetHpfException(exception, userName, "", "");
+            var hpfException = GetHpfException(exception, userName, "", "", "");
             return ExceptionPolicy.HandleException(hpfException, policyName);
         }
 
-        private static HPFException GetHpfException(Exception exception, string userName, string agencyId, string callCenterId)
+        private static HPFException GetHpfException(Exception exception, string userName, string agencyId, string callCenterId, string fcID)
         {
             var hpfException = GetHpfException(exception);
             hpfException.UserName = userName;
             hpfException.AgencyId = agencyId;
             hpfException.CallCenterId = callCenterId;
+            hpfException.FcId = fcID;
             return hpfException;
         }
 
@@ -51,6 +52,8 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             var hpfException = GetHpfException(exception);
             hpfException.FcId = fcId;
             hpfException.FunctionName = fucntionName;
+            if (exception is HPFException)
+                hpfException.FunctionName += "-->" + (exception as HPFException).FunctionName;
             
             return hpfException;
         }

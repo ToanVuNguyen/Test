@@ -17,8 +17,8 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         internal string UserName { get; set; }
 
-        public string FunctionName { get; set; }
-        public string FcId { get; set; }        
+        internal string FunctionName { get; set; }
+        internal string FcId { get; set; }        
 
         public HPFException()
         {
