@@ -49,20 +49,23 @@ namespace HPF.FutureState.UnitTest
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+            MyTestCleanup();
+            MyTestInitialize();
+        }
         //
         //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
+        [ClassCleanup()]
+        public static void MyClassCleanup()
+        {
+            MyTestCleanup();
+        }
         //
         //Use TestInitialize to run code before running each test
-        [TestInitialize()]
-        public void MyTestInitialize()
+        
+        static public void MyTestInitialize()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -195,9 +198,8 @@ namespace HPF.FutureState.UnitTest
 
         }
         //
-        //Use TestCleanup to run code after each test has run
-        [TestCleanup()]
-        public void MyTestCleanup()
+        //Use TestCleanup to run code after each test has run        
+        static public void MyTestCleanup()
         {
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
@@ -221,10 +223,15 @@ namespace HPF.FutureState.UnitTest
             command.CommandText = "delete from servicer where create_user_id='" + working_user_id + "'";
             command.ExecuteNonQuery();
 
+            //get fc_id to insert agency_payable
+            string strsql = @"select fc_id from foreclosure_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            fc_id = Convert.ToInt32(command.ExecuteScalar());
+
             command.CommandText = "delete from activity_log where fc_id=" + fc_id.ToString();
             command.ExecuteNonQuery();
 
-            string strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
+            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -370,13 +377,17 @@ namespace HPF.FutureState.UnitTest
             //set RejectReason
             actual.PaymentRejectReason = "REO";
             //reject invoiceCase 1 and invoiceCase2
+            target.BeginTransaction();
             target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Reject);
-
+            target.CommitTransaction();
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Select fc_id,invoice_id,create_user_id,create_app_name,invoice_case_pmt_amt,pmt_reject_reason_cd from invoice_case where invoice_case_id in (" + invoiceCaseIdCollection+")";
+            string col = invoiceCaseIdCollection[0];
+            foreach (string item in invoiceCaseIdCollection)
+                col += "," + item;
+            command.CommandText = "Select fc_id,invoice_id,create_user_id,create_app_name,invoice_case_pmt_amt,pmt_reject_reason_cd from invoice_case where invoice_case_id in (" + col + ")";
             var reader = command.ExecuteReader();
             if (!reader.HasRows)
             {
@@ -408,13 +419,18 @@ namespace HPF.FutureState.UnitTest
             invoiceCaseIdCollection.Add(actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString());
             //set RejectReason
             //reject invoiceCase 1 and invoiceCase2
+            target.BeginTransaction();
             target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Unpay);
+            target.CommitTransaction();
 
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Select fc_id,invoice_id,create_user_id,create_app_name,invoice_case_pmt_amt,pmt_reject_reason_cd from invoice_case where invoice_case_id in (" + invoiceCaseIdCollection + ")";
+            string col = invoiceCaseIdCollection[0];
+            foreach (string item in invoiceCaseIdCollection)
+                col += "," + item;
+            command.CommandText = "Select fc_id,invoice_id,create_user_id,create_app_name,invoice_case_pmt_amt,pmt_reject_reason_cd from invoice_case where invoice_case_id in (" + col + ")";
             var reader = command.ExecuteReader();
             if (!reader.HasRows)
             {
@@ -447,17 +463,23 @@ namespace HPF.FutureState.UnitTest
             List<string> invoiceCaseIdCollection = new List<string>();
             string temp="";
             foreach (var i in actual.InvoiceCases)
-                temp = invoiceCaseIdCollection + i.InvoiceCaseId.ToString() + ",";
-            temp = temp.Remove(temp.Length - 1, 1);
-            invoiceCaseIdCollection.Add(temp);
+            {
+                if (temp.Length > 0)
+                    temp += ",";
+                temp += i.InvoiceCaseId.ToString();
+                invoiceCaseIdCollection.Add(i.InvoiceCaseId.ToString());
+            }            
             //set RejectReason
+            target.BeginTransaction();
             bool result = target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
+            target.CommitTransaction();
             Assert.IsTrue(result);
             var dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["HPFConnectionString"].ConnectionString);
             dbConnection.Open();
             var command = new SqlCommand();
             command.Connection = dbConnection;
-            command.CommandText = "Select fc_id,invoice_id,create_user_id,create_app_name,invoice_case_pmt_amt,invoice_case_bill_amt,pmt_reject_reason_cd from invoice_case where invoice_case_id in (" + invoiceCaseIdCollection + ")";
+            
+            command.CommandText = "Select fc_id,invoice_id,create_user_id,create_app_name,invoice_case_pmt_amt,invoice_case_bill_amt,pmt_reject_reason_cd from invoice_case where invoice_case_id in (" + temp + ")";
             var reader = command.ExecuteReader();
             if (!reader.HasRows)
             {
@@ -491,7 +513,9 @@ namespace HPF.FutureState.UnitTest
             invoiceCaseIdCollection.Add(actual.InvoiceCases[1].InvoiceCaseId.ToString() + "," + actual.InvoiceCases[2].InvoiceCaseId.ToString());
             //set RejectReason
             //reject invoiceCase 1 and invoiceCase2
+            target.BeginTransaction();
             bool result = target.UpdateInvoiceCase(actual, invoiceCaseIdCollection, InvoiceCaseUpdateFlag.Pay);
+            target.CommitTransaction();
             Assert.IsFalse(result);
         }
         //[ExpectedException (typeof(DataValidationException),"Unable to process the reconciliation file. The Invoice Case ID in row 0 is not valid for the funding source selected.")]

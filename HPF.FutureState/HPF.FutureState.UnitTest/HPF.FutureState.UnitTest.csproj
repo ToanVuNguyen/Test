@@ -98,6 +98,9 @@
     <Compile Include="DataAccess\CaseFollowUpDAOTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAccess\InvoiceDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataAccess\InvoicePaymentDAOTest.cs">
       <SubType>Code</SubType>
     </Compile>
