@@ -60,22 +60,7 @@ namespace HPF.FutureState.UnitTest
         {
             ClearTestData();
         }
-        #endregion
-
-
-        /// <summary>
-        ///A test for GetCaseAudits
-        ///</summary>
-        [TestMethod()]
-        public void GetCaseAuditsTest_Pass()
-        {
-            CaseAuditDAO_Accessor target = new CaseAuditDAO_Accessor(); // TODO: Initialize to an appropriate value            
-            int expected = 1; // TODO: Initialize to an appropriate value
-            CaseAuditDTOCollection collection = target.GetCaseAudits(fc_id);
-            Assert.AreEqual(expected, collection.Count);
-            
-        }
-
+        #endregion            
         /// <summary>
         ///A test for SaveCaseAudit
         ///</summary>

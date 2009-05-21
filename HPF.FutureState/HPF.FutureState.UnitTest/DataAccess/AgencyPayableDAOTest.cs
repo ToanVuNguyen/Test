@@ -136,9 +136,17 @@ namespace HPF.FutureState.UnitTest
             //
             //get payable_id from AGENCY_PAYABLE data test status_cd='payable test'
             string strsql = @"select agency_payable_id from agency_payable where create_user_id='" + working_user_id + "'";
-            var command = new SqlCommand(strsql, dbConnection);
-            int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
+            var command = new SqlCommand(strsql, dbConnection);            
+            int agency_payable_id = 0;
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+                agency_payable_id = Convert.ToInt32(reader[0].ToString());
+            reader.Close();
             //
+            strsql = @"delete from agency_payable_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
+
             strsql = @"delete from agency_payable_case where agency_payable_id=" + agency_payable_id;
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
@@ -154,8 +162,35 @@ namespace HPF.FutureState.UnitTest
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
-            
+
+            strsql = @"delete from  invoice_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();                                   
+
             //Delete data test FORECLOSURE 
+            strsql = @"select fc_id from  foreclosure_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            reader = command.ExecuteReader();
+            int fcid = 0;
+            while (reader.Read())
+                fcid = Convert.ToInt32(reader[0].ToString());
+            reader.Close();
+            if (fcid != 0)
+            {
+                strsql = @"delete from activity_log where fc_id='" + fcid + "'";
+                command = new SqlCommand(strsql, dbConnection);
+                command.ExecuteNonQuery();
+                strsql = @"delete from case_loan where fc_id='" + fcid + "'";
+                command = new SqlCommand(strsql, dbConnection);
+                command.ExecuteNonQuery();
+                strsql = @"delete from agency_payable_case where fc_id=" + fcid;
+                command = new SqlCommand(strsql, dbConnection);
+                command.ExecuteNonQuery();
+            }
+
+            strsql = @"delete from  invoice_case where create_user_id='" + working_user_id + "'";
+            command = new SqlCommand(strsql, dbConnection);
+            command.ExecuteNonQuery();
             strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
@@ -165,19 +200,8 @@ namespace HPF.FutureState.UnitTest
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
-            
             //Delete data test PROGRAM
             strsql = @"delete from program where create_user_id='" + working_user_id + "'";
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
-
-            //Delete data test FORECLOSURE 
-            strsql = @"delete from  foreclosure_case where create_user_id='" + working_user_id + "'";
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
-
-            //Delete data test AGENCY
-            strsql = @"delete from agency where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
@@ -280,7 +304,9 @@ namespace HPF.FutureState.UnitTest
                     agencyPayableCaseSelect.ForeclosureCaseId = Convert.ToInt32(dr["fc_id"]);
                     agencyPayableCaseSelect.AgencyPayableId = Convert.ToInt32(dr["agency_payable_id"]);
                     agencyPayableCaseSelect.PaymentDate = Convert.ToDateTime(dr["pmt_dt"]);
-                    agencyPayableCaseSelect.PaymentAmount = Convert.ToDouble(dr["pmt_amt"]);
+                    object temp = dr["pmt_amt"];
+                    if (temp != null && temp.ToString() != string.Empty)
+                        agencyPayableCaseSelect.PaymentAmount = Convert.ToDouble(temp.ToString());
                     agencyPayableCaseSelect.CreateDate = Convert.ToDateTime(dr["create_dt"]);
                     agencyPayableCaseSelect.CreateUserId = dr["create_user_id"].ToString();
                     agencyPayableCaseSelect.CreateAppName = dr["create_app_name"].ToString();
@@ -421,6 +447,7 @@ namespace HPF.FutureState.UnitTest
         ///A test for TakeBackMarkedCase
         ///</summary>
         [TestMethod()]
+        [Ignore]
         public void TakeBackMarkedCaseTest()
         {
             AgencyPayableDAO_Accessor target = new AgencyPayableDAO_Accessor(); // TODO: Initialize to an appropriate value

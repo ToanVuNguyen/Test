@@ -65,27 +65,46 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLogic\CaseAuditBLTest.cs" />
-    <Compile Include="DataAccess\CaseAuditDAOTest.cs" />
-    <Compile Include="DataAccess\CaseFollowUpDAOTest.cs" />
-    <Compile Include="DataAccess\AccountingDAOTest.cs" />
-    <Compile Include="DataAccess\BudgetDAOTest.cs" />
-    <Compile Include="BusinessLogic\CallLogBLTest.cs" />
-    <Compile Include="BusinessLogic\ForeclosureCaseBLTest.cs" />
+    <Compile Include="BusinessLogic\CallLogBLTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessLogic\ForeclosureCaseBLTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessLogic\OutcomeBLTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessLogic\RefCodeItemBLTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BusinessLogic\SecurityBLTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataAccess\AgencyPayableDAOTest.cs" />
+    <Compile Include="BusinessLogic\ServicerBLTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\AccountingDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\AgencyPayableDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\BudgetDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataAccess\CallLogDAOTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataAccess\InvoiceDAOTest.cs" />
-    <Compile Include="BusinessLogic\OutcomeBLTest.cs" />
-    <Compile Include="DataAccess\InvoicePaymentDAOTest.cs" />
+    <Compile Include="DataAccess\CaseFollowUpDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\InvoicePaymentDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\SecurityDAOTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataAccess\SecurityDAOTest.cs" />
-    <Compile Include="BusinessLogic\ServicerBLTest.cs" />
-    <Compile Include="BusinessLogic\RefCodeItemBLTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

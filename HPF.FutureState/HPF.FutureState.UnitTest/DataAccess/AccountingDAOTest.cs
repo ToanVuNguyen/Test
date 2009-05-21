@@ -210,12 +210,17 @@ namespace HPF.FutureState.UnitTest
             dbConnection.Open();
 
             //Delete data test AGENCY_PAYABLE_CASE
-            //string strsql = @"select agency_payable_id where create_user_id='" + working_user_id + "'";
-            //var command = new SqlCommand(strsql, dbConnection);
-            //int agency_payable_id = Convert.ToInt32(command.ExecuteScalar());
+            string strsql = @"select agency_payable_id from agency_payable where create_user_id='" + working_user_id + "'";
+            var command = new SqlCommand(strsql, dbConnection);            
+            int agency_payable_id = 0;
+            var reader = command.ExecuteReader();
+            while(reader.Read())
+                agency_payable_id = Convert.ToInt32(reader[0].ToString());
+            reader.Close();
 
-            string strsql = @"delete from agency_payable_case where create_user_id='"+working_user_id+"'";
-            var command = new SqlCommand(strsql, dbConnection);
+            strsql = @"delete from agency_payable_case where agency_payable_id='" + agency_payable_id + "'";
+
+            command = new SqlCommand(strsql, dbConnection);
             command.ExecuteNonQuery();
 
             //Delete data test AGENCY_PAYABLE
@@ -227,10 +232,17 @@ namespace HPF.FutureState.UnitTest
             //get fc_id
             strsql = @"select fc_id from foreclosure_case where create_user_id='" + working_user_id + "'";
             command = new SqlCommand(strsql, dbConnection);
-            int fc_id = Convert.ToInt32(command.ExecuteScalar());
-            strsql = @"delete activity_log where fc_id=" + fc_id;
-            command = new SqlCommand(strsql, dbConnection);
-            command.ExecuteNonQuery();
+            reader = command.ExecuteReader();
+            int fc_id = 0;
+            while(reader.Read())
+                fc_id = Convert.ToInt32(reader[0].ToString());
+            reader.Close();
+            if (fc_id != 0)
+            {
+                strsql = @"delete activity_log where fc_id=" + fc_id;
+                command = new SqlCommand(strsql, dbConnection);
+                command.ExecuteNonQuery();
+            }
                                     
             //
             //delete data test DisplayInvoiceCase
