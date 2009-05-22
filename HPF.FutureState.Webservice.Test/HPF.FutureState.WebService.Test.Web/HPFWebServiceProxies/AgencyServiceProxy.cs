@@ -21,6 +21,7 @@ using System.Configuration;
 
 namespace HPF.Webservice.Agency
 {
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1475,63 +1476,33 @@ namespace HPF.Webservice.Agency
     public partial class RefCodeItemDTO : BaseDTO
     {
 
-        private string codeField;
+        private string codeValueField;
 
-        private string codeDescField;
-
-        private string refCodeSetNameField;
-
-        private string codeCommentField;
+        private string codeDescriptionField;
 
         /// <remarks/>
-        public string Code
+        public string CodeValue
         {
             get
             {
-                return this.codeField;
+                return this.codeValueField;
             }
             set
             {
-                this.codeField = value;
+                this.codeValueField = value;
             }
         }
 
         /// <remarks/>
-        public string CodeDesc
+        public string CodeDescription
         {
             get
             {
-                return this.codeDescField;
+                return this.codeDescriptionField;
             }
             set
             {
-                this.codeDescField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string RefCodeSetName
-        {
-            get
-            {
-                return this.refCodeSetNameField;
-            }
-            set
-            {
-                this.refCodeSetNameField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string CodeComment
-        {
-            get
-            {
-                return this.codeCommentField;
-            }
-            set
-            {
-                this.codeCommentField = value;
+                this.codeDescriptionField = value;
             }
         }
     }
@@ -4289,5 +4260,4 @@ namespace HPF.Webservice.Agency
             }
         }
     }
-
 }

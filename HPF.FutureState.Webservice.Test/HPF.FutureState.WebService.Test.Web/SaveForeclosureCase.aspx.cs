@@ -1191,11 +1191,11 @@ namespace HPF.FutureState.WebService.Test.Web
                     throw new Exception();
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 ExceptionMessage em = new ExceptionMessage();
                 List<ExceptionMessage> exList = new List<ExceptionMessage>();
-                em.Message = "Invalid XML format";
+                em.Message = "Invalid XML format:" + ex.Message;
                 exList.Add(em);
                 em = new ExceptionMessage();
                 em.Message = "Default fcCase is loaded";
