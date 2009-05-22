@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils;
@@ -169,10 +171,10 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         private static string BuildPdfAttachmentFileName(ForeclosureCaseDTO foreclosureCase, CaseLoanDTO caseLoan)
         {            
-            var pdfFile = new StringBuilder();            
-            pdfFile.Append(caseLoan.AcctNum);
+            var pdfFile = new StringBuilder();
+            pdfFile.Append(RemoveSpecialChars(caseLoan.AcctNum));
             pdfFile.Append("_");
-            pdfFile.Append(foreclosureCase.BorrowerLname);
+            pdfFile.Append(RemoveSpecialChars(foreclosureCase.BorrowerLname));
             pdfFile.Append("_");
             pdfFile.Append(foreclosureCase.BorrowerFname.Substring(0, 1));
             if (caseLoan.LoanDelinqStatusCd == "120+" || foreclosureCase.FcNoticeReceiveInd == "Y")
@@ -202,6 +204,19 @@ namespace HPF.FutureState.BusinessLogic
                 Exception ex = new Exception("Database Error: There are two case loan hase 1ST for FC ID ");                
                 throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), "SummaryReportBL.GetCaseLoans1St");
             }
-        }        
+        }
+
+        static private string RemoveSpecialChars(string str)
+        {
+            string s = (string)str.Clone();
+            Regex exp = new Regex(@"[^a-zA-Z0-9]");
+            MatchCollection matches = exp.Matches(s);
+            foreach (Match item in matches)
+            {
+                s = s.Replace(item.Value, string.Empty);
+            }
+
+            return s;
+        }
     }
 }
