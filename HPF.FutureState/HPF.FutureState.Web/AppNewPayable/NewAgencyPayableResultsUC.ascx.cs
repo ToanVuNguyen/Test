@@ -184,7 +184,7 @@ namespace HPF.FutureState.Web.AppNewPayable
             //default display period_start back 6 months
             //but save exactly value in criteria.
             RefCodeItemDTO StatusCd = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_AGENCY_PAYABLE_STATUS_CODE)[0];
-            agencyPayableDraftDTO.StatusCode = StatusCd.Code;
+            agencyPayableDraftDTO.StatusCode = StatusCd.CodeValue;
             for (int i = 0; i < this.agencyPayableDraft.ForclosureCaseDrafts.Count; i++)
                 this.agencyPayableDraft.ForclosureCaseDrafts[i].SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
             agencyPayableDraftDTO.ForclosureCaseDrafts = this.agencyPayableDraft.ForclosureCaseDrafts;

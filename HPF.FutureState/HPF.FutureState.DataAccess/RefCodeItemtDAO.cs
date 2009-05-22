@@ -44,7 +44,7 @@ namespace HPF.FutureState.DataAccess
             return results;
         }
 
-        public RefCodeItemDTOCollection GetRefCodeItemsFromDatabase(string agencyUsageInd, string codeName)
+        public RefCodeItemDTOCollection GetRefCodeItemsFromDatabase(string agencyUsageInd, string codeSetName)
         {
             RefCodeItemDTOCollection refCodeItems = null;
             var dbConnection = CreateConnection();
@@ -56,8 +56,8 @@ namespace HPF.FutureState.DataAccess
             {
                 if (agencyUsageInd != null && agencyUsageInd != string.Empty)
                     sqlParams.Add(new SqlParameter("@pi_agency_usage_ind", agencyUsageInd));
-                if (codeName != null && codeName != string.Empty)
-                    sqlParams.Add(new SqlParameter("@pi_code_name", codeName));
+                if (codeSetName != null && codeSetName != string.Empty)
+                    sqlParams.Add(new SqlParameter("@pi_code_set_name", codeSetName));
 
                 if (sqlParams.Count > 0)
                     command.Parameters.AddRange((SqlParameter[])sqlParams.ToArray(typeof(SqlParameter)));
@@ -72,8 +72,8 @@ namespace HPF.FutureState.DataAccess
                         var item = new RefCodeItemDTO();
                         item.RefCodeItemId = ConvertToInt(reader["ref_code_item_id"]);
                         item.RefCodeSetName = ConvertToString(reader["ref_code_set_name"]);
-                        item.Code = ConvertToString(reader["code"]);
-                        item.CodeDesc = ConvertToString(reader["code_desc"]);
+                        item.CodeValue = ConvertToString(reader["code"]);
+                        item.CodeDescription = ConvertToString(reader["code_desc"]);
                         item.CodeComment = ConvertToString(reader["code_comment"]);     
                         item.SortOrder = ConvertToInt(reader["sort_order"]);
                         item.ActiveInd = ConvertToString(reader["active_ind"]);

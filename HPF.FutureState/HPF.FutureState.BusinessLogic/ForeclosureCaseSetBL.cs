@@ -2350,14 +2350,11 @@ namespace HPF.FutureState.BusinessLogic
         public ForeclosureCaseSetDTO GetForeclosureCaseDetail(int fcId)
         {            
             ForeclosureCaseSetDTO fcs = new ForeclosureCaseSetDTO();
-            ExceptionMessageCollection ex = new ExceptionMessageCollection();
-            
+                        
             fcs.ForeclosureCase = GetForeclosureCase(fcId);
 
             if (fcs.ForeclosureCase == null)
-                ex.AddExceptionMessage("The FCId is not a valid foreclosure case ID.");                            
-            if (ex.Count > 0)
-                ThrowDataValidationException(ex);
+                return null;
             //fcs.ActivityLog = ActivityLogBL.Instance.GetActivityLog(fcId);
             fcs.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fcId);
             fcs.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fcId);

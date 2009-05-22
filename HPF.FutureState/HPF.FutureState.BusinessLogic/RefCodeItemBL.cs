@@ -34,9 +34,9 @@ namespace HPF.FutureState.BusinessLogic
             return RefCodeItemDAO.Instance.GetRefCodeItems();
         }
 
-        public RefCodeItemDTOCollection GetRefCodeItemsForAgency(string refCodeName)
+        public RefCodeItemDTOCollection GetRefCodeItemsForAgency(string refCodeSetName)
         {
-            return RefCodeItemDAO.Instance.GetRefCodeItemsFromDatabase("Y", refCodeName);            
+            return RefCodeItemDAO.Instance.GetRefCodeItemsFromDatabase("Y", refCodeSetName);            
         }        
     }
 }

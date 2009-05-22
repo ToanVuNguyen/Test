@@ -198,7 +198,9 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    response.Servicers = LookupDataBL.Instance.GetServicers();                    
+                    response.Servicers = LookupDataBL.Instance.GetServicers();
+                    if (response.Servicers.Count > 0 && response.Servicers[0].ServicerID == -1)
+                        response.Servicers.RemoveAt(0);
                     //if (response.Servicers.Count == 0)
                     //{
                     //    response.Status = ResponseStatus.Fail;
@@ -307,17 +309,17 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, request.ForeclosureId.HasValue?request.ForeclosureId.Value.ToString():"");
             }
             catch (DataValidationException Ex)
             {
                 response.Messages = Ex.ExceptionMessages;
-                HandleException(Ex);
+                HandleException(Ex, request.ForeclosureId.HasValue ? request.ForeclosureId.Value.ToString() : "");
             }
             catch (DataAccessException Ex)
             {
                 response.Messages.AddExceptionMessage("Data access error.");
-                HandleException(Ex);
+                HandleException(Ex, request.ForeclosureId.HasValue ? request.ForeclosureId.Value.ToString() : "");
             }
             catch (Exception Ex)
             {
@@ -423,18 +425,21 @@ namespace HPF.FutureState.WebServices
 
             ExceptionMessageCollection ex = new ExceptionMessageCollection();
             if (request.ForeclosureId == null)
-                ex.AddExceptionMessage("A FCId is required to retrieve a summary.");
+                ex.AddExceptionMessage("Unable to retrieve summary. A FCId is required to retrieve a summary.");
             else
             {
                 ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.ForeclosureId);
                 if (fc == null)
-                    ex.AddExceptionMessage("The FCId is not a valid foreclosure case ID.");                            
+                    ex.AddExceptionMessage("Unable to retrieve summary. The FCId is not a valid foreclosure case ID.");
+                else if (fc.AgencyId != CurrentAgencyID.Value)
+                    ex.AddExceptionMessage("Unable to retrieve summary. The FCId does not belong to your agency.");
             }
             if (reportFormat != null && reportFormat!= string.Empty && reportFormat != "PDF")
-                ex.AddExceptionMessage("The report format is specifed not supported.");            
+                ex.AddExceptionMessage("Unable to retrieve summary. The specified report format is not supported.");            
 
             return ex;
         }
+
         private string GetFcId(ForeclosureCaseSaveRequest request)
         {
             try

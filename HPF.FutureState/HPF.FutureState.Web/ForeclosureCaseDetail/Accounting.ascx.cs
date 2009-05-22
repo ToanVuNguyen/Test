@@ -124,8 +124,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 RefCodeItemDTOCollection PaymentRejectReasonDTOCol = LookupDataBL.Instance.GetRefCodes("payment reject reason code");
                 foreach (var PaymentRejectReasonDTO in PaymentRejectReasonDTOCol)
                 {
-                    if (lblRejectReasonDesc.Text == PaymentRejectReasonDTO.Code)
-                        lblRejectReasonDesc.Text = PaymentRejectReasonDTO.CodeDesc;
+                    if (lblRejectReasonDesc.Text == PaymentRejectReasonDTO.CodeValue)
+                        lblRejectReasonDesc.Text = PaymentRejectReasonDTO.CodeDescription;
                 }
             }
         }        

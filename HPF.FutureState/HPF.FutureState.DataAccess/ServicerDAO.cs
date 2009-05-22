@@ -27,20 +27,68 @@ namespace HPF.FutureState.DataAccess
             
         }                       
 
-        public ServicerDTOCollection GetServicers(int? servicerId)
+        public ServicerDTO GetServicer(int servicerId)
         {
             ServicerDTOCollection results = HPFCacheManager.Instance.GetData<ServicerDTOCollection>(Constant.HPF_CACHE_SERVICER);
-            if (results == null || servicerId.HasValue)
+            if (results != null && results.Count > 0)
+            {
+                return results.GetServicerById(servicerId);
+            }
+            else if (results == null)
             {
                 var dbConnection = CreateConnection();
                 var command = CreateSPCommand("hpf_servicer_get", dbConnection);
-                //<Parameter>         
-                if (servicerId.HasValue)
+                //<Parameter>                         
+                var sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_servicer_id", servicerId);
+                command.Parameters.AddRange(sqlParam);
+                
+                try
                 {
-                    var sqlParam = new SqlParameter[1];
-                    sqlParam[0] = new SqlParameter("@pi_servicer_id", servicerId);
-                    command.Parameters.AddRange(sqlParam);
+                    dbConnection.Open();
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        ServicerDTO servicer = new ServicerDTO();
+                        while (reader.Read())
+                        {
+                            servicer.ServicerID = ConvertToInt(reader["servicer_id"]);
+                            servicer.ServicerName = ConvertToString(reader["servicer_name"]);
+                            servicer.ContactFName = ConvertToString(reader["contact_fname"]);
+                            servicer.ContactLName = ConvertToString(reader["contact_lname"]);
+                            servicer.ContactEmail = ConvertToString(reader["contact_email"]);
+                            servicer.Phone = ConvertToString(reader["phone"]);
+                            servicer.Fax = ConvertToString(reader["fax"]);
+                            servicer.ActiveInd = ConvertToString(reader["active_ind"]);
+                            servicer.FundingAgreement = ConvertToString(reader["funding_agreement_ind"]);
+                            servicer.SummaryDeliveryMethod = ConvertToString(reader["secure_delivery_method_cd"]);
+                            servicer.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);
+                            servicer.SPFolderName = ConvertToString(reader["sharepoint_foldername"]);
+                        }
+                        reader.Close();
+                        return servicer;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+            return null;
+        }
+
+        public ServicerDTOCollection GetServicers()
+        {
+            ServicerDTOCollection results = HPFCacheManager.Instance.GetData<ServicerDTOCollection>(Constant.HPF_CACHE_SERVICER);
+            if (results == null)
+            {
+                var dbConnection = CreateConnection();
+                var command = CreateSPCommand("hpf_servicer_get", dbConnection);
+                //<Parameter>                         
                 try
                 {
                     dbConnection.Open();
@@ -61,14 +109,13 @@ namespace HPF.FutureState.DataAccess
                             servicer.ActiveInd = ConvertToString(reader["active_ind"]);
                             servicer.FundingAgreement = ConvertToString(reader["funding_agreement_ind"]);
                             servicer.SummaryDeliveryMethod = ConvertToString(reader["secure_delivery_method_cd"]);
-                            servicer.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);                            
+                            servicer.CouselingSumFormatCd = ConvertToString(reader["couseling_sum_format_cd"]);
                             servicer.SPFolderName = ConvertToString(reader["sharepoint_foldername"]);
                             results.Add(servicer);
                         }
                         reader.Close();
-                    }
-                    if (!servicerId.HasValue)
-                        HPFCacheManager.Instance.Add(Constant.HPF_CACHE_SERVICER, results);
+                    }                    
+                    HPFCacheManager.Instance.Add(Constant.HPF_CACHE_SERVICER, results);
                 }
                 catch (Exception ex)
                 {

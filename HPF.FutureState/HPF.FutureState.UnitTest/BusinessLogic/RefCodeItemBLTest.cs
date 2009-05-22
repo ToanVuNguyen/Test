@@ -81,7 +81,7 @@ namespace HPF.FutureState.UnitTest
         public void GetRefCodeItemsForAgencyCodeNameTest()
         {
             RefCodeItemBL_Accessor target = new RefCodeItemBL_Accessor(); // TODO: Initialize to an appropriate value
-            string refCodeName = "SCONS"; // TODO: Initialize to an appropriate value            
+            string refCodeName = "activity code"; // TODO: Initialize to an appropriate value            
             RefCodeItemDTOCollection actual;
             actual = target.GetRefCodeItemsForAgency(refCodeName);
             Assert.AreNotEqual(0, actual.Count);

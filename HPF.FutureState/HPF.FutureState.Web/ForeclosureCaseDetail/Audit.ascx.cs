@@ -121,7 +121,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         private RefCodeItemDTO GetRefCode(RefCodeItemDTOCollection col, string code)
         {
             foreach (RefCodeItemDTO refCode in col)
-                if (refCode.Code == code)
+                if (refCode.CodeValue == code)
                     return refCode;
             return new RefCodeItemDTO();
         }

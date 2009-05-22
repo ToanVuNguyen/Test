@@ -29,9 +29,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         public ServicerDTO GetServicer(int servicerId)
         {
-            ServicerDTOCollection serviserlist = ServicerDAO.Instance.GetServicers(servicerId);
-            if (serviserlist == null || serviserlist.Count == 0) return null;
-            return serviserlist[0];
+            return ServicerDAO.Instance.GetServicer(servicerId);            
         }
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         public ServicerDTOCollection GetServicers()
         {
-            return ServicerDAO.Instance.GetServicers(null);
+            return ServicerDAO.Instance.GetServicers();
         }
     }
 }
