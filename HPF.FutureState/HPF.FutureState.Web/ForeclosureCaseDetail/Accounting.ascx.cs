@@ -52,8 +52,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_NEVER_BILL_REASON_CODE);
             ddlNerverBillReason.DataSource = refCodeCol;
-            ddlNerverBillReason.DataTextField = "CodeDesc";
-            ddlNerverBillReason.DataValueField = "Code";
+            ddlNerverBillReason.DataTextField = "CodeDescription";
+            ddlNerverBillReason.DataValueField = "CodeValue";
             ddlNerverBillReason.DataBind();
             ddlNerverBillReason.Items.Insert(0, string.Empty);
         }
@@ -61,8 +61,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             RefCodeItemDTOCollection refCodeCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_NEVER_PAY_REASON_CODE);
             ddlNeverPayReason.DataSource = refCodeCol;
-            ddlNeverPayReason.DataTextField = "CodeDesc";
-            ddlNeverPayReason.DataValueField = "Code";
+            ddlNeverPayReason.DataTextField = "CodeDescription";
+            ddlNeverPayReason.DataValueField = "CodeValue";
             ddlNeverPayReason.DataBind();
             ddlNeverPayReason.Items.Insert(0, new ListItem(string.Empty, null));
         }

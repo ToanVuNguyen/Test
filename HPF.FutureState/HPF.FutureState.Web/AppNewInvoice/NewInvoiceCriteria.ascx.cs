@@ -223,8 +223,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
             
-            dropGender.DataValueField = "Code";
-            dropGender.DataTextField = "CodeDesc";
+            dropGender.DataValueField = "CodeValue";
+            dropGender.DataTextField = "CodeDescription";
             dropGender.DataSource = genderCollection;
             dropGender.DataBind();
             dropGender.Items.Insert(0, new ListItem(" ", "-1"));
@@ -241,8 +241,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
-            dropRace.DataValueField = "Code";
-            dropRace.DataTextField = "CodeDesc";
+            dropRace.DataValueField = "CodeValue";
+            dropRace.DataTextField = "CodeDescription";
             dropRace.DataSource = raceCollection;
             dropRace.DataBind();
             dropRace.Items.Insert(0, new ListItem(" ", "-1"));
@@ -260,8 +260,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
-            dropHouseholdCode.DataValueField = "Code";
-            dropHouseholdCode.DataTextField = "CodeDesc";
+            dropHouseholdCode.DataValueField = "CodeValue";
+            dropHouseholdCode.DataTextField = "CodeDescription";
             dropHouseholdCode.DataSource = householdCollection;
             dropHouseholdCode.DataBind();
             dropHouseholdCode.Items.Insert(0, new ListItem(" ", "-1"));
@@ -278,8 +278,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
-            dropState.DataValueField = "Code";
-            dropState.DataTextField = "CodeDesc";
+            dropState.DataValueField = "CodeValue";
+            dropState.DataTextField = "CodeDescription";
             dropState.DataSource = stateCollection;
             dropState.DataBind();
             dropState.Items.Insert(0, new ListItem(" ", "-1"));

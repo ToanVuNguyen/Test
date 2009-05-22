@@ -244,9 +244,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditType.Items.Clear();
 
             RefCodeItemDTOCollection auditTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_AUDIT_TYPE_CODE);
-            ddlAuditType.DataValueField = "Code";
+            ddlAuditType.DataValueField = "CodeValue";
             //ddlAuditType.DataValueField = "CodeDesc";
-            ddlAuditType.DataTextField = "CodeDesc";
+            ddlAuditType.DataTextField = "CodeDescription";
             ddlAuditType.DataSource = auditTypeCodes;
             ddlAuditType.DataBind();
             ddlAuditType.Items.Insert(0, new ListItem(string.Empty, null));
@@ -281,9 +281,9 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
             ddlAuditFailureReason.Items.Clear();
 
             RefCodeItemDTOCollection failureReasonCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_AUDIT_FAILURE_REASON_CODE);
-            ddlAuditFailureReason.DataValueField = "Code";
+            ddlAuditFailureReason.DataValueField = "CodeValue";
             //ddlAuditFailureReason.DataValueField = "CodeDesc";
-            ddlAuditFailureReason.DataTextField = "CodeDesc";
+            ddlAuditFailureReason.DataTextField = "CodeDescription";
             ddlAuditFailureReason.DataSource = failureReasonCodes;
             ddlAuditFailureReason.DataBind();
             ddlAuditFailureReason.Items.Insert(0, new ListItem(string.Empty, null));

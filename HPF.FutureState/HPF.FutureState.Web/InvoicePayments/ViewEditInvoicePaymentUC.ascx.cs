@@ -93,8 +93,8 @@ namespace HPF.FutureState.Web.InvoicePayments
         {
             var invoicePaymentCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_PAYMENT_CODE);
             ddlPaymentType.DataSource = invoicePaymentCol;
-            ddlPaymentType.DataTextField = "CodeDesc";
-            ddlPaymentType.DataValueField = "Code";
+            ddlPaymentType.DataTextField = "CodeDescription";
+            ddlPaymentType.DataValueField = "CodeValue";
             ddlPaymentType.DataBind();
             ddlPaymentType.Items.Insert(0,new ListItem("","-1"));
         }

@@ -79,8 +79,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             ddl_FollowUpSource.Items.Clear();
             RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_FOLLOW_UP_SOURCE_CODE);
-            ddl_FollowUpSource.DataValueField = "Code";
-            ddl_FollowUpSource.DataTextField = "CodeDesc";
+            ddl_FollowUpSource.DataValueField = "CodeValue";
+            ddl_FollowUpSource.DataTextField = "CodeDescription";
             ddl_FollowUpSource.DataSource = followUpTypeCodes;
             ddl_FollowUpSource.DataBind();
             ddl_FollowUpSource.Items.Insert(0, new ListItem(string.Empty));
@@ -91,8 +91,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             ddl_CreditReportBureau.Items.Clear();
             RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_CREDIR_BERREAU_CODE);
-            ddl_CreditReportBureau.DataValueField = "Code";
-            ddl_CreditReportBureau.DataTextField = "CodeDesc";
+            ddl_CreditReportBureau.DataValueField = "CodeValue";
+            ddl_CreditReportBureau.DataTextField = "CodeDescription";
             ddl_CreditReportBureau.DataSource = followUpTypeCodes;
             ddl_CreditReportBureau.DataBind();
             ddl_CreditReportBureau.Items.Insert(0, new ListItem(string.Empty));
@@ -115,8 +115,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
         {
             ddl_DelinqencyStatus.Items.Clear();
             RefCodeItemDTOCollection followUpTypeCodes = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_LOAN_DELINQUENCY_CODE);
-            ddl_DelinqencyStatus.DataValueField = "Code";
-            ddl_DelinqencyStatus.DataTextField = "CodeDesc";
+            ddl_DelinqencyStatus.DataValueField = "CodeValue";
+            ddl_DelinqencyStatus.DataTextField = "CodeDescription";
             ddl_DelinqencyStatus.DataSource = followUpTypeCodes;
             ddl_DelinqencyStatus.DataBind();
             ddl_DelinqencyStatus.Items.Insert(0, new ListItem(string.Empty));

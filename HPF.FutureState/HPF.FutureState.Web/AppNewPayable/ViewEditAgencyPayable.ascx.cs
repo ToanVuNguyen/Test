@@ -47,8 +47,8 @@ namespace HPF.FutureState.Web.AppNewPayable
         {
             RefCodeItemDTOCollection takebackReasonCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_TAKE_BACK_REASON_CODE);
             ddlTakebackReason.DataSource = takebackReasonCol;
-            ddlTakebackReason.DataTextField = "CodeDesc";
-            ddlTakebackReason.DataValueField = "Code";
+            ddlTakebackReason.DataTextField = "CodeDescription";
+            ddlTakebackReason.DataValueField = "CodeValue";
             ddlTakebackReason.DataBind();
             //add blank to first item in ddl
             ddlTakebackReason.Items.Insert(0, new ListItem("", "-1"));

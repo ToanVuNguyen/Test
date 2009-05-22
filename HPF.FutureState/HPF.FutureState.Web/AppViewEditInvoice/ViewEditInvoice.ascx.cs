@@ -113,8 +113,8 @@ namespace HPF.FutureState.Web.AppViewEditInvoice
             try
             {
                 RefCodeItemDTOCollection paymentRejectCode = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_PAYMENT_REJECT_REASON_CODE);
-                dropRejectReason.DataValueField = "Code";
-                dropRejectReason.DataTextField = "CodeDesc";
+                dropRejectReason.DataValueField = "CodeValue";
+                dropRejectReason.DataTextField = "CodeDescription";
                 dropRejectReason.DataSource = paymentRejectCode;
                 dropRejectReason.DataBind();
                 dropRejectReason.Items.Insert(0, new ListItem(" ",string.Empty));

@@ -90,8 +90,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         {
             RefCodeItemDTOCollection stateCol = LookupDataBL.Instance.GetRefCodes(Constant.REF_CODE_SET_STATE_CODE);
             //Bind data
-            ddlPropertyState.DataValueField = "Code";
-            ddlPropertyState.DataTextField = "CodeDesc";
+            ddlPropertyState.DataValueField = "CodeValue";
+            ddlPropertyState.DataTextField = "CodeDescription";
             ddlPropertyState.DataSource = stateCol;
             ddlPropertyState.DataBind();
             ddlPropertyState.Items.Insert(0, new ListItem("ALL", "ALL"));
