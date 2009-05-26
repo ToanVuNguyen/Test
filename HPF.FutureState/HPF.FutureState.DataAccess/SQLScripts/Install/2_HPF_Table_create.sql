@@ -150,7 +150,8 @@ GO
 
 CREATE TABLE ref_code_set (
   ref_code_set_name VARCHAR(30)  NOT NULL  ,
-  code_set_comment VARCHAR(300)      ,
+  code_set_comment VARCHAR(300) NULL,
+  agency_usage_ind varchar(1) NULL, 
 PRIMARY KEY(ref_code_set_name));
 GO
 
@@ -1006,3 +1007,11 @@ ALTER TABLE foreclosure_case WITH CHECK ADD  CONSTRAINT [FK_call_id] FOREIGN KEY
 GO
 ALTER TABLE case_loan WITH CHECK ADD  CONSTRAINT [FK_loan_servicer_id] FOREIGN KEY(servicer_id) REFERENCES servicer(servicer_id)
 GO
+
+CREATE TABLE nonprofitreferral
+(id		INT NOT NULL PRIMARY KEY
+, referral_org_name		varchar(150)
+, referral_org_state	varchar(15)
+, referral_org_zip		varchar(30)
+, referral_contact_email	varchar(200)
+);
