@@ -200,7 +200,7 @@ namespace HPF.FutureState.BusinessLogic
                 if (string.IsNullOrEmpty(servicer.ServicerName))
                     return errorList;
 
-                if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER.ToUpper()))
+                if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER_NAME))
                     return errorList;
 
                 if (string.IsNullOrEmpty(aCallLog.OtherServicerName))

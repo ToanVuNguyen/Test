@@ -36,7 +36,8 @@ namespace HPF.FutureState.Common
         public const string MORTGATE_TYPE_CODE_HYBARM = "HYBARM";
         //
         public const string CALL_CENTER_OTHER = "OTHER";
-        public const string SERVICER_OTHER = "OTHER (LENDER NAME IN NOTES)";
+        public const string SERVICER_OTHER_NAME = "OTHER SERVICER";
+        public const int    SERVICER_OTHER_ID = 12982;
         public const string SUB_CATEGORY_NAME_MORTGAGE = "MORTGAGE";
         public const string OUTCOME_TYPE_NAME_EXTERNAL_REFERAL = "EXTERNAL REFERAL";        
         public const string MENU_ITEM_TARGET_FUNDING_SOURCE_INVOICE = "FundingSourceInvoice.aspx";

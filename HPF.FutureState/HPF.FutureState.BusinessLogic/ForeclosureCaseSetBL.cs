@@ -620,7 +620,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             //If caseLoan not null 
             //Check validate
-            int? servicerId = FindServicerIDWithNameIsOther();                        
+            int? servicerId = Constant.SERVICER_OTHER_ID;//FindServicerIDWithNameIsOther();                        
             for (int i = 0; i < caseLoanDTOCollection.Count; i++)
             {
                 var item = caseLoanDTOCollection[i];
@@ -707,16 +707,16 @@ namespace HPF.FutureState.BusinessLogic
             return msgFcCaseSet;
         }
 
-        private int? FindServicerIDWithNameIsOther()
-        {
-            var serviers = ServicerBL.Instance.GetServicers();
-            foreach(var item in serviers)
-            {
-                if (ConvertStringToUpper(item.ServicerName) == Constant.SERVICER_OTHER)
-                    return item.ServicerID;
-            }
-            return 0;
-        }
+        //private int? FindServicerIDWithNameIsOther()
+        //{
+        //    var serviers = ServicerBL.Instance.GetServicers();
+        //    foreach(var item in serviers)
+        //    {
+        //        if (ConvertStringToUpper(item.ServicerName) == Constant.SERVICER_OTHER)
+        //            return item.ServicerID;
+        //    }
+        //    return 0;
+        //}
 
         private int? FindOutcomeTypeIdWithNameIsExternalReferral()
         {
