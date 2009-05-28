@@ -84,19 +84,18 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _loanNumber; }
             set
             {
-                _loanNumber = value;
-                //comment for #BUG-382
-                //if (value != null)
-                //{
-                //    _loanNumber = value;
-                //    Regex exp = new Regex(@"[^a-zA-Z0-9]");
-                //    MatchCollection matches = exp.Matches(_loanNumber);
-                //    foreach (Match item in matches)
-                //    {
-                //        _loanNumber = _loanNumber.Replace(item.Value, string.Empty);
-                //    }
-
-                //}
+                if (value != null)
+                {
+                    _loanNumber = value;
+                    Regex exp = new Regex(@"[^a-zA-Z0-9]");
+                    MatchCollection matches = exp.Matches(_loanNumber);
+                    foreach (Match item in matches)
+                    {
+                        _loanNumber = _loanNumber.Replace(item.Value, string.Empty);
+                    }
+                }
+                else
+                    _loanNumber = value;
             }
         }
 

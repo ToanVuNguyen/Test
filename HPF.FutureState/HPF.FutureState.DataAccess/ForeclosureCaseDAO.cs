@@ -347,7 +347,7 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(ParsingFirstName(searchCriteria.FirstName));
             whereClause.Append(ParsingLastName(searchCriteria.LastName));
             whereClause.Append((string.IsNullOrEmpty(searchCriteria.Last4_SSN)) ? "" : " AND (borrower_last4_SSN = @pi_borrower_last4_SSN OR co_borrower_last4_SSN = @pi_borrower_last4_SSN)");
-            whereClause.Append((string.IsNullOrEmpty(searchCriteria.LoanNumber)) ? " AND case_loan.loan_1st_2nd_cd = '1st'" : " AND case_loan.acct_num = @pi_loan_number");
+            whereClause.Append((string.IsNullOrEmpty(searchCriteria.LoanNumber)) ? " AND case_loan.loan_1st_2nd_cd = '1st'" : " AND replace(rtrim(case_loan.acct_num), '-', '')= @pi_loan_number");
             whereClause.Append((string.IsNullOrEmpty(searchCriteria.PropertyZip)) ? "" : " AND prop_zip = @pi_prop_zip");
             return whereClause.ToString();
         }
@@ -566,7 +566,7 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append((searchCriteria.FirstName == null) ? "" : " AND (borrower_fname like @pi_fname ESCAPE '/'  OR co_borrower_fname like @pi_fname ESCAPE '/')");
             whereClause.Append((searchCriteria.LastName == null) ? "" : " AND (borrower_lname like @pi_lname ESCAPE '/'  OR co_borrower_lname like @pi_lname ESCAPE '/')");
             whereClause.Append((searchCriteria.ForeclosureCaseID == -1) ? "" : "AND ( f.fc_id = @pi_fc_id)");
-            whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "AND( l.acct_num  = @pi_loannum)");
+            whereClause.Append((searchCriteria.LoanNumber == null) ? "" : "AND(replace(rtrim(l.acct_num), '-', '') = @pi_loannum)");
             whereClause.Append((searchCriteria.PropertyZip == null) ? "" : " AND( f.prop_zip = @pi_propzip)");
             whereClause.Append((searchCriteria.PropertyState == null) ? "" : " AND (f.prop_state_cd = @pi_propstate )");
             whereClause.Append((searchCriteria.Agency == -1) ? "" : " AND (f.agency_id=@pi_agencyid )");

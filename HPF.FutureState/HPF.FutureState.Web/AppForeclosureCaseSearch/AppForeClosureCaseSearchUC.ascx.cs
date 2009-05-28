@@ -263,7 +263,8 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             if (temp == 0) temp = -2;
             appForeclosureCaseSearchCriteriaDTO.ForeclosureCaseID = temp;         
             appForeclosureCaseSearchCriteriaDTO.AgencyCaseID = txtAgencyCaseID.Text.Trim() == string.Empty ? null : txtAgencyCaseID.Text.Trim();
-            appForeclosureCaseSearchCriteriaDTO.LoanNumber = txtLoanNum.Text.Trim() == string.Empty ? null : txtLoanNum.Text.Trim();
+            appForeclosureCaseSearchCriteriaDTO.LoanNumber = DeleteSpecialChar(txtLoanNum.Text.Trim() == string.Empty ? null : txtLoanNum.Text.Trim());
+
             appForeclosureCaseSearchCriteriaDTO.PropertyZip = txtPropertyZip.Text.Trim() == string.Empty ? null : txtPropertyZip.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.Last4SSN = txtSSN.Text.Trim() == string.Empty ? null : txtSSN.Text.Trim();
             appForeclosureCaseSearchCriteriaDTO.PropertyState = ddlPropertyState.SelectedValue == "ALL" ? null : ddlPropertyState.SelectedValue.Trim();
@@ -485,10 +486,10 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
             return result;
 
         }
-        /*
+        
         private string DeleteSpecialChar(string mystring)
         {
-            string result = "";
+            string result = string.Empty;
             if (mystring != null)
             {
                 mystring = mystring.Trim();
@@ -500,7 +501,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
                 }
             }
             return result;
-        }*/
+        }
         #endregion
 
         protected void grvForeClosureCaseSearch_PageIndexChanging(object sender, GridViewPageEventArgs e)
