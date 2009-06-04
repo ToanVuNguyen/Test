@@ -71,7 +71,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string PrimResInd { get; set; }
         public string LoanAmtInd { get; set; }
         public string CustPhone { get; set; }
-        public string LoanLookup { get; set; }
+        public string LoanLookupCd { get; set; }
         public string OrigdateInd { get; set; }
         public double? Payment { get; set; }
         public double? GrossIncome { get; set; }

@@ -87,7 +87,7 @@ namespace HPF.FutureState.DataAccess
             sqlParam[38] = new SqlParameter("@pi_prim_res_ind", aCallLog.PrimResInd);
             sqlParam[39] = new SqlParameter("@pi_max_loan_amt_ind", aCallLog.LoanAmtInd);
             sqlParam[40] = new SqlParameter("@pi_cust_phone", aCallLog.CustPhone);
-            sqlParam[41] = new SqlParameter("@pi_loan_lookup_cd", aCallLog.LoanLookup);
+            sqlParam[41] = new SqlParameter("@pi_loan_lookup_cd", aCallLog.LoanLookupCd);
             sqlParam[42] = new SqlParameter("@pi_org_prior2009_ind", aCallLog.OrigdateInd);
             sqlParam[43] = new SqlParameter("@pi_payment_amt", aCallLog.Payment);
             sqlParam[44] = new SqlParameter("@pi_gross_inc_amt", aCallLog.GrossIncome);
@@ -197,7 +197,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.PrimResInd = ConvertToString(reader["prim_res_ind"]);
                         callLogDTO.LoanAmtInd = ConvertToString(reader["max_loan_amt_ind"]);
                         callLogDTO.CustPhone = ConvertToString(reader["cust_phone"]);
-                        callLogDTO.LoanLookup = ConvertToString(reader["loan_lookup_cd"]);
+                        callLogDTO.LoanLookupCd = ConvertToString(reader["loan_lookup_cd"]);
                         callLogDTO.OrigdateInd = ConvertToString(reader["orig_prior2009_ind"]);
                         callLogDTO.Payment = ConvertToDouble(reader["payment_amt"]);
                         callLogDTO.GrossIncome = ConvertToDouble(reader["gross_inc_amt"]);

@@ -107,7 +107,9 @@ namespace HPF.FutureState.BusinessLogic
 
             if (!referenceCode.Validate(ReferenceCode.LOAN_DELINQUENCY_STATUS_CODE, aCallLog.LoanDelinqStatusCd))
                 errorList.AddExceptionMessage(ErrorMessages.ERR0359, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0359));
-            
+
+            if (!referenceCode.Validate(ReferenceCode.MHA_LOAN_LOOKUP_CODE, aCallLog.LoanLookupCd))
+                errorList.AddExceptionMessage("ERROR","ERROR--An invalid code was provided for LoanLookupCd.");            
             
             return errorList;
         }

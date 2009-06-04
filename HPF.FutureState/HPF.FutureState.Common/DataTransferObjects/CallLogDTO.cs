@@ -203,7 +203,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string CustPhone { get; set; }
 
         [NullableOrStringLengthValidator(true, 15, "LoanLookupCode", Ruleset = "Default", MessageTemplate = "LoanLookupCode has a maximum length of 15 characters."/*, Tag=ErrorMessages.ERR0001*/)]
-        public string LoanLookup { get; set; }
+        public string LoanLookupCd { get; set; }
 
         string origPrior2009Ind;
         [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "OriginatedPrior2009Ind has a maximum length of 1 characters.")]                

@@ -410,7 +410,7 @@ namespace HPF.FutureState.WebServices
             destObject.PrimResInd = sourceObject.PrimResInd;
             destObject.LoanAmtInd = sourceObject.LoanAmtInd;
             destObject.CustPhone = sourceObject.CustPhone;
-            destObject.LoanLookup = sourceObject.LoanLookup;
+            destObject.LoanLookupCd = sourceObject.LoanLookupCd;
             destObject.OrigdateInd = sourceObject.OrigdateInd;
             destObject.Payment = sourceObject.Payment;
             destObject.GrossIncome = sourceObject.GrossIncome;
