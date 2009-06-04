@@ -443,7 +443,6 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 InvoiceBL.Instance.ValidateInvoiceCaseSearchCriteria(searchCriteria);
                 Session["IvoiceCaseSearchCriteria"] = searchCriteria;
                 Session["fundingSource"] = dropFundingSource.SelectedItem.Text;
-                Response.Redirect("NewInvoiceSelection.aspx");
             }
             catch (DataValidationException ex)
             {
@@ -456,8 +455,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             {
                 lblErrorMessage.Items.Add(new ListItem( ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
 
+            Response.Redirect("NewInvoiceSelection.aspx");
         }
         private DateTime ConvertToDateTime(object obj)
         {

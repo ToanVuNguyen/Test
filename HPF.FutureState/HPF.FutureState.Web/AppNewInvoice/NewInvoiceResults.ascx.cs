@@ -25,43 +25,35 @@ namespace HPF.FutureState.Web.AppNewInvoice
         InvoiceDraftDTO invoiceDraft =null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            ApplySecurity();
+            ClearErrorMessages();
+            if (!IsPostBack)
             {
-                ApplySecurity();
-                ClearErrorMessages();
-                if (!IsPostBack)
+                if (Session["IvoiceCaseSearchCriteria"] == null)
+                    Response.Redirect("CreateNewInvoice.aspx");
+                InvoiceCaseSearchCriteriaDTO searchCriteria = Session["IvoiceCaseSearchCriteria"] as InvoiceCaseSearchCriteriaDTO;
+                //Get the Invoice Case Draft
+                try
                 {
-                    if (Session["IvoiceCaseSearchCriteria"] == null)
-                        Response.Redirect("CreateNewInvoice.aspx");
-                    InvoiceCaseSearchCriteriaDTO searchCriteria = Session["IvoiceCaseSearchCriteria"] as InvoiceCaseSearchCriteriaDTO;
-                    //Get the Invoice Case Draft
-                    try
-                    {
-                        DateTime backUpDt = new DateTime(searchCriteria.PeriodStart.Year, searchCriteria.PeriodStart.Month, searchCriteria.PeriodStart.Day);
-                        searchCriteria.PeriodStart = searchCriteria.PeriodStart.AddMonths(-6);
-                        invoiceDraft = InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
-                        searchCriteria.PeriodStart = backUpDt;
-                        invoiceDraft.PeriodStartDate= backUpDt;
-                        ViewState["invoiceDraft"] = invoiceDraft;
-                        //Add 6 month back for periodStartDate
-                        
-                        InvoiceDraftDataBind();
-                    }
-                    catch (DataException ex)
-                    {
-                        lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                        ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
-                    }
+                    DateTime backUpDt = new DateTime(searchCriteria.PeriodStart.Year, searchCriteria.PeriodStart.Month, searchCriteria.PeriodStart.Day);
+                    searchCriteria.PeriodStart = searchCriteria.PeriodStart.AddMonths(-6);
+                    invoiceDraft = InvoiceBL.Instance.CreateInvoiceDraft(searchCriteria);
+                    searchCriteria.PeriodStart = backUpDt;
+                    invoiceDraft.PeriodStartDate = backUpDt;
+                    ViewState["invoiceDraft"] = invoiceDraft;
+                    //Add 6 month back for periodStartDate
+
+                    InvoiceDraftDataBind();
                 }
-                else
-                    if (ViewState["invoiceDraft"] != null)
-                        invoiceDraft = (InvoiceDraftDTO)ViewState["invoiceDraft"];
+                catch (DataException ex)
+                {
+                    lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                    ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                }
             }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Items.Add(new ListItem(ex.Message));
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
+            else
+                if (ViewState["invoiceDraft"] != null)
+                    invoiceDraft = (InvoiceDraftDTO)ViewState["invoiceDraft"];
         }
         /// <summary>
         /// Only the user with Accouting Edit permission can view this page

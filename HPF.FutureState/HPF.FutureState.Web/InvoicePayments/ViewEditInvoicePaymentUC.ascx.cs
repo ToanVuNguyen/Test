@@ -145,20 +145,23 @@ namespace HPF.FutureState.Web.InvoicePayments
                         DataValidationException ex = new DataValidationException();
                         ex.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0685, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR0685));
                         throw ex;
-                    }
-                Response.Redirect("InvoicePayment.aspx");
+                    }                
             }
             catch (DataValidationException ex)
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
+                return;
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.DisplayName);
+                return;
             }
+
+            Response.Redirect("InvoicePayment.aspx");
         }
         
 

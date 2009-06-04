@@ -210,8 +210,7 @@ namespace HPF.FutureState.Web.AppNewPayable
                 AgencyPayableSetDTO agencyPayableSet = AgencyPayableBL.Instance.AgencyPayableSetGet(agencyPayableId);
                 AgencyPayableDTO agencyPayable = agencyPayableSet.Payable;
                 ExportSendReportToHPFPortal(agencyPayable, agencyPayableId);
-                Session["Comment"] = null;
-                Response.Redirect("AgencyPayable.aspx");
+                Session["Comment"] = null;                
             }
             catch (Exception ex)
             {
@@ -224,7 +223,9 @@ namespace HPF.FutureState.Web.AppNewPayable
                 btnGeneratePayable.Enabled = false;
                 Session["Comment"] = null;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
+            Response.Redirect("AgencyPayable.aspx");
         }
         /// <summary>
         /// occur when you click on RemoveMarkedCases button
@@ -266,19 +267,21 @@ namespace HPF.FutureState.Web.AppNewPayable
         /// <param name="e"></param>
         protected void btnCancelPayable_Click(object sender, EventArgs e)
         {
+            string query = "";
             try
             {
                 AgencyPayableSearchCriteriaDTO criteria = GetCriteria();
-                string query = GetQueryString(criteria);
+                query = GetQueryString(criteria);
                 if (!string.IsNullOrEmpty(txtComment.Text))
                     Session["Comment"] = txtComment.Text;
-                Response.Redirect("CreateNewPayable.aspx" + query);
             }
             catch (Exception ex)
             {
                 bulErrorMessage.Items.Add(ex.Message);
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+                return;
             }
+            Response.Redirect("CreateNewPayable.aspx" + query);
         }
         private string GetQueryString(AgencyPayableSearchCriteriaDTO agencyPayableSearchCriteria)
         {

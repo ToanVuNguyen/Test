@@ -854,16 +854,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             return GeoCodeRefDAO.Instance.GetGeoCodeRef();
             
         }
-
-       
-
-        
-
-        
-
-       
-        
-
+             
+     
         #region CheckInactiveCase
 
         /// <summary>
@@ -875,9 +867,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDWithoutCompleteDate()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                                           
-            //int fcId = SearchFcCase_GetFcID();            
+            ForeclosureCaseDTO fCase = target.GetForeclosureCase(fc_id_complete_null);
             bool expected = false;
-            bool actual = target.CheckInactiveCase(fc_id_complete_null);
+            bool actual = target.CheckForeclosureCaseDBIsInactiveCase(fCase);
             Assert.AreEqual(expected, actual);
         }
 
@@ -890,9 +882,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDAndCompleteDateTrue()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
-            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();                        
+            ForeclosureCaseDTO fCase = target.GetForeclosureCase(fc_id_complete_false);                        
             bool expected = true; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckInactiveCase(fc_id_complete_true);
+            bool actual = target.CheckForeclosureCaseDBIsInactiveCase(fCase);
             Assert.AreEqual(expected, actual);
         }
 
@@ -905,9 +897,9 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
         public void CheckInactiveCaseWithFcIDAndCompleteDateFalse()
         {
             ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                                               
-            ForeclosureCaseDTO fCase = new ForeclosureCaseDTO();                        
+            ForeclosureCaseDTO fCase = target.GetForeclosureCase(fc_id_complete_false);                       
             bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual = target.CheckInactiveCase(fc_id_complete_false);            
+            bool actual = target.CheckForeclosureCaseDBIsInactiveCase(fCase);            
             Assert.AreEqual(expected, actual);
         }       
 
@@ -942,21 +934,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             bool actual = true;
             actual = target.CheckDateOfBirth(borrowerDob);            
             Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        ///A test for RequireFieldsValidation
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("HPF.FutureState.BusinessLogic.dll")]
-        public void CheckCallId()
-        {
-            ForeclosureCaseSetBL_Accessor target = new ForeclosureCaseSetBL_Accessor(); // TODO: Initialize to an appropriate value                        
-            string callId = "HPF1    ";                        
-            bool expected = true;
-            bool actual = target.CheckCallID(callId);            
-            Assert.AreEqual(expected, actual);
-        }       
+        }                    
 
         /// <summary>
         ///A test for RequireFieldsValidation
