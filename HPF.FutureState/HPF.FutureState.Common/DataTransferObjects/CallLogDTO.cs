@@ -59,7 +59,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be a valid integer")]
         public int? ServicerId { get; set; }
 
-        [NullableOrStringLengthValidator(true, 50, "OtherServicerName", Ruleset = "Default")]
+        [NullableOrStringLengthValidator(true, 50, "OtherServicerName", Ruleset = "Default", MessageTemplate = "Other servicer name max length is 50")]
         public string OtherServicerName { get; set; }
 
         [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default", Tag = ErrorMessages.ERR0368)]
@@ -157,6 +157,117 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum3", Ruleset = "Default", Tag = ErrorMessages.ERR0394)]
         public string NonprofitReferralKeyNum3 { get; set; }
+
+        string delinqInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "DelinqInd has a maximum length of 1 characters.")]        
+        public string DelinqInd
+        {
+            get { return delinqInd; }
+            set
+            {
+                delinqInd = value;
+                if (delinqInd != null)
+                    delinqInd = delinqInd.ToUpper();
+            }
+        }
+        [NullableOrStringLengthValidator(true, 50, "propStreetAddress", Ruleset = "Default", MessageTemplate = "propStreetAddress has a maximum length of 50 characters."/*, Tag=ErrorMessages.ERR0001*/)]
+        public string PropStreetAddr { get; set; }
+
+        string primResInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "PrimaryResidenceInd has a maximum length of 1 characters.")]                
+        public string PrimResInd
+        {
+            get { return primResInd; }
+            set
+            {
+                primResInd = value;
+                if (primResInd != null)
+                    primResInd = primResInd.ToUpper();
+            }
+        }
+       
+        string maxLoanAmountInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "MaxLoanAmountInd has a maximum length of 1 characters.")]                
+        public string LoanAmtInd
+        {
+            get { return maxLoanAmountInd; }
+            set
+            {
+                maxLoanAmountInd = value;
+                if (maxLoanAmountInd != null)
+                    maxLoanAmountInd = maxLoanAmountInd.ToUpper();
+            }
+        }
+
+        [NullableOrStringLengthValidator(true, 10, "CustomerPhone", Ruleset = "Default", MessageTemplate = "CustomerPhone has a maximum length of 10 characters."/*, Tag=ErrorMessages.ERR0001*/)]
+        public string CustPhone { get; set; }
+
+        [NullableOrStringLengthValidator(true, 15, "LoanLookupCode", Ruleset = "Default", MessageTemplate = "LoanLookupCode has a maximum length of 15 characters."/*, Tag=ErrorMessages.ERR0001*/)]
+        public string LoanLookup { get; set; }
+
+        string origPrior2009Ind;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "OriginatedPrior2009Ind has a maximum length of 1 characters.")]                
+        public string OrigdateInd
+        {
+            get { return origPrior2009Ind; }
+            set
+            {
+                origPrior2009Ind = value;
+                if (origPrior2009Ind != null)
+                    origPrior2009Ind = origPrior2009Ind.ToUpper();
+            }
+        }
+
+        [NullableOrInRangeNumberValidator(true, "-9999999", "9999999", Ruleset = "Default", MessageTemplate = "PaymentAmount has minimumvalue -9999999 and maximum value 9999999")]
+        public double? Payment { get; set; }
+
+        [NullableOrInRangeNumberValidator(true, "-99999999", "99999999", Ruleset = "Default", MessageTemplate = "GrossIncomeAmount has minimumvalue -99999999 and maximum value 99999999")]
+        public double? GrossIncome { get; set; }
+
+        string dtiInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "DTIInd has a maximum length of 1 characters.")]                
+        public string DTIIndicator
+        {
+            get { return dtiInd; }
+            set
+            {
+                dtiInd = value;
+                if (dtiInd != null)
+                    dtiInd = dtiInd.ToUpper();
+            }
+        }
+
+        public int? ServicerCA { get; set; }
+
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = "Default", MessageTemplate = "ServicerCALastContactDate must be between 1/1/1753 and 12/31/9999")]
+        public DateTime? LastSCA { get; set; }
+
+        public int? ServicerIdCA { get; set; }
+
+        [NullableOrStringLengthValidator(true, 50, "ServicerCAOtherName", Ruleset = "Default", MessageTemplate = "ServicerCAOtherName has a maximum length of 50 characters."/*, Tag=ErrorMessages.ERR0001*/)]
+        public string ServicerOtherNameCA { get; set; }
+
+        string mhaInfoShareInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "MHAInforShareInd has a maximum length of 1 characters.")]                
+        public string MHAInfoShareInd         
+        {
+            get { return mhaInfoShareInd; }
+            set
+            {
+                mhaInfoShareInd = value;
+                if (mhaInfoShareInd != null)
+                    mhaInfoShareInd = mhaInfoShareInd.ToUpper();
+            }
+        }
+
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate="ICT Call Id is required to insert the call")]
+        [NullableOrStringLengthValidator(true, 40, "ICTCallId", Ruleset = "Default", MessageTemplate = "ICTCallId has a maximum length of 40 characters."/*, Tag=ErrorMessages.ERR0001*/)]
+        public string ICTCallId { get; set; }
+
+        /// <summary>
+        /// Auto HPF field
+        /// </summary>
+        public string MHAEligibilityCode { get; set; }
 
         #endregion        
     }

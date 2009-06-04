@@ -383,7 +383,7 @@ namespace HPF.FutureState.BusinessLogic
             DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
-            ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fcCase.FcId);
+            ForeclosureCaseDTO dbFcCase = FCaseSetFromDB.ForeclosureCase;
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
             fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
             if (collection.Count > 0)
@@ -438,15 +438,21 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
             
             //check fcid in db or not
-            ForeclosureCaseDTO dbFcCase = GetForeclosureCase(fc.FcId);
-            if (dbFcCase == null)
+            FCaseSetFromDB.ForeclosureCase = GetForeclosureCase(fc.FcId);
+            
+            if (FCaseSetFromDB.ForeclosureCase == null)
                 ThrowDataValidationException(ErrorMessages.ERR0251);
+            else
+            {   //User this data to check data changed or not in Update function and Send FC to queue
+                FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fc.FcId);
+                FCaseSetFromDB.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fc.FcId);
+            }
 
             //check valid fcCase for Agency
-            if (dbFcCase.AgencyId != fc.AgencyId)
+            if (FCaseSetFromDB.ForeclosureCase.AgencyId != fc.AgencyId)
                 ThrowDataValidationException(ErrorMessages.ERR0252);
 
-            if (CheckInactiveCase(foreclosureCaseSet.ForeclosureCase.FcId))                
+            if (CheckForeclosureCaseDBIsInactiveCase(FCaseSetFromDB.ForeclosureCase))                
                 return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
             else
                 return ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
@@ -754,14 +760,15 @@ namespace HPF.FutureState.BusinessLogic
         /// true: Inactive
         /// <return>bool<return>
         /// </summary>
-        private bool CheckInactiveCase(int? fcId)
+        private bool CheckForeclosureCaseDBIsInactiveCase(ForeclosureCaseDTO foreclosureCase)
         {
             DateTime currentDate = DateTime.Now;
-            DateTime backOneYear = DateTime.MinValue;            
-            ForeclosureCaseDTO foreclosureCase = GetForeclosureCase(fcId);            
+            DateTime backOneYear = DateTime.MinValue;                        
             DateTime? completeDate = foreclosureCase.CompletedDt;
+
             if (completeDate == null || completeDate == DateTime.MinValue)
                 return false;
+
             //Check leap year
             if (currentDate.Year % 400 == 0 || (currentDate.Year % 100 != 0 && currentDate.Year % 4 == 0))            
                 backOneYear = currentDate.AddDays(-367);            
@@ -770,6 +777,7 @@ namespace HPF.FutureState.BusinessLogic
             //
             if (backOneYear < completeDate)            
                 return false;                            
+
             return true;
         }      
 
@@ -917,9 +925,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns></returns>
         private ExceptionMessageCollection MiscErrorException(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            var msgFcCaseSet = new ExceptionMessageCollection();
-            int? fcId = foreclosureCaseSet.ForeclosureCase.FcId;
-            bool caseComplete = CheckForeclosureCaseComplete(fcId);            
+            var msgFcCaseSet = new ExceptionMessageCollection();            
+            bool caseComplete = CheckForeclosureCaseDBComplete(FCaseSetFromDB);            
             //Cannot Un-complete a Previously Completed Case
             msgFcCaseSet.Add(CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete));
             //Two First Mortgages Not Allowed in a Case AND Case Loan must have atleast 1st (If case completed)
@@ -972,8 +979,8 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.Add(msgRequire);
             //
             ExceptionMessageCollection msgComplete = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            if (caseComplete)            
-                msgFcCaseSet.Add(msgComplete);            
+            //if (caseComplete)            
+            //    msgFcCaseSet.Add(msgComplete);            
             WarningMessage.Add(msgComplete);            
             return msgFcCaseSet;
         }
@@ -983,21 +990,15 @@ namespace HPF.FutureState.BusinessLogic
         /// Null = Not Complete => return false
         /// CompleteDt != null => complete => return true
         /// </summary>     
-        private bool CheckForeclosureCaseComplete(int? fcId)
-        {
-            if (FCaseSetFromDB.ForeclosureCase == null || FCaseSetFromDB.ForeclosureCase.FcId == null)
-                FCaseSetFromDB.ForeclosureCase = GetForeclosureCase(fcId);            
+        private bool CheckForeclosureCaseDBComplete(ForeclosureCaseSetDTO fc)
+        {            
             bool caseComplete = false;
-            //use for send queue
+            //use for send queue            
             IsFirstTimeCaseCompleted = true;
-            if (FCaseSetFromDB.ForeclosureCase != null && FCaseSetFromDB.ForeclosureCase.CompletedDt != null && !CheckInactiveCase(fcId))
+            if (fc.ForeclosureCase != null && fc.ForeclosureCase.CompletedDt != null && !CheckForeclosureCaseDBIsInactiveCase(fc.ForeclosureCase))
             {
                 caseComplete = true;
-                IsFirstTimeCaseCompleted = false;
-                //use for send queue
-                //get case from DB                                
-                FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
-                FCaseSetFromDB.BudgetSet = BudgetBL.Instance.GetBudgetSet(fcId.Value);                
+                IsFirstTimeCaseCompleted = false;                
             }
             return caseComplete;
         }
@@ -1078,7 +1079,7 @@ namespace HPF.FutureState.BusinessLogic
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSetInput.BudgetItems;
             if (budgetItemCollection == null || budgetItemCollection.Count < 1)
             {
-                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0327, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0327));
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN0329, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0329));
                 return;
             }
 
@@ -1132,27 +1133,24 @@ namespace HPF.FutureState.BusinessLogic
 
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
-                OutcomeItemDTOCollection outcomeCollecionNew = null;
-                OutcomeItemDTOCollection outcomeFromDB = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
+                OutcomeItemDTOCollection outcomeCollecionNew = null;                
 
-                outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, outcomeFromDB, fcId);
+                outcomeCollecionNew = CheckOutcomeItemInputwithDB(foreclosureCaseSetDAO, outcomeItemCollection, FCaseSetFromDB.Outcome, fcId);
                 InsertOutcomeItem(foreclosureCaseSetDAO, outcomeCollecionNew, fcId);
 
                 //check outcome item DB with outcome item input
                 //if not exit, update outcome_deleted_dt = today()
-                outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, outcomeFromDB, fcId);
-                UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);
-
-                CaseLoanDTOCollection caseLoanFromDB = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
+                outcomeCollecionNew = CheckOutcomeItemDBwithInput(foreclosureCaseSetDAO, outcomeItemCollection, FCaseSetFromDB.Outcome, fcId);
+                UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);                
 
                 //Get list case loan wil be deleted
-                CaseLoanDTOCollection caseLoanDeleteCollecion = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, caseLoanFromDB, fcId);
+                CaseLoanDTOCollection caseLoanDeleteCollecion = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
 
                 //Get list case loan wil be updated
-                CaseLoanDTOCollection caseLoanUpdateCollecion = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, caseLoanFromDB, fcId);
+                CaseLoanDTOCollection caseLoanUpdateCollecion = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
 
                 //Get list case loan wil be inserted
-                CaseLoanDTOCollection caseLoanInsertCollecion = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, caseLoanFromDB, fcId);
+                CaseLoanDTOCollection caseLoanInsertCollecion = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
 
                 // Set Change Acc Num For CaseLoan Insertd
                 caseLoanInsertCollecion = SetChangeAccNumForCaseLoan(caseLoanDeleteCollecion, caseLoanInsertCollecion);
@@ -2127,7 +2125,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ForeclosureCaseDTO AssignForeclosureCaseHPFAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (CheckForeclosureCaseComplete(foreclosureCaseSet.ForeclosureCase.FcId))            
+            if (CheckForeclosureCaseDBComplete(foreclosureCaseSet))            
                 foreclosureCaseSet.ForeclosureCase.CompletedDt = FCaseSetFromDB.ForeclosureCase.CompletedDt;                
             
             else if (WarningMessage.Count == 0)
@@ -2240,11 +2238,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Get Foreclosure case basing on its fc_id
         /// </summary>
         /// <param name="fcId">id for a ForeclosureCase</param>
-        /// <returns>object of ForeclosureCase </returns>
-        private ForeclosureCaseDTO GetForeclosureCase(int? fcId)
-        {            
-            return foreclosureCaseSetDAO.GetForeclosureCase(fcId);
-        }
+        /// <returns>object of ForeclosureCase </returns>        
 
         #region Throw Detail Exception
 
@@ -2350,7 +2344,7 @@ namespace HPF.FutureState.BusinessLogic
         public ForeclosureCaseSetDTO GetForeclosureCaseDetail(int fcId)
         {            
             ForeclosureCaseSetDTO fcs = new ForeclosureCaseSetDTO();
-                        
+
             fcs.ForeclosureCase = GetForeclosureCase(fcId);
 
             if (fcs.ForeclosureCase == null)
@@ -2363,6 +2357,11 @@ namespace HPF.FutureState.BusinessLogic
             fcs.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
 
             return fcs;
+        }
+
+        private ForeclosureCaseDTO GetForeclosureCase(int? fcId)
+        {
+            return foreclosureCaseSetDAO.GetForeclosureCase(fcId);
         }
     }
 }

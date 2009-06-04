@@ -25,16 +25,17 @@ namespace HPF.FutureState.WebServices
         public ForeclosureCaseSaveResponse SaveForeclosureCase(ForeclosureCaseSaveRequest request)
         {
             var response = new ForeclosureCaseSaveResponse();
+            ForeclosureCaseSetBL workingInstance = null;
             try
             {
                 if (IsAuthenticated())//Authentication checking                
                 {
-                    var workingInstance = ForeclosureCaseSetBL.Instance;
+                    workingInstance = ForeclosureCaseSetBL.Instance;
                     response.FcId = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
                     if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     {
                         response.Status = ResponseStatus.Warning;
-                        response.Messages = workingInstance.WarningMessage;
+                        //response.Messages = workingInstance.WarningMessage;
                     }                    
                     else
                         response.Status = ResponseStatus.Success;
@@ -78,6 +79,10 @@ namespace HPF.FutureState.WebServices
                 response.Messages.AddExceptionMessage(Ex.Message);
                 HandleException(Ex);
             }
+            
+            if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
+                response.Messages.Add(workingInstance.WarningMessage);
+
             return response;
         }
 
@@ -399,6 +404,25 @@ namespace HPF.FutureState.WebServices
             destObject.NonprofitReferralKeyNum1 = sourceObject.NonprofitReferralKeyNum1;
             destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
             destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
+
+            destObject.DelinqInd = sourceObject.DelinqInd;
+            destObject.PropStreetAddr = sourceObject.PropStreetAddr;
+            destObject.PrimResInd = sourceObject.PrimResInd;
+            destObject.LoanAmtInd = sourceObject.LoanAmtInd;
+            destObject.CustPhone = sourceObject.CustPhone;
+            destObject.LoanLookup = sourceObject.LoanLookup;
+            destObject.OrigdateInd = sourceObject.OrigdateInd;
+            destObject.Payment = sourceObject.Payment;
+            destObject.GrossIncome = sourceObject.GrossIncome;
+            destObject.DTIIndicator = sourceObject.DTIIndicator;
+            destObject.ServicerCA = sourceObject.ServicerCA;
+            destObject.LastSCA = sourceObject.LastSCA;
+            destObject.ServicerIdCA = sourceObject.ServicerIdCA;
+            destObject.ServicerOtherNameCA = sourceObject.ServicerOtherNameCA;
+            destObject.MHAInfoShare = sourceObject.MHAInfoShareInd;
+            destObject.ICTCallId = sourceObject.ICTCallId;
+            destObject.MHAEligibilityCd = sourceObject.MHAEligibilityCode;
+
             return destObject;
         }
 

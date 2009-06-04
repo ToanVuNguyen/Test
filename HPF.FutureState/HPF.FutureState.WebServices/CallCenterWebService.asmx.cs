@@ -171,6 +171,24 @@ namespace HPF.FutureState.WebServices
             destObject.NonprofitReferralKeyNum1 = sourceObject.NonprofitReferralKeyNum1;
             destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
             destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
+
+            destObject.DelinqInd = sourceObject.DelinqInd;
+            destObject.PropStreetAddr = sourceObject.PropStreetAddr;
+            destObject.PrimResInd = sourceObject.PrimResInd;
+            destObject.LoanAmtInd = sourceObject.LoanAmtInd;
+            destObject.CustPhone = sourceObject.CustPhone;
+            destObject.LoanLookup = sourceObject.LoanLookup;
+            destObject.OrigdateInd = sourceObject.OrigdateInd;
+            destObject.Payment = sourceObject.Payment;
+            destObject.GrossIncome = sourceObject.GrossIncome;
+            destObject.DTIIndicator = sourceObject.DTIIndicator;
+            destObject.ServicerCA = sourceObject.ServicerCA;
+            destObject.LastSCA = sourceObject.LastSCA;
+            destObject.ServicerIdCA = sourceObject.ServicerIdCA;
+            destObject.ServicerOtherNameCA = sourceObject.ServicerOtherNameCA;
+            destObject.MHAInfoShareInd = sourceObject.MHAInfoShareInd;
+            destObject.ICTCallId = sourceObject.ICTCallId;
+            
             return destObject;
         }
     }

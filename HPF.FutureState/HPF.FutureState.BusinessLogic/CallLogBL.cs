@@ -195,25 +195,21 @@ namespace HPF.FutureState.BusinessLogic
             if (aCallLog.ServicerId.HasValue)
                 servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerId.Value);
 
-            if (servicer != null)
-            {
-                if (string.IsNullOrEmpty(servicer.ServicerName))
-                    return errorList;
-
-                if (!servicer.ServicerName.ToUpper().Equals(Constant.SERVICER_OTHER_NAME))
-                    return errorList;
-
-                if (string.IsNullOrEmpty(aCallLog.OtherServicerName))
-                {
-                    errorList.AddExceptionMessage(ErrorMessages.ERR0357, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0357));
-                    return errorList;
-                }
-
-                if (aCallLog.OtherServicerName.Trim().Length <= 50)
-                    return errorList;
-
-                errorList.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Other servicer name max length is 50" });
+            if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)            
+            {                
+                if (string.IsNullOrEmpty(aCallLog.OtherServicerName))                
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0357, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0357));                                       
             }
+
+            if (aCallLog.ServicerIdCA.HasValue)
+                servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerIdCA.Value);
+
+            if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)
+            {
+                if (string.IsNullOrEmpty(aCallLog.ServicerOtherNameCA))
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0400, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0400));
+            }
+
             return errorList;
         }
 

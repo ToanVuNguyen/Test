@@ -201,7 +201,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             catch
             {
-                Exception ex = new Exception("Database Error: There are two case loan hase 1ST for FC ID " + fc_id.Value);                
+                Exception ex = new Exception("Database Error: There are two case loans or more have 1ST for FC ID " + fc_id.Value);                
                 throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), "SummaryReportBL.GetCaseLoans1St");
             }
         }

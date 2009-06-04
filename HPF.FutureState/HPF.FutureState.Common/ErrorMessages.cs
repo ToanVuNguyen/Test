@@ -206,6 +206,7 @@ namespace HPF.FutureState.Common
         public const string ERR0394 = "ERR0394";
         public const string ERR0395 = "ERR0395";
         public const string ERR0451 = "ERR0451";
+        public const string ERR0400 = "ERR0400";
 
         public const string ERR0700 = "ERR0700";
         public const string ERR0708 = "ERR0708";
@@ -631,6 +632,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0355, "An invalid code was provided for FinalDispoCd.");
                 errorMessageDict.Add(ERR0356, "A CCAgentIdKey is required to save a call and max length is 55 characters.");
                 errorMessageDict.Add(ERR0357, "A Servicer selection of Other requires the entry of OtherServicerName.");
+                errorMessageDict.Add(ERR0400, "A Servicer CA selection of Other requires the entry of ServicerOtherNameCA.");
                 errorMessageDict.Add(ERR0358, "An invalid code was provided for CallSourceCd.");
                 errorMessageDict.Add(ERR0359, "An invalid code was provided for LoanDelinqStatusCd.");
                 errorMessageDict.Add(ERR0360, "An invalid Agency ID was provided for PrevAgencyID.");

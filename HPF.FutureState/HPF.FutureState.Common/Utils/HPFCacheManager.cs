@@ -83,14 +83,15 @@ namespace HPF.FutureState.Common.Utils
 
         private void AddToCache(object value, string key)
         {
-            var duration = GetDuration();
-            _HPFCache.Add(key, value, CacheItemPriority.Normal, null,
-                          new SlidingTime(TimeSpan.FromSeconds(duration)));
+            //var duration = GetDuration();
+            //_HPFCache.Add(key, value, CacheItemPriority.Normal, null,
+            //              new SlidingTime(TimeSpan.FromSeconds(duration)));
+            _HPFCache.Add(key, value); //use value expired time in the config
         }
 
-        private static int GetDuration()
-        {
-            return 5;
-        }
+        //private static int GetDuration()
+        //{
+        //    return 5;
+        //}
     }
 }
