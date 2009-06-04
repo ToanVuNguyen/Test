@@ -61,6 +61,8 @@ INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('summary s
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('system activity code','System activity code');
 INSERT INTO ref_code_set (ref_code_set_name, code_set_comment) VALUES('takeback reason code', 'Takeback reason code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('term length code','Case loan - Term length code');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha eligibility code','MHA eligibility code');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha loan lookup code','MHA loan lookup code');
 
 /****************************************************************************/
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','SCONS','Servicer Consent Change','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -493,6 +495,17 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','PR','Puerto Rico','',55,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('state code','VI','Virgin Islands of the U.S.','',56,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha loan lookup code','FAN','Fannie','ICT sends 1',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha loan lookup code','FRED','Freddie','ICT sends 2',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha loan lookup code','NOTFOUND','Not Found',NULL,3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha eligibility code','UNK','Unknown',NULL,1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha eligibility code','HAMP','HAMP Eligible',NULL,2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha eligibility code','HARP','HARP Eligible',NULL,3,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha eligibility code','NOTHAMP','Not HAMP Eligible',NULL,4,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha eligibility code','NOTHARP','Not HARP Eligible',NULL,5,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha eligibility code','MHAINELIG','MHA Ineligible',NULL,6,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+
 /****************************************************************************/
 DELETE FROM menu_security;
 DELETE FROM menu_item;
@@ -508,4 +521,3 @@ INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, i
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (2,1,'Agency Accounts Payable',2,'AgencyPayable.aspx',1);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (17,3,'ForeclosureDetail',1,'ForeclosureCaseInfo.aspx',0);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (18,1,'Invoice Payments',3,'InvoicePayment.aspx',1);
-

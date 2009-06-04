@@ -466,7 +466,24 @@ CREATE TABLE call (
   chg_lst_dt DATETIME  NOT NULL  ,
   chg_lst_user_id VARCHAR(30)  NOT NULL  ,
   chg_lst_app_name VARCHAR(20)  NOT NULL    ,
-PRIMARY KEY(call_id)  ,
+,delinq_ind	varchar(1)	Null
+,prop_street_addr	varchar(50)	Null
+,prim_res_ind	varchar(1)	Null
+,max_loan_amt_ind	varchar(1)	Null
+,cust_phone	varchar(10)	Null
+,loan_lookup_cd	varchar(15)	Null
+,orig_prior2009_ind	varchar(1)	Null
+,payment_amt	Numeric(7)	Null
+,gross_inc_amt	Numeric(8)	Null
+,dti_ind	varchar(1)	Null
+,servicer_ca_num	int	Null
+,servicer_ca_last_contact_dt	datetime	Null
+,servicer_ca_id	int	Null
+,servicer_ca_other_name	varchar(50)	Null
+,mha_info_share_ind	varchar(1)	Null
+,ict_call_id	varchar(40)	Null
+,mha_eligibility_cd	varchar(15)	Null
+,PRIMARY KEY(call_id)  ,
   FOREIGN KEY(call_center_id)
     REFERENCES call_center(call_center_id));
 GO
