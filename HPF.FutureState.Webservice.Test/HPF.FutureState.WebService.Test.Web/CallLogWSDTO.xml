@@ -31,4 +31,20 @@
   <NonprofitReferralKeyNum1>TEST</NonprofitReferralKeyNum1>
   <NonprofitReferralKeyNum2>TEST</NonprofitReferralKeyNum2>
   <NonprofitReferralKeyNum3>TEST</NonprofitReferralKeyNum3>
+  <DelinqInd>N</DelinqInd>
+  <PropStreetAddr>PropStreetAddr</PropStreetAddr>
+  <PrimResInd>N</PrimResInd>
+  <LoanAmtInd>N</LoanAmtInd>
+  <CustPhone>CustPhone</CustPhone>
+  <LoanLookup>LoanLookup</LoanLookup>
+  <OrigdateInd>N</OrigdateInd>
+  <Payment>123</Payment>
+  <GrossIncome>123</GrossIncome>
+  <DTIIndicator>N</DTIIndicator>
+  <ServicerCA>101</ServicerCA>
+  <LastSCA>1/1/2009</LastSCA>
+  <ServicerIdCA>101</ServicerIdCA>
+  <ServicerOtherNameCA></ServicerOtherNameCA>
+  <MHAInfoShare>N</MHAInfoShare>
+  <ICTCallId>ICT123</ICTCallId>
 </CallLogWSDTO>

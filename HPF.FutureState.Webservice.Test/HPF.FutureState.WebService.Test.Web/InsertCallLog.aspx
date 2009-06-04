@@ -17,7 +17,8 @@
             <asp:Label CssClass="sidelinks"  ID="Label28" runat="server" Text="Username" ></asp:Label>
                     </td>
                     <td>
-            <asp:TextBox CssClass="Text" ID="txtUsername" runat="server" Text="callcenter" Width="128px"></asp:TextBox>
+            <asp:TextBox CssClass="Text" ID="txtUsername" runat="server"  Width="128px" 
+                            Text="callcenter"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -25,17 +26,18 @@
             <asp:Label CssClass="sidelinks" ID="Label29" runat="server" Text="Password"></asp:Label>
                     </td>
                     <td>
-            <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server" Text="callcenter" Width="128px"></asp:TextBox>
+            <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server"  Width="128px" 
+                            Text="callcenter"></asp:TextBox>
             
                     </td>
                 </tr>
                 
             </table>
-            admin/admin -> both rights
+            admin/admin -&gt; both rights
             <br />
-            callcenter/callcenter -> call center right
+            callcenter/callcenter -&gt; call center right
             <br />
-            other/other ->call center but OTHER type
+            other/other -&gt;call center but OTHER type
             <br />
         </td>
         </tr>
@@ -64,276 +66,327 @@
     <br />
 
     
-    <asp:Table ID="Table1" runat="server">
-        
-        
-        
-        <asp:TableRow ID="TableRow1" runat="server">
-            <%--<asp:TableCell ID="TableCell1" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label1" runat="server" Text="Call Center ID"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell2" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtCallCenterID" runat="server" Width="128px"></asp:TextBox>
-            </asp:TableCell>--%>
-            
-            <asp:TableCell ID="TableCell35" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label18" runat="server" Text="Screen Rout"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell36" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtScreenRout" runat="server" Width="128px"></asp:TextBox>            
-            </asp:TableCell>  
-            
-            <asp:TableCell ID="TableCell3" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label2" runat="server" Text="CC Agency Id"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell4" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtCcAgentIdKey" runat="Server" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow3" runat="server">
-            <asp:TableCell ID="TableCell5" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label3" runat="server" Text="Start Date"></asp:Label>
-             </asp:TableCell>
-            <asp:TableCell ID="TableCell6" runat="server">
-            <asp:TextBox CssClass="Text" ID="txtStartDate" runat="server" Width="128px" ></asp:TextBox>
-            </asp:TableCell>
-            
-            <asp:TableCell ID="TableCell7" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label4" runat="server" Text="End Date"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell8" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtEndDate" runat="server" Width="128px" ></asp:TextBox>
-            </asp:TableCell>
-            
-        </asp:TableRow>
-        
-        
-        <asp:TableRow ID="TableRow6" runat="server">
-             <asp:TableCell ID="TableCell9" runat="server">
-         <asp:Label CssClass="sidelinks" ID="Label5" runat="server" Text="DNIS"></asp:Label>
-         </asp:TableCell>
-            <asp:TableCell ID="TableCell10" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtDNIS" runat="server" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-             <asp:TableCell ID="TableCell13" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label7" runat="server" Text="Call Center"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell14" runat="server">
-                <asp:TextBox CssClass="Text"  ID="txtCallCenter" runat="server" Width="128px" ></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow ID="TableRow7" runat="server">
-           
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow8" runat="server">
-            <asp:TableCell ID="TableCell15" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label8" runat="server" Text="Call source code"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell16" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtCallSourceCd" runat="server" Width="128px"></asp:TextBox>            
-            </asp:TableCell>
-            
-            <asp:TableCell ID="TableCell17" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label9" runat="server" Text="Calling reason"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell18" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtReasonToCall" runat="server" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow ID="TableRow9" runat="server">
-            
-        </asp:TableRow>
-        <asp:TableRow ID="TableRow10" runat="server">
-            <asp:TableCell ID="TableCell19" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label10" runat="server" Text="Acct. Number"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell20" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtLoanAccountNumber" runat="server" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-            
-            <asp:TableCell ID="TableCell21" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label11" runat="server" Text="Service ID"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell22" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtServiceID" runat="server" Width="128px"></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow ID="TableRow11" runat="server">
-            
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow12" runat="server">
-            <asp:TableCell ID="TableCell23" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label12" runat="server" Text="FirstName"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell24" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtFirstName" runat="server" Width="128px"></asp:TextBox>            
-            </asp:TableCell>
-            
-             <asp:TableCell ID="TableCell25" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label13" runat="server" Text="LastName"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell26" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtLastName" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow14" runat="server">
-            <asp:TableCell ID="TableCell27" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label14" runat="server" Text="Other Servicer Name"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell28" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtOtherServicerName" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell29" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label15" runat="server" Text="Prop Zip Full"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell30" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtPropZipFull9" runat="server" Width="128px"></asp:TextBox>            
-            </asp:TableCell> 
-        </asp:TableRow>
+        <table border="0">
+            <tr >
+                <td>
+                    <span class="sidelinks">Screen Rout</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtScreenRout" runat="Server"  Width="128px"></asp:TextBox>
+                    </td>
+                <td>
+                    <span class="sidelinks">CC Agency Id</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtCcAgentIdKey" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Start Date</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtStartDate" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">End Date</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtEndDate" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">DNIS</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtDNIS" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Call Center</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtCallCenter" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Call source code</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtCallSourceCd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>                    
+                    <span class="sidelinks">Calling reason</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtReasonToCall" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Acct. Number</span></td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtLoanAccountNumber" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Service ID</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtServicerID" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">FirstName</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtFirstName" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">LastName</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtLastName" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class="sidelinks">Other Servicer Name</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtOtherServicerName" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Prop Zip Full</span></td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtPropZipFull9" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Prev Agency Id</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtPrevAgencyId" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Selected Agency Id</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtSelectedAgencyId" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td >
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class="sidelinks">Trans Number</span></td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtTransNumber" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Cc Call Key</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtCcCallKey" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Loan Delinq Status Cd</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtLoanDelinqStatusCd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>                
+                    <span class="sidelinks">Selected Counselor</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtSelectedCounselor" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr >
+                <td>
+                    <span class="sidelinks">Homeowner Ind</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtHomeownerInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Power Of Attorney Ind</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtPowerOfAttorneyInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Authorized Ind</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtAuthorizedInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Final Dispo Cd</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtFinalDispoCd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">City</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtCity" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">State</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtState" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Nonprofit Referral 1</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtNonprofitReferral1" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td>
+                    <span class="sidelinks">Nonprofit Referral 2</span></td>
+                <td>
+                    <asp:TextBox CssClass="Text" ID="txtNonprofitReferral2" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="sidelinks">Nonprofit Referral 3</span></td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtNonprofitReferral3" runat="Server"  Width="128px"></asp:TextBox>
+                    </td>                    
+                 <td>
+                     &nbsp;</td>
+                <td >
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;</td>
+                <td >
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td >
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    DelinqInd</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtDelinqInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    PropStreetAddr</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtPropStreetAddr" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    PrimResInd</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtPrimResInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    
+LoanAmtInd</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtLoanAmtInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    
 
-        
-        <asp:TableRow ID="TableRow16" runat="server">
-            <asp:TableCell ID="TableCell31" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label16" runat="server" Text="Prev Agency Id"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell32" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtPrevAgencyId" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell33" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label17" runat="server" Text="Selected Agency Id"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell34" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtSelectedAgencyId" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-        </asp:TableRow>
-        
-        
-        <asp:TableRow ID="TableRow18" runat="server">
-            
-            
-            <asp:TableCell ID="TableCell37" runat="server">
-            
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell38" runat="server">
-                
-            
-            </asp:TableCell>         
-            
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow20" runat="server">
-            <asp:TableCell ID="TableCell39" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label20" runat="server" Text="Trans Number"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell40" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtTransNumber" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-            
-            <asp:TableCell ID="TableCell41" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label21" runat="server" Text="Cc Call Key"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell42" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtCcCallKey" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow22" runat="server">
-            <asp:TableCell ID="TableCell43" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label22" runat="server" Text="Loan Delinq Status Cd"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell44" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtLoanDelinqStatusCd" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-            
-            <asp:TableCell ID="TableCell45" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label23" runat="server" Text="Selected Counselor"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell46" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtSelectedCounselor" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow24" runat="server">
-            <asp:TableCell ID="TableCell47" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label24" runat="server" Text="Homeowner Ind"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell48" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtHomeownerInd" runat="server" Width="128px"></asp:TextBox>
-            
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell49" runat="server">
-            <asp:Label CssClass="sidelinks" ID="Label25" runat="server" Text="Power Of Attorney Ind"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell50" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtPowerOfAttorneyInd" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>
-        </asp:TableRow>
-                
-        <asp:TableRow ID="TableRow26" runat="server">
-            <asp:TableCell ID="TableCell51" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label26" runat="server" Text="AuthorizedI nd"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell52" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtAuthorizedInd" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>   
-            <asp:TableCell ID="TableCell11" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label6" runat="server" Text="Final Dispo Cd"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell12" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtFinalDispoCd" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>          
-        </asp:TableRow>
-        <asp:TableRow ID="TableRow2" runat="server">
-            <asp:TableCell ID="TableCell53" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label19" runat="server" Text="City"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell54" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtCity" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell> 
-            
-            <asp:TableCell ID="TableCell1" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label1" runat="server" Text="State"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell2" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtState" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>                        
-        </asp:TableRow>
-        
-        <asp:TableRow ID="TableRow5" runat="server">
-            <asp:TableCell ID="TableCell55" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label27" runat="server" Text="Nonprofit Referral 1"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell56" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtNonprofitReferral1" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>   
-            <asp:TableCell ID="TableCell57" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label30" runat="server" Text="Nonprofit Referral 2"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell58" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtNonprofitReferral2" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>                      
-        </asp:TableRow>        
-        <asp:TableRow ID="TableRow15" runat="server">
-            <asp:TableCell ID="TableCell59" runat="server">
-                <asp:Label CssClass="sidelinks" ID="Label31" runat="server" Text="Nonprofit Referral 3"></asp:Label>
-            </asp:TableCell>
-            <asp:TableCell ID="TableCell60" runat="server">
-                <asp:TextBox CssClass="Text" ID="txtNonprofitReferral3" runat="server" Width="128px"></asp:TextBox>           
-            </asp:TableCell>                        
-        </asp:TableRow>        
-    </asp:Table>
+CustPhone</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtCustPhone" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    
+
+LoanLookup</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtLoanLookup" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    
+
+OrigdateInd</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtOrigdateInd" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    
+
+Payment</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtPayment" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    
+
+GrossIncome</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtGrossIncome" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    
+
+DTI Indicator</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtDTIIndicator" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    
+
+ServicerCA</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtServicerCA" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    
+
+LastSCA</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtLastSCA" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr>
+                <td class="sidelinks">
+                    
+
+ServicerIdCA</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtServicerIdCA" runat="Server"  Width="128px"></asp:TextBox>
+                                                        </td>
+                <td class="sidelinks">
+                    
+
+ServicerOtherNameCA</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtServicerOtherNameCA" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                                                        </td>
+            </tr>
+            <tr class="sidelinks">
+                <td class="sidelinks">
+                    
+
+MHAInfoShare</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtMHAInfoShare" runat="Server"  Width="128px"></asp:TextBox>
+                    </td>
+                <td class="sidelinks">
+                    
+
+                    ICTCallId</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtICTCallId" runat="Server"  Width="128px"></asp:TextBox>
+                    </td>
+            </tr>
+            </table>
+        <br />
     <br />
     <br />
         <asp:Button ID="btnSave" runat="server" Text="Save call log" onclick="btnSave_Click" TabIndex="1" />  <asp:Label CssClass="sidelinks" ID="lblResult" runat="server" Text="Call Log ID: "></asp:Label>

@@ -21,7 +21,6 @@ using System.Configuration;
 
 namespace HPF.Webservice.Agency
 {
-
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -581,6 +580,40 @@ namespace HPF.Webservice.Agency
 
         private string nonprofitReferralKeyNum3Field;
 
+        private string delinqIndField;
+
+        private string propStreetAddrField;
+
+        private string primResIndField;
+
+        private string loanAmtIndField;
+
+        private string custPhoneField;
+
+        private string loanLookupField;
+
+        private string origdateIndField;
+
+        private System.Nullable<double> paymentField;
+
+        private System.Nullable<double> grossIncomeField;
+
+        private string dTIIndicatorField;
+
+        private System.Nullable<int> servicerCAField;
+
+        private System.Nullable<System.DateTime> lastSCAField;
+
+        private System.Nullable<int> servicerIdCAField;
+
+        private string servicerOtherNameCAField;
+
+        private string mHAInfoShareField;
+
+        private string iCTCallIdField;
+
+        private string mHAEligibilityCdField;
+
         /// <remarks/>
         public string CallId
         {
@@ -895,6 +928,232 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.nonprofitReferralKeyNum3Field = value;
+            }
+        }
+
+        /// <remarks/>
+        public string DelinqInd
+        {
+            get
+            {
+                return this.delinqIndField;
+            }
+            set
+            {
+                this.delinqIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PropStreetAddr
+        {
+            get
+            {
+                return this.propStreetAddrField;
+            }
+            set
+            {
+                this.propStreetAddrField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PrimResInd
+        {
+            get
+            {
+                return this.primResIndField;
+            }
+            set
+            {
+                this.primResIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanAmtInd
+        {
+            get
+            {
+                return this.loanAmtIndField;
+            }
+            set
+            {
+                this.loanAmtIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CustPhone
+        {
+            get
+            {
+                return this.custPhoneField;
+            }
+            set
+            {
+                this.custPhoneField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanLookup
+        {
+            get
+            {
+                return this.loanLookupField;
+            }
+            set
+            {
+                this.loanLookupField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string OrigdateInd
+        {
+            get
+            {
+                return this.origdateIndField;
+            }
+            set
+            {
+                this.origdateIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<double> Payment
+        {
+            get
+            {
+                return this.paymentField;
+            }
+            set
+            {
+                this.paymentField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<double> GrossIncome
+        {
+            get
+            {
+                return this.grossIncomeField;
+            }
+            set
+            {
+                this.grossIncomeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string DTIIndicator
+        {
+            get
+            {
+                return this.dTIIndicatorField;
+            }
+            set
+            {
+                this.dTIIndicatorField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ServicerCA
+        {
+            get
+            {
+                return this.servicerCAField;
+            }
+            set
+            {
+                this.servicerCAField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> LastSCA
+        {
+            get
+            {
+                return this.lastSCAField;
+            }
+            set
+            {
+                this.lastSCAField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ServicerIdCA
+        {
+            get
+            {
+                return this.servicerIdCAField;
+            }
+            set
+            {
+                this.servicerIdCAField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ServicerOtherNameCA
+        {
+            get
+            {
+                return this.servicerOtherNameCAField;
+            }
+            set
+            {
+                this.servicerOtherNameCAField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MHAInfoShare
+        {
+            get
+            {
+                return this.mHAInfoShareField;
+            }
+            set
+            {
+                this.mHAInfoShareField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ICTCallId
+        {
+            get
+            {
+                return this.iCTCallIdField;
+            }
+            set
+            {
+                this.iCTCallIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MHAEligibilityCd
+        {
+            get
+            {
+                return this.mHAEligibilityCdField;
+            }
+            set
+            {
+                this.mHAEligibilityCdField = value;
             }
         }
     }
@@ -4260,4 +4519,5 @@ namespace HPF.Webservice.Agency
             }
         }
     }
+
 }

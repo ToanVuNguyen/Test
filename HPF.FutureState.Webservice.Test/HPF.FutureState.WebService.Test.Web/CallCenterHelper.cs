@@ -54,7 +54,23 @@ namespace HPF.FutureState.WebService.Test.Web
                                NonprofitReferralKeyNum1 = obj.Element("NonprofitReferralKeyNum1").Value,
                                NonprofitReferralKeyNum2 = obj.Element("NonprofitReferralKeyNum2").Value,
                                NonprofitReferralKeyNum3 = obj.Element("NonprofitReferralKeyNum3").Value,
-                               
+
+                               DelinqInd = obj.Element("DelinqInd").Value,
+                               PropStreetAddr = obj.Element("PropStreetAddr").Value,
+                               PrimResInd = obj.Element("PrimResInd").Value,
+                               LoanAmtInd = obj.Element("LoanAmtInd").Value,
+                               CustPhone = obj.Element("CustPhone").Value,
+                               LoanLookup = obj.Element("LoanLookup").Value,
+                               OrigdateInd = obj.Element("OrigdateInd").Value,
+                               Payment = Util.ConvertToDouble(obj.Element("Payment").Value),
+                               GrossIncome = Util.ConvertToDouble(obj.Element("GrossIncome").Value),
+                               DTIIndicator = obj.Element("DTIIndicator").Value,
+                               ServicerCA = Util.ConvertToInt(obj.Element("ServicerCA").Value),
+                               LastSCA = Util.ConvertToDateTime(obj.Element("LastSCA").Value),
+                               ServicerIdCA = Util.ConvertToInt(obj.Element("ServicerIdCA").Value),
+                               ServicerOtherNameCA = obj.Element("ServicerOtherNameCA").Value,
+                               MHAInfoShareInd = obj.Element("MHAInfoShare").Value,
+                               ICTCallId = obj.Element("ICTCallId").Value
                            };
                 return objs.ToList<CallLogWSDTO>()[0];
             }
