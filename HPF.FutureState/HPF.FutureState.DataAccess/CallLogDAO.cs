@@ -83,19 +83,19 @@ namespace HPF.FutureState.DataAccess
             sqlParam[35] = new SqlParameter("@pi_nonprofitreferral_key_num3", aCallLog.NonprofitReferralKeyNum3);
 
             sqlParam[36] = new SqlParameter("@pi_deling_ind", aCallLog.DelinqInd);
-            sqlParam[37] = new SqlParameter("@pi_prop_street_addr", aCallLog.PropStreetAddr);
-            sqlParam[38] = new SqlParameter("@pi_prim_res_ind", aCallLog.PrimResInd);
-            sqlParam[39] = new SqlParameter("@pi_max_loan_amt_ind", aCallLog.LoanAmtInd);
-            sqlParam[40] = new SqlParameter("@pi_cust_phone", aCallLog.CustPhone);
+            sqlParam[37] = new SqlParameter("@pi_prop_street_addr", aCallLog.PropStreetAddress);
+            sqlParam[38] = new SqlParameter("@pi_prim_res_ind", aCallLog.PrimaryResidenceInd);
+            sqlParam[39] = new SqlParameter("@pi_max_loan_amt_ind", aCallLog.MaxLoanAmountInd);
+            sqlParam[40] = new SqlParameter("@pi_cust_phone", aCallLog.CustomerPhone);
             sqlParam[41] = new SqlParameter("@pi_loan_lookup_cd", aCallLog.LoanLookupCd);
-            sqlParam[42] = new SqlParameter("@pi_org_prior2009_ind", aCallLog.OrigdateInd);
-            sqlParam[43] = new SqlParameter("@pi_payment_amt", aCallLog.Payment);
-            sqlParam[44] = new SqlParameter("@pi_gross_inc_amt", aCallLog.GrossIncome);
-            sqlParam[45] = new SqlParameter("@pi_dti_ind", aCallLog.DTIIndicator);
-            sqlParam[46] = new SqlParameter("@pi_servicer_ca_num", aCallLog.ServicerCA);
-            sqlParam[47] = new SqlParameter("@pi_servicer_ca_last_contact_dt", aCallLog.LastSCA);
-            sqlParam[48] = new SqlParameter("@pi_servicer_ca_id", aCallLog.ServicerIdCA);
-            sqlParam[49] = new SqlParameter("@pi_servicer_ca_other_name", aCallLog.ServicerOtherNameCA);
+            sqlParam[42] = new SqlParameter("@pi_org_prior2009_ind", aCallLog.OriginatedPrior2009Ind);
+            sqlParam[43] = new SqlParameter("@pi_payment_amt", aCallLog.PaymentAmount);
+            sqlParam[44] = new SqlParameter("@pi_gross_inc_amt", aCallLog.GrossIncomeAmount);
+            sqlParam[45] = new SqlParameter("@pi_dti_ind", aCallLog.DTIInd);
+            sqlParam[46] = new SqlParameter("@pi_servicer_ca_num", aCallLog.ServicerCANumber);
+            sqlParam[47] = new SqlParameter("@pi_servicer_ca_last_contact_dt", aCallLog.ServicerCALastContactDate);
+            sqlParam[48] = new SqlParameter("@pi_servicer_ca_id", aCallLog.ServicerCAId);
+            sqlParam[49] = new SqlParameter("@pi_servicer_ca_other_name", aCallLog.ServicerCAOtherName);
             sqlParam[50] = new SqlParameter("@pi_mha_info_share_ind", aCallLog.MHAInfoShareInd);
             sqlParam[51] = new SqlParameter("@pi_ict_call_id", aCallLog.ICTCallId);            
 
@@ -193,22 +193,22 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.NonprofitReferralKeyNum3 = ConvertToString(reader["nonprofitreferral_key_num3"]);
 
                         callLogDTO.DelinqInd = ConvertToString(reader["delinq_ind"]);
-                        callLogDTO.PropStreetAddr = ConvertToString(reader["prop_street_addr"]);
-                        callLogDTO.PrimResInd = ConvertToString(reader["prim_res_ind"]);
-                        callLogDTO.LoanAmtInd = ConvertToString(reader["max_loan_amt_ind"]);
-                        callLogDTO.CustPhone = ConvertToString(reader["cust_phone"]);
+                        callLogDTO.PropStreetAddress = ConvertToString(reader["prop_street_addr"]);
+                        callLogDTO.PrimaryResidenceInd = ConvertToString(reader["prim_res_ind"]);
+                        callLogDTO.MaxLoanAmountInd = ConvertToString(reader["max_loan_amt_ind"]);
+                        callLogDTO.CustomerPhone = ConvertToString(reader["cust_phone"]);
                         callLogDTO.LoanLookupCd = ConvertToString(reader["loan_lookup_cd"]);
-                        callLogDTO.OrigdateInd = ConvertToString(reader["orig_prior2009_ind"]);
-                        callLogDTO.Payment = ConvertToDouble(reader["payment_amt"]);
-                        callLogDTO.GrossIncome = ConvertToDouble(reader["gross_inc_amt"]);
-                        callLogDTO.DTIIndicator = ConvertToString(reader["dti_ind"]);
-                        callLogDTO.ServicerCA = ConvertToInt(reader["servicer_ca_num"]);
-                        callLogDTO.LastSCA = ConvertToDateTime(reader["servicer_ca_last_contact_dt"]);
-                        callLogDTO.ServicerIdCA = ConvertToInt(reader["servicer_ca_id"]);
-                        callLogDTO.ServicerOtherNameCA = ConvertToString(reader["servicer_ca_other_name"]);
+                        callLogDTO.OriginatedPrior2009Ind = ConvertToString(reader["orig_prior2009_ind"]);
+                        callLogDTO.PaymentAmount = ConvertToDouble(reader["payment_amt"]);
+                        callLogDTO.GrossIncomeAmount = ConvertToDouble(reader["gross_inc_amt"]);
+                        callLogDTO.DTIInd = ConvertToString(reader["dti_ind"]);
+                        callLogDTO.ServicerCANumber = ConvertToInt(reader["servicer_ca_num"]);
+                        callLogDTO.ServicerCALastContactDate = ConvertToDateTime(reader["servicer_ca_last_contact_dt"]);
+                        callLogDTO.ServicerCAId = ConvertToInt(reader["servicer_ca_id"]);
+                        callLogDTO.ServicerCAOtherName = ConvertToString(reader["servicer_ca_other_name"]);
                         callLogDTO.MHAInfoShareInd = ConvertToString(reader["mha_info_share_ind"]);
                         callLogDTO.ICTCallId = ConvertToString(reader["ict_call_id"]);
-                        callLogDTO.MHAEligibilityCode = ConvertToString(reader["mha_eligibility_cd"]);
+                        callLogDTO.MHAEligibilityCd = ConvertToString(reader["mha_eligibility_cd"]);
                         #endregion
                     }
                     reader.Close();
