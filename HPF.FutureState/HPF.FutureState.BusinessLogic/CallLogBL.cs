@@ -203,12 +203,12 @@ namespace HPF.FutureState.BusinessLogic
                     errorList.AddExceptionMessage(ErrorMessages.ERR0357, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0357));                                       
             }
 
-            if (aCallLog.ServicerIdCA.HasValue)
-                servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerIdCA.Value);
+            if (aCallLog.ServicerCAId.HasValue)
+                servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerCAId.Value);
 
             if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)
             {
-                if (string.IsNullOrEmpty(aCallLog.ServicerOtherNameCA))
+                if (string.IsNullOrEmpty(aCallLog.ServicerCAOtherName))
                     errorList.AddExceptionMessage(ErrorMessages.ERR0400, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0400));
             }
 
