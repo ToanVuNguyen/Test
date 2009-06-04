@@ -590,7 +590,7 @@ namespace HPF.Webservice.Agency
 
         private string custPhoneField;
 
-        private string loanLookupField;
+        private string LoanLookupCdField;
 
         private string origdateIndField;
 
@@ -997,15 +997,15 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string LoanLookup
+        public string LoanLookupCd
         {
             get
             {
-                return this.loanLookupField;
+                return this.LoanLookupCdField;
             }
             set
             {
-                this.loanLookupField = value;
+                this.LoanLookupCdField = value;
             }
         }
 

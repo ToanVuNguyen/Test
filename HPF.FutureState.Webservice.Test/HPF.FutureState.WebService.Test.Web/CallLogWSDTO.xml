@@ -36,7 +36,7 @@
   <PrimResInd>N</PrimResInd>
   <LoanAmtInd>N</LoanAmtInd>
   <CustPhone>CustPhone</CustPhone>
-  <LoanLookup>LoanLookup</LoanLookup>
+  <LoanLookupCd>FAN</LoanLookupCd>
   <OrigdateInd>N</OrigdateInd>
   <Payment>123</Payment>
   <GrossIncome>123</GrossIncome>

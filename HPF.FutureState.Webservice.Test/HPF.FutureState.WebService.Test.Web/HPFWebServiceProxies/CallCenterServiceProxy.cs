@@ -1123,7 +1123,7 @@ namespace HPF.Webservice.CallCenter
 
         private string custPhoneField;
 
-        private string loanLookupField;
+        private string LoanLookupCdField;
 
         private string origdateIndField;
 
@@ -1593,15 +1593,15 @@ namespace HPF.Webservice.CallCenter
         }
 
         /// <remarks/>
-        public string LoanLookup
+        public string LoanLookupCd
         {
             get
             {
-                return this.loanLookupField;
+                return this.LoanLookupCdField;
             }
             set
             {
-                this.loanLookupField = value;
+                this.LoanLookupCdField = value;
             }
         }
 

@@ -95,7 +95,7 @@ namespace HPF.FutureState.WebService.Test.Web
             txtPrimResInd.Text = aCallLogWS.PrimResInd;
             txtLoanAmtInd.Text = aCallLogWS.LoanAmtInd;
             txtCustPhone.Text = aCallLogWS.CustPhone;
-            txtLoanLookup.Text = aCallLogWS.LoanLookup;
+            txtLoanLookupCd.Text = aCallLogWS.LoanLookupCd;
             txtOrigdateInd.Text = aCallLogWS.OrigdateInd;
             txtPayment.Text = aCallLogWS.Payment.HasValue?aCallLogWS.Payment.Value.ToString():"";
             txtGrossIncome.Text = aCallLogWS.GrossIncome.HasValue?aCallLogWS.GrossIncome.Value.ToString():"";
@@ -148,7 +148,7 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.PrimResInd = txtPrimResInd.Text;
             aWSCallLog.LoanAmtInd = txtLoanAmtInd.Text;
             aWSCallLog.CustPhone = txtCustPhone.Text;
-            aWSCallLog.LoanLookup = txtLoanLookup.Text;
+            aWSCallLog.LoanLookupCd = txtLoanLookupCd.Text;
             aWSCallLog.OrigdateInd = txtOrigdateInd.Text;
             aWSCallLog.Payment = Util.ConvertToDouble(txtPayment.Text);
             aWSCallLog.GrossIncome = Util.ConvertToDouble(txtGrossIncome.Text);

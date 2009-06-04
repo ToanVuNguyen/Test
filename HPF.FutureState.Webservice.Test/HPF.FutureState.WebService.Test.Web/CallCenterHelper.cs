@@ -60,7 +60,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                PrimResInd = obj.Element("PrimResInd").Value,
                                LoanAmtInd = obj.Element("LoanAmtInd").Value,
                                CustPhone = obj.Element("CustPhone").Value,
-                               LoanLookup = obj.Element("LoanLookup").Value,
+                               LoanLookupCd = obj.Element("LoanLookupCd").Value,
                                OrigdateInd = obj.Element("OrigdateInd").Value,
                                Payment = Util.ConvertToDouble(obj.Element("Payment").Value),
                                GrossIncome = Util.ConvertToDouble(obj.Element("GrossIncome").Value),

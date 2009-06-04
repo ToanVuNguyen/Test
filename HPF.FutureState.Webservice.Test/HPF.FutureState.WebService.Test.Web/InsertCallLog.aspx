@@ -299,9 +299,9 @@ CustPhone</td>
                 <td class="sidelinks">
                     
 
-LoanLookup</td>
+LoanLookupCd</td>
                 <td >
-                    <asp:TextBox CssClass="Text" ID="txtLoanLookup" runat="Server"  Width="128px"></asp:TextBox>
+                    <asp:TextBox CssClass="Text" ID="txtLoanLookupCd" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
             </tr>
             <tr>
