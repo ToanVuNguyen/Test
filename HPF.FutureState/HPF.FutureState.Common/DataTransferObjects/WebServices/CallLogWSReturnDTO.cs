@@ -65,22 +65,21 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 
         public string NonprofitReferralKeyNum3 { get; set; }
 
-
         public string DelinqInd { get; set; }
-        public string PropStreetAddr { get; set; }
-        public string PrimResInd { get; set; }
-        public string LoanAmtInd { get; set; }
-        public string CustPhone { get; set; }
+        public string PropStreetAddress { get; set; }
+        public string PrimaryResidenceInd { get; set; }
+        public string MaxLoanAmountInd { get; set; }
+        public string CustomerPhone { get; set; }
         public string LoanLookupCd { get; set; }
-        public string OrigdateInd { get; set; }
-        public double? Payment { get; set; }
-        public double? GrossIncome { get; set; }
-        public string DTIIndicator { get; set; }
-        public int? ServicerCA { get; set; }
-        public DateTime? LastSCA { get; set; }
-        public int? ServicerIdCA { get; set; }
-        public string ServicerOtherNameCA { get; set; }
-        public string MHAInfoShare { get; set; }
+        public string OriginatedPrior2009Ind { get; set; }
+        public double? PaymentAmount { get; set; }
+        public double? GrossIncomeAmount { get; set; }
+        public string DTIInd { get; set; }
+        public int? ServicerCANumber { get; set; }
+        public DateTime? ServicerCALastContactDate { get; set; }
+        public int? ServicerCAId { get; set; }
+        public string ServicerCAOtherName { get; set; }
+        public string MHAInfoShareInd { get; set; }
         public string ICTCallId { get; set; }
         public string MHAEligibilityCd { get; set; }
 
