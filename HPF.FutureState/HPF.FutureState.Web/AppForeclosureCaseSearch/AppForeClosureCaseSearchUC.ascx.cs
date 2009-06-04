@@ -489,7 +489,7 @@ namespace HPF.FutureState.Web.AppForeClosureCaseSearch
         
         private string DeleteSpecialChar(string mystring)
         {
-            string result = string.Empty;
+            string result = null;
             if (mystring != null)
             {
                 mystring = mystring.Trim();
