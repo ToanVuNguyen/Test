@@ -269,7 +269,7 @@
                     <asp:TextBox CssClass="Text" ID="txtDelinqInd" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
-                    PropStreetAddr</td>
+                    Prop Street Address </td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtPropStreetAddr" runat="Server"  
                         Width="128px"></asp:TextBox>
@@ -277,13 +277,13 @@
             </tr>
             <tr>
                 <td class="sidelinks">
-                    PrimResInd</td>
+                    Primary Residence Ind </td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtPrimResInd" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
                     
-LoanAmtInd</td>
+                    MaxLoan Amount Ind</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtLoanAmtInd" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
@@ -292,14 +292,14 @@ LoanAmtInd</td>
                 <td class="sidelinks">
                     
 
-CustPhone</td>
+                    Customer Phone</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtCustPhone" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
                     
 
-LoanLookupCd</td>
+                    Loan Lookup Cd</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtLoanLookupCd" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
@@ -308,14 +308,14 @@ LoanLookupCd</td>
                 <td class="sidelinks">
                     
 
-OrigdateInd</td>
+                    Originated Prior 2009 Ind </td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtOrigdateInd" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
                     
 
-Payment</td>
+                    Payment Amount</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtPayment" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
@@ -324,14 +324,14 @@ Payment</td>
                 <td class="sidelinks">
                     
 
-GrossIncome</td>
+                    Gross Income Amount</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtGrossIncome" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
                     
 
-DTI Indicator</td>
+                    DTI Ind</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtDTIIndicator" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
@@ -340,14 +340,14 @@ DTI Indicator</td>
                 <td class="sidelinks">
                     
 
-ServicerCA</td>
+                    Servicer CA Number</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtServicerCA" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
                     
 
-LastSCA</td>
+                    Servicer CA Last Contact Date </td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtLastSCA" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
@@ -356,14 +356,14 @@ LastSCA</td>
                 <td class="sidelinks">
                     
 
-ServicerIdCA</td>
+                    Servicer CA Id</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtServicerIdCA" runat="Server"  Width="128px"></asp:TextBox>
                                                         </td>
                 <td class="sidelinks">
                     
 
-ServicerOtherNameCA</td>
+                    Servicer CA OtherName</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtServicerOtherNameCA" runat="Server"  
                         Width="128px"></asp:TextBox>
@@ -373,14 +373,14 @@ ServicerOtherNameCA</td>
                 <td class="sidelinks">
                     
 
-MHAInfoShare</td>
+                    MHA Info Share Ind</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtMHAInfoShare" runat="Server"  Width="128px"></asp:TextBox>
                     </td>
                 <td class="sidelinks">
                     
 
-                    ICTCallId</td>
+                    ICT Call Id</td>
                 <td >
                     <asp:TextBox CssClass="Text" ID="txtICTCallId" runat="Server"  Width="128px"></asp:TextBox>
                     </td>

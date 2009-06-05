@@ -582,33 +582,33 @@ namespace HPF.Webservice.Agency
 
         private string delinqIndField;
 
-        private string propStreetAddrField;
+        private string propStreetAddressField;
 
-        private string primResIndField;
+        private string primaryResidenceIndField;
 
-        private string loanAmtIndField;
+        private string maxLoanAmountIndField;
 
-        private string custPhoneField;
+        private string customerPhoneField;
 
-        private string LoanLookupCdField;
+        private string loanLookupCdField;
 
-        private string origdateIndField;
+        private string originatedPrior2009IndField;
 
-        private System.Nullable<double> paymentField;
+        private System.Nullable<double> paymentAmountField;
 
-        private System.Nullable<double> grossIncomeField;
+        private System.Nullable<double> grossIncomeAmountField;
 
-        private string dTIIndicatorField;
+        private string dTIIndField;
 
-        private System.Nullable<int> servicerCAField;
+        private System.Nullable<int> servicerCANumberField;
 
-        private System.Nullable<System.DateTime> lastSCAField;
+        private System.Nullable<System.DateTime> servicerCALastContactDateField;
 
-        private System.Nullable<int> servicerIdCAField;
+        private System.Nullable<int> servicerCAIdField;
 
-        private string servicerOtherNameCAField;
+        private string servicerCAOtherNameField;
 
-        private string mHAInfoShareField;
+        private string mHAInfoShareIndField;
 
         private string iCTCallIdField;
 
@@ -945,54 +945,54 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        public string PropStreetAddr
+        public string PropStreetAddress
         {
             get
             {
-                return this.propStreetAddrField;
+                return this.propStreetAddressField;
             }
             set
             {
-                this.propStreetAddrField = value;
+                this.propStreetAddressField = value;
             }
         }
 
         /// <remarks/>
-        public string PrimResInd
+        public string PrimaryResidenceInd
         {
             get
             {
-                return this.primResIndField;
+                return this.primaryResidenceIndField;
             }
             set
             {
-                this.primResIndField = value;
+                this.primaryResidenceIndField = value;
             }
         }
 
         /// <remarks/>
-        public string LoanAmtInd
+        public string MaxLoanAmountInd
         {
             get
             {
-                return this.loanAmtIndField;
+                return this.maxLoanAmountIndField;
             }
             set
             {
-                this.loanAmtIndField = value;
+                this.maxLoanAmountIndField = value;
             }
         }
 
         /// <remarks/>
-        public string CustPhone
+        public string CustomerPhone
         {
             get
             {
-                return this.custPhoneField;
+                return this.customerPhoneField;
             }
             set
             {
-                this.custPhoneField = value;
+                this.customerPhoneField = value;
             }
         }
 
@@ -1001,133 +1001,133 @@ namespace HPF.Webservice.Agency
         {
             get
             {
-                return this.LoanLookupCdField;
+                return this.loanLookupCdField;
             }
             set
             {
-                this.LoanLookupCdField = value;
+                this.loanLookupCdField = value;
             }
         }
 
         /// <remarks/>
-        public string OrigdateInd
+        public string OriginatedPrior2009Ind
         {
             get
             {
-                return this.origdateIndField;
+                return this.originatedPrior2009IndField;
             }
             set
             {
-                this.origdateIndField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<double> Payment
-        {
-            get
-            {
-                return this.paymentField;
-            }
-            set
-            {
-                this.paymentField = value;
+                this.originatedPrior2009IndField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<double> GrossIncome
+        public System.Nullable<double> PaymentAmount
         {
             get
             {
-                return this.grossIncomeField;
+                return this.paymentAmountField;
             }
             set
             {
-                this.grossIncomeField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string DTIIndicator
-        {
-            get
-            {
-                return this.dTIIndicatorField;
-            }
-            set
-            {
-                this.dTIIndicatorField = value;
+                this.paymentAmountField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> ServicerCA
+        public System.Nullable<double> GrossIncomeAmount
         {
             get
             {
-                return this.servicerCAField;
+                return this.grossIncomeAmountField;
             }
             set
             {
-                this.servicerCAField = value;
+                this.grossIncomeAmountField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string DTIInd
+        {
+            get
+            {
+                return this.dTIIndField;
+            }
+            set
+            {
+                this.dTIIndField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<System.DateTime> LastSCA
+        public System.Nullable<int> ServicerCANumber
         {
             get
             {
-                return this.lastSCAField;
+                return this.servicerCANumberField;
             }
             set
             {
-                this.lastSCAField = value;
+                this.servicerCANumberField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> ServicerIdCA
+        public System.Nullable<System.DateTime> ServicerCALastContactDate
         {
             get
             {
-                return this.servicerIdCAField;
+                return this.servicerCALastContactDateField;
             }
             set
             {
-                this.servicerIdCAField = value;
+                this.servicerCALastContactDateField = value;
             }
         }
 
         /// <remarks/>
-        public string ServicerOtherNameCA
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ServicerCAId
         {
             get
             {
-                return this.servicerOtherNameCAField;
+                return this.servicerCAIdField;
             }
             set
             {
-                this.servicerOtherNameCAField = value;
+                this.servicerCAIdField = value;
             }
         }
 
         /// <remarks/>
-        public string MHAInfoShare
+        public string ServicerCAOtherName
         {
             get
             {
-                return this.mHAInfoShareField;
+                return this.servicerCAOtherNameField;
             }
             set
             {
-                this.mHAInfoShareField = value;
+                this.servicerCAOtherNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MHAInfoShareInd
+        {
+            get
+            {
+                return this.mHAInfoShareIndField;
+            }
+            set
+            {
+                this.mHAInfoShareIndField = value;
             }
         }
 
@@ -4519,5 +4519,4 @@ namespace HPF.Webservice.Agency
             }
         }
     }
-
 }

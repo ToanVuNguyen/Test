@@ -4,7 +4,7 @@
   <CallCenterID >71</CallCenterID>
   <CcAgentIdKey >CcAgentIdKey</CcAgentIdKey>
   <StartDate >1/1/2008</StartDate>
-  <EndDate >1/10/2008</EndDate>
+  <EndDate >1/10/2008 00:30:00AM</EndDate>
   <DNIS >DNIS</DNIS>
   <CallCenter >aaaa</CallCenter>
   <CallSourceCd >Television</CallSourceCd>
@@ -32,19 +32,20 @@
   <NonprofitReferralKeyNum2>TEST</NonprofitReferralKeyNum2>
   <NonprofitReferralKeyNum3>TEST</NonprofitReferralKeyNum3>
   <DelinqInd>N</DelinqInd>
-  <PropStreetAddr>PropStreetAddr</PropStreetAddr>
-  <PrimResInd>N</PrimResInd>
-  <LoanAmtInd>N</LoanAmtInd>
-  <CustPhone>CustPhone</CustPhone>
+  <PropStreetAddress>PropStreetAddr</PropStreetAddress>
+  <PrimaryResidenceInd>N</PrimaryResidenceInd>
+  <MaxLoanAmountInd>N</MaxLoanAmountInd>
+  <CustomerPhone>CustPhone</CustomerPhone>
   <LoanLookupCd>FAN</LoanLookupCd>
-  <OrigdateInd>N</OrigdateInd>
-  <Payment>123</Payment>
-  <GrossIncome>123</GrossIncome>
-  <DTIIndicator>N</DTIIndicator>
-  <ServicerCA>101</ServicerCA>
-  <LastSCA>1/1/2009</LastSCA>
-  <ServicerIdCA>101</ServicerIdCA>
-  <ServicerOtherNameCA></ServicerOtherNameCA>
-  <MHAInfoShare>N</MHAInfoShare>
+  <OriginatedPrior2009Ind>N</OriginatedPrior2009Ind>
+  <PaymentAmount>123</PaymentAmount>
+  <GrossIncomeAmount>123</GrossIncomeAmount>
+  <DTIInd>N</DTIInd>
+  <ServicerCANumber>101</ServicerCANumber>
+  <ServicerCALastContactDate>1/1/2009</ServicerCALastContactDate>
+  <ServicerCAId>101</ServicerCAId>
+  <ServicerCAOtherName></ServicerCAOtherName>
+  <MHAInfoShareInd>N</MHAInfoShareInd>
   <ICTCallId>ICT123</ICTCallId>
+
 </CallLogWSDTO>

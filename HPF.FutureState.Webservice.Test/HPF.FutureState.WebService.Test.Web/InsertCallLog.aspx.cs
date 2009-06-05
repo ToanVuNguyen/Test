@@ -91,19 +91,19 @@ namespace HPF.FutureState.WebService.Test.Web
             txtNonprofitReferral3.Text = aCallLogWS.NonprofitReferralKeyNum3;
 
             txtDelinqInd.Text = aCallLogWS.DelinqInd;
-            txtPropStreetAddr.Text = aCallLogWS.PropStreetAddr;
-            txtPrimResInd.Text = aCallLogWS.PrimResInd;
-            txtLoanAmtInd.Text = aCallLogWS.LoanAmtInd;
-            txtCustPhone.Text = aCallLogWS.CustPhone;
+            txtPropStreetAddr.Text = aCallLogWS.PropStreetAddress;
+            txtPrimResInd.Text = aCallLogWS.PrimaryResidenceInd;
+            txtLoanAmtInd.Text = aCallLogWS.MaxLoanAmountInd;
+            txtCustPhone.Text = aCallLogWS.CustomerPhone;
             txtLoanLookupCd.Text = aCallLogWS.LoanLookupCd;
-            txtOrigdateInd.Text = aCallLogWS.OrigdateInd;
-            txtPayment.Text = aCallLogWS.Payment.HasValue?aCallLogWS.Payment.Value.ToString():"";
-            txtGrossIncome.Text = aCallLogWS.GrossIncome.HasValue?aCallLogWS.GrossIncome.Value.ToString():"";
-            txtDTIIndicator.Text = aCallLogWS.DTIIndicator;
-            txtServicerCA.Text = aCallLogWS.ServicerCA.HasValue?aCallLogWS.ServicerCA.Value.ToString():"";
-            txtLastSCA.Text = aCallLogWS.LastSCA.HasValue?aCallLogWS.LastSCA.ToString():"";
-            txtServicerIdCA.Text = aCallLogWS.ServicerIdCA.HasValue?aCallLogWS.ServicerIdCA.Value.ToString():"";
-            txtServicerOtherNameCA.Text = aCallLogWS.ServicerOtherNameCA;
+            txtOrigdateInd.Text = aCallLogWS.OriginatedPrior2009Ind;
+            txtPayment.Text = aCallLogWS.PaymentAmount.HasValue?aCallLogWS.PaymentAmount.Value.ToString():"";
+            txtGrossIncome.Text = aCallLogWS.GrossIncomeAmount.HasValue?aCallLogWS.GrossIncomeAmount.Value.ToString():"";
+            txtDTIIndicator.Text = aCallLogWS.DTIInd;
+            txtServicerCA.Text = aCallLogWS.ServicerCANumber.HasValue?aCallLogWS.ServicerCANumber.Value.ToString():"";
+            txtLastSCA.Text = aCallLogWS.ServicerCALastContactDate.HasValue?aCallLogWS.ServicerCALastContactDate.ToString():"";
+            txtServicerIdCA.Text = aCallLogWS.ServicerCAId.HasValue?aCallLogWS.ServicerCAId.Value.ToString():"";
+            txtServicerOtherNameCA.Text = aCallLogWS.ServicerCAOtherName;
             txtMHAInfoShare.Text = aCallLogWS.MHAInfoShareInd;
             txtICTCallId.Text = aCallLogWS.ICTCallId;            
         }
@@ -144,19 +144,19 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.NonprofitReferralKeyNum3 = Util.ConvertToString(txtNonprofitReferral3.Text.Trim());
 
             aWSCallLog.DelinqInd = txtDelinqInd.Text;
-            aWSCallLog.PropStreetAddr = txtPropStreetAddr.Text;
-            aWSCallLog.PrimResInd = txtPrimResInd.Text;
-            aWSCallLog.LoanAmtInd = txtLoanAmtInd.Text;
-            aWSCallLog.CustPhone = txtCustPhone.Text;
+            aWSCallLog.PropStreetAddress = txtPropStreetAddr.Text;
+            aWSCallLog.PrimaryResidenceInd = txtPrimResInd.Text;
+            aWSCallLog.MaxLoanAmountInd = txtLoanAmtInd.Text;
+            aWSCallLog.CustomerPhone = txtCustPhone.Text;
             aWSCallLog.LoanLookupCd = txtLoanLookupCd.Text;
-            aWSCallLog.OrigdateInd = txtOrigdateInd.Text;
-            aWSCallLog.Payment = Util.ConvertToDouble(txtPayment.Text);
-            aWSCallLog.GrossIncome = Util.ConvertToDouble(txtGrossIncome.Text);
-            aWSCallLog.DTIIndicator = txtDTIIndicator.Text;
-            aWSCallLog.ServicerCA = Util.ConvertToInt(txtServicerCA.Text);
-            aWSCallLog.LastSCA = Util.ConvertToDateTime(txtLastSCA.Text);
-            aWSCallLog.ServicerIdCA = Util.ConvertToInt(txtServicerIdCA.Text);
-            aWSCallLog.ServicerOtherNameCA = txtServicerOtherNameCA.Text;
+            aWSCallLog.OriginatedPrior2009Ind = txtOrigdateInd.Text;
+            aWSCallLog.PaymentAmount = Util.ConvertToDouble(txtPayment.Text);
+            aWSCallLog.GrossIncomeAmount = Util.ConvertToDouble(txtGrossIncome.Text);
+            aWSCallLog.DTIInd = txtDTIIndicator.Text;
+            aWSCallLog.ServicerCANumber = Util.ConvertToInt(txtServicerCA.Text);
+            aWSCallLog.ServicerCALastContactDate = Util.ConvertToDateTime(txtLastSCA.Text);
+            aWSCallLog.ServicerCAId = Util.ConvertToInt(txtServicerIdCA.Text);
+            aWSCallLog.ServicerCAOtherName = txtServicerOtherNameCA.Text;
             aWSCallLog.MHAInfoShareInd = txtMHAInfoShare.Text;
             aWSCallLog.ICTCallId = txtICTCallId.Text; 
 
