@@ -173,19 +173,19 @@ namespace HPF.FutureState.WebServices
             destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
 
             destObject.DelinqInd = sourceObject.DelinqInd;
-            destObject.PropStreetAddr = sourceObject.PropStreetAddr;
-            destObject.PrimResInd = sourceObject.PrimResInd;
-            destObject.LoanAmtInd = sourceObject.LoanAmtInd;
-            destObject.CustPhone = sourceObject.CustPhone;
+            destObject.PropStreetAddress = sourceObject.PropStreetAddress;
+            destObject.PrimaryResidenceInd = sourceObject.PrimaryResidenceInd;
+            destObject.MaxLoanAmountInd = sourceObject.MaxLoanAmountInd;
+            destObject.CustomerPhone = sourceObject.CustomerPhone;
             destObject.LoanLookupCd = sourceObject.LoanLookupCd;
-            destObject.OrigdateInd = sourceObject.OrigdateInd;
-            destObject.Payment = sourceObject.Payment;
-            destObject.GrossIncome = sourceObject.GrossIncome;
-            destObject.DTIIndicator = sourceObject.DTIIndicator;
-            destObject.ServicerCA = sourceObject.ServicerCA;
-            destObject.LastSCA = sourceObject.LastSCA;
-            destObject.ServicerIdCA = sourceObject.ServicerIdCA;
-            destObject.ServicerOtherNameCA = sourceObject.ServicerOtherNameCA;
+            destObject.OriginatedPrior2009Ind = sourceObject.OriginatedPrior2009Ind;
+            destObject.PaymentAmount = sourceObject.PaymentAmount;
+            destObject.GrossIncomeAmount = sourceObject.GrossIncomeAmount;
+            destObject.DTIInd = sourceObject.DTIInd;
+            destObject.ServicerCANumber = sourceObject.ServicerCANumber;
+            destObject.ServicerCALastContactDate = sourceObject.ServicerCALastContactDate;
+            destObject.ServicerCAId = sourceObject.ServicerCAId;
+            destObject.ServicerCAOtherName = sourceObject.ServicerCAOtherName;
             destObject.MHAInfoShareInd = sourceObject.MHAInfoShareInd;
             destObject.ICTCallId = sourceObject.ICTCallId;
             

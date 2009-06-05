@@ -16,7 +16,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? CallCenterID { get; set; }
 
         [NullableOrStringLengthValidator(false, 55, "Cc Agent Id Key", Ruleset = "Default", Tag = ErrorMessages.ERR0356)]
-        public string CcAgentIdKey { get; set; }
+        string ccAgentIdKey;
+        public string CcAgentIdKey 
+        {
+            get { return ccAgentIdKey; }
+            set { ccAgentIdKey = string.IsNullOrEmpty(value) ? null : value; }
+        }
         
         [RequiredObjectValidator(Ruleset = "Default", Tag = ErrorMessages.ERR0351)]
         public DateTime? StartDate { get; set; }
@@ -26,44 +31,80 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime? EndDate { get; set; }
 
         [NullableOrStringLengthValidator(true, 10, "DNIS", Ruleset = "Default", Tag = ErrorMessages.ERR0363)]
-        public string DNIS { get; set; }
+        string dnis;
+        public string DNIS 
+        {
+            get { return dnis; }
+            set { dnis = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         [NullableOrStringLengthValidator(true, 4, "CallCenter", Ruleset = "Default", Tag = ErrorMessages.ERR0364)]
-        public string CallCenter { get; set; }
+        string callCenter;
+        public string CallCenter 
+        {
+            get { return callCenter; }
+            set { callCenter = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
-        string _callSourceCd;
+        string callSourceCd;
         [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]        
         public string CallSourceCd 
         {
-            get { return _callSourceCd; }
-            set
-            {
-                if (!string.IsNullOrEmpty(value)) _callSourceCd = value.Trim().ToUpper();
-                else _callSourceCd = value;
-            }
+            get { return callSourceCd; }
+            set { callSourceCd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
 
         //miss Error for string length
         [NullableOrStringLengthValidator(true, 75, "Reason For Call", Ruleset = "Default")]
-        public string ReasonForCall { get; set; }
+        string reasonForCall;
+        public string ReasonForCall 
+        {
+            get { return reasonForCall; }
+            set { reasonForCall = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         [NullableOrStringLengthValidator(true, 30, "Loan Account Number", Ruleset = "Default", Tag = ErrorMessages.ERR0365)]
-        public string LoanAccountNumber { get; set; }
+        string loanAccountNumber;
+        public string LoanAccountNumber 
+        {
+            get { return loanAccountNumber; }
+            set { loanAccountNumber = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         [NullableOrStringLengthValidator(true, 30, "First name", Ruleset = "Default", Tag = ErrorMessages.ERR0366)]
-        public string FirstName { get; set; }
+        string firstName;
+        public string FirstName 
+        {
+            get { return firstName; }
+            set { firstName = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         [NullableOrStringLengthValidator(true, 30, "Last name", Ruleset = "Default", Tag = ErrorMessages.ERR0367)]
-        public string LastName { get; set; }
+        string lastName;
+        public string LastName 
+        {
+            get { return lastName; }
+            set { lastName = string.IsNullOrEmpty(value) ? null : value; }
+        }
         
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Servicer Id must be a valid integer")]
         public int? ServicerId { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "OtherServicerName", Ruleset = "Default", MessageTemplate = "Other servicer name max length is 50")]
-        public string OtherServicerName { get; set; }
+        string otherServicerName;
+        public string OtherServicerName 
+        {
+            get { return otherServicerName; }
+            set { otherServicerName = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         [NullableOrStringLengthValidator(true, 9, "Prop Zip", Ruleset = "Default", Tag = ErrorMessages.ERR0368)]
-        public string PropZipFull9 { get; set; }
+        string propZipFull9;
+        public string PropZipFull9 
+        {
+            get { return propZipFull9; }
+            set { propZipFull9 = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
 
         [NullableOrInRangeValidator(true, "[0-9]", Ruleset = "Default", MessageTemplate = "Prev Agency Id must be a valid integer")]
@@ -73,90 +114,116 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? SelectedAgencyId { get; set; }
 
         [NullableOrStringLengthValidator(true, 2000, "Screen Rout", Ruleset = "Default", Tag = ErrorMessages.ERR0369)]
-        public string ScreenRout { get; set; }
+        string screemRout;
+        public string ScreenRout 
+        {
+            get { return screemRout; }
+            set { screemRout = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
-        string _finalDispoCd;
+        string finalDispoCd;
         [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", Tag = ErrorMessages.ERR0353)]
         public string FinalDispoCd
         {
-            get { return _finalDispoCd; }
-            set 
-            {
-                if (!string.IsNullOrEmpty(value)) _finalDispoCd = value.Trim().ToUpper();
-                else _finalDispoCd = value;
-            }
+            get { return finalDispoCd; }
+            set { finalDispoCd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
 
         [NullableOrStringLengthValidator(true, 12, "Trans Number", Ruleset = "Default", Tag = ErrorMessages.ERR0370)]
-        public string TransNumber { get; set; }
+        string transNumber;
+        public string TransNumber
+        {
+            get { return transNumber; }
+            set { transNumber = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
         [NullableOrStringLengthValidator(false, 18, "Cc Call Key", Ruleset = "Default", Tag = ErrorMessages.ERR0350)]
-        public string CcCallKey { get; set; }
+        string ccCallKey;
+        public string CcCallKey 
+        {
+            get { return ccCallKey; }
+            set { ccCallKey = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
-        string _loanDelinqStatusCd;
+        string loanDelinqStatusCd;
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
         public string LoanDelinqStatusCd
         {
-            get { return _loanDelinqStatusCd; }
-            set 
-            {
-                if (!string.IsNullOrEmpty(value)) _loanDelinqStatusCd = value.Trim().ToUpper();
-                else _loanDelinqStatusCd = value;
-            }
+            get { return loanDelinqStatusCd; }
+            set { loanDelinqStatusCd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
+            
         }
 
         [NullableOrStringLengthValidator(true, 40, "Selected Counselor", Ruleset = "Default", Tag = ErrorMessages.ERR0371)]
-        public string SelectedCounselor { get; set; }
+        string selectedCounselor;
+        public string SelectedCounselor 
+        {
+            get { return selectedCounselor; }
+            set { selectedCounselor = string.IsNullOrEmpty(value) ? null : value; } 
+        }
         
-        string _homeownerInd;
+        string homeownerInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0372)]
         public string HomeownerInd
         {
-            get { return _homeownerInd; }
-            set
-            {
-                if (!string.IsNullOrEmpty(value)) _homeownerInd = value.Trim().ToUpper();
-                else _homeownerInd = value;
-            }
+            get { return homeownerInd; }
+            set { homeownerInd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
-        string _powerOfAttorneyInd;
+        string powerOfAttorneyInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0373)]
         public string PowerOfAttorneyInd 
         {
-            get { return _powerOfAttorneyInd; } 
-            set            
-            {
-                if (!string.IsNullOrEmpty(value)) _powerOfAttorneyInd = value.Trim().ToUpper();
-                else _powerOfAttorneyInd = value;
-            }
+            get { return powerOfAttorneyInd; }
+            set { powerOfAttorneyInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
         }
         
-        string _authorizedInd;
+        string authorizedInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", Tag = ErrorMessages.ERR0374)]
         public string AuthorizedInd 
         { 
-            get { return _authorizedInd; }
-            set 
-            {
-                if (!string.IsNullOrEmpty(value)) _authorizedInd = value.Trim().ToUpper();
-                else _authorizedInd = value;
-            }
+            get { return authorizedInd; }
+            set { authorizedInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
         }
 
         [NullableOrStringLengthValidator(true, 30, "City", Ruleset = "Default", Tag = ErrorMessages.ERR0390)]
-        public string City {get; set;}  //	varchar(30)
+        string city;
+        public string City
+        {
+            get { return city; }
+            set { city = string.IsNullOrEmpty(value) ? null : value; }
+        }  //	varchar(30)
 
         [NullableOrStringLengthValidator(true, 2, "State", Ruleset = "Default", Tag = ErrorMessages.ERR0391)]
-        public string State	{get; set;} //varchar(2)
+        string state;
+        public string State	
+        {
+            get { return state; }
+            set { state = string.IsNullOrEmpty(value) ? null : value; }
+        } //varchar(2)
 
         [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum1", Ruleset = "Default", Tag = ErrorMessages.ERR0392)]
-        public string NonprofitReferralKeyNum1 {get; set;}
+        string nonprofitReferralKeyNum1;
+        public string NonprofitReferralKeyNum1 
+        {
+            get { return nonprofitReferralKeyNum1; }
+            set { nonprofitReferralKeyNum1 = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
-        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum2", Ruleset = "Default", Tag = ErrorMessages.ERR0393)]        
-        public string NonprofitReferralKeyNum2 {get; set;}
+        [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum2", Ruleset = "Default", Tag = ErrorMessages.ERR0393)]
+        string nonprofitReferralKeyNum2;
+        public string NonprofitReferralKeyNum2 
+        {
+            get { return nonprofitReferralKeyNum2; }
+            set { nonprofitReferralKeyNum2 = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         [NullableOrStringLengthValidator(true, 10, "NonprofitReferralKeyNum3", Ruleset = "Default", Tag = ErrorMessages.ERR0394)]
-        public string NonprofitReferralKeyNum3 { get; set; }
+        string nonprofitReferralKeyNum3;
+        public string NonprofitReferralKeyNum3 
+        {
+            get { return nonprofitReferralKeyNum3; }
+            set { nonprofitReferralKeyNum3 = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
 
         string delinqInd;
@@ -164,27 +231,22 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string DelinqInd
         {
             get { return delinqInd; }
-            set
-            {
-                delinqInd = value;
-                if (delinqInd != null)
-                    delinqInd = delinqInd.ToUpper();
-            }
+            set { delinqInd =string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
         [NullableOrStringLengthValidator(true, 50, "propStreetAddress", Ruleset = "Default", MessageTemplate = "propStreetAddress has a maximum length of 50 characters."/*, Tag=ErrorMessages.ERR0001*/)]
-        public string PropStreetAddress { get; set; }
+        string propStreetAddress;
+        public string PropStreetAddress 
+        {
+            get { return propStreetAddress; }
+            set { propStreetAddress = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
         string primaryResidenceInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "PrimaryResidenceInd has a maximum length of 1 characters.")]                
         public string PrimaryResidenceInd
         {
             get { return primaryResidenceInd; }
-            set
-            {
-                primaryResidenceInd = value;
-                if (primaryResidenceInd != null)
-                    primaryResidenceInd = primaryResidenceInd.ToUpper();
-            }
+            set { primaryResidenceInd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
        
         string maxLoanAmountInd;
@@ -192,31 +254,31 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string MaxLoanAmountInd
         {
             get { return maxLoanAmountInd; }
-            set
-            {
-                maxLoanAmountInd = value;
-                if (maxLoanAmountInd != null)
-                    maxLoanAmountInd = maxLoanAmountInd.ToUpper();
-            }
+            set { maxLoanAmountInd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
 
         [NullableOrStringLengthValidator(true, 10, "CustomerPhone", Ruleset = "Default", MessageTemplate = "CustomerPhone has a maximum length of 10 characters."/*, Tag=ErrorMessages.ERR0001*/)]
-        public string CustomerPhone { get; set; }
+        string customerPhone;
+        public string CustomerPhone 
+        {
+            get { return customerPhone; }
+            set { customerPhone = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
         [NullableOrStringLengthValidator(true, 15, "LoanLookupCode", Ruleset = "Default", MessageTemplate = "LoanLookupCode has a maximum length of 15 characters."/*, Tag=ErrorMessages.ERR0001*/)]
-        public string LoanLookupCd { get; set; }
+        string loanLookupCd;
+        public string LoanLookupCd 
+        {
+            get { return loanLookupCd; }
+            set { loanLookupCd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); } 
+        }
 
         string originatedPrior2009Ind;
         [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "OriginatedPrior2009Ind has a maximum length of 1 characters.")]
         public string OriginatedPrior2009Ind
         {
             get { return originatedPrior2009Ind; }
-            set
-            {
-                originatedPrior2009Ind = value;
-                if (originatedPrior2009Ind != null)
-                    originatedPrior2009Ind = originatedPrior2009Ind.ToUpper();
-            }
+            set { originatedPrior2009Ind = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
         }
 
         [NullableOrInRangeNumberValidator(true, "-9999999", "9999999", Ruleset = "Default", MessageTemplate = "PaymentAmount has minimumvalue -9999999 and maximum value 9999999")]
@@ -230,12 +292,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string DTIInd
         {
             get { return dtiInd; }
-            set
-            {
-                dtiInd = value;
-                if (dtiInd != null)
-                    dtiInd = dtiInd.ToUpper();
-            }
+            set { dtiInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
         }
 
         public int? ServicerCANumber { get; set; }
@@ -246,24 +303,29 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? ServicerCAId { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "ServicerCAOtherName", Ruleset = "Default", MessageTemplate = "ServicerCAOtherName has a maximum length of 50 characters."/*, Tag=ErrorMessages.ERR0001*/)]
-        public string ServicerCAOtherName { get; set; }
+        string servicerCAOtherName;
+        public string ServicerCAOtherName 
+        {
+            get { return servicerCAOtherName; }
+            set { servicerCAOtherName = string.IsNullOrEmpty(value) ? null : value; }
+        }
 
         string mhaInfoShareInd;
         [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "MHAInfoShareInd has a maximum length of 1 characters.")]                
         public string MHAInfoShareInd         
         {
             get { return mhaInfoShareInd; }
-            set
-            {
-                mhaInfoShareInd = value;
-                if (mhaInfoShareInd != null)
-                    mhaInfoShareInd = mhaInfoShareInd.ToUpper();
-            }
+            set { mhaInfoShareInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
         }
 
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate="ICT Call Id is required to insert the call")]
+        //[RequiredObjectValidator(Ruleset = "Default", MessageTemplate="ICT Call Id is required to insert the call")]
         [NullableOrStringLengthValidator(true, 40, "ICTCallId", Ruleset = "Default", MessageTemplate = "ICTCallId has a maximum length of 40 characters."/*, Tag=ErrorMessages.ERR0001*/)]
-        public string ICTCallId { get; set; }
+        string ictCallId;
+        public string ICTCallId 
+        {
+            get { return ictCallId; }
+            set { ictCallId = string.IsNullOrEmpty(value) ? null : value; } 
+        }
 
         /// <summary>
         /// Auto HPF field
