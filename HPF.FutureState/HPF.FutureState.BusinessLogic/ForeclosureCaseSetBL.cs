@@ -2125,7 +2125,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private ForeclosureCaseDTO AssignForeclosureCaseHPFAuto(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            if (CheckForeclosureCaseDBComplete(foreclosureCaseSet))            
+            if (CheckForeclosureCaseDBComplete(FCaseSetFromDB))            
                 foreclosureCaseSet.ForeclosureCase.CompletedDt = FCaseSetFromDB.ForeclosureCase.CompletedDt;                
             
             else if (WarningMessage.Count == 0)
