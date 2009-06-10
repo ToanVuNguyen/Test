@@ -446,6 +446,7 @@ namespace HPF.FutureState.BusinessLogic
             {   //User this data to check data changed or not in Update function and Send FC to queue
                 FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fc.FcId);
                 FCaseSetFromDB.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fc.FcId);
+                FCaseSetFromDB.BudgetSet = BudgetBL.Instance.GetBudgetSet(fc.FcId);
             }
 
             //check valid fcCase for Agency
