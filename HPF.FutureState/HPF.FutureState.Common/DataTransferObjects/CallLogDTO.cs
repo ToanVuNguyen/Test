@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
@@ -68,7 +69,19 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanAccountNumber 
         {
             get { return loanAccountNumber; }
-            set { loanAccountNumber = string.IsNullOrEmpty(value) ? null : value; }
+            set
+            {
+                if (value != null)
+                {
+                    loanAccountNumber = value;
+                    Regex exp = new Regex(@"[^a-zA-Z0-9]");
+                    MatchCollection matches = exp.Matches(loanAccountNumber);
+                    foreach (Match item in matches)
+                    {
+                        loanAccountNumber = loanAccountNumber.Replace(item.Value, string.Empty);
+                    }
+                }
+            }
         }
 
         [NullableOrStringLengthValidator(true, 30, "First name", Ruleset = "Default", Tag = ErrorMessages.ERR0366)]
