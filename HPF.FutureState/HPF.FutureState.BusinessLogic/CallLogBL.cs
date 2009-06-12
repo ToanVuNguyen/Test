@@ -195,21 +195,25 @@ namespace HPF.FutureState.BusinessLogic
             ServicerDTO servicer = null;
 
             if (aCallLog.ServicerId.HasValue)
+            {
                 servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerId.Value);
 
-            if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)            
-            {                
-                if (string.IsNullOrEmpty(aCallLog.OtherServicerName))                
-                    errorList.AddExceptionMessage(ErrorMessages.ERR0357, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0357));                                       
+                if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)            
+                {                
+                    if (string.IsNullOrEmpty(aCallLog.OtherServicerName))                
+                        errorList.AddExceptionMessage(ErrorMessages.ERR0357, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0357));                                       
+                }
             }
 
             if (aCallLog.ServicerCAId.HasValue)
+            {
                 servicer = ServicerBL.Instance.GetServicer(aCallLog.ServicerCAId.Value);
 
-            if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)
-            {
-                if (string.IsNullOrEmpty(aCallLog.ServicerCAOtherName))
-                    errorList.AddExceptionMessage(ErrorMessages.ERR0400, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0400));
+                if (servicer != null && servicer.ServicerID == Constant.SERVICER_OTHER_ID)
+                {
+                    if (string.IsNullOrEmpty(aCallLog.ServicerCAOtherName))
+                        errorList.AddExceptionMessage(ErrorMessages.ERR0400, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0400));
+                }
             }
 
             return errorList;
