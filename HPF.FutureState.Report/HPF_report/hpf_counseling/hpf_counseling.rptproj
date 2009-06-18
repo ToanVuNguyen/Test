@@ -50,6 +50,10 @@
       <FullPath>rpt_DailyCompletionByServicerReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_DailyCompletionReport.rdl</Name>
+      <FullPath>rpt_DailyCompletionReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_ExternalReferrals.rdl</Name>
       <FullPath>rpt_ExternalReferrals.rdl</FullPath>
     </ProjectItem>
@@ -62,8 +66,8 @@
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_DailyCompletionReport.rdl</Name>
-      <FullPath>rpt_DailyCompletionReport.rdl</FullPath>
+      <Name>rpt_MHADailySummaryReport.rdl</Name>
+      <FullPath>rpt_MHADailySummaryReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
