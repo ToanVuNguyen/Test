@@ -1,9 +1,9 @@
 -- =============================================
--- Create date: 12 Mar 2009
+-- Create date: 18 Jun 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Create tables in the new HPF database
---		Apply database changes on:  12 Mar 2009
+--		Apply database changes on:  18 Jun 2009
 --		Refer to file "DB Track changes.xls"
 -- ============================================
 USE HPF
@@ -483,6 +483,7 @@ CREATE TABLE call (
 ,mha_info_share_ind	varchar(1)	Null
 ,ict_call_id	varchar(40)	Null
 ,mha_eligibility_cd	varchar(15)	Null
+,mha_inelig_reason_cd varchar(15) NULL 
 ,PRIMARY KEY(call_id)  ,
   FOREIGN KEY(call_center_id)
     REFERENCES call_center(call_center_id));
