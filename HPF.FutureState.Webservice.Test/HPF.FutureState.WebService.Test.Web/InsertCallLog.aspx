@@ -27,7 +27,7 @@
                     </td>
                     <td>
             <asp:TextBox CssClass="Text" ID="txtPassword" runat="Server"  Width="128px" 
-                            Text="callcenter"></asp:TextBox>
+                            TextMode="Password"></asp:TextBox>
             
                     </td>
                 </tr>
