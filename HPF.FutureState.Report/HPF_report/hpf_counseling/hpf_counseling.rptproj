@@ -62,6 +62,10 @@
       <FullPath>rpt_IncompletedCases.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_MHAReport.rdl</Name>
+      <FullPath>rpt_MHAReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_PotentialDuplicates.rdl</Name>
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
