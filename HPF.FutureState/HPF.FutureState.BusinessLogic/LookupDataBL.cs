@@ -92,5 +92,9 @@ namespace HPF.FutureState.BusinessLogic
             return HPFUserDAO.Instance.GetHpfUsers();
         }
 
+        public NonProfitReferralDTOCollection GetNonProfitReffals()
+        {
+            return NonProfitReferralDAO.Instance.GetNonProfitReferrals();
+        }
     }
 }

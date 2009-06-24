@@ -55,6 +55,7 @@
     <Compile Include="CaseAuditDAO.cs" />
     <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="CaseFollowUpDAO.cs" />
+    <Compile Include="NonProfitReferralDAO.cs" />
     <Compile Include="ServicerDAO.cs" />
     <Compile Include="OutcomeDAO.cs" />
     <Compile Include="ForeclosureCaseDAO.cs" />

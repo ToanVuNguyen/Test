@@ -64,16 +64,24 @@ namespace HPF.FutureState.BusinessLogic
             
         }
 
-        
+
 
         /// <summary>
         /// Get a CallLog by CallLogId
         /// </summary>
         /// <param name="callLogId">CallLogId</param>
         /// <returns></returns>
-        public CallLogDTO RetrieveCallLog(int callLogId)
+        public CallLogDTOCollection RetrieveICTCallLog(string ICTcallLogId)
         {
-            return CallLogDAO.Instance.ReadCallLog(callLogId);
+            if (string.IsNullOrEmpty(ICTcallLogId) || ICTcallLogId.Length > 40)
+            {
+                ExceptionMessageCollection errorList = new ExceptionMessageCollection();                
+                errorList.AddExceptionMessage(ErrorMessages.ERR0900, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0900));
+                DataValidationException ex = new DataValidationException(errorList);
+                
+                throw ex;
+            }
+            return CallLogDAO.Instance.ICTReadCallLog(ICTcallLogId);
         }
         #endregion        
 
@@ -140,6 +148,16 @@ namespace HPF.FutureState.BusinessLogic
             }
             if (aCallLog.SelectedAgencyId.HasValue && selectedAgencyId == 0)
                 errorList.AddExceptionMessage(ErrorMessages.ERR0362, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0362));
+
+            NonProfitReferralDTOCollection nonProfitReferrals = LookupDataBL.Instance.GetNonProfitReffals();
+
+            if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum1) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum1) == null)            
+                errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum1 was provided for.");
+            if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum2) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum2) == null)
+                errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum2 was provided.");
+            if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum3) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum3) == null)
+                errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum3 was provided.");            
+
             return errorList;
         }
 
@@ -223,5 +241,46 @@ namespace HPF.FutureState.BusinessLogic
         {
             return CallLogDAO.Instance.GetCall(callID);
         }
+
+        #region WSSearchCall
+        private ExceptionMessageCollection ICTCheckDataSearchValidation(CallLogSearchCriteriaDTO searchCriteria)
+        {
+            ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+            ValidationResults checkRequireFields = HPFValidator.Validate<CallLogSearchCriteriaDTO>(searchCriteria, "Default");
+
+            if (checkRequireFields.Count == 3) //check atleast one field is entered
+            {
+                errorList.AddExceptionMessage(ErrorMessages.ERR0378, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0378));
+            }
+            else //check the data length
+            {
+                ValidationResults validationResults = HPFValidator.Validate<CallLogSearchCriteriaDTO>(searchCriteria, Constant.RULESET_LENGTH);
+                if (!validationResults.IsValid)
+                {
+
+                    foreach (ValidationResult result in validationResults)
+                    {
+                        string errorCode = string.IsNullOrEmpty(result.Tag) ? "ERROR" : result.Tag;
+                        string errorMess = string.IsNullOrEmpty(result.Tag) ? result.Message : ErrorMessages.GetExceptionMessageCombined(result.Tag);
+                        errorList.AddExceptionMessage(errorCode, errorMess);
+                    }
+                }
+            }
+
+            return errorList;
+        }
+
+        public CallLogDTOCollection ICTSearchCall(CallLogSearchCriteriaDTO searchCriteria)
+        {
+            ExceptionMessageCollection errors = ICTCheckDataSearchValidation(searchCriteria);
+            if (errors.Count > 0)
+            {
+                DataValidationException ex = new DataValidationException(errors);
+                throw ex;
+            }
+
+            return CallLogDAO.Instance.ICTSearchCallLog(searchCriteria);
+        }
+        #endregion
     }
 }

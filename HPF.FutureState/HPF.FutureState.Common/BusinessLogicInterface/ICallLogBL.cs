@@ -21,6 +21,6 @@ namespace HPF.FutureState.Common.BusinessLogicInterface
         /// </summary>
         /// <param name="callLogId">CallLogId</param>
         /// <returns></returns>
-        CallLogDTO RetrieveCallLog(int callLogId);        
+        CallLogDTOCollection RetrieveICTCallLog(string ICTcallLogId);        
     }
 }

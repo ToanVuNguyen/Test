@@ -96,22 +96,20 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    CallLogDTO callLogDTO = null;
-                    var validCallLodId = ValidateCallLogID(request);
-                    if (validCallLodId)
+                    CallLogDTOCollection callLogDTOs = CallLogBL.Instance.RetrieveICTCallLog(request.ICTCallId);
+
+                    if (callLogDTOs.Count > 0)
                     {
-                        var callLogId = GetCallLogID(request);
-                        if (callLogId != 0)
-                        {
-                            callLogDTO = CallLogBL.Instance.RetrieveCallLog(callLogId);
+                        CallLogWSReturnDTOCollection results = new CallLogWSReturnDTOCollection();
+                        int Count = callLogDTOs.Count;
+                        if (Count > 100) Count = 100;
+                        for (int i = 0; i < Count; i++)
+                        {                            
+                            results.Add(ConvertToCallLogWSDTO(callLogDTOs[i]));
                         }
-                    }
-                    if (callLogDTO != null)
-                    {
-                        var callLogWSDTO = ConvertToCallLogWSDTO(callLogDTO);
-                        response.CallLog = callLogWSDTO;
+                        response.CallLogs = results;
                         response.Status = ResponseStatus.Success;
-                        GetCallWarningMessage(callLogDTO.CallId.Value, response);                                                    
+                        //GetCallWarningMessage(callLogDTO.CallId.Value, response);
                     }
                     else
                     {
@@ -335,45 +333,59 @@ namespace HPF.FutureState.WebServices
             return response;
         }
         #endregion
-        
-        #region Privates Methods
-        private static bool ValidateCallLogID(CallLogRetrieveRequest request)
-        {
-            var dataValidationException = new DataValidationException();
-            request.callLogId = request.callLogId.Trim();
-            if (string.IsNullOrEmpty(request.callLogId))
-            {
-                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0900, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0900));
-                throw dataValidationException;
-            }
-            var validationResults = HPFValidator.Validate(request);
-            if (!validationResults.IsValid)
-            {
-                dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0902));
-                throw dataValidationException;
-            }
-            return true;
-        }
 
-        private static int GetCallLogID(CallLogRetrieveRequest request)
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public CallLogSearchResponse SearchCallLog(CallLogSearchRequest request)
         {
-            var callLogId = 0;
-            if (request.callLogId != string.Empty)
+            var response = new CallLogSearchResponse();
+            //            
+            try
             {
-                var sCallLogId = request.callLogId.Replace("HPF", "");
-                try
+                if (IsAuthenticated())//Authentication checking
                 {
-                    callLogId = Convert.ToInt32(sCallLogId);
-                }
-                catch
-                {
-                    var dataValidationException = new DataValidationException();
-                    dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0902, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0902));
-                    throw dataValidationException;
+                    CallLogDTOCollection callLogDTOs = CallLogBL.Instance.ICTSearchCall(request.SearchCriteria);
+
+                    CallLogWSReturnDTOCollection results = new CallLogWSReturnDTOCollection();
+                    int Count = callLogDTOs.Count;
+                    if (Count > 100) Count = 100;
+                    for (int i = 0; i < Count; i++)
+                    {
+                        results.Add(ConvertToCallLogWSDTO(callLogDTOs[i]));
+                    }
+                    response.CallLogs = results;
+                    response.Status = ResponseStatus.Success;
+
                 }
             }
-            return callLogId;
-        }        
+            #region Exception Handling
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+                HandleException(Ex);
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages = Ex.ExceptionMessages;
+                HandleException(Ex);
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage("Data access error.");
+                HandleException(Ex);
+            }
+            catch (Exception Ex)
+            {
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex);
+            }
+            #endregion
+            return response;
+        }
+        #region Privates Methods
 
         private static CallLogWSReturnDTO ConvertToCallLogWSDTO(CallLogDTO sourceObject)
         {
@@ -382,7 +394,7 @@ namespace HPF.FutureState.WebServices
                 destObject.CallId = "HPF" + Convert.ToString(sourceObject.CallId);
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
-            destObject.CallSourceCd = sourceObject.CallSourceCd;            
+            destObject.CallSourceCd = sourceObject.CallSourceCd;
             destObject.EndDate = sourceObject.EndDate;
             destObject.FinalDispoCd = sourceObject.FinalDispoCd;
             destObject.FirstName = sourceObject.FirstName;
@@ -422,6 +434,16 @@ namespace HPF.FutureState.WebServices
             destObject.MHAInfoShareInd = sourceObject.MHAInfoShareInd;
             destObject.ICTCallId = sourceObject.ICTCallId;
             destObject.MHAEligibilityCd = sourceObject.MHAEligibilityCd;
+
+            destObject.ServicerName = sourceObject.ServicerName;
+            destObject.FinalDispoDesc = sourceObject.FinalDispoDesc;
+            destObject.NonprofitReferralDesc1 = sourceObject.NonprofitReferralDesc1;
+            destObject.NonprofitReferralDesc2 = sourceObject.NonprofitReferralDesc2;
+            destObject.NonprofitReferralDesc3 = sourceObject.NonprofitReferralDesc3;
+            destObject.ServicerCAName = sourceObject.ServicerCAName;
+            destObject.MHAEligibilityDesc = sourceObject.MHAEligibilityDesc;
+            destObject.MHAIneligibilityReasonDesc = sourceObject.MHAIneligibilityReasonDesc;
+            destObject.MHAIneligibilityReasonCd = sourceObject.MHAIneligibilityReasonCd;
 
             return destObject;
         }

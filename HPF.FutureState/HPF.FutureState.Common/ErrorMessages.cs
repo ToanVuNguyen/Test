@@ -663,8 +663,10 @@ namespace HPF.FutureState.Common
 
                 errorMessageDict.Add(ERR0451, "Web Service Authentication failed, access to web service is denied.");                
 
-                errorMessageDict.Add(ERR0900, "A CallID is required to retrieve a call.");
-                errorMessageDict.Add(ERR0901, "The CallID provided could not be found.");
+                //errorMessageDict.Add(ERR0900, "A CallID is required to retrieve a call.");
+                errorMessageDict.Add(ERR0900, "A valid ICT Call ID is required to retrieve call(length from 1 to 40).");
+                //errorMessageDict.Add(ERR0901, "The CallID provided could not be found.");
+                errorMessageDict.Add(ERR0901, "The ICT Call ID provided could not be found.");
                 errorMessageDict.Add(ERR0902,
                                      "The CallID provided was not a valid Call ID.  The proper format is HPF####, where #### is an integer value.");
 

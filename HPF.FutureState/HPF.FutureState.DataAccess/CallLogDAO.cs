@@ -127,105 +127,7 @@ namespace HPF.FutureState.DataAccess
 
             return aCallLog.CallId;
         }
-     
-        /// <summary>
-        /// Read a CallLog in Database by CallLogId
-        /// </summary>
-        /// <param name="callLogId">CallLogId</param>
-        /// <returns>CallLogDTO</returns>
-        public CallLogDTO ReadCallLog(int callLogId)
-        {
-            CallLogDTO callLogDTO = null;
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_call_get", dbConnection);
-            //<Parameter>
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_call_id", callLogId);
-            //</Parameter>
-            command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
-            try
-            {
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    callLogDTO = new CallLogDTO();
-                    while (reader.Read())
-                    {
-                        #region set value
-
-                        callLogDTO.CallId = ConvertToInt(reader["call_id"]);
-                        callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
-                        callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
-                        callLogDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
-                        callLogDTO.DNIS = ConvertToString(reader["dnis"]);
-                        callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
-                        callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
-                        callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
-                        callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
-                        callLogDTO.FirstName = ConvertToString(reader["fname"]);
-                        callLogDTO.LastName = ConvertToString(reader["lname"]);                                                
-                        callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
-                        callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
-                        callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);                        
-                        callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
-                        callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
-                        callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
-                        callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
-                        callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);                        
-                        callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
-                        callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
-                        callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
-                        callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
-                        callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
-                        callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
-                        callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
-                        callLogDTO.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
-                        callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
-                        callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
-                        callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
-                        callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
-                        callLogDTO.City = ConvertToString(reader["city"]);
-                        callLogDTO.State = ConvertToString(reader["state"]);
-                        callLogDTO.NonprofitReferralKeyNum1 = ConvertToString(reader["nonprofitreferral_key_num1"]); 
-                        callLogDTO.NonprofitReferralKeyNum2 = ConvertToString(reader["nonprofitreferral_key_num2"]); 
-                        callLogDTO.NonprofitReferralKeyNum3 = ConvertToString(reader["nonprofitreferral_key_num3"]);
-
-                        callLogDTO.DelinqInd = ConvertToString(reader["delinq_ind"]);
-                        callLogDTO.PropStreetAddress = ConvertToString(reader["prop_street_addr"]);
-                        callLogDTO.PrimaryResidenceInd = ConvertToString(reader["prim_res_ind"]);
-                        callLogDTO.MaxLoanAmountInd = ConvertToString(reader["max_loan_amt_ind"]);
-                        callLogDTO.CustomerPhone = ConvertToString(reader["cust_phone"]);
-                        callLogDTO.LoanLookupCd = ConvertToString(reader["loan_lookup_cd"]);
-                        callLogDTO.OriginatedPrior2009Ind = ConvertToString(reader["orig_prior2009_ind"]);
-                        callLogDTO.PaymentAmount = ConvertToDouble(reader["payment_amt"]);
-                        callLogDTO.GrossIncomeAmount = ConvertToDouble(reader["gross_inc_amt"]);
-                        callLogDTO.DTIInd = ConvertToString(reader["dti_ind"]);
-                        callLogDTO.ServicerCANumber = ConvertToInt(reader["servicer_ca_num"]);
-                        callLogDTO.ServicerCALastContactDate = ConvertToDateTime(reader["servicer_ca_last_contact_dt"]);
-                        callLogDTO.ServicerCAId = ConvertToInt(reader["servicer_ca_id"]);
-                        callLogDTO.ServicerCAOtherName = ConvertToString(reader["servicer_ca_other_name"]);
-                        callLogDTO.MHAInfoShareInd = ConvertToString(reader["mha_info_share_ind"]);
-                        callLogDTO.ICTCallId = ConvertToString(reader["ict_call_id"]);
-                        callLogDTO.MHAEligibilityCd = ConvertToString(reader["mha_eligibility_cd"]);
-                        #endregion
-                    }
-                    reader.Close();
-                }
-                dbConnection.Close();
-            }
-            catch (Exception Ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return callLogDTO;
-        }
-
+             
         public Dictionary<string, int?> GetForeignKey(CallLogDTO aCallLog)
         {
             Dictionary<string, int?> idList = new Dictionary<string, int?>();
@@ -353,7 +255,221 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
             return callCenter;
-        }     
-          
+        }
+
+        /// <summary>
+        /// Read a CallLog in Database by CallLogId
+        /// </summary>
+        /// <param name="callLogId">CallLogId</param>
+        /// <returns>CallLogDTO</returns>
+        public CallLogDTOCollection ICTReadCallLog(string ICTcallLogId)
+        {
+            CallLogDTOCollection results = new CallLogDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_call_get_ICT", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_ict_call_id", ICTcallLogId);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {                    
+                    while (reader.Read())
+                    {
+                        #region set value
+                        CallLogDTO callLogDTO = new CallLogDTO();
+                        callLogDTO.CallId = ConvertToInt(reader["call_id"]);
+                        callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
+                        callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
+                        callLogDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
+                        callLogDTO.DNIS = ConvertToString(reader["dnis"]);
+                        callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
+                        callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
+                        callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
+                        callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
+                        callLogDTO.FirstName = ConvertToString(reader["fname"]);
+                        callLogDTO.LastName = ConvertToString(reader["lname"]);
+                        callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
+                        callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
+                        callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);
+                        callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
+                        callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
+                        callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
+                        callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
+                        callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);
+                        callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
+                        callLogDTO.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
+                        callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
+                        callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
+                        callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
+                        callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
+                        callLogDTO.City = ConvertToString(reader["city"]);
+                        callLogDTO.State = ConvertToString(reader["state"]);
+                        callLogDTO.NonprofitReferralKeyNum1 = ConvertToString(reader["nonprofitreferral_key_num1"]);
+                        callLogDTO.NonprofitReferralKeyNum2 = ConvertToString(reader["nonprofitreferral_key_num2"]);
+                        callLogDTO.NonprofitReferralKeyNum3 = ConvertToString(reader["nonprofitreferral_key_num3"]);
+
+                        callLogDTO.DelinqInd = ConvertToString(reader["delinq_ind"]);
+                        callLogDTO.PropStreetAddress = ConvertToString(reader["prop_street_addr"]);
+                        callLogDTO.PrimaryResidenceInd = ConvertToString(reader["prim_res_ind"]);
+                        callLogDTO.MaxLoanAmountInd = ConvertToString(reader["max_loan_amt_ind"]);
+                        callLogDTO.CustomerPhone = ConvertToString(reader["cust_phone"]);
+                        callLogDTO.LoanLookupCd = ConvertToString(reader["loan_lookup_cd"]);
+                        callLogDTO.OriginatedPrior2009Ind = ConvertToString(reader["orig_prior2009_ind"]);
+                        callLogDTO.PaymentAmount = ConvertToDouble(reader["payment_amt"]);
+                        callLogDTO.GrossIncomeAmount = ConvertToDouble(reader["gross_inc_amt"]);
+                        callLogDTO.DTIInd = ConvertToString(reader["dti_ind"]);
+                        callLogDTO.ServicerCANumber = ConvertToInt(reader["servicer_ca_num"]);
+                        callLogDTO.ServicerCALastContactDate = ConvertToDateTime(reader["servicer_ca_last_contact_dt"]);
+                        callLogDTO.ServicerCAId = ConvertToInt(reader["servicer_ca_id"]);
+                        callLogDTO.ServicerCAOtherName = ConvertToString(reader["servicer_ca_other_name"]);
+                        callLogDTO.MHAInfoShareInd = ConvertToString(reader["mha_info_share_ind"]);
+                        callLogDTO.ICTCallId = ConvertToString(reader["ict_call_id"]);
+                        callLogDTO.MHAEligibilityCd = ConvertToString(reader["mha_eligibility_cd"]);
+
+                        callLogDTO.MHAIneligibilityReasonCd = ConvertToString(reader["mha_inelig_reason_cd"]);
+                        callLogDTO.ServicerName = ConvertToString(reader["servicer_name"]);
+                        callLogDTO.FinalDispoDesc = ConvertToString(reader["final_dispo_desc"]);
+                        callLogDTO.NonprofitReferralDesc1 = ConvertToString(reader["nonprofitreferral_desc1"]);
+                        callLogDTO.NonprofitReferralDesc2 = ConvertToString(reader["nonprofitreferral_desc2"]);
+                        callLogDTO.NonprofitReferralDesc3 = ConvertToString(reader["nonprofitreferral_desc3"]);
+                        callLogDTO.ServicerCAName = ConvertToString(reader["servicer_ca_name"]);
+                        callLogDTO.MHAEligibilityDesc = ConvertToString(reader["mha_eligibility_desc"]);
+                        callLogDTO.MHAIneligibilityReasonDesc = ConvertToString(reader["mha_inelig_reason_desc"]);
+
+                        results.Add(callLogDTO);
+                        #endregion
+                    }
+                    reader.Close();
+                }
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return results;
+        }
+
+        public CallLogDTOCollection ICTSearchCallLog(CallLogSearchCriteriaDTO searchCriteria)
+        {
+            CallLogDTOCollection results = new CallLogDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_call_search", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[3];
+            sqlParam[0] = new SqlParameter("@pi_fname", searchCriteria.FirstName);
+            sqlParam[1] = new SqlParameter("@pi_lname", searchCriteria.LastName);
+            sqlParam[2] = new SqlParameter("@pi_loan_acct_num", searchCriteria.LoanNumber);
+            //</Parameter>
+            command.Parameters.AddRange(sqlParam);
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {                    
+                    while (reader.Read())
+                    {
+                        #region set value
+                        CallLogDTO callLogDTO = new CallLogDTO();
+                        callLogDTO.CallId = ConvertToInt(reader["call_id"]);
+                        callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
+                        callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
+                        callLogDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
+                        callLogDTO.DNIS = ConvertToString(reader["dnis"]);
+                        callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
+                        callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
+                        callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
+                        callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
+                        callLogDTO.FirstName = ConvertToString(reader["fname"]);
+                        callLogDTO.LastName = ConvertToString(reader["lname"]);
+                        callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
+                        callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
+                        callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);
+                        callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
+                        callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
+                        callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
+                        callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
+                        callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);
+                        callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
+                        callLogDTO.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
+                        callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
+                        callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
+                        callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
+                        callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
+                        callLogDTO.City = ConvertToString(reader["city"]);
+                        callLogDTO.State = ConvertToString(reader["state"]);
+                        callLogDTO.NonprofitReferralKeyNum1 = ConvertToString(reader["nonprofitreferral_key_num1"]);
+                        callLogDTO.NonprofitReferralKeyNum2 = ConvertToString(reader["nonprofitreferral_key_num2"]);
+                        callLogDTO.NonprofitReferralKeyNum3 = ConvertToString(reader["nonprofitreferral_key_num3"]);
+
+                        callLogDTO.DelinqInd = ConvertToString(reader["delinq_ind"]);
+                        callLogDTO.PropStreetAddress = ConvertToString(reader["prop_street_addr"]);
+                        callLogDTO.PrimaryResidenceInd = ConvertToString(reader["prim_res_ind"]);
+                        callLogDTO.MaxLoanAmountInd = ConvertToString(reader["max_loan_amt_ind"]);
+                        callLogDTO.CustomerPhone = ConvertToString(reader["cust_phone"]);
+                        callLogDTO.LoanLookupCd = ConvertToString(reader["loan_lookup_cd"]);
+                        callLogDTO.OriginatedPrior2009Ind = ConvertToString(reader["orig_prior2009_ind"]);
+                        callLogDTO.PaymentAmount = ConvertToDouble(reader["payment_amt"]);
+                        callLogDTO.GrossIncomeAmount = ConvertToDouble(reader["gross_inc_amt"]);
+                        callLogDTO.DTIInd = ConvertToString(reader["dti_ind"]);
+                        callLogDTO.ServicerCANumber = ConvertToInt(reader["servicer_ca_num"]);
+                        callLogDTO.ServicerCALastContactDate = ConvertToDateTime(reader["servicer_ca_last_contact_dt"]);
+                        callLogDTO.ServicerCAId = ConvertToInt(reader["servicer_ca_id"]);
+                        callLogDTO.ServicerCAOtherName = ConvertToString(reader["servicer_ca_other_name"]);
+                        callLogDTO.MHAInfoShareInd = ConvertToString(reader["mha_info_share_ind"]);
+                        callLogDTO.ICTCallId = ConvertToString(reader["ict_call_id"]);
+                        callLogDTO.MHAEligibilityCd = ConvertToString(reader["mha_eligibility_cd"]);
+
+                        callLogDTO.MHAIneligibilityReasonCd = ConvertToString(reader["mha_inelig_reason_cd"]);
+                        callLogDTO.ServicerName = ConvertToString(reader["servicer_name"]);
+                        callLogDTO.FinalDispoDesc = ConvertToString(reader["final_dispo_desc"]);
+                        callLogDTO.NonprofitReferralDesc1 = ConvertToString(reader["nonprofitreferral_desc1"]);
+                        callLogDTO.NonprofitReferralDesc2 = ConvertToString(reader["nonprofitreferral_desc2"]);
+                        callLogDTO.NonprofitReferralDesc3 = ConvertToString(reader["nonprofitreferral_desc3"]);
+                        callLogDTO.ServicerCAName = ConvertToString(reader["servicer_ca_name"]);
+                        callLogDTO.MHAEligibilityDesc = ConvertToString(reader["mha_eligibility_desc"]);
+                        callLogDTO.MHAIneligibilityReasonDesc = ConvertToString(reader["mha_inelig_reason_desc"]);
+
+                        results.Add(callLogDTO);
+                        #endregion
+                    }
+                    reader.Close();
+                }
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return results;
+        }
     }
 }

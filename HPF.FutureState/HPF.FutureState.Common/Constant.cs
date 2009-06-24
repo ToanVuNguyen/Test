@@ -59,6 +59,7 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_AGENCY = "HPFCACHEAGENCY";
         public const string HPF_CACHE_PAYMENT_TYPE = "HPFCACHPAYMENTTYPE";
         public const string HPF_CACHE_HPFUSER = "HPFCACHEHPFUSER";
+        public const string HPF_CACHE_NONPROFITREFERRALS = "NONPROFITREFERRALS";
 
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";

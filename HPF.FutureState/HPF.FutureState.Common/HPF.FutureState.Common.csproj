@@ -83,6 +83,12 @@
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CallLogSearchCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\NonProfitReferralDTO.cs" />
+    <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogSearchRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogSearchResponse.cs" />
+    <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTOCollection.cs" />
     <Compile Include="DataTransferObjects\WebServices\ICTForeclosureCaseSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ReferenceCodeRetrieveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ReferenceCodeRetrieveResponse.cs" />

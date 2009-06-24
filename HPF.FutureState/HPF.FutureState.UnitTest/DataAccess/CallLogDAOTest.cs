@@ -89,30 +89,30 @@ namespace HPF.FutureState.UnitTest
         /// <summary>
         ///A test sussess for ReadCallLog
         ///</summary>         
-        [TestMethod()]
-        public void ReadCallLogTestSuccess()
-        {
-            CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            InsertCall();
-            var callLogId = GetCallID();            
-            CallLogDTO actual = target.ReadCallLog(callLogId);
-            Assert.AreEqual("cc_call_key_test", actual.CcCallKey);
-            Delete_Data();
-        }
+        //[TestMethod()]
+        //public void ReadCallLogTestSuccess()
+        //{
+        //    CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
+        //    InsertCall();
+        //    var callLogId = GetCallID();            
+        //    CallLogDTO actual = target.ReadCallLog(callLogId);
+        //    Assert.AreEqual("cc_call_key_test", actual.CcCallKey);
+        //    Delete_Data();
+        //}
 
         /// <summary>
         ///A test fail for ReadCallLog
         ///</summary>                        
-        [TestMethod()]
-        public void ReadCallLogTestFail()
-        {
-            CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
-            InsertCall();
-            var callLogId = GetCallID();
-            CallLogDTO actual = target.ReadCallLog(callLogId);
-            Assert.AreNotEqual("cc_call_key", actual.CcCallKey);
-            Delete_Data();
-        }
+        //[TestMethod()]
+        //public void ReadCallLogTestFail()
+        //{
+        //    CallLogDAO_Accessor target = new CallLogDAO_Accessor(); // TODO: Initialize to an appropriate value
+        //    InsertCall();
+        //    var callLogId = GetCallID();
+        //    CallLogDTO actual = target.ReadCallLog(callLogId);
+        //    Assert.AreNotEqual("cc_call_key", actual.CcCallKey);
+        //    Delete_Data();
+        //}
 
         #region InsertCallLog_Test
 

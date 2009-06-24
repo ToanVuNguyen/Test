@@ -340,11 +340,20 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return ictCallId; }
             set { ictCallId = string.IsNullOrEmpty(value) ? null : value; } 
         }
-
+        public string MHAIneligibilityReasonCd { get; set; }
         /// <summary>
         /// Auto HPF field
         /// </summary>
         public string MHAEligibilityCd { get; set; }
+
+        public string ServicerName { get; set; }
+        public string FinalDispoDesc { get; set; }
+        public string NonprofitReferralDesc1 { get; set; }
+        public string NonprofitReferralDesc2 { get; set; }
+        public string NonprofitReferralDesc3 { get; set; }
+        public string ServicerCAName { get; set; }
+        public string MHAEligibilityDesc { get; set; }
+        public string MHAIneligibilityReasonDesc { get; set; }
 
         #endregion        
     }
