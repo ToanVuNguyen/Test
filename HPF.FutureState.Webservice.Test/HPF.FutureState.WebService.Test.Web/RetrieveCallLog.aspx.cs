@@ -34,40 +34,33 @@ namespace HPF.FutureState.WebService.Test.Web
             proxy.AuthenticationInfoValue = ai;
 
             CallLogRetrieveRequest callLogRetrieveRequest = new CallLogRetrieveRequest();
-            callLogRetrieveRequest.callLogId = txt_CallLogId.Text;
+            callLogRetrieveRequest.ICTCallId = txt_CallLogId.Text;
 
             CallLogRetrieveResponse callLogRetrieveResponse = new CallLogRetrieveResponse();
             callLogRetrieveResponse = proxy.RetrieveCallLog(callLogRetrieveRequest);
                          
-            CallLogWSReturnDTO callLogWSDTO = callLogRetrieveResponse.CallLog;           
+            CallLogWSReturnDTO[] callLogWSDTOs = callLogRetrieveResponse.CallLogs;           
 
             
             lbl_Status.Text = callLogRetrieveResponse.Status.ToString();
-            if (lbl_Status.Text != "Success")
+            if (callLogRetrieveResponse.Status != ResponseStatus.Success)
             {
                 grdvMsg.Visible = true;
                 lbl_Message.Text = "";
                 grdvMsg.DataSource = callLogRetrieveResponse.Messages;
                 grdvMsg.DataBind();
-            }
-            else
-            {
-                lbl_Message.Text = "Success";
-                grdvMsg.Visible = false;
-            }
-            
-            if (callLogWSDTO != null)
-            {
-                ArrayList a = new ArrayList();
-                a.Add(callLogWSDTO);
-                gv_results.DataSource = a;
-                gv_results.DataBind();
-                gv_results.Visible = true;
-            }
-            else
-            {
+
                 gv_results.Visible = false;
             }
+            else
+            {
+                //lbl_Message.Text = "Success";
+                grdvMsg.Visible = false;
+
+                gv_results.DataSource = callLogWSDTOs;
+                gv_results.DataBind();
+                gv_results.Visible = true;
+            }                        
         }
     }
 }

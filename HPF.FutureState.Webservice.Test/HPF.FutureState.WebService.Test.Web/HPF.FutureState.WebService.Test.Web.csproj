@@ -57,6 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CallCenterHelper.cs" />
+    <Compile Include="ICTSearchCall.aspx.cs">
+      <DependentUpon>ICTSearchCall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ICTSearchCall.aspx.designer.cs">
+      <DependentUpon>ICTSearchCall.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -143,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CallLogWSDTO.xml" />
+    <Content Include="ICTSearchCall.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="ForeclosureCaseSet.xml" />
     <Content Include="ICTSearchForeclosureCase.aspx" />
@@ -196,7 +204,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1653</DevelopmentServerPort>
+          <DevelopmentServerPort>2852</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

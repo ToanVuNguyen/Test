@@ -3,6 +3,7 @@
   <Menu Id="Searching" Title="Search" Url="" Enabled="True">
     <MenuItem Id="searchCase" Title="Search FcCase" Url="SearchForeclosureCase.aspx" Enabled="True"/>
     <MenuItem Id="ictsearchCase" Title="ICT Search FcCase" Url="ICTSearchForeclosureCase.aspx" Enabled="True"/>
+    <MenuItem Id="ictsearchCall" Title="ICT Search Call" Url="ICTSearchCall.aspx" Enabled="True"/>
   </Menu>
 
   <Menu Id="Call" Title="Call" Url="" Enabled="true">

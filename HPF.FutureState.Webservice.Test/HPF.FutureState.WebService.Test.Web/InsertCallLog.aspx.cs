@@ -190,6 +190,7 @@ namespace HPF.FutureState.WebService.Test.Web
             }
             else
             {
+                lblResult.Text = "";
                 grdvResult.DataSource = response.Messages;
                 grdvResult.DataBind();
                 grdvResult.Visible = true;

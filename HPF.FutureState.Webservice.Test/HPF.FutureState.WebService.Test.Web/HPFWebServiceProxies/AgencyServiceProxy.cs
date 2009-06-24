@@ -46,6 +46,8 @@ namespace HPF.Webservice.Agency
 
         private System.Threading.SendOrPostCallback RetrieveSummaryOperationCompleted;
 
+        private System.Threading.SendOrPostCallback SearchCallLogOperationCompleted;
+
         private System.Threading.SendOrPostCallback SearchForeclosureCaseOperationCompleted;
 
         /// <remarks/>
@@ -83,6 +85,9 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         public event RetrieveSummaryCompletedEventHandler RetrieveSummaryCompleted;
+
+        /// <remarks/>
+        public event SearchCallLogCompletedEventHandler SearchCallLogCompleted;
 
         /// <remarks/>
         public event SearchForeclosureCaseCompletedEventHandler SearchForeclosureCaseCompleted;
@@ -386,6 +391,56 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/SearchCallLog", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public CallLogSearchResponse SearchCallLog(CallLogSearchRequest request)
+        {
+            object[] results = this.Invoke("SearchCallLog", new object[] {
+                    request});
+            return ((CallLogSearchResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public System.IAsyncResult BeginSearchCallLog(CallLogSearchRequest request, System.AsyncCallback callback, object asyncState)
+        {
+            return this.BeginInvoke("SearchCallLog", new object[] {
+                    request}, callback, asyncState);
+        }
+
+        /// <remarks/>
+        public CallLogSearchResponse EndSearchCallLog(System.IAsyncResult asyncResult)
+        {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((CallLogSearchResponse)(results[0]));
+        }
+
+        /// <remarks/>
+        public void SearchCallLogAsync(CallLogSearchRequest request)
+        {
+            this.SearchCallLogAsync(request, null);
+        }
+
+        /// <remarks/>
+        public void SearchCallLogAsync(CallLogSearchRequest request, object userState)
+        {
+            if ((this.SearchCallLogOperationCompleted == null))
+            {
+                this.SearchCallLogOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSearchCallLogOperationCompleted);
+            }
+            this.InvokeAsync("SearchCallLog", new object[] {
+                    request}, this.SearchCallLogOperationCompleted, userState);
+        }
+
+        private void OnSearchCallLogOperationCompleted(object arg)
+        {
+            if ((this.SearchCallLogCompleted != null))
+            {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SearchCallLogCompleted(this, new SearchCallLogCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("AuthenticationInfoValue")]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("https://www.homeownershopenetwork.org/SearchForeclosureCase", RequestNamespace = "https://www.homeownershopenetwork.org", ResponseNamespace = "https://www.homeownershopenetwork.org", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public ForeclosureCaseSearchResponse SearchForeclosureCase(ForeclosureCaseSearchRequest request)
         {
@@ -507,18 +562,18 @@ namespace HPF.Webservice.Agency
     public partial class CallLogRetrieveRequest
     {
 
-        private string callLogIdField;
+        private string iCTCallIdField;
 
         /// <remarks/>
-        public string callLogId
+        public string ICTCallId
         {
             get
             {
-                return this.callLogIdField;
+                return this.iCTCallIdField;
             }
             set
             {
-                this.callLogIdField = value;
+                this.iCTCallIdField = value;
             }
         }
     }
@@ -550,6 +605,8 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<int> servicerIdField;
 
+        private string servicerNameField;
+
         private string otherServicerNameField;
 
         private string propZipFull9Field;
@@ -559,6 +616,8 @@ namespace HPF.Webservice.Agency
         private System.Nullable<int> selectedAgencyIdField;
 
         private string finalDispoCdField;
+
+        private string finalDispoDescField;
 
         private string loanDelinqStatusCdField;
 
@@ -576,9 +635,15 @@ namespace HPF.Webservice.Agency
 
         private string nonprofitReferralKeyNum1Field;
 
+        private string nonprofitReferralDesc1Field;
+
         private string nonprofitReferralKeyNum2Field;
 
+        private string nonprofitReferralDesc2Field;
+
         private string nonprofitReferralKeyNum3Field;
+
+        private string nonprofitReferralDesc3Field;
 
         private string delinqIndField;
 
@@ -606,6 +671,8 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<int> servicerCAIdField;
 
+        private string servicerCANameField;
+
         private string servicerCAOtherNameField;
 
         private string mHAInfoShareIndField;
@@ -613,6 +680,12 @@ namespace HPF.Webservice.Agency
         private string iCTCallIdField;
 
         private string mHAEligibilityCdField;
+
+        private string mHAEligibilityDescField;
+
+        private string mHAIneligibilityReasonCdField;
+
+        private string mHAIneligibilityReasonDescField;
 
         /// <remarks/>
         public string CallId
@@ -735,6 +808,19 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
+        public string ServicerName
+        {
+            get
+            {
+                return this.servicerNameField;
+            }
+            set
+            {
+                this.servicerNameField = value;
+            }
+        }
+
+        /// <remarks/>
         public string OtherServicerName
         {
             get
@@ -798,6 +884,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.finalDispoCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string FinalDispoDesc
+        {
+            get
+            {
+                return this.finalDispoDescField;
+            }
+            set
+            {
+                this.finalDispoDescField = value;
             }
         }
 
@@ -906,6 +1005,19 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
+        public string NonprofitReferralDesc1
+        {
+            get
+            {
+                return this.nonprofitReferralDesc1Field;
+            }
+            set
+            {
+                this.nonprofitReferralDesc1Field = value;
+            }
+        }
+
+        /// <remarks/>
         public string NonprofitReferralKeyNum2
         {
             get
@@ -919,6 +1031,19 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
+        public string NonprofitReferralDesc2
+        {
+            get
+            {
+                return this.nonprofitReferralDesc2Field;
+            }
+            set
+            {
+                this.nonprofitReferralDesc2Field = value;
+            }
+        }
+
+        /// <remarks/>
         public string NonprofitReferralKeyNum3
         {
             get
@@ -928,6 +1053,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.nonprofitReferralKeyNum3Field = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NonprofitReferralDesc3
+        {
+            get
+            {
+                return this.nonprofitReferralDesc3Field;
+            }
+            set
+            {
+                this.nonprofitReferralDesc3Field = value;
             }
         }
 
@@ -1106,6 +1244,19 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
+        public string ServicerCAName
+        {
+            get
+            {
+                return this.servicerCANameField;
+            }
+            set
+            {
+                this.servicerCANameField = value;
+            }
+        }
+
+        /// <remarks/>
         public string ServicerCAOtherName
         {
             get
@@ -1156,6 +1307,45 @@ namespace HPF.Webservice.Agency
                 this.mHAEligibilityCdField = value;
             }
         }
+
+        /// <remarks/>
+        public string MHAEligibilityDesc
+        {
+            get
+            {
+                return this.mHAEligibilityDescField;
+            }
+            set
+            {
+                this.mHAEligibilityDescField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MHAIneligibilityReasonCd
+        {
+            get
+            {
+                return this.mHAIneligibilityReasonCdField;
+            }
+            set
+            {
+                this.mHAIneligibilityReasonCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MHAIneligibilityReasonDesc
+        {
+            get
+            {
+                return this.mHAIneligibilityReasonDescField;
+            }
+            set
+            {
+                this.mHAIneligibilityReasonDescField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -1200,6 +1390,7 @@ namespace HPF.Webservice.Agency
 
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchResponse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogSearchResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SummaryRetrieveResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ReferenceCodeRetrieveResponse))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ServicerListRetrieveResponse))]
@@ -3762,6 +3953,31 @@ namespace HPF.Webservice.Agency
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class CallLogSearchResponse : BaseResponse
+    {
+
+        private CallLogWSReturnDTO[] callLogsField;
+
+        /// <remarks/>
+        public CallLogWSReturnDTO[] CallLogs
+        {
+            get
+            {
+                return this.callLogsField;
+            }
+            set
+            {
+                this.callLogsField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
     public partial class SummaryRetrieveResponse : BaseResponse
     {
 
@@ -3951,18 +4167,18 @@ namespace HPF.Webservice.Agency
     public partial class CallLogRetrieveResponse : BaseResponse
     {
 
-        private CallLogWSReturnDTO callLogField;
+        private CallLogWSReturnDTO[] callLogsField;
 
         /// <remarks/>
-        public CallLogWSReturnDTO CallLog
+        public CallLogWSReturnDTO[] CallLogs
         {
             get
             {
-                return this.callLogField;
+                return this.callLogsField;
             }
             set
             {
-                this.callLogField = value;
+                this.callLogsField = value;
             }
         }
     }
@@ -4094,7 +4310,63 @@ namespace HPF.Webservice.Agency
     }
 
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class CallLogSearchCriteriaDTO
+    {
+
+        private string firstNameField;
+
+        private string lastNameField;
+
+        private string loanNumberField;
+
+        /// <remarks/>
+        public string FirstName
+        {
+            get
+            {
+                return this.firstNameField;
+            }
+            set
+            {
+                this.firstNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LastName
+        {
+            get
+            {
+                return this.lastNameField;
+            }
+            set
+            {
+                this.lastNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanNumber
+        {
+            get
+            {
+                return this.loanNumberField;
+            }
+            set
+            {
+                this.loanNumberField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForeclosureCaseSearchRequest))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CallLogSearchRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SummaryRetrieveRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ReferenceCodeRetrieveRequest))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SendSummaryRequest))]
@@ -4121,6 +4393,31 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         public ForeclosureCaseSearchCriteriaDTO SearchCriteria
+        {
+            get
+            {
+                return this.searchCriteriaField;
+            }
+            set
+            {
+                this.searchCriteriaField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "https://www.homeownershopenetwork.org")]
+    public partial class CallLogSearchRequest : BaseRequest
+    {
+
+        private CallLogSearchCriteriaDTO searchCriteriaField;
+
+        /// <remarks/>
+        public CallLogSearchCriteriaDTO SearchCriteria
         {
             get
             {
@@ -4492,6 +4789,36 @@ namespace HPF.Webservice.Agency
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    public delegate void SearchCallLogCompletedEventHandler(object sender, SearchCallLogCompletedEventArgs e);
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SearchCallLogCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
+        private object[] results;
+
+        internal SearchCallLogCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+
+        /// <remarks/>
+        public CallLogSearchResponse Result
+        {
+            get
+            {
+                this.RaiseExceptionIfNecessary();
+                return ((CallLogSearchResponse)(this.results[0]));
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "2.0.50727.1432")]
     public delegate void SearchForeclosureCaseCompletedEventHandler(object sender, SearchForeclosureCaseCompletedEventArgs e);
 
     /// <remarks/>
@@ -4519,4 +4846,5 @@ namespace HPF.Webservice.Agency
             }
         }
     }
+
 }
