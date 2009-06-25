@@ -1027,7 +1027,7 @@ ALTER TABLE case_loan WITH CHECK ADD  CONSTRAINT [FK_loan_servicer_id] FOREIGN K
 GO
 
 CREATE TABLE nonprofitreferral
-(id		INT NOT NULL PRIMARY KEY
+(id		VARCHAR(10) NOT NULL PRIMARY KEY
 , referral_org_name		varchar(150)
 , referral_org_state	varchar(15)
 , referral_org_zip		varchar(30)
