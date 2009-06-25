@@ -587,7 +587,7 @@ namespace HPF.Webservice.Agency
     public partial class CallLogWSReturnDTO
     {
 
-        private string callIdField;
+        private string hopeNetCallIdField;
 
         private System.Nullable<System.DateTime> startDateField;
 
@@ -688,15 +688,15 @@ namespace HPF.Webservice.Agency
         private string mHAIneligibilityReasonDescField;
 
         /// <remarks/>
-        public string CallId
+        public string HopeNetCallId
         {
             get
             {
-                return this.callIdField;
+                return this.hopeNetCallIdField;
             }
             set
             {
-                this.callIdField = value;
+                this.hopeNetCallIdField = value;
             }
         }
 
