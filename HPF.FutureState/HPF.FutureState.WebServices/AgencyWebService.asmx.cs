@@ -391,7 +391,7 @@ namespace HPF.FutureState.WebServices
         {
             var destObject = new CallLogWSReturnDTO();
             if (sourceObject.CallId.HasValue)
-                destObject.CallId = "HPF" + Convert.ToString(sourceObject.CallId);
+                destObject.HopeNetCallId = Convert.ToString(sourceObject.CallId);
 
             destObject.AuthorizedInd = sourceObject.AuthorizedInd;
             destObject.CallSourceCd = sourceObject.CallSourceCd;
