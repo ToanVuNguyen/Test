@@ -2116,6 +2116,8 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     if (item.InactiveDt == null || fcIntakeDate == null || item.InactiveDt > fcIntakeDate)
                         return true;
+                    else
+                        return false;
                 }
             }
             return false;
