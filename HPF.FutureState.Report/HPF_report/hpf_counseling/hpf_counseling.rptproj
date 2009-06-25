@@ -62,16 +62,25 @@
       <FullPath>rpt_IncompletedCases.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_MHAReport.rdl</Name>
-      <FullPath>rpt_MHAReport.rdl</FullPath>
+      <Name>rpt_MHADailySummaryReport.rdl</Name>
+      <FullPath>rpt_MHADailySummaryReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_MHA_Weekly_Executive_Summary_Report.rdl</Name>
+      <FullPath>rpt_MHA_Weekly_Executive_Summary_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_PotentialDuplicates.rdl</Name>
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
+    <ResourceProjectItem>
+      <Name>MakingHomeAffordable.GIF</Name>
+      <FullPath>MakingHomeAffordable.GIF</FullPath>
+      <MimeType>image/gif</MimeType>
+    </ResourceProjectItem>
     <ProjectItem>
-      <Name>rpt_MHADailySummaryReport.rdl</Name>
-      <FullPath>rpt_MHADailySummaryReport.rdl</FullPath>
+      <Name>rpt_MHAReport.rdl</Name>
+      <FullPath>rpt_MHAReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
