@@ -12,7 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     public class CallLogWSReturnDTO
     {
         #region property
-        public string CallId { get; set; }
+        public string HopeNetCallId { get; set; }
 
         [XmlElement(IsNullable = true)]
         public DateTime? StartDate { get; set; }
