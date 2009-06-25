@@ -1765,7 +1765,7 @@ namespace HPF.FutureState.BusinessLogic
             if (msgProgramId != null && msgProgramId.Count != 0)
                 msgFcCaseSet.Add(msgProgramId);
 
-            ExceptionMessageCollection msgOutcomeTypeId = CheckValidOutcomeTypeId(outcomeItemCollection);
+            ExceptionMessageCollection msgOutcomeTypeId = CheckValidOutcomeTypeId(outcomeItemCollection, foreclosureCase.IntakeDt);
             if (msgOutcomeTypeId != null && msgOutcomeTypeId.Count != 0)
                 msgFcCaseSet.Add(msgOutcomeTypeId);
 
@@ -2088,7 +2088,7 @@ namespace HPF.FutureState.BusinessLogic
         /// <input>ForeclosureCaseDTO</input>
         /// <return>bool<return>
         /// </summary>
-        private ExceptionMessageCollection CheckValidOutcomeTypeId(OutcomeItemDTOCollection outcomeItem)
+        private ExceptionMessageCollection CheckValidOutcomeTypeId(OutcomeItemDTOCollection outcomeItem, DateTime? fcIntakeDate)
         {
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
             if (outcomeItem == null || outcomeItem.Count < 1)
@@ -2096,14 +2096,13 @@ namespace HPF.FutureState.BusinessLogic
             for (int i = 0; i < outcomeItem.Count; i++)
             {
                 OutcomeItemDTO item = outcomeItem[i];
-                bool isValid = CheckOutcomeType(item);
-                if (!isValid)
+                if (!CheckOutcomeType(item, fcIntakeDate))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0263, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0263) + " on outcome item index " + (i + 1));   
             }
             return msgFcCaseSet;
         }
 
-        private bool CheckOutcomeType(OutcomeItemDTO outcomeItem)
+        private bool CheckOutcomeType(OutcomeItemDTO outcomeItem, DateTime? fcIntakeDate)
         {
             OutcomeTypeDTOCollection outcomeTypeCollection = OutcomeBL.Instance.GetOutcomeType();
             if (outcomeTypeCollection == null || outcomeTypeCollection.Count < 1)
@@ -2114,7 +2113,10 @@ namespace HPF.FutureState.BusinessLogic
             foreach (OutcomeTypeDTO item in outcomeTypeCollection)
             {
                 if (item.OutcomeTypeID == outcomeTypeId)
-                    return true;
+                {
+                    if (item.InactiveDt == null || fcIntakeDate == null || item.InactiveDt > fcIntakeDate)
+                        return true;
+                }
             }
             return false;
         }

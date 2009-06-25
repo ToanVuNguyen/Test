@@ -40,6 +40,7 @@ namespace HPF.FutureState.DataAccess
             OutcomeTypeDTOCollection results = HPFCacheManager.Instance.GetData<OutcomeTypeDTOCollection>(Constant.HPF_CACHE_OUTCOME_TYPE);
             if (results == null)
             {
+                results = new OutcomeTypeDTOCollection();
                 var dbConnection = CreateConnection();
                 var command = new SqlCommand("hpf_outcome_type_get", dbConnection);
                 try
@@ -49,13 +50,14 @@ namespace HPF.FutureState.DataAccess
                     var reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        results = new OutcomeTypeDTOCollection();
                         while (reader.Read())
                         {
                             var item = new OutcomeTypeDTO();
                             item.OutcomeTypeID = ConvertToInt(reader["outcome_type_id"]);
                             item.OutcomeTypeName = ConvertToString(reader["outcome_type_name"]);
+                            item.OutcomeTypeComment = ConvertToString(reader["outcome_type_comment"]);
                             item.PayableInd = ConvertToString(reader["payable_ind"]);
+                            item.InactiveDt = ConvertToDateTime(reader["inactive_dt"]);
                             results.Add(item);
                         }
                         reader.Close();

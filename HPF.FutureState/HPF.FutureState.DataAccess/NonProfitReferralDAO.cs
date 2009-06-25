@@ -34,14 +34,14 @@ namespace HPF.FutureState.DataAccess
             NonProfitReferralDTOCollection result = HPFCacheManager.Instance.GetData<NonProfitReferralDTOCollection>(Constant.HPF_CACHE_NONPROFITREFERRALS);
             if (result == null)
             {
+                result = new NonProfitReferralDTOCollection();
                 var dbConnection = CreateConnection();
                 var command = CreateCommand("hpf_nonprofitreferral_get", dbConnection);
                 command.CommandType = CommandType.StoredProcedure;
                 dbConnection.Open();
                 var reader = command.ExecuteReader();
                 if (reader.HasRows)
-                {
-                    result = new NonProfitReferralDTOCollection();
+                {                    
                     while (reader.Read())
                     {
                         NonProfitReferralDTO item = new NonProfitReferralDTO();

@@ -79,9 +79,9 @@ namespace HPF.FutureState.WebServices
                 response.Messages.AddExceptionMessage(Ex.Message);
                 HandleException(Ex);
             }
-            
-            if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
-                response.Messages.Add(workingInstance.WarningMessage);
+
+            if (workingInstance != null && workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
+                    response.Messages.Add(workingInstance.WarningMessage);
 
             return response;
         }
