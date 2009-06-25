@@ -149,14 +149,14 @@ namespace HPF.FutureState.BusinessLogic
             if (aCallLog.SelectedAgencyId.HasValue && selectedAgencyId == 0)
                 errorList.AddExceptionMessage(ErrorMessages.ERR0362, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0362));
 
-            NonProfitReferralDTOCollection nonProfitReferrals = LookupDataBL.Instance.GetNonProfitReffals();
+            //NonProfitReferralDTOCollection nonProfitReferrals = LookupDataBL.Instance.GetNonProfitReffals();
 
-            if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum1) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum1) == null)            
-                errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum1 was provided for.");
-            if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum2) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum2) == null)
-                errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum2 was provided.");
-            if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum3) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum3) == null)
-                errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum3 was provided.");            
+            //if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum1) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum1) == null)            
+              //  errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum1 was provided for.");
+            //if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum2) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum2) == null)
+              //  errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum2 was provided.");
+            //if (!string.IsNullOrEmpty(aCallLog.NonprofitReferralKeyNum3) && nonProfitReferrals.GetNonProfitReferral(aCallLog.NonprofitReferralKeyNum3) == null)
+              //  errorList.AddExceptionMessage("An invalid NonprofitReferralKeyNum3 was provided.");            
 
             return errorList;
         }
