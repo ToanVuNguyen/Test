@@ -4439,34 +4439,34 @@ namespace HPF.Webservice.Agency
     public partial class SummaryRetrieveRequest : BaseRequest
     {
 
-        private System.Nullable<int> foreclosureIdField;
+        private System.Nullable<int> fcIdField;
 
-        private string reportOutputField;
+        private string outputFormatField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> ForeclosureId
+        public System.Nullable<int> FCId
         {
             get
             {
-                return this.foreclosureIdField;
+                return this.fcIdField;
             }
             set
             {
-                this.foreclosureIdField = value;
+                this.fcIdField = value;
             }
         }
 
         /// <remarks/>
-        public string ReportOutput
+        public string OutputFormat
         {
             get
             {
-                return this.reportOutputField;
+                return this.outputFormatField;
             }
             set
             {
-                this.reportOutputField = value;
+                this.outputFormatField = value;
             }
         }
     }
