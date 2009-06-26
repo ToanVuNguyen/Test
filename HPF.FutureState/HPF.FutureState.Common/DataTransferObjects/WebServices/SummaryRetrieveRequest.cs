@@ -10,11 +10,11 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         /// <summary>
         /// Foreclosure case id
         /// </summary>
-        public int? ForeclosureId { get; set; }
+        public int? FCId { get; set; }
         /// <summary>
         /// If ReportOutput= None then output is ForeclosureSet
         /// Otherwise the output is report summary buffer
         /// </summary>
-        public string ReportOutput { get; set; }
+        public string OutputFormat { get; set; }
     }
 }
