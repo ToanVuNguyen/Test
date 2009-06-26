@@ -299,11 +299,11 @@ namespace HPF.FutureState.WebServices
                         response.Messages = exCol;
                         return response;
                     }
-                    string reportFormat = request.ReportOutput.ToUpper();
+                    string reportFormat = request.OutputFormat.ToUpper();
                     if (reportFormat == null || reportFormat == string.Empty)
-                        response.ForeclosureCaseSet = ForeclosureCaseSetBL.Instance.GetForeclosureCaseDetail(request.ForeclosureId.Value);
+                        response.ForeclosureCaseSet = ForeclosureCaseSetBL.Instance.GetForeclosureCaseDetail(request.FCId.Value);
                     else
-                        response.ReportSummary = SummaryReportBL.Instance.GenerateSummaryReport(request.ForeclosureId);
+                        response.ReportSummary = SummaryReportBL.Instance.GenerateSummaryReport(request.FCId);
                     response.Status = ResponseStatus.Success;
                 }
             }
@@ -312,17 +312,17 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.AuthenticationFail;
                 response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
-                HandleException(Ex, request.ForeclosureId.HasValue?request.ForeclosureId.Value.ToString():"");
+                HandleException(Ex, request.FCId.HasValue ? request.FCId.Value.ToString() : "");
             }
             catch (DataValidationException Ex)
             {
                 response.Messages = Ex.ExceptionMessages;
-                HandleException(Ex, request.ForeclosureId.HasValue ? request.ForeclosureId.Value.ToString() : "");
+                HandleException(Ex, request.FCId.HasValue ? request.FCId.Value.ToString() : "");
             }
             catch (DataAccessException Ex)
             {
                 response.Messages.AddExceptionMessage("Data access error.");
-                HandleException(Ex, request.ForeclosureId.HasValue ? request.ForeclosureId.Value.ToString() : "");
+                HandleException(Ex, request.FCId.HasValue ? request.FCId.Value.ToString() : "");
             }
             catch (Exception Ex)
             {
@@ -465,23 +465,23 @@ namespace HPF.FutureState.WebServices
 
         private ExceptionMessageCollection ValidateRetrieveSummary(SummaryRetrieveRequest request)
         {
-            string reportFormat = request.ReportOutput;
+            string reportFormat = request.OutputFormat;
             if(reportFormat != null)
                 reportFormat = reportFormat.Trim().ToUpper();
 
             ExceptionMessageCollection ex = new ExceptionMessageCollection();
-            if (request.ForeclosureId == null)
+            if (request.FCId == null)
                 ex.AddExceptionMessage("Unable to retrieve summary. A FCId is required to retrieve a summary.");
             else
             {
-                ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.ForeclosureId);
+                ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.FCId);
                 if (fc == null)
-                    ex.AddExceptionMessage("Unable to retrieve summary. The FCId is not a valid foreclosure case ID.");
+                    ex.AddExceptionMessage("Unable to retrieve case summary. The FCId is not a valid foreclosure case ID.");
                 else if (fc.AgencyId != CurrentAgencyID.Value)
-                    ex.AddExceptionMessage("Unable to retrieve summary. The FCId does not belong to your agency.");
+                    ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
             }
             if (reportFormat != null && reportFormat!= string.Empty && reportFormat != "PDF")
-                ex.AddExceptionMessage("Unable to retrieve summary. The specified report format is not supported.");            
+                ex.AddExceptionMessage("Unable to retrieve case summary. The specified summary format is not supported.");            
 
             return ex;
         }
