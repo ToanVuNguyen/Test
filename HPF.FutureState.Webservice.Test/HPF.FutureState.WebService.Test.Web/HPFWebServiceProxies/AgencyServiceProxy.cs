@@ -611,17 +611,11 @@ namespace HPF.Webservice.Agency
 
         private string propZipFull9Field;
 
-        private System.Nullable<int> prevAgencyIdField;
-
-        private System.Nullable<int> selectedAgencyIdField;
-
         private string finalDispoCdField;
 
         private string finalDispoDescField;
 
         private string loanDelinqStatusCdField;
-
-        private string selectedCounselorField;
 
         private string homeownerIndField;
 
@@ -847,34 +841,6 @@ namespace HPF.Webservice.Agency
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> PrevAgencyId
-        {
-            get
-            {
-                return this.prevAgencyIdField;
-            }
-            set
-            {
-                this.prevAgencyIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> SelectedAgencyId
-        {
-            get
-            {
-                return this.selectedAgencyIdField;
-            }
-            set
-            {
-                this.selectedAgencyIdField = value;
-            }
-        }
-
-        /// <remarks/>
         public string FinalDispoCd
         {
             get
@@ -910,19 +876,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.loanDelinqStatusCdField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string SelectedCounselor
-        {
-            get
-            {
-                return this.selectedCounselorField;
-            }
-            set
-            {
-                this.selectedCounselorField = value;
             }
         }
 
@@ -4439,7 +4392,7 @@ namespace HPF.Webservice.Agency
     public partial class SummaryRetrieveRequest : BaseRequest
     {
 
-        private System.Nullable<int> fcIdField;
+        private System.Nullable<int> fCIdField;
 
         private string outputFormatField;
 
@@ -4449,11 +4402,11 @@ namespace HPF.Webservice.Agency
         {
             get
             {
-                return this.fcIdField;
+                return this.fCIdField;
             }
             set
             {
-                this.fcIdField = value;
+                this.fCIdField = value;
             }
         }
 
