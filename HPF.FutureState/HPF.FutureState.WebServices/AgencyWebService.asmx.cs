@@ -405,18 +405,14 @@ namespace HPF.FutureState.WebServices
             destObject.OtherServicerName = sourceObject.OtherServicerName;
             destObject.PowerOfAttorneyInd = sourceObject.PowerOfAttorneyInd;
             destObject.PropZipFull9 = sourceObject.PropZipFull9;
-            destObject.PrevAgencyId = sourceObject.PrevAgencyId;
             destObject.ReasonForCall = sourceObject.ReasonForCall;
             destObject.StartDate = sourceObject.StartDate;
             destObject.ServicerId = sourceObject.ServicerId;
-            destObject.SelectedAgencyId = sourceObject.SelectedAgencyId;
-            destObject.SelectedCounselor = sourceObject.SelectedCounselor;
             destObject.City = sourceObject.City;
             destObject.State = sourceObject.State;
             destObject.NonprofitReferralKeyNum1 = sourceObject.NonprofitReferralKeyNum1;
             destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
             destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
-
             destObject.DelinqInd = sourceObject.DelinqInd;
             destObject.PropStreetAddress = sourceObject.PropStreetAddress;
             destObject.PrimaryResidenceInd = sourceObject.PrimaryResidenceInd;
@@ -434,7 +430,6 @@ namespace HPF.FutureState.WebServices
             destObject.MHAInfoShareInd = sourceObject.MHAInfoShareInd;
             destObject.ICTCallId = sourceObject.ICTCallId;
             destObject.MHAEligibilityCd = sourceObject.MHAEligibilityCd;
-
             destObject.ServicerName = sourceObject.ServicerName;
             destObject.FinalDispoDesc = sourceObject.FinalDispoDesc;
             destObject.NonprofitReferralDesc1 = sourceObject.NonprofitReferralDesc1;
