@@ -40,8 +40,8 @@ namespace HPF.FutureState.WebService.Test.Web
                 lblMessage.Text = "Messsage: Success";
 
                 if (Int32.TryParse(txtFcID.Text.Trim(), out fcid))
-                    request.ForeclosureId = fcid;
-                request.ReportOutput = txtReportFormat.Text.Trim();
+                    request.FCId = fcid;
+                request.OutputFormat = txtReportFormat.Text.Trim();
 
                 SummaryRetrieveResponse response = proxy.RetrieveSummary(request);                
 
@@ -51,7 +51,7 @@ namespace HPF.FutureState.WebService.Test.Web
                     grdvMessages.DataSource = response.Messages;
                     grdvMessages.DataBind();
                 }
-                else if (request.ReportOutput.ToUpper() != "PDF")
+                else if (request.OutputFormat.ToUpper() != "PDF")
                 {
                     #region Update UI
                     Panel1.Visible = true;
