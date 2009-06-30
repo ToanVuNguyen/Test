@@ -34,7 +34,8 @@
                 </td>
                 <td colspan="4" align="left">
                     <asp:DropDownList ID="dropFundingSource" runat="server" CssClass="Text" AutoPostBack="True"
-                        Width="100%">
+                        Width="100%" 
+                        onselectedindexchanged="dropFundingSource_SelectedIndexChanged1">
                     </asp:DropDownList>
                 </td>
                 <td align="right" class="sidelinks">
@@ -84,6 +85,17 @@
                         TargetControlID="txtPeriodEnd">
                     </cc1:CalendarExtender>
                 </td>
+            </tr>
+            <tr>
+            <td align="right">Servicer Funding<br/>Source Opiton*</td>
+            <td colspan="5">
+                <asp:CheckBox ID="chkUnableToLocateLoanInPortfolio" runat="server" CssClass="Text" 
+                    Text="Include Servicer Rejected: Unable to locate loan in portfolio" />
+                <br />
+                <asp:CheckBox ID="chkInvalidCounselingDocument" runat="server" CssClass="Text" 
+                    Text="Include Servicer Rejected: Invalid counseling documentation" />
+                </td>            
+            <td>&nbsp;</td>
             </tr>
             <tr>
                 <td rowspan="4" align="right" class="sidelinks" >

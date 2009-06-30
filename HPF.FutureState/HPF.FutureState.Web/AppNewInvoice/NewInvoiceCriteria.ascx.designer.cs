@@ -95,6 +95,24 @@ namespace HPF.FutureState.Web.AppNewInvoice {
         protected global::AjaxControlToolkit.CalendarExtender txtPeriodEnd_CalendarExtender;
         
         /// <summary>
+        /// chkUnableToLocateLoanInPortfolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkUnableToLocateLoanInPortfolio;
+        
+        /// <summary>
+        /// chkInvalidCounselingDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkInvalidCounselingDocument;
+        
+        /// <summary>
         /// chkServicerRejected control.
         /// </summary>
         /// <remarks>

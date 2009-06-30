@@ -50,6 +50,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public bool SelectUnfunded { get; set; }
         public int ServicerConsentQty { get; set; }
 
+        public bool UnableToLocateLoanInPortfolio { get; set; }
+        public bool InvalidCounselingDocument { get; set; }
+
         public InvoiceCaseSearchCriteriaDTO()
         {
             

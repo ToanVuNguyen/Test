@@ -100,6 +100,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 if (chkUnfunded.Checked)
                     Set4NonServicerOptions(false);
             }
+            chkUnableToLocateLoanInPortfolio.Checked = searchCriteria.UnableToLocateLoanInPortfolio;
+            chkInvalidCounselingDocument.Checked = searchCriteria.InvalidCounselingDocument;
         }
         /// <summary>
         /// Follow the business rule on the use-case ,Period Start = now - 1 month,Period End = now 
@@ -179,12 +181,22 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 chkServicerRejected.Checked = false;
                 chkUnfunded.Checked = false;
             }
+            else
+            {
+                chkUnableToLocateLoanInPortfolio.Checked = false;
+                chkInvalidCounselingDocument.Checked = false;
+            }
+            
             chkFundingAgreement.Enabled = flag;
             chkNeighborworksRejected.Enabled = flag;
             chkServicerFreddie.Enabled = flag;
             chkServicerRejected.Enabled = flag;
             chkUnfunded.Enabled = flag;
             dropFundingConsent.Enabled = flag;
+            
+            chkUnableToLocateLoanInPortfolio.Enabled = !flag;
+            chkInvalidCounselingDocument.Enabled = !flag;
+
             if (flag == true && chkUnfunded.Checked == true)
                 Set4NonServicerOptions(false);
             
@@ -377,7 +389,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             //a program is require
             searchCriteria.ProgramId = dropProgram.SelectedValue;
             searchCriteria.FundingSourceId = ConvertToInt(dropFundingSource.SelectedValue);
-            
+
+            searchCriteria.UnableToLocateLoanInPortfolio = chkUnableToLocateLoanInPortfolio.Checked;
+            searchCriteria.InvalidCounselingDocument = chkInvalidCounselingDocument.Checked;
+
             searchCriteria.Duplicate = (CustomBoolean)Enum.Parse(typeof(CustomBoolean), dropDuplicates.SelectedValue);
             searchCriteria.Gender = dropGender.SelectedValue;
             searchCriteria.Race = dropRace.SelectedValue;
