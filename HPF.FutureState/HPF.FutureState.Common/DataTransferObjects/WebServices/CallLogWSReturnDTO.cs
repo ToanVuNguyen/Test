@@ -12,8 +12,8 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     public class CallLogWSReturnDTO
     {
         #region property
-        public string HopeNetCallId { get; set; }
 
+        public string HopeNetCallId { get; set; }
         [XmlElement(IsNullable = true)]
         public DateTime? StartDate { get; set; }
         [XmlElement(IsNullable = true)]
@@ -28,27 +28,14 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string ServicerName { get; set; }
         public string OtherServicerName { get; set; }
         public string PropZipFull9 { get; set; }
-
-        [XmlElement(IsNullable = true)]
-        public int? PrevAgencyId { get; set; }
-        [XmlElement(IsNullable = true)]
-        public int? SelectedAgencyId { get; set; }        
         public string FinalDispoCd { get; set; }
         public string FinalDispoDesc { get; set; }
         public string LoanDelinqStatusCd { get; set; }
-
-        public string SelectedCounselor { get; set; }
-
         public string HomeownerInd { get; set; }
-
         public string PowerOfAttorneyInd { get; set; }
-
         public string AuthorizedInd { get; set; }
-
         public string City { get; set; }
-
         public string State { get; set; }
-
         public string NonprofitReferralKeyNum1 { get; set; }
         public string NonprofitReferralDesc1 { get; set; }
         public string NonprofitReferralKeyNum2 { get; set; }
