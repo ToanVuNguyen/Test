@@ -87,15 +87,13 @@
                 </td>
             </tr>
             <tr>
-            <td align="right" class="sidelinks">Servicer Funding<br/>Source Opiton*</td>
-            <td colspan="5">
-                <div style="border-color: #8FC4F6; border-style: solid; border-width: 1px; width:390px;" >
+            <td align="right" class="sidelinks">Servicer Funding<br/>Source Opiton*:</td>
+            <td colspan="4" style="border-color: #8FC4F6; border-style: solid; border-width: 1px; width:390px;">                
                     <asp:CheckBox ID="chkUnableToLocateLoanInPortfolio" runat="server" CssClass="Text" 
                                 Text="Include Servicer Rejected: Unable to locate loan in portfolio" />
                     <br />
                      <asp:CheckBox ID="chkInvalidCounselingDocument" runat="server" CssClass="Text" 
-                                Text="Include Servicer Rejected: Invalid counseling documentation" />
-               </div>
+                                Text="Include Servicer Rejected: Invalid counseling documentation" />               
                 </td>                            
             <td>&nbsp;</td>
             </tr>
