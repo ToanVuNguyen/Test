@@ -39,15 +39,15 @@
         </Field>
         <Field Name="last_wk">
           <DataField>last_wk</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="this_wk">
           <DataField>this_wk</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="mon_to_dt">
           <DataField>mon_to_dt</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="percentage_last_wk">
           <DataField>percentage_last_wk</DataField>
@@ -60,6 +60,10 @@
         <Field Name="percentage_mon_to_dt">
           <DataField>percentage_mon_to_dt</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="sort_order">
+          <DataField>sort_order</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
       <Query>
@@ -76,513 +80,13 @@
         </QueryParameters>
       </Query>
     </DataSet>
-    <DataSet Name="dst_MHA_Weekly_Executive_Summary_Report_Chart_ServicerCalls">
-      <Fields>
-        <Field Name="servicer_name">
-          <DataField>servicer_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="this_mon">
-          <DataField>this_mon</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
-        <CommandType>StoredProcedure</CommandType>
-        <CommandText>hpf_rpt_MHA_Weekly_Executive_Summary_Report</CommandText>
-        <QueryParameters>
-          <QueryParameter Name="@pi_dt">
-            <Value>=Parameters!pi_dt.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@pi_is_chart">
-            <Value>=1</Value>
-          </QueryParameter>
-        </QueryParameters>
-      </Query>
-    </DataSet>
-    <DataSet Name="dst_MHA_Weekly_Executive_Summary_Report_Chart_Servicer">
-      <Fields>
-        <Field Name="servicer_name">
-          <DataField>servicer_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="average">
-          <DataField>average</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Consumers_Reporting">
-          <DataField>Consumers_Reporting</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
-        <CommandType>StoredProcedure</CommandType>
-        <CommandText>hpf_rpt_MHA_Weekly_Executive_Summary_Report</CommandText>
-        <QueryParameters>
-          <QueryParameter Name="@pi_dt">
-            <Value>=Parameters!pi_dt.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@pi_is_chart">
-            <Value>=2</Value>
-          </QueryParameter>
-        </QueryParameters>
-      </Query>
-    </DataSet>
-    <DataSet Name="dst_MHA_Weekly_Executive_Summary_Report_Chart_ServicerMHA">
-      <Fields>
-        <Field Name="servicer_name">
-          <DataField>servicer_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="mon_to_dt">
-          <DataField>mon_to_dt</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>ds_HPF</DataSourceName>
-        <CommandType>StoredProcedure</CommandType>
-        <CommandText>hpf_rpt_MHA_Weekly_Executive_Summary_Report</CommandText>
-        <QueryParameters>
-          <QueryParameter Name="@pi_dt">
-            <Value>=Parameters!pi_dt.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@pi_is_chart">
-            <Value>=3</Value>
-          </QueryParameter>
-        </QueryParameters>
-      </Query>
-    </DataSet>
   </DataSets>
   <Code />
   <Width>10.88973in</Width>
   <Body>
     <ReportItems>
-      <Chart Name="chart2">
-        <Legend>
-          <Visible>true</Visible>
-          <Style>
-            <BorderStyle>
-              <Default>Solid</Default>
-            </BorderStyle>
-            <FontSize>8pt</FontSize>
-          </Style>
-          <Position>BottomCenter</Position>
-          <Layout>Table</Layout>
-        </Legend>
-        <CategoryAxis>
-          <Axis>
-            <Title />
-            <MajorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MajorGridLines>
-            <MinorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MinorGridLines>
-            <MajorTickMarks>Outside</MajorTickMarks>
-            <Min>0</Min>
-            <Visible>true</Visible>
-          </Axis>
-        </CategoryAxis>
-        <ZIndex>18</ZIndex>
-        <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Chart_ServicerMHA</DataSetName>
-        <PlotArea>
-          <Style>
-            <BackgroundColor>White</BackgroundColor>
-          </Style>
-        </PlotArea>
-        <ThreeDProperties>
-          <Enabled>true</Enabled>
-          <ProjectionMode>Orthographic</ProjectionMode>
-          <Rotation>50</Rotation>
-          <Inclination>-5</Inclination>
-          <Perspective>28</Perspective>
-          <Shading>Real</Shading>
-          <WallThickness>22</WallThickness>
-        </ThreeDProperties>
-        <PointWidth>0</PointWidth>
-        <Top>3.02083in</Top>
-        <Subtype>Plain</Subtype>
-        <ValueAxis>
-          <Axis>
-            <Title />
-            <MajorGridLines>
-              <ShowGridLines>true</ShowGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MajorGridLines>
-            <MinorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MinorGridLines>
-            <MajorTickMarks>Outside</MajorTickMarks>
-            <Min>0</Min>
-            <Margin>true</Margin>
-            <Visible>true</Visible>
-            <Scalar>true</Scalar>
-          </Axis>
-        </ValueAxis>
-        <Type>Pie</Type>
-        <Width>3.5in</Width>
-        <CategoryGroupings>
-          <CategoryGrouping>
-            <DynamicCategories>
-              <Grouping Name="chart2_CategoryGroup1">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!servicer_name.Value</GroupExpression>
-                </GroupExpressions>
-              </Grouping>
-              <Label>=Fields!servicer_name.Value</Label>
-            </DynamicCategories>
-          </CategoryGrouping>
-        </CategoryGroupings>
-        <Palette>Excel</Palette>
-        <ChartData>
-          <ChartSeries>
-            <DataPoints>
-              <DataPoint>
-                <DataValues>
-                  <DataValue>
-                    <Value>=Sum(Fields!mon_to_dt.Value)</Value>
-                  </DataValue>
-                </DataValues>
-                <DataLabel />
-                <Marker />
-              </DataPoint>
-            </DataPoints>
-          </ChartSeries>
-        </ChartData>
-        <Style>
-          <BackgroundColor>White</BackgroundColor>
-          <BorderStyle>
-            <Default>Solid</Default>
-          </BorderStyle>
-        </Style>
-        <Title />
-        <Height>3.5in</Height>
-        <Left>3.5in</Left>
-      </Chart>
-      <Textbox Name="textbox20">
-        <Top>2.76041in</Top>
-        <Width>3.5in</Width>
-        <Style>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Center</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>17</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>3.5in</Left>
-        <Height>0.25in</Height>
-        <Value>Servicer Representation - MHA Qualified</Value>
-      </Textbox>
-      <Textbox Name="textbox17">
-        <Top>2.76041in</Top>
-        <Style>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Center</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>16</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>7.01041in</Left>
-        <Height>0.25in</Height>
-        <Value>Servicer Representation - Complaints</Value>
-      </Textbox>
-      <Textbox Name="textbox15">
-        <rd:DefaultName>textbox15</rd:DefaultName>
-        <Top>2.76041in</Top>
-        <Width>3.375in</Width>
-        <Style>
-          <FontWeight>700</FontWeight>
-          <TextAlign>Center</TextAlign>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-        <ZIndex>15</ZIndex>
-        <CanGrow>true</CanGrow>
-        <Left>0.11458in</Left>
-        <Height>0.25in</Height>
-        <Value>Servicer Representation - All Calls</Value>
-      </Textbox>
-      <Table Name="table7">
-        <ZIndex>14</ZIndex>
-        <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Table</DataSetName>
-        <Filters>
-          <Filter>
-            <FilterExpression>=Fields!group_name.Value</FilterExpression>
-            <Operator>In</Operator>
-            <FilterValues>
-              <FilterValue>=Split("Top 10 Call Sources - Last Month",",")</FilterValue>
-            </FilterValues>
-          </Filter>
-        </Filters>
-        <Top>6.53125in</Top>
-        <TableGroups>
-          <TableGroup>
-            <Grouping Name="table7_Group1">
-              <GroupExpressions>
-                <GroupExpression>=Fields!group_name.Value</GroupExpression>
-              </GroupExpressions>
-            </Grouping>
-            <Header>
-              <TableRows>
-                <TableRow>
-                  <TableCells>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox73">
-                          <Style>
-                            <BackgroundColor>DarkOrange</BackgroundColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontSize>8pt</FontSize>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>8</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value>Top 10 Call Sources </Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox76">
-                          <Style>
-                            <Color>White</Color>
-                            <BackgroundColor>DarkBlue</BackgroundColor>
-                            <BorderColor>
-                              <Bottom>Black</Bottom>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                              <Bottom>Solid</Bottom>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Bottom>1pt</Bottom>
-                            </BorderWidth>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>700</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>7</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value>Last Month</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox112">
-                          <rd:DefaultName>textbox112</rd:DefaultName>
-                          <Style>
-                            <Color>White</Color>
-                            <BackgroundColor>DarkBlue</BackgroundColor>
-                            <BorderColor>
-                              <Bottom>Black</Bottom>
-                            </BorderColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                              <Bottom>Solid</Bottom>
-                            </BorderStyle>
-                            <BorderWidth>
-                              <Bottom>1pt</Bottom>
-                            </BorderWidth>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>700</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <ZIndex>6</ZIndex>
-                          <CanGrow>true</CanGrow>
-                          <Value>%</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                  <Height>0.25in</Height>
-                </TableRow>
-              </TableRows>
-            </Header>
-          </TableGroup>
-        </TableGroups>
-        <Width>3.49744in</Width>
-        <Details>
-          <TableRows>
-            <TableRow>
-              <TableCells>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox77">
-                      <Style>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>2</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value>=Fields!item_name.Value</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox80">
-                      <Style>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontSize>8pt</FontSize>
-                        <TextAlign>Right</TextAlign>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>1</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value>=Fields!mon_to_dt.Value</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox113">
-                      <rd:DefaultName>textbox113</rd:DefaultName>
-                      <Style>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontSize>8pt</FontSize>
-                        <TextAlign>Right</TextAlign>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_mon_to_dt.Value</Value>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-              </TableCells>
-              <Height>0.25in</Height>
-            </TableRow>
-          </TableRows>
-        </Details>
-        <TableColumns>
-          <TableColumn>
-            <Width>2.14744in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>0.85in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>0.5in</Width>
-          </TableColumn>
-        </TableColumns>
-        <Footer>
-          <TableRows>
-            <TableRow>
-              <TableCells>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox81">
-                      <Style>
-                        <FontSize>9pt</FontSize>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>5</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value />
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox84">
-                      <Style>
-                        <FontSize>9pt</FontSize>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>4</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value />
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="textbox114">
-                      <rd:DefaultName>textbox114</rd:DefaultName>
-                      <Style>
-                        <FontSize>9pt</FontSize>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                      <ZIndex>3</ZIndex>
-                      <CanGrow>true</CanGrow>
-                      <Value />
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-              </TableCells>
-              <Height>0.25in</Height>
-            </TableRow>
-          </TableRows>
-        </Footer>
-        <Left>3.51042in</Left>
-      </Table>
       <Table Name="table6">
-        <ZIndex>13</ZIndex>
+        <ZIndex>11</ZIndex>
         <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Table</DataSetName>
         <Filters>
           <Filter>
@@ -593,7 +97,7 @@
             </FilterValues>
           </Filter>
         </Filters>
-        <Top>6.53126in</Top>
+        <Top>2.875in</Top>
         <TableGroups>
           <TableGroup>
             <Grouping Name="table6_Group1">
@@ -651,7 +155,7 @@
                           </Style>
                           <ZIndex>10</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Average</Value>
+                          <Value>Avg Attempts</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -681,7 +185,7 @@
                           </Style>
                           <ZIndex>9</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Month to Date</Value>
+                          <Value># Consumers Reporting</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -813,16 +317,16 @@
         </Details>
         <TableColumns>
           <TableColumn>
-            <Width>2.00431in</Width>
+            <Width>3in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.625in</Width>
+            <Width>1.25in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.875in</Width>
+            <Width>2.125in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.375in</Width>
+            <Width>0.5in</Width>
           </TableColumn>
         </TableColumns>
         <Footer>
@@ -899,10 +403,10 @@
             </TableRow>
           </TableRows>
         </Footer>
-        <Left>7.01042in</Left>
+        <Left>4.01042in</Left>
       </Table>
       <Table Name="table5">
-        <ZIndex>12</ZIndex>
+        <ZIndex>10</ZIndex>
         <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Table</DataSetName>
         <Filters>
           <Filter>
@@ -913,7 +417,7 @@
             </FilterValues>
           </Filter>
         </Filters>
-        <Top>6.53125in</Top>
+        <Top>2.87499in</Top>
         <TableGroups>
           <TableGroup>
             <Grouping Name="table5_Group1">
@@ -1013,7 +517,7 @@
             </Header>
           </TableGroup>
         </TableGroups>
-        <Width>3.50971in</Width>
+        <Width>4.00471in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1087,10 +591,10 @@
             <Width>2.00971in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.875in</Width>
+            <Width>1.25in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.625in</Width>
+            <Width>0.745in</Width>
           </TableColumn>
         </TableColumns>
         <Footer>
@@ -1152,241 +656,6 @@
           </TableRows>
         </Footer>
       </Table>
-      <Chart Name="chart1">
-        <Legend>
-          <Visible>true</Visible>
-          <Style>
-            <BorderStyle>
-              <Default>Solid</Default>
-            </BorderStyle>
-            <FontSize>8pt</FontSize>
-          </Style>
-          <Position>BottomCenter</Position>
-          <Layout>Table</Layout>
-        </Legend>
-        <CategoryAxis>
-          <Axis>
-            <Title />
-            <MajorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MajorGridLines>
-            <MinorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MinorGridLines>
-            <MajorTickMarks>Outside</MajorTickMarks>
-            <Min>0</Min>
-            <Visible>true</Visible>
-          </Axis>
-        </CategoryAxis>
-        <ZIndex>11</ZIndex>
-        <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Chart_Servicer</DataSetName>
-        <PlotArea>
-          <Style>
-            <BackgroundColor>White</BackgroundColor>
-          </Style>
-        </PlotArea>
-        <ThreeDProperties>
-          <Enabled>true</Enabled>
-          <ProjectionMode>Orthographic</ProjectionMode>
-          <Rotation>50</Rotation>
-          <Inclination>-5</Inclination>
-          <Perspective>28</Perspective>
-          <Shading>Simple</Shading>
-          <WallThickness>22</WallThickness>
-        </ThreeDProperties>
-        <PointWidth>0</PointWidth>
-        <SeriesGroupings>
-          <SeriesGrouping>
-            <DynamicSeries>
-              <Grouping Name="chart1_SeriesGroup1">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!servicer_name.Value</GroupExpression>
-                </GroupExpressions>
-              </Grouping>
-              <Label>=Fields!servicer_name.Value</Label>
-            </DynamicSeries>
-          </SeriesGrouping>
-        </SeriesGroupings>
-        <Top>3.02083in</Top>
-        <Subtype>Plain</Subtype>
-        <ValueAxis>
-          <Axis>
-            <Title />
-            <MajorGridLines>
-              <ShowGridLines>true</ShowGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MajorGridLines>
-            <MinorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MinorGridLines>
-            <MajorTickMarks>Outside</MajorTickMarks>
-            <Min>0</Min>
-            <Margin>true</Margin>
-            <Visible>true</Visible>
-            <Scalar>true</Scalar>
-          </Axis>
-        </ValueAxis>
-        <Type>Pie</Type>
-        <Palette>Excel</Palette>
-        <ChartData>
-          <ChartSeries>
-            <DataPoints>
-              <DataPoint>
-                <DataValues>
-                  <DataValue>
-                    <Value>=Sum(Fields!Consumers_Reporting.Value)</Value>
-                  </DataValue>
-                </DataValues>
-                <DataLabel />
-                <Marker />
-              </DataPoint>
-            </DataPoints>
-          </ChartSeries>
-        </ChartData>
-        <Style>
-          <BackgroundColor>White</BackgroundColor>
-          <BorderStyle>
-            <Default>Solid</Default>
-          </BorderStyle>
-        </Style>
-        <Title />
-        <Height>3.5in</Height>
-        <Left>7.01041in</Left>
-      </Chart>
-      <Chart Name="Chart_Case_source">
-        <Legend>
-          <Visible>true</Visible>
-          <Style>
-            <BorderStyle>
-              <Default>Solid</Default>
-            </BorderStyle>
-            <FontSize>8pt</FontSize>
-          </Style>
-          <Position>BottomCenter</Position>
-          <Layout>Table</Layout>
-        </Legend>
-        <CategoryAxis>
-          <Axis>
-            <Title />
-            <MajorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MajorGridLines>
-            <MinorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MinorGridLines>
-            <MajorTickMarks>Outside</MajorTickMarks>
-            <Min>0</Min>
-            <Visible>true</Visible>
-          </Axis>
-        </CategoryAxis>
-        <ZIndex>10</ZIndex>
-        <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Chart_ServicerCalls</DataSetName>
-        <PlotArea>
-          <Style>
-            <BackgroundColor>White</BackgroundColor>
-          </Style>
-        </PlotArea>
-        <ThreeDProperties>
-          <Enabled>true</Enabled>
-          <Rotation>50</Rotation>
-          <Inclination>-5</Inclination>
-          <Perspective>28</Perspective>
-          <Shading>Real</Shading>
-          <WallThickness>22</WallThickness>
-          <Clustered>true</Clustered>
-        </ThreeDProperties>
-        <PointWidth>0</PointWidth>
-        <Top>3.02083in</Top>
-        <Subtype>Plain</Subtype>
-        <ValueAxis>
-          <Axis>
-            <Title />
-            <MajorGridLines>
-              <ShowGridLines>true</ShowGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MajorGridLines>
-            <MinorGridLines>
-              <Style>
-                <BorderStyle>
-                  <Default>Solid</Default>
-                </BorderStyle>
-              </Style>
-            </MinorGridLines>
-            <MajorTickMarks>Outside</MajorTickMarks>
-            <Min>0</Min>
-            <Margin>true</Margin>
-            <Visible>true</Visible>
-            <Scalar>true</Scalar>
-          </Axis>
-        </ValueAxis>
-        <Type>Pie</Type>
-        <Width>3.375in</Width>
-        <CategoryGroupings>
-          <CategoryGrouping>
-            <DynamicCategories>
-              <Grouping Name="Chart_Case_source_CategoryGroup1">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!servicer_name.Value</GroupExpression>
-                </GroupExpressions>
-              </Grouping>
-              <Label>=Fields!servicer_name.Value</Label>
-            </DynamicCategories>
-          </CategoryGrouping>
-        </CategoryGroupings>
-        <Palette>Excel</Palette>
-        <ChartData>
-          <ChartSeries>
-            <DataPoints>
-              <DataPoint>
-                <DataValues>
-                  <DataValue>
-                    <Value>=Sum(Fields!this_mon.Value)</Value>
-                  </DataValue>
-                </DataValues>
-                <DataLabel />
-                <Marker />
-              </DataPoint>
-            </DataPoints>
-          </ChartSeries>
-        </ChartData>
-        <Style>
-          <BackgroundColor>White</BackgroundColor>
-          <BorderStyle>
-            <Default>Solid</Default>
-          </BorderStyle>
-        </Style>
-        <Title />
-        <Height>3.5in</Height>
-        <Left>0.11458in</Left>
-      </Chart>
       <Table Name="table4">
         <ZIndex>9</ZIndex>
         <DataSetName>dst_MHA_Weekly_Executive_Summary_Report_Table</DataSetName>
@@ -1634,6 +903,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>8pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -2162,6 +1432,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>8pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -2689,6 +1960,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>8pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -3219,6 +2491,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontSize>8pt</FontSize>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -3598,7 +2871,7 @@
         <Value>image.hpf_logo.gif</Value>
       </Image>
     </ReportItems>
-    <Height>7.28126in</Height>
+    <Height>3.625in</Height>
   </Body>
   <Language>en-US</Language>
   <PageHeight>8.5in</PageHeight>
