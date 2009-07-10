@@ -660,7 +660,7 @@
         <CanGrow>true</CanGrow>
         <Left>0.48958in</Left>
         <Height>0.19792in</Height>
-        <Value>= "Report Date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; CStr(Today)</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.63542in</Top>
