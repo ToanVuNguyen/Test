@@ -416,7 +416,7 @@ ORDER BY servicer_name</CommandText>
       </Table>
       <Image Name="image1">
         <Sizing>Fit</Sizing>
-        <Width>2in</Width>
+        <Width>1.375in</Width>
         <Source>External</Source>
         <Style />
         <ZIndex>3</ZIndex>
@@ -426,7 +426,7 @@ ORDER BY servicer_name</CommandText>
       <Textbox Name="textbox10">
         <rd:DefaultName>textbox10</rd:DefaultName>
         <Top>0.75in</Top>
-        <Width>6.375in</Width>
+        <Width>5.875in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
@@ -441,7 +441,7 @@ ORDER BY servicer_name</CommandText>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
         <Top>0.54167in</Top>
-        <Width>6.375in</Width>
+        <Width>5.875in</Width>
         <Style>
           <FontStyle>Italic</FontStyle>
           <TextAlign>Left</TextAlign>
@@ -457,7 +457,7 @@ ORDER BY servicer_name</CommandText>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.26042in</Top>
-        <Width>2in</Width>
+        <Width>5.875in</Width>
         <Style>
           <Color>MidnightBlue</Color>
           <FontSize>14pt</FontSize>
@@ -469,7 +469,7 @@ ORDER BY servicer_name</CommandText>
         </Style>
         <CanGrow>true</CanGrow>
         <Height>0.27083in</Height>
-        <Value>OutreachReport</Value>
+        <Value>Outreach Report</Value>
       </Textbox>
     </ReportItems>
     <Height>1.51042in</Height>
