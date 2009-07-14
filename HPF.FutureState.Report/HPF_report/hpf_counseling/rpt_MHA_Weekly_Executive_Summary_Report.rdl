@@ -200,7 +200,7 @@
                           </Style>
                           <ZIndex>7</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>Month to Date %</Value>
+                          <Value>Program to Date</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -267,7 +267,8 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox25">
+                    <Textbox Name="textbox11">
+                      <rd:DefaultName>textbox11</rd:DefaultName>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
@@ -281,7 +282,7 @@
                       </Style>
                       <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!mon_to_dt.Value</Value>
+                      <Value>=Fields!program_to_dt.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
