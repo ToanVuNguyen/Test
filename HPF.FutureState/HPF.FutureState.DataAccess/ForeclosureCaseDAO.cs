@@ -263,8 +263,9 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[3] = new SqlParameter("@pi_borrower_last4_SSN", searchCriteria.Last4_SSN);
                 sqlParam[4] = new SqlParameter("@pi_prop_zip", searchCriteria.PropertyZip);
                 sqlParam[5] = new SqlParameter("@pi_loan_number", searchCriteria.LoanNumber);
-                sqlParam[6] = new SqlParameter("@pi_where_clause", whereClause);
-                sqlParam[7] = new SqlParameter("@pi_number_of_rows", pageSize);
+                sqlParam[6] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
+                sqlParam[7] = new SqlParameter("@pi_where_clause", whereClause);
+               // sqlParam[8] = new SqlParameter("@pi_number_of_rows", pageSize);
                 sqlParam[8] = new SqlParameter("@po_total_rows", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
                 //</Parameter>
@@ -338,6 +339,7 @@ namespace HPF.FutureState.DataAccess
             whereClause.Append(" WHERE foreClosure_case.agency_id = Agency.agency_id");
             whereClause.Append(" AND foreclosure_case.fc_id = case_loan.fc_id");
             whereClause.Append(" AND case_loan.servicer_id = servicer.servicer_id");
+            whereClause.Append((searchCriteria.Servicer <= 0) ? "" : " AND (case_loan.servicer_id=@pi_servicer)");
             //whereClause.Append(" AND case_loan.loan_1st_2nd_cd = '1st'");
             whereClause.Append(" AND (foreclosure_case.duplicate_ind = 'N' OR foreclosure_case.duplicate_ind is null)");
             //whereClause.Append((searchCriteria.AgencyCaseNumber == null) ? "" : " AND agency_case_num like @pi_agency_case_num ESCAPE '/'");

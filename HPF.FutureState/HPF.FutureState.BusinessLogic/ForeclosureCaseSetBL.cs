@@ -345,7 +345,8 @@ namespace HPF.FutureState.BusinessLogic
                 string.IsNullOrEmpty(searchCriteria.Last4_SSN) &&
                 string.IsNullOrEmpty(searchCriteria.LastName) &&
                 string.IsNullOrEmpty(searchCriteria.LoanNumber) &&
-                string.IsNullOrEmpty(searchCriteria.PropertyZip))
+                string.IsNullOrEmpty(searchCriteria.PropertyZip) &&
+                searchCriteria.Servicer <=0 )
             {                
                 dataValidationException.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR0378, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0378));
             }

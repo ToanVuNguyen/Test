@@ -98,12 +98,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
                     _loanNumber = value;
             }
         }
-
+        
         [NullableOrDigitsRequriedValidator(true, 5, "Property Zip",  Ruleset = "Default", Tag=ErrorMessages.ERR0377)]
         public string PropertyZip { get; set; }
 
         [NullableOrDigitsRequriedValidator(true, 4, "Last 4 SSN", Ruleset = "Default", Tag = ErrorMessages.ERR0376)]
         public string Last4_SSN { get; set; }
+
+        //[RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Inclusive, Ruleset = "Default", MessageTemplate="Invalid integer value.")]
+        public int Servicer { get; set; }
 
         private string ProcessSQLSpecialCharacter(string sInput)
         {
