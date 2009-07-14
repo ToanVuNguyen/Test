@@ -1,5 +1,5 @@
 ﻿-- =============================================
--- Create date: 17 Jun 2009
+-- Create date: 14 Jul 2009
 -- Project : HPF 
 -- Build 
 -- Description:	Insert initial data : ref_code_set, ref_code_item
@@ -332,6 +332,7 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('final disposition code', 'REPEATCALL', 'Repeat Call - Transfer','', 13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('final disposition code', 'THIRDPARTY', 'Third Party Caller','', 14,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('final disposition code', 'WRONGNUMBER', 'Wrong number','', 15,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('final disposition code', 'ESCALATION', 'Escalation','', 16,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('education level completed code','N','No academic credentials','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('education level completed code','H','High school diploma or equivalent','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
