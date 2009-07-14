@@ -4183,6 +4183,8 @@ namespace HPF.Webservice.Agency
 
         private string last4_SSNField;
 
+        private int servicerField;
+
         /// <remarks/>
         public string AgencyCaseNumber
         {
@@ -4258,6 +4260,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.last4_SSNField = value;
+            }
+        }
+
+        /// <remarks/>
+        public int Servicer
+        {
+            get
+            {
+                return this.servicerField;
+            }
+            set
+            {
+                this.servicerField = value;
             }
         }
     }

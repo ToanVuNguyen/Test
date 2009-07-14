@@ -108,6 +108,15 @@
             
             </asp:TableCell>
         </asp:TableRow>
+         <asp:TableRow ID="TableRow7" runat="server">
+            <asp:TableCell ID="TableCell13" runat="server">
+            <asp:Label ID="Label7" runat="server" Text="Servicer" CssClass="sidelinks"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell14" runat="server">
+                <asp:TextBox ID="txtServicer" runat="server"  CssClass="Text"></asp:TextBox>
+            
+            </asp:TableCell>
+        </asp:TableRow>
     </asp:Table>
     <br />
    

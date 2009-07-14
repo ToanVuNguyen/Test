@@ -108,6 +108,9 @@ namespace HPF.FutureState.WebService.Test.Web
             searchCriteria.Last4_SSN = (txtLast4SSN.Text.Trim() == string.Empty) ? null : txtLast4SSN.Text.Trim();
             searchCriteria.PropertyZip = (txtPropertyZip.Text.Trim() == string.Empty) ? null : txtPropertyZip.Text.Trim();
             searchCriteria.LoanNumber = (txtLoanNumber.Text.Trim() == string.Empty) ? null : txtLoanNumber.Text.Trim();
+            int servicer = 0;
+            int.TryParse(txtServicer.Text, out servicer);
+            searchCriteria.Servicer = servicer;
 
             return searchCriteria;
         }
