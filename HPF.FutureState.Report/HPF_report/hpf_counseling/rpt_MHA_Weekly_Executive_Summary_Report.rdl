@@ -127,7 +127,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.25in</Width>
+  <Width>8.27125in</Width>
   <Body>
     <ReportItems>
       <Table Name="table2">
@@ -241,7 +241,7 @@
             </Header>
           </TableGroup>
         </TableGroups>
-        <Width>6.25in</Width>
+        <Width>6.145in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -282,7 +282,7 @@
                       </Style>
                       <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!program_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!program_to_dt.Value, 0, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -313,13 +313,13 @@
         </Details>
         <TableColumns>
           <TableColumn>
-            <Width>3.4in</Width>
+            <Width>3.275in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1.52in</Width>
+            <Width>1.525in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1.33in</Width>
+            <Width>1.345in</Width>
           </TableColumn>
         </TableColumns>
         <Footer>
@@ -493,7 +493,7 @@
             </Header>
           </TableGroup>
         </TableGroups>
-        <Width>4.925in</Width>
+        <Width>4.8in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -533,7 +533,7 @@
                       </Style>
                       <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!mon_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!mon_to_dt.Value, 0, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -564,7 +564,7 @@
         </Details>
         <TableColumns>
           <TableColumn>
-            <Width>3.4in</Width>
+            <Width>3.275in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.125in</Width>
@@ -1082,7 +1082,6 @@
             </Footer>
           </TableGroup>
         </TableGroups>
-        <Width>7.6in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1125,7 +1124,7 @@
                       </Style>
                       <ZIndex>7</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!last_wk.Value</Value>
+                      <Value>=FormatNumber(Fields!last_wk.Value, 0, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1167,7 +1166,7 @@
                       </Style>
                       <ZIndex>5</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!this_wk.Value</Value>
+                      <Value>=FormatNumber(Fields!this_wk.Value, 0, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1209,7 +1208,7 @@
                       </Style>
                       <ZIndex>3</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!mon_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!mon_to_dt.Value, 0, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1251,7 +1250,7 @@
                       </Style>
                       <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!program_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!program_to_dt.Value, 0, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1282,7 +1281,7 @@
         </Details>
         <TableColumns>
           <TableColumn>
-            <Width>1.875in</Width>
+            <Width>1.75in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.125in</Width>
@@ -1300,13 +1299,13 @@
             <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.4in</Width>
+            <Width>0.47in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.4in</Width>
+            <Width>0.625in</Width>
           </TableColumn>
         </TableColumns>
         <Height>0.75in</Height>
@@ -1315,7 +1314,6 @@
       <Textbox Name="textbox3">
         <rd:DefaultName>textbox3</rd:DefaultName>
         <Top>1.01042in</Top>
-        <Width>7.6in</Width>
         <Style>
           <FontWeight>700</FontWeight>
           <PaddingLeft>2pt</PaddingLeft>
@@ -1330,10 +1328,10 @@
         <Value>= "Report as of " &amp; Parameters!pi_dt.Value</Value>
       </Textbox>
       <Textbox Name="textbox1">
-        <Width>4.48958in</Width>
+        <Width>4.395in</Width>
         <Style>
           <Color>MidnightBlue</Color>
-          <FontSize>16pt</FontSize>
+          <FontSize>15pt</FontSize>
           <FontWeight>700</FontWeight>
           <TextAlign>Center</TextAlign>
           <VerticalAlign>Middle</VerticalAlign>
@@ -1344,24 +1342,24 @@
         </Style>
         <ZIndex>4</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.90625in</Left>
+        <Left>2.25in</Left>
         <Height>0.375in</Height>
         <Value>Homeownership Preservation Foundation</Value>
       </Textbox>
       <Image Name="image2">
         <Sizing>Fit</Sizing>
-        <Width>1.625in</Width>
+        <Width>1.75in</Width>
         <Source>External</Source>
         <Style />
         <ZIndex>3</ZIndex>
-        <Left>0.28125in</Left>
+        <Left>0.5in</Left>
         <Height>0.375in</Height>
         <Value>MakingHomeAffordable.GIF</Value>
       </Image>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
         <Top>0.77083in</Top>
-        <Width>4.48958in</Width>
+        <Width>4.395in</Width>
         <Style>
           <FontStyle>Italic</FontStyle>
           <TextAlign>Center</TextAlign>
@@ -1372,16 +1370,16 @@
         </Style>
         <ZIndex>2</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.90625in</Left>
+        <Left>2.25in</Left>
         <Height>0.23in</Height>
         <Value>= "Report Date " &amp; CStr(Today)</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.38541in</Top>
-        <Width>4.48958in</Width>
+        <Width>4.395in</Width>
         <Style>
           <Color>MidnightBlue</Color>
-          <FontSize>16pt</FontSize>
+          <FontSize>15pt</FontSize>
           <FontWeight>700</FontWeight>
           <TextAlign>Center</TextAlign>
           <VerticalAlign>Middle</VerticalAlign>
@@ -1392,16 +1390,15 @@
         </Style>
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>1.90625in</Left>
+        <Left>2.25in</Left>
         <Height>0.375in</Height>
         <Value>Weekly Executive Summary Report</Value>
       </Textbox>
       <Image Name="image1">
         <Sizing>Fit</Sizing>
-        <Width>1.74in</Width>
         <Source>External</Source>
         <Style />
-        <Left>6.39583in</Left>
+        <Left>6.645in</Left>
         <Height>0.375in</Height>
         <Value>image.hpf_logo.gif</Value>
       </Image>
