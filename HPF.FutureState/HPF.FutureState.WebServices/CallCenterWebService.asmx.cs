@@ -188,6 +188,7 @@ namespace HPF.FutureState.WebServices
             destObject.ServicerCAOtherName = sourceObject.ServicerCAOtherName;
             destObject.MHAInfoShareInd = sourceObject.MHAInfoShareInd;
             destObject.ICTCallId = sourceObject.ICTCallId;
+            destObject.ServicerComplaintCd = sourceObject.ServicerComplaintCd;
             
             return destObject;
         }

@@ -52,7 +52,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Call Source Code", Ruleset = "Default")]        
         public string CallSourceCd 
         {
-            get { return callSourceCd; }
+            get { return string.IsNullOrEmpty(callSourceCd)?null:callSourceCd.ToUpper(); }
             set { callSourceCd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
 
@@ -139,7 +139,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(false, 15, "Final Dispo Code", Ruleset = "Default", Tag = ErrorMessages.ERR0353)]
         public string FinalDispoCd
         {
-            get { return finalDispoCd; }
+            get { return string.IsNullOrEmpty(finalDispoCd) ? null : finalDispoCd.ToUpper(); }
             set { finalDispoCd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
         }
 
@@ -163,7 +163,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "Loan Delinq Status Cd", Ruleset = "Default")]
         public string LoanDelinqStatusCd
         {
-            get { return loanDelinqStatusCd; }
+            get { return string.IsNullOrEmpty(loanDelinqStatusCd)?null:loanDelinqStatusCd.ToUpper(); }
             set { loanDelinqStatusCd = string.IsNullOrEmpty(value)?null:value.ToUpper(); }
             
         }
@@ -283,7 +283,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 15, "LoanLookupCode", Ruleset = "Default", MessageTemplate = "LoanLookupCode has a maximum length of 15 characters."/*, Tag=ErrorMessages.ERR0001*/)]
         public string LoanLookupCd 
         {
-            get { return loanLookupCd; }
+            get { return string.IsNullOrEmpty(loanLookupCd)?null:loanLookupCd.ToUpper(); }
             set { loanLookupCd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); } 
         }
 
@@ -340,21 +340,21 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return ictCallId; }
             set { ictCallId = string.IsNullOrEmpty(value) ? null : value; } 
         }
+        /// <summary>
+        /// Auto HPF field
+        /// </summary>
         public string MHAIneligibilityReasonCd { get; set; }
         /// <summary>
         /// Auto HPF field
         /// </summary>
         public string MHAEligibilityCd { get; set; }
-
-        public string ServicerName { get; set; }
-        public string FinalDispoDesc { get; set; }
-        public string NonprofitReferralDesc1 { get; set; }
-        public string NonprofitReferralDesc2 { get; set; }
-        public string NonprofitReferralDesc3 { get; set; }
-        public string ServicerCAName { get; set; }
-        public string MHAEligibilityDesc { get; set; }
-        public string MHAIneligibilityReasonDesc { get; set; }
-
+        
+        string servicerComplaintCd;
+        public string ServicerComplaintCd 
+        {
+            get { return string.IsNullOrEmpty(servicerComplaintCd) ? null : servicerComplaintCd.ToUpper(); }
+            set { servicerComplaintCd = string.IsNullOrEmpty(value) ? null : value; }
+        }
         #endregion        
     }
 }

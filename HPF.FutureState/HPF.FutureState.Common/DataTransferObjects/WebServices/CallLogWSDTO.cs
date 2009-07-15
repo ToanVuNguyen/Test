@@ -68,10 +68,8 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public int? ServicerCAId { get; set; }
         public string ServicerCAOtherName { get; set; }
         public string MHAInfoShareInd { get; set; }
-        public string ICTCallId { get; set; }
-        [XmlIgnore]
-        public string MHAEligibilityCd { get; set; }
-
+        public string ICTCallId { get; set; }        
+        public string ServicerComplaintCd { get; set; }
         #endregion           
     }
 }

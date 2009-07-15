@@ -71,7 +71,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="callLogId">CallLogId</param>
         /// <returns></returns>
-        public CallLogDTOCollection RetrieveICTCallLog(string ICTcallLogId)
+        public CallLogWSReturnDTOCollection RetrieveICTCallLog(string ICTcallLogId)
         {
             if (string.IsNullOrEmpty(ICTcallLogId) || ICTcallLogId.Length > 40)
             {
@@ -117,7 +117,9 @@ namespace HPF.FutureState.BusinessLogic
                 errorList.AddExceptionMessage(ErrorMessages.ERR0359, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0359));
 
             if (!referenceCode.Validate(ReferenceCode.MHA_LOAN_LOOKUP_CODE, aCallLog.LoanLookupCd))
-                errorList.AddExceptionMessage("ERROR","ERROR--An invalid code was provided for LoanLookupCd.");            
+                errorList.AddExceptionMessage("ERROR","ERROR--An invalid code was provided for LoanLookupCd.");
+            if (!referenceCode.Validate(ReferenceCode.SERVICER_COMPLAINT_CODE, aCallLog.ServicerComplaintCd))
+                errorList.AddExceptionMessage("ERROR", "ERROR--An invalid code was provided for ServicerComplaintCd.");            
             
             return errorList;
         }
@@ -270,7 +272,7 @@ namespace HPF.FutureState.BusinessLogic
             return errorList;
         }
 
-        public CallLogDTOCollection ICTSearchCall(CallLogSearchCriteriaDTO searchCriteria)
+        public CallLogWSReturnDTOCollection ICTSearchCall(CallLogSearchCriteriaDTO searchCriteria)
         {
             ExceptionMessageCollection errors = ICTCheckDataSearchValidation(searchCriteria);
             if (errors.Count > 0)

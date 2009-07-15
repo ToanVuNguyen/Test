@@ -43,7 +43,7 @@ namespace HPF.FutureState.DataAccess
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[53];
+            SqlParameter[] sqlParam = new SqlParameter[54];
             sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);            
             sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));
@@ -97,9 +97,10 @@ namespace HPF.FutureState.DataAccess
             sqlParam[48] = new SqlParameter("@pi_servicer_ca_id", aCallLog.ServicerCAId);
             sqlParam[49] = new SqlParameter("@pi_servicer_ca_other_name", aCallLog.ServicerCAOtherName);
             sqlParam[50] = new SqlParameter("@pi_mha_info_share_ind", aCallLog.MHAInfoShareInd);
-            sqlParam[51] = new SqlParameter("@pi_ict_call_id", aCallLog.ICTCallId);            
-
-            sqlParam[52] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            sqlParam[51] = new SqlParameter("@pi_ict_call_id", aCallLog.ICTCallId);
+            sqlParam[52] = new SqlParameter("@pi_servicer_complaint_cd", aCallLog.ServicerComplaintCd);            
+            
+            sqlParam[53] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
             #endregion
 
@@ -262,9 +263,9 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="callLogId">CallLogId</param>
         /// <returns>CallLogDTO</returns>
-        public CallLogDTOCollection ICTReadCallLog(string ICTcallLogId)
+        public CallLogWSReturnDTOCollection ICTReadCallLog(string ICTcallLogId)
         {
-            CallLogDTOCollection results = new CallLogDTOCollection();
+            CallLogWSReturnDTOCollection results = new CallLogWSReturnDTOCollection();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_call_get_ICT", dbConnection);
             //<Parameter>
@@ -282,13 +283,13 @@ namespace HPF.FutureState.DataAccess
                     while (reader.Read())
                     {
                         #region set value
-                        CallLogDTO callLogDTO = new CallLogDTO();
-                        callLogDTO.CallId = ConvertToInt(reader["call_id"]);
-                        callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
+                        CallLogWSReturnDTO callLogDTO = new CallLogWSReturnDTO();
+                        callLogDTO.HopeNetCallId = "HPF" + ConvertToInt(reader["call_id"]);
+                        //callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
                         callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
                         callLogDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
-                        callLogDTO.DNIS = ConvertToString(reader["dnis"]);
-                        callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
+                        //callLogDTO.DNIS = ConvertToString(reader["dnis"]);
+                        //callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
                         callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
                         callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
                         callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
@@ -297,20 +298,20 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
                         callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                         callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);
-                        callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
-                        callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
-                        callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
+                        //callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
+                        //callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
+                        //callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
                         callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
-                        callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);
-                        callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
-                        callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
-                        callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
-                        callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
-                        callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
-                        callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
-                        callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
+                        //callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);
+                        //callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        //callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        //callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        //callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        //callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        //callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        //callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
                         callLogDTO.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
-                        callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
+                        //callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
                         callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
                         callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
                         callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
@@ -349,6 +350,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.MHAIneligibilityReasonDesc = ConvertToString(reader["mha_inelig_reason_desc"]);
 
                         results.Add(callLogDTO);
+                        if (results.Count == 100) break; //Only get first 100 records
                         #endregion
                     }
                     reader.Close();
@@ -366,9 +368,9 @@ namespace HPF.FutureState.DataAccess
             return results;
         }
 
-        public CallLogDTOCollection ICTSearchCallLog(CallLogSearchCriteriaDTO searchCriteria)
+        public CallLogWSReturnDTOCollection ICTSearchCallLog(CallLogSearchCriteriaDTO searchCriteria)
         {
-            CallLogDTOCollection results = new CallLogDTOCollection();
+            CallLogWSReturnDTOCollection results = new CallLogWSReturnDTOCollection();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_call_search", dbConnection);
             //<Parameter>
@@ -388,13 +390,13 @@ namespace HPF.FutureState.DataAccess
                     while (reader.Read())
                     {
                         #region set value
-                        CallLogDTO callLogDTO = new CallLogDTO();
-                        callLogDTO.CallId = ConvertToInt(reader["call_id"]);
-                        callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
+                        CallLogWSReturnDTO callLogDTO = new CallLogWSReturnDTO();
+                        callLogDTO.HopeNetCallId = "HPF" + ConvertToInt(reader["call_id"]);
+                        //callLogDTO.CcAgentIdKey = ConvertToString(reader["cc_agent_id_key"]);
                         callLogDTO.StartDate = ConvertToDateTime(reader["start_dt"]);
                         callLogDTO.EndDate = ConvertToDateTime(reader["end_dt"]);
-                        callLogDTO.DNIS = ConvertToString(reader["dnis"]);
-                        callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
+                        //callLogDTO.DNIS = ConvertToString(reader["dnis"]);
+                        //callLogDTO.CallCenter = ConvertToString(reader["call_center_name"]);
                         callLogDTO.CallSourceCd = ConvertToString(reader["call_source_cd"]);
                         callLogDTO.ReasonForCall = ConvertToString(reader["reason_for_call"]);
                         callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
@@ -403,20 +405,20 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
                         callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                         callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);
-                        callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
-                        callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
-                        callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
+                        //callLogDTO.PrevAgencyId = ConvertToInt(reader["prev_agency_id"]);
+                        //callLogDTO.SelectedAgencyId = ConvertToInt(reader["selected_agency_id"]);
+                        //callLogDTO.ScreenRout = ConvertToString(reader["screen_rout"]);
                         callLogDTO.FinalDispoCd = ConvertToString(reader["final_dispo_cd"]);
-                        callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);
-                        callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
-                        callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
-                        callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
-                        callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
-                        callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
-                        callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
-                        callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
+                        //callLogDTO.TransNumber = ConvertToString(reader["trans_num"]);
+                        //callLogDTO.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        //callLogDTO.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        //callLogDTO.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        //callLogDTO.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        //callLogDTO.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        //callLogDTO.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        //callLogDTO.CcCallKey = ConvertToString(reader["cc_call_key"]);
                         callLogDTO.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
-                        callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
+                        //callLogDTO.SelectedCounselor = ConvertToString(reader["selected_counselor"]);
                         callLogDTO.HomeownerInd = ConvertToString(reader["homeowner_ind"]);
                         callLogDTO.PowerOfAttorneyInd = ConvertToString(reader["power_of_attorney_ind"]);
                         callLogDTO.AuthorizedInd = ConvertToString(reader["authorized_ind"]);
@@ -455,6 +457,7 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.MHAIneligibilityReasonDesc = ConvertToString(reader["mha_inelig_reason_desc"]);
 
                         results.Add(callLogDTO);
+                        if (results.Count == 100) break; //Only get first 100 records
                         #endregion
                     }
                     reader.Close();

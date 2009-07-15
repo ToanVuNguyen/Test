@@ -51,5 +51,6 @@ namespace HPF.FutureState.Common
         public const string FINAL_DISPO_CD = "Final Disposition Code";
         public const string MORTGAGE_PROGRAM_CODE = "Mortgage program code";
         public const string MHA_LOAN_LOOKUP_CODE = "mha loan lookup code";
+        public const string SERVICER_COMPLAINT_CODE = "servicer complaint code";
     }
 }

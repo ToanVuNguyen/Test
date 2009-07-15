@@ -96,18 +96,11 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    CallLogDTOCollection callLogDTOs = CallLogBL.Instance.RetrieveICTCallLog(request.ICTCallId);
+                    CallLogWSReturnDTOCollection callLogDTOs = CallLogBL.Instance.RetrieveICTCallLog(request.ICTCallId);
 
                     if (callLogDTOs.Count > 0)
-                    {
-                        CallLogWSReturnDTOCollection results = new CallLogWSReturnDTOCollection();
-                        int Count = callLogDTOs.Count;
-                        if (Count > 100) Count = 100;
-                        for (int i = 0; i < Count; i++)
-                        {                            
-                            results.Add(ConvertToCallLogWSDTO(callLogDTOs[i]));
-                        }
-                        response.CallLogs = results;
+                    {                       
+                        response.CallLogs = callLogDTOs;
                         response.Status = ResponseStatus.Success;
                         //GetCallWarningMessage(callLogDTO.CallId.Value, response);
                     }
@@ -344,18 +337,10 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking
                 {
-                    CallLogDTOCollection callLogDTOs = CallLogBL.Instance.ICTSearchCall(request.SearchCriteria);
-
-                    CallLogWSReturnDTOCollection results = new CallLogWSReturnDTOCollection();
-                    int Count = callLogDTOs.Count;
-                    if (Count > 100) Count = 100;
-                    for (int i = 0; i < Count; i++)
-                    {
-                        results.Add(ConvertToCallLogWSDTO(callLogDTOs[i]));
-                    }
-                    response.CallLogs = results;
+                    CallLogWSReturnDTOCollection callLogDTOs = CallLogBL.Instance.ICTSearchCall(request.SearchCriteria);                    
+                    
+                    response.CallLogs = callLogDTOs;
                     response.Status = ResponseStatus.Success;
-
                 }
             }
             #region Exception Handling
@@ -386,78 +371,7 @@ namespace HPF.FutureState.WebServices
             return response;
         }
         #region Privates Methods
-
-        private static CallLogWSReturnDTO ConvertToCallLogWSDTO(CallLogDTO sourceObject)
-        {
-            var destObject = new CallLogWSReturnDTO();
-            if (sourceObject.CallId.HasValue)
-                destObject.HopeNetCallId = Convert.ToString(sourceObject.CallId);
-
-            destObject.AuthorizedInd = sourceObject.AuthorizedInd;
-            destObject.CallSourceCd = sourceObject.CallSourceCd;
-            destObject.EndDate = sourceObject.EndDate;
-            destObject.FinalDispoCd = sourceObject.FinalDispoCd;
-            destObject.FirstName = sourceObject.FirstName;
-            destObject.HomeownerInd = sourceObject.HomeownerInd;
-            destObject.LoanAccountNumber = sourceObject.LoanAccountNumber;
-            destObject.LastName = sourceObject.LastName;
-            destObject.LoanDelinqStatusCd = sourceObject.LoanDelinqStatusCd;
-            destObject.OtherServicerName = sourceObject.OtherServicerName;
-            destObject.PowerOfAttorneyInd = sourceObject.PowerOfAttorneyInd;
-            destObject.PropZipFull9 = sourceObject.PropZipFull9;
-            destObject.ReasonForCall = sourceObject.ReasonForCall;
-            destObject.StartDate = sourceObject.StartDate;
-            destObject.ServicerId = sourceObject.ServicerId;
-            destObject.City = sourceObject.City;
-            destObject.State = sourceObject.State;
-            destObject.NonprofitReferralKeyNum1 = sourceObject.NonprofitReferralKeyNum1;
-            destObject.NonprofitReferralKeyNum2 = sourceObject.NonprofitReferralKeyNum2;
-            destObject.NonprofitReferralKeyNum3 = sourceObject.NonprofitReferralKeyNum3;
-            destObject.DelinqInd = sourceObject.DelinqInd;
-            destObject.PropStreetAddress = sourceObject.PropStreetAddress;
-            destObject.PrimaryResidenceInd = sourceObject.PrimaryResidenceInd;
-            destObject.MaxLoanAmountInd = sourceObject.MaxLoanAmountInd;
-            destObject.CustomerPhone = sourceObject.CustomerPhone;
-            destObject.LoanLookupCd = sourceObject.LoanLookupCd;
-            destObject.OriginatedPrior2009Ind = sourceObject.OriginatedPrior2009Ind;
-            destObject.PaymentAmount = sourceObject.PaymentAmount;
-            destObject.GrossIncomeAmount = sourceObject.GrossIncomeAmount;
-            destObject.DTIInd = sourceObject.DTIInd;
-            destObject.ServicerCANumber = sourceObject.ServicerCANumber;
-            destObject.ServicerCALastContactDate = sourceObject.ServicerCALastContactDate;
-            destObject.ServicerCAId = sourceObject.ServicerCAId;
-            destObject.ServicerCAOtherName = sourceObject.ServicerCAOtherName;
-            destObject.MHAInfoShareInd = sourceObject.MHAInfoShareInd;
-            destObject.ICTCallId = sourceObject.ICTCallId;
-            destObject.MHAEligibilityCd = sourceObject.MHAEligibilityCd;
-            destObject.ServicerName = sourceObject.ServicerName;
-            destObject.FinalDispoDesc = sourceObject.FinalDispoDesc;
-            destObject.NonprofitReferralDesc1 = sourceObject.NonprofitReferralDesc1;
-            destObject.NonprofitReferralDesc2 = sourceObject.NonprofitReferralDesc2;
-            destObject.NonprofitReferralDesc3 = sourceObject.NonprofitReferralDesc3;
-            destObject.ServicerCAName = sourceObject.ServicerCAName;
-            destObject.MHAEligibilityDesc = sourceObject.MHAEligibilityDesc;
-            destObject.MHAIneligibilityReasonDesc = sourceObject.MHAIneligibilityReasonDesc;
-            destObject.MHAIneligibilityReasonCd = sourceObject.MHAIneligibilityReasonCd;
-
-            return destObject;
-        }
-
-        private void GetCallWarningMessage(int callId, CallLogRetrieveResponse response)
-        {           
-            string msgFormat = ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0903);
-            ForeclosureCaseCallSearchResultDTOCollection results = ForeclosureCaseSetBL.Instance.GetForclosureCaseFromCall(callId);
-            
-            if (results.Count > 0)
-                response.Status = ResponseStatus.Warning;
-
-            foreach (ForeclosureCaseCallSearchResultDTO fc in results)
-            {                
-                string buffer = string.Format(msgFormat, fc.ServicerName, fc.AccountNum, fc.PropZip, fc.BorrowFName, fc.BorrowLName, fc.CounselorFName, fc.CountselorLName, fc.AgencyName, fc.CounselorPhone, fc.CounselorExt, fc.CounselorEmail, fc.OutcomeDate, fc.OutcomeTypeName);
-                response.Messages.AddExceptionMessage(ErrorMessages.WARN0903, buffer);
-            }
-        }
-
+                    
         private ExceptionMessageCollection ValidateRetrieveSummary(SummaryRetrieveRequest request)
         {
             string reportFormat = request.OutputFormat;
