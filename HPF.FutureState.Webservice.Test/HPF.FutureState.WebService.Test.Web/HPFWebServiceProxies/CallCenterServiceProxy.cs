@@ -303,6 +303,8 @@ namespace HPF.Webservice.CallCenter
 
         private string last4_SSNField;
 
+        private int servicerField;
+
         /// <remarks/>
         public string AgencyCaseNumber
         {
@@ -378,6 +380,19 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.last4_SSNField = value;
+            }
+        }
+
+        /// <remarks/>
+        public int Servicer
+        {
+            get
+            {
+                return this.servicerField;
+            }
+            set
+            {
+                this.servicerField = value;
             }
         }
     }
@@ -1145,6 +1160,8 @@ namespace HPF.Webservice.CallCenter
 
         private string iCTCallIdField;
 
+        private string servicerComplaintCdField;
+
         /// <remarks/>
         public string CcAgentIdKey
         {
@@ -1737,6 +1754,19 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.iCTCallIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ServicerComplaintCd
+        {
+            get
+            {
+                return this.servicerComplaintCdField;
+            }
+            set
+            {
+                this.servicerComplaintCdField = value;
             }
         }
     }

@@ -105,7 +105,8 @@ namespace HPF.FutureState.WebService.Test.Web
             txtServicerIdCA.Text = aCallLogWS.ServicerCAId.HasValue?aCallLogWS.ServicerCAId.Value.ToString():"";
             txtServicerOtherNameCA.Text = aCallLogWS.ServicerCAOtherName;
             txtMHAInfoShare.Text = aCallLogWS.MHAInfoShareInd;
-            txtICTCallId.Text = aCallLogWS.ICTCallId;            
+            txtICTCallId.Text = aCallLogWS.ICTCallId;
+            txtServicerComplaintCd.Text = aCallLogWS.ServicerComplaintCd;
         }
 
         private CallLogWSDTO FormToCallLogWSDTO()
@@ -158,7 +159,8 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.ServicerCAId = Util.ConvertToInt(txtServicerIdCA.Text);
             aWSCallLog.ServicerCAOtherName = txtServicerOtherNameCA.Text;
             aWSCallLog.MHAInfoShareInd = txtMHAInfoShare.Text;
-            aWSCallLog.ICTCallId = txtICTCallId.Text; 
+            aWSCallLog.ICTCallId = txtICTCallId.Text;
+            aWSCallLog.ServicerComplaintCd = txtServicerComplaintCd.Text;
 
             #endregion
 

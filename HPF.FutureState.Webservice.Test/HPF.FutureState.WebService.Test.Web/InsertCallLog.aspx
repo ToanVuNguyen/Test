@@ -385,6 +385,22 @@
                     <asp:TextBox CssClass="Text" ID="txtICTCallId" runat="Server"  Width="128px"></asp:TextBox>
                     </td>
             </tr>
+            <tr class="sidelinks">
+                <td class="sidelinks">
+                    
+
+                    Servicer Complaint Cd</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtServicerComplaintCd" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                    </td>
+                <td class="sidelinks">
+                    
+
+                    &nbsp;</td>
+                <td >
+                    &nbsp;</td>
+            </tr>
             </table>
         <br />
     <br />

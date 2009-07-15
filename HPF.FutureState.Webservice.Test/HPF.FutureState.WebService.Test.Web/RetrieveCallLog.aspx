@@ -40,7 +40,7 @@
     
     <tr>
     <td class="sidelinks">
-        Call Log ID: 
+        ICT Call ID: 
     </td>
     <td>
     <asp:TextBox ID="txt_CallLogId" runat="server" CssClass="Text"></asp:TextBox>

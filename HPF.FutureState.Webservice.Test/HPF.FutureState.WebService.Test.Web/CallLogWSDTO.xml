@@ -47,5 +47,6 @@
   <ServicerCAOtherName></ServicerCAOtherName>
   <MHAInfoShareInd>N</MHAInfoShareInd>
   <ICTCallId>12345</ICTCallId>
+  <ServicerComplaintCd>NOAGENT</ServicerComplaintCd>
 
 </CallLogWSDTO>
