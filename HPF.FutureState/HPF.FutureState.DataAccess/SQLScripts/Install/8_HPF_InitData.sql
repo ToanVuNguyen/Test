@@ -64,6 +64,7 @@ INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('term leng
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha eligibility code','MHA eligibility code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha loan lookup code','MHA loan lookup code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha inelig reason code','MHA inelig reason code');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('servicer complaint code','servicer complaint code');
 /****************************************************************************/
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','SCONS','Servicer Consent Change','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','FCONS','Funding Consent Change','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -521,6 +522,8 @@ INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_ord
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha inelig reason code','MISSINGDELINQ','Missing delinquency info','',12,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('mha inelig reason code','MISSINGPRIMRES','Missing primary res info','',13,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('servicer complaint code','NOAGENT','Servicer cannot be reached, can’t get human','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
+INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('servicer complaint code','UNRESPONSIVE','Servicer is unresponsive, not returning calls/e-mails','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 /****************************************************************************/
 DELETE FROM menu_security;
 DELETE FROM menu_item;
