@@ -302,7 +302,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_program_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!percentage_program_to_dt.Value, 1, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -553,7 +553,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_mon_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!percentage_mon_to_dt.Value, 1, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1145,7 +1145,7 @@
                       </Style>
                       <ZIndex>6</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_last_wk.Value</Value>
+                      <Value>=FormatNumber(Fields!percentage_last_wk.Value, 1, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1187,7 +1187,7 @@
                       </Style>
                       <ZIndex>4</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_this_wk.Value</Value>
+                      <Value>=FormatNumber(Fields!percentage_this_wk.Value, 1, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1229,7 +1229,7 @@
                       </Style>
                       <ZIndex>2</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_mon_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!percentage_mon_to_dt.Value, 1, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1270,7 +1270,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!percentage_program_to_dt.Value</Value>
+                      <Value>=FormatNumber(Fields!percentage_program_to_dt.Value, 1, True, true, true)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
