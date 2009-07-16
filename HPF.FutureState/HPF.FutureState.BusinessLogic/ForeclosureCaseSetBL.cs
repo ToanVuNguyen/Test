@@ -385,6 +385,7 @@ namespace HPF.FutureState.BusinessLogic
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
             ForeclosureCaseDTO dbFcCase = FCaseSetFromDB.ForeclosureCase;
+            fcCase.DuplicateInd = dbFcCase.DuplicateInd;
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
             fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
             if (collection.Count > 0)
@@ -394,15 +395,17 @@ namespace HPF.FutureState.BusinessLogic
                 fcCase.NeverPayReasonCd = Constant.NEVER_PAY_REASON_CODE_DUPE;
                 WarningMessage.Add(CreateDuplicateCaseWarning(collection));
             }
-            else
-            {               
-                fcCase.DuplicateInd = Constant.DUPLICATE_NO;
-                if (!string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) && dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
-                    fcCase.NeverBillReasonCd = null;
-                if (!string.IsNullOrEmpty(dbFcCase.NeverPayReasonCd) && dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
-                    fcCase.NeverPayReasonCd = null;                
+            else if (fcCase.DuplicateInd.Equals(Constant.DUPLICATE_YES))
+            {
+                if (string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) || !dbFcCase.NeverBillReasonCd.Equals(Constant.NEVER_BILL_REASON_CODE_DUPEMAN))
+                {
+                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;
+                    if (!string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) && dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
+                        fcCase.NeverBillReasonCd = null;
+                    if (!string.IsNullOrEmpty(dbFcCase.NeverPayReasonCd) && dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
+                        fcCase.NeverPayReasonCd = null;
+                }
             }
-            
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
         }
 

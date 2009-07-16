@@ -77,7 +77,7 @@ namespace HPF.FutureState.WebServices
             {
                 response.Status = ResponseStatus.Fail;
                 response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+                HandleException(Ex, GetFcId(request));
             }
 
             if (workingInstance != null && workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)

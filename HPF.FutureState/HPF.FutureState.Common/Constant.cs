@@ -26,6 +26,7 @@ namespace HPF.FutureState.Common
         public const string INDICATOR_NO_FULL = "No";
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
+        public const string NEVER_BILL_REASON_CODE_DUPEMAN = "DUPEMAN";
         public const string FOLLOW_UP_CD_CREDIT_REPORT = "CREDITREPORT";
         public const string SECURE_DELIVERY_METHOD_NOSEND = "NOSEND";
         public const string SECURE_DELIVERY_METHOD_PORTAL = "PORTAL";
