@@ -923,7 +923,7 @@
                         <table>                           
                             <tr>
                                 <td align="right" width="150">
-                                    <h1>Opt In/Out:</h1>
+                                    <h1>Opt Out:</h1>
                                 </td>
                                 <td width="150">
                                     &nbsp;
@@ -966,7 +966,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="sidelinks">
-                                    NewsLetter:
+                                    Newsletter:
                                 </td>
                                 <td class="Control">
                                     <asp:DropDownList ID="ddlNewsLetter" runat="server" CssClass="Text" 
