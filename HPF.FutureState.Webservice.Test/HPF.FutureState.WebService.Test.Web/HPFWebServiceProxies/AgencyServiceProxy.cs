@@ -1510,6 +1510,12 @@ namespace HPF.Webservice.Agency
 
         private string loanServicerField;
 
+        private System.Nullable<System.DateTime> summarySentDateField;
+
+        private System.Nullable<System.DateTime> summarySentOtherDateField;
+
+        private string summarySentOtherCodeField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> FcId
@@ -1848,6 +1854,47 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.loanServicerField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> SummarySentDate
+        {
+            get
+            {
+                return this.summarySentDateField;
+            }
+            set
+            {
+                this.summarySentDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> SummarySentOtherDate
+        {
+            get
+            {
+                return this.summarySentOtherDateField;
+            }
+            set
+            {
+                this.summarySentOtherDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SummarySentOtherCode
+        {
+            get
+            {
+                return this.summarySentOtherCodeField;
+            }
+            set
+            {
+                this.summarySentOtherCodeField = value;
             }
         }
     }
@@ -4147,6 +4194,8 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<int> fcIdField;
 
+        private System.Nullable<System.DateTime> completedDtField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> FcId
@@ -4158,6 +4207,20 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.fcIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> CompletedDt
+        {
+            get
+            {
+                return this.completedDtField;
+            }
+            set
+            {
+                this.completedDtField = value;
             }
         }
     }

@@ -1089,7 +1089,11 @@ namespace HPF.FutureState.WebService.Test.Web
             if (response.Status != ResponseStatus.Success)
             {
                 if (response.Status == ResponseStatus.Warning)
-                    lblMessage.Text = "Congratulation - FcId is " + response.FcId;                    
+                {
+                    lblMessage.Text = "Congratulation - FcId is " + response.FcId;
+                    if (response.CompletedDt.HasValue)
+                        lblMessage.Text += "<br> Completed Date: " + response.CompletedDt.Value.ToString();
+                }
                 else
                     lblMessage.Text = "Error Message: ";                    
                 grdvMessages.Visible = true;
@@ -1099,7 +1103,9 @@ namespace HPF.FutureState.WebService.Test.Web
             else
             {                
                     grdvMessages.Visible = false;
-                    lblMessage.Text = "Congratulation - FcId is " + response.FcId;                
+                    lblMessage.Text = "Congratulation - FcId is " + response.FcId;
+                    if (response.CompletedDt.HasValue)
+                        lblMessage.Text += "<br> Completed Date: " + response.CompletedDt.Value.ToString();
             }
         }
 

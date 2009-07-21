@@ -707,6 +707,12 @@ namespace HPF.Webservice.CallCenter
 
         private string loanServicerField;
 
+        private System.Nullable<System.DateTime> summarySentDateField;
+
+        private System.Nullable<System.DateTime> summarySentOtherDateField;
+
+        private string summarySentOtherCodeField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> FcId
@@ -1045,6 +1051,47 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.loanServicerField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> SummarySentDate
+        {
+            get
+            {
+                return this.summarySentDateField;
+            }
+            set
+            {
+                this.summarySentDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> SummarySentOtherDate
+        {
+            get
+            {
+                return this.summarySentOtherDateField;
+            }
+            set
+            {
+                this.summarySentOtherDateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SummarySentOtherCode
+        {
+            get
+            {
+                return this.summarySentOtherCodeField;
+            }
+            set
+            {
+                this.summarySentOtherCodeField = value;
             }
         }
     }
