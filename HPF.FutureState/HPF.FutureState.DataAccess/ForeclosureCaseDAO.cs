@@ -313,6 +313,9 @@ namespace HPF.FutureState.DataAccess
                         item.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         item.CaseLoanID = ConvertToString(reader["case_loan_id"]);
                         item.Counseled = GetCounseledProperty(item.CompletedDt);
+                        item.SummarySentDate = ConvertToDateTime(reader["summary_sent_dt"]);
+                        item.SummarySentOtherDate = ConvertToDateTime(reader["summary_sent_other_dt"]);
+                        item.SummarySentOtherCode = ConvertToString(reader["summary_sent_other_cd"]);
                         #endregion
                         results.Add(item);
                         rowCount++;

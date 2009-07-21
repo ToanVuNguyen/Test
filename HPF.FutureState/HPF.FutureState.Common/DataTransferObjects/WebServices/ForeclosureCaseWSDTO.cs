@@ -41,6 +41,8 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         [XmlIgnore]
         public string CaseLoanID {get; set;}
 
-
+        public DateTime? SummarySentDate { get; set; }
+        public DateTime? SummarySentOtherDate { get; set; }
+        public string SummarySentOtherCode { get; set; }
     }
 }
