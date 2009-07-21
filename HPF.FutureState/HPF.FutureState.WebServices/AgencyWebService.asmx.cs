@@ -31,7 +31,9 @@ namespace HPF.FutureState.WebServices
                 if (IsAuthenticated())//Authentication checking                
                 {
                     workingInstance = ForeclosureCaseSetBL.Instance;
-                    response.FcId = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
+                    ForeclosureCaseDTO fc = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
+                    response.FcId = fc.FcId;
+                    response.CompletedDt = fc.CompletedDt;
                     if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     {
                         response.Status = ResponseStatus.Warning;

@@ -198,7 +198,7 @@ namespace HPF.FutureState.BusinessLogic
         /// Save a ForeclosureCase
         /// </summary>
         /// <param name="foreclosureCaseSet">ForeclosureCaseSetDTO</param>
-        public int? SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
+        public ForeclosureCaseDTO SaveForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {            
             int? fcId;            
             if (foreclosureCaseSet == null || foreclosureCaseSet.ForeclosureCase == null)
@@ -230,7 +230,7 @@ namespace HPF.FutureState.BusinessLogic
             foreclosureCaseSet.ForeclosureCase.FcId = fcId;
             SendCompletedCaseToQueueIfAny(foreclosureCaseSet);
             //
-            return fcId;         
+            return foreclosureCaseSet.ForeclosureCase;         
         }
 
        
