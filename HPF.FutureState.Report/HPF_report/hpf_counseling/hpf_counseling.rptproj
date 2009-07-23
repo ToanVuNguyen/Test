@@ -59,8 +59,8 @@
       <FullPath>rpt_DailyCompletionReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_OutreachReport.rdl</Name>
-      <FullPath>rpt_OutreachReport.rdl</FullPath>
+      <Name>rpt_ExternalReferrals.rdl</Name>
+      <FullPath>rpt_ExternalReferrals.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_IncompletedCases.rdl</Name>
@@ -83,12 +83,16 @@
       <FullPath>rpt_MHAReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_OutreachReport.rdl</Name>
+      <FullPath>rpt_OutreachReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_PotentialDuplicates.rdl</Name>
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_ExternalReferrals.rdl</Name>
-      <FullPath>rpt_ExternalReferrals.rdl</FullPath>
+      <Name>rpt_Borrower Comments.rdl</Name>
+      <FullPath>rpt_Borrower Comments.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
