@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AccountingDAO.cs" />
     <Compile Include="ActivityLogDAO.cs" />
+    <Compile Include="AdminTaskLogDAO.cs" />
     <Compile Include="AgencyDAO.cs" />
     <Compile Include="AgencyPayableDAO.cs" />
     <Compile Include="BudgetDAO.cs" />

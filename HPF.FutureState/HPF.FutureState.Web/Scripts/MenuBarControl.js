@@ -20,6 +20,7 @@ function MenuMouseLeave(sender)
 // open hidden layer
 function mopen(parent, id, selid)
 {	
+    if(parentItem) parentItem.style.background = 'transparent';
     if(currentItem) currentItem.style.background='transparent';
 	currentItem = document.getElementById(selid);
 	// cancel close timer

@@ -110,5 +110,9 @@ namespace HPF.FutureState.Common
         public const string RULESET_INVOICE_PAYMENT_VALIDATION = "InvoicePaymentValidation";
 
         public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
+        public const string EXCEL_DUPLICATE_FC_TAB_NAME = "DuplicateFC";
+
+        public const string ADMIN_TASK_SEND_SUMMARIES = "SendSummary";
+        public const string ADMIN_TASK_MARK_DUPLICATES = "MarkDuplicates";
     }
 }

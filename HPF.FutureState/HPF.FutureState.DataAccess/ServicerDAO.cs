@@ -86,6 +86,7 @@ namespace HPF.FutureState.DataAccess
             ServicerDTOCollection results = HPFCacheManager.Instance.GetData<ServicerDTOCollection>(Constant.HPF_CACHE_SERVICER);
             if (results == null)
             {
+                results = new ServicerDTOCollection();
                 var dbConnection = CreateConnection();
                 var command = CreateSPCommand("hpf_servicer_get", dbConnection);
                 //<Parameter>                         
@@ -94,8 +95,7 @@ namespace HPF.FutureState.DataAccess
                     dbConnection.Open();
                     var reader = command.ExecuteReader();
                     if (reader.HasRows)
-                    {
-                        results = new ServicerDTOCollection();
+                    {                        
                         while (reader.Read())
                         {
                             ServicerDTO servicer = new ServicerDTO();

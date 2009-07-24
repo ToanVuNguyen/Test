@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -628,11 +629,72 @@ namespace HPF.FutureState.DataAccess
             }
             return foreclosureCase.FcId;
         }
-        
-        ///<summary>
-        ///
 
+        public int[] FCSearchToSendSummaries(AppSummariesToServicerCriteriaDTO searchCriteria)
+        {
+            ArrayList results = new ArrayList();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_foreclosure_case_SummariesToServicer_Search", dbConnection);
+            var sqlParam = new SqlParameter[3];
 
+            sqlParam[0] = new SqlParameter("@pi_servicer_id", searchCriteria.ServicerId);
+            sqlParam[1] = new SqlParameter("@pi_start_dt", searchCriteria.StartDt);
+            sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.EndDt);
+            
+            try
+            {
+                command.Parameters.AddRange(sqlParam);
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        results.Add(ConvertToInt(reader["fc_id"]).Value);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return (int[])results.ToArray(typeof(int));
+        }
+
+        public int MarkDuplicateCases(string fcIdList)
+        {
+            int rowCount = 0;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_foreclosure_case_mark_duplicate", dbConnection);
+            var sqlParam = new SqlParameter[2];
+
+            sqlParam[0] = new SqlParameter("@pi_fc_id_list", fcIdList);
+            sqlParam[1] = new SqlParameter("@po_row_count", SqlDbType.Int) { Direction = ParameterDirection.Output };
+
+            try
+            {
+                command.Parameters.AddRange(sqlParam);
+                dbConnection.Open();
+                command.CommandType = CommandType.StoredProcedure;
+                command.ExecuteNonQuery();
+                rowCount = ConvertToInt(sqlParam[1].Value).Value;
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return rowCount;
+        }
     }
 }
 

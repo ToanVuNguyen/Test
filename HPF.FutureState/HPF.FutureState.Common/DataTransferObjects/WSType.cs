@@ -18,6 +18,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         NONE = 0, 
         PDF = 1, 
         EXCEL = 2, 
-        CVS = 3 
+        CVS = 3,
+        XML
     };
 }

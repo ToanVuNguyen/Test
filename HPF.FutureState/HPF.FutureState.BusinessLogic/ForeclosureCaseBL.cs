@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.IO;
 using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.DataAccess;
@@ -126,6 +127,104 @@ namespace HPF.FutureState.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="critera"></param>
+        /// <returns>Number of successful cases have been sent</returns>
+        public int SendSummariesToServicer(AppSummariesToServicerCriteriaDTO critera, string createdUser)
+        {
+            string FcIdList = "";
+            int count = 0;
+            //TODO:Invalidate data
+            DataValidationException dataVaidEx = new DataValidationException();
+            ValidationResults validationResults = HPFValidator.Validate<AppSummariesToServicerCriteriaDTO>(critera);
 
+            if (!validationResults.IsValid)
+            {
+                foreach (ValidationResult validationResult in validationResults)
+                {
+                    string errorCode = string.IsNullOrEmpty(validationResult.Tag) ? "ERROR" : validationResult.Tag;
+                    string errorMess = string.IsNullOrEmpty(validationResult.Tag) ? validationResult.Message : ErrorMessages.GetExceptionMessage(validationResult.Tag);
+                    dataVaidEx.ExceptionMessages.AddExceptionMessage(errorCode, errorMess);
+                }
+                throw dataVaidEx;
+            }
+            //TODO: call Search cases and proccess
+            int[] fcIds = ForeclosureCaseDAO.CreateInstance().FCSearchToSendSummaries(critera);
+            foreach (int fc in fcIds)
+            {
+                SummaryReportBL.Instance.SendCompletedCaseSummary(fc);
+                if (FcIdList.Length == 0)
+                    FcIdList += fc;
+                else
+                    FcIdList += ("," + fc);
+
+                count++;
+            }
+
+            //TODDO: insert info into log table
+            ServicerDTOCollection servicers = LookupDataBL.Instance.GetServicers();
+            ServicerDTO servicer = servicers.GetServicerById(critera.ServicerId);
+            AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
+            adminLog.SetInsertTrackingInformation(createdUser);
+            adminLog.TaskName = Constant.ADMIN_TASK_SEND_SUMMARIES;
+            adminLog.TaskNotes = "servicer name = " + servicer.ServicerName +
+                                ", delivery method = " + servicer.SummaryDeliveryMethod +
+                                ", start date = " + critera.StartDt.Value.ToShortDateString() +
+                                " and end date = " + critera.EndDt.Value.ToShortDateString();            
+            adminLog.RecordCount = count;
+            adminLog.FcIdList = FcIdList;
+
+            AdminTaskLogDAO.Instance.InsertAdminTaskLog(adminLog);
+
+            return count;
+        }
+
+        public int MarkDuplicateCases(Stream excelStream, string createdUser)
+        {
+            string FcIdList = "";
+            int count = 0;
+            DataValidationException dataVaidEx = new DataValidationException();
+
+            if (excelStream == null || excelStream.Length == 0)
+            {
+                dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR","Excel file content fc id required to process.");
+                throw dataVaidEx;
+            }
+            //TODO: Mark Duplicate cases
+            DataSet dataSet = ExcelFileReader.Read(excelStream, Constant.EXCEL_DUPLICATE_FC_TAB_NAME);
+            DataTable fileContent = dataSet.Tables[0];
+            foreach (DataRow row in fileContent.Rows)
+            {
+                int fcId;
+                if (!int.TryParse(row[0].ToString(), out fcId))
+                {
+                    dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "--Invalid fc id in row " + (count + 1));
+                    throw dataVaidEx;
+                }
+
+                if (FcIdList.Length == 0)
+                    FcIdList += fcId.ToString();
+                else
+                    FcIdList += ("," + fcId.ToString());
+
+                //count++;
+            }
+            
+            count = ForeclosureCaseDAO.CreateInstance().MarkDuplicateCases(FcIdList);
+            
+            //TODDO: insert info into log table            
+            AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
+            adminLog.SetInsertTrackingInformation(createdUser);
+            adminLog.TaskName = Constant.ADMIN_TASK_MARK_DUPLICATES;
+            
+            adminLog.RecordCount = count;
+            adminLog.FcIdList = FcIdList;
+
+            AdminTaskLogDAO.Instance.InsertAdminTaskLog(adminLog);
+            
+            return count;
+        }
     }
 }

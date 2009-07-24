@@ -294,11 +294,15 @@ namespace HPF.FutureState.WebServices
                         response.Messages = exCol;
                         return response;
                     }
-                    string reportFormat = request.OutputFormat.ToUpper();
-                    if (reportFormat == null || reportFormat == string.Empty)
+
+                    if (string.IsNullOrEmpty(request.OutputFormat))
                         response.ForeclosureCaseSet = ForeclosureCaseSetBL.Instance.GetForeclosureCaseDetail(request.FCId.Value);
                     else
-                        response.ReportSummary = SummaryReportBL.Instance.GenerateSummaryReport(request.FCId);
+                    {
+                        ReportFormat rptFormat = (ReportFormat)Enum.Parse(typeof(ReportFormat), request.OutputFormat);
+                        response.ReportSummary = SummaryReportBL.Instance.GenerateSummaryReport(request.FCId, rptFormat);
+                    }
+
                     response.Status = ResponseStatus.Success;
                 }
             }
@@ -391,8 +395,18 @@ namespace HPF.FutureState.WebServices
                 else if (fc.AgencyId != CurrentAgencyID.Value)
                     ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
             }
-            if (reportFormat != null && reportFormat!= string.Empty && reportFormat != "PDF")
-                ex.AddExceptionMessage("Unable to retrieve case summary. The specified summary format is not supported.");            
+            
+            if (!string.IsNullOrEmpty(reportFormat))
+            {
+                try
+                {
+                    ReportFormat rptFormat = (ReportFormat)Enum.Parse(typeof(ReportFormat), reportFormat);
+                }
+                catch
+                {
+                    ex.AddExceptionMessage("Unable to retrieve case summary. The specified summary format is not supported.");
+                }
+            }
 
             return ex;
         }

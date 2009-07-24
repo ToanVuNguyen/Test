@@ -71,6 +71,20 @@ namespace HPF.FutureState.BusinessLogic
             ServicerDTOCollection result = ServicerBL.Instance.GetServicers();
             return result;
         }
+
+        public ServicerDTOCollection GetCanSendSevicers()
+        {
+            ServicerDTOCollection allServivers = ServicerBL.Instance.GetServicers();
+            ServicerDTOCollection results = new ServicerDTOCollection();
+
+            foreach (ServicerDTO servicer in allServivers)
+            {
+                if (servicer.SummaryDeliveryMethod != null && servicer.SummaryDeliveryMethod != Constant.SECURE_DELIVERY_METHOD_NOSEND)
+                    results.Add(servicer);
+            }
+
+            return results;
+        }
         /// <summary>
         /// Get Servicer Name from FundingSourceId
         /// </summary>

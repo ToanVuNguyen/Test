@@ -7,6 +7,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
 {    
     public class SummaryRetrieveRequest: BaseRequest
     {
+        string outputReport;
         /// <summary>
         /// Foreclosure case id
         /// </summary>
@@ -14,7 +15,14 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         /// <summary>
         /// If ReportOutput= None then output is ForeclosureSet
         /// Otherwise the output is report summary buffer
-        /// </summary>
-        public string OutputFormat { get; set; }
+        /// </summary>       /
+        public string OutputFormat 
+        {
+            get { return outputReport; }
+            set
+            {
+                outputReport = string.IsNullOrEmpty(value) ? null : value.ToUpper().Trim();
+            }
+        }
     }
 }
