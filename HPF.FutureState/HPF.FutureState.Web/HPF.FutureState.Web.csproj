@@ -157,6 +157,13 @@
     <Compile Include="ForeclosureCaseInfo.aspx.designer.cs">
       <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MarkDuplicateCases\MarkDuplicateCases.ascx.cs">
+      <DependentUpon>MarkDuplicateCases.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarkDuplicateCases\MarkDuplicateCases.ascx.designer.cs">
+      <DependentUpon>MarkDuplicateCases.ascx</DependentUpon>
+    </Compile>
     <Compile Include="NewPayableSelection.aspx.cs">
       <DependentUpon>NewPayableSelection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -384,6 +391,13 @@
     <Compile Include="Security\MenuItemSecurityCollection.cs" />
     <Compile Include="Security\UserIdentity.cs" />
     <Compile Include="Security\UserPrincipal.cs" />
+    <Compile Include="SendSummaryToServicer\SendSummaryToServicer.ascx.cs">
+      <DependentUpon>SendSummaryToServicer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SendSummaryToServicer\SendSummaryToServicer.ascx.designer.cs">
+      <DependentUpon>SendSummaryToServicer.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -405,6 +419,20 @@
     <Compile Include="InvoicePaymentInfo.aspx.designer.cs">
       <DependentUpon>InvoicePaymentInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SendSummaryToServicer.aspx.cs">
+      <DependentUpon>SendSummaryToServicer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SendSummaryToServicer.aspx.designer.cs">
+      <DependentUpon>SendSummaryToServicer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MarkDuplicateCases.aspx.cs">
+      <DependentUpon>MarkDuplicateCases.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MarkDuplicateCases.aspx.designer.cs">
+      <DependentUpon>MarkDuplicateCases.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
@@ -416,6 +444,7 @@
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
+    <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="ReprintPayable.aspx" />
     <Content Include="Scripts\MenuBarControl.js" />
@@ -454,6 +483,7 @@
     <Content Include="NewInvoiceSelection.aspx" />
     <Content Include="PrintSummary.aspx" />
     <Content Include="PrintSummary\PrintSummaryUC.ascx" />
+    <Content Include="SendSummaryToServicer\SendSummaryToServicer.ascx" />
     <Content Include="Site.Master" />
     <Content Include="Styles\HPF.css" />
     <Content Include="Styles\Images\arrow.jpg" />
@@ -477,6 +507,8 @@
     <Content Include="SummaryEmail\SummaryEmailUC.ascx" />
     <Content Include="InvoicePaymentInfo.aspx" />
     <Content Include="Temp\Description.txt" />
+    <Content Include="SendSummaryToServicer.aspx" />
+    <Content Include="MarkDuplicateCases.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
