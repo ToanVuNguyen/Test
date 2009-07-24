@@ -58,7 +58,7 @@
                             <td align="center" class="sidelinks" style="width: 131px">
                                 &nbsp;</td>
                             <td style="width: 141px">
-                                [Empty], PDF</td>
+                                [Empty], PDF,EXCEL,CVS,XML</td>
                         </tr>
                     </table>
         <asp:Button ID="btnRetrieveSummary" runat="server" Text="Retrieve Summary" 

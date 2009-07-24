@@ -41,7 +41,7 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 if (Int32.TryParse(txtFcID.Text.Trim(), out fcid))
                     request.FCId = fcid;
-                request.OutputFormat = txtReportFormat.Text.Trim();
+                request.OutputFormat = txtReportFormat.Text.ToUpper().Trim();
 
                 SummaryRetrieveResponse response = proxy.RetrieveSummary(request);                
 
@@ -51,7 +51,7 @@ namespace HPF.FutureState.WebService.Test.Web
                     grdvMessages.DataSource = response.Messages;
                     grdvMessages.DataBind();
                 }
-                else if (request.OutputFormat.ToUpper() != "PDF")
+                else if (string.IsNullOrEmpty(request.OutputFormat))
                 {
                     #region Update UI
                     Panel1.Visible = true;
@@ -79,8 +79,18 @@ namespace HPF.FutureState.WebService.Test.Web
                     lblMessage.Text = "Messsage: Please check the output!";
                     bw.Close();
                     fs.Close();*/
+                    string fileExt = "txt";
+                    if (request.OutputFormat == "EXCEL")
+                        fileExt = "xls";
+                    else if (request.OutputFormat == "PDF")
+                        fileExt = "pdf";
+                    else if (request.OutputFormat == "XML")
+                        fileExt = "xml";
+                    else if (request.OutputFormat == "CVS")
+                        fileExt = "cvs";
+
                     Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment; filename=download.pdf");
+                    Response.AddHeader("content-disposition", "attachment; filename=download." + fileExt);
                     Response.BinaryWrite(response.ReportSummary);
                     Response.End();
                     #endregion
