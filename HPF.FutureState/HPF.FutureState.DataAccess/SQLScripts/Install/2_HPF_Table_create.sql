@@ -484,6 +484,7 @@ CREATE TABLE call (
 ,ict_call_id	varchar(40)	Null
 ,mha_eligibility_cd	varchar(15)	Null
 ,mha_inelig_reason_cd varchar(15) NULL 
+,servicer_complaint_cd varchar(15) NULL
 ,PRIMARY KEY(call_id)  ,
   FOREIGN KEY(call_center_id)
     REFERENCES call_center(call_center_id));
@@ -1033,3 +1034,33 @@ CREATE TABLE nonprofitreferral
 , referral_org_zip		varchar(30)
 , referral_contact_email	varchar(200)
 );
+
+CREATE TABLE mha_rollup
+(child_servicer_id int not null 
+, parent_servicer_id int not null
+, create_dt DATETIME  NOT NULL  
+, create_user_id VARCHAR(30)  NOT NULL  
+, create_app_name VARCHAR(20)  NOT NULL
+, chg_lst_dt DATETIME  NOT NULL  
+, chg_lst_user_id VARCHAR(30)  NOT NULL  
+, chg_lst_app_name VARCHAR(20)  NOT NULL    
+, PRIMARY KEY(child_servicer_id, parent_servicer_id)
+, FOREIGN KEY(child_servicer_id) REFERENCES servicer(servicer_id)
+, FOREIGN KEY(parent_servicer_id) REFERENCES servicer(servicer_id)
+);
+
+CREATE TABLE [dbo].[admin_task_log](
+	admin_task_log_id int IDENTITY(1,1) NOT NULL,
+	task_name varchar(50) NOT NULL,
+	record_count int NOT NULL,
+	fc_id_list text NOT NULL,
+	task_notes varchar(1000) NULL,
+	create_dt datetime NOT NULL,
+	create_user_id varchar(30) NOT NULL,
+	create_app_name varchar(20) NOT NULL,
+	chg_lst_dt datetime NOT NULL,
+	chg_lst_user_id varchar(30) NOT NULL,
+	chg_lst_app_name varchar(20) NOT NULL,
+	CONSTRAINT PK_admin_task_log PRIMARY KEY CLUSTERED ([admin_task_log_id] ASC)
+)
+GO
