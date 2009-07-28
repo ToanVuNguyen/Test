@@ -48,5 +48,6 @@
   <MHAInfoShareInd>N</MHAInfoShareInd>
   <ICTCallId>12345</ICTCallId>
   <ServicerComplaintCd>NOAGENT</ServicerComplaintCd>
+  <MHAScriptStartedInd>N</MHAScriptStartedInd>
 
 </CallLogWSDTO>

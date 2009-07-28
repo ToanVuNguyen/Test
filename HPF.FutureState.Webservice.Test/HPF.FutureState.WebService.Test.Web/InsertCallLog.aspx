@@ -397,9 +397,11 @@
                 <td class="sidelinks">
                     
 
-                    &nbsp;</td>
+                    MHA Script Started Ind</td>
                 <td >
-                    &nbsp;</td>
+                    <asp:TextBox CssClass="Text" ID="txtMHAScriptStartedInd" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                    </td>
             </tr>
             </table>
         <br />

@@ -71,7 +71,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                ServicerCAOtherName = obj.Element("ServicerCAOtherName").Value,
                                MHAInfoShareInd = obj.Element("MHAInfoShareInd").Value,
                                ICTCallId = obj.Element("ICTCallId").Value,
-                               ServicerComplaintCd = obj.Element("ServicerComplaintCd").Value
+                               ServicerComplaintCd = obj.Element("ServicerComplaintCd").Value,
+                               MHAScriptStartedInd = obj.Element("MHAScriptStartedInd").Value                               
                            };
                 return objs.ToList<CallLogWSDTO>()[0];
             }

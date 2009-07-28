@@ -1209,6 +1209,8 @@ namespace HPF.Webservice.CallCenter
 
         private string servicerComplaintCdField;
 
+        private string mHAScriptStartedIndField;
+
         /// <remarks/>
         public string CcAgentIdKey
         {
@@ -1814,6 +1816,19 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.servicerComplaintCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MHAScriptStartedInd
+        {
+            get
+            {
+                return this.mHAScriptStartedIndField;
+            }
+            set
+            {
+                this.mHAScriptStartedIndField = value;
             }
         }
     }
