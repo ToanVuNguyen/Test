@@ -43,7 +43,7 @@ namespace HPF.FutureState.DataAccess
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[54];
+            SqlParameter[] sqlParam = new SqlParameter[55];
             sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);            
             sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));
@@ -98,9 +98,10 @@ namespace HPF.FutureState.DataAccess
             sqlParam[49] = new SqlParameter("@pi_servicer_ca_other_name", aCallLog.ServicerCAOtherName);
             sqlParam[50] = new SqlParameter("@pi_mha_info_share_ind", aCallLog.MHAInfoShareInd);
             sqlParam[51] = new SqlParameter("@pi_ict_call_id", aCallLog.ICTCallId);
-            sqlParam[52] = new SqlParameter("@pi_servicer_complaint_cd", aCallLog.ServicerComplaintCd);            
+            sqlParam[52] = new SqlParameter("@pi_servicer_complaint_cd", aCallLog.ServicerComplaintCd);
+            sqlParam[53] = new SqlParameter("@pi_mha_script_started_ind", aCallLog.MHAScriptStartedInd);             
             
-            sqlParam[53] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            sqlParam[54] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
             #endregion
 

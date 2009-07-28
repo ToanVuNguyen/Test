@@ -355,6 +355,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return string.IsNullOrEmpty(servicerComplaintCd) ? null : servicerComplaintCd.ToUpper(); }
             set { servicerComplaintCd = string.IsNullOrEmpty(value) ? null : value; }
         }
+
+        string mhaScriptStartedInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "MHAScriptStartedInd must be either a Y, N or a blank.")] 
+        public string MHAScriptStartedInd
+        {
+            get { return string.IsNullOrEmpty(mhaScriptStartedInd) ? null : mhaScriptStartedInd.ToUpper(); }
+            set { mhaScriptStartedInd = string.IsNullOrEmpty(value) ? null : value.Trim(); }
+        }
         #endregion        
     }
 }
