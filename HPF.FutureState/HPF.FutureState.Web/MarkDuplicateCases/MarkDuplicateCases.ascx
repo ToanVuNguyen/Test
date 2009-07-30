@@ -28,7 +28,7 @@
                                 <tr>              
                                     <td></td>                      
                                     <td colspan="2" class="sidelinks">
-                                        Select the Excel file that contail fc Ids
+                                        Select the Excel file that contail fc ids
                                     </td>
                                 </tr>
                                 <tr>

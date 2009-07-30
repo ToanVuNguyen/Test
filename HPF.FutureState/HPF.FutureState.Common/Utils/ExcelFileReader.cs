@@ -40,7 +40,7 @@ namespace HPF.FutureState.Common.Utils
                 if (Ex.Errors[0].NativeError == -1002)
                     throw new ExcelFileReaderException("ExcelSheet name\"" + sheetName +"\"does not exist.") {ErrorCode = -1};
                 if (Ex.Errors[0].NativeError == -5015)
-                    throw new ExcelFileReaderException("Invalid ExcelFile format.") { ErrorCode = -2 };
+                    throw new ExcelFileReaderException("ERROR--The file must be an Excel format.") { ErrorCode = -2 };
                 throw;
             }
         }

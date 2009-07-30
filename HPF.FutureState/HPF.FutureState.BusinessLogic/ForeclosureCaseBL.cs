@@ -181,7 +181,7 @@ namespace HPF.FutureState.BusinessLogic
             return count;
         }
 
-        public int MarkDuplicateCases(Stream excelStream, string createdUser)
+        public int MarkDuplicateCases(Stream excelStream, string updateUser)
         {
             string FcIdList = "";
             int count = 0;
@@ -189,7 +189,7 @@ namespace HPF.FutureState.BusinessLogic
 
             if (excelStream == null || excelStream.Length == 0)
             {
-                dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR","Excel file content fc id required to process.");
+                dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "An Excel file containing fc ids is required to process.");
                 throw dataVaidEx;
             }
             //TODO: Mark Duplicate cases
@@ -200,7 +200,7 @@ namespace HPF.FutureState.BusinessLogic
                 int fcId;
                 if (!int.TryParse(row[0].ToString(), out fcId))
                 {
-                    dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "--Invalid fc id in row " + (count + 1));
+                    dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "Invalid fc id in row " + (count + 1));
                     throw dataVaidEx;
                 }
 
@@ -211,12 +211,16 @@ namespace HPF.FutureState.BusinessLogic
 
                 //count++;
             }
-            
-            count = ForeclosureCaseDAO.CreateInstance().MarkDuplicateCases(FcIdList);
+            if (FcIdList == "")
+            {
+                dataVaidEx.ExceptionMessages.AddExceptionMessage("ERROR", "The selected file does not contain any fc ids.");
+                throw dataVaidEx;
+            }
+            count = ForeclosureCaseDAO.CreateInstance().MarkDuplicateCases(FcIdList, updateUser);
             
             //TODDO: insert info into log table            
             AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
-            adminLog.SetInsertTrackingInformation(createdUser);
+            adminLog.SetInsertTrackingInformation(updateUser);
             adminLog.TaskName = Constant.ADMIN_TASK_MARK_DUPLICATES;
             
             adminLog.RecordCount = count;

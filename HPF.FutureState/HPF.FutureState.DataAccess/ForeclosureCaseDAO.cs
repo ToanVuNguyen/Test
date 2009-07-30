@@ -666,15 +666,17 @@ namespace HPF.FutureState.DataAccess
             return (int[])results.ToArray(typeof(int));
         }
 
-        public int MarkDuplicateCases(string fcIdList)
+        public int MarkDuplicateCases(string fcIdList, string updateUser)
         {
             int rowCount = 0;
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_mark_duplicate", dbConnection);
-            var sqlParam = new SqlParameter[2];
+            var sqlParam = new SqlParameter[4];
 
             sqlParam[0] = new SqlParameter("@pi_fc_id_list", fcIdList);
-            sqlParam[1] = new SqlParameter("@po_row_count", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            sqlParam[1] = new SqlParameter("@pi_change_app_name", HPFConfigurationSettings.HPF_APPLICATION_NAME);
+            sqlParam[2] = new SqlParameter("@pi_change_user_id", updateUser);
+            sqlParam[3] = new SqlParameter("@po_row_count", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
             try
             {
@@ -682,7 +684,7 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Open();
                 command.CommandType = CommandType.StoredProcedure;
                 command.ExecuteNonQuery();
-                rowCount = ConvertToInt(sqlParam[1].Value).Value;
+                rowCount = ConvertToInt(sqlParam[3].Value).Value;
             }
             catch (Exception ex)
             {
