@@ -485,6 +485,7 @@ CREATE TABLE call (
 ,mha_eligibility_cd	varchar(15)	Null
 ,mha_inelig_reason_cd varchar(15) NULL 
 ,servicer_complaint_cd varchar(15) NULL
+,mha_script_started_ind varchar(1) NULL
 ,PRIMARY KEY(call_id)  ,
   FOREIGN KEY(call_center_id)
     REFERENCES call_center(call_center_id));
