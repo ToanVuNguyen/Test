@@ -386,12 +386,12 @@ namespace HPF.FutureState.WebServices
 
             ExceptionMessageCollection ex = new ExceptionMessageCollection();
             if (request.FCId == null)
-                ex.AddExceptionMessage("Unable to retrieve summary. A FCId is required to retrieve a summary.");
+                ex.AddExceptionMessage(ErrorMessages.ERR1000, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1000));
             else
             {
                 ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.FCId);
                 if (fc == null)
-                    ex.AddExceptionMessage("Unable to retrieve case summary. The FCId is not a valid foreclosure case ID.");
+                    ex.AddExceptionMessage(ErrorMessages.ERR1001, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1001, request.FCId));
                 else if (fc.AgencyId != CurrentAgencyID.Value)
                     ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
             }
@@ -404,7 +404,7 @@ namespace HPF.FutureState.WebServices
                 }
                 catch
                 {
-                    ex.AddExceptionMessage("Unable to retrieve case summary. The specified summary format is not supported.");
+                    ex.AddExceptionMessage(ErrorMessages.ERR1002, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1002));
                 }
             }
 

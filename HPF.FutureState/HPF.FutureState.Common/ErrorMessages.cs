@@ -421,6 +421,9 @@ namespace HPF.FutureState.Common
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
 
+        public const string ERR1000 = "ERR1000";
+        public const string ERR1001 = "ERR1001";
+        public const string ERR1002 = "ERR1002";
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
         public static string GetExceptionMessage(string exceptionId)
@@ -855,6 +858,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0986, "City has a maximum length of 30 characters.");
                 errorMessageDict.Add(ERR0998, "A null foreclosure case is not allowed to insert.");
                 errorMessageDict.Add(ERR0999, "You don't have permission to access this page.");
+
+                errorMessageDict.Add(ERR1000, "A FcID is required to retrieve a summary.");
+                errorMessageDict.Add(ERR1001, "Unable to retrieve summary. The FcId {0} is not a valid foreclosure case ID.");
+                errorMessageDict.Add(ERR1002, "Unable to retrieve summary. The specified summary format is not supported.");
 
             }
         }
