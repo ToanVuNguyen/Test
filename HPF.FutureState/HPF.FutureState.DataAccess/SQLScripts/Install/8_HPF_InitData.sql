@@ -551,4 +551,4 @@ INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, i
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (17,3,'ForeclosureDetail',1,'ForeclosureCaseInfo.aspx',0);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (18,1,'Invoice Payments',3,'InvoicePayment.aspx',1);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (19,4,'Send Summaries',1,'SendSummaryToServicer.aspx',1);
-INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (20,4,'Make Duplicates',2,'MarkDuplicateCases.aspx',1);
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (20,4,'Mark Duplicates',2,'MarkDuplicateCases.aspx',1);
