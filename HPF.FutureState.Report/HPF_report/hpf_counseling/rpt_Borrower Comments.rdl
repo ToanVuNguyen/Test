@@ -20,6 +20,7 @@
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <ReportItems>
       <Textbox Name="textbox1">
+        <Width>8.46in</Width>
         <Style>
           <Color>MidnightBlue</Color>
           <FontSize>14pt</FontSize>
@@ -39,6 +40,7 @@
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
         <Top>0.28125in</Top>
+        <Width>8.46in</Width>
         <Style>
           <FontWeight>700</FontWeight>
           <TextAlign>Left</TextAlign>
@@ -48,7 +50,7 @@
           <PaddingBottom>1.5pt</PaddingBottom>
         </Style>
         <CanGrow>true</CanGrow>
-        <Value>= "Report of " &amp; CStr(Parameters!pi_dt.Value)</Value>
+        <Value>= "Report as of " &amp; CStr(Parameters!pi_dt.Value)</Value>
       </Textbox>
     </ReportItems>
     <Height>0.51125in</Height>
@@ -161,7 +163,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.35in</Width>
+  <Width>8.58in</Width>
   <Body>
     <ReportItems>
       <Table Name="table2">
@@ -370,6 +372,7 @@
                             <BorderWidth>
                               <Top>1pt</Top>
                             </BorderWidth>
+                            <FontSize>9pt</FontSize>
                             <FontWeight>700</FontWeight>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -515,13 +518,12 @@
                     <TableCell>
                       <ColSpan>10</ColSpan>
                       <ReportItems>
-                        <Textbox Name="textbox50">
-                          <rd:DefaultName>textbox50</rd:DefaultName>
+                        <Textbox Name="textbox51">
+                          <rd:DefaultName>textbox51</rd:DefaultName>
                           <Style>
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
-                            <FontSize>8pt</FontSize>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -529,7 +531,7 @@
                           </Style>
                           <ZIndex>26</ZIndex>
                           <CanGrow>true</CanGrow>
-                          <Value>** TBD for future reporting</Value>
+                          <Value />
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -816,6 +818,7 @@
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
+                            <FontSize>9pt</FontSize>
                             <FontWeight>700</FontWeight>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -838,8 +841,8 @@
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>700</FontWeight>
+                            <FontSize>7.5pt</FontSize>
+                            <FontWeight>900</FontWeight>
                             <TextAlign>Center</TextAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -862,8 +865,8 @@
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>700</FontWeight>
+                            <FontSize>7.5pt</FontSize>
+                            <FontWeight>900</FontWeight>
                             <TextAlign>Center</TextAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -885,8 +888,8 @@
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>700</FontWeight>
+                            <FontSize>7.5pt</FontSize>
+                            <FontWeight>900</FontWeight>
                             <TextAlign>Center</TextAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -908,8 +911,8 @@
                             <BorderStyle>
                               <Default>Solid</Default>
                             </BorderStyle>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>700</FontWeight>
+                            <FontSize>7.5pt</FontSize>
+                            <FontWeight>900</FontWeight>
                             <TextAlign>Center</TextAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -923,7 +926,7 @@
                       </ReportItems>
                     </TableCell>
                   </TableCells>
-                  <Height>0.375in</Height>
+                  <Height>0.25in</Height>
                 </TableRow>
                 <TableRow>
                   <TableCells>
@@ -1421,6 +1424,7 @@
             </Footer>
           </TableGroup>
         </TableGroups>
+        <Width>8.53in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1651,34 +1655,34 @@
         </Details>
         <TableColumns>
           <TableColumn>
-            <Width>2.5in</Width>
+            <Width>2.45in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.95in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.95in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.65in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.65in</Width>
+            <Width>0.5in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.65in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.65in</Width>
+            <Width>0.55in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.55in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.65in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.65in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>0.65in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>0.65in</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>0.65in</Width>
+            <Width>0.63in</Width>
           </TableColumn>
         </TableColumns>
         <Footer>
@@ -1942,7 +1946,7 @@
         </Footer>
       </Table>
     </ReportItems>
-    <Height>3.625in</Height>
+    <Height>3.5in</Height>
   </Body>
   <Language>en-US</Language>
   <PageFooter>
@@ -1950,6 +1954,7 @@
     <ReportItems>
       <Textbox Name="textbox43">
         <rd:DefaultName>textbox43</rd:DefaultName>
+        <Width>8.46in</Width>
         <Style>
           <FontSize>5pt</FontSize>
           <TextAlign>Center</TextAlign>
