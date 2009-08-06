@@ -48,7 +48,7 @@ namespace HPF.FutureState.DataAccess
                         job.JobDescription = ConvertToString(reader["job_description"]);
                         job.BatchJobId = ConvertToInt(reader["batch_job_id"]).Value;
                         job.JobFrequency = (JobFrequency)Enum.Parse(typeof(JobFrequency), reader["job_frequency"].ToString());
-                        job.JobLastStartDt = ConvertToDateTime(reader["job_last_start_dt"]).Value;
+                        job.LastJobEndDate = ConvertToDateTime(reader["job_last_start_dt"]).Value;
                         job.JobName = ConvertToString(reader["job_name"]);
                         job.JobStartDate = ConvertToDateTime(reader["job_start_dt"]).Value;
                         job.OutputDestination = ConvertToString(reader["output_destination"]);
@@ -77,8 +77,8 @@ namespace HPF.FutureState.DataAccess
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_foreclosure_case_daily_summary_report_search", dbConnection);
             var sqlParam = new SqlParameter[3];
-            sqlParam[0] = new SqlParameter("@pi_start_dt", batchJob.JobLastStartDt);
-            sqlParam[1] = new SqlParameter("@pi_end_dt", batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency));
+            sqlParam[0] = new SqlParameter("@pi_start_dt", batchJob.LastJobEndDate);
+            sqlParam[1] = new SqlParameter("@pi_end_dt", batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency));
             sqlParam[2] = new SqlParameter("@pi_servicer_id", batchJob.RequestorId);
             command.Parameters.AddRange(sqlParam);
             try
@@ -109,10 +109,10 @@ namespace HPF.FutureState.DataAccess
             XmlDocument doc = new XmlDocument();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_Fannie_Mae_weekly_report_XML", dbConnection);
-            var sqlParam = new SqlParameter[3];
-            sqlParam[0] = new SqlParameter("@pi_start_dt", batchJob.JobLastStartDt);
-            sqlParam[1] = new SqlParameter("@pi_end_dt", batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency));
-            sqlParam[2] = new SqlParameter("@pi_funding_source_id", batchJob.RequestorId);
+            var sqlParam = new SqlParameter[2];
+            sqlParam[0] = new SqlParameter("@pi_start_dt", batchJob.LastJobEndDate);
+            sqlParam[1] = new SqlParameter("@pi_end_dt", batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency));
+            //sqlParam[2] = new SqlParameter("@pi_funding_source_id", batchJob.RequestorId);
             command.Parameters.AddRange(sqlParam);
             try
             {
@@ -305,7 +305,7 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[3];
             sqlParam[0] = new SqlParameter("@pi_batch_job_id", batchJob.BatchJobId);
             sqlParam[1] = new SqlParameter("@pi_job_start_dt", batchJob.JobStartDate);
-            sqlParam[2] = new SqlParameter("@pi_job_last_start_dt", batchJob.JobLastStartDt);
+            sqlParam[2] = new SqlParameter("@pi_job_last_start_dt", batchJob.LastJobEndDate);
             
             command.Parameters.AddRange(sqlParam);
             try
