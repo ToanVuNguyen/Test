@@ -133,6 +133,8 @@ namespace HPF.FutureState.BusinessLogic
             ServicerDTO servicer = GetServer(job.RequestorId);
             HPFPortalCounselingSummary summary = new HPFPortalCounselingSummary();
             summary.SPFolderName = servicer.SPFolderName;
+            if (!string.IsNullOrEmpty(job.OutputDestination))
+                summary.SPFolderName += "/" + job.OutputDestination;
             summary.ReportFile = encoding.GetBytes(xmlbuffer);
             summary.ReportFileName = string.Format("DailySummaryReport_{0}_{1}-{2}-{3}.xml", servicer.ServicerName, job.JobStartDate.Month, job.JobStartDate.Day, job.JobStartDate.Year);
             HPFPortalGateway.SendSummary(summary);
