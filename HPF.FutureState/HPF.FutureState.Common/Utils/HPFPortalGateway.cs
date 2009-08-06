@@ -11,6 +11,26 @@ namespace HPF.FutureState.Common.Utils
 {
     public static class HPFPortalGateway
     {
+
+        public static void SendFannieMaeReport(HPFPortalFannieMae fannieMae)
+        {
+            var fannieMaeInfo = new FannieMaeInfo
+            {
+                Name = fannieMae.ReportFileName,
+                StartDt = fannieMae.StartDt,
+                EndDt = fannieMae.EndDt,
+                File = fannieMae.ReportFile,
+                FileName = fannieMae.ReportFileName
+                
+            };
+
+            var spFolderName = fannieMae.SPFolderName;
+            var result = DocumentCenterController.Upload(fannieMaeInfo, spFolderName);
+            if (!result.Successful)
+                Logger.Write(result.Error.Message, "General");
+
+        }
+
         public static void SendSummary(HPFPortalCounselingSummary summary)
         {
             var counselingSummaryInfo = new CounselingSummaryInfo

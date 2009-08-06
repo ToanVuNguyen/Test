@@ -18,7 +18,8 @@ namespace HPF.FutureState.Common.Utils.Exceptions
         internal string UserName { get; set; }
 
         internal string FunctionName { get; set; }
-        internal string FcId { get; set; }        
+        internal string FcId { get; set; }
+        public string BatchJobId { get; set; } 
 
         public HPFException()
         {

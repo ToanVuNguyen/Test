@@ -57,6 +57,16 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             
             return hpfException;
         }
+
+        public static HPFException GetHpfExceptionForBatchJob(Exception exception, string batchJobId, string fucntionName)
+        {
+            var hpfException = GetHpfException(exception);
+            hpfException.BatchJobId = batchJobId;
+            hpfException.FunctionName = fucntionName;            
+
+            return hpfException;
+        }
+
         private static HPFException GetHpfException(Exception exception)
         {
             HPFException hpfException;

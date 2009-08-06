@@ -83,11 +83,14 @@
     <Compile Include="BusinessLogicInterface\IMenuSecurityBL.cs" />
     <Compile Include="DataTransferObjects\AdminTaskLogDTO.cs" />
     <Compile Include="DataTransferObjects\AppSummariesToServicerCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\BatchJobDTO.cs" />
+    <Compile Include="DataTransferObjects\BatchJobLogDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallLogSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTO.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTOCollection.cs" />
@@ -253,6 +256,7 @@
     <Compile Include="Utils\Exceptions\HPFException.cs" />
     <Compile Include="Utils\Exceptions\HPFTextExceptionFormatter.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
+    <Compile Include="Utils\HPFPortalFannieMae.cs" />
     <Compile Include="Utils\HPFPortalInvoice.cs" />
     <Compile Include="Utils\HPFPortalNewAgencyPayable.cs" />
     <Compile Include="Utils\HPFSendMail.cs" />

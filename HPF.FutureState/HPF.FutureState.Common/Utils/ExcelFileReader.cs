@@ -43,6 +43,10 @@ namespace HPF.FutureState.Common.Utils
                     throw new ExcelFileReaderException("ERROR--The file must be an Excel format.") { ErrorCode = -2 };
                 throw;
             }
+            catch(Exception)
+            {
+                throw new ExcelFileReaderException("ERROR--The file must be an Excel format.") { ErrorCode = -3 };
+            }
         }
 
         /// <summary>

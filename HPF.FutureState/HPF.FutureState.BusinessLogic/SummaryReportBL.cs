@@ -192,7 +192,7 @@ namespace HPF.FutureState.BusinessLogic
             return pdfFile.ToString();
         }
 
-        private static CaseLoanDTO GetCaseLoans1St(int? fc_id)
+        public static CaseLoanDTO GetCaseLoans1St(int? fc_id)
         {
             try
             {

@@ -102,6 +102,9 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
                 if (ex.FcId != string.Empty && ex.FcId != null)
                     writer.WriteLine("FC Id : {0}", ex.FcId);
+                if (ex.BatchJobId != string.Empty && ex.BatchJobId != null)
+                    writer.WriteLine("Batch Job Id : {0}", ex.BatchJobId);
+
 
                 if (ex.FunctionName != string.Empty && ex.FunctionName != null)
                     writer.WriteLine("Function : {0}", ex.FunctionName);                

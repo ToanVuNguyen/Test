@@ -62,6 +62,7 @@
     <Compile Include="ActivityLogBL.cs" />
     <Compile Include="AgencyPayableBL.cs" />
     <Compile Include="BaseBusinessLogic.cs" />
+    <Compile Include="BatchJobBL.cs" />
     <Compile Include="BudgetBL.cs" />
     <Compile Include="CallLogBL.cs" />
     <Compile Include="CaseAuditBL.cs" />

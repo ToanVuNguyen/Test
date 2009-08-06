@@ -48,6 +48,7 @@
     <Compile Include="BusinessEntity\AgencyPayableInfo.cs" />
     <Compile Include="BusinessEntity\BaseObject.cs" />
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
+    <Compile Include="BusinessEntity\FannieMaeInfo.cs" />
     <Compile Include="BusinessEntity\InvoiceInfo.cs" />
     <Compile Include="BusinessEntity\ResultInfo.cs" />
     <Compile Include="ContentTypes\AgencyPayable.Designer.cs">
@@ -60,12 +61,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>CounselingSummary.settings</DependentUpon>
     </Compile>
+    <Compile Include="ContentTypes\FannieMae.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>FannieMae.settings</DependentUpon>
+    </Compile>
     <Compile Include="ContentTypes\Invoice.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Invoice.settings</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DocumentCenterController.cs" />
+    <Compile Include="DocumentCenter.cs" />
     <Compile Include="DocumentCenter.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -82,6 +89,10 @@
     <None Include="ContentTypes\CounselingSummary.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>CounselingSummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ContentTypes\FannieMae.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>FannieMae.Designer.cs</LastGenOutput>
     </None>
     <None Include="ContentTypes\Invoice.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

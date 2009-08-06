@@ -14,25 +14,48 @@ namespace HPF.SharePointAPI.Controllers
     public static class DocumentCenterController
     {        
         #region "counseling Summary"
-        public static IList<ResultInfo<CounselingSummaryInfo>> Upload(IList<CounselingSummaryInfo> counselingSummaryList, string spFolderName)
+        public static IList<ResultInfo<FannieMaeInfo>> Upload(IList<FannieMaeInfo> fannieMaeInfoList, string spFolderName)
         {
-            IList<ResultInfo<CounselingSummaryInfo>> results = UploadSPFiles(
-                DocumentCenter.Default.CounselingSummaryLoginName,
-                counselingSummaryList, 
-                DocumentCenter.Default.CounselingSummary,
+            IList<ResultInfo<FannieMaeInfo>> results = UploadSPFiles(
+                DocumentCenter.Default.FannieMaeLoginName,
+                fannieMaeInfoList,
+                DocumentCenter.Default.FannieMaeWeeklyReport,
                 spFolderName,
-                UpdateCounselingSummaryInfo);
+                UpdateFannieMaeInfo);
             
             return results;
         }
 
+        public static ResultInfo<FannieMaeInfo> Upload(FannieMaeInfo fannieMaeInfo, string spFolderName)
+        {
+            List<FannieMaeInfo> fannieMaeInfoList = new List<FannieMaeInfo>();
+            fannieMaeInfoList.Add(fannieMaeInfo);
+            IList<ResultInfo<FannieMaeInfo>> results = Upload(fannieMaeInfoList, spFolderName);
+        
+            return results[0];            
+        }
+        #endregion
+
+        #region "counseling Summary"
+        public static IList<ResultInfo<CounselingSummaryInfo>> Upload(IList<CounselingSummaryInfo> counselingSummaryList, string spFolderName)
+        {
+            IList<ResultInfo<CounselingSummaryInfo>> results = UploadSPFiles(
+                DocumentCenter.Default.CounselingSummaryLoginName,
+                counselingSummaryList,
+                DocumentCenter.Default.CounselingSummary,
+                spFolderName,
+                UpdateCounselingSummaryInfo);
+
+            return results;
+        }
+
         public static ResultInfo<CounselingSummaryInfo> Upload(CounselingSummaryInfo counselingSummary, string spFolderName)
-        {   
+        {
             List<CounselingSummaryInfo> counselingSummaryList = new List<CounselingSummaryInfo>();
             counselingSummaryList.Add(counselingSummary);
             IList<ResultInfo<CounselingSummaryInfo>> results = Upload(counselingSummaryList, spFolderName);
-        
-            return results[0];            
+
+            return results[0];
         }
         #endregion
 
@@ -172,7 +195,13 @@ namespace HPF.SharePointAPI.Controllers
             }
             return results;
         }
-
+        private static void UpdateFannieMaeInfo(SPListItem spItem, FannieMaeInfo fannieMaeSummary)
+        {
+            spItem[FannieMae.Default.StartDt] = fannieMaeSummary.StartDt;
+            spItem[FannieMae.Default.EndDt] = fannieMaeSummary.EndDt;
+            spItem[FannieMae.Default.FileName] = fannieMaeSummary.FileName;
+        }
+        
         /// <summary>
         /// Update Counseling Summary SPListItem
         /// </summary>
@@ -189,9 +218,12 @@ namespace HPF.SharePointAPI.Controllers
             {
                 spItem[CounselingSummary.Default.ForeclosureSaleDate] = counselingSummary.ForeclosureSaleDate;
             }
-            spItem[CounselingSummary.Default.LoanNumber] = counselingSummary.LoanNumber;            
-            spItem[CounselingSummary.Default.Servicer] = counselingSummary.Servicer;
-            spItem[CounselingSummary.Default.ReviewStatus] = counselingSummary.ReviewStatus;
+            if (counselingSummary.LoanNumber != null)
+                spItem[CounselingSummary.Default.LoanNumber] = counselingSummary.LoanNumber;
+            if (counselingSummary.Servicer != null)
+                spItem[CounselingSummary.Default.Servicer] = counselingSummary.Servicer;
+            if(counselingSummary.ReviewStatus != null)
+                spItem[CounselingSummary.Default.ReviewStatus] = counselingSummary.ReviewStatus;
         }
 
         /// <summary>
@@ -283,6 +315,8 @@ namespace HPF.SharePointAPI.Controllers
         {            
             if (String.IsNullOrEmpty(folderName))
             {
+                if(fileName.IndexOf("WeeklyCallReport") >= 0)                
+                    return sourceWeb.GetFolder(docLibRootFolderUrl + "/");
                 //notify support team with empty folder name
                 //Email Body: Error when upload report file {0} to empty folder. It was moved to {1}
                 string body = String.Format(DocumentCenter.Default.ErrorBodyEmptySPFolderName,

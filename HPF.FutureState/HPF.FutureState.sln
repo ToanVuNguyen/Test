@@ -122,10 +122,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharePoint Library", "Share
 		SharePoint Library\Microsoft.SharePoint.dll = SharePoint Library\Microsoft.SharePoint.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPF.FutureState.BatchManager", "HPF.FutureState.BatchManager\HPF.FutureState.BatchManager.csproj", "{65164B80-7ED5-4184-B514-4EE477B799D2}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = HPF.FutureState.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +242,16 @@ Global
 		{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{64872BA0-F93B-44B4-8AAC-BC74CCB99F17}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Release|.NET.ActiveCfg = Release|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{65164B80-7ED5-4184-B514-4EE477B799D2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

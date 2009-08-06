@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{913C40C6-646F-4F53-8093-018797CEEE52}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{65164B80-7ED5-4184-B514-4EE477B799D2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HPF.FutureState.DataAccess</RootNamespace>
-    <AssemblyName>HPF.FutureState.DataAccess</AssemblyName>
+    <RootNamespace>HPF.FutureState.BatchManager</RootNamespace>
+    <AssemblyName>HPF.FutureState.BatchManager</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Database, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -46,47 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountingDAO.cs" />
-    <Compile Include="ActivityLogDAO.cs" />
-    <Compile Include="AdminTaskLogDAO.cs" />
-    <Compile Include="AgencyDAO.cs" />
-    <Compile Include="AgencyPayableDAO.cs" />
-    <Compile Include="BatchJobDAO.cs" />
-    <Compile Include="BudgetDAO.cs" />
-    <Compile Include="CallLogDAO.cs" />
-    <Compile Include="CaseAuditDAO.cs" />
-    <Compile Include="CaseLoanDAO.cs" />
-    <Compile Include="CaseFollowUpDAO.cs" />
-    <Compile Include="NonProfitReferralDAO.cs" />
-    <Compile Include="ServicerDAO.cs" />
-    <Compile Include="OutcomeDAO.cs" />
-    <Compile Include="ForeclosureCaseDAO.cs" />
-    <Compile Include="ForeclosureCaseSetDAO.cs" />
-    <Compile Include="GeoCodeRefDAO.cs" />
-    <Compile Include="HPFUserDAO.cs" />
-    <Compile Include="InvoiceDAO.cs" />
-    <Compile Include="InvoicePaymentDAO.cs" />
-    <Compile Include="MenuGroupDAO.cs" />
-    <Compile Include="MenuSecurityDAO.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BaseDAO.cs" />
-    <Compile Include="RefCodeItemtDAO.cs" />
-    <Compile Include="SecurityDAO.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
+      <Project>{C707A0BC-1832-46D4-A9BF-3B38B09625EF}</Project>
+      <Name>HPF.FutureState.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HPF.FutureState.Common\HPF.FutureState.Common.csproj">
       <Project>{571F09A2-386F-42DD-9E7E-B58F8983E368}</Project>
       <Name>HPF.FutureState.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SQLScripts\HPF_DB_Script_Install.sql" />
-    <None Include="SQLScripts\HPF_DB_Script_Upgrade.sql" />
-    <None Include="SQLScripts\InitData.sql" />
-    <Content Include="SQLScripts\Readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebServices\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

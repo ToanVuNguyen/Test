@@ -114,5 +114,8 @@ namespace HPF.FutureState.Common
 
         public const string ADMIN_TASK_SEND_SUMMARIES = "SendSummary";
         public const string ADMIN_TASK_MARK_DUPLICATES = "MarkDuplicates";
+
+        public const string SERVICER_DAILY_SUMMARY = "Servicer Daily Summary";
+        public const string FANNIE_MAE_WEEKLY_REPORT = "Fannie Mae Weekly Report";
     }
 }

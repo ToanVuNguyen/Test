@@ -98,15 +98,6 @@ namespace HPF.SharePointAPI {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8088")]
-        public string SharePointSite {
-            get {
-                return ((string)(this["SharePointSite"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
         public string InvoiceLoginName {
             get {
@@ -129,6 +120,33 @@ namespace HPF.SharePointAPI {
         public string CounselingSummaryLoginName {
             get {
                 return ((string)(this["CounselingSummaryLoginName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://hpf-01:6060")]
+        public string SharePointSite {
+            get {
+                return ((string)(this["SharePointSite"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
+        public string FannieMaeLoginName {
+            get {
+                return ((string)(this["FannieMaeLoginName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MHARawData")]
+        public string FannieMaeWeeklyReport {
+            get {
+                return ((string)(this["FannieMaeWeeklyReport"]));
             }
         }
     }
