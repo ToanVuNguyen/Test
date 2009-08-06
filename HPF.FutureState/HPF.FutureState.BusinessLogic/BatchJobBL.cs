@@ -143,7 +143,7 @@ namespace HPF.FutureState.BusinessLogic
             UTF8Encoding encoding = new UTF8Encoding();            
             HPFPortalFannieMae fannieMae = new HPFPortalFannieMae();
             fannieMae.ReportFile = encoding.GetBytes(xmlbuffer);
-            fannieMae.EndDt = job.JobLastStartDt.AddDays((int)job.JobFrequency);
+            fannieMae.EndDt = job.JobStartDate.AddDays((int)job.JobFrequency);
             fannieMae.ReportFileName = string.Format("WeeklyCallReport_{0}-{1}-{2}.xml", job.JobStartDate.Month, job.JobStartDate.Day, job.JobStartDate.Year);
             //fannieMae.SPFolderName = job.OutputDestination;//Add to root folder for now DocumentCenter\MHARawData
             fannieMae.StartDt = job.JobStartDate;
