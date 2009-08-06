@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HPF.SharePointAPI.ContentTypes" GeneratedClassName="FannieMae">
+  <Profiles />
+  <Settings>
+    <Setting Name="FileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">File Name</Value>
+    </Setting>
+    <Setting Name="StartDt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Start Date</Value>
+    </Setting>
+    <Setting Name="EndDt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">End Date</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

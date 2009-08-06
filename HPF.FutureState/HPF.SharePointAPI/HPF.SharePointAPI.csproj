@@ -72,7 +72,6 @@
       <DependentUpon>Invoice.settings</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DocumentCenterController.cs" />
-    <Compile Include="DocumentCenter.cs" />
     <Compile Include="DocumentCenter.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
