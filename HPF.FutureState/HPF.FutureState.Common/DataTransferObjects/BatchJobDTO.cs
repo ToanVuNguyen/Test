@@ -21,11 +21,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return jobStartDate; }
             set { jobStartDate = new DateTime(value.Year, value.Month, value.Day); }
         }
-        DateTime jobLastStartDt;
-        public DateTime JobLastStartDt 
+        DateTime lastJobEndDate;
+        public DateTime LastJobEndDate 
         {
-            get { return jobLastStartDt; }
-            set { jobLastStartDt = new DateTime(value.Year, value.Month, value.Day); }
+            get { return lastJobEndDate; }
+            set { lastJobEndDate = new DateTime(value.Year, value.Month, value.Day); }
         }
         public RequestorType RequestorType { get; set; }
         public int RequestorId { get; set; }
