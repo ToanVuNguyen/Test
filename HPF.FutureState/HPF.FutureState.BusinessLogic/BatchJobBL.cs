@@ -160,20 +160,13 @@ namespace HPF.FutureState.BusinessLogic
         private void InsertBatchJobLog(BatchJobDTO batchJob, int rowCount, Status status)
         {
             BatchJobLogDTO batchJobLog = new BatchJobLogDTO();
-            batchJobLog.SetInsertTrackingInformation("Admin");
+            batchJobLog.SetInsertTrackingInformation("System");
             batchJobLog.BatchJobId = batchJob.BatchJobId;
             batchJobLog.JobResult = status;
+            batchJobLog.RecordCount = rowCount;
 
-            if (batchJob.JobName.Equals(Constant.SERVICER_DAILY_SUMMARY))
-            {                
-                batchJobLog.JobNotes = string.Format("Executed on {0} for {1} records for servicer {2} from date {3} to {4}",
-                                                batchJob.JobLastStartDt, rowCount, batchJob.RequestorId, batchJob.JobLastStartDt, batchJob.JobStartDate);
-            }
-            else
-            {             
-                batchJobLog.JobNotes = string.Format("Executed on {0} for {1} records for funding source {2} from date {3} to {4}",
-                                                batchJob.JobLastStartDt, rowCount, batchJob.RequestorId, batchJob.JobLastStartDt, batchJob.JobStartDate);
-            }
+            batchJobLog.JobNotes = string.Format(batchJob.JobName + " is executed on {0} resulting {1} records for requestor {2} from date {3} to {4}",
+                                                batchJob.JobStartDate, rowCount, batchJob.RequestorId, batchJob.LastJobEndDate, batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency));
 
             BatchJobDAO.Instance.InsertBatchJobLog(batchJobLog);
         }
@@ -184,9 +177,9 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="batchJob"></param>
         private void UpdateBatchJobStartAndLastRunDates(BatchJobDTO batchJob)
         {
-            batchJob.JobLastStartDt = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);
-            batchJob.JobStartDate = DateTime.Today.AddDays((int)batchJob.JobFrequency);   
-             
+            batchJob.LastJobEndDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);
+            batchJob.JobStartDate = batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency);  
+            batchJob.SetUpdateTrackingInformation("System");
             BatchJobDAO.Instance.UpdateBatchJobStartAndLastRunDates(batchJob);
         }
 
