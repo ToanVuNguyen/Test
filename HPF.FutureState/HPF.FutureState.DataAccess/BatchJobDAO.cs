@@ -48,7 +48,7 @@ namespace HPF.FutureState.DataAccess
                         job.JobDescription = ConvertToString(reader["job_description"]);
                         job.BatchJobId = ConvertToInt(reader["batch_job_id"]).Value;
                         job.JobFrequency = (JobFrequency)Enum.Parse(typeof(JobFrequency), reader["job_frequency"].ToString());
-                        job.LastJobEndDate = ConvertToDateTime(reader["job_last_start_dt"]).Value;
+                        job.LastJobEndDate = ConvertToDateTime(reader["last_job_end_dt"]).Value;
                         job.JobName = ConvertToString(reader["job_name"]);
                         job.JobStartDate = ConvertToDateTime(reader["job_start_dt"]).Value;
                         job.OutputDestination = ConvertToString(reader["output_destination"]);
@@ -305,7 +305,7 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[3];
             sqlParam[0] = new SqlParameter("@pi_batch_job_id", batchJob.BatchJobId);
             sqlParam[1] = new SqlParameter("@pi_job_start_dt", batchJob.JobStartDate);
-            sqlParam[2] = new SqlParameter("@pi_job_last_start_dt", batchJob.LastJobEndDate);
+            sqlParam[2] = new SqlParameter("@pi_last_job_end_dt", batchJob.LastJobEndDate);
             
             command.Parameters.AddRange(sqlParam);
             try
