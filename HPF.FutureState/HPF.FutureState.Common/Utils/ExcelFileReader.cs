@@ -39,14 +39,11 @@ namespace HPF.FutureState.Common.Utils
             {
                 if (Ex.Errors[0].NativeError == -1002)
                     throw new ExcelFileReaderException("ERROR--ExcelSheet name \"" + sheetName + "\" does not exist.") { ErrorCode = -1 };
-                if (Ex.Errors[0].NativeError == -5015)
-                    throw new ExcelFileReaderException("ERROR--The file must be an Excel format.") { ErrorCode = -2 };
+                else if (Ex.Errors[0].NativeError == -5015 || Ex.Errors[0].NativeError == 63)
+                    throw new ExcelFileReaderException("ERROR--The file must be an Excel format.") { ErrorCode = -2 };                
+
                 throw;
-            }
-            catch(Exception)
-            {
-                throw new ExcelFileReaderException("ERROR--The file must be an Excel format.") { ErrorCode = -3 };
-            }
+            }            
         }
 
         /// <summary>

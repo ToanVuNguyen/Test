@@ -71,10 +71,12 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
             {
                 lstErrorMessage.DataSource = dataEx.ExceptionMessages;
                 lstErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(dataEx, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch(Exception Ex)
             {                
                 lstErrorMessage.Items.Add(Ex.Message);
+                ExceptionProcessor.HandleException(Ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
     }

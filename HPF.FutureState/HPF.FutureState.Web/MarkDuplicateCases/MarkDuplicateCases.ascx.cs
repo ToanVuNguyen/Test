@@ -38,10 +38,12 @@ namespace HPF.FutureState.Web.MarkDuplicateCases
             {
                 lstErrorMessage.DataSource = dataEx.ExceptionMessages;
                 lstErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(dataEx, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
-                lstErrorMessage.Items.Add(ex.Message);
+                lstErrorMessage.Items.Add("" + ex.Message);
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
 
