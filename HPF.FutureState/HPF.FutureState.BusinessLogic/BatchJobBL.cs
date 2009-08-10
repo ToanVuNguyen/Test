@@ -50,11 +50,15 @@ namespace HPF.FutureState.BusinessLogic
                 else if (job.JobName.Equals(Constant.FANNIE_MAE_WEEKLY_REPORT))
                     rowCount = GenerateFannieMaeWeeklyReport(job);
                 else 
-                    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");                
+                    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
-                InsertBatchJobLog(job, rowCount, Status.SUCCESS);
-                
-                UpdateBatchJobStartAndLastRunDates(job);
+                if (rowCount > 0)
+                {
+                    InsertBatchJobLog(job, rowCount, Status.SUCCESS);
+                    UpdateBatchJobStartAndLastRunDates(job);
+                }
+                else
+                    InsertBatchJobLog(job, 0, Status.FAIL);
             }
         }
 
@@ -85,8 +89,7 @@ namespace HPF.FutureState.BusinessLogic
                 return fcIds.Length;
             }
             catch (Exception ex)
-            {
-                InsertBatchJobLog(batchjob, 0, Status.FAIL);
+            {                
                 throw ExceptionProcessor.GetHpfExceptionForBatchJob(ex, batchjob.BatchJobId.ToString(), "GenerateServicerDailySummary");
             }                       
         }
@@ -113,6 +116,8 @@ namespace HPF.FutureState.BusinessLogic
             try
             {
                 string xmlbuffer = BatchJobDAO.Instance.GenerateFannieMaeWeeklyXML(batchjob);
+                if (string.IsNullOrEmpty(xmlbuffer))                                    
+                    return 0;                
                 //Send to sharepoint
                 SendFannieMaeWeeklyToHPFPortal(xmlbuffer, batchjob);                
 
