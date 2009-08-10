@@ -60,7 +60,9 @@ namespace HPF.FutureState.BusinessLogic
 
         private bool DetermineTodayBatchJob(BatchJobDTO batchJobs)
         {            
-            return DateTime.Today.Equals(batchJobs.JobStartDate);
+            return DateTime.Today.Year.Equals(batchJobs.JobStartDate.Year) &&
+                DateTime.Today.Month.Equals(batchJobs.JobStartDate.Month) &&
+                DateTime.Today.Day.Equals(batchJobs.JobStartDate.Day);
         }
         /// <summary>
         /// Generate Summary report with batch job input
@@ -145,10 +147,10 @@ namespace HPF.FutureState.BusinessLogic
             UTF8Encoding encoding = new UTF8Encoding();            
             HPFPortalFannieMae fannieMae = new HPFPortalFannieMae();
             fannieMae.ReportFile = encoding.GetBytes(xmlbuffer);
-            fannieMae.EndDt = job.JobStartDate.AddDays((int)job.JobFrequency);
+            fannieMae.EndDt = job.LastJobEndDate.AddDays((int)job.JobFrequency);
             fannieMae.ReportFileName = string.Format("WeeklyCallReport_{0}-{1}-{2}.xml", job.JobStartDate.Month, job.JobStartDate.Day, job.JobStartDate.Year);
             fannieMae.SPFolderName = job.OutputDestination;
-            fannieMae.StartDt = job.JobStartDate;
+            fannieMae.StartDt = job.LastJobEndDate;
 
             HPFPortalGateway.SendFannieMaeReport(fannieMae);
         }
@@ -166,7 +168,7 @@ namespace HPF.FutureState.BusinessLogic
             batchJobLog.RecordCount = rowCount;
 
             batchJobLog.JobNotes = string.Format(batchJob.JobName + " is executed on {0} resulting {1} records for requestor {2} from date {3} to {4}",
-                                                batchJob.JobStartDate, rowCount, batchJob.RequestorId, batchJob.LastJobEndDate, batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency));
+                                                DateTime.Now, rowCount, batchJob.RequestorId, batchJob.LastJobEndDate, batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency));
 
             BatchJobDAO.Instance.InsertBatchJobLog(batchJobLog);
         }
@@ -177,8 +179,8 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="batchJob"></param>
         private void UpdateBatchJobStartAndLastRunDates(BatchJobDTO batchJob)
         {
-            batchJob.LastJobEndDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);
-            batchJob.JobStartDate = batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency);  
+            batchJob.LastJobEndDate = batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency);
+            batchJob.JobStartDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);  
             batchJob.SetUpdateTrackingInformation("System");
             BatchJobDAO.Instance.UpdateBatchJobStartAndLastRunDates(batchJob);
         }
