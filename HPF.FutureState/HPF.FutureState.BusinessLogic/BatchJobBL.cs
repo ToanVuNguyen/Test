@@ -51,14 +51,9 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = GenerateFannieMaeWeeklyReport(job);
                 else 
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
-
-                if (rowCount > 0)
-                {
-                    InsertBatchJobLog(job, rowCount, Status.SUCCESS);
-                    UpdateBatchJobStartAndLastRunDates(job);
-                }
-                else
-                    InsertBatchJobLog(job, 0, Status.FAIL);
+                
+                InsertBatchJobLog(job, rowCount, Status.SUCCESS);
+                UpdateBatchJobStartAndLastRunDates(job);                
             }
         }
 
@@ -89,7 +84,8 @@ namespace HPF.FutureState.BusinessLogic
                 return fcIds.Length;
             }
             catch (Exception ex)
-            {                
+            {
+                InsertBatchJobLog(batchjob, 0, Status.FAIL);
                 throw ExceptionProcessor.GetHpfExceptionForBatchJob(ex, batchjob.BatchJobId.ToString(), "GenerateServicerDailySummary");
             }                       
         }
