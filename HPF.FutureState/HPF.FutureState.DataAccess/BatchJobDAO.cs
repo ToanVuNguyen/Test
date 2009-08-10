@@ -302,10 +302,13 @@ namespace HPF.FutureState.DataAccess
         {
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_batch_job_update", dbConnection);
-            var sqlParam = new SqlParameter[3];
+            var sqlParam = new SqlParameter[6];
             sqlParam[0] = new SqlParameter("@pi_batch_job_id", batchJob.BatchJobId);
             sqlParam[1] = new SqlParameter("@pi_job_start_dt", batchJob.JobStartDate);
             sqlParam[2] = new SqlParameter("@pi_last_job_end_dt", batchJob.LastJobEndDate);
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_dt", batchJob.ChangeLastDate);
+            sqlParam[4] = new SqlParameter("@pi_chg_user_id", batchJob.ChangeLastUserId);
+            sqlParam[5] = new SqlParameter("@pi_chg_app_name", batchJob.ChangeLastAppName);
             
             command.Parameters.AddRange(sqlParam);
             try
