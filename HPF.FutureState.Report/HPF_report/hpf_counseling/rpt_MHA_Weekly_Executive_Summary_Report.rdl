@@ -15711,7 +15711,7 @@
                         <FontSize>8pt</FontSize>
                         <FontWeight>=IIF(Fields!item_name.Value="Total Number of Calls to Hotline", "Bold", "Normal")</FontWeight>
                         <Format>N0</Format>
-                        <TextAlign>= IIF(Fields!align.Value= 0, "Left", "Right")</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -15820,7 +15820,7 @@
                         <FontSize>8pt</FontSize>
                         <FontWeight>=IIF(Fields!item_name.Value="Total Number of Calls to Hotline", "Bold", "Normal")</FontWeight>
                         <Format>N0</Format>
-                        <TextAlign>= IIF(Fields!align.Value= 0, "Left", "Right")</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -15930,7 +15930,7 @@
                         <FontSize>8pt</FontSize>
                         <FontWeight>=IIF(Fields!item_name.Value="Total Number of Calls to Hotline", "Bold", "Normal")</FontWeight>
                         <Format>N0</Format>
-                        <TextAlign>= IIF(Fields!align.Value= 0, "Left", "Right")</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -16039,7 +16039,7 @@
                         <FontSize>8pt</FontSize>
                         <FontWeight>=IIF(Fields!item_name.Value="Total Number of Calls to Hotline", "Bold", "Normal")</FontWeight>
                         <Format>N0</Format>
-                        <TextAlign>= IIF(Fields!align.Value= 0, "Left", "Right")</TextAlign>
+                        <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
