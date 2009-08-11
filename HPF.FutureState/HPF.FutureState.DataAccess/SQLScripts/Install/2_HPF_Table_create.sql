@@ -1072,7 +1072,7 @@ CREATE TABLE [dbo].[batch_job](
 	[job_description] [varchar](100)  NULL,
 	[job_frequency] [varchar](15)  NOT NULL,
 	[job_start_dt] [datetime] NOT NULL,
-	[job_last_start_dt] [datetime] NOT NULL,
+	[last_job_end_dt] [datetime] NOT NULL,
 	[requestor_type] [varchar](20)  NOT NULL,
 	[requestor_id] [int] NOT NULL,
 	[output_format] [varchar](50)  NOT NULL,
