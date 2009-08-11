@@ -20,7 +20,6 @@
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <ReportItems>
       <Textbox Name="textbox1">
-        <Width>8.46in</Width>
         <Style>
           <Color>MidnightBlue</Color>
           <FontSize>14pt</FontSize>
@@ -40,7 +39,6 @@
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
         <Top>0.28125in</Top>
-        <Width>8.46in</Width>
         <Style>
           <FontWeight>700</FontWeight>
           <TextAlign>Left</TextAlign>
@@ -163,7 +161,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.58in</Width>
+  <Width>8.5in</Width>
   <Body>
     <ReportItems>
       <Table Name="table2">
@@ -1418,13 +1416,12 @@
                       </ReportItems>
                     </TableCell>
                   </TableCells>
-                  <Height>0.25in</Height>
+                  <Height>0.2in</Height>
                 </TableRow>
               </TableRows>
             </Footer>
           </TableGroup>
         </TableGroups>
-        <Width>8.53in</Width>
         <Details>
           <TableRows>
             <TableRow>
@@ -1667,7 +1664,7 @@
             <Width>0.65in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.5in</Width>
+            <Width>0.55in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.65in</Width>
@@ -1679,10 +1676,10 @@
             <Width>0.55in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.65in</Width>
+            <Width>0.6in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.63in</Width>
+            <Width>0.6in</Width>
           </TableColumn>
         </TableColumns>
         <Footer>
@@ -1946,7 +1943,7 @@
         </Footer>
       </Table>
     </ReportItems>
-    <Height>3.5in</Height>
+    <Height>3.45in</Height>
   </Body>
   <Language>en-US</Language>
   <PageFooter>
@@ -1954,7 +1951,6 @@
     <ReportItems>
       <Textbox Name="textbox43">
         <rd:DefaultName>textbox43</rd:DefaultName>
-        <Width>8.46in</Width>
         <Style>
           <FontSize>5pt</FontSize>
           <TextAlign>Center</TextAlign>
