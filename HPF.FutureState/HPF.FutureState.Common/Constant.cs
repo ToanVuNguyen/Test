@@ -79,6 +79,7 @@ namespace HPF.FutureState.Common
         public const string REF_CODE_SET_NEVER_BILL_REASON_CODE = "never bill reason code";
         public const string REF_CODE_SET_NEVER_PAY_REASON_CODE = "never pay reason code";
         public const string REF_CODE_SET_PAYMENT_CODE = "payment code";
+        public const string REF_CODE_SET_SECURE_DELIVERY_METHOD = "secure delivery method code";
 
         public const string REF_CODE_SET_BILLING_EXPORT_FIS_CODE = "FIS";
         public const string REF_CODE_SET_BILLING_EXPORT_ICLEAR_CODE = "ICLEAR";

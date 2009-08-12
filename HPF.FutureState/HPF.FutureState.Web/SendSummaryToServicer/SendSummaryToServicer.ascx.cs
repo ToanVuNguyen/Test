@@ -30,15 +30,12 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
 
         private void Initialize()
         {
-            ServicerDTOCollection servicers = LookupDataBL.Instance.GetCanSendSevicers();
-            foreach (ServicerDTO servicer in servicers)
-            {
-                ListItem item = new ListItem();
-                item.Value = servicer.ServicerID.ToString();
-                item.Text = servicer.ServicerName + " - " + servicer.SummaryDeliveryMethod;
-                ddlServicer.Items.Add(item);
-            }
-
+            SendSummaryServicerCollectionDTO servicers = LookupDataBL.Instance.GetSendSummarySevicers();
+            servicers.Insert(0, new SendSummaryServicerDTO {ServicerID = null, Description = ""});
+            ddlServicer.DataTextField = "Description";
+            ddlServicer.DataValueField = "ServicerID";
+            ddlServicer.DataSource = servicers;
+            ddlServicer.DataBind();
             txtPeriodStart.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
             txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
         }
@@ -53,8 +50,9 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
             try
             {
                 lstErrorMessage.Items.Clear();
-                AppSummariesToServicerCriteriaDTO criteriaDTO = new AppSummariesToServicerCriteriaDTO();                
-                criteriaDTO.ServicerId = int.Parse(ddlServicer.SelectedValue);
+                AppSummariesToServicerCriteriaDTO criteriaDTO = new AppSummariesToServicerCriteriaDTO();
+                if (!string.IsNullOrEmpty(ddlServicer.SelectedValue))
+                    criteriaDTO.ServicerId = int.Parse(ddlServicer.SelectedValue);
                 DateTime datevalue;
                 if (DateTime.TryParse(txtPeriodStart.Text.Trim(), out datevalue))
                     criteriaDTO.StartDt = datevalue;
@@ -62,9 +60,9 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
                     criteriaDTO.EndDt = datevalue;
                 int processedCount = ForeclosureCaseBL.Instance.SendSummariesToServicer(criteriaDTO, HPFWebSecurity.CurrentIdentity.LoginName);
 
-                ServicerDTOCollection servicers = LookupDataBL.Instance.GetServicers();
-                ServicerDTO servicer = servicers.GetServicerById(criteriaDTO.ServicerId);
-                string message = string.Format("{0} summary cases for {1} have been sent by method {2} for complete date between {3} and {4}", processedCount, servicer.ServicerName, servicer.SummaryDeliveryMethod, criteriaDTO.StartDt.Value.ToShortDateString(), criteriaDTO.EndDt.Value.ToShortDateString());
+                SendSummaryServicerCollectionDTO servicers = LookupDataBL.Instance.GetSendSummarySevicers();
+                SendSummaryServicerDTO servicer = servicers.GetServicerById(criteriaDTO.ServicerId);
+                string message = string.Format("{0} summary cases have been sent to {1} via {2} for cases completed date between {3} and {4}", processedCount, servicer.ServicerName, servicer.SummaryDeliveryMethodDesc, criteriaDTO.StartDt.Value.ToShortDateString(), criteriaDTO.EndDt.Value.ToShortDateString());
                 lstErrorMessage.Items.Add(message);
             }
             catch (DataValidationException dataEx)

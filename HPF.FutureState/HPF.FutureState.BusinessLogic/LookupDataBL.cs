@@ -72,15 +72,25 @@ namespace HPF.FutureState.BusinessLogic
             return result;
         }
 
-        public ServicerDTOCollection GetCanSendSevicers()
+        public SendSummaryServicerCollectionDTO GetSendSummarySevicers()
         {
             ServicerDTOCollection allServivers = ServicerBL.Instance.GetServicers();
-            ServicerDTOCollection results = new ServicerDTOCollection();
+            SendSummaryServicerCollectionDTO results = new SendSummaryServicerCollectionDTO();
+            RefCodeItemDTOCollection refCodes = GetRefCodes(Constant.REF_CODE_SET_SECURE_DELIVERY_METHOD);
 
             foreach (ServicerDTO servicer in allServivers)
             {
                 if (servicer.SummaryDeliveryMethod != null && servicer.SummaryDeliveryMethod != Constant.SECURE_DELIVERY_METHOD_NOSEND)
-                    results.Add(servicer);
+                {
+                    SendSummaryServicerDTO sServicer = new SendSummaryServicerDTO();
+                    sServicer.SummaryDeliveryMethod = servicer.SummaryDeliveryMethod;
+                    sServicer.SPFolderName = servicer.SPFolderName;
+                    sServicer.ServicerName = servicer.ServicerName;
+                    sServicer.ServicerID = servicer.ServicerID;
+                    sServicer.SummaryDeliveryMethodDesc = refCodes.GetRefCodeByCode(servicer.SummaryDeliveryMethod).CodeDescription;
+                    sServicer.Description = sServicer.ServicerName + " - " + sServicer.SummaryDeliveryMethodDesc;
+                    results.Add(sServicer);
+                }
             }
 
             return results;

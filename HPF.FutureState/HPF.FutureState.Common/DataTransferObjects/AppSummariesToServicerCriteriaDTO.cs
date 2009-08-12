@@ -10,11 +10,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class AppSummariesToServicerCriteriaDTO: BaseDTO
     {
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "ServicerId is required for operation")]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "A Servicer is required to process.")]
         public int? ServicerId { get; set; }
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "Start Date is required for operation")]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "A Start Date is required to process.")]
         public DateTime? StartDt { get; set; }
-        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "End Date is required for operation")]
+        [RequiredObjectValidator(Ruleset = "Default", MessageTemplate = "An End Date is required to process.")]
         public DateTime? EndDt { get; set; }        
     }
 }

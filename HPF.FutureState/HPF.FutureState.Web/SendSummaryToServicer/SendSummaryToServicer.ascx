@@ -28,7 +28,7 @@
                                 </tr>
                                 <tr>
                                     <td width="80" class="sidelinks" align="right">
-                                        Servicer</td>
+                                        Servicer:</td>
                                     <td>
                                         <asp:DropDownList ID="ddlServicer" runat="server" CssClass="Text" TabIndex="12">
                                         </asp:DropDownList>
@@ -36,7 +36,7 @@
                                 </tr>
                                             <tr>
                                     <td class="sidelinks" align="right">
-                                        Start date</td>
+                                        Start Date:</td>
                                     <td>
                                         <asp:TextBox ID="txtPeriodStart" runat="server" CssClass="Text" Width="120px"></asp:TextBox>
                                         <cc1:CalendarExtender ID="txtPeriodStart_CalendarExtender" runat="server" 
@@ -45,7 +45,7 @@
                                 </tr>
                                  <tr>
                                     <td class="sidelinks" align="right">
-                                        End date</td>
+                                        End Date:</td>
                                     <td>
                                         <asp:TextBox ID="txtPeriodEnd" runat="server" CssClass="Text" Width="120px"></asp:TextBox>
                                         <cc1:CalendarExtender ID="txtPeriodEnd_CalendarExtender" runat="server" 

@@ -39,9 +39,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
             if (string.IsNullOrEmpty(codeValue))
                 return true;
 
-            return (this.SingleOrDefault(item => item.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim()) != null);
-            
+            return (this.SingleOrDefault(item => item.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim()) != null);            
+        }
 
-        }        
+        public RefCodeItemDTO GetRefCodeByCode(string codeValue)
+        {
+            return this.SingleOrDefault(i => i.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim());
+        }
     }
 }

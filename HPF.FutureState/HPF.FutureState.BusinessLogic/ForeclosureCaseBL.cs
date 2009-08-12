@@ -163,21 +163,23 @@ namespace HPF.FutureState.BusinessLogic
                 count++;
             }
 
-            //TODDO: insert info into log table
-            ServicerDTOCollection servicers = LookupDataBL.Instance.GetServicers();
-            ServicerDTO servicer = servicers.GetServicerById(critera.ServicerId);
-            AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
-            adminLog.SetInsertTrackingInformation(createdUser);
-            adminLog.TaskName = Constant.ADMIN_TASK_SEND_SUMMARIES;
-            adminLog.TaskNotes = "servicer name = " + servicer.ServicerName +
-                                ", delivery method = " + servicer.SummaryDeliveryMethod +
-                                ", start date = " + critera.StartDt.Value.ToShortDateString() +
-                                " and end date = " + critera.EndDt.Value.ToShortDateString();            
-            adminLog.RecordCount = count;
-            adminLog.FcIdList = FcIdList;
+            if (count > 0)
+            {
+                //TODDO: insert info into log table
+                ServicerDTOCollection servicers = LookupDataBL.Instance.GetServicers();
+                ServicerDTO servicer = servicers.GetServicerById(critera.ServicerId);
+                AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
+                adminLog.SetInsertTrackingInformation(createdUser);
+                adminLog.TaskName = Constant.ADMIN_TASK_SEND_SUMMARIES;
+                adminLog.TaskNotes = "servicer name = " + servicer.ServicerName +
+                                    ", delivery method = " + servicer.SummaryDeliveryMethod +
+                                    ", start date = " + critera.StartDt.Value.ToShortDateString() +
+                                    " and end date = " + critera.EndDt.Value.ToShortDateString();
+                adminLog.RecordCount = count;
+                adminLog.FcIdList = FcIdList;
 
-            AdminTaskLogDAO.Instance.InsertAdminTaskLog(adminLog);
-
+                AdminTaskLogDAO.Instance.InsertAdminTaskLog(adminLog);
+            }
             return count;
         }
 

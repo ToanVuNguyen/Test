@@ -25,6 +25,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
         protected override void DoValidate(object objectToValidate, object currentTarget, string key, ValidationResults validationResults)
         {
             bool isValid = true;
+            string defaultMessageTemplate = "";
             if (objectToValidate != null  && (!string.IsNullOrEmpty(objectToValidate.ToString())))
             {
                 if (objectToValidate.GetType() == typeof(DateTime))
@@ -33,7 +34,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!DateTime.TryParse(objectToValidate.ToString(), out dt))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        defaultMessageTemplate = key + " is invalid";
                     }
                 }
 
@@ -43,7 +44,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if(!decimal.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        defaultMessageTemplate = key + " is invalid";
                     }
                 }
 
@@ -53,7 +54,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if(!double.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        defaultMessageTemplate = key + " is invalid";
                     }
                 }
 
@@ -63,7 +64,7 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!int.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        defaultMessageTemplate = key + " is invalid";
                     }
                 }
 
@@ -73,15 +74,17 @@ namespace HPF.FutureState.Common.Utils.DataValidator
                     if (!byte.TryParse(objectToValidate.ToString(), out value))
                     {
                         isValid = false;
-                        MessageTemplate = key + " is invalid";
+                        defaultMessageTemplate = key + " is invalid";
                     }
                 }
             }
             else
             {
                 isValid = false;
-                MessageTemplate = key + " is required";
+                defaultMessageTemplate = key + " is required";
             }
+            if (string.IsNullOrEmpty(MessageTemplate))
+                MessageTemplate = defaultMessageTemplate;
             if (!isValid)
                 LogValidationResult(validationResults, MessageTemplate, currentTarget, key);
         }        
