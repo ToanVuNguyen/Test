@@ -639,7 +639,7 @@ namespace HPF.FutureState.DataAccess
 
             sqlParam[0] = new SqlParameter("@pi_servicer_id", searchCriteria.ServicerId);
             sqlParam[1] = new SqlParameter("@pi_start_dt", searchCriteria.StartDt);
-            sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.EndDt);
+            sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.EndDt.Value.AddDays(1));
             
             try
             {
