@@ -151,6 +151,7 @@ namespace HPF.FutureState.BusinessLogic
                 throw dataVaidEx;
             }
             //TODO: call Search cases and proccess
+            critera.EndDt = critera.EndDt.Value.AddDays(1);
             int[] fcIds = ForeclosureCaseDAO.CreateInstance().FCSearchToSendSummaries(critera);
             foreach (int fc in fcIds)
             {

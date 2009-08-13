@@ -111,17 +111,21 @@ namespace HPF.FutureState.BusinessLogic
         {
             try
             {
+                int callCount = 0;
                 string xmlbuffer = BatchJobDAO.Instance.GenerateFannieMaeWeeklyXML(batchjob);
-                if (string.IsNullOrEmpty(xmlbuffer))                                    
-                    return 0;                
+                if (string.IsNullOrEmpty(xmlbuffer))                
+                    xmlbuffer += "<CallWeeklyReport></CallWeeklyReport> ";
+                    
                 //Send to sharepoint
                 SendFannieMaeWeeklyToHPFPortal(xmlbuffer, batchjob);                
 
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xmlbuffer);
                 XmlNodeList list = doc.GetElementsByTagName("Call");
+                if (list != null)
+                    callCount = list.Count;
 
-                return list.Count;
+                return callCount;
             }
             catch (Exception ex)
             {
@@ -132,7 +136,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private void SendDailySummaryToHPFPortal(string xmlbuffer, BatchJobDTO job)
         {
-            UTF8Encoding encoding = new UTF8Encoding();
+            ASCIIEncoding encoding = new ASCIIEncoding();
             ServicerDTO servicer = GetServer(job.RequestorId);
             HPFPortalCounselingSummary summary = new HPFPortalCounselingSummary();
             summary.SPFolderName = servicer.SPFolderName;
@@ -145,7 +149,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private void SendFannieMaeWeeklyToHPFPortal(string xmlbuffer, BatchJobDTO job)
         {
-            UTF8Encoding encoding = new UTF8Encoding();            
+            ASCIIEncoding encoding = new ASCIIEncoding();            
             HPFPortalFannieMae fannieMae = new HPFPortalFannieMae();
             fannieMae.ReportFile = encoding.GetBytes(xmlbuffer);
             fannieMae.EndDt = job.LastJobEndDate.AddDays((int)job.JobFrequency);

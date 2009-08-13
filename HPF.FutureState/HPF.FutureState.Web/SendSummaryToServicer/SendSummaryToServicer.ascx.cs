@@ -62,7 +62,7 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
 
                 SendSummaryServicerCollectionDTO servicers = LookupDataBL.Instance.GetSendSummarySevicers();
                 SendSummaryServicerDTO servicer = servicers.GetServicerById(criteriaDTO.ServicerId);
-                string message = string.Format("{0} summary cases have been sent to {1} via {2} for cases completed date between {3} and {4}", processedCount, servicer.ServicerName, servicer.SummaryDeliveryMethodDesc, criteriaDTO.StartDt.Value.ToShortDateString(), criteriaDTO.EndDt.Value.ToShortDateString());
+                string message = string.Format("{0} summary cases have been sent to {1} via {2} for cases completed between {3} and {4}.", processedCount, servicer.ServicerName, servicer.SummaryDeliveryMethodDesc, criteriaDTO.StartDt.Value.ToShortDateString(), criteriaDTO.EndDt.Value.ToShortDateString());
                 lstErrorMessage.Items.Add(message);
             }
             catch (DataValidationException dataEx)
