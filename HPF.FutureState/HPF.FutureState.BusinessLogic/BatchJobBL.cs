@@ -114,7 +114,7 @@ namespace HPF.FutureState.BusinessLogic
                 int callCount = 0;
                 string xmlbuffer = BatchJobDAO.Instance.GenerateFannieMaeWeeklyXML(batchjob);
                 if (string.IsNullOrEmpty(xmlbuffer))                
-                    xmlbuffer += "<CallWeeklyReport></CallWeeklyReport> ";
+                    xmlbuffer = "<CallWeeklyReport></CallWeeklyReport> ";
                     
                 //Send to sharepoint
                 SendFannieMaeWeeklyToHPFPortal(xmlbuffer, batchjob);                
