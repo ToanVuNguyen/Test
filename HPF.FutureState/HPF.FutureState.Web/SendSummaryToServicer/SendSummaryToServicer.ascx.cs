@@ -36,7 +36,7 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
             ddlServicer.DataValueField = "ServicerID";
             ddlServicer.DataSource = servicers;
             ddlServicer.DataBind();
-            txtPeriodStart.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
+            txtPeriodStart.Text = DateTime.Now.ToShortDateString();
             txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
         }
 
