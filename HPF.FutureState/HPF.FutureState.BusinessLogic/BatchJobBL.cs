@@ -143,7 +143,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!string.IsNullOrEmpty(job.OutputDestination))
                 summary.SPFolderName += "/" + job.OutputDestination;
             summary.ReportFile = encoding.GetBytes(xmlbuffer);
-            summary.ReportFileName = string.Format("DailySummaryReport_{0}_{1}-{2}-{3}.xml", servicer.ServicerName, job.JobStartDate.Month, job.JobStartDate.Day, job.JobStartDate.Year);
+            summary.ReportFileName = string.Format("DailySummaryReport_{0}_{1}-{2}-{3}.xml", servicer.ServicerName, job.LastJobEndDate.Month, job.LastJobEndDate.Day, job.LastJobEndDate.Year);
             HPFPortalGateway.SendSummary(summary);
         }
 
@@ -153,7 +153,7 @@ namespace HPF.FutureState.BusinessLogic
             HPFPortalFannieMae fannieMae = new HPFPortalFannieMae();
             fannieMae.ReportFile = encoding.GetBytes(xmlbuffer);
             fannieMae.EndDt = job.LastJobEndDate.AddDays((int)job.JobFrequency);
-            fannieMae.ReportFileName = string.Format("WeeklyCallReport_{0}-{1}-{2}.xml", job.JobStartDate.Month, job.JobStartDate.Day, job.JobStartDate.Year);
+            fannieMae.ReportFileName = string.Format("WeeklyCallReport_{0}-{1}-{2}.xml", job.LastJobEndDate.Month, job.LastJobEndDate.Day, job.LastJobEndDate.Year);
             fannieMae.SPFolderName = job.OutputDestination;
             fannieMae.StartDt = job.LastJobEndDate;
 
