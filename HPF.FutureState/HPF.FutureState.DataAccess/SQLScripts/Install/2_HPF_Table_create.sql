@@ -449,7 +449,7 @@ CREATE TABLE call (
   screen_rout VARCHAR(2000)    ,
   final_dispo_cd VARCHAR(15)    ,
   trans_num VARCHAR(12)    ,
-  cc_call_key VARCHAR(18)    NOT NULL,
+  cc_call_key VARCHAR(18)    NOT NULL UNIQUE,
   loan_delinq_status_cd VARCHAR(15)    ,
   selected_counselor VARCHAR(40)    ,
   homeowner_ind VARCHAR(1)    ,
