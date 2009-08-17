@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.DataTransferObjects.WebServices;
+using HPF.FutureState.Common;
 
 using System.Collections.Generic;
 
@@ -117,9 +118,15 @@ namespace HPF.FutureState.DataAccess
                 trans.Commit();
                 aCallLog.CallId = ConvertToInt(command.Parameters["@po_call_id"].Value);
             }
-            catch(Exception Ex)
+            catch(SqlException Ex)
             {
                 if (trans != null) trans.Rollback();
+                if (Ex.Errors[0].Number == 2627)
+                {
+                    ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0399, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0399));
+                    throw new DataValidationException(errorList);
+                }
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally

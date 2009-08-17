@@ -41,13 +41,27 @@ namespace HPF.FutureState.WebServices
                 HandleException(Ex);
             }
             catch (DataValidationException Ex)
-            {
+            {                
                 response.Status = ResponseStatus.Fail;
                 if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
                     response.Messages = Ex.ExceptionMessages;
                 else
                     response.Messages.AddExceptionMessage(Ex.Message);
-                HandleException(Ex);
+
+                if (Ex.ExceptionMessages[0].ErrorCode == ErrorMessages.ERR0399)
+                {
+                    response.CallLogID = "0";
+                    ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0399, Ex.ExceptionMessages[0].Message
+                                                + "\nCc call key = " + request.CallLog.CcCallKey
+                                                + ".\nCreated user: "+ request.CallLog.CcAgentIdKey +".\nCreated Date: " + DateTime.Today.ToString()
+                                                + ".\nCreated app: " + HPFConfigurationSettings.HPF_APPLICATION_NAME);
+                    DataValidationException exLog = new DataValidationException(errorList);
+                    HandleException(exLog);
+                }
+                else
+                    HandleException(Ex);
+
             }
             catch (DataAccessException Ex)
             {

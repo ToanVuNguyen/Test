@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
 
         internal string FunctionName { get; set; }
         internal string FcId { get; set; }
-        public string BatchJobId { get; set; } 
+        internal string BatchJobId { get; set; } 
 
         public HPFException()
         {
@@ -33,7 +33,7 @@ namespace HPF.FutureState.Common.Utils.Exceptions
                 ApplicationName = HPFConfigurationSettings.HPF_APPLICATION_NAME;
                 AgencyId = string.Empty;
                 CallCenterId = string.Empty;
-                UserName = string.Empty;
+                UserName = string.Empty;                
             }
             catch
             { 
@@ -56,6 +56,11 @@ namespace HPF.FutureState.Common.Utils.Exceptions
             : base(message,innerException)
         {
             Initialize();
+        }
+
+        public string GetBatchJobId()
+        {
+            return BatchJobId;
         }
     }
 }

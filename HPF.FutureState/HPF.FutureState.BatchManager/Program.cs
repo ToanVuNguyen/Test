@@ -27,7 +27,7 @@ namespace HPF.FutureState.BatchManager
                 var mail = new HPFSendMail
                 {
                     To = hpfSupportEmail,
-                    Subject = "Batch Managet Error: found error in batch job id " + Ex.BatchJobId,
+                    Subject = "Batch Manager Error: found error in batch job id " + Ex.GetBatchJobId(),
                     Body = "Messsage: " + Ex.Message + "\nTrace: " + Ex.StackTrace
                 };
                 mail.Send();
