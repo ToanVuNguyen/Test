@@ -42,7 +42,7 @@
     </tr>
     <tr>
         <td align="right" class="sidelinks">
-            Include Cancelled *:</td>
+            Include Cancelled*:</td>
         <td width="280">
             <asp:DropDownList ID="dropIncludeCancel" runat="server" CssClass="Text" 
                 Width="47px" Height="16px">
