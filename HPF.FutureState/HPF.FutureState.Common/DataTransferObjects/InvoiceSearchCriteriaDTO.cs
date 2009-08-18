@@ -20,6 +20,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public DateTime PeriodStart { get; set; }
         [NullableOrInRangeNumberValidator(false, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_PAYMENTVALIDATION, Tag = ErrorMessages.ERR0676)]
         [NullableOrInRangeNumberValidator(false, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_FUNDINGSOURCEVALIDATION, Tag = ErrorMessages.ERR0563)]
-        public DateTime PeriodEnd { get; set; }        
+        public DateTime PeriodEnd { get; set; }
+
+        public bool IncludeCancelledInvoice{ get; set; }
     }
 }

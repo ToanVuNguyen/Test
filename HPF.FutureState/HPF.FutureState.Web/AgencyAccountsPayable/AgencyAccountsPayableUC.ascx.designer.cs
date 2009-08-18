@@ -59,6 +59,15 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable {
         protected global::AjaxControlToolkit.CalendarExtender txtPeriodStart_CalendarExtender;
         
         /// <summary>
+        /// dropIncludeCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dropIncludeCancel;
+        
+        /// <summary>
         /// txtPeriodEnd control.
         /// </summary>
         /// <remarks>

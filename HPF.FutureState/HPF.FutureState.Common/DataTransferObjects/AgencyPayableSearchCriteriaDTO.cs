@@ -19,6 +19,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(false,"1-1-1753","12-31-9999",Tag=ErrorMessages.ERR0581,Ruleset=Constant.RULESET_AGENCY_PAYABLE_SEARCH)]
         public DateTime PeriodEndDate { get; set; }
         public string CaseComplete { get; set; }
-        public int Indicator { get; set; }       
+        public int Indicator { get; set; }
+
+        public bool IncludeCancelledPayable { get; set; }
     }
 }

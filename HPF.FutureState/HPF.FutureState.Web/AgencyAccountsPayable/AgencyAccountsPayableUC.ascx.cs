@@ -128,6 +128,7 @@ namespace HPF.FutureState.Web.AgencyAccountsPayable
             searchCriteria.PeriodEndDate = ConvertToDateTime(txtPeriodEnd.Text);
             if (searchCriteria.PeriodEndDate != DateTime.MinValue)
                 searchCriteria.PeriodEndDate = searchCriteria.PeriodEndDate.AddDays(1).AddSeconds(-1);
+            searchCriteria.IncludeCancelledPayable = bool.Parse(dropIncludeCancel.SelectedValue);
             return searchCriteria;
         }
         protected void btnRefreshList_Click(object sender, EventArgs e)

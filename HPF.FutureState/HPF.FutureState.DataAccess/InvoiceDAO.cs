@@ -243,10 +243,11 @@ namespace HPF.FutureState.DataAccess
                 dbConnection = base.CreateConnection();
                 SqlCommand command = base.CreateCommand("hpf_invoice_search", dbConnection);
                 //<Parameter>
-                SqlParameter[] sqlParam = new SqlParameter[3];
+                SqlParameter[] sqlParam = new SqlParameter[4];
                 sqlParam[0] = new SqlParameter("@pi_funding_source_id", searchCriteria.FundingSourceId);
                 sqlParam[1] = new SqlParameter("@pi_start_dt", searchCriteria.PeriodStart);
                 sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.PeriodEnd);
+                sqlParam[3] = new SqlParameter("@pi_includeCancel", searchCriteria.IncludeCancelledInvoice);
 
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);

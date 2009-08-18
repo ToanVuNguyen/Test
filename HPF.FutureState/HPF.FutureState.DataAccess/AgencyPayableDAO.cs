@@ -225,13 +225,14 @@ namespace HPF.FutureState.DataAccess
             AgencyPayableDTOCollection result = new AgencyPayableDTOCollection();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_agency_payable_search", dbConnection);
-            var sqlParam = new SqlParameter[3];
+            var sqlParam = new SqlParameter[4];
             try
             {
 
                 sqlParam[0] = new SqlParameter("@pi_agency_id", agencyPayableCriteria.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_start_dt", agencyPayableCriteria.PeriodStartDate);
                 sqlParam[2] = new SqlParameter("@pi_end_dt", agencyPayableCriteria.PeriodEndDate);
+                sqlParam[3] = new SqlParameter("@pi_includeCancel", agencyPayableCriteria.IncludeCancelledPayable);
                 command.Parameters.AddRange(sqlParam);
                 dbConnection.Open();
                 var reader = command.ExecuteReader();

@@ -40,9 +40,14 @@
         </td>
     </tr>
     <tr>
+        <td align="right" class="sidelinks">
+            Include Cancelled *:</td>
         <td>
-        </td>
-        <td>
+            <asp:DropDownList ID="dropIncludeCancel" runat="server" CssClass="Text" 
+                Width="48px" Height="16px">
+                <asp:ListItem Selected="True" Value="false">No</asp:ListItem>
+                <asp:ListItem Value="true">Yes</asp:ListItem>
+            </asp:DropDownList>
         </td>
         <td class="sidelinks" align="right">
             Period End*:

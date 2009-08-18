@@ -79,6 +79,7 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             defaultSearchCriteria.FundingSourceId = -1;
             defaultSearchCriteria.PeriodStart = DateTime.Today.AddMonths(-6);
             defaultSearchCriteria.PeriodEnd = SetToEndDay(DateTime.Today);
+            defaultSearchCriteria.IncludeCancelledInvoice = false;
             txtPeriodStart.Text = defaultSearchCriteria.PeriodStart.ToShortDateString();
             txtPeriodEnd.Text = defaultSearchCriteria.PeriodEnd.ToShortDateString();
             InvoiceSearch(defaultSearchCriteria);
@@ -104,6 +105,9 @@ namespace HPF.FutureState.Web.AppFundingSourceInvoices
             searchCriteria.PeriodEnd = ConvertToDateTime(txtPeriodEnd.Text);
             if (searchCriteria.PeriodEnd != DateTime.MinValue)
                 searchCriteria.PeriodEnd = SetToEndDay(searchCriteria.PeriodEnd);
+
+            searchCriteria.IncludeCancelledInvoice = bool.Parse(dropIncludeCancel.SelectedValue);
+
             return searchCriteria;
 
         }
