@@ -139,9 +139,12 @@ namespace HPF.FutureState.BusinessLogic
             ASCIIEncoding encoding = new ASCIIEncoding();
             ServicerDTO servicer = GetServer(job.RequestorId);
             HPFPortalCounselingSummary summary = new HPFPortalCounselingSummary();
-            summary.SPFolderName = servicer.SPFolderName;
+
             if (!string.IsNullOrEmpty(job.OutputDestination))
-                summary.SPFolderName += "/" + job.OutputDestination;
+                summary.SPFolderName = job.OutputDestination;
+            else
+                summary.SPFolderName = servicer.SPFolderName;
+
             summary.ReportFile = encoding.GetBytes(xmlbuffer);
             summary.ReportFileName = string.Format("DailySummaryReport_{0}_{1}-{2}-{3}.xml", servicer.ServicerName, job.LastJobEndDate.Month, job.LastJobEndDate.Day, job.LastJobEndDate.Year);
             HPFPortalGateway.SendSummary(summary);
