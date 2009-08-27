@@ -7,10 +7,13 @@ Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "hpf_counseling", "hpf_couns
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "hpf_system", "hpf_system\hpf_system.rptproj", "{EF0217AB-BB97-488F-AA97-878D275A0CA6}"
 EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "hpf_MHA", "hpf_MHA\hpf_MHA.rptproj", "{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Default = Debug|Default
 		DebugLocal|Default = DebugLocal|Default
+		Development|Default = Development|Default
 		Production|Default = Production|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -20,6 +23,9 @@ Global
 		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.DebugLocal|Default.ActiveCfg = DebugLocal
 		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.DebugLocal|Default.Build.0 = DebugLocal
 		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.DebugLocal|Default.Deploy.0 = DebugLocal
+		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.Development|Default.ActiveCfg = DebugLocal
+		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.Development|Default.Build.0 = DebugLocal
+		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.Development|Default.Deploy.0 = DebugLocal
 		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.Production|Default.ActiveCfg = Production
 		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.Production|Default.Build.0 = Production
 		{C5FAF5C1-4E87-4F40-B464-3C3D07D41E38}.Production|Default.Deploy.0 = Production
@@ -29,6 +35,9 @@ Global
 		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.DebugLocal|Default.ActiveCfg = DebugLocal
 		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.DebugLocal|Default.Build.0 = DebugLocal
 		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.DebugLocal|Default.Deploy.0 = DebugLocal
+		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.Development|Default.ActiveCfg = DebugLocal
+		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.Development|Default.Build.0 = DebugLocal
+		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.Development|Default.Deploy.0 = DebugLocal
 		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.Production|Default.ActiveCfg = Production
 		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.Production|Default.Build.0 = Production
 		{49BF1DBA-ED84-4D10-BF86-0A1CB13FBA6D}.Production|Default.Deploy.0 = Production
@@ -38,9 +47,21 @@ Global
 		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.DebugLocal|Default.ActiveCfg = DebugLocal
 		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.DebugLocal|Default.Build.0 = DebugLocal
 		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.DebugLocal|Default.Deploy.0 = DebugLocal
+		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.Development|Default.ActiveCfg = DebugLocal
+		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.Development|Default.Build.0 = DebugLocal
+		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.Development|Default.Deploy.0 = DebugLocal
 		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.Production|Default.ActiveCfg = Production
 		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.Production|Default.Build.0 = Production
 		{EF0217AB-BB97-488F-AA97-878D275A0CA6}.Production|Default.Deploy.0 = Production
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Debug|Default.ActiveCfg = DebugLocal
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Debug|Default.Build.0 = DebugLocal
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.DebugLocal|Default.Build.0 = DebugLocal
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Development|Default.ActiveCfg = DebugLocal
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Development|Default.Build.0 = DebugLocal
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Production|Default.ActiveCfg = Production
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Production|Default.Build.0 = Production
+		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Production|Default.Deploy.0 = Production
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="ds_HPF">
+      <rd:DataSourceID>832120de-ea79-497b-8112-2c3af5cbce59</rd:DataSourceID>
+      <DataSourceReference>ds_HPF</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="pi_from_dt">
+      <DataType>DateTime</DataType>
+      <Prompt>From </Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_to_dt">
+      <DataType>DateTime</DataType>
+      <Prompt>To </Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pi_rollup_name">
+      <DataType>String</DataType>
+      <Prompt>Rollup Name</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>dst_get_rollup_name</DataSetName>
+          <ValueField>rollup_name</ValueField>
+          <LabelField>rollup_name</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <rd:ReportID>50b9fde4-cc1d-4ee1-a490-9c3acfc18655</rd:ReportID>
+  <DataSets>
+    <DataSet Name="dst_get_rollup_name">
+      <Fields>
+        <Field Name="rollup_name">
+          <DataField>rollup_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandText>SELECT DISTINCT rollup_name FROM zip_rollup</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="dst_rpt_Zipcode_Outreach_Report">
+      <Fields>
+        <Field Name="dt">
+          <DataField>dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Zip_grouping">
+          <DataField>Zip_grouping</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dnis_language">
+          <DataField>dnis_language</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cnt">
+          <DataField>cnt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="sort_order">
+          <DataField>sort_order</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>hpf_rpt_Zipcode_Outreach_Report</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@pi_from_dt">
+            <Value>=Parameters!pi_from_dt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_dt">
+            <Value>=Parameters!pi_to_dt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_rollup_name">
+            <Value>=Parameters!pi_rollup_name.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_Total_flag">
+            <Value>=1</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="dst_rpt_Zipcode_Outreach_Report_Total">
+      <Fields>
+        <Field Name="dt">
+          <DataField>dt</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Zip_grouping">
+          <DataField>Zip_grouping</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dnis_language">
+          <DataField>dnis_language</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cnt">
+          <DataField>cnt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="sort_order">
+          <DataField>sort_order</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ds_HPF</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>hpf_rpt_Zipcode_Outreach_Report</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@pi_from_dt">
+            <Value>=Parameters!pi_from_dt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_to_dt">
+            <Value>=Parameters!pi_to_dt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_rollup_name">
+            <Value>=Parameters!pi_rollup_name.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@pi_Total_flag">
+            <Value>=0</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>4.125in</Width>
+  <Body>
+    <ReportItems>
+      <Matrix Name="matrix2">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>0.75in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>4</ZIndex>
+        <DataSetName>dst_rpt_Zipcode_Outreach_Report_Total</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.75in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix2_Zip_grouping">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Zip_grouping.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="Zip_grouping_1">
+                  <rd:DefaultName>Zip_grouping_1</rd:DefaultName>
+                  <Style>
+                    <BackgroundColor>LightSteelBlue</BackgroundColor>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <FontSize>8pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>1</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Zip_grouping.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Top>1.65625in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.1in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix2_dnis_language">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!dt.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="dnis_language">
+                  <rd:DefaultName>dnis_language</rd:DefaultName>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>3</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value />
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+          <ColumnGrouping>
+            <Height>0.1in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix2_ColumnGroup2">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!dnis_language.Value</GroupExpression>
+                  <GroupExpression>=Fields!dt.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="textbox7">
+                  <rd:DefaultName>textbox7</rd:DefaultName>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value />
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>2.5in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox5">
+              <rd:DefaultName>textbox5</rd:DefaultName>
+              <Style>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>4</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.2in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="cnt_1">
+                    <rd:DefaultName>cnt_1</rd:DefaultName>
+                    <Style>
+                      <BackgroundColor>LightSteelBlue</BackgroundColor>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                      </BorderStyle>
+                      <FontSize>8pt</FontSize>
+                      <Format>N0</Format>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=Sum(Fields!cnt.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>0.75in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>3</ZIndex>
+        <DataSetName>dst_rpt_Zipcode_Outreach_Report</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.75in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix1_Zip_grouping">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Zip_grouping.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Subtotal>
+                <ReportItems>
+                  <Textbox Name="textbox9">
+                    <rd:DefaultName>textbox9</rd:DefaultName>
+                    <Style>
+                      <BackgroundColor>Orange</BackgroundColor>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                      </BorderStyle>
+                      <FontSize>8pt</FontSize>
+                      <TextAlign>Left</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Total</Value>
+                  </Textbox>
+                </ReportItems>
+              </Subtotal>
+              <ReportItems>
+                <Textbox Name="Zip_grouping">
+                  <rd:DefaultName>Zip_grouping</rd:DefaultName>
+                  <Style>
+                    <BackgroundColor>= IIF(Fields!Zip_grouping.Value ="Total", "Orange","Transparent")</BackgroundColor>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <FontSize>8pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Zip_grouping.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Visibility>
+          <Hidden>=IIF(DateDiff("d",Parameters!pi_from_dt.Value,Parameters!pi_to_dt.Value) &gt;45, True, False)</Hidden>
+        </Visibility>
+        <Top>0.85in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.2in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix1_dt">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!dt.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="dt">
+                  <rd:DefaultName>dt</rd:DefaultName>
+                  <Style>
+                    <Color>White</Color>
+                    <BackgroundColor>SlateBlue</BackgroundColor>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <Format>d</Format>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>4</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!dt.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+          <ColumnGrouping>
+            <Height>0.2in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix1_ColumnGroup2">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!dnis_language.Value</GroupExpression>
+                  <GroupExpression>=Fields!dt.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="textbox4">
+                  <rd:DefaultName>textbox4</rd:DefaultName>
+                  <Style>
+                    <BackgroundColor>Moccasin</BackgroundColor>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <FontSize>8pt</FontSize>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>3</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=IIF(Fields!dnis_language.Value= "z%In Group", Right(Fields!dnis_language.Value, len(Fields!dnis_language.Value) -1), Fields!dnis_language.Value)</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>2.5in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox3">
+              <rd:DefaultName>textbox3</rd:DefaultName>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+                <FontSize>8pt</FontSize>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>5</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.2in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="cnt">
+                    <rd:DefaultName>cnt</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                      </BorderStyle>
+                      <FontSize>8pt</FontSize>
+                      <Format>=IIF(Fields!dnis_language.Value= "z%In Group", "P2", "N0")</Format>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <ZIndex>1</ZIndex>
+                    <CanGrow>true</CanGrow>
+                    <Value>=Sum(Fields!cnt.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+        <Height>0.8in</Height>
+      </Matrix>
+      <Textbox Name="textbox2">
+        <rd:DefaultName>textbox2</rd:DefaultName>
+        <Top>0.3125in</Top>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=" Zipcode Outreach Report: " &amp; Parameters!pi_rollup_name.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Style>
+          <Color>DarkBlue</Color>
+          <FontSize>16pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.3in</Height>
+        <Value> Zipcode Outreach Report</Value>
+      </Textbox>
+      <Textbox Name="textbox6">
+        <rd:DefaultName>textbox6</rd:DefaultName>
+        <Visibility>
+          <Hidden>=IIF(DateDiff("d",Parameters!pi_from_dt.Value,Parameters!pi_to_dt.Value) &gt;45, False, True)</Hidden>
+        </Visibility>
+        <Top>0.578in</Top>
+        <Style>
+          <Color>Red</Color>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.27in</Height>
+        <Value> ERROR : Date range should not more than 45 days</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>2.05625in</Height>
+  </Body>
+  <Language>en-US</Language>
+</Report>
