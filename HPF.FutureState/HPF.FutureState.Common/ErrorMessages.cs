@@ -272,6 +272,7 @@ namespace HPF.FutureState.Common
         public const string WARN0375 = "WARN0375";
         public const string WARN0450 = "WARN0450";
         public const string WARN0903 = "WARN0903";
+        public const string WARN1100 = "WARN1100";
 
 
         //App foreclosure Case Search
@@ -420,6 +421,8 @@ namespace HPF.FutureState.Common
         public const string ERR0997 = "ERR0997";
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
+        public const string ERR1101 = "ERR1101";
+        public const string ERR1102 = "ERR1102";
 
         public const string ERR1000 = "ERR1000";
         public const string ERR1001 = "ERR1001";
@@ -864,6 +867,11 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1001, "Unable to retrieve summary. The FcId {0} is not a valid foreclosure case ID.");
                 errorMessageDict.Add(ERR1002, "Unable to retrieve summary. The specified summary format is not supported.");
                 errorMessageDict.Add(ERR0399, "The CcCallKey already exists.");
+
+                errorMessageDict.Add(ERR1101, "A Code Set is required to search for Code Items.");
+                errorMessageDict.Add(ERR1102, "A Code Item must be selected in order to edit it.");
+
+                errorMessageDict.Add(WARN1100, "No cases were found that match your search criteria.");
             }
         }
     }

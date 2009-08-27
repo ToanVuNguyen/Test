@@ -120,5 +120,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             return NonProfitReferralDAO.Instance.GetNonProfitReferrals();
         }
+
+        public RefCodeSetDTOCollection GetRefCodeSet()
+        {
+            return RefCodeSettDAO.Instance.GetRefCodeSet();
+        }
     }
 }

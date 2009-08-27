@@ -91,6 +91,9 @@
     <Compile Include="DataTransferObjects\NonProfitReferralDTO.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\RefCodeSearchCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\RefCodeSetDTO.cs" />
+    <Compile Include="DataTransferObjects\RefCodeSetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\SendSummaryServicerCollectionDTO.cs" />
     <Compile Include="DataTransferObjects\SendSummaryServicerDTO.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchRequest.cs" />

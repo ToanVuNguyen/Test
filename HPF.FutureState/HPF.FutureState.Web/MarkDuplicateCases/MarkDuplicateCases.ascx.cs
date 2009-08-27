@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+using HPF.FutureState.Common;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
@@ -21,7 +22,15 @@ namespace HPF.FutureState.Web.MarkDuplicateCases
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ApplySecurity();
+        }
 
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_MARKDUPLICATE_CASES))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
+            }
         }
 
         protected void btnProcess_Click(object sender, EventArgs e)

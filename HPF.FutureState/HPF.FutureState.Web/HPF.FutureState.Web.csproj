@@ -143,6 +143,20 @@
     <Compile Include="AppViewEditInvoice\ViewEditInvoice.ascx.designer.cs">
       <DependentUpon>ViewEditInvoice.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CodeMaintenance\CodeMaintenance.ascx.cs">
+      <DependentUpon>CodeMaintenance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CodeMaintenance\CodeMaintenance.ascx.designer.cs">
+      <DependentUpon>CodeMaintenance.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CodeMaintenance\CodeMaintenanceEdit.ascx.cs">
+      <DependentUpon>CodeMaintenanceEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CodeMaintenance\CodeMaintenanceEdit.ascx.designer.cs">
+      <DependentUpon>CodeMaintenanceEdit.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CreateNewPayable.aspx.cs">
       <DependentUpon>CreateNewPayable.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -433,6 +447,20 @@
     <Compile Include="MarkDuplicateCases.aspx.designer.cs">
       <DependentUpon>MarkDuplicateCases.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CodeMaintenance.aspx.cs">
+      <DependentUpon>CodeMaintenance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CodeMaintenance.aspx.designer.cs">
+      <DependentUpon>CodeMaintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CodeMaintenanceEdit.aspx.cs">
+      <DependentUpon>CodeMaintenanceEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CodeMaintenanceEdit.aspx.designer.cs">
+      <DependentUpon>CodeMaintenanceEdit.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
@@ -442,6 +470,8 @@
     <Content Include="AppNewPayable\ReprintPayable.ascx" />
     <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
     <Content Include="AppViewEditInvoice\ViewEditInvoice.ascx" />
+    <Content Include="CodeMaintenance\CodeMaintenance.ascx" />
+    <Content Include="CodeMaintenance\CodeMaintenanceEdit.ascx" />
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
@@ -509,6 +539,8 @@
     <Content Include="Temp\Description.txt" />
     <Content Include="SendSummaryToServicer.aspx" />
     <Content Include="MarkDuplicateCases.aspx" />
+    <Content Include="CodeMaintenance.aspx" />
+    <Content Include="CodeMaintenanceEdit.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.BusinessLogic\HPF.FutureState.BusinessLogic.csproj">
@@ -542,7 +574,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1559</DevelopmentServerPort>
+          <DevelopmentServerPort>3617</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/HPF.FutureState.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

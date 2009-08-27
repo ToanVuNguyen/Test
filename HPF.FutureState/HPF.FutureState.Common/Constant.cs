@@ -47,6 +47,9 @@ namespace HPF.FutureState.Common
         public const string MENU_ITEM_TARGET_APP_FORECLOSURE_CASE_DETAIL = "ForeclosureCaseInfo.aspx";
         public const string MENU_ITEM_TARGET_APP_AGENCY_PAYABLE_INFO = "AgencyPayableInfo.aspx";
         public const string MENU_ITEM_TARGET_APP_INVOICE_PAYMENT = "InvoicePayment.aspx";
+        public const string MENU_ITEM_TARGET_APP_CODE_MAINTENTANCE = "CodeMaintenance.aspx";
+        public const string MENU_ITEM_TARGET_APP_MARKDUPLICATE_CASES = "MarkDuplicateCases.aspx";
+        public const string MENU_ITEM_TARGET_APP_SEND_SUMMARY_TO_SERVICER = "SendSummaryToServicer.aspx";
         //
         public const string HPF_CACHE_REF_CODE_ITEM = "refCodeItem";
         public const string HPF_CACHE_FUNDING_SOURCE = "FUNDING_SOURCE";
@@ -61,6 +64,7 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_PAYMENT_TYPE = "HPFCACHPAYMENTTYPE";
         public const string HPF_CACHE_HPFUSER = "HPFCACHEHPFUSER";
         public const string HPF_CACHE_NONPROFITREFERRALS = "NONPROFITREFERRALS";
+        public const string HPF_CACHE_REFCODESET = "REFCODESET";
 
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";

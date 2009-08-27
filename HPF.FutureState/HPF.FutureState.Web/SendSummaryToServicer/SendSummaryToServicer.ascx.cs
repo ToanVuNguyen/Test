@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+using HPF.FutureState.Common;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
@@ -22,9 +23,18 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ApplySecurity();
             if (!IsPostBack)
             {
                 Initialize();
+            }
+        }
+
+        private void ApplySecurity()
+        {
+            if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_SEND_SUMMARY_TO_SERVICER))
+            {
+                Response.Redirect("ErrorPage.aspx?CODE=ERR0999");
             }
         }
 
