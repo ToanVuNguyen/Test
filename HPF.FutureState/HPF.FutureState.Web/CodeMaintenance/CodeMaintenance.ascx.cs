@@ -45,22 +45,30 @@ namespace HPF.FutureState.Web.CodeMaintenance
                 btnNewCode.Enabled = false;
             }
         }
+
+        private void LoadRefCodesData(RefCodeItemDTOCollection data)
+        {
+            grvCodeMaintenance.DataSource = data;
+            grvCodeMaintenance.DataBind();                
+        }
         public void SearchRefCodeItems(RefCodeSearchCriteriaDTO criteria)
         {
             try
             {
                 lblErrorMessage.Items.Clear();
-                grvCodeMaintenance.DataSource = RefCodeItemBL.Instance.GetRefCodeItems(criteria);
-                grvCodeMaintenance.DataBind();
+                RefCodeItemDTOCollection results = RefCodeItemBL.Instance.GetRefCodeItems(criteria);
+                LoadRefCodesData(results);
             }
             catch (DataValidationException ex)
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
+                LoadRefCodesData(new RefCodeItemDTOCollection());
             }
             catch (Exception e)
             {
                 lblErrorMessage.Items.Add(e.Message);
+                LoadRefCodesData(new RefCodeItemDTOCollection());
             }
         }
 

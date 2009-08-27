@@ -68,7 +68,7 @@
     <tr>
         <td>
         <asp:Panel CssClass="ScrollTable" ID="myPannel" runat="server"
-                Visible="True" Width="100%">
+                Visible="True" Width="100%" BorderWidth="1" BorderColor="LightGray">
                 <asp:UpdatePanel ID="myupdatepan" runat="server">
                     <ContentTemplate>
                 <asp:GridView ID="grvCodeMaintenance" runat="server" CellPadding="2" ForeColor="#333333"
