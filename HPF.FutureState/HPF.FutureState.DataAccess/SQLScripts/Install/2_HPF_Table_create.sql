@@ -449,7 +449,7 @@ CREATE TABLE call (
   screen_rout VARCHAR(2000)    ,
   final_dispo_cd VARCHAR(15)    ,
   trans_num VARCHAR(12)    ,
-  cc_call_key VARCHAR(18)    NOT NULL UNIQUE,
+  cc_call_key VARCHAR(18)    NOT NULL,
   loan_delinq_status_cd VARCHAR(15)    ,
   selected_counselor VARCHAR(40)    ,
   homeowner_ind VARCHAR(1)    ,
@@ -1072,7 +1072,7 @@ CREATE TABLE [dbo].[batch_job](
 	[job_description] [varchar](100)  NULL,
 	[job_frequency] [varchar](15)  NOT NULL,
 	[job_start_dt] [datetime] NOT NULL,
-	[last_job_end_dt] [datetime] NOT NULL,
+	[job_last_start_dt] [datetime] NOT NULL,
 	[requestor_type] [varchar](20)  NOT NULL,
 	[requestor_id] [int] NOT NULL,
 	[output_format] [varchar](50)  NOT NULL,
@@ -1111,3 +1111,16 @@ GO
 ALTER TABLE [dbo].[batch_job_log]  WITH CHECK ADD  CONSTRAINT [FK_batch_job_log_batch_job] FOREIGN KEY([batch_job_id])
 REFERENCES [dbo].[batch_job] ([batch_job_id])
 GO
+
+CREATE TABLE dnis_language
+( dnis	varchar(10) NOT NULL
+, dnis_language	varchar(10) NOT NULL
+CONSTRAINT dnis_language_PK PRIMARY KEY (dnis)
+)
+GO
+
+CREATE TABLE zip_rollup
+(	zip_code			varchar(9)	NOT NULL	
+	, rollup_name	varchar(50)	NOT NULL
+	CONSTRAINT zip_rollup_PK PRIMARY KEY (zip_code, rollup_name)
+);

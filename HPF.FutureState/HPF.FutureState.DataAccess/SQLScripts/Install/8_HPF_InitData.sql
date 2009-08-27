@@ -4,6 +4,7 @@
 -- Build 
 -- Description:	Insert initial data : ref_code_set, ref_code_item
 --		menu_group, menu_item
+-- 		dnis_language , zip_rollup
 -- =============================================
 
 USE HPF
@@ -552,3 +553,72 @@ INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, i
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (18,1,'Invoice Payments',3,'InvoicePayment.aspx',1);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (19,4,'Send Summaries',1,'SendSummaryToServicer.aspx',1);
 INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (20,4,'Mark Duplicates',2,'MarkDuplicateCases.aspx',1);
+INSERT INTO menu_item (menu_item_id, menu_group_id,item_name, item_sort_order, item_target, visibled)   VALUES (21,4,'Code Maintenance',3,'CodeMaintenance.aspx',1);
+/**************************************************************************/
+insert into dnis_language values('2001','English')
+insert into dnis_language values('2002','Spanish')
+insert into dnis_language values('5461','English')
+insert into dnis_language values('5561','English')
+insert into dnis_language values('5740','Spanish')
+insert into dnis_language values('5741','English')
+insert into dnis_language values('9001','English')
+insert into dnis_language values('7000201','English')
+insert into dnis_language values('7000202','Spanish')
+insert into dnis_language values('7040201','English')
+insert into dnis_language values('7200201','English')
+insert into dnis_language values('7200202','Spanish')
+insert into dnis_language values('7040202','Spanish')
+GO
+insert into zip_rollup values('95608','Sacramento')
+insert into zip_rollup values('95610','Sacramento')
+insert into zip_rollup values('95615','Sacramento')
+insert into zip_rollup values('95621','Sacramento')
+insert into zip_rollup values('95624','Sacramento')
+insert into zip_rollup values('95626','Sacramento')
+insert into zip_rollup values('95628','Sacramento')
+insert into zip_rollup values('95630','Sacramento')
+insert into zip_rollup values('95632','Sacramento')
+insert into zip_rollup values('95638','Sacramento')
+insert into zip_rollup values('95641','Sacramento')
+insert into zip_rollup values('95652','Sacramento')
+insert into zip_rollup values('95655','Sacramento')
+insert into zip_rollup values('95660','Sacramento')
+insert into zip_rollup values('95662','Sacramento')
+insert into zip_rollup values('95670','Sacramento')
+insert into zip_rollup values('95673','Sacramento')
+insert into zip_rollup values('95683','Sacramento')
+insert into zip_rollup values('95690','Sacramento')
+insert into zip_rollup values('95693','Sacramento')
+insert into zip_rollup values('95742','Sacramento')
+insert into zip_rollup values('95757','Sacramento')
+insert into zip_rollup values('95758','Sacramento')
+insert into zip_rollup values('95814','Sacramento')
+insert into zip_rollup values('95815','Sacramento')
+insert into zip_rollup values('95816','Sacramento')
+insert into zip_rollup values('95817','Sacramento')
+insert into zip_rollup values('95818','Sacramento')
+insert into zip_rollup values('95819','Sacramento')
+insert into zip_rollup values('95820','Sacramento')
+insert into zip_rollup values('95821','Sacramento')
+insert into zip_rollup values('95822','Sacramento')
+insert into zip_rollup values('95823','Sacramento')
+insert into zip_rollup values('95824','Sacramento')
+insert into zip_rollup values('95825','Sacramento')
+insert into zip_rollup values('95826','Sacramento')
+insert into zip_rollup values('95827','Sacramento')
+insert into zip_rollup values('95828','Sacramento')
+insert into zip_rollup values('95829','Sacramento')
+insert into zip_rollup values('95830','Sacramento')
+insert into zip_rollup values('95831','Sacramento')
+insert into zip_rollup values('95832','Sacramento')
+insert into zip_rollup values('95833','Sacramento')
+insert into zip_rollup values('95834','Sacramento')
+insert into zip_rollup values('95835','Sacramento')
+insert into zip_rollup values('95836','Sacramento')
+insert into zip_rollup values('95837','Sacramento')
+insert into zip_rollup values('95838','Sacramento')
+insert into zip_rollup values('95841','Sacramento')
+insert into zip_rollup values('95842','Sacramento')
+insert into zip_rollup values('95843','Sacramento')
+insert into zip_rollup values('95864','Sacramento')
+GO
