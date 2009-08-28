@@ -871,7 +871,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1101, "A Code Set is required to search for Code Items.");
                 errorMessageDict.Add(ERR1102, "A Code Item must be selected in order to edit it.");
 
-                errorMessageDict.Add(WARN1100, "No cases were found that match your search criteria.");
+                errorMessageDict.Add(WARN1100, "No codes were found that match your search criteria.");
             }
         }
     }

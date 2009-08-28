@@ -30,7 +30,7 @@ namespace HPF.FutureState.Web.CodeMaintenance
                 dropCodeSet.DataSource = LookupDataBL.Instance.GetRefCodeSet();
                 dropCodeSet.DataTextField = "RefCodeSetName";
                 dropCodeSet.DataBind();
-                dropCodeSet.Items.Insert(0, "");                
+                dropCodeSet.Items.Insert(0, "All");                
             }
         }
 
