@@ -149,5 +149,23 @@ namespace HPF.SharePointAPI {
                 return ((string)(this["FannieMaeWeeklyReport"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CounselorWeeklyList")]
+        public string CounselorWeeklyList {
+            get {
+                return ((string)(this["CounselorWeeklyList"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
+        public string CounselorWeeklyLoginName {
+            get {
+                return ((string)(this["CounselorWeeklyLoginName"]));
+            }
+        }
     }
 }

@@ -324,6 +324,43 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-        }  
+        }
+
+        public CounselorDTOCollection GenerateCounsorList(BatchJobDTO batchJob)
+        {
+            CounselorDTOCollection results = new CounselorDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_counselor_generate_list_get", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_startDt", batchJob.JobStartDate.AddDays(1));            
+
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    CounselorDTO counselor = new CounselorDTO();
+                    counselor.AgencyName = ConvertToString(reader["agency_name"]);
+                    counselor.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                    counselor.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                    counselor.counselorFirstName = ConvertToString(reader["counselor_fname"]);
+                    counselor.CounselorLastName = ConvertToString(reader["counselor_lname"]);
+                    counselor.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                    results.Add(counselor);
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return results;
+        }
     }
 }

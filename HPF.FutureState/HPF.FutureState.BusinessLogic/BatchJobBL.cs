@@ -40,16 +40,15 @@ namespace HPF.FutureState.BusinessLogic
             int rowCount = 0;
             foreach (BatchJobDTO job in batchJobs)
             {
-                if (!DetermineTodayBatchJob(job)) continue;
-                
-                if(!job.OutputFormat.Equals("XML"))
-                    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Repport format [" + job.OutputFormat + "] is not supported in batch job now." + job.JobName), job.BatchJobId.ToString(), "ProcessBatchJobs");
+                if (!DetermineTodayBatchJob(job)) continue;                                
 
                 if (job.JobName.Equals(Constant.SERVICER_DAILY_SUMMARY))
-                    rowCount = GenerateServicerDailySummary(job);
+                   rowCount = GenerateServicerDailySummary(job);
                 else if (job.JobName.Equals(Constant.FANNIE_MAE_WEEKLY_REPORT))
-                    rowCount = GenerateFannieMaeWeeklyReport(job);
-                else 
+                   rowCount = GenerateFannieMaeWeeklyReport(job);
+                else if (job.JobName.Equals(Constant.COUNSELOR_LIST_GENERATION))
+                    rowCount = GenerateCounsorList(job);
+                else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
                 
                 InsertBatchJobLog(job, rowCount, Status.SUCCESS);
@@ -193,6 +192,22 @@ namespace HPF.FutureState.BusinessLogic
             BatchJobDAO.Instance.UpdateBatchJobStartAndLastRunDates(batchJob);
         }
 
+        private int GenerateCounsorList(BatchJobDTO batchJob)
+        {
+            try
+            {
+                HPFPortalCounselor hpfCounselor = new HPFPortalCounselor();
+                hpfCounselor.SPFolderName = batchJob.OutputDestination;
+                hpfCounselor.Counselors = BatchJobDAO.Instance.GenerateCounsorList(batchJob);
+                HPFPortalGateway.GenerateCouncelorList(hpfCounselor);
+                return hpfCounselor.Counselors.Count;
+            }
+            catch (Exception ex)
+            {
+                InsertBatchJobLog(batchJob, 0, Status.FAIL);
+                throw ex;
+            }
+        }
         private ServicerDTO GetServer(int servicerId)
         {
             return LookupDataBL.Instance.GetServicers().GetServicerById(servicerId);

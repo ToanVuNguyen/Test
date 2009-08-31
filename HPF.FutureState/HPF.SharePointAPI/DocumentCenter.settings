@@ -44,5 +44,11 @@
     <Setting Name="FannieMaeWeeklyReport" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MHARawData</Value>
     </Setting>
+    <Setting Name="CounselorWeeklyList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CounselorWeeklyList</Value>
+    </Setting>
+    <Setting Name="CounselorWeeklyLoginName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">serverimage\Administrator</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

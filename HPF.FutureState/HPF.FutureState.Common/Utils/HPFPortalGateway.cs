@@ -5,7 +5,7 @@ using System.Text;
 using HPF.SharePointAPI.BusinessEntity;
 using HPF.SharePointAPI.Controllers;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
-
+using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.Common.Utils
 {
@@ -91,6 +91,26 @@ namespace HPF.FutureState.Common.Utils
             var result = DocumentCenterController.Upload(NewAgencyPayableInfo, spFolderName);
             if (!result.Successful)
                 Logger.Write(result.Error.Message, "General");
+        }
+
+        public static void GenerateCouncelorList(HPFPortalCounselor hpfCounselor)
+        {
+            List<CounselorInfo> counselorList = new List<CounselorInfo>();
+            foreach (CounselorDTO counsorlor in hpfCounselor.Counselors)
+            {
+                CounselorInfo info = new CounselorInfo();
+                info.AgencyName = counsorlor.AgencyName;
+                info.CounselorEmail = counsorlor.CounselorEmail;
+                info.CounselorExt = counsorlor.CounselorExt;
+                info.counselorFirstName = counsorlor.counselorFirstName;
+                info.CounselorLastName = counsorlor.CounselorLastName;
+                info.CounselorPhone = counsorlor.CounselorPhone;
+                info.Title = counsorlor.counselorFirstName + " " + counsorlor.CounselorLastName;
+
+                counselorList.Add(info);
+            }
+
+            DocumentCenterController.GenerateWeeklyCounselorList(counselorList, hpfCounselor.SPFolderName); 
         }
     }
 }

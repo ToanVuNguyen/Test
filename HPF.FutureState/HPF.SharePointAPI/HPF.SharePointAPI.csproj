@@ -41,12 +41,15 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessEntity\AgencyPayableInfo.cs" />
     <Compile Include="BusinessEntity\BaseObject.cs" />
+    <Compile Include="BusinessEntity\CounselorInfo.cs" />
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
     <Compile Include="BusinessEntity\FannieMaeInfo.cs" />
     <Compile Include="BusinessEntity\InvoiceInfo.cs" />
@@ -60,6 +63,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>CounselingSummary.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ContentTypes\Counselor.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Counselor.settings</DependentUpon>
     </Compile>
     <Compile Include="ContentTypes\FannieMae.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -88,6 +96,10 @@
     <None Include="ContentTypes\CounselingSummary.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>CounselingSummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ContentTypes\Counselor.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Counselor.Designer.cs</LastGenOutput>
     </None>
     <None Include="ContentTypes\FannieMae.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
