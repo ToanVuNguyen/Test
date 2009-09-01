@@ -20,35 +20,32 @@ namespace HPF.SharePointAPI.Controllers
             SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.CounselorWeeklyLoginName);
 
             using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
-            {
-                SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];
+            {                
+                SPWeb web = site.OpenWeb();             
                 web.AllowUnsafeUpdates = true;
-                SPList docLib = web.Lists[DocumentCenter.Default.CounselorWeeklyList];
+                SPList docLib = web.Lists[DocumentCenter.Default.CounselorWeeklyList];                
                 SPListItemCollection listItems = docLib.Items;
-                if (!string.IsNullOrEmpty(spFolderName))
-                {
-                    //GET FOLDER
-                }
+                
                 for (int i = listItems.Count - 1; i >= 0; i--)
                     listItems.Delete(i);
 
                 foreach (CounselorInfo counselor in counselorInfoList)
-                {
+                {                    
                     SPListItem item = listItems.Add();
-                    //item[Counselor.Default.Title] = counselor.Title;
+                    item[Counselor.Default.Title] = counselor.Title;
                     item[Counselor.Default.AgencyName] = counselor.AgencyName;
                     item[Counselor.Default.CounselorEmail] = counselor.CounselorEmail;
                     item[Counselor.Default.CounselorExt] = counselor.CounselorExt;
                     item[Counselor.Default.CounselorFirstName] = counselor.counselorFirstName;
                     item[Counselor.Default.CounselorLastName] = counselor.CounselorLastName;
                     item[Counselor.Default.CounselorPhone] = counselor.CounselorPhone;
-                    item.Update();                    
+                    item.Update();                 
                 }
             }
         }
        
         #endregion
-
+        
         #region "counseling Summary"
         public static IList<ResultInfo<FannieMaeInfo>> Upload(IList<FannieMaeInfo> fannieMaeInfoList, string spFolderName)
         {

@@ -34,7 +34,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Counselor Last Name")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Last Name")]
         public string CounselorLastName {
             get {
                 return ((string)(this["CounselorLastName"]));
@@ -43,7 +43,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Counselor First Name")]
+        [global::System.Configuration.DefaultSettingValueAttribute("First Name")]
         public string CounselorFirstName {
             get {
                 return ((string)(this["CounselorFirstName"]));
@@ -52,7 +52,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Counselor Phone")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Primary Phone")]
         public string CounselorPhone {
             get {
                 return ((string)(this["CounselorPhone"]));
@@ -61,7 +61,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Counselor Ext")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Phone Extension")]
         public string CounselorExt {
             get {
                 return ((string)(this["CounselorExt"]));
@@ -70,7 +70,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Counselor Email")]
+        [global::System.Configuration.DefaultSettingValueAttribute("E-Mail")]
         public string CounselorEmail {
             get {
                 return ((string)(this["CounselorEmail"]));
