@@ -89,6 +89,11 @@ namespace HPF.FutureState.BusinessLogic
         {            
             //<Prepare data>
             var foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_id);
+            if (foreclosureCase == null)
+            {
+                Exception ex = new Exception("Database error: Invalid fc ID " + fc_id);
+                throw ExceptionProcessor.GetHpfException(ex, foreclosureCase.FcId.ToString(), "SummaryReportBL.SendCompletedCaseSummary");
+            }
             var caseLoan = GetCaseLoans1St(fc_id);
             var primaryServicer = ServicerBL.Instance.GetServicer(caseLoan.ServicerId.Value);
             //var primaryServicer = servicers.GetServicerById(caseLoan.ServicerId);
@@ -199,9 +204,8 @@ namespace HPF.FutureState.BusinessLogic
                 var caseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fc_id);
                 return caseLoans.SingleOrDefault(i => i.Loan1st2nd.ToUpper() == Constant.LOAN_1ST);
             }
-            catch
-            {
-                Exception ex = new Exception("Database Error: There are two case loans or more have 1ST for FC ID " + fc_id.Value);                
+            catch(Exception ex)
+            {                
                 throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), "SummaryReportBL.GetCaseLoans1St");
             }
         }
