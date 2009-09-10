@@ -1113,8 +1113,14 @@ REFERENCES [dbo].[batch_job] ([batch_job_id])
 GO
 
 CREATE TABLE dnis_language
-( dnis	varchar(10) NOT NULL
-, dnis_language	varchar(10) NOT NULL
+( dnis	varchar(10) NOT NULL,
+ dnis_language	varchar(10) NOT NULL,
+  create_dt DATETIME  NOT NULL  ,
+  create_user_id VARCHAR(30)  NOT NULL  ,
+  create_app_name VARCHAR(20)  NOT NULL  ,
+  chg_lst_dt DATETIME  NOT NULL  ,
+  chg_lst_user_id VARCHAR(30)  NOT NULL  ,
+  chg_lst_app_name VARCHAR(20)  NOT NULL    ,
 CONSTRAINT dnis_language_PK PRIMARY KEY (dnis)
 )
 GO
@@ -1122,5 +1128,11 @@ GO
 CREATE TABLE zip_rollup
 (	zip_code			varchar(9)	NOT NULL	
 	, rollup_name	varchar(50)	NOT NULL
-	CONSTRAINT zip_rollup_PK PRIMARY KEY (zip_code, rollup_name)
+,  create_dt DATETIME  NOT NULL  
+,  create_user_id VARCHAR(30)  NOT NULL  
+,  create_app_name VARCHAR(20)  NOT NULL  
+,  chg_lst_dt DATETIME  NOT NULL  
+,  chg_lst_user_id VARCHAR(30)  NOT NULL  
+,  chg_lst_app_name VARCHAR(20)  NOT NULL    
+,	CONSTRAINT zip_rollup_PK PRIMARY KEY (zip_code, rollup_name)
 );
