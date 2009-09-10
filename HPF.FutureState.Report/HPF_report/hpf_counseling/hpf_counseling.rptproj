@@ -19,6 +19,10 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_Borrower Comments.rdl</Name>
+      <FullPath>rpt_Borrower Comments.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_CaseFundingSourceSummary.rdl</Name>
       <FullPath>rpt_CaseFundingSourceSummary.rdl</FullPath>
     </ProjectItem>
@@ -91,8 +95,8 @@
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_Borrower Comments.rdl</Name>
-      <FullPath>rpt_Borrower Comments.rdl</FullPath>
+      <Name>rpt_Congressional_District_Report.rdl</Name>
+      <FullPath>rpt_Congressional_District_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

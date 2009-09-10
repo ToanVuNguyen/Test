@@ -21,6 +21,10 @@
       <Name>rpt_UnbilledCaseReport.rdl</Name>
       <FullPath>rpt_UnbilledCaseReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_UnpaidCaseReport.rdl</Name>
+      <FullPath>rpt_UnpaidCaseReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
