@@ -265,7 +265,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[104];
+                var sqlParam = new SqlParameter[106];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -369,13 +369,15 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[100] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
                 sqlParam[101] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
                 sqlParam[102] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
-                sqlParam[103] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
+                sqlParam[103] = new SqlParameter("@pi_never_bill_reason_cd", foreclosureCase.NeverBillReasonCd);
+                sqlParam[104] = new SqlParameter("@pi_never_pay_reason_cd", foreclosureCase.NeverPayReasonCd);
+                sqlParam[105] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
                 command.Transaction = this.trans;            
                 command.ExecuteNonQuery();                
-                foreclosureCase.FcId = ConvertToInt(sqlParam[103].Value);
+                foreclosureCase.FcId = ConvertToInt(sqlParam[105].Value);
             }
             catch (Exception Ex)
             {                

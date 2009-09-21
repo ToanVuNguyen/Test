@@ -6,6 +6,9 @@ namespace HPF.FutureState.Common
         public const int PAYMENT_COMMENT_MAX_LENGTH = 300;
         public const int PAYMENT_NUMBER_MAX_LENGTH = 30;
         public const int PAYMENT_FILE_NAME_MAX_LENGTH = 300;
+        public const int AGENCY_MMI_ID = 17081;
+        public const int PROGRAM_ESCALATION_ID = 2001;
+
         public const string LOAN_1ST = "1ST";
         public const string INCOME = "INC";
         public const string EXPENSES = "EXP";        
@@ -27,6 +30,8 @@ namespace HPF.FutureState.Common
         public const string NEVER_PAY_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPE = "DUPE";
         public const string NEVER_BILL_REASON_CODE_DUPEMAN = "DUPEMAN";
+        public const string ESCALATION_PARTIAL_CODE_DUPE = "DUPEESCP";
+        public const string ESCALATION_COMPLETE_CODE_DUPE = "DUPEESCC";
         public const string FOLLOW_UP_CD_CREDIT_REPORT = "CREDITREPORT";
         public const string SECURE_DELIVERY_METHOD_NOSEND = "NOSEND";
         public const string SECURE_DELIVERY_METHOD_PORTAL = "PORTAL";
@@ -123,5 +128,6 @@ namespace HPF.FutureState.Common
         public const string SERVICER_DAILY_SUMMARY = "Servicer Daily Summary";
         public const string FANNIE_MAE_WEEKLY_REPORT = "Fannie Mae Weekly Report";
         public const string COUNSELOR_LIST_GENERATION = "Counselor List Generation";
+
     }
 }

@@ -411,15 +411,35 @@ namespace HPF.FutureState.BusinessLogic
 
         private int? ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
-            if (collection.Count > 0)
-            {
-                ThrowDuplicateCaseException(collection);
-            }
-            foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_NO;
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
+
+            DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
+            foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_NO;
+
+            if (collection.Count > 0)//duplicate cases found
+            {                
+                if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
+                    && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
+                { //If MMI agency submit then we do not raise duplicate errors
+                    foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_YES;
+                    if (WarningMessage.Count == 0)//Completed case: does not have any warning messages
+                    {
+                        foreclosureCaseSet.ForeclosureCase.NeverBillReasonCd = Constant.ESCALATION_COMPLETE_CODE_DUPE;
+                        foreclosureCaseSet.ForeclosureCase.NeverPayReasonCd = Constant.ESCALATION_COMPLETE_CODE_DUPE;
+                    }
+                    else //partail case
+                    {
+                        foreclosureCaseSet.ForeclosureCase.NeverBillReasonCd = Constant.ESCALATION_PARTIAL_CODE_DUPE;
+                        foreclosureCaseSet.ForeclosureCase.NeverPayReasonCd = Constant.ESCALATION_PARTIAL_CODE_DUPE;                        
+                    }
+                }                
+                else
+                    ThrowDuplicateCaseException(collection);
+
+            }
+                       
             return InsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
