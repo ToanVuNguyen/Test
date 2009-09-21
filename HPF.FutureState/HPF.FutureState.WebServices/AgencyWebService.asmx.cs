@@ -392,7 +392,7 @@ namespace HPF.FutureState.WebServices
                 ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.FCId);
                 if (fc == null)
                     ex.AddExceptionMessage(ErrorMessages.ERR1001, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1001, request.FCId));
-                else if (fc.AgencyId != CurrentAgencyID.Value)
+                else if (fc.AgencyId != CurrentAgencyID.Value && CurrentAgencyID.Value != Constant.AGENCY_MMI_ID)
                     ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
             }
             
