@@ -12,6 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanNumber { get; set; }
         public int? AgencyID { get; set; }
         public int? FcID { get; set; }
+        public DateTime? FcCompletedDt { get; set; }
         public int? ServicerID { get; set; }
         public string ServicerName { get; set; }
         public string BorrowerFirstName { get; set; }

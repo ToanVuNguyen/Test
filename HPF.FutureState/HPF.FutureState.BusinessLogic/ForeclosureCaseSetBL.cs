@@ -31,6 +31,7 @@ namespace HPF.FutureState.BusinessLogic
         private bool IsFirstTimeCaseCompleted;        
         //
         ForeclosureCaseSetDTO FCaseSetFromDB = new ForeclosureCaseSetDTO();
+        DuplicatedCaseLoanDTOCollection dupeCaseLoans = new DuplicatedCaseLoanDTOCollection();
 
         public ExceptionMessageCollection WarningMessage { get; private set; } 
     
@@ -415,28 +416,33 @@ namespace HPF.FutureState.BusinessLogic
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
 
-            DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
+            dupeCaseLoans = GetDuplicateCases(foreclosureCaseSet);
             foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_NO;
 
-            if (collection.Count > 0)//duplicate cases found
+            if (dupeCaseLoans.Count > 0)//duplicate cases found
             {                
                 if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
                     && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
                 { //If MMI agency submit then we do not raise duplicate errors
-                    foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_YES;
-                    if (WarningMessage.Count == 0)//Completed case: does not have any warning messages
+                    bool existFCIsCompleted = false;
+                    foreach(DuplicatedCaseLoanDTO dupcase in dupeCaseLoans )
                     {
+                        if (dupcase.FcCompletedDt != null)
+                        {
+                            existFCIsCompleted = true;
+                            break;
+                        }
+                    }
+                    
+                    if (existFCIsCompleted)//Existed dupe case is Completed case
+                    {//#BUG-432: CASE 2
+                        foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_YES;
                         foreclosureCaseSet.ForeclosureCase.NeverBillReasonCd = Constant.ESCALATION_COMPLETE_CODE_DUPE;
                         foreclosureCaseSet.ForeclosureCase.NeverPayReasonCd = Constant.ESCALATION_COMPLETE_CODE_DUPE;
-                    }
-                    else //partail case
-                    {
-                        foreclosureCaseSet.ForeclosureCase.NeverBillReasonCd = Constant.ESCALATION_PARTIAL_CODE_DUPE;
-                        foreclosureCaseSet.ForeclosureCase.NeverPayReasonCd = Constant.ESCALATION_PARTIAL_CODE_DUPE;                        
-                    }
+                    }                    
                 }                
                 else
-                    ThrowDuplicateCaseException(collection);
+                    ThrowDuplicateCaseException(dupeCaseLoans);
 
             }
                        
@@ -1249,7 +1255,22 @@ namespace HPF.FutureState.BusinessLogic
 
                 //Insert table Budget Asset
                 InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
-                //                
+                //            
+                if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
+                    && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
+                { //#BUG-432: CASE 1: mark partial cases DUPEESCP
+                    string fcIds = "";
+                    foreach (DuplicatedCaseLoanDTO dupCaseLoan in dupeCaseLoans)
+                    {
+                        if (fcIds.Length > 0)
+                            fcIds += "," + dupCaseLoan.FcID.Value;
+                        else
+                            fcIds += dupCaseLoan.FcID.Value;
+                    }
+                    if (fcIds.Length > 0)//Update the dupe cases if duplicated cases found
+                        foreclosureCaseSetDAO.MarkDuplicateCases(fcIds, foreclosureCase.CreateUserId, Constant.DUPLICATE_YES, Constant.ESCALATION_PARTIAL_CODE_DUPE, Constant.ESCALATION_PARTIAL_CODE_DUPE);
+
+                }  
                 CompleteTransaction();
             }
             catch(Exception ex)

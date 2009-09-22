@@ -1014,6 +1014,7 @@ namespace HPF.FutureState.DataAccess
                         DuplicatedCaseLoanDTO obj = new DuplicatedCaseLoanDTO();
                         obj.LoanNumber = ConvertToString(reader["Acct_num"]);
                         obj.FcID = ConvertToInt(reader["FC_ID"]);
+                        obj.FcCompletedDt = ConvertToDateTime(reader["Completed_dt"]);
                         obj.ServicerID = ConvertToInt(reader["Servicer_ID"]);
                         obj.AgencyCaseNumber = ConvertToString(reader["Agency_Case_Num"]);
                         obj.AgencyName = ConvertToString(reader["Agency_Name"]);
@@ -1136,6 +1137,37 @@ namespace HPF.FutureState.DataAccess
             }
 
             return result;
+        }
+
+        public int MarkDuplicateCases(string fcIdList, string updateUser, string dupeInd, string neverBillCd, string neverPayCd)
+        {
+            int rowCount = 0;            
+            var command = CreateSPCommand("hpf_foreclosure_case_mark_duplicate", this.dbConnection);
+            var sqlParam = new SqlParameter[8];
+
+            sqlParam[0] = new SqlParameter("@pi_fc_id_list", fcIdList);
+            sqlParam[1] = new SqlParameter("@pi_duplicate_ind", dupeInd);
+            sqlParam[2] = new SqlParameter("@pi_never_bill_reason_cd", neverBillCd);
+            sqlParam[3] = new SqlParameter("@pi_never_pay_reason_cd", neverPayCd);
+            sqlParam[4] = new SqlParameter("@pi_change_app_name", HPFConfigurationSettings.HPF_APPLICATION_NAME);
+            sqlParam[5] = new SqlParameter("@pi_change_user_id", updateUser);
+            sqlParam[6] = new SqlParameter("@pi_update_partial_case", true);
+            sqlParam[7] = new SqlParameter("@po_row_count", SqlDbType.Int) { Direction = ParameterDirection.Output };
+
+            try
+            {
+                command.Parameters.AddRange(sqlParam);                
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans; 
+                command.ExecuteNonQuery();
+                rowCount = ConvertToInt(sqlParam[7].Value).Value;
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }            
+
+            return rowCount;
         }
     }
 }
