@@ -396,7 +396,7 @@ namespace HPF.FutureState.BusinessLogic
                 fcCase.NeverPayReasonCd = Constant.NEVER_PAY_REASON_CODE_DUPE;
                 WarningMessage.Add(CreateDuplicateCaseWarning(collection));
             }
-            else if (fcCase.DuplicateInd.Equals(Constant.DUPLICATE_YES))
+            else if (collection.Count == 0 && fcCase.DuplicateInd.Equals(Constant.DUPLICATE_YES))
             {
                 if (string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) || !dbFcCase.NeverBillReasonCd.Equals(Constant.NEVER_BILL_REASON_CODE_DUPEMAN))
                 {
