@@ -389,7 +389,7 @@ namespace HPF.FutureState.BusinessLogic
             fcCase.DuplicateInd = dbFcCase.DuplicateInd;
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
             fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
-            if (collection.Count > 0)
+            if (collection.Count > 0 && fcCase.DuplicateInd == Constant.DUPLICATE_NO)
             {
                 fcCase.DuplicateInd = Constant.DUPLICATE_YES;
                 fcCase.NeverBillReasonCd = Constant.NEVER_BILL_REASON_CODE_DUPE;
@@ -400,11 +400,9 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) || !dbFcCase.NeverBillReasonCd.Equals(Constant.NEVER_BILL_REASON_CODE_DUPEMAN))
                 {
-                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;
-                    if (!string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) && dbFcCase.NeverBillReasonCd.ToUpper().Equals(Constant.NEVER_BILL_REASON_CODE_DUPE))
-                        fcCase.NeverBillReasonCd = null;
-                    if (!string.IsNullOrEmpty(dbFcCase.NeverPayReasonCd) && dbFcCase.NeverPayReasonCd.ToUpper().Equals(Constant.NEVER_PAY_REASON_CODE_DUPE))
-                        fcCase.NeverPayReasonCd = null;
+                    fcCase.DuplicateInd = Constant.DUPLICATE_NO;                    
+                    fcCase.NeverBillReasonCd = null;                    
+                    fcCase.NeverPayReasonCd = null;
                 }
             }
             return UpdateForeclosureCaseSet(foreclosureCaseSet);
