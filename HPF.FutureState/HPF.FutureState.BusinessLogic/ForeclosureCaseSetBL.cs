@@ -382,21 +382,46 @@ namespace HPF.FutureState.BusinessLogic
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);
             //
-            DuplicatedCaseLoanDTOCollection collection = GetDuplicateCases(foreclosureCaseSet);
+            dupeCaseLoans = GetDuplicateCases(foreclosureCaseSet);
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
             ForeclosureCaseDTO dbFcCase = FCaseSetFromDB.ForeclosureCase;
             fcCase.DuplicateInd = dbFcCase.DuplicateInd;
             fcCase.NeverPayReasonCd = dbFcCase.NeverPayReasonCd;
             fcCase.NeverBillReasonCd = dbFcCase.NeverBillReasonCd;
-            if (collection.Count > 0 && fcCase.DuplicateInd == Constant.DUPLICATE_NO)
+            if (dupeCaseLoans.Count > 0 && fcCase.DuplicateInd == Constant.DUPLICATE_NO)
             {
-                fcCase.DuplicateInd = Constant.DUPLICATE_YES;
+                fcCase.DuplicateInd = Constant.DUPLICATE_YES;                
                 fcCase.NeverBillReasonCd = Constant.NEVER_BILL_REASON_CODE_DUPE;
                 fcCase.NeverPayReasonCd = Constant.NEVER_PAY_REASON_CODE_DUPE;
-                WarningMessage.Add(CreateDuplicateCaseWarning(collection));
+                if (fcCase.AgencyId == Constant.AGENCY_MMI_ID && fcCase.ProgramId == Constant.PROGRAM_ESCALATION_ID)
+                {
+                    bool existFCIsCompleted = false;
+                    foreach (DuplicatedCaseLoanDTO dupcase in dupeCaseLoans)
+                    {
+                        if (dupcase.FcCompletedDt != null)
+                        {
+                            existFCIsCompleted = true;
+                            break;
+                        }
+                    }
+
+                    if (existFCIsCompleted)//Existed dupe case is Completed case
+                    {//#BUG-432: CASE 2       
+                        fcCase.DuplicateInd = Constant.DUPLICATE_YES;
+                        fcCase.NeverBillReasonCd = Constant.ESCALATION_COMPLETE_CODE_DUPE;
+                        fcCase.NeverPayReasonCd = Constant.ESCALATION_COMPLETE_CODE_DUPE;
+                    }
+                    else
+                    {
+                        fcCase.DuplicateInd = Constant.DUPLICATE_NO;
+                        fcCase.NeverBillReasonCd = null;
+                        fcCase.NeverPayReasonCd = null;
+                    }
+                }
+                WarningMessage.Add(CreateDuplicateCaseWarning(dupeCaseLoans));
             }
-            else if (collection.Count == 0 && fcCase.DuplicateInd.Equals(Constant.DUPLICATE_YES))
+            else if (dupeCaseLoans.Count == 0 && fcCase.DuplicateInd.Equals(Constant.DUPLICATE_YES))
             {
                 if (string.IsNullOrEmpty(dbFcCase.NeverBillReasonCd) || !dbFcCase.NeverBillReasonCd.Equals(Constant.NEVER_BILL_REASON_CODE_DUPEMAN))
                 {
@@ -1194,6 +1219,20 @@ namespace HPF.FutureState.BusinessLogic
                 InsertCaseLoan(foreclosureCaseSetDAO, caseLoanInsertCollecion, fcId);
                 //                               
 
+                if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
+                    && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
+                { //#BUG-432: CASE 1: mark partial cases DUPEESCP
+                    string fcIds = "";
+                    foreach (DuplicatedCaseLoanDTO dupCaseLoan in dupeCaseLoans)
+                    {
+                        if (fcIds.Length > 0)
+                            fcIds += "," + dupCaseLoan.FcID.Value;
+                        else
+                            fcIds += dupCaseLoan.FcID.Value;
+                    }
+                    if (fcIds.Length > 0)//Update the dupe cases if duplicated cases found
+                        foreclosureCaseSetDAO.MarkDuplicateCases(fcIds, foreclosureCase.ChangeLastUserId, Constant.DUPLICATE_YES, Constant.ESCALATION_PARTIAL_CODE_DUPE, Constant.ESCALATION_PARTIAL_CODE_DUPE);
+                }  
                 CompleteTransaction();
             }
             catch
