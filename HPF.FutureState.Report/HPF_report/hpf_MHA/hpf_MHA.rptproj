@@ -12,6 +12,10 @@
       <Name>rpt_Zipcode_Outreach_Report.rdl</Name>
       <FullPath>rpt_Zipcode_Outreach_Report.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_ICT_Escalation_Calls .rdl</Name>
+      <FullPath>rpt_ICT_Escalation_Calls .rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
