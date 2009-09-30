@@ -362,5 +362,68 @@ namespace HPF.FutureState.DataAccess
 
             return results;
         }
+
+        public void ImportMHAEscalationData(MHAEscalationDTOCollecion mhaEscaltions)
+        {
+            SqlConnection dbConnection;
+            SqlTransaction trans;
+
+            try
+            {
+                dbConnection = CreateConnection();
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+                var Deletecmd = CreateSPCommand("Delete from mha_escalation", dbConnection);
+                Deletecmd.CommandType = CommandType.Text;
+                Deletecmd.Transaction = trans;
+                Deletecmd.ExecuteNonQuery();
+                foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
+                {
+                    var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
+                    var sqlParam = new SqlParameter[24];
+                    sqlParam[0] = new SqlParameter("@pi_created_dt", mhaEscaltion.CreatedDt);
+                    sqlParam[1] = new SqlParameter("@pi_borrower_lname", mhaEscaltion.BorrowerLname);
+                    sqlParam[2] = new SqlParameter("@pi_borrower_fname", mhaEscaltion.BorrowerFname);
+                    sqlParam[3] = new SqlParameter("@pi_acct_num", mhaEscaltion.AcctNum);
+                    sqlParam[4] = new SqlParameter("@pi_servicer", mhaEscaltion.Servicer);
+                    //sqlParam[5] = new SqlParameter("@pi_servicer_id", mhaEscaltion.ServicerId);
+                    sqlParam[5] = new SqlParameter("@pi_escalation", mhaEscaltion.Escalation);
+                    //sqlParam[7] = new SqlParameter("@pi_escalation_cd", mhaEscaltion.EscalationCd);
+                    sqlParam[6] = new SqlParameter("@pi_escalation_team_notes", mhaEscaltion.EscalationTeamNotes);
+                    sqlParam[7] = new SqlParameter("@pi_agency_case_num", mhaEscaltion.AgencyCaseNum);
+                    sqlParam[8] = new SqlParameter("@pi_fc_id", mhaEscaltion.FcId);
+                    sqlParam[9] = new SqlParameter("@pi_gse_lookup", mhaEscaltion.GseLookup);
+                    sqlParam[10] = new SqlParameter("@pi_counselor_name", mhaEscaltion.CounselorName);
+                    sqlParam[11] = new SqlParameter("@pi_counselor_email", mhaEscaltion.CounselorEmail);
+                    sqlParam[12] = new SqlParameter("@pi_counselor_phone", mhaEscaltion.CounselorPhone);
+                    sqlParam[13] = new SqlParameter("@pi_escalated_to_hpf", mhaEscaltion.EscalatedToHPF);
+                    sqlParam[14] = new SqlParameter("@pi_current_owner_of_issue", mhaEscaltion.CurrentOwnerOfIssue);
+                    sqlParam[15] = new SqlParameter("@pi_final_resolution", mhaEscaltion.FinalResolution);
+                    //sqlParam[18] = new SqlParameter("@pi_final_resolution_cd", mhaEscaltion.FinalResolutionCd);
+                    sqlParam[16] = new SqlParameter("@pi_final_resolution_notes", mhaEscaltion.FinalResolutionNotes);
+                    sqlParam[17] = new SqlParameter("@pi_resolved_by", mhaEscaltion.ResolvedBy);
+                    sqlParam[18] = new SqlParameter("@pi_escalated_to_fannie", mhaEscaltion.EscalatedToFannie);
+                    sqlParam[19] = new SqlParameter("@pi_escalated_to_freddie", mhaEscaltion.EscalatedToFreddie);
+                    sqlParam[20] = new SqlParameter("@pi_hpf_notes", mhaEscaltion.HpfNotes);
+                    sqlParam[21] = new SqlParameter("@pi_gse_notes", mhaEscaltion.GseNotes);
+                    sqlParam[22] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
+                    sqlParam[23] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
+
+                    InsertCmd.CommandType = CommandType.StoredProcedure;
+                    InsertCmd.Parameters.AddRange(sqlParam);
+                    InsertCmd.Transaction = trans;
+                    InsertCmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            { 
+            }
+        }
     }
 }

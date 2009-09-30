@@ -53,6 +53,7 @@
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
     <Compile Include="BusinessEntity\FannieMaeInfo.cs" />
     <Compile Include="BusinessEntity\InvoiceInfo.cs" />
+    <Compile Include="BusinessEntity\MHAEscalationInfo.cs" />
     <Compile Include="BusinessEntity\ResultInfo.cs" />
     <Compile Include="ContentTypes\AgencyPayable.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -78,6 +79,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Invoice.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ContentTypes\MHAEscalation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>MHAEscalation.settings</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DocumentCenterController.cs" />
     <Compile Include="DocumentCenter.Designer.cs">
@@ -108,6 +114,10 @@
     <None Include="ContentTypes\Invoice.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Invoice.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ContentTypes\MHAEscalation.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>MHAEscalation.Designer.cs</LastGenOutput>
     </None>
     <None Include="DocumentCenter.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

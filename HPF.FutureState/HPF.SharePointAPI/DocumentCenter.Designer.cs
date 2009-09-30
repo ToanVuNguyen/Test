@@ -167,5 +167,23 @@ namespace HPF.SharePointAPI {
                 return ((string)(this["CounselorWeeklyLoginName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MHAEscalationList")]
+        public string MHAEscalationList {
+            get {
+                return ((string)(this["MHAEscalationList"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
+        public string MHAEscalationLoginName {
+            get {
+                return ((string)(this["MHAEscalationLoginName"]));
+            }
+        }
     }
 }

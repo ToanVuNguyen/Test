@@ -50,5 +50,11 @@
     <Setting Name="CounselorWeeklyLoginName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">serverimage\Administrator</Value>
     </Setting>
+    <Setting Name="MHAEscalationList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MHAEscalationList</Value>
+    </Setting>
+    <Setting Name="MHAEscalationLoginName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">serverimage\Administrator</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

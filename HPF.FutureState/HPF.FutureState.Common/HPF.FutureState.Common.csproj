@@ -90,6 +90,8 @@
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallLogSearchCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\MHAEscalationDTO.cs" />
+    <Compile Include="DataTransferObjects\MHAEscalationDTOCollecion.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTO.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />

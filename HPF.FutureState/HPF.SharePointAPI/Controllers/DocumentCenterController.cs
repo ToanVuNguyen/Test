@@ -13,6 +13,74 @@ namespace HPF.SharePointAPI.Controllers
     internal delegate void UpdateSPListItem<T>(SPListItem item, T obj) where T:BaseObject;
     public static class DocumentCenterController
     {
+        static private void WriteLog(string s)
+        {
+            System.IO.TextWriter tw = new System.IO.StreamWriter("LOG.txt", true);
+            tw.WriteLine(s);
+            tw.Close();
+        }
+        public static IList<MHAEscalationInfo> GetMHAEscalationList()
+        {
+            try
+            {                
+                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.MHAEscalationLoginName);
+                
+                List<MHAEscalationInfo> mhaList = new List<MHAEscalationInfo>();
+                
+                using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
+                {                    
+                    //SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];  
+                    SPWeb web = site.OpenWeb();
+                    web.AllowUnsafeUpdates = true;                 
+                    SPList docLib = web.Lists[DocumentCenter.Default.MHAEscalationList];                    
+                    SPListItemCollection listItems = docLib.Items;
+                    
+                    foreach (SPListItem item in listItems)
+                    {
+                        MHAEscalationInfo mhaInfo = new MHAEscalationInfo();
+                        mhaInfo.LoanNumber = item[MHAEscalation.Default.LoanNumber].ToString();
+                        mhaInfo.MMICaseId = item[MHAEscalation.Default.MMICaseId].ToString();
+                        mhaInfo.Firstname = item[MHAEscalation.Default.FirstName].ToString();
+                        mhaInfo.Lastname = item[MHAEscalation.Default.LastName].ToString();
+                        mhaInfo.CounselorEmail = item[MHAEscalation.Default.CounselorEmail].ToString();
+                        mhaInfo.CounselorName = item[MHAEscalation.Default.CounselorName].ToString();
+                        mhaInfo.CounselorPhone = item[MHAEscalation.Default.CounselorPhone].ToString();                        
+                        try
+                        {
+                            mhaInfo.CreatedDate = DateTime.Now;
+                            if (item.Fields.GetField(MHAEscalation.Default.CreatedDate) != null)
+                            {
+                                string value = item[MHAEscalation.Default.CreatedDate].ToString();
+                                if(!string.IsNullOrEmpty(value))
+                                    mhaInfo.CreatedDate = DateTime.Parse(value);
+                            }
+                        }
+                        catch { }
+                        mhaInfo.CurrentOwnerOfIssue = item[MHAEscalation.Default.CurrentOwnerOfIssue].ToString();
+                        mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString();
+                        mhaInfo.EscalatedToFreddie = item[MHAEscalation.Default.EscalatedToFreddie].ToString();
+                        mhaInfo.EscalatedToHPF = item[MHAEscalation.Default.EscalatedToHPF].ToString();
+                        mhaInfo.Escalation = item[MHAEscalation.Default.Escalation].ToString();                        
+                        mhaInfo.EscalationTeamNotes = item[MHAEscalation.Default.EscalationTeamNotes].ToString();                        
+                        mhaInfo.FinalResolution = item[MHAEscalation.Default.FinalResolution].ToString();                        
+                        mhaInfo.FinalResolutionNotes = item[MHAEscalation.Default.FinalResolutionNotes].ToString();
+                        mhaInfo.GSELookup = item[MHAEscalation.Default.GSELookup].ToString();
+                        mhaInfo.GseNotes = item[MHAEscalation.Default.GSENotes].ToString();
+                        mhaInfo.HpfNotes = item[MHAEscalation.Default.HPFNotes].ToString();                        
+                        mhaInfo.ResolvedBy = item[MHAEscalation.Default.ResolvedBy].ToString();
+                        mhaInfo.Servicer = item[MHAEscalation.Default.Servicer].ToString();                        
+
+                        mhaList.Add(mhaInfo);
+                    }
+                }
+                return mhaList;
+            }
+            catch (Exception ex)
+            {
+                WriteLog("----------------\n" + System.DateTime.Now.ToString() + "--" +  ex.Message + "\n" + ex.StackTrace);
+                throw ex;
+            }            
+        }
         #region "counseling List Generate"
 
         public static void GenerateWeeklyCounselorList(IList<CounselorInfo> counselorInfoList, string spFolderName)

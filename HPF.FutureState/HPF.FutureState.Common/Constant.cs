@@ -128,6 +128,7 @@ namespace HPF.FutureState.Common
         public const string SERVICER_DAILY_SUMMARY = "Servicer Daily Summary";
         public const string FANNIE_MAE_WEEKLY_REPORT = "Fannie Mae Weekly Report";
         public const string COUNSELOR_LIST_GENERATION = "Counselor List Generation";
+        public const string MHA_ESCALALATION_IMPORT = "MHA Escalation Import";
 
     }
 }

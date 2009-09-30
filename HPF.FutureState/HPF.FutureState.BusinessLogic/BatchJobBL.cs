@@ -48,6 +48,8 @@ namespace HPF.FutureState.BusinessLogic
                    rowCount = GenerateFannieMaeWeeklyReport(job);
                 else if (job.JobName.Equals(Constant.COUNSELOR_LIST_GENERATION))
                     rowCount = GenerateCounsorList(job);
+                else if(job.JobName.Equals(Constant.MHA_ESCALALATION_IMPORT))
+                    rowCount = ImportMHAEscalationData();
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
                 
@@ -211,6 +213,15 @@ namespace HPF.FutureState.BusinessLogic
         private ServicerDTO GetServer(int servicerId)
         {
             return LookupDataBL.Instance.GetServicers().GetServicerById(servicerId);
+        }
+
+        public int ImportMHAEscalationData()
+        {
+            MHAEscalationDTOCollecion mhaCol = HPFPortalGateway.GetMHAEscaltions();
+            if (mhaCol.Count > 0)
+                BatchJobDAO.Instance.ImportMHAEscalationData(mhaCol);
+
+            return mhaCol.Count;
         }
     }
 }

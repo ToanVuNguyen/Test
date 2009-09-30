@@ -112,5 +112,46 @@ namespace HPF.FutureState.Common.Utils
 
             DocumentCenterController.GenerateWeeklyCounselorList(counselorList, hpfCounselor.SPFolderName); 
         }
+
+        public static MHAEscalationDTOCollecion GetMHAEscaltions()
+        {
+            var mhaInfos = DocumentCenterController.GetMHAEscalationList();
+            MHAEscalationDTOCollecion result = new MHAEscalationDTOCollecion();
+
+            foreach (MHAEscalationInfo mha in mhaInfos)
+            {
+                MHAEscalationDTO mhaDTO = new MHAEscalationDTO();
+                mhaDTO.CreatedDt = mha.CreatedDate;
+                mhaDTO.AcctNum = mha.MMICaseId;
+                mhaDTO.AgencyCaseNum = mha.LoanNumber;
+                mhaDTO.BorrowerFname = mha.Firstname;
+                mhaDTO.BorrowerLname = mha.Lastname;
+                mhaDTO.CounselorEmail = mha.CounselorEmail;
+                mhaDTO.CounselorName = mha.CounselorName;
+                mhaDTO.CounselorPhone = mha.CounselorPhone;                
+                mhaDTO.CurrentOwnerOfIssue = mha.CurrentOwnerOfIssue;
+                mhaDTO.EscalatedToFannie = mha.EscalatedToFannie;
+                mhaDTO.EscalatedToFreddie = mha.EscalatedToFreddie;
+                mhaDTO.EscalatedToHPF = mha.EscalatedToHPF;
+                mhaDTO.Escalation = mha.Escalation;
+                //mhaDTO.EscalationCd = mha.EscalationCd;
+                mhaDTO.EscalationTeamNotes = mha.EscalationTeamNotes;
+                //mhaDTO.FcId = mha.FcId;
+                mhaDTO.FinalResolution = mha.FinalResolution;
+                //mhaDTO.FinalResolutionCd = mha.FinalResolutionCd;
+                mhaDTO.FinalResolutionNotes = mha.FinalResolutionNotes;
+                mhaDTO.GseLookup = mha.GSELookup;
+                mhaDTO.GseNotes = mha.GseNotes;
+                mhaDTO.HpfNotes = mha.HpfNotes;
+                //mhaDTO.ReplicateDt = mha.ReplicateDt;
+                mhaDTO.ResolvedBy = mha.ResolvedBy;
+                mhaDTO.Servicer = mha.Servicer;
+                //mhaDTO.ServicerId = mha.ServicerId;
+                mhaDTO.SetInsertTrackingInformation("System");
+                result.Add(mhaDTO);
+            }
+
+            return result;
+        }
     }
 }
