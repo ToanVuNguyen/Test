@@ -66,6 +66,8 @@ INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha eligi
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha loan lookup code','MHA loan lookup code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha inelig reason code','MHA inelig reason code');
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('servicer complaint code', 'Servicer complaint code');
+insert into ref_code_set (ref_code_set_name, code_set_comment, agency_usage_ind) values ('mha escalation code', 'MHA escalation code', 'Y');
+insert into ref_code_set (ref_code_set_name, code_set_comment, agency_usage_ind) values ('mha final resolution code', 'MHA final resolution code', 'Y');
 /****************************************************************************/
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','SCONS','Servicer Consent Change','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','FCONS','Funding Consent Change','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -540,6 +542,80 @@ INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sor
 INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)VALUES ('never bill reason code', 'DUPEESCC', 'Duplicate escalation of completed', '', 10, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio');
 INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)VALUES ('never pay reason code', 'DUPEESCP', 'Duplicate escalation of partial', '', 9, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio');
 INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)VALUES ('never pay reason code', 'DUPEESCC', 'Duplicate escalation of completed', '', 10, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio');
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'UNK', 'Unknown', '', 1, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'FEESRVCR', 'Servicer is charging up front fees', '', 2, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'MUSTBEDELINQ', 'Servicer claims borrower must miss a payment', '', 3, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'MISAPPLYMHA', 'Servicer is improperly applying MHA guidelines', '', 4, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'DENIED', 'Wrongfully denied', '', 5, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'SCAM', '3rd party scam / fraud', '', 6, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha escalation code', 'VIP', 'VIP', '', 7, 'Y',getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'HANGUP', 'Hang-up', '', 1, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'REPEATCALL', 'Repeat call - Transfer', '', 2, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'REFUSEDSERVICE', 'Refused service', '', 3, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'NOINFO', 'Did not collect enough information', '', 4, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'RESOLVEDCNSLR', 'Resolved by counselor', '', 5, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'RESOLVEDSRVCR', 'Resolved with servicer', '', 6, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'RESOLVEDFRED', 'Resolved with Freddie Mac', '', 7, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+
+insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
+       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
+values ('mha final resolution code', 'RESOLVEDFAN', 'Resolved with Fannie Mae', '', 8, 'Y',
+       getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
 
 /****************************************************************************/
 DELETE FROM menu_security;

@@ -1136,3 +1136,38 @@ CREATE TABLE zip_rollup
 ,  chg_lst_app_name VARCHAR(20)  NOT NULL    
 ,	CONSTRAINT zip_rollup_PK PRIMARY KEY (zip_code, rollup_name)
 );
+
+create table mha_escalation
+(
+created_dt			datetime not null,
+borrower_lname		varchar(30),
+borrower_fname		varchar(30),
+acct_num			varchar(30),
+servicer			varchar(50),
+servicer_id			int,
+escalation			varchar(80),
+escalation_cd		varchar(15),
+escalation_team_notes	varchar(3000),
+agency_case_num		varchar(30),
+fc_id				int,
+gse_lookup			varchar(30),
+counselor_name		varchar(60),
+counselor_email		varchar(50),
+counselor_phone		varchar(40),
+escalated_to_hpf		varchar(10),
+current_owner_of_issue	varchar(30),
+final_resolution		varchar(80),
+final_resolution_cd	varchar(15),
+final_resolution_notes	varchar(3000),
+resolved_by			varchar(60),
+escalated_to_fannie	varchar(10),
+escalated_to_freddie	varchar(10),
+hpf_notes			varchar(3000),
+gse_notes			varchar(3000), 
+create_dt			datetime not null,
+create_user_id		varchar(30) not null,
+create_app_name		varchar(20) not null,
+chg_lst_dt			datetime not null,
+chg_lst_user_id		varchar(30) not null,
+chg_lst_app_name		varchar(20) not null
+)
