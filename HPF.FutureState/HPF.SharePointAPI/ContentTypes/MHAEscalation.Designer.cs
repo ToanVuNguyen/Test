@@ -133,7 +133,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Escalated to HPF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Escalated To HPF")]
         public string EscalatedToHPF {
             get {
                 return ((string)(this["EscalatedToHPF"]));
@@ -142,7 +142,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Owner of Issue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Owner Issue")]
         public string CurrentOwnerOfIssue {
             get {
                 return ((string)(this["CurrentOwnerOfIssue"]));
@@ -178,7 +178,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Escalated to Fannie Mae")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Escalated To Fannie Mae")]
         public string EscalatedToFannieMae {
             get {
                 return ((string)(this["EscalatedToFannieMae"]));
@@ -187,7 +187,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Escalated to Freddie Mac")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Escalated To Freddie Mac")]
         public string EscalatedToFreddie {
             get {
                 return ((string)(this["EscalatedToFreddie"]));

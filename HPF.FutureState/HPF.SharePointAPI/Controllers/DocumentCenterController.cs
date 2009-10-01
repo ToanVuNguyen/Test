@@ -19,6 +19,7 @@ namespace HPF.SharePointAPI.Controllers
             tw.WriteLine(s);
             tw.Close();
         }
+        
         public static IList<MHAEscalationInfo> GetMHAEscalationList()
         {
             try
@@ -38,38 +39,44 @@ namespace HPF.SharePointAPI.Controllers
                     foreach (SPListItem item in listItems)
                     {
                         MHAEscalationInfo mhaInfo = new MHAEscalationInfo();
-                        mhaInfo.LoanNumber = item[MHAEscalation.Default.LoanNumber].ToString();
-                        mhaInfo.MMICaseId = item[MHAEscalation.Default.MMICaseId].ToString();
-                        mhaInfo.Firstname = item[MHAEscalation.Default.FirstName].ToString();
-                        mhaInfo.Lastname = item[MHAEscalation.Default.LastName].ToString();
-                        mhaInfo.CounselorEmail = item[MHAEscalation.Default.CounselorEmail].ToString();
-                        mhaInfo.CounselorName = item[MHAEscalation.Default.CounselorName].ToString();
-                        mhaInfo.CounselorPhone = item[MHAEscalation.Default.CounselorPhone].ToString();                        
+                        mhaInfo.LoanNumber = (string)item[MHAEscalation.Default.LoanNumber];
+                        mhaInfo.MMICaseId = (string)item[MHAEscalation.Default.MMICaseId];
+                        mhaInfo.Firstname = (string)item[MHAEscalation.Default.FirstName];
+                        mhaInfo.Lastname = (string)item[MHAEscalation.Default.LastName];
+                        mhaInfo.CounselorEmail = (string)item[MHAEscalation.Default.CounselorEmail];
+                        mhaInfo.CounselorName = (string)item[MHAEscalation.Default.CounselorName];
+                        mhaInfo.CounselorPhone = (string)item[MHAEscalation.Default.CounselorPhone];
                         try
                         {
                             mhaInfo.CreatedDate = DateTime.Now;
                             if (item.Fields.GetField(MHAEscalation.Default.CreatedDate) != null)
                             {
-                                string value = item[MHAEscalation.Default.CreatedDate].ToString();
-                                if(!string.IsNullOrEmpty(value))
-                                    mhaInfo.CreatedDate = DateTime.Parse(value);
+                                object value = item[MHAEscalation.Default.CreatedDate];
+                                if(!string.IsNullOrEmpty((string)value))
+                                    mhaInfo.CreatedDate = DateTime.Parse(value.ToString());
+                            }
+                            else if (item.Fields.GetField("Created") != null)
+                            {
+                                object value = item["Created"];
+                                if (!string.IsNullOrEmpty((string)value))
+                                    mhaInfo.CreatedDate = DateTime.Parse(value.ToString());
                             }
                         }
                         catch { }
-                        mhaInfo.CurrentOwnerOfIssue = item[MHAEscalation.Default.CurrentOwnerOfIssue].ToString();
-                        mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString();
-                        mhaInfo.EscalatedToFreddie = item[MHAEscalation.Default.EscalatedToFreddie].ToString();
-                        mhaInfo.EscalatedToHPF = item[MHAEscalation.Default.EscalatedToHPF].ToString();
-                        mhaInfo.Escalation = item[MHAEscalation.Default.Escalation].ToString();                        
-                        mhaInfo.EscalationTeamNotes = item[MHAEscalation.Default.EscalationTeamNotes].ToString();                        
-                        mhaInfo.FinalResolution = item[MHAEscalation.Default.FinalResolution].ToString();                        
-                        mhaInfo.FinalResolutionNotes = item[MHAEscalation.Default.FinalResolutionNotes].ToString();
-                        mhaInfo.GSELookup = item[MHAEscalation.Default.GSELookup].ToString();
-                        mhaInfo.GseNotes = item[MHAEscalation.Default.GSENotes].ToString();
-                        mhaInfo.HpfNotes = item[MHAEscalation.Default.HPFNotes].ToString();                        
-                        mhaInfo.ResolvedBy = item[MHAEscalation.Default.ResolvedBy].ToString();
-                        mhaInfo.Servicer = item[MHAEscalation.Default.Servicer].ToString();                        
-
+                        
+                        mhaInfo.CurrentOwnerOfIssue = (string)item[MHAEscalation.Default.CurrentOwnerOfIssue];                        
+                        mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString();                        
+                        mhaInfo.EscalatedToFreddie = (string)item[MHAEscalation.Default.EscalatedToFreddie].ToString();                        
+                        mhaInfo.EscalatedToHPF = (string)item[MHAEscalation.Default.EscalatedToHPF].ToString();                        
+                        mhaInfo.Escalation = (string)item[MHAEscalation.Default.Escalation];                        
+                        mhaInfo.EscalationTeamNotes = (string)item[MHAEscalation.Default.EscalationTeamNotes];                        
+                        mhaInfo.FinalResolution = (string)item[MHAEscalation.Default.FinalResolution];                        
+                        mhaInfo.FinalResolutionNotes = (string)item[MHAEscalation.Default.FinalResolutionNotes];                        
+                        mhaInfo.GSELookup = (string)item[MHAEscalation.Default.GSELookup];                        
+                        mhaInfo.GseNotes = (string)item[MHAEscalation.Default.GSENotes];                        
+                        mhaInfo.HpfNotes = (string)item[MHAEscalation.Default.HPFNotes];                        
+                        mhaInfo.ResolvedBy = (string)item[MHAEscalation.Default.ResolvedBy];                        
+                        mhaInfo.Servicer = (string)item[MHAEscalation.Default.Servicer];
                         mhaList.Add(mhaInfo);
                     }
                 }

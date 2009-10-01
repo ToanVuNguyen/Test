@@ -39,10 +39,10 @@
       <Value Profile="(Default)">Counselor Phone</Value>
     </Setting>
     <Setting Name="EscalatedToHPF" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Escalated to HPF</Value>
+      <Value Profile="(Default)">Escalated To HPF</Value>
     </Setting>
     <Setting Name="CurrentOwnerOfIssue" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Owner of Issue</Value>
+      <Value Profile="(Default)">Current Owner Issue</Value>
     </Setting>
     <Setting Name="FinalResolution" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Final Resolution Code</Value>
@@ -54,10 +54,10 @@
       <Value Profile="(Default)">Resolved By</Value>
     </Setting>
     <Setting Name="EscalatedToFannieMae" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Escalated to Fannie Mae</Value>
+      <Value Profile="(Default)">Escalated To Fannie Mae</Value>
     </Setting>
     <Setting Name="EscalatedToFreddie" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Escalated to Freddie Mac</Value>
+      <Value Profile="(Default)">Escalated To Freddie Mac</Value>
     </Setting>
     <Setting Name="HPFNotes" Type="System.String" Scope="Application">
       <Value Profile="(Default)">HPF Notes</Value>
