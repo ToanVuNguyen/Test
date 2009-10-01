@@ -46,23 +46,17 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.CounselorEmail = (string)item[MHAEscalation.Default.CounselorEmail];
                         mhaInfo.CounselorName = (string)item[MHAEscalation.Default.CounselorName];
                         mhaInfo.CounselorPhone = (string)item[MHAEscalation.Default.CounselorPhone];
-                        try
+
+                        mhaInfo.CreatedDate = DateTime.Now;
+
+                        foreach (SPField field in item.Fields)
                         {
-                            mhaInfo.CreatedDate = DateTime.Now;
-                            if (item.Fields.GetField(MHAEscalation.Default.CreatedDate) != null)
+                            if (field.Title.Equals("Created") || field.Title.Equals(MHAEscalation.Default.CreatedDate))
                             {
-                                object value = item[MHAEscalation.Default.CreatedDate];
-                                if(!string.IsNullOrEmpty((string)value))
-                                    mhaInfo.CreatedDate = DateTime.Parse(value.ToString());
-                            }
-                            else if (item.Fields.GetField("Created") != null)
-                            {
-                                object value = item["Created"];
-                                if (!string.IsNullOrEmpty((string)value))
-                                    mhaInfo.CreatedDate = DateTime.Parse(value.ToString());
+                                mhaInfo.CreatedDate = (DateTime)item[field.Title];
+                                break;
                             }
                         }
-                        catch { }
                         
                         mhaInfo.CurrentOwnerOfIssue = (string)item[MHAEscalation.Default.CurrentOwnerOfIssue];                        
                         mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString();                        
