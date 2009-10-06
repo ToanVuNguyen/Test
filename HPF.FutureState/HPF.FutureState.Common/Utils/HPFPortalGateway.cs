@@ -138,7 +138,7 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.EscalationTeamNotes = mha.EscalationTeamNotes;
                 //mhaDTO.FcId = mha.FcId;
                 mhaDTO.FinalResolution = mha.FinalResolution;
-                //mhaDTO.FinalResolutionCd = mha.FinalResolutionCd;
+                mhaDTO.FinalResolutionDate = mha.FinalResolutionDate;
                 mhaDTO.FinalResolutionNotes = mha.FinalResolutionNotes;
                 mhaDTO.GseLookup = mha.GSELookup;
                 mhaDTO.GseNotes = mha.GseNotes;

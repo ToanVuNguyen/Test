@@ -53,7 +53,7 @@ namespace HPF.SharePointAPI.Controllers
                         {
                             if (field.Title.Equals("Created") || field.Title.Equals(MHAEscalation.Default.CreatedDate))
                             {
-                                mhaInfo.CreatedDate = (DateTime)item[field.Title];
+                                mhaInfo.CreatedDate = (DateTime?)item[field.Title];
                                 break;
                             }
                         }
@@ -65,12 +65,19 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.Escalation = (string)item[MHAEscalation.Default.Escalation];                        
                         mhaInfo.EscalationTeamNotes = (string)item[MHAEscalation.Default.EscalationTeamNotes];                        
                         mhaInfo.FinalResolution = (string)item[MHAEscalation.Default.FinalResolution];                        
+                        mhaInfo.FinalResolutionDate = (DateTime?)item[MHAEscalation.Default.FinalResolutionDate];
                         mhaInfo.FinalResolutionNotes = (string)item[MHAEscalation.Default.FinalResolutionNotes];                        
                         mhaInfo.GSELookup = (string)item[MHAEscalation.Default.GSELookup];                        
                         mhaInfo.GseNotes = (string)item[MHAEscalation.Default.GSENotes];                        
                         mhaInfo.HpfNotes = (string)item[MHAEscalation.Default.HPFNotes];                        
                         mhaInfo.ResolvedBy = (string)item[MHAEscalation.Default.ResolvedBy];                        
                         mhaInfo.Servicer = (string)item[MHAEscalation.Default.Servicer];
+                        if (!string.IsNullOrEmpty(mhaInfo.Servicer))
+                        {
+                            int index = mhaInfo.Servicer.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.Servicer = mhaInfo.Servicer.Substring(index + 2, mhaInfo.Servicer.Length - index - 2);
+                        }
                         mhaList.Add(mhaInfo);
                     }
                 }

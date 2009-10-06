@@ -220,5 +220,14 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["CreatedDate"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Final Resolution Date")]
+        public string FinalResolutionDate {
+            get {
+                return ((string)(this["FinalResolutionDate"]));
+            }
+        }
     }
 }

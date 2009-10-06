@@ -25,6 +25,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string EscalatedToHPF { get; set; }
         public string CurrentOwnerOfIssue { get; set; }
         public string FinalResolution { get; set; }
+        public DateTime? FinalResolutionDate { get; set; }
         //public string FinalResolutionCd { get; set; }
         public string FinalResolutionNotes { get; set; }
         public string ResolvedBy { get; set; }

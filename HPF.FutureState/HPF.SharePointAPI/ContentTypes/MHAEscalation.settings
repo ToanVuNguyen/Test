@@ -68,5 +68,8 @@
     <Setting Name="CreatedDate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Date &amp; Time</Value>
     </Setting>
+    <Setting Name="FinalResolutionDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Final Resolution Date</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
