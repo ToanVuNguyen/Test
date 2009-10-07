@@ -122,8 +122,8 @@ namespace HPF.FutureState.Common.Utils
             {
                 MHAEscalationDTO mhaDTO = new MHAEscalationDTO();
                 mhaDTO.CreatedDt = mha.CreatedDate;
-                mhaDTO.AcctNum = mha.MMICaseId;
-                mhaDTO.AgencyCaseNum = mha.LoanNumber;
+                mhaDTO.AcctNum = mha.LoanNumber;
+                mhaDTO.AgencyCaseNum = mha.MMICaseId;
                 mhaDTO.BorrowerFname = mha.Firstname;
                 mhaDTO.BorrowerLname = mha.Lastname;
                 mhaDTO.CounselorEmail = mha.CounselorEmail;
