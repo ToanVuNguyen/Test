@@ -47,6 +47,10 @@
       <FullPath>rpt_CompletedCounselingDetail.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_Congressional_District_Report.rdl</Name>
+      <FullPath>rpt_Congressional_District_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_DailyActivityReport.rdl</Name>
       <FullPath>rpt_DailyActivityReport.rdl</FullPath>
     </ProjectItem>
@@ -95,8 +99,8 @@
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_Congressional_District_Report.rdl</Name>
-      <FullPath>rpt_Congressional_District_Report.rdl</FullPath>
+      <Name>rpt_MHA_Weekly_Escalation_Summary_Report.rdl</Name>
+      <FullPath>rpt_MHA_Weekly_Escalation_Summary_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
