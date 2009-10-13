@@ -42,7 +42,19 @@ namespace HPF.FutureState.WebService.Test.Web
                                TermLengthCd = Util.ConvertToString(obj.Element("TermLengthCd")),
                                MortgageProgramCd = Util.ConvertToString(obj.Element("MortgageProgramCd")),                               
                                //InvestorName = Util.ConvertToString(obj.Element("InvestorName")),
-                               //InvestorNum = Util.ConvertToString(obj.Element("InvestorNum"))                              
+                               //InvestorNum = Util.ConvertToString(obj.Element("InvestorNum"))  
+                               ArmRateAdjustDt = Util.ConvertToDateTime(obj.Element("ArmRateAdjustDt")),
+                               ArmLockDuration = Util.ConvertToInt(obj.Element("ArmLockDuration")),
+                               LoanLookupCd = Util.ConvertToString(obj.Element("LoanLookupCd")),
+                               ThirtyDaysLatePastYrInd = Util.ConvertToString(obj.Element("ThirtyDaysLatePastYrInd")),
+                               PmtMissLessOneYrLoanInd = Util.ConvertToString(obj.Element("PmtMissLessOneYrLoanInd")),
+                               SufficientIncomeInd = Util.ConvertToString(obj.Element("SufficientIncomeInd")),
+                               LongTermAffordInd = Util.ConvertToString(obj.Element("LongTermAffordInd")),
+                               HarpEligibleInd = Util.ConvertToString(obj.Element("HarpEligibleInd")),
+                               OrigPriorTo2009Ind = Util.ConvertToString(obj.Element("OrigPriorTo2009Ind")),
+                               PriorHampInd = Util.ConvertToString(obj.Element("PriorHampInd")),
+                               PrinBalWithinLimitInd = Util.ConvertToString(obj.Element("PrinBalWithinLimitInd")),
+                               HampEligibleInd = Util.ConvertToString(obj.Element("HampEligibleInd"))
                            };
                 int i = 1;
                 List<CaseLoanDTO_App> list = objs.ToList<CaseLoanDTO_App>();
@@ -268,8 +280,16 @@ namespace HPF.FutureState.WebService.Test.Web
                                SummarySentOtherCd = Util.ConvertToString(obj.Element("SummarySentOtherCd")),
                                SummarySentOtherDt = Util.ConvertToDateTime(obj.Element("SummarySentOtherDt")),
                                WorkedWithAnotherAgencyInd = Util.ConvertToString(obj.Element("WorkedWithAnotherAgencyInd")),
-                               ChgLstUserId = Util.ConvertToString(obj.Element("ChgLstUserId"))
-                               
+                               ChgLstUserId = Util.ConvertToString(obj.Element("ChgLstUserId")),
+
+                               VipInd = Util.ConvertToString(obj.Element("VipInd")),
+                               VipReason = Util.ConvertToString(obj.Element("VipReason")),
+                               CounseledLanguageCd = Util.ConvertToString(obj.Element("CounseledLanguageCd")),
+                               ErcpOutcomeCd = Util.ConvertToString(obj.Element("ErcpOutcomeCd")),
+                               CounselorContactedSrvcrInd = Util.ConvertToString(obj.Element("CounselorContactedSrvcrInd")),
+                               NumberOfUnits = Util.ConvertToInt(obj.Element("NumberOfUnits")),
+                               VacantOrCondemedInd = Util.ConvertToString(obj.Element("VacantOrCondemedInd")),
+                               MortgagePmtRatio = (float)Util.ConvertToDouble(obj.Element("MortgagePmtRatio"))
                            };
                 ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];
                 return fcCase;
@@ -312,8 +332,20 @@ namespace HPF.FutureState.WebService.Test.Web
                 OtherServicerName = this.OtherServicerName,
                 ServicerId = this.ServicerId,
                 TermLengthCd = this.TermLengthCd,
-                MortgageProgramCd = this.MortgageProgramCd                
+                MortgageProgramCd = this.MortgageProgramCd,
 
+                ArmRateAdjustDt = this.ArmRateAdjustDt,
+                ArmLockDuration = this.ArmLockDuration,
+               LoanLookupCd = this.LoanLookupCd,
+               ThirtyDaysLatePastYrInd = this.ThirtyDaysLatePastYrInd,
+               PmtMissLessOneYrLoanInd = this.PmtMissLessOneYrLoanInd,
+               SufficientIncomeInd = this.SufficientIncomeInd,
+               LongTermAffordInd = this.LongTermAffordInd,
+               HarpEligibleInd = this.HarpEligibleInd,
+               OrigPriorTo2009Ind = this.OrigPriorTo2009Ind,
+               PriorHampInd = this.PriorHampInd,
+               PrinBalWithinLimitInd = this.PrinBalWithinLimitInd,
+               HampEligibleInd = this.HampEligibleInd
             };
         }
     }

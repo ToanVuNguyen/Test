@@ -2131,6 +2131,30 @@ namespace HPF.Webservice.Agency
 
         private string mortgageProgramCdField;
 
+        private System.Nullable<System.DateTime> armRateAdjustDtField;
+
+        private System.Nullable<int> armLockDurationField;
+
+        private string loanLookupCdField;
+
+        private string thirtyDaysLatePastYrIndField;
+
+        private string pmtMissLessOneYrLoanIndField;
+
+        private string sufficientIncomeIndField;
+
+        private string longTermAffordIndField;
+
+        private string harpEligibleIndField;
+
+        private string origPriorTo2009IndField;
+
+        private string priorHampIndField;
+
+        private string prinBalWithinLimitIndField;
+
+        private string hampEligibleIndField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> ServicerId
@@ -2353,6 +2377,164 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.mortgageProgramCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<System.DateTime> ArmRateAdjustDt
+        {
+            get
+            {
+                return this.armRateAdjustDtField;
+            }
+            set
+            {
+                this.armRateAdjustDtField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ArmLockDuration
+        {
+            get
+            {
+                return this.armLockDurationField;
+            }
+            set
+            {
+                this.armLockDurationField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LoanLookupCd
+        {
+            get
+            {
+                return this.loanLookupCdField;
+            }
+            set
+            {
+                this.loanLookupCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ThirtyDaysLatePastYrInd
+        {
+            get
+            {
+                return this.thirtyDaysLatePastYrIndField;
+            }
+            set
+            {
+                this.thirtyDaysLatePastYrIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PmtMissLessOneYrLoanInd
+        {
+            get
+            {
+                return this.pmtMissLessOneYrLoanIndField;
+            }
+            set
+            {
+                this.pmtMissLessOneYrLoanIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SufficientIncomeInd
+        {
+            get
+            {
+                return this.sufficientIncomeIndField;
+            }
+            set
+            {
+                this.sufficientIncomeIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LongTermAffordInd
+        {
+            get
+            {
+                return this.longTermAffordIndField;
+            }
+            set
+            {
+                this.longTermAffordIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string HarpEligibleInd
+        {
+            get
+            {
+                return this.harpEligibleIndField;
+            }
+            set
+            {
+                this.harpEligibleIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string OrigPriorTo2009Ind
+        {
+            get
+            {
+                return this.origPriorTo2009IndField;
+            }
+            set
+            {
+                this.origPriorTo2009IndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PriorHampInd
+        {
+            get
+            {
+                return this.priorHampIndField;
+            }
+            set
+            {
+                this.priorHampIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PrinBalWithinLimitInd
+        {
+            get
+            {
+                return this.prinBalWithinLimitIndField;
+            }
+            set
+            {
+                this.prinBalWithinLimitIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string HampEligibleInd
+        {
+            get
+            {
+                return this.hampEligibleIndField;
+            }
+            set
+            {
+                this.hampEligibleIndField = value;
             }
         }
     }
@@ -2707,6 +2889,22 @@ namespace HPF.Webservice.Agency
         private System.Nullable<System.DateTime> fcSaleDateField;
 
         private string chgLstUserIdField;
+
+        private string vipIndField;
+
+        private string vipReasonField;
+
+        private string counseledLanguageCdField;
+
+        private string ercpOutcomeCdField;
+
+        private string counselorContactedSrvcrIndField;
+
+        private System.Nullable<int> numberOfUnitsField;
+
+        private string vacantOrCondemedIndField;
+
+        private System.Nullable<float> mortgagePmtRatioField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
@@ -3943,6 +4141,112 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.chgLstUserIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string VipInd
+        {
+            get
+            {
+                return this.vipIndField;
+            }
+            set
+            {
+                this.vipIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string VipReason
+        {
+            get
+            {
+                return this.vipReasonField;
+            }
+            set
+            {
+                this.vipReasonField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CounseledLanguageCd
+        {
+            get
+            {
+                return this.counseledLanguageCdField;
+            }
+            set
+            {
+                this.counseledLanguageCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ErcpOutcomeCd
+        {
+            get
+            {
+                return this.ercpOutcomeCdField;
+            }
+            set
+            {
+                this.ercpOutcomeCdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CounselorContactedSrvcrInd
+        {
+            get
+            {
+                return this.counselorContactedSrvcrIndField;
+            }
+            set
+            {
+                this.counselorContactedSrvcrIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> NumberOfUnits
+        {
+            get
+            {
+                return this.numberOfUnitsField;
+            }
+            set
+            {
+                this.numberOfUnitsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string VacantOrCondemedInd
+        {
+            get
+            {
+                return this.vacantOrCondemedIndField;
+            }
+            set
+            {
+                this.vacantOrCondemedIndField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<float> MortgagePmtRatio
+        {
+            get
+            {
+                return this.mortgagePmtRatioField;
+            }
+            set
+            {
+                this.mortgagePmtRatioField = value;
             }
         }
     }

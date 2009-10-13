@@ -96,7 +96,15 @@
     <IntakeCreditScore></IntakeCreditScore>
     <FcSaleDate></FcSaleDate>
     <ChgLstUserId>Agency1</ChgLstUserId>    
-  <IntakeCreditBureauCd></IntakeCreditBureauCd>
+    <IntakeCreditBureauCd></IntakeCreditBureauCd>
+    <VipInd>N</VipInd>
+    <VipReason>vip reason</VipReason>
+    <CounseledLanguageCd>ENG</CounseledLanguageCd>
+    <ErcpOutcomeCd></ErcpOutcomeCd>
+    <CounselorContactedSrvcrInd>N</CounselorContactedSrvcrInd>
+    <NumberOfUnits>0</NumberOfUnits>
+    <VacantOrCondemedInd>N</VacantOrCondemedInd>
+    <MortgagePmtRatio>1.0</MortgagePmtRatio>
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>      
@@ -118,7 +126,19 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <MortgageProgramCd>va</MortgageProgramCd>      
+      <MortgageProgramCd>va</MortgageProgramCd>
+      <ArmRateAdjustDt>1/1/2009</ArmRateAdjustDt>
+      <ArmLockDuration>100</ArmLockDuration>
+      <LoanLookupCd>NOTFOUND</LoanLookupCd>
+      <ThirtyDaysLatePastYrInd>N</ThirtyDaysLatePastYrInd>
+      <PmtMissLessOneYrLoanInd>N</PmtMissLessOneYrLoanInd>
+      <SufficientIncomeInd>N</SufficientIncomeInd>
+      <LongTermAffordInd>N</LongTermAffordInd>
+      <HarpEligibleInd>N</HarpEligibleInd>
+      <OrigPriorTo2009Ind>N</OrigPriorTo2009Ind>
+      <PriorHampInd>N</PriorHampInd>
+      <PrinBalWithinLimitInd>N</PrinBalWithinLimitInd>
+      <HampEligibleInd>N</HampEligibleInd>
     </CaseLoan>
     <CaseLoan>
       <ServicerId>401</ServicerId>
@@ -139,7 +159,19 @@
       <OrginalLoanNum>test</OrginalLoanNum>
       <CurrentServicerFdicNcuaNum>test</CurrentServicerFdicNcuaNum>
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
-      <MortgageProgramCd>va</MortgageProgramCd>      
+      <MortgageProgramCd>va</MortgageProgramCd>
+      <ArmRateAdjustDt>1/1/2009</ArmRateAdjustDt>
+      <ArmLockDuration>100</ArmLockDuration>
+      <LoanLookupCd>NOTFOUND</LoanLookupCd>
+      <ThirtyDaysLatePastYrInd>N</ThirtyDaysLatePastYrInd>
+      <PmtMissLessOneYrLoanInd>N</PmtMissLessOneYrLoanInd>
+      <SufficientIncomeInd>N</SufficientIncomeInd>
+      <LongTermAffordInd>N</LongTermAffordInd>
+      <HarpEligibleInd>N</HarpEligibleInd>
+      <OrigPriorTo2009Ind>N</OrigPriorTo2009Ind>
+      <PriorHampInd>N</PriorHampInd>
+      <PrinBalWithinLimitInd>N</PrinBalWithinLimitInd>
+      <HampEligibleInd>N</HampEligibleInd>
     </CaseLoan>    
   </CaseLoanSet>
   <OutcomeSet>

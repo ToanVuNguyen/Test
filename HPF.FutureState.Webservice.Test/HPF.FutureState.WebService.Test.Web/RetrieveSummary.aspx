@@ -936,6 +936,60 @@
                     <td>
                         <asp:TextBox CssClass = "Text" ID="txtWorkingUserID" runat="server"></asp:TextBox>
                     </td>
+                    <td>                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                <td class="sidelinks">
+                VIP Ind</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtVipInd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                VIP reason</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtVipReason" runat="server"></asp:TextBox>
+            </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks">
+                Counselelanguage Cd</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtCounseledLanguageCd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                Ercp Outcome Cd</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtErcpOutcomeCd" runat="server"></asp:TextBox>
+            </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks" style="height: 20px">
+                Counselor contated srvcr ind</td>
+            <td style="height: 20px">
+                <asp:TextBox CssClass = "Text" ID="txtCounselorContactedSrvcrInd" 
+                    runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks" style="height: 20px">
+                Number Of Units</td>
+            <td style="height: 20px">
+                <asp:TextBox CssClass = "Text" ID="txtNumberOfUnits" runat="server"></asp:TextBox>
+            </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks">
+                Vacant or condemed Ind</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtVacantOrCondemedInd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                Mortgage Pmt Ratio</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMortgagePmtRatio" runat="server"></asp:TextBox>
+            </td>
                 </tr>
             </table>
             <br />

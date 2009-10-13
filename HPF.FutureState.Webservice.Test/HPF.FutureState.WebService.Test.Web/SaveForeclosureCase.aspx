@@ -869,12 +869,59 @@
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtWorkingUserID" runat="server"></asp:TextBox>
             </td>
-            <%--<td>
-                <asp:Label CssClass = "sidelinks" ID="Label112" runat="server" Text="Change Last User ID"></asp:Label>             
-            </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtChangeLastUserID" runat="server"></asp:TextBox>
-            </td>--%>                       
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks">
+                VIP Ind</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtVipInd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                VIP reason</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtVipReason" runat="server"></asp:TextBox>
+            </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks">
+                Counselelanguage Cd</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtCounseledLanguageCd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                Ercp Outcome Cd</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtErcpOutcomeCd" runat="server"></asp:TextBox>
+            </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks" style="height: 20px">
+                Counselor contated srvcr ind</td>
+            <td style="height: 20px">
+                <asp:TextBox CssClass = "Text" ID="txtCounselorContactedSrvcrInd" 
+                    runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks" style="height: 20px">
+                Number Of Units</td>
+            <td style="height: 20px">
+                <asp:TextBox CssClass = "Text" ID="txtNumberOfUnits" runat="server"></asp:TextBox>
+            </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks">
+                Vacant or condemed Ind</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtVacantOrCondemedInd" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                Mortgage Pmt Ratio</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtMortgagePmtRatio" runat="server"></asp:TextBox>
+            </td>                      
         </tr>   
         </table>
 
@@ -1077,11 +1124,130 @@
                 <FooterTemplate>
                     <asp:TextBox ID="txtMortgageProgramCd" runat="server"></asp:TextBox> </FooterTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label18" runat="server" Text='<%# Bind("MortgageProgramCd") %>'></asp:Label>
+                    <asp:Label ID="Label200" runat="server" Text='<%# Bind("MortgageProgramCd") %>'></asp:Label>
                 </ItemTemplate>                
                 
             </asp:TemplateField>
-            
+             <asp:TemplateField HeaderText="ArmRateAdjustDt" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtArmRateAdjustDt" runat="server" Text='<%# Eval("ArmRateAdjustDt") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtArmRateAdjustDt" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label201" runat="server" Text='<%# Bind("ArmRateAdjustDt") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>            
+             <asp:TemplateField HeaderText="ArmLockDuration" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtArmLockDuration" runat="server" Text='<%# Eval("ArmLockDuration") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtArmLockDuration" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label202" runat="server" Text='<%# Bind("ArmLockDuration") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>            
+            <asp:TemplateField HeaderText="LoanLookupCd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtLoanLookupCd" runat="server" Text='<%# Eval("LoanLookupCd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtLoanLookupCd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label203" runat="server" Text='<%# Bind("LoanLookupCd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="ThirtyDaysLatePastYrInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtThirtyDaysLatePastYrInd" runat="server" Text='<%# Eval("ThirtyDaysLatePastYrInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtThirtyDaysLatePastYrInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label303" runat="server" Text='<%# Bind("ThirtyDaysLatePastYrInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="PmtMissLessOneYrLoanInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtPmtMissLessOneYrLoanInd" runat="server" Text='<%# Eval("PmtMissLessOneYrLoanInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtPmtMissLessOneYrLoanInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label204" runat="server" Text='<%# Bind("PmtMissLessOneYrLoanInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="SufficientIncomeInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtSufficientIncomeInd" runat="server" Text='<%# Eval("SufficientIncomeInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtSufficientIncomeInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label205" runat="server" Text='<%# Bind("SufficientIncomeInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="LongTermAffordInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtLongTermAffordInd" runat="server" Text='<%# Eval("LongTermAffordInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtLongTermAffordInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label206" runat="server" Text='<%# Bind("LongTermAffordInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="HarpEligibleInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtHarpEligibleInd" runat="server" Text='<%# Eval("HarpEligibleInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtHarpEligibleInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label207" runat="server" Text='<%# Bind("HarpEligibleInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="OrigPriorTo2009Ind" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtOrigPriorTo2009Ind" runat="server" Text='<%# Eval("OrigPriorTo2009Ind") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtOrigPriorTo2009Ind" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label208" runat="server" Text='<%# Bind("OrigPriorTo2009Ind") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="PriorHampInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtPriorHampInd" runat="server" Text='<%# Eval("PriorHampInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtPriorHampInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label209" runat="server" Text='<%# Bind("PriorHampInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="PrinBalWithinLimitInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtPrinBalWithinLimitInd" runat="server" Text='<%# Eval("PrinBalWithinLimitInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtPrinBalWithinLimitInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label210" runat="server" Text='<%# Bind("PrinBalWithinLimitInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="HampEligibleInd" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtHampEligibleInd" runat="server" Text='<%# Eval("HampEligibleInd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtHampEligibleInd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label211" runat="server" Text='<%# Bind("HampEligibleInd") %>'></asp:Label>
+                </ItemTemplate>                                
+            </asp:TemplateField>
             <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>
@@ -1252,91 +1418,9 @@
     </asp:GridView>
     <br />
     
-    <%--<asp:Label ID="Label117" runat="server" Text="Activity Log" Visible ="false" ></asp:Label>
-    <br />
-    <asp:GridView ID="grdvActivityLog" runat="server" 
-        ShowFooter = "true" 
-        AutoGenerateColumns = "false" 
-        onrowediting="grdvActivityLog_RowEditing"
-        OnRowCancelingEdit = "grdvActivityLog_RowCancelEditing"
-        onrowupdating="grdvActivityLog_RowUpdating"
-        onrowcommand="grdvActivityLogRowCommand" 
-        onrowdeleting="grdvActivityLog_RowDeleting"
-        visible = "false" >
-        <Columns>
-            <asp:TemplateField HeaderText="Edit" ShowHeader="False">
-                <EditItemTemplate>
-                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
-                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="AddNew" Text="New"></asp:LinkButton>
-                </FooterTemplate>
-                <ItemTemplate>
-                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
-                </ItemTemplate>
-            </asp:TemplateField>            
-            
-            <asp:CommandField HeaderText="Delete" ShowDeleteButton="True" ShowHeader="false" />
-            
-            
-            <asp:TemplateField HeaderText="Code" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtActivityCode" runat="server" Text='<%# Eval("ActivityCd") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtActivityCode" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("ActivityCd") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            <asp:TemplateField HeaderText="Note" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtActivityNote" runat="server" Text='<%# Eval("ActivityNote") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtActivityNote" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("ActivityNote") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            
-            <asp:TemplateField HeaderText="Date" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtActivityDt" runat="server" Text='<%# Eval("ActivityDt") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtActivityDt" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label5" runat="server" Text='<%# Bind("ActivityDt") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            <asp:TemplateField HeaderText="Fc ID" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtFcId" runat="server" Text='<%# Eval("FcId") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtFcId" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label3" runat="server" Text='<%# Bind("FcId") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            
-            <asp:TemplateField HeaderText="ID" >  
-                <EditItemTemplate>
-                    <asp:TextBox ID="txtActivityLogId" runat="server" Text='<%# Eval("ActivityLogId") %>'></asp:TextBox>
-                </EditItemTemplate>
-                <FooterTemplate>
-                    <asp:TextBox ID="txtActivityLogId" runat="server"></asp:TextBox> </FooterTemplate>
-                <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Bind("ActivityLogId") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>            
-    </asp:GridView>--%>
+    <%--<EditItemTemplate>
+                    <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>
+                </EditItemTemplate>--%>
     <br />
     <asp:Label ID="Label118" runat="server" Text="Outcome"></asp:Label>
     <br />

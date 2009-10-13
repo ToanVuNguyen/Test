@@ -219,6 +219,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtWorkingUserID.Text = fcCase.ChgLstUserId;
 
                 txtWorkingUserID.Text = fcCase.ChgLstUserId;
+
+                txtVipInd.Text = fcCase.VipInd;
+                txtVipReason.Text = fcCase.VipReason;
+                txtCounseledLanguageCd.Text = fcCase.CounseledLanguageCd;
+                txtErcpOutcomeCd.Text = fcCase.ErcpOutcomeCd;
+                txtCounselorContactedSrvcrInd.Text = fcCase.CounselorContactedSrvcrInd;
+                txtNumberOfUnits.Text = (fcCase.NumberOfUnits.HasValue) ? fcCase.NumberOfUnits.Value.ToString() : "";
+                txtVacantOrCondemedInd.Text = fcCase.VacantOrCondemedInd;
+                txtMortgagePmtRatio.Text = (fcCase.MortgagePmtRatio.HasValue) ? fcCase.MortgagePmtRatio.Value.ToString() : "";
             }
         }
         

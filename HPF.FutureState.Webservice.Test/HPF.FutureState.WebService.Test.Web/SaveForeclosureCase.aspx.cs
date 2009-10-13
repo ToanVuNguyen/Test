@@ -173,6 +173,14 @@ namespace HPF.FutureState.WebService.Test.Web
             //fcCase.CreateUserId = txtCreateUserID.Text.Trim();
             //fcCase.ChangeLastUserId = txtChangeLastUserID.Text.Trim();
 
+            fcCase.VipInd = txtVipInd.Text; 
+            fcCase.VipReason = txtVipReason.Text;
+            fcCase.CounseledLanguageCd = txtCounseledLanguageCd.Text;
+            fcCase.ErcpOutcomeCd = txtErcpOutcomeCd.Text;
+            fcCase.CounselorContactedSrvcrInd = txtCounselorContactedSrvcrInd.Text;
+            fcCase.NumberOfUnits = Util.ConvertToInt(txtNumberOfUnits.Text);
+            fcCase.VacantOrCondemedInd = txtVacantOrCondemedInd.Text;
+            fcCase.MortgagePmtRatio = (float?)Util.ConvertToDouble(txtMortgagePmtRatio.Text);
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
 
             return fcCase;
@@ -297,6 +305,14 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtWorkingUserID.Text = fcCase.ChgLstUserId;
                 //txtCreateUserID.Text = fcCase.CreateUserId.ToString();
                 //txtChangeLastUserID.Text = fcCase.ChangeLastUserId.ToString();
+                txtVipInd.Text = fcCase.VipInd;
+                txtVipReason.Text = fcCase.VipReason;
+                txtCounseledLanguageCd.Text = fcCase.CounseledLanguageCd;
+                txtErcpOutcomeCd.Text = fcCase.ErcpOutcomeCd;
+                txtCounselorContactedSrvcrInd.Text = fcCase.CounselorContactedSrvcrInd;
+                txtNumberOfUnits.Text = (fcCase.NumberOfUnits.HasValue)?fcCase.NumberOfUnits.Value.ToString():"";
+                txtVacantOrCondemedInd.Text = fcCase.VacantOrCondemedInd;
+                txtMortgagePmtRatio.Text = (fcCase.MortgagePmtRatio.HasValue)?fcCase.MortgagePmtRatio.Value.ToString():"";
             }
         }
        
@@ -464,8 +480,21 @@ namespace HPF.FutureState.WebService.Test.Web
             //TextBox txtInvestorName = (TextBox)row.FindControl("txtInvestorName");
             //TextBox txtInvestorNum = (TextBox)row.FindControl("txtInvestorNum");
             Label lblCaseLoanId = (Label)row.FindControl("lblCaseLoanId");
-            #endregion
 
+            TextBox txtArmRateAdjustDt = (TextBox)row.FindControl("txtArmRateAdjustDt");
+            TextBox txtArmLockDuration = (TextBox)row.FindControl("txtArmLockDuration");
+            TextBox txtLoanLookupCd = (TextBox)row.FindControl("txtLoanLookupCd");
+            TextBox txtThirtyDaysLatePastYrInd = (TextBox)row.FindControl("txtThirtyDaysLatePastYrInd");
+            TextBox txtPmtMissLessOneYrLoanInd = (TextBox)row.FindControl("txtPmtMissLessOneYrLoanInd");
+            TextBox txtSufficientIncomeInd = (TextBox)row.FindControl("txtSufficientIncomeInd");
+            TextBox txtLongTermAffordInd = (TextBox)row.FindControl("txtLongTermAffordInd");
+            TextBox txtHarpEligibleInd = (TextBox)row.FindControl("txtHarpEligibleInd");
+            TextBox txtOrigPriorTo2009Ind = (TextBox)row.FindControl("txtOrigPriorTo2009Ind");
+            TextBox txtPriorHampInd = (TextBox)row.FindControl("txtPriorHampInd");
+            TextBox txtPrinBalWithinLimitInd = (TextBox)row.FindControl("txtPrinBalWithinLimitInd");
+            TextBox txtHampEligibleInd = (TextBox)row.FindControl("txtHampEligibleInd");
+
+            #endregion            
             caseLoan.AcctNum = txtAccNum.Text.Trim();
             caseLoan.ArmResetInd = txtArmResetInd.Text.Trim();
             caseLoan.CaseLoanId = Util.ConvertToInt(lblCaseLoanId.Text.Trim());
@@ -487,6 +516,20 @@ namespace HPF.FutureState.WebService.Test.Web
             //comment because of hidden fields
             //caseLoan.InvestorName = txtInvestorName.Text.Trim();
             //caseLoan.InvestorNum = txtInvestorNum.Text.Trim();
+
+            caseLoan.ArmRateAdjustDt = Util.ConvertToDateTime(txtArmRateAdjustDt.Text);
+            caseLoan.ArmLockDuration = Util.ConvertToInt(txtArmLockDuration.Text);
+            caseLoan.LoanLookupCd = txtLoanLookupCd.Text;
+            caseLoan.ThirtyDaysLatePastYrInd = txtThirtyDaysLatePastYrInd.Text;
+            caseLoan.PmtMissLessOneYrLoanInd = txtPmtMissLessOneYrLoanInd.Text;
+            caseLoan.SufficientIncomeInd = txtSufficientIncomeInd.Text;
+            caseLoan.LongTermAffordInd = txtLongTermAffordInd.Text;
+            caseLoan.HarpEligibleInd = txtHarpEligibleInd.Text;
+            caseLoan.OrigPriorTo2009Ind = txtOrigPriorTo2009Ind.Text;
+            caseLoan.PriorHampInd = txtPriorHampInd.Text;
+            caseLoan.PrinBalWithinLimitInd = txtPrinBalWithinLimitInd.Text;
+            caseLoan.HampEligibleInd = txtHampEligibleInd.Text;
+
             return caseLoan;
 
         }
