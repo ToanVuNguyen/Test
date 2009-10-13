@@ -890,6 +890,44 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         [XmlIgnore]
         public string ProgramName { get; set; }
-        
+
+        string vipInd;
+        public string VipInd 
+        {
+            get { return vipInd; }
+            set { vipInd = (string.IsNullOrEmpty(value))?null:value.ToUpper();} 
+        }
+        string vipReason;
+        public string VipReason 
+        {
+            get { return vipReason; }
+            set { vipReason = (string.IsNullOrEmpty(value)) ? null : value; } 
+        }
+        string counseledLanguageCd;
+        public string CounseledLanguageCd
+        {
+            get { return counseledLanguageCd; }
+            set { counseledLanguageCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string ercpOutcomeCd;
+        public string ErcpOutcomeCd 
+        {
+            get { return ercpOutcomeCd; }
+            set { ercpOutcomeCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string counselorContactedSrvcrInd;
+        public string CounselorContactedSrvcrInd 
+        {
+            get { return counselorContactedSrvcrInd; }
+            set { counselorContactedSrvcrInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        public int? NumberOfUnits { get; set; }
+        string vacantOrCondemedInd;
+        public string VacantOrCondemedInd 
+        {
+            get { return vacantOrCondemedInd; }
+            set { vacantOrCondemedInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        public float? MortgagePmtRatio { get; set; }             
     }
 }

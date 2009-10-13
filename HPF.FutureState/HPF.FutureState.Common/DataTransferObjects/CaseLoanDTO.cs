@@ -186,5 +186,67 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public string MortgageProgramCdDesc { get; set; }
 
+        public DateTime? ArmRateAdjustDt { get; set; }
+        public int? ArmLockDuration { get; set; }
+        string loanLookupCd;
+        public string LoanLookupCd 
+        {
+            get { return loanLookupCd; }
+            set { loanLookupCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string thirtyDaysLatePastYrInd;
+        public string ThirtyDaysLatePastYrInd 
+        {
+            get { return thirtyDaysLatePastYrInd; }
+            set { thirtyDaysLatePastYrInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string pmtMissLessOneYrLoanInd;
+        public string PmtMissLessOneYrLoanInd 
+        {
+            get { return pmtMissLessOneYrLoanInd; }
+            set { pmtMissLessOneYrLoanInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string sufficientIncomeInd;
+        public string SufficientIncomeInd 
+        {
+            get { return sufficientIncomeInd; }
+            set { sufficientIncomeInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string longTermAffordInd;
+        public string LongTermAffordInd 
+        {
+            get { return longTermAffordInd; }
+            set { longTermAffordInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string harpEligibleInd;
+        public string HarpEligibleInd 
+        {
+            get { return harpEligibleInd; }
+            set { harpEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string origPriorTo2009Ind;
+        public string OrigPriorTo2009Ind 
+        {
+            get { return origPriorTo2009Ind; }
+            set { origPriorTo2009Ind = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string priorHampInd;
+        public string PriorHampInd 
+        {
+            get { return priorHampInd; }
+            set { priorHampInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string prinBalWithinLimitInd;
+        public string PrinBalWithinLimitInd 
+        {
+            get { return prinBalWithinLimitInd; }
+            set { prinBalWithinLimitInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
+        string hampEligibleInd;
+        public string HampEligibleInd 
+        {
+            get { return hampEligibleInd; }
+            set { hampEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+        }
     }
 }

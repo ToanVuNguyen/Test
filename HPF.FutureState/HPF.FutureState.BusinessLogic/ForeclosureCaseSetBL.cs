@@ -1720,13 +1720,38 @@ namespace HPF.FutureState.BusinessLogic
 //                        || ConvertStringToUpper(caseLoan.InvestorNum) != ConvertStringToUpper(item.InvestorNum)
 //                        || ConvertStringToUpper(caseLoan.InvestorName) != ConvertStringToUpper(item.InvestorName)
                         || ConvertStringToUpper(caseLoan.MortgageProgramCd) != ConvertStringToUpper(item.MortgageProgramCd)
+                        || !CompareDate(caseLoan.ArmRateAdjustDt, item.ArmRateAdjustDt)
+                        || caseLoan.ArmLockDuration != item.ArmLockDuration
+                        || ConvertStringToUpper(caseLoan.LoanLookupCd) != ConvertStringToUpper(item.LoanLookupCd)
+                        || ConvertStringToUpper(caseLoan.ThirtyDaysLatePastYrInd) != ConvertStringToUpper(item.ThirtyDaysLatePastYrInd)
+                        || ConvertStringToUpper(caseLoan.PmtMissLessOneYrLoanInd) != ConvertStringToUpper(item.PmtMissLessOneYrLoanInd)
+                        || ConvertStringToUpper(caseLoan.SufficientIncomeInd) != ConvertStringToUpper(item.SufficientIncomeInd)
+                        || ConvertStringToUpper(caseLoan.LongTermAffordInd) != ConvertStringToUpper(item.LongTermAffordInd)
+                        || ConvertStringToUpper(caseLoan.HarpEligibleInd) != ConvertStringToUpper(item.HarpEligibleInd)
+                        || ConvertStringToUpper(caseLoan.OrigPriorTo2009Ind) != ConvertStringToUpper(item.OrigPriorTo2009Ind)
+                        || ConvertStringToUpper(caseLoan.PriorHampInd) != ConvertStringToUpper(item.PriorHampInd)
+                        || ConvertStringToUpper(caseLoan.PrinBalWithinLimitInd) != ConvertStringToUpper(item.PrinBalWithinLimitInd)
+                        || ConvertStringToUpper(caseLoan.HampEligibleInd) != ConvertStringToUpper(item.HampEligibleInd)
                         )
                         return false;
                 }                
             }
             return true;
         }
+        private bool CompareDate(DateTime? source, DateTime? des)
+        {
+            if (!source.HasValue && !des.HasValue)
+                return true;
+            if (source.HasValue && !des.HasValue)
+                return false;
+            if (!source.HasValue && des.HasValue)
+                return false;
 
+            if (source.Value.Day != des.Value.Day || source.Value.Month != des.Value.Month || source.Value.Year != des.Value.Year)
+                return false;
+
+            return true;
+        }
         /// <summary>
         /// Check data input with database
         /// If input not exist in database (use CheckCaseLoan() to check)
