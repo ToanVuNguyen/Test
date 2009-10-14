@@ -89,6 +89,23 @@ namespace HPF.FutureState.Common
         public const string ERR0080 = "ERR0080";
         public const string ERR0081 = "ERR0081";
 
+        public const string ERR0082 = "ERR0082";
+        public const string ERR0083 = "ERR0083";
+        public const string ERR0084 = "ERR0084";
+        public const string ERR0085 = "ERR0085";
+        public const string ERR0086 = "ERR0086";
+        public const string ERR0087 = "ERR0087";
+        public const string ERR0088 = "ERR0088";
+        public const string ERR0089 = "ERR0089";
+        public const string ERR0090 = "ERR0090";
+        public const string ERR0091 = "ERR0091";
+        public const string ERR0092 = "ERR0092";
+        public const string ERR0093 = "ERR0093";
+        public const string ERR0094 = "ERR0094";
+        public const string ERR0095 = "ERR0095";
+        public const string ERR0096 = "ERR0096";
+        public const string ERR0097 = "ERR0097";        
+
         public const string ERR0100 = "ERR0100";
         public const string ERR0101 = "ERR0101";
         public const string ERR0102 = "ERR0102";
@@ -146,6 +163,9 @@ namespace HPF.FutureState.Common
         public const string ERR0221 = "ERR0221";
         public const string ERR0222 = "ERR0222";
         public const string ERR0223 = "ERR0223";
+        public const string ERR0224 = "ERR0224";
+        public const string ERR0225 = "ERR0225";
+        public const string ERR0226 = "ERR0226";
 
         public const string ERR0250 = "ERR0250";
         public const string ERR0251 = "ERR0251";
@@ -269,6 +289,7 @@ namespace HPF.FutureState.Common
         public const string WARN0335 = "WARN0335";
         public const string WARN0336 = "WARN0336";
         public const string WARN0337 = "WARN0337";
+
         public const string WARN0375 = "WARN0375";
         public const string WARN0450 = "WARN0450";
         public const string WARN0903 = "WARN0903";
@@ -543,6 +564,23 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0080, "HomePurchasePrice must be a valid number with 2 decimal places.");
                 errorMessageDict.Add(ERR0081, "HouseholdGrossAnnualIncomeAmt must be a valid number with 2 decimal places. It must be greater than Zero and less than or equal to 99,999,999.99.");
 
+                errorMessageDict.Add(ERR0082, "VipInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0083, "VipReason has a maximum length of 100 characters.");
+                errorMessageDict.Add(ERR0084, "CounselorContactedSrvcrInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0085, "NumberOfUnits must be a valid whole number, greater than Zero and less than or equal to 999.");
+                errorMessageDict.Add(ERR0086, "VacantOrCondemedInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0087, "MortgagePmtRatio must be a valid number with 1 decimal place.");
+                errorMessageDict.Add(ERR0088, "ArmLockDuration must be a valid whole number, greater than Zero and less than or equal to 99.");
+                errorMessageDict.Add(ERR0089, "30DaysLatePastYrInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0090, "PmtMissLessOneYrLoanInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0091, "SufficientIncomeInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0092, "LongtermAffordInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0093, "HarpEligibleInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0094, "OrigPriorTo2009Ind must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0095, "PriorHampInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0096, "PrinBalWithinLimitInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0097, "HampEligibleInd must be either a Y, N or a blank.");
+
                 errorMessageDict.Add(ERR0100, "An AgencyId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0101, "A ProgramId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0102, "An AgencyCaseNum is required to save a foreclosure case.");
@@ -600,6 +638,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0222, "An invalid code was provided for LoanDelinqStatusCd.");
                 errorMessageDict.Add(ERR0223, "An invalid code was provided for MortgageProgramCd.");
 
+                errorMessageDict.Add(ERR0224, "An invalid code was provided for CounseledLanguageCd");
+                errorMessageDict.Add(ERR0225, "An invalid code was provided for ErcpOutcomeCd.");
+                errorMessageDict.Add(ERR0226, "An invalid code was provided for LoanLookupCd.");
 
                 errorMessageDict.Add(ERR0250, "An invalid AgencyID was provided. ");
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
@@ -708,6 +749,9 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(WARN0328, "A BudgetSubcategoryID is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0329, "A BudgetItemAmt is required on all budget Items to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0330, "A ForSaleInd is required on all loans to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0331, "An ErcpOutcomeCd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0332, "A HarpEligibleInd is required to complete a foreclosure case.");
+                errorMessageDict.Add(WARN0333, "A HampEligibleInd is required to complete a foreclosure case.");
                 errorMessageDict.Add(WARN0375, "{0} cases matched your search criteria, only the first 50 will be presented. To reduce the number of results, please refine your search criteria.");
 
                 errorMessageDict.Add(WARN0450, "Data has been changed. Do you want to save?");

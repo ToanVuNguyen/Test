@@ -186,63 +186,87 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public string MortgageProgramCdDesc { get; set; }
 
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "ArmRateAdjustDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? ArmRateAdjustDt { get; set; }
+
+        [NullableOrInRangeNumberValidator(true, "0", "99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0088)]
         public int? ArmLockDuration { get; set; }
-        string loanLookupCd;
+
+        string loanLookupCd;        
         public string LoanLookupCd 
         {
             get { return loanLookupCd; }
             set { loanLookupCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string thirtyDaysLatePastYrInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0089)]
         public string ThirtyDaysLatePastYrInd 
         {
             get { return thirtyDaysLatePastYrInd; }
             set { thirtyDaysLatePastYrInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string pmtMissLessOneYrLoanInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0090)]
         public string PmtMissLessOneYrLoanInd 
         {
             get { return pmtMissLessOneYrLoanInd; }
             set { pmtMissLessOneYrLoanInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string sufficientIncomeInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0091)]
         public string SufficientIncomeInd 
         {
             get { return sufficientIncomeInd; }
             set { sufficientIncomeInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string longTermAffordInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0092)]
         public string LongTermAffordInd 
         {
             get { return longTermAffordInd; }
             set { longTermAffordInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string harpEligibleInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0093)]
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0332, Ruleset = Constant.RULESET_COMPLETE)]
         public string HarpEligibleInd 
         {
             get { return harpEligibleInd; }
             set { harpEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string origPriorTo2009Ind;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0094)]
         public string OrigPriorTo2009Ind 
         {
             get { return origPriorTo2009Ind; }
             set { origPriorTo2009Ind = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string priorHampInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0095)]
         public string PriorHampInd 
         {
             get { return priorHampInd; }
             set { priorHampInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string prinBalWithinLimitInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0096)]
         public string PrinBalWithinLimitInd 
         {
             get { return prinBalWithinLimitInd; }
             set { prinBalWithinLimitInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+
         string hampEligibleInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0097)]
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0333, Ruleset = Constant.RULESET_COMPLETE)]
         public string HampEligibleInd 
         {
             get { return hampEligibleInd; }

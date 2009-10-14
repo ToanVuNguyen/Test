@@ -176,7 +176,7 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.PrimaryContactNo = ConvertToString(reader["primary_contact_no"]);
                         returnObject.PrimaryResidenceInd = ConvertToString(reader["primary_residence_ind"]);
-                        returnObject.PrimResEstMktValue = ConvertToDouble(reader["prim_res_est_mkt_value"]);
+                        //returnObject.PrimResEstMktValue = ConvertToDouble(reader["prim_res_est_mkt_value"]);
                         returnObject.ProgramId = ConvertToInt(reader["program_id"]);
                         returnObject.PropAddr1 = ConvertToString(reader["prop_addr1"]);
                         returnObject.PropAddr2 = ConvertToString(reader["prop_addr2"]);

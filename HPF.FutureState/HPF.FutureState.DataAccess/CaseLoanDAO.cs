@@ -152,7 +152,7 @@ namespace HPF.FutureState.DataAccess
 
                             item.ArmRateAdjustDt =  ConvertToDateTime(reader["arm_rate_adjust_dt"]);
 			                item.ArmLockDuration = ConvertToInt(reader["arm_lock_duration"]);
-			                item.LoanLookupCd = ConvertToString(reader["LoanLookupCd"]);
+			                item.LoanLookupCd = ConvertToString(reader["loan_lookup_cd"]);
 			                item.ThirtyDaysLatePastYrInd = ConvertToString(reader["thirty_days_late_past_yr_ind"]);
 			                item.PmtMissLessOneYrLoanInd = ConvertToString(reader["pmt_miss_less_one_yr_loan_ind"]);
 			                item.SufficientIncomeInd = ConvertToString(reader["sufficient_income_ind"]);
@@ -160,7 +160,7 @@ namespace HPF.FutureState.DataAccess
 			                item.HarpEligibleInd = ConvertToString(reader["harp_eligible_ind"]);
 			                item.OrigPriorTo2009Ind = ConvertToString(reader["orig_prior_to_2009_ind"]);
 			                item.PriorHampInd = ConvertToString(reader["prior_hamp_ind"]);
-			                item.PrinBalWithinLimitInd = ConvertToString(reader["prinBal_within_limit_ind"]);
+			                item.PrinBalWithinLimitInd = ConvertToString(reader["prin_bal_within_limit_ind"]);
                             item.HampEligibleInd = ConvertToString(reader["hamp_eligible_ind"]);
 
                             results.Add(item);

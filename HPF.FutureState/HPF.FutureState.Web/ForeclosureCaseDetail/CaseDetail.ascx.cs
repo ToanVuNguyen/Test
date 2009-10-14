@@ -122,7 +122,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblForSaleIndicator.Text = DisplayInd(foreclosureCase.ForSaleInd);
                 lblRealtyCompany.Text = foreclosureCase.RealtyCompany;
                 lblHomeAskingPrice.Text = foreclosureCase.HomeSalePrice.HasValue?foreclosureCase.HomeSalePrice.Value.ToString("C"):null;
-                lblPrimaryRes.Text = foreclosureCase.PrimResEstMktValue.HasValue?foreclosureCase.PrimResEstMktValue.Value.ToString("C"):null;
+                //lblPrimaryRes.Text = foreclosureCase.PrimResEstMktValue.HasValue?foreclosureCase.PrimResEstMktValue.Value.ToString("C"):null;
                 //Borrower
                 lblFirstName.Text = foreclosureCase.BorrowerFname;
                 lblMidName.Text = foreclosureCase.BorrowerMname;

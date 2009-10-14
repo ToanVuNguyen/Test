@@ -1940,6 +1940,10 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0217, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0217));
             if (!referenceCode.Validate(ReferenceCode.CREDIT_BURREAU_CODE,  forclosureCase.IntakeCreditBureauCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0218, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0218));
+            if (!referenceCode.Validate(ReferenceCode.ERCP_OUTCOME_CODE, forclosureCase.ErcpOutcomeCd))
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0225, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0225));
+            if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE, forclosureCase.CounseledLanguageCd))
+                msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0224, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0224));
             return msgFcCaseSet;
         }
 
@@ -1969,6 +1973,9 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0222, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0222) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.MORTGAGE_PROGRAM_CODE,  caseLoan.MortgageProgramCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0223, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0223) + " working on case loan index " + (i + 1));
+                if (!referenceCode.Validate(ReferenceCode.LOAN_LOOKUP_CODE, caseLoan.LoanLookupCd))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0226, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0226) + " working on case loan index " + (i + 1));
+
                 if (!CheckValidServicerId(caseLoan.ServicerId))
                 {
                     string msg = string.Format(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0361), caseLoan.AcctNum);

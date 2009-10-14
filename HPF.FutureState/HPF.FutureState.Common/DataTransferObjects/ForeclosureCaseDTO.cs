@@ -582,9 +582,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 8000, "Followup Notes", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0040)]
         public string FollowupNotes { get; set; }
 
-        [XmlElement(IsNullable = true)]        
-        [NullableOrInRangeNumberValidator(true ,"-9999999999999.99", "9999999999999.99",Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0072)]
-        public double? PrimResEstMktValue { get; set; }
+        //[XmlElement(IsNullable = true)]        
+        //[NullableOrInRangeNumberValidator(true ,"-9999999999999.99", "9999999999999.99",Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0072)]
+        //public double? PrimResEstMktValue { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0118, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 30, "Assigned Counselor Id Referrence", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0041)]
@@ -892,42 +892,56 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ProgramName { get; set; }
 
         string vipInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0082)]
         public string VipInd 
         {
             get { return vipInd; }
             set { vipInd = (string.IsNullOrEmpty(value))?null:value.ToUpper();} 
         }
+        
         string vipReason;
+        [NullableOrStringLengthValidator(true, 100, "Vip Reason", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0083)]
         public string VipReason 
         {
             get { return vipReason; }
             set { vipReason = (string.IsNullOrEmpty(value)) ? null : value; } 
         }
-        string counseledLanguageCd;
+        
+        string counseledLanguageCd;        
         public string CounseledLanguageCd
         {
             get { return counseledLanguageCd; }
             set { counseledLanguageCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+        
         string ercpOutcomeCd;
+        [RequiredObjectValidator(Tag = ErrorMessages.WARN0331, Ruleset = Constant.RULESET_COMPLETE)]
         public string ErcpOutcomeCd 
         {
             get { return ercpOutcomeCd; }
             set { ercpOutcomeCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+        
         string counselorContactedSrvcrInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0084)]
         public string CounselorContactedSrvcrInd 
         {
             get { return counselorContactedSrvcrInd; }
             set { counselorContactedSrvcrInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
+        
+        [NullableOrInRangeNumberValidator(true, "0", "999", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0085)]
         public int? NumberOfUnits { get; set; }
+
         string vacantOrCondemedInd;
+        [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0086)]
         public string VacantOrCondemedInd 
         {
             get { return vacantOrCondemedInd; }
             set { vacantOrCondemedInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
-        public float? MortgagePmtRatio { get; set; }             
+
+        [NullableOrInRangeNumberValidator(true, "0.1", "9.9", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0087)]
+        public double? MortgagePmtRatio { get; set; }             
     }
 }

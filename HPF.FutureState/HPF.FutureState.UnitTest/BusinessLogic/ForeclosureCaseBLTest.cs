@@ -948,7 +948,7 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
             foreclosureCaseSet.ForeclosureCase.ChgLstUserId = working_user_id;
             foreclosureCaseSet.ForeclosureCase.CallId = "";
             foreclosureCaseSet.ForeclosureCase.BorrowerFname = "123";
-            foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
+            //foreclosureCaseSet.ForeclosureCase.PrimResEstMktValue = Convert.ToDouble("999999999999.99");                        
             ExceptionMessageCollection actual;
             actual = target.CheckInvalidFormatData(foreclosureCaseSet);            
             Assert.AreEqual(0, actual.Count);
@@ -2029,8 +2029,8 @@ namespace HPF.FutureState.UnitTest.BusinessLogic
                         returnObject.OwnerOccupiedInd = (reader["owner_occupied_ind"].ToString());
                         returnObject.PrimaryContactNo = (reader["primary_contact_no"].ToString());
                         returnObject.PrimaryResidenceInd = (reader["primary_residence_ind"].ToString());
-                        if (!string.IsNullOrEmpty(reader["prim_res_est_mkt_value"].ToString()) )
-                            returnObject.PrimResEstMktValue = double.Parse(reader["prim_res_est_mkt_value"].ToString());
+                        //if (!string.IsNullOrEmpty(reader["prim_res_est_mkt_value"].ToString()) )
+                        //    returnObject.PrimResEstMktValue = double.Parse(reader["prim_res_est_mkt_value"].ToString());
                         if (!string.IsNullOrEmpty(reader["program_id"].ToString()))
                             returnObject.ProgramId = int.Parse(reader["program_id"].ToString());
                         returnObject.PropAddr1 = (reader["prop_addr1"].ToString());
