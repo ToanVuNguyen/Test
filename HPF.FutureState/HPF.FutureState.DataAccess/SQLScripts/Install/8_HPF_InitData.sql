@@ -68,6 +68,7 @@ INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('mha ineli
 INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('servicer complaint code', 'Servicer complaint code');
 insert into ref_code_set (ref_code_set_name, code_set_comment, agency_usage_ind) values ('mha escalation code', 'MHA escalation code', 'Y');
 insert into ref_code_set (ref_code_set_name, code_set_comment, agency_usage_ind) values ('mha final resolution code', 'MHA final resolution code', 'Y');
+INSERT INTO ref_code_set (ref_code_set_name,code_set_comment) VALUES ('loan lookup code', 'loan lookup code');
 /****************************************************************************/
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','SCONS','Servicer Consent Change','',1,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
 INSERT INTO ref_code_item(ref_code_set_name,code,code_desc,code_comment,sort_order,active_ind,create_dt,create_user_id,create_app_name,chg_lst_dt,chg_lst_user_id,chg_lst_app_name) VALUES('activity code','FCONS','Funding Consent Change','',2,'Y',getdate(),'Installation','SQL Studio',getdate(),'Installation','SQL Studio');
@@ -617,6 +618,9 @@ insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sor
 values ('mha final resolution code', 'RESOLVEDFAN', 'Resolved with Fannie Mae', '', 8, 'Y',
        getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
 
+INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)VALUES ('loan lookup code', 'FANNIE', 'Fannie Mae', '', 1, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio');
+INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)VALUES ('loan lookup code', 'FREDDIE', 'Freddie Mac', '', 2, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio');
+INSERT INTO ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)VALUES ('loan lookup code', 'NOTFOUND', 'Not Found', '', 3, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio');
 /****************************************************************************/
 DELETE FROM menu_security;
 DELETE FROM menu_item;
