@@ -2834,9 +2834,7 @@ namespace HPF.Webservice.Agency
 
         private string actionItemsNotesField;
 
-        private string followupNotesField;
-
-        private System.Nullable<double> primResEstMktValueField;
+        private string followupNotesField;        
 
         private string assignedCounselorIdRefField;
 
@@ -2904,7 +2902,7 @@ namespace HPF.Webservice.Agency
 
         private string vacantOrCondemedIndField;
 
-        private System.Nullable<float> mortgagePmtRatioField;
+        private System.Nullable<double> mortgagePmtRatioField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
@@ -3785,21 +3783,7 @@ namespace HPF.Webservice.Agency
                 this.followupNotesField = value;
             }
         }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<double> PrimResEstMktValue
-        {
-            get
-            {
-                return this.primResEstMktValueField;
-            }
-            set
-            {
-                this.primResEstMktValueField = value;
-            }
-        }
-
+       
         /// <remarks/>
         public string AssignedCounselorIdRef
         {
@@ -4238,7 +4222,7 @@ namespace HPF.Webservice.Agency
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<float> MortgagePmtRatio
+        public System.Nullable<double> MortgagePmtRatio
         {
             get
             {

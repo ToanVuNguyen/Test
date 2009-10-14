@@ -66,8 +66,7 @@
     <OccupantNum>123</OccupantNum>
     <LoanDfltReasonNotes>abc</LoanDfltReasonNotes>
     <ActionItemsNotes>AA</ActionItemsNotes>
-    <FollowupNotes></FollowupNotes>
-    <PrimResEstMktValue></PrimResEstMktValue>
+    <FollowupNotes></FollowupNotes>   
     <AssignedCounselorIdRef>12</AssignedCounselorIdRef>
     <CounselorFname>CounselorFname</CounselorFname>
     <CounselorLname>CounselorLname</CounselorLname>
@@ -128,7 +127,7 @@
       <CurrentServicerNameTbd>test</CurrentServicerNameTbd>
       <MortgageProgramCd>va</MortgageProgramCd>
       <ArmRateAdjustDt>1/1/2009</ArmRateAdjustDt>
-      <ArmLockDuration>100</ArmLockDuration>
+      <ArmLockDuration>99</ArmLockDuration>
       <LoanLookupCd>NOTFOUND</LoanLookupCd>
       <ThirtyDaysLatePastYrInd>N</ThirtyDaysLatePastYrInd>
       <PmtMissLessOneYrLoanInd>N</PmtMissLessOneYrLoanInd>

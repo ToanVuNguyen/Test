@@ -636,12 +636,13 @@
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtLoanDfltReasonNotes" runat="server"></asp:TextBox>
             </td>
+            <!--
             <td>
                 <asp:Label CssClass = "sidelinks" ID="Label78" runat="server" Text="Prim res. est. mkt. value"></asp:Label>             
             </td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue" runat="server"></asp:TextBox>
-            </td>                       
+            </td>                -->       
         </tr>   
         <tr>
             <td>
