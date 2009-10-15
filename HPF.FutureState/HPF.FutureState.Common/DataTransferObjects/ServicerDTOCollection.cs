@@ -27,5 +27,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             return this.SingleOrDefault(i => i.ServicerID == servicerId);
         }
+
+        public ServicerDTO GetServicerByName(string servicerName)
+        {
+            if (string.IsNullOrEmpty(servicerName))
+                return null;
+            string sName = servicerName.ToUpper();
+            return this.SingleOrDefault(i => i.ServicerName.ToUpper().Equals(sName));
+        }
     }
 }

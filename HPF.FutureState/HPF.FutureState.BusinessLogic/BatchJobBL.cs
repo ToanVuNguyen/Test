@@ -35,7 +35,9 @@ namespace HPF.FutureState.BusinessLogic
         /// Main function: Read job table and process all jobs and write email + log when error orcur
         /// </summary>
         public void ProcessBatchJobs()
-        {            
+        {
+            ImportMHAEscalationData();
+            return;
             BatchJobDTOCollection batchJobs = BatchJobDAO.Instance.ReadBatchJobs();
             int rowCount = 0;
             foreach (BatchJobDTO job in batchJobs)

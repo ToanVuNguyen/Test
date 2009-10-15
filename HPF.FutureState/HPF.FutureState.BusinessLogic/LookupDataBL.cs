@@ -87,7 +87,7 @@ namespace HPF.FutureState.BusinessLogic
                     sServicer.SPFolderName = servicer.SPFolderName;
                     sServicer.ServicerName = servicer.ServicerName;
                     sServicer.ServicerID = servicer.ServicerID;
-                    sServicer.SummaryDeliveryMethodDesc = refCodes.GetRefCodeByCode(servicer.SummaryDeliveryMethod).CodeDescription;
+                    sServicer.SummaryDeliveryMethodDesc = refCodes.GetRefCodeItemByCode(servicer.SummaryDeliveryMethod).CodeDescription;
                     sServicer.Description = sServicer.ServicerName + " - " + sServicer.SummaryDeliveryMethodDesc;
                     results.Add(sServicer);
                 }

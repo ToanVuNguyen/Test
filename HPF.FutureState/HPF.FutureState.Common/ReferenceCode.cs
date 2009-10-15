@@ -54,5 +54,7 @@ namespace HPF.FutureState.Common
         public const string SERVICER_COMPLAINT_CODE = "servicer complaint code";
         public const string LOAN_LOOKUP_CODE = "loan lookup code";
         public const string ERCP_OUTCOME_CODE = "ercp outcome code";
+        public const string MHA_ESCALATION_CODE ="mha escalation code";
+        public const string MHA_FINAL_RESOLUTION_CODE = "mha final resolution code";
     }
 }

@@ -42,9 +42,17 @@ namespace HPF.FutureState.Common.DataTransferObjects
             return (this.SingleOrDefault(item => item.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim()) != null);            
         }
 
-        public RefCodeItemDTO GetRefCodeByCode(string codeValue)
+        public RefCodeItemDTO GetRefCodeItemByCode(string codeValue)
         {
             return this.SingleOrDefault(i => i.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim());
+        }
+
+        public RefCodeItemDTO GetRefCodeItemByCodeDescription(string description)
+        {
+            if (string.IsNullOrEmpty(description)) return null;
+
+            string desc = description.ToUpper();
+            return this.SingleOrDefault(i => i.CodeDescription.ToUpper().Trim() == desc);
         }
     }
 }

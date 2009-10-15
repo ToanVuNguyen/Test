@@ -7,6 +7,7 @@ using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 
+using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 
@@ -370,6 +371,11 @@ namespace HPF.FutureState.DataAccess
 
             try
             {
+                ServicerDTOCollection servicers = ServicerDAO.Instance.GetServicers();
+                RefCodeItemDTOCollection refCodes = RefCodeItemDAO.Instance.GetRefCodeItems();
+                RefCodeItemDTOCollection mhaEscalationCodes = refCodes.GetRefCodeItemsByRefCode(ReferenceCode.MHA_ESCALATION_CODE);
+                RefCodeItemDTOCollection mhaFinalResolutionCodes = refCodes.GetRefCodeItemsByRefCode(ReferenceCode.MHA_FINAL_RESOLUTION_CODE);
+
                 dbConnection = CreateConnection();
                 dbConnection.Open();
                 trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
@@ -381,34 +387,39 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[25];
+                    var sqlParam = new SqlParameter[28];
+                    ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
+                    RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
+                    RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
+
                     sqlParam[0] = new SqlParameter("@pi_created_dt", mhaEscaltion.CreatedDt);
                     sqlParam[1] = new SqlParameter("@pi_borrower_lname", mhaEscaltion.BorrowerLname);
                     sqlParam[2] = new SqlParameter("@pi_borrower_fname", mhaEscaltion.BorrowerFname);
                     sqlParam[3] = new SqlParameter("@pi_acct_num", mhaEscaltion.AcctNum);
                     sqlParam[4] = new SqlParameter("@pi_servicer", mhaEscaltion.Servicer);
-                    //sqlParam[5] = new SqlParameter("@pi_servicer_id", mhaEscaltion.ServicerId);
-                    sqlParam[5] = new SqlParameter("@pi_escalation", mhaEscaltion.Escalation);
-                    //sqlParam[7] = new SqlParameter("@pi_escalation_cd", mhaEscaltion.EscalationCd);
-                    sqlParam[6] = new SqlParameter("@pi_escalation_team_notes", mhaEscaltion.EscalationTeamNotes);
-                    sqlParam[7] = new SqlParameter("@pi_agency_case_num", mhaEscaltion.AgencyCaseNum);
-                    sqlParam[8] = new SqlParameter("@pi_fc_id", mhaEscaltion.FcId);
-                    sqlParam[9] = new SqlParameter("@pi_gse_lookup", mhaEscaltion.GseLookup);
-                    sqlParam[10] = new SqlParameter("@pi_counselor_name", mhaEscaltion.CounselorName);
-                    sqlParam[11] = new SqlParameter("@pi_counselor_email", mhaEscaltion.CounselorEmail);
-                    sqlParam[12] = new SqlParameter("@pi_counselor_phone", mhaEscaltion.CounselorPhone);
-                    sqlParam[13] = new SqlParameter("@pi_escalated_to_hpf", mhaEscaltion.EscalatedToHPF);
-                    sqlParam[14] = new SqlParameter("@pi_current_owner_of_issue", mhaEscaltion.CurrentOwnerOfIssue);
-                    sqlParam[15] = new SqlParameter("@pi_final_resolution", mhaEscaltion.FinalResolution);
-                    sqlParam[16] = new SqlParameter("@pi_final_resolution_dt", mhaEscaltion.FinalResolutionDate);
-                    sqlParam[17] = new SqlParameter("@pi_final_resolution_notes", mhaEscaltion.FinalResolutionNotes);
-                    sqlParam[18] = new SqlParameter("@pi_resolved_by", mhaEscaltion.ResolvedBy);
-                    sqlParam[19] = new SqlParameter("@pi_escalated_to_fannie", mhaEscaltion.EscalatedToFannie);
-                    sqlParam[20] = new SqlParameter("@pi_escalated_to_freddie", mhaEscaltion.EscalatedToFreddie);
-                    sqlParam[21] = new SqlParameter("@pi_hpf_notes", mhaEscaltion.HpfNotes);
-                    sqlParam[22] = new SqlParameter("@pi_gse_notes", mhaEscaltion.GseNotes);
-                    sqlParam[23] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
-                    sqlParam[24] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
+                    sqlParam[5] = new SqlParameter("@pi_servicer_id", (servicer == null)?null:servicer.ServicerID);
+                    sqlParam[6] = new SqlParameter("@pi_escalation", mhaEscaltion.Escalation);
+                    sqlParam[7] = new SqlParameter("@pi_escalation_cd", (mhaEscalationCode == null)?null:mhaEscalationCode.CodeValue);
+                    sqlParam[8] = new SqlParameter("@pi_escalation_team_notes", mhaEscaltion.EscalationTeamNotes);
+                    sqlParam[9] = new SqlParameter("@pi_agency_case_num", mhaEscaltion.AgencyCaseNum);
+                    sqlParam[10] = new SqlParameter("@pi_fc_id", mhaEscaltion.FcId);
+                    sqlParam[11] = new SqlParameter("@pi_gse_lookup", mhaEscaltion.GseLookup);
+                    sqlParam[12] = new SqlParameter("@pi_counselor_name", mhaEscaltion.CounselorName);
+                    sqlParam[13] = new SqlParameter("@pi_counselor_email", mhaEscaltion.CounselorEmail);
+                    sqlParam[14] = new SqlParameter("@pi_counselor_phone", mhaEscaltion.CounselorPhone);
+                    sqlParam[15] = new SqlParameter("@pi_escalated_to_hpf", mhaEscaltion.EscalatedToHPF);
+                    sqlParam[16] = new SqlParameter("@pi_current_owner_of_issue", mhaEscaltion.CurrentOwnerOfIssue);
+                    sqlParam[17] = new SqlParameter("@pi_final_resolution", mhaEscaltion.FinalResolution);
+                    sqlParam[18] = new SqlParameter("@pi_final_resolution_dt", mhaEscaltion.FinalResolutionDate);
+                    sqlParam[19] = new SqlParameter("@pi_final_resolution_cd", (mhaFinalResolutionCode == null)?null: mhaFinalResolutionCode.CodeValue);
+                    sqlParam[20] = new SqlParameter("@pi_final_resolution_notes", mhaEscaltion.FinalResolutionNotes);
+                    sqlParam[21] = new SqlParameter("@pi_resolved_by", mhaEscaltion.ResolvedBy);
+                    sqlParam[22] = new SqlParameter("@pi_escalated_to_fannie", mhaEscaltion.EscalatedToFannie);
+                    sqlParam[23] = new SqlParameter("@pi_escalated_to_freddie", mhaEscaltion.EscalatedToFreddie);
+                    sqlParam[24] = new SqlParameter("@pi_hpf_notes", mhaEscaltion.HpfNotes);
+                    sqlParam[25] = new SqlParameter("@pi_gse_notes", mhaEscaltion.GseNotes);
+                    sqlParam[26] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
+                    sqlParam[27] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);
