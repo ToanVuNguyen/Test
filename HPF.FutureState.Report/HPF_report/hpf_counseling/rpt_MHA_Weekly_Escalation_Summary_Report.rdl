@@ -32,6 +32,10 @@
           <DataField>group_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="item_cd">
+          <DataField>item_cd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="item_name">
           <DataField>item_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -44,8 +48,8 @@
           <DataField>this_wk</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="mon_to_dt">
-          <DataField>mon_to_dt</DataField>
+        <Field Name="program_to_dt">
+          <DataField>program_to_dt</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -109,10 +113,25 @@
   <Width>6.5in</Width>
   <Body>
     <ReportItems>
+      <Textbox Name="textbox4">
+        <rd:DefaultName>textbox4</rd:DefaultName>
+        <Top>0.70833in</Top>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>= "Report as of " &amp; CStr(Parameters!pi_dt.Value)</Value>
+      </Textbox>
       <Table Name="table1">
         <ZIndex>2</ZIndex>
         <DataSetName>dst_MHA_Weekly_Escalation_Summary_report</DataSetName>
-        <Top>0.70833in</Top>
+        <Top>0.96875in</Top>
         <TableGroups>
           <TableGroup>
             <Grouping Name="table1_Group1">
@@ -297,6 +316,8 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontStyle>= IIF(Fields!item_name.Value = "Total" OR Fields!item_name.Value = "Diff in Calls vs Escalations Recorded", "Italic", "Normal")</FontStyle>
+                        <FontWeight>= IIF( Fields!item_name.Value = "Escalations Recorded", "Bold", "Normal")</FontWeight>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -316,6 +337,9 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontStyle>= IIF(Fields!item_name.Value = "Total" OR Fields!item_name.Value = "Diff in Calls vs Escalations Recorded", "Italic", "Normal")</FontStyle>
+                        <FontWeight>= IIF(Fields!item_name.Value= "Total" OR Fields!item_name.Value= "Escalations Recorded", "Bold", "Normal")</FontWeight>
+                        <Format>N0</Format>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -336,6 +360,9 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontStyle>= IIF(Fields!item_name.Value = "Total" OR Fields!item_name.Value = "Diff in Calls vs Escalations Recorded", "Italic", "Normal")</FontStyle>
+                        <FontWeight>= IIF(Fields!item_name.Value= "Total" OR Fields!item_name.Value= "Escalations Recorded", "Bold", "Normal")</FontWeight>
+                        <Format>N0</Format>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -356,6 +383,9 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
+                        <FontStyle>= IIF(Fields!item_name.Value = "Total" OR Fields!item_name.Value = "Diff in Calls vs Escalations Recorded", "Italic", "Normal")</FontStyle>
+                        <FontWeight>= IIF(Fields!item_name.Value= "Total" OR Fields!item_name.Value= "Escalations Recorded", "Bold", "Normal")</FontWeight>
+                        <Format>N0</Format>
                         <TextAlign>Right</TextAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -363,7 +393,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!mon_to_dt.Value</Value>
+                      <Value>=Fields!program_to_dt.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -489,7 +519,7 @@
                       </Style>
                       <ZIndex>16</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>Month To Date</Value>
+                      <Value>Program To Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -618,7 +648,7 @@
         <Value>Making Home Affordable Program</Value>
       </Textbox>
     </ReportItems>
-    <Height>1.95833in</Height>
+    <Height>2.21875in</Height>
   </Body>
   <Language>en-US</Language>
 </Report>
