@@ -31,7 +31,8 @@ namespace HPF.FutureState.DataAccess
         {
             var sqlCommand = new SqlCommand(spName)
             {
-                Connection = connection
+                Connection = connection,
+                CommandTimeout = connection.ConnectionTimeout
             };
             return sqlCommand;
         }
@@ -41,7 +42,8 @@ namespace HPF.FutureState.DataAccess
             var sqlCommand = new SqlCommand(spName)
             {
                 Connection = connection,
-                Transaction = transaction
+                Transaction = transaction,
+                CommandTimeout = connection.ConnectionTimeout
             };
             return sqlCommand;
         }
@@ -51,7 +53,8 @@ namespace HPF.FutureState.DataAccess
             var sqlCommand = new SqlCommand(spName)
             {
                 Connection = transaction.Connection,
-                Transaction = transaction
+                Transaction = transaction,
+                CommandTimeout = transaction.Connection.ConnectionTimeout
             };
             return sqlCommand;
         }
@@ -70,7 +73,8 @@ namespace HPF.FutureState.DataAccess
             var sqlCommand = new SqlCommand(spName)
             {
                 CommandType = CommandType.StoredProcedure,
-                Connection = connection
+                Connection = connection,
+                CommandTimeout = connection.ConnectionTimeout
             };
             return sqlCommand;
         }
@@ -81,7 +85,8 @@ namespace HPF.FutureState.DataAccess
             {
                 CommandType = CommandType.StoredProcedure,
                 Transaction = transaction,
-                Connection = connection
+                Connection = connection,
+                CommandTimeout = connection.ConnectionTimeout
             };
             return sqlCommand;
         }
@@ -92,7 +97,8 @@ namespace HPF.FutureState.DataAccess
             {
                 CommandType = CommandType.StoredProcedure,
                 Transaction = transaction,
-                Connection = transaction.Connection
+                Connection = transaction.Connection,
+                CommandTimeout = transaction.Connection.ConnectionTimeout
             };
             return sqlCommand;
         }
