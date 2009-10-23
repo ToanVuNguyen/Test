@@ -2129,12 +2129,13 @@ namespace HPF.FutureState.BusinessLogic
                 return true;
             else if (servicerCollection == null || servicerCollection.Count < 1)
                 return false;
-            foreach (ServicerDTO item in servicerCollection)
-            {
-                if (item.ServicerID == servicerId)
-                    return true;
-            }
-            return false;
+
+            ServicerDTO serv = servicerCollection.GetServicerById(servicerId);
+            
+            if(serv == null || serv.ActiveInd != "Y")
+                return false;
+
+            return true;
         }
 
         /// <summary>
