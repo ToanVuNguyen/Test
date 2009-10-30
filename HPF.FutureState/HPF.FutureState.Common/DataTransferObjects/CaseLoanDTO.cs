@@ -189,7 +189,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "ArmRateAdjustDt must be between 1/1/1753 and 12/31/9999")]
         public DateTime? ArmRateAdjustDt { get; set; }
 
-        [NullableOrInRangeNumberValidator(true, "0", "99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0088)]
+        [NullableOrInRangeNumberValidator(true, "1", "99", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0088)]
         public int? ArmLockDuration { get; set; }
 
         string loanLookupCd;        

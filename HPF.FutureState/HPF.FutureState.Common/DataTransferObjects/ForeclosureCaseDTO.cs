@@ -930,7 +930,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set { counselorContactedSrvcrInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
         
-        [NullableOrInRangeNumberValidator(true, "0", "999", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0085)]
+        [NullableOrInRangeNumberValidator(true, "1", "999", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0085)]
         public int? NumberOfUnits { get; set; }
 
         string vacantOrCondemedInd;
