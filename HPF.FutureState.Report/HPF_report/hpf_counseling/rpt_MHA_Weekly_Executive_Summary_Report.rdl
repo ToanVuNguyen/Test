@@ -187,6 +187,10 @@
           <DataField>item_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="program_to_dt">
+          <DataField>program_to_dt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="align">
           <DataField>align</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -3465,7 +3469,7 @@
                       </Style>
                       <ZIndex>130</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=First(Fields!item_cd.Value)</Value>
+                      <Value>=First(Fields!item_name.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -12185,7 +12189,7 @@
         <CanGrow>true</CanGrow>
         <Left>9.78203in</Left>
         <Height>5.165in</Height>
-        <Value>="* PTD refers to launch date as of 6/22/09.  An additional 15,077 calls were received during pilot launch (6/2-6/21) for a total of 100,536.  Data in this report reflects 6/22 forward."</Value>
+        <Value>="* PTD refers to launch date as of 6/22/09.  An additional " &amp; CStr(CInt(First(Fields!program_to_dt.Value, "dst_get_label")))&amp; " calls were received during pilot launch (6/2-6/21) for a total of 100,536.  Data in this report reflects 6/22 forward."</Value>
       </Textbox>
       <Table Name="table5">
         <ZIndex>3</ZIndex>
@@ -16739,7 +16743,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
         <CanGrow>true</CanGrow>
-        <Value>Nonpublic information under Financial Agency Agreement (FAA) with the U.S. Treasury. Use only in furtherance of the FAA. Disclosure to third parties subject to written approval of the U.S. Treasury. Confidential treatment requested.</Value>
+        <Value>Proprietary and Confidential - Restricted – Pre-decisional – Not for publication. Contains Nonpublic Information under a Financial Agency Agreement with the U.S. Department of Treasury. Confidential treatment required.</Value>
       </Textbox>
     </ReportItems>
     <Height>0.18in</Height>

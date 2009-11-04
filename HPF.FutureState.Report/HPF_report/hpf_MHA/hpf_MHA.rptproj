@@ -9,12 +9,16 @@
   </DataSources>
   <Reports>
     <ProjectItem>
+      <Name>rpt_ICT_Escalation_Calls .rdl</Name>
+      <FullPath>rpt_ICT_Escalation_Calls .rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_Zipcode_Outreach_Report.rdl</Name>
       <FullPath>rpt_Zipcode_Outreach_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_ICT_Escalation_Calls .rdl</Name>
-      <FullPath>rpt_ICT_Escalation_Calls .rdl</FullPath>
+      <Name>rpt_MHA_Weekly_Escalation_Summary_Report.rdl</Name>
+      <FullPath>rpt_MHA_Weekly_Escalation_Summary_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

@@ -1961,7 +1961,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
         <CanGrow>true</CanGrow>
-        <Value>Nonpublic information under the Financial Agency Agreement (FAA) with the U.S. Treasury.Use only in furtherance of the F.A.A.. Disclosure to third parties is subject to written approval from the U.S. Treasury.Confidential treatment requested.</Value>
+        <Value>Proprietary and Confidential - Restricted – Pre-decisional – Not for publication. Contains Nonpublic Information under a Financial Agency Agreement with the U.S. Department of Treasury. Confidential treatment required.</Value>
       </Textbox>
     </ReportItems>
     <Height>0.2in</Height>

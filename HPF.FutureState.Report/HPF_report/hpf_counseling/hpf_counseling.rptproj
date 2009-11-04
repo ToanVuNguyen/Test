@@ -98,10 +98,6 @@
       <Name>rpt_PotentialDuplicates.rdl</Name>
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_MHA_Weekly_Escalation_Summary_Report.rdl</Name>
-      <FullPath>rpt_MHA_Weekly_Escalation_Summary_Report.rdl</FullPath>
-    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
