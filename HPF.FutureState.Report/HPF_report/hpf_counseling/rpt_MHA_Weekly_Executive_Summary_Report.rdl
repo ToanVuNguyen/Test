@@ -12189,7 +12189,7 @@
         <CanGrow>true</CanGrow>
         <Left>9.78203in</Left>
         <Height>5.165in</Height>
-        <Value>="* PTD refers to launch date as of 6/22/09.  An additional " &amp; CStr(CInt(First(Fields!program_to_dt.Value, "dst_get_label")))&amp; " calls were received during pilot launch (6/2-6/21) for a total of 100,536.  Data in this report reflects 6/22 forward."</Value>
+        <Value>="* PTD refers to launch date as of 6/22/09.  An additional 15077 calls were received during pilot launch (6/2-6/21) for a total of "&amp; CStr(CInt(First(Fields!program_to_dt.Value, "dst_get_label")))&amp; ".  Data in this report reflects 6/22 forward."</Value>
       </Textbox>
       <Table Name="table5">
         <ZIndex>3</ZIndex>
