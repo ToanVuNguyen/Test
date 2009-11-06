@@ -19,10 +19,6 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
-      <Name>rpt_Borrower Comments.rdl</Name>
-      <FullPath>rpt_Borrower Comments.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>rpt_CaseFundingSourceSummary.rdl</Name>
       <FullPath>rpt_CaseFundingSourceSummary.rdl</FullPath>
     </ProjectItem>
@@ -77,10 +73,6 @@
     <ProjectItem>
       <Name>rpt_MHA_Eligibility_Results_Report.rdl</Name>
       <FullPath>rpt_MHA_Eligibility_Results_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_MHA_Weekly_Executive_Summary_Report.rdl</Name>
-      <FullPath>rpt_MHA_Weekly_Executive_Summary_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_MHADailySummaryReport.rdl</Name>
