@@ -1066,8 +1066,8 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.Add(msgRequire);*/
             //
             ExceptionMessageCollection msgComplete = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            if (caseComplete)            
-                msgFcCaseSet.Add(msgComplete);            
+            //if (caseComplete)            
+            msgFcCaseSet.Add(msgComplete);            
             
             return msgFcCaseSet;
         }
