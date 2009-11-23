@@ -7,6 +7,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
 {
     public class FundingSourceDTO:BaseDTO
     {
+        string activeInd;
+        public string ActiveIndicator 
+        {
+            get { return activeInd; }
+            set { activeInd = string.IsNullOrEmpty(value) ? null : value.Trim().ToUpper(); }
+        }
         public int FundingSourceID { get; set; }
         public string FundingSourceName { get; set; }
         

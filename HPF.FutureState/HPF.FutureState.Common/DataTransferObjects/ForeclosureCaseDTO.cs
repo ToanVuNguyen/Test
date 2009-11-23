@@ -915,7 +915,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
         
         string ercpOutcomeCd;
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0331, Ruleset = Constant.RULESET_COMPLETE)]
+        //BUG-439
+        //[RequiredObjectValidator(Tag = ErrorMessages.WARN0331, Ruleset = Constant.RULESET_COMPLETE)]
         public string ErcpOutcomeCd 
         {
             get { return ercpOutcomeCd; }
@@ -941,7 +942,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set { vacantOrCondemedInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
         }
 
-        [NullableOrInRangeNumberValidator(true, "0.1", "99.9", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0087)]
+        [NullableOrInRangeNumberValidator(true, "0.1", "999.9", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0087)]
         public double? MortgagePmtRatio { get; set; }             
     }
 }

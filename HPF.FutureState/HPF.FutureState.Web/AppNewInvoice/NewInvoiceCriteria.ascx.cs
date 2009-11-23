@@ -157,10 +157,16 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex,HPFWebSecurity.CurrentIdentity.LoginName);
             }
-            dropFundingSource.DataValueField = "FundingSourceID";
+            /*dropFundingSource.DataValueField = "FundingSourceID";
             dropFundingSource.DataTextField = "FundingSourceName";
             dropFundingSource.DataSource = fundingSourceCollection;
-            dropFundingSource.DataBind();
+            dropFundingSource.DataBind();*/
+            foreach (FundingSourceDTO fsource in fundingSourceCollection)
+            {
+                if (fsource.ActiveIndicator != Constant.DUPLICATE_YES) continue;
+                dropFundingSource.Items.Add(new ListItem(fsource.FundingSourceName, fsource.FundingSourceID.ToString()));
+            }            
+
             dropFundingSource.Items.Remove(dropFundingSource.Items.FindByValue("-1"));
             dropFundingSource.Items.Insert(0, new ListItem(" ", "-1"));
             //first time

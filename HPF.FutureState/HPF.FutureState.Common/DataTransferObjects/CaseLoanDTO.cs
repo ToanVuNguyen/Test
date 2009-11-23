@@ -233,7 +233,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         string harpEligibleInd;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0093)]
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0332, Ruleset = Constant.RULESET_COMPLETE)]
+        //BUG-439
+        //[RequiredObjectValidator(Tag = ErrorMessages.WARN0332, Ruleset = Constant.RULESET_COMPLETE)]
         public string HarpEligibleInd 
         {
             get { return harpEligibleInd; }
@@ -266,7 +267,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         string hampEligibleInd;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0097)]
-        [RequiredObjectValidator(Tag = ErrorMessages.WARN0333, Ruleset = Constant.RULESET_COMPLETE)]
+        //BUG-439
+        //[RequiredObjectValidator(Tag = ErrorMessages.WARN0333, Ruleset = Constant.RULESET_COMPLETE)]
         public string HampEligibleInd 
         {
             get { return hampEligibleInd; }

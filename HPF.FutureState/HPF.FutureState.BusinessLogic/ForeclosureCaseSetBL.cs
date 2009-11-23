@@ -28,7 +28,8 @@ namespace HPF.FutureState.BusinessLogic
 
         private string _workingUserID;
         
-        private bool IsFirstTimeCaseCompleted;        
+        private bool IsFirstTimeCaseCompleted;
+        private bool IsForeclosureCaseInserted;
         //
         ForeclosureCaseSetDTO FCaseSetFromDB = new ForeclosureCaseSetDTO();
         DuplicatedCaseLoanDTOCollection dupeCaseLoans = new DuplicatedCaseLoanDTOCollection();
@@ -377,11 +378,11 @@ namespace HPF.FutureState.BusinessLogic
         #region Functions to serve SaveForeclosureCaseSet
 
         private int? ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {            
+        {
+            IsForeclosureCaseInserted = false;
             var exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList.Count > 0)
-                ThrowDataValidationException(exceptionList);
-            //
+                ThrowDataValidationException(exceptionList);            
             dupeCaseLoans = GetDuplicateCases(foreclosureCaseSet);
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
@@ -435,10 +436,10 @@ namespace HPF.FutureState.BusinessLogic
 
         private int? ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
+            IsForeclosureCaseInserted = true;
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList.Count > 0)
-                ThrowDataValidationException(exceptionList);
-
+                ThrowDataValidationException(exceptionList);            
             dupeCaseLoans = GetDuplicateCases(foreclosureCaseSet);
             foreclosureCaseSet.ForeclosureCase.DuplicateInd = Constant.DUPLICATE_NO;
 
@@ -474,8 +475,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private int? ProcessInsertUpdateWithoutForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {                        
-            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
-
+            ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;            
             //if (string.IsNullOrEmpty(fcCase.AgencyCaseNum) || fcCase.AgencyId == 0)
             //    ThrowDataValidationException(ErrorMessages.ERR0250);
             
@@ -487,9 +487,7 @@ namespace HPF.FutureState.BusinessLogic
 
         private int? ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-
-            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;
-            
+            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;            
             //check fcid in db or not
             FCaseSetFromDB.ForeclosureCase = GetForeclosureCase(fc.FcId);
             
@@ -555,6 +553,25 @@ namespace HPF.FutureState.BusinessLogic
         {            
             var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };
             
+            switch(ruleSet)
+            {
+                case Constant.RULESET_MIN_REQUIRE_FIELD:                    
+                    break;
+                case Constant.RULESET_COMPLETE: //BUG-439: only raise warning message completed case from 1/1/2010 when updating
+                    if (string.IsNullOrEmpty(foreclosureCase.ErcpOutcomeCd))
+                    {
+                        bool warn331 = false;                        
+                        if (IsForeclosureCaseInserted) //insert case --> always add warning
+                            warn331 = true;
+                        else if (FCaseSetFromDB.ForeclosureCase.CompletedDt != null && FCaseSetFromDB.ForeclosureCase.CompletedDt >= new DateTime(2010, 1, 1))
+                            warn331 = true; //update case have completed date from 1/1/2010
+
+                        if(warn331)
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0331, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0331));
+                    }
+                    break;
+            }
+
             return msgFcCaseSet;
         }
 
@@ -711,6 +728,22 @@ namespace HPF.FutureState.BusinessLogic
                     double testValue = Math.Round(item.InterestRate.Value, 3);
                     if (testValue != item.InterestRate.Value && msgFcCaseSet.GetExceptionMessages(ErrorMessages.ERR0395).Count == 0)
                         msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0395, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0395));
+                }
+                else if (ruleSet == Constant.RULESET_COMPLETE)
+                {
+                    bool warning = false;                    
+                    if (IsForeclosureCaseInserted) //insert case --> always add warning
+                        warning = true;
+                    else if (FCaseSetFromDB.ForeclosureCase.CompletedDt != null && FCaseSetFromDB.ForeclosureCase.CompletedDt >= new DateTime(2010, 1, 1))
+                        warning = true; //update case have completed date from 1/1/2010
+
+                    if (warning && item.Loan1st2nd == Constant.LOAN_1ST) //only check for 1st loan
+                    {
+                        if(string.IsNullOrEmpty(item.HarpEligibleInd))
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0332, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0332));
+                        if (string.IsNullOrEmpty(item.HampEligibleInd))
+                            msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0333, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0333));
+                    }
                 }
             }            
             return msgFcCaseSet;
@@ -982,7 +1015,7 @@ namespace HPF.FutureState.BusinessLogic
             var msgFcCaseSet = new ExceptionMessageCollection();            
             bool caseComplete = CheckForeclosureCaseDBComplete(FCaseSetFromDB);            
             //Cannot Un-complete a Previously Completed Case
-            msgFcCaseSet.Add(CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete));
+            WarningMessage.Add(CheckUnCompleteCaseComplete(foreclosureCaseSet, caseComplete));
             //Two First Mortgages Not Allowed in a Case AND Case Loan must have atleast 1st (If case completed)
             msgFcCaseSet.Add(CheckFirstMortgages(foreclosureCaseSet));
             //Cannot resubmit the case complete without billable outcome
@@ -1028,14 +1061,14 @@ namespace HPF.FutureState.BusinessLogic
         private ExceptionMessageCollection CheckUnCompleteCaseComplete(ForeclosureCaseSetDTO foreclosureCaseSetInput, bool caseComplete)
         {   
             ExceptionMessageCollection msgFcCaseSet = new ExceptionMessageCollection();
-            ExceptionMessageCollection msgRequire = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
+            /*ExceptionMessageCollection msgRequire = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_MIN_REQUIRE_FIELD);
             if (caseComplete)
-                msgFcCaseSet.Add(msgRequire);
+                msgFcCaseSet.Add(msgRequire);*/
             //
             ExceptionMessageCollection msgComplete = ValidationFieldByRuleSet(foreclosureCaseSetInput, Constant.RULESET_COMPLETE);
-            //if (caseComplete)            
-            //    msgFcCaseSet.Add(msgComplete);            
-            WarningMessage.Add(msgComplete);            
+            if (caseComplete)            
+                msgFcCaseSet.Add(msgComplete);            
+            
             return msgFcCaseSet;
         }
 

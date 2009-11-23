@@ -322,6 +322,7 @@ namespace HPF.FutureState.DataAccess
                             item.ExportFormatCd = ConvertToString(reader["export_format_cd"]);
                             item.FundingSourceAbbrev = ConvertToString(reader["funding_source_abbrev"]);
                             item.SharePointFolder = ConvertToString(reader["sharepoint_foldername"]);
+                            item.ActiveIndicator = ConvertToString(reader["active_ind"]);
                             result.Add(item);
                         }
                         reader.Close();
