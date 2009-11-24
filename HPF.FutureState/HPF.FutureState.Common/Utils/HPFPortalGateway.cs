@@ -132,7 +132,7 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.CurrentOwnerOfIssue = mha.CurrentOwnerOfIssue;
                 mhaDTO.EscalatedToFannie = mha.EscalatedToFannie;
                 mhaDTO.EscalatedToFreddie = mha.EscalatedToFreddie;
-                mhaDTO.EscalatedToHPF = mha.EscalatedToHPF;
+                mhaDTO.EscalatedToMMIMgmt = mha.EscalatedToMMIMgmt;
                 mhaDTO.Escalation = mha.Escalation;
                 //mhaDTO.EscalationCd = mha.EscalationCd;
                 mhaDTO.EscalationTeamNotes = mha.EscalationTeamNotes;
@@ -147,6 +147,9 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.ResolvedBy = mha.ResolvedBy;
                 mhaDTO.Servicer = mha.Servicer;
                 //mhaDTO.ServicerId = mha.ServicerId;
+                mhaDTO.City = mha.City;
+                mhaDTO.State = mha.State;
+                mhaDTO.Zip = mha.Zip;
                 mhaDTO.SetInsertTrackingInformation("System");
                 result.Add(mhaDTO);
             }

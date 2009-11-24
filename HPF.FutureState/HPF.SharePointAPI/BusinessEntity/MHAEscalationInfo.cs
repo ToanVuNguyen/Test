@@ -22,7 +22,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string CounselorName { get; set; }
         public string CounselorEmail { get; set; }
         public string CounselorPhone { get; set; }
-        public string EscalatedToHPF { get; set; }
+        public string EscalatedToMMIMgmt { get; set; } //EscalatedToHPF 
         public string CurrentOwnerOfIssue { get; set; }
         public string FinalResolution { get; set; }
         public DateTime? FinalResolutionDate { get; set; }
@@ -34,5 +34,8 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string HpfNotes { get; set; }
         public string GseNotes { get; set; }
         //public DateTime? ReplicateDt { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zip { get; set; }
     }
 }

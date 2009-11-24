@@ -50,9 +50,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public RefCodeItemDTO GetRefCodeItemByCodeDescription(string description)
         {
             if (string.IsNullOrEmpty(description)) return null;
-
-            string desc = description.ToUpper();
-            return this.SingleOrDefault(i => i.CodeDescription.ToUpper().Trim() == desc);
+            try
+            {
+                string desc = description.ToUpper();
+                return this.SingleOrDefault(i => i.CodeDescription.ToUpper().Trim() == desc);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

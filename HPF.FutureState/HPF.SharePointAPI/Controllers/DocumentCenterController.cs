@@ -60,8 +60,8 @@ namespace HPF.SharePointAPI.Controllers
                         
                         mhaInfo.CurrentOwnerOfIssue = (string)item[MHAEscalation.Default.CurrentOwnerOfIssue];                        
                         mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString();                        
-                        mhaInfo.EscalatedToFreddie = (string)item[MHAEscalation.Default.EscalatedToFreddie].ToString();                        
-                        mhaInfo.EscalatedToHPF = (string)item[MHAEscalation.Default.EscalatedToHPF].ToString();                        
+                        mhaInfo.EscalatedToFreddie = (string)item[MHAEscalation.Default.EscalatedToFreddie].ToString();
+                        mhaInfo.EscalatedToMMIMgmt = (string)item[MHAEscalation.Default.EscalatedToMMIMgmt].ToString();                        
                         mhaInfo.Escalation = (string)item[MHAEscalation.Default.Escalation];                        
                         mhaInfo.EscalationTeamNotes = (string)item[MHAEscalation.Default.EscalationTeamNotes];                        
                         mhaInfo.FinalResolution = (string)item[MHAEscalation.Default.FinalResolution];                        
@@ -72,6 +72,9 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.HpfNotes = (string)item[MHAEscalation.Default.HPFNotes];                        
                         mhaInfo.ResolvedBy = (string)item[MHAEscalation.Default.ResolvedBy];                        
                         mhaInfo.Servicer = (string)item[MHAEscalation.Default.Servicer];
+                        mhaInfo.City = (string)item[MHAEscalation.Default.City];
+                        mhaInfo.State = (string)item[MHAEscalation.Default.State];
+                        mhaInfo.Zip = (string)item[MHAEscalation.Default.Zip];
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");

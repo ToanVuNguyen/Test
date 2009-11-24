@@ -387,7 +387,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[28];
+                    var sqlParam = new SqlParameter[31];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
@@ -407,7 +407,7 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[12] = new SqlParameter("@pi_counselor_name", mhaEscaltion.CounselorName);
                     sqlParam[13] = new SqlParameter("@pi_counselor_email", mhaEscaltion.CounselorEmail);
                     sqlParam[14] = new SqlParameter("@pi_counselor_phone", mhaEscaltion.CounselorPhone);
-                    sqlParam[15] = new SqlParameter("@pi_escalated_to_hpf", mhaEscaltion.EscalatedToHPF);
+                    sqlParam[15] = new SqlParameter("@pi_escalated_to_mmi_mgmt", mhaEscaltion.EscalatedToMMIMgmt);
                     sqlParam[16] = new SqlParameter("@pi_current_owner_of_issue", mhaEscaltion.CurrentOwnerOfIssue);
                     sqlParam[17] = new SqlParameter("@pi_final_resolution", mhaEscaltion.FinalResolution);
                     sqlParam[18] = new SqlParameter("@pi_final_resolution_dt", mhaEscaltion.FinalResolutionDate);
@@ -418,8 +418,11 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[23] = new SqlParameter("@pi_escalated_to_freddie", mhaEscaltion.EscalatedToFreddie);
                     sqlParam[24] = new SqlParameter("@pi_hpf_notes", mhaEscaltion.HpfNotes);
                     sqlParam[25] = new SqlParameter("@pi_gse_notes", mhaEscaltion.GseNotes);
-                    sqlParam[26] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
-                    sqlParam[27] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
+                    sqlParam[26] = new SqlParameter("@pi_city", mhaEscaltion.City);
+                    sqlParam[27] = new SqlParameter("@pi_state", mhaEscaltion.State);
+                    sqlParam[28] = new SqlParameter("@pi_zip", mhaEscaltion.Zip);
+                    sqlParam[29] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
+                    sqlParam[30] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);                    
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);

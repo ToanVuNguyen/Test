@@ -38,8 +38,8 @@
     <Setting Name="CounselorPhone" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Counselor Phone</Value>
     </Setting>
-    <Setting Name="EscalatedToHPF" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Escalated To HPF</Value>
+    <Setting Name="EscalatedToMMIMgmt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Escalated To MMI Mgmt</Value>
     </Setting>
     <Setting Name="CurrentOwnerOfIssue" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Current Owner Issue</Value>
@@ -70,6 +70,15 @@
     </Setting>
     <Setting Name="FinalResolutionDate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Final Resolution Date</Value>
+    </Setting>
+    <Setting Name="City" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">City</Value>
+    </Setting>
+    <Setting Name="State" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">State</Value>
+    </Setting>
+    <Setting Name="Zip" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Zip</Value>
     </Setting>
   </Settings>
 </SettingsFile>

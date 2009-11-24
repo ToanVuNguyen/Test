@@ -32,8 +32,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             if (string.IsNullOrEmpty(servicerName))
                 return null;
-            string sName = servicerName.ToUpper();
-            return this.SingleOrDefault(i => i.ServicerName.ToUpper().Equals(sName));
+            try
+            {
+                string sName = servicerName.ToUpper();
+                return this.SingleOrDefault(i => i.ServicerName.ToUpper().Equals(sName));
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
