@@ -387,7 +387,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[31];
+                    var sqlParam = new SqlParameter[32];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
@@ -418,11 +418,12 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[23] = new SqlParameter("@pi_escalated_to_freddie", mhaEscaltion.EscalatedToFreddie);
                     sqlParam[24] = new SqlParameter("@pi_hpf_notes", mhaEscaltion.HpfNotes);
                     sqlParam[25] = new SqlParameter("@pi_gse_notes", mhaEscaltion.GseNotes);
-                    sqlParam[26] = new SqlParameter("@pi_city", mhaEscaltion.City);
-                    sqlParam[27] = new SqlParameter("@pi_state", mhaEscaltion.State);
-                    sqlParam[28] = new SqlParameter("@pi_zip", mhaEscaltion.Zip);
-                    sqlParam[29] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
-                    sqlParam[30] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);                    
+                    sqlParam[26] = new SqlParameter("@pi_address", mhaEscaltion.Address);
+                    sqlParam[27] = new SqlParameter("@pi_city", mhaEscaltion.City);
+                    sqlParam[28] = new SqlParameter("@pi_state", mhaEscaltion.State);
+                    sqlParam[29] = new SqlParameter("@pi_zip", mhaEscaltion.Zip);
+                    sqlParam[30] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
+                    sqlParam[31] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);                    
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);

@@ -44,7 +44,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public RefCodeItemDTO GetRefCodeItemByCode(string codeValue)
         {
-            return this.SingleOrDefault(i => i.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim());
+            try
+            {
+                return this.SingleOrDefault(i => i.CodeValue.ToUpper().Trim() == codeValue.ToUpper().Trim());
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public RefCodeItemDTO GetRefCodeItemByCodeDescription(string description)

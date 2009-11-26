@@ -147,6 +147,7 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.ResolvedBy = mha.ResolvedBy;
                 mhaDTO.Servicer = mha.Servicer;
                 //mhaDTO.ServicerId = mha.ServicerId;
+                mhaDTO.Address = mha.Address;
                 mhaDTO.City = mha.City;
                 mhaDTO.State = mha.State;
                 mhaDTO.Zip = mha.Zip;

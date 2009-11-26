@@ -256,5 +256,14 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["Zip"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Address")]
+        public string Address {
+            get {
+                return ((string)(this["Address"]));
+            }
+        }
     }
 }

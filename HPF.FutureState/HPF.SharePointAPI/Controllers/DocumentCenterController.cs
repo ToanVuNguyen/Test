@@ -75,6 +75,8 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.City = (string)item[MHAEscalation.Default.City];
                         mhaInfo.State = (string)item[MHAEscalation.Default.State];
                         mhaInfo.Zip = (string)item[MHAEscalation.Default.Zip];
+                        mhaInfo.Address = (string)item[MHAEscalation.Default.Address];
+
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");
