@@ -320,6 +320,10 @@
           <DataField>interest_rate</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="funding_consent_ind">
+          <DataField>funding_consent_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="outcome_1">
           <DataField>outcome_1</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -376,7 +380,7 @@ ORDER BY program_name</CommandText>
     </DataSet>
   </DataSets>
   <Code />
-  <Width>99.75in</Width>
+  <Width>102.125in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
@@ -402,7 +406,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>61</ZIndex>
+                      <ZIndex>63</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!fc_id.Value</Value>
                     </Textbox>
@@ -423,9 +427,29 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>60</ZIndex>
+                      <ZIndex>62</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!agency_name.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="completed_dt">
+                      <rd:DefaultName>completed_dt</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontSize>9pt</FontSize>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>61</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=CStr(Fields!completed_dt.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -443,7 +467,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>59</ZIndex>
+                      <ZIndex>60</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!agency_case_num.Value</Value>
                     </Textbox>
@@ -463,7 +487,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>58</ZIndex>
+                      <ZIndex>59</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!agency_client_num.Value</Value>
                     </Textbox>
@@ -483,7 +507,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>57</ZIndex>
+                      <ZIndex>58</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!counselor_fname.Value</Value>
                     </Textbox>
@@ -503,7 +527,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>56</ZIndex>
+                      <ZIndex>57</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!counselor_lname.Value</Value>
                     </Textbox>
@@ -524,7 +548,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>55</ZIndex>
+                      <ZIndex>56</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!program_name.Value</Value>
                     </Textbox>
@@ -544,7 +568,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>54</ZIndex>
+                      <ZIndex>55</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!intake_dt.Value</Value>
                     </Textbox>
@@ -565,7 +589,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>53</ZIndex>
+                      <ZIndex>54</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!call_id.Value</Value>
                     </Textbox>
@@ -585,7 +609,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>52</ZIndex>
+                      <ZIndex>53</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!case_source_cd.Value</Value>
                     </Textbox>
@@ -605,7 +629,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>51</ZIndex>
+                      <ZIndex>52</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!counseling_duration_cd.Value</Value>
                     </Textbox>
@@ -625,7 +649,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>50</ZIndex>
+                      <ZIndex>51</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!dflt_reason_1st_cd.Value</Value>
                     </Textbox>
@@ -645,7 +669,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>49</ZIndex>
+                      <ZIndex>50</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!dflt_reason_2nd_cd.Value</Value>
                     </Textbox>
@@ -665,7 +689,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>48</ZIndex>
+                      <ZIndex>49</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_fname.Value</Value>
                     </Textbox>
@@ -685,7 +709,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>47</ZIndex>
+                      <ZIndex>48</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_lname.Value</Value>
                     </Textbox>
@@ -705,7 +729,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>46</ZIndex>
+                      <ZIndex>47</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!mother_maiden_lname.Value</Value>
                     </Textbox>
@@ -725,7 +749,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>45</ZIndex>
+                      <ZIndex>46</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_last4_SSN.Value</Value>
                     </Textbox>
@@ -745,7 +769,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>44</ZIndex>
+                      <ZIndex>45</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_DOB.Value</Value>
                     </Textbox>
@@ -765,7 +789,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>43</ZIndex>
+                      <ZIndex>44</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!gender_cd.Value</Value>
                     </Textbox>
@@ -785,7 +809,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>42</ZIndex>
+                      <ZIndex>43</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!race_cd.Value</Value>
                     </Textbox>
@@ -805,7 +829,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>41</ZIndex>
+                      <ZIndex>42</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!hispanic_ind.Value</Value>
                     </Textbox>
@@ -825,7 +849,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>40</ZIndex>
+                      <ZIndex>41</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_marital_status_cd.Value</Value>
                     </Textbox>
@@ -845,7 +869,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>39</ZIndex>
+                      <ZIndex>40</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_educ_level_completed_cd.Value</Value>
                     </Textbox>
@@ -865,7 +889,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>38</ZIndex>
+                      <ZIndex>39</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!military_service_cd.Value</Value>
                     </Textbox>
@@ -885,7 +909,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>37</ZIndex>
+                      <ZIndex>38</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_disabled_ind.Value</Value>
                     </Textbox>
@@ -905,7 +929,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>36</ZIndex>
+                      <ZIndex>37</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!primary_contact_no.Value</Value>
                     </Textbox>
@@ -925,7 +949,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>35</ZIndex>
+                      <ZIndex>36</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!second_contact_no.Value</Value>
                     </Textbox>
@@ -945,7 +969,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>34</ZIndex>
+                      <ZIndex>35</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!email_1.Value</Value>
                     </Textbox>
@@ -965,7 +989,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>33</ZIndex>
+                      <ZIndex>34</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!co_borrower_fname.Value</Value>
                     </Textbox>
@@ -985,7 +1009,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>32</ZIndex>
+                      <ZIndex>33</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!co_borrower_lname.Value</Value>
                     </Textbox>
@@ -1005,7 +1029,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>31</ZIndex>
+                      <ZIndex>32</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!co_borrower_last4_SSN.Value</Value>
                     </Textbox>
@@ -1025,7 +1049,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>30</ZIndex>
+                      <ZIndex>31</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!co_borrower_DOB.Value</Value>
                     </Textbox>
@@ -1045,7 +1069,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>29</ZIndex>
+                      <ZIndex>30</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!household_cd.Value</Value>
                     </Textbox>
@@ -1066,7 +1090,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>28</ZIndex>
+                      <ZIndex>29</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!occupant_num.Value</Value>
                     </Textbox>
@@ -1086,7 +1110,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>27</ZIndex>
+                      <ZIndex>28</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!owner_occupied_ind.Value</Value>
                     </Textbox>
@@ -1106,7 +1130,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>26</ZIndex>
+                      <ZIndex>27</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!income_earners_cd.Value</Value>
                     </Textbox>
@@ -1127,7 +1151,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>25</ZIndex>
+                      <ZIndex>26</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!household_gross_annual_income_amt.Value</Value>
                     </Textbox>
@@ -1147,7 +1171,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>24</ZIndex>
+                      <ZIndex>25</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!intake_credit_score.Value</Value>
                     </Textbox>
@@ -1167,7 +1191,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>23</ZIndex>
+                      <ZIndex>24</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_addr1.Value</Value>
                     </Textbox>
@@ -1187,7 +1211,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>22</ZIndex>
+                      <ZIndex>23</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_addr2.Value</Value>
                     </Textbox>
@@ -1207,7 +1231,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>21</ZIndex>
+                      <ZIndex>22</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_city.Value</Value>
                     </Textbox>
@@ -1227,7 +1251,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>20</ZIndex>
+                      <ZIndex>21</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_state_cd.Value</Value>
                     </Textbox>
@@ -1247,7 +1271,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>19</ZIndex>
+                      <ZIndex>20</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_zip.Value</Value>
                     </Textbox>
@@ -1267,9 +1291,29 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>18</ZIndex>
+                      <ZIndex>19</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!servicer_consent_ind.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="funding_consent_ind">
+                      <rd:DefaultName>funding_consent_ind</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontSize>9pt</FontSize>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>18</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!funding_consent_ind.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1668,7 +1712,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>123</ZIndex>
+                      <ZIndex>127</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HPF Case ID</Value>
                     </Textbox>
@@ -1699,9 +1743,40 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>122</ZIndex>
+                      <ZIndex>126</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox18">
+                      <rd:DefaultName>textbox18</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>Navy</BackgroundColor>
+                        <BorderColor>
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <BorderWidth>
+                          <Bottom>1pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>125</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Completed Date</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1730,7 +1805,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>121</ZIndex>
+                      <ZIndex>124</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency Case Num</Value>
                     </Textbox>
@@ -1761,7 +1836,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>120</ZIndex>
+                      <ZIndex>123</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency Client Num</Value>
                     </Textbox>
@@ -1792,7 +1867,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>119</ZIndex>
+                      <ZIndex>122</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Counselor First Name</Value>
                     </Textbox>
@@ -1823,7 +1898,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>118</ZIndex>
+                      <ZIndex>121</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Counselor Last Name</Value>
                     </Textbox>
@@ -1854,7 +1929,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>117</ZIndex>
+                      <ZIndex>120</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Program</Value>
                     </Textbox>
@@ -1885,7 +1960,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>116</ZIndex>
+                      <ZIndex>119</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Intake Date</Value>
                     </Textbox>
@@ -1916,7 +1991,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>115</ZIndex>
+                      <ZIndex>118</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Call ID</Value>
                     </Textbox>
@@ -1947,7 +2022,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>114</ZIndex>
+                      <ZIndex>117</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Case Source</Value>
                     </Textbox>
@@ -1978,7 +2053,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>113</ZIndex>
+                      <ZIndex>116</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Counseling Duration</Value>
                     </Textbox>
@@ -2009,7 +2084,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>112</ZIndex>
+                      <ZIndex>115</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Primary Default Reason</Value>
                     </Textbox>
@@ -2040,7 +2115,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>111</ZIndex>
+                      <ZIndex>114</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Secondary Default Reason</Value>
                     </Textbox>
@@ -2071,7 +2146,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>110</ZIndex>
+                      <ZIndex>113</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower First Name</Value>
                     </Textbox>
@@ -2102,7 +2177,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>109</ZIndex>
+                      <ZIndex>112</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower Last Name</Value>
                     </Textbox>
@@ -2133,7 +2208,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>108</ZIndex>
+                      <ZIndex>111</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Mothers Maiden Name</Value>
                     </Textbox>
@@ -2164,7 +2239,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>107</ZIndex>
+                      <ZIndex>110</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower Last4 SSN</Value>
                     </Textbox>
@@ -2195,7 +2270,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>106</ZIndex>
+                      <ZIndex>109</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower DOB</Value>
                     </Textbox>
@@ -2226,7 +2301,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>105</ZIndex>
+                      <ZIndex>108</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Gender</Value>
                     </Textbox>
@@ -2257,7 +2332,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>104</ZIndex>
+                      <ZIndex>107</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Race</Value>
                     </Textbox>
@@ -2288,7 +2363,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>103</ZIndex>
+                      <ZIndex>106</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Hispanic Ind</Value>
                     </Textbox>
@@ -2319,7 +2394,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>102</ZIndex>
+                      <ZIndex>105</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Marital Status</Value>
                     </Textbox>
@@ -2350,7 +2425,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>101</ZIndex>
+                      <ZIndex>104</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Education Level Completed</Value>
                     </Textbox>
@@ -2381,7 +2456,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>100</ZIndex>
+                      <ZIndex>103</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Military Service</Value>
                     </Textbox>
@@ -2412,7 +2487,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>99</ZIndex>
+                      <ZIndex>102</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower Disabled Ind</Value>
                     </Textbox>
@@ -2443,7 +2518,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>98</ZIndex>
+                      <ZIndex>101</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Primary Contact No</Value>
                     </Textbox>
@@ -2474,7 +2549,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>97</ZIndex>
+                      <ZIndex>100</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Secondary Contact No</Value>
                     </Textbox>
@@ -2505,7 +2580,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>96</ZIndex>
+                      <ZIndex>99</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Email Address</Value>
                     </Textbox>
@@ -2536,7 +2611,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>95</ZIndex>
+                      <ZIndex>98</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower First Name</Value>
                     </Textbox>
@@ -2567,7 +2642,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>94</ZIndex>
+                      <ZIndex>97</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower Last Name</Value>
                     </Textbox>
@@ -2598,7 +2673,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>93</ZIndex>
+                      <ZIndex>96</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower Last4 SSN</Value>
                     </Textbox>
@@ -2629,7 +2704,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>92</ZIndex>
+                      <ZIndex>95</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower DOB</Value>
                     </Textbox>
@@ -2660,7 +2735,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>91</ZIndex>
+                      <ZIndex>94</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Household</Value>
                     </Textbox>
@@ -2691,7 +2766,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>90</ZIndex>
+                      <ZIndex>93</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Occupants</Value>
                     </Textbox>
@@ -2722,7 +2797,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>89</ZIndex>
+                      <ZIndex>92</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Owner Occupied Ind</Value>
                     </Textbox>
@@ -2753,7 +2828,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>88</ZIndex>
+                      <ZIndex>91</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Income Earners</Value>
                     </Textbox>
@@ -2784,7 +2859,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>87</ZIndex>
+                      <ZIndex>90</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Household Gross Annual Income</Value>
                     </Textbox>
@@ -2815,7 +2890,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>86</ZIndex>
+                      <ZIndex>89</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Intake Credit Score</Value>
                     </Textbox>
@@ -2846,7 +2921,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>85</ZIndex>
+                      <ZIndex>88</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property Address Line 1</Value>
                     </Textbox>
@@ -2877,7 +2952,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>84</ZIndex>
+                      <ZIndex>87</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property Address Line 2</Value>
                     </Textbox>
@@ -2908,7 +2983,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>83</ZIndex>
+                      <ZIndex>86</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property City</Value>
                     </Textbox>
@@ -2939,7 +3014,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>82</ZIndex>
+                      <ZIndex>85</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property State</Value>
                     </Textbox>
@@ -2970,7 +3045,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>81</ZIndex>
+                      <ZIndex>84</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property Zip</Value>
                     </Textbox>
@@ -3001,9 +3076,40 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>80</ZIndex>
+                      <ZIndex>83</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Servicer Consent Ind</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox57">
+                      <rd:DefaultName>textbox57</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>Navy</BackgroundColor>
+                        <BorderColor>
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <BorderWidth>
+                          <Bottom>1pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>82</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Funding Consent Ind</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -3032,7 +3138,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>79</ZIndex>
+                      <ZIndex>81</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Other Method</Value>
                     </Textbox>
@@ -3063,7 +3169,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>78</ZIndex>
+                      <ZIndex>80</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Other Date</Value>
                     </Textbox>
@@ -3094,7 +3200,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>77</ZIndex>
+                      <ZIndex>79</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Date</Value>
                     </Textbox>
@@ -3125,7 +3231,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>76</ZIndex>
+                      <ZIndex>78</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Servicer Name</Value>
                     </Textbox>
@@ -3156,7 +3262,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>75</ZIndex>
+                      <ZIndex>77</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Account Num</Value>
                     </Textbox>
@@ -3187,7 +3293,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>74</ZIndex>
+                      <ZIndex>76</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Mortgage Type</Value>
                     </Textbox>
@@ -3218,7 +3324,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>73</ZIndex>
+                      <ZIndex>75</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>ARM Reset Ind</Value>
                     </Textbox>
@@ -3249,7 +3355,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>72</ZIndex>
+                      <ZIndex>74</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Interest Rate</Value>
                     </Textbox>
@@ -3280,7 +3386,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>71</ZIndex>
+                      <ZIndex>73</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Term Length</Value>
                     </Textbox>
@@ -3311,7 +3417,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>70</ZIndex>
+                      <ZIndex>72</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Current Loan Balance</Value>
                     </Textbox>
@@ -3342,7 +3448,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>69</ZIndex>
+                      <ZIndex>71</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Loan Delinquency Status</Value>
                     </Textbox>
@@ -3373,7 +3479,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>68</ZIndex>
+                      <ZIndex>70</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>FC Notice Received Ind</Value>
                     </Textbox>
@@ -3404,7 +3510,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>67</ZIndex>
+                      <ZIndex>69</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HUD Termination Reason</Value>
                     </Textbox>
@@ -3435,7 +3541,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>66</ZIndex>
+                      <ZIndex>68</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HUD Termination Date</Value>
                     </Textbox>
@@ -3466,7 +3572,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>65</ZIndex>
+                      <ZIndex>67</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HUD Outcome</Value>
                     </Textbox>
@@ -3497,7 +3603,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>64</ZIndex>
+                      <ZIndex>66</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Outcome 1</Value>
                     </Textbox>
@@ -3528,7 +3634,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>63</ZIndex>
+                      <ZIndex>65</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Outcome 2</Value>
                     </Textbox>
@@ -3559,7 +3665,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>62</ZIndex>
+                      <ZIndex>64</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Outcome 3</Value>
                     </Textbox>
@@ -3576,6 +3682,9 @@ ORDER BY program_name</CommandText>
           </TableColumn>
           <TableColumn>
             <Width>1.375in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.5in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.375in</Width>
@@ -3696,6 +3805,9 @@ ORDER BY program_name</CommandText>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>0.875in</Width>
           </TableColumn>
           <TableColumn>
             <Width>0.875in</Width>

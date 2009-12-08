@@ -77,6 +77,10 @@
           <DataField>fc_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="agency_name">
+          <DataField>agency_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>ds_HPF</DataSourceName>
@@ -125,7 +129,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>47.375in</Width>
+  <Width>47.75in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
@@ -557,8 +561,8 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="textbox58">
-                      <rd:DefaultName>textbox58</rd:DefaultName>
+                    <Textbox Name="agency_name">
+                      <rd:DefaultName>agency_name</rd:DefaultName>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
@@ -570,7 +574,7 @@
                       </Style>
                       <ZIndex>25</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value />
+                      <Value>=Fields!agency_name.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -2474,7 +2478,7 @@
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.75in</Width>
+            <Width>1.125in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
@@ -2555,6 +2559,7 @@
       </Table>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>
+        <Width>45.375in</Width>
         <Style>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
