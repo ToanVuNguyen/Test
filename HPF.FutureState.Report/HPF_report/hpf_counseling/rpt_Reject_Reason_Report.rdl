@@ -225,7 +225,7 @@
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
         <Height>0.25in</Height>
-        <Value>= "Report Date " &amp; Today</Value>
+        <Value>= "Report Date " &amp; FormatDateTime(Today)</Value>
       </Textbox>
       <Textbox Name="textbox1">
         <rd:DefaultName>textbox1</rd:DefaultName>

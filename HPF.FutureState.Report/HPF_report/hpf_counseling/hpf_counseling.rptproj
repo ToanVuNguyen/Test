@@ -91,6 +91,10 @@
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_Invoice_Balances_Report.rdl</Name>
+      <FullPath>rpt_Invoice_Balances_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_Reject_Reason_Report.rdl</Name>
       <FullPath>rpt_Reject_Reason_Report.rdl</FullPath>
     </ProjectItem>
