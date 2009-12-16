@@ -101,9 +101,21 @@
                 <Textbox Name="item_name">
                   <rd:DefaultName>item_name</rd:DefaultName>
                   <Style>
+                    <BorderColor>
+                      <Left>Black</Left>
+                      <Right>Black</Right>
+                      <Bottom>Black</Bottom>
+                    </BorderColor>
                     <BorderStyle>
-                      <Default>Solid</Default>
+                      <Left>Solid</Left>
+                      <Right>Solid</Right>
+                      <Bottom>Solid</Bottom>
                     </BorderStyle>
+                    <BorderWidth>
+                      <Left>1pt</Left>
+                      <Right>1pt</Right>
+                      <Bottom>1pt</Bottom>
+                    </BorderWidth>
                     <FontWeight>=IIF(Fields!item_name.Value = "Percentage (%)" OR Fields!item_name.Value = "Total", "Bold", "Normal")</FontWeight>
                     <TextAlign>= IIF(Fields!item_name.Value = "Percentage (%)" OR Fields!item_name.Value = "Total", "Right", "Left")</TextAlign>
                     <PaddingLeft>2pt</PaddingLeft>
@@ -133,9 +145,18 @@
                 <Textbox Name="reject_reason">
                   <rd:DefaultName>reject_reason</rd:DefaultName>
                   <Style>
+                    <BorderColor>
+                      <Right>Black</Right>
+                      <Top>Black</Top>
+                    </BorderColor>
                     <BorderStyle>
-                      <Default>Solid</Default>
+                      <Right>Solid</Right>
+                      <Top>Solid</Top>
                     </BorderStyle>
+                    <BorderWidth>
+                      <Right>1pt</Right>
+                      <Top>1pt</Top>
+                    </BorderWidth>
                     <FontWeight>700</FontWeight>
                     <TextAlign>Center</TextAlign>
                     <PaddingLeft>2pt</PaddingLeft>
@@ -157,9 +178,21 @@
             <Textbox Name="textbox4">
               <rd:DefaultName>textbox4</rd:DefaultName>
               <Style>
+                <BorderColor>
+                  <Left>Black</Left>
+                  <Right>Black</Right>
+                  <Top>Black</Top>
+                </BorderColor>
                 <BorderStyle>
-                  <Default>Solid</Default>
+                  <Left>Solid</Left>
+                  <Right>Solid</Right>
+                  <Top>Solid</Top>
                 </BorderStyle>
+                <BorderWidth>
+                  <Left>1pt</Left>
+                  <Right>1pt</Right>
+                  <Top>1pt</Top>
+                </BorderWidth>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -180,9 +213,18 @@
                   <Textbox Name="cnt">
                     <rd:DefaultName>cnt</rd:DefaultName>
                     <Style>
+                      <BorderColor>
+                        <Right>Black</Right>
+                        <Bottom>Black</Bottom>
+                      </BorderColor>
                       <BorderStyle>
-                        <Default>Solid</Default>
+                        <Right>Solid</Right>
+                        <Bottom>Solid</Bottom>
                       </BorderStyle>
+                      <BorderWidth>
+                        <Right>1pt</Right>
+                        <Bottom>1pt</Bottom>
+                      </BorderWidth>
                       <FontWeight>=IIF(Fields!reject_reason.Value = "Percentage (%)" OR Fields!item_name.Value = "Percentage (%)" OR Fields!reject_reason.Value = "Total" OR Fields!item_name.Value = "Total", "Bold", "Normal")</FontWeight>
                       <TextAlign>Right</TextAlign>
                       <PaddingLeft>2pt</PaddingLeft>

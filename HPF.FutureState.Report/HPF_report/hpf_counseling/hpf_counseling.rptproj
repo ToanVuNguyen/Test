@@ -71,6 +71,10 @@
       <FullPath>rpt_IncompletedCases.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_Invoice_Balances_Report.rdl</Name>
+      <FullPath>rpt_Invoice_Balances_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_MHA_Eligibility_Results_Report.rdl</Name>
       <FullPath>rpt_MHA_Eligibility_Results_Report.rdl</FullPath>
     </ProjectItem>
@@ -91,12 +95,12 @@
       <FullPath>rpt_PotentialDuplicates.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_Invoice_Balances_Report.rdl</Name>
-      <FullPath>rpt_Invoice_Balances_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>rpt_Reject_Reason_Report.rdl</Name>
       <FullPath>rpt_Reject_Reason_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CaseFundingReport.rdl</Name>
+      <FullPath>rpt_CaseFundingReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

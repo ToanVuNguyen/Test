@@ -287,7 +287,7 @@
                       </Style>
                       <ZIndex>9</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=First(Fields!group_name.Value)</Value>
+                      <Value>=IIF(Fields!group_name.Value = "", "Top 10 Servicers by Resolution", Fields!group_name.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -670,6 +670,9 @@
                   <ReportItems>
                     <Textbox Name="item_name">
                       <rd:DefaultName>item_name</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=IIF(Fields!item_name.Value &lt;&gt; "", False, True)</Hidden>
+                      </Visibility>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
@@ -691,6 +694,9 @@
                   <ReportItems>
                     <Textbox Name="last_wk">
                       <rd:DefaultName>last_wk</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=IIF(Fields!item_name.Value &lt;&gt; "", False, True)</Hidden>
+                      </Visibility>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
@@ -705,7 +711,7 @@
                       </Style>
                       <ZIndex>2</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!last_wk.Value</Value>
+                      <Value>=IIF(Fields!item_name.Value ="# Resolved", "-", Fields!last_wk.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -713,6 +719,9 @@
                   <ReportItems>
                     <Textbox Name="this_wk">
                       <rd:DefaultName>this_wk</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=IIF(Fields!item_name.Value &lt;&gt; "", False, True)</Hidden>
+                      </Visibility>
                       <Style>
                         <BorderStyle>
                           <Default>=IIF( Fields!group_name.Value = "Top 10 Servicers with Escalations" OR Fields!group_name.Value ="Escalation Resolutions", "None", "Solid")</Default>
@@ -727,7 +736,7 @@
                       </Style>
                       <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
-                      <Value>=IIF( Fields!group_name.Value ="Top 10 Servicers with Escalations" OR Fields!group_name.Value ="Escalation Resolutions", "", Fields!this_wk.Value)</Value>
+                      <Value>=IIF(Fields!item_name.Value ="# Resolved", "-", IIF( Fields!group_name.Value ="Top 10 Servicers with Escalations" OR Fields!group_name.Value ="Escalation Resolutions", "", Fields!this_wk.Value))</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -735,6 +744,9 @@
                   <ReportItems>
                     <Textbox Name="mon_to_dt">
                       <rd:DefaultName>mon_to_dt</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=IIF(Fields!item_name.Value &lt;&gt; "", False, True)</Hidden>
+                      </Visibility>
                       <Style>
                         <BorderStyle>
                           <Default>=IIF( Fields!group_name.Value = "Top 10 Servicers with Escalations" OR Fields!group_name.Value ="Escalation Resolutions", "None", "Solid")</Default>
