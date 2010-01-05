@@ -395,7 +395,7 @@ namespace HPF.FutureState.DataAccess
                 dbConnection = base.CreateConnection();
                 SqlCommand command = base.CreateCommand("hpf_invoice_case_search_draft", dbConnection);
                 //<Parameter>   
-                SqlParameter[] sqlParam = new SqlParameter[27];
+                SqlParameter[] sqlParam = new SqlParameter[29];
                 sqlParam[0] = new SqlParameter("@pi_funding_source_id", searchCriteria.FundingSourceId);
                 sqlParam[1] = new SqlParameter("@pi_program_id", (searchCriteria.ProgramId == "-1") ? null : searchCriteria.ProgramId.ToString());
                 sqlParam[2] = new SqlParameter("@pi_end_dt", searchCriteria.PeriodEnd);
@@ -423,6 +423,8 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[24] = new SqlParameter("@pi_servicer_consent_qty", searchCriteria.ServicerConsentQty);
                 sqlParam[25] = new SqlParameter("@pi_UTL_ind", searchCriteria.UnableToLocateLoanInPortfolio);
                 sqlParam[26] = new SqlParameter("@pi_DOCS_ind", searchCriteria.InvalidCounselingDocument);
+                sqlParam[27] = new SqlParameter("@pi_agency_id", searchCriteria.AgencyId);
+                sqlParam[28] = new SqlParameter("@pi_msa_code", searchCriteria.MSACode);
 
 
                 //</Parameter>

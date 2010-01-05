@@ -57,6 +57,7 @@
     <Compile Include="CaseAuditDAO.cs" />
     <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="CaseFollowUpDAO.cs" />
+    <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />
     <Compile Include="ServicerDAO.cs" />

@@ -53,6 +53,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public bool UnableToLocateLoanInPortfolio { get; set; }
         public bool InvalidCounselingDocument { get; set; }
 
+        public int? AgencyId { get; set; }
+        public string MSACode { get; set; }
+
         public InvoiceCaseSearchCriteriaDTO()
         {
             

@@ -70,6 +70,7 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_HPFUSER = "HPFCACHEHPFUSER";
         public const string HPF_CACHE_NONPROFITREFERRALS = "NONPROFITREFERRALS";
         public const string HPF_CACHE_REFCODESET = "REFCODESET";
+        public const string HPF_CACHE_MSAREFCODES = "MSAREFCODES";
 
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";

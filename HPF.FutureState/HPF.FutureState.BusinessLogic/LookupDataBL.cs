@@ -125,5 +125,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             return RefCodeSettDAO.Instance.GetRefCodeSet();
         }
+
+        public MSARefDTOCollection GetMSARefs()
+        {
+            return MSARefDAO.Instance.GetMSARefs();
+        }
     }
 }

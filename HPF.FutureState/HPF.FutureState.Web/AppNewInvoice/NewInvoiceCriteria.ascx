@@ -12,21 +12,25 @@
                     <h1 align="center">
                         New Invoice Criteria</h1>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td colspan="7" class="ErrorMessage">
                     <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
                     </asp:BulletedList>
                 </td>
+                <td class="ErrorMessage">
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td class="sidelinks" colspan="4">
                     Primary Selection Criteria:
                 </td>
                 <td class="sidelinks" colspan="3" align="right">
-                    <asp:Button ID="btnDraftNewInvoice" runat="server" CssClass="MyButton" Text="Draft New Invoice"
-                        Width="120px" OnClick="DraftNewInvoice_Click" />
-                </td>
+                    &nbsp;</td>
+                <td class="sidelinks">
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks">
@@ -44,6 +48,10 @@
                 <td >
                     <asp:DropDownList ID="dropProgram" runat="server" CssClass="Text">
                     </asp:DropDownList>
+                </td>
+                <td>
+                    <asp:Button ID="btnDraftNewInvoice" runat="server" CssClass="MyButton" 
+                        OnClick="DraftNewInvoice_Click" Text="Draft New Invoice" Width="120px" />
                 </td>
             </tr>
             <tr>
@@ -74,6 +82,8 @@
                         TargetControlID="txtPeriodStart">
                     </cc1:CalendarExtender>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks" nowrap="nowrap">
@@ -85,6 +95,8 @@
                         TargetControlID="txtPeriodEnd">
                     </cc1:CalendarExtender>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
             <td align="right" class="sidelinks">Servicer Funding<br/>Source Opiton*:</td>
@@ -125,6 +137,8 @@
                         <asp:ListItem Value="-1">Select Both Complete & Incomplete Cases</asp:ListItem>
                     </asp:DropDownList>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks">
@@ -137,6 +151,8 @@
                         <asp:ListItem Value="-1">Select Both Original & Duplicate Cases</asp:ListItem>
                     </asp:DropDownList>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks" >
@@ -148,6 +164,8 @@
                         <asp:ListItem Value="1">No</asp:ListItem>
                     </asp:DropDownList>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks" >
@@ -159,30 +177,43 @@
                         <asp:ListItem Value="1">No</asp:ListItem>
                     </asp:DropDownList>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="right" class="sidelinks" colspan="7" style="border-bottom-style: solid;
                     border-bottom-width: 1px; border-bottom-color: #8FC4F6;">
                     &nbsp;
                 </td>
+                <td align="right" class="sidelinks" style="border-bottom-style: solid;
+                    border-bottom-width: 1px; border-bottom-color: #8FC4F6;">
+                    &nbsp;</td>
             </tr>
             <tr>
                 <td align="left" class="sidelinks" colspan="7">
                     Secondary Selection Criteria:
                 </td>
+                <td align="left" class="sidelinks">
+                    &nbsp;</td>
             </tr>
             <tr>
-                <td align="right" class="sidelinks">
+                <td align="right" class="sidelinks" nowrap="nowrap">
                     Max Number of Cases:
                 </td>
                 <td colspan="4">
                     <asp:TextBox ID="txtMaxNumberofCases" runat="server" CssClass="Text"></asp:TextBox>
                 </td>
                 <td align="right" class="sidelinks">
-                    &nbsp;
-                </td>
+                    Agency:</td>
                 <td>
-                    &nbsp;
+                    <asp:DropDownList ID="drpAgency" runat="server" CssClass="Text" Height="18px" 
+                        Width="260px">
+                    </asp:DropDownList>
+                </td>
+                <td class="sidelinks" rowspan="7" valign="top">
+                    MSA:<br />
+                    <asp:ListBox ID="lstMSACode" runat="server" CssClass="Text" Height="160px" 
+                        SelectionMode="Multiple" Width="190px"></asp:ListBox>
                 </td>
             </tr>
             <tr>
@@ -193,7 +224,7 @@
                     <asp:DropDownList ID="dropGender" runat="server" CssClass="Text">
                     </asp:DropDownList>
                 </td>
-                <td align="right" class="sidelinks">
+                <td align="right" class="sidelinks" nowrap="nowrap">
                     Household Code:
                 </td>
                 <td>
@@ -230,7 +261,8 @@
                     State:
                 </td>
                 <td>
-                    <asp:DropDownList ID="dropState" runat="server" CssClass="Text">
+                    <asp:DropDownList ID="dropState" runat="server" CssClass="Text" Height="16px" 
+                        Width="110px">
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -258,7 +290,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="right" class="sidelinks">
+                <td align="right" class="sidelinks" rowspan="2" valign="top">
                     Household Gross
                     <br />
                     Annual Income:
@@ -281,6 +313,20 @@
                 <td>
                     &nbsp;
                 </td>
+            </tr>
+            <tr>
+                <td align="right" class="sidelinks">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td align="right" class="sidelinks">
+                    &nbsp;</td>
+                <td align="left" class="Text">
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
         </table>
     </ContentTemplate>

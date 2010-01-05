@@ -29,6 +29,8 @@ namespace HPF.FutureState.Web.AppNewInvoice
                 ApplySecurity();
                 if (!IsPostBack)
                 {
+                    AgencyDatabind();
+                    MSACodeDatabind();
                     FundingSourceDatabind();
                     ProgramDatabind();
                     GenderDatabind();
@@ -102,6 +104,18 @@ namespace HPF.FutureState.Web.AppNewInvoice
             }
             chkUnableToLocateLoanInPortfolio.Checked = searchCriteria.UnableToLocateLoanInPortfolio;
             chkInvalidCounselingDocument.Checked = searchCriteria.InvalidCounselingDocument;
+            
+            if (!string.IsNullOrEmpty(searchCriteria.MSACode))
+            {
+                string[] msaCode = searchCriteria.MSACode.Split(',');
+                foreach (string item in msaCode)
+                    lstMSACode.Items.FindByValue(item.Replace("'", "")).Selected = true;
+            }
+            if (searchCriteria.AgencyId.HasValue)
+            {
+                ListItem iAgency = drpAgency.Items.FindByValue(searchCriteria.AgencyId.Value.ToString());
+                if (iAgency != null) iAgency.Selected = true;
+            }
         }
         /// <summary>
         /// Follow the business rule on the use-case ,Period Start = now - 1 month,Period End = now 
@@ -209,6 +223,40 @@ namespace HPF.FutureState.Web.AppNewInvoice
 
         }
         #region DataBind
+        private void AgencyDatabind()
+        {
+            try
+            {
+                drpAgency.DataSource = LookupDataBL.Instance.GetAgencies();
+                drpAgency.DataTextField = "AgencyName";
+                drpAgency.DataValueField = "AgencyID";
+                drpAgency.DataBind();
+                drpAgency.Items.Insert(0, "");
+                ListItem item = drpAgency.Items.FindByText("ALL");
+                if (item != null)
+                    drpAgency.Items.Remove(item);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text+= "\br" + ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
+        private void MSACodeDatabind()
+        {
+            try
+            {
+                lstMSACode.DataSource = LookupDataBL.Instance.GetMSARefs();
+                lstMSACode.DataTextField = "MSAName";
+                lstMSACode.DataValueField = "MSACode";
+                lstMSACode.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text += "\br" + ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
         private void ProgramDatabind()
         {
             ProgramDTOCollection programCollection = null;
@@ -428,6 +476,17 @@ namespace HPF.FutureState.Web.AppNewInvoice
             else
                 if (dropFundingSource.SelectedValue!="-1")
                     GetNonServicer(searchCriteria);
+            if (drpAgency.SelectedIndex > 0)
+                searchCriteria.AgencyId = ConvertToInt(drpAgency.SelectedValue);
+
+            foreach (ListItem item in lstMSACode.Items)
+            {
+                if (!item.Selected) continue;
+                if (string.IsNullOrEmpty(searchCriteria.MSACode))
+                    searchCriteria.MSACode = "'" + item.Value + "'";
+                else
+                    searchCriteria.MSACode += ",'" + item.Value + "'";
+            }            
             return searchCriteria;
         }
 
