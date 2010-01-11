@@ -178,6 +178,10 @@ namespace HPF.FutureState.Web.AppNewInvoice
             foreach (FundingSourceDTO fsource in fundingSourceCollection)
             {
                 if (fsource.ActiveIndicator != Constant.DUPLICATE_YES) continue;
+                if (fsource.EffectedDt.HasValue && DateTime.Today < fsource.EffectedDt.Value)
+                    continue;
+                if (fsource.ExpiredDt.HasValue && DateTime.Today > fsource.ExpiredDt.Value)
+                    continue;
                 dropFundingSource.Items.Add(new ListItem(fsource.FundingSourceName, fsource.FundingSourceID.ToString()));
             }            
 

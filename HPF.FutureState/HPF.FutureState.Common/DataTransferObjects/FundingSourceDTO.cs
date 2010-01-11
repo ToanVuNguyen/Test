@@ -22,5 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BillingDeliveryMethod { get; set; }
         public string BillingEmail { get; set; }
         public string SharePointFolder { get; set; }
+        public DateTime? EffectedDt { get; set; }
+        public DateTime? ExpiredDt { get; set; }
     }
 }

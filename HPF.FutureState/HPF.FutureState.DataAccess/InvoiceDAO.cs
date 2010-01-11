@@ -323,6 +323,8 @@ namespace HPF.FutureState.DataAccess
                             item.FundingSourceAbbrev = ConvertToString(reader["funding_source_abbrev"]);
                             item.SharePointFolder = ConvertToString(reader["sharepoint_foldername"]);
                             item.ActiveIndicator = ConvertToString(reader["active_ind"]);
+                            item.EffectedDt = ConvertToDateTime(reader["eff_dt"]);
+                            item.ExpiredDt = ConvertToDateTime(reader["exp_dt"]);
                             result.Add(item);
                         }
                         reader.Close();
