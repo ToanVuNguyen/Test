@@ -1,38 +1,48 @@
 -- =============================================
--- Create date: 21 Sep 2009
+-- Create date: 19 Jan 2010
 -- Project : HPF 
 -- Build 
+-- Description:	
 -- =============================================
 USE HPF
 GO
 
-SET IDENTITY_INSERT dbo.program ON
-GO
-
-insert into program (program_id, program_name, start_dt, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
-values (2001, 'Escalation', '20090922', getdate(), 'ctomczik', 'SQL', getdate(), 'ctomczik', 'SQL')
-
-SET IDENTITY_INSERT dbo.program OFF
-GO
-
-insert into agency_rate (program_id, agency_id, pmt_rate, eff_dt, nfmc_upcharge_pmt_rate, create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
-values (2001, 17081, 120, '20090922', 10, getdate(), 'ctomczik', 'SQL', getdate(), 'ctomczik', 'SQL')
-
-
--- Create never bill reason codes
-insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
-       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
-values ('never bill reason code', 'DUPEESCP', 'Duplicate escalation of partial', '', 9, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
-
-insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
-       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
-values ('never bill reason code', 'DUPEESCC', 'Duplicate escalation of completed', '', 10, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
-
--- Create never pay reason codes
-insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
-       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
-values ('never pay reason code', 'DUPEESCP', 'Duplicate escalation of partial', '', 9, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
-
-insert into ref_code_item (ref_code_set_name, code, code_desc, code_comment, sort_order, active_ind,
-       create_dt, create_user_id, create_app_name, chg_lst_dt, chg_lst_user_id, chg_lst_app_name)
-values ('never pay reason code', 'DUPEESCC', 'Duplicate escalation of completed', '', 10, 'Y', getdate(), 'ctomczik', 'SQL Studio', getdate(), 'ctomczik', 'SQL Studio')
+CREATE TABLE mha_help
+(	borrower_fname		varchar(30)
+	,borrower_lname		varchar(30)
+	,servicer			varchar(50)
+	,servicer_id		int
+	,acct_num			varchar(30)
+	,counselor_name		varchar(60)
+	,counselor_email	varchar(50)
+	,call_src			varchar(50)
+	,voicemail_dt		datetime
+	,mha_help_reason	varchar(100)
+	,comments			varchar(3000)
+	,privacy_consent	varchar(10)
+	,borrower_in_trial_mod	varchar(10)
+	,trial_mod_before_sept1	varchar(10)
+	,current_on_payments	varchar(10)
+	,wage_earner		varchar(10)
+	,two_paystubs_sent	varchar(10)
+	,all_docs_submitted	varchar(10)
+	,list_of_docs_submitted	varchar(500)
+	,borrower_phone		varchar(50)
+	,best_time_to_reach	varchar(30)
+	,borrower_email		varchar(60)
+	,address			varchar(3000)
+	,city				varchar(255)
+	,state				varchar(2)
+	,zip				varchar(5)
+	,mha_help_resolution	varchar(200)
+	,item_created_dt	datetime
+	,item_created_user	varchar(50)
+	,item_modified_dt	datetime
+	,item_modified_user	varchar(50)
+	,created_dt			datetime
+	,created_user_id		varchar(30)
+	,created_app_name	varchar(20)
+	,chg_lst_dt			datetime
+	,chg_lst_user_id	varchar(30)
+	,chg_lst_app_name	varchar(20)
+);
