@@ -9,6 +9,8 @@ Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "hpf_system", "hpf_system\hp
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "hpf_MHA", "hpf_MHA\hpf_MHA.rptproj", "{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}"
 EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "hpf_quality_control", "hpf_quality_control\hpf_quality_control.rptproj", "{88074DC4-8318-46F4-9795-CCB36466F992}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Default = Debug|Default
@@ -62,6 +64,15 @@ Global
 		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Production|Default.ActiveCfg = Production
 		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Production|Default.Build.0 = Production
 		{4590EC96-A4D7-43CC-AEAD-0536B5A39AB9}.Production|Default.Deploy.0 = Production
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Debug|Default.ActiveCfg = DebugLocal
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Debug|Default.Build.0 = DebugLocal
+		{88074DC4-8318-46F4-9795-CCB36466F992}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{88074DC4-8318-46F4-9795-CCB36466F992}.DebugLocal|Default.Build.0 = DebugLocal
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Development|Default.ActiveCfg = DebugLocal
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Development|Default.Build.0 = DebugLocal
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Production|Default.ActiveCfg = Production
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Production|Default.Build.0 = Production
+		{88074DC4-8318-46F4-9795-CCB36466F992}.Production|Default.Deploy.0 = Production
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
