@@ -38,18 +38,21 @@ namespace HPF.FutureState.BusinessLogic
         {            
             BatchJobDTOCollection batchJobs = BatchJobDAO.Instance.ReadBatchJobs();
             int rowCount = 0;
+            
             foreach (BatchJobDTO job in batchJobs)
             {
-                if (!DetermineTodayBatchJob(job)) continue;                                
+                if (!DetermineTodayBatchJob(job)) continue;
 
                 if (job.JobName.Equals(Constant.SERVICER_DAILY_SUMMARY))
-                   rowCount = GenerateServicerDailySummary(job);
+                    rowCount = GenerateServicerDailySummary(job);
                 else if (job.JobName.Equals(Constant.FANNIE_MAE_WEEKLY_REPORT))
-                   rowCount = GenerateFannieMaeWeeklyReport(job);
+                    rowCount = GenerateFannieMaeWeeklyReport(job);
                 else if (job.JobName.Equals(Constant.COUNSELOR_LIST_GENERATION))
                     rowCount = GenerateCounsorList(job);
-                else if(job.JobName.Equals(Constant.MHA_ESCALALATION_IMPORT))
+                else if (job.JobName.Equals(Constant.MHA_ESCALALATION_IMPORT))
                     rowCount = ImportMHAEscalationData();
+                else if (job.JobName.Equals(Constant.MHA_HELP_IMPORT))
+                    rowCount = ImportMHAHelpData();
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
                 
@@ -220,6 +223,15 @@ namespace HPF.FutureState.BusinessLogic
             MHAEscalationDTOCollecion mhaCol = HPFPortalGateway.GetMHAEscaltions();
             if (mhaCol.Count > 0)
                 BatchJobDAO.Instance.ImportMHAEscalationData(mhaCol);
+
+            return mhaCol.Count;
+        }
+
+        public int ImportMHAHelpData()
+        {
+            MHAHelpDTOCollection mhaCol = HPFPortalGateway.GetMHAHelps();
+            if (mhaCol.Count > 0)
+                BatchJobDAO.Instance.ImportMHAHelp(mhaCol);
 
             return mhaCol.Count;
         }

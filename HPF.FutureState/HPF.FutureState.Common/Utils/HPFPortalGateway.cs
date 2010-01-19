@@ -157,5 +157,52 @@ namespace HPF.FutureState.Common.Utils
 
             return result;
         }
+
+        public static MHAHelpDTOCollection GetMHAHelps()
+        {
+            var mhaInfos = DocumentCenterController.GetMHAHelpList();
+            MHAHelpDTOCollection result = new MHAHelpDTOCollection();
+
+            foreach (MHAHelpInfo mha in mhaInfos)
+            {
+                MHAHelpDTO mhaHelp = new MHAHelpDTO();
+                mhaHelp.AcctNum = mha.LoanNumber;
+                mhaHelp.AllDocumentsSubmitted = mha.AllDocumentsSubmitted;
+                mhaHelp.BestTimeToReach = mha.BestTimeToReach;
+                mhaHelp.BorrowerEmail = mha.Email;
+                mhaHelp.BorrowerFName = mha.FirstName;
+                mhaHelp.BorrowerInTrialMod = mha.BorrowerInTrialMod;
+                mhaHelp.BorrowerLName = mha.LastName;
+                mhaHelp.BorrowerPhone = mha.Phone;
+                mhaHelp.CallSource = mha.CallSource;
+                mhaHelp.City = mha.City;
+                mhaHelp.Comments = mha.Comments;
+                mhaHelp.CounselorEmail = mha.CounselorEmail;
+                mhaHelp.CounselorName = mha.CounselorName;
+                mhaHelp.CurrentOnPayments = mha.CurrentOnPayments;
+                mhaHelp.DocumentsSubmitted = mha.DocumentsSubmitted;
+                mhaHelp.FinalResolutionNotes = mha.FinalResolutionNotes;
+                mhaHelp.IfWageEarnerWereTwoPayStubsSentIn = mha.IfWageEarnerWereTwoPayStubsSentIn;
+                mhaHelp.ItemCreatedDt = mha.ItemCreatedDate;
+                mhaHelp.ItemCreatedUser = mha.ItemCreatedUser;
+                mhaHelp.ItemModifiedDt = mha.ItemModifiedDate;
+                mhaHelp.ItemModifiedUser = mha.ItemModifiedUser;
+                mhaHelp.MHAConversionCampainFields = mha.MHAConversionCampainFields;
+                mhaHelp.MHAHelpReason = mha.MHAHelpReason;
+                mhaHelp.MHAHelpResolution = mha.MHAHelpResolution;
+                mhaHelp.MMICaseId = mha.MMICaseId;
+                mhaHelp.PrivacyConsent = mha.PrivacyConsent;
+                mhaHelp.Servicer = mha.Servicer;
+                mhaHelp.State = mha.State;
+                mhaHelp.TrialModStartedBeforeStept1 = mha.TrialModStartedBeforeStept1;
+                mhaHelp.VoicemailDt = mha.VoicemailDate;
+                mhaHelp.WageEarner = mha.WageEarner;
+                mhaHelp.Zip = mha.Zip;
+                mhaHelp.SetInsertTrackingInformation("System");
+                result.Add(mhaHelp);
+            }
+
+            return result;
+        }
     }
 }

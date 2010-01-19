@@ -440,5 +440,79 @@ namespace HPF.FutureState.DataAccess
             { 
             }
         }
+
+        public void ImportMHAHelp(MHAHelpDTOCollection mhaHelps)
+        {
+            SqlConnection dbConnection;
+            SqlTransaction trans;
+
+            try
+            {
+                ServicerDTOCollection servicers = ServicerDAO.Instance.GetServicers();                
+
+                dbConnection = CreateConnection();
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+                var Deletecmd = CreateSPCommand("Delete from mha_help", dbConnection);
+                Deletecmd.CommandType = CommandType.Text;
+                Deletecmd.Transaction = trans;
+                Deletecmd.ExecuteNonQuery();
+                foreach (MHAHelpDTO mhaHelp in mhaHelps)
+                {
+                    var InsertCmd = CreateSPCommand("hpf_mha_help_insert", dbConnection);
+                    var sqlParam = new SqlParameter[33];
+                    ServicerDTO servicer = servicers.GetServicerByName(mhaHelp.Servicer);
+
+                    sqlParam[0] = new SqlParameter("@pi_borrower_fname", mhaHelp.BorrowerFName);
+                    sqlParam[1] = new SqlParameter("@pi_borrower_lname", mhaHelp.BorrowerLName);
+                    sqlParam[2] = new SqlParameter("@pi_servicer", mhaHelp.Servicer);                    
+                    sqlParam[3] = new SqlParameter("@pi_servicer_id", (servicer == null) ? null : servicer.ServicerID);
+                    sqlParam[4] = new SqlParameter("@pi_acct_num", mhaHelp.AcctNum);                    
+                    sqlParam[5] = new SqlParameter("@pi_counselor_name", mhaHelp.CounselorName);
+                    sqlParam[6] = new SqlParameter("@pi_counselor_email", mhaHelp.CounselorEmail);
+                    sqlParam[7] = new SqlParameter("@pi_call_src", mhaHelp.CallSource);
+                    sqlParam[8] = new SqlParameter("@pi_voicemail_dt", mhaHelp.VoicemailDt);
+                    sqlParam[9] = new SqlParameter("@pi_mha_help_reason", mhaHelp.MHAHelpReason);
+                    sqlParam[10] = new SqlParameter("@pi_comments", mhaHelp.Comments);
+                    sqlParam[11] = new SqlParameter("@pi_privacy_consent", mhaHelp.PrivacyConsent);
+                    sqlParam[12] = new SqlParameter("@pi_borrower_in_trial_mod", mhaHelp.BorrowerInTrialMod);
+                    sqlParam[13] = new SqlParameter("@pi_trial_mod_before_sept1", mhaHelp.TrialModStartedBeforeStept1);
+                    sqlParam[14] = new SqlParameter("@pi_current_on_payments", mhaHelp.CurrentOnPayments);
+                    sqlParam[15] = new SqlParameter("@pi_wage_earner", mhaHelp.WageEarner);
+                    sqlParam[16] = new SqlParameter("@pi_two_paystubs_sent", mhaHelp.IfWageEarnerWereTwoPayStubsSentIn);
+                    sqlParam[17] = new SqlParameter("@pi_all_docs_submitted", mhaHelp.AllDocumentsSubmitted);
+                    sqlParam[18] = new SqlParameter("@pi_list_of_docs_submitted", mhaHelp.DocumentsSubmitted);
+                    sqlParam[19] = new SqlParameter("@pi_borrower_phone", mhaHelp.BorrowerPhone);
+                    sqlParam[20] = new SqlParameter("@pi_best_time_to_reach", mhaHelp.BestTimeToReach);
+                    sqlParam[21] = new SqlParameter("@pi_borrower_email", mhaHelp.BorrowerEmail);
+                    sqlParam[22] = new SqlParameter("@pi_address", mhaHelp.Address);
+                    sqlParam[23] = new SqlParameter("@pi_city", mhaHelp.City);
+                    sqlParam[24] = new SqlParameter("@pi_state", mhaHelp.State);
+                    sqlParam[25] = new SqlParameter("@pi_zip", mhaHelp.Zip);
+                    sqlParam[26] = new SqlParameter("@pi_mha_help_resolution", mhaHelp.MHAHelpResolution);
+                    sqlParam[27] = new SqlParameter("@pi_item_created_dt", mhaHelp.ItemCreatedDt);
+                    sqlParam[28] = new SqlParameter("@pi_item_created_user", mhaHelp.ItemCreatedUser);
+                    sqlParam[29] = new SqlParameter("@pi_item_modified_dt", mhaHelp.ItemModifiedDt);
+                    sqlParam[30] = new SqlParameter("@pi_item_modified_user", mhaHelp.ItemModifiedUser);                    
+
+                    sqlParam[31] = new SqlParameter("@pi_created_user_id", mhaHelp.CreateUserId);
+                    sqlParam[32] = new SqlParameter("@pi_created_app_name", mhaHelp.CreateAppName);
+
+                    InsertCmd.CommandType = CommandType.StoredProcedure;
+                    InsertCmd.Parameters.AddRange(sqlParam);
+                    InsertCmd.Transaction = trans;
+                    InsertCmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+            }
+        }
     }
 }

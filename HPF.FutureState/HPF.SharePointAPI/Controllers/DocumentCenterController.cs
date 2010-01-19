@@ -22,12 +22,12 @@ namespace HPF.SharePointAPI.Controllers
         
         public static IList<MHAEscalationInfo> GetMHAEscalationList()
         {
+            string trackingName = "";
             try
             {                
                 SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.MHAEscalationLoginName);
                 
-                List<MHAEscalationInfo> mhaList = new List<MHAEscalationInfo>();
-                
+                List<MHAEscalationInfo> mhaList = new List<MHAEscalationInfo>();                
                 using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
                 {                    
                     //SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];  
@@ -38,14 +38,14 @@ namespace HPF.SharePointAPI.Controllers
                     
                     foreach (SPListItem item in listItems)
                     {
-                        MHAEscalationInfo mhaInfo = new MHAEscalationInfo();
-                        mhaInfo.LoanNumber = (string)item[MHAEscalation.Default.LoanNumber];
-                        mhaInfo.MMICaseId = (string)item[MHAEscalation.Default.MMICaseId];
-                        mhaInfo.Firstname = (string)item[MHAEscalation.Default.FirstName];
-                        mhaInfo.Lastname = (string)item[MHAEscalation.Default.LastName];
-                        mhaInfo.CounselorEmail = (string)item[MHAEscalation.Default.CounselorEmail];
-                        mhaInfo.CounselorName = (string)item[MHAEscalation.Default.CounselorName];
-                        mhaInfo.CounselorPhone = (string)item[MHAEscalation.Default.CounselorPhone];
+                        MHAEscalationInfo mhaInfo = new MHAEscalationInfo(); trackingName = MHAEscalation.Default.LoanNumber;
+                        mhaInfo.LoanNumber = (string)item[MHAEscalation.Default.LoanNumber]; trackingName = MHAEscalation.Default.MMICaseId;
+                        mhaInfo.MMICaseId = (string)item[MHAEscalation.Default.MMICaseId];trackingName = MHAEscalation.Default.FirstName;
+                        mhaInfo.Firstname = (string)item[MHAEscalation.Default.FirstName];trackingName = MHAEscalation.Default.LastName;
+                        mhaInfo.Lastname = (string)item[MHAEscalation.Default.LastName]; trackingName = MHAEscalation.Default.CounselorEmail;
+                        mhaInfo.CounselorEmail = (string)item[MHAEscalation.Default.CounselorEmail]; trackingName = MHAEscalation.Default.CounselorName;
+                        mhaInfo.CounselorName = (string)item[MHAEscalation.Default.CounselorName]; trackingName = MHAEscalation.Default.CounselorPhone;
+                        mhaInfo.CounselorPhone = (string)item[MHAEscalation.Default.CounselorPhone]; trackingName = MHAEscalation.Default.CreatedDate;
 
                         mhaInfo.CreatedDate = DateTime.Now;
 
@@ -57,24 +57,24 @@ namespace HPF.SharePointAPI.Controllers
                                 break;
                             }
                         }
-                        
-                        mhaInfo.CurrentOwnerOfIssue = (string)item[MHAEscalation.Default.CurrentOwnerOfIssue];                        
-                        mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString();                        
-                        mhaInfo.EscalatedToFreddie = (string)item[MHAEscalation.Default.EscalatedToFreddie].ToString();
-                        mhaInfo.EscalatedToMMIMgmt = (string)item[MHAEscalation.Default.EscalatedToMMIMgmt].ToString();                        
-                        mhaInfo.Escalation = (string)item[MHAEscalation.Default.Escalation];                        
-                        mhaInfo.EscalationTeamNotes = (string)item[MHAEscalation.Default.EscalationTeamNotes];                        
-                        mhaInfo.FinalResolution = (string)item[MHAEscalation.Default.FinalResolution];                        
-                        mhaInfo.FinalResolutionDate = (DateTime?)item[MHAEscalation.Default.FinalResolutionDate];
-                        mhaInfo.FinalResolutionNotes = (string)item[MHAEscalation.Default.FinalResolutionNotes];                        
-                        mhaInfo.GSELookup = (string)item[MHAEscalation.Default.GSELookup];                        
-                        mhaInfo.GseNotes = (string)item[MHAEscalation.Default.GSENotes];                        
-                        mhaInfo.HpfNotes = (string)item[MHAEscalation.Default.HPFNotes];                        
-                        mhaInfo.ResolvedBy = (string)item[MHAEscalation.Default.ResolvedBy];                        
-                        mhaInfo.Servicer = (string)item[MHAEscalation.Default.Servicer];
-                        mhaInfo.City = (string)item[MHAEscalation.Default.City];
-                        mhaInfo.State = (string)item[MHAEscalation.Default.State];
-                        mhaInfo.Zip = (string)item[MHAEscalation.Default.Zip];
+                        trackingName = MHAEscalation.Default.CurrentOwnerOfIssue;
+                        mhaInfo.CurrentOwnerOfIssue = (string)item[MHAEscalation.Default.CurrentOwnerOfIssue]; trackingName = MHAEscalation.Default.EscalatedToFannieMae;
+                        mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString(); trackingName = MHAEscalation.Default.EscalatedToFreddie;
+                        mhaInfo.EscalatedToFreddie = (string)item[MHAEscalation.Default.EscalatedToFreddie].ToString(); trackingName = MHAEscalation.Default.EscalatedToMMIMgmt;
+                        mhaInfo.EscalatedToMMIMgmt = (string)item[MHAEscalation.Default.EscalatedToMMIMgmt].ToString(); trackingName = MHAEscalation.Default.Escalation;
+                        mhaInfo.Escalation = (string)item[MHAEscalation.Default.Escalation]; trackingName = MHAEscalation.Default.EscalationTeamNotes;
+                        mhaInfo.EscalationTeamNotes = (string)item[MHAEscalation.Default.EscalationTeamNotes]; trackingName = MHAEscalation.Default.FinalResolution;
+                        mhaInfo.FinalResolution = (string)item[MHAEscalation.Default.FinalResolution]; trackingName = MHAEscalation.Default.FinalResolutionDate;
+                        mhaInfo.FinalResolutionDate = (DateTime?)item[MHAEscalation.Default.FinalResolutionDate]; trackingName = MHAEscalation.Default.FinalResolutionNotes;
+                        mhaInfo.FinalResolutionNotes = (string)item[MHAEscalation.Default.FinalResolutionNotes]; trackingName = MHAEscalation.Default.GSELookup;
+                        mhaInfo.GSELookup = (string)item[MHAEscalation.Default.GSELookup]; trackingName = MHAEscalation.Default.GSENotes;
+                        mhaInfo.GseNotes = (string)item[MHAEscalation.Default.GSENotes]; trackingName = MHAEscalation.Default.HPFNotes;
+                        mhaInfo.HpfNotes = (string)item[MHAEscalation.Default.HPFNotes]; trackingName = MHAEscalation.Default.ResolvedBy;
+                        mhaInfo.ResolvedBy = (string)item[MHAEscalation.Default.ResolvedBy]; trackingName = MHAEscalation.Default.Servicer;
+                        mhaInfo.Servicer = (string)item[MHAEscalation.Default.Servicer]; trackingName = MHAEscalation.Default.City;
+                        mhaInfo.City = (string)item[MHAEscalation.Default.City]; trackingName = MHAEscalation.Default.State;
+                        mhaInfo.State = (string)item[MHAEscalation.Default.State]; trackingName = MHAEscalation.Default.Zip;
+                        mhaInfo.Zip = (string)item[MHAEscalation.Default.Zip]; trackingName = MHAEscalation.Default.Address;
                         mhaInfo.Address = (string)item[MHAEscalation.Default.Address];
 
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
@@ -90,9 +90,91 @@ namespace HPF.SharePointAPI.Controllers
             }
             catch (Exception ex)
             {
-                WriteLog("----------------\n" + System.DateTime.Now.ToString() + "--" +  ex.Message + "\n" + ex.StackTrace);
+                WriteLog("----------------\n" + System.DateTime.Now.ToString() + "--" +  ex.Message + "\n" + ex.StackTrace + "--Current Error Field: " + trackingName);
                 throw ex;
             }            
+        }
+
+        public static IList<MHAHelpInfo> GetMHAHelpList()
+        {
+            string trackingName = "";
+            try
+            {
+                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.MHAHelpLoginName);
+
+                List<MHAHelpInfo> mhaList = new List<MHAHelpInfo>();
+                using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
+                {                    
+                    SPWeb web = site.OpenWeb();
+                    web.AllowUnsafeUpdates = true;
+                    SPList docLib = web.Lists[DocumentCenter.Default.MHAHelpList];
+                    SPListItemCollection listItems = docLib.Items;
+
+                    foreach (SPListItem item in listItems)
+                    {
+                        MHAHelpInfo mhaInfo = new MHAHelpInfo(); trackingName = MHAHelp.Default.Address;
+                        mhaInfo.Address = (string)item[MHAHelp.Default.Address]; trackingName = MHAHelp.Default.AllDocumentsSubmitted;
+                        mhaInfo.AllDocumentsSubmitted = (string)item[MHAHelp.Default.AllDocumentsSubmitted]; trackingName = MHAHelp.Default.BestTimeToReach;
+                        mhaInfo.BestTimeToReach = (string)item[MHAHelp.Default.BestTimeToReach]; trackingName = MHAHelp.Default.BorrowerInTrialMod;
+                        mhaInfo.BorrowerInTrialMod = (string)item[MHAHelp.Default.BorrowerInTrialMod]; trackingName = MHAHelp.Default.CallSource;
+                        mhaInfo.CallSource = (string)item[MHAHelp.Default.CallSource]; trackingName = MHAHelp.Default.City;
+                        mhaInfo.City = (string)item[MHAHelp.Default.City]; trackingName = MHAHelp.Default.Comments;
+                        mhaInfo.Comments = (string)item[MHAHelp.Default.Comments]; trackingName = MHAHelp.Default.CounselorEmail;
+                        mhaInfo.CounselorEmail = (string)item[MHAHelp.Default.CounselorEmail]; trackingName = MHAHelp.Default.CounselorName;                        
+                        mhaInfo.CounselorName = (string)item[MHAHelp.Default.CounselorName]; trackingName = MHAHelp.Default.CurrentOnPayments;
+                        mhaInfo.CurrentOnPayments = (string)item[MHAHelp.Default.CurrentOnPayments]; trackingName = MHAHelp.Default.DocumentsSubmitted;
+                        mhaInfo.DocumentsSubmitted = (string)item[MHAHelp.Default.DocumentsSubmitted]; trackingName = MHAHelp.Default.Email;
+                        mhaInfo.Email = (string)item[MHAHelp.Default.Email]; trackingName = MHAHelp.Default.FinalResolutionNotes;
+                        mhaInfo.FinalResolutionNotes = (string)item[MHAHelp.Default.FinalResolutionNotes]; trackingName = MHAHelp.Default.FirstName;
+                        mhaInfo.FirstName = (string)item[MHAHelp.Default.FirstName]; trackingName = MHAHelp.Default.IfWageEarnerWereTwoPayStubsSentIn;
+                        mhaInfo.IfWageEarnerWereTwoPayStubsSentIn = (string)item[MHAHelp.Default.IfWageEarnerWereTwoPayStubsSentIn]; trackingName = MHAHelp.Default.ItemCreatedDate;
+                        mhaInfo.ItemCreatedDate = (DateTime?)item[MHAHelp.Default.ItemCreatedDate]; trackingName = MHAHelp.Default.ItemCreatedUser;
+                        mhaInfo.ItemCreatedUser = (string)item[MHAHelp.Default.ItemCreatedUser]; trackingName = MHAHelp.Default.ItemModifiedDate;
+                        mhaInfo.ItemModifiedDate = (DateTime?)item[MHAHelp.Default.ItemModifiedDate]; trackingName = MHAHelp.Default.ItemModifiedUser;
+                        mhaInfo.ItemModifiedUser = (string)item[MHAHelp.Default.ItemModifiedUser]; trackingName = MHAHelp.Default.LastName;
+                        mhaInfo.LastName = (string)item[MHAHelp.Default.LastName]; trackingName = MHAHelp.Default.LoanNumber;
+                        mhaInfo.LoanNumber = (string)item[MHAHelp.Default.LoanNumber]; trackingName = MHAHelp.Default.MHAConversionCampaignFields;
+                        mhaInfo.MHAConversionCampainFields = (string)item[MHAHelp.Default.MHAConversionCampaignFields]; trackingName = MHAHelp.Default.MHAHelpReason;
+                        mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReason]; trackingName = MHAHelp.Default.MHAHelpResolution;
+                        mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolution]; trackingName = MHAHelp.Default.MMICaseId;
+                        mhaInfo.MMICaseId = (string)item[MHAHelp.Default.MMICaseId]; trackingName = MHAHelp.Default.Phone;
+                        mhaInfo.Phone = (string)item[MHAHelp.Default.Phone]; trackingName = MHAHelp.Default.PrivacyConsent;
+                        mhaInfo.PrivacyConsent = (string)item[MHAHelp.Default.PrivacyConsent]; trackingName = MHAHelp.Default.Servicer;
+                        mhaInfo.Servicer = (string)item[MHAHelp.Default.Servicer]; trackingName = MHAHelp.Default.State;
+                        mhaInfo.State = (string)item[MHAHelp.Default.State]; trackingName = MHAHelp.Default.TrialModStartedBeforeSept1;
+                        mhaInfo.TrialModStartedBeforeStept1 = (string)item[MHAHelp.Default.TrialModStartedBeforeSept1]; trackingName = MHAHelp.Default.VoicemailDate;
+                        mhaInfo.VoicemailDate = (DateTime?)item[MHAHelp.Default.VoicemailDate]; trackingName = MHAHelp.Default.WageEarner;
+                        mhaInfo.WageEarner = (string)item[MHAHelp.Default.WageEarner]; trackingName = MHAHelp.Default.Zip;
+                        mhaInfo.Zip = (string)item[MHAHelp.Default.Zip];
+
+                        if (!string.IsNullOrEmpty(mhaInfo.Servicer))
+                        {
+                            int index = mhaInfo.Servicer.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.Servicer = mhaInfo.Servicer.Substring(index + 2, mhaInfo.Servicer.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(mhaInfo.ItemCreatedUser))
+                        {
+                            int index = mhaInfo.ItemCreatedUser.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.ItemCreatedUser = mhaInfo.ItemCreatedUser.Substring(index + 2, mhaInfo.ItemCreatedUser.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(mhaInfo.ItemModifiedUser))
+                        {
+                            int index = mhaInfo.ItemModifiedUser.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.ItemModifiedUser = mhaInfo.ItemModifiedUser.Substring(index + 2, mhaInfo.ItemModifiedUser.Length - index - 2);
+                        }
+                        mhaList.Add(mhaInfo);
+                    }
+                }
+                return mhaList;
+            }
+            catch (Exception ex)
+            {
+                WriteLog("----------------\n" + System.DateTime.Now.ToString() + "--" + ex.Message + "\n" + ex.StackTrace + "--Current Error Field: " + trackingName);
+                throw ex;
+            }
         }
         #region "counseling List Generate"
 
