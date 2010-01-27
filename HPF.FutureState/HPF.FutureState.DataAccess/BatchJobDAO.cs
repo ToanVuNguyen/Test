@@ -387,7 +387,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[32];
+                    var sqlParam = new SqlParameter[37];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
@@ -423,7 +423,13 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[28] = new SqlParameter("@pi_state", mhaEscaltion.State);
                     sqlParam[29] = new SqlParameter("@pi_zip", mhaEscaltion.Zip);
                     sqlParam[30] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
-                    sqlParam[31] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);                    
+                    sqlParam[31] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
+
+                    sqlParam[32] = new SqlParameter("@pi_best_time_to_reach", mhaEscaltion.BestTime);
+                    sqlParam[33] = new SqlParameter("@pi_best_number_to_call", mhaEscaltion.BestNumber);
+                    sqlParam[34] = new SqlParameter("@pi_borrower_email", mhaEscaltion.BorrowerEmail);
+                    sqlParam[35] = new SqlParameter("@pi_handle_time_hrs", mhaEscaltion.HandleTimeHrs);
+                    sqlParam[36] = new SqlParameter("@pi_handle_time_mins", mhaEscaltion.HandleTimeMins);
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);
@@ -461,7 +467,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAHelpDTO mhaHelp in mhaHelps)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_help_insert", dbConnection);
-                    var sqlParam = new SqlParameter[33];
+                    var sqlParam = new SqlParameter[35];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaHelp.Servicer);
 
                     sqlParam[0] = new SqlParameter("@pi_borrower_fname", mhaHelp.BorrowerFName);
@@ -498,6 +504,9 @@ namespace HPF.FutureState.DataAccess
 
                     sqlParam[31] = new SqlParameter("@pi_created_user_id", mhaHelp.CreateUserId);
                     sqlParam[32] = new SqlParameter("@pi_created_app_name", mhaHelp.CreateAppName);
+
+                    sqlParam[33] = new SqlParameter("@pi_handle_time_hrs", mhaHelp.HandleTimeHrs);
+                    sqlParam[34] = new SqlParameter("@pi_handle_time_mins", mhaHelp.HandleTimeMins);
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);

@@ -39,5 +39,11 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string State { get; set; }
         public string Zip { get; set; }
         public string Address { get; set; }
+
+        public string BorrowerEmail { get; set; }
+        public string BestTime { get; set; }
+        public string BestNumber { get; set; }
+        public int? HandleTimeHrs { get; set; }
+        public int? HandleTimeMins { get; set; }
     }
 }

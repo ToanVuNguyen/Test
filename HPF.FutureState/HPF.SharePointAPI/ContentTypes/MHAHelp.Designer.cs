@@ -328,5 +328,23 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["ItemModifiedUser"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Handle Time (hrs)")]
+        public string HandleTimeHrs {
+            get {
+                return ((string)(this["HandleTimeHrs"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Handle Time (mins)")]
+        public string HandleTimeMins {
+            get {
+                return ((string)(this["HandleTimeMins"]));
+            }
+        }
     }
 }

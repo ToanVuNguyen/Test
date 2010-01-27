@@ -151,6 +151,11 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.City = mha.City;
                 mhaDTO.State = mha.State;
                 mhaDTO.Zip = mha.Zip;
+                mhaDTO.BorrowerEmail = mha.BorrowerEmail;
+                mhaDTO.BestNumber = mha.BestNumberToCall;
+                mhaDTO.BestTime = mha.BestTimetoReach;
+                mhaDTO.HandleTimeHrs = mha.HandleTimeHrs;
+                mhaDTO.HandleTimeMins = mha.HandleTimeMins;
                 mhaDTO.SetInsertTrackingInformation("System");
                 result.Add(mhaDTO);
             }
@@ -198,6 +203,8 @@ namespace HPF.FutureState.Common.Utils
                 mhaHelp.VoicemailDt = mha.VoicemailDate;
                 mhaHelp.WageEarner = mha.WageEarner;
                 mhaHelp.Zip = mha.Zip;
+                mhaHelp.HandleTimeHrs = mha.HandleTimeHrs;
+                mhaHelp.HandleTimeMins = mha.HandleTimeMins;
                 mhaHelp.SetInsertTrackingInformation("System");
                 result.Add(mhaHelp);
             }

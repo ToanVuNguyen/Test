@@ -75,8 +75,12 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.City = (string)item[MHAEscalation.Default.City]; trackingName = MHAEscalation.Default.State;
                         mhaInfo.State = (string)item[MHAEscalation.Default.State]; trackingName = MHAEscalation.Default.Zip;
                         mhaInfo.Zip = (string)item[MHAEscalation.Default.Zip]; trackingName = MHAEscalation.Default.Address;
-                        mhaInfo.Address = (string)item[MHAEscalation.Default.Address];
-
+                        mhaInfo.Address = (string)item[MHAEscalation.Default.Address]; trackingName = MHAEscalation.Default.Email;
+                        mhaInfo.BorrowerEmail = (string)item[MHAEscalation.Default.Email]; trackingName = MHAEscalation.Default.BestNumberToCall;
+                        mhaInfo.BestNumberToCall = (string)item[MHAEscalation.Default.BestNumberToCall]; trackingName = MHAEscalation.Default.BestTimeToReach;
+                        mhaInfo.BestTimetoReach = (string)item[MHAEscalation.Default.BestTimeToReach]; trackingName = MHAEscalation.Default.HandleTimeHrs;
+                        mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAEscalation.Default.HandleTimeHrs]); trackingName = MHAEscalation.Default.HandleTimeMins;
+                        mhaInfo.HandleTimeMins = ConvertToInt(item[MHAEscalation.Default.HandleTimeMins]);
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");
@@ -145,8 +149,9 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.TrialModStartedBeforeStept1 = (string)item[MHAHelp.Default.TrialModStartedBeforeSept1]; trackingName = MHAHelp.Default.VoicemailDate;
                         mhaInfo.VoicemailDate = (DateTime?)item[MHAHelp.Default.VoicemailDate]; trackingName = MHAHelp.Default.WageEarner;
                         mhaInfo.WageEarner = (string)item[MHAHelp.Default.WageEarner]; trackingName = MHAHelp.Default.Zip;
-                        mhaInfo.Zip = (string)item[MHAHelp.Default.Zip];
-
+                        mhaInfo.Zip = (string)item[MHAHelp.Default.Zip];trackingName = MHAHelp.Default.HandleTimeHrs;
+                        mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAHelp.Default.HandleTimeHrs]); trackingName = MHAHelp.Default.HandleTimeMins;
+                        mhaInfo.HandleTimeMins = ConvertToInt(item[MHAHelp.Default.HandleTimeMins]);                        
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");
@@ -568,6 +573,12 @@ namespace HPF.SharePointAPI.Controllers
             }
 
         }
+
+        private static int? ConvertToInt(object obj)
+        { 
+            if(obj == null) return null;
+            return int.Parse(obj.ToString());
+        }
         #endregion
-    }
+    }   
 }

@@ -104,5 +104,11 @@
     <Setting Name="ItemModifiedUser" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Modified By</Value>
     </Setting>
+    <Setting Name="HandleTimeHrs" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Handle Time (hrs)</Value>
+    </Setting>
+    <Setting Name="HandleTimeMins" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Handle Time (mins)</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

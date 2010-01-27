@@ -41,5 +41,8 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string Title { get; set; }
         public string FinalResolutionNotes { get; set; }
         public string MMICaseId { get; set; }
+
+        public int? HandleTimeHrs { get; set; }
+        public int? HandleTimeMins { get; set; }
     }
 }

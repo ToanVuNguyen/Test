@@ -38,5 +38,11 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string State { get; set; }
         public string Zip { get; set; }
         public string Address { get; set; }
+
+        public string BorrowerEmail { get; set; }
+        public string BestTimetoReach { get; set; }
+        public string BestNumberToCall { get; set; }
+        public int? HandleTimeHrs { get; set; }
+        public int? HandleTimeMins { get; set; }
     }
 }

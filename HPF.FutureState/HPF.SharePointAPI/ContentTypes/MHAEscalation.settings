@@ -83,5 +83,20 @@
     <Setting Name="Address" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Address</Value>
     </Setting>
+    <Setting Name="HandleTimeMins" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Handle Time (mins)</Value>
+    </Setting>
+    <Setting Name="HandleTimeHrs" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Handle Time (hrs)</Value>
+    </Setting>
+    <Setting Name="BestTimeToReach" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Best time to reach</Value>
+    </Setting>
+    <Setting Name="BestNumberToCall" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Best Number to call</Value>
+    </Setting>
+    <Setting Name="Email" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">E-Mail</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
