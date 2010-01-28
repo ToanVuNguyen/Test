@@ -575,9 +575,18 @@ namespace HPF.SharePointAPI.Controllers
         }
 
         private static int? ConvertToInt(object obj)
-        { 
-            if(obj == null) return null;
-            return int.Parse(obj.ToString());
+        {
+            //try
+            //{                
+            if (obj == null) return null;
+            double value = double.Parse(obj.ToString());
+
+            return (int)value;
+            //}
+            //catch
+            //{
+            //    return null;
+            //}
         }
         #endregion
     }   
