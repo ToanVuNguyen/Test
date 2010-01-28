@@ -199,7 +199,7 @@ namespace HPF.FutureState.Common.Utils
                 mhaHelp.PrivacyConsent = mha.PrivacyConsent;
                 mhaHelp.Servicer = mha.Servicer;
                 mhaHelp.State = mha.State;
-                mhaHelp.TrialModStartedBeforeStept1 = mha.TrialModStartedBeforeStept1;
+                mhaHelp.TrialModStartedBeforeStept1 = mha.TrialModStartedBeforeNov1;
                 mhaHelp.VoicemailDt = mha.VoicemailDate;
                 mhaHelp.WageEarner = mha.WageEarner;
                 mhaHelp.Zip = mha.Zip;

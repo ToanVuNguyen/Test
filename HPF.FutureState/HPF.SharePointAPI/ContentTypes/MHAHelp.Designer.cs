@@ -142,10 +142,10 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Trial mod started before Sept 1")]
-        public string TrialModStartedBeforeSept1 {
+        [global::System.Configuration.DefaultSettingValueAttribute("Trial mod started before Nov 1")]
+        public string TrialModStartedBeforeNov1 {
             get {
-                return ((string)(this["TrialModStartedBeforeSept1"]));
+                return ((string)(this["TrialModStartedBeforeNov1"]));
             }
         }
         

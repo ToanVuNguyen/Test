@@ -24,7 +24,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string MHAConversionCampainFields { get; set; }
         public string PrivacyConsent { get; set; }
         public string BorrowerInTrialMod { get; set; }
-        public string TrialModStartedBeforeStept1 { get; set; }
+        public string TrialModStartedBeforeNov1 { get; set; }
         public string CurrentOnPayments { get; set; }
         public string WageEarner { get; set; }
         public string IfWageEarnerWereTwoPayStubsSentIn { get; set; }

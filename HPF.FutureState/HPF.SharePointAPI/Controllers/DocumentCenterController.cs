@@ -145,8 +145,8 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.Phone = (string)item[MHAHelp.Default.Phone]; trackingName = MHAHelp.Default.PrivacyConsent;
                         mhaInfo.PrivacyConsent = (string)item[MHAHelp.Default.PrivacyConsent]; trackingName = MHAHelp.Default.Servicer;
                         mhaInfo.Servicer = (string)item[MHAHelp.Default.Servicer]; trackingName = MHAHelp.Default.State;
-                        mhaInfo.State = (string)item[MHAHelp.Default.State]; trackingName = MHAHelp.Default.TrialModStartedBeforeSept1;
-                        mhaInfo.TrialModStartedBeforeStept1 = (string)item[MHAHelp.Default.TrialModStartedBeforeSept1]; trackingName = MHAHelp.Default.VoicemailDate;
+                        mhaInfo.State = (string)item[MHAHelp.Default.State]; trackingName = MHAHelp.Default.TrialModStartedBeforeNov1;
+                        mhaInfo.TrialModStartedBeforeNov1 = (string)item[MHAHelp.Default.TrialModStartedBeforeNov1]; trackingName = MHAHelp.Default.VoicemailDate;
                         mhaInfo.VoicemailDate = (DateTime?)item[MHAHelp.Default.VoicemailDate]; trackingName = MHAHelp.Default.WageEarner;
                         mhaInfo.WageEarner = (string)item[MHAHelp.Default.WageEarner]; trackingName = MHAHelp.Default.Zip;
                         mhaInfo.Zip = (string)item[MHAHelp.Default.Zip];trackingName = MHAHelp.Default.HandleTimeHrs;

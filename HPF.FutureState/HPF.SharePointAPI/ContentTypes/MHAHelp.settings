@@ -41,8 +41,8 @@
     <Setting Name="BorrowerInTrialMod" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Borrower in Trial Mod</Value>
     </Setting>
-    <Setting Name="TrialModStartedBeforeSept1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Trial mod started before Sept 1</Value>
+    <Setting Name="TrialModStartedBeforeNov1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Trial mod started before Nov 1</Value>
     </Setting>
     <Setting Name="CurrentOnPayments" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Current on payments</Value>
