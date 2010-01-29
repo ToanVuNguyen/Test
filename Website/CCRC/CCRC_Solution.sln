@@ -20,13 +20,42 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "D:\...\CCRC\", ".", "{46178
 		VWDPort = "3740"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCRCSecure", "..\..\DLL\CCRCSecure\CCRCSecure.csproj", "{0D3F3836-62AF-447A-81FB-682543F4D78F}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{461785CD-93BA-4938-8383-1F4C1981E185}.Debug|.NET.ActiveCfg = Debug|.NET
 		{461785CD-93BA-4938-8383-1F4C1981E185}.Debug|.NET.Build.0 = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Release|.NET.ActiveCfg = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Release|.NET.Build.0 = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{461785CD-93BA-4938-8383-1F4C1981E185}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Release|.NET.ActiveCfg = Release|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0D3F3836-62AF-447A-81FB-682543F4D78F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

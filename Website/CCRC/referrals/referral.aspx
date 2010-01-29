@@ -100,8 +100,7 @@
     
     
     'Dim obj
-    obj = CreateObject("CCRC_Main.CMain")
-    'obj = new CCRC_Main.CMain 
+    obj = Server.CreateObject("CCRC_Main.CMain")    
     If RedirectIfError("XXX Creating CCRC_Main.CMain", eRetPage, eRetBtnText) Then
         obj = Nothing
         Response.Clear()

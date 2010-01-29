@@ -473,7 +473,7 @@ Public Function Referral_Update(referralId, loanId, _
     Set objAdmin = Nothing
   End If
 
-  locationId = GetServicerDefaultLocation(ServicerId)  
+  locationId = GetServicerDefaultLocation(ServicerId)
       
   os_SQL = "UPDATE REFERRAL SET LOAN_ID = '" & CCom.SQLScrub(loanId) & "'"
   os_SQL = os_SQL & ", PROGRAM_SEQ_ID = " & programId
