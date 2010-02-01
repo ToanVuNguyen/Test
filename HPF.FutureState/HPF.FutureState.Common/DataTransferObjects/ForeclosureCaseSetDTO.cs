@@ -27,6 +27,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public ActivityLogDTOCollection ActivityLog { get; set; }
 
-        
+        public BudgetItemDTOCollection ProposedBudgetItems { get; set; }
+        [XmlIgnore]
+        public BudgetSetDTO ProposedBudgetSet { get; set; }                
     }
 }

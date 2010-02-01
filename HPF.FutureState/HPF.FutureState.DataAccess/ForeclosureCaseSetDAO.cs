@@ -663,6 +663,44 @@ namespace HPF.FutureState.DataAccess
         }
 
         /// <summary>
+        /// Insert a BudgetSet to database.
+        /// </summary>
+        /// <param name="budgetSet">BudgetSetDTO</param>
+        /// <returns></returns>
+        public int? InsertProposedBudgetSet(BudgetSetDTO budgetSet, int? fcId)
+        {
+            var command = new SqlCommand("hpf_proposed_budget_set_insert", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[12];
+                sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+                sqlParam[1] = new SqlParameter("@pi_total_income", budgetSet.TotalIncome);
+                sqlParam[2] = new SqlParameter("@pi_total_expenses", budgetSet.TotalExpenses);
+                sqlParam[3] = new SqlParameter("@pi_total_assets", budgetSet.TotalAssets);
+                sqlParam[4] = new SqlParameter("@pi_budget_set_dt", NullableDateTime(budgetSet.BudgetSetDt));
+                sqlParam[5] = new SqlParameter("@pi_create_dt", NullableDateTime(budgetSet.CreateDate));
+                sqlParam[6] = new SqlParameter("@pi_create_user_id", budgetSet.CreateUserId);
+                sqlParam[7] = new SqlParameter("@pi_create_app_name", budgetSet.CreateAppName);
+                sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(budgetSet.ChangeLastDate));
+                sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", budgetSet.ChangeLastUserId);
+                sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", budgetSet.ChangeLastAppName);
+                sqlParam[11] = new SqlParameter("@po_budget_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+                budgetSet.BudgetSetId = ConvertToInt(sqlParam[11].Value);
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return budgetSet.BudgetSetId;
+        }
+
+        /// <summary>
         /// Insert a BudgetItem to database.
         /// </summary>
         /// <param name="budgetItem">BudgetItemDTO</param>
@@ -695,6 +733,41 @@ namespace HPF.FutureState.DataAccess
             {                
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }            
+        }
+
+        /// <summary>
+        /// Insert a BudgetItem to database.
+        /// </summary>
+        /// <param name="budgetItem">BudgetItemDTO</param>
+        /// <returns></returns>
+        public void InsertProposedBudgetItem(BudgetItemDTO budgetItem, int? budgetSetId)
+        {
+            var command = CreateCommand("hpf_proposed_budget_item_insert", this.dbConnection);
+            //<Parameter>
+            try
+            {
+                var sqlParam = new SqlParameter[10];
+                sqlParam[0] = new SqlParameter("@pi_budget_set_id", budgetSetId);
+                sqlParam[1] = new SqlParameter("@pi_budget_subcategory_id", budgetItem.BudgetSubcategoryId);
+                sqlParam[2] = new SqlParameter("@pi_budget_item_amt", budgetItem.BudgetItemAmt);
+                sqlParam[3] = new SqlParameter("@pi_budget_note", NullableString(budgetItem.BudgetNote));
+                sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(budgetItem.CreateDate));
+                sqlParam[5] = new SqlParameter("@pi_create_user_id", budgetItem.CreateUserId);
+                sqlParam[6] = new SqlParameter("@pi_create_app_name", budgetItem.CreateAppName);
+                sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(budgetItem.ChangeLastDate));
+                sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", budgetItem.ChangeLastUserId);
+                sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", budgetItem.ChangeLastAppName);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = this.trans;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
         }
 
         /// <summary>

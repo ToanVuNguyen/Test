@@ -119,7 +119,7 @@ namespace HPF.FutureState.BusinessLogic
             var fCaseFromAcency = fCaseSetFromAcency.ForeclosureCase;
             var caseloanFromAcency = fCaseSetFromAcency.CaseLoans;
             var caseLoan = FindPrimaryCaseLoan(caseloanFromAcency);
-            return (CompareForeClosureCase(fCaseFromAcency) || ComparePrimaryCaseLoan(caseLoan) || CompareBudgetSetTotal(fCaseSetFromAcency.BudgetSet));
+            return (CompareForeClosureCase(fCaseFromAcency) || ComparePrimaryCaseLoan(caseLoan) || CompareBudgetSetTotal(FCaseSetFromDB.BudgetSet, fCaseSetFromAcency.BudgetSet));
         }
 
         private CaseLoanDTO FindPrimaryCaseLoan(CaseLoanDTOCollection caseloanCollection)
@@ -174,10 +174,9 @@ namespace HPF.FutureState.BusinessLogic
         /// Compare total_income - total_expenses  from DB and total_income - total_expenses  from Acgency
         /// <return>bool<return>
         /// </summary>
-        private bool CompareBudgetSetTotal(BudgetSetDTO newSubmitBudgetSet)
+        private bool CompareBudgetSetTotal(BudgetSetDTO oldBubgetSet, BudgetSetDTO newSubmitBudgetSet)
         {
-            var bugetSet = FCaseSetFromDB.BudgetSet;
-            double? bugetSetMinus = bugetSet.TotalIncome - bugetSet.TotalExpenses;
+            double? bugetSetMinus = oldBubgetSet.TotalIncome - oldBubgetSet.TotalExpenses;
             return (bugetSetMinus != (newSubmitBudgetSet.TotalIncome - newSubmitBudgetSet.TotalExpenses));
         }
 
@@ -498,6 +497,10 @@ namespace HPF.FutureState.BusinessLogic
                 FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fc.FcId);
                 FCaseSetFromDB.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fc.FcId);
                 FCaseSetFromDB.BudgetSet = BudgetBL.Instance.GetBudgetSet(fc.FcId);
+                FCaseSetFromDB.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fc.FcId);
+                FCaseSetFromDB.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fc.FcId);
+                FCaseSetFromDB.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fc.FcId);
+                FCaseSetFromDB.ProposedBudgetItems = BudgetBL.Instance.GetProposedBudgetItemSet(fc.FcId);
             }
 
             //check valid fcCase for Agency
@@ -1200,7 +1203,7 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
-            BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet.BudgetAssets, foreclosureCaseSet.BudgetItems);
             foreclosureCaseSet.BudgetSet = budgetSet;
             //
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
@@ -1218,6 +1221,8 @@ namespace HPF.FutureState.BusinessLogic
                 //if they are changed, insert new budget set, budget Item and budget asset
                 InsertBudget(foreclosureCaseSetDAO, budgetSet, budgetItemCollection, budgetAssetCollection, fcId);
 
+                BudgetSetDTO proposedBudgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, null, foreclosureCaseSet.ProposedBudgetItems);
+                InsertProposedBudget(foreclosureCaseSetDAO, budgetSet, foreclosureCaseSet.ProposedBudgetItems, fcId);
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
                 OutcomeItemDTOCollection outcomeCollecionNew = null;                
@@ -1296,7 +1301,7 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);
-            BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet);
+            BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet.BudgetAssets, foreclosureCaseSet.BudgetItems);
             foreclosureCaseSet.BudgetSet = budgetSet;
             //
             BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
@@ -1319,12 +1324,14 @@ namespace HPF.FutureState.BusinessLogic
                 //Insert Table Budget Set
                 //Return Budget Set Id
                 int? budgetSetId = InsertBudgetSet(foreclosureCaseSetDAO, budgetSet, fcId);
-
                 //Insert Table Budget Item
                 InsertBudgetItem(foreclosureCaseSetDAO, budgetItemCollection, budgetSetId);
-
                 //Insert table Budget Asset
                 InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
+
+                BudgetSetDTO proposedBudgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, null, foreclosureCaseSet.ProposedBudgetItems);
+                int? proposedBudgetSetId = InsertProposedBudgetSet(foreclosureCaseSetDAO, proposedBudgetSet, fcId);
+                InsertProposedBudgetItem(foreclosureCaseSetDAO, foreclosureCaseSet.ProposedBudgetItems, proposedBudgetSetId);
                 //            
                 if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
                     && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
@@ -1359,7 +1366,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private void InsertBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int? fcId)
         {
-            bool isInsertBudget = IsInsertBudgetSet(foreClosureCaseSetDAO , budgetItemCollection, budgetAssetCollection, fcId);
+            bool isInsertBudget = IsInsertBudgetSet(FCaseSetFromDB.BudgetItems, budgetItemCollection, FCaseSetFromDB.BudgetAssets, budgetAssetCollection, fcId);
             if (isInsertBudget)
             {
                 //Insert Table Budget Set
@@ -1369,6 +1376,19 @@ namespace HPF.FutureState.BusinessLogic
                 InsertBudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);
                 //Insert table Budget Asset
                 InsertBudgetAsset(foreClosureCaseSetDAO, budgetAssetCollection, budget_set_id);
+            }
+        }
+
+        private void InsertProposedBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, int? fcId)
+        {
+            bool isInsertBudget = IsInsertBudgetSet(FCaseSetFromDB.ProposedBudgetItems, budgetItemCollection, null, null, fcId);
+            if (isInsertBudget)
+            {
+                //Insert Table Budget Set
+                //Return Budget Set Id
+                int? budget_set_id = InsertProposedBudgetSet(foreClosureCaseSetDAO, budgetSet, fcId);
+                //Insert Table Budget Item
+                InsertProposedBudgetItem(foreClosureCaseSetDAO, budgetItemCollection, budget_set_id);                
             }
         }
         /// <summary>
@@ -1402,6 +1422,21 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         /// <summary>
+        /// Insert Budget Item
+        /// </summary>
+        private void InsertProposedBudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int? budget_set_id)
+        {
+            if (budgetItemCollection != null)
+            {
+                foreach (BudgetItemDTO items in budgetItemCollection)
+                {
+                    items.SetInsertTrackingInformation(_workingUserID);
+                    foreClosureCaseSetDAO.InsertProposedBudgetItem(items, budget_set_id);
+                }
+            }
+        }
+
+        /// <summary>
         /// Insert Budget Set
         /// </summary>
         private int? InsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int? fcId)
@@ -1411,6 +1446,20 @@ namespace HPF.FutureState.BusinessLogic
             {
                 budgetSet.SetInsertTrackingInformation(_workingUserID);
                 budget_set_id = foreClosureCaseSetDAO.InsertBudgetSet(budgetSet, fcId);
+            }
+            return budget_set_id;
+        }
+
+        /// <summary>
+        /// Insert Budget Set
+        /// </summary>
+        private int? InsertProposedBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, int? fcId)
+        {
+            int? budget_set_id = null;
+            if (budgetSet != null)
+            {
+                budgetSet.SetInsertTrackingInformation(_workingUserID);
+                budget_set_id = foreClosureCaseSetDAO.InsertProposedBudgetSet(budgetSet, fcId);
             }
             return budget_set_id;
         }
@@ -1514,9 +1563,8 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetItemDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetItemsDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetCollectionInput, int? fcId)
-        {
-            BudgetItemDTOCollection budgetCollectionDB = BudgetBL.Instance.GetBudgetItemSet(fcId);
+        private bool IsBudgetItemsDifference(BudgetItemDTOCollection budgetCollectionDB, BudgetItemDTOCollection budgetCollectionInput, int? fcId)
+        {            
             if ((budgetCollectionInput != null && budgetCollectionDB == null) || (budgetCollectionInput == null && budgetCollectionDB != null))
                 return true;            
             if (budgetCollectionDB != null && budgetCollectionInput != null && budgetCollectionDB.Count != budgetCollectionInput.Count)
@@ -1554,9 +1602,8 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection</param>
         /// <returns>true: if have difference</returns>
-        private bool IsBudgetAssetDifference(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetCollectionInput, int? fcId)
-        {
-            BudgetAssetDTOCollection budgetCollectionDB = BudgetBL.Instance.GetBudgetAssetSet(fcId);            
+        private bool IsBudgetAssetDifference(BudgetAssetDTOCollection budgetCollectionDB, BudgetAssetDTOCollection budgetCollectionInput, int? fcId)
+        {            
             if ((budgetCollectionInput != null && budgetCollectionDB == null) || (budgetCollectionInput == null && budgetCollectionDB != null))
                 return true;
             if (budgetCollectionDB != null && budgetCollectionInput != null && budgetCollectionDB.Count != budgetCollectionInput.Count)
@@ -1593,10 +1640,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name>BudgetAssetDTOCollection,BudgetAssetDTOCollection, fc_id </param>
         /// <returns>true: if have difference</returns>
-        private bool IsInsertBudgetSet(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollection, int? fcId)
+        private bool IsInsertBudgetSet(BudgetItemDTOCollection budgetCollectionDB, BudgetItemDTOCollection budgetItemCollection, BudgetAssetDTOCollection budgetAssetCollectionDB, BudgetAssetDTOCollection budgetAssetCollection, int? fcId)
         {
-            bool budgetItem = IsBudgetItemsDifference(foreClosureCaseSetDAO, budgetItemCollection, fcId);
-            bool budgetAsset = IsBudgetAssetDifference(foreClosureCaseSetDAO, budgetAssetCollection, fcId);
+            bool budgetItem = IsBudgetItemsDifference(budgetCollectionDB, budgetItemCollection, fcId);
+            bool budgetAsset = IsBudgetAssetDifference(budgetAssetCollectionDB, budgetAssetCollection, fcId);
             return (budgetItem || budgetAsset);                
         }
         #endregion
@@ -2307,18 +2354,18 @@ namespace HPF.FutureState.BusinessLogic
         /// <summary>
         /// Add value HPF-Auto for Budget Set
         /// </summary>
-        private BudgetSetDTO AssignBudgetSetHPFAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, ForeclosureCaseSetDTO foreclosureCaseSet)
+        private BudgetSetDTO AssignBudgetSetHPFAuto(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetAssetDTOCollection budgetAssetCollection, BudgetItemDTOCollection budgetItemCollection)
         {            
             BudgetSetDTO budgetSet = new BudgetSetDTO();
 
-            BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
-            BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
+            //BudgetAssetDTOCollection budgetAssetCollection = foreclosureCaseSet.BudgetAssets;
+            //BudgetItemDTOCollection budgetItemCollection = foreclosureCaseSet.BudgetItems;
             double? totalIncome = 0;
             double? totalExpenses = 0;
             double? totalAssest = 0;
 
-            if ((budgetAssetCollection == null || budgetAssetCollection.Count < 1) && (budgetItemCollection == null || budgetItemCollection.Count < 1))
-                return null;
+            //if ((budgetAssetCollection == null || budgetAssetCollection.Count < 1) && (budgetItemCollection == null || budgetItemCollection.Count < 1))
+            //    return null;
 
             if (budgetAssetCollection != null)
                 totalAssest = CalculateTotalAssets(budgetAssetCollection, totalAssest);
@@ -2505,7 +2552,9 @@ namespace HPF.FutureState.BusinessLogic
             //fcs.ActivityLog = ActivityLogBL.Instance.GetActivityLog(fcId);
             fcs.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fcId);
             fcs.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fcId);
+            fcs.ProposedBudgetItems = BudgetBL.Instance.GetProposedBudgetItemSet(fcId);
             fcs.BudgetSet = BudgetBL.Instance.GetBudgetSet(fcId);
+            fcs.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fcId);
             fcs.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
             fcs.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
 

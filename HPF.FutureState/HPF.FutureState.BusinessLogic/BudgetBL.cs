@@ -60,6 +60,11 @@ namespace HPF.FutureState.BusinessLogic
         {
             return BudgetDAO.Instance.GetBudgetSetList(caseId);
         }
+
+        public BudgetSetDTO GetProposedBudgetSet(int? fcId)
+        {
+            return BudgetDAO.Instance.GetProposedBudgetSet(fcId);
+        }
         /// <summary>
         /// Group all the Budget Item by BudgetCategory
         /// </summary>
@@ -107,6 +112,12 @@ namespace HPF.FutureState.BusinessLogic
         {
             return BudgetDAO.Instance.GetBudgetItemSet(fcId);
         }
+        
+        public BudgetItemDTOCollection GetProposedBudgetItemSet(int? fcId)
+        {
+            return BudgetDAO.Instance.GetProposedBudgetItemSet(fcId);
+        }
+
         public BudgetAssetDTOCollection GetBudgetAssetSet(int? fcId)
         {
             return BudgetDAO.Instance.GetBudgetAssetSet(fcId);

@@ -387,12 +387,12 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[37];
+                    var sqlParam = new SqlParameter[40];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
 
-                    sqlParam[0] = new SqlParameter("@pi_created_dt", mhaEscaltion.CreatedDt);
+                    sqlParam[0] = new SqlParameter("@pi_item_created_dt", mhaEscaltion.ItemCreatedDt);
                     sqlParam[1] = new SqlParameter("@pi_borrower_lname", mhaEscaltion.BorrowerLname);
                     sqlParam[2] = new SqlParameter("@pi_borrower_fname", mhaEscaltion.BorrowerFname);
                     sqlParam[3] = new SqlParameter("@pi_acct_num", mhaEscaltion.AcctNum);
@@ -430,6 +430,10 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[34] = new SqlParameter("@pi_borrower_email", mhaEscaltion.BorrowerEmail);
                     sqlParam[35] = new SqlParameter("@pi_handle_time_hrs", mhaEscaltion.HandleTimeHrs);
                     sqlParam[36] = new SqlParameter("@pi_handle_time_mins", mhaEscaltion.HandleTimeMins);
+
+                    sqlParam[37] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
+                    sqlParam[38] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
+                    sqlParam[39] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);                    
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);
