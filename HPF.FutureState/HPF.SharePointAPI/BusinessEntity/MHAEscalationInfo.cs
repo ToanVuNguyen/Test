@@ -6,7 +6,10 @@ namespace HPF.SharePointAPI.BusinessEntity
 {
     public class MHAEscalationInfo : BaseObject
     {
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? ItemCreatedDate { get; set; }
+        public string ItemCreatedUser { get; set; }
+        public DateTime? ItemModifiedDate { get; set; }
+        public string ItemModifiedUser { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string LoanNumber { get; set; }

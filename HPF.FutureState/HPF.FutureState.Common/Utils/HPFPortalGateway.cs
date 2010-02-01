@@ -121,7 +121,10 @@ namespace HPF.FutureState.Common.Utils
             foreach (MHAEscalationInfo mha in mhaInfos)
             {
                 MHAEscalationDTO mhaDTO = new MHAEscalationDTO();
-                mhaDTO.CreatedDt = mha.CreatedDate;
+                mhaDTO.ItemCreatedDt = mha.ItemCreatedDate;
+                mhaDTO.ItemCreatedUser = mha.ItemCreatedUser;
+                mhaDTO.ItemModifiedDt = mha.ItemModifiedDate;
+                mhaDTO.ItemModifiedUser = mha.ItemModifiedUser;
                 mhaDTO.AcctNum = mha.LoanNumber;
                 mhaDTO.AgencyCaseNum = mha.MMICaseId;
                 mhaDTO.BorrowerFname = mha.Firstname;

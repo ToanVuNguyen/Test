@@ -65,8 +65,8 @@
     <Setting Name="GSENotes" Type="System.String" Scope="Application">
       <Value Profile="(Default)">GSE Notes</Value>
     </Setting>
-    <Setting Name="CreatedDate" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Date &amp; Time</Value>
+    <Setting Name="ItemCreatedDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Created</Value>
     </Setting>
     <Setting Name="FinalResolutionDate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Final Resolution Date</Value>
@@ -97,6 +97,15 @@
     </Setting>
     <Setting Name="Email" Type="System.String" Scope="Application">
       <Value Profile="(Default)">E-Mail</Value>
+    </Setting>
+    <Setting Name="ItemCreatedUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Created By</Value>
+    </Setting>
+    <Setting Name="ItemModifiedDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Modified</Value>
+    </Setting>
+    <Setting Name="ItemModifiedUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Modified By</Value>
     </Setting>
   </Settings>
 </SettingsFile>

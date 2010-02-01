@@ -8,7 +8,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class MHAEscalationDTO : BaseDTO
     {
-        public DateTime? CreatedDt { get; set; }
+        public DateTime? ItemCreatedDt { get; set; }
+        public string ItemCreatedUser { get; set; }
+        public DateTime? ItemModifiedDt { get; set; }
+        public string ItemModifiedUser { get; set; }
         public string BorrowerFname { get; set; }
         public string BorrowerLname { get; set; }
         public string AcctNum { get; set; }

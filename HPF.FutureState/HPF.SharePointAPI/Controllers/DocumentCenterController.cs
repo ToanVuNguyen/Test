@@ -45,19 +45,11 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.Lastname = (string)item[MHAEscalation.Default.LastName]; trackingName = MHAEscalation.Default.CounselorEmail;
                         mhaInfo.CounselorEmail = (string)item[MHAEscalation.Default.CounselorEmail]; trackingName = MHAEscalation.Default.CounselorName;
                         mhaInfo.CounselorName = (string)item[MHAEscalation.Default.CounselorName]; trackingName = MHAEscalation.Default.CounselorPhone;
-                        mhaInfo.CounselorPhone = (string)item[MHAEscalation.Default.CounselorPhone]; trackingName = MHAEscalation.Default.CreatedDate;
-
-                        mhaInfo.CreatedDate = DateTime.Now;
-
-                        foreach (SPField field in item.Fields)
-                        {
-                            if (field.Title.Equals("Created") || field.Title.Equals(MHAEscalation.Default.CreatedDate))
-                            {
-                                mhaInfo.CreatedDate = (DateTime?)item[field.Title];
-                                break;
-                            }
-                        }
-                        trackingName = MHAEscalation.Default.CurrentOwnerOfIssue;
+                        mhaInfo.CounselorPhone = (string)item[MHAEscalation.Default.CounselorPhone]; trackingName = MHAEscalation.Default.ItemCreatedDate;                                                
+                        mhaInfo.ItemCreatedDate = (DateTime?)item[MHAEscalation.Default.ItemCreatedDate]; trackingName = MHAEscalation.Default.CurrentOwnerOfIssue;
+                        mhaInfo.ItemCreatedUser = (string)item[MHAEscalation.Default.ItemCreatedUser]; trackingName = MHAEscalation.Default.ItemModifiedDate;
+                        mhaInfo.ItemModifiedDate = (DateTime?)item[MHAEscalation.Default.ItemModifiedDate]; trackingName = MHAEscalation.Default.ItemModifiedUser;
+                        mhaInfo.ItemModifiedUser = (string)item[MHAEscalation.Default.ItemModifiedUser]; trackingName = MHAEscalation.Default.LastName;
                         mhaInfo.CurrentOwnerOfIssue = (string)item[MHAEscalation.Default.CurrentOwnerOfIssue]; trackingName = MHAEscalation.Default.EscalatedToFannieMae;
                         mhaInfo.EscalatedToFannie = item[MHAEscalation.Default.EscalatedToFannieMae].ToString(); trackingName = MHAEscalation.Default.EscalatedToFreddie;
                         mhaInfo.EscalatedToFreddie = (string)item[MHAEscalation.Default.EscalatedToFreddie].ToString(); trackingName = MHAEscalation.Default.EscalatedToMMIMgmt;
@@ -81,11 +73,25 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.BestTimetoReach = (string)item[MHAEscalation.Default.BestTimeToReach]; trackingName = MHAEscalation.Default.HandleTimeHrs;
                         mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAEscalation.Default.HandleTimeHrs]); trackingName = MHAEscalation.Default.HandleTimeMins;
                         mhaInfo.HandleTimeMins = ConvertToInt(item[MHAEscalation.Default.HandleTimeMins]);
+                        
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");
                             if (index > 0)
                                 mhaInfo.Servicer = mhaInfo.Servicer.Substring(index + 2, mhaInfo.Servicer.Length - index - 2);
+                        }
+
+                        if (!string.IsNullOrEmpty(mhaInfo.ItemCreatedUser))
+                        {
+                            int index = mhaInfo.ItemCreatedUser.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.ItemCreatedUser = mhaInfo.ItemCreatedUser.Substring(index + 2, mhaInfo.ItemCreatedUser.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(mhaInfo.ItemModifiedUser))
+                        {
+                            int index = mhaInfo.ItemModifiedUser.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.ItemModifiedUser = mhaInfo.ItemModifiedUser.Substring(index + 2, mhaInfo.ItemModifiedUser.Length - index - 2);
                         }
                         mhaList.Add(mhaInfo);
                     }
@@ -152,6 +158,7 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.Zip = (string)item[MHAHelp.Default.Zip];trackingName = MHAHelp.Default.HandleTimeHrs;
                         mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAHelp.Default.HandleTimeHrs]); trackingName = MHAHelp.Default.HandleTimeMins;
                         mhaInfo.HandleTimeMins = ConvertToInt(item[MHAHelp.Default.HandleTimeMins]);                        
+
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");

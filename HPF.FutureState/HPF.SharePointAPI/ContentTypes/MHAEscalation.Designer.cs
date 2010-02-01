@@ -214,10 +214,10 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Date & Time")]
-        public string CreatedDate {
+        [global::System.Configuration.DefaultSettingValueAttribute("Created")]
+        public string ItemCreatedDate {
             get {
-                return ((string)(this["CreatedDate"]));
+                return ((string)(this["ItemCreatedDate"]));
             }
         }
         
@@ -308,6 +308,33 @@ namespace HPF.SharePointAPI.ContentTypes {
         public string Email {
             get {
                 return ((string)(this["Email"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Created By")]
+        public string ItemCreatedUser {
+            get {
+                return ((string)(this["ItemCreatedUser"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Modified")]
+        public string ItemModifiedDate {
+            get {
+                return ((string)(this["ItemModifiedDate"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Modified By")]
+        public string ItemModifiedUser {
+            get {
+                return ((string)(this["ItemModifiedUser"]));
             }
         }
     }
