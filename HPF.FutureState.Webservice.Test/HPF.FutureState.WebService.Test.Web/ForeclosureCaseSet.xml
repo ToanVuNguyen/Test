@@ -193,5 +193,10 @@
       <BudgetItemAmt>100</BudgetItemAmt>
       <BudgetNote></BudgetNote>      
     </BudgetItem>
+    <ProposedBudgetItem>
+      <BudgetSubcategoryId>8</BudgetSubcategoryId>
+      <BudgetItemAmt>0</BudgetItemAmt>
+      <BudgetNote></BudgetNote>
+    </ProposedBudgetItem>
   </BudgetItemSet>  
 </ForeclosureCaseSet>  

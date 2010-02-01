@@ -40,8 +40,8 @@ namespace HPF.FutureState.WebService.Test.Web
 
         private void BindToForm(XDocument xdoc)
         {
-            Session[SessionVariables.CALLLOG_WS] = CallCenterHelper.ParseCallLogWSDTO(xdoc);
-            CallLogWSDTOToForm((CallLogWSDTO)Session[SessionVariables.CALLLOG_WS]);
+            //Session[SessionVariables.CALLLOG_WS] = CallCenterHelper.ParseCallLogWSDTO(xdoc);
+            CallLogWSDTOToForm(CallCenterHelper.ParseCallLogWSDTO(xdoc));
         }
 
         private static XDocument GetXmlDocument(string filename)

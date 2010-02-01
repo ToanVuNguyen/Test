@@ -47,10 +47,12 @@ namespace HPF.FutureState.WebService.Test.Web
             //Session[SessionVariables.ACTIVITY_LOG_COLLECTION] = Util.ParseActivityLogDTO(xdoc);
             Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = AgencyHelper.ParseOutcomeItemDTO(xdoc);
             Session[SessionVariables.FORECLOSURE_CASE] = AgencyHelper.ParseForeclosureCaseDTO(xdoc);
+            Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = AgencyHelper.ParseProposedBudgetItemDTO(xdoc);
 
             grdvCaseLoanBinding();
             grdvOutcomeItemBinding();
             grdvBudgetItemBinding();
+            grdvProposedBudgetItemBinding();
             grdvBudgetAssetBinding();
             //grdvActivityLogBinding();
             ForeclosureCaseToForm((ForeclosureCaseDTO)Session[SessionVariables.FORECLOSURE_CASE]);
@@ -683,6 +685,32 @@ namespace HPF.FutureState.WebService.Test.Web
         }
         #endregion
 
+
+        #region PROPOSED BUDGET ITEMS
+        private void grdvProposedBudgetItemBinding()
+        {
+            List<BudgetItemDTO_App> budgetItems;
+            if (Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] != null)
+            {
+                budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION];
+                grdvProposedBudgetItem.DataSource = budgetItems;
+                grdvProposedBudgetItem.DataBind();
+            }
+            else
+            {
+                budgetItems = new List<BudgetItemDTO_App>();
+                budgetItems.Add(new BudgetItemDTO_App());
+                grdvProposedBudgetItem.DataSource = budgetItems;
+                grdvProposedBudgetItem.DataBind();
+
+                int TotalColumns = grdvProposedBudgetItem.Rows[0].Cells.Count;
+                grdvProposedBudgetItem.Rows[0].Cells.Clear();
+                grdvProposedBudgetItem.Rows[0].Cells.Add(new TableCell());
+                grdvProposedBudgetItem.Rows[0].Cells[0].ColumnSpan = TotalColumns;
+                grdvProposedBudgetItem.Rows[0].Cells[0].Text = "No Records Found";
+            }
+        }
+        #endregion
         #region Budget Asset
         private void grdvBudgetAssetBinding()
         {
@@ -986,6 +1014,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvOutcomeItem.Rows[0].Cells[0].Text = "No Records Found";
             }
         }
+
         private OutcomeItemDTO_App RowToOutcomeItemDTO(GridViewRow row)
         {
             TextBox txtExtRefOtherName = (TextBox)row.FindControl("txtExtRefOtherName");
@@ -1014,8 +1043,7 @@ namespace HPF.FutureState.WebService.Test.Web
             
             return outcomeItem;
         }
-
-
+       
         protected void grdvOutcomeItem_RowCancelEditing(object sender, GridViewCancelEditEventArgs e)
         {
             grdvOutcomeItem.EditIndex = -1;
@@ -1185,6 +1213,17 @@ namespace HPF.FutureState.WebService.Test.Web
             else
                 fcCaseSet.BudgetItems = null;
 
+            if (Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] != null)
+            {
+                var list = new List<BudgetItemDTO>();
+                var list_app = ((List<BudgetItemDTO_App>)Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION]);
+                foreach (var item in list_app)
+                    list.Add(item.ConvertToBase());
+                fcCaseSet.ProposedBudgetItems = list.ToArray();
+            }            
+            else
+                fcCaseSet.ProposedBudgetItems = null;
+
             if (Session[SessionVariables.CASE_LOAN_COLLECTION] != null)
             {
                 var list = new List<CaseLoanDTO>();
@@ -1208,7 +1247,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 //fcCaseSet.Outcome = ((List<OutcomeItemDTO_App>)Session[SessionVariables.OUTCOME_ITEM_COLLECTION]).ToArray();
             else
                 fcCaseSet.Outcome = null;
-            
+                     
             request.ForeclosureCaseSet = fcCaseSet;
             return request;
         }        
@@ -1280,8 +1319,125 @@ namespace HPF.FutureState.WebService.Test.Web
                 grdvCaseLoanBinding();
             //if (Session[SessionVariables.OUTCOME_ITEM_COLLECTION] == null)
                 grdvOutcomeItemBinding();
+
+                grdvProposedBudgetItemBinding();
         }
 
-        
+
+
+        private BudgetItemDTO_App RowToProposedBudgetItemDTO(GridViewRow row)
+        {
+            TextBox txtBudgetItemAmt = (TextBox)row.FindControl("txtBudgetItemAmt1");
+            TextBox txtBudgetNote = (TextBox)row.FindControl("txtBudgetNote1");
+            TextBox txtBudgetSubcategoryId = (TextBox)row.FindControl("txtBudgetSubcategoryId1");
+            Label lblBudgetItemId = (Label)row.FindControl("lblBudgetItemId1");            
+
+            BudgetItemDTO_App budgetItem = new BudgetItemDTO_App();
+            budgetItem.BudgetItemAmt = Util.ConvertToDouble(txtBudgetItemAmt.Text.Trim());
+            budgetItem.BudgetNote = txtBudgetNote.Text.Trim();
+            budgetItem.BudgetSubcategoryId = Util.ConvertToInt(txtBudgetSubcategoryId.Text.Trim());
+            
+            budgetItem.BudgetItemId = Util.ConvertToInt(lblBudgetItemId.Text.Trim());
+            return budgetItem;
+        }
+
+        protected void grdvProposedBudgetItem_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("AddNew"))
+            {
+                BudgetItemDTO_App budgetItem = RowToProposedBudgetItemDTO(grdvProposedBudgetItem.FooterRow);
+
+                List<BudgetItemDTO_App> budgetItems = new List<BudgetItemDTO_App>();
+                if (Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] != null)
+                {
+                    budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION];
+                    int? budgetItemId = budgetItems.Max(item => item.BudgetItemId);
+                    budgetItem.BudgetItemId = budgetItemId + 1;
+                }
+                else
+                {
+                    budgetItem.BudgetItemId = 1;
+                }
+
+                budgetItems.Add(budgetItem);
+                Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = budgetItems;
+                //grdvBudgetItemBinding();
+                RefreshAllGrids();
+            } 
+        }
+
+        protected void grdvProposedBudgetItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int? budgetItemId = Util.ConvertToInt(((Label)grdvProposedBudgetItem.Rows[e.RowIndex].FindControl("lblBudgetItemId1")).Text);
+            if (Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] != null)
+            {
+                List<BudgetItemDTO_App> budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
+                int index = budgetItems.FindIndex(item => item.BudgetItemId == budgetItemId);
+
+                if (index < 0)
+                {
+                    //can not Delete item
+                }
+                else
+                {
+                    budgetItems.RemoveAt(index);
+                    if (budgetItems.Count > 0)
+                        Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = budgetItems;
+                    else
+                        Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = null;
+                }
+
+                grdvProposedBudgetItem.EditIndex = -1;
+                RefreshAllGrids();
+                //grdvBudgetItemBinding();
+            }
+            else
+            {
+                //can not Delete item
+            }
+        }
+
+        protected void grdvProposedBudgetItem_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            grdvProposedBudgetItem.EditIndex = e.NewEditIndex;            
+            RefreshAllGrids();
+
+        }
+
+        protected void grdvProposedBudgetItem_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            BudgetItemDTO_App budgetItem = RowToProposedBudgetItemDTO(grdvProposedBudgetItem.Rows[e.RowIndex]);
+            if (Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] != null)
+            {
+                List<BudgetItemDTO_App> budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION];
+                int index = budgetItems.FindIndex(item => item.BudgetItemId == budgetItem.BudgetItemId);
+
+                if (index < 0)
+                {
+                    //can not update List
+                }
+                else
+                {
+                    budgetItems[index] = budgetItem;
+                    Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = budgetItems;
+                }
+
+
+                grdvProposedBudgetItem.EditIndex = -1;
+                //grdvBudgetItemBinding();
+                RefreshAllGrids();
+            }
+            else
+            {
+                //can not update List
+            }
+        }
+
+        protected void grdvProposedBudgetItem_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            grdvProposedBudgetItem.EditIndex = -1;
+            //grdvBudgetItemBinding();
+            RefreshAllGrids();
+        }
     }
 }

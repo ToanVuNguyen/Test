@@ -158,6 +158,33 @@ namespace HPF.FutureState.WebService.Test.Web
 
         }
 
+        public static List<BudgetItemDTO_App> ParseProposedBudgetItemDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("ProposedBudgetItem")
+                           select new BudgetItemDTO_App
+                           {
+                               BudgetItemAmt = Util.ConvertToDouble(obj.Element("BudgetItemAmt")),                               
+                               BudgetNote = Util.ConvertToString(obj.Element("BudgetNote")),                               
+                               BudgetSubcategoryId = Util.ConvertToInt(obj.Element("BudgetSubcategoryId")),                               
+                           };
+                int i = 1;
+                List<BudgetItemDTO_App> list = objs.ToList<BudgetItemDTO_App>();
+                foreach (var item in list)
+                {
+                    item.BudgetItemId = i;
+                    i++;
+                }
+                return list;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+
+        }
+
         //public static List<ActivityLogDTO> ParseActivityLogDTO(XDocument xdoc)
         //{
             //try

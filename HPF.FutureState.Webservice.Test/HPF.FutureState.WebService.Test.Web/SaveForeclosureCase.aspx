@@ -933,7 +933,7 @@
         
     <br />
     <asp:Label ID="Label115" runat="server" Text="Case Loan"></asp:Label>
-    <br />
+        s<br />
     <asp:GridView ID="grdvCaseLoan" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
@@ -1263,7 +1263,7 @@
     </asp:GridView>
     <br />
     <asp:Label ID="Label116" runat="server" Text="Budget Item"></asp:Label>
-    <br />
+        s<br />
     <asp:GridView ID="grdvBudgetItem" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
@@ -1346,16 +1346,92 @@
             </asp:TemplateField>
         </Columns>            
     </asp:GridView>
+        <br />
+        Proposed Budget Items<asp:GridView ID="grdvProposedBudgetItem" runat="server" 
+        ShowFooter = "True" 
+        AutoGenerateColumns = "False" onrowcommand="grdvProposedBudgetItem_RowCommand" 
+            onrowdeleting="grdvProposedBudgetItem_RowDeleting" 
+            onrowediting="grdvProposedBudgetItem_RowEditing" 
+            onrowupdating="grdvProposedBudgetItem_RowUpdating" 
+            onrowcancelingedit="grdvProposedBudgetItem_RowCancelingEdit">
+        <Columns>
+            <asp:TemplateField HeaderText="Edit" ShowHeader="False">
+                <EditItemTemplate>
+                    <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="True" 
+                        CommandName="Update" Text="Update"></asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton4" runat="server" CausesValidation="False" 
+                        CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:LinkButton ID="LinkButton5" runat="server" CausesValidation="False" 
+                        CommandName="AddNew" Text="New"></asp:LinkButton>
+                </FooterTemplate>
+                <ItemTemplate>
+                    <asp:LinkButton ID="LinkButton6" runat="server" CausesValidation="False" 
+                        CommandName="Edit" Text="Edit"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>            
+            
+            <asp:CommandField HeaderText="Delete" ShowDeleteButton="True" ShowHeader="false" />
+            
+            
+            <asp:TemplateField HeaderText="Amount" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtBudgetItemAmt1" runat="server" 
+                        Text='<%# Eval("BudgetItemAmt") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtBudgetItemAmt1" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label304" runat="server" Text='<%# Bind("BudgetItemAmt") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            
+            <asp:TemplateField HeaderText="Note" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtBudgetNote1" runat="server" 
+                        Text='<%# Eval("BudgetNote") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtBudgetNote1" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label305" runat="server" Text='<%# Bind("BudgetNote") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            
+            
+            <asp:TemplateField HeaderText="Subcategory ID" >  
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtBudgetSubcategoryId1" runat="server" 
+                        Text='<%# Eval("BudgetSubcategoryId") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtBudgetSubcategoryId1" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label306" runat="server" 
+                        Text='<%# Bind("BudgetSubcategoryId") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+ 
+            
+            <asp:TemplateField HeaderText="Index" >               
+                <FooterTemplate>
+                    <asp:Label ID="lblBudgetItemId1" runat="server"></asp:Label> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="lblBudgetItemId1" runat="server" 
+                        Text='<%# Bind("BudgetItemId") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>            
+    </asp:GridView>
     <br />
     <asp:Label ID="Label113" runat="server" Text="Budget Asset"></asp:Label>
-    <asp:GridView ID="grdvBudgetAsset" runat="server" 
+        s<asp:GridView ID="grdvBudgetAsset" runat="server" 
         ShowFooter = "True" 
-        AutoGenerateColumns = "False" 
-        onrowediting="grdvBudgetAsset_RowEditing"
-        OnRowCancelingEdit = "grdvBudgetAsset_RowCancelEditing"
-        onrowupdating="grdvBudgetAsset_RowUpdating"
-        onrowcommand="grdvBudgetAssetRowCommand" 
-        onrowdeleting="grdvBudgetAsset_RowDeleting">
+        AutoGenerateColumns = "False" onrowcommand="grdvBudgetAssetRowCommand" 
+            onrowdeleting="grdvBudgetAsset_RowDeleting" 
+            onrowediting="grdvBudgetAsset_RowEditing" 
+            onrowupdating="grdvBudgetAsset_RowUpdating">
         <Columns>
             <asp:TemplateField HeaderText="Edit" ShowHeader="False">
                 <EditItemTemplate>
@@ -1424,7 +1500,7 @@
                 </EditItemTemplate>--%>
     <br />
     <asp:Label ID="Label118" runat="server" Text="Outcome"></asp:Label>
-    <br />
+        s<br />
     <asp:GridView ID="grdvOutcomeItem" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 

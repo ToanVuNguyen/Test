@@ -17,7 +17,8 @@ namespace HPF.FutureState.WebService.Test.Web
         public static string BUDGET_ASSET_COLLECTION = "BudgetAssetCollection";
         public static string CASE_LOAN_COLLECTION = "CaseLoanCollection";
         public static string BUDGET_ITEM_COLLECTION = "BudgetItemCollection";
-        public static string ACTIVITY_LOG_COLLECTION = "ActivityLogCollection";
+        public static string PROPOSED_BUDGET_ITEM_COLLECTION = "ProposedBudgetItemCollection";
+        //public static string ACTIVITY_LOG_COLLECTION = "ActivityLogCollection";
         public static string OUTCOME_ITEM_COLLECTION = "OutcomeItemCollection";
         public static string FORECLOSURE_CASE = "ForeclosureCase";
         public static string CALLLOG_WS = "CallLogWS";
