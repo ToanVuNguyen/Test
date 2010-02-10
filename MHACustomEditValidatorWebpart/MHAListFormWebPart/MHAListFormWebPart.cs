@@ -97,6 +97,30 @@ namespace CustomEditWebpart
             set { _MHAEscalationSelect_DateOutputField = value; }
         }
 
+        private string _escalationSecurityGroup = "Escalation Mngt";
+        [WebBrowsable(true),
+        Personalizable(PersonalizationScope.User),
+        WebDescription("Escalation Manager Group"),
+        Category("MHA Escalation"),
+        WebDisplayName("Escalation Manager Group")]
+        public string EscalationSecurityGroup
+        {
+            get { return _escalationSecurityGroup; }
+            set { _escalationSecurityGroup = value; }
+        }
+
+        private string _escalationSecurityFields = "Escalated To Fannie Mae;Escalated To Freddie Mac";
+        [WebBrowsable(true),
+        Personalizable(PersonalizationScope.User),
+        WebDescription("Escalation Manager Fields. Only users in group [Escalation Mngt] can edit them. User ';' to seperate fields"),
+        Category("MHA Escalation"),
+        WebDisplayName("Escalation Manager Fields")]
+        public string EscalationSecurityFields
+        {
+            get { return _escalationSecurityFields; }
+            set { _escalationSecurityFields = value; }
+        }
+
         protected override void CreateChildControls()
         {
             try
@@ -135,53 +159,7 @@ namespace CustomEditWebpart
                     tbl.Rows.Add(tr2);
                     return;
                 }
-                                
-                //EditListFormCtrl uc = (EditListFormCtrl)Page.LoadControl("~/_controltemplates/EditListFormCtrl.ascx");
-                //uc.ID = "1234567";
-                //Controls.Add(uc);
-                
-                //SPWeb web = SPControl.GetContextWeb(Context);
-                
-                //SPList list = SPContext.Current.List;                
-                //tbl.BorderWidth = 1;
-                //if (list.ContentTypes == null) return;
-                //foreach (SPContentType content in list.ContentTypes)
-                //{
-                //    if (content.Name == "Item" && content.Fields != null)
-                //    {                        
-                //        foreach (SPField field in content.Fields)
-                //        {
-                //            if (field.Title == "Content Type") continue;
-                //            TableRow tr = new TableRow();
-                //            TableCell tc1 = new TableCell();
-                //            tc1.Text = field.Title;
-                //            if (field.Required)
-                //                tc1.Text += "<font color='red'>&nbsp;*</font>";
-                //            tr.Cells.Add(tc1);
-                //            TableCell tc2 = new TableCell();
-                //            WebControl ctrl = CreateControl(field);
-                //            if (ctrl != null)
-                //                tc2.Controls.Add(ctrl);
-                //            tr.Cells.Add(tc2);
-                //            tbl.Rows.Add(tr);                    
-                //        }
-                //    }
-                //}
-
-                //TableRow trEnd = new TableRow();
-                //TableCell tcOK = new TableCell();
-                //Button btnOk = new Button();
-                //btnOk.Text = "OK";
-                //tcOK.Controls.Add(btnOk);
-                //trEnd.Cells.Add(tcOK);
-                //tbl.Rows.Add(trEnd);
-
-                //if (SPContext.Current.Item != null)
-                //{
-                //    Label lb = new Label();
-                //    lb.Text = "ID: " + SPContext.Current.Item.ID.ToString();
-                //    this.Controls.Add(lb);
-                //}
+                                               
             }
             catch (Exception ex)
             {
@@ -201,7 +179,7 @@ namespace CustomEditWebpart
 
         public void RegisterClientScript()
         {
-            string scriptBlock = 
+            string scriptBlock =
                                 "function attachEventListener(el, sEvent, func, bCapture) {" +
                                 "    var newFunc = function(e) {" +
                                 "           e = (e) ? e : window.event;" +
@@ -225,7 +203,7 @@ namespace CustomEditWebpart
                                 "}" +
                                 "function EditFormController(checkBoxId, textBoxId) {" +
                                 "    checkBox = document.getElementById(checkBoxId);" +
-                                "    attachEventListener(checkBox, 'click', function(e) {" +                                
+                                "    attachEventListener(checkBox, 'click', function(e) {" +
                                 "        textBox = document.getElementById(textBoxId);" +
                                 "        var curDate = new Date();" +
                                 "        var stringDate = (curDate.getMonth() + 1) + '/' + curDate.getDate() + '/' + curDate.getFullYear();" +
@@ -250,52 +228,112 @@ namespace CustomEditWebpart
                                 "    else if (selValue.value == '' && textBox.value != '')" +
                                 "        textBox.value = '';" +
                                 "   });" +
-                                "}";                                
+                                "}" +
+                                "function DisableControl(controlId){" +
+                                "   ctrl = document.getElementById(controlId);" +
+                                "   attachEventListener(ctrl, 'keypress', function(e) {" +                                
+                                "       return false;" +
+                                "   });" +
+                                "   attachEventListener(ctrl, 'keydown', function(e) {" +
+                                "       return false;" +
+                                "   });" +
+                                "   attachEventListener(ctrl, 'click', function(e) {" +                                
+                                "       return false;" +
+                                "   });" +                                
+                                "}";
             //ListFieldIterator list = FormComponent1.Controls[0].FindControl("ListFieldIterator1") as ListFieldIterator;            
             Page.ClientScript.RegisterStartupScript(base.GetType(), "hpf_" + this.UniqueID.GetHashCode().ToString("X"), scriptBlock, true);
 
-            WebControl editCtrl = null;
-            WebControl checkBox = null;
-            //foreach (MHAEscalationValidator val in MHAEscalationYesNo_DateValidator)
-            {
-                BaseFieldControl f1 = GetFieldControlByName(MHAEscalationYesNoDateInputField);
-                BaseFieldControl f2 = GetFieldControlByName(MHAEscalationYesNoDateOutputField);
-                if (f1 != null)
-                    checkBox = GetControl<WebControl>(f1);
-                if (f2 != null)
-                    editCtrl = GetControl<WebControl>(f2);
-
-                if (editCtrl != null && checkBox != null)
+            bool enableEditField = CheckEscalationSecurity(SPContext.Current.Web.CurrentUser);
+            string[] fields = EscalationSecurityFields.Split(';');
+            if (!enableEditField)
+            {                
+                foreach (string field in fields)
                 {
-                    string script = String.Format("window[\"EditFormController\"] = new EditFormController('{0}','{1}');",
-                        checkBox.ClientID, editCtrl.ClientID);
-
-                    Page.ClientScript.RegisterStartupScript(GetType(), "even_" + editCtrl.UniqueID, script, true);
-
+                    WebControl disableCtrl = null;
+                    BaseFieldControl f = GetFieldControlByName(field);
+                    if (f != null)
+                        disableCtrl = GetControl<WebControl>(f);
+                    if (disableCtrl != null)
+                    {
+                        string script = String.Format("window[\"DisableControl1\"] = new DisableControl('{0}');", disableCtrl.ClientID);
+                        Page.ClientScript.RegisterStartupScript(GetType(), "even_disable_" + disableCtrl.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
+                    }
                 }
             }
 
-            WebControl editCtrl2 = null;
-            WebControl listBox = null;
-            //foreach (MHAEscalationValidator val in MHAEscalationSelect_DateValidator)
+            if (enableEditField || !IsDisableField(MHAEscalationYesNoDateInputField, fields))
             {
-                BaseFieldControl f1 = GetFieldControlByName(MHAEscalationSelectDateInputField);
-                BaseFieldControl f2 = GetFieldControlByName(MHAEscalationSelectDateOutputField);
-                if (f1 != null)
-                    listBox = GetControl<WebControl>(f1);
-                if (f2 != null)
-                    editCtrl2 = GetControl<WebControl>(f2);
-
-                if (editCtrl2 != null && listBox != null)
+                WebControl editCtrl = null;
+                WebControl checkBox = null;
+                //foreach (MHAEscalationValidator val in MHAEscalationYesNo_DateValidator)
                 {
-                    string script = String.Format("window[\"EditFormController2\"] = new EditFormController2('{0}','{1}');",
-                        listBox.ClientID, editCtrl2.ClientID);
+                    BaseFieldControl f1 = GetFieldControlByName(MHAEscalationYesNoDateInputField);
+                    BaseFieldControl f2 = GetFieldControlByName(MHAEscalationYesNoDateOutputField);
+                    if (f1 != null)
+                        checkBox = GetControl<WebControl>(f1);
+                    if (f2 != null)
+                        editCtrl = GetControl<WebControl>(f2);
 
-                    Page.ClientScript.RegisterStartupScript(GetType(), "even_" + editCtrl2.UniqueID, script, true);
+                    if (editCtrl != null && checkBox != null)
+                    {
+                        string script = String.Format("window[\"EditFormController\"] = new EditFormController('{0}','{1}');",
+                            checkBox.ClientID, editCtrl.ClientID);
+
+                        Page.ClientScript.RegisterStartupScript(GetType(), "even_" + editCtrl.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
+                    }
+                }
+            }
+            if (enableEditField || !IsDisableField(MHAEscalationSelectDateInputField, fields))
+            {
+                WebControl editCtrl2 = null;
+                WebControl listBox = null;
+                //foreach (MHAEscalationValidator val in MHAEscalationSelect_DateValidator)
+                {
+                    BaseFieldControl f1 = GetFieldControlByName(MHAEscalationSelectDateInputField);
+                    BaseFieldControl f2 = GetFieldControlByName(MHAEscalationSelectDateOutputField);
+                    if (f1 != null)
+                        listBox = GetControl<WebControl>(f1);
+                    if (f2 != null)
+                        editCtrl2 = GetControl<WebControl>(f2);
+
+                    if (editCtrl2 != null && listBox != null)
+                    {
+                        string script = String.Format("window[\"EditFormController2\"] = new EditFormController2('{0}','{1}');",
+                            listBox.ClientID, editCtrl2.ClientID);
+
+                        Page.ClientScript.RegisterStartupScript(GetType(), "even_" + editCtrl2.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
+                    }
                 }
             }
         }
 
+        private bool IsDisableField(string field, string[] fields)
+        {
+            foreach (string fieldName in fields)
+                if (fieldName.Equals(field))
+                    return true;
+
+            return false;
+        }
+
+        private bool CheckEscalationSecurity(SPUser user)
+        {
+            SPGroup escalationMngt = null;
+            try
+            {
+                escalationMngt = SPContext.Current.Web.Groups[EscalationSecurityGroup];
+                if (escalationMngt.Users.GetByID(user.ID) != null)
+                    return true;
+            }
+            catch
+            {
+                if (escalationMngt == null)
+                    return true;
+            }
+
+            return false;
+        }
         public static T GetControl<T>(Control ctrl) where T : Control
         {
             if (ctrl is T)
