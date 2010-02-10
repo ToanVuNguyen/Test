@@ -231,6 +231,8 @@ namespace CustomEditWebpart
                                 "}" +
                                 "function DisableControl(controlId){" +
                                 "   ctrl = document.getElementById(controlId);" +
+                                "   ctrl.readonly = true;" +
+                                "   ctrl.disabled = true;" +
                                 "   attachEventListener(ctrl, 'keypress', function(e) {" +                                
                                 "       return false;" +
                                 "   });" +
