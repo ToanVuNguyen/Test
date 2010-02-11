@@ -943,6 +943,14 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [NullableOrInRangeNumberValidator(true, "0.1", "999.9", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0087)]
-        public double? MortgagePmtRatio { get; set; }             
+        public double? MortgagePmtRatio { get; set; }
+
+        string certificateId = null;
+        [NullableOrStringLengthValidator(true, 10, "CertificateId", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0098)]        
+        public string CertificateId 
+        {
+            get { return certificateId; }
+            set { certificateId = string.IsNullOrEmpty(value) ? null : value.Trim(); }
+        }
     }
 }

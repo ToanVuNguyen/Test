@@ -104,7 +104,8 @@ namespace HPF.FutureState.Common
         public const string ERR0094 = "ERR0094";
         public const string ERR0095 = "ERR0095";
         public const string ERR0096 = "ERR0096";
-        public const string ERR0097 = "ERR0097";        
+        public const string ERR0097 = "ERR0097";
+        public const string ERR0098 = "ERR0098";        
 
         public const string ERR0100 = "ERR0100";
         public const string ERR0101 = "ERR0101";
@@ -580,6 +581,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0095, "PriorHampInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0096, "PrinBalWithinLimitInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR0097, "HampEligibleInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR0098, "CertificateId has a maximum length of 10 characters.");
 
                 errorMessageDict.Add(ERR0100, "An AgencyId is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0101, "A ProgramId is required to save a foreclosure case.");

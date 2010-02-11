@@ -244,6 +244,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.NumberOfUnits = ConvertToInt(reader["number_of_units"]);
                         returnObject.VacantOrCondemedInd = ConvertToString(reader["vacant_or_condemed_ind"]);
                         returnObject.MortgagePmtRatio = ConvertToDouble(reader["mortgage_pmt_ratio"]);
+                        returnObject.CertificateId = ConvertToString(reader["certificate_id"]);
                         #endregion
                     }                    
                 }
@@ -274,7 +275,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[113];
+                var sqlParam = new SqlParameter[114];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -389,14 +390,15 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[109] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
                 sqlParam[110] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
                 sqlParam[111] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
+                sqlParam[112] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
 
-                sqlParam[112] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
+                sqlParam[113] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
                 command.Transaction = this.trans;            
                 command.ExecuteNonQuery();                
-                foreclosureCase.FcId = ConvertToInt(sqlParam[112].Value);
+                foreclosureCase.FcId = ConvertToInt(sqlParam[113].Value);
             }
             catch (Exception Ex)
             {                
@@ -850,7 +852,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[110];
+                var sqlParam = new SqlParameter[111];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -952,17 +954,19 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[97] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
                 sqlParam[98] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
                 sqlParam[99] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
-                sqlParam[100] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
-                sqlParam[101] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
+                sqlParam[100] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);                
 
-                sqlParam[102] = new SqlParameter("@pi_vip_ind", foreclosureCase.VipInd);
-                sqlParam[103] = new SqlParameter("@pi_vip_reason", foreclosureCase.VipReason);
-                sqlParam[104] = new SqlParameter("@pi_counseled_language_cd", foreclosureCase.CounseledLanguageCd);
-                sqlParam[105] = new SqlParameter("@pi_ercp_outcome_cd", foreclosureCase.ErcpOutcomeCd);
-                sqlParam[106] = new SqlParameter("@pi_counselor_contacted_srvcr_ind", foreclosureCase.CounselorContactedSrvcrInd);
-                sqlParam[107] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
-                sqlParam[108] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
-                sqlParam[109] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
+                sqlParam[101] = new SqlParameter("@pi_vip_ind", foreclosureCase.VipInd);
+                sqlParam[102] = new SqlParameter("@pi_vip_reason", foreclosureCase.VipReason);
+                sqlParam[103] = new SqlParameter("@pi_counseled_language_cd", foreclosureCase.CounseledLanguageCd);
+                sqlParam[104] = new SqlParameter("@pi_ercp_outcome_cd", foreclosureCase.ErcpOutcomeCd);
+                sqlParam[105] = new SqlParameter("@pi_counselor_contacted_srvcr_ind", foreclosureCase.CounselorContactedSrvcrInd);
+                sqlParam[106] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
+                sqlParam[107] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
+                sqlParam[108] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
+                sqlParam[109] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
+
+                sqlParam[110] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
