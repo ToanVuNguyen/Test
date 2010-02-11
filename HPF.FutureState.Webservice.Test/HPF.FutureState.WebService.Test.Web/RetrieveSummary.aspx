@@ -945,7 +945,7 @@
                 </tr>
                 <tr>
                 <td class="sidelinks">
-                VIP Ind</td>
+                    VIP Ind</td>
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtVipInd" runat="server"></asp:TextBox>
             </td>
@@ -991,6 +991,17 @@
             <td>
                 <asp:TextBox CssClass = "Text" ID="txtMortgagePmtRatio" runat="server"></asp:TextBox>
             </td>
+                </tr>
+                <tr>
+                    <td class="sidelinks">
+                        Certificate Id</td>
+                    <td>
+                        <asp:TextBox ID="txtCertificateId" runat="server" CssClass="Text"></asp:TextBox>
+                    </td>
+                    <td class="sidelinks">
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
                 </tr>
             </table>
             <br />

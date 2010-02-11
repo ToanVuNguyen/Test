@@ -7,7 +7,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -2904,6 +2903,8 @@ namespace HPF.Webservice.Agency
 
         private System.Nullable<double> mortgagePmtRatioField;
 
+        private string certificateIdField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> FcId
@@ -4231,6 +4232,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.mortgagePmtRatioField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CertificateId
+        {
+            get
+            {
+                return this.certificateIdField;
+            }
+            set
+            {
+                this.certificateIdField = value;
             }
         }
     }

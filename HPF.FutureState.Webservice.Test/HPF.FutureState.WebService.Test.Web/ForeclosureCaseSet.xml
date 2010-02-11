@@ -104,6 +104,7 @@
     <NumberOfUnits>0</NumberOfUnits>
     <VacantOrCondemedInd>N</VacantOrCondemedInd>
     <MortgagePmtRatio>1.0</MortgagePmtRatio>
+    <CertificateId>12345</CertificateId>
   </ForeclosureCase>
   <CaseLoanSet>
     <CaseLoan>      

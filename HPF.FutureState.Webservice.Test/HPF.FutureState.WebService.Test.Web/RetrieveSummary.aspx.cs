@@ -228,6 +228,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtNumberOfUnits.Text = (fcCase.NumberOfUnits.HasValue) ? fcCase.NumberOfUnits.Value.ToString() : "";
                 txtVacantOrCondemedInd.Text = fcCase.VacantOrCondemedInd;
                 txtMortgagePmtRatio.Text = (fcCase.MortgagePmtRatio.HasValue) ? fcCase.MortgagePmtRatio.Value.ToString() : "";
+                txtCertificateId.Text = fcCase.CertificateId;
             }
         }
         

@@ -316,7 +316,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                CounselorContactedSrvcrInd = Util.ConvertToString(obj.Element("CounselorContactedSrvcrInd")),
                                NumberOfUnits = Util.ConvertToInt(obj.Element("NumberOfUnits")),
                                VacantOrCondemedInd = Util.ConvertToString(obj.Element("VacantOrCondemedInd")),
-                               MortgagePmtRatio = Util.ConvertToDouble(obj.Element("MortgagePmtRatio"))
+                               MortgagePmtRatio = Util.ConvertToDouble(obj.Element("MortgagePmtRatio")),
+                               CertificateId = Util.ConvertToString(obj.Element("CertificateId"))
                            };
                 ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];
                 return fcCase;

@@ -924,6 +924,17 @@
                 <asp:TextBox CssClass = "Text" ID="txtMortgagePmtRatio" runat="server"></asp:TextBox>
             </td>                      
         </tr>   
+        <tr>
+            <td class="sidelinks">
+                Certificate Id</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtCertififateID" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>                      
+        </tr>   
         </table>
 
     <br />
@@ -933,7 +944,7 @@
         
     <br />
     <asp:Label ID="Label115" runat="server" Text="Case Loan"></asp:Label>
-        s<br />
+                                                s<br />
     <asp:GridView ID="grdvCaseLoan" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
@@ -1263,7 +1274,7 @@
     </asp:GridView>
     <br />
     <asp:Label ID="Label116" runat="server" Text="Budget Item"></asp:Label>
-        s<br />
+                                                s<br />
     <asp:GridView ID="grdvBudgetItem" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
@@ -1347,7 +1358,7 @@
         </Columns>            
     </asp:GridView>
         <br />
-        Proposed Budget Items<asp:GridView ID="grdvProposedBudgetItem" runat="server" 
+                                                Proposed Budget Items<asp:GridView ID="grdvProposedBudgetItem" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" onrowcommand="grdvProposedBudgetItem_RowCommand" 
             onrowdeleting="grdvProposedBudgetItem_RowDeleting" 

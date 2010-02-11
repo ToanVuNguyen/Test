@@ -183,6 +183,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.NumberOfUnits = Util.ConvertToInt(txtNumberOfUnits.Text);
             fcCase.VacantOrCondemedInd = txtVacantOrCondemedInd.Text;
             fcCase.MortgagePmtRatio = Util.ConvertToDouble(txtMortgagePmtRatio.Text);
+            fcCase.CertificateId = txtCertififateID.Text;
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
 
             return fcCase;
@@ -315,6 +316,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtNumberOfUnits.Text = (fcCase.NumberOfUnits.HasValue)?fcCase.NumberOfUnits.Value.ToString():"";
                 txtVacantOrCondemedInd.Text = fcCase.VacantOrCondemedInd;
                 txtMortgagePmtRatio.Text = (fcCase.MortgagePmtRatio.HasValue)?fcCase.MortgagePmtRatio.Value.ToString():"";
+                txtCertififateID.Text = fcCase.CertificateId;
             }
         }
        
