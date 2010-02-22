@@ -1373,7 +1373,7 @@ namespace HPF.FutureState.WebService.Test.Web
             int? budgetItemId = Util.ConvertToInt(((Label)grdvProposedBudgetItem.Rows[e.RowIndex].FindControl("lblBudgetItemId1")).Text);
             if (Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] != null)
             {
-                List<BudgetItemDTO_App> budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.BUDGET_ITEM_COLLECTION];
+                List<BudgetItemDTO_App> budgetItems = (List<BudgetItemDTO_App>)Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION];
                 int index = budgetItems.FindIndex(item => item.BudgetItemId == budgetItemId);
 
                 if (index < 0)

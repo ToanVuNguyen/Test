@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master"  AutoEventWireup="true" CodeBehind="SaveForeclosureCase.aspx.cs" Inherits="HPF.FutureState.WebService.Test.Web.SaveForeclosureCase" Title="HPF Webservice Test Application - Save Foreclosure Case" %>
+<%@ Page Language="C#" MasterPageFile="~/Site.Master"  AutoEventWireup="true" CodeBehind="SaveForeclosureCase.aspx.cs" Inherits="HPF.FutureState.WebService.Test.Web.SaveForeclosureCase" Title="HPF Webservice Test Application - Save Foreclosure Case" %>
 
 <asp:Content ID="ContentBody" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     
@@ -943,8 +943,8 @@
     onclick="btnSave_Click" />
         
     <br />
-    <asp:Label ID="Label115" runat="server" Text="Case Loan"></asp:Label>
-                                                s<br />
+    <asp:Label ID="Label115" runat="server" Text="Case Loans"></asp:Label>
+                                                <br />
     <asp:GridView ID="grdvCaseLoan" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
@@ -1273,8 +1273,8 @@
         </Columns> 
     </asp:GridView>
     <br />
-    <asp:Label ID="Label116" runat="server" Text="Budget Item"></asp:Label>
-                                                s<br />
+    <asp:Label ID="Label116" runat="server" Text="Budget Items"></asp:Label>
+                                                <br />
     <asp:GridView ID="grdvBudgetItem" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
@@ -1436,8 +1436,8 @@
         </Columns>            
     </asp:GridView>
     <br />
-    <asp:Label ID="Label113" runat="server" Text="Budget Asset"></asp:Label>
-        s<asp:GridView ID="grdvBudgetAsset" runat="server" 
+    <asp:Label ID="Label113" runat="server" Text="Budget Assets"></asp:Label>
+        <asp:GridView ID="grdvBudgetAsset" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" onrowcommand="grdvBudgetAssetRowCommand" 
             onrowdeleting="grdvBudgetAsset_RowDeleting" 
@@ -1510,8 +1510,8 @@
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>
                 </EditItemTemplate>--%>
     <br />
-    <asp:Label ID="Label118" runat="server" Text="Outcome"></asp:Label>
-        s<br />
+    <asp:Label ID="Label118" runat="server" Text="Outcomes"></asp:Label>
+        <br />
     <asp:GridView ID="grdvOutcomeItem" runat="server" 
         ShowFooter = "True" 
         AutoGenerateColumns = "False" 
