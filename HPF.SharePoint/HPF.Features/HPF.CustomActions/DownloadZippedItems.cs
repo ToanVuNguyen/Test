@@ -11,6 +11,7 @@ using DSOFile;
 using System.Web.UI;
 using System.Threading;
 using Microsoft.Office.Server.Diagnostics;
+using Microsoft.SharePoint.Utilities;
 
 namespace HPF.CustomActions
 {
@@ -232,7 +233,7 @@ namespace HPF.CustomActions
                     PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}",
                         error.Message, error.StackTrace);
                 }
-                PushFileToDownload(spFile);
+                PushFileToDownload2(spFile);
             }
             else
             {
@@ -294,6 +295,11 @@ namespace HPF.CustomActions
             HttpContext.Current.Response.BinaryWrite(bytes);
         }
         
+        private void PushFileToDownload2(SPFile file)
+        {                    
+            SPUtility.Redirect( file.ServerRelativeUrl, SPRedirectFlags.Trusted, HttpContext.Current); 
+        }
+
         /// <summary>
         /// Write file to temp folder and update its meta-data
         /// </summary>
