@@ -1960,6 +1960,10 @@ namespace HPF.FutureState.BusinessLogic
             if (msgBudgetSubId != null && msgBudgetSubId.Count != 0)
                 msgFcCaseSet.Add(msgBudgetSubId);
 
+            ExceptionMessageCollection msgProposedBudgetSubId = CheckValidBudgetSubcategoryId(foreclosureCaseSet.ProposedBudgetItems);
+            if (msgProposedBudgetSubId != null && msgProposedBudgetSubId.Count != 0)
+                msgFcCaseSet.Add(msgProposedBudgetSubId);
+
             ExceptionMessageCollection msgCallId = CheckValidCallId(foreclosureCase);
             if (msgCallId != null && msgCallId.Count != 0)
                 msgFcCaseSet.Add(msgCallId);            
