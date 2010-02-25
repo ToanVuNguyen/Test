@@ -387,7 +387,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[40];
+                    var sqlParam = new SqlParameter[41];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
@@ -430,10 +430,11 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[34] = new SqlParameter("@pi_borrower_email", mhaEscaltion.BorrowerEmail);
                     sqlParam[35] = new SqlParameter("@pi_handle_time_hrs", mhaEscaltion.HandleTimeHrs);
                     sqlParam[36] = new SqlParameter("@pi_handle_time_mins", mhaEscaltion.HandleTimeMins);
-
-                    sqlParam[37] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
-                    sqlParam[38] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
-                    sqlParam[39] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);                    
+                    sqlParam[37] = new SqlParameter("@pi_escalated_to_gse_dt", mhaEscaltion.EscalatedToGSEDate);
+                    
+                    sqlParam[38] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
+                    sqlParam[39] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
+                    sqlParam[40] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);                    
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);

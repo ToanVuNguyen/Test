@@ -107,5 +107,8 @@
     <Setting Name="ItemModifiedUser" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Modified By</Value>
     </Setting>
+    <Setting Name="EscalatedToGSEDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Escalated To GSE Date</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

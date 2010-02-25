@@ -159,6 +159,7 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.BestTime = mha.BestTimetoReach;
                 mhaDTO.HandleTimeHrs = mha.HandleTimeHrs;
                 mhaDTO.HandleTimeMins = mha.HandleTimeMins;
+                mhaDTO.EscalatedToGSEDate = mha.EscalatedToGSEDate;
                 mhaDTO.SetInsertTrackingInformation("System");
                 result.Add(mhaDTO);
             }

@@ -337,5 +337,14 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["ItemModifiedUser"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Escalated To GSE Date")]
+        public string EscalatedToGSEDate {
+            get {
+                return ((string)(this["EscalatedToGSEDate"]));
+            }
+        }
     }
 }
