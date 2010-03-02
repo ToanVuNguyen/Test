@@ -9,95 +9,43 @@ using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using Microsoft.SharePoint.WebPartPages;
 using System.ComponentModel;
+using System.Collections;
 
 namespace CustomEditWebpart
 {
     [Guid("3741e8d7-ee61-456b-a262-c956f79395b1")]
     public class MHAListFormWebPart : System.Web.UI.WebControls.WebParts.WebPart
-    {        
+    {
         public MHAListFormWebPart()
-        {                                                                        
+        {
         }
 
-        //private WebControl CreateControl(SPField field)
-        //{
-        //    if (field is SPFieldText)
-        //    {
-        //        //TextBox txt = new TextBox();
-        //        //return txt;
-        //    }
-        //    else if (field is SPFieldMultiChoice)//|| field is SPFieldMultiChoiceValue)
-        //    {
-        //        SPFieldMultiChoice choice = field as SPFieldMultiChoice;
-        //        DropDownList lst = new DropDownList();
-        //        foreach (string val in choice.Choices)
-        //            lst.Items.Add(val);
-
-        //        return lst;
-        //    }
-        //    else if (field is SPFieldDateTime)
-        //    {
-        //        SPFieldDateTime date = field as SPFieldDateTime;
-        //        DateTimeControl dCtrl = new DateTimeControl();
-        //        dCtrl.TimeOnly = true;
-        //        dCtrl.SelectedDate = DateTime.Now;
-        //        dCtrl.DateOnly = true;
-        //        Panel pnl = new Panel();
-        //        pnl.Controls.Add(dCtrl);
-        //        return pnl;
-        //    }
-        //    return null;
-        //}            
-
-        private string _MHAEscalationYesNo_DateInputField = "Escalated To Fannie Mae";
+        #region Properties
+        private string _MHAEscalationYesNo_DateRule = "Escalated To Fannie Mae|Escalated To Freddie Mac-->Escalated To GSE Date;Escalated To MMI Mgmt-->Escalated To MMI Mgmt Date";
         [WebBrowsable(true),
         Personalizable(PersonalizationScope.User),
-        WebDescription("MHA Escalation Input Field name for Yes/No and Datetime edit rule"),
+        WebDescription("yesnoField1a|yesnoField1b-->OutputDatetimeField1;yesnoField2a|yesnoField2b-->OutputDatetimeField2"),
         Category("MHA Escalation"),
-        WebDisplayName("MHA Escalation [Input Field Name] Yes/No->Datetime")]
-        public string MHAEscalationYesNoDateInputField
+        WebDisplayName("MHA Escalation Yes/No->Datetime")]
+        public string MHAEscalationYesNoDateRule
         {
-            get { return _MHAEscalationYesNo_DateInputField; }
-            set { _MHAEscalationYesNo_DateInputField = value; }
+            get { return _MHAEscalationYesNo_DateRule; }
+            set { _MHAEscalationYesNo_DateRule = value; }
         }
 
-        private string _MHAEscalationYesNo_DateOutputField = "Escalated To GSE Date";
+        private string _MHAEscalationChoice_DateRule = "Final Resolution Code-->Final Resolution Date";
         [WebBrowsable(true),
         Personalizable(PersonalizationScope.User),
-        WebDescription("MHA Escalation Output field name for Yes/No and Datetime edit rule"),
+        WebDescription("choiceField1|choiceField1x-->OutputDatetimeField1;.."),
         Category("MHA Escalation"),
-        WebDisplayName("MHA Escalation [Output Field Name] for Yes/No->Datetime")]
-        public string MHAEscalationYesNoDateOutputField
+        WebDisplayName("MHA Escalation Choice->Datetime")]
+        public string MHAEscalationChoiceDateRule
         {
-            get { return _MHAEscalationYesNo_DateOutputField; }
-            set { _MHAEscalationYesNo_DateOutputField = value; }
+            get { return _MHAEscalationChoice_DateRule; }
+            set { _MHAEscalationChoice_DateRule = value; }
         }
 
-        private string _MHAEscalationSelect_DateInputField = "Resolution Code";
-        [WebBrowsable(true),
-        Personalizable(PersonalizationScope.User),
-        WebDescription("MHA Escalation Input Field Name Choice and Datetime edit rule"),
-        Category("MHA Escalation"),
-        WebDisplayName("MHA Escalation [Input Field Name] Choice->Datetime")]
-        public string MHAEscalationSelectDateInputField
-        {
-            get { return _MHAEscalationSelect_DateInputField; }
-            set { _MHAEscalationSelect_DateInputField = value; }
-        }
-
-        private string _MHAEscalationSelect_DateOutputField = "Final Resolution Date";
-        [WebBrowsable(true),
-        Personalizable(PersonalizationScope.User),
-        WebDescription("MHA Escalation Output Field Name Choice and Datetime edit rule"),
-        Category("MHA Escalation"),
-        WebDisplayName("MHA Escalation [Output Field Name] Choice->Datetime")]
-        public string MHAEscalationSelectDateOutputField
-        {
-            get { return _MHAEscalationSelect_DateOutputField; }
-            set { _MHAEscalationSelect_DateOutputField = value; }
-        }
-
-        private string _escalationSecurityGroup = "Escalation Mngt";
+        private string _escalationSecurityGroup = "HPF Group - Escalation Mgmt";
         [WebBrowsable(true),
         Personalizable(PersonalizationScope.User),
         WebDescription("Escalation Manager Group"),
@@ -121,23 +69,77 @@ namespace CustomEditWebpart
             set { _escalationSecurityFields = value; }
         }
 
+        private string _readonlyFields = "Escalated To GSE Date";
+        [WebBrowsable(true),
+        Personalizable(PersonalizationScope.User),
+        WebDescription("Including all readonly fields. Every field is seperated by ';'"),
+        Category("MHA Escalation"),
+        WebDisplayName("Readonly Fields")]
+        public string ReadonlyFields
+        {
+            get { return _readonlyFields; }
+            set { _readonlyFields = value; }
+        }
+        #endregion
+
+        private ValidationRule[] ValivationYesNoDateRules
+        {
+            get
+            {
+                return ParseRuleSet(MHAEscalationYesNoDateRule);
+            }
+        }
+
+        private ValidationRule[] ValivationChoiceDateRules
+        {
+            get
+            {
+                return ParseRuleSet(MHAEscalationChoiceDateRule);
+            }
+        }
+
+        private ValidationRule[] ParseRuleSet(string ruleName)
+        {
+            ArrayList output = new ArrayList();
+            try
+            {
+                string[] rules = ruleName.Split(';');
+
+                foreach (string rule in rules)
+                {
+                    if (string.IsNullOrEmpty(rule)) continue;
+                    int index = rule.IndexOf("-->");
+                    if (index < 0) continue;
+
+                    ValidationRule valRule = new ValidationRule();
+                    valRule.InputFields = rule.Substring(0, index).Split('|');
+                    valRule.Outputfield = rule.Substring(index + 3, rule.Length - index - 3);
+
+                    output.Add(valRule);
+                }
+            }
+            catch { }
+
+            return (ValidationRule[])output.ToArray(typeof(ValidationRule));
+        }
         protected override void CreateChildControls()
         {
             try
-            {                                
+            {
                 Table tbl = new Table();
                 base.CreateChildControls();
-                
+
                 this.Controls.Add(tbl);
                 if (DesignMode)
                 {
+                    #region Design Mode
                     TableRow tr = new TableRow();
                     TableCell c = new TableCell();
                     c.ColumnSpan = 2;
-                    c.Text ="MHA Escalation Edit Controller";
+                    c.Text = "MHA Escalation Edit Controller";
                     tr.Cells.Add(c);
                     tbl.Rows.Add(tr);
-                    TableRow tr1 = new TableRow();                    
+                    TableRow tr1 = new TableRow();
                     TableCell tc11 = new TableCell();
                     tc11.Text = "Field Input";
                     tr1.Cells.Add(tc11);
@@ -158,8 +160,8 @@ namespace CustomEditWebpart
                     tr2.Cells.Add(tc22);
                     tbl.Rows.Add(tr2);
                     return;
+                    #endregion
                 }
-                                               
             }
             catch (Exception ex)
             {
@@ -177,8 +179,58 @@ namespace CustomEditWebpart
                 RegisterClientScript();
         }
 
+        private void RegisterYesNoToDatetimeScript(string EscalationYesNoDateInputField, string MHAEscalationYesNoDateOutputField)
+        {
+            WebControl editCtrl = null;
+            WebControl checkBox = null;
+            {
+                BaseFieldControl f1 = GetFieldControlByName(EscalationYesNoDateInputField);
+                BaseFieldControl f2 = GetFieldControlByName(MHAEscalationYesNoDateOutputField);
+                if (f1 == null || f2 == null) return;
+
+                checkBox = GetControl<WebControl>(f1);
+                editCtrl = GetControl<WebControl>(f2);
+
+                if (editCtrl != null && checkBox != null)
+                {
+                    string script = String.Format("window[\"EditFormYesNoController_{0}\"] = new EditFormYesNoController('{1}','{2}');",
+                        EscalationYesNoDateInputField, checkBox.ClientID, editCtrl.ClientID);
+
+                    Page.ClientScript.RegisterStartupScript(GetType(), "event_" + checkBox.UniqueID, script, true);
+                }
+            }
+        }
+
+        private void RegisterSelectionToDatetimeScript(string MHAEscalationSelectDateInputField, string MHAEscalationSelectDateOutputField)
+        {
+            WebControl editCtrl2 = null;
+            //WebControl radioCtrl = null;                
+
+            BaseFieldControl f1 = GetFieldControlByName(MHAEscalationSelectDateInputField);
+            BaseFieldControl f2 = GetFieldControlByName(MHAEscalationSelectDateOutputField);
+            //if (f1 != null)
+            //    radioCtrl = GetControl<WebControl>(f1);
+            if (f2 != null)
+                editCtrl2 = GetControl<WebControl>(f2);
+
+            if (editCtrl2 != null && f1 != null)
+            {
+                for (int index = 0; index < f1.Controls.Count; index++)
+                {
+                    if (f1.Controls[index] is WebControl)
+                    {
+                        string script = String.Format("window[\"EditFormSelectionController_{0}\"] = new EditFormSelectionController('{1}','{2}');",
+                            MHAEscalationSelectDateInputField, f1.Controls[index].ClientID, editCtrl2.ClientID);
+
+                        Page.ClientScript.RegisterStartupScript(GetType(), "event_" + f1.Controls[index].UniqueID, script, true);
+                    }
+                }
+            }
+        }
+
         public void RegisterClientScript()
         {
+            #region javascript block
             string scriptBlock =
                                 "function attachEventListener(el, sEvent, func, bCapture) {" +
                                 "    var newFunc = function(e) {" +
@@ -201,19 +253,43 @@ namespace CustomEditWebpart
                                 "       }" +
                                 "   }" +
                                 "}" +
-                                "function EditFormController(checkBoxId, textBoxId) {" +
+                                "function getCheckedValue(radioObj) {" +
+                                "	if(!radioObj)" +
+                                "		return '';" +
+                                "	var radioLength = radioObj.length;" +
+                                "	if(radioLength == undefined)" +
+                                "		if(radioObj.checked)" +
+                                "			return radioObj.value;" +
+                                "		else" +
+                                "			return '';" +
+                                "	for(var i = 0; i < radioLength; i++) {" +
+                                "		if(radioObj[i].checked) {" +
+                                "			return radioObj[i].value;" +
+                                "		}" +
+                                "	}" +
+                                "	return '';" +
+                                "}" +
+                                "function EditFormYesNoController(checkBoxId, textBoxId) {" +
                                 "    checkBox = document.getElementById(checkBoxId);" +
                                 "    attachEventListener(checkBox, 'click', function(e) {" +
                                 "        textBox = document.getElementById(textBoxId);" +
                                 "        var curDate = new Date();" +
                                 "        var stringDate = (curDate.getMonth() + 1) + '/' + curDate.getDate() + '/' + curDate.getFullYear();" +
-                                "        if (checkBox.checked == true && textBox.value == '')" +
+                                "        if (e.target.checked == true && textBox.value == '')" +
                                 "            textBox.value = stringDate;" +
-                                "        else if (checkBox.checked == false && textBox.value != '')" +
-                                "            textBox.value = '';" +
                                 "      });" +
                                 "}" +
-                                "function EditFormController2(dropDownId, textBoxId) {" +
+                                "function EditFormSelectionController(radioId, textBoxId) {" +
+                                "   var radio = document.getElementById(radioId);" +
+                                "   attachEventListener(radio, 'click', function(e) {" +
+                                "    textBox = document.getElementById(textBoxId);" +
+                                "    var curDate = new Date();" +
+                                "    var stringDate = (curDate.getMonth() + 1) + '/' + curDate.getDate() + '/' + curDate.getFullYear();" +
+                                "    if (textBox.value =='')" +
+                                "        textBox.value = stringDate;" +
+                                "   });" +
+                                "}" +
+                                "function EditFormController3(dropDownId, textBoxId) {" +
                                 "   listBox = document.getElementById(dropDownId);" +
                                 "   attachEventListener(listBox, 'change', function(e) {" +
                                 "    if (listBox.selectedIndex < 0) {                " +
@@ -232,110 +308,117 @@ namespace CustomEditWebpart
                                 "function DisableControl(controlId){" +
                                 "   ctrl = document.getElementById(controlId);" +
                                 "   ctrl.readonly = true;" +
-                                "   ctrl.disabled = true;" +
-                                "   attachEventListener(ctrl, 'keypress', function(e) {" +                                
+                                "   attachEventListener(ctrl, 'keypress', function(e1) {" +
                                 "       return false;" +
                                 "   });" +
-                                "   attachEventListener(ctrl, 'keydown', function(e) {" +
+                                "   attachEventListener(ctrl, 'keydown', function(e2) {" +
                                 "       return false;" +
                                 "   });" +
-                                "   attachEventListener(ctrl, 'click', function(e) {" +                                
+                                "   attachEventListener(ctrl, 'click', function(e3) {" +
                                 "       return false;" +
-                                "   });" +                                
+                                "   });" +
+                //"   ctrl.disabled = true;" +
+                                "}" +
+                                "function clickDatePicker(a, b, c){" +
+                                "   var date;" +
+                                "	var obja=document.getElementById(a);" +
+                                "	var aid;" +
+                                "	if (event !=null)" +
+                                "		event.cancelBubble=true;" +
+                                "	if(a==null && this.Picker !=null)" +
+                                "	{" +
+                                "		this.Picker.style.display=\"none\";" +
+                                "		this.Picker=null;" +
+                                "	}" +
+                                "	else if (obja !=null)" +
+                                "	{" +
+                                "		var aelm=document.getElementById(a);" +
+                                "		if(aelm !=null && (aelm.isDisabled || obja.readonly==true))" +
+                                "			return;" +
+                                "		date=getDate(obja, c);" +
+                                "		aid=obja.id;" +
+                                "		var objDatePickerImage=document.getElementById(aid+g_strDatePickerImageID);" +
+                                "		clickDatePickerHelper(aid, aid+g_strDatePickerFrameID, objDatePickerImage, date, b, OnSelectDate, OnPickerFinish);" +
+                                "		document.body.onclick=OnPickerFinish;" +
+                                "	}" +
                                 "}";
-            //ListFieldIterator list = FormComponent1.Controls[0].FindControl("ListFieldIterator1") as ListFieldIterator;            
+            #endregion
             Page.ClientScript.RegisterStartupScript(base.GetType(), "hpf_" + this.UniqueID.GetHashCode().ToString("X"), scriptBlock, true);
 
-            bool enableEditField = CheckEscalationSecurity(SPContext.Current.Web.CurrentUser);
-            string[] fields = EscalationSecurityFields.Split(';');
+            bool enableEditField = CheckEscalationSecurity();
+            string[] secureFields = EscalationSecurityFields.Split(';');
+            ArrayList readonlyrFields = new ArrayList(ReadonlyFields.Split(';'));
+
+            #region Disable readonly fields
             if (!enableEditField)
-            {                
-                foreach (string field in fields)
-                {
-                    WebControl disableCtrl = null;
-                    BaseFieldControl f = GetFieldControlByName(field);
-                    if (f != null)
-                        disableCtrl = GetControl<WebControl>(f);
-                    if (disableCtrl != null)
-                    {
-                        string script = String.Format("window[\"DisableControl1\"] = new DisableControl('{0}');", disableCtrl.ClientID);
-                        Page.ClientScript.RegisterStartupScript(GetType(), "even_disable_" + disableCtrl.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
-                    }
-                }
-            }
+                readonlyrFields.AddRange(secureFields);
 
-            if (enableEditField || !IsDisableField(MHAEscalationYesNoDateInputField, fields))
+            foreach (string field in readonlyrFields)
             {
-                WebControl editCtrl = null;
-                WebControl checkBox = null;
-                //foreach (MHAEscalationValidator val in MHAEscalationYesNo_DateValidator)
+                WebControl disableCtrl = null;
+                BaseFieldControl f = GetFieldControlByName(field);
+                if (f != null)
+                    disableCtrl = GetControl<WebControl>(f);
+                if (disableCtrl != null)
                 {
-                    BaseFieldControl f1 = GetFieldControlByName(MHAEscalationYesNoDateInputField);
-                    BaseFieldControl f2 = GetFieldControlByName(MHAEscalationYesNoDateOutputField);
-                    if (f1 != null)
-                        checkBox = GetControl<WebControl>(f1);
-                    if (f2 != null)
-                        editCtrl = GetControl<WebControl>(f2);
-
-                    if (editCtrl != null && checkBox != null)
-                    {
-                        string script = String.Format("window[\"EditFormController\"] = new EditFormController('{0}','{1}');",
-                            checkBox.ClientID, editCtrl.ClientID);
-
-                        Page.ClientScript.RegisterStartupScript(GetType(), "even_" + editCtrl.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
-                    }
+                    string script = String.Format("window[\"DisableControl_{0}\"] = new DisableControl('{1}');", field, disableCtrl.ClientID);
+                    Page.ClientScript.RegisterStartupScript(GetType(), "even_disable_" + disableCtrl.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
                 }
             }
-            if (enableEditField || !IsDisableField(MHAEscalationSelectDateInputField, fields))
+            #endregion
+
+            foreach (ValidationRule rule in ValivationYesNoDateRules)
             {
-                WebControl editCtrl2 = null;
-                WebControl listBox = null;
-                //foreach (MHAEscalationValidator val in MHAEscalationSelect_DateValidator)
+                foreach (string InputField in rule.InputFields)
                 {
-                    BaseFieldControl f1 = GetFieldControlByName(MHAEscalationSelectDateInputField);
-                    BaseFieldControl f2 = GetFieldControlByName(MHAEscalationSelectDateOutputField);
-                    if (f1 != null)
-                        listBox = GetControl<WebControl>(f1);
-                    if (f2 != null)
-                        editCtrl2 = GetControl<WebControl>(f2);
-
-                    if (editCtrl2 != null && listBox != null)
-                    {
-                        string script = String.Format("window[\"EditFormController2\"] = new EditFormController2('{0}','{1}');",
-                            listBox.ClientID, editCtrl2.ClientID);
-
-                        Page.ClientScript.RegisterStartupScript(GetType(), "even_" + editCtrl2.UniqueID + DateTime.Now.ToBinary().ToString(), script, true);
-                    }
+                    if (enableEditField || !IsDisableField(InputField, readonlyrFields))
+                        RegisterYesNoToDatetimeScript(InputField, rule.Outputfield);
                 }
             }
+
+            foreach (ValidationRule rule in ValivationChoiceDateRules)
+            {
+                foreach (string InputField in rule.InputFields)
+                {
+                    if (enableEditField || !IsDisableField(InputField, readonlyrFields))
+                        RegisterSelectionToDatetimeScript(InputField, rule.Outputfield);
+                }
+            }
+
         }
 
-        private bool IsDisableField(string field, string[] fields)
+        private bool IsDisableField(string field, ArrayList fields)
         {
             foreach (string fieldName in fields)
-                if (fieldName.Equals(field))
+                if (fieldName.ToUpper().Equals(field.ToUpper()))
                     return true;
 
             return false;
         }
 
-        private bool CheckEscalationSecurity(SPUser user)
+        private bool CheckEscalationSecurity()
         {
+            bool result = false;
             SPGroup escalationMngt = null;
-            try
+            SPSecurity.RunWithElevatedPrivileges(delegate()
             {
-                escalationMngt = SPContext.Current.Web.Groups[EscalationSecurityGroup];
-                if (escalationMngt.Users.GetByID(user.ID) != null)
-                    return true;
-            }
-            catch
-            {
-                if (escalationMngt == null)
-                    return true;
-            }
+                try
+                {
+                    escalationMngt = SPContext.Current.Web.Groups[EscalationSecurityGroup];
 
-            return false;
+                    result = escalationMngt.ContainsCurrentUser;
+                    //if (escalationMngt.Users.GetByID(user.ID) != null)
+                    //    result = true;
+                }
+                catch (Exception ex)
+                {
+                    if (escalationMngt == null)
+                        result = true;
+                }
+            });
+            return result;
         }
+
         public static T GetControl<T>(Control ctrl) where T : Control
         {
             if (ctrl is T)
@@ -351,24 +434,35 @@ namespace CustomEditWebpart
 
         private BaseFieldControl GetFieldControlByName(String fieldNameToSearch)
         {
-            //ListFieldIterator list = FormComponent1.Controls[0].FindControl("ListFieldIterator1") as ListFieldIterator;
-            //String iteratorId = list.ClientID;
-            foreach (IValidator validator in Page.Validators)
+            try
             {
-                if (validator is BaseFieldControl)
+                foreach (IValidator validator in Page.Validators)
                 {
-                    BaseFieldControl baseField = (BaseFieldControl)validator;
-                    if (baseField.Field == null) continue;
-
-                    String fieldName = baseField.Field.Title;
-                    if (fieldName == fieldNameToSearch)
+                    if (validator is BaseFieldControl)
                     {
-                        return baseField;
+                        BaseFieldControl baseField = (BaseFieldControl)validator;
+                        if (baseField.Field == null) continue;
+
+                        String fieldName = baseField.Field.Title;
+                        if (fieldName.ToUpper() == fieldNameToSearch.ToUpper())
+                        {
+                            return baseField;
+                        }
                     }
                 }
             }
+            catch
+            {
+            }
             return null;
         }
-    }  
+    }
+
+    [Serializable]
+    public class ValidationRule
+    {
+        public string[] InputFields { get; set; }
+        public string Outputfield { get; set; }
+    }
 }
 
