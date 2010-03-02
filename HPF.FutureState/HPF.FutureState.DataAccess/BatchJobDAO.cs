@@ -431,10 +431,12 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[35] = new SqlParameter("@pi_handle_time_hrs", mhaEscaltion.HandleTimeHrs);
                     sqlParam[36] = new SqlParameter("@pi_handle_time_mins", mhaEscaltion.HandleTimeMins);
                     sqlParam[37] = new SqlParameter("@pi_escalated_to_gse_dt", mhaEscaltion.EscalatedToGSEDate);
+                    sqlParam[38] = new SqlParameter("@pi_escalated_to_mmi_mgmt_dt", mhaEscaltion.EscalatedToMMIMgmtDate);
+                    sqlParam[39] = new SqlParameter("@pi_gse_notes_completed_dt", mhaEscaltion.GSENotesCompletedDate);
                     
-                    sqlParam[38] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
-                    sqlParam[39] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
-                    sqlParam[40] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);                    
+                    sqlParam[40] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
+                    sqlParam[41] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
+                    sqlParam[42] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);                    
 
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);

@@ -346,5 +346,23 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["EscalatedToGSEDate"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Escalated To MMI Mgmt Date")]
+        public string EscalatedToMMIMgmtDate {
+            get {
+                return ((string)(this["EscalatedToMMIMgmtDate"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("GSE Notes Completed Date")]
+        public string GSENotesCompletedDate {
+            get {
+                return ((string)(this["GSENotesCompletedDate"]));
+            }
+        }
     }
 }

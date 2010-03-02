@@ -110,5 +110,11 @@
     <Setting Name="EscalatedToGSEDate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Escalated To GSE Date</Value>
     </Setting>
+    <Setting Name="EscalatedToMMIMgmtDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Escalated To MMI Mgmt Date</Value>
+    </Setting>
+    <Setting Name="GSENotesCompletedDate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">GSE Notes Completed Date</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

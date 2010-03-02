@@ -160,6 +160,9 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.HandleTimeHrs = mha.HandleTimeHrs;
                 mhaDTO.HandleTimeMins = mha.HandleTimeMins;
                 mhaDTO.EscalatedToGSEDate = mha.EscalatedToGSEDate;
+                mhaDTO.GSENotesCompletedDate = mha.GSENotesCompletedDate;
+                mhaDTO.EscalatedToMMIMgmtDate = mha.EscalatedToMMIMgmtDate;
+
                 mhaDTO.SetInsertTrackingInformation("System");
                 result.Add(mhaDTO);
             }

@@ -73,7 +73,9 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.BestTimetoReach = (string)item[MHAEscalation.Default.BestTimeToReach]; trackingName = MHAEscalation.Default.HandleTimeHrs;
                         mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAEscalation.Default.HandleTimeHrs]); trackingName = MHAEscalation.Default.HandleTimeMins;
                         mhaInfo.HandleTimeMins = ConvertToInt(item[MHAEscalation.Default.HandleTimeMins]); trackingName = MHAEscalation.Default.EscalatedToGSEDate;
-                        mhaInfo.EscalatedToGSEDate = (DateTime?)item[MHAEscalation.Default.EscalatedToGSEDate];
+                        mhaInfo.EscalatedToGSEDate = (DateTime?)item[MHAEscalation.Default.EscalatedToGSEDate]; trackingName = MHAEscalation.Default.EscalatedToMMIMgmtDate;
+                        mhaInfo.EscalatedToMMIMgmtDate = (DateTime?)item[MHAEscalation.Default.EscalatedToMMIMgmtDate]; trackingName = MHAEscalation.Default.GSENotesCompletedDate;
+                        mhaInfo.GSENotesCompletedDate = (DateTime?)item[MHAEscalation.Default.GSENotesCompletedDate];
                         if (!string.IsNullOrEmpty(mhaInfo.Servicer))
                         {
                             int index = mhaInfo.Servicer.IndexOf(";#");

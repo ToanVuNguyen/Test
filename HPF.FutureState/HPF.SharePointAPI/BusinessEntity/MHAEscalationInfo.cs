@@ -47,6 +47,8 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string BestNumberToCall { get; set; }
         public int? HandleTimeHrs { get; set; }
         public int? HandleTimeMins { get; set; }
-        public DateTime? EscalatedToGSEDate { get; set; }        
+        public DateTime? EscalatedToGSEDate { get; set; }
+        public DateTime? GSENotesCompletedDate { get; set; }
+        public DateTime? EscalatedToMMIMgmtDate { get; set; }
     }
 }
