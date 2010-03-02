@@ -387,7 +387,7 @@ namespace HPF.FutureState.DataAccess
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[41];
+                    var sqlParam = new SqlParameter[43];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
