@@ -216,7 +216,7 @@ namespace HPF.FutureState.BusinessLogic
             foreclosureCaseSet = SplitHPFOfCallId(foreclosureCaseSet);
 
             ForeclosureCaseDTO fcCase = foreclosureCaseSet.ForeclosureCase;
-
+            LoadForeclosureCaseFromDB(fcCase.FcId);
             exceptionList.Add(CheckValidCode(foreclosureCaseSet));
             //
             if (exceptionList.Count > 0)
@@ -378,7 +378,6 @@ namespace HPF.FutureState.BusinessLogic
 
         private int? ProcessUpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
-            IsForeclosureCaseInserted = false;
             var exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);            
@@ -434,8 +433,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         private int? ProcessInsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
-        {
-            IsForeclosureCaseInserted = true;
+        {            
             ExceptionMessageCollection exceptionList = MiscErrorException(foreclosureCaseSet);
             if (exceptionList.Count > 0)
                 ThrowDataValidationException(exceptionList);            
@@ -484,30 +482,41 @@ namespace HPF.FutureState.BusinessLogic
             return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
         }
 
-        private int? ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        private void LoadForeclosureCaseFromDB(int? fcId)
         {
-            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;            
+            IsForeclosureCaseInserted = true;
+            if (!fcId.HasValue) return;
+         
+            IsForeclosureCaseInserted = false;
             //check fcid in db or not
-            FCaseSetFromDB.ForeclosureCase = GetForeclosureCase(fc.FcId);
-            
+            FCaseSetFromDB.ForeclosureCase = GetForeclosureCase(fcId);
+
             if (FCaseSetFromDB.ForeclosureCase == null)
                 ThrowDataValidationException(ErrorMessages.ERR0251);
             else
             {   //User this data to check data changed or not in Update function and Send FC to queue
-                FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fc.FcId);
-                FCaseSetFromDB.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fc.FcId);
-                FCaseSetFromDB.BudgetSet = BudgetBL.Instance.GetBudgetSet(fc.FcId);
-                FCaseSetFromDB.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fc.FcId);
-                FCaseSetFromDB.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fc.FcId);
-                FCaseSetFromDB.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fc.FcId);
-                FCaseSetFromDB.ProposedBudgetItems = BudgetBL.Instance.GetProposedBudgetItemSet(fc.FcId);
+                FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
+                FCaseSetFromDB.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
+                FCaseSetFromDB.BudgetSet = BudgetBL.Instance.GetBudgetSet(fcId);
+                FCaseSetFromDB.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fcId);
+                FCaseSetFromDB.BudgetAssets = BudgetBL.Instance.GetBudgetAssetSet(fcId);
+                FCaseSetFromDB.BudgetItems = BudgetBL.Instance.GetBudgetItemSet(fcId);
+                FCaseSetFromDB.ProposedBudgetItems = BudgetBL.Instance.GetProposedBudgetItemSet(fcId);
             }
+
+            if (CheckForeclosureCaseDBIsInactiveCase(FCaseSetFromDB.ForeclosureCase))
+                IsForeclosureCaseInserted = true;
+        }
+        private int? ProcessInsertUpdateWithForeclosureCaseId(ForeclosureCaseSetDTO foreclosureCaseSet)
+        {
+            ForeclosureCaseDTO fc = foreclosureCaseSet.ForeclosureCase;                        
 
             //check valid fcCase for Agency
             if (FCaseSetFromDB.ForeclosureCase.AgencyId != fc.AgencyId)
                 ThrowDataValidationException(ErrorMessages.ERR0252);
 
-            if (CheckForeclosureCaseDBIsInactiveCase(FCaseSetFromDB.ForeclosureCase))                
+            //if (CheckForeclosureCaseDBIsInactiveCase(FCaseSetFromDB.ForeclosureCase))                
+            if(IsForeclosureCaseInserted)
                 return ProcessInsertForeclosureCaseSet(foreclosureCaseSet);
             else
                 return ProcessUpdateForeclosureCaseSet(foreclosureCaseSet);
@@ -1984,8 +1993,16 @@ namespace HPF.FutureState.BusinessLogic
 
             if (!referenceCode.Validate(ReferenceCode.INCOME_EARNERS_CODE, forclosureCase.IncomeEarnersCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0200, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0200));
-            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE,  forclosureCase.CaseSourceCd))
+            if (!referenceCode.Validate(ReferenceCode.CASE_RESOURCE_CODE, forclosureCase.CaseSourceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0201, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0201));
+            else if (IsForeclosureCaseInserted && !string.IsNullOrEmpty(forclosureCase.CaseSourceCd))//BUG-492
+            {
+                var refCodeItemCollection = RefCodeItemBL.Instance.GetRefCodeItems();
+                var refCodeItemCollectionByCode = refCodeItemCollection.GetRefCodeItemsByRefCode(ReferenceCode.CASE_RESOURCE_CODE);
+                RefCodeItemDTO refcode = refCodeItemCollectionByCode.GetRefCodeItemByCode(forclosureCase.CaseSourceCd);
+                if (refcode.ActiveInd != Constant.INDICATOR_YES)
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0201, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0201));
+            }            
             if (!referenceCode.Validate(ReferenceCode.RACE_CODE,  forclosureCase.RaceCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0202, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0202));
             if (!referenceCode.Validate(ReferenceCode.HOUSEHOLD_CODE,  forclosureCase.HouseholdCd))
