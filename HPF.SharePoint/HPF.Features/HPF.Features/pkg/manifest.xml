@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution SolutionId="ac663306-fc12-4123-ad4f-ba18f148a7c8" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Assemblies>
+    <Assembly Location="HPF.Features.dll" DeploymentTarget="GlobalAssemblyCache" />
+    <Assembly Location="HPF.CustomActions.dll" DeploymentTarget="GlobalAssemblyCache">
+      <SafeControls>
+        <SafeControl Assembly="HPF.CustomActions, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=886bf919f6a90bbd" Namespace="HPF.CustomActions" TypeName="*" Safe="True" />
+      </SafeControls>
+    </Assembly>
+    <Assembly Location="ICSharpCode.SharpZipLib.dll" DeploymentTarget="GlobalAssemblyCache" />
+    <Assembly Location="Interop.Dsofile.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <FeatureManifests>
+    <FeatureManifest Location="DownloadZippedItems\feature.xml" />
+  </FeatureManifests>
+  <TemplateFiles>
+    <TemplateFile Location="Features\DownloadZippedItems\DownloadZippedItems.xml" />
+    <TemplateFile Location="Features\DownloadZippedItems\feature.xml" />
+    <TemplateFile Location="Layouts\1033\Images\hpf_zip.gif" />
+    <TemplateFile Location="Layouts\1033\Images\progress.gif" />
+    <TemplateFile Location="Layouts\1033\DownloadZippedItems.js" />
+  </TemplateFiles>
+</Solution>

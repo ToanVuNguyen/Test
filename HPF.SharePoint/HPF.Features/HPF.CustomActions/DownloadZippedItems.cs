@@ -12,6 +12,7 @@ using System.Web.UI;
 using System.Threading;
 using Microsoft.Office.Server.Diagnostics;
 using Microsoft.SharePoint.Utilities;
+using System.Diagnostics;
 
 namespace HPF.CustomActions
 {
@@ -296,7 +297,10 @@ namespace HPF.CustomActions
         }
         
         private void PushFileToDownload2(SPFile file)
-        {                    
+        {
+            //if (!EventLog.SourceExists("HPF"))
+            //    EventLog.CreateEventSource("HPF", "Application"); 
+            //EventLog.WriteEntry("HPF", file.ServerRelativeUrl, System.Diagnostics.EventLogEntryType.Information);
             SPUtility.Redirect( file.ServerRelativeUrl, SPRedirectFlags.Trusted, HttpContext.Current); 
         }
 

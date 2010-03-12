@@ -59,17 +59,20 @@ namespace HPF.CustomActions
 
         public string SerializeToJSonObject()
         {
-            StringBuilder script = new StringBuilder(PROGRESS_DATA);
-            foreach(string key in _progressCounters.Keys)
+            lock (_progressLock)
             {
-                script.AppendFormat("{0}:'{1}',", key, _progressCounters[key]);
+                StringBuilder script = new StringBuilder(PROGRESS_DATA);
+                foreach (string key in _progressCounters.Keys)
+                {
+                    script.AppendFormat("{0}:'{1}',", key, _progressCounters[key]);
+                }
+                if (_progressCounters.Count > 0)
+                    script.Length -= 1;
+                else
+                    RemoveProgressContext();
+                script.Append("};");
+                return script.ToString();
             }
-            if (_progressCounters.Count > 0)
-                script.Length -= 1;
-            else
-                RemoveProgressContext();
-            script.Append("};");
-            return script.ToString();
         }
 
         public void RemoveProgressContext()
