@@ -641,7 +641,7 @@
                 <asp:Label CssClass = "sidelinks" ID="Label78" runat="server" Text="Prim res. est. mkt. value"></asp:Label>             
             </td>
             <td>
-                <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue" runat="server"></asp:TextBox>
+                <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue2" runat="server"></asp:TextBox>
             </td>                -->       
         </tr>   
         <tr>
@@ -931,9 +931,10 @@
                 <asp:TextBox CssClass = "Text" ID="txtCertififateID" runat="server"></asp:TextBox>
             </td>
             <td class="sidelinks">
-                &nbsp;</td>
+                PrimResEstMktValue</td>
             <td>
-                &nbsp;</td>                      
+                <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue" runat="server"></asp:TextBox>
+                                                        </td>                      
         </tr>   
         </table>
 

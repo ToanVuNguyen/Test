@@ -7,6 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -2835,6 +2836,8 @@ namespace HPF.Webservice.Agency
 
         private string followupNotesField;
 
+        private System.Nullable<double> primResEstMktValueField;
+
         private string assignedCounselorIdRefField;
 
         private string counselorFnameField;
@@ -3782,6 +3785,20 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.followupNotesField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<double> PrimResEstMktValue
+        {
+            get
+            {
+                return this.primResEstMktValueField;
+            }
+            set
+            {
+                this.primResEstMktValueField = value;
             }
         }
 

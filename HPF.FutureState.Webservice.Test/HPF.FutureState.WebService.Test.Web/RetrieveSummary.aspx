@@ -680,7 +680,7 @@
                         Text="Prim res. est. mkt. value"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue" runat="server"></asp:TextBox>
+                        <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue2" runat="server"></asp:TextBox>
                     </td>-->
                 </tr>
                 <tr>
@@ -999,9 +999,10 @@
                         <asp:TextBox ID="txtCertificateId" runat="server" CssClass="Text"></asp:TextBox>
                     </td>
                     <td class="sidelinks">
-                        &nbsp;</td>
+                        PrimResEstMktValue</td>
                     <td>
-                        &nbsp;</td>
+                        <asp:TextBox ID="txtPrimResEstMktValue" runat="server" CssClass="Text"></asp:TextBox>
+                    </td>
                 </tr>
             </table>
             <br />

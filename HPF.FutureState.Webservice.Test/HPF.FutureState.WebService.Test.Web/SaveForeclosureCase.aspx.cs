@@ -153,7 +153,7 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.OwnerOccupiedInd = txtOwnerOccupiedInd.Text.Trim();
             fcCase.PrimaryContactNo = txtPrimaryContactNo.Text.Trim();
             fcCase.PrimaryResidenceInd = txtPrimaryResidenceInd.Text.Trim();
-            //fcCase.PrimResEstMktValue = Util.ConvertToDouble(txtPrimResEstMktValue.Text.Trim());
+            fcCase.PrimResEstMktValue = Util.ConvertToDouble(txtPrimResEstMktValue.Text.Trim());
             fcCase.ProgramId = Util.ConvertToInt(txtProgramID.Text.Trim());
             fcCase.PropAddr1 = txtPropertyAddress1.Text.Trim();
             fcCase.PropAddr2 = txtPropertyAddress2.Text.Trim();
@@ -286,7 +286,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtOwnerOccupiedInd.Text = fcCase.OwnerOccupiedInd;
                 txtPrimaryContactNo.Text = fcCase.PrimaryContactNo;
                 txtPrimaryResidenceInd.Text = fcCase.PrimaryResidenceInd;
-                //txtPrimResEstMktValue.Text = Util.ConvertToString(fcCase.PrimResEstMktValue);
+                txtPrimResEstMktValue.Text = Util.ConvertToString(fcCase.PrimResEstMktValue);
                 txtProgramID.Text = Util.ConvertToString(fcCase.ProgramId);
                 txtPropertyAddress1.Text = fcCase.PropAddr1;
                 txtPropertyAddress2.Text = fcCase.PropAddr2;

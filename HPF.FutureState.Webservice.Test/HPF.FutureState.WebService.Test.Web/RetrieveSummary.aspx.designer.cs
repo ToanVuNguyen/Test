@@ -1274,13 +1274,13 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.Label Label78;
         
         /// <summary>
-        /// txtPrimResEstMktValue control.
+        /// txtPrimResEstMktValue2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrimResEstMktValue;
+        protected global::System.Web.UI.WebControls.TextBox txtPrimResEstMktValue2;
         
         /// <summary>
         /// Label79 control.
@@ -1848,6 +1848,15 @@ namespace HPF.FutureState.WebService.Test.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCertificateId;
+        
+        /// <summary>
+        /// txtPrimResEstMktValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrimResEstMktValue;
         
         /// <summary>
         /// Label115 control.

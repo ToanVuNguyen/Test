@@ -290,7 +290,7 @@ namespace HPF.FutureState.WebService.Test.Web
                                OwnerOccupiedInd = Util.ConvertToString(obj.Element("OwnerOccupiedInd")),
                                PrimaryContactNo = Util.ConvertToString(obj.Element("PrimaryContactNo")),
                                PrimaryResidenceInd = Util.ConvertToString(obj.Element("PrimaryResidenceInd")),
-                               //PrimResEstMktValue = Util.ConvertToDouble(obj.Element("PrimResEstMktValue")),
+                               PrimResEstMktValue = Util.ConvertToDouble(obj.Element("PrimResEstMktValue")),
                                ProgramId = Util.ConvertToInt(obj.Element("ProgramId")),
                                PropAddr1 = Util.ConvertToString(obj.Element("PropAddr1")),
                                PropAddr2 = Util.ConvertToString(obj.Element("PropAddr2")),

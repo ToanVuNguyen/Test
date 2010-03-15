@@ -66,7 +66,8 @@
     <OccupantNum>123</OccupantNum>
     <LoanDfltReasonNotes>abc</LoanDfltReasonNotes>
     <ActionItemsNotes>AA</ActionItemsNotes>
-    <FollowupNotes></FollowupNotes>   
+    <FollowupNotes></FollowupNotes>
+    <PrimResEstMktValue>123</PrimResEstMktValue>
     <AssignedCounselorIdRef>12</AssignedCounselorIdRef>
     <CounselorFname>CounselorFname</CounselorFname>
     <CounselorLname>CounselorLname</CounselorLname>

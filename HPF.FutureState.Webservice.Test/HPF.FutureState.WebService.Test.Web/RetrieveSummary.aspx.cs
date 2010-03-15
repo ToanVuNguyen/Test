@@ -197,7 +197,7 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtOwnerOccupiedInd.Text = fcCase.OwnerOccupiedInd;
                 txtPrimaryContactNo.Text = fcCase.PrimaryContactNo;
                 txtPrimaryResidenceInd.Text = fcCase.PrimaryResidenceInd;
-                //txtPrimResEstMktValue.Text = Util.ConvertToString(fcCase.PrimResEstMktValue);
+                txtPrimResEstMktValue.Text = Util.ConvertToString(fcCase.PrimResEstMktValue);
                 txtProgramID.Text = Util.ConvertToString(fcCase.ProgramId);
                 txtPropertyAddress1.Text = fcCase.PropAddr1;
                 txtPropertyAddress2.Text = fcCase.PropAddr2;
