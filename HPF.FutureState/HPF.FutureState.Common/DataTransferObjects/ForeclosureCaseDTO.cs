@@ -582,9 +582,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [NullableOrStringLengthValidator(true, 8000, "Followup Notes", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0040)]
         public string FollowupNotes { get; set; }
 
-        //[XmlElement(IsNullable = true)]        
-        //[NullableOrInRangeNumberValidator(true ,"-9999999999999.99", "9999999999999.99",Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0072)]
-        //public double? PrimResEstMktValue { get; set; }
+        [XmlElement(IsNullable = true)]        
+        [NullableOrInRangeNumberValidator(true ,"-9999999999999.99", "9999999999999.99",Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0072)]
+        public double? PrimResEstMktValue { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0118, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 30, "Assigned Counselor Id Referrence", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0041)]

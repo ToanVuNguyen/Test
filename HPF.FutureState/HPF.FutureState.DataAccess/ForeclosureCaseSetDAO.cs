@@ -214,7 +214,7 @@ namespace HPF.FutureState.DataAccess
 
                         returnObject.PrimaryContactNo = ConvertToString(reader["primary_contact_no"]);
                         returnObject.PrimaryResidenceInd = ConvertToString(reader["primary_residence_ind"]);
-                        //returnObject.PrimResEstMktValue = ConvertToDouble(reader["prim_res_est_mkt_value"]);
+                        returnObject.PrimResEstMktValue = ConvertToDouble(reader["prim_res_est_mkt_value"]);
                         returnObject.ProgramId = ConvertToInt(reader["program_id"]);
                         returnObject.PropAddr1 = ConvertToString(reader["prop_addr1"]);
                         returnObject.PropAddr2 = ConvertToString(reader["prop_addr2"]);
@@ -275,7 +275,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[114];
+                var sqlParam = new SqlParameter[115];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -348,57 +348,57 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[69] = new SqlParameter("@pi_loan_dflt_reason_notes", NullableString(foreclosureCase.LoanDfltReasonNotes));
                 sqlParam[70] = new SqlParameter("@pi_action_items_notes", NullableString(foreclosureCase.ActionItemsNotes));
                 sqlParam[71] = new SqlParameter("@pi_followup_notes", NullableString(foreclosureCase.FollowupNotes));
-                //sqlParam[72] = new SqlParameter("@pi_prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
-                sqlParam[72] = new SqlParameter("@pi_counselor_id_ref", NullableString(foreclosureCase.AssignedCounselorIdRef));
-                sqlParam[73] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorLname));
-                sqlParam[74] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorFname));
-                sqlParam[75] = new SqlParameter("@pi_counselor_email", NullableString(foreclosureCase.CounselorEmail));
-                sqlParam[76] = new SqlParameter("@pi_counselor_phone", NullableString(foreclosureCase.CounselorPhone));
-                sqlParam[77] = new SqlParameter("@pi_counselor_ext", NullableString(foreclosureCase.CounselorExt));
-                sqlParam[78] = new SqlParameter("@pi_discussed_solution_with_srvcr_ind", NullableString(foreclosureCase.DiscussedSolutionWithSrvcrInd));
-                sqlParam[79] = new SqlParameter("@pi_worked_with_another_agency_ind", NullableString(foreclosureCase.WorkedWithAnotherAgencyInd));
-                sqlParam[80] = new SqlParameter("@pi_contacted_srvcr_recently_ind", NullableString(foreclosureCase.ContactedSrvcrRecentlyInd));
-                sqlParam[81] = new SqlParameter("@pi_has_workout_plan_ind", NullableString(foreclosureCase.HasWorkoutPlanInd));
-                sqlParam[82] = new SqlParameter("@pi_srvcr_workout_plan_current_ind", NullableString(foreclosureCase.SrvcrWorkoutPlanCurrentInd));
-                sqlParam[83] = new SqlParameter("@pi_primary_residence_ind", NullableString(foreclosureCase.PrimaryResidenceInd));
-                sqlParam[84] = new SqlParameter("@pi_realty_company", NullableString(foreclosureCase.RealtyCompany));
-                sqlParam[85] = new SqlParameter("@pi_property_cd", NullableString(foreclosureCase.PropertyCd));
-                sqlParam[86] = new SqlParameter("@pi_for_sale_ind", NullableString(foreclosureCase.ForSaleInd));
-                sqlParam[87] = new SqlParameter("@pi_home_sale_price", foreclosureCase.HomeSalePrice);
-                sqlParam[88] = new SqlParameter("@pi_home_purchase_year", foreclosureCase.HomePurchaseYear);
-                sqlParam[89] = new SqlParameter("@pi_home_purchase_price", foreclosureCase.HomePurchasePrice);
-                sqlParam[90] = new SqlParameter("@pi_Home_Current_Market_Value", foreclosureCase.HomeCurrentMarketValue);
-                sqlParam[91] = new SqlParameter("@pi_military_service_cd", NullableString(foreclosureCase.MilitaryServiceCd));
-                sqlParam[92] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
-                sqlParam[93] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
-                sqlParam[94] = new SqlParameter("@pi_Intake_credit_bureau_cd ", NullableString(foreclosureCase.IntakeCreditBureauCd));
-                sqlParam[95] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
-                sqlParam[96] = new SqlParameter("@pi_create_dt", NullableDateTime(foreclosureCase.CreateDate));
-                sqlParam[97] = new SqlParameter("@pi_create_user_id", foreclosureCase.CreateUserId);
-                sqlParam[98] = new SqlParameter("@pi_create_app_name", foreclosureCase.CreateAppName);
-                sqlParam[99] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
-                sqlParam[100] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
-                sqlParam[101] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
-                sqlParam[102] = new SqlParameter("@pi_never_bill_reason_cd", foreclosureCase.NeverBillReasonCd);
-                sqlParam[103] = new SqlParameter("@pi_never_pay_reason_cd", foreclosureCase.NeverPayReasonCd);
+                sqlParam[72] = new SqlParameter("@pi_prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
+                sqlParam[73] = new SqlParameter("@pi_counselor_id_ref", NullableString(foreclosureCase.AssignedCounselorIdRef));
+                sqlParam[74] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorLname));
+                sqlParam[75] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorFname));
+                sqlParam[76] = new SqlParameter("@pi_counselor_email", NullableString(foreclosureCase.CounselorEmail));
+                sqlParam[77] = new SqlParameter("@pi_counselor_phone", NullableString(foreclosureCase.CounselorPhone));
+                sqlParam[78] = new SqlParameter("@pi_counselor_ext", NullableString(foreclosureCase.CounselorExt));
+                sqlParam[79] = new SqlParameter("@pi_discussed_solution_with_srvcr_ind", NullableString(foreclosureCase.DiscussedSolutionWithSrvcrInd));
+                sqlParam[80] = new SqlParameter("@pi_worked_with_another_agency_ind", NullableString(foreclosureCase.WorkedWithAnotherAgencyInd));
+                sqlParam[81] = new SqlParameter("@pi_contacted_srvcr_recently_ind", NullableString(foreclosureCase.ContactedSrvcrRecentlyInd));
+                sqlParam[82] = new SqlParameter("@pi_has_workout_plan_ind", NullableString(foreclosureCase.HasWorkoutPlanInd));
+                sqlParam[83] = new SqlParameter("@pi_srvcr_workout_plan_current_ind", NullableString(foreclosureCase.SrvcrWorkoutPlanCurrentInd));
+                sqlParam[84] = new SqlParameter("@pi_primary_residence_ind", NullableString(foreclosureCase.PrimaryResidenceInd));
+                sqlParam[85] = new SqlParameter("@pi_realty_company", NullableString(foreclosureCase.RealtyCompany));
+                sqlParam[86] = new SqlParameter("@pi_property_cd", NullableString(foreclosureCase.PropertyCd));
+                sqlParam[87] = new SqlParameter("@pi_for_sale_ind", NullableString(foreclosureCase.ForSaleInd));
+                sqlParam[88] = new SqlParameter("@pi_home_sale_price", foreclosureCase.HomeSalePrice);
+                sqlParam[89] = new SqlParameter("@pi_home_purchase_year", foreclosureCase.HomePurchaseYear);
+                sqlParam[90] = new SqlParameter("@pi_home_purchase_price", foreclosureCase.HomePurchasePrice);
+                sqlParam[91] = new SqlParameter("@pi_Home_Current_Market_Value", foreclosureCase.HomeCurrentMarketValue);
+                sqlParam[92] = new SqlParameter("@pi_military_service_cd", NullableString(foreclosureCase.MilitaryServiceCd));
+                sqlParam[93] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
+                sqlParam[94] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
+                sqlParam[95] = new SqlParameter("@pi_Intake_credit_bureau_cd ", NullableString(foreclosureCase.IntakeCreditBureauCd));
+                sqlParam[96] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
+                sqlParam[97] = new SqlParameter("@pi_create_dt", NullableDateTime(foreclosureCase.CreateDate));
+                sqlParam[98] = new SqlParameter("@pi_create_user_id", foreclosureCase.CreateUserId);
+                sqlParam[99] = new SqlParameter("@pi_create_app_name", foreclosureCase.CreateAppName);
+                sqlParam[100] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
+                sqlParam[101] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
+                sqlParam[102] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);
+                sqlParam[103] = new SqlParameter("@pi_never_bill_reason_cd", foreclosureCase.NeverBillReasonCd);
+                sqlParam[104] = new SqlParameter("@pi_never_pay_reason_cd", foreclosureCase.NeverPayReasonCd);
 
-                sqlParam[104] = new SqlParameter("@pi_vip_ind", foreclosureCase.VipInd);
-                sqlParam[105] = new SqlParameter("@pi_vip_reason", foreclosureCase.VipReason);
-                sqlParam[106] = new SqlParameter("@pi_counseled_language_cd", foreclosureCase.CounseledLanguageCd);
-                sqlParam[107] = new SqlParameter("@pi_ercp_outcome_cd", foreclosureCase.ErcpOutcomeCd);
-                sqlParam[108] = new SqlParameter("@pi_counselor_contacted_srvcr_ind", foreclosureCase.CounselorContactedSrvcrInd);
-                sqlParam[109] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
-                sqlParam[110] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
-                sqlParam[111] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
-                sqlParam[112] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
+                sqlParam[105] = new SqlParameter("@pi_vip_ind", foreclosureCase.VipInd);
+                sqlParam[106] = new SqlParameter("@pi_vip_reason", foreclosureCase.VipReason);
+                sqlParam[107] = new SqlParameter("@pi_counseled_language_cd", foreclosureCase.CounseledLanguageCd);
+                sqlParam[108] = new SqlParameter("@pi_ercp_outcome_cd", foreclosureCase.ErcpOutcomeCd);
+                sqlParam[109] = new SqlParameter("@pi_counselor_contacted_srvcr_ind", foreclosureCase.CounselorContactedSrvcrInd);
+                sqlParam[110] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
+                sqlParam[111] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
+                sqlParam[112] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
+                sqlParam[113] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
 
-                sqlParam[113] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
+                sqlParam[114] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
                 command.Transaction = this.trans;            
                 command.ExecuteNonQuery();                
-                foreclosureCase.FcId = ConvertToInt(sqlParam[113].Value);
+                foreclosureCase.FcId = ConvertToInt(sqlParam[114].Value);
             }
             catch (Exception Ex)
             {                
@@ -852,7 +852,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[111];
+                var sqlParam = new SqlParameter[112];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -927,46 +927,46 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[71] = new SqlParameter("@pi_loan_dflt_reason_notes", NullableString(foreclosureCase.LoanDfltReasonNotes));
                 sqlParam[72] = new SqlParameter("@pi_action_items_notes", NullableString(foreclosureCase.ActionItemsNotes));
                 sqlParam[73] = new SqlParameter("@pi_followup_notes", NullableString(foreclosureCase.FollowupNotes));
-                //sqlParam[74] = new SqlParameter("@pi_prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
-                sqlParam[74] = new SqlParameter("@pi_counselor_id_ref", NullableString(foreclosureCase.AssignedCounselorIdRef));
-                sqlParam[75] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorLname));
-                sqlParam[76] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorFname));
-                sqlParam[77] = new SqlParameter("@pi_counselor_email", NullableString(foreclosureCase.CounselorEmail));
-                sqlParam[78] = new SqlParameter("@pi_counselor_phone", NullableString(foreclosureCase.CounselorPhone));
-                sqlParam[79] = new SqlParameter("@pi_counselor_ext", NullableString(foreclosureCase.CounselorExt));
-                sqlParam[80] = new SqlParameter("@pi_discussed_solution_with_srvcr_ind", NullableString(foreclosureCase.DiscussedSolutionWithSrvcrInd));
-                sqlParam[81] = new SqlParameter("@pi_worked_with_another_agency_ind", NullableString(foreclosureCase.WorkedWithAnotherAgencyInd));
-                sqlParam[82] = new SqlParameter("@pi_contacted_srvcr_recently_ind", NullableString(foreclosureCase.ContactedSrvcrRecentlyInd));
-                sqlParam[83] = new SqlParameter("@pi_has_workout_plan_ind", NullableString(foreclosureCase.HasWorkoutPlanInd));
-                sqlParam[84] = new SqlParameter("@pi_srvcr_workout_plan_current_ind", NullableString(foreclosureCase.SrvcrWorkoutPlanCurrentInd));
-                sqlParam[85] = new SqlParameter("@pi_primary_residence_ind", NullableString(foreclosureCase.PrimaryResidenceInd));
-                sqlParam[86] = new SqlParameter("@pi_realty_company", NullableString(foreclosureCase.RealtyCompany));
-                sqlParam[87] = new SqlParameter("@pi_property_cd", NullableString(foreclosureCase.PropertyCd));
-                sqlParam[88] = new SqlParameter("@pi_for_sale_ind", NullableString(foreclosureCase.ForSaleInd));
-                sqlParam[89] = new SqlParameter("@pi_home_sale_price", foreclosureCase.HomeSalePrice);
-                sqlParam[90] = new SqlParameter("@pi_home_purchase_year", foreclosureCase.HomePurchaseYear);
-                sqlParam[91] = new SqlParameter("@pi_home_purchase_price", foreclosureCase.HomePurchasePrice);
-                sqlParam[92] = new SqlParameter("@pi_Home_Current_Market_Value", foreclosureCase.HomeCurrentMarketValue);
-                sqlParam[93] = new SqlParameter("@pi_military_service_cd", NullableString(foreclosureCase.MilitaryServiceCd));
-                sqlParam[94] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
-                sqlParam[95] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
-                sqlParam[96] = new SqlParameter("@pi_Intake_credit_bureau_cd ", NullableString(foreclosureCase.IntakeCreditBureauCd));
-                sqlParam[97] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
-                sqlParam[98] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
-                sqlParam[99] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
-                sqlParam[100] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);                
+                sqlParam[74] = new SqlParameter("@pi_prim_res_est_mkt_value", foreclosureCase.PrimResEstMktValue);
+                sqlParam[75] = new SqlParameter("@pi_counselor_id_ref", NullableString(foreclosureCase.AssignedCounselorIdRef));
+                sqlParam[76] = new SqlParameter("@pi_counselor_lname", NullableString(foreclosureCase.CounselorLname));
+                sqlParam[77] = new SqlParameter("@pi_counselor_fname", NullableString(foreclosureCase.CounselorFname));
+                sqlParam[78] = new SqlParameter("@pi_counselor_email", NullableString(foreclosureCase.CounselorEmail));
+                sqlParam[79] = new SqlParameter("@pi_counselor_phone", NullableString(foreclosureCase.CounselorPhone));
+                sqlParam[80] = new SqlParameter("@pi_counselor_ext", NullableString(foreclosureCase.CounselorExt));
+                sqlParam[81] = new SqlParameter("@pi_discussed_solution_with_srvcr_ind", NullableString(foreclosureCase.DiscussedSolutionWithSrvcrInd));
+                sqlParam[82] = new SqlParameter("@pi_worked_with_another_agency_ind", NullableString(foreclosureCase.WorkedWithAnotherAgencyInd));
+                sqlParam[83] = new SqlParameter("@pi_contacted_srvcr_recently_ind", NullableString(foreclosureCase.ContactedSrvcrRecentlyInd));
+                sqlParam[84] = new SqlParameter("@pi_has_workout_plan_ind", NullableString(foreclosureCase.HasWorkoutPlanInd));
+                sqlParam[85] = new SqlParameter("@pi_srvcr_workout_plan_current_ind", NullableString(foreclosureCase.SrvcrWorkoutPlanCurrentInd));
+                sqlParam[86] = new SqlParameter("@pi_primary_residence_ind", NullableString(foreclosureCase.PrimaryResidenceInd));
+                sqlParam[87] = new SqlParameter("@pi_realty_company", NullableString(foreclosureCase.RealtyCompany));
+                sqlParam[88] = new SqlParameter("@pi_property_cd", NullableString(foreclosureCase.PropertyCd));
+                sqlParam[89] = new SqlParameter("@pi_for_sale_ind", NullableString(foreclosureCase.ForSaleInd));
+                sqlParam[90] = new SqlParameter("@pi_home_sale_price", foreclosureCase.HomeSalePrice);
+                sqlParam[91] = new SqlParameter("@pi_home_purchase_year", foreclosureCase.HomePurchaseYear);
+                sqlParam[92] = new SqlParameter("@pi_home_purchase_price", foreclosureCase.HomePurchasePrice);
+                sqlParam[93] = new SqlParameter("@pi_Home_Current_Market_Value", foreclosureCase.HomeCurrentMarketValue);
+                sqlParam[94] = new SqlParameter("@pi_military_service_cd", NullableString(foreclosureCase.MilitaryServiceCd));
+                sqlParam[95] = new SqlParameter("@pi_household_gross_annual_income_amt", foreclosureCase.HouseholdGrossAnnualIncomeAmt);
+                sqlParam[96] = new SqlParameter("@pi_intake_credit_score", NullableString(foreclosureCase.IntakeCreditScore));
+                sqlParam[97] = new SqlParameter("@pi_Intake_credit_bureau_cd ", NullableString(foreclosureCase.IntakeCreditBureauCd));
+                sqlParam[98] = new SqlParameter("@pi_fc_sale_dt", NullableDateTime(foreclosureCase.FcSaleDate));
+                sqlParam[99] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(foreclosureCase.ChangeLastDate));
+                sqlParam[100] = new SqlParameter("@pi_chg_lst_user_id", foreclosureCase.ChangeLastUserId);
+                sqlParam[101] = new SqlParameter("@pi_chg_lst_app_name", foreclosureCase.ChangeLastAppName);                
 
-                sqlParam[101] = new SqlParameter("@pi_vip_ind", foreclosureCase.VipInd);
-                sqlParam[102] = new SqlParameter("@pi_vip_reason", foreclosureCase.VipReason);
-                sqlParam[103] = new SqlParameter("@pi_counseled_language_cd", foreclosureCase.CounseledLanguageCd);
-                sqlParam[104] = new SqlParameter("@pi_ercp_outcome_cd", foreclosureCase.ErcpOutcomeCd);
-                sqlParam[105] = new SqlParameter("@pi_counselor_contacted_srvcr_ind", foreclosureCase.CounselorContactedSrvcrInd);
-                sqlParam[106] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
-                sqlParam[107] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
-                sqlParam[108] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
-                sqlParam[109] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
+                sqlParam[102] = new SqlParameter("@pi_vip_ind", foreclosureCase.VipInd);
+                sqlParam[103] = new SqlParameter("@pi_vip_reason", foreclosureCase.VipReason);
+                sqlParam[104] = new SqlParameter("@pi_counseled_language_cd", foreclosureCase.CounseledLanguageCd);
+                sqlParam[105] = new SqlParameter("@pi_ercp_outcome_cd", foreclosureCase.ErcpOutcomeCd);
+                sqlParam[106] = new SqlParameter("@pi_counselor_contacted_srvcr_ind", foreclosureCase.CounselorContactedSrvcrInd);
+                sqlParam[107] = new SqlParameter("@pi_number_of_units", foreclosureCase.NumberOfUnits);
+                sqlParam[108] = new SqlParameter("@pi_vacant_or_condemed_ind", foreclosureCase.VacantOrCondemedInd);
+                sqlParam[109] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
+                sqlParam[110] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
 
-                sqlParam[110] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
+                sqlParam[111] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
