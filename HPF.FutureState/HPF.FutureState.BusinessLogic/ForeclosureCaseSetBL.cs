@@ -1231,7 +1231,7 @@ namespace HPF.FutureState.BusinessLogic
                 InsertBudget(foreclosureCaseSetDAO, budgetSet, budgetItemCollection, budgetAssetCollection, fcId);
 
                 BudgetSetDTO proposedBudgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, null, foreclosureCaseSet.ProposedBudgetItems);
-                InsertProposedBudget(foreclosureCaseSetDAO, budgetSet, foreclosureCaseSet.ProposedBudgetItems, fcId);
+                InsertProposedBudget(foreclosureCaseSetDAO, foreclosureCaseSet.ProposedBudgetSet, foreclosureCaseSet.ProposedBudgetItems, fcId);
                 //check outcome item Input with outcome item DB
                 //if not exist, insert new
                 OutcomeItemDTOCollection outcomeCollecionNew = null;                
