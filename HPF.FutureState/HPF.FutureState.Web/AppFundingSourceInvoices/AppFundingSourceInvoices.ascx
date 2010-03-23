@@ -82,7 +82,7 @@
                  <asp:UpdatePanel runat="server"   >                 
                  <ContentTemplate>                                 
                 <asp:GridView ID="grvFundingSourceInvoices" runat="server" CellPadding="2" ForeColor="#333333"
-                    GridLines="Vertical" AutoGenerateColumns="false" CssClass="GridViewStyle" 
+                    GridLines="Vertical" AutoGenerateColumns="False" CssClass="GridViewStyle" 
                     Width="100%" ondatabound="grvFundingSourceInvoices_DataBound" 
                     onrowdatabound="grvFundingSourceInvoices_RowDataBound" DataKeyNames="InvoiceId" 
                          onselectedindexchanged="grvFundingSourceInvoices_SelectedIndexChanged" >
@@ -95,19 +95,62 @@
                     <AlternatingRowStyle CssClass="AlternatingRowStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle"  />
                     <Columns>
-                        <asp:BoundField DataField="FundingSourceName" HeaderText="Funding Source" ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" />
-                        <asp:BoundField DataField="InvoiceId" HeaderText="Invoice#" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" />
+                        <asp:BoundField DataField="FundingSourceName" HeaderText="Funding Source" 
+                            ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Left" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="InvoiceId" HeaderText="Invoice#" 
+                            ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Right" />
+                        </asp:BoundField>
                         <asp:TemplateField HeaderText="Invoice Date" ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblInvoiceDate" runat="server"> </asp:Label>
                             </ItemTemplate>
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Left" />
                         </asp:TemplateField>
-                        <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" ItemStyle-HorizontalAlign="Left"  ItemStyle-Width="140" HeaderStyle-Wrap="false" />
-                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  HeaderText="Invoice Amount" HeaderStyle-Wrap="false" />
-                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Right"  HeaderText="Payment Amount" HeaderStyle-Wrap="false" />
-                        <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" />
-                        <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" />
-                        <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" HeaderText="Select" HeaderStyle-Wrap="false" />
+                        <asp:BoundField DataField="InvoicePeriod" HeaderText="Invoice Period" 
+                            ItemStyle-HorizontalAlign="Left"  ItemStyle-Width="140" 
+                            HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Left" Width="140px" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="InvoiceBillAmount" DataFormatString="{0:C}" 
+                            ItemStyle-HorizontalAlign="Right"  HeaderText="Invoice Amt" 
+                            HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Right" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="InvoicePaymentAmount" DataFormatString="{0:C}" 
+                            ItemStyle-HorizontalAlign="Right"  HeaderText="Payment Amt" 
+                            HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Right" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RejectedAmount" DataFormatString="{0:C}" 
+                            HeaderText="Rejected Amt" />
+                        <asp:BoundField DataField="UnfundedAmount" DataFormatString="{0:C}" 
+                            HeaderText="Unfunded Amt" />
+                        <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" 
+                            ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Left" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="InvoiceComment" HeaderText="Comments" 
+                            ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" >
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Left" />
+                        </asp:BoundField>
+                        <asp:CommandField ShowSelectButton="true" ButtonType="Button" 
+                            ControlStyle-CssClass="MyButton" ItemStyle-HorizontalAlign="Center" 
+                            HeaderText="Select" HeaderStyle-Wrap="false" >
+                            <ControlStyle CssClass="MyButton" />
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle HorizontalAlign="Center" />
+                        </asp:CommandField>
                     </Columns>
                 </asp:GridView>
                 <asp:HiddenField ID="SelectedRowIndex" runat="server"  />

@@ -21,6 +21,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public double? InvoiceBillAmount { get; set; }
         public string FundingSourceName { get; set; }
         public string InvoicePeriod { get; set; }
+        public double? RejectedAmount { get; set; }
+        public double? UnfundedAmount { get; set; }
         public InvoiceCaseDTOCollection InvoiceCases { get; set; }
 
         

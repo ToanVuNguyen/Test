@@ -270,6 +270,8 @@ namespace HPF.FutureState.DataAccess
                         invoice.PeriodStartDate = ConvertToDateTime(reader["period_start_dt"]);
                         invoice.PeriodEndDate = ConvertToDateTime(reader["period_end_dt"]);
                         invoice.InvoicePaymentAmount = ConvertToDouble(reader["invoice_pmt_amt"]);
+                        invoice.RejectedAmount = ConvertToDouble(reader["rejected_amt"]);
+                        invoice.UnfundedAmount = ConvertToDouble(reader["unfunded_amt"]);
                         invoice.StatusCode = ConvertToString(reader["status_cd"]);
                         invoice.InvoiceDate = ConvertToDateTime(reader["invoice_dt"]);
                         if (invoice.PeriodStartDate != null && invoice.PeriodEndDate != null)
