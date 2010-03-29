@@ -42,7 +42,7 @@ namespace HPF.SharePointAPI.Controllers
                     foreach (SPListItem item in listItems)
                     {
                         byte[] buffer = item.File.OpenBinary();
-                        ASCIIEncoding enc = new ASCIIEncoding();
+                        UTF8Encoding enc = new UTF8Encoding();
                         string str = enc.GetString(buffer);
                         string[] rows = str.Split('\n');                        
                         for (int i = 1; i < rows.Length; i++)
