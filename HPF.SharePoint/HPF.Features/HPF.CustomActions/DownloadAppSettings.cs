@@ -15,6 +15,7 @@ namespace HPF.CustomActions
         private const string RenderForDocumentLibraryKey = "RenderForDocumentLibrary";
         private const string TotalFilesAllowKey = "TotalFilesAllow";
         private const string DeleteBatchSizeKey = "DeleteBatchSize";
+        private const string CounselingSummaryAuditKey = "CounselingSummaryAuditList";
         #endregion
 
         #region "const for progress bar"
@@ -25,6 +26,17 @@ namespace HPF.CustomActions
         #endregion
         
         #region "settings in web.config file"
+        public static string CounselingSummaryAuditList
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(ConfigurationManager.AppSettings[CounselingSummaryAuditKey]))
+                {
+                    return ConfigurationManager.AppSettings[CounselingSummaryAuditKey];
+                }
+                return "Counseling Summary Audit";
+            }
+        }
         public static string ReviewStatusField
         {
             get

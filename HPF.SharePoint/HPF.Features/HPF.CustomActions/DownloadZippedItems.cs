@@ -414,7 +414,7 @@ namespace HPF.CustomActions
                         }
 
                         #region Add audit log
-                        SPDocumentLibrary spAuditList = (SPDocumentLibrary)sourceWeb.Lists["Audit"];
+                        SPDocumentLibrary spAuditList = (SPDocumentLibrary)sourceWeb.Lists[DownloadAppSettings.CounselingSummaryAuditList];
                         if (spAuditList != null)
                         {                            
                             SPFolder auditFolder = spAuditList.RootFolder;
