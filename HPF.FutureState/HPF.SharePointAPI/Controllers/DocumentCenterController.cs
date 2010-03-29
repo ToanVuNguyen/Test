@@ -19,7 +19,60 @@ namespace HPF.SharePointAPI.Controllers
             tw.WriteLine(s);
             tw.Close();
         }
-        
+
+        public static IList<CounselingSummaryAuditLogInfo> GetCounselingSummaryAuditLog()
+        {             
+            try
+            {
+                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.CousellingSummaryAuditLogLoginName);
+
+                List<CounselingSummaryAuditLogInfo> counseling = new List<CounselingSummaryAuditLogInfo>();
+                using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
+                {
+                    SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];
+                    //SPWeb web = site.OpenWeb();
+                    web.AllowUnsafeUpdates = true;                 
+                    SPList docLib = web.Lists[DocumentCenter.Default.CousellingSummaryAuditLogList];
+
+                    SPQuery query = new SPQuery();
+                    query.Query = "<Where><Neq><FieldRef Name='Completed'/><Value Type='Boolean'>1</Value></Neq></Where>";
+
+                    SPListItemCollection listItems = docLib.GetItems(query);                    
+
+                    foreach (SPListItem item in listItems)
+                    {
+                        byte[] buffer = item.File.OpenBinary();
+                        ASCIIEncoding enc = new ASCIIEncoding();
+                        string str = enc.GetString(buffer);
+                        string[] rows = str.Split('\n');                        
+                        for (int i = 1; i < rows.Length; i++)
+                        {
+                            string[] auditValues = rows[i].Split(',');
+                            CounselingSummaryAuditLogInfo info = new CounselingSummaryAuditLogInfo();
+                            if (auditValues.Length < 8) continue;
+                            info.ArchiveName = auditValues[0];
+                            info.UserId = auditValues[1];
+                            info.OccurredDate = (string.IsNullOrEmpty(auditValues[2]) ? null : (DateTime?)DateTime.Parse(auditValues[2]));
+                            info.CounselingSummaryFile = auditValues[3];
+                            info.Servicer = auditValues[4];
+                            info.LoanNumber = auditValues[5];
+                            info.CompletedDate = (string.IsNullOrEmpty(auditValues[6]) ? null : (DateTime?)DateTime.Parse(auditValues[6]));
+                            info.ItemCreatedDate = (string.IsNullOrEmpty(auditValues[7]) ? null : (DateTime?)DateTime.Parse(auditValues[7]));
+
+                            counseling.Add(info);
+                        }
+                        item["Completed"] = true;
+                        item.Update();
+                    }
+                }
+
+                return counseling;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
+        }
         public static IList<MHAEscalationInfo> GetMHAEscalationList()
         {
             string trackingName = "";

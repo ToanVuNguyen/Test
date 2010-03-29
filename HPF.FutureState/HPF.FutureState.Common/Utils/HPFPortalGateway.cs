@@ -218,5 +218,27 @@ namespace HPF.FutureState.Common.Utils
 
             return result;
         }
+
+        public static CounselingSummaryAuditLogDTOCollection GetCounselingSummaryAuditLog()
+        {
+            var counselingAudit = DocumentCenterController.GetCounselingSummaryAuditLog();
+            CounselingSummaryAuditLogDTOCollection result = new CounselingSummaryAuditLogDTOCollection();
+
+            foreach (CounselingSummaryAuditLogInfo auditInfor in counselingAudit)
+            {
+                CounselingSummaryAuditLogDTO auditDTO = new CounselingSummaryAuditLogDTO();
+                auditDTO.CompletedDate = auditInfor.CompletedDate;
+                auditDTO.CounselingSummaryFile = auditInfor.CounselingSummaryFile;
+                auditDTO.ItemCreatedDate = auditInfor.ItemCreatedDate;
+                auditDTO.OccurredDate = auditInfor.OccurredDate;
+                auditDTO.LoanNumber = auditInfor.LoanNumber;
+                auditDTO.Servicer = auditInfor.Servicer;
+                auditDTO.UserId = auditInfor.UserId;
+                auditDTO.ArchiveName = auditInfor.ArchiveName;
+                auditDTO.SetInsertTrackingInformation("System");
+                result.Add(auditDTO);
+            }
+            return result;
+        }
     }
 }

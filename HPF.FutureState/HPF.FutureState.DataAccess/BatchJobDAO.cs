@@ -530,5 +530,51 @@ namespace HPF.FutureState.DataAccess
             {
             }
         }
+
+        public void ImportCounselingSummaryAuditLog(CounselingSummaryAuditLogDTOCollection auditLogs)
+        {
+            var dbConnection = CreateConnection();            
+            
+            try
+            {
+                dbConnection.Open();
+                var command = CreateSPCommand("hpf_counseling_summary_audit_log_insert", dbConnection);
+                var sqlParam = new SqlParameter[10];
+                sqlParam[0] = new SqlParameter("@pi_archive_name", null);
+                sqlParam[1] = new SqlParameter("@pi_counseling_summary_name", null);
+                sqlParam[2] = new SqlParameter("@pi_occurred_dt", null);
+                sqlParam[3] = new SqlParameter("@pi_servicer", null);
+                sqlParam[4] = new SqlParameter("@pi_loan_number", null);
+                sqlParam[5] = new SqlParameter("@pi_completed_dt", null);
+                sqlParam[6] = new SqlParameter("@pi_item_created_dt", null);
+                sqlParam[7] = new SqlParameter("@pi_user_id", null);
+                sqlParam[8] = new SqlParameter("@pi_create_user_id", null);
+                sqlParam[9] = new SqlParameter("@pi_create_app_name", null);
+                command.Parameters.AddRange(sqlParam);
+
+                foreach (CounselingSummaryAuditLogDTO audit in auditLogs)
+                {
+                    sqlParam[0].Value = audit.ArchiveName;
+                    sqlParam[1].Value = audit.CounselingSummaryFile;
+                    sqlParam[2].Value = audit.OccurredDate;
+                    sqlParam[3].Value = audit.Servicer;
+                    sqlParam[4].Value = audit.LoanNumber;
+                    sqlParam[5].Value = audit.CompletedDate;
+                    sqlParam[6].Value = audit.ItemCreatedDate;
+                    sqlParam[7].Value = audit.UserId;
+                    sqlParam[8].Value = audit.CreateUserId;
+                    sqlParam[9].Value = audit.CreateAppName;
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
     }
 }

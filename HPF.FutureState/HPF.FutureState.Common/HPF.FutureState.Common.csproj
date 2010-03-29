@@ -85,6 +85,8 @@
     <Compile Include="DataTransferObjects\AppSummariesToServicerCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobLogDTO.cs" />
+    <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTO.cs" />
+    <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
     <Compile Include="DataTransferObjects\CounselorDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />

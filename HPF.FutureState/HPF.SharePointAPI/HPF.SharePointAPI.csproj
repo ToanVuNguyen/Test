@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BusinessEntity\AgencyPayableInfo.cs" />
     <Compile Include="BusinessEntity\BaseObject.cs" />
+    <Compile Include="BusinessEntity\CounselingSummaryAuditLogInfo.cs" />
     <Compile Include="BusinessEntity\CounselorInfo.cs" />
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
     <Compile Include="BusinessEntity\FannieMaeInfo.cs" />

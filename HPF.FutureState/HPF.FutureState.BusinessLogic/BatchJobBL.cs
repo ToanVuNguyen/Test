@@ -53,6 +53,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportMHAEscalationData();
                 else if (job.JobName.Equals(Constant.MHA_HELP_IMPORT))
                     rowCount = ImportMHAHelpData();
+                else if (job.JobName.Equals(Constant.COUNSELING_SUMMARY_AUDIT_IMPORT))
+                    rowCount = ImportAuditLog();
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
                 
@@ -234,6 +236,15 @@ namespace HPF.FutureState.BusinessLogic
                 BatchJobDAO.Instance.ImportMHAHelp(mhaCol);
 
             return mhaCol.Count;
+        }
+
+        public int ImportAuditLog()
+        {
+            CounselingSummaryAuditLogDTOCollection auditLogs = HPFPortalGateway.GetCounselingSummaryAuditLog();
+            if (auditLogs.Count > 0)
+                BatchJobDAO.Instance.ImportCounselingSummaryAuditLog(auditLogs);
+
+            return auditLogs.Count;
         }
     }
 }
