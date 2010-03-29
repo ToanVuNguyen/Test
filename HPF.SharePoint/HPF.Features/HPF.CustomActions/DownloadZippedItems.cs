@@ -170,11 +170,12 @@ namespace HPF.CustomActions
             foreach (SPListItem item in items)
             {
                 SPFile file = item.File;
+                string fileUrl = "";
                 if (file != null && Page.Response.IsClientConnected)
                 {
                     byte[] bytFile = file.OpenBinary();
                     string serverRelativeUrl = file.ServerRelativeUrl.Remove(0, 1);
-                    string fileUrl = serverRelativeUrl.Substring(serverRelativeUrl.IndexOf("/") + 1).Replace(file.Name, "").Replace("/", @"\");
+                    fileUrl = serverRelativeUrl.Substring(serverRelativeUrl.IndexOf("/") + 1).Replace(file.Name, "").Replace("/", @"\");
                     if (!string.IsNullOrEmpty(fileUrl))
                     {
                         Directory.CreateDirectory(path + fileUrl);
@@ -195,7 +196,7 @@ namespace HPF.CustomActions
                     if (++index % _rowLimit == 0) Thread.Sleep(200);
                     updateProgressAction((double)20 / items.Count);
                 }
-                auditFilebuffer += GetAuditInfor(newFileName, item) + "\n";
+                auditFilebuffer += GetAuditInfor(fileUrl + newFileName, item) + "\n";
             }
             string outputPathAndFile = randomFileName + ".zip";
 
