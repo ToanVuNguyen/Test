@@ -103,6 +103,23 @@ namespace HPF.CustomActions
         #endregion
 
         #region "Helpers"
+
+        private string GetAuditInfor(string zipFile, SPListItem item)
+        {
+            string result = zipFile;
+            DateTime? date = null;
+            result += "," + SPContext.Current.Web.CurrentUser.LoginName;
+            result += "," + DateTime.Now.ToString();
+            result += "," + item.Name;
+            result += "," + (string)item["Servicer"];
+            result += "," + (string)item["Loan Number"];
+            date = (DateTime?)item["Completed Date"];
+            result += "," + ((date==null)?"": date.ToString());
+            date = (DateTime?)item["Created"];
+            result += "," + ((date == null) ? "" : date.ToString());
+
+            return result;
+        }
         /// <summary>
         /// Zip all items in current view and put to download and archive them
         /// </summary>
@@ -111,10 +128,12 @@ namespace HPF.CustomActions
         /// <param name="isCurrentView"></param>
         private void GetListItems(Guid listId)
         {
+            string auditFilebuffer = "Archive File,User Id,Occurred Date,Counseling Summary File,Servicer,Loan Number,Completed Date,Item Created Date\n";
             _progressContext[IN_PROGRESS] = "true";
             string tempPath = Path.GetTempPath();
             string randomFileName = Path.GetRandomFileName();
             string path = tempPath + randomFileName + @"\";
+
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -130,6 +149,17 @@ namespace HPF.CustomActions
                 _progressContext.RemoveProgressContext();
                 return;
             }
+
+            string[] names = HttpContext.Current.User.Identity.Name.Split(new char[] { '\\', ':' });
+            string loginName = HttpContext.Current.User.Identity.Name;
+            if (names.Length > 1)
+            {
+                loginName = names[1];
+            }    
+            //DocumentLibraryTitle-USERNAME_MMDDYYYY
+            string newFileName = String.Format("{0}-{1}_{2}.zip",
+                list.Title, loginName,
+                DateTime.Now.ToString("MMddyyyy hhmmsstt"));
 
             /******************************************************/
             //Update progress bar: Updating meta data
@@ -165,6 +195,7 @@ namespace HPF.CustomActions
                     if (++index % _rowLimit == 0) Thread.Sleep(200);
                     updateProgressAction((double)20 / items.Count);
                 }
+                auditFilebuffer += GetAuditInfor(newFileName, item) + "\n";
             }
             string outputPathAndFile = randomFileName + ".zip";
 
@@ -182,19 +213,7 @@ namespace HPF.CustomActions
                 Alert(DownloadAppSettings.SIZE_EXCEED_2G);
                 _progressContext.RemoveProgressContext();
                 return;
-            }
-            
-            string[] names = HttpContext.Current.User.Identity.Name.Split(new char[] { '\\', ':' });
-            string loginName = HttpContext.Current.User.Identity.Name;
-            if (names.Length > 1)
-            {
-                loginName = names[1];
-            }
-
-            //DocumentLibraryTitle-USERNAME_MMDDYYYY
-            string newFileName = String.Format("{0}-{1}_{2}.zip",
-                list.Title, loginName,
-                DateTime.Now.ToString("MMddyyyy hhmmsstt"));
+            }                                
 
             /******************************************************/
             //Update progress bar: Start archieving files
@@ -205,7 +224,7 @@ namespace HPF.CustomActions
 
             SPFile spFile = null;
             bool archiveSuccess = ArchiveFiles(path + outputPathAndFile, newFileName,
-                string.Format(DownloadAppSettings.ArchiveListName, list.Title), ref spFile);
+                string.Format(DownloadAppSettings.ArchiveListName, list.Title), auditFilebuffer, ref spFile);
             if (archiveSuccess)
             {
                 updateProgressAction(20);
@@ -215,7 +234,8 @@ namespace HPF.CustomActions
                 _progressContext[PROGRESS_PERCENTAGE] = "100";
                 Thread.Sleep(500);
             }
-
+            //
+            
             /******************************************************/
             //Update progress bar: Done!
             /******************************************************/
@@ -239,7 +259,7 @@ namespace HPF.CustomActions
             else
             {
                 PushFileToDownload(path + outputPathAndFile, newFileName);
-            }
+            }            
         }
 
         /// <summary>
@@ -352,7 +372,7 @@ namespace HPF.CustomActions
         /// <param name="filePath"></param>
         /// <param name="fileName"></param>
         /// <param name="archiveListPath"></param>
-        private bool ArchiveFiles(string filePath, string fileName, string archiveListPath, ref SPFile file)
+        private bool ArchiveFiles(string filePath, string fileName, string archiveListPath, string auditBuffer, ref SPFile file)
         {
             SPFile retSPFile = null;
             bool archiveSuccess = false;
@@ -392,6 +412,24 @@ namespace HPF.CustomActions
                             retSPFile = spFile;
                             archiveSuccess = true;
                         }
+
+                        #region Add audit log
+                        SPDocumentLibrary spAuditList = (SPDocumentLibrary)sourceWeb.Lists["Audit"];
+                        if (spAuditList != null)
+                        {                            
+                            SPFolder auditFolder = spAuditList.RootFolder;
+                            MemoryStream stream = new MemoryStream();
+                            StreamWriter writer = new StreamWriter(stream);
+                            writer.Write(auditBuffer);
+                            writer.Flush();
+                            stream.Seek(0, SeekOrigin.Begin);                
+                            
+                            SPFile spFile = auditFolder.Files.Add(fileName.Substring(0, fileName.Length- 3) + "csv", stream, true);
+                            spFile.Item["Servicer"] = folder.Name;
+                            spFile.Item.Update();
+                            stream.Close();
+                        }
+                        #endregion
                     }
                 }
                 catch (Exception error)
@@ -639,6 +677,21 @@ namespace HPF.CustomActions
         {
             string script = String.Format("alert('{0}');", message);
             Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", script, true);
+        }
+        #endregion
+
+        #region Audit Log
+
+        void CreateCVSFile(SPListItemCollection items)
+        {
+            try
+            {
+            }
+            catch(Exception error)
+            {
+                PortalLog.LogString("[HPF] Exception Occurred: {0} || {1}",
+                        error.Message, error.StackTrace);
+            }
         }
         #endregion
     }
