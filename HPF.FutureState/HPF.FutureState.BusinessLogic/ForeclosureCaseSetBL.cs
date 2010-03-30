@@ -565,6 +565,7 @@ namespace HPF.FutureState.BusinessLogic
         {            
             var  msgFcCaseSet = new ExceptionMessageCollection { HPFValidator.ValidateToGetExceptionMessage(foreclosureCase, ruleSet) };
             
+            /*
             switch(ruleSet)
             {
                 case Constant.RULESET_MIN_REQUIRE_FIELD:                    
@@ -582,7 +583,7 @@ namespace HPF.FutureState.BusinessLogic
                             msgFcCaseSet.AddExceptionMessage(ErrorMessages.WARN0331, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.WARN0331));
                     }
                     break;
-            }
+            }*/
 
             return msgFcCaseSet;
         }
