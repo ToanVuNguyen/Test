@@ -19,6 +19,14 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_Arundel_Street_Data_Report.rdl</Name>
+      <FullPath>rpt_Arundel_Street_Data_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_CaseFundingReport.rdl</Name>
+      <FullPath>rpt_CaseFundingReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_CaseFundingSourceSummary.rdl</Name>
       <FullPath>rpt_CaseFundingSourceSummary.rdl</FullPath>
     </ProjectItem>
@@ -99,8 +107,12 @@
       <FullPath>rpt_Reject_Reason_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_CaseFundingReport.rdl</Name>
-      <FullPath>rpt_CaseFundingReport.rdl</FullPath>
+      <Name>rpt_Servicer_Funding_Report.rdl</Name>
+      <FullPath>rpt_Servicer_Funding_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_Monthly_Servicer_Invoice_Report.rdl</Name>
+      <FullPath>rpt_Monthly_Servicer_Invoice_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

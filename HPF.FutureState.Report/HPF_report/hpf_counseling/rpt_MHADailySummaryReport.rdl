@@ -69,14 +69,13 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>8.125in</Width>
+  <Width>7.525in</Width>
   <Body>
     <ReportItems>
       <Table Name="table1">
         <ZIndex>3</ZIndex>
         <DataSetName>dst_MHADailySummaryReport</DataSetName>
-        <Top>1.125in</Top>
-        <Width>7.5in</Width>
+        <Top>0.86458in</Top>
         <Details>
           <TableRows>
             <TableRow>
@@ -462,7 +461,7 @@
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>0.875in</Width>
+            <Width>0.9in</Width>
           </TableColumn>
         </TableColumns>
         <Footer>
@@ -642,12 +641,11 @@
             </TableRow>
           </TableRows>
         </Footer>
-        <Left>0.48958in</Left>
       </Table>
       <Textbox Name="textbox5">
         <rd:DefaultName>textbox5</rd:DefaultName>
-        <Top>0.91667in</Top>
-        <Width>6.02083in</Width>
+        <Top>0.65625in</Top>
+        <Width>6.62499in</Width>
         <Style>
           <FontStyle>Italic</FontStyle>
           <TextAlign>Left</TextAlign>
@@ -658,13 +656,12 @@
         </Style>
         <ZIndex>2</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.48958in</Left>
-        <Height>0.19792in</Height>
+        <Height>0.2in</Height>
         <Value>= "Report Date " &amp; CStr(Today)</Value>
       </Textbox>
       <Textbox Name="textbox2">
-        <Top>0.63542in</Top>
-        <Width>6.02083in</Width>
+        <Top>0.375in</Top>
+        <Width>6.62499in</Width>
         <Style>
           <Color>MidnightBlue</Color>
           <FontSize>14pt</FontSize>
@@ -676,22 +673,19 @@
         </Style>
         <ZIndex>1</ZIndex>
         <CanGrow>true</CanGrow>
-        <Left>0.48958in</Left>
-        <Height>0.27083in</Height>
+        <Height>0.27in</Height>
         <Value>MHA DAILY SUMMARY REPORT</Value>
       </Textbox>
       <Image Name="image1">
         <Sizing>Fit</Sizing>
-        <Top>0.21875in</Top>
-        <Width>2in</Width>
+        <Width>1.875in</Width>
         <Source>External</Source>
         <Style />
-        <Left>0.48958in</Left>
-        <Height>0.375in</Height>
+        <Height>0.36in</Height>
         <Value>image.hpf_logo.gif</Value>
       </Image>
     </ReportItems>
-    <Height>1.74999in</Height>
+    <Height>1.48957in</Height>
   </Body>
   <Language>en-US</Language>
 </Report>

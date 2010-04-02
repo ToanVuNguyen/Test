@@ -387,6 +387,1049 @@ ORDER BY program_name</CommandText>
         <ZIndex>4</ZIndex>
         <DataSetName>dst_hpf_rpt_CompletedCounselingDetail</DataSetName>
         <Top>1.02083in</Top>
+        <TableGroups>
+          <TableGroup>
+            <Grouping Name="table1_Group1">
+              <GroupExpressions>
+                <GroupExpression>=Floor((RowNumber(Nothing) - 1)/500)</GroupExpression>
+              </GroupExpressions>
+              <PageBreakAtEnd>true</PageBreakAtEnd>
+            </Grouping>
+            <Footer>
+              <TableRows>
+                <TableRow>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox135">
+                          <rd:DefaultName>textbox135</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>127</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox136">
+                          <rd:DefaultName>textbox136</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>126</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox137">
+                          <rd:DefaultName>textbox137</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>125</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox138">
+                          <rd:DefaultName>textbox138</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>124</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox139">
+                          <rd:DefaultName>textbox139</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>123</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox140">
+                          <rd:DefaultName>textbox140</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>122</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox141">
+                          <rd:DefaultName>textbox141</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>121</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox142">
+                          <rd:DefaultName>textbox142</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>120</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox143">
+                          <rd:DefaultName>textbox143</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>119</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox144">
+                          <rd:DefaultName>textbox144</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>118</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox145">
+                          <rd:DefaultName>textbox145</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>117</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox146">
+                          <rd:DefaultName>textbox146</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>116</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox147">
+                          <rd:DefaultName>textbox147</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>115</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox148">
+                          <rd:DefaultName>textbox148</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>114</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox149">
+                          <rd:DefaultName>textbox149</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>113</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox150">
+                          <rd:DefaultName>textbox150</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>112</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox151">
+                          <rd:DefaultName>textbox151</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>111</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox152">
+                          <rd:DefaultName>textbox152</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>110</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox153">
+                          <rd:DefaultName>textbox153</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>109</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox154">
+                          <rd:DefaultName>textbox154</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>108</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox155">
+                          <rd:DefaultName>textbox155</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>107</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox156">
+                          <rd:DefaultName>textbox156</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>106</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox157">
+                          <rd:DefaultName>textbox157</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>105</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox158">
+                          <rd:DefaultName>textbox158</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>104</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox159">
+                          <rd:DefaultName>textbox159</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>103</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox160">
+                          <rd:DefaultName>textbox160</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>102</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox161">
+                          <rd:DefaultName>textbox161</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>101</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox162">
+                          <rd:DefaultName>textbox162</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>100</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox163">
+                          <rd:DefaultName>textbox163</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>99</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox164">
+                          <rd:DefaultName>textbox164</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>98</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox165">
+                          <rd:DefaultName>textbox165</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>97</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox166">
+                          <rd:DefaultName>textbox166</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>96</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox167">
+                          <rd:DefaultName>textbox167</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>95</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox168">
+                          <rd:DefaultName>textbox168</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>94</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox169">
+                          <rd:DefaultName>textbox169</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>93</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox170">
+                          <rd:DefaultName>textbox170</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>92</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox171">
+                          <rd:DefaultName>textbox171</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>91</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox172">
+                          <rd:DefaultName>textbox172</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>90</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox173">
+                          <rd:DefaultName>textbox173</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>89</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox174">
+                          <rd:DefaultName>textbox174</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>88</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox175">
+                          <rd:DefaultName>textbox175</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>87</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox176">
+                          <rd:DefaultName>textbox176</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>86</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox177">
+                          <rd:DefaultName>textbox177</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>85</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox178">
+                          <rd:DefaultName>textbox178</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>84</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox179">
+                          <rd:DefaultName>textbox179</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>83</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox180">
+                          <rd:DefaultName>textbox180</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>82</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox181">
+                          <rd:DefaultName>textbox181</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>81</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox182">
+                          <rd:DefaultName>textbox182</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>80</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox183">
+                          <rd:DefaultName>textbox183</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>79</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox184">
+                          <rd:DefaultName>textbox184</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>78</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox185">
+                          <rd:DefaultName>textbox185</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>77</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox186">
+                          <rd:DefaultName>textbox186</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>76</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox187">
+                          <rd:DefaultName>textbox187</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>75</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox188">
+                          <rd:DefaultName>textbox188</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>74</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox189">
+                          <rd:DefaultName>textbox189</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>73</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox190">
+                          <rd:DefaultName>textbox190</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>72</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox191">
+                          <rd:DefaultName>textbox191</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>71</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox192">
+                          <rd:DefaultName>textbox192</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>70</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox193">
+                          <rd:DefaultName>textbox193</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>69</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox194">
+                          <rd:DefaultName>textbox194</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>68</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox195">
+                          <rd:DefaultName>textbox195</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>67</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox196">
+                          <rd:DefaultName>textbox196</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>66</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox197">
+                          <rd:DefaultName>textbox197</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>65</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox198">
+                          <rd:DefaultName>textbox198</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>64</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.25in</Height>
+                </TableRow>
+              </TableRows>
+            </Footer>
+          </TableGroup>
+        </TableGroups>
         <Details>
           <TableRows>
             <TableRow>
@@ -1712,7 +2755,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>127</ZIndex>
+                      <ZIndex>191</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HPF Case ID</Value>
                     </Textbox>
@@ -1743,7 +2786,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>126</ZIndex>
+                      <ZIndex>190</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency</Value>
                     </Textbox>
@@ -1774,7 +2817,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>125</ZIndex>
+                      <ZIndex>189</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Completed Date</Value>
                     </Textbox>
@@ -1805,7 +2848,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>124</ZIndex>
+                      <ZIndex>188</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency Case Num</Value>
                     </Textbox>
@@ -1836,7 +2879,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>123</ZIndex>
+                      <ZIndex>187</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency Client Num</Value>
                     </Textbox>
@@ -1867,7 +2910,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>122</ZIndex>
+                      <ZIndex>186</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Counselor First Name</Value>
                     </Textbox>
@@ -1898,7 +2941,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>121</ZIndex>
+                      <ZIndex>185</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Counselor Last Name</Value>
                     </Textbox>
@@ -1929,7 +2972,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>120</ZIndex>
+                      <ZIndex>184</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Program</Value>
                     </Textbox>
@@ -1960,7 +3003,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>119</ZIndex>
+                      <ZIndex>183</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Intake Date</Value>
                     </Textbox>
@@ -1991,7 +3034,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>118</ZIndex>
+                      <ZIndex>182</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Call ID</Value>
                     </Textbox>
@@ -2022,7 +3065,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>117</ZIndex>
+                      <ZIndex>181</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Case Source</Value>
                     </Textbox>
@@ -2053,7 +3096,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>116</ZIndex>
+                      <ZIndex>180</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Counseling Duration</Value>
                     </Textbox>
@@ -2084,7 +3127,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>115</ZIndex>
+                      <ZIndex>179</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Primary Default Reason</Value>
                     </Textbox>
@@ -2115,7 +3158,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>114</ZIndex>
+                      <ZIndex>178</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Secondary Default Reason</Value>
                     </Textbox>
@@ -2146,7 +3189,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>113</ZIndex>
+                      <ZIndex>177</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower First Name</Value>
                     </Textbox>
@@ -2177,7 +3220,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>112</ZIndex>
+                      <ZIndex>176</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower Last Name</Value>
                     </Textbox>
@@ -2208,7 +3251,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>111</ZIndex>
+                      <ZIndex>175</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Mothers Maiden Name</Value>
                     </Textbox>
@@ -2239,7 +3282,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>110</ZIndex>
+                      <ZIndex>174</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower Last4 SSN</Value>
                     </Textbox>
@@ -2270,7 +3313,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>109</ZIndex>
+                      <ZIndex>173</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower DOB</Value>
                     </Textbox>
@@ -2301,7 +3344,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>108</ZIndex>
+                      <ZIndex>172</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Gender</Value>
                     </Textbox>
@@ -2332,7 +3375,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>107</ZIndex>
+                      <ZIndex>171</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Race</Value>
                     </Textbox>
@@ -2363,7 +3406,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>106</ZIndex>
+                      <ZIndex>170</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Hispanic Ind</Value>
                     </Textbox>
@@ -2394,7 +3437,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>105</ZIndex>
+                      <ZIndex>169</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Marital Status</Value>
                     </Textbox>
@@ -2425,7 +3468,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>104</ZIndex>
+                      <ZIndex>168</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Education Level Completed</Value>
                     </Textbox>
@@ -2456,7 +3499,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>103</ZIndex>
+                      <ZIndex>167</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Military Service</Value>
                     </Textbox>
@@ -2487,7 +3530,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>102</ZIndex>
+                      <ZIndex>166</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Borrower Disabled Ind</Value>
                     </Textbox>
@@ -2518,7 +3561,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>101</ZIndex>
+                      <ZIndex>165</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Primary Contact No</Value>
                     </Textbox>
@@ -2549,7 +3592,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>100</ZIndex>
+                      <ZIndex>164</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Secondary Contact No</Value>
                     </Textbox>
@@ -2580,7 +3623,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>99</ZIndex>
+                      <ZIndex>163</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Email Address</Value>
                     </Textbox>
@@ -2611,7 +3654,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>98</ZIndex>
+                      <ZIndex>162</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower First Name</Value>
                     </Textbox>
@@ -2642,7 +3685,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>97</ZIndex>
+                      <ZIndex>161</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower Last Name</Value>
                     </Textbox>
@@ -2673,7 +3716,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>96</ZIndex>
+                      <ZIndex>160</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower Last4 SSN</Value>
                     </Textbox>
@@ -2704,7 +3747,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>95</ZIndex>
+                      <ZIndex>159</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Co-borrower DOB</Value>
                     </Textbox>
@@ -2735,7 +3778,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>94</ZIndex>
+                      <ZIndex>158</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Household</Value>
                     </Textbox>
@@ -2766,7 +3809,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>93</ZIndex>
+                      <ZIndex>157</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Occupants</Value>
                     </Textbox>
@@ -2797,7 +3840,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>92</ZIndex>
+                      <ZIndex>156</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Owner Occupied Ind</Value>
                     </Textbox>
@@ -2828,7 +3871,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>91</ZIndex>
+                      <ZIndex>155</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Income Earners</Value>
                     </Textbox>
@@ -2859,7 +3902,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>90</ZIndex>
+                      <ZIndex>154</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Household Gross Annual Income</Value>
                     </Textbox>
@@ -2890,7 +3933,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>89</ZIndex>
+                      <ZIndex>153</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Intake Credit Score</Value>
                     </Textbox>
@@ -2921,7 +3964,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>88</ZIndex>
+                      <ZIndex>152</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property Address Line 1</Value>
                     </Textbox>
@@ -2952,7 +3995,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>87</ZIndex>
+                      <ZIndex>151</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property Address Line 2</Value>
                     </Textbox>
@@ -2983,7 +4026,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>86</ZIndex>
+                      <ZIndex>150</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property City</Value>
                     </Textbox>
@@ -3014,7 +4057,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>85</ZIndex>
+                      <ZIndex>149</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property State</Value>
                     </Textbox>
@@ -3045,7 +4088,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>84</ZIndex>
+                      <ZIndex>148</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Property Zip</Value>
                     </Textbox>
@@ -3076,7 +4119,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>83</ZIndex>
+                      <ZIndex>147</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Servicer Consent Ind</Value>
                     </Textbox>
@@ -3107,7 +4150,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>82</ZIndex>
+                      <ZIndex>146</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Funding Consent Ind</Value>
                     </Textbox>
@@ -3138,7 +4181,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>81</ZIndex>
+                      <ZIndex>145</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Other Method</Value>
                     </Textbox>
@@ -3169,7 +4212,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>80</ZIndex>
+                      <ZIndex>144</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Other Date</Value>
                     </Textbox>
@@ -3200,7 +4243,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>79</ZIndex>
+                      <ZIndex>143</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Date</Value>
                     </Textbox>
@@ -3231,7 +4274,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>78</ZIndex>
+                      <ZIndex>142</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Servicer Name</Value>
                     </Textbox>
@@ -3262,7 +4305,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>77</ZIndex>
+                      <ZIndex>141</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Account Num</Value>
                     </Textbox>
@@ -3293,7 +4336,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>76</ZIndex>
+                      <ZIndex>140</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Mortgage Type</Value>
                     </Textbox>
@@ -3324,7 +4367,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>75</ZIndex>
+                      <ZIndex>139</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>ARM Reset Ind</Value>
                     </Textbox>
@@ -3355,7 +4398,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>74</ZIndex>
+                      <ZIndex>138</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Interest Rate</Value>
                     </Textbox>
@@ -3386,7 +4429,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>73</ZIndex>
+                      <ZIndex>137</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Term Length</Value>
                     </Textbox>
@@ -3417,7 +4460,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>72</ZIndex>
+                      <ZIndex>136</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Current Loan Balance</Value>
                     </Textbox>
@@ -3448,7 +4491,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>71</ZIndex>
+                      <ZIndex>135</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Loan Delinquency Status</Value>
                     </Textbox>
@@ -3479,7 +4522,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>70</ZIndex>
+                      <ZIndex>134</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>FC Notice Received Ind</Value>
                     </Textbox>
@@ -3510,7 +4553,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>69</ZIndex>
+                      <ZIndex>133</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HUD Termination Reason</Value>
                     </Textbox>
@@ -3541,7 +4584,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>68</ZIndex>
+                      <ZIndex>132</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HUD Termination Date</Value>
                     </Textbox>
@@ -3572,7 +4615,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>67</ZIndex>
+                      <ZIndex>131</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HUD Outcome</Value>
                     </Textbox>
@@ -3603,7 +4646,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>66</ZIndex>
+                      <ZIndex>130</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Outcome 1</Value>
                     </Textbox>
@@ -3634,7 +4677,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>65</ZIndex>
+                      <ZIndex>129</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Outcome 2</Value>
                     </Textbox>
@@ -3665,7 +4708,7 @@ ORDER BY program_name</CommandText>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>64</ZIndex>
+                      <ZIndex>128</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Outcome 3</Value>
                     </Textbox>
@@ -3675,6 +4718,7 @@ ORDER BY program_name</CommandText>
               <Height>0.25in</Height>
             </TableRow>
           </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
         </Header>
         <TableColumns>
           <TableColumn>
@@ -3901,7 +4945,7 @@ ORDER BY program_name</CommandText>
         <ZIndex>2</ZIndex>
         <CanGrow>true</CanGrow>
         <Height>0.23958in</Height>
-        <Value>= "Report Date " &amp; CStr(Today)</Value>
+        <Value>= "Report Date " &amp; CStr(Today) </Value>
       </Textbox>
       <Textbox Name="textbox2">
         <Top>0.26042in</Top>
@@ -3929,7 +4973,7 @@ ORDER BY program_name</CommandText>
         <Value>image.hpf_logo.gif</Value>
       </Image>
     </ReportItems>
-    <Height>1.52083in</Height>
+    <Height>1.77083in</Height>
     <Style>
       <BorderColor>
         <Bottom>Black</Bottom>

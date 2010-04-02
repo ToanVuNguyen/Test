@@ -21,6 +21,10 @@
       <FullPath>rpt_MHA_Escalation_Handle_Time_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_MHA_Help_Handle_Time_Report.rdl</Name>
+      <FullPath>rpt_MHA_Help_Handle_Time_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_MHA_Help_Weekly_Summary_Report.rdl</Name>
       <FullPath>rpt_MHA_Help_Weekly_Summary_Report.rdl</FullPath>
     </ProjectItem>
@@ -37,16 +41,16 @@
       <FullPath>rpt_rpt_MHA_Escalation_Avg_Handle_Time_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_rpt_MHA_Help_Avg_Handle_Time_Report.rdl</Name>
+      <FullPath>rpt_rpt_MHA_Help_Avg_Handle_Time_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_Zipcode_Outreach_Report.rdl</Name>
       <FullPath>rpt_Zipcode_Outreach_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_MHA_Help_Handle_Time_Report.rdl</Name>
-      <FullPath>rpt_MHA_Help_Handle_Time_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_rpt_MHA_Help_Avg_Handle_Time_Report.rdl</Name>
-      <FullPath>rpt_rpt_MHA_Help_Avg_Handle_Time_Report.rdl</FullPath>
+      <Name>rpt_MHA_Escalation_Aging_Report.rdl</Name>
+      <FullPath>rpt_MHA_Escalation_Aging_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

@@ -18,20 +18,32 @@
       <FullPath>rpt_AgencyPaymentCheck.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_UnbilledCaseReport.rdl</Name>
-      <FullPath>rpt_UnbilledCaseReport.rdl</FullPath>
+      <Name>rpt_Servicer_NonBillable_Cases_Report.rdl</Name>
+      <FullPath>rpt_Servicer_NonBillable_Cases_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_Servicer_NonBillable_Cases_Summary_Report.rdl</Name>
       <FullPath>rpt_Servicer_NonBillable_Cases_Summary_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_UnbilledCaseReport.rdl</Name>
+      <FullPath>rpt_UnbilledCaseReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_UnpaidCaseReport.rdl</Name>
       <FullPath>rpt_UnpaidCaseReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rpt_Servicer_NonBillable_Cases_Report.rdl</Name>
-      <FullPath>rpt_Servicer_NonBillable_Cases_Report.rdl</FullPath>
+      <Name>rpt_Servicer_Invoiced_Report.rdl</Name>
+      <FullPath>rpt_Servicer_Invoiced_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_Agency_NonPayable_Report.rdl</Name>
+      <FullPath>rpt_Agency_NonPayable_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_Agency_NonPayable_Detail_Report.rdl</Name>
+      <FullPath>rpt_Agency_NonPayable_Detail_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

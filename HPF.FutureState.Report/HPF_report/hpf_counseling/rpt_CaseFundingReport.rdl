@@ -929,7 +929,7 @@
         <ZIndex>2</ZIndex>
         <CanGrow>true</CanGrow>
         <Height>0.25in</Height>
-        <Value>= "Agency "&amp; First(Fields!agency_name.Value, "dst_get_agency") &amp; " From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " - To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
+        <Value>= "Agency "&amp; Parameters!pi_agency_id.Label &amp; " From Date " &amp; FormatDateTime(Parameters!pi_from_dt.Value) &amp; " - To Date " &amp; FormatDateTime(Parameters!pi_to_dt.Value)</Value>
       </Textbox>
       <Textbox Name="textbox2">
         <rd:DefaultName>textbox2</rd:DefaultName>

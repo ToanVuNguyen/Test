@@ -147,6 +147,10 @@
           <DataField>summary_sent_dt</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="servicer_consent_ind">
+          <DataField>servicer_consent_ind</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>ds_HPF</DataSourceName>
@@ -161,7 +165,7 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>31.875in</Width>
+  <Width>33.125in</Width>
   <Body>
     <ReportItems>
       <Textbox Name="textbox10">
@@ -198,7 +202,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>22</ZIndex>
+                      <ZIndex>23</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!fc_id.Value</Value>
                     </Textbox>
@@ -216,7 +220,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>21</ZIndex>
+                      <ZIndex>22</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!agency_payable_case_id.Value</Value>
                     </Textbox>
@@ -233,7 +237,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>20</ZIndex>
+                      <ZIndex>21</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!agency_case_num.Value</Value>
                     </Textbox>
@@ -250,7 +254,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>19</ZIndex>
+                      <ZIndex>20</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!Servicer_Name.Value</Value>
                     </Textbox>
@@ -267,7 +271,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>18</ZIndex>
+                      <ZIndex>19</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!acct_num.Value</Value>
                     </Textbox>
@@ -285,7 +289,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>17</ZIndex>
+                      <ZIndex>18</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!pmt_amt.Value</Value>
                     </Textbox>
@@ -302,7 +306,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>16</ZIndex>
+                      <ZIndex>17</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!NFMC_difference_eligible_ind.Value</Value>
                     </Textbox>
@@ -320,7 +324,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>15</ZIndex>
+                      <ZIndex>16</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!NFMC_difference_paid_amt.Value</Value>
                     </Textbox>
@@ -338,7 +342,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>14</ZIndex>
+                      <ZIndex>15</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!takeback_pmt_identified_dt.Value</Value>
                     </Textbox>
@@ -355,7 +359,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>13</ZIndex>
+                      <ZIndex>14</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!takeback_pmt_reason_cd.Value</Value>
                     </Textbox>
@@ -372,7 +376,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>12</ZIndex>
+                      <ZIndex>13</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_lname.Value</Value>
                     </Textbox>
@@ -389,7 +393,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>11</ZIndex>
+                      <ZIndex>12</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_fname.Value</Value>
                     </Textbox>
@@ -406,7 +410,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>10</ZIndex>
+                      <ZIndex>11</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!borrower_mname.Value</Value>
                     </Textbox>
@@ -423,7 +427,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>9</ZIndex>
+                      <ZIndex>10</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_addr1.Value</Value>
                     </Textbox>
@@ -440,7 +444,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>8</ZIndex>
+                      <ZIndex>9</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_addr2.Value</Value>
                     </Textbox>
@@ -457,7 +461,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>7</ZIndex>
+                      <ZIndex>8</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_city.Value</Value>
                     </Textbox>
@@ -474,7 +478,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>6</ZIndex>
+                      <ZIndex>7</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_state_cd.Value</Value>
                     </Textbox>
@@ -492,7 +496,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>5</ZIndex>
+                      <ZIndex>6</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!prop_zip.Value</Value>
                     </Textbox>
@@ -509,7 +513,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>4</ZIndex>
+                      <ZIndex>5</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!primary_contact_no.Value</Value>
                     </Textbox>
@@ -526,7 +530,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>3</ZIndex>
+                      <ZIndex>4</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!second_contact_no.Value</Value>
                     </Textbox>
@@ -544,7 +548,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>2</ZIndex>
+                      <ZIndex>3</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!create_dt.Value</Value>
                     </Textbox>
@@ -562,7 +566,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>1</ZIndex>
+                      <ZIndex>2</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!completed_dt.Value</Value>
                     </Textbox>
@@ -580,8 +584,26 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
+                      <ZIndex>1</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>=Fields!summary_sent_dt.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox7">
+                      <rd:DefaultName>textbox7</rd:DefaultName>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!servicer_consent_ind.Value</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -605,7 +627,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>45</ZIndex>
+                      <ZIndex>47</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HPF Internal Case ID</Value>
                     </Textbox>
@@ -622,7 +644,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>44</ZIndex>
+                      <ZIndex>46</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>HPF Payable Case ID</Value>
                     </Textbox>
@@ -639,7 +661,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>43</ZIndex>
+                      <ZIndex>45</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Agency Case Num</Value>
                     </Textbox>
@@ -656,7 +678,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>42</ZIndex>
+                      <ZIndex>44</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Servicer Name</Value>
                     </Textbox>
@@ -673,7 +695,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>41</ZIndex>
+                      <ZIndex>43</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Loan Number</Value>
                     </Textbox>
@@ -690,7 +712,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>40</ZIndex>
+                      <ZIndex>42</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Payable Amount</Value>
                     </Textbox>
@@ -707,7 +729,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>39</ZIndex>
+                      <ZIndex>41</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>NFMC Difference Eligible</Value>
                     </Textbox>
@@ -724,7 +746,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>38</ZIndex>
+                      <ZIndex>40</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>NFMC Difference Paid Amount</Value>
                     </Textbox>
@@ -741,7 +763,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>37</ZIndex>
+                      <ZIndex>39</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Takeback Payment Identified Date</Value>
                     </Textbox>
@@ -758,7 +780,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>36</ZIndex>
+                      <ZIndex>38</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Takeback Payment Reason</Value>
                     </Textbox>
@@ -775,7 +797,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>35</ZIndex>
+                      <ZIndex>37</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Last Name</Value>
                     </Textbox>
@@ -792,7 +814,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>34</ZIndex>
+                      <ZIndex>36</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>First Name</Value>
                     </Textbox>
@@ -809,7 +831,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>33</ZIndex>
+                      <ZIndex>35</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Middle Name</Value>
                     </Textbox>
@@ -826,7 +848,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>32</ZIndex>
+                      <ZIndex>34</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Address Line 1</Value>
                     </Textbox>
@@ -843,7 +865,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>31</ZIndex>
+                      <ZIndex>33</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Address Line 2</Value>
                     </Textbox>
@@ -860,7 +882,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>30</ZIndex>
+                      <ZIndex>32</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>City</Value>
                     </Textbox>
@@ -877,7 +899,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>29</ZIndex>
+                      <ZIndex>31</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>State</Value>
                     </Textbox>
@@ -894,7 +916,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>28</ZIndex>
+                      <ZIndex>30</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Zip</Value>
                     </Textbox>
@@ -911,7 +933,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>27</ZIndex>
+                      <ZIndex>29</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Primary Contact Number</Value>
                     </Textbox>
@@ -928,7 +950,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>26</ZIndex>
+                      <ZIndex>28</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Secondary Contact Number</Value>
                     </Textbox>
@@ -945,7 +967,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>25</ZIndex>
+                      <ZIndex>27</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Case Date</Value>
                     </Textbox>
@@ -962,7 +984,7 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>24</ZIndex>
+                      <ZIndex>26</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Completed Date</Value>
                     </Textbox>
@@ -979,9 +1001,26 @@
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
-                      <ZIndex>23</ZIndex>
+                      <ZIndex>25</ZIndex>
                       <CanGrow>true</CanGrow>
                       <Value>Summary Sent Date</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox5">
+                      <rd:DefaultName>textbox5</rd:DefaultName>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>24</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Servicer Consent</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1059,6 +1098,9 @@
           </TableColumn>
           <TableColumn>
             <Width>1.5in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.25in</Width>
           </TableColumn>
         </TableColumns>
       </Table>

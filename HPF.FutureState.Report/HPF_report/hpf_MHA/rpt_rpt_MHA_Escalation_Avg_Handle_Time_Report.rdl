@@ -110,9 +110,24 @@
     </DataSet>
   </DataSets>
   <Code />
-  <Width>6.375in</Width>
+  <Width>7.75in</Width>
   <Body>
     <ReportItems>
+      <Textbox Name="textbox4">
+        <rd:DefaultName>textbox4</rd:DefaultName>
+        <Top>1.79in</Top>
+        <Style>
+          <Color>MidnightBlue</Color>
+          <FontStyle>Italic</FontStyle>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Value>Handle Time began February 1, 2010</Value>
+      </Textbox>
       <Table Name="table1">
         <ZIndex>3</ZIndex>
         <DataSetName>dst_rpt_MHA_Escalation_Avg_Handle_Time_Report</DataSetName>
@@ -424,7 +439,7 @@
         </Details>
         <TableColumns>
           <TableColumn>
-            <Width>1.375in</Width>
+            <Width>2.75in</Width>
           </TableColumn>
           <TableColumn>
             <Width>1.375in</Width>
@@ -436,6 +451,7 @@
             <Width>1.75in</Width>
           </TableColumn>
         </TableColumns>
+        <Height>0.75in</Height>
       </Table>
       <Textbox Name="textbox3">
         <Top>0.38542in</Top>
@@ -483,7 +499,7 @@
         <Value>Making Home Affordable Program</Value>
       </Textbox>
     </ReportItems>
-    <Height>1.78125in</Height>
+    <Height>2.04in</Height>
   </Body>
   <Language>en-US</Language>
 </Report>
