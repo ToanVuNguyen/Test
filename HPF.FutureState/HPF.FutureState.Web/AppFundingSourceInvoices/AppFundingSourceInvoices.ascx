@@ -131,8 +131,10 @@
                             <ItemStyle HorizontalAlign="Right" />
                         </asp:BoundField>
                         <asp:BoundField DataField="RejectedAmount" DataFormatString="{0:C}" 
+                            ItemStyle-HorizontalAlign="Right"
                             HeaderText="Rejected Amt" />
                         <asp:BoundField DataField="UnfundedAmount" DataFormatString="{0:C}" 
+                            ItemStyle-HorizontalAlign="Right"
                             HeaderText="Unfunded Amt" />
                         <asp:BoundField DataField="StatusCode" HeaderText="Invoice Status" 
                             ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" >
