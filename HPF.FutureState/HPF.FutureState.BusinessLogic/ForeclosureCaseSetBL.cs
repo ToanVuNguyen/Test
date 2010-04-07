@@ -1774,8 +1774,15 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
+                if (caseLoan.ServicerId == item.ServicerId && ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
+                {
+                    if (caseLoan.ServicerId == Constant.SERVICER_OTHER_ID)//bug-421
+                    {
+                        if (ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName))
+                            continue;
+                    }
                     return true;
+                }
             }
             return false;
         }
@@ -1790,6 +1797,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
                 {
+                    if (caseLoan.ServicerId == Constant.SERVICER_OTHER_ID && ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName))
+                        continue;
                     if (caseLoan.ServicerId != item.ServicerId
                         || ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName)
                         || ConvertStringToUpper(caseLoan.Loan1st2nd) != ConvertStringToUpper(item.Loan1st2nd)
@@ -1808,7 +1817,7 @@ namespace HPF.FutureState.BusinessLogic
 //Comment these checking because these oness are hidden for WS
 //                        || ConvertStringToUpper(caseLoan.InvestorLoanNum) != ConvertStringToUpper(item.InvestorLoanNum)
 //                        || ConvertStringToUpper(caseLoan.InvestorNum) != ConvertStringToUpper(item.InvestorNum)
-//                        || ConvertStringToUpper(caseLoan.InvestorName) != ConvertStringToUpper(item.InvestorName)
+//                        || ConvertStringToUpper(caseLoan.InvestorName) != ConvertStringToUpper(item.InvestorName)                        
                         || ConvertStringToUpper(caseLoan.MortgageProgramCd) != ConvertStringToUpper(item.MortgageProgramCd)
                         || !CompareDate(caseLoan.ArmRateAdjustDt, item.ArmRateAdjustDt)
                         || caseLoan.ArmLockDuration != item.ArmLockDuration
@@ -2091,8 +2100,12 @@ namespace HPF.FutureState.BusinessLogic
                         if (caseLoanCollection[i].AcctNum == null || caseLoanCollection[j].AcctNum == null
                             || caseLoanCollection[i].AcctNum == string.Empty || caseLoanCollection[j].AcctNum == string.Empty)
                             continue;
-                        if (caseLoanCollection[i].AcctNum.ToUpper().CompareTo(caseLoanCollection[j].AcctNum.ToUpper()) == 0)
+                        
+                        if (ConvertStringToUpper(caseLoanCollection[i].AcctNum) == ConvertStringToUpper(caseLoanCollection[j].AcctNum.ToUpper()))
                         {
+                            if ((caseLoanCollection[i].ServicerId == Constant.SERVICER_OTHER_ID && caseLoanCollection[j].ServicerId == Constant.SERVICER_OTHER_ID) &&
+                                ConvertStringToUpper(caseLoanCollection[i].OtherServicerName) != ConvertStringToUpper(caseLoanCollection[j].OtherServicerName))
+                                continue; //BUG-421
                             msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0131, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0131));
                             error131 = true;
                             break;
