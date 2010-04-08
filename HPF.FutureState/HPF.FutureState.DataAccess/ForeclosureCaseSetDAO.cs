@@ -1185,7 +1185,10 @@ namespace HPF.FutureState.DataAccess
             string orString = " or ";
             foreach (CaseLoanDTO item in fcCaseSet.CaseLoans)
             {
-                sb.Append(string.Format(" (acct_num = '{0}' and CL.servicer_id = {1})", item.AcctNum, item.ServicerId));
+                if(item.ServicerId == Constant.SERVICER_OTHER_ID)
+                    sb.Append(string.Format(" (acct_num = '{0}' and CL.servicer_id = {1} and CL.other_servicer_name='{2}')", item.AcctNum, item.ServicerId, item.OtherServicerName));
+                else
+                    sb.Append(string.Format(" (acct_num = '{0}' and CL.servicer_id = {1})", item.AcctNum, item.ServicerId));
                 sb.Append(orString);
             }
             
