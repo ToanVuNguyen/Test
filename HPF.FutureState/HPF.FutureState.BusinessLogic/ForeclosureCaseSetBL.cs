@@ -2101,9 +2101,10 @@ namespace HPF.FutureState.BusinessLogic
                             || caseLoanCollection[i].AcctNum == string.Empty || caseLoanCollection[j].AcctNum == string.Empty)
                             continue;
                         
-                        if (ConvertStringToUpper(caseLoanCollection[i].AcctNum) == ConvertStringToUpper(caseLoanCollection[j].AcctNum.ToUpper()))
+                        if (ConvertStringToUpper(caseLoanCollection[i].AcctNum) == ConvertStringToUpper(caseLoanCollection[j].AcctNum.ToUpper())
+                            && caseLoanCollection[i].ServicerId == caseLoanCollection[j].ServicerId)
                         {
-                            if ((caseLoanCollection[i].ServicerId == Constant.SERVICER_OTHER_ID && caseLoanCollection[j].ServicerId == Constant.SERVICER_OTHER_ID) &&
+                            if ((caseLoanCollection[i].ServicerId == Constant.SERVICER_OTHER_ID) &&
                                 ConvertStringToUpper(caseLoanCollection[i].OtherServicerName) != ConvertStringToUpper(caseLoanCollection[j].OtherServicerName))
                                 continue; //BUG-421
                             msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0131, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0131));
