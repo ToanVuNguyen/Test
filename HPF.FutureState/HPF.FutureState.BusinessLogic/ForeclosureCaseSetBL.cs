@@ -1795,7 +1795,8 @@ namespace HPF.FutureState.BusinessLogic
         {
             foreach (CaseLoanDTO item in caseLoanCollection)
             {
-                if (ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum))
+                if (ConvertStringToUpper(caseLoan.AcctNum) == ConvertStringToUpper(item.AcctNum)
+                    && caseLoan.ServicerId == item.ServicerId)
                 {
                     if (caseLoan.ServicerId == Constant.SERVICER_OTHER_ID && ConvertStringToUpper(caseLoan.OtherServicerName) != ConvertStringToUpper(item.OtherServicerName))
                         continue;
