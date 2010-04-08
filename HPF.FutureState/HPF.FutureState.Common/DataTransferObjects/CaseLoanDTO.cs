@@ -87,7 +87,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set
             {
                 if (value != null)
-                    armResetInd = value.Trim();
+                    armResetInd = value.Trim().ToUpper();
                 else armResetInd = value;
             }
         }
