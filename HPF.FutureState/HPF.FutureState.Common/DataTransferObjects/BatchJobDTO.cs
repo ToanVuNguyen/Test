@@ -6,7 +6,7 @@ using System.Text;
 namespace HPF.FutureState.Common.DataTransferObjects
 {
     public enum RequestorType{Servicer, FundingSource, Agency, CallCenter};
-    public enum JobFrequency { Daily = 1, Weekly = 7};
+    public enum JobFrequency { Daily = 1, Weekly = 7, Monthly};
 
     [Serializable]
     public class BatchJobDTO:BaseDTO

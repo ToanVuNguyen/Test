@@ -85,6 +85,7 @@
     <Compile Include="DataTransferObjects\AppSummariesToServicerCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobLogDTO.cs" />
+    <Compile Include="DataTransferObjects\CompletedCounselingDetailReportCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTO.cs" />
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Utils\Exceptions\HPFException.cs" />
     <Compile Include="Utils\Exceptions\HPFTextExceptionFormatter.cs" />
     <Compile Include="Utils\HPFCacheManager.cs" />
+    <Compile Include="Utils\HPFPortalCompletedCounselingDetail.cs" />
     <Compile Include="Utils\HPFPortalCounselor.cs" />
     <Compile Include="Utils\HPFPortalFannieMae.cs" />
     <Compile Include="Utils\HPFPortalInvoice.cs" />

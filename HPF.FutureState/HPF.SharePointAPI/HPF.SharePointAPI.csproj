@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BusinessEntity\AgencyPayableInfo.cs" />
     <Compile Include="BusinessEntity\BaseObject.cs" />
+    <Compile Include="BusinessEntity\CompletedCounselingDetailInfo.cs" />
     <Compile Include="BusinessEntity\CounselingSummaryAuditLogInfo.cs" />
     <Compile Include="BusinessEntity\CounselorInfo.cs" />
     <Compile Include="BusinessEntity\CounselingSummaryInfo.cs" />
@@ -99,6 +100,11 @@
       <DependentUpon>DocumentCenter.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportCenter.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ReportCenter.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -135,6 +141,10 @@
       <LastGenOutput>DocumentCenter.Designer.cs</LastGenOutput>
     </None>
     <None Include="HPF.SharePointAPI.snk" />
+    <None Include="ReportCenter.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ReportCenter.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

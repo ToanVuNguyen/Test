@@ -55,6 +55,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportMHAHelpData();
                 else if (job.JobName.Equals(Constant.COUNSELING_SUMMARY_AUDIT_IMPORT))
                     rowCount = ImportAuditLog();
+                else if (job.JobName.Equals(Constant.COMPLETED_COUNSELING_DETAIL_REPORT))
+                    rowCount = SendCompletedCounselingDetailReportToPortal(job);
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
                 
@@ -194,7 +196,10 @@ namespace HPF.FutureState.BusinessLogic
         private void UpdateBatchJobStartAndLastRunDates(BatchJobDTO batchJob)
         {
             batchJob.LastJobEndDate = batchJob.JobStartDate;//batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency);
-            batchJob.JobStartDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);  
+            if (batchJob.JobFrequency == JobFrequency.Monthly)
+                batchJob.JobStartDate = batchJob.JobStartDate.AddMonths(1);
+            else
+                batchJob.JobStartDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);  
             batchJob.SetUpdateTrackingInformation("System");
             BatchJobDAO.Instance.UpdateBatchJobStartAndLastRunDates(batchJob);
         }
@@ -245,6 +250,25 @@ namespace HPF.FutureState.BusinessLogic
                 BatchJobDAO.Instance.ImportCounselingSummaryAuditLog(auditLogs);
 
             return auditLogs.Count;
+        }
+
+        public int SendCompletedCounselingDetailReportToPortal(BatchJobDTO batchjob)
+        {
+            CompletedCounselingDetailReportCriteriaDTO criteria = new CompletedCounselingDetailReportCriteriaDTO();
+            criteria.AgencyId = -1;
+            criteria.ProgramId = -1;
+            criteria.FromDate = new DateTime(batchjob.JobStartDate.Year, batchjob.JobStartDate.Month, 1).AddMonths(-1);            
+            criteria.ToDate = new DateTime(batchjob.JobStartDate.Year, batchjob.JobStartDate.Month, 1).AddDays(-1);            
+            
+            HPFPortalCompletedCounselingDetail counselingDetail = new HPFPortalCompletedCounselingDetail();
+            counselingDetail.SPFolderName = batchjob.OutputDestination;
+            counselingDetail.ReportFile = SummaryReportBL.Instance.GenerateCompletedCouncellingDetailReport(criteria, ReportFormat.EXCEL);
+            counselingDetail.ReportFilename = string.Format("Counseling_from_{0}-{1}-{2}_to_{3}-{4}-{5}.xls",
+                                            criteria.FromDate.Month, criteria.FromDate.Day, criteria.FromDate.Year,
+                                            criteria.ToDate.Month, criteria.ToDate.Day, criteria.ToDate.Year);
+
+            HPFPortalGateway.SendCompletedCounselingDetailReport(counselingDetail);
+            return 1;
         }
     }
 }

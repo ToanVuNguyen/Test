@@ -61,6 +61,30 @@ namespace HPF.FutureState.BusinessLogic
                 string functionTrace = "[Report]SummaryReportBL.GenerateSummaryReport";                
                 throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), functionTrace);
             }            
+        }
+
+
+        public byte[] GenerateCompletedCouncellingDetailReport(CompletedCounselingDetailReportCriteriaDTO criteria , ReportFormat format)
+        {
+            try
+            {
+                var reportExport = new ReportingExporter
+                {
+                    ReportPath = HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_COMPLETEDCOUNSELINGDETTAIL_REPORT)
+                };
+                reportExport.SetReportParameter("pi_agency_id", criteria.AgencyId.ToString());
+                reportExport.SetReportParameter("pi_program_id", criteria.ProgramId.ToString());
+                reportExport.SetReportParameter("pi_from_dt", criteria.FromDate.ToString());
+                reportExport.SetReportParameter("pi_to_dt", criteria.ToDate.ToString());
+
+                var report = reportExport.ExportTo(format);
+
+                return report;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }               
 
         public void UpdateSummarySentDateTime(int? fcId)
@@ -166,7 +190,7 @@ namespace HPF.FutureState.BusinessLogic
                 throw ExceptionProcessor.GetHpfException(ex, foreclosureCase.FcId.ToString(), "[Sharepoint API]HPFPortalGateway.SendSummary in SummaryReportBL.SendSummaryToHPFPortal");
             }
 
-        }
+        }       
 
         /// <summary>
         /// Build Pdf file name to attach to the e-mail that will be sent to servicer.

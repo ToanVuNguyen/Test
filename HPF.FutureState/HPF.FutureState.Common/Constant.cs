@@ -132,6 +132,7 @@ namespace HPF.FutureState.Common
         public const string MHA_ESCALALATION_IMPORT = "MHA Escalation Import";
         public const string MHA_HELP_IMPORT = "MHA Help Import";
         public const string COUNSELING_SUMMARY_AUDIT_IMPORT = "Counseling Summary Audit Import";
+        public const string COMPLETED_COUNSELING_DETAIL_REPORT = "Completed Counseling Detail Report";
 
     }
 }

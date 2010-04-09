@@ -113,6 +113,16 @@ namespace HPF.FutureState.Common
             }
 
         }
+
+        public static string HPF_COMPLETEDCOUNSELINGDETTAIL_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_COMPLETEDCOUNSELINGDETAIL_REPORT"];
+            }
+
+        }
+
         public static string HPF_INVOICE_EXPORT_FIS_HEADER_REPORT
         {
             get

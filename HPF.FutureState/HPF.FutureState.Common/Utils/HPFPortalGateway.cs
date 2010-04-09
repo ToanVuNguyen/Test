@@ -93,6 +93,21 @@ namespace HPF.FutureState.Common.Utils
                 Logger.Write(result.Error.Message, "General");
         }
 
+        public static void SendCompletedCounselingDetailReport(HPFPortalCompletedCounselingDetail counselingDetail)
+        {
+            var counselingInfo = new CompletedCounselingDetailInfo
+            {
+                Name = counselingDetail.ReportFilename,
+                File = counselingDetail.ReportFile,
+                FromDate = counselingDetail.FromDate,
+                ToDate = counselingDetail.ToDate
+            };
+
+            string spFolderName = counselingDetail.SPFolderName;
+            var result = DocumentCenterController.Upload(counselingInfo, spFolderName);
+            if (!result.Successful)
+                Logger.Write(result.Error.Message, "General");
+        }
         public static void GenerateCouncelorList(HPFPortalCounselor hpfCounselor)
         {
             List<CounselorInfo> counselorList = new List<CounselorInfo>();
