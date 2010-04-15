@@ -257,7 +257,7 @@ namespace HPF.FutureState.DataAccess
                 SqlCommand command = base.CreateCommand("hpf_foreclosure_case_search_ws", dbConnection);
                 string whereClause = GenerateWhereClause(searchCriteria);
                 //<Parameter>
-                SqlParameter[] sqlParam = new SqlParameter[9];
+                SqlParameter[] sqlParam = new SqlParameter[8];
                 sqlParam[0] = new SqlParameter("@pi_agency_case_num", searchCriteria.AgencyCaseNumber);
                 sqlParam[1] = new SqlParameter("@pi_borrower_fname", searchCriteria.FirstName);
                 sqlParam[2] = new SqlParameter("@pi_borrower_lname", searchCriteria.LastName);
@@ -265,9 +265,9 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[4] = new SqlParameter("@pi_prop_zip", searchCriteria.PropertyZip);
                 sqlParam[5] = new SqlParameter("@pi_loan_number", searchCriteria.LoanNumber);
                 sqlParam[6] = new SqlParameter("@pi_servicer", searchCriteria.Servicer);
-                sqlParam[7] = new SqlParameter("@pi_where_clause", whereClause);
+                //sqlParam[7] = new SqlParameter("@pi_where_clause", whereClause);
                // sqlParam[8] = new SqlParameter("@pi_number_of_rows", pageSize);
-                sqlParam[8] = new SqlParameter("@po_total_rows", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                sqlParam[7] = new SqlParameter("@po_total_rows", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
@@ -324,7 +324,7 @@ namespace HPF.FutureState.DataAccess
                     }
                     reader.Close();
                 }
-                int? resultCount = ConvertToInt(sqlParam[8].Value);
+                int? resultCount = ConvertToInt(sqlParam[7].Value);
                 results.SearchResultCount =  resultCount.HasValue ? resultCount.Value : 0;
             }
             catch (Exception Ex)
