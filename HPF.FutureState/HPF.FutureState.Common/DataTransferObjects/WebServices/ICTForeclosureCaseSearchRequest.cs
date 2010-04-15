@@ -16,5 +16,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string LoanNumber { get; set; }
 
         public string PropertyZip { get; set; }
+        
+        public string Last4_SSN { get; set; }
     }
 }

@@ -286,6 +286,7 @@ namespace HPF.FutureState.BusinessLogic
             searchCriteriaCheck.FirstName = searchCriteria.FirstName;
             searchCriteriaCheck.LastName = searchCriteria.LastName;
             searchCriteriaCheck.PropertyZip = searchCriteria.PropertyZip;
+            searchCriteriaCheck.Last4_SSN = searchCriteria.Last4_SSN;
 
             ValidateFcCaseSearchCriteriaNotNull(searchCriteriaCheck, dataValidationException);
 
