@@ -76,6 +76,15 @@
             
             </asp:TableCell>
         </asp:TableRow>
+        <asp:TableRow ID="TableRow6" runat="server">
+            <asp:TableCell ID="TableCell11" runat="server">
+            <asp:Label ID="Label6" runat="server" Text="Last 4 SSN" CssClass="sidelinks"></asp:Label>
+            </asp:TableCell>
+            <asp:TableCell ID="TableCell12" runat="server">
+                <asp:TextBox ID="txtLast4SSN" runat="server"  CssClass="Text"></asp:TextBox>
+            
+            </asp:TableCell>
+        </asp:TableRow>
     </asp:Table>
     <br />
    

@@ -451,6 +451,8 @@ namespace HPF.Webservice.CallCenter
 
         private string propertyZipField;
 
+        private string last4_SSN;
+
         /// <remarks/>
         public string FirstName
         {
@@ -500,6 +502,18 @@ namespace HPF.Webservice.CallCenter
             set
             {
                 this.propertyZipField = value;
+            }
+        }
+
+        public string Last4_SSN 
+        {
+            get
+            {
+                return this.last4_SSN;
+            }
+            set
+            {
+                this.last4_SSN = value;
             }
         }
     }

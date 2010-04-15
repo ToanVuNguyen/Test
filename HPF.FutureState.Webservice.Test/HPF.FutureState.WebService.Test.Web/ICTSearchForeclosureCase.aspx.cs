@@ -63,10 +63,11 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             HPF.Webservice.CallCenter.ICTForeclosureCaseSearchRequest searchCriteria = new HPF.Webservice.CallCenter.ICTForeclosureCaseSearchRequest();
             
-            searchCriteria.FirstName = (txtFirstName.Text.Trim() == string.Empty) ? null : txtFirstName.Text.Trim();
-            searchCriteria.LastName = (txtLastName.Text.Trim() == string.Empty) ? null : txtLastName.Text.Trim();         
-            searchCriteria.PropertyZip = (txtPropertyZip.Text.Trim() == string.Empty) ? null : txtPropertyZip.Text.Trim();
-            searchCriteria.LoanNumber = (txtLoanNumber.Text.Trim() == string.Empty) ? null : txtLoanNumber.Text.Trim();
+            searchCriteria.FirstName = txtFirstName.Text;
+            searchCriteria.LastName = txtLastName.Text;         
+            searchCriteria.PropertyZip = txtPropertyZip.Text;
+            searchCriteria.LoanNumber = txtLoanNumber.Text;
+            searchCriteria.Last4_SSN = txtLast4SSN.Text;
 
             return searchCriteria;
         }
