@@ -1340,9 +1340,12 @@ namespace HPF.FutureState.BusinessLogic
                 //Insert table Budget Asset
                 InsertBudgetAsset(foreclosureCaseSetDAO, budgetAssetCollection, budgetSetId);
 
-                BudgetSetDTO proposedBudgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, null, foreclosureCaseSet.ProposedBudgetItems);
-                int? proposedBudgetSetId = InsertProposedBudgetSet(foreclosureCaseSetDAO, proposedBudgetSet, fcId);
-                InsertProposedBudgetItem(foreclosureCaseSetDAO, foreclosureCaseSet.ProposedBudgetItems, proposedBudgetSetId);
+                if (foreclosureCaseSet.ProposedBudgetItems != null && foreclosureCaseSet.ProposedBudgetItems.Count > 0)
+                {
+                    BudgetSetDTO proposedBudgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, null, foreclosureCaseSet.ProposedBudgetItems);
+                    int? proposedBudgetSetId = InsertProposedBudgetSet(foreclosureCaseSetDAO, proposedBudgetSet, fcId);
+                    InsertProposedBudgetItem(foreclosureCaseSetDAO, foreclosureCaseSet.ProposedBudgetItems, proposedBudgetSetId);
+                }
                 //            
                 if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
                     && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
@@ -1393,7 +1396,7 @@ namespace HPF.FutureState.BusinessLogic
         private void InsertProposedBudget(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetSetDTO budgetSet, BudgetItemDTOCollection budgetItemCollection, int? fcId)
         {
             bool isInsertBudget = IsInsertBudgetSet(FCaseSetFromDB.ProposedBudgetItems, budgetItemCollection, null, null, fcId);
-            if (isInsertBudget)
+            if (isInsertBudget && budgetItemCollection != null && budgetItemCollection.Count > 0)
             {
                 //Insert Table Budget Set
                 //Return Budget Set Id
@@ -1437,7 +1440,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         private void InsertProposedBudgetItem(ForeclosureCaseSetDAO foreClosureCaseSetDAO, BudgetItemDTOCollection budgetItemCollection, int? budget_set_id)
         {
-            if (budgetItemCollection != null)
+            if (budgetItemCollection != null && budget_set_id != null)
             {
                 foreach (BudgetItemDTO items in budgetItemCollection)
                 {
