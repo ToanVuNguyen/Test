@@ -936,6 +936,29 @@
                 <asp:TextBox CssClass = "Text" ID="txtPrimResEstMktValue" runat="server"></asp:TextBox>
                                                         </td>                      
         </tr>   
+        <tr>
+            <td class="sidelinks">
+                Sponsor Id</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtSponsorId" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                Campaign Id</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtCampaignId" runat="server"></asp:TextBox>
+                                                        </td>                      
+        </tr>   
+        <tr>
+            <td class="sidelinks">
+                Referral Num</td>
+            <td>
+                <asp:TextBox CssClass = "Text" ID="txtReferralNum" runat="server"></asp:TextBox>
+            </td>
+            <td class="sidelinks">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>                      
+        </tr>   
         </table>
 
     <br />
@@ -1261,6 +1284,16 @@
                     <asp:Label ID="Label211" runat="server" Text='<%# Bind("HampEligibleInd") %>'></asp:Label>
                 </ItemTemplate>                                
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="LossMitStatusCd" >    
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtLossMitStatusCd" runat="server" Text='<%# Eval("LossMitStatusCd") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <FooterTemplate>
+                    <asp:TextBox ID="txtLossMitStatusCd" runat="server"></asp:TextBox> </FooterTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label211LossMitStatusCd" runat="server" Text='<%# Bind("LossMitStatusCd") %>'></asp:Label>
+                </ItemTemplate>  
+            </asp:TemplateField>          
             <asp:TemplateField HeaderText="Index" >  
                 <%--<EditItemTemplate>
                     <asp:TextBox ID="txtCaseLoanId" runat="server" Text='<%# Eval("CaseLoanId") %>'></asp:TextBox>

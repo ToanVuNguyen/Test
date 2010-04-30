@@ -54,7 +54,8 @@ namespace HPF.FutureState.WebService.Test.Web
                                OrigPriorTo2009Ind = Util.ConvertToString(obj.Element("OrigPriorTo2009Ind")),
                                PriorHampInd = Util.ConvertToString(obj.Element("PriorHampInd")),
                                PrinBalWithinLimitInd = Util.ConvertToString(obj.Element("PrinBalWithinLimitInd")),
-                               HampEligibleInd = Util.ConvertToString(obj.Element("HampEligibleInd"))
+                               HampEligibleInd = Util.ConvertToString(obj.Element("HampEligibleInd")),
+                               LossMitStatusCd = Util.ConvertToString(obj.Element("LossMitStatusCd"))
                            };
                 int i = 1;
                 List<CaseLoanDTO_App> list = objs.ToList<CaseLoanDTO_App>();
@@ -317,7 +318,10 @@ namespace HPF.FutureState.WebService.Test.Web
                                NumberOfUnits = Util.ConvertToInt(obj.Element("NumberOfUnits")),
                                VacantOrCondemedInd = Util.ConvertToString(obj.Element("VacantOrCondemedInd")),
                                MortgagePmtRatio = Util.ConvertToDouble(obj.Element("MortgagePmtRatio")),
-                               CertificateId = Util.ConvertToString(obj.Element("CertificateId"))
+                               CertificateId = Util.ConvertToString(obj.Element("CertificateId")),
+                               CampaignId = Util.ConvertToInt(obj.Element("CampaignId")),
+                               SponsorId = Util.ConvertToInt(obj.Element("SponsorId")),
+                               ReferralClientNum = Util.ConvertToString(obj.Element("ReferralClientNum"))
                            };
                 ForeclosureCaseDTO fcCase = objs.ToList<ForeclosureCaseDTO>()[0];
                 return fcCase;
@@ -373,7 +377,8 @@ namespace HPF.FutureState.WebService.Test.Web
                OrigPriorTo2009Ind = this.OrigPriorTo2009Ind,
                PriorHampInd = this.PriorHampInd,
                PrinBalWithinLimitInd = this.PrinBalWithinLimitInd,
-               HampEligibleInd = this.HampEligibleInd
+               HampEligibleInd = this.HampEligibleInd,
+               LossMitStatusCd = this.LossMitStatusCd
             };
         }
     }

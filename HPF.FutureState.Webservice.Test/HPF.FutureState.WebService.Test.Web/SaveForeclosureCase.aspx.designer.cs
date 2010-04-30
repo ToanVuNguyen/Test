@@ -1859,6 +1859,33 @@ namespace HPF.FutureState.WebService.Test.Web {
         protected global::System.Web.UI.WebControls.TextBox txtPrimResEstMktValue;
         
         /// <summary>
+        /// txtSponsorId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSponsorId;
+        
+        /// <summary>
+        /// txtCampaignId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCampaignId;
+        
+        /// <summary>
+        /// txtReferralNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReferralNum;
+        
+        /// <summary>
         /// btnSave2 control.
         /// </summary>
         /// <remarks>

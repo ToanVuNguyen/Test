@@ -2155,6 +2155,8 @@ namespace HPF.Webservice.Agency
 
         private string hampEligibleIndField;
 
+        private string lossMitStatusCdField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> ServicerId
@@ -2537,6 +2539,19 @@ namespace HPF.Webservice.Agency
                 this.hampEligibleIndField = value;
             }
         }
+
+        /// <remarks/>
+        public string LossMitStatusCd
+        {
+            get
+            {
+                return this.lossMitStatusCdField;
+            }
+            set
+            {
+                this.lossMitStatusCdField = value;
+            }
+        }
     }
 
     /// <remarks/>
@@ -2707,8 +2722,6 @@ namespace HPF.Webservice.Agency
         private System.Nullable<int> agencyIdField;
 
         private string callIdField;
-
-        private System.Nullable<int> programIdField;
 
         private string agencyCaseNumField;
 
@@ -2908,6 +2921,14 @@ namespace HPF.Webservice.Agency
 
         private string certificateIdField;
 
+        private System.Nullable<int> programIdField;
+
+        private string referralClientNumField;
+
+        private System.Nullable<int> sponsorIdField;
+
+        private System.Nullable<int> campaignIdField;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
         public System.Nullable<int> FcId
@@ -2946,20 +2967,6 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.callIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
-        public System.Nullable<int> ProgramId
-        {
-            get
-            {
-                return this.programIdField;
-            }
-            set
-            {
-                this.programIdField = value;
             }
         }
 
@@ -4262,6 +4269,61 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.certificateIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> ProgramId
+        {
+            get
+            {
+                return this.programIdField;
+            }
+            set
+            {
+                this.programIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ReferralClientNum
+        {
+            get
+            {
+                return this.referralClientNumField;
+            }
+            set
+            {
+                this.referralClientNumField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> SponsorId
+        {
+            get
+            {
+                return this.sponsorIdField;
+            }
+            set
+            {
+                this.sponsorIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+        public System.Nullable<int> CampaignId
+        {
+            get
+            {
+                return this.campaignIdField;
+            }
+            set
+            {
+                this.campaignIdField = value;
             }
         }
     }

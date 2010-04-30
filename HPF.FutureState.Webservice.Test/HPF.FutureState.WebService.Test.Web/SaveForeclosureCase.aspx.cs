@@ -184,6 +184,10 @@ namespace HPF.FutureState.WebService.Test.Web
             fcCase.VacantOrCondemedInd = txtVacantOrCondemedInd.Text;
             fcCase.MortgagePmtRatio = Util.ConvertToDouble(txtMortgagePmtRatio.Text);
             fcCase.CertificateId = txtCertififateID.Text;
+            fcCase.ReferralClientNum = txtReferralNum.Text;
+            fcCase.CampaignId = Util.ConvertToInt(txtCampaignId.Text);
+            fcCase.SponsorId = Util.ConvertToInt(txtSponsorId.Text);
+
             Session[SessionVariables.FORECLOSURE_CASE] = fcCase;
 
             return fcCase;
@@ -317,6 +321,9 @@ namespace HPF.FutureState.WebService.Test.Web
                 txtVacantOrCondemedInd.Text = fcCase.VacantOrCondemedInd;
                 txtMortgagePmtRatio.Text = (fcCase.MortgagePmtRatio.HasValue)?fcCase.MortgagePmtRatio.Value.ToString():"";
                 txtCertififateID.Text = fcCase.CertificateId;
+                txtSponsorId.Text = Util.ConvertToString(fcCase.SponsorId);
+                txtCampaignId.Text = Util.ConvertToString(fcCase.CampaignId);
+                txtReferralNum.Text = fcCase.ReferralClientNum;
             }
         }
        
@@ -497,6 +504,7 @@ namespace HPF.FutureState.WebService.Test.Web
             TextBox txtPriorHampInd = (TextBox)row.FindControl("txtPriorHampInd");
             TextBox txtPrinBalWithinLimitInd = (TextBox)row.FindControl("txtPrinBalWithinLimitInd");
             TextBox txtHampEligibleInd = (TextBox)row.FindControl("txtHampEligibleInd");
+            TextBox txtLossMitStatusCd = (TextBox)row.FindControl("txtLossMitStatusCd");
 
             #endregion            
             caseLoan.AcctNum = txtAccNum.Text.Trim();
@@ -533,6 +541,7 @@ namespace HPF.FutureState.WebService.Test.Web
             caseLoan.PriorHampInd = txtPriorHampInd.Text;
             caseLoan.PrinBalWithinLimitInd = txtPrinBalWithinLimitInd.Text;
             caseLoan.HampEligibleInd = txtHampEligibleInd.Text;
+            caseLoan.LossMitStatusCd = txtLossMitStatusCd.Text;
 
             return caseLoan;
 
