@@ -85,7 +85,11 @@
     <Compile Include="DataTransferObjects\AppSummariesToServicerCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobLogDTO.cs" />
+    <Compile Include="DataTransferObjects\CampaignSponsorProgramDTO.cs" />
+    <Compile Include="DataTransferObjects\CampaignSponsorProgramDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CompletedCounselingDetailReportCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\CounseledProgramDTO.cs" />
+    <Compile Include="DataTransferObjects\CounseledProgramDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTO.cs" />
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
@@ -107,6 +111,8 @@
     <Compile Include="DataTransferObjects\RefCodeSetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\SendSummaryServicerCollectionDTO.cs" />
     <Compile Include="DataTransferObjects\SendSummaryServicerDTO.cs" />
+    <Compile Include="DataTransferObjects\SponsorDTO.cs" />
+    <Compile Include="DataTransferObjects\SponsorDTOCollection.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTOCollection.cs" />

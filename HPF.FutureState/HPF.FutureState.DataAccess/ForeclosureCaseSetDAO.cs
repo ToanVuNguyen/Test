@@ -245,6 +245,10 @@ namespace HPF.FutureState.DataAccess
                         returnObject.VacantOrCondemedInd = ConvertToString(reader["vacant_or_condemed_ind"]);
                         returnObject.MortgagePmtRatio = ConvertToDouble(reader["mortgage_pmt_ratio"]);
                         returnObject.CertificateId = ConvertToString(reader["certificate_id"]);
+                        returnObject.CounseledProgramId = ConvertToInt(reader["counseled_program_id"]);
+                        returnObject.ReferralClientNum = ConvertToString(reader["referral_client_num"]);
+                        returnObject.SponsorId = ConvertToInt(reader["sponsor_id"]);
+                        returnObject.CampaignId = ConvertToInt(reader["campaign_id"]);
                         #endregion
                     }                    
                 }
@@ -275,7 +279,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[115];
+                var sqlParam = new SqlParameter[119];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -392,13 +396,18 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[112] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
                 sqlParam[113] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
 
-                sqlParam[114] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
+                sqlParam[114] = new SqlParameter("@pi_counseled_program_id", foreclosureCase.CounseledProgramId);
+                sqlParam[115] = new SqlParameter("@pi_referral_client_num", foreclosureCase.ReferralClientNum);
+                sqlParam[116] = new SqlParameter("@pi_sponsor_id", foreclosureCase.SponsorId);
+                sqlParam[117] = new SqlParameter("@pi_campaign_id", foreclosureCase.CampaignId);
+
+                sqlParam[118] = new SqlParameter("@po_fc_id", SqlDbType.Int) { Direction = ParameterDirection.Output }; 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
                 command.Transaction = this.trans;            
                 command.ExecuteNonQuery();                
-                foreclosureCase.FcId = ConvertToInt(sqlParam[114].Value);
+                foreclosureCase.FcId = ConvertToInt(sqlParam[118].Value);
             }
             catch (Exception Ex)
             {                
@@ -423,7 +432,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[39];
+                var sqlParam = new SqlParameter[40];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", NullableString(caseLoan.OtherServicerName));
@@ -464,6 +473,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[36] = new SqlParameter("@pi_prior_hamp_ind", caseLoan.PriorHampInd);
                 sqlParam[37] = new SqlParameter("@pi_prin_bal_within_limit_ind", caseLoan.PrinBalWithinLimitInd);
                 sqlParam[38] = new SqlParameter("@pi_hamp_eligible_ind", caseLoan.HampEligibleInd);
+                sqlParam[39] = new SqlParameter("@pi_loss_mit_status_cd", caseLoan.LossMitStatusCd);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;            
@@ -514,7 +524,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[33];
+                var sqlParam = new SqlParameter[34];
                 sqlParam[0] = new SqlParameter("@pi_fc_id", caseLoan.FcId);
                 sqlParam[1] = new SqlParameter("@pi_servicer_id", caseLoan.ServicerId);
                 sqlParam[2] = new SqlParameter("@pi_other_servicer_name", NullableString(caseLoan.OtherServicerName));
@@ -551,6 +561,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[30] = new SqlParameter("@pi_prior_hamp_ind", caseLoan.PriorHampInd);
                 sqlParam[31] = new SqlParameter("@pi_prin_bal_within_limit_ind", caseLoan.PrinBalWithinLimitInd);
                 sqlParam[32] = new SqlParameter("@pi_hamp_eligible_ind", caseLoan.HampEligibleInd);
+                sqlParam[33] = new SqlParameter("@pi_loss_mit_status_cd", caseLoan.LossMitStatusCd);
                 //</Parameter>
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -822,7 +833,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
                 sqlParam[1] = new SqlParameter("@pi_activity_cd", activityLog.ActivityCd);
                 sqlParam[2] = new SqlParameter("@pi_activity_dt", activityLog.ActivityDt);
-                sqlParam[3] = new SqlParameter("@pi_activity_note", activityLog.ActivityDt);
+                sqlParam[3] = new SqlParameter("@pi_activity_note", activityLog.ActivityNote);
                 sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(activityLog.CreateDate));
                 sqlParam[5] = new SqlParameter("@pi_create_user_id", activityLog.CreateUserId);
                 sqlParam[6] = new SqlParameter("@pi_create_app_name", activityLog.CreateAppName);
@@ -853,7 +864,7 @@ namespace HPF.FutureState.DataAccess
             //<Parameter>
             try
             {
-                var sqlParam = new SqlParameter[112];
+                var sqlParam = new SqlParameter[116];
                 sqlParam[0] = new SqlParameter("@pi_agency_id", foreclosureCase.AgencyId);
                 sqlParam[1] = new SqlParameter("@pi_completed_dt", NullableDateTime(foreclosureCase.CompletedDt));
                 sqlParam[2] = new SqlParameter("@pi_call_id", foreclosureCase.CallId);
@@ -967,7 +978,12 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[109] = new SqlParameter("@pi_mortgage_pmt_ratio", foreclosureCase.MortgagePmtRatio);
                 sqlParam[110] = new SqlParameter("@pi_certificate_id", foreclosureCase.CertificateId);
 
-                sqlParam[111] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
+                sqlParam[111] = new SqlParameter("@pi_counseled_program_id", foreclosureCase.CounseledProgramId);
+                sqlParam[112] = new SqlParameter("@pi_referral_client_num", foreclosureCase.ReferralClientNum);
+                sqlParam[113] = new SqlParameter("@pi_sponsor_id", foreclosureCase.SponsorId);
+                sqlParam[114] = new SqlParameter("@pi_campaign_id", foreclosureCase.CampaignId);
+
+                sqlParam[115] = new SqlParameter("@pi_fc_id", foreclosureCase.FcId);
 
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);

@@ -1,4 +1,5 @@
 ﻿using HPF.FutureState.Common.BusinessLogicInterface;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -16,7 +17,14 @@ namespace HPF.FutureState.BusinessLogic
             if ((refCodeItemCollectionByCode == null || refCodeItemCollectionByCode.Count < 1) && !string.IsNullOrEmpty(codeValue))
                 return false;
             //
-            return refCodeItemCollectionByCode.ContainCode(codeValue);
+            if (!string.IsNullOrEmpty(codeValue))
+            {
+                var codeItem = refCodeItemCollectionByCode.GetRefCodeItemByCode(codeValue);
+                if (codeItem == null || codeItem.ActiveInd == Constant.INDICATOR_NO)
+                    return false;
+            }
+            return true;
+            //return refCodeItemCollectionByCode.ContainCode(codeValue);
         }
     }
 }

@@ -26,8 +26,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         
         public string CallId { get; set; }
 
+        [XmlIgnore]
         [XmlElement(IsNullable = true)]        
-        [RequiredObjectValidator(Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]        
+        //[RequiredObjectValidator(Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]        
         public int? ProgramId { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR0102, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -952,5 +953,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return certificateId; }
             set { certificateId = string.IsNullOrEmpty(value) ? null : value.Trim(); }
         }
+
+        [XmlElement(ElementName = "ProgramId")]        
+        [RequiredObjectValidator(Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
+        public int? CounseledProgramId { get; set; }
+
+        public string ReferralClientNum { get; set; }
+        public int? SponsorId { get; set; }
+        public int? CampaignId { get; set; }
     }
 }

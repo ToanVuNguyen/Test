@@ -54,9 +54,11 @@
     <Compile Include="BatchJobDAO.cs" />
     <Compile Include="BudgetDAO.cs" />
     <Compile Include="CallLogDAO.cs" />
+    <Compile Include="CampaignSponsorProgramDAO.cs" />
     <Compile Include="CaseAuditDAO.cs" />
     <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="CaseFollowUpDAO.cs" />
+    <Compile Include="CounseledProgramDAO.cs" />
     <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="BaseDAO.cs" />
     <Compile Include="RefCodeItemtDAO.cs" />
     <Compile Include="SecurityDAO.cs" />
+    <Compile Include="SponsorDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HPF.FutureState.Common\HPF.FutureState.Common.csproj">

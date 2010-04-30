@@ -71,6 +71,9 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_NONPROFITREFERRALS = "NONPROFITREFERRALS";
         public const string HPF_CACHE_REFCODESET = "REFCODESET";
         public const string HPF_CACHE_MSAREFCODES = "MSAREFCODES";
+        public const string HPF_CACHE_COUNCELED_PROGRAM = "COUNCELEDPROGRAM";
+        public const string HPF_CACHE_CAMPAIGN_SPONSOR_PROGRAM = "CAMPAIGNSPONSORPROGRAM";
+        public const string HPF_CACHE_SPONSOR = "SPONSOR";
 
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";

@@ -19,8 +19,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? RefCodeItemId { get; set; }                                        
         [XmlIgnore]
         public int? SortOrder { get; set; }
+
+        string activeInd;
         [XmlIgnore]
-        public string ActiveInd { get; set; }
+        public string ActiveInd {
+            get { return activeInd; }
+            set { activeInd = string.IsNullOrEmpty(value) ? null : value.Trim().ToUpper(); }
+        }
         //[XmlIgnore]
         //public string AgencyUsageInd { get; set; }
     }

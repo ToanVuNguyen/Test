@@ -496,7 +496,7 @@ namespace HPF.FutureState.BusinessLogic
                 ThrowDataValidationException(ErrorMessages.ERR0251);
             else
             {   //User this data to check data changed or not in Update function and Send FC to queue
-                FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
+                FCaseSetFromDB.CaseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fcId);
                 FCaseSetFromDB.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
                 FCaseSetFromDB.BudgetSet = BudgetBL.Instance.GetBudgetSet(fcId);
                 FCaseSetFromDB.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fcId);
@@ -2060,6 +2060,54 @@ namespace HPF.FutureState.BusinessLogic
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0225, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0225));
             if (!referenceCode.Validate(ReferenceCode.LANGUAGE_CODE, forclosureCase.CounseledLanguageCd))
                 msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0224, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0224));
+
+            //Validate Counseling Program Id
+            if (forclosureCase.CounseledProgramId != null)
+            {
+                CounseledProgramDTOCollection counseledProgramCol = CounseledProgramDAO.Instance.GetCounceledPrograms();
+                CounseledProgramDTO counseledProgram = counseledProgramCol.GetCounseledProgram(forclosureCase.CounseledProgramId.Value);
+                
+                if (counseledProgram == null
+                        || (counseledProgram.StartDt != null && counseledProgram.StartDt.Value > DateTime.Today) //not started
+                        || (counseledProgram.EndDt != null && counseledProgram.EndDt.Value < DateTime.Today))//expired
+                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));                
+            }
+
+            if (forclosureCase.SponsorId != null)
+            {
+                SponsorDTOCollection sponsorCol = SponsorDAO.Instance.GetSponsors();
+                SponsorDTO sponsor = sponsorCol.GetSponsor(forclosureCase.SponsorId.Value);
+                
+                if(sponsor == null
+                    ||(sponsor.EffDt != null && sponsor.EffDt.Value > DateTime.Today)
+                    ||(sponsor.ExpDt != null && sponsor.ExpDt.Value < DateTime.Today))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0284, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0284));                
+
+                if(forclosureCase.CampaignId == null)
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0286, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0286));                
+            }
+
+            if (forclosureCase.CampaignId != null)
+            {
+                CampaignSponsorProgramDTOCollection campaignCol = CampaignSponsorProgramDAO.Instance.GetCampaignSponsorPrograms();
+                CampaignSponsorProgramDTO campaign = campaignCol.GetCampaignSponsorProgram(forclosureCase.CampaignId.Value);
+                CampaignSponsorProgramDTO campaign2 = null;
+                if (forclosureCase.SponsorId != null && forclosureCase.CounseledProgramId != null)
+                    campaign2 = campaignCol.GetCampaignSponsorProgram(forclosureCase.CampaignId.Value, forclosureCase.SponsorId.Value, forclosureCase.CounseledProgramId.Value);
+
+                if (forclosureCase.SponsorId == null)
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0287, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0287));
+                else if (campaign == null
+                    || (campaign.EffDt != null && campaign.EffDt.Value > DateTime.Today)
+                    || (campaign.ExpDt != null && campaign.ExpDt.Value < DateTime.Today))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0285, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0285));
+                else if (campaign2 == null 
+                    || (campaign2.EffDt != null && campaign2.EffDt.Value > DateTime.Today)
+                    ||(campaign2.ExpDt != null && campaign2.ExpDt.Value < DateTime.Today))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0288, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0288));
+                else
+                    forclosureCase.ProgramId = campaign2.ProgramId;                    
+            }
             return msgFcCaseSet;
         }
 
@@ -2091,7 +2139,9 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0223, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0223) + " working on case loan index " + (i + 1));
                 if (!referenceCode.Validate(ReferenceCode.LOAN_LOOKUP_CODE, caseLoan.LoanLookupCd))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0226, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0226) + " working on case loan index " + (i + 1));
-
+                if (!referenceCode.Validate(ReferenceCode.LOSS_MIT_STATUS_CODE, caseLoan.LossMitStatusCd))
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0227, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0227) + " working on case loan index " + (i + 1));
+                
                 if (!CheckValidServicerId(caseLoan.ServicerId))
                 {
                     string msg = string.Format(ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0361), caseLoan.AcctNum);
@@ -2596,7 +2646,7 @@ namespace HPF.FutureState.BusinessLogic
             fcs.ProposedBudgetItems = BudgetBL.Instance.GetProposedBudgetItemSet(fcId);
             fcs.BudgetSet = BudgetBL.Instance.GetBudgetSet(fcId);
             fcs.ProposedBudgetSet = BudgetBL.Instance.GetProposedBudgetSet(fcId);
-            fcs.CaseLoans = CaseLoanBL.Instance.GetCaseLoanCollection(fcId);
+            fcs.CaseLoans = CaseLoanBL.Instance.RetrieveCaseLoan(fcId);
             fcs.Outcome = OutcomeBL.Instance.GetOutcomeItemCollection(fcId);
 
             return fcs;

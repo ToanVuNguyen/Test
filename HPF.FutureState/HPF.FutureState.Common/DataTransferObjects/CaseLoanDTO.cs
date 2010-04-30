@@ -196,7 +196,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LoanLookupCd 
         {
             get { return loanLookupCd; }
-            set { loanLookupCd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { loanLookupCd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string thirtyDaysLatePastYrInd;
@@ -204,7 +204,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ThirtyDaysLatePastYrInd 
         {
             get { return thirtyDaysLatePastYrInd; }
-            set { thirtyDaysLatePastYrInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { thirtyDaysLatePastYrInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string pmtMissLessOneYrLoanInd;
@@ -212,7 +212,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PmtMissLessOneYrLoanInd 
         {
             get { return pmtMissLessOneYrLoanInd; }
-            set { pmtMissLessOneYrLoanInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { pmtMissLessOneYrLoanInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string sufficientIncomeInd;
@@ -220,7 +220,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string SufficientIncomeInd 
         {
             get { return sufficientIncomeInd; }
-            set { sufficientIncomeInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { sufficientIncomeInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string longTermAffordInd;
@@ -228,7 +228,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string LongTermAffordInd 
         {
             get { return longTermAffordInd; }
-            set { longTermAffordInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { longTermAffordInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string harpEligibleInd;
@@ -238,7 +238,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HarpEligibleInd 
         {
             get { return harpEligibleInd; }
-            set { harpEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { harpEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string origPriorTo2009Ind;
@@ -246,7 +246,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string OrigPriorTo2009Ind 
         {
             get { return origPriorTo2009Ind; }
-            set { origPriorTo2009Ind = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { origPriorTo2009Ind = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string priorHampInd;
@@ -254,7 +254,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PriorHampInd 
         {
             get { return priorHampInd; }
-            set { priorHampInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { priorHampInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string prinBalWithinLimitInd;
@@ -262,7 +262,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string PrinBalWithinLimitInd 
         {
             get { return prinBalWithinLimitInd; }
-            set { prinBalWithinLimitInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { prinBalWithinLimitInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
 
         string hampEligibleInd;
@@ -272,7 +272,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string HampEligibleInd 
         {
             get { return hampEligibleInd; }
-            set { hampEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.ToUpper(); }
+            set { hampEligibleInd = (string.IsNullOrEmpty(value)) ? null : value.Trim().ToUpper(); }
         }
+
+        string lossMitStatusCd;
+        public string LossMitStatusCd 
+        {
+            get { return lossMitStatusCd; }
+            set { lossMitStatusCd = string.IsNullOrEmpty(value)?null: value.Trim().ToUpper();}
+        }
+
     }
 }

@@ -167,6 +167,7 @@ namespace HPF.FutureState.Common
         public const string ERR0224 = "ERR0224";
         public const string ERR0225 = "ERR0225";
         public const string ERR0226 = "ERR0226";
+        public const string ERR0227 = "ERR0227";
 
         public const string ERR0250 = "ERR0250";
         public const string ERR0251 = "ERR0251";
@@ -193,6 +194,12 @@ namespace HPF.FutureState.Common
         public const string ERR0272 = "ERR0272";
         public const string ERR0273 = "ERR0273";
         public const string ERR0283 = "ERR0283";
+        public const string ERR0284 = "ERR0284";
+        public const string ERR0285 = "ERR0285";
+        public const string ERR0286 = "ERR0286";
+        public const string ERR0287 = "ERR0287";
+        public const string ERR0288 = "ERR0288";
+        public const string ERR0289 = "ERR0289";
 
         public const string ERR0350 = "ERR0350";
         public const string ERR0351 = "ERR0351";
@@ -643,6 +650,7 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0224, "An invalid code was provided for CounseledLanguageCd");
                 errorMessageDict.Add(ERR0225, "An invalid code was provided for ErcpOutcomeCd.");
                 errorMessageDict.Add(ERR0226, "An invalid code was provided for LoanLookupCd.");
+                errorMessageDict.Add(ERR0227, "An invalid code was provided for LossMitStatusCd.");
 
                 errorMessageDict.Add(ERR0250, "An invalid AgencyID was provided. ");
                 errorMessageDict.Add(ERR0251, "An invalid HPF FcID was provided.  Please correct the FcID and resend the foreclosure case.");
@@ -673,6 +681,13 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR0272, "Invalid CoBorrowerDOB.  The CoBorrower's age must be 12 to 110.");
                 errorMessageDict.Add(ERR0273, "One Loan with a 1ST2NDCd of '1ST' is required to save a foreclosure case.");
                 errorMessageDict.Add(ERR0283, "The CallID provided was not a valid call ID.  The proper format is HPF####, where #### is an integer value that exists in the call table.");
+
+                errorMessageDict.Add(ERR0284, "An invalid SponsorId was provided.");
+                errorMessageDict.Add(ERR0285, "An invalid CampaignId was provided.");
+                errorMessageDict.Add(ERR0286, "A CampaignID is required if a SponsorId is provided.");
+                errorMessageDict.Add(ERR0287, "A SponsorID is required if a CampaignId is provided.");
+                errorMessageDict.Add(ERR0288, "ProgramId, SponsorId, and CampaignId is not a valid combination.");
+                errorMessageDict.Add(ERR0289, "ProgramId requires a SponsorId and CampaignId.");
 
                 errorMessageDict.Add(ERR0350, "A CcCallKey is required to save a call.");
                 errorMessageDict.Add(ERR0351, "A valid StartDt is required to save a call.");
