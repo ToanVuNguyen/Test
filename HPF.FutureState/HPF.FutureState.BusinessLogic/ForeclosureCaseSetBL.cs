@@ -1836,6 +1836,7 @@ namespace HPF.FutureState.BusinessLogic
                         || ConvertStringToUpper(caseLoan.PriorHampInd) != ConvertStringToUpper(item.PriorHampInd)
                         || ConvertStringToUpper(caseLoan.PrinBalWithinLimitInd) != ConvertStringToUpper(item.PrinBalWithinLimitInd)
                         || ConvertStringToUpper(caseLoan.HampEligibleInd) != ConvertStringToUpper(item.HampEligibleInd)
+                        || caseLoan.LossMitStatusCd != item.LossMitStatusCd
                         )
                         return false;
                 }                
@@ -2066,13 +2067,13 @@ namespace HPF.FutureState.BusinessLogic
             {
                 CounseledProgramDTOCollection counseledProgramCol = CounseledProgramDAO.Instance.GetCounceledPrograms();
                 CounseledProgramDTO counseledProgram = counseledProgramCol.GetCounseledProgram(forclosureCase.CounseledProgramId.Value);
-                
+
                 if (counseledProgram == null
                         || (counseledProgram.StartDt != null && counseledProgram.StartDt.Value > DateTime.Today) //not started
-                        || (counseledProgram.EndDt != null && counseledProgram.EndDt.Value < DateTime.Today))//expired
-                        msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));                
+                        || (counseledProgram.EndDt != null && counseledProgram.EndDt.Value < DateTime.Today))//expired                        
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));                
             }
-
+            //Validate Counseling Sponsor Id
             if (forclosureCase.SponsorId != null)
             {
                 SponsorDTOCollection sponsorCol = SponsorDAO.Instance.GetSponsors();
@@ -2087,6 +2088,7 @@ namespace HPF.FutureState.BusinessLogic
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0286, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0286));                
             }
 
+            //Validate Counseling Campaign Id
             if (forclosureCase.CampaignId != null)
             {
                 CampaignSponsorProgramDTOCollection campaignCol = CampaignSponsorProgramDAO.Instance.GetCampaignSponsorPrograms();
@@ -2101,13 +2103,28 @@ namespace HPF.FutureState.BusinessLogic
                     || (campaign.EffDt != null && campaign.EffDt.Value > DateTime.Today)
                     || (campaign.ExpDt != null && campaign.ExpDt.Value < DateTime.Today))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0285, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0285));
-                else if (campaign2 == null 
+                else if (campaign2 == null
                     || (campaign2.EffDt != null && campaign2.EffDt.Value > DateTime.Today)
-                    ||(campaign2.ExpDt != null && campaign2.ExpDt.Value < DateTime.Today))
+                    || (campaign2.ExpDt != null && campaign2.ExpDt.Value < DateTime.Today))
                     msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0288, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0288));
                 else
-                    forclosureCase.ProgramId = campaign2.ProgramId;                    
+                    forclosureCase.ProgramId = campaign2.ProgramId;
             }
+            else 
+            {
+                CounseledProgramDTOCollection counseledProgramCol = CounseledProgramDAO.Instance.GetCounceledPrograms();
+                CounseledProgramDTO counseledProgram = counseledProgramCol.GetCounseledProgram(forclosureCase.CounseledProgramId.Value);
+                
+                if (counseledProgram == null
+                        || (counseledProgram.StartDt != null && counseledProgram.StartDt.Value > DateTime.Today) //not started
+                        || (counseledProgram.EndDt != null && counseledProgram.EndDt.Value < DateTime.Today))//expired                        
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0289, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0289));
+                else if(counseledProgram.ProgramId == null)
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));                
+                else
+                    forclosureCase.ProgramId = counseledProgram.ProgramId;
+            }
+            
             return msgFcCaseSet;
         }
 

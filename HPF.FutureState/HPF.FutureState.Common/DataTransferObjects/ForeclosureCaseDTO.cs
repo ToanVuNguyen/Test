@@ -958,7 +958,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [RequiredObjectValidator(Tag = ErrorMessages.ERR0101, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         public int? CounseledProgramId { get; set; }
 
-        public string ReferralClientNum { get; set; }
+        string referralClientNum;
+        public string ReferralClientNum 
+        {
+            get { return referralClientNum; }
+            set { referralClientNum = string.IsNullOrEmpty(value) ? null : value.Trim(); }
+        }
         public int? SponsorId { get; set; }
         public int? CampaignId { get; set; }
     }
