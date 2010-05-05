@@ -62,10 +62,10 @@
     <Setting Name="MHAHelpList" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MHAHelpList</Value>
     </Setting>
-    <Setting Name="CousellingSummaryAuditLogLoginName" Type="System.String" Scope="Application">
+    <Setting Name="CounselingSummaryAuditLogLoginName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">fpdemo\Administrator</Value>
     </Setting>
-    <Setting Name="CousellingSummaryAuditLogList" Type="System.String" Scope="Application">
+    <Setting Name="CounselingSummaryAuditLogList" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Audit</Value>
     </Setting>
   </Settings>

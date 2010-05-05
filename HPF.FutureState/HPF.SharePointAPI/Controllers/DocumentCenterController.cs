@@ -24,7 +24,7 @@ namespace HPF.SharePointAPI.Controllers
         {             
             try
             {
-                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.DocumentCenterWeb, DocumentCenter.Default.CousellingSummaryAuditLogLoginName);
+                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.DocumentCenterWeb, DocumentCenter.Default.CounselingSummaryAuditLogLoginName);
 
                 List<CounselingSummaryAuditLogInfo> counseling = new List<CounselingSummaryAuditLogInfo>();
                 using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
@@ -32,7 +32,7 @@ namespace HPF.SharePointAPI.Controllers
                     SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];
                     //SPWeb web = site.OpenWeb();
                     web.AllowUnsafeUpdates = true;                 
-                    SPList docLib = web.Lists[DocumentCenter.Default.CousellingSummaryAuditLogList];
+                    SPList docLib = web.Lists[DocumentCenter.Default.CounselingSummaryAuditLogList];
 
                     SPQuery query = new SPQuery();
                     query.Query = "<Where><Neq><FieldRef Name='Completed'/><Value Type='Boolean'>1</Value></Neq></Where>";
