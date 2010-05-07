@@ -266,6 +266,7 @@
     <Compile Include="Utils\DataValidator\YesNoIndicatorValidator.cs" />
     <Compile Include="Utils\DataValidator\YesNoIndicatorValidatorAttribute.cs" />
     <Compile Include="Utils\ExcelFileReader.cs" />
+    <Compile Include="Utils\ExcelFileWriter.cs" />
     <Compile Include="Utils\Exceptions\ExcelFileReaderException.cs" />
     <Compile Include="Utils\Exceptions\AuthenticationException.cs" />
     <Compile Include="Utils\Exceptions\DataAccessException.cs" />

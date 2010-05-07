@@ -16,6 +16,14 @@ namespace HPF.FutureState.BatchManager
         {
             try
             {
+                if (args.Length >= 3 && args[0] == "-CompletedCounselingDetailReport")
+                {
+                    DateTime startDate = DateTime.Parse(args[1]);
+                    DateTime endDate = DateTime.Parse(args[2]);
+                    Console.WriteLine("Exporting excel in progress...");
+                    BatchJobBL.Instance.GenerateCompletedCounselingDetailReportTest(startDate, endDate);                    
+                    return;
+                }
                 BatchJobBL.Instance.ProcessBatchJobs();
             }
             catch (HPFException Ex)

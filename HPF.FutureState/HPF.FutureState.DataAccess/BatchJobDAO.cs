@@ -10,6 +10,8 @@ using System.Data.SqlClient;
 using HPF.FutureState.Common;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.Utils;
+using System.Collections.ObjectModel;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -575,6 +577,136 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
+        }
+
+        public int GetCompletedCounselingDetailReportData(string filename, DateTime fromDate, DateTime toDate)
+        {
+            int count = 0, sheetCount =1;           
+            string sheetName = "Completed Counseling Detail";
+            string[] dataHeaders = new string[]{"HPF Case ID","Agency","Agency Case Num","Agency Client Num","Counselor First Name","Counselor Last Name",
+                    "Program","Intake Date","Call ID","Case Source","Counseling Duration","Primary Default Reason",
+                    "Secondary Default Reason","Borrower First Name","Borrower Last Name",
+                    "Mothers Maiden Name","Borrower Last4 SSN","Borrower DOB", "Gender",
+                    "Race","Hispanic Ind","Marital Status","Education Level Completed","Military Service",	"Borrower Disabled Ind","Primary Contact No",
+                    "Secondary Contact No","Email Address","Co-borrower First Name","Co-borrower Last Name",
+                    "Co-borrower Last4 SSN","Co-borrower DOB","Household","Occupants","Owner Occupied Ind",
+                    "Income Earners","Household Gross Annual Income","Intake Credit Score","Property Address Line 1","Property Address Line 2",
+                    "Property City","Property State","Property Zip","Servicer Consent Ind","Summary Sent Other Method",
+                    "Summary Sent Other Date","Summary Sent Date","Servicer Name","Account Num",
+                    "Mortgage Type","ARM Reset Ind","Interest Rate","Term Length","Current Loan Balance",
+                    "Loan Delinquency Status","FC Notice Received Ind","HUD Termination Reason",
+                    "HUD Termination Date","HUD Outcome","Outcome 1","Outcome 2","Outcome 3"};
+            Collection<ExcelDataRow> results = new Collection<ExcelDataRow>();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_rpt_CompletedCounselingDetail", dbConnection);
+            var sqlParam = new SqlParameter[4];
+            sqlParam[0] = new SqlParameter("@pi_agency_id", -1);
+            sqlParam[1] = new SqlParameter("@pi_program_id", -1);
+            sqlParam[2] = new SqlParameter("@pi_from_dt", fromDate);
+            sqlParam[3] = new SqlParameter("@pi_to_dt", toDate);
+
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {                    
+                    ExcelDataRow item = new ExcelDataRow();
+                    item.Columns = new Collection<string>();
+                    item.Columns.Add(ConvertToString(reader["fc_id"]));
+                    item.Columns.Add(ConvertToString(reader["agency_name"]));
+                    item.Columns.Add(ConvertToString(reader["agency_case_num"]));
+                    item.Columns.Add(ConvertToString(reader["agency_client_num"]));                    
+                    item.Columns.Add(ConvertToString(reader["counselor_fname"]));
+                    item.Columns.Add(ConvertToString(reader["counselor_lname"]));
+                    item.Columns.Add(ConvertToString(reader["program_name"])); 
+                    item.Columns.Add(ConvertToString(reader["intake_dt"]));
+                    item.Columns.Add(ConvertToString(reader["call_id"]));  
+                    item.Columns.Add(ConvertToString(reader["case_source_cd"]));
+                    item.Columns.Add(ConvertToString(reader["counseling_duration_cd"]));
+                    item.Columns.Add(ConvertToString(reader["dflt_reason_1st_cd"]));
+                    item.Columns.Add(ConvertToString(reader["dflt_reason_2nd_cd"]));
+                    item.Columns.Add(ConvertToString(reader["borrower_fname"]));
+                    item.Columns.Add(ConvertToString(reader["borrower_lname"]));
+                    item.Columns.Add(ConvertToString(reader["mother_maiden_lname"]));
+                    item.Columns.Add(ConvertToString(reader["borrower_last4_ssn"]));
+                    item.Columns.Add(ConvertToString(reader["borrower_dob"]));
+                    item.Columns.Add(ConvertToString(reader["gender_cd"]));
+                    item.Columns.Add(ConvertToString(reader["race_cd"]));
+                    item.Columns.Add(ConvertToString(reader["hispanic_ind"]));
+                    item.Columns.Add(ConvertToString(reader["borrower_marital_status_cd"]));
+                    item.Columns.Add(ConvertToString(reader["borrower_educ_level_completed_cd"]));                    
+                    item.Columns.Add(ConvertToString(reader["military_service_cd"]));                                                                                                    
+                    item.Columns.Add(ConvertToString(reader["borrower_disabled_ind"]));
+                    item.Columns.Add(ConvertToString(reader["primary_contact_no"]));
+                    item.Columns.Add(ConvertToString(reader["second_contact_no"]));
+                    item.Columns.Add(ConvertToString(reader["email_1"]));                    
+                    item.Columns.Add(ConvertToString(reader["co_borrower_fname"]));
+                    item.Columns.Add(ConvertToString(reader["co_borrower_lname"]));
+                    item.Columns.Add(ConvertToString(reader["co_borrower_last4_ssn"]));
+                    item.Columns.Add(ConvertToString(reader["co_borrower_dob"]));
+                    item.Columns.Add(ConvertToString(reader["household_cd"])); 
+                    item.Columns.Add(ConvertToString(reader["occupant_num"]));
+                    item.Columns.Add(ConvertToString(reader["owner_occupied_ind"]));
+                    item.Columns.Add(ConvertToString(reader["income_earners_cd"]));                    
+                    item.Columns.Add(ConvertToString(reader["household_gross_annual_income_amt"]));
+                    item.Columns.Add(ConvertToString(reader["intake_credit_score"]));
+                    item.Columns.Add(ConvertToString(reader["prop_addr1"]));
+                    item.Columns.Add(ConvertToString(reader["prop_addr2"]));
+                    item.Columns.Add(ConvertToString(reader["prop_city"]));
+                    item.Columns.Add(ConvertToString(reader["prop_state_cd"]));
+                    item.Columns.Add(ConvertToString(reader["prop_zip"]));
+                    item.Columns.Add(ConvertToString(reader["servicer_consent_ind"]));
+                    item.Columns.Add(ConvertToString(reader["summary_sent_other_cd"]));
+                    item.Columns.Add(ConvertToString(reader["summary_sent_other_dt"]));
+                    item.Columns.Add(ConvertToString(reader["summary_sent_dt"]));
+                    item.Columns.Add(ConvertToString(reader["servicer_name"]));
+                    item.Columns.Add(ConvertToString(reader["acct_num"]));
+                    item.Columns.Add(ConvertToString(reader["mortgage_type_cd"]));
+                    item.Columns.Add(ConvertToString(reader["arm_reset_ind"]));
+                    item.Columns.Add(ConvertToString(reader["interest_rate"]));
+                    item.Columns.Add(ConvertToString(reader["term_length_cd"]));
+                    item.Columns.Add(ConvertToString(reader["current_loan_balance_amt"]));
+                    item.Columns.Add(ConvertToString(reader["loan_delinq_status_cd"]));
+                    item.Columns.Add(ConvertToString(reader["fc_notice_received_ind"]));
+                    item.Columns.Add(ConvertToString(reader["hud_termination_reason_cd"]));
+                    item.Columns.Add(ConvertToString(reader["hud_termination_dt"]));
+                    item.Columns.Add(ConvertToString(reader["hud_outcome_cd"]));
+                    item.Columns.Add(ConvertToString(reader["outcome_1"]));
+                    item.Columns.Add(ConvertToString(reader["outcome_2"]));
+                    item.Columns.Add(ConvertToString(reader["outcome_3"]));                                        
+                    results.Add(item);
+
+                    if (results.Count >= ExcelFileWriter.PAGE_ROW_COUNT)
+                    {
+                        count += count;
+                        Console.WriteLine("Writing data into sheet " + sheetName + sheetCount+ "...");
+                        ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
+                        Console.WriteLine("Compled Writing data into sheet. Continue reading data...");
+                        results.Clear();                        
+                    }
+                }
+
+                if (results.Count >=0)
+                {
+                    count += count;
+                    Console.WriteLine("Writing data into sheet " + sheetName + sheetCount + "...");
+                    ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
+                    Console.WriteLine("Compled Writing data into sheet");
+                    results.Clear();
+                }                
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+
+            return count;  
         }
     }
 }

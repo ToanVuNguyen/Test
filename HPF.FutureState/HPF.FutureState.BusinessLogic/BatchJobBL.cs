@@ -10,6 +10,9 @@ using HPF.FutureState.Common.Utils;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
+using System.Collections.ObjectModel;
+using System.Windows.Forms;
+using System.IO;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -269,6 +272,28 @@ namespace HPF.FutureState.BusinessLogic
 
             HPFPortalGateway.SendCompletedCounselingDetailReport(counselingDetail);
             return 1;
+        }
+
+        public int GenerateCompletedCounselingDetailReportTest(DateTime startDate, DateTime endDate)
+        {            
+            string filename = Application.StartupPath + @"\Temp\Completed Counseling Detail " + startDate.ToString("MM_dd_yyyy") + " to " + endDate.ToString("MM_dd_yyyy") + ".xls";
+            string template = Application.StartupPath + @"\Templates\Template.xls";       
+            string[] headers = new string[] { "Report Date", "Agency", "From Date", "To Date" };
+            
+            if (File.Exists(template))
+                File.Copy(template, filename, true);
+
+            Collection<ExcelDataRow> rows = new Collection<ExcelDataRow>();
+            ExcelDataRow row = new ExcelDataRow();
+            row.Columns = new System.Collections.ObjectModel.Collection<string>();
+            row.Columns.Add(DateTime.Today.ToShortDateString());
+            row.Columns.Add("All");
+            row.Columns.Add(startDate.ToShortDateString());
+            row.Columns.Add(endDate.ToShortDateString());
+            rows.Add(row);
+            ExcelFileWriter.PutToExcel(filename, "Header", headers, rows);
+
+            return BatchJobDAO.Instance.GetCompletedCounselingDetailReportData(filename, startDate, endDate);            
         }
     }
 }

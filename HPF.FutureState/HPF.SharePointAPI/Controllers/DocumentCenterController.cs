@@ -70,6 +70,7 @@ namespace HPF.SharePointAPI.Controllers
             }
             catch (Exception ex)
             {
+                WriteLog("----------------\n" + System.DateTime.Now.ToString() + "--" + ex.Message + "\n" + ex.StackTrace + "--user:" + DocumentCenter.Default.CounselingSummaryAuditLogLoginName);
                 throw ex;
             }            
         }
