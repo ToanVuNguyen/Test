@@ -253,18 +253,26 @@ namespace CustomEditWebpart
                                 "       }" +
                                 "   }" +
                                 "}" +
-                                "function getCheckedValue(radioObj) {" +
+                                "function findLableForControlText(idVal) {" +
+                               "    labels = document.getElementsByTagName('label');" +
+                               "    for( var i = 0; i < labels.length; i++ ) {"+
+                               "        if (labels[i].htmlFor == idVal)"+
+                               "            return labels[i].innerText;"+
+                               "    }"+
+                               "    return '';"+
+                               "}"+       
+                                "function getCheckedRadioId(radioObj) {" +
                                 "	if(!radioObj)" +
                                 "		return '';" +
                                 "	var radioLength = radioObj.length;" +
                                 "	if(radioLength == undefined)" +
                                 "		if(radioObj.checked)" +
-                                "			return radioObj.value;" +
+                                "			return radioObj.id;" +
                                 "		else" +
                                 "			return '';" +
                                 "	for(var i = 0; i < radioLength; i++) {" +
                                 "		if(radioObj[i].checked) {" +
-                                "			return radioObj[i].value;" +
+                                "			return radioObj[i].id;" +
                                 "		}" +
                                 "	}" +
                                 "	return '';" +
@@ -282,11 +290,15 @@ namespace CustomEditWebpart
                                 "function EditFormSelectionController(radioId, textBoxId) {" +
                                 "   var radio = document.getElementById(radioId);" +
                                 "   attachEventListener(radio, 'click', function(e) {" +
-                                "    textBox = document.getElementById(textBoxId);" +
-                                "    var curDate = new Date();" +
-                                "    var stringDate = (curDate.getMonth() + 1) + '/' + curDate.getDate() + '/' + curDate.getFullYear();" +
-                                "    if (textBox.value =='')" +
-                                "        textBox.value = stringDate;" +
+                                "       id = getCheckedRadioId(radio);"+
+                                "       selText = findLableForControlText(id);" + 
+                                "       textBox = document.getElementById(textBoxId);" +
+                                "       var curDate = new Date();" +
+                                "       var stringDate = (curDate.getMonth() + 1) + '/' + curDate.getDate() + '/' + curDate.getFullYear();" +
+                                "       if(selText == 'Pending FLUP')" +
+                                "           textBox.value = '';" +
+                                "       else if (textBox.value =='')" +
+                                "           textBox.value = stringDate;" +
                                 "   });" +
                                 "}" +
                                 "function EditFormController3(dropDownId, textBoxId) {" +
@@ -317,7 +329,7 @@ namespace CustomEditWebpart
                                 "   attachEventListener(ctrl, 'click', function(e3) {" +
                                 "       return false;" +
                                 "   });" +
-                //"   ctrl.disabled = true;" +
+                              //"   ctrl.disabled = true;" +
                                 "}" +
                                 "function clickDatePicker(a, b, c){" +
                                 "   var date;" +
