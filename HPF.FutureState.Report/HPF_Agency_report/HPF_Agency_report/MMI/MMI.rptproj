@@ -14,16 +14,16 @@
       <MimeType>image/gif</MimeType>
     </ResourceProjectItem>
     <ProjectItem>
+      <Name>rpt_CaseFundingReport.rdl</Name>
+      <FullPath>rpt_CaseFundingReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_CompletedCounselingDetail.rdl</Name>
       <FullPath>rpt_CompletedCounselingDetail.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>rpt_CounselingSummary.rdl</Name>
       <FullPath>rpt_CounselingSummary.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_CaseFundingReport.rdl</Name>
-      <FullPath>rpt_CaseFundingReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
