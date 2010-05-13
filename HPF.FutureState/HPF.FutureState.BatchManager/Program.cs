@@ -15,23 +15,29 @@ namespace HPF.FutureState.BatchManager
     {
         static void Main(string[] args)
         {
-
-            if (args.Length > 0 && args[0] == "-CompletedCounselingDetailReport") //in testing
+            try
             {
-                if (args.Length != 3)
+                if (args.Length > 0 && args[0] == "-CompletedCounselingDetailReport") //in testing
                 {
-                    Console.WriteLine("Invalid argumnets...");
-                    Console.WriteLine("-CompletedCounselingDetailReport startDate endDate");
+                    if (args.Length != 3)
+                    {
+                        Console.WriteLine("Invalid argumnets...");
+                        Console.WriteLine("-CompletedCounselingDetailReport startDate endDate");
+                        return;
+                    }
+                    DateTime startDate = DateTime.Parse(args[1]);
+                    DateTime endDate = DateTime.Parse(args[2]);
+                    Console.WriteLine("Exporting excel in progress...");
+                    BatchJobBL.Instance.GenerateCompletedCounselingDetailReportTest(startDate, endDate);
                     return;
                 }
-                DateTime startDate = DateTime.Parse(args[1]);
-                DateTime endDate = DateTime.Parse(args[2]);
-                Console.WriteLine("Exporting excel in progress...");
-                BatchJobBL.Instance.GenerateCompletedCounselingDetailReportTest(startDate, endDate);
-                return;
-            }
 
-            BatchJobBL.Instance.ProcessBatchJobs();
+                BatchJobBL.Instance.ProcessBatchJobs();
+            }
+            catch (Exception ex)
+            {
+                ExceptionProcessor.HandleException(ex);
+            }
         }     
     }
 }
