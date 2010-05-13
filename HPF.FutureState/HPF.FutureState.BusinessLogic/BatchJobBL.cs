@@ -39,13 +39,20 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         public void ProcessBatchJobs()
         {            
-            BatchJobDTOCollection batchJobs = BatchJobDAO.Instance.ReadBatchJobs();
-            int rowCount = 0;
+            BatchJobDTOCollection batchJobs = BatchJobDAO.Instance.ReadBatchJobs();            
             
             foreach (BatchJobDTO job in batchJobs)
             {
                 if (!DetermineTodayBatchJob(job)) continue;
+                ProcessBatchJob(job);           
+            }
+        }
 
+        public void ProcessBatchJob(BatchJobDTO job)
+        {
+            int rowCount = 0;
+            try
+            {
                 if (job.JobName.Equals(Constant.SERVICER_DAILY_SUMMARY))
                     rowCount = GenerateServicerDailySummary(job);
                 else if (job.JobName.Equals(Constant.FANNIE_MAE_WEEKLY_REPORT))
@@ -60,14 +67,28 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportAuditLog();
                 else if (job.JobName.Equals(Constant.COMPLETED_COUNSELING_DETAIL_REPORT))
                     rowCount = SendCompletedCounselingDetailReportToPortal(job);
-                else
-                    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
-                
+                else return;
+                //    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
+
                 InsertBatchJobLog(job, rowCount, Status.SUCCESS);
                 UpdateBatchJobStartAndLastRunDates(job);                
             }
-        }
+            catch(Exception Ex)
+            {
+                //Log Error down the text file
+                ExceptionProcessor.HandleException(Ex);
+                //Send E-mail to support
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = "Batch Manager Error: found error in batch job id " + job.BatchJobId,
+                    Body = "Messsage: " + Ex.Message + "\nTrace: " + Ex.StackTrace
+                };
+                mail.Send();
+            }
 
+        }
         private bool DetermineTodayBatchJob(BatchJobDTO batchJobs)
         {            
             return DateTime.Today.Year.Equals(batchJobs.JobStartDate.Year) &&

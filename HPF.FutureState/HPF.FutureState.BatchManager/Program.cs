@@ -7,6 +7,7 @@ using HPF.FutureState.Common;
 using HPF.FutureState.Common.Utils;
 using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
+using HPF.FutureState.Common.DataTransferObjects;
 
 namespace HPF.FutureState.BatchManager
 {
@@ -14,32 +15,23 @@ namespace HPF.FutureState.BatchManager
     {
         static void Main(string[] args)
         {
-            try
+
+            if (args.Length > 0 && args[0] == "-CompletedCounselingDetailReport") //in testing
             {
-                if (args.Length >= 3 && args[0] == "-CompletedCounselingDetailReport")
+                if (args.Length != 3)
                 {
-                    DateTime startDate = DateTime.Parse(args[1]);
-                    DateTime endDate = DateTime.Parse(args[2]);
-                    Console.WriteLine("Exporting excel in progress...");
-                    BatchJobBL.Instance.GenerateCompletedCounselingDetailReportTest(startDate, endDate);                    
+                    Console.WriteLine("Invalid argumnets...");
+                    Console.WriteLine("-CompletedCounselingDetailReport startDate endDate");
                     return;
                 }
-                BatchJobBL.Instance.ProcessBatchJobs();
+                DateTime startDate = DateTime.Parse(args[1]);
+                DateTime endDate = DateTime.Parse(args[2]);
+                Console.WriteLine("Exporting excel in progress...");
+                BatchJobBL.Instance.GenerateCompletedCounselingDetailReportTest(startDate, endDate);
+                return;
             }
-            catch (HPFException Ex)
-            {
-                //Log Error down the text file
-                ExceptionProcessor.HandleException(Ex);
-                //Send E-mail to support
-                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
-                var mail = new HPFSendMail
-                {
-                    To = hpfSupportEmail,
-                    Subject = "Batch Manager Error: found error in batch job id " + Ex.GetBatchJobId(),
-                    Body = "Messsage: " + Ex.Message + "\nTrace: " + Ex.StackTrace
-                };
-                mail.Send();
-            }
-        }                        
+
+            BatchJobBL.Instance.ProcessBatchJobs();
+        }     
     }
 }
