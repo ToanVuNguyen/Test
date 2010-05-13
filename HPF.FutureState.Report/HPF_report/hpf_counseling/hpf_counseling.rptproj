@@ -51,6 +51,10 @@
       <FullPath>rpt_CompletedCounselingDetail.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_CompletedCounselingDetail_dynamic.rdl</Name>
+      <FullPath>rpt_CompletedCounselingDetail_dynamic.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_Congressional_District_Report.rdl</Name>
       <FullPath>rpt_Congressional_District_Report.rdl</FullPath>
     </ProjectItem>
@@ -95,6 +99,10 @@
       <FullPath>rpt_MHAReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_Monthly_Servicer_Invoice_Report.rdl</Name>
+      <FullPath>rpt_Monthly_Servicer_Invoice_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_OutreachReport.rdl</Name>
       <FullPath>rpt_OutreachReport.rdl</FullPath>
     </ProjectItem>
@@ -109,10 +117,6 @@
     <ProjectItem>
       <Name>rpt_Servicer_Funding_Report.rdl</Name>
       <FullPath>rpt_Servicer_Funding_Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>rpt_Monthly_Servicer_Invoice_Report.rdl</Name>
-      <FullPath>rpt_Monthly_Servicer_Invoice_Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

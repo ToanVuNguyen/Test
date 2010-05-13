@@ -4,6 +4,6 @@
   <DataSourceID>81e93b1c-2cc9-40d1-a183-cd29fb855d06</DataSourceID>
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=192.168.1.11;Initial Catalog=hpf</ConnectString>
+    <ConnectString>Data Source=hpf-01;Initial Catalog=hpf</ConnectString>
   </ConnectionProperties>
 </RptDataSource>
