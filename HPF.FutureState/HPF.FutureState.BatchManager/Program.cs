@@ -37,6 +37,16 @@ namespace HPF.FutureState.BatchManager
             catch (Exception ex)
             {
                 ExceptionProcessor.HandleException(ex);
+
+                //Send E-mail to support
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = "Batch Manager Error",
+                    Body = "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                };
+                mail.Send();
             }
         }     
     }
