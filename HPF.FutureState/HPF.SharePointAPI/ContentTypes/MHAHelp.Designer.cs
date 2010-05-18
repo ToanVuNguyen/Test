@@ -346,5 +346,23 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["HandleTimeMins"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MHA Help Reason-old")]
+        public string MHAHelpReasonOld {
+            get {
+                return ((string)(this["MHAHelpReasonOld"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MHA Help Resolution-old")]
+        public string MHAHelpResolutionOld {
+            get {
+                return ((string)(this["MHAHelpResolutionOld"]));
+            }
+        }
     }
 }

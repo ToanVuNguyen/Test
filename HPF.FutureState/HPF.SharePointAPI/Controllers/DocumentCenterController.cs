@@ -200,9 +200,18 @@ namespace HPF.SharePointAPI.Controllers
                         mhaInfo.ItemModifiedUser = (string)item[MHAHelp.Default.ItemModifiedUser]; trackingName = MHAHelp.Default.LastName;
                         mhaInfo.LastName = (string)item[MHAHelp.Default.LastName]; trackingName = MHAHelp.Default.LoanNumber;
                         mhaInfo.LoanNumber = (string)item[MHAHelp.Default.LoanNumber]; trackingName = MHAHelp.Default.MHAConversionCampaignFields;
-                        mhaInfo.MHAConversionCampainFields = (string)item[MHAHelp.Default.MHAConversionCampaignFields]; trackingName = MHAHelp.Default.MHAHelpReason;
-                        mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReason]; trackingName = MHAHelp.Default.MHAHelpResolution;
-                        mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolution]; trackingName = MHAHelp.Default.MMICaseId;
+                        mhaInfo.MHAConversionCampainFields = (string)item[MHAHelp.Default.MHAConversionCampaignFields]; trackingName = MHAHelp.Default.MHAHelpReasonOld;
+                        mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReasonOld]; trackingName = MHAHelp.Default.MHAHelpResolutionOld;
+                        mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolutionOld]; trackingName = MHAHelp.Default.MHAHelpReason;
+
+                        if (string.IsNullOrEmpty(mhaInfo.MHAHelpReason))
+                        {
+                            mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReason]; trackingName = MHAHelp.Default.MHAHelpResolution;
+                        }
+                        if (string.IsNullOrEmpty(mhaInfo.MHAHelpResolution))
+                        {
+                            mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolution]; trackingName = MHAHelp.Default.MMICaseId;
+                        }
                         mhaInfo.MMICaseId = (string)item[MHAHelp.Default.MMICaseId]; trackingName = MHAHelp.Default.Phone;
                         mhaInfo.Phone = (string)item[MHAHelp.Default.Phone]; trackingName = MHAHelp.Default.PrivacyConsent;
                         mhaInfo.PrivacyConsent = (string)item[MHAHelp.Default.PrivacyConsent]; trackingName = MHAHelp.Default.Servicer;
