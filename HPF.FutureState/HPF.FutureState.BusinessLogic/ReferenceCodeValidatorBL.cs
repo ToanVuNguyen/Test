@@ -20,7 +20,7 @@ namespace HPF.FutureState.BusinessLogic
             if (!string.IsNullOrEmpty(codeValue))
             {
                 var codeItem = refCodeItemCollectionByCode.GetRefCodeItemByCode(codeValue);
-                if (codeItem == null || codeItem.ActiveInd == Constant.INDICATOR_NO)
+                if (codeItem == null || codeItem.ActiveInd != Constant.INDICATOR_YES)
                     return false;
             }
             return true;
