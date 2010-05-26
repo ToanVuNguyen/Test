@@ -28,8 +28,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         [XmlIgnore]
         public string ServicerName { get; set; }
 
+        string otherServicerName;
         [NullableOrStringLengthValidator(true, 50, "Other Servicer Name", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR0057)]
-        public string OtherServicerName { get; set; }
+        public string OtherServicerName 
+        { 
+            get{return otherServicerName;}
+            set{otherServicerName = string.IsNullOrEmpty(value)?null:value.Trim();} 
+        }
 
         string _acctNum = null;
         [StringRequiredValidator(Tag = ErrorMessages.ERR0128, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
