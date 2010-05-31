@@ -27,8 +27,11 @@ namespace HPF.FutureState.BatchManager
                     }
                     DateTime startDate = DateTime.Parse(args[1]);
                     DateTime endDate = DateTime.Parse(args[2]);
+                    string spFolder = null;
+                    if (args.Length >= 4)
+                        spFolder = args[3];
                     Console.WriteLine("Exporting excel in progress...");
-                    BatchJobBL.Instance.GenerateCompletedCounselingDetailReportTest(startDate, endDate);
+                    BatchJobBL.Instance.GenerateCompletedCounselingDetailReport(startDate, endDate, spFolder);
                     return;
                 }
 

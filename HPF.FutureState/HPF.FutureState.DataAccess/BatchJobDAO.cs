@@ -583,7 +583,7 @@ namespace HPF.FutureState.DataAccess
         {
             int count = 0, sheetCount =1;           
             string sheetName = "Completed Counseling Detail";
-            string[] dataHeaders = new string[]{"HPF Case ID","Agency","Agency Case Num","Agency Client Num","Counselor First Name","Counselor Last Name",
+            string[] dataHeaders = new string[]{"HPF Case ID","Agency","Completed Date","Agency Case Num","Agency Client Num","Counselor First Name","Counselor Last Name",
                     "Program","Intake Date","Call ID","Case Source","Counseling Duration","Primary Default Reason",
                     "Secondary Default Reason","Borrower First Name","Borrower Last Name",
                     "Mothers Maiden Name","Borrower Last4 SSN","Borrower DOB", "Gender",
@@ -591,7 +591,7 @@ namespace HPF.FutureState.DataAccess
                     "Secondary Contact No","Email Address","Co-borrower First Name","Co-borrower Last Name",
                     "Co-borrower Last4 SSN","Co-borrower DOB","Household","Occupants","Owner Occupied Ind",
                     "Income Earners","Household Gross Annual Income","Intake Credit Score","Property Address Line 1","Property Address Line 2",
-                    "Property City","Property State","Property Zip","Servicer Consent Ind","Summary Sent Other Method",
+                    "Property City","Property State","Property Zip","Servicer Consent Ind","Funding Consent Ind","Summary Sent Other Method",
                     "Summary Sent Other Date","Summary Sent Date","Servicer Name","Account Num",
                     "Mortgage Type","ARM Reset Ind","Interest Rate","Term Length","Current Loan Balance",
                     "Loan Delinquency Status","FC Notice Received Ind","HUD Termination Reason",
@@ -616,6 +616,7 @@ namespace HPF.FutureState.DataAccess
                     item.Columns = new Collection<string>();
                     item.Columns.Add(ConvertToString(reader["fc_id"]));
                     item.Columns.Add(ConvertToString(reader["agency_name"]));
+                    item.Columns.Add(ConvertToString(reader["completed_dt"]));
                     item.Columns.Add(ConvertToString(reader["agency_case_num"]));
                     item.Columns.Add(ConvertToString(reader["agency_client_num"]));                    
                     item.Columns.Add(ConvertToString(reader["counselor_fname"]));
@@ -658,6 +659,7 @@ namespace HPF.FutureState.DataAccess
                     item.Columns.Add(ConvertToString(reader["prop_state_cd"]));
                     item.Columns.Add(ConvertToString(reader["prop_zip"]));
                     item.Columns.Add(ConvertToString(reader["servicer_consent_ind"]));
+                    item.Columns.Add(ConvertToString(reader["funding_consent_ind"]));
                     item.Columns.Add(ConvertToString(reader["summary_sent_other_cd"]));
                     item.Columns.Add(ConvertToString(reader["summary_sent_other_dt"]));
                     item.Columns.Add(ConvertToString(reader["summary_sent_dt"]));
@@ -681,9 +683,9 @@ namespace HPF.FutureState.DataAccess
                     if (results.Count >= ExcelFileWriter.PAGE_ROW_COUNT)
                     {
                         count += count;
-                        Console.WriteLine("Writing data into sheet " + sheetName + sheetCount+ "...");
+                        //Console.WriteLine("Writing data into sheet " + sheetName + sheetCount+ "...");
                         ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
-                        Console.WriteLine("Compled Writing data into sheet. Continue reading data...");
+                        //Console.WriteLine("Compled Writing data into sheet. Continue reading data...");
                         results.Clear();                        
                     }
                 }
@@ -691,9 +693,9 @@ namespace HPF.FutureState.DataAccess
                 if (results.Count >=0)
                 {
                     count += count;
-                    Console.WriteLine("Writing data into sheet " + sheetName + sheetCount + "...");
+                    //Console.WriteLine("Writing data into sheet " + sheetName + sheetCount + "...");
                     ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
-                    Console.WriteLine("Compled Writing data into sheet");
+                    //Console.WriteLine("Compled Writing data into sheet");
                     results.Clear();
                 }                
             }

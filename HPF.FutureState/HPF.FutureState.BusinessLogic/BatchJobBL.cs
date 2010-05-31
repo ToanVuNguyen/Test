@@ -280,44 +280,60 @@ namespace HPF.FutureState.BusinessLogic
         }
 
         public int SendCompletedCounselingDetailReportToPortal(BatchJobDTO batchjob)
-        {
-            CompletedCounselingDetailReportCriteriaDTO criteria = new CompletedCounselingDetailReportCriteriaDTO();
-            criteria.AgencyId = -1;
-            criteria.ProgramId = -1;
-            criteria.FromDate = new DateTime(batchjob.JobStartDate.Year, batchjob.JobStartDate.Month, 1).AddMonths(-1);            
-            criteria.ToDate = new DateTime(batchjob.JobStartDate.Year, batchjob.JobStartDate.Month, 1).AddDays(-1);            
-            
-            HPFPortalCompletedCounselingDetail counselingDetail = new HPFPortalCompletedCounselingDetail();
-            counselingDetail.SPFolderName = batchjob.OutputDestination;
-            counselingDetail.ReportFile = SummaryReportBL.Instance.GenerateCompletedCouncellingDetailReport(criteria, ReportFormat.EXCEL);
-            counselingDetail.ReportFilename = string.Format("Counseling_from_{0}-{1}-{2}_to_{3}-{4}-{5}.xls",
-                                            criteria.FromDate.Month, criteria.FromDate.Day, criteria.FromDate.Year,
-                                            criteria.ToDate.Month, criteria.ToDate.Day, criteria.ToDate.Year);
+        {            
+            DateTime startDate = batchjob.LastJobEndDate.AddDays(1); //new DateTime(batchjob.JobStartDate.Year, batchjob.JobStartDate.Month, 1).AddMonths(-1);            
+            DateTime endDate = new DateTime(batchjob.LastJobEndDate.Year, batchjob.LastJobEndDate.Month, 1).AddMonths(2).AddDays(-1);
 
-            HPFPortalGateway.SendCompletedCounselingDetailReport(counselingDetail);
-            return 1;
+            return GenerateCompletedCounselingDetailReport(startDate, endDate, batchjob.OutputDestination);
         }
 
-        public int GenerateCompletedCounselingDetailReportTest(DateTime startDate, DateTime endDate)
-        {            
+        public int GenerateCompletedCounselingDetailReport(DateTime startDate, DateTime endDate, string spFolder)
+        {
             string filename = Application.StartupPath + @"\Temp\Completed Counseling Detail " + startDate.ToString("MM_dd_yyyy") + " to " + endDate.ToString("MM_dd_yyyy") + ".xls";
-            string template = Application.StartupPath + @"\Templates\Template.xls";       
-            string[] headers = new string[] { "Report Date", "Agency", "From Date", "To Date" };
-            
+            string template = Application.StartupPath + @"\Templates\Template.xls";
+
             if (File.Exists(template))
                 File.Copy(template, filename, true);
+            else if (File.Exists(filename))
+                File.Delete(filename);
 
-            Collection<ExcelDataRow> rows = new Collection<ExcelDataRow>();
-            ExcelDataRow row = new ExcelDataRow();
-            row.Columns = new System.Collections.ObjectModel.Collection<string>();
-            row.Columns.Add(DateTime.Today.ToShortDateString());
-            row.Columns.Add("All");
-            row.Columns.Add(startDate.ToShortDateString());
-            row.Columns.Add(endDate.ToShortDateString());
-            rows.Add(row);
-            ExcelFileWriter.PutToExcel(filename, "Header", headers, rows);
+            int count = BatchJobDAO.Instance.GetCompletedCounselingDetailReportData(filename, startDate, endDate);
 
-            return BatchJobDAO.Instance.GetCompletedCounselingDetailReportData(filename, startDate, endDate);            
+            if (!string.IsNullOrEmpty(spFolder))
+            {
+                HPFPortalCompletedCounselingDetail counselingDetail = new HPFPortalCompletedCounselingDetail();
+                counselingDetail.SPFolderName = spFolder;
+                counselingDetail.ReportFile = ReadFile(filename);
+                counselingDetail.ReportFilename = string.Format("Counseling_from_{0}-{1}-{2}_to_{3}-{4}-{5}.xls",
+                                                startDate.Month, startDate.Day, startDate.Year,
+                                                endDate.Month, endDate.Day, endDate.Year);
+
+                HPFPortalGateway.SendCompletedCounselingDetailReport(counselingDetail);
+            }
+            return count;
         }
+
+        public static byte[] ReadFile(string filename)
+        {
+            int offset = 0;            
+            FileStream stream = new FileStream(filename, FileMode.Open);
+            BinaryReader reader = new BinaryReader(stream);
+            
+            byte[] data = new byte[stream.Length];
+            int remaining = (int)stream.Length;
+
+            while (remaining > 0)
+            {
+                int read = reader.Read(data, offset, remaining);
+                if (read <= 0) 
+                    throw new EndOfStreamException
+                            (String.Format("End of stream reached with {0} bytes left to read", remaining));                     
+                remaining -= read;
+                offset += read;
+            }
+            reader.Close();
+            return data;
+        }
+
     }
 }
