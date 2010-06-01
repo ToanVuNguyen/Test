@@ -326,9 +326,7 @@ namespace HPF.FutureState.BusinessLogic
                 HPFPortalCompletedCounselingDetail counselingDetail = new HPFPortalCompletedCounselingDetail();
                 counselingDetail.SPFolderName = spFolder;
                 counselingDetail.ReportFile = ReadFile(filename);
-                counselingDetail.ReportFilename = string.Format("Counseling_from_{0}-{1}-{2}_to_{3}-{4}-{5}.xls",
-                                                startDate.Month, startDate.Day, startDate.Year,
-                                                endDate.Month, endDate.Day, endDate.Year);
+                counselingDetail.ReportFilename = Path.GetFileName(filename);
 
                 HPFPortalGateway.SendCompletedCounselingDetailReport(counselingDetail);
             }
