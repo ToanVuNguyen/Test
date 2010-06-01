@@ -298,13 +298,28 @@ namespace HPF.FutureState.BusinessLogic
         {
             string filename = Application.StartupPath + @"\Temp\Completed Counseling Detail " + startDate.ToString("MM_dd_yyyy") + " to " + endDate.ToString("MM_dd_yyyy") + ".xls";
             string template = Application.StartupPath + @"\Templates\Template.xls";
+            string sheetName = "Completed Counseling Detail1";
+            string[] dataHeaders = new string[]{"HPF Case ID","Agency","Completed Date","Agency Case Num","Agency Client Num","Counselor First Name","Counselor Last Name",
+                    "Program","Intake Date","Call ID","Case Source","Counseling Duration","Primary Default Reason",
+                    "Secondary Default Reason","Borrower First Name","Borrower Last Name",
+                    "Mothers Maiden Name","Borrower Last4 SSN","Borrower DOB", "Gender",
+                    "Race","Hispanic Ind","Marital Status","Education Level Completed","Military Service",	"Borrower Disabled Ind","Primary Contact No",
+                    "Secondary Contact No","Email Address","Co-borrower First Name","Co-borrower Last Name",
+                    "Co-borrower Last4 SSN","Co-borrower DOB","Household","Occupants","Owner Occupied Ind",
+                    "Income Earners","Household Gross Annual Income","Intake Credit Score","Property Address Line 1","Property Address Line 2",
+                    "Property City","Property State","Property Zip","Servicer Consent Ind","Funding Consent Ind","Summary Sent Other Method",
+                    "Summary Sent Other Date","Summary Sent Date","Servicer Name","Account Num",
+                    "Mortgage Type","ARM Reset Ind","Interest Rate","Term Length","Current Loan Balance",
+                    "Loan Delinquency Status","FC Notice Received Ind","HUD Termination Reason",
+                    "HUD Termination Date","HUD Outcome","Outcome 1","Outcome 2","Outcome 3"};
 
             if (File.Exists(template))
                 File.Copy(template, filename, true);
             else if (File.Exists(filename))
                 File.Delete(filename);
 
-            int count = BatchJobDAO.Instance.GetCompletedCounselingDetailReportData(filename, startDate, endDate);
+            var dataRows = BatchJobDAO.Instance.GetCompletedCounselingDetailReportData(filename, startDate, endDate);
+            ExcelFileWriter.PutToExcel(filename, sheetName, dataHeaders, dataRows);            
 
             if (!string.IsNullOrEmpty(spFolder))
             {
@@ -317,7 +332,7 @@ namespace HPF.FutureState.BusinessLogic
 
                 HPFPortalGateway.SendCompletedCounselingDetailReport(counselingDetail);
             }
-            return count;
+            return dataRows.Count;
         }
 
         public static byte[] ReadFile(string filename)

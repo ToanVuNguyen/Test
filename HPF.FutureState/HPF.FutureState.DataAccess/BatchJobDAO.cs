@@ -579,23 +579,8 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
-        public int GetCompletedCounselingDetailReportData(string filename, DateTime fromDate, DateTime toDate)
-        {
-            int count = 0, sheetCount =1;           
-            string sheetName = "Completed Counseling Detail";
-            string[] dataHeaders = new string[]{"HPF Case ID","Agency","Completed Date","Agency Case Num","Agency Client Num","Counselor First Name","Counselor Last Name",
-                    "Program","Intake Date","Call ID","Case Source","Counseling Duration","Primary Default Reason",
-                    "Secondary Default Reason","Borrower First Name","Borrower Last Name",
-                    "Mothers Maiden Name","Borrower Last4 SSN","Borrower DOB", "Gender",
-                    "Race","Hispanic Ind","Marital Status","Education Level Completed","Military Service",	"Borrower Disabled Ind","Primary Contact No",
-                    "Secondary Contact No","Email Address","Co-borrower First Name","Co-borrower Last Name",
-                    "Co-borrower Last4 SSN","Co-borrower DOB","Household","Occupants","Owner Occupied Ind",
-                    "Income Earners","Household Gross Annual Income","Intake Credit Score","Property Address Line 1","Property Address Line 2",
-                    "Property City","Property State","Property Zip","Servicer Consent Ind","Funding Consent Ind","Summary Sent Other Method",
-                    "Summary Sent Other Date","Summary Sent Date","Servicer Name","Account Num",
-                    "Mortgage Type","ARM Reset Ind","Interest Rate","Term Length","Current Loan Balance",
-                    "Loan Delinquency Status","FC Notice Received Ind","HUD Termination Reason",
-                    "HUD Termination Date","HUD Outcome","Outcome 1","Outcome 2","Outcome 3"};
+        public Collection<ExcelDataRow> GetCompletedCounselingDetailReportData(string filename, DateTime fromDate, DateTime toDate)
+        {            
             Collection<ExcelDataRow> results = new Collection<ExcelDataRow>();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_rpt_CompletedCounselingDetail", dbConnection);
@@ -680,24 +665,24 @@ namespace HPF.FutureState.DataAccess
                     item.Columns.Add(ConvertToString(reader["outcome_3"]));                                        
                     results.Add(item);
 
-                    if (results.Count >= ExcelFileWriter.PAGE_ROW_COUNT)
-                    {
-                        count += count;
-                        //Console.WriteLine("Writing data into sheet " + sheetName + sheetCount+ "...");
-                        ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
-                        //Console.WriteLine("Compled Writing data into sheet. Continue reading data...");
-                        results.Clear();                        
-                    }
+                    //if (results.Count >= ExcelFileWriter.PAGE_ROW_COUNT)
+                    //{
+                    //    count += results.Count;
+                    //    //Console.WriteLine("Writing data into sheet " + sheetName + sheetCount+ "...");
+                    //    ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
+                    //    //Console.WriteLine("Compled Writing data into sheet. Continue reading data...");
+                    //    results.Clear();                        
+                    //}
                 }
 
-                if (results.Count >=0)
-                {
-                    count += count;
-                    //Console.WriteLine("Writing data into sheet " + sheetName + sheetCount + "...");
-                    ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
-                    //Console.WriteLine("Compled Writing data into sheet");
-                    results.Clear();
-                }                
+                //if (results.Count >=0)
+                //{
+                //    count += results.Count;
+                //    //Console.WriteLine("Writing data into sheet " + sheetName + sheetCount + "...");
+                //    ExcelFileWriter.PutToExcel(filename, sheetName + (sheetCount++), dataHeaders, results);
+                //    //Console.WriteLine("Compled Writing data into sheet");
+                //    results.Clear();
+                //}                
             }
             catch (Exception Ex)
             {
@@ -708,7 +693,7 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Close();
             }
 
-            return count;  
+            return results;  
         }
     }
 }
