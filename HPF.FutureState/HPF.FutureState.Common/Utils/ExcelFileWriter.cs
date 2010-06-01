@@ -36,7 +36,7 @@ namespace HPF.FutureState.Common.Utils
                     }
                     catch
                     {
-                        Console.WriteLine("Write date into existing sheet.");
+                        //Console.WriteLine("Write date into existing sheet.");
                     }
                     foreach (ExcelDataRow row in rows)
                     {
