@@ -222,7 +222,11 @@ namespace HPF.FutureState.BusinessLogic
             if (batchJob.JobFrequency == JobFrequency.Monthly)
             {
                 batchJob.JobStartDate = batchJob.JobStartDate.AddMonths(1);
-                batchJob.LastJobEndDate = batchJob.LastJobEndDate.AddMonths(1);
+
+                if (batchJob.LastJobEndDate.AddDays(1).Month > batchJob.LastJobEndDate.Month)//last day is 29(Fed), 30, 31
+                    batchJob.LastJobEndDate = new DateTime(batchJob.LastJobEndDate.Year, batchJob.LastJobEndDate.Month, 1).AddMonths(2).AddDays(-1); //get the next last day of the month
+                else
+                    batchJob.LastJobEndDate = batchJob.LastJobEndDate.AddMonths(1);                
             }
             else
             {
