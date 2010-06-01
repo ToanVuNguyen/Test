@@ -28,10 +28,16 @@ namespace HPF.FutureState.Common.Utils
                 //for (int i = 1; i <= sheetCount; i++)
                 {
                     //sheetName += i;
-
-                    OdbcCommand command = GetCreateSheetCommand(connection, sheetName, headers);
-                    command.ExecuteNonQuery();
-                    command.Dispose();
+                    try
+                    {
+                        OdbcCommand command = GetCreateSheetCommand(connection, sheetName, headers);
+                        command.ExecuteNonQuery();
+                        command.Dispose();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Write date into existing sheet.");
+                    }
                     foreach (ExcelDataRow row in rows)
                     {
                         var insertCommand = GetInsertSheetCommand(connection, sheetName, headers, row.Columns);
@@ -78,7 +84,7 @@ namespace HPF.FutureState.Common.Utils
             for (int j = 0; j < datas.Count; j++)
             {
                 if (j > 0) insertStr += ",";
-                insertStr += "'" + (string.IsNullOrEmpty(datas[j]) ? "" : datas[j].Replace("'", "''")) + "'";
+                insertStr += "'" + (string.IsNullOrEmpty(datas[j]) ? " " : datas[j].Replace("'", "''")) + "'";
             }
 
             insertStr += ");";
