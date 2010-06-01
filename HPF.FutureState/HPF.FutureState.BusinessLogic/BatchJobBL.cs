@@ -218,14 +218,17 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="batchJob"></param>
         private void UpdateBatchJobStartAndLastRunDates(BatchJobDTO batchJob)
-        {
-            batchJob.LastJobEndDate = batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency);
-            batchJob.JobStartDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);
+        {            
             if (batchJob.JobFrequency == JobFrequency.Monthly)
             {
                 batchJob.JobStartDate = batchJob.JobStartDate.AddMonths(1);
                 batchJob.LastJobEndDate = batchJob.LastJobEndDate.AddMonths(1);
-            }            
+            }
+            else
+            {
+                batchJob.LastJobEndDate = batchJob.LastJobEndDate.AddDays((int)batchJob.JobFrequency);
+                batchJob.JobStartDate = batchJob.JobStartDate.AddDays((int)batchJob.JobFrequency);
+            }
                   
             batchJob.SetUpdateTrackingInformation("System");
             BatchJobDAO.Instance.UpdateBatchJobStartAndLastRunDates(batchJob);
