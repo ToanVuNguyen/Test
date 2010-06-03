@@ -67,8 +67,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportAuditLog();
                 else if (job.JobName.Equals(Constant.COMPLETED_COUNSELING_DETAIL_REPORT))
                     rowCount = SendCompletedCounselingDetailReportToPortal(job);
-                else return;
-                //    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
+                else
+                    throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
                 InsertBatchJobLog(job, rowCount, Status.SUCCESS);
                 UpdateBatchJobStartAndLastRunDates(job);                

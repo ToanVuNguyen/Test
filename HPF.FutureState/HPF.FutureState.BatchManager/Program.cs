@@ -16,10 +16,10 @@ namespace HPF.FutureState.BatchManager
         static void Main(string[] args)
         {
             try
-            {
+            {                
                 if (args.Length > 0 && args[0] == "-CompletedCounselingDetailReport") //in testing
                 {
-                    if (args.Length != 3)
+                    if (args.Length < 3)
                     {
                         Console.WriteLine("Invalid argumnets...");
                         Console.WriteLine("-CompletedCounselingDetailReport startDate endDate");
