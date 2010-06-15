@@ -127,6 +127,9 @@ namespace HPF.FutureState.DataAccess
                     dbConnection.Close();
                 }
             }
+            else if (password != wsUser.LoginPassword)
+                wsUser = null;
+
             return wsUser;
         }
         /// <summary>
