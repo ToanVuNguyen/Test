@@ -9,6 +9,8 @@ namespace HPF.FutureState.DataAccess
 {
     public abstract class BaseDAO
     {
+        const int HPF_COMMAND_TIMEOUT=120;
+
         protected virtual string ConnectionString
         {
             get
@@ -32,7 +34,7 @@ namespace HPF.FutureState.DataAccess
             var sqlCommand = new SqlCommand(spName)
             {
                 Connection = connection,
-                CommandTimeout = connection.ConnectionTimeout
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
@@ -43,7 +45,7 @@ namespace HPF.FutureState.DataAccess
             {
                 Connection = connection,
                 Transaction = transaction,
-                CommandTimeout = connection.ConnectionTimeout
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
@@ -54,7 +56,7 @@ namespace HPF.FutureState.DataAccess
             {
                 Connection = transaction.Connection,
                 Transaction = transaction,
-                CommandTimeout = transaction.Connection.ConnectionTimeout
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
@@ -63,7 +65,8 @@ namespace HPF.FutureState.DataAccess
         {
             var sqlCommand = new SqlCommand(spName)
             {
-                CommandType = CommandType.StoredProcedure
+                CommandType = CommandType.StoredProcedure,
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
@@ -74,7 +77,7 @@ namespace HPF.FutureState.DataAccess
             {
                 CommandType = CommandType.StoredProcedure,
                 Connection = connection,
-                CommandTimeout = connection.ConnectionTimeout
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
@@ -86,7 +89,7 @@ namespace HPF.FutureState.DataAccess
                 CommandType = CommandType.StoredProcedure,
                 Transaction = transaction,
                 Connection = connection,
-                CommandTimeout = connection.ConnectionTimeout
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
@@ -98,7 +101,7 @@ namespace HPF.FutureState.DataAccess
                 CommandType = CommandType.StoredProcedure,
                 Transaction = transaction,
                 Connection = transaction.Connection,
-                CommandTimeout = transaction.Connection.ConnectionTimeout
+                CommandTimeout = HPF_COMMAND_TIMEOUT
             };
             return sqlCommand;
         }
