@@ -25,6 +25,14 @@
       <Name>rpt_CounselingSummary.rdl</Name>
       <FullPath>rpt_CounselingSummary.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_ServicerRejectReport.rdl</Name>
+      <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_IncompleteSessionsDetail.rdl</Name>
+      <FullPath>rpt_IncompleteSessionsDetail.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
