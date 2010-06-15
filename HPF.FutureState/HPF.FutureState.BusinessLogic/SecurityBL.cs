@@ -114,7 +114,8 @@ namespace HPF.FutureState.BusinessLogic
             {
                 WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
 
-                if (user == null || user.ActiveInd == string.Empty || user.ActiveInd != Constant.INDICATOR_YES)
+                if (user == null || user.ActiveInd == string.Empty || user.ActiveInd != Constant.INDICATOR_YES
+                    || user.LoginPassword != password)
                     return null;
                 switch (wsType)
                 {
