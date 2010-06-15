@@ -1247,13 +1247,13 @@ namespace HPF.FutureState.BusinessLogic
                 UpdateOutcome(foreclosureCaseSetDAO, outcomeCollecionNew);                
 
                 //Get list case loan wil be deleted
-                CaseLoanDTOCollection caseLoanDeleteCollecion = CheckCaseLoanForDelete(foreclosureCaseSetDAO, caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
+                CaseLoanDTOCollection caseLoanDeleteCollecion = CheckCaseLoanForDelete(caseLoanCollection, FCaseSetFromDB.CaseLoans);
 
                 //Get list case loan wil be updated
-                CaseLoanDTOCollection caseLoanUpdateCollecion = CheckCaseLoanForUpdate(foreclosureCaseSetDAO, caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
+                CaseLoanDTOCollection caseLoanUpdateCollecion = CheckCaseLoanForUpdate(caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
 
                 //Get list case loan wil be inserted
-                CaseLoanDTOCollection caseLoanInsertCollecion = CheckCaseLoanForInsert(foreclosureCaseSetDAO, caseLoanCollection, FCaseSetFromDB.CaseLoans, fcId);
+                CaseLoanDTOCollection caseLoanInsertCollecion = CheckCaseLoanForInsert(caseLoanCollection, FCaseSetFromDB.CaseLoans);
 
                 // Set Change Acc Num For CaseLoan Insertd
                 caseLoanInsertCollecion = SetChangeAccNumForCaseLoan(caseLoanDeleteCollecion, caseLoanInsertCollecion);
@@ -1266,7 +1266,7 @@ namespace HPF.FutureState.BusinessLogic
                 
                 //Insert Case Loan
                 InsertCaseLoan(foreclosureCaseSetDAO, caseLoanInsertCollecion, fcId);
-                //                               
+                                               
 
                 if (foreclosureCaseSet.ForeclosureCase.ProgramId == Constant.PROGRAM_ESCALATION_ID
                     && foreclosureCaseSet.ForeclosureCase.AgencyId == Constant.AGENCY_MMI_ID)
@@ -1864,11 +1864,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private CaseLoanDTOCollection CheckCaseLoanForInsert(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, 
-                                            CaseLoanDTOCollection caseLoanCollectionDB, int? fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForInsert(CaseLoanDTOCollection caseLoanCollection, CaseLoanDTOCollection caseLoanCollectionDB)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            //CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);            
+
             //Compare CAseLoanItem input with Case Loan DB
             if (caseLoanCollectionDB != null)
             {
@@ -1895,11 +1894,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private CaseLoanDTOCollection CheckCaseLoanForDelete(ForeclosureCaseSetDAO foreClosureCaseSetDAO, CaseLoanDTOCollection caseLoanCollection, 
-                                                    CaseLoanDTOCollection caseLoanCollectionDB, int? fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForDelete(CaseLoanDTOCollection caseLoanCollection, CaseLoanDTOCollection caseLoanCollectionDB)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            //CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
+
             //Compare CAseLoanItem input with Case Loan DB
             if (caseLoanCollectionDB == null || caseLoanCollectionDB.Count < 1) 
                 return null;            
@@ -1920,11 +1918,10 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name></param>
         /// <returns></returns>
-        private CaseLoanDTOCollection CheckCaseLoanForUpdate(ForeclosureCaseSetDAO foreClosureCaseSetDAO,CaseLoanDTOCollection caseLoanCollection, 
-                                                        CaseLoanDTOCollection caseLoanCollectionDB, int? fcId)
+        private CaseLoanDTOCollection CheckCaseLoanForUpdate(CaseLoanDTOCollection caseLoanCollection, CaseLoanDTOCollection caseLoanCollectionDB, int? fcId)
         {
             CaseLoanDTOCollection caseLoanNew = new CaseLoanDTOCollection();
-            //CaseLoanDTOCollection caseLoanCollectionDB = foreClosureCaseSetDAO.GetCaseLoanCollection(fcId);
+
             if (caseLoanCollectionDB == null || caseLoanCollectionDB.Count < 1)  
                 return null;            
             foreach (CaseLoanDTO item in caseLoanCollection)
