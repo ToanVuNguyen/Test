@@ -102,7 +102,9 @@ namespace HPF.FutureState.DataAccess
             sqlParam[52] = new SqlParameter("@pi_servicer_complaint_cd", aCallLog.ServicerComplaintCd);
             sqlParam[53] = new SqlParameter("@pi_mha_script_started_ind", aCallLog.MHAScriptStartedInd);             
             
-            sqlParam[54] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            sqlParam[54] = new SqlParameter("@pi_mother_maiden_lname", aCallLog.MotherMaidenLastName);             
+            
+            sqlParam[55] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
             #endregion
 
@@ -303,6 +305,9 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
                         callLogDTO.FirstName = ConvertToString(reader["fname"]);
                         callLogDTO.LastName = ConvertToString(reader["lname"]);
+
+                        callLogDTO.MotherMaidenLastName = ConvertToString(reader["mother_maiden_lname"]);
+
                         callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
                         callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                         callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);
@@ -410,6 +415,9 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.LoanAccountNumber = ConvertToString(reader["loan_acct_num"]);
                         callLogDTO.FirstName = ConvertToString(reader["fname"]);
                         callLogDTO.LastName = ConvertToString(reader["lname"]);
+
+                        callLogDTO.MotherMaidenLastName = ConvertToString(reader["mother_maiden_lname"]);
+
                         callLogDTO.ServicerId = ConvertToInt(reader["servicer_id"]);
                         callLogDTO.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                         callLogDTO.PropZipFull9 = ConvertToString(reader["prop_zip_full9"]);
