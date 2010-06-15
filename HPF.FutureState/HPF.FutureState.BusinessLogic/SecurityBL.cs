@@ -6,6 +6,7 @@ using HPF.FutureState.Common.BusinessLogicInterface;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.DataAccess;
+using HPF.FutureState.Common;
 
 
 
@@ -107,12 +108,13 @@ namespace HPF.FutureState.BusinessLogic
         /// <returns>WSUserDTO if login successfully</returns>
         public WSUserDTO WSUserLogin(string userName, string password, WSType wsType)
         {
+            if (string.IsNullOrEmpty(userName)) return null;
             //This function does not have transaction.
             try
             {
                 WSUserDTO user = SecurityDAO.Instance.GetWSUser(userName, password);
 
-                if (user == null || user.ActiveInd == string.Empty || user.ActiveInd == "" || user.ActiveInd.ToUpper().CompareTo("N") == 0)
+                if (user == null || user.ActiveInd == string.Empty || user.ActiveInd != Constant.INDICATOR_YES)
                     return null;
                 switch (wsType)
                 {

@@ -74,6 +74,7 @@ namespace HPF.FutureState.Common
         public const string HPF_CACHE_COUNCELED_PROGRAM = "COUNCELEDPROGRAM";
         public const string HPF_CACHE_CAMPAIGN_SPONSOR_PROGRAM = "CAMPAIGNSPONSORPROGRAM";
         public const string HPF_CACHE_SPONSOR = "SPONSOR";
+        public const string HPF_CACHE_WS_USER = "HPFCACHEWSUSER";
 
         //
         public const string REF_CODE_SET_AUDIT_TYPE_CODE = "audit type code";
