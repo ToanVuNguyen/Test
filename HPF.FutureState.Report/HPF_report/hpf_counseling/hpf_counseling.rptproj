@@ -118,6 +118,10 @@
       <Name>rpt_Servicer_Funding_Report.rdl</Name>
       <FullPath>rpt_Servicer_Funding_Report.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_ServicerRejectReport.rdl</Name>
+      <FullPath>rpt_ServicerRejectReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

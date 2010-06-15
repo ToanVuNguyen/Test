@@ -12,6 +12,10 @@
       <Name>rpt_OtherServicerName.rdl</Name>
       <FullPath>rpt_OtherServicerName.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_IncompleteSessionsDetail.rdl</Name>
+      <FullPath>rpt_IncompleteSessionsDetail.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
