@@ -108,6 +108,7 @@ namespace HPF.FutureState.WebService.Test.Web
             txtICTCallId.Text = aCallLogWS.ICTCallId;
             txtServicerComplaintCd.Text = aCallLogWS.ServicerComplaintCd;
             txtMHAScriptStartedInd.Text = aCallLogWS.MHAScriptStartedInd;
+            txtMotherMaidenLastName.Text = aCallLogWS.MotherMaidenLastName;
         }
 
         private CallLogWSDTO FormToCallLogWSDTO()
@@ -163,6 +164,7 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.ICTCallId = txtICTCallId.Text;
             aWSCallLog.ServicerComplaintCd = txtServicerComplaintCd.Text;
             aWSCallLog.MHAScriptStartedInd = txtMHAScriptStartedInd.Text;
+            aWSCallLog.MotherMaidenLastName = txtMotherMaidenLastName.Text;
 
             #endregion
 

@@ -681,6 +681,8 @@ namespace HPF.Webservice.Agency
 
         private string mHAIneligibilityReasonDescField;
 
+        private string motherMaidenLastNameField;
+
         /// <remarks/>
         public string HopeNetCallId
         {
@@ -1297,6 +1299,19 @@ namespace HPF.Webservice.Agency
             set
             {
                 this.mHAIneligibilityReasonDescField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MotherMaidenLastName
+        {
+            get
+            {
+                return this.motherMaidenLastNameField;
+            }
+            set
+            {
+                this.motherMaidenLastNameField = value;
             }
         }
     }
