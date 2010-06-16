@@ -71,6 +71,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string ICTCallId { get; set; }        
         public string ServicerComplaintCd { get; set; }
         public string MHAScriptStartedInd { get; set; }
+        public string MotherMaidenLastName { get; set; }
         #endregion           
     }
 }

@@ -44,7 +44,7 @@ namespace HPF.FutureState.DataAccess
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[55];
+            SqlParameter[] sqlParam = new SqlParameter[56];
             sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);            
             sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));

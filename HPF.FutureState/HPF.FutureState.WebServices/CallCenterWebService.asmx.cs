@@ -204,7 +204,7 @@ namespace HPF.FutureState.WebServices
             destObject.ICTCallId = sourceObject.ICTCallId;
             destObject.ServicerComplaintCd = sourceObject.ServicerComplaintCd;
             destObject.MHAScriptStartedInd = sourceObject.MHAScriptStartedInd;
-            
+            destObject.MotherMaidenLastName = sourceObject.MotherMaidenLastName;
             return destObject;
         }
     }
