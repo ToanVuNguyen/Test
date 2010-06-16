@@ -63,6 +63,7 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string MHAEligibilityDesc { get; set; }
         public string MHAIneligibilityReasonCd { get; set; }                                        
         public string MHAIneligibilityReasonDesc { get; set; }
+        public string MotherMaidenLastName { get; set; }
 
         #endregion           
     }
