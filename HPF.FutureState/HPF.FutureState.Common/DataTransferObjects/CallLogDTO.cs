@@ -363,6 +363,15 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return string.IsNullOrEmpty(mhaScriptStartedInd) ? null : mhaScriptStartedInd.ToUpper(); }
             set { mhaScriptStartedInd = string.IsNullOrEmpty(value) ? null : value.Trim(); }
         }
+
+        string motherMaidenLastName;
+        [NullableOrStringLengthValidator(true, 30, "MotherMaidenLastName", Ruleset = "Default", MessageTemplate = "MotherMaidenLastName has a maximum length of 30 characters.")]
+        public string MotherMaidenLastName 
+        {
+            get { return motherMaidenLastName; }
+            set { motherMaidenLastName = string.IsNullOrEmpty(value) ? null : value; }
+        }
+
         #endregion        
     }
 }
