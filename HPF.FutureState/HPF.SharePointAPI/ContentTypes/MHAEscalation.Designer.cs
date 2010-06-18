@@ -364,5 +364,41 @@ namespace HPF.SharePointAPI.ContentTypes {
                 return ((string)(this["GSENotesCompletedDate"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Commitment")]
+        public string Commitment {
+            get {
+                return ((string)(this["Commitment"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Follow-up Date/Time")]
+        public string FollowupDateTime {
+            get {
+                return ((string)(this["FollowupDateTime"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Commitment Closed")]
+        public string CommitmentClosed {
+            get {
+                return ((string)(this["CommitmentClosed"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Escalated To HSC")]
+        public string EscalatedToHSC {
+            get {
+                return ((string)(this["EscalatedToHSC"]));
+            }
+        }
     }
 }

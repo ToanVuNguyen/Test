@@ -48,8 +48,13 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BestNumber { get; set; }
         public int? HandleTimeHrs { get; set; }
         public int? HandleTimeMins { get; set; }
-        public DateTime? EscalatedToGSEDate { get; set; }
-        public DateTime? GSENotesCompletedDate { get; set; }
-        public DateTime? EscalatedToMMIMgmtDate { get; set; }
+        public DateTime? EscalatedToGseDt { get; set; }
+        public DateTime? GSENotesCompletedDt { get; set; }
+        public DateTime? EscalatedToMMIMgmtDt { get; set; }
+
+        public string CommitmentInd{get;set;}
+		public DateTime? FollowupDt{get;set;}
+		public DateTime? CommitmentClosedDt{get;set;}
+        public string EscalatedToHscInd { get; set; }
     }
 }

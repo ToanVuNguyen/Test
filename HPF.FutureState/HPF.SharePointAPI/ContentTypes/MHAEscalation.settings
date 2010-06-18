@@ -116,5 +116,17 @@
     <Setting Name="GSENotesCompletedDate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">GSE Notes Completed Date</Value>
     </Setting>
+    <Setting Name="Commitment" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Commitment</Value>
+    </Setting>
+    <Setting Name="FollowupDateTime" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Follow-up Date/Time</Value>
+    </Setting>
+    <Setting Name="CommitmentClosed" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Commitment Closed</Value>
+    </Setting>
+    <Setting Name="EscalatedToHSC" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Escalated To HSC</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

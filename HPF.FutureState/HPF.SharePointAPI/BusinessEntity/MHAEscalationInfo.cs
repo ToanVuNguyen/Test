@@ -50,5 +50,10 @@ namespace HPF.SharePointAPI.BusinessEntity
         public DateTime? EscalatedToGSEDate { get; set; }
         public DateTime? GSENotesCompletedDate { get; set; }
         public DateTime? EscalatedToMMIMgmtDate { get; set; }
+
+        public string Commitment { get; set; }
+        public DateTime? FollowupDateTime { get; set; }
+        public DateTime? CommitmentClosed { get; set; }
+        public string EscalatedToHSC { get; set; }
     }
 }

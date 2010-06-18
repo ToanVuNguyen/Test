@@ -174,9 +174,14 @@ namespace HPF.FutureState.Common.Utils
                 mhaDTO.BestTime = mha.BestTimetoReach;
                 mhaDTO.HandleTimeHrs = mha.HandleTimeHrs;
                 mhaDTO.HandleTimeMins = mha.HandleTimeMins;
-                mhaDTO.EscalatedToGSEDate = mha.EscalatedToGSEDate;
-                mhaDTO.GSENotesCompletedDate = mha.GSENotesCompletedDate;
-                mhaDTO.EscalatedToMMIMgmtDate = mha.EscalatedToMMIMgmtDate;
+                mhaDTO.EscalatedToGseDt = mha.EscalatedToGSEDate;
+                mhaDTO.GSENotesCompletedDt = mha.GSENotesCompletedDate;
+                mhaDTO.EscalatedToMMIMgmtDt = mha.EscalatedToMMIMgmtDate;
+
+                mhaDTO.CommitmentInd = mha.Commitment;
+                mhaDTO.FollowupDt = mha.FollowupDateTime;
+                mhaDTO.CommitmentClosedDt = mha.CommitmentClosed;
+                mhaDTO.EscalatedToHscInd = mha.EscalatedToHSC;
 
                 mhaDTO.SetInsertTrackingInformation("System");
                 result.Add(mhaDTO);
