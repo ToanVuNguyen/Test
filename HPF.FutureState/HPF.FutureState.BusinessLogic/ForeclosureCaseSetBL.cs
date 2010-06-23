@@ -2115,9 +2115,9 @@ namespace HPF.FutureState.BusinessLogic
                 if (counseledProgram == null
                         || (counseledProgram.StartDt != null && counseledProgram.StartDt.Value > DateTime.Today) //not started
                         || (counseledProgram.EndDt != null && counseledProgram.EndDt.Value < DateTime.Today))//expired                        
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0289, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0289));
+                    ;// msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));                
                 else if(counseledProgram.ProgramId == null)
-                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0261, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0261));                
+                    msgFcCaseSet.AddExceptionMessage(ErrorMessages.ERR0289, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0289));                
                 else
                     forclosureCase.ProgramId = counseledProgram.ProgramId;
             }
