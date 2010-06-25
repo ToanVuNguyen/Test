@@ -2107,7 +2107,7 @@ namespace HPF.FutureState.BusinessLogic
                 else
                     forclosureCase.ProgramId = campaign2.ProgramId;
             }
-            else if (forclosureCase.CounseledProgramId != null)
+            else if (forclosureCase.SponsorId == null && forclosureCase.CounseledProgramId != null)
             {
                 CounseledProgramDTOCollection counseledProgramCol = CounseledProgramDAO.Instance.GetCounceledPrograms();
                 CounseledProgramDTO counseledProgram = counseledProgramCol.GetCounseledProgram(forclosureCase.CounseledProgramId.Value);
