@@ -53,6 +53,7 @@
     <Compile Include="AgencyPayableDAO.cs" />
     <Compile Include="BatchJobDAO.cs" />
     <Compile Include="BudgetDAO.cs" />
+    <Compile Include="CallingDataDAO.cs" />
     <Compile Include="CallLogDAO.cs" />
     <Compile Include="CampaignSponsorProgramDAO.cs" />
     <Compile Include="CaseAuditDAO.cs" />

@@ -67,6 +67,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = ImportAuditLog();
                 else if (job.JobName.Equals(Constant.COMPLETED_COUNSELING_DETAIL_REPORT))
                     rowCount = SendCompletedCounselingDetailReportToPortal(job);
+                else if (job.JobName.Equals(Constant.ATT_CALLING_RECORD_IMPORT))
+                    rowCount = ImportATTCallingData(job);
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
@@ -355,5 +357,91 @@ namespace HPF.FutureState.BusinessLogic
             return data;
         }
 
+        /// <summary>
+        /// Import data into database from call data file located in folder
+        /// If there is error import file, it will log error and continue import the next file.
+        /// It does not stop when found error.
+        /// If import file successfuly, the file will be moved to Processed Folder
+        /// </summary>
+        /// <param name="batchJob"></param>
+        /// <returns></returns>
+        public int ImportATTCallingData(BatchJobDTO batchJob)
+        {
+            string[] reportFiles = Directory.GetFiles(batchJob.OutputDestination + @"\Upload\");
+            int recordCount = 0;
+
+            foreach (string reportFile in reportFiles)
+            {
+                try
+                {
+                    recordCount += ImportATTCallingData(reportFile);
+                    File.Move(reportFile, batchJob.OutputDestination + @"\Processed\" + Path.GetFileName(reportFile));
+                }
+                catch (Exception ex)
+                {                     
+                    ExceptionProcessor.HandleException(ex);
+
+                    //Send E-mail to support
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Error- Import ATT report data",
+                        Body = "Error import ATT report file " + reportFile + "\n--" +
+                                "Messsage: " + ex.Message + "\nTrace: " + ex.StackTrace
+                    };
+                    mail.Send();
+                }
+            }
+
+            return recordCount;
+        }
+
+        /// <summary>
+        /// Import data into database from calling data file
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public int ImportATTCallingData(string filename)
+        {
+            int recordCount = 0;
+            CallingDataDAO callDataDAO = CallingDataDAO.CreateInstance();
+            try
+            {
+                int callHeaderId = 0;
+                TextReader tr = new StreamReader(filename);
+                string strLine = "";
+                strLine = tr.ReadLine();
+                CallingDataHeaderDTO callHeader = null;                
+                callDataDAO.Begin();
+                while (strLine != null)
+                {
+                    if (callHeader == null)
+                    {
+                        callHeader = CallingDataBL.Instance.ReadHeaderData(strLine);
+                        callHeader.SetInsertTrackingInformation("System");
+                        strLine = strLine.Substring(CallingDataHeaderDTO.Length, strLine.Length - CallingDataHeaderDTO.Length);
+                        callHeaderId = callDataDAO.InsertCallingHeader(callHeader);
+                    }
+                    CallingDataDetailDTO callDetail = CallingDataBL.Instance.ReadDetailData(strLine);
+                    callDetail.CallingHeaderId = callHeaderId;
+                    callDetail.SetInsertTrackingInformation("System");
+                    callDataDAO.InsertCallingDetail(callDetail);
+                    strLine = tr.ReadLine();
+                    recordCount++;
+                }
+                tr.Close();
+            }
+            catch (Exception ex)
+            {
+                callDataDAO.Cancel();                
+                throw ex;
+            }
+            finally
+            {
+                callDataDAO.Commit();
+            }
+            return recordCount;
+        }
     }
 }

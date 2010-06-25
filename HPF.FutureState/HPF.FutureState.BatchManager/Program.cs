@@ -17,21 +17,28 @@ namespace HPF.FutureState.BatchManager
         {
             try
             {                
-                if (args.Length > 0 && args[0] == "-CompletedCounselingDetailReport") //in testing
+                if (args.Length > 0)
                 {
-                    if (args.Length < 3)
+                    if (args[0] == "-CompletedCounselingDetailReport") //in testing)
                     {
-                        Console.WriteLine("Invalid argumnets...");
-                        Console.WriteLine("-CompletedCounselingDetailReport startDate endDate");
-                        return;
+                        if (args.Length < 3)
+                        {
+                            Console.WriteLine("Invalid argumnets...");
+                            Console.WriteLine("-CompletedCounselingDetailReport startDate endDate");
+                            return;
+                        }
+                        DateTime startDate = DateTime.Parse(args[1]);
+                        DateTime endDate = DateTime.Parse(args[2]);
+                        string spFolder = null;
+                        if (args.Length >= 4)
+                            spFolder = args[3];
+                        Console.WriteLine("Exporting excel in progress...");
+                        BatchJobBL.Instance.GenerateCompletedCounselingDetailReport(startDate, endDate, spFolder);
                     }
-                    DateTime startDate = DateTime.Parse(args[1]);
-                    DateTime endDate = DateTime.Parse(args[2]);
-                    string spFolder = null;
-                    if (args.Length >= 4)
-                        spFolder = args[3];
-                    Console.WriteLine("Exporting excel in progress...");
-                    BatchJobBL.Instance.GenerateCompletedCounselingDetailReport(startDate, endDate, spFolder);
+                    else if (args[0] == "-ATTCallingRecordImport" && args.Length > 1)
+                    {
+                        BatchJobBL.Instance.ImportATTCallingData(args[1]);
+                    }
                     return;
                 }
 

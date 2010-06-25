@@ -64,6 +64,7 @@
     <Compile Include="BaseBusinessLogic.cs" />
     <Compile Include="BatchJobBL.cs" />
     <Compile Include="BudgetBL.cs" />
+    <Compile Include="CallingDataBL.cs" />
     <Compile Include="CallLogBL.cs" />
     <Compile Include="CaseAuditBL.cs" />
     <Compile Include="CaseLoanBL.cs" />

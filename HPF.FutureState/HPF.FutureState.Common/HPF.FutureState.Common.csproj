@@ -85,6 +85,8 @@
     <Compile Include="DataTransferObjects\AppSummariesToServicerCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTO.cs" />
     <Compile Include="DataTransferObjects\BatchJobLogDTO.cs" />
+    <Compile Include="DataTransferObjects\CallingDataDetailDTO.cs" />
+    <Compile Include="DataTransferObjects\CallingDataHeaderDTO.cs" />
     <Compile Include="DataTransferObjects\CampaignSponsorProgramDTO.cs" />
     <Compile Include="DataTransferObjects\CampaignSponsorProgramDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CompletedCounselingDetailReportCriteriaDTO.cs" />
