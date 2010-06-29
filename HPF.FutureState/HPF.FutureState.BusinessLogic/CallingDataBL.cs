@@ -152,9 +152,14 @@ namespace HPF.FutureState.BusinessLogic
 
             return result;
         }
+
         private string ReadString(string buffer, ref int startIndex, int len)
         {
-            if (startIndex + len > buffer.Length) return null;
+            if (startIndex + len > buffer.Length)
+            {
+                startIndex = buffer.Length;//move to end to stop;
+                return null;
+            }
             string s = buffer.Substring(startIndex, len);
             if(buffer.Substring(startIndex, 1) == "-")
             {
@@ -180,7 +185,11 @@ namespace HPF.FutureState.BusinessLogic
         private DateTime? ReadDateTime(string buffer, ref int startIndex, int dateLen, int timeLen)
         {
             string value = ReadString(buffer, ref startIndex, dateLen);
-            if (value == null) return null;            
+            if (value == null)
+            {
+                value = ReadString(buffer, ref startIndex, timeLen); //skip the time
+                return null;
+            }
             DateTime date = DateTime.Parse(value.Replace(":", "/"));
             value = ReadString(buffer, ref startIndex, timeLen);
             date = date.Add(GetTimeSpan(value));
