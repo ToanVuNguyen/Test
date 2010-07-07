@@ -369,7 +369,20 @@ namespace HPF.FutureState.BusinessLogic
         {
             string[] reportFiles = Directory.GetFiles(batchJob.OutputDestination + @"\Upload\");
             int recordCount = 0;
-
+            //There are no rpt files in upload directory
+            if (reportFiles.Length <= 0)
+            {
+                var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                var mail = new HPFSendMail
+                {
+                    To = hpfSupportEmail,
+                    Subject = "Batch Manager Warning- Import ATT report data",
+                    Body = "Error import ATT report file \n" +
+                            "Messsage: There are no rpt files in upload directory"
+                };
+                mail.Send();
+                return 0;
+            }
             foreach (string reportFile in reportFiles)
             {
                 try
@@ -405,14 +418,14 @@ namespace HPF.FutureState.BusinessLogic
         public int ImportATTCallingData(string filename)
         {
             int recordCount = 0;
+            CallingDataHeaderDTO callHeader = null;                
             CallingDataDAO callDataDAO = CallingDataDAO.CreateInstance();
             try
             {
                 int callHeaderId = 0;
                 TextReader tr = new StreamReader(filename);
                 string strLine = "";
-                strLine = tr.ReadLine();
-                CallingDataHeaderDTO callHeader = null;                
+                strLine = tr.ReadLine();                
                 callDataDAO.Begin();
                 while (strLine != null)
                 {
@@ -440,6 +453,20 @@ namespace HPF.FutureState.BusinessLogic
             finally
             {
                 callDataDAO.Commit();
+                //Send alert email to support when CallRecordCount field from the header not equal with numbers of detail records
+                if (callHeader != null &&callHeader.CallRecordCount != recordCount)
+                {
+                    //Send E-mail to support
+                    var hpfSupportEmail = HPFConfigurationSettings.HPF_SUPPORT_EMAIL;
+                    var mail = new HPFSendMail
+                    {
+                        To = hpfSupportEmail,
+                        Subject = "Batch Manager Warning- Import ATT report data",
+                        Body = "Warning import ATT report file " + filename + "\n" +
+                                "Messsage: CallRecordCount field from the header not equal with numbers of detail records."
+                    };
+                    mail.Send();
+                }
             }
             return recordCount;
         }
