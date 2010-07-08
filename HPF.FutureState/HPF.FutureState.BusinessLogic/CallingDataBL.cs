@@ -55,7 +55,6 @@ namespace HPF.FutureState.BusinessLogic
             CallingDataDetailDTO result = new CallingDataDetailDTO();
 
             result.RecordLength = ReadInt(buffer, ref startIndex, CallingDataDetailDTO.RECORD_LENGTH_LEN);
-            startIndex++;
             result.StructureCd = ReadString(buffer, ref startIndex, CallingDataDetailDTO.STRUCTURE_CD_LEN);
             result.CallCd = ReadString(buffer, ref startIndex, CallingDataDetailDTO.CALL_CD_LEN);
             result.IncomeSwichId = ReadString(buffer, ref startIndex, CallingDataDetailDTO.INCOME_SWICHID_LEN);
