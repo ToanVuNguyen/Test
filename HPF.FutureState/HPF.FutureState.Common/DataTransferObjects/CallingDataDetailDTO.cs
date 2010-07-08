@@ -8,7 +8,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
     public class CallingDataDetailDTO: BaseDTO
     {
         public const int RECORD_LENGTH_LEN =  3;
-        public const int STRUCTURE_CD_LEN =  4;
+        public const int STRUCTURE_CD_LEN =  5;
         public const int CALL_CD_LEN = 3;
         public const int INCOME_SWICHID_LEN = 6;
         public const int CONNECT_DATE_LEN = 5;
