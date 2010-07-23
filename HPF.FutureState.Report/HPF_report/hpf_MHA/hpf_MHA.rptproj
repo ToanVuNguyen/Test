@@ -25,6 +25,14 @@
       <FullPath>rpt_MHA_Escalation_Handle_Time_Report.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>rpt_MHA_Escalation_To_HSC_Report.rdl</Name>
+      <FullPath>rpt_MHA_Escalation_To_HSC_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>rpt_MHA_Escalation_To_Freddie_Report.rdl</Name>
+      <FullPath>rpt_MHA_Escalation_To_Freddie_Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>rpt_MHA_Help_Handle_Time_Report.rdl</Name>
       <FullPath>rpt_MHA_Help_Handle_Time_Report.rdl</FullPath>
     </ProjectItem>

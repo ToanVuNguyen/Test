@@ -7,7 +7,7 @@ Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "Springboard", "Springboard\
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "NovaDebt", "NovaDebt\NovaDebt.rptproj", "{FB781BAA-B61A-4622-A3EF-920613B4E6F0}"
 EndProject
-Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "CCCS Atlanta", "CCCS Atlanta\CCCS Atlanta.rptproj", "{8FE975D6-FE4F-4AB9-8EEC-5C0456C80E17}"
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "CredAbility", "CredAbility\CredAbility.rptproj", "{8FE975D6-FE4F-4AB9-8EEC-5C0456C80E17}"
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "CCCS San Francisco", "CCCS San Francisco\CCCS San Francisco.rptproj", "{EE83980F-0825-438B-AD7A-F82033B65C01}"
 EndProject

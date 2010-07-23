@@ -704,7 +704,6 @@
             <Width>1.4375in</Width>
           </TableColumn>
         </TableColumns>
-        <Height>0.5in</Height>
         <Left>0.75in</Left>
       </Table>
       <Line Name="line5">
@@ -837,7 +836,7 @@
         <Value>COMPLETED COUNSELING SUMMARY</Value>
       </Textbox>
     </ReportItems>
-    <Height>2.16667in</Height>
+    <Height>2.13542in</Height>
   </Body>
   <Language>en-US</Language>
   <PageFooter>
