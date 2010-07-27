@@ -21,7 +21,7 @@ namespace CustomEditWebpart
         }
 
         #region Properties
-        private string _MHAEscalationYesNo_DateRule = "Escalated To Fannie Mae|Escalated To Freddie Mac-->Escalated To GSE Date;Escalated To MMI Mgmt-->Escalated To MMI Mgmt Date";
+        private string _MHAEscalationYesNo_DateRule = "Escalated To Fannie Mae|Escalated To Freddie Mac|Escalated to HSC-->Escalated To GSE Date;Escalated To MMI Mgmt-->Escalated To MMI Mgmt Date";
         [WebBrowsable(true),
         Personalizable(PersonalizationScope.User),
         WebDescription("yesnoField1a|yesnoField1b-->OutputDatetimeField1;yesnoField2a|yesnoField2b-->OutputDatetimeField2"),
@@ -57,7 +57,7 @@ namespace CustomEditWebpart
             set { _escalationSecurityGroup = value; }
         }
 
-        private string _escalationSecurityFields = "Escalated To Fannie Mae;Escalated To Freddie Mac";
+        private string _escalationSecurityFields = "Escalated To Fannie Mae;Escalated To Freddie Mac;Escalated to HSC";
         [WebBrowsable(true),
         Personalizable(PersonalizationScope.User),
         WebDescription("Escalation Manager Fields. Only users in group [Escalation Mngt] can edit them. User ';' to seperate fields"),
