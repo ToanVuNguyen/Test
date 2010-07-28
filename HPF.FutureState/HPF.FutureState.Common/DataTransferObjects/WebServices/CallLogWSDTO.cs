@@ -72,6 +72,12 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string ServicerComplaintCd { get; set; }
         public string MHAScriptStartedInd { get; set; }
         public string MotherMaidenLastName { get; set; }
+        public string UnemployedInd { get; set; }
+        public string UpBenefitsInd { get; set; }
+        public string PreviousUpInd { get; set; }
+        public DateTime? FCSaleDate { get; set; }
+
+
         #endregion           
     }
 }

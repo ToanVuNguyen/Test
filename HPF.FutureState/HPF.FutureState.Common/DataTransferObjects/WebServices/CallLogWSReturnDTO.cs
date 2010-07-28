@@ -64,6 +64,10 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public string MHAIneligibilityReasonCd { get; set; }                                        
         public string MHAIneligibilityReasonDesc { get; set; }
         public string MotherMaidenLastName { get; set; }
+        public string UnemployedInd { get; set; }
+        public string UpBenefitsInd { get; set; }
+        public string PreviousUpInd { get; set; }
+        public DateTime? FCSaleDate { get; set; }
 
         #endregion           
     }
