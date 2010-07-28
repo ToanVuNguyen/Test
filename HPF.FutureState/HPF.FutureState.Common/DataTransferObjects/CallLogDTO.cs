@@ -372,6 +372,33 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set { motherMaidenLastName = string.IsNullOrEmpty(value) ? null : value; }
         }
 
+        string unemployedInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "UnemployedInd has a maximum length of 1 characters.")]                
+        public string UnemployedInd         
+        {
+            get { return unemployedInd; }
+            set { unemployedInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
+        }
+
+        string upBenefitsInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "UpBenefitsInd has a maximum length of 1 characters.")]                
+        public string UpBenefitsInd         
+        {
+            get { return upBenefitsInd; }
+            set { upBenefitsInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
+        }
+
+        string previousUpInd;
+        [YesNoIndicatorValidator(true, Ruleset = "Default", MessageTemplate = "PreviousUpInd has a maximum length of 1 characters.")]                
+        public string PreviousUpInd         
+        {
+            get { return previousUpInd; }
+            set { previousUpInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
+        }
+
+        [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = "Default", MessageTemplate = "FCSaleDate must be between 1/1/1753 and 12/31/9999")]
+        public DateTime? FCSaleDate { get; set; }
+
         #endregion        
     }
 }
