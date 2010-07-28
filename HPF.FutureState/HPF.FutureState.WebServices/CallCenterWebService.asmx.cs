@@ -205,6 +205,12 @@ namespace HPF.FutureState.WebServices
             destObject.ServicerComplaintCd = sourceObject.ServicerComplaintCd;
             destObject.MHAScriptStartedInd = sourceObject.MHAScriptStartedInd;
             destObject.MotherMaidenLastName = sourceObject.MotherMaidenLastName;
+
+            destObject.UnemployedInd = sourceObject.UnemployedInd;
+            destObject.UpBenefitsInd = sourceObject.UpBenefitsInd;
+            destObject.PreviousUpInd = sourceObject.PreviousUpInd;
+            destObject.FCSaleDate = sourceObject.FCSaleDate;
+
             return destObject;
         }
     }
