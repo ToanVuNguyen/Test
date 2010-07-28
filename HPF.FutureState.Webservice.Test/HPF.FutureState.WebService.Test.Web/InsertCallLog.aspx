@@ -405,6 +405,42 @@
                         Width="128px"></asp:TextBox>
                     </td>
             </tr>
+            <tr class="sidelinks">
+                <td class="sidelinks">
+                    
+
+                    Unemployed Ind</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtUnemployedInd" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                    </td>
+                <td class="sidelinks">
+                    
+
+                    Fc Sale Datetime</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtFcSaleDate" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                    </td>
+            </tr>
+            <tr class="sidelinks">
+                <td class="sidelinks">
+                    
+
+                    Up Benifits Ind</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtUpBenefitsInd" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                    </td>
+                <td class="sidelinks">
+                    
+
+                    Previous Up Ind</td>
+                <td >
+                    <asp:TextBox CssClass="Text" ID="txtPreviousUpInd" runat="Server"  
+                        Width="128px"></asp:TextBox>
+                    </td>
+            </tr>
             </table>
         <br />
     <br />

@@ -73,7 +73,11 @@ namespace HPF.FutureState.WebService.Test.Web
                                ICTCallId = obj.Element("ICTCallId").Value,
                                ServicerComplaintCd = obj.Element("ServicerComplaintCd").Value,
                                MHAScriptStartedInd = obj.Element("MHAScriptStartedInd").Value,                               
-                               MotherMaidenLastName = obj.Element("MotherMaidenLastName").Value
+                               MotherMaidenLastName = obj.Element("MotherMaidenLastName").Value,
+                               UnemployedInd = obj.Element("UnemployedInd").Value,
+                               UpBenefitsInd = obj.Element("UpBenefitsInd").Value,
+                               PreviousUpInd = obj.Element("PreviousUpInd").Value,
+                               FCSaleDate =Util.ConvertToDateTime(obj.Element("FcSaleDate").Value)
                            };
                 return objs.ToList<CallLogWSDTO>()[0];
             }

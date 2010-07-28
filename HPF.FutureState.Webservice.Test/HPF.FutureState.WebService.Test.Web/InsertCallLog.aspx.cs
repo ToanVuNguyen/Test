@@ -109,6 +109,10 @@ namespace HPF.FutureState.WebService.Test.Web
             txtServicerComplaintCd.Text = aCallLogWS.ServicerComplaintCd;
             txtMHAScriptStartedInd.Text = aCallLogWS.MHAScriptStartedInd;
             txtMotherMaidenLastName.Text = aCallLogWS.MotherMaidenLastName;
+            txtUnemployedInd.Text = aCallLogWS.UnemployedInd;
+            txtUpBenefitsInd.Text = aCallLogWS.UpBenefitsInd;
+            txtPreviousUpInd.Text = aCallLogWS.PreviousUpInd;
+            txtFcSaleDate.Text = aCallLogWS.FCSaleDate.ToString();
         }
 
         private CallLogWSDTO FormToCallLogWSDTO()
@@ -165,6 +169,10 @@ namespace HPF.FutureState.WebService.Test.Web
             aWSCallLog.ServicerComplaintCd = txtServicerComplaintCd.Text;
             aWSCallLog.MHAScriptStartedInd = txtMHAScriptStartedInd.Text;
             aWSCallLog.MotherMaidenLastName = txtMotherMaidenLastName.Text;
+            aWSCallLog.UnemployedInd = txtUnemployedInd.Text;
+            aWSCallLog.UpBenefitsInd = txtUpBenefitsInd.Text;
+            aWSCallLog.PreviousUpInd = txtPreviousUpInd.Text;
+            aWSCallLog.FCSaleDate = Util.ConvertToDateTime(txtFcSaleDate.Text.Trim());
 
             #endregion
 

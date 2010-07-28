@@ -3,8 +3,8 @@
   <CallId ></CallId>
   <CallCenterID >71</CallCenterID>
   <CcAgentIdKey >CcAgentIdKey</CcAgentIdKey>
-  <StartDate >1/1/2008</StartDate>
-  <EndDate >1/10/2008 00:30:00AM</EndDate>
+  <StartDate >7/1/2010</StartDate>
+  <EndDate >7/10/2010 00:30:00AM</EndDate>
   <DNIS >DNIS</DNIS>
   <CallCenter >aaaa</CallCenter>
   <CallSourceCd >Television</CallSourceCd>
@@ -50,5 +50,9 @@
   <ServicerComplaintCd>NOAGENT</ServicerComplaintCd>
   <MHAScriptStartedInd>N</MHAScriptStartedInd>
   <MotherMaidenLastName>Mother Maiden Last Name</MotherMaidenLastName>
+  <UnemployedInd>Y</UnemployedInd>
+  <UpBenefitsInd>Y</UpBenefitsInd>
+  <PreviousUpInd>Y</PreviousUpInd>
+  <FcSaleDate>7/7/2010</FcSaleDate>
 
 </CallLogWSDTO>
