@@ -44,7 +44,7 @@ namespace HPF.FutureState.DataAccess
 
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[56];
+            SqlParameter[] sqlParam = new SqlParameter[60];
             sqlParam[0] = new SqlParameter("@pi_call_center_id", aCallLog.CallCenterID);
             sqlParam[1] = new SqlParameter("@pi_cc_agent_id_key", aCallLog.CcAgentIdKey);            
             sqlParam[2] = new SqlParameter("@pi_start_dt", NullableDateTime(aCallLog.StartDate));
@@ -104,7 +104,12 @@ namespace HPF.FutureState.DataAccess
             
             sqlParam[54] = new SqlParameter("@pi_mother_maiden_lname", aCallLog.MotherMaidenLastName);             
             
-            sqlParam[55] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
+            sqlParam[55] = new SqlParameter("@pi_unemployed_ind", aCallLog.UnemployedInd);             
+            sqlParam[56] = new SqlParameter("@pi_up_benefits_ind", aCallLog.UpBenefitsInd);             
+            sqlParam[57] = new SqlParameter("@pi_previous_up_ind", aCallLog.PreviousUpInd);             
+            sqlParam[58] = new SqlParameter("@pi_fc_sale_dt", aCallLog.FCSaleDate);             
+            
+            sqlParam[59] = new SqlParameter("@po_call_id", SqlDbType.Int) {Direction = ParameterDirection.Output};
             //</Parameter>
             #endregion
 
@@ -362,6 +367,11 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.MHAEligibilityDesc = ConvertToString(reader["mha_eligibility_desc"]);
                         callLogDTO.MHAIneligibilityReasonDesc = ConvertToString(reader["mha_inelig_reason_desc"]);
 
+                        callLogDTO.UnemployedInd=ConvertToString(reader["unemployed_ind"]);
+                        callLogDTO.UpBenefitsInd=ConvertToString(reader["up_benefits_ind"]);
+                        callLogDTO.PreviousUpInd=ConvertToString(reader["previous_up_ind"]);
+                        callLogDTO.FCSaleDate=ConvertToDateTime(reader["fc_sale_dt"]);
+
                         results.Add(callLogDTO);
                         if (results.Count == 100) break; //Only get first 100 records
                         #endregion
@@ -471,6 +481,11 @@ namespace HPF.FutureState.DataAccess
                         callLogDTO.ServicerCAName = ConvertToString(reader["servicer_ca_name"]);
                         callLogDTO.MHAEligibilityDesc = ConvertToString(reader["mha_eligibility_desc"]);
                         callLogDTO.MHAIneligibilityReasonDesc = ConvertToString(reader["mha_inelig_reason_desc"]);
+
+                        callLogDTO.UnemployedInd=ConvertToString(reader["unemployed_ind"]);
+                        callLogDTO.UpBenefitsInd=ConvertToString(reader["up_benefits_ind"]);
+                        callLogDTO.PreviousUpInd=ConvertToString(reader["previous_up_ind"]);
+                        callLogDTO.FCSaleDate=ConvertToDateTime(reader["fc_sale_dt"]);
 
                         results.Add(callLogDTO);
                         if (results.Count == 100) break; //Only get first 100 records
