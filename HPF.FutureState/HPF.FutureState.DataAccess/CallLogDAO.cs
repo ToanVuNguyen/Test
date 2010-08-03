@@ -120,20 +120,27 @@ namespace HPF.FutureState.DataAccess
                 dbConnection.Open();
                 trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
                 command.Transaction = trans;
-            
                 command.ExecuteNonQuery();
-                trans.Commit();
                 aCallLog.CallId = ConvertToInt(command.Parameters["@po_call_id"].Value);
-            }
-            catch(SqlException Ex)
-            {
-                if (trans != null) trans.Rollback();
-                if (Ex.Errors[0].Number == 2627)
+                //Check duplicate cc_call_key
+                if (aCallLog.CallId == -1)
                 {
+                    trans.Rollback();
                     ExceptionMessageCollection errorList = new ExceptionMessageCollection();
                     errorList.AddExceptionMessage(ErrorMessages.ERR0399, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0399));
                     throw new DataValidationException(errorList);
                 }
+                trans.Commit();
+            }
+            catch(SqlException Ex)
+            {
+                if (trans != null) trans.Rollback();
+                //if (Ex.Errors[0].Number == 2627)
+                //{
+                //    ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+                //    errorList.AddExceptionMessage(ErrorMessages.ERR0399, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0399));
+                //    throw new DataValidationException(errorList);
+                //}
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
