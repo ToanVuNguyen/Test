@@ -121,26 +121,18 @@ namespace HPF.FutureState.DataAccess
                 trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                aCallLog.CallId = ConvertToInt(command.Parameters["@po_call_id"].Value);
-                //Check duplicate cc_call_key
-                if (aCallLog.CallId == -1)
-                {
-                    trans.Rollback();
-                    ExceptionMessageCollection errorList = new ExceptionMessageCollection();
-                    errorList.AddExceptionMessage(ErrorMessages.ERR0399, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0399));
-                    throw new DataValidationException(errorList);
-                }
                 trans.Commit();
+                aCallLog.CallId = ConvertToInt(command.Parameters["@po_call_id"].Value);
             }
             catch(SqlException Ex)
             {
                 if (trans != null) trans.Rollback();
-                //if (Ex.Errors[0].Number == 2627)
-                //{
-                //    ExceptionMessageCollection errorList = new ExceptionMessageCollection();
-                //    errorList.AddExceptionMessage(ErrorMessages.ERR0399, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0399));
-                //    throw new DataValidationException(errorList);
-                //}
+                if (Ex.Errors[0].Number == 2627)
+                {
+                    ExceptionMessageCollection errorList = new ExceptionMessageCollection();
+                    errorList.AddExceptionMessage(ErrorMessages.ERR0399, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0399));
+                    throw new DataValidationException(errorList);
+                }
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
             }
             finally
