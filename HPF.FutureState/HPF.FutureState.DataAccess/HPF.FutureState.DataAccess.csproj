@@ -36,6 +36,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -57,9 +59,12 @@
     <Compile Include="CallLogDAO.cs" />
     <Compile Include="CampaignSponsorProgramDAO.cs" />
     <Compile Include="CaseAuditDAO.cs" />
+    <Compile Include="CaseEvalHeaderDAO.cs" />
+    <Compile Include="CaseEvalSetDAO.cs" />
     <Compile Include="CaseLoanDAO.cs" />
     <Compile Include="CaseFollowUpDAO.cs" />
     <Compile Include="CounseledProgramDAO.cs" />
+    <Compile Include="EvalTemplateDAO.cs" />
     <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />

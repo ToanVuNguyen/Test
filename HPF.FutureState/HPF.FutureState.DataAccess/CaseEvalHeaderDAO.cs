@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
+using System.Xml;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -70,6 +71,35 @@ namespace HPF.FutureState.DataAccess
             }
 
             return aCaseEvalHeader.CaseEvalHeaderId;
+        }
+        /// <summary>
+        /// Get latest detail scores of case for both Agency and HPF
+        /// </summary>
+        /// <param name="fc_Id">fc_Id</param>
+        /// <returns>XML Document</returns>
+        public XmlDocument GetCaseEvalLatestScore(int fc_Id)
+        {
+            XmlDocument doc = new XmlDocument();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_case_eval_get_latest_score", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fc_Id);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteXmlReader();
+                doc.Load(reader);
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return doc;
         }
     }
 }

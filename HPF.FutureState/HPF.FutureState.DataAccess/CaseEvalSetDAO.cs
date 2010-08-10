@@ -74,12 +74,12 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[5] = new SqlParameter("@pi_fatal_error_ind", aCaseEvalSet.FatalErrorInd);
                 sqlParam[6] = new SqlParameter("@pi_hpf_audit_ind", aCaseEvalSet.HpfAuditInd);
 
-                sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalHeader.CreateDate));
-                sqlParam[8] = new SqlParameter("@pi_create_user_id", aCaseEvalHeader.CreateUserId);
-                sqlParam[9] = new SqlParameter("@pi_create_app_name", aCaseEvalHeader.CreateAppName);
-                sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalHeader.ChangeLastDate));
-                sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalHeader.ChangeLastUserId);
-                sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalHeader.ChangeLastAppName);
+                sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalSet.CreateDate));
+                sqlParam[8] = new SqlParameter("@pi_create_user_id", aCaseEvalSet.CreateUserId);
+                sqlParam[9] = new SqlParameter("@pi_create_app_name", aCaseEvalSet.CreateAppName);
+                sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalSet.ChangeLastDate));
+                sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalSet.ChangeLastUserId);
+                sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalSet.ChangeLastAppName);
 
                 sqlParam[13] = new SqlParameter("@po_case_eval_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
@@ -87,6 +87,7 @@ namespace HPF.FutureState.DataAccess
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
                 command.Dispose();
+                return ConvertToInt(sqlParam[16].Value).Value;
             }
             catch (Exception ex)
             {
@@ -107,12 +108,12 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[5] = new SqlParameter("pi_audit_score", aCaseEvalDetail.AuditScore);
                 sqlParam[6] = new SqlParameter("pi_comments",aCaseEvalDetail.Comments);
 
-                sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalHeader.CreateDate));
-                sqlParam[8] = new SqlParameter("@pi_create_user_id", aCaseEvalHeader.CreateUserId);
-                sqlParam[9] = new SqlParameter("@pi_create_app_name", aCaseEvalHeader.CreateAppName);
-                sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalHeader.ChangeLastDate));
-                sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalHeader.ChangeLastUserId);
-                sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalHeader.ChangeLastAppName);
+                sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalDetail.CreateDate));
+                sqlParam[8] = new SqlParameter("@pi_create_user_id", aCaseEvalDetail.CreateUserId);
+                sqlParam[9] = new SqlParameter("@pi_create_app_name", aCaseEvalDetail.CreateAppName);
+                sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalDetail.ChangeLastDate));
+                sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalDetail.ChangeLastUserId);
+                sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalDetail.ChangeLastAppName);
 
                 command.Parameters.AddRange(sqlParam);
                 command.Transaction = trans;
