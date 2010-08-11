@@ -11,5 +11,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? EvalTemplateId { get; set; }
         public int? EvalSectionId { get; set; }
         public int? SectionOrder { get; set; }
+        public EvalSectionDTO EvalSection { get; set; }
     }
 }

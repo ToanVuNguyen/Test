@@ -28,9 +28,9 @@ namespace HPF.FutureState.DataAccess
         /// </summary>
         /// <param name="templateId">templateId</param>
         /// <returns>EvalTemplateDTO</returns>
-        public EvalTemplateDTO GetEvalTemplateById(int templateId)
+        public EvalTemplateDTO GetEvalTemplateById(int? templateId)
         {
-            EvalTemplateDTO result = new EvalTemplateDTO();
+            EvalTemplateDTO result;
             XmlDocument doc = new XmlDocument();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_eval_template_get_detail", dbConnection);
@@ -57,42 +57,44 @@ namespace HPF.FutureState.DataAccess
         private EvalTemplateDTO GetEvalTemplate(XmlDocument doc)
         {
             EvalTemplateDTO result = new EvalTemplateDTO();
-            //Get EvalTemplate
-            XmlNode tNode = doc.SelectSingleNode("ROOT/TEMPLATE");
-            result.EvalTemplateId = ConvertToInt(tNode.SelectSingleNode("eval_template_id").InnerText);
-            result.TemplateName = tNode.SelectSingleNode("template_name").InnerText;
-            result.TemplateDescription = tNode.SelectSingleNode("template_description").InnerText;
-            //Get EvalSections
-            EvalTemplateSectionDTOCollection evalTemplateSections = new EvalTemplateSectionDTOCollection();
-            XmlNodeList sNodes = tNode.SelectNodes("SECTION");
-            foreach (XmlNode sNode in sNodes)
+            //The templateId is  exist
+            if (!string.IsNullOrEmpty(doc.InnerXml))
             {
-                EvalSectionDTO evalSection = new EvalSectionDTO();
-                EvalTemplateSectionDTO evalTemplateSection = new EvalTemplateSectionDTO();
-                evalSection.EvalSectionId =ConvertToInt(sNode.SelectSingleNode("eval_section_id").InnerText);
-                evalSection.SectionName = sNode.SelectSingleNode("section_name").InnerText;
-                //Get EvalQuestions
-                EvalSectionQuestionDTOCollection evalSectionQuestions = new EvalSectionQuestionDTOCollection();
-                XmlNodeList qNodes = sNode.SelectNodes("QUESTION");
-                foreach (XmlNode qNode in qNodes)
+                //Get EvalTemplate
+                XmlNode tNode = doc.SelectSingleNode("ROOT/TEMPLATE");
+                result.EvalTemplateId = ConvertToInt(tNode.SelectSingleNode("eval_template_id").InnerText);
+                result.TemplateName = tNode.SelectSingleNode("template_name").InnerText;
+                result.TemplateDescription = tNode.SelectSingleNode("template_description").InnerText;
+                //Get EvalSections
+                XmlNodeList sNodes = tNode.SelectNodes("SECTION");
+                foreach (XmlNode sNode in sNodes)
                 {
-                    EvalQuestionDTO evalQuestion = new EvalQuestionDTO();
-                    EvalSectionQuestionDTO evalSectionQuestion = new EvalSectionQuestionDTO();
-                    evalQuestion.EvalQuestionId = ConvertToInt(qNode.SelectSingleNode("eval_question_id").InnerText);
-                    evalQuestion.Question = qNode.SelectSingleNode("question").InnerText;
-                    evalQuestion.QuestionDescription = qNode.SelectSingleNode("question_description").InnerText;
-                    evalQuestion.QuestionExample = qNode.SelectSingleNode("question_example").InnerText;
-                    evalQuestion.QuestionType = qNode.SelectSingleNode("question_node").InnerText;
-                    evalQuestion.QuestionScore =ConvertToInt(qNode.SelectSingleNode("question_score").InnerText);
+                    EvalSectionDTO evalSection = new EvalSectionDTO();
+                    EvalTemplateSectionDTO evalTemplateSection = new EvalTemplateSectionDTO();
+                    evalSection.EvalSectionId = ConvertToInt(sNode.SelectSingleNode("eval_section_id").InnerText);
+                    evalSection.SectionName = sNode.SelectSingleNode("section_name").InnerText;
+                    //Get EvalQuestions
+                    XmlNodeList qNodes = sNode.SelectNodes("QUESTION");
+                    foreach (XmlNode qNode in qNodes)
+                    {
+                        EvalQuestionDTO evalQuestion = new EvalQuestionDTO();
+                        EvalSectionQuestionDTO evalSectionQuestion = new EvalSectionQuestionDTO();
+                        evalQuestion.EvalQuestionId = ConvertToInt(qNode.SelectSingleNode("eval_question_id").InnerText);
+                        evalQuestion.Question = qNode.SelectSingleNode("question").InnerText;
+                        evalQuestion.QuestionDescription = qNode.SelectSingleNode("question_description").InnerText;
+                        evalQuestion.QuestionExample = qNode.SelectSingleNode("question_example").InnerText;
+                        evalQuestion.QuestionType = qNode.SelectSingleNode("question_type").InnerText;
+                        evalQuestion.QuestionScore = ConvertToInt(qNode.SelectSingleNode("question_score").InnerText);
 
-                    evalSectionQuestion.EvalQuestion = evalQuestion;
-                    evalSectionQuestions.Add(evalSectionQuestion);
+                        evalSectionQuestion.EvalQuestion = evalQuestion;
+                        evalSectionQuestion.QuestionOrder = ConvertToInt(qNode.SelectSingleNode("question_order").InnerText);
+                        evalSection.EvalSectionQuestions.Add(evalSectionQuestion);
+                    }
+                    evalTemplateSection.EvalSection = evalSection;
+                    evalTemplateSection.SectionOrder = ConvertToInt(sNode.SelectSingleNode("section_order").InnerText);
+                    result.EvalTemplateSections.Add(evalTemplateSection);
                 }
-                evalSection.EvalSectionQuestions = evalSectionQuestions;
-                evalTemplateSection.EvalSection = evalSection;
-                evalTemplateSections.Add(evalTemplateSection);
             }
-            result.EvalTemplateSections = evalTemplateSections;
             return result;
         }
     }

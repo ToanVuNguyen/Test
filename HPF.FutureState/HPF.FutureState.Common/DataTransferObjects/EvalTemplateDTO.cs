@@ -26,6 +26,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? TotalScore { get; set; }
 
         public EvalTemplateSectionDTOCollection EvalTemplateSections { get; set; }
+        public EvalTemplateDTO()
+        {
+            EvalTemplateSections = new EvalTemplateSectionDTOCollection();
+        }
         #endregion
     }
 }

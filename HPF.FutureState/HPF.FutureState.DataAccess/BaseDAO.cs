@@ -178,7 +178,6 @@ namespace HPF.FutureState.DataAccess
                 return false;
             return returnValue;
         }
-
         /// <summary>
         /// Convert an object to decimal
         /// </summary>

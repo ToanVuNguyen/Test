@@ -20,6 +20,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         public int? TotalAuditScore { get; set; }
+        public int? TotalPossibleScore { get; set; }
 
         private string _resultLevel;
         public string ResultLevel
@@ -28,20 +29,20 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set { _resultLevel = string.IsNullOrEmpty(value) ? null : value; }
         }
 
-        private string _fatalErrorInd;
-        public string FatalErrorInd
-        {
-            get { return _fatalErrorInd; }
-            set { _fatalErrorInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
-        }
+        public bool? FatalErrorInd { get; set; }
+        public bool? HpfAuditInd { get; set; }
 
-        private string _hpfAuditInd;
-        public string HpfAuditInd
+        private string _comments;
+        public string Comments
         {
-            get { return _hpfAuditInd; }
-            set { _hpfAuditInd = string.IsNullOrEmpty(value) ? null : value.ToUpper(); }
+            get { return _comments; }
+            set { _comments = string.IsNullOrEmpty(value) ? null : value; }
         }
+        public EvalSectionCollectionDTO EvalSections { get; set; }
 
-        public CaseEvalDetailDTOCollection CaseEvalDetails { get; set; }
+        public CaseEvalSetDTO()
+        {
+            EvalSections = new EvalSectionCollectionDTO();
+        }
     }
 }

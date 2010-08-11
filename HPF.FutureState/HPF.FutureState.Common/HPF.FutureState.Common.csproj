@@ -89,6 +89,12 @@
     <Compile Include="DataTransferObjects\CallingDataHeaderDTO.cs" />
     <Compile Include="DataTransferObjects\CampaignSponsorProgramDTO.cs" />
     <Compile Include="DataTransferObjects\CampaignSponsorProgramDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalDetailDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalDetailDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalHeaderDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalSetDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalSetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CompletedCounselingDetailReportCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\CounseledProgramDTO.cs" />
     <Compile Include="DataTransferObjects\CounseledProgramDTOCollection.cs" />
@@ -96,6 +102,14 @@
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
     <Compile Include="DataTransferObjects\CounselorDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\EvalSectionCollectionDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalTemplateSectionDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalQuestionDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalSectionDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalSectionQuestionDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalSectionQuestionDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\EvalTemplateDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalTemplateSectionDTOCollection.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\ForeclosureCaseCallSearchResultDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CallLogSearchCriteriaDTO.cs" />

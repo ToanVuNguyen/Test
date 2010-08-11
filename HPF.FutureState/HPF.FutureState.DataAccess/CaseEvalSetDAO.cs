@@ -63,31 +63,33 @@ namespace HPF.FutureState.DataAccess
         public int? InsertCaseEvalSet(CaseEvalSetDTO aCaseEvalSet)
         {
             var command = CreateCommand("hpf_case_eval_set_insert", dbConnection);
-            var sqlParam = new SqlParameter[14];
+            var sqlParam = new SqlParameter[16];
             try
             {
                 sqlParam[0] = new SqlParameter("@pi_case_eval_header_id", aCaseEvalSet.CaseEvalHeaderId);
                 sqlParam[1] = new SqlParameter("@pi_evaluation_dt", NullableDateTime(aCaseEvalSet.EvaluationDt));
                 sqlParam[2] = new SqlParameter("@pi_auditor_name", aCaseEvalSet.AuditorName);
                 sqlParam[3] = new SqlParameter("@pi_total_audit_score", aCaseEvalSet.TotalAuditScore);
-                sqlParam[4] = new SqlParameter("@pi_result_level", aCaseEvalSet.ResultLevel);
-                sqlParam[5] = new SqlParameter("@pi_fatal_error_ind", aCaseEvalSet.FatalErrorInd);
-                sqlParam[6] = new SqlParameter("@pi_hpf_audit_ind", aCaseEvalSet.HpfAuditInd);
+                sqlParam[4] = new SqlParameter("pi_total_possible_score",aCaseEvalSet.TotalPossibleScore);
+                sqlParam[5] = new SqlParameter("@pi_result_level", aCaseEvalSet.ResultLevel);
+                sqlParam[6] = new SqlParameter("@pi_fatal_error_ind", aCaseEvalSet.FatalErrorInd);
+                sqlParam[7] = new SqlParameter("@pi_hpf_audit_ind", aCaseEvalSet.HpfAuditInd);
+                sqlParam[8] = new SqlParameter("@pi_comments", aCaseEvalSet.Comments);
 
-                sqlParam[7] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalSet.CreateDate));
-                sqlParam[8] = new SqlParameter("@pi_create_user_id", aCaseEvalSet.CreateUserId);
-                sqlParam[9] = new SqlParameter("@pi_create_app_name", aCaseEvalSet.CreateAppName);
-                sqlParam[10] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalSet.ChangeLastDate));
-                sqlParam[11] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalSet.ChangeLastUserId);
-                sqlParam[12] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalSet.ChangeLastAppName);
+                sqlParam[9] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalSet.CreateDate));
+                sqlParam[10] = new SqlParameter("@pi_create_user_id", aCaseEvalSet.CreateUserId);
+                sqlParam[11] = new SqlParameter("@pi_create_app_name", aCaseEvalSet.CreateAppName);
+                sqlParam[12] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalSet.ChangeLastDate));
+                sqlParam[13] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalSet.ChangeLastUserId);
+                sqlParam[14] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalSet.ChangeLastAppName);
 
-                sqlParam[13] = new SqlParameter("@po_case_eval_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                sqlParam[15] = new SqlParameter("@po_case_eval_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
                 command.Parameters.AddRange(sqlParam);
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
                 command.Dispose();
-                return ConvertToInt(sqlParam[16].Value).Value;
+                return ConvertToInt(command.Parameters["po_case_eval_set_id"].Value).Value;
             }
             catch (Exception ex)
             {
@@ -97,7 +99,7 @@ namespace HPF.FutureState.DataAccess
         public void InsertCaseEvalDetail(CaseEvalDetailDTO aCaseEvalDetail)
         {
             var command = CreateCommand("hpf_case_eval_detail_insert", dbConnection);
-            var sqlParam = new SqlParameter[1];
+            var sqlParam = new SqlParameter[13];
             try
             {
                 sqlParam[0] = new SqlParameter("pi_case_eval_set_id", aCaseEvalDetail.CaseEvalSetId);

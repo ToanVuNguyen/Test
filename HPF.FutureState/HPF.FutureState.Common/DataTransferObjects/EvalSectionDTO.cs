@@ -27,6 +27,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         public EvalSectionQuestionDTOCollection EvalSectionQuestions { get; set; }
+        public CaseEvalDetailDTOCollection CaseEvalDetails { get; set; }
+        public EvalSectionDTO()
+        {
+            EvalSectionQuestions = new EvalSectionQuestionDTOCollection();
+            CaseEvalDetails = new CaseEvalDetailDTOCollection();
+        }
         #endregion
     }
 }
