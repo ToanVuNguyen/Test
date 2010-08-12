@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace HPF.FutureState.DataAccess
 {
-    class CaseEvalHeaderDAO:BaseDAO
+    public class CaseEvalHeaderDAO:BaseDAO
     {
         private static readonly CaseEvalHeaderDAO instance = new CaseEvalHeaderDAO();
         /// <summary>

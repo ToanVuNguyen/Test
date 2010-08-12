@@ -12,7 +12,9 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? FcId { get; set; }
         public int? AgencyId { get; set; }
         public int? EvalTemplateId { get; set; }
-        
+
+        public string EvaluationYearMonth { get; set; }
+
         private string _evalType;
         public string EvalType
         {
