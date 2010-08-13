@@ -30,37 +30,32 @@ namespace HPF.FutureState.DataAccess
 
             SqlConnection dbConnection = CreateConnection();
             SqlCommand command = CreateSPCommand("hpf_case_eval_header_insert", dbConnection);
-            SqlTransaction trans = null;
-
+            
             #region parameters
             //<Parameter>
-            SqlParameter[] sqlParam = new SqlParameter[12];
+            SqlParameter[] sqlParam = new SqlParameter[13];
             sqlParam[0] = new SqlParameter("@pi_fc_id", aCaseEvalHeader.FcId);
             sqlParam[1] = new SqlParameter("@pi_agency_id", aCaseEvalHeader.AgencyId);
             sqlParam[2] = new SqlParameter("@pi_eval_template_id", aCaseEvalHeader.EvalTemplateId);
-            sqlParam[3] = new SqlParameter("pi_eval_type", aCaseEvalHeader.EvalType);
-            sqlParam[4] = new SqlParameter("pi_eval_status", aCaseEvalHeader.EvalStatus);
+            sqlParam[3] = new SqlParameter("@pi_eval_year_month", aCaseEvalHeader.EvaluationYearMonth);
+            sqlParam[4] = new SqlParameter("@pi_eval_type", aCaseEvalHeader.EvalType);
+            sqlParam[5] = new SqlParameter("@pi_eval_status", aCaseEvalHeader.EvalStatus);
+            
+            sqlParam[6] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalHeader.CreateDate));
+            sqlParam[7] = new SqlParameter("@pi_create_user_id", aCaseEvalHeader.CreateUserId);
+            sqlParam[8] = new SqlParameter("@pi_create_app_name", aCaseEvalHeader.CreateAppName);
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalHeader.ChangeLastDate));
+            sqlParam[10] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalHeader.ChangeLastUserId);
+            sqlParam[11] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalHeader.ChangeLastAppName);
 
-            sqlParam[5] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalHeader.CreateDate));
-            sqlParam[6] = new SqlParameter("@pi_create_user_id", aCaseEvalHeader.CreateUserId);
-            sqlParam[7] = new SqlParameter("@pi_create_app_name", aCaseEvalHeader.CreateAppName);
-            sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalHeader.ChangeLastDate));
-            sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalHeader.ChangeLastUserId);
-            sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalHeader.ChangeLastAppName);
-
-            sqlParam[11] = new SqlParameter("@po_case_eval_header_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            sqlParam[12] = new SqlParameter("@po_case_eval_header_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
             //</Parameter>
             #endregion
-
             command.Parameters.AddRange(sqlParam);
-            command.CommandType = CommandType.StoredProcedure;
             try
             {
-                command.Parameters.AddRange(sqlParam);
-                command.Transaction = trans;
+                dbConnection.Open();
                 command.ExecuteNonQuery();
-                command.Dispose();
-                trans.Commit();
                 aCaseEvalHeader.CaseEvalHeaderId = ConvertToInt(command.Parameters["@po_case_eval_header_id"].Value);
             }
             catch (Exception ex)
@@ -74,6 +69,49 @@ namespace HPF.FutureState.DataAccess
 
             return aCaseEvalHeader.CaseEvalHeaderId;
         }
+        /// <summary>
+        /// Get Case Eval Header By Fc_Id
+        /// </summary>
+        /// <param name="fc_Id"></param>
+        /// <returns>CaseEvalHeaderDTO</returns>
+        public CaseEvalHeaderDTO GetCaseEvalHeaderByCaseId(int fc_Id)
+        {
+            CaseEvalHeaderDTO result = null;
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_case_eval_header_get", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fc_Id);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        result = new CaseEvalHeaderDTO();
+                        result.EvalTemplateId = ConvertToInt(reader["eval_template_id"]);
+                        result.EvalStatus = ConvertToString(reader["eval_status"]);
+                        result.EvalType = ConvertToString(reader["eval_type"]);
+                        result.EvaluationYearMonth = ConvertToString(reader["eval_year_month"]);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
+
+        //Modify later because changing in database at eval_detail table
+        /*
         /// <summary>
         /// Get CaseEval Latest Set
         /// </summary>
@@ -105,6 +143,8 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+
+
         /// <summary>
         /// Get All CaseEval Set
         /// </summary>
@@ -161,8 +201,8 @@ namespace HPF.FutureState.DataAccess
                     evalSet.TotalAuditScore =ConvertToInt(sNode.SelectSingleNode("total_audit_score").InnerText);
                     evalSet.TotalPossibleScore =ConvertToInt(sNode.SelectSingleNode("total_possible_score").InnerText);
                     evalSet.ResultLevel = sNode.SelectSingleNode("result_level").InnerText;
-                    evalSet.FatalErrorInd = ConvertToBool(sNode.SelectSingleNode("fatal_error_ind").InnerText);
-                    evalSet.HpfAuditInd = ConvertToBool(sNode.SelectSingleNode("hpf_audit_ind").InnerText);
+                    evalSet.FatalErrorInd = sNode.SelectSingleNode("fatal_error_ind").InnerText;
+                    evalSet.HpfAuditInd = sNode.SelectSingleNode("hpf_audit_ind").InnerText;
                     evalSet.Comments = sNode.SelectSingleNode("comments").InnerText;
                     //Get Section
                     XmlNodeList sectionNodes = sNode.SelectNodes("SECTION");
@@ -191,6 +231,6 @@ namespace HPF.FutureState.DataAccess
                 }
             }
             return result;
-        }
+        }*/
     }
 }

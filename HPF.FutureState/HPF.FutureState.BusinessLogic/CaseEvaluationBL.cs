@@ -28,7 +28,10 @@ namespace HPF.FutureState.BusinessLogic
         {
 
         }
- 
+        public CaseEvalHeaderDTO GetCaseEvalHeaderByCaseId(int fc_ID)
+        {
+            return CaseEvalHeaderDAO.Instance.GetCaseEvalHeaderByCaseId(fc_ID);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -39,13 +42,13 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (caseEvalHeader.EvalType == EvaluationType.DESKTOP)
                 {
-                    caseEvalHeader.EvaluationYearMonth = DateTime.Today.Year.ToString() + DateTime.Today.AddMonths(-1).ToString();
+                    caseEvalHeader.EvaluationYearMonth = DateTime.Today.ToString("yyyy") + DateTime.Today.AddMonths(-1).ToString("MM");
                     caseEvalHeader.EvalType = EvaluationType.DESKTOP;
                     caseEvalHeader.EvalStatus = EvaluationStatus.AGENCY_INPUT_REQUIRED;
                 }
                 else
                 {
-                    caseEvalHeader.EvaluationYearMonth = DateTime.Today.Year.ToString() + DateTime.Today.Month.ToString();
+                    caseEvalHeader.EvaluationYearMonth = DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM");
                     caseEvalHeader.EvalType = EvaluationType.ONSITE;
                     caseEvalHeader.EvalStatus = EvaluationStatus.HPF_INPUT_REQUIRED;
                 }

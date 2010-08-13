@@ -28,10 +28,19 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _resultLevel; }
             set { _resultLevel = string.IsNullOrEmpty(value) ? null : value; }
         }
-
-        public bool? FatalErrorInd { get; set; }
-        public bool? HpfAuditInd { get; set; }
-
+        private string _fatalErrorInd;
+        public string FatalErrorInd
+        {
+            get { return _fatalErrorInd; }
+            set { _fatalErrorInd = string.IsNullOrEmpty(value) ? null : value; }
+        }
+        private string _hpfAuditInd;
+        public string HpfAuditInd
+        {
+            get { return _hpfAuditInd; }
+            set { _hpfAuditInd = string.IsNullOrEmpty(value) ? null : value; }
+        }
+        
         private string _comments;
         public string Comments
         {

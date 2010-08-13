@@ -28,19 +28,5 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _evalStatus; }
             set { _evalStatus = string.IsNullOrEmpty(value) ? null : value; }
         }
-        public CaseEvalSetDTOCollection CaseEvalSets { get; set; }
-        #region Information of ForeclosureCase
-        public DateTime? CallDate { get; set; }
-        public string AgencyName { get; set; }
-        public string ZipCode { get; set; }
-        public string CounselorName { get; set; }
-        public string LoanNumber { get; set; }
-        public string HomeowenerFirstName { get; set; }
-        public string HomeownerLastName { get; set; }
-        #endregion
-        public CaseEvalHeaderDTO()
-        {
-            CaseEvalSets = new CaseEvalSetDTOCollection();
-        }
     }
 }

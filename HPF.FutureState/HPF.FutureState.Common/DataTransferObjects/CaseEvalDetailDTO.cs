@@ -10,14 +10,24 @@ namespace HPF.FutureState.Common.DataTransferObjects
     {
         public int? CaseEvalDetailId { get; set; }
         public int? CaseEvalSetId { get; set; }
-        public int? EvalQuestionId { get; set; }
 
+        public int? EvalSectionId { get; set; }
+        private string _sectionName;
+        public string SectionName
+        {
+            get { return _sectionName; }
+            set { _sectionName = string.IsNullOrEmpty(value) ? null : value; }
+        }
+        public int? SectionOrder { get; set; }
+
+        public int? EvalQuestionId { get; set; }
         private string _evalQuestion;
         public string EvalQuestion
         {
             get { return _evalQuestion; }
             set { _evalQuestion = string.IsNullOrEmpty(value) ? null : value; }
         }
+        public int? QuestionOrder { get; set; }
 
         private string _evalAnswer;
         public string EvalAnswer

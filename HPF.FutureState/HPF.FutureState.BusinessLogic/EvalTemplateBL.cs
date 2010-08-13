@@ -22,5 +22,9 @@ namespace HPF.FutureState.BusinessLogic
         {
             return EvalTemplateDAO.Instance.GetEvalTemplateById(templateId);
         }
+        public EvalTemplateDTOCollection RetriveAllTemplate()
+        {
+            return EvalTemplateDAO.Instance.GetEvalTemplateAll();
+        }
     }
 }

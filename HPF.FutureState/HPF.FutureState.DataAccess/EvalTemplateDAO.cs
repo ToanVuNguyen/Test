@@ -23,6 +23,39 @@ namespace HPF.FutureState.DataAccess
         protected EvalTemplateDAO()
         {
         }
+        public EvalTemplateDTOCollection GetEvalTemplateAll()
+        {
+            EvalTemplateDTOCollection result = new EvalTemplateDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_eval_template_get_all", dbConnection);
+            try
+            {
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        EvalTemplateDTO evalTemplate = new EvalTemplateDTO();
+                        evalTemplate.EvalTemplateId = ConvertToInt(reader["eval_template_id"]);
+                        evalTemplate.TemplateName = ConvertToString(reader["template_name"]);
+                        evalTemplate.TemplateDescription = ConvertToString(reader["template_description"]);
+                        result.Add(evalTemplate);
+                    }
+                    reader.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally 
+            { 
+                dbConnection.Close(); 
+            }
+            return result;
+        }
         /// <summary>
         /// Get EvalTemplate detail with section in order and all questions in order
         /// </summary>

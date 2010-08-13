@@ -115,6 +115,13 @@
     <Compile Include="AgencyPayableInfo.aspx.designer.cs">
       <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx.cs">
+      <DependentUpon>AppQCSelectionCaseSearchUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx.designer.cs">
+      <DependentUpon>AppQCSelectionCaseSearchUC.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppNewInvoice\NewInvoiceCriteria.ascx.cs">
       <DependentUpon>NewInvoiceCriteria.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -163,6 +170,13 @@
     </Compile>
     <Compile Include="CreateNewPayable.aspx.designer.cs">
       <DependentUpon>CreateNewPayable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\QCSelection.ascx.cs">
+      <DependentUpon>QCSelection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForeclosureCaseDetail\QCSelection.ascx.designer.cs">
+      <DependentUpon>QCSelection.ascx</DependentUpon>
     </Compile>
     <Compile Include="ForeclosureCaseInfo.aspx.cs">
       <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
@@ -399,6 +413,13 @@
       <DependentUpon>PrintSummaryUC.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchQCSelectionCase.aspx.cs">
+      <DependentUpon>SearchQCSelectionCase.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchQCSelectionCase.aspx.designer.cs">
+      <DependentUpon>SearchQCSelectionCase.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Security\HPFHttpModule.cs" />
     <Compile Include="Security\HPFWebSecurity.cs" />
     <Compile Include="Security\MenuItemSecurity.cs" />
@@ -466,6 +487,7 @@
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
     <Content Include="AgencyPayable.aspx" />
     <Content Include="AgencyPayableInfo.aspx" />
+    <Content Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx" />
     <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
     <Content Include="AppNewPayable\ReprintPayable.ascx" />
     <Content Include="AppNewPayable\ViewEditAgencyPayable.ascx" />
@@ -473,6 +495,7 @@
     <Content Include="CodeMaintenance\CodeMaintenance.ascx" />
     <Content Include="CodeMaintenance\CodeMaintenanceEdit.ascx" />
     <Content Include="CreateNewPayable.aspx" />
+    <Content Include="ForeclosureCaseDetail\QCSelection.ascx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
@@ -513,6 +536,7 @@
     <Content Include="NewInvoiceSelection.aspx" />
     <Content Include="PrintSummary.aspx" />
     <Content Include="PrintSummary\PrintSummaryUC.ascx" />
+    <Content Include="SearchQCSelectionCase.aspx" />
     <Content Include="SendSummaryToServicer\SendSummaryToServicer.ascx" />
     <Content Include="Site.Master" />
     <Content Include="Styles\HPF.css" />

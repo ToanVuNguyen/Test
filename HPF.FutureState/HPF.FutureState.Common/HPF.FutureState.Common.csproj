@@ -93,6 +93,8 @@
     <Compile Include="DataTransferObjects\CaseEvalDetailDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CaseEvalDTO.cs" />
     <Compile Include="DataTransferObjects\CaseEvalHeaderDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalSearchCriteriaDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalSearchResultDTO.cs" />
     <Compile Include="DataTransferObjects\CaseEvalSetDTO.cs" />
     <Compile Include="DataTransferObjects\CaseEvalSetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CompletedCounselingDetailReportCriteriaDTO.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
     <Compile Include="DataTransferObjects\CounselorDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalSectionCollectionDTO.cs" />
+    <Compile Include="DataTransferObjects\EvalTemplateDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalTemplateSectionDTO.cs" />
     <Compile Include="DataTransferObjects\EvalQuestionDTO.cs" />
     <Compile Include="DataTransferObjects\EvalSectionDTO.cs" />

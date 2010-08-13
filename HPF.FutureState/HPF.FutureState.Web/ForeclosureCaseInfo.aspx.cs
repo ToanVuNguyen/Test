@@ -42,6 +42,7 @@ namespace HPF.FutureState.Web
                     tabControl.AddTab("activityLog", "Activity Log");
                     tabControl.AddTab("caseFollowUp", "Case Follow-Up");
                     tabControl.AddTab("audit", "Audit");
+                    tabControl.AddTab("QCSelection", "QC Selection");
                     tabControl.SelectedTab = "caseDetail";
                     UserControlLoader.LoadUserControl(UCLOCATION + "CaseDetail.ascx", "ucCaseDetail");
                 }
@@ -159,6 +160,9 @@ namespace HPF.FutureState.Web
                         break;
                     case "audit":
                         UserControlLoader.LoadUserControl(UCLOCATION + "Audit.ascx", "ucAudit");
+                        break;
+                    case "QCSelection":
+                        UserControlLoader.LoadUserControl(UCLOCATION + "QCSelection.ascx", "ucQCSelection");
                         break;
                 }
             }
