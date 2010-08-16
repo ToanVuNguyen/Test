@@ -109,7 +109,56 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+        /// <summary>
+        /// Search Case Eval
+        /// </summary>
+        /// <param name="caseEvalCriteria"></param>
+        /// <returns>CaseEvalSearchResultDTOCollection</returns>
+        public CaseEvalSearchResultDTOCollection SearchCaseEval(CaseEvalSearchCriteriaDTO caseEvalCriteria)
+        {
+            CaseEvalSearchResultDTOCollection results = new CaseEvalSearchResultDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_case_eval_search", dbConnection);
+            var sqlParam = new SqlParameter[3];
+            sqlParam[0] = new SqlParameter("@pi_agency_id", caseEvalCriteria.AgencyId);
+            sqlParam[1] = new SqlParameter("@pi_eval_year_month_from", caseEvalCriteria.YearMonthFrom);
+            sqlParam[2] = new SqlParameter("@pi_eval_year_month_to", caseEvalCriteria.YearMonthTo);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        CaseEvalSearchResultDTO result = new CaseEvalSearchResultDTO();
+                        result.FcId = ConvertToInt(reader["fc_id"]);
+                        result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
+                        result.EvalStatus = ConvertToString(reader["eval_status"]);
+                        result.AgencyName = ConvertToString(reader["agency_name"]);
+                        result.CounselorName = ConvertToString(reader["counselor_name"]);
+                        result.HomeowenerFirstName = ConvertToString(reader["borrower_fname"]);
+                        result.HomeowenerLastName = ConvertToString(reader["borrower_lname"]);
+                        result.ServicerName = ConvertToString(reader["servicer_name"]);
+                        result.ZipCode = ConvertToString(reader["zip_code"]);
+                        result.LoanNumber = ConvertToString(reader["loan_number"]);
 
+                        results.Add(result);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return results;
+        }
         //Modify later because changing in database at eval_detail table
         /*
         /// <summary>

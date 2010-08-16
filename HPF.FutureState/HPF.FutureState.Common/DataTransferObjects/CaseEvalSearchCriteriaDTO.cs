@@ -10,6 +10,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class CaseEvalSearchCriteriaDTO:BaseDTO
     {
-
+        public int? AgencyId { get; set; }
+        public string YearMonthFrom { get; set; }
+        public string YearMonthTo { get; set; }
     }
 }
