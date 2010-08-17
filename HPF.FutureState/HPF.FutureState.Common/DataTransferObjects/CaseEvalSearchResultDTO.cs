@@ -19,6 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ZipCode { get; set; }
         public string LoanNumber { get; set; }
         public string ServicerName { get; set; }
+        public DateTime? CallDate { get; set; }
         #endregion
         public CaseEvalSearchResultDTO()
         {

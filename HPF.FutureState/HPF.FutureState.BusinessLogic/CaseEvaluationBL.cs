@@ -32,6 +32,10 @@ namespace HPF.FutureState.BusinessLogic
         {
             return CaseEvalHeaderDAO.Instance.SearchCaseEval(caseEvalCriteria);
         }
+        public CaseEvalSearchResultDTO SearchCaseEvalByFcId(int fcId)
+        {
+            return CaseEvalHeaderDAO.Instance.SearchCaseEvalByFcId(fcId);
+        }
         public CaseEvalHeaderDTO GetCaseEvalHeaderByCaseId(int fc_ID)
         {
             return CaseEvalHeaderDAO.Instance.GetCaseEvalHeaderByCaseId(fc_ID);

@@ -131,6 +131,7 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
                 return;
             }
             int fcId = (int)grvCaseEvalList.SelectedValue;
+            Response.Redirect("QCSelectionCaseInfo.aspx?caseId=" + fcId.ToString());
         }
 
         

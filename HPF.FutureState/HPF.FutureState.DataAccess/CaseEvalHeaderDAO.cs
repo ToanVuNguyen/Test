@@ -159,6 +159,47 @@ namespace HPF.FutureState.DataAccess
             }
             return results;
         }
+        public CaseEvalSearchResultDTO SearchCaseEvalByFcId(int fcId)
+        {
+            CaseEvalSearchResultDTO result = new CaseEvalSearchResultDTO();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_case_eval_search_by_fc_id", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        result.FcId = ConvertToInt(reader["fc_id"]);
+                        result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
+                        result.EvalStatus = ConvertToString(reader["eval_status"]);
+                        result.AgencyName = ConvertToString(reader["agency_name"]);
+                        result.CounselorName = ConvertToString(reader["counselor_name"]);
+                        result.HomeowenerFirstName = ConvertToString(reader["borrower_fname"]);
+                        result.HomeowenerLastName = ConvertToString(reader["borrower_lname"]);
+                        result.ServicerName = ConvertToString(reader["servicer_name"]);
+                        result.ZipCode = ConvertToString(reader["zip_code"]);
+                        result.LoanNumber = ConvertToString(reader["loan_number"]);
+                        result.CallDate = ConvertToDateTime(reader["start_dt"]);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
         //Modify later because changing in database at eval_detail table
         /*
         /// <summary>

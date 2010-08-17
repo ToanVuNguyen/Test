@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HPF.FutureState.Web.ForeclosureCaseDetail {
+namespace HPF.FutureState.Web.QCSelectionCaseDetail {
     
     
-    public partial class QCSelection {
+    public partial class AgencyAudit {
         
         /// <summary>
         /// lblErrorMessage control.
@@ -23,57 +23,66 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail {
         protected global::System.Web.UI.WebControls.Label lblErrorMessage;
         
         /// <summary>
-        /// ddlEvalTemplate control.
+        /// lblAuditorName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEvalTemplate;
+        protected global::System.Web.UI.WebControls.Label lblAuditorName;
         
         /// <summary>
-        /// rbtnDesktop control.
+        /// txtEvaluationDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnDesktop;
+        protected global::System.Web.UI.WebControls.TextBox txtEvaluationDate;
         
         /// <summary>
-        /// lblDesktop control.
+        /// chkFatalError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDesktop;
+        protected global::System.Web.UI.WebControls.CheckBox chkFatalError;
         
         /// <summary>
-        /// rbtnOnSite control.
+        /// lblSectionQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbtnOnSite;
+        protected global::System.Web.UI.WebControls.Label lblSectionQuestion;
         
         /// <summary>
-        /// lblOnSite control.
+        /// btnCalculate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOnSite;
+        protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
-        /// btnSelectQC control.
+        /// btnSaveNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSelectQC;
+        protected global::System.Web.UI.WebControls.Button btnSaveNew;
+        
+        /// <summary>
+        /// btnClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClose;
     }
 }
