@@ -9,17 +9,12 @@ namespace HPF.FutureState.DataAccess
 {
     public class CaseEvalSetDAO:BaseDAO
     {
-        private static readonly CaseEvalSetDAO instance = new CaseEvalSetDAO();
-        /// <summary>
-        /// Singleton
-        /// </summary>
-        public static CaseEvalSetDAO Instance
-        {
-            get { return instance; }
-        }
-        protected CaseEvalSetDAO() { }
         public SqlConnection dbConnection;
         public SqlTransaction trans;
+        public static CaseEvalSetDAO CreateInstance()
+        {
+            return new CaseEvalSetDAO();
+        }
         /// <summary>
         /// Begin Transaction
         /// </summary>
@@ -60,6 +55,25 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
+        public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)
+        {
+            var command = CreateCommand("hpf_case_eval_header_update", dbConnection);
+            var sqlParam = new SqlParameter[3];
+            try
+            {
+                sqlParam[0] = new SqlParameter("@pi_case_eval_header_id",caseEvalHeader.CaseEvalHeaderId);
+                sqlParam[1] = new SqlParameter("@pi_eval_status",caseEvalHeader.EvalStatus);
+                
+                command.Parameters.AddRange(sqlParam);
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
         public int? InsertCaseEvalSet(CaseEvalSetDTO aCaseEvalSet)
         {
             var command = CreateCommand("hpf_case_eval_set_insert", dbConnection);

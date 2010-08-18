@@ -41,6 +41,51 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.TextBox txtEvaluationDate;
         
         /// <summary>
+        /// lblYesScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblYesScore;
+        
+        /// <summary>
+        /// lblNoScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNoScore;
+        
+        /// <summary>
+        /// lblNAScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNAScore;
+        
+        /// <summary>
+        /// lblLevelPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLevelPercent;
+        
+        /// <summary>
+        /// lblLevelName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLevelName;
+        
+        /// <summary>
         /// chkFatalError control.
         /// </summary>
         /// <remarks>
@@ -50,13 +95,22 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.CheckBox chkFatalError;
         
         /// <summary>
-        /// lblSectionQuestion control.
+        /// lblLevelNameOverride control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSectionQuestion;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLevelNameOverride;
+        
+        /// <summary>
+        /// placeHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder placeHolder;
         
         /// <summary>
         /// btnCalculate control.

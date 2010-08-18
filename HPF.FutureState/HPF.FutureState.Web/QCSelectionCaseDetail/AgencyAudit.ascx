@@ -32,34 +32,32 @@
                 </tr>
                 <tr>
                     <td style="color:Red" align="left"><b>Totals</b></td>
-                    <td style="color:Red" align="center">5</td>
-                    <td style="color:Red" align="center">1</td>
-                    <td style="color:Red" align="center">1</td>
+                    <td align="center"><label style="color:Red" id="lblYesScore" runat="server"/></td>
+                    <td align="center"><label style="color:Red" id="lblNoScore" runat="server"/></td>
+                    <td align="center"><label style="color:Red" id="lblNAScore" runat="server"/></td>
                     <td align="center"></td>
                 </tr>
                 <tr>
                     <td style="color:Red" align="left"><b>Level</b></td>
-                    <td style="color:Red" align="center">83%</td>
+                    <td align="center"><label style="color:Red" id="lblLevelPercent" runat="server"/></td>
                     <td style="color:Red" align="center"></td>
                     <td style="color:Red" align="center"></td>
-                    <td style="color:Red" align="right">Novice</td>
+                    <td align="right"><label style="color:Red" id="lblLevelName" runat="server"/></td>
                 </tr>
                 <tr>
                     <td style="color:Red" align="left"><b>Fatal Error</b></td>
                     <td align="center" colspan="3">
-                        
                         <asp:CheckBox ID="chkFatalError" runat="server" />
-                        
                     </td>
-                    <td style="color:Red" align="right"><b>Level Override:</b> Remediation</td>
+                    <td style="color:Red" align="right"><b>Level Override:</b> <label style="color:Red" id="lblLevelNameOverride" runat="server"/></td>
                 </tr>
                 <!-- End Scoring Section -->
                 <!-- List of questions -->
-                <asp:Label ID="lblSectionQuestion" runat="server"></asp:Label>
+                <asp:PlaceHolder ID="placeHolder" runat="server"></asp:PlaceHolder>
                 <!-- End List of questions -->
                 <tr><td colspan='5' align='right'>
                 <asp:Button ID='btnCalculate' runat='server' Text='Calculate Score' Width='120px'
-                CssClass='MyButton'/>
+                CssClass='MyButton' onclick="btnCalculate_Click"/>
                 <asp:Button ID='btnSaveNew' runat='server' Text='Save New' Width='120px' 
                         CssClass='MyButton' onclick="btnSaveNew_Click"/>
                 <asp:Button ID='btnClose' runat='server' Text='Close' Width='120px'

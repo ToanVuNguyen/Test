@@ -47,11 +47,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _comments; }
             set { _comments = string.IsNullOrEmpty(value) ? null : value; }
         }
-        public EvalSectionCollectionDTO EvalSections { get; set; }
-
+        //public EvalSectionCollectionDTO EvalSections { get; set; }
+        public CaseEvalDetailDTOCollection CaseEvalDetails { get; set; }
         public CaseEvalSetDTO()
         {
-            EvalSections = new EvalSectionCollectionDTO();
+            //EvalSections = new EvalSectionCollectionDTO();
+            CaseEvalDetails = new CaseEvalDetailDTOCollection();
         }
     }
 }

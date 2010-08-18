@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HPF.FutureState.Common.Utils.DataValidator;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
@@ -30,6 +31,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? QuestionOrder { get; set; }
 
         private string _evalAnswer;
+        [NullableOrStringLengthValidator(true, 50, "Evaluation Answer", Ruleset="Default")]
         public string EvalAnswer
         {
             get { return _evalAnswer; }
