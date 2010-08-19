@@ -58,13 +58,14 @@ namespace HPF.FutureState.DataAccess
         public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)
         {
             var command = CreateCommand("hpf_case_eval_header_update", dbConnection);
-            var sqlParam = new SqlParameter[3];
+            var sqlParam = new SqlParameter[2];
             try
             {
                 sqlParam[0] = new SqlParameter("@pi_case_eval_header_id",caseEvalHeader.CaseEvalHeaderId);
                 sqlParam[1] = new SqlParameter("@pi_eval_status",caseEvalHeader.EvalStatus);
                 
                 command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
                 command.Dispose();
@@ -100,10 +101,11 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[15] = new SqlParameter("@po_case_eval_set_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
 
                 command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
                 command.Dispose();
-                return ConvertToInt(command.Parameters["po_case_eval_set_id"].Value).Value;
+                return ConvertToInt(command.Parameters["@po_case_eval_set_id"].Value).Value;
             }
             catch (Exception ex)
             {
@@ -136,6 +138,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[16] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalDetail.ChangeLastAppName);
 
                 command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
                 command.Dispose();
@@ -144,6 +147,73 @@ namespace HPF.FutureState.DataAccess
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
             }
+        }
+        /// <summary>
+        /// Get CaseEval Latest Set for HPF and Agency depending on hpfAuditInd
+        /// </summary>
+        /// <param name="case_eval_header_id">case_eval_header_id</param>
+        /// <param name="hpfAuditInd">hpfAuditInd</param>
+        /// <returns>CaseEvalSetDTO</returns>
+        public CaseEvalSetDTO GetCaseEvalLatestSet(int? caseEvalHeaderId,string hpfAuditInd)
+        {
+            CaseEvalSetDTO result = new CaseEvalSetDTO();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_case_eval_get_latest_set", dbConnection);
+            var sqlParam = new SqlParameter[2];
+            sqlParam[0] = new SqlParameter("@pi_case_eval_header_id", caseEvalHeaderId);
+            sqlParam[1] = new SqlParameter("@pi_hpf_audit_ind", hpfAuditInd);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        result.CaseEvalHeaderId = caseEvalHeaderId;
+                        result.CaseEvalSetId = ConvertToInt(reader["case_eval_set_id"]);
+                        result.EvaluationDt = ConvertToDateTime(reader["evaluation_dt"]);
+                        result.AuditorName = ConvertToString(reader["auditor_name"]);
+                        result.TotalAuditScore = ConvertToInt(reader["total_audit_score"]);
+                        result.TotalPossibleScore = ConvertToInt(reader["total_possible_score"]);
+                        result.ResultLevel = ConvertToString(reader["result_level"]);
+                        result.FatalErrorInd = ConvertToString(reader["fatal_error_ind"]);
+                        result.Comments = ConvertToString(reader["comments"]);
+                    }
+                    reader.NextResult();
+
+                    //Read Case Eval Details
+                    while (reader.Read())
+                    {
+                        CaseEvalDetailDTO evalDetail = new CaseEvalDetailDTO();
+                        evalDetail.CaseEvalSetId = result.CaseEvalSetId;
+                        evalDetail.CaseEvalDetailId =ConvertToInt(reader["case_eval_detail_id"]);
+                        evalDetail.EvalSectionId = ConvertToInt(reader["eval_section_id"]);
+                        evalDetail.SectionName = ConvertToString(reader["section_name"]);
+                        evalDetail.SectionOrder = ConvertToInt(reader["section_order"]);
+                        evalDetail.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
+                        evalDetail.EvalQuestion = ConvertToString(reader["eval_question"]);
+                        evalDetail.QuestionOrder = ConvertToInt(reader["question_order"]);
+                        evalDetail.EvalAnswer = ConvertToString(reader["eval_answer"]);
+                        evalDetail.QuestionScore = ConvertToInt(reader["question_score"]);
+                        evalDetail.AuditScore = ConvertToInt(reader["audit_score"]);
+                        evalDetail.Comments = ConvertToString(reader["comments"]);
+
+                        result.CaseEvalDetails.Add(evalDetail);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
         }
     }
 }

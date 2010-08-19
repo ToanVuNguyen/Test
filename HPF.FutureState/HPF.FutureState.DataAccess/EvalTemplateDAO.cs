@@ -106,6 +106,8 @@ namespace HPF.FutureState.DataAccess
                     EvalTemplateSectionDTO evalTemplateSection = new EvalTemplateSectionDTO();
                     evalSection.EvalSectionId = ConvertToInt(sNode.SelectSingleNode("eval_section_id").InnerText);
                     evalSection.SectionName = sNode.SelectSingleNode("section_name").InnerText;
+                    evalTemplateSection.EvalTemplateId = result.EvalTemplateId;
+                    evalTemplateSection.EvalSectionId = evalSection.EvalSectionId;
                     //Get EvalQuestions
                     XmlNodeList qNodes = sNode.SelectNodes("QUESTION");
                     foreach (XmlNode qNode in qNodes)
@@ -121,6 +123,8 @@ namespace HPF.FutureState.DataAccess
 
                         evalSectionQuestion.EvalQuestion = evalQuestion;
                         evalSectionQuestion.QuestionOrder = ConvertToInt(qNode.SelectSingleNode("question_order").InnerText);
+                        evalSectionQuestion.EvalQuestionId = evalQuestion.EvalQuestionId;
+                        evalSectionQuestion.EvalSectionId = evalSection.EvalSectionId;
                         evalSection.EvalSectionQuestions.Add(evalSectionQuestion);
                     }
                     evalTemplateSection.EvalSection = evalSection;

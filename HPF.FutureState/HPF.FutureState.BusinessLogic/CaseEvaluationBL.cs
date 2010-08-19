@@ -43,6 +43,11 @@ namespace HPF.FutureState.BusinessLogic
         {
             return CaseEvalHeaderDAO.Instance.GetCaseEvalHeaderByCaseId(fc_ID);
         }
+        public CaseEvalSetDTO GetCaseEvalLatest(int? caseEvalHeaderId, string hpfAuditInd)
+        {
+            CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
+            return instance.GetCaseEvalLatestSet(caseEvalHeaderId, hpfAuditInd);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -93,7 +98,7 @@ namespace HPF.FutureState.BusinessLogic
                 }
                 //Insert new case eval set
                 caseEvalSetDraft.SetInsertTrackingInformation(userId);
-                caseEvalSetDraft.HpfAuditInd = (isHpfUser ? "Y" : "N");
+                caseEvalSetDraft.HpfAuditInd = (isHpfUser ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
                 int? caseEvalSetId = caseEvalSetDAO.InsertCaseEvalSet(caseEvalSetDraft);
                 foreach (CaseEvalDetailDTO caseEvalDetailDraft in caseEvalSetDraft.CaseEvalDetails)
                 {
@@ -179,13 +184,12 @@ namespace HPF.FutureState.BusinessLogic
         }
 
 
-        public CaseEvalSetDTO CalculateCaseTotalScore(CaseEvalSetDTO caseEvalSet)
+        public CaseEvalSetDTO CalculateCaseTotalScore(CaseEvalSetDTO caseEvalSet,ref int totalNoScore,ref int totalNAScore)
         {
             int totalYesScore = 0;
-            int totalNoScore = 0;
-            int totalNAScore = 0;
             int totalPossibleScore = 0;
-
+            totalNoScore = 0;
+            totalNAScore = 0;
             foreach (CaseEvalDetailDTO evalDetail in caseEvalSet.CaseEvalDetails)
             {
                 switch (evalDetail.EvalAnswer)
@@ -206,7 +210,7 @@ namespace HPF.FutureState.BusinessLogic
                 }
             }
 
-            decimal percent = Math.Round((decimal)(totalYesScore / totalPossibleScore), 4);
+            decimal percent = Math.Round((decimal)((decimal)totalYesScore /(decimal) totalPossibleScore), 4);
 
             //Set all value back to set dto
             caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);
@@ -228,8 +232,8 @@ namespace HPF.FutureState.BusinessLogic
 
         public class EvaluationYesNoAnswer
         {
-            public const string YES = "Y";
-            public const string NO = "N";
+            public const string YES = Constant.INDICATOR_YES;
+            public const string NO = Constant.INDICATOR_NO;
             public const string NA = "NA";
         }
 

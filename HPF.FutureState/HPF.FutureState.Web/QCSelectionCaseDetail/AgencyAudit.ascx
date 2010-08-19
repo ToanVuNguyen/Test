@@ -55,6 +55,12 @@
                 <!-- List of questions -->
                 <asp:PlaceHolder ID="placeHolder" runat="server"></asp:PlaceHolder>
                 <!-- End List of questions -->
+                <tr>
+                <td colspan="4" align="left" class="sidelinks">Reason Changed Comment</td>
+                <td align="center">
+                    <asp:TextBox runat="server" ID="txtComments" Columns="50" Rows="10" />
+                </td>
+                </tr>
                 <tr><td colspan='5' align='right'>
                 <asp:Button ID='btnCalculate' runat='server' Text='Calculate Score' Width='120px'
                 CssClass='MyButton' onclick="btnCalculate_Click"/>

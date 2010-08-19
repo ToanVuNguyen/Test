@@ -91,6 +91,7 @@ namespace HPF.FutureState.DataAccess
                     if (reader.Read())
                     {
                         result = new CaseEvalHeaderDTO();
+                        result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
                         result.EvalTemplateId = ConvertToInt(reader["eval_template_id"]);
                         result.EvalStatus = ConvertToString(reader["eval_status"]);
                         result.EvalType = ConvertToString(reader["eval_type"]);
