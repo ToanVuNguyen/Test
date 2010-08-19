@@ -28,14 +28,17 @@ namespace HPF.FutureState.BusinessLogic
         {
 
         }
+
         public CaseEvalSearchResultDTOCollection SearchCaseEval(CaseEvalSearchCriteriaDTO caseEvalCriteria)
         {
             return CaseEvalHeaderDAO.Instance.SearchCaseEval(caseEvalCriteria);
         }
+
         public CaseEvalSearchResultDTO SearchCaseEvalByFcId(int fcId)
         {
             return CaseEvalHeaderDAO.Instance.SearchCaseEvalByFcId(fcId);
         }
+
         public CaseEvalHeaderDTO GetCaseEvalHeaderByCaseId(int fc_ID)
         {
             return CaseEvalHeaderDAO.Instance.GetCaseEvalHeaderByCaseId(fc_ID);
@@ -149,6 +152,69 @@ namespace HPF.FutureState.BusinessLogic
             }
             return result;
         }
+
+
+        public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails)
+        {
+
+            foreach (CaseEvalDetailDTO evalDetail in caseEvalDetails)
+            {
+                switch (evalDetail.EvalAnswer)
+                {
+                    case CaseEvaluationBL.EvaluationYesNoAnswer.YES:
+                        evalDetail.AuditScore = (int)evalDetail.QuestionScore;
+                        break;
+                    case CaseEvaluationBL.EvaluationYesNoAnswer.NO:
+                        evalDetail.AuditScore = 0;
+                        break;
+                    case CaseEvaluationBL.EvaluationYesNoAnswer.NA:
+                        evalDetail.AuditScore = 0;
+                        break;
+                    case null:
+                        throw new Exception("All questions require answer");
+                }
+            }
+
+            return caseEvalDetails;
+        }
+
+
+        public CaseEvalSetDTO CalculateCaseTotalScore(CaseEvalSetDTO caseEvalSet)
+        {
+            int totalYesScore = 0;
+            int totalNoScore = 0;
+            int totalNAScore = 0;
+            int totalPossibleScore = 0;
+
+            foreach (CaseEvalDetailDTO evalDetail in caseEvalSet.CaseEvalDetails)
+            {
+                switch (evalDetail.EvalAnswer)
+                {
+                    case CaseEvaluationBL.EvaluationYesNoAnswer.YES:
+                        totalYesScore = totalYesScore + (int)evalDetail.AuditScore;
+                        totalPossibleScore = totalPossibleScore + (int)evalDetail.QuestionScore;
+                        break;
+                    case CaseEvaluationBL.EvaluationYesNoAnswer.NO:
+                        totalNoScore = totalNoScore + (int)evalDetail.AuditScore;
+                        totalPossibleScore = totalPossibleScore + (int)evalDetail.QuestionScore; 
+                        break;
+                    case CaseEvaluationBL.EvaluationYesNoAnswer.NA:
+                        totalNAScore = totalNAScore + (int)evalDetail.AuditScore;
+                        break;
+                    case null:
+                        throw new Exception("All questions require answer");
+                }
+            }
+
+            decimal percent = Math.Round((decimal)(totalYesScore / totalPossibleScore), 4);
+
+            //Set all value back to set dto
+            caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);
+            caseEvalSet.TotalAuditScore = totalYesScore;
+            caseEvalSet.TotalPossibleScore = totalPossibleScore;
+            return caseEvalSet;
+        }
+
         public string GetLevelNameFromPercent(double percent)
         {
             if (percent >= 0.95)
@@ -159,12 +225,14 @@ namespace HPF.FutureState.BusinessLogic
                 return ResultLevel.NOVICE;
             return ResultLevel.REMEDIATION;
         }
+
         public class EvaluationYesNoAnswer
         {
             public const string YES = "Y";
             public const string NO = "N";
             public const string NA = "NA";
         }
+
         public class EvaluationType
         {
             public const string DESKTOP = "Desktop";
@@ -189,5 +257,13 @@ namespace HPF.FutureState.BusinessLogic
             public const string NOVICE = "Novice";
             public const string REMEDIATION = "Remediation";
         }
+
+        public class EvaluationAnswer
+        {
+            public const string YES = "Yes";
+            public const string NO = "No";
+            public const string NA = "NA";
+        }
+
     }
 }
