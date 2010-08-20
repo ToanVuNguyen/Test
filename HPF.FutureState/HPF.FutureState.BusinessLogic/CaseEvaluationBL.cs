@@ -159,7 +159,7 @@ namespace HPF.FutureState.BusinessLogic
         }
 
 
-        public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails)
+        public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails,ref int totalYesAnswer,ref int totalNoAnswer,ref int totalNAAnswer)
         {
 
             foreach (CaseEvalDetailDTO evalDetail in caseEvalDetails)
@@ -168,12 +168,15 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     case CaseEvaluationBL.EvaluationYesNoAnswer.YES:
                         evalDetail.AuditScore = (int)evalDetail.QuestionScore;
+                        totalYesAnswer++;
                         break;
                     case CaseEvaluationBL.EvaluationYesNoAnswer.NO:
                         evalDetail.AuditScore = 0;
+                        totalNoAnswer++;
                         break;
                     case CaseEvaluationBL.EvaluationYesNoAnswer.NA:
                         evalDetail.AuditScore = 0;
+                        totalNAAnswer++;
                         break;
                     case null:
                         throw new Exception("All questions require answer");
@@ -216,6 +219,11 @@ namespace HPF.FutureState.BusinessLogic
             caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);
             caseEvalSet.TotalAuditScore = totalYesScore;
             caseEvalSet.TotalPossibleScore = totalPossibleScore;
+            //Check FatalErrorInd
+            if ((!string.IsNullOrEmpty(caseEvalSet.FatalErrorInd)) && (caseEvalSet.FatalErrorInd == Constant.INDICATOR_YES))
+            {
+                caseEvalSet.ResultLevel = CaseEvaluationBL.ResultLevel.REMEDIATION;
+            }
             return caseEvalSet;
         }
 

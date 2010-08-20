@@ -14,6 +14,15 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
     public partial class AgencyAudit {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// lblErrorMessage control.
         /// </summary>
         /// <remarks>
@@ -32,6 +41,15 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.Label lblAuditorName;
         
         /// <summary>
+        /// lblEvaluationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEvaluationDate;
+        
+        /// <summary>
         /// txtEvaluationDate control.
         /// </summary>
         /// <remarks>
@@ -39,6 +57,15 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEvaluationDate;
+        
+        /// <summary>
+        /// txtEvaluationDate_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtEvaluationDate_CalendarExtender;
         
         /// <summary>
         /// lblYesScore control.
@@ -95,15 +122,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.CheckBox chkFatalError;
         
         /// <summary>
-        /// lblLevelNameOverride control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLevelNameOverride;
-        
-        /// <summary>
         /// placeHolder control.
         /// </summary>
         /// <remarks>
@@ -111,6 +129,33 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder placeHolder;
+        
+        /// <summary>
+        /// lblYesTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblYesTotal;
+        
+        /// <summary>
+        /// lblNoTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNoTotal;
+        
+        /// <summary>
+        /// lblNATotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNATotal;
         
         /// <summary>
         /// txtComments control.

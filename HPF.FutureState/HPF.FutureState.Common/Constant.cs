@@ -40,6 +40,9 @@ namespace HPF.FutureState.Common
         public const string MORTGATE_TYPE_CODE_POA = "POA";
         public const string MORTGATE_TYPE_CODE_INTONLY = "INTONLY";
         public const string MORTGATE_TYPE_CODE_HYBARM = "HYBARM";
+        //User type
+        public const string USER_TYPE_HPF = "HPF";
+        public const string USER_TYPE_AGENCY = "Agency";
         //
         public const string CALL_CENTER_OTHER = "OTHER";
         public const string SERVICER_OTHER_NAME = "OTHER SERVICER";
@@ -126,6 +129,7 @@ namespace HPF.FutureState.Common
 
         public const string EXCEL_FILE_TAB_NAME = "Reconciliation";
         public const string EXCEL_DUPLICATE_FC_TAB_NAME = "DuplicateFC";
+        public const string EXCEL_SEND_SUMMARIES_FC_TAB_NAME = "SendSummariesFC";
 
         public const string ADMIN_TASK_SEND_SUMMARIES = "SendSummary";
         public const string ADMIN_TASK_MARK_DUPLICATES = "MarkDuplicates";
@@ -138,6 +142,6 @@ namespace HPF.FutureState.Common
         public const string COUNSELING_SUMMARY_AUDIT_IMPORT = "Counseling Summary Audit Import";
         public const string COMPLETED_COUNSELING_DETAIL_REPORT = "Completed Counseling Detail Report";
         public const string ATT_CALLING_RECORD_IMPORT = "ATT Calling Record Import";
-
+                
     }
 }

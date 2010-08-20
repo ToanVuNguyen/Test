@@ -39,7 +39,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _questionType; }
             set { _questionType = string.IsNullOrEmpty(value) ? null : value; }
         }
-
+        private string _activeInd;
+        public string ActiveInd
+        {
+            get { return _activeInd; }
+            set { _activeInd = string.IsNullOrEmpty(value) ? null : value; }
+        }
         public int? QuestionScore;
         #endregion
     }

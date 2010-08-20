@@ -115,7 +115,7 @@ namespace HPF.FutureState.DataAccess
         public void InsertCaseEvalDetail(CaseEvalDetailDTO aCaseEvalDetail)
         {
             var command = CreateCommand("hpf_case_eval_detail_insert", dbConnection);
-            var sqlParam = new SqlParameter[17];
+            var sqlParam = new SqlParameter[18];
             try
             {
                 sqlParam[0] = new SqlParameter("@pi_case_eval_set_id", aCaseEvalDetail.CaseEvalSetId);
@@ -124,18 +124,19 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[3] = new SqlParameter("@pi_section_order", aCaseEvalDetail.SectionOrder);
                 sqlParam[4] = new SqlParameter("@pi_eval_question_id", aCaseEvalDetail.EvalQuestionId);
                 sqlParam[5] = new SqlParameter("@pi_eval_question", aCaseEvalDetail.EvalQuestion);
-                sqlParam[6] = new SqlParameter("@pi_question_order", aCaseEvalDetail.QuestionOrder);
-                sqlParam[7] = new SqlParameter("@pi_eval_answer", aCaseEvalDetail.EvalAnswer);
-                sqlParam[8] = new SqlParameter("@pi_question_score", aCaseEvalDetail.QuestionScore);
-                sqlParam[9] = new SqlParameter("@pi_audit_score", aCaseEvalDetail.AuditScore);
-                sqlParam[10] = new SqlParameter("@pi_comments",aCaseEvalDetail.Comments);
+                sqlParam[6] = new SqlParameter("@pi_question_example",aCaseEvalDetail.QuestionExample);
+                sqlParam[7] = new SqlParameter("@pi_question_order", aCaseEvalDetail.QuestionOrder);
+                sqlParam[8] = new SqlParameter("@pi_eval_answer", aCaseEvalDetail.EvalAnswer);
+                sqlParam[9] = new SqlParameter("@pi_question_score", aCaseEvalDetail.QuestionScore);
+                sqlParam[10] = new SqlParameter("@pi_audit_score", aCaseEvalDetail.AuditScore);
+                sqlParam[11] = new SqlParameter("@pi_comments",aCaseEvalDetail.Comments);
 
-                sqlParam[11] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalDetail.CreateDate));
-                sqlParam[12] = new SqlParameter("@pi_create_user_id", aCaseEvalDetail.CreateUserId);
-                sqlParam[13] = new SqlParameter("@pi_create_app_name", aCaseEvalDetail.CreateAppName);
-                sqlParam[14] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalDetail.ChangeLastDate));
-                sqlParam[15] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalDetail.ChangeLastUserId);
-                sqlParam[16] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalDetail.ChangeLastAppName);
+                sqlParam[12] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalDetail.CreateDate));
+                sqlParam[13] = new SqlParameter("@pi_create_user_id", aCaseEvalDetail.CreateUserId);
+                sqlParam[14] = new SqlParameter("@pi_create_app_name", aCaseEvalDetail.CreateAppName);
+                sqlParam[15] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalDetail.ChangeLastDate));
+                sqlParam[16] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalDetail.ChangeLastUserId);
+                sqlParam[17] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalDetail.ChangeLastAppName);
 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -194,6 +195,7 @@ namespace HPF.FutureState.DataAccess
                         evalDetail.SectionOrder = ConvertToInt(reader["section_order"]);
                         evalDetail.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
                         evalDetail.EvalQuestion = ConvertToString(reader["eval_question"]);
+                        evalDetail.QuestionExample = ConvertToString(reader["question_example"]);
                         evalDetail.QuestionOrder = ConvertToInt(reader["question_order"]);
                         evalDetail.EvalAnswer = ConvertToString(reader["eval_answer"]);
                         evalDetail.QuestionScore = ConvertToInt(reader["question_score"]);

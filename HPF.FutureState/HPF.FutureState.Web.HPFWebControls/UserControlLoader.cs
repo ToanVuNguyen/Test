@@ -46,6 +46,7 @@ namespace HPF.FutureState.Web.HPFWebControls
         {
             if (virtualPath == string.Empty || id == string.Empty)
                 return;
+            if (isControlExist(id)) return;
             var uc = Page.LoadControl(virtualPath);
             uc.ID = id;
             Controls.Clear();
@@ -54,7 +55,15 @@ namespace HPF.FutureState.Web.HPFWebControls
             UserControlID = id;
 
         }
-
+        //Check to determine if the control is be load, this control will not be load again
+        private bool isControlExist(string id)
+        {
+            if (Controls.Count > 0)
+                for (int i = 0; i < Controls.Count; i++)
+                    if (string.Compare(Controls[i].ID, id) == 0)
+                        return true;
+            return false;
+        }
         protected override void OnLoad(EventArgs e)
         {
             if (DesignMode)

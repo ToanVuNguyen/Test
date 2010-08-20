@@ -177,6 +177,7 @@ namespace HPF.FutureState.DataAccess
                         webUser.LastName = ConvertToString(reader["lname"]);
                         webUser.Phone = ConvertToString(reader["phone"]);
                         webUser.UserName = ConvertToString(reader["user_login_id"]);
+                        webUser.UserType = ConvertToString(reader["user_type"]);
                     }
                 }
             }

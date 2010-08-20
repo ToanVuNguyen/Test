@@ -20,7 +20,12 @@ namespace HPF.FutureState.Web.Security
             get { return roles; }
             set { roles = value; }
         }
-
+        private string _userType;
+        public string UserType
+        {
+            get { return _userType; }
+            set { _userType = string.IsNullOrEmpty(value) ? string.Empty : value; }
+        }
         public MenuItemSecurityCollection MenuItemSecurityList { get; private set; }
 
         #region IIdentity Members

@@ -25,13 +25,16 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _sectionDescription; }
             set { _sectionDescription = string.IsNullOrEmpty(value) ? null : value; }
         }
-
+        private string _activeInd;
+        public string ActiveInd
+        {
+            get { return _activeInd; }
+            set { _activeInd = string.IsNullOrEmpty(value) ? null : value; }
+        }
         public EvalSectionQuestionDTOCollection EvalSectionQuestions { get; set; }
-        public CaseEvalDetailDTOCollection CaseEvalDetails { get; set; }
         public EvalSectionDTO()
         {
             EvalSectionQuestions = new EvalSectionQuestionDTOCollection();
-            CaseEvalDetails = new CaseEvalDetailDTOCollection();
         }
         #endregion
     }

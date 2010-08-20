@@ -23,6 +23,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _templateDescription; }
             set { _templateDescription = string.IsNullOrEmpty(value) ? null : value; }
         }
+        private string _activeInd;
+        public string ActiveInd
+        {
+            get { return _activeInd; }
+            set { _activeInd = string.IsNullOrEmpty(value) ? null : value; }
+        }
         public int? TotalScore { get; set; }
 
         public EvalTemplateSectionDTOCollection EvalTemplateSections { get; set; }

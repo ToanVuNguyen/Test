@@ -28,6 +28,12 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _evalQuestion; }
             set { _evalQuestion = string.IsNullOrEmpty(value) ? null : value; }
         }
+        private string _questionExample;
+        public string QuestionExample
+        {
+            get { return _questionExample; }
+            set { _questionExample = string.IsNullOrEmpty(value) ? null : value; }
+        }
         public int? QuestionOrder { get; set; }
 
         private string _evalAnswer;
@@ -37,7 +43,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
             get { return _evalAnswer; }
             set { _evalAnswer = string.IsNullOrEmpty(value) ? null : value; }
         }
-
         public int? QuestionScore { get; set; }
         public int? AuditScore { get; set; }
 
