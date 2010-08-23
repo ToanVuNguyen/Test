@@ -86,6 +86,8 @@
                 <tr><td colspan='5' align='right'>
                 <asp:Button ID='btnCalculate' runat='server' Text='Calculate Score' Width='120px'
                 CssClass='MyButton' onclick="btnCalculate_Click"/>
+                <asp:Button ID='btnUpdate' runat='server' Text='Update' Width='120px' 
+                        CssClass='MyButton' onclick="btnUpdate_Click"/>
                 <asp:Button ID='btnSaveNew' runat='server' Text='Save New' Width='120px' 
                         CssClass='MyButton' onclick="btnSaveNew_Click"/>
                 <asp:Button ID='btnClose' runat='server' Text='Close' Width='120px'

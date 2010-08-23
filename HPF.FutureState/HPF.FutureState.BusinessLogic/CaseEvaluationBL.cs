@@ -82,15 +82,17 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="caseEvalSetDraft"></param>
         /// <param name="userId">User login</param>
-        public void SaveCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft,bool isHpfUser, string userId)
+        /// <param name="isHpfUser"></param>
+        public void SaveCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft, bool isHpfUser, string userId)
         {
             CaseEvalSetDAO caseEvalSetDAO = CaseEvalSetDAO.CreateInstance();
             try
             {
                 caseEvalSetDAO.Begin();
-                //Need to modify this value
-                bool isResultWithinRange = false;
+                string emailNotify=string.Empty;
+                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft,caseEvalHeader,ref emailNotify);
                 string evalStatus = GetEvaluationStatus(isHpfUser, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
+                caseEvalHeader.SetUpdateTrackingInformation(userId);
                 if (evalStatus != caseEvalHeader.EvalStatus)
                 {
                     caseEvalHeader.EvalStatus = evalStatus;
@@ -105,6 +107,41 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.CaseEvalSetId = caseEvalSetId;
                     caseEvalDetailDraft.SetInsertTrackingInformation(userId);
                     caseEvalSetDAO.InsertCaseEvalDetail(caseEvalDetailDraft);
+                }
+            }
+            catch (Exception ex)
+            {
+                caseEvalSetDAO.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                caseEvalSetDAO.Commit();
+            }
+        }
+        //Use for HPF User
+        public void UpdateCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft,  string userId)
+        {
+            CaseEvalSetDAO caseEvalSetDAO = CaseEvalSetDAO.CreateInstance();
+            try
+            {
+                caseEvalSetDAO.Begin();
+                string emailNotify = string.Empty;
+                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref emailNotify);
+                string evalStatus = GetEvaluationStatus(true, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
+                caseEvalHeader.SetUpdateTrackingInformation(userId);
+                if (evalStatus != caseEvalHeader.EvalStatus)
+                {
+                    caseEvalHeader.EvalStatus = evalStatus;
+                    caseEvalSetDAO.UpdateCaseEvalHeader(caseEvalHeader);
+                }
+                //Insert new case eval set
+                caseEvalSetDraft.SetUpdateTrackingInformation(userId);
+                caseEvalSetDAO.UpdateCaseEvalSet(caseEvalSetDraft);
+                foreach (CaseEvalDetailDTO caseEvalDetailDraft in caseEvalSetDraft.CaseEvalDetails)
+                {
+                    caseEvalDetailDraft.SetUpdateTrackingInformation(userId);
+                    caseEvalSetDAO.UpdateCaseEvalDetail(caseEvalDetailDraft);
                 }
             }
             catch (Exception ex)
@@ -153,11 +190,42 @@ namespace HPF.FutureState.BusinessLogic
                             if (isHpfUser)
                                 result = EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT;
                             break;
+                        case EvaluationStatus.RESULT_WITHIN_RANGE:
+                            if (isHpfUser)
+                                result = EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT;
+                            else
+                                result = EvaluationStatus.RECON_REQUIRED_HPF_INPUT;
+                            break;
                     }
             }
             return result;
         }
-
+        /// <summary>
+        /// Compare new set score with the score latest of the another user type
+        /// </summary>
+        /// <param name="evalSetNew"></param>
+        /// <returns>True if in 5% range,false if out of this range</returns>
+        private bool CompareScoreInRange(CaseEvalSetDTO evalSetNew, CaseEvalHeaderDTO caseEvalHeader, ref string emailNotify)
+        {
+            //HPF Auditor have not audited yet, does not need compare score
+            if (string.Compare(caseEvalHeader.EvalStatus, EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0
+                || string.Compare(caseEvalHeader.EvalStatus, EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0
+                || string.Compare(caseEvalHeader.EvalStatus,EvaluationStatus.HPF_INPUT_REQUIRED)==0)
+            return false;
+            
+            string hpfAuditIndLatest = (evalSetNew.HpfAuditInd==Constant.INDICATOR_YES?Constant.INDICATOR_NO:Constant.INDICATOR_YES);
+            CaseEvalSetDTO evalSetLatest = GetCaseEvalLatest(evalSetNew.CaseEvalHeaderId, hpfAuditIndLatest);
+            decimal percentNew = Math.Round((decimal)((decimal)evalSetNew.TotalAuditScore/ (decimal)evalSetNew.TotalPossibleScore), 4);
+            decimal percentLatest = Math.Round((decimal)((decimal)evalSetLatest.TotalAuditScore / (decimal)evalSetLatest.TotalPossibleScore), 4);
+            if (((percentNew - percentLatest <= (decimal)0.05) && (percentNew - percentLatest>=0))
+                || ((percentLatest - percentNew <= (decimal)0.05) && (percentLatest - percentNew>=0)))
+                return true;
+            else
+            {
+                //emailNotify = HPFUserBL.Instance.RetrieveHpfUsers(
+                return false;
+            }
+        }
 
         public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails,ref int totalYesAnswer,ref int totalNoAnswer,ref int totalNAAnswer)
         {
