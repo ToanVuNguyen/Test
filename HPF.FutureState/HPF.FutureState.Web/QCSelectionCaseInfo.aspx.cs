@@ -29,13 +29,6 @@ namespace HPF.FutureState.Web
                 ClearErrorMessage();
                 tabControl2.TabClick += new HPF.FutureState.Web.HPFWebControls.TabControlEventHandler(tabControl_TabClick);
                 BindData();
-                if (!IsPostBack)
-                {
-                    tabControl2.AddTab("agencyAudit", "Agency Audit");
-                    tabControl2.AddTab("hpfAudit", "HPF Audit");
-                    tabControl2.AddTab("compareResult", "Compare Result");
-                    tabControl2.AddTab("fileUploads", "File Upload");
-                }
                 LoadDefaultTab();
             }
             catch (Exception ex)
@@ -46,6 +39,8 @@ namespace HPF.FutureState.Web
         private void LoadDefaultTab()
         {
             tabControl2.Tabs.Clear();
+            bool notAddReviewInput = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0)
+                                        && string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF)==0);
             bool addCompareResultTab = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0)
                                             || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT) == 0)
                                             || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT) == 0)
@@ -60,12 +55,16 @@ namespace HPF.FutureState.Web
                                             && (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)));
             if (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) != 0)
             {
-                tabControl2.AddTab("reviewInput", "Review Input");
+                if (!notAddReviewInput)
+                {
+                    tabControl2.AddTab("reviewInput", "Review Input");
+                    if (!IsPostBack)
+                        UserControlLoader2.LoadUserControl(UCLOCATION + "AgencyAudit.ascx", "ucReviewInput");
+                }
                 if (addCompareResultTab)
                     tabControl2.AddTab("compareResult", "Compare Result");
                 if (addFileUploadsTab)
-                    tabControl2.AddTab("fileUpload", "FileUpload");
-                UserControlLoader2.LoadUserControl(UCLOCATION + "AgencyAudit.ascx", "ucReviewInput");
+                    tabControl2.AddTab("fileUploads", "File Upload");
             }
             else if (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
             {

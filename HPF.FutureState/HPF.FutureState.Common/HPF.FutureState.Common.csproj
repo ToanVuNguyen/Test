@@ -92,6 +92,8 @@
     <Compile Include="DataTransferObjects\CaseEvalDetailDTO.cs" />
     <Compile Include="DataTransferObjects\CaseEvalDetailDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CaseEvalDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalFileDTO.cs" />
+    <Compile Include="DataTransferObjects\CaseEvalFileDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CaseEvalHeaderDTO.cs" />
     <Compile Include="DataTransferObjects\CaseEvalSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\CaseEvalSearchResultDTO.cs" />

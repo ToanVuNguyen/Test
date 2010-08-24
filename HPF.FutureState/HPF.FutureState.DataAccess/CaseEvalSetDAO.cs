@@ -206,6 +206,38 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
             }
         }
+        public void InsertCaseEvalFile(CaseEvalFileDTO aCaseEvalFile)
+        {
+            SqlCommand command = CreateSPCommand("hpf_case_eval_file_insert", dbConnection);
+            #region parameters
+            //<Parameter>
+            SqlParameter[] sqlParam = new SqlParameter[9];
+            sqlParam[0] = new SqlParameter("@pi_case_eval_header_id", aCaseEvalFile.CaseEvalHeaderId);
+            sqlParam[1] = new SqlParameter("@pi_file_name", aCaseEvalFile.FileName);
+            sqlParam[2] = new SqlParameter("@pi_file_path", aCaseEvalFile.FilePath);
+
+            sqlParam[3] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalFile.CreateDate));
+            sqlParam[4] = new SqlParameter("@pi_create_user_id", aCaseEvalFile.CreateUserId);
+            sqlParam[5] = new SqlParameter("@pi_create_app_name", aCaseEvalFile.CreateAppName);
+            sqlParam[6] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(aCaseEvalFile.ChangeLastDate));
+            sqlParam[7] = new SqlParameter("@pi_chg_lst_user_id", aCaseEvalFile.ChangeLastUserId);
+            sqlParam[8] = new SqlParameter("@pi_chg_lst_app_name", aCaseEvalFile.ChangeLastAppName);
+
+            //</Parameter>
+            #endregion
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
         /// <summary>
         /// Get CaseEval Latest Set for HPF and Agency depending on hpfAuditInd
         /// </summary>
@@ -262,6 +294,103 @@ namespace HPF.FutureState.DataAccess
 
                         result.CaseEvalDetails.Add(evalDetail);
                     }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
+        public CaseEvalSetDTOCollection GetCaseEvalLatestSetAll(int fcId)
+        {
+            CaseEvalSetDTOCollection result = new CaseEvalSetDTOCollection();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_case_eval_get_all_latest_set", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    //Read case_eval_set Latest of Agency
+                    CaseEvalSetDTO evalSetLatestAgency = new CaseEvalSetDTO();
+                    if (reader.Read())
+                    {
+                        evalSetLatestAgency.CaseEvalSetId = ConvertToInt(reader["case_eval_set_id"]);
+                        evalSetLatestAgency.EvaluationDt = ConvertToDateTime(reader["evaluation_dt"]);
+                        evalSetLatestAgency.AuditorName = ConvertToString(reader["auditor_name"]);
+                        evalSetLatestAgency.TotalAuditScore = ConvertToInt(reader["total_audit_score"]);
+                        evalSetLatestAgency.TotalPossibleScore = ConvertToInt(reader["total_possible_score"]);
+                        evalSetLatestAgency.ResultLevel = ConvertToString(reader["result_level"]);
+                        evalSetLatestAgency.FatalErrorInd = ConvertToString(reader["fatal_error_ind"]);
+                        evalSetLatestAgency.Comments = ConvertToString(reader["comments"]);
+                    }
+                    reader.NextResult();
+                    //Read Case Eval Details
+                    while (reader.Read())
+                    {
+                        CaseEvalDetailDTO evalDetail = new CaseEvalDetailDTO();
+                        evalDetail.CaseEvalDetailId = ConvertToInt(reader["case_eval_detail_id"]);
+                        evalDetail.EvalSectionId = ConvertToInt(reader["eval_section_id"]);
+                        evalDetail.SectionName = ConvertToString(reader["section_name"]);
+                        evalDetail.SectionOrder = ConvertToInt(reader["section_order"]);
+                        evalDetail.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
+                        evalDetail.EvalQuestion = ConvertToString(reader["eval_question"]);
+                        evalDetail.QuestionExample = ConvertToString(reader["question_example"]);
+                        evalDetail.QuestionOrder = ConvertToInt(reader["question_order"]);
+                        evalDetail.EvalAnswer = ConvertToString(reader["eval_answer"]);
+                        evalDetail.QuestionScore = ConvertToInt(reader["question_score"]);
+                        evalDetail.AuditScore = ConvertToInt(reader["audit_score"]);
+                        evalDetail.Comments = ConvertToString(reader["comments"]);
+
+                        evalSetLatestAgency.CaseEvalDetails.Add(evalDetail);
+                    }
+                    result.Add(evalSetLatestAgency);
+                    reader.NextResult();
+
+                    //Read case_eval_set Latest of HPF
+                    CaseEvalSetDTO evalSetLatestHPF = new CaseEvalSetDTO();
+                    if (reader.Read())
+                    {
+                        evalSetLatestHPF.CaseEvalSetId = ConvertToInt(reader["case_eval_set_id"]);
+                        evalSetLatestHPF.EvaluationDt = ConvertToDateTime(reader["evaluation_dt"]);
+                        evalSetLatestHPF.AuditorName = ConvertToString(reader["auditor_name"]);
+                        evalSetLatestHPF.TotalAuditScore = ConvertToInt(reader["total_audit_score"]);
+                        evalSetLatestHPF.TotalPossibleScore = ConvertToInt(reader["total_possible_score"]);
+                        evalSetLatestHPF.ResultLevel = ConvertToString(reader["result_level"]);
+                        evalSetLatestHPF.FatalErrorInd = ConvertToString(reader["fatal_error_ind"]);
+                        evalSetLatestHPF.Comments = ConvertToString(reader["comments"]);
+                    }
+                    reader.NextResult();
+                    //Read Case Eval Details
+                    while (reader.Read())
+                    {
+                        CaseEvalDetailDTO evalDetail = new CaseEvalDetailDTO();
+                        evalDetail.CaseEvalDetailId = ConvertToInt(reader["case_eval_detail_id"]);
+                        evalDetail.EvalSectionId = ConvertToInt(reader["eval_section_id"]);
+                        evalDetail.SectionName = ConvertToString(reader["section_name"]);
+                        evalDetail.SectionOrder = ConvertToInt(reader["section_order"]);
+                        evalDetail.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
+                        evalDetail.EvalQuestion = ConvertToString(reader["eval_question"]);
+                        evalDetail.QuestionExample = ConvertToString(reader["question_example"]);
+                        evalDetail.QuestionOrder = ConvertToInt(reader["question_order"]);
+                        evalDetail.EvalAnswer = ConvertToString(reader["eval_answer"]);
+                        evalDetail.QuestionScore = ConvertToInt(reader["question_score"]);
+                        evalDetail.AuditScore = ConvertToInt(reader["audit_score"]);
+                        evalDetail.Comments = ConvertToString(reader["comments"]);
+
+                        evalSetLatestHPF.CaseEvalDetails.Add(evalDetail);
+                    }
+                    result.Add(evalSetLatestHPF);
                     reader.Close();
                 }
             }

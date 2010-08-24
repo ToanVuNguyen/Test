@@ -8,6 +8,7 @@ using Microsoft.Practices.EnterpriseLibrary.Validation;
 using HPF.FutureState.Common;
 using System.Collections.Generic;
 using System;
+using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -47,6 +48,11 @@ namespace HPF.FutureState.BusinessLogic
         {
             CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
             return instance.GetCaseEvalLatestSet(caseEvalHeaderId, hpfAuditInd);
+        }
+        public CaseEvalSetDTOCollection GetCaseEvalLatestAll(int fcId)
+        {
+            CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
+            return instance.GetCaseEvalLatestSetAll(fcId);
         }
         /// <summary>
         /// 
@@ -108,6 +114,10 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.SetInsertTrackingInformation(userId);
                     caseEvalSetDAO.InsertCaseEvalDetail(caseEvalDetailDraft);
                 }
+                //Send notify email if case needs reconciliation
+                if (!string.IsNullOrEmpty(emailNotify))
+                    SendNotifyEmail(emailNotify, caseEvalHeader.FcId);
+
             }
             catch (Exception ex)
             {
@@ -143,6 +153,9 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.SetUpdateTrackingInformation(userId);
                     caseEvalSetDAO.UpdateCaseEvalDetail(caseEvalDetailDraft);
                 }
+                //Send notify email if case needs reconciliation
+                if (!string.IsNullOrEmpty(emailNotify))
+                    SendNotifyEmail(emailNotify, caseEvalHeader.FcId);
             }
             catch (Exception ex)
             {
@@ -153,6 +166,38 @@ namespace HPF.FutureState.BusinessLogic
             {
                 caseEvalSetDAO.Commit();
             }
+        }
+        public void InsertCaseEvalFile(CaseEvalFileDTO caseEvalFile, CaseEvalSearchResultDTO caseEval, string loginName)
+        {
+            CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
+            try
+            {
+                instance.Begin();
+                if (string.Compare(caseEval.EvalStatus, EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0)
+                {
+                    CaseEvalHeaderDTO caseEvalHeader = new CaseEvalHeaderDTO();
+                    caseEvalHeader.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
+                    caseEvalHeader.EvalStatus = EvaluationStatus.HPF_INPUT_REQUIRED;
+                    caseEvalHeader.SetUpdateTrackingInformation(loginName);
+                    instance.UpdateCaseEvalHeader(caseEvalHeader);
+                }
+                caseEvalFile.SetInsertTrackingInformation(loginName);
+                instance.InsertCaseEvalFile(caseEvalFile);
+            }
+            catch (Exception ex)
+            {
+                instance.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                instance.Commit();
+            }
+
+        }
+        public CaseEvalFileDTOCollection GetCaseEvalFileByEvalHeaderIdAll(int? caseEvalHeaderId)
+        {
+            return CaseEvalHeaderDAO.Instance.GetCaseEvalFileByEvalHeaderIdAll(caseEvalHeaderId);
         }
         /// <summary>
         /// Get next evaluation status of case 
@@ -222,11 +267,19 @@ namespace HPF.FutureState.BusinessLogic
                 return true;
             else
             {
-                //emailNotify = HPFUserBL.Instance.RetrieveHpfUsers(
+                UserDTO user = SecurityBL.Instance.GetWebUser(evalSetLatest.ChangeLastUserId);
+                emailNotify = user.Email;
                 return false;
             }
         }
-
+        private void SendNotifyEmail(string emailTo,int? fcId)
+        {
+            var hpfSendMail = new HPFSendMail();
+            hpfSendMail.To = emailTo;
+            hpfSendMail.Body = "The case "+fcId.ToString()+" need Reconciliation!";
+            hpfSendMail.Subject = "The case " + fcId.ToString() + " need Reconciliation!";
+            //hpfSendMail.Send();
+        }
         public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails,ref int totalYesAnswer,ref int totalNoAnswer,ref int totalNAAnswer)
         {
 
@@ -253,7 +306,6 @@ namespace HPF.FutureState.BusinessLogic
 
             return caseEvalDetails;
         }
-
 
         public CaseEvalSetDTO CalculateCaseTotalScore(CaseEvalSetDTO caseEvalSet,ref int totalNoScore,ref int totalNAScore)
         {

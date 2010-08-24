@@ -38,8 +38,10 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 isFirstTime = (evalHeader.EvalStatus == CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED);
                 if (evalHeader != null)
                 {
-                    if ((string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED)==0)
-                        || (string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED)==0))
+                    if (((string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED)==0)
+                           && (!isHPFUser))
+                        || ((string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED)==0))
+                            && (isHPFUser))
                         RenderEvalSetNotExist(evalHeader.EvalTemplateId);
                     else
                         RenderEvalSetExist(evalHeader.CaseEvalHeaderId);
@@ -84,6 +86,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             lblAuditorName.Text = caseEvalSetLatest.AuditorName;
             txtEvaluationDate.Text = caseEvalSetLatest.EvaluationDt.ToString();
             txtComments.Text = caseEvalSetLatest.Comments;
+            chkFatalError.Checked = (caseEvalSetLatest.FatalErrorInd == Constant.INDICATOR_YES ? true : false);
             //Render score, level, percent, ... again
             CalculateScore(caseEvalSetLatest);
         }

@@ -199,6 +199,20 @@
     <Compile Include="NewPayableSelection.aspx.designer.cs">
       <DependentUpon>NewPayableSelection.aspx</DependentUpon>
     </Compile>
+    <Compile Include="QCSelectionCaseDetail\CompareResult.ascx.cs">
+      <DependentUpon>CompareResult.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QCSelectionCaseDetail\CompareResult.ascx.designer.cs">
+      <DependentUpon>CompareResult.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="QCSelectionCaseDetail\FileUploads.ascx.cs">
+      <DependentUpon>FileUploads.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QCSelectionCaseDetail\FileUploads.ascx.designer.cs">
+      <DependentUpon>FileUploads.ascx</DependentUpon>
+    </Compile>
     <Compile Include="QCSelectionCaseInfo.aspx.cs">
       <DependentUpon>QCSelectionCaseInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -513,6 +527,8 @@
     <Content Include="ForeclosureCaseInfo.aspx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
+    <Content Include="QCSelectionCaseDetail\CompareResult.ascx" />
+    <Content Include="QCSelectionCaseDetail\FileUploads.ascx" />
     <Content Include="QCSelectionCaseInfo.aspx" />
     <Content Include="QCSelectionCaseDetail\AgencyAudit.ascx" />
     <Content Include="ReprintPayable.aspx" />

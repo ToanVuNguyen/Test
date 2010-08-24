@@ -179,6 +179,7 @@ namespace HPF.FutureState.DataAccess
                         result.FcId = ConvertToInt(reader["fc_id"]);
                         result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
                         result.EvalStatus = ConvertToString(reader["eval_status"]);
+                        result.EvaluationYearMonth = ConvertToString(reader["eval_year_month"]);
                         result.AgencyName = ConvertToString(reader["agency_name"]);
                         result.CounselorName = ConvertToString(reader["counselor_name"]);
                         result.HomeowenerFirstName = ConvertToString(reader["borrower_fname"]);
@@ -201,127 +202,40 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
-        //Modify later because changing in database at eval_detail table
-        /*
-        /// <summary>
-        /// Get CaseEval Latest Set
-        /// </summary>
-        /// <param name="fc_Id">fc_Id</param>
-        /// <returns>CaseEvalHeaderDTO</returns>
-        public CaseEvalHeaderDTO GetCaseEvalLatestSet(int fc_Id)
+        public CaseEvalFileDTOCollection GetCaseEvalFileByEvalHeaderIdAll(int? evalHeaderId)
         {
-            CaseEvalHeaderDTO result;
-            XmlDocument doc = new XmlDocument();
+            CaseEvalFileDTOCollection result = new CaseEvalFileDTOCollection();
             var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_case_eval_get_latest_set", dbConnection);
+            var command = CreateSPCommand("hpf_case_eval_file_get_all_by_header_id", dbConnection);
             var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_fc_id", fc_Id);
+            sqlParam[0] = new SqlParameter("@pi_case_eval_header_id", evalHeaderId);
             command.Parameters.AddRange(sqlParam);
             try
             {
                 dbConnection.Open();
-                var reader = command.ExecuteXmlReader();
-                doc.Load(reader);
-                result = GetCaseEvalHeader(doc);
-            }
-            catch (Exception ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return result;
-        }
-
-
-        /// <summary>
-        /// Get All CaseEval Set
-        /// </summary>
-        /// <param name="fc_Id">fc_Id</param>
-        /// <returns>CaseEvalHeaderDTO</returns>
-        public CaseEvalHeaderDTO GetCaseEvalAllSet(int fc_Id)
-        {
-            CaseEvalHeaderDTO result;
-            XmlDocument doc = new XmlDocument();
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_case_eval_get_all_set", dbConnection);
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_fc_id", fc_Id);
-            command.Parameters.AddRange(sqlParam);
-            try
-            {
-                dbConnection.Open();
-                var reader = command.ExecuteXmlReader();
-                doc.Load(reader);
-                result = GetCaseEvalHeader(doc);
-            }
-            catch (Exception ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return result;
-        }
-        private CaseEvalHeaderDTO GetCaseEvalHeader(XmlDocument doc)
-        {
-            CaseEvalHeaderDTO result = new CaseEvalHeaderDTO();
-            //If fc_id is exsit
-            if (!string.IsNullOrEmpty(doc.InnerXml))
-            {
-                //Get EvalHeader
-                XmlNode hNode = doc.SelectSingleNode("ROOT/CASEEVAL");
-                result.FcId = ConvertToInt(hNode.SelectSingleNode("fc_id").InnerText);
-                result.EvalStatus = hNode.SelectSingleNode("eval_status").InnerText;
-                result.CallDate = ConvertToDateTime(hNode.SelectSingleNode("call_date").InnerText);
-                result.AgencyName = hNode.SelectSingleNode("agency_name").InnerText;
-                result.ZipCode = hNode.SelectSingleNode("zip_code").InnerText;
-                result.LoanNumber = hNode.SelectSingleNode("loan_number").InnerText;
-                //Get EvalSet
-                XmlNodeList sNodes = hNode.SelectNodes("EVALSET");
-                foreach (XmlNode sNode in sNodes)
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    CaseEvalSetDTO evalSet = new CaseEvalSetDTO();
-                    evalSet.CaseEvalSetId =ConvertToInt(sNode.SelectSingleNode("case_eval_set_id"));
-                    evalSet.EvaluationDt = ConvertToDateTime(sNode.SelectSingleNode("evaluation_dt").InnerText);
-                    evalSet.AuditorName = sNode.SelectSingleNode("auditor_name").InnerText;
-                    evalSet.TotalAuditScore =ConvertToInt(sNode.SelectSingleNode("total_audit_score").InnerText);
-                    evalSet.TotalPossibleScore =ConvertToInt(sNode.SelectSingleNode("total_possible_score").InnerText);
-                    evalSet.ResultLevel = sNode.SelectSingleNode("result_level").InnerText;
-                    evalSet.FatalErrorInd = sNode.SelectSingleNode("fatal_error_ind").InnerText;
-                    evalSet.HpfAuditInd = sNode.SelectSingleNode("hpf_audit_ind").InnerText;
-                    evalSet.Comments = sNode.SelectSingleNode("comments").InnerText;
-                    //Get Section
-                    XmlNodeList sectionNodes = sNode.SelectNodes("SECTION");
-                    foreach (XmlNode sectionNode in sectionNodes)
+                    while (reader.Read())
                     {
-                        EvalSectionDTO section = new EvalSectionDTO();
-                        section.SectionName = sectionNode.SelectSingleNode("section_name").InnerText;
-                        section.SectionDescription = sectionNode.SelectSingleNode("section_description").InnerText;
-                        //Get EvalDetail - Question and Answer
-                        XmlNodeList dNodes = sectionNode.SelectNodes("QUESTION");
-                        foreach (XmlNode dNode in dNodes)
-                        {
-                            CaseEvalDetailDTO evalDetail = new CaseEvalDetailDTO();
-                            evalDetail.CaseEvalDetailId = ConvertToInt(dNode.SelectSingleNode("case_eval_detail_id").InnerText);
-                            evalDetail.EvalQuestion = dNode.SelectSingleNode("eval_question").InnerText;
-                            evalDetail.EvalAnswer = dNode.SelectSingleNode("eval_answer").InnerText;
-                            evalDetail.QuestionScore =ConvertToInt(dNode.SelectSingleNode("question_score").InnerText);
-                            evalDetail.AuditScore = ConvertToInt(dNode.SelectSingleNode("audit_score").InnerText);
-                            evalDetail.Comments = dNode.SelectSingleNode("comments").InnerText;
-
-                            section.CaseEvalDetails.Add(evalDetail);
-                        }
-                        evalSet.EvalSections.Add(section);
+                        CaseEvalFileDTO evalFile = new CaseEvalFileDTO();
+                        evalFile.CaseEvalHeaderId = evalHeaderId;
+                        evalFile.FileName = ConvertToString(reader["file_name"]);
+                        evalFile.FilePath = ConvertToString(reader["file_path"]);
+                        result.Add(evalFile);
                     }
-                    result.CaseEvalSets.Add(evalSet);
+                    reader.Close();
                 }
             }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
             return result;
-        }*/
+        }
     }
 }
