@@ -60,6 +60,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             lblEvaluationDate.Visible = !isHPFUser;
             txtEvaluationDate.Enabled = ((isFirstTime) && (!isHPFUser));
             btnUpdate.Visible = (isHPFUser);
+            btnCloseAudit.Visible = ((isHPFUser) 
+                                    && (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE)==0));
             btnUpdate.Enabled = false;
             btnSaveNew.Enabled = false;
         }
@@ -341,6 +343,13 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+
+        protected void btnCloseAudit_Click(object sender, EventArgs e)
+        {
+            evalHeader.EvalStatus = CaseEvaluationBL.EvaluationStatus.CLOSED;
+            evalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+            CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
         }
         
     }

@@ -167,6 +167,24 @@ namespace HPF.FutureState.BusinessLogic
                 caseEvalSetDAO.Commit();
             }
         }
+        public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)
+        {
+            CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
+            try
+            {
+                instance.Begin();
+                instance.UpdateCaseEvalHeader(caseEvalHeader);
+            }
+            catch (Exception ex)
+            {
+                instance.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                instance.Commit();
+            }
+        }
         public void InsertCaseEvalFile(CaseEvalFileDTO caseEvalFile, CaseEvalSearchResultDTO caseEval, string loginName)
         {
             CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
