@@ -25,6 +25,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string Phone { get; set; }
         public DateTime? LastLogin { get; set; }
         public string UserRole { get; set; }
-        public string UserType { get; set; }  
+        public string UserType { get; set; }
+        public int? AgencyId { get; set; }
     }
 }

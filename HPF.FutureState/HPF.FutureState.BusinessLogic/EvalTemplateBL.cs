@@ -26,5 +26,29 @@ namespace HPF.FutureState.BusinessLogic
         {
             return EvalTemplateDAO.Instance.GetEvalTemplateAll();
         }
+        public EvalSectionCollectionDTO RetriveAllEvalSection()
+        {
+            return EvalTemplateDAO.Instance.GetEvalSectionAll();
+        }
+        public int? InsertEvalSection(EvalSectionDTO evalSection)
+        {
+            return EvalTemplateDAO.Instance.InsertEvalSection(evalSection);
+        }
+        public void UpdateEvalSection(EvalSectionDTO evalSection)
+        {
+            EvalTemplateDAO.Instance.UpdateEvalSection(evalSection);
+        }
+        public EvalQuestionDTOCollection RetriveAllQuestion()
+        {
+            return EvalTemplateDAO.Instance.GetEvalQuestionAll();
+        }
+        public int? InsertEvalQuestion(EvalQuestionDTO evalQuestion)
+        {
+            return EvalTemplateDAO.Instance.InsertEvalQuestion(evalQuestion);
+        }
+        public void UpdateEvalQuestion(EvalQuestionDTO evalQuestion)
+        {
+            EvalTemplateDAO.Instance.UpdateEvalQuestion(evalQuestion);
+        }
     }
 }

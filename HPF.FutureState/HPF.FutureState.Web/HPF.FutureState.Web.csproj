@@ -115,6 +115,13 @@
     <Compile Include="AgencyPayableInfo.aspx.designer.cs">
       <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppManageEvalSection\AppManageEvalSectionUC.ascx.cs">
+      <DependentUpon>AppManageEvalSectionUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppManageEvalSection\AppManageEvalSectionUC.ascx.designer.cs">
+      <DependentUpon>AppManageEvalSectionUC.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx.cs">
       <DependentUpon>AppQCSelectionCaseSearchUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -184,6 +191,13 @@
     </Compile>
     <Compile Include="ForeclosureCaseInfo.aspx.designer.cs">
       <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEvalSection.aspx.cs">
+      <DependentUpon>ManageEvalSection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEvalSection.aspx.designer.cs">
+      <DependentUpon>ManageEvalSection.aspx</DependentUpon>
     </Compile>
     <Compile Include="MarkDuplicateCases\MarkDuplicateCases.ascx.cs">
       <DependentUpon>MarkDuplicateCases.ascx</DependentUpon>
@@ -515,6 +529,7 @@
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
     <Content Include="AgencyPayable.aspx" />
     <Content Include="AgencyPayableInfo.aspx" />
+    <Content Include="AppManageEvalSection\AppManageEvalSectionUC.ascx" />
     <Content Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx" />
     <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
     <Content Include="AppNewPayable\ReprintPayable.ascx" />
@@ -525,6 +540,7 @@
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseDetail\QCSelection.ascx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
+    <Content Include="ManageEvalSection.aspx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="QCSelectionCaseDetail\CompareResult.ascx" />

@@ -107,6 +107,7 @@
     <Compile Include="DataTransferObjects\CounselingSummaryAuditLogDTOCollection.cs" />
     <Compile Include="DataTransferObjects\CounselorDTO.cs" />
     <Compile Include="DataTransferObjects\CounselorDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\EvalQuestionDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalSectionCollectionDTO.cs" />
     <Compile Include="DataTransferObjects\EvalTemplateDTOCollection.cs" />
     <Compile Include="DataTransferObjects\EvalTemplateSectionDTO.cs" />

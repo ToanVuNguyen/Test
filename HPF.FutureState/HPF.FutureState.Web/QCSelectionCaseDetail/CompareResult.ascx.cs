@@ -23,8 +23,16 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            int caseId = int.Parse(Request.QueryString["CaseID"].ToString());
-            RenderData(caseId);
+            try
+            {
+                int caseId = int.Parse(Request.QueryString["CaseID"].ToString());
+                RenderData(caseId);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         private void RenderData(int caseId)
         {

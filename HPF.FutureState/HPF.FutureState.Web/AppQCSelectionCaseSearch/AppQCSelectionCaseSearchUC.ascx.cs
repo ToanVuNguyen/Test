@@ -41,15 +41,26 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
                 AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
                 ddlAgency.DataValueField = "AgencyID";
                 ddlAgency.DataTextField = "AgencyName";
-                ddlAgency.DataSource = agencyCollection;
-                ddlAgency.DataBind();
-                ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
-                ddlAgency.Items.Insert(0, new ListItem("All Agencies", "-1"));
-                ddlAgency.Items.FindByText("All Agencies").Selected = true;
+                if (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0)
+                {
+                    ddlAgency.DataSource = agencyCollection;
+                    ddlAgency.DataBind();
+                    ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
+                    ddlAgency.Items.Insert(0, new ListItem("All Agencies", "-1"));
+                    ddlAgency.Items.FindByText("All Agencies").Selected = true;
+                }
+                else if (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
+                {
+                    AgencyDTO agency = agencyCollection.FirstOrDefault(o => o.AgencyID == HPFWebSecurity.CurrentIdentity.AgencyId.ToString());
+                    agencyCollection = new AgencyDTOCollection();
+                    agencyCollection.Add(agency);
+                    ddlAgency.DataSource = agencyCollection;
+                    ddlAgency.DataBind();
+                }
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -71,6 +82,8 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
                 ddlYearMonthFrom.Items.Add(new ListItem(text.ToString(),value.ToString()));
                 ddlYearMonthTo.Items.Add(new ListItem(text.ToString(), value.ToString()));
             }
+            string prevMonth = DateTime.Now.AddMonths(-1).ToString("MM") + "-" + DateTime.Now.AddMonths(-1).ToString("yyyy");
+            ddlYearMonthFrom.Items.FindByText(prevMonth).Selected = true;
         }
         private int ConvertToInt(object obj)
         {

@@ -179,6 +179,7 @@ namespace HPF.FutureState.DataAccess
                         result.FcId = ConvertToInt(reader["fc_id"]);
                         result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
                         result.EvalStatus = ConvertToString(reader["eval_status"]);
+                        result.EvalType = ConvertToString(reader["eval_type"]);
                         result.EvaluationYearMonth = ConvertToString(reader["eval_year_month"]);
                         result.AgencyName = ConvertToString(reader["agency_name"]);
                         result.CounselorName = ConvertToString(reader["counselor_name"]);

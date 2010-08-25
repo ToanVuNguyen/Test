@@ -178,6 +178,7 @@ namespace HPF.FutureState.DataAccess
                         webUser.Phone = ConvertToString(reader["phone"]);
                         webUser.UserName = ConvertToString(reader["user_login_id"]);
                         webUser.UserType = ConvertToString(reader["user_type"]);
+                        webUser.AgencyId = ConvertToInt(reader["agency_id"]);
                     }
                 }
             }

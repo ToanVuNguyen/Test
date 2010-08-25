@@ -60,6 +60,7 @@ namespace HPF.FutureState.Web.Security
             uId.Email = user.Email;
             uId.UserId = user.HPFUserId.Value;
             uId.UserType = user.UserType;
+            uId.AgencyId = user.AgencyId;
         }
     }
 }

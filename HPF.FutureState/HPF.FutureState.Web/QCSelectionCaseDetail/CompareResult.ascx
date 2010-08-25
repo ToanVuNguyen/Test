@@ -1,4 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CompareResult.ascx.cs" Inherits="HPF.FutureState.Web.QCSelectionCaseDetail.CompareResult" %>
+<div class="Text">
+    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
+</div>
 <table width="100%" border="1" style="border-collapse:collapse">
                 <tr>
                     <td class="sidelinks" align="left">Auditor </td>

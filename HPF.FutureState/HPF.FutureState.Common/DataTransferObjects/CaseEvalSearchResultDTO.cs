@@ -10,6 +10,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public CaseEvalSetDTOCollection CaseEvalSets { get; set; }
         public int? CaseEvalHeaderId { get; set; }
         public string EvalStatus { get; set; }
+        public string EvalType { get; set; }
         public string EvaluationYearMonth { get; set; }
         #region Information of ForeclosureCase
         public int? FcId { get; set; }

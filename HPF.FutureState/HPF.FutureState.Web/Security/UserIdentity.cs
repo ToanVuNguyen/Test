@@ -26,6 +26,7 @@ namespace HPF.FutureState.Web.Security
             get { return _userType; }
             set { _userType = string.IsNullOrEmpty(value) ? string.Empty : value; }
         }
+        public int? AgencyId { get; set; }
         public MenuItemSecurityCollection MenuItemSecurityList { get; private set; }
 
         #region IIdentity Members

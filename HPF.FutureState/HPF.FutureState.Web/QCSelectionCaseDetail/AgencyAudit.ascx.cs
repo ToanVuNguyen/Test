@@ -38,13 +38,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 isFirstTime = (evalHeader.EvalStatus == CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED);
                 if (evalHeader != null)
                 {
-                    if (((string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED)==0)
-                           && (!isHPFUser))
-                        || ((string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED)==0))
-                            && (isHPFUser))
-                        RenderEvalSetNotExist(evalHeader.EvalTemplateId);
-                    else
-                        RenderEvalSetExist(evalHeader.CaseEvalHeaderId);
+                    RenderHTML(evalHeader.CaseEvalHeaderId);
                     InitControlStatus();
                 }
             }
@@ -56,23 +50,33 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         }
         private void InitControlStatus()
         {
+            btnUpdate.Enabled = false;
+            btnSaveNew.Enabled = false;
             txtEvaluationDate.Visible = !isHPFUser;
             lblEvaluationDate.Visible = !isHPFUser;
             txtEvaluationDate.Enabled = ((isFirstTime) && (!isHPFUser));
-            btnUpdate.Visible = (isHPFUser);
-            btnCloseAudit.Visible = ((isHPFUser) 
-                                    && (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE)==0));
-            btnUpdate.Enabled = false;
-            btnSaveNew.Enabled = false;
+            btnUpdate.Visible = ((isHPFUser) && (string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.CLOSED)!=0));
+            btnCloseAudit.Visible = (((isHPFUser) && (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0))
+                                    || ((isHPFUser) && (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED) == 0)
+                                                  && (string.Compare(evalHeader.EvalType, CaseEvaluationBL.EvaluationType.ONSITE)==0)));
+
+            btnCalculate.Visible = btnSaveNew.Visible = (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.CLOSED) != 0);
+        }
+        private void RenderHTML(int? caseEvalHeaderId)
+        {
+            string hpfAuditInd = (isHPFUser ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
+            CaseEvalSetDTO caseEvalSetLatest = CaseEvaluationBL.Instance.GetCaseEvalLatest(caseEvalHeaderId, hpfAuditInd);
+            if (caseEvalSetLatest == null)
+                RenderEvalSetNotExist(evalHeader.EvalTemplateId);
+            else
+                RenderEvalSetExist(caseEvalSetLatest);
         }
         /// <summary>
         /// Render html page with evaluation set is exist
         /// </summary>
-        /// <param name="caseEvalHeaderId"></param>
-        private void RenderEvalSetExist(int? caseEvalHeaderId)
+        /// <param name="caseEvalSetLatest"></param>
+        private void RenderEvalSetExist(CaseEvalSetDTO caseEvalSetLatest)
         {
-            string hpfAuditInd = (isHPFUser ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
-            CaseEvalSetDTO caseEvalSetLatest = CaseEvaluationBL.Instance.GetCaseEvalLatest(caseEvalHeaderId, hpfAuditInd);
             questionOrders = new List<string>();
             caseEvalDetailDraftCollection = caseEvalSetLatest.CaseEvalDetails;
             string prevSectionName="";
@@ -110,6 +114,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 foreach (EvalSectionQuestionDTO sq in ts.EvalSection.EvalSectionQuestions)
                 {
                     q = sq.EvalQuestion;
+                    if (q.EvalQuestionId == 7) Response.Write("");
                     placeHolder.Controls.Add(RenderQuestionRow(q.EvalQuestionId, sq.QuestionOrder, q.Question, q.QuestionExample,"",""));
                     //Save question data to draft list, use to insert new after
                     CaseEvalDetailDTO caseEvalDetailDraft = new CaseEvalDetailDTO();
@@ -347,9 +352,18 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
 
         protected void btnCloseAudit_Click(object sender, EventArgs e)
         {
-            evalHeader.EvalStatus = CaseEvaluationBL.EvaluationStatus.CLOSED;
-            evalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
-            CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
+            try
+            {
+                evalHeader.EvalStatus = CaseEvaluationBL.EvaluationStatus.CLOSED;
+                evalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
+                lblErrorMessage.Text = "Evaluation Case was closed successfully!!!";
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         
     }

@@ -39,20 +39,26 @@ namespace HPF.FutureState.Web
         private void LoadDefaultTab()
         {
             tabControl2.Tabs.Clear();
+            bool isHpfUser = (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0 ? true : false);
+            if ((!isHpfUser) && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) == 0))
+                return;
             bool notAddReviewInput = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0)
-                                        && string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF)==0);
+                                        && isHpfUser);
             bool addCompareResultTab = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0)
                                             || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT) == 0)
                                             || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT) == 0)
-                                            || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.CLOSED) == 0)
-                                                && (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0)));
+                                            || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.CLOSED) == 0)));
+            //Invisible compare result Tab when evaluation type is ONSITE
+            addCompareResultTab = (addCompareResultTab && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) != 0));
             bool addFileUploadsTab = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED) != 0)
                                         || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0)
-                                            && (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0))
+                                            && isHpfUser)
                                         || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED) == 0)
-                                            && (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0))
+                                            && (!isHpfUser))
                                         || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0)
-                                            && (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)));
+                                            && (!isHpfUser)));
+            //Invisible fileUpload Tab when evaluation type is ONSITE
+            addFileUploadsTab = (addFileUploadsTab && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) != 0));
             if (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) != 0)
             {
                 if (!notAddReviewInput)
