@@ -38,8 +38,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 isFirstTime = (evalHeader.EvalStatus == CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED);
                 if (evalHeader != null)
                 {
-                    RenderHTML(evalHeader.CaseEvalHeaderId);
                     InitControlStatus();
+                    RenderHTML(evalHeader.CaseEvalHeaderId);
                 }
             }
             catch (Exception ex)
@@ -131,6 +131,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             lblAuditorName.Text = HPFWebSecurity.CurrentIdentity.DisplayName;
             txtEvaluationDate.Text = DateTime.Now.ToShortDateString();
+            btnCloseAudit.Visible = false;
         }
         /// <summary>
         /// Render html section row
@@ -224,8 +225,9 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             {
                 CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
                 caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
-                CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader,caseEvalSetDraft,isHPFUser,HPFWebSecurity.CurrentIdentity.DisplayName);
+                CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader,caseEvalSetDraft,isHPFUser,HPFWebSecurity.CurrentIdentity.LoginName);
                 lblErrorMessage.Text = "New Case Evaluation was inserted successfully!!!";
+                Response.Redirect(Request.Url.ToString());
             }
             catch (Exception ex)
             {
@@ -249,7 +251,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             if (caseEvalDetailDraftCollection.Count > 0) result.CaseEvalSetId = caseEvalDetailDraftCollection[0].CaseEvalSetId;
             result.CaseEvalHeaderId = evalHeader.CaseEvalHeaderId;
-            result.AuditorName = HPFWebSecurity.CurrentIdentity.LoginName;
+            result.AuditorName = HPFWebSecurity.CurrentIdentity.DisplayName;
+            result.HpfAuditInd = (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0 ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
             result.EvaluationDt = (((isFirstTime) && (!isHPFUser)) ? ConvertToDateTime(txtEvaluationDate.Text):DateTime.Now);
             result.FatalErrorInd = (chkFatalError.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
             result.Comments =txtComments.Text;
@@ -340,8 +343,9 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             {
                 CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
                 caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
-                CaseEvaluationBL.Instance.UpdateCaseEvalSet(evalHeader, caseEvalSetDraft, HPFWebSecurity.CurrentIdentity.DisplayName);
+                CaseEvaluationBL.Instance.UpdateCaseEvalSet(evalHeader, caseEvalSetDraft, HPFWebSecurity.CurrentIdentity.LoginName);
                 lblErrorMessage.Text = "Case Evaluation was updated successfully!!!";
+                Response.Redirect(Request.Url.ToString());
             }
             catch (Exception ex)
             {
@@ -358,6 +362,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 evalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
                 lblErrorMessage.Text = "Evaluation Case was closed successfully!!!";
+                Response.Redirect(Request.Url.ToString());
             }
             catch (Exception ex)
             {

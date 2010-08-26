@@ -53,7 +53,7 @@ namespace HPF.FutureState.Web.HPFWebControls
             this.Controls.Clear();
             foreach (Tab i in Tabs)
             {
-                LinkButton link = GetTab(i.ID, i.Title);
+                LinkButton link = GetTab(i.ID, i.Title,i.isEnable);
                 if (ViewState["Selected"] != null)
                 {
                     string selectedID = ViewState["Selected"] as string;
@@ -85,21 +85,39 @@ namespace HPF.FutureState.Web.HPFWebControls
         /// <param name="tabID">Tab ID</param>
         public void AddTab(string tabID,string title)
         {
-            Tab tab = new Tab { Title = title, ID = tabID };
-            LinkButton linkBtn = GetTab(tabID, title);            
+            Tab tab = new Tab { Title = title, ID = tabID,isEnable=true };
+            LinkButton linkBtn = GetTab(tabID, title,true);            
             _Tabs.Add(tab);
             this.Controls.Add(linkBtn);
             ViewState["Tabs"] = _Tabs;
         }
-
-        private LinkButton GetTab(string tabID, string title)
+        /// <summary>
+        /// Add a tab to TabControl
+        /// </summary>
+        /// <param name="tabID">Tab ID</param>
+        /// <param name="title">Tab Title</param>
+        /// <param name="isEnable">Enable or Disable Tab</param>
+        public void AddTab(string tabID, string title,bool isEnable)
+        {
+            Tab tab = new Tab { Title = title, ID = tabID, isEnable = isEnable };
+            LinkButton linkBtn = GetTab(tabID, title, isEnable);
+            _Tabs.Add(tab);
+            this.Controls.Add(linkBtn);
+            ViewState["Tabs"] = _Tabs;
+        }
+        private LinkButton GetTab(string tabID, string title,bool isEnable)
         {
             LinkButton linkBtn = new LinkButton();
             linkBtn.Text = title;
-            linkBtn.PostBackUrl = "#";
-            linkBtn.Click += new EventHandler(linkBtn_Click);
             linkBtn.ID = tabID;
+            linkBtn.Enabled = isEnable;
             linkBtn.Attributes.Add("class", "Tab");
+            if (isEnable)
+            {
+                linkBtn.PostBackUrl = "#";
+                linkBtn.Click += new EventHandler(linkBtn_Click);
+                linkBtn.Attributes.Add("class", "Tab");
+            }
             return linkBtn;
         }
 
@@ -150,6 +168,7 @@ namespace HPF.FutureState.Web.HPFWebControls
     {
         public string Title { get; set; }
         public string ID { get; set; }
+        public bool isEnable { get; set; }
     }
     
 }

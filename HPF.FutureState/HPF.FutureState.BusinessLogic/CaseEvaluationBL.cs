@@ -272,12 +272,12 @@ namespace HPF.FutureState.BusinessLogic
         {
             //HPF Auditor have not audited yet, does not need compare score
             if (string.Compare(caseEvalHeader.EvalStatus, EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0
-                || string.Compare(caseEvalHeader.EvalStatus, EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0
-                || string.Compare(caseEvalHeader.EvalStatus,EvaluationStatus.HPF_INPUT_REQUIRED)==0)
+                || string.Compare(caseEvalHeader.EvalStatus, EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0)
             return false;
             
             string hpfAuditIndLatest = (evalSetNew.HpfAuditInd==Constant.INDICATOR_YES?Constant.INDICATOR_NO:Constant.INDICATOR_YES);
             CaseEvalSetDTO evalSetLatest = GetCaseEvalLatest(evalSetNew.CaseEvalHeaderId, hpfAuditIndLatest);
+            if (evalSetLatest == null) return false;
             decimal percentNew = Math.Round((decimal)((decimal)evalSetNew.TotalAuditScore/ (decimal)evalSetNew.TotalPossibleScore), 4);
             decimal percentLatest = Math.Round((decimal)((decimal)evalSetLatest.TotalAuditScore / (decimal)evalSetLatest.TotalPossibleScore), 4);
             if (((percentNew - percentLatest <= (decimal)0.05) && (percentNew - percentLatest>=0))

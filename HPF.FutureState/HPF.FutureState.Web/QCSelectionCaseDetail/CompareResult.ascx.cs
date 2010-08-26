@@ -70,7 +70,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         {
             TableRow tr = new TableRow();
             tr.Attributes.Add("style", "background:#CDC9C9");
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 TableCell tc = new TableCell();
                 if (i == 0)

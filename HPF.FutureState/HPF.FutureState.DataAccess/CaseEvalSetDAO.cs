@@ -270,6 +270,7 @@ namespace HPF.FutureState.DataAccess
                         result.TotalPossibleScore = ConvertToInt(reader["total_possible_score"]);
                         result.ResultLevel = ConvertToString(reader["result_level"]);
                         result.FatalErrorInd = ConvertToString(reader["fatal_error_ind"]);
+                        result.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
                         result.Comments = ConvertToString(reader["comments"]);
                     }
                     reader.NextResult();

@@ -42,8 +42,9 @@ namespace HPF.FutureState.Web
             bool isHpfUser = (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0 ? true : false);
             if ((!isHpfUser) && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) == 0))
                 return;
-            bool notAddReviewInput = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0)
-                                        && isHpfUser);
+            bool notAddReviewInput = (((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0)
+                                           || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0))
+                                      && isHpfUser);
             bool addCompareResultTab = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0)
                                             || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT) == 0)
                                             || (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT) == 0)
@@ -52,32 +53,20 @@ namespace HPF.FutureState.Web
             addCompareResultTab = (addCompareResultTab && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) != 0));
             bool addFileUploadsTab = ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED) != 0)
                                         || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0)
-                                            && isHpfUser)
+                                            && !isHpfUser)
                                         || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED) == 0)
                                             && (!isHpfUser))
                                         || ((string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0)
                                             && (!isHpfUser)));
             //Invisible fileUpload Tab when evaluation type is ONSITE
             addFileUploadsTab = (addFileUploadsTab && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) != 0));
-            if (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) != 0)
-            {
+            
+            tabControl2.AddTab("reviewInput", "Review Input", !notAddReviewInput);
+            tabControl2.AddTab("compareResult", "Compare Result", addCompareResultTab);
+            tabControl2.AddTab("fileUploads", "File Upload", addFileUploadsTab);
+            if (!IsPostBack)
                 if (!notAddReviewInput)
-                {
-                    tabControl2.AddTab("reviewInput", "Review Input");
-                    if (!IsPostBack)
-                        UserControlLoader2.LoadUserControl(UCLOCATION + "AgencyAudit.ascx", "ucReviewInput");
-                }
-                if (addCompareResultTab)
-                    tabControl2.AddTab("compareResult", "Compare Result");
-                if (addFileUploadsTab)
-                    tabControl2.AddTab("fileUploads", "File Upload");
-            }
-            else if (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
-            {
-                tabControl2.AddTab("fileUploads", "File Upload");
-                tabControl2.SelectedTab = "fileUploads";
-                UserControlLoader2.LoadUserControl(UCLOCATION + "FileUploads.ascx", "ucFileUploads");
-            }
+                    UserControlLoader2.LoadUserControl(UCLOCATION + "AgencyAudit.ascx", "ucReviewInput");
         }
         private void BindData()
         {

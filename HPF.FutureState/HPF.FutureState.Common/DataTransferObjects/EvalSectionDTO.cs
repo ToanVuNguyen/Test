@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using HPF.FutureState.Common.Utils.DataValidator;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
@@ -13,6 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? EvalSectionId { get; set; }
 
         private string _sectionName;
+        //[NullableOrStringLengthValidator(false, 50, "SectionName", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR1107)]
         public string SectionName
         {
             get { return _sectionName; }
@@ -20,6 +22,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         private string _sectionDescription;
+        //[NullableOrStringLengthValidator(true, 50, "SectionDescription", Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR1108)]
         public string SectionDescription
         {
             get { return _sectionDescription; }
@@ -36,6 +39,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             EvalSectionQuestions = new EvalSectionQuestionDTOCollection();
         }
+        public bool InUse { get; set; }
         #endregion
     }
 }

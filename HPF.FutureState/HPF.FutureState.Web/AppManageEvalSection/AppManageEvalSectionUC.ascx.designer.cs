@@ -14,6 +14,24 @@ namespace HPF.FutureState.Web.AppManageEvalSection {
     public partial class AppManageEvalSectionUC {
         
         /// <summary>
+        /// myScript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager myScript;
+        
+        /// <summary>
+        /// myupdatepan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel myupdatepan;
+        
+        /// <summary>
         /// lblErrorMessage control.
         /// </summary>
         /// <remarks>

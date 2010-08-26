@@ -63,8 +63,9 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             tc = new TableCell();
             HyperLink hl = new HyperLink();
             hl.Attributes.Add("style", "Text");
+            hl.NavigateUrl ="file:///"+ saveDir + fileName;
             hl.Text = fileName;
-            hl.NavigateUrl =saveDir + fileName;
+            hl.Target = "_blank";
             tc.Controls.Add(hl);
             tr.Controls.Add(tc);
             placeHolder.Controls.Add(tr);

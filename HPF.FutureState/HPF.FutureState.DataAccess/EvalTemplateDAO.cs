@@ -151,6 +151,9 @@ namespace HPF.FutureState.DataAccess
                         EvalSectionDTO evalSection = new EvalSectionDTO();
                         evalSection.EvalSectionId = ConvertToInt(reader["eval_section_id"]);
                         evalSection.SectionName = ConvertToString(reader["section_name"]);
+                        evalSection.SectionDescription = ConvertToString(reader["section_description"]);
+                        evalSection.ActiveInd = ConvertToString(reader["active_ind"]);
+                        evalSection.InUse = (ConvertToInt(reader["count_in_use"]) > 0 ? true : false);
                         result.Add(evalSection);
                     }
                     reader.Close();
