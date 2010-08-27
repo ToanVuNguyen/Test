@@ -12,6 +12,14 @@
         </td>
     </tr>
     <tr>
+        <td colspan="2" align = "left">
+        <asp:BulletedList ID="lblInstruction" CssClass="sidelinks" runat="server">
+        <asp:ListItem>To update existing template section information, please use section drop down list for retrieval, make the change, then press Update button.</asp:ListItem>
+        <asp:ListItem>To add new template section, simply type the information and press Add New button.</asp:ListItem>
+        </asp:BulletedList>
+        </td>
+    </tr>
+    <tr>
         <td colspan="2" class="ErrorMessage">
             <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
             </asp:Label>

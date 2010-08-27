@@ -42,7 +42,7 @@ namespace HPF.FutureState.BusinessLogic
         }
         public void UpdateEvalSection(EvalSectionDTO evalSection)
         {
-            if (evalSection.InUse && (evalSection.ActiveInd == Constant.INDICATOR_NO))
+            if (evalSection.IsInUse && (evalSection.ActiveInd == Constant.INDICATOR_NO))
                 throw new Exception("This section is in used, Can not set it inactive!");
             if (string.IsNullOrEmpty(evalSection.SectionName))
                 throw new Exception("Section name is required!");
@@ -54,11 +54,41 @@ namespace HPF.FutureState.BusinessLogic
         }
         public int? InsertEvalQuestion(EvalQuestionDTO evalQuestion)
         {
+            var ex = ValidateQuestion(evalQuestion);
+            if (ex.ExceptionMessages.Count > 0) throw ex;
             return EvalTemplateDAO.Instance.InsertEvalQuestion(evalQuestion);
         }
         public void UpdateEvalQuestion(EvalQuestionDTO evalQuestion)
         {
+            var ex = ValidateQuestion(evalQuestion);
+            if (evalQuestion.IsInUse && (evalQuestion.ActiveInd == Constant.INDICATOR_NO))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "This section is in used, Can not set it inactive!" });
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
             EvalTemplateDAO.Instance.UpdateEvalQuestion(evalQuestion);
+        }
+        private DataValidationException ValidateQuestion(EvalQuestionDTO evalQuestion)
+        {
+            DataValidationException ex = new DataValidationException();
+            if (string.IsNullOrEmpty(evalQuestion.Question))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Question is required!" });
+            if (string.IsNullOrEmpty(evalQuestion.QuestionType))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Question type is reqiured!" });
+            return ex;
+        }
+        public int? InsertEvalTemplate(EvalTemplateDTO evalTemplate)
+        {
+            if (string.IsNullOrEmpty(evalTemplate.TemplateName))
+                throw new Exception("Template name is required!");
+            return EvalTemplateDAO.Instance.InsertEvalTemplate(evalTemplate);
+        }
+        public void UpdateEvalTemplate(EvalTemplateDTO evalTemplate)
+        {
+            if (evalTemplate.IsInUse && (evalTemplate.ActiveInd == Constant.INDICATOR_NO))
+                throw new Exception("This template is in used, Can not set it inactive!");
+            if (string.IsNullOrEmpty(evalTemplate.TemplateName))
+                throw new Exception("Template name is required!");
+            EvalTemplateDAO.Instance.UpdateEvalTemplate(evalTemplate);
         }
     }
 }

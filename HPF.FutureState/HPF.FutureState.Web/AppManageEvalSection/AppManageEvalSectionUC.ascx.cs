@@ -38,6 +38,8 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                 {
                     evalSectionCollection = EvalTemplateBL.Instance.RetriveAllEvalSection();
                     BindDropDownList();
+                    btnUpdate.Enabled = false;
+                    ClearData();
                 }
             }
             catch (Exception ex)
@@ -84,7 +86,7 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                     evalSection.ActiveInd = (chkActive.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
                     evalSection.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     EvalTemplateBL.Instance.UpdateEvalSection(evalSection);
-                    lblErrorMessage.Text = "Update successfull !!!";
+                    lblErrorMessage.Text = "Update Successfull !!!";
                     BindDropDownList();
                     ddlSection.Items.FindByValue(selectedEvalSectionId.ToString()).Selected=true;
                 }
@@ -109,6 +111,7 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                 evalSectionCollection.Add(evalSection);
                 BindDropDownList();
                 lblErrorMessage.Text = "Insert new section successfull !!!";
+                ClearData();
             }
             catch (Exception ex)
             {
@@ -116,6 +119,11 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
-        
+        private void ClearData()
+        {
+            txtSectionName.Text = "";
+            txtSectionDescription.Text = "";
+            chkActive.Checked = true;
+        }
     }
 }

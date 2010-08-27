@@ -115,6 +115,13 @@
     <Compile Include="AgencyPayableInfo.aspx.designer.cs">
       <DependentUpon>AgencyPayableInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppManageEvalQuestion\AppManageEvalQuestionUC.ascx.cs">
+      <DependentUpon>AppManageEvalQuestionUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppManageEvalQuestion\AppManageEvalQuestionUC.ascx.designer.cs">
+      <DependentUpon>AppManageEvalQuestionUC.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppManageEvalSection\AppManageEvalSectionUC.ascx.cs">
       <DependentUpon>AppManageEvalSectionUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,12 +199,47 @@
     <Compile Include="ForeclosureCaseInfo.aspx.designer.cs">
       <DependentUpon>ForeclosureCaseInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageEvalQuestion.aspx.cs">
+      <DependentUpon>ManageEvalQuestion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEvalQuestion.aspx.designer.cs">
+      <DependentUpon>ManageEvalQuestion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManageEvalSection.aspx.cs">
       <DependentUpon>ManageEvalSection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageEvalSection.aspx.designer.cs">
       <DependentUpon>ManageEvalSection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEvalTemplate.aspx.cs">
+      <DependentUpon>ManageEvalTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEvalTemplate.aspx.designer.cs">
+      <DependentUpon>ManageEvalTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEvalTemplate\EvaluationTemplate.ascx.cs">
+      <DependentUpon>EvaluationTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEvalTemplate\EvaluationTemplate.ascx.designer.cs">
+      <DependentUpon>EvaluationTemplate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEvalTemplate\TemplateQuestion.ascx.cs">
+      <DependentUpon>TemplateQuestion.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEvalTemplate\TemplateQuestion.ascx.designer.cs">
+      <DependentUpon>TemplateQuestion.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageEvalTemplate\TemplateSection.ascx.cs">
+      <DependentUpon>TemplateSection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageEvalTemplate\TemplateSection.ascx.designer.cs">
+      <DependentUpon>TemplateSection.ascx</DependentUpon>
     </Compile>
     <Compile Include="MarkDuplicateCases\MarkDuplicateCases.ascx.cs">
       <DependentUpon>MarkDuplicateCases.ascx</DependentUpon>
@@ -529,6 +571,7 @@
     <Content Include="AgencyAccountsPayable\AgencyAccountsPayableUC.ascx" />
     <Content Include="AgencyPayable.aspx" />
     <Content Include="AgencyPayableInfo.aspx" />
+    <Content Include="AppManageEvalQuestion\AppManageEvalQuestionUC.ascx" />
     <Content Include="AppManageEvalSection\AppManageEvalSectionUC.ascx" />
     <Content Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx" />
     <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
@@ -540,7 +583,12 @@
     <Content Include="CreateNewPayable.aspx" />
     <Content Include="ForeclosureCaseDetail\QCSelection.ascx" />
     <Content Include="ForeclosureCaseInfo.aspx" />
+    <Content Include="ManageEvalQuestion.aspx" />
     <Content Include="ManageEvalSection.aspx" />
+    <Content Include="ManageEvalTemplate.aspx" />
+    <Content Include="ManageEvalTemplate\EvaluationTemplate.ascx" />
+    <Content Include="ManageEvalTemplate\TemplateQuestion.ascx" />
+    <Content Include="ManageEvalTemplate\TemplateSection.ascx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="QCSelectionCaseDetail\CompareResult.ascx" />

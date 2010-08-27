@@ -39,7 +39,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         {
             EvalSectionQuestions = new EvalSectionQuestionDTOCollection();
         }
-        public bool InUse { get; set; }
+        public bool IsInUse { get; set; }
         #endregion
     }
 }

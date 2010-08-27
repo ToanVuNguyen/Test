@@ -8,37 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HPF.FutureState.Web.AppManageEvalSection {
+namespace HPF.FutureState.Web.ManageEvalTemplateTab {
     
     
-    public partial class AppManageEvalSectionUC {
-        
-        /// <summary>
-        /// myScript control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager myScript;
-        
-        /// <summary>
-        /// myupdatepan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel myupdatepan;
-        
-        /// <summary>
-        /// lblInstruction control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList lblInstruction;
+    public partial class EvaluationTemplate {
         
         /// <summary>
         /// lblErrorMessage control.
@@ -47,34 +20,25 @@ namespace HPF.FutureState.Web.AppManageEvalSection {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
         
         /// <summary>
-        /// ddlSection control.
+        /// txtTemplateName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSection;
+        protected global::System.Web.UI.WebControls.TextBox txtTemplateName;
         
         /// <summary>
-        /// txtSectionName control.
+        /// txtTemplateDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSectionName;
-        
-        /// <summary>
-        /// txtSectionDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSectionDescription;
+        protected global::System.Web.UI.WebControls.TextBox txtTemplateDescription;
         
         /// <summary>
         /// chkActive control.

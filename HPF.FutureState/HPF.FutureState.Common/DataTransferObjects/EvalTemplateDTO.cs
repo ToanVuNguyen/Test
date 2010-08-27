@@ -30,7 +30,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set { _activeInd = string.IsNullOrEmpty(value) ? null : value; }
         }
         public int? TotalScore { get; set; }
-
+        public bool IsInUse { get; set; }
         public EvalTemplateSectionDTOCollection EvalTemplateSections { get; set; }
         public EvalTemplateDTO()
         {

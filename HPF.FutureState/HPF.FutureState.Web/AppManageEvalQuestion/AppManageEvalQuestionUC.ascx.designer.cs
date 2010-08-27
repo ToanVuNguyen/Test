@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HPF.FutureState.Web.AppManageEvalSection {
+namespace HPF.FutureState.Web.AppManageEvalQuestion {
     
     
-    public partial class AppManageEvalSectionUC {
+    public partial class AppManageEvalQuestionUC {
         
         /// <summary>
         /// myScript control.
@@ -47,34 +47,61 @@ namespace HPF.FutureState.Web.AppManageEvalSection {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        protected global::System.Web.UI.WebControls.BulletedList lblErrorMessage;
         
         /// <summary>
-        /// ddlSection control.
+        /// ddlQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSection;
+        protected global::System.Web.UI.WebControls.DropDownList ddlQuestion;
         
         /// <summary>
-        /// txtSectionName control.
+        /// txtQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSectionName;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestion;
         
         /// <summary>
-        /// txtSectionDescription control.
+        /// txtQuestionDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSectionDescription;
+        protected global::System.Web.UI.WebControls.TextBox txtQuestionDescription;
+        
+        /// <summary>
+        /// txtQuestionExample control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQuestionExample;
+        
+        /// <summary>
+        /// txtQuestionType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQuestionType;
+        
+        /// <summary>
+        /// ddlQuestionScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlQuestionScore;
         
         /// <summary>
         /// chkActive control.

@@ -46,6 +46,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
             set { _activeInd = string.IsNullOrEmpty(value) ? null : value; }
         }
         public int? QuestionScore;
+        public bool IsInUse { get; set; }
         #endregion
     }
 }

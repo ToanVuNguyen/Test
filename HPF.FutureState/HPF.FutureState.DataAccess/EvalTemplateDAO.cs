@@ -40,6 +40,9 @@ namespace HPF.FutureState.DataAccess
                         evalTemplate.EvalTemplateId = ConvertToInt(reader["eval_template_id"]);
                         evalTemplate.TemplateName = ConvertToString(reader["template_name"]);
                         evalTemplate.TemplateDescription = ConvertToString(reader["template_description"]);
+                        evalTemplate.ActiveInd = ConvertToString(reader["active_ind"]);
+                        evalTemplate.TotalScore = ConvertToInt(reader["total_score"]);
+                        evalTemplate.IsInUse = (ConvertToInt(reader["count_in_use"]) > 0 ? true : false);
                         result.Add(evalTemplate);
                     }
                     reader.Close();
@@ -153,7 +156,7 @@ namespace HPF.FutureState.DataAccess
                         evalSection.SectionName = ConvertToString(reader["section_name"]);
                         evalSection.SectionDescription = ConvertToString(reader["section_description"]);
                         evalSection.ActiveInd = ConvertToString(reader["active_ind"]);
-                        evalSection.InUse = (ConvertToInt(reader["count_in_use"]) > 0 ? true : false);
+                        evalSection.IsInUse = (ConvertToInt(reader["count_in_use"]) > 0 ? true : false);
                         result.Add(evalSection);
                     }
                     reader.Close();
@@ -253,6 +256,12 @@ namespace HPF.FutureState.DataAccess
                         EvalQuestionDTO evalQuestion = new EvalQuestionDTO();
                         evalQuestion.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
                         evalQuestion.Question = ConvertToString(reader["question"]);
+                        evalQuestion.QuestionDescription = ConvertToString(reader["question_description"]);
+                        evalQuestion.QuestionExample = ConvertToString(reader["question_example"]);
+                        evalQuestion.QuestionType = ConvertToString(reader["question_type"]);
+                        evalQuestion.QuestionScore = ConvertToInt(reader["question_score"]);
+                        evalQuestion.ActiveInd = ConvertToString(reader["active_ind"]);
+                        evalQuestion.IsInUse = (ConvertToInt(reader["count_in_use"]) > 0 ? true : false);
                         result.Add(evalQuestion);
                     }
                     reader.Close();
@@ -311,7 +320,7 @@ namespace HPF.FutureState.DataAccess
         public void UpdateEvalQuestion(EvalQuestionDTO evalQuestion)
         {
             var dbConnection = CreateConnection();
-            var command = CreateCommand("hpf_eval_section_update", dbConnection);
+            var command = CreateCommand("hpf_eval_question_update", dbConnection);
             SqlParameter[] sqlParam = new SqlParameter[10];
 
             sqlParam[0] = new SqlParameter("@pi_eval_question_id", evalQuestion.EvalQuestionId);
@@ -325,6 +334,75 @@ namespace HPF.FutureState.DataAccess
             sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(evalQuestion.ChangeLastDate));
             sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", evalQuestion.ChangeLastUserId);
             sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", evalQuestion.ChangeLastAppName);
+
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+        }
+        public int? InsertEvalTemplate(EvalTemplateDTO evalTemplate)
+        {
+            var dbConnection = CreateConnection();
+            var command = CreateCommand("hpf_eval_template_insert", dbConnection);
+            SqlParameter[] sqlParam = new SqlParameter[11];
+
+            sqlParam[0] = new SqlParameter("@pi_template_name", evalTemplate.TemplateName);
+            sqlParam[1] = new SqlParameter("@pi_template_description", evalTemplate.TemplateDescription);
+            sqlParam[2] = new SqlParameter("@pi_total_score", evalTemplate.TotalScore);
+            sqlParam[3] = new SqlParameter("@pi_active_ind", evalTemplate.ActiveInd);
+
+            sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(evalTemplate.CreateDate));
+            sqlParam[5] = new SqlParameter("@pi_create_user_id", evalTemplate.CreateUserId);
+            sqlParam[6] = new SqlParameter("@pi_create_app_name", evalTemplate.CreateAppName);
+            sqlParam[7] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(evalTemplate.ChangeLastDate));
+            sqlParam[8] = new SqlParameter("@pi_chg_lst_user_id", evalTemplate.ChangeLastUserId);
+            sqlParam[9] = new SqlParameter("@pi_chg_lst_app_name", evalTemplate.ChangeLastAppName);
+
+            sqlParam[10] = new SqlParameter("@po_eval_template_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                command.ExecuteNonQuery();
+                evalTemplate.EvalTemplateId = ConvertToInt(command.Parameters["@po_eval_template_id"].Value);
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return evalTemplate.EvalTemplateId;
+        }
+        public void UpdateEvalTemplate(EvalTemplateDTO evalTemplate)
+        {
+            var dbConnection = CreateConnection();
+            var command = CreateCommand("hpf_eval_template_update", dbConnection);
+            SqlParameter[] sqlParam = new SqlParameter[7];
+
+            sqlParam[0] = new SqlParameter("@pi_eval_template_id", evalTemplate.EvalTemplateId);
+            sqlParam[1] = new SqlParameter("@pi_template_name", evalTemplate.TemplateName);
+            sqlParam[2] = new SqlParameter("@pi_template_description", evalTemplate.TemplateDescription);
+            sqlParam[2] = new SqlParameter("@pi_total_score", evalTemplate.TotalScore);
+            sqlParam[3] = new SqlParameter("@pi_active_ind", evalTemplate.ActiveInd);
+
+            sqlParam[4] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(evalTemplate.ChangeLastDate));
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_user_id", evalTemplate.ChangeLastUserId);
+            sqlParam[6] = new SqlParameter("@pi_chg_lst_app_name", evalTemplate.ChangeLastAppName);
 
             command.Parameters.AddRange(sqlParam);
             try
