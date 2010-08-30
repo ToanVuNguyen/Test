@@ -25,7 +25,8 @@
     </tr>
     <tr>
     <td colspan="2" align="center" nowrap="nowrap">
-        <asp:Button ID="btnAddNew" runat="server" Text="Add New" Width="120px" CssClass="MyButton"/>
+        <asp:Button ID="btnAddNew" runat="server" Text="Add New" Width="120px" 
+            CssClass="MyButton" onclick="btnAddNew_Click"/>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" Width="120px"  
             CssClass="MyButton" onclick="btnUpdate_Click"/>
         <asp:Button ID="btnClose" runat="server" Text="Close" Width="120px"    CssClass="MyButton"/>

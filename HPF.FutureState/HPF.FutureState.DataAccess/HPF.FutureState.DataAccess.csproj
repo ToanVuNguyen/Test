@@ -65,6 +65,7 @@
     <Compile Include="CaseFollowUpDAO.cs" />
     <Compile Include="CounseledProgramDAO.cs" />
     <Compile Include="EvalTemplateDAO.cs" />
+    <Compile Include="EvalTemplateSectionQuestionDAO.cs" />
     <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />

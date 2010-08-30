@@ -12,6 +12,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? EvalQuestionId { get; set; }
         public int? EvalTemplateId { get; set; }
         public int? QuestionOrder { get; set; }
+        //Use in ManageEvalTemplate page
+        public byte StatusChanged { get; set; }
         public EvalQuestionDTO EvalQuestion { get; set; }
     }
 }

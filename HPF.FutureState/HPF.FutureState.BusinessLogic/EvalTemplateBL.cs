@@ -22,6 +22,10 @@ namespace HPF.FutureState.BusinessLogic
         protected EvalTemplateBL()
         {
         }
+        public enum StatusChanged : byte
+        {
+            Insert=0,Remove=1,Update=2
+        }
         public EvalTemplateDTO RetriveTemplate(int? templateId)
         {
             return EvalTemplateDAO.Instance.GetEvalTemplateById(templateId);
@@ -89,6 +93,102 @@ namespace HPF.FutureState.BusinessLogic
             if (string.IsNullOrEmpty(evalTemplate.TemplateName))
                 throw new Exception("Template name is required!");
             EvalTemplateDAO.Instance.UpdateEvalTemplate(evalTemplate);
+        }
+        public EvalTemplateSectionDTOCollection RetriveAllEvalSectionsByTemplateId(int? evalTemplateId)
+        {
+            var instance = EvalTemplateSectionQuestionDAO.CreateInstance();
+            return instance.GetEvalTemplateSectionByTemplateId(evalTemplateId);
+        }
+        public void ManageEvalTemplateSection(EvalTemplateSectionDTOCollection sectionCollection)
+        {
+            var exValidate = ValidateTemplateSection(sectionCollection);
+            if (exValidate.ExceptionMessages.Count > 0) throw exValidate;
+            var instance = EvalTemplateSectionQuestionDAO.CreateInstance();
+            try
+            {
+                instance.Begin();
+                foreach (EvalTemplateSectionDTO section in sectionCollection)
+                {
+                    if (section.StatusChanged ==(byte) StatusChanged.Insert)
+                        instance.InsertEvalTemplateSection(section);
+                    else if (section.StatusChanged ==(byte) StatusChanged.Update)
+                        instance.UpdateEvalTemplateSection(section);
+                    else 
+                        instance.RemoveEvalTemplateSection(section);
+                }
+            }
+            catch (Exception ex)
+            {
+                instance.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                instance.Commit();
+            }
+        }
+        public DataValidationException ValidateTemplateSection(EvalTemplateSectionDTOCollection sectionCollection)
+        {
+            DataValidationException ex = new DataValidationException();
+            foreach (EvalTemplateSectionDTO section in sectionCollection)
+                if (section.SectionOrder == null)
+                {
+                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Section order must is numeric!" });
+                    break;
+                }
+            return ex;
+        }
+
+        public EvalSectionQuestionDTOCollection RetriveAllEvalQuestionByTemplateId(int? evalTemplateId)
+        {
+            var instance = EvalTemplateSectionQuestionDAO.CreateInstance();
+            return instance.GetEvalTemplateQuestionByTemplateId(evalTemplateId);
+        }
+        public void ManageEvalSectionQuestion(EvalSectionQuestionDTOCollection questionCollection)
+        {
+            var exValidate = ValidateSectionQuestion(questionCollection);
+            if (exValidate.ExceptionMessages.Count > 0) throw exValidate;
+            var instance = EvalTemplateSectionQuestionDAO.CreateInstance();
+            try
+            {
+                instance.Begin();
+                foreach (EvalSectionQuestionDTO question in questionCollection)
+                {
+                    if (question.StatusChanged == (byte)StatusChanged.Insert)
+                        instance.InsertEvalQuestionSection(question);
+                    else if (question.StatusChanged == (byte)StatusChanged.Update)
+                        instance.UpdateEvalSectionQuestion(question);
+                    else
+                        instance.RemoveEvalSectionQuestion(question);
+                }
+            }
+            catch (Exception ex)
+            {
+                instance.Cancel();
+                throw ex;
+            }
+            finally
+            {
+                instance.Commit();
+            }
+        }
+        public DataValidationException ValidateSectionQuestion(EvalSectionQuestionDTOCollection questionCollection)
+        {
+            DataValidationException ex = new DataValidationException();
+            foreach (EvalSectionQuestionDTO question in questionCollection)
+            {
+                if (question.EvalSectionId <=0)
+                {
+                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Choose section which question belong to!" });
+                    break;
+                }
+                if (question.QuestionOrder == null)
+                {
+                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Question order must is numeric!" });
+                    break;
+                }
+            }
+            return ex;
         }
     }
 }

@@ -15,6 +15,7 @@ using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Web.ManageEvalTemplateTab;
+using HPF.FutureState.Web.HPFWebControls;
 
 namespace HPF.FutureState.Web
 {
@@ -40,19 +41,13 @@ namespace HPF.FutureState.Web
                     tabControl.AddTab("templateSection", "Template Section");
                     tabControl.AddTab("templateQuestion", "Template Question");
                     tabControl.SelectedTab = "evaluationTemplate";
-                    UserControlLoader.LoadUserControl(UCLOCATION + "EvaluationTemplate.ascx", "ucEvaluationTemplate");
+                    UserControlLoader1.LoadUserControl(UCLOCATION + "EvaluationTemplate.ascx", "ucEvaluationTemplate");
 
                     evalTemplateCollection = EvalTemplateBL.Instance.RetriveAllTemplate();
                     BindDropDownList();
-                  
-                }
-                if (UserControlLoader.Controls.Count > 0)
-                {
-                    EvaluationTemplate evaluationTemplateControl = (EvaluationTemplate)UserControlLoader.Controls[0];
-                    if (evaluationTemplateControl != null)
-                        evaluationTemplateControl.updateHandler += new EvaluationTemplate.OnButtonClick(UpdateEvalTemplate);
                 }
             }
+
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
@@ -84,13 +79,13 @@ namespace HPF.FutureState.Web
                 switch (e.SelectedTabID)
                 {
                     case "evaluationTemplate":
-                        UserControlLoader.LoadUserControl(UCLOCATION + "EvaluationTemplate.ascx", "ucEvaluationTemplate");
+                        UserControlLoader1.LoadUserControl(UCLOCATION + "EvaluationTemplate.ascx", "ucEvaluationTemplate");
                         break;
                     case "templateSection":
-                        UserControlLoader.LoadUserControl(UCLOCATION + "TemplateSection.ascx", "ucTemplateSection");
+                        UserControlLoader1.LoadUserControl(UCLOCATION + "TemplateSection.ascx", "ucTemplateSection");
                         break;
                     case "templateQuestion":
-                        UserControlLoader.LoadUserControl(UCLOCATION + "TemplateQuestion.ascx", "ucTemplateQuestion");
+                        UserControlLoader1.LoadUserControl(UCLOCATION + "TemplateQuestion.ascx", "ucTemplateQuestion");
                         break;
                 }
             }

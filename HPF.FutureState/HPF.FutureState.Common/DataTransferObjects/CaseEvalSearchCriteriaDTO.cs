@@ -13,5 +13,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? AgencyId { get; set; }
         public string YearMonthFrom { get; set; }
         public string YearMonthTo { get; set; }
+        public string EvaluationStatus { get; set; }
+        public string EvaluationType { get; set; }
     }
 }

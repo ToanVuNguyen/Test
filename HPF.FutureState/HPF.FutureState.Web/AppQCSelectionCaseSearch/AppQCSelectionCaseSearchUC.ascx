@@ -33,9 +33,13 @@
                 CssClass="MyButton" onclick="btnSearch_Click"/></td>
     </tr>
     <tr>
-        <td>
+        <td class="sidelinks" align="right">
+        Evaluation Status*:
         </td>
         <td width="280" >
+        <asp:DropDownList ID="ddlEvaluationStatus" runat="server" Height="16px" 
+                CssClass="Text" Width="280px">
+            </asp:DropDownList>
         </td>
         <td  align="right" class="sidelinks" nowrap="nowrap">
             To Year/Month*:
@@ -47,6 +51,21 @@
         </td>        
         <td align="right"><asp:Button ID="btnClose" runat="server" Text="Close" Width="120px"
                 CssClass="MyButton"/></td>
+    </tr>
+    <tr>
+        <td class="sidelinks" align="right">
+        Evaluation Type*:
+        </td>
+        <td width="280" >
+        <asp:DropDownList ID="ddlEvaluationType" runat="server" Height="16px" 
+                CssClass="Text" Width="280px">
+            </asp:DropDownList>
+        </td>
+        <td  align="right" class="sidelinks" nowrap="nowrap">
+        </td>
+        <td>
+        </td>        
+        <td align="right"></td>
     </tr>
     <tr>
         <td colspan="6" class="ErrorMessage">

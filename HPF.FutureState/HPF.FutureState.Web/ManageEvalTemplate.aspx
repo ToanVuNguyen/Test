@@ -1,7 +1,11 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageEvalTemplate.aspx.cs" Inherits="HPF.FutureState.Web.ManageEvalTemplate" %>
 <%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
     TagPrefix="HPF" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">    
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
+<asp:ScriptManager ID="myScript" runat="server">
+</asp:ScriptManager>
+<asp:UpdatePanel ID="myupdatepan" runat="server">
+<ContentTemplate>     
 <table width="100%">
     <tr>
         <td colspan="2" align="center" >
@@ -47,7 +51,7 @@
                     </tr>
                     <tr >
                         <td style="border: solid 1px #8FC4F6">
-                            <HPF:UserControlLoader ID="UserControlLoader" runat="server">
+                            <HPF:UserControlLoader ID="UserControlLoader1" runat="server">
                             </HPF:UserControlLoader>
                         </td>
                     </tr>
@@ -55,4 +59,6 @@
             </td>
      </tr>
  </table>
+ </ContentTemplate>
+ </asp:UpdatePanel>
  </asp:Content>

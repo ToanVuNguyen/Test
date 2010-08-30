@@ -50,6 +50,15 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
+        /// ddlEvaluationStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEvaluationStatus;
+        
+        /// <summary>
         /// ddlYearMonthTo control.
         /// </summary>
         /// <remarks>
@@ -66,6 +75,15 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClose;
+        
+        /// <summary>
+        /// ddlEvaluationType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEvaluationType;
         
         /// <summary>
         /// lblErrorMessage control.

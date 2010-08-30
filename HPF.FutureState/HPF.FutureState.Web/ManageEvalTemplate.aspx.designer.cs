@@ -14,6 +14,24 @@ namespace HPF.FutureState.Web {
     public partial class ManageEvalTemplate {
         
         /// <summary>
+        /// myScript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager myScript;
+        
+        /// <summary>
+        /// myupdatepan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel myupdatepan;
+        
+        /// <summary>
         /// lblInstruction control.
         /// </summary>
         /// <remarks>
@@ -50,12 +68,12 @@ namespace HPF.FutureState.Web {
         protected global::HPF.FutureState.Web.HPFWebControls.TabControl tabControl;
         
         /// <summary>
-        /// UserControlLoader control.
+        /// UserControlLoader1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::HPF.FutureState.Web.HPFWebControls.UserControlLoader UserControlLoader;
+        protected global::HPF.FutureState.Web.HPFWebControls.UserControlLoader UserControlLoader1;
     }
 }

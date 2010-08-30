@@ -60,14 +60,17 @@ namespace HPF.FutureState.Web
                                             && (!isHpfUser)));
             //Invisible fileUpload Tab when evaluation type is ONSITE
             addFileUploadsTab = (addFileUploadsTab && (string.Compare(selectionCase.EvalType, CaseEvaluationBL.EvaluationType.ONSITE) != 0));
-            
+
             tabControl2.AddTab("reviewInput", "Review Input", !notAddReviewInput);
             tabControl2.AddTab("compareResult", "Compare Result", addCompareResultTab);
             tabControl2.AddTab("fileUploads", "File Upload", addFileUploadsTab);
-            if (!IsPostBack)
+            if (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0
+                    && !isHpfUser)
+                UserControlLoader2.LoadUserControl(UCLOCATION + "FileUploads.ascx", "ucFileUploads");
+            else if (!IsPostBack)
                 if (!notAddReviewInput)
                     UserControlLoader2.LoadUserControl(UCLOCATION + "AgencyAudit.ascx", "ucReviewInput");
-        }
+        }    
         private void BindData()
         {
             ClearErrorMessage();

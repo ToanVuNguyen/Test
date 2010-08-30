@@ -30,9 +30,6 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
             get { return (EvalTemplateDTOCollection)Session["evalTemplateCollection"]; }
             set { Session["evalTemplateCollection"] = value; }
         }
-        public delegate void OnButtonClick();
-        public event OnButtonClick updateHandler;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -43,6 +40,7 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
             {
                 ManageEvalTemplate page = (ManageEvalTemplate)this.Page;
                 page.selectChangeHandle += new ManageEvalTemplate.OnSelectedChange(BindData);
+                BindData();
                 if (!IsPostBack)
                     btnUpdate.Enabled = false;
             }
@@ -81,9 +79,46 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                     evalTemplate.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     EvalTemplateBL.Instance.UpdateEvalTemplate(evalTemplate);
                     lblErrorMessage.Items.Add(new ListItem("Update Successfull !!!"));
-                    if (updateHandler != null)
-                        updateHandler();
+                    BindTemplateDropDownList();
                 }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
+        private void BindTemplateDropDownList()
+        {
+            DropDownList ddlTemplate = this.Parent.FindControl("ddlTemplate") as DropDownList;
+            if (ddlTemplate != null)
+            {
+                ddlTemplate.DataSource = evalTemplateCollection;
+                ddlTemplate.DataBind();
+                ddlTemplate.Items.Insert(0, new ListItem("New Template", "-1"));
+                ddlTemplate.Items.FindByValue(selectedEvalTeplateId.ToString()).Selected = true;
+            }
+        }
+        private void ClearData()
+        {
+            txtTemplateName.Text = "";
+            txtTemplateDescription.Text = "";
+            chkActive.Checked = true;
+        }
+        protected void btnAddNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EvalTemplateDTO evalTemplate = new EvalTemplateDTO();
+                evalTemplate.TemplateName = txtTemplateName.Text;
+                evalTemplate.TemplateDescription = txtTemplateDescription.Text;
+                evalTemplate.ActiveInd = (chkActive.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
+                evalTemplate.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                EvalTemplateBL.Instance.InsertEvalTemplate(evalTemplate);
+                lblErrorMessage.Items.Add(new ListItem("Add new template successfull !!!"));
+                evalTemplateCollection.Add(evalTemplate);
+                BindTemplateDropDownList();
+                ClearData();
             }
             catch (Exception ex)
             {

@@ -17,6 +17,7 @@ using System.Text;
 using HPF.FutureState.Web.Security;
 using System.Collections.Generic;
 using HPF.FutureState.Common;
+using HPF.FutureState.Web.HPFWebControls;
 
 namespace HPF.FutureState.Web.QCSelectionCaseDetail
 {
@@ -90,7 +91,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 prevSectionName = evalDetail.SectionName;
             }
             lblAuditorName.Text = caseEvalSetLatest.AuditorName;
-            txtEvaluationDate.Text = caseEvalSetLatest.EvaluationDt.ToString();
+            DateTime evaluationDt = (DateTime)caseEvalSetLatest.EvaluationDt;
+            txtEvaluationDate.Text = evaluationDt.ToShortDateString();
             txtComments.Text = caseEvalSetLatest.Comments;
             chkFatalError.Checked = (caseEvalSetLatest.FatalErrorInd == Constant.INDICATOR_YES ? true : false);
             //Render score, level, percent, ... again
@@ -225,9 +227,11 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             {
                 CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
                 caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
-                CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader,caseEvalSetDraft,isHPFUser,HPFWebSecurity.CurrentIdentity.LoginName);
+                CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader, caseEvalSetDraft, isHPFUser, HPFWebSecurity.CurrentIdentity.LoginName);
                 lblErrorMessage.Text = "New Case Evaluation was inserted successfully!!!";
-                Response.Redirect(Request.Url.ToString());
+                SetEvaluationCaseStatus();
+                if (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED)==0)
+                    Response.Redirect(Request.Url.ToString());
             }
             catch (Exception ex)
             {
@@ -345,7 +349,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
                 CaseEvaluationBL.Instance.UpdateCaseEvalSet(evalHeader, caseEvalSetDraft, HPFWebSecurity.CurrentIdentity.LoginName);
                 lblErrorMessage.Text = "Case Evaluation was updated successfully!!!";
-                Response.Redirect(Request.Url.ToString());
+                SetEvaluationCaseStatus();
             }
             catch (Exception ex)
             {
@@ -362,13 +366,20 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 evalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
                 lblErrorMessage.Text = "Evaluation Case was closed successfully!!!";
-                Response.Redirect(Request.Url.ToString());
+                SetEvaluationCaseStatus();
             }
             catch (Exception ex)
             {
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+        private void SetEvaluationCaseStatus()
+        {
+            //Set status of evaluation case
+            Label lblEvaluationStatus = this.Parent.FindControl("lblEvaluationStatus") as Label;
+            if (lblEvaluationStatus != null)
+                lblEvaluationStatus.Text = evalHeader.EvalStatus;
         }
         
     }

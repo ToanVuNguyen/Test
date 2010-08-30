@@ -29,6 +29,8 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
             {
                 BindMonthYearDropDownList();
                 BindAgencyDropDownList();
+                BindEvalStatusDropDownList();
+                BindEvalTypeDropDownList();
             }
         }
         /// <summary>
@@ -63,6 +65,23 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+        private void BindEvalStatusDropDownList()
+        {
+            ddlEvaluationStatus.Items.Add(new ListItem("All","-1"));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE));
+            ddlEvaluationStatus.Items.Add(new ListItem(CaseEvaluationBL.EvaluationStatus.CLOSED, CaseEvaluationBL.EvaluationStatus.CLOSED));
+        }
+        private void BindEvalTypeDropDownList()
+        {
+            ddlEvaluationType.Items.Add(new ListItem("All", "-1"));
+            ddlEvaluationType.Items.Add(new ListItem(CaseEvaluationBL.EvaluationType.ONSITE, CaseEvaluationBL.EvaluationType.ONSITE));
+            ddlEvaluationType.Items.Add(new ListItem(CaseEvaluationBL.EvaluationType.DESKTOP, CaseEvaluationBL.EvaluationType.DESKTOP));
         }
         /// <summary>
         /// Display MonthYear dropdownlist for From and To
@@ -102,6 +121,8 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
             caseEvalCriteria.AgencyId = ConvertToInt(ddlAgency.SelectedValue);
             caseEvalCriteria.YearMonthFrom = ddlYearMonthFrom.SelectedValue;
             caseEvalCriteria.YearMonthTo = ddlYearMonthTo.SelectedValue;
+            caseEvalCriteria.EvaluationStatus = ddlEvaluationStatus.SelectedValue;
+            caseEvalCriteria.EvaluationType = ddlEvaluationType.SelectedValue;
             return caseEvalCriteria;
         }
         private void CaseEvalSearch(CaseEvalSearchCriteriaDTO searchCriteria)

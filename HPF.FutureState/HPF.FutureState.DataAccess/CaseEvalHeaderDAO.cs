@@ -120,10 +120,12 @@ namespace HPF.FutureState.DataAccess
             CaseEvalSearchResultDTOCollection results = new CaseEvalSearchResultDTOCollection();
             var dbConnection = CreateConnection();
             var command = CreateSPCommand("hpf_case_eval_search", dbConnection);
-            var sqlParam = new SqlParameter[3];
+            var sqlParam = new SqlParameter[5];
             sqlParam[0] = new SqlParameter("@pi_agency_id", caseEvalCriteria.AgencyId);
             sqlParam[1] = new SqlParameter("@pi_eval_year_month_from", caseEvalCriteria.YearMonthFrom);
             sqlParam[2] = new SqlParameter("@pi_eval_year_month_to", caseEvalCriteria.YearMonthTo);
+            sqlParam[3] = new SqlParameter("pi_evaluation_status", caseEvalCriteria.EvaluationStatus);
+            sqlParam[4] = new SqlParameter("pi_evaluation_type", caseEvalCriteria.EvaluationType);
             command.Parameters.AddRange(sqlParam);
             try
             {

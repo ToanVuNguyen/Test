@@ -86,6 +86,10 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     evalFile.FilePath = fileUploadPath.ToString();
                     CaseEvaluationBL.Instance.InsertCaseEvalFile(evalFile,caseEval, HPFWebSecurity.CurrentIdentity.LoginName);
                     RenderRow(evalFile.FileName, evalFile.FilePath);
+                    //Set status of evaluation case
+                    Label lblEvaluationStatus = this.Parent.FindControl("lblEvaluationStatus") as Label;
+                    if (lblEvaluationStatus!=null)
+                        lblEvaluationStatus.Text = CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED;
                 }
                 catch (Exception ex)
                 {
