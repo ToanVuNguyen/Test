@@ -157,5 +157,12 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
         {
             lblErrorMessage.Items.Clear();
         }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Session.Remove("evalTemplateCollection");
+            Session.Remove("evalTemplateId");
+            Response.Redirect("default.aspx");
+        }
     }
 }

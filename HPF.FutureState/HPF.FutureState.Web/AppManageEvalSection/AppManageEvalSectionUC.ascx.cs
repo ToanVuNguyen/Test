@@ -65,6 +65,7 @@ namespace HPF.FutureState.Web.AppManageEvalSection
             txtSectionDescription.Text = (evalSection != null ? evalSection.SectionDescription : "");
             chkActive.Checked = (((evalSection != null) && (evalSection.ActiveInd == Constant.INDICATOR_YES)) ? true : false);
             btnUpdate.Enabled = (evalSection == null ? false : true);
+            btnAddNew.Enabled = (evalSection != null ? false : true);
         }
         private int ConvertToInt(object obj)
         {
@@ -124,6 +125,11 @@ namespace HPF.FutureState.Web.AppManageEvalSection
             txtSectionName.Text = "";
             txtSectionDescription.Text = "";
             chkActive.Checked = true;
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("default.aspx");
         }
     }
 }

@@ -49,7 +49,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 RenderRow(file.FileName,file.FilePath);
                 i++;
             }
-            if (totalFile == maxUploadFiles) btnUpload.Enabled = false;
+            if (totalFile >= maxUploadFiles) btnUpload.Enabled = false;
         }
         private void RenderRow(string fileName,string filePath)
         {
@@ -88,8 +88,10 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     RenderRow(evalFile.FileName, evalFile.FilePath);
                     //Set status of evaluation case
                     Label lblEvaluationStatus = this.Parent.FindControl("lblEvaluationStatus") as Label;
-                    if (lblEvaluationStatus!=null)
+                    if ((lblEvaluationStatus != null) && (string.Compare(caseEval.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0))
                         lblEvaluationStatus.Text = CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED;
+                    if (totalFile > maxUploadFiles) btnUpload.Enabled = false;
+                    else totalFile++;
                 }
                 catch (Exception ex)
                 {

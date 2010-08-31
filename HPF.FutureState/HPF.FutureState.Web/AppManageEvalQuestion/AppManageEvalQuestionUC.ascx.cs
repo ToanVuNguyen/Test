@@ -81,6 +81,7 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
             ddlQuestionScore.SelectedValue =(evalQuestion!=null?evalQuestion.QuestionScore.ToString():"1");
             chkActive.Checked = (((evalQuestion != null) && (evalQuestion.ActiveInd == Constant.INDICATOR_YES)) ? true : false);
             btnUpdate.Enabled = (evalQuestion == null ? false : true);
+            btnAddNew.Enabled = (evalQuestion != null ? false : true);
         }
         private int ConvertToInt(object obj)
         {
@@ -173,6 +174,11 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
         private void ClearErrorMessages()
         {
             lblErrorMessage.Items.Clear();
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("default.aspx");
         }
     }
 }

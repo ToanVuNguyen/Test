@@ -66,10 +66,16 @@ namespace HPF.FutureState.Web
             tabControl2.AddTab("fileUploads", "File Upload", addFileUploadsTab);
             if (string.Compare(selectionCase.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0
                     && !isHpfUser)
+            {
+                tabControl2.SelectedTab = "fileUploads";
                 UserControlLoader2.LoadUserControl(UCLOCATION + "FileUploads.ascx", "ucFileUploads");
+            }
             else if (!IsPostBack)
                 if (!notAddReviewInput)
+                {
+                    tabControl2.SelectedTab = "reviewInput";
                     UserControlLoader2.LoadUserControl(UCLOCATION + "AgencyAudit.ascx", "ucReviewInput");
+                }
         }    
         private void BindData()
         {

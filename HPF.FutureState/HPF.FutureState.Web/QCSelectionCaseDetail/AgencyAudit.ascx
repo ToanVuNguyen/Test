@@ -80,7 +80,7 @@
                 <tr>
                 <td colspan="4" align="left" class="sidelinks">Reason Changed Comment</td>
                 <td align="center">
-                    <asp:TextBox runat="server" ID="txtComments" Columns="50" Rows="10" />
+                    <asp:TextBox runat="server" ID="txtComments" Columns="40" Rows="4" TextMode="MultiLine"/>
                 </td>
                 </tr>
                 <tr><td colspan='5' align='right'>

@@ -29,7 +29,8 @@
             CssClass="MyButton" onclick="btnAddNew_Click"/>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" Width="120px"  
             CssClass="MyButton" onclick="btnUpdate_Click"/>
-        <asp:Button ID="btnClose" runat="server" Text="Close" Width="120px"    CssClass="MyButton"/>
+        <asp:Button ID="btnClose" runat="server" Text="Close" Width="120px"    
+            CssClass="MyButton" onclick="btnClose_Click"/>
     </td>
     </tr>
 </table>

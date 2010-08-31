@@ -4,9 +4,9 @@
 </div>
 <table width="100%" border="1" style="border-collapse:collapse">
                 <tr>
-                    <td class="sidelinks" align="left">Auditor </td>
-                    <td class="sidelinks" align="center">Agency</td>
-                    <td class="sidelinks" align="center">HPF</td>
+                    <td width="70%" class="sidelinks" align="left">Auditor </td>
+                    <td width="15%" class="sidelinks" align="center">Agency</td>
+                    <td width="15%" class="sidelinks" align="center">HPF</td>
                 </tr>
                 <!-- Scoring Section-->
                 <tr style="background:gray">

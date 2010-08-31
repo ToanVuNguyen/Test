@@ -27,6 +27,11 @@ namespace HPF.FutureState.Web
             get { return (EvalTemplateDTOCollection)Session["evalTemplateCollection"]; }
             set { Session["evalTemplateCollection"] = value; }
         }
+        private int? selectedEvalTemplateId
+        {
+            get { return (Session["evalTemplateId"] != null ? (int?)Session["evalTemplateId"] : 0); }
+            set { Session["evalTemplateId"] = value; }
+        }
         public delegate void OnSelectedChange();
         public event OnSelectedChange selectChangeHandle;
 
@@ -42,9 +47,9 @@ namespace HPF.FutureState.Web
                     tabControl.AddTab("templateQuestion", "Template Question");
                     tabControl.SelectedTab = "evaluationTemplate";
                     UserControlLoader1.LoadUserControl(UCLOCATION + "EvaluationTemplate.ascx", "ucEvaluationTemplate");
-
                     evalTemplateCollection = EvalTemplateBL.Instance.RetriveAllTemplate();
                     BindDropDownList();
+                    selectedEvalTemplateId =ConvertToInt(ddlTemplate.SelectedValue);
                 }
             }
 

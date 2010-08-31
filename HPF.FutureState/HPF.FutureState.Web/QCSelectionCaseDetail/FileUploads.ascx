@@ -1,6 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FileUploads.ascx.cs" Inherits="HPF.FutureState.Web.QCSelectionCaseDetail.FileUploads" %>
 <div class="Text">
-    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
+    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label><br />
+    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="ErrorMessage"
+             runat="server" ErrorMessage="Only zip file is allowed!"
+             ValidationExpression ="^.+(.xls|.XLS|.xlsx|.XLSX|.doc|.docx|.DOC|.DOCX|.pdf|.PDF)$"
+             ControlToValidate="fileUpload"> 
+        </asp:RegularExpressionValidator>
 </div>
 <table width="100%" border="1" style="border-collapse:collapse">
     <tr>

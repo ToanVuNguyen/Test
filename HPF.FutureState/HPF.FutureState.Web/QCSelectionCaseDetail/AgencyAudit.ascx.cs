@@ -212,7 +212,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             tc.Attributes.Add("align", "center");
             TextBox txtBox = new TextBox();
             txtBox.ID ="txt"+id.ToString();
-            txtBox.Columns = 40;
+            txtBox.Columns = 50;
             txtBox.Rows = 1;
             txtBox.Attributes.Add("class", "Text");
             txtBox.Text = comments;

@@ -33,7 +33,6 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 ManageEvalTemplate page = (ManageEvalTemplate)this.Page;
                 page.selectChangeHandle += new ManageEvalTemplate.OnSelectedChange(BindData);
                 BindData();
-                if (!IsPostBack) btnUpdate.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -140,6 +139,13 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Session.Remove("evalTemplateCollection");
+            Session.Remove("evalTemplateId");
+            Response.Redirect("default.aspx");
         }
     }
 }
