@@ -209,7 +209,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             //Comment cell
             tc = new TableCell();
-            tc.Attributes.Add("align", "center");
+            tc.Attributes.Add("align", "left");
             TextBox txtBox = new TextBox();
             txtBox.ID ="txt"+id.ToString();
             txtBox.Columns = 50;
@@ -327,6 +327,9 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             lblYesTotal.InnerText = totalYesAnswer.ToString();
             lblNoTotal.InnerText = totalNoAnswer.ToString();
             lblNATotal.InnerText = totalNAAnswer.ToString();
+            lblCaseTotalScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
+            lblCasePossibleScore.InnerText = caseEvalSetDraft.TotalPossibleScore.ToString();
+
             return caseEvalSetDraft;
         }
         private DateTime ConvertToDateTime(object obj)

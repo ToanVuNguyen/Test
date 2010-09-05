@@ -16,70 +16,78 @@
                 <table width="100%">
                  <tr>
                         <td class="sidelinks" align="right">
-                            HPF Case ID:
+                            FC ID:
                         </td>
                         <td  class="Text">
-                            <asp:Label ID="lblHpfID" runat="server" Text="100987654" ></asp:Label>
+                            <asp:Label ID="lblHpfID" runat="server"></asp:Label>
+                        </td>
+                        
+                        <td align="right" class="sidelinks" >
+                            Counselor Name:
+                        </td>
+                        <td class="Text">
+                            <asp:Label ID="lblCounselor" runat="server" ></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="sidelinks" align="right" >
+                            Homeowner Name:</td>
+                        <td  class="Text">
+                            <asp:Label ID="lblHomeOwner" runat="server"></asp:Label>
+                            &nbsp;
                         </td>
                         <td align="right" class="sidelinks">
                             Agency Name:
                         </td>
                         <td class="Text">
-                            <asp:Label ID="lblAgencyName" runat="server" Text="Money Management Inc." ></asp:Label>
-                        </td>
-                        <td align="right" class="sidelinks" >
-                            Counselor:
-                        </td>
-                        <td class="Text">
-                            <asp:Label ID="lblCounselor" runat="server" >Amada - Huggenkiss</asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="sidelinks" align="right" >
-                            Home Owner:                         </td>
-                        <td  class="Text" colspan="3">
-                            <asp:Label ID="lblHomeOwner" runat="server">Ivan A Mustang</asp:Label>
-                            &nbsp;
-                        </td>
-                        <td align="right" class="sidelinks">
-                            Zip Code:
-                        </td>
-                        <td class="Text">
-                            <asp:Label ID="lblZipCode" runat="server" >55416</asp:Label>
+                            <asp:Label ID="lblAgencyName" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="sidelinks" align="right" >
                             Loan Number:
                         </td>
-                        <td class="Text" colspan="3" >
-                            <asp:Label ID="lblLoanNumber" runat="server" >1298494593 - 
-                            Citibank; 554587876 - Bank of America</asp:Label>
+                        <td class="Text">
+                            <asp:Label ID="lblLoanNumber" runat="server" ></asp:Label>
                             &nbsp;
                         </td>
                         <td align="right" class="sidelinks">
+                            Zip Code:
+                        </td>
+                        <td class="Text">
+                            <asp:Label ID="lblZipCode" runat="server" ></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td align="right" class="sidelinks">
                             Servicer Name:
                         </td>
                         <td class="Text">
                             <asp:Label ID="lblServicerName" runat="server">Servicer</asp:Label>
+                        </td>
+                        
+                        <td align="right" class="sidelinks">
+                            Call Date:
+                        </td>
+                        <td class="Text">
+                            <asp:Label ID="lblCallDate" runat="server"></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td class="sidelinks" align="right">
                             Evaluation Status:
                         </td>
-                        <td colspan="3">
-                            <asp:Label ID="lblEvaluationStatus" runat="server" CssClass="Text">Agency Input Required</asp:Label>
+                        <td class="Text">
+                            <asp:Label ID="lblEvaluationStatus" runat="server"></asp:Label>
                         </td>
                         <td align="right" class="sidelinks">
-                            Call Date:
+                            Evaluation Type:
                         </td>
                         <td class="Text">
-                            <asp:Label ID="lblCallDate" runat="server">09/12/2010</asp:Label>
-                        </td>
-                    </tr>
+                            <asp:Label ID="lblEvaluationType" runat="server"></asp:Label>
+                    </tr> 
                     <tr>
-                        <td colspan="6">
+                        <td colspan="4">
                             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
                             </asp:BulletedList>
                         </td>

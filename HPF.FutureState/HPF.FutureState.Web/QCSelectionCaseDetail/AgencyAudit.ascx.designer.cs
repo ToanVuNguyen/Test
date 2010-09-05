@@ -68,31 +68,22 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::AjaxControlToolkit.CalendarExtender txtEvaluationDate_CalendarExtender;
         
         /// <summary>
-        /// lblYesScore control.
+        /// lblCaseTotalScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblYesScore;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCaseTotalScore;
         
         /// <summary>
-        /// lblNoScore control.
+        /// lblCasePossibleScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNoScore;
-        
-        /// <summary>
-        /// lblNAScore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNAScore;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCasePossibleScore;
         
         /// <summary>
         /// lblLevelPercent control.
@@ -156,6 +147,33 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNATotal;
+        
+        /// <summary>
+        /// lblYesScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblYesScore;
+        
+        /// <summary>
+        /// lblNoScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNoScore;
+        
+        /// <summary>
+        /// lblNAScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblNAScore;
         
         /// <summary>
         /// txtComments control.

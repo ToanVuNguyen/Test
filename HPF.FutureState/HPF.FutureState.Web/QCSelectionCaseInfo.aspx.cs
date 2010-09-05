@@ -102,6 +102,7 @@ namespace HPF.FutureState.Web
             lblZipCode.Text = caseSelection.ZipCode;
             lblCallDate.Text = caseSelection.CallDate.ToString();
             lblCounselor.Text = caseSelection.CounselorName;
+            lblEvaluationType.Text = caseSelection.EvalType;
         }
         private void AddErrorMessage(string errMes)
         {
