@@ -139,6 +139,8 @@ namespace HPF.FutureState.DataAccess
                         result.FcId = ConvertToInt(reader["fc_id"]);
                         result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
                         result.EvalStatus = ConvertToString(reader["eval_status"]);
+                        result.EvalType = ConvertToString(reader["eval_type"]);
+                        result.EvaluationYearMonth = ConvertToString(reader["eval_year_month"]);
                         result.AgencyName = ConvertToString(reader["agency_name"]);
                         result.CounselorName = ConvertToString(reader["counselor_name"]);
                         result.HomeowenerFirstName = ConvertToString(reader["borrower_fname"]);
@@ -146,6 +148,7 @@ namespace HPF.FutureState.DataAccess
                         result.ServicerName = ConvertToString(reader["servicer_name"]);
                         result.ZipCode = ConvertToString(reader["zip_code"]);
                         result.LoanNumber = ConvertToString(reader["loan_number"]);
+                        result.CallDate = ConvertToDateTime(reader["call_date"]);
 
                         results.Add(result);
                     }
@@ -190,7 +193,7 @@ namespace HPF.FutureState.DataAccess
                         result.ServicerName = ConvertToString(reader["servicer_name"]);
                         result.ZipCode = ConvertToString(reader["zip_code"]);
                         result.LoanNumber = ConvertToString(reader["loan_number"]);
-                        result.CallDate = ConvertToDateTime(reader["start_dt"]);
+                        result.CallDate = ConvertToDateTime(reader["call_date"]);
                     }
                     reader.Close();
                 }
@@ -225,6 +228,7 @@ namespace HPF.FutureState.DataAccess
                         evalFile.CaseEvalHeaderId = evalHeaderId;
                         evalFile.FileName = ConvertToString(reader["file_name"]);
                         evalFile.FilePath = ConvertToString(reader["file_path"]);
+                        evalFile.CreateUserId = ConvertToString(reader["create_user_id"]);
                         result.Add(evalFile);
                     }
                     reader.Close();

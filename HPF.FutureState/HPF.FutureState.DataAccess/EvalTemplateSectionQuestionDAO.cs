@@ -206,6 +206,7 @@ namespace HPF.FutureState.DataAccess
                         evalSectionQuestion.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
                         evalSectionQuestion.QuestionOrder = ConvertToInt(reader["question_order"]);
                         evalSectionQuestion.EvalQuestion.Question = ConvertToString(reader["question"]);
+                        evalSectionQuestion.EvalQuestion.QuestionScore = ConvertToInt(reader["question_score"]);
                         result.Add(evalSectionQuestion);
                     }
                 }
@@ -221,6 +222,7 @@ namespace HPF.FutureState.DataAccess
                         evalSectionQuestion.EvalQuestionId = ConvertToInt(reader["eval_question_id"]);
                         evalSectionQuestion.QuestionOrder = ConvertToInt(reader["question_order"]);
                         evalSectionQuestion.EvalQuestion.Question = ConvertToString(reader["question"]);
+                        evalSectionQuestion.EvalQuestion.QuestionScore = ConvertToInt(reader["question_score"]);
                         result.Add(evalSectionQuestion);
                     }
                 }
@@ -300,6 +302,31 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[2] = new SqlParameter("@pi_eval_question_id", evalSectionQuestion.EvalQuestionId);
 
                 command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
+        public void UpdateEvalTemplateTotalScore(EvalTemplateDTO evalTemplate)
+        {
+            var command = CreateCommand("hpf_eval_template_update_total_score", dbConnection);
+            SqlParameter[] sqlParam = new SqlParameter[5];
+
+            sqlParam[0] = new SqlParameter("@pi_eval_template_id", evalTemplate.EvalTemplateId);
+            sqlParam[1] = new SqlParameter("@pi_total_score", evalTemplate.TotalScore);
+            
+            sqlParam[2] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(evalTemplate.ChangeLastDate));
+            sqlParam[3] = new SqlParameter("@pi_chg_lst_user_id", evalTemplate.ChangeLastUserId);
+            sqlParam[4] = new SqlParameter("@pi_chg_lst_app_name", evalTemplate.ChangeLastAppName);
+
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();

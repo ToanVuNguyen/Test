@@ -57,11 +57,11 @@
                     <td align="right">&nbsp;</td>                    
                     <td align="right">&nbsp;</td>                     
                     <td align="right">&nbsp;</td>
+                    <td align="right">&nbsp;</td>
                 </tr>
                 <!-- End Scoring Section -->
                 <tr>
-                    <td align="left">
-                    </td>
+                    <td align="left"></td>
                     <td class="sidelinks" align="center">Y</td>
                     <td class="sidelinks" align="center">N</td>
                     <td class="sidelinks" align="center">N/A</td>

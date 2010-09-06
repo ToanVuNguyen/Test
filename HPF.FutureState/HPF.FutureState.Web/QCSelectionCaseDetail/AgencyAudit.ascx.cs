@@ -227,10 +227,12 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             {
                 CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
                 caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
+                string curEvalStatus = evalHeader.EvalStatus; 
                 CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader, caseEvalSetDraft, isHPFUser, HPFWebSecurity.CurrentIdentity.LoginName);
                 lblErrorMessage.Text = "New Case Evaluation was inserted successfully!!!";
                 SetEvaluationCaseStatus();
-                if (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED)==0)
+                if ((string.Compare(curEvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED)==0)
+                    ||(string.Compare(curEvalStatus, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED)==0))
                     Response.Redirect(Request.Url.ToString());
             }
             catch (Exception ex)
@@ -322,13 +324,13 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             lblYesScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
             lblNoScore.InnerText = totalNoScore.ToString();
             lblNAScore.InnerText = totalNAScore.ToString();
-            lblLevelPercent.InnerText = percent.ToString("0.0%");
             lblLevelName.InnerText = caseEvalSetDraft.ResultLevel;
             lblYesTotal.InnerText = totalYesAnswer.ToString();
             lblNoTotal.InnerText = totalNoAnswer.ToString();
             lblNATotal.InnerText = totalNAAnswer.ToString();
             lblCaseTotalScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
             lblCasePossibleScore.InnerText = caseEvalSetDraft.TotalPossibleScore.ToString();
+            lblLevelPercent.InnerText = percent.ToString("0.0%");
 
             return caseEvalSetDraft;
         }

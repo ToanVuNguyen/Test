@@ -39,6 +39,7 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
                     evalQuestionCollection = EvalTemplateBL.Instance.RetriveAllQuestion();
                     BindQuestionDropDownList();
                     BindScoreDropDownList();
+                    BindQuestionTypeDropDownList();
                     btnUpdate.Enabled = false;
                     ClearData();
                 }
@@ -69,7 +70,10 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
             for (int i = 1; i <= 5; i++)
                 ddlQuestionScore.Items.Add(new ListItem(i.ToString(), i.ToString()));
         }
-
+        private void BindQuestionTypeDropDownList()
+        {
+            ddlQuestionType.Items.Add(new ListItem("YesNo", "YesNo"));
+        }
         protected void ddlQuestion_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedEvalQuestionId = ConvertToInt(ddlQuestion.SelectedValue);
@@ -77,9 +81,13 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
             txtQuestion.Text = (evalQuestion != null ? evalQuestion.Question : "");
             txtQuestionDescription.Text = (evalQuestion != null ? evalQuestion.QuestionDescription : "");
             txtQuestionExample.Text = (evalQuestion != null ? evalQuestion.QuestionExample : "");
-            txtQuestionType.Text = (evalQuestion != null ? evalQuestion.QuestionType : "YesNo");
+            if (evalQuestion != null)
+                ddlQuestionType.Items.FindByValue(evalQuestion.QuestionType).Selected = true;
             ddlQuestionScore.SelectedValue =(evalQuestion!=null?evalQuestion.QuestionScore.ToString():"1");
-            chkActive.Checked = (((evalQuestion != null) && (evalQuestion.ActiveInd == Constant.INDICATOR_YES)) ? true : false);
+            if (evalQuestion == null)
+                chkActive.Checked = true;
+            else 
+                chkActive.Checked = ((evalQuestion.ActiveInd == Constant.INDICATOR_YES) ? true : false);
             btnUpdate.Enabled = (evalQuestion == null ? false : true);
             btnAddNew.Enabled = (evalQuestion != null ? false : true);
         }
@@ -101,7 +109,7 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
                     evalQuestion.Question = txtQuestion.Text;
                     evalQuestion.QuestionDescription = txtQuestionDescription.Text;
                     evalQuestion.QuestionExample = txtQuestionExample.Text;
-                    evalQuestion.QuestionType = txtQuestionType.Text;
+                    evalQuestion.QuestionType = ddlQuestionType.SelectedValue;
                     evalQuestion.QuestionScore = ConvertToInt(ddlQuestionScore.SelectedValue);
                     evalQuestion.ActiveInd = (chkActive.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
                     evalQuestion.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
@@ -117,6 +125,10 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
             {
                 lblErrorMessage.DataSource = ex.ExceptionMessages;
                 lblErrorMessage.DataBind();
+                //Set activeInd check box be check again
+                foreach (ExceptionMessage ex1 in ex.ExceptionMessages)
+                    if (ex1.ErrorCode == ErrorMessages.ERR1109)
+                        chkActive.Checked = true;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
 
             }
@@ -136,7 +148,7 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
                 evalQuestion.Question = txtQuestion.Text;
                 evalQuestion.QuestionDescription = txtQuestionDescription.Text;
                 evalQuestion.QuestionExample = txtQuestionExample.Text;
-                evalQuestion.QuestionType = txtQuestionType.Text;
+                evalQuestion.QuestionType = ddlQuestionType.SelectedValue;
                 evalQuestion.QuestionScore = ConvertToInt(ddlQuestionScore.SelectedValue);
                 evalQuestion.ActiveInd = (chkActive.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
                 evalQuestion.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
@@ -167,7 +179,6 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
             txtQuestion.Text = "";
             txtQuestionDescription.Text = "";
             txtQuestionExample.Text = "";
-            txtQuestionType.Text = "YesNo";
             ddlQuestionScore.SelectedValue = "1";
             chkActive.Checked = true;
         }

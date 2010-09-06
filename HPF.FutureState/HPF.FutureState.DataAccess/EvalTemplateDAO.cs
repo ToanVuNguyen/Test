@@ -173,6 +173,41 @@ namespace HPF.FutureState.DataAccess
             }
             return result;
         }
+        public EvalSectionCollectionDTO GetEvalSectionByTemplateId(int? evalTemplateId)
+        {
+            EvalSectionCollectionDTO result = new EvalSectionCollectionDTO();
+            var dbConnection = CreateConnection();
+            var command = CreateSPCommand("hpf_eval_section_get_by_template_id", dbConnection);
+            SqlParameter[] sqlParam = new SqlParameter[1];
+            sqlParam[0] = new SqlParameter("@pi_eval_template_id", evalTemplateId);
+            command.Parameters.AddRange(sqlParam);
+            try
+            {
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        EvalSectionDTO evalSection = new EvalSectionDTO();
+                        evalSection.EvalSectionId = ConvertToInt(reader["eval_section_id"]);
+                        evalSection.SectionName = ConvertToString(reader["section_name"]);
+                        result.Add(evalSection);
+                    }
+                    reader.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                dbConnection.Close();
+            }
+            return result;
+        }
         public int? InsertEvalSection(EvalSectionDTO evalSection)
         {
             var dbConnection = CreateConnection();
@@ -392,17 +427,17 @@ namespace HPF.FutureState.DataAccess
         {
             var dbConnection = CreateConnection();
             var command = CreateCommand("hpf_eval_template_update", dbConnection);
-            SqlParameter[] sqlParam = new SqlParameter[7];
+            SqlParameter[] sqlParam = new SqlParameter[8];
 
             sqlParam[0] = new SqlParameter("@pi_eval_template_id", evalTemplate.EvalTemplateId);
             sqlParam[1] = new SqlParameter("@pi_template_name", evalTemplate.TemplateName);
             sqlParam[2] = new SqlParameter("@pi_template_description", evalTemplate.TemplateDescription);
-            sqlParam[2] = new SqlParameter("@pi_total_score", evalTemplate.TotalScore);
-            sqlParam[3] = new SqlParameter("@pi_active_ind", evalTemplate.ActiveInd);
+            sqlParam[3] = new SqlParameter("@pi_total_score", evalTemplate.TotalScore);
+            sqlParam[4] = new SqlParameter("@pi_active_ind", evalTemplate.ActiveInd);
 
-            sqlParam[4] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(evalTemplate.ChangeLastDate));
-            sqlParam[5] = new SqlParameter("@pi_chg_lst_user_id", evalTemplate.ChangeLastUserId);
-            sqlParam[6] = new SqlParameter("@pi_chg_lst_app_name", evalTemplate.ChangeLastAppName);
+            sqlParam[5] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(evalTemplate.ChangeLastDate));
+            sqlParam[6] = new SqlParameter("@pi_chg_lst_user_id", evalTemplate.ChangeLastUserId);
+            sqlParam[7] = new SqlParameter("@pi_chg_lst_app_name", evalTemplate.ChangeLastAppName);
 
             command.Parameters.AddRange(sqlParam);
             try

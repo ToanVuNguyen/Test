@@ -32,6 +32,24 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblAgencyScore;
         
         /// <summary>
+        /// lblAgencyCasePossibleScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblAgencyCasePossibleScore;
+        
+        /// <summary>
+        /// lblAgencyLevelPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblAgencyLevelPercent;
+        
+        /// <summary>
         /// lblHPFScore control.
         /// </summary>
         /// <remarks>
@@ -39,6 +57,24 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblHPFScore;
+        
+        /// <summary>
+        /// lblHPFCasePossibleScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblHPFCasePossibleScore;
+        
+        /// <summary>
+        /// lblHPFLevelPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblHPFLevelPercent;
         
         /// <summary>
         /// lblAgencyLevel control.

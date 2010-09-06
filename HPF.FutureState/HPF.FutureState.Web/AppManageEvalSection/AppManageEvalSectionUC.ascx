@@ -21,8 +21,8 @@
     </tr>
     <tr>
         <td colspan="2" class="ErrorMessage">
-            <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
-            </asp:Label>
+            <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList>
         </td>
     </tr>
     <tr>

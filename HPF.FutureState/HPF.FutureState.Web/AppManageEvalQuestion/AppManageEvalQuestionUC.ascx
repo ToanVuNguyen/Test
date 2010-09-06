@@ -56,7 +56,10 @@
     <tr>
         <td class="sidelinks" align="right" nowrap="nowrap">
             Question Type:</td>        
-        <td  align="left"><asp:TextBox ID="txtQuestionType" Columns="100" Rows="2" runat="server"/>
+        <td  align="left">
+            <asp:DropDownList ID="ddlQuestionType" runat="server" Height="16px" 
+                CssClass="Text" Width="150px" AutoPostBack="true">
+            </asp:DropDownList>
         </td>        
     </tr>
     <tr>

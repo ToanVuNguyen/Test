@@ -20,7 +20,7 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
 {
     public partial class EvaluationTemplate : System.Web.UI.UserControl
     {
-        private int? selectedEvalTeplateId
+        private int? selectedEvalTemplateId
         {
             get { return (Session["evalTemplateId"] != null ? (int?)Session["evalTemplateId"] : 0); }
             set { Session["evalTemplateId"] = value; }
@@ -42,8 +42,16 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 page.selectChangeHandle += new ManageEvalTemplate.OnSelectedChange(BindData);
                 BindData();
             }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
+            }
             catch (Exception ex)
             {
+                ClearErrorMessages();
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
@@ -52,12 +60,17 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
         {
             if (evalTemplateCollection != null)
             {
-                EvalTemplateDTO evalTemplate = evalTemplateCollection.FirstOrDefault(o => o.EvalTemplateId == selectedEvalTeplateId);
+                EvalTemplateDTO evalTemplate = evalTemplateCollection.FirstOrDefault(o => o.EvalTemplateId == selectedEvalTemplateId);
                 txtTemplateName.Text = (evalTemplate != null ? evalTemplate.TemplateName : "");
                 txtTemplateDescription.Text = (evalTemplate != null ? evalTemplate.TemplateDescription : "");
-                chkActive.Checked = ((evalTemplate != null && evalTemplate.ActiveInd == Constant.INDICATOR_YES) ? true : false);
+                if (evalTemplate == null)
+                    chkActive.Checked = true;
+                else 
+                    chkActive.Checked = (evalTemplate.ActiveInd == Constant.INDICATOR_YES ? true : false);
                 btnUpdate.Enabled = (evalTemplate != null ? true : false);
             }
+            else
+                chkActive.Checked = true;
         }
         private void ClearErrorMessage()
         {
@@ -68,7 +81,7 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
         {
             try
             {
-                EvalTemplateDTO evalTemplate = evalTemplateCollection.FirstOrDefault(o => o.EvalTemplateId == selectedEvalTeplateId);
+                EvalTemplateDTO evalTemplate = evalTemplateCollection.FirstOrDefault(o => o.EvalTemplateId == selectedEvalTemplateId);
                 if (evalTemplate != null)
                 {
                     evalTemplate.TemplateName = txtTemplateName.Text;
@@ -80,8 +93,20 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                     BindTemplateDropDownList();
                 }
             }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                //Set activeInd check box be check again
+                foreach (ExceptionMessage ex1 in ex.ExceptionMessages)
+                    if (ex1.ErrorCode == ErrorMessages.ERR1113)
+                        chkActive.Checked = true;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
+            }
             catch (Exception ex)
             {
+                ClearErrorMessages();
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
@@ -94,14 +119,8 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 ddlTemplate.DataSource = evalTemplateCollection;
                 ddlTemplate.DataBind();
                 ddlTemplate.Items.Insert(0, new ListItem("New Template", "-1"));
-                ddlTemplate.Items.FindByValue(selectedEvalTeplateId.ToString()).Selected = true;
+                ddlTemplate.Items.FindByValue(selectedEvalTemplateId.ToString()).Selected = true;
             }
-        }
-        private void ClearData()
-        {
-            txtTemplateName.Text = "";
-            txtTemplateDescription.Text = "";
-            chkActive.Checked = true;
         }
         protected void btnAddNew_Click(object sender, EventArgs e)
         {
@@ -111,15 +130,24 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 evalTemplate.TemplateName = txtTemplateName.Text;
                 evalTemplate.TemplateDescription = txtTemplateDescription.Text;
                 evalTemplate.ActiveInd = (chkActive.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
+                evalTemplate.TotalScore = 0;
                 evalTemplate.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 EvalTemplateBL.Instance.InsertEvalTemplate(evalTemplate);
                 lblErrorMessage.Items.Add(new ListItem("Add new template successfull !!!"));
                 evalTemplateCollection.Add(evalTemplate);
+                selectedEvalTemplateId = evalTemplate.EvalTemplateId;
                 BindTemplateDropDownList();
-                ClearData();
+            }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
             }
             catch (Exception ex)
             {
+                ClearErrorMessages();
                 lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
@@ -130,6 +158,10 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
             Session.Remove("evalTemplateCollection");
             Session.Remove("evalTemplateId");
             Response.Redirect("default.aspx");
+        }
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
         }
     }
 }

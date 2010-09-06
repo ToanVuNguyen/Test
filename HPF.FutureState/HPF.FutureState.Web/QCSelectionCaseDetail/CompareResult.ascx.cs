@@ -53,8 +53,14 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     prevSectionName = evalDetail.SectionName;
                     i++;
                 }
-                lblAgencyScore.InnerText = caseEvalAgency.TotalAuditScore + "/" + caseEvalAgency.TotalPossibleScore;
-                lblHPFScore.InnerText = caseEvalHPF.TotalAuditScore + "/" + caseEvalHPF.TotalPossibleScore;
+                lblAgencyScore.InnerText = caseEvalAgency.TotalAuditScore.ToString();
+                lblAgencyCasePossibleScore.InnerText= caseEvalAgency.TotalPossibleScore.ToString();
+                decimal percent = Math.Round((decimal)((decimal)caseEvalAgency.TotalAuditScore / (decimal)caseEvalAgency.TotalPossibleScore), 4);
+                lblAgencyLevelPercent.InnerText = percent.ToString("0.0%");
+                lblHPFScore.InnerText = caseEvalHPF.TotalAuditScore.ToString();
+                lblHPFCasePossibleScore.InnerText = caseEvalHPF.TotalPossibleScore.ToString();
+                percent = Math.Round((decimal)((decimal)caseEvalHPF.TotalAuditScore / (decimal)caseEvalHPF.TotalPossibleScore), 4);
+                lblHPFLevelPercent.InnerText = percent.ToString("0.0%");
                 lblAgencyLevel.InnerText = caseEvalAgency.ResultLevel;
                 lblHPFLevel.InnerText = caseEvalHPF.ResultLevel;
                 lblAgencyFatalError.InnerText = caseEvalAgency.FatalErrorInd;

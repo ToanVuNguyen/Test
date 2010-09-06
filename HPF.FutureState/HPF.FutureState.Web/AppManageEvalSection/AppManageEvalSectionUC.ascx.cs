@@ -42,10 +42,17 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                     ClearData();
                 }
             }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
+            }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName); 
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         private void BindDropDownList()
@@ -63,7 +70,10 @@ namespace HPF.FutureState.Web.AppManageEvalSection
             EvalSectionDTO evalSection = evalSectionCollection.FirstOrDefault(o => o.EvalSectionId == selectedEvalSectionId);
             txtSectionName.Text = (evalSection != null ? evalSection.SectionName : "");
             txtSectionDescription.Text = (evalSection != null ? evalSection.SectionDescription : "");
-            chkActive.Checked = (((evalSection != null) && (evalSection.ActiveInd == Constant.INDICATOR_YES)) ? true : false);
+            if (evalSection == null)
+                chkActive.Checked = true;
+            else 
+                chkActive.Checked = ((evalSection.ActiveInd == Constant.INDICATOR_YES) ? true : false);
             btnUpdate.Enabled = (evalSection == null ? false : true);
             btnAddNew.Enabled = (evalSection != null ? false : true);
         }
@@ -87,14 +97,26 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                     evalSection.ActiveInd = (chkActive.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
                     evalSection.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     EvalTemplateBL.Instance.UpdateEvalSection(evalSection);
-                    lblErrorMessage.Text = "Update Successfull !!!";
+                    lblErrorMessage.Items.Add(new ListItem("Update Successfull !!!"));
                     BindDropDownList();
                     ddlSection.Items.FindByValue(selectedEvalSectionId.ToString()).Selected=true;
                 }
             }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                //Set activeInd check box be check again
+                foreach (ExceptionMessage ex1 in ex.ExceptionMessages)
+                    if (ex1.ErrorCode == ErrorMessages.ERR1108)
+                        chkActive.Checked = true;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
+            }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                ClearErrorMessages();
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -111,12 +133,20 @@ namespace HPF.FutureState.Web.AppManageEvalSection
                 evalSection.EvalSectionId = EvalTemplateBL.Instance.InsertEvalSection(evalSection);
                 evalSectionCollection.Add(evalSection);
                 BindDropDownList();
-                lblErrorMessage.Text = "Insert new section successfull !!!";
+                lblErrorMessage.Items.Add(new ListItem("Insert new section successfull !!!"));
                 ClearData();
+            }
+            catch (DataValidationException ex)
+            {
+                lblErrorMessage.DataSource = ex.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                ClearErrorMessages();
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -130,6 +160,10 @@ namespace HPF.FutureState.Web.AppManageEvalSection
         protected void btnClose_Click(object sender, EventArgs e)
         {
             Response.Redirect("default.aspx");
+        }
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
         }
     }
 }

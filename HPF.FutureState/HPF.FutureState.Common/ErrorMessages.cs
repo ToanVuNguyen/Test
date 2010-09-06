@@ -458,7 +458,24 @@ namespace HPF.FutureState.Common
         public const string ERR1002 = "ERR1002";
         public const string ERR0399 = "ERR0399";
 
+        //Send summaries to servicer
+        public const string ERR1103 = "ERR1003";
+        public const string ERR1104 = "ERR1004";
+        public const string ERR1105 = "ERR1005";
+        public const string ERR1106 = "ERR1006";
+        public const string WARN1107 = "WARN1107";
         
+        //QC Enhancement
+        public const string ERR1107 = "ERR1107";
+        public const string ERR1108 = "ERR1108";
+        public const string ERR1109 = "ERR1109";
+        public const string ERR1110 = "ERR1110";
+        public const string ERR1111 = "ERR1111";
+        public const string ERR1112 = "ERR1112";
+        public const string ERR1113 = "ERR1113";
+        public const string ERR1114 = "ERR1114";
+        public const string ERR1115 = "ERR1115";
+        public const string ERR1116 = "ERR1116";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
@@ -936,7 +953,24 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1102, "A Code Item must be selected in order to edit it.");
 
                 errorMessageDict.Add(WARN1100, "No codes were found that match your search criteria.");
-                
+                //Send Summaries completed fc to servicer
+                errorMessageDict.Add(ERR1103, "An Excel file containing fc ids is required to process.");
+                errorMessageDict.Add(ERR1104, "Unable to process the fcids input excel file. The \"SendSummariesFC\" tab cannot be located.");
+                errorMessageDict.Add(ERR1105, "Unable to process the fcids input excel file. It is not in the proper format, it must be Excel 2003 or newer.");
+                errorMessageDict.Add(ERR1106, "Unable to open fcids input excel file.");
+                errorMessageDict.Add(WARN1107, "The foreclosure case is not complete");
+
+                //QC Enhancement
+                errorMessageDict.Add(ERR1107, "Section name is required");
+                errorMessageDict.Add(ERR1108, "This section is in used, Can not set it inactive!");
+                errorMessageDict.Add(ERR1109, "This question is in used, Can not set it inactive!");
+                errorMessageDict.Add(ERR1110, "Question is required!");
+                errorMessageDict.Add(ERR1111, "Question type is required!");
+                errorMessageDict.Add(ERR1112, "Template name is required!");
+                errorMessageDict.Add(ERR1113, "This template is in used, Can not set it inactive!");
+                errorMessageDict.Add(ERR1114, "Section order must is numeric!");
+                errorMessageDict.Add(ERR1115, "Choose section which question belong to!");
+                errorMessageDict.Add(ERR1116, "Question order must is numeric!");
             }
         }
     }

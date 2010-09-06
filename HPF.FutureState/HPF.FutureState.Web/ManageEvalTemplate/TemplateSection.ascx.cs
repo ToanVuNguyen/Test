@@ -124,6 +124,7 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 EvalTemplateSectionDTOCollection evalTemplateSectionCollection = DraftSectionCollection();
                 EvalTemplateBL.Instance.ManageEvalTemplateSection(evalTemplateSectionCollection);
                 lblErrorMessage.Items.Add(new ListItem("Update Successfully"));
+                BindData();
             }
             catch (DataValidationException ex)
             {

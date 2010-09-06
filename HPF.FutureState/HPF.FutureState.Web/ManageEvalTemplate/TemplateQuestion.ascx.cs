@@ -44,7 +44,7 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
         private void BindData()
         {
             btnUpdate.Enabled = (selectedEvalTemplateId != -1 ? true : false);
-            evalSectionCollection = EvalTemplateBL.Instance.RetriveAllEvalSection();
+            evalSectionCollection = EvalTemplateBL.Instance.RetrivEvalSectionByTemplateId(selectedEvalTemplateId);
             questionCollection = EvalTemplateBL.Instance.RetriveAllEvalQuestionByTemplateId(selectedEvalTemplateId);
             //Clear html
             placeHolder.Controls.Clear();
@@ -127,8 +127,9 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
             try
             {
                 EvalSectionQuestionDTOCollection evalTemplateSectionCollection = DraftQuestionCollection();
-                EvalTemplateBL.Instance.ManageEvalSectionQuestion(evalTemplateSectionCollection);
+                EvalTemplateBL.Instance.ManageEvalSectionQuestion(evalTemplateSectionCollection,HPFWebSecurity.CurrentIdentity.LoginName);
                 lblErrorMessage.Items.Add(new ListItem("Update Successfully"));
+                BindData();
             }
             catch (DataValidationException ex)
             {

@@ -38,18 +38,25 @@ namespace HPF.FutureState.BusinessLogic
         {
             return EvalTemplateDAO.Instance.GetEvalSectionAll();
         }
+        public EvalSectionCollectionDTO RetrivEvalSectionByTemplateId(int? evalTemplateId)
+        {
+            return EvalTemplateDAO.Instance.GetEvalSectionByTemplateId(evalTemplateId);
+        }
         public int? InsertEvalSection(EvalSectionDTO evalSection)
         {
+            DataValidationException ex = new DataValidationException();
             if (string.IsNullOrEmpty(evalSection.SectionName))
-                throw new Exception("Section name is required!");
+            {
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1107, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1107) });
+                throw ex;
+            }
             return EvalTemplateDAO.Instance.InsertEvalSection(evalSection);
         }
         public void UpdateEvalSection(EvalSectionDTO evalSection)
         {
-            if (evalSection.IsInUse && (evalSection.ActiveInd == Constant.INDICATOR_NO))
-                throw new Exception("This section is in used, Can not set it inactive!");
-            if (string.IsNullOrEmpty(evalSection.SectionName))
-                throw new Exception("Section name is required!");
+            var ex = ValidateSection(evalSection);
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
             EvalTemplateDAO.Instance.UpdateEvalSection(evalSection);
         }
         public EvalQuestionDTOCollection RetriveAllQuestion()
@@ -65,34 +72,52 @@ namespace HPF.FutureState.BusinessLogic
         public void UpdateEvalQuestion(EvalQuestionDTO evalQuestion)
         {
             var ex = ValidateQuestion(evalQuestion);
-            if (evalQuestion.IsInUse && (evalQuestion.ActiveInd == Constant.INDICATOR_NO))
-                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "This section is in used, Can not set it inactive!" });
             if (ex.ExceptionMessages.Count > 0)
                 throw ex;
             EvalTemplateDAO.Instance.UpdateEvalQuestion(evalQuestion);
         }
+        private DataValidationException ValidateSection(EvalSectionDTO evalSection)
+        {
+            DataValidationException ex = new DataValidationException();
+            if (evalSection.IsInUse!=null && evalSection.IsInUse && (evalSection.ActiveInd == Constant.INDICATOR_NO))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1108, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1108) });
+            if (string.IsNullOrEmpty(evalSection.SectionName))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1107, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1107) });
+            return ex;
+        }
         private DataValidationException ValidateQuestion(EvalQuestionDTO evalQuestion)
         {
             DataValidationException ex = new DataValidationException();
+            if (evalQuestion.IsInUse!=null && evalQuestion.IsInUse && (evalQuestion.ActiveInd == Constant.INDICATOR_NO))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1109, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1109) });
             if (string.IsNullOrEmpty(evalQuestion.Question))
-                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Question is required!" });
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1110, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1110) });
             if (string.IsNullOrEmpty(evalQuestion.QuestionType))
-                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Question type is reqiured!" });
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1111, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1111) });
             return ex;
         }
         public int? InsertEvalTemplate(EvalTemplateDTO evalTemplate)
         {
-            if (string.IsNullOrEmpty(evalTemplate.TemplateName))
-                throw new Exception("Template name is required!");
+            var ex = ValidateTemplate(evalTemplate);
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
             return EvalTemplateDAO.Instance.InsertEvalTemplate(evalTemplate);
         }
         public void UpdateEvalTemplate(EvalTemplateDTO evalTemplate)
         {
-            if (evalTemplate.IsInUse && (evalTemplate.ActiveInd == Constant.INDICATOR_NO))
-                throw new Exception("This template is in used, Can not set it inactive!");
-            if (string.IsNullOrEmpty(evalTemplate.TemplateName))
-                throw new Exception("Template name is required!");
+            var ex = ValidateTemplate(evalTemplate);
+            if (ex.ExceptionMessages.Count > 0)
+                throw ex;
             EvalTemplateDAO.Instance.UpdateEvalTemplate(evalTemplate);
+        }
+        private DataValidationException ValidateTemplate(EvalTemplateDTO evalTemplate)
+        {
+            DataValidationException ex = new DataValidationException();
+            if (evalTemplate.IsInUse!=null && evalTemplate.IsInUse && (evalTemplate.ActiveInd == Constant.INDICATOR_NO))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1113, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1113) });
+            if (string.IsNullOrEmpty(evalTemplate.TemplateName))
+                ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1112, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1112) });
+            return ex;
         }
         public EvalTemplateSectionDTOCollection RetriveAllEvalSectionsByTemplateId(int? evalTemplateId)
         {
@@ -133,7 +158,7 @@ namespace HPF.FutureState.BusinessLogic
             foreach (EvalTemplateSectionDTO section in sectionCollection)
                 if (section.SectionOrder == null)
                 {
-                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Section order must is numeric!" });
+                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1114, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1114) });
                     break;
                 }
             return ex;
@@ -144,8 +169,10 @@ namespace HPF.FutureState.BusinessLogic
             var instance = EvalTemplateSectionQuestionDAO.CreateInstance();
             return instance.GetEvalTemplateQuestionByTemplateId(evalTemplateId);
         }
-        public void ManageEvalSectionQuestion(EvalSectionQuestionDTOCollection questionCollection)
+        public void ManageEvalSectionQuestion(EvalSectionQuestionDTOCollection questionCollection,string loginName)
         {
+            int totalScore = 0;
+            if (questionCollection.Count==0) return;
             var exValidate = ValidateSectionQuestion(questionCollection);
             if (exValidate.ExceptionMessages.Count > 0) throw exValidate;
             var instance = EvalTemplateSectionQuestionDAO.CreateInstance();
@@ -155,12 +182,23 @@ namespace HPF.FutureState.BusinessLogic
                 foreach (EvalSectionQuestionDTO question in questionCollection)
                 {
                     if (question.StatusChanged == (byte)StatusChanged.Insert)
+                    {
+                        totalScore +=(int) question.EvalQuestion.QuestionScore;
                         instance.InsertEvalQuestionSection(question);
+                    }
                     else if (question.StatusChanged == (byte)StatusChanged.Update)
+                    {
+                        totalScore +=(int) question.EvalQuestion.QuestionScore;
                         instance.UpdateEvalSectionQuestion(question);
+                    }
                     else
                         instance.RemoveEvalSectionQuestion(question);
                 }
+                EvalTemplateDTO evalTemplate = new EvalTemplateDTO();
+                evalTemplate.EvalTemplateId = questionCollection[0].EvalTemplateId;
+                evalTemplate.TotalScore = totalScore;
+                evalTemplate.SetUpdateTrackingInformation(loginName);
+                instance.UpdateEvalTemplateTotalScore(evalTemplate);
             }
             catch (Exception ex)
             {
@@ -179,12 +217,12 @@ namespace HPF.FutureState.BusinessLogic
             {
                 if (question.EvalSectionId <=0)
                 {
-                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Choose section which question belong to!" });
+                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1115, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1115) });
                     break;
                 }
                 if (question.QuestionOrder == null)
                 {
-                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = "ERROR", Message = "Question order must is numeric!" });
+                    ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1116, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1116) });
                     break;
                 }
             }
