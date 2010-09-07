@@ -21,6 +21,9 @@
                             onkeypress="return false;" Width="400px" />
                             <asp:Button ID='btnUpload' runat='server' Text='Upload' Width='120px' 
                         CssClass='MyButton' onclick="btnUpload_Click"/>
+                            <asp:Button ID='btnUploadFinished' runat='server' 
+                Text='Upload Finished' Width='120px' 
+                        CssClass='MyButton' onclick="btnUploadFinished_Click"/>
                             </td>
     </tr>
 </table>

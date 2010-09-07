@@ -128,7 +128,10 @@ namespace HPF.FutureState.Web.AppManageEvalQuestion
                 //Set activeInd check box be check again
                 foreach (ExceptionMessage ex1 in ex.ExceptionMessages)
                     if (ex1.ErrorCode == ErrorMessages.ERR1109)
+                    {
                         chkActive.Checked = true;
+                        break;
+                    }
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
 
             }

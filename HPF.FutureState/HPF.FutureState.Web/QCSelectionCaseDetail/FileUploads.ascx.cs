@@ -15,6 +15,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using System.Text;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.Web.QCSelectionCaseDetail
 {
@@ -50,6 +51,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 i++;
             }
             if (totalFile >= maxUploadFiles) btnUpload.Enabled = false;
+            btnUploadFinished.Visible = (string.Compare(caseEval.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0 ? true : false);
         }
         private void RenderRow(string order,string fileName,string filePath,string createUser)
         {
@@ -88,12 +90,14 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     evalFile.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
                     evalFile.FileName = fileUpload.FileName;
                     evalFile.FilePath = fileUploadPath.ToString();
+                    evalFile.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     CaseEvaluationBL.Instance.InsertCaseEvalFile(evalFile,caseEval, HPFWebSecurity.CurrentIdentity.LoginName);
-                    //Set status of evaluation case
-                    Label lblEvaluationStatus = this.Parent.FindControl("lblEvaluationStatus") as Label;
-                    if ((lblEvaluationStatus != null) && (string.Compare(caseEval.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0))
-                        lblEvaluationStatus.Text = CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED;
-                    if (totalFile > maxUploadFiles) btnUpload.Enabled = false;
+                    if (totalFile >= maxUploadFiles)
+                        if ((string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
+                            && (string.Compare(caseEval.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED)==0))
+                            UploadFinished();
+                        else
+                            btnUpload.Enabled = false;
                     else totalFile++;
                     RenderRow(totalFile.ToString(), evalFile.FileName, evalFile.FilePath,HPFWebSecurity.CurrentIdentity.LoginName);
                 }
@@ -105,6 +109,28 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             else if (!fileUpload.HasFile)
                 lblErrorMessage.Text = "Choose file to upload!!!";
+        }
+
+        protected void btnUploadFinished_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UploadFinished();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
+        private void UploadFinished()
+        {
+            CaseEvalHeaderDTO caseEvalHeader = new CaseEvalHeaderDTO();
+            caseEvalHeader.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
+            caseEvalHeader.EvalStatus =CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED;
+            caseEvalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+            CaseEvaluationBL.Instance.UpdateCaseEvalHeader(caseEvalHeader);
+            Response.Redirect(Request.Url.ToString());
         }
     }
 }

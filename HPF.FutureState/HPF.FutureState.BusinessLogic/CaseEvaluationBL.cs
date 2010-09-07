@@ -191,15 +191,6 @@ namespace HPF.FutureState.BusinessLogic
             try
             {
                 instance.Begin();
-                if (string.Compare(caseEval.EvalStatus, EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0)
-                {
-                    CaseEvalHeaderDTO caseEvalHeader = new CaseEvalHeaderDTO();
-                    caseEvalHeader.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
-                    caseEvalHeader.EvalStatus = EvaluationStatus.HPF_INPUT_REQUIRED;
-                    caseEvalHeader.SetUpdateTrackingInformation(loginName);
-                    instance.UpdateCaseEvalHeader(caseEvalHeader);
-                }
-                caseEvalFile.SetInsertTrackingInformation(loginName);
                 instance.InsertCaseEvalFile(caseEvalFile);
             }
             catch (Exception ex)
