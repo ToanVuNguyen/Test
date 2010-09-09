@@ -182,7 +182,15 @@ namespace HPF.FutureState.BusinessLogic
             else
             {
                 if (foreclosureCase.AgencyId != agencyID)
-                    errorCollection.AddExceptionMessage(ErrorMessages.ERR0803, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0803, fcId));
+                {
+                    if (agencyID == Constant.AGENCY_NOVADEBT_ID)
+                    {
+                        if (foreclosureCase.AgencyId != Constant.AGENCY_AURITON_ID && foreclosureCase.AgencyId != Constant.AGENCY_NOVADEBT_ID)
+                            errorCollection.AddExceptionMessage(ErrorMessages.ERR0803, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0803, fcId));        
+                    }
+                    else
+                        errorCollection.AddExceptionMessage(ErrorMessages.ERR0803, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0803, fcId));        
+                }
 
                 if (foreclosureCase.CompletedDt == null)
                     errorCollection.AddExceptionMessage(ErrorMessages.ERR0804, ErrorMessages.GetExceptionMessageCombined(ErrorMessages.ERR0804));

@@ -392,10 +392,20 @@ namespace HPF.FutureState.WebServices
                 ForeclosureCaseDTO fc = ForeclosureCaseBL.Instance.GetForeclosureCase(request.FCId);
                 if (fc == null)
                     ex.AddExceptionMessage(ErrorMessages.ERR1001, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1001, request.FCId));
-                else if (fc.AgencyId != CurrentAgencyID.Value && CurrentAgencyID.Value != Constant.AGENCY_MMI_ID)
-                    ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
+                //else if ((fc.AgencyId == Constant.AGENCY_AURITON_ID && CurrentAgencyID.Value != Constant.AGENCY_NOVADEBT_ID)
+                //            && (fc.AgencyId != CurrentAgencyID.Value && CurrentAgencyID.Value != Constant.AGENCY_MMI_ID))
+                //    ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
+                else if (fc.AgencyId != CurrentAgencyID.Value)
+                {
+                    if (CurrentAgencyID.Value == Constant.AGENCY_NOVADEBT_ID)
+                    {
+                        if (fc.AgencyId != Constant.AGENCY_AURITON_ID && fc.AgencyId != Constant.AGENCY_NOVADEBT_ID)
+                            ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
+                    }
+                    else if (CurrentAgencyID.Value != Constant.AGENCY_MMI_ID)
+                       ex.AddExceptionMessage("Unable to retrieve case summary. The FCId does not belong to your agency.");
+                }
             }
-            
             if (!string.IsNullOrEmpty(reportFormat))
             {
                 try
