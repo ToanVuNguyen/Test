@@ -53,6 +53,19 @@ namespace HPF.FutureState.BusinessLogic
             WarningMessage = new ExceptionMessageCollection();
         }
 
+        #region Convert Auriton Case to NovaDebt
+        private ForeclosureCaseDTO ConvertAuritonCaseToNovaDebt(ForeclosureCaseDTO fc)
+        {
+            if (fc.CompletedDt == null || AccountingDAO.CreateInstance().DisplayAccounting((int)fc.FcId).AgencyPayableCase.Count==0)
+            {
+                fc.AgencyId = Constant.AGENCY_NOVADEBT_ID;
+                return fc;
+            }
+
+            return fc;
+        }
+        #endregion
+
         #region Send Complete Case to Queue
         private void SendCompletedCaseToQueueIfAny(ForeclosureCaseSetDTO fCaseSetFromAgency)
         {            
@@ -95,18 +108,24 @@ namespace HPF.FutureState.BusinessLogic
         /// if one of them is not NOSEND return TRUE
         /// <return>bool<return>
         /// </summary>
-        private bool ShouldSendSummary(ForeclosureCaseSetDTO fCaseSetFromAcency)
+        private bool ShouldSendSummary(ForeclosureCaseSetDTO fCaseSetFromAgency)
         {
-            var fcId = fCaseSetFromAcency.ForeclosureCase.FcId;
-            var caseLoan1st = fCaseSetFromAcency.CaseLoans.GetCaseLoan1st();
+            var fcId = fCaseSetFromAgency.ForeclosureCase.FcId;
+            var caseLoan1st = fCaseSetFromAgency.CaseLoans.GetCaseLoan1st();
             var primaryServicer = ServicerBL.Instance.GetServicer(caseLoan1st.ServicerId.Value);
             //
             if (IsFirstTimeCaseCompleted)
                 return IsNotNOSENDDeliveryMethod(primaryServicer) &&
-                       (fCaseSetFromAcency.ForeclosureCase.ServicerConsentInd == "Y");
-            //
-            return (IsNotNOSENDDeliveryMethod(primaryServicer) && CheckFieldChange(fCaseSetFromAcency)) &&
-                   (fCaseSetFromAcency.ForeclosureCase.ServicerConsentInd == "Y");
+                       (fCaseSetFromAgency.ForeclosureCase.ServicerConsentInd == "Y");
+
+            if (FCaseSetFromDB.ForeclosureCase != null)
+            {
+                if (FCaseSetFromDB.ForeclosureCase.SummarySentDt == null)
+                    return IsNotNOSENDDeliveryMethod(primaryServicer) &&
+                        (fCaseSetFromAgency.ForeclosureCase.ServicerConsentInd == "Y");
+            }
+            return (IsNotNOSENDDeliveryMethod(primaryServicer) && CheckFieldChange(fCaseSetFromAgency)) &&
+                       (fCaseSetFromAgency.ForeclosureCase.ServicerConsentInd == "Y");
 
         }
 
@@ -1212,6 +1231,10 @@ namespace HPF.FutureState.BusinessLogic
         private int? UpdateForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
+
+            if (foreclosureCase.AgencyId == Constant.AGENCY_AURITON_ID)
+                foreclosureCase = ConvertAuritonCaseToNovaDebt(foreclosureCase);
+
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = foreclosureCaseSet.Outcome;
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet.BudgetAssets, foreclosureCaseSet.BudgetItems);
@@ -1310,6 +1333,10 @@ namespace HPF.FutureState.BusinessLogic
         private int? InsertForeclosureCaseSet(ForeclosureCaseSetDTO foreclosureCaseSet)
         {
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
+
+            if (foreclosureCase.AgencyId==Constant.AGENCY_AURITON_ID)
+                foreclosureCase=ConvertAuritonCaseToNovaDebt(foreclosureCase);
+
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);
             BudgetSetDTO budgetSet = AssignBudgetSetHPFAuto(foreclosureCaseSetDAO, foreclosureCaseSet.BudgetAssets, foreclosureCaseSet.BudgetItems);
