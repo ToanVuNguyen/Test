@@ -100,7 +100,7 @@ namespace HPF.FutureState.Web
             lblLoanNumber.Text = caseSelection.LoanNumber;
             lblServicerName.Text = caseSelection.ServicerName;
             lblZipCode.Text = caseSelection.ZipCode;
-            lblCallDate.Text = caseSelection.CallDate.ToString();
+            lblCallDate.Text = caseSelection.CallDate.Value.ToShortDateString();
             lblCounselor.Text = caseSelection.CounselorName;
             lblEvaluationType.Text = caseSelection.EvalType;
         }

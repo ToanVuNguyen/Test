@@ -15,6 +15,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common;
+using HPF.FutureState.Web.HPFWebControls;
 
 namespace HPF.FutureState.Web.ManageEvalTemplateTab
 {
@@ -140,6 +141,13 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 evalTemplateCollection.Add(evalTemplate);
                 selectedEvalTemplateId = evalTemplate.EvalTemplateId;
                 BindTemplateDropDownList();
+                //Direct user to manage template section tab
+                TabControl tabControl = this.Parent.FindControl("tabControl") as TabControl;
+                if (tabControl != null)
+                {
+                    Session["newTemplate"] = Constant.INDICATOR_YES;
+                    tabControl.ChangeSelectedTab("templateSection");
+                }
             }
             catch (DataValidationException ex)
             {

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{94A553D0-1C4D-4F55-8F69-A0F756889A94}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -254,6 +254,34 @@
     </Compile>
     <Compile Include="NewPayableSelection.aspx.designer.cs">
       <DependentUpon>NewPayableSelection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintQCReport.aspx.cs">
+      <DependentUpon>PrintQCReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintQCReport.aspx.designer.cs">
+      <DependentUpon>PrintQCReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrintQCReport\PrintQCReportUC.ascx.cs">
+      <DependentUpon>PrintQCReportUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrintQCReport\PrintQCReportUC.ascx.designer.cs">
+      <DependentUpon>PrintQCReportUC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="QCReport.aspx.cs">
+      <DependentUpon>QCReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QCReport.aspx.designer.cs">
+      <DependentUpon>QCReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QCReport\QCReportUC.ascx.cs">
+      <DependentUpon>QCReportUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QCReport\QCReportUC.ascx.designer.cs">
+      <DependentUpon>QCReportUC.ascx</DependentUpon>
     </Compile>
     <Compile Include="QCSelectionCaseDetail\CompareResult.ascx.cs">
       <DependentUpon>CompareResult.ascx</DependentUpon>
@@ -591,6 +619,10 @@
     <Content Include="ManageEvalTemplate\TemplateSection.ascx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
+    <Content Include="PrintQCReport.aspx" />
+    <Content Include="PrintQCReport\PrintQCReportUC.ascx" />
+    <Content Include="QCReport.aspx" />
+    <Content Include="QCReport\QCReportUC.ascx" />
     <Content Include="QCSelectionCaseDetail\CompareResult.ascx" />
     <Content Include="QCSelectionCaseDetail\FileUploads.ascx" />
     <Content Include="QCSelectionCaseInfo.aspx" />
@@ -698,9 +730,6 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/HPF.FutureState.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

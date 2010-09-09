@@ -32,5 +32,10 @@
                 <!-- List of questions -->
                 <asp:PlaceHolder ID="placeHolder" runat="server"></asp:PlaceHolder>
                 <!-- End List of questions -->
+                <tr>
+                <td colspan="3" align="center"><asp:Button ID='btnPrintReport' runat='server' 
+                        Text='Print Report' Width='120px'
+                CssClass='MyButton' onclick="btnPrintReport_Click" /></td>
+                </tr>
  </table>
 

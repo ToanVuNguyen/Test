@@ -149,7 +149,18 @@ namespace HPF.FutureState.Web.HPFWebControls
                 writer.Write("</tr>");
                 writer.Write("</table>");
         }
+        public void ChangeSelectedTab(string newSelectedTab)
+        {
+            foreach (LinkButton t in this.Controls)
+                if (t.ID != newSelectedTab)
+                    t.Attributes.Add("class", "Tab");
+                else
+                    t.Attributes.Add("class", "TabSelected");
+            //raise the event
+            OnTabClick(new TabControlEventArgs { SelectedTabID = newSelectedTab});
+        }
     }
+    
     /// <summary>
     /// Represents the method that will handle any TabControl event.
     /// </summary>

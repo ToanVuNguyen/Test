@@ -91,8 +91,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 prevSectionName = evalDetail.SectionName;
             }
             lblAuditorName.Text = caseEvalSetLatest.AuditorName;
-            DateTime evaluationDt = (DateTime)caseEvalSetLatest.EvaluationDt;
-            txtEvaluationDate.Text = evaluationDt.ToShortDateString();
+            txtEvaluationDate.Text = caseEvalSetLatest.EvaluationDt.Value.ToShortDateString();
             txtComments.Text = caseEvalSetLatest.Comments;
             chkFatalError.Checked = (caseEvalSetLatest.FatalErrorInd == Constant.INDICATOR_YES ? true : false);
             //Render score, level, percent, ... again
@@ -116,7 +115,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 foreach (EvalSectionQuestionDTO sq in ts.EvalSection.EvalSectionQuestions)
                 {
                     q = sq.EvalQuestion;
-                    if (q.EvalQuestionId == 7) Response.Write("");
                     placeHolder.Controls.Add(RenderQuestionRow(q.EvalQuestionId, sq.QuestionOrder, q.Question, q.QuestionExample,"",""));
                     //Save question data to draft list, use to insert new after
                     CaseEvalDetailDTO caseEvalDetailDraft = new CaseEvalDetailDTO();

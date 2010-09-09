@@ -40,9 +40,14 @@ namespace HPF.FutureState.Common
         public const string MORTGATE_TYPE_CODE_POA = "POA";
         public const string MORTGATE_TYPE_CODE_INTONLY = "INTONLY";
         public const string MORTGATE_TYPE_CODE_HYBARM = "HYBARM";
+        #region QC Enhancement
         //User type
         public const string USER_TYPE_HPF = "HPF";
         public const string USER_TYPE_AGENCY = "Agency";
+        public const string QC_AUDIT_CASE_REPORT_TYPE = "audit_case_report";
+        public const string QC_MONTHLY_SUMMARY_REPORT_TYPE = "monthly_summary_report";
+        public const string QC_MONTHLY_CALIBRATION_SUMMARY_REPORT_TYPE = "monthly_calibration_summary_report";
+        #endregion
         //
         public const string CALL_CENTER_OTHER = "OTHER";
         public const string SERVICER_OTHER_NAME = "OTHER SERVICER";

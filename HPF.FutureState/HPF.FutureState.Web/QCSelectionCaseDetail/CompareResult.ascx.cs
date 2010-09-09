@@ -144,5 +144,10 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
 
             return result;
         }
+
+        protected void btnPrintReport_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print QC Report", "<script language='javascript'>window.open('PrintQCReport.aspx?ReportType=" + Constant.QC_AUDIT_CASE_REPORT_TYPE + "&CaseId=" + Request.QueryString["CaseID"].ToString() + "','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
+        }
     }
 }

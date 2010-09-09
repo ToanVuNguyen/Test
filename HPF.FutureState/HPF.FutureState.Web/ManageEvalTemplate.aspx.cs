@@ -49,7 +49,7 @@ namespace HPF.FutureState.Web
                     UserControlLoader1.LoadUserControl(UCLOCATION + "EvaluationTemplate.ascx", "ucEvaluationTemplate");
                     evalTemplateCollection = EvalTemplateBL.Instance.RetriveAllTemplate();
                     BindDropDownList();
-                    selectedEvalTemplateId =ConvertToInt(ddlTemplate.SelectedValue);
+                    selectedEvalTemplateId = ConvertToInt(ddlTemplate.SelectedValue);
                 }
             }
 

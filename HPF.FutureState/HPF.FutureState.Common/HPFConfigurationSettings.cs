@@ -188,8 +188,28 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_INVOICE_EXPORT_INVOICE_SUMMARY_REPORT"];
             }
 
-        }    
-   
+        }
+        public static string HPF_QC_AUDIT_CASE_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_QC_AUDIT_CASE_REPORT"];
+            }
+        }
+        public static string HPF_QC_MONTHLY_SUMMARY_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_QC_MONTHLY_SUMMARY_REPORT"];
+            }
+        }
+        public static string HPF_QC_MONTHLY_CALIBRATION_SUMMARY_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_QC_MONTHLY_CALIBRATION_SUMMARY_REPORT"];
+            }
+        }
         public static string MapReportPath(string virtualPath)
         {
             return SHAREPOINT_REPORT_LIBRARY + virtualPath;

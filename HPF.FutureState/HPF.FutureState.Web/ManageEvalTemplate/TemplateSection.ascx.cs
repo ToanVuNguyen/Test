@@ -15,6 +15,7 @@ using HPF.FutureState.BusinessLogic;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common;
+using HPF.FutureState.Web.HPFWebControls;
 
 namespace HPF.FutureState.Web.ManageEvalTemplateTab
 {
@@ -125,6 +126,14 @@ namespace HPF.FutureState.Web.ManageEvalTemplateTab
                 EvalTemplateBL.Instance.ManageEvalTemplateSection(evalTemplateSectionCollection);
                 lblErrorMessage.Items.Add(new ListItem("Update Successfully"));
                 BindData();
+                //Direct user to manage template question tab if new template is added
+                if (Session["newTemplate"] != null)
+                {
+                    Session.Remove("newTemplate");
+                    TabControl tabControl = this.Parent.FindControl("tabControl") as TabControl;
+                    if (tabControl != null)
+                        tabControl.ChangeSelectedTab("templateQuestion");
+                }
             }
             catch (DataValidationException ex)
             {
