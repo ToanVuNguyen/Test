@@ -57,6 +57,7 @@ namespace HPF.FutureState.Web.PrintQCReport
         private void LoadMonthlyReport(string reportType)
         {
             string evalType = Request.QueryString["EvalType"].ToString();
+            string agencyId = Request.QueryString["AgencyId"].ToString();
             string yearMonthFrom = Request.QueryString["From"].ToString();
             string yearMonthTo = Request.QueryString["To"].ToString();
             switch (reportType)
@@ -71,9 +72,10 @@ namespace HPF.FutureState.Web.PrintQCReport
                     break;
             }
             ReportParameter pEvalType = new ReportParameter("pi_eval_type", evalType);
+            ReportParameter pAgencyId = new ReportParameter("pi_agency_id", agencyId);
             ReportParameter pYearMonthFrom = new ReportParameter("pi_eval_year_month_from", yearMonthFrom);
             ReportParameter pYearMonthTo = new ReportParameter("pi_eval_year_month_to", yearMonthTo);
-            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { pEvalType, pYearMonthFrom, pYearMonthTo });
+            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { pEvalType,pAgencyId, pYearMonthFrom, pYearMonthTo });
         }
         private void SetReportServerUrl()
         {

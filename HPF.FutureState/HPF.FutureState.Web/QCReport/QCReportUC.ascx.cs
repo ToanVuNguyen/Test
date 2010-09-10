@@ -13,6 +13,9 @@ using System.Xml.Linq;
 using HPF.FutureState.Common;
 using HPF.FutureState.BusinessLogic;
 using System.Text;
+using HPF.FutureState.Web.Security;
+using HPF.FutureState.Common.DataTransferObjects;
+using HPF.FutureState.Common.Utils.Exceptions;
 
 namespace HPF.FutureState.Web.QCReport
 {
@@ -24,8 +27,39 @@ namespace HPF.FutureState.Web.QCReport
             if (!IsPostBack)
             {
                 BindReportingName();
+                BindAgencyDropDownList();
                 BindEvalTypeDropDownList();
                 BindMonthYearDropDownList();
+            }
+        }
+        protected void BindAgencyDropDownList()
+        {
+            try
+            {
+                AgencyDTOCollection agencyCollection = LookupDataBL.Instance.GetAgencies();
+                ddlAgency.DataValueField = "AgencyID";
+                ddlAgency.DataTextField = "AgencyName";
+                if (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0)
+                {
+                    ddlAgency.DataSource = agencyCollection;
+                    ddlAgency.DataBind();
+                    ddlAgency.Items.RemoveAt(ddlAgency.Items.IndexOf(ddlAgency.Items.FindByValue("-1")));
+                    ddlAgency.Items.Insert(0, new ListItem("All Agencies", "-1"));
+                    ddlAgency.Items.FindByText("All Agencies").Selected = true;
+                }
+                else if (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
+                {
+                    AgencyDTO agency = agencyCollection.FirstOrDefault(o => o.AgencyID == HPFWebSecurity.CurrentIdentity.AgencyId.ToString());
+                    agencyCollection = new AgencyDTOCollection();
+                    agencyCollection.Add(agency);
+                    ddlAgency.DataSource = agencyCollection;
+                    ddlAgency.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
         private void BindReportingName()
@@ -63,6 +97,7 @@ namespace HPF.FutureState.Web.QCReport
         protected void btnGenerateReport_Click(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print QC Report", "<script language='javascript'>window.open('PrintQCReport.aspx?ReportType=" + ddlReportingName.SelectedValue  
+                +"&AgencyId="+ddlAgency.SelectedValue
                 +"&EvalType="+ddlEvaluationType.SelectedValue
                 +"&From"+ddlYearMonthFrom.SelectedValue
                 +"&To"+ddlYearMonthTo.SelectedValue

@@ -41,13 +41,13 @@ namespace HPF.FutureState.Web.QCReport {
         protected global::System.Web.UI.WebControls.Button btnGenerateReport;
         
         /// <summary>
-        /// ddlEvaluationType control.
+        /// ddlAgency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEvaluationType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAgency;
         
         /// <summary>
         /// ddlYearMonthTo control.
@@ -66,6 +66,15 @@ namespace HPF.FutureState.Web.QCReport {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClose;
+        
+        /// <summary>
+        /// ddlEvaluationType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEvaluationType;
         
         /// <summary>
         /// lblErrorMessage control.
