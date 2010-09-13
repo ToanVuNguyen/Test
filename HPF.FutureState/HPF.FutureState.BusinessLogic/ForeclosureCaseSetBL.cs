@@ -1335,7 +1335,7 @@ namespace HPF.FutureState.BusinessLogic
             ForeclosureCaseDTO foreclosureCase = AssignForeclosureCaseHPFAuto(foreclosureCaseSet);
 
             if (foreclosureCase.AgencyId==Constant.AGENCY_AURITON_ID)
-                foreclosureCase=ConvertAuritonCaseToNovaDebt(foreclosureCase);
+                foreclosureCase.AgencyId = Constant.AGENCY_NOVADEBT_ID;
 
             CaseLoanDTOCollection caseLoanCollection = foreclosureCaseSet.CaseLoans;
             OutcomeItemDTOCollection outcomeItemCollection = AssignOutcomeHPFAuto(foreclosureCaseSet);

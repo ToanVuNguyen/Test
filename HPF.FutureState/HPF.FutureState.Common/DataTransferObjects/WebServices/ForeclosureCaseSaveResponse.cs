@@ -9,5 +9,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
     {
         public int? FcId { get; set; }
         public DateTime? CompletedDt { get; set; }
+        public int AgencyId { get; set; }
     }
 }

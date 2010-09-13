@@ -34,6 +34,8 @@ namespace HPF.FutureState.WebServices
                     ForeclosureCaseDTO fc = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
                     response.FcId = fc.FcId;
                     response.CompletedDt = fc.CompletedDt;
+                    response.AgencyId = (int)fc.AgencyId;
+
                     if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     {
                         response.Status = ResponseStatus.Warning;
