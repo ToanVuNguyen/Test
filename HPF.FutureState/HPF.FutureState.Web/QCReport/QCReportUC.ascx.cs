@@ -69,6 +69,7 @@ namespace HPF.FutureState.Web.QCReport
         }
         private void BindEvalTypeDropDownList()
         {
+            ddlEvaluationType.Items.Add(new ListItem("All", "All"));
             ddlEvaluationType.Items.Add(new ListItem(CaseEvaluationBL.EvaluationType.DESKTOP, CaseEvaluationBL.EvaluationType.DESKTOP));
             ddlEvaluationType.Items.Add(new ListItem(CaseEvaluationBL.EvaluationType.ONSITE, CaseEvaluationBL.EvaluationType.ONSITE));
         }
