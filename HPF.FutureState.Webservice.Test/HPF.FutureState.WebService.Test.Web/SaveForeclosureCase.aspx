@@ -55,6 +55,23 @@
             <br />
         </td>
         </tr>
+        <tr>
+        <td align="left">
+            <table>
+                <tr>
+                    <td align="center" class="sidelinks">
+                        FcId: <asp:TextBox runat="server" ID="txtFcIdInput"/>
+                    </td>
+                    <td>
+                        <asp:Button id="btnRetrieve" Text="Retrieve" runat="server" Width="105px" 
+                            onclick="btnRetrieve_Click" />
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+        </td>
+        </tr>
     </table>
     
     <br />

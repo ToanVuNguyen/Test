@@ -342,7 +342,6 @@ namespace HPF.FutureState.WebService.Test.Web
         public int? CaseLoanId { get; set; }
         public CaseLoanDTO ConvertToBase()
         {
-
             return new CaseLoanDTO()
             {
 
@@ -368,17 +367,56 @@ namespace HPF.FutureState.WebService.Test.Web
 
                 ArmRateAdjustDt = this.ArmRateAdjustDt,
                 ArmLockDuration = this.ArmLockDuration,
-               LoanLookupCd = this.LoanLookupCd,
-               ThirtyDaysLatePastYrInd = this.ThirtyDaysLatePastYrInd,
-               PmtMissLessOneYrLoanInd = this.PmtMissLessOneYrLoanInd,
-               SufficientIncomeInd = this.SufficientIncomeInd,
-               LongTermAffordInd = this.LongTermAffordInd,
-               HarpEligibleInd = this.HarpEligibleInd,
-               OrigPriorTo2009Ind = this.OrigPriorTo2009Ind,
-               PriorHampInd = this.PriorHampInd,
-               PrinBalWithinLimitInd = this.PrinBalWithinLimitInd,
-               HampEligibleInd = this.HampEligibleInd,
-               LossMitStatusCd = this.LossMitStatusCd
+                LoanLookupCd = this.LoanLookupCd,
+                ThirtyDaysLatePastYrInd = this.ThirtyDaysLatePastYrInd,
+                PmtMissLessOneYrLoanInd = this.PmtMissLessOneYrLoanInd,
+                SufficientIncomeInd = this.SufficientIncomeInd,
+                LongTermAffordInd = this.LongTermAffordInd,
+                HarpEligibleInd = this.HarpEligibleInd,
+                OrigPriorTo2009Ind = this.OrigPriorTo2009Ind,
+                PriorHampInd = this.PriorHampInd,
+                PrinBalWithinLimitInd = this.PrinBalWithinLimitInd,
+                HampEligibleInd = this.HampEligibleInd,
+                LossMitStatusCd = this.LossMitStatusCd
+            };
+        }
+        public CaseLoanDTO_App ConvertFromBase(CaseLoanDTO caseLoan)
+        {
+            return new CaseLoanDTO_App()
+            {
+                AcctNum = caseLoan.AcctNum,
+                ArmResetInd = caseLoan.ArmResetInd,
+                CurrentLoanBalanceAmt = caseLoan.CurrentLoanBalanceAmt,
+                CurrentServicerFdicNcuaNum = caseLoan.CurrentServicerFdicNcuaNum,
+                InterestRate = caseLoan.InterestRate,
+                //InvestorName = caseLoan.InvestorName,
+                //InvestorNum = caseLoan.InvestorNum,
+                Loan1st2nd = caseLoan.Loan1st2nd,
+                LoanDelinqStatusCd = caseLoan.LoanDelinqStatusCd,
+                MortgageTypeCd = caseLoan.MortgageTypeCd,
+                OrginalLoanNum = caseLoan.OrginalLoanNum,
+                OriginatingLenderName = caseLoan.OriginatingLenderName,
+                OrigLoanAmt = caseLoan.OrigLoanAmt,
+                OrigMortgageCoFdicNcusNum = caseLoan.OrigMortgageCoFdicNcusNum,
+                OrigMortgageCoName = caseLoan.OrigMortgageCoName,
+                OtherServicerName = caseLoan.OtherServicerName,
+                ServicerId = caseLoan.ServicerId,
+                TermLengthCd = caseLoan.TermLengthCd,
+                MortgageProgramCd = caseLoan.MortgageProgramCd,
+
+                ArmRateAdjustDt = caseLoan.ArmRateAdjustDt,
+                ArmLockDuration = caseLoan.ArmLockDuration,
+                LoanLookupCd = caseLoan.LoanLookupCd,
+                ThirtyDaysLatePastYrInd = caseLoan.ThirtyDaysLatePastYrInd,
+                PmtMissLessOneYrLoanInd = caseLoan.PmtMissLessOneYrLoanInd,
+                SufficientIncomeInd = caseLoan.SufficientIncomeInd,
+                LongTermAffordInd = caseLoan.LongTermAffordInd,
+                HarpEligibleInd = caseLoan.HarpEligibleInd,
+                OrigPriorTo2009Ind = caseLoan.OrigPriorTo2009Ind,
+                PriorHampInd = caseLoan.PriorHampInd,
+                PrinBalWithinLimitInd = caseLoan.PrinBalWithinLimitInd,
+                HampEligibleInd = caseLoan.HampEligibleInd,
+                LossMitStatusCd = caseLoan.LossMitStatusCd,
             };
         }
     }
@@ -395,6 +433,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 OutcomeTypeId = this.OutcomeTypeId
             };
         }
+        public OutcomeItemDTO_App ConvertFromBase(OutcomeItemDTO outcome)
+        {
+            return new OutcomeItemDTO_App()
+            {
+                ExtRefOtherName = outcome.ExtRefOtherName,
+                NonprofitreferralKeyNum = outcome.NonprofitreferralKeyNum,
+                OutcomeTypeId = outcome.OutcomeTypeId
+            };
+        }
     }
 
     public class BudgetItemDTO_App : BudgetItemDTO
@@ -409,6 +456,16 @@ namespace HPF.FutureState.WebService.Test.Web
                 BudgetSubcategoryId = this.BudgetSubcategoryId
             };
         }
+        public BudgetItemDTO_App ConvertFromBase(BudgetItemDTO budgetItem)
+        {
+            return new BudgetItemDTO_App()
+            {
+                BudgetItemAmt = budgetItem.BudgetItemAmt,
+                BudgetNote = budgetItem.BudgetNote,
+                BudgetSubcategoryId = budgetItem.BudgetSubcategoryId
+            };
+        }
+        
     }
 
     public class BudgetAssetDTO_App : BudgetAssetDTO
@@ -421,6 +478,15 @@ namespace HPF.FutureState.WebService.Test.Web
                 AssetName = this.AssetName,
                 AssetValue = this.AssetValue
                
+            };
+        }
+        public BudgetAssetDTO_App ConvertFromBase(BudgetAssetDTO budgetAsset)
+        {
+            return new BudgetAssetDTO_App()
+            {
+                AssetName = budgetAsset.AssetName,
+                AssetValue = budgetAsset.AssetValue
+
             };
         }
     }

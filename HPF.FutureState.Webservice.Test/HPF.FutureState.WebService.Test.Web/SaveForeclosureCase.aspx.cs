@@ -30,8 +30,14 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 LoadDefaultFcCase();
             }
+            else
+            {
+                if (!(String.IsNullOrEmpty(txtPassword.Text.Trim())))
+                {
+                    txtPassword.Attributes["value"] = txtPassword.Text;
+                }
+            }
         }
-
         private void LoadDefaultFcCase()
         {
             string filename = MapPath(ConfigurationManager.AppSettings["ForeclosureCaseSetXML"]);
@@ -199,6 +205,8 @@ namespace HPF.FutureState.WebService.Test.Web
         {
             if (fcCase != null)
             {
+                if (fcCase.FcId != null)
+                    txtFcID.Text = fcCase.FcId.ToString();
                 txtActionItemsNotes.Text = fcCase.ActionItemsNotes;
                 txtAgencyCaseNumber.Text = fcCase.AgencyCaseNum;
                 txtAgencyClientNumber.Text = fcCase.AgencyClientNum;
@@ -1163,7 +1171,6 @@ namespace HPF.FutureState.WebService.Test.Web
             AuthenticationInfo ai = new AuthenticationInfo();
             ai.UserName = txtUsername.Text.Trim();
             ai.Password = txtPassword.Text.Trim();
-            
             AgencyWebService proxy = new AgencyWebService();
             proxy.AuthenticationInfoValue = ai;
 
@@ -1449,6 +1456,95 @@ namespace HPF.FutureState.WebService.Test.Web
             grdvProposedBudgetItem.EditIndex = -1;
             //grdvBudgetItemBinding();
             RefreshAllGrids();
+        }
+
+        protected void btnRetrieve_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int fcid = 0;
+                AgencyWebService proxy = new AgencyWebService();
+                SummaryRetrieveRequest request = new SummaryRetrieveRequest();
+                HPF.Webservice.Agency.AuthenticationInfo ai = new HPF.Webservice.Agency.AuthenticationInfo();
+                ai.UserName = txtUsername.Text.Trim();
+                ai.Password = txtPassword.Text.Trim();
+                proxy.AuthenticationInfoValue = ai;
+                grdvMessages.Visible = false;
+                lblMessage.Text = "Messsage: Success";
+                if (Int32.TryParse(txtFcIdInput.Text.Trim(), out fcid))
+                    request.FCId = fcid;
+                SummaryRetrieveResponse response = proxy.RetrieveSummary(request);
+                if (response.Status != ResponseStatus.Success)
+                {
+                    grdvMessages.Visible = true;
+                    grdvMessages.DataSource = response.Messages;
+                    grdvMessages.DataBind();
+                }
+                else
+                {
+                    #region Update UI
+                    ForeclosureCaseToForm(response.ForeclosureCaseSet.ForeclosureCase);
+                    int i = 1;
+                    List<BudgetAssetDTO_App> budgetAssetApps = null;
+                    if (response.ForeclosureCaseSet.BudgetAssets != null)
+                    {
+                        budgetAssetApps = new List<BudgetAssetDTO_App>();
+                        for (i = 1; i <= response.ForeclosureCaseSet.BudgetAssets.Length; i++)
+                        {
+                            BudgetAssetDTO_App item = new BudgetAssetDTO_App();
+                            item = item.ConvertFromBase(response.ForeclosureCaseSet.BudgetAssets[i - 1]);
+                            item.BudgetAssetId = i;
+                            budgetAssetApps.Add(item);
+                        }
+                    }
+                    grdvBudgetAsset.DataSource = budgetAssetApps;
+                    grdvBudgetAsset.DataBind();
+                    List<BudgetItemDTO_App> budgetItemApps = null;
+                    if (response.ForeclosureCaseSet.BudgetItems != null)
+                    {
+                        budgetItemApps = new List<BudgetItemDTO_App>();
+                        for (i = 1; i <= response.ForeclosureCaseSet.BudgetItems.Length; i++)
+                        {
+                            BudgetItemDTO_App item = new BudgetItemDTO_App();
+                            item = item.ConvertFromBase(response.ForeclosureCaseSet.BudgetItems[i - 1]);
+                            item.BudgetItemId = i;
+                            budgetItemApps.Add(item);
+                        }
+                    }
+                    grdvBudgetItem.DataSource = budgetItemApps;
+                    grdvBudgetItem.DataBind();
+                    List<CaseLoanDTO_App> caseLoanApps = new List<CaseLoanDTO_App>();
+                    if (response.ForeclosureCaseSet.CaseLoans != null)
+                        for (i = 1; i <= response.ForeclosureCaseSet.CaseLoans.Length; i++)
+                        {
+                            CaseLoanDTO_App item = new CaseLoanDTO_App();
+                            item = item.ConvertFromBase(response.ForeclosureCaseSet.CaseLoans[i - 1]);
+                            item.CaseLoanId = i;
+                            caseLoanApps.Add(item);
+                        }
+                    grdvCaseLoan.DataSource = caseLoanApps;
+                    grdvCaseLoan.DataBind();
+                    List<OutcomeItemDTO_App> outcomeApps = null;
+                    if (response.ForeclosureCaseSet.Outcome != null)
+                    {
+                        outcomeApps = new List<OutcomeItemDTO_App>();
+                        for (i = 1; i <= response.ForeclosureCaseSet.Outcome.Length; i++)
+                        {
+                            OutcomeItemDTO_App item = new OutcomeItemDTO_App();
+                            item = item.ConvertFromBase(response.ForeclosureCaseSet.Outcome[i - 1]);
+                            item.OutcomeItemId = i;
+                            outcomeApps.Add(item);
+                        }
+                    }
+                    grdvOutcomeItem.DataSource = outcomeApps;
+                    grdvOutcomeItem.DataBind();
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Messsage:" + ex.Message;
+            }
         }
     }
 }
