@@ -191,6 +191,7 @@ namespace HPF.FutureState.DataAccess
                         returnObject.HomePurchaseYear = ConvertToInt(reader["home_purchase_year"]);
                         returnObject.HomeSalePrice = ConvertToDouble(reader["home_sale_price"]);
                         returnObject.HouseholdCd = ConvertToString(reader["household_cd"]);
+                        returnObject.HouseholdGrossAnnualIncomeAmt = ConvertToDouble(reader["household_gross_annual_income_amt"]);
                         returnObject.HpfMediaCandidateInd = ConvertToString(reader["hpf_media_candidate_ind"]);                        
                         returnObject.HpfSuccessStoryInd = ConvertToString(reader["hpf_success_story_ind"]);
                         returnObject.HudOutcomeCd = ConvertToString(reader["hud_outcome_cd"]);
