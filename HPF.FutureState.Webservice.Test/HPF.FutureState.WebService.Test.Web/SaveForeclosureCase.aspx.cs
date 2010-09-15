@@ -1483,10 +1483,13 @@ namespace HPF.FutureState.WebService.Test.Web
                 else
                 {
                     #region Update UI
-                    ForeclosureCaseToForm(response.ForeclosureCaseSet.ForeclosureCase);
                     int i = 1;
                     List<BudgetAssetDTO_App> budgetAssetApps = null;
-                    if (response.ForeclosureCaseSet.BudgetAssets != null)
+                    List<BudgetItemDTO_App> budgetItemApps = null;
+                    List<CaseLoanDTO_App> caseLoanApps = null;
+                    List<OutcomeItemDTO_App> outcomeApps = null;
+                    List<BudgetItemDTO_App> proposedBudgetItemApps = null;
+                    if (response.ForeclosureCaseSet.BudgetAssets != null && response.ForeclosureCaseSet.BudgetAssets.Length>0)
                     {
                         budgetAssetApps = new List<BudgetAssetDTO_App>();
                         for (i = 1; i <= response.ForeclosureCaseSet.BudgetAssets.Length; i++)
@@ -1497,10 +1500,7 @@ namespace HPF.FutureState.WebService.Test.Web
                             budgetAssetApps.Add(item);
                         }
                     }
-                    grdvBudgetAsset.DataSource = budgetAssetApps;
-                    grdvBudgetAsset.DataBind();
-                    List<BudgetItemDTO_App> budgetItemApps = null;
-                    if (response.ForeclosureCaseSet.BudgetItems != null)
+                    if (response.ForeclosureCaseSet.BudgetItems != null && response.ForeclosureCaseSet.BudgetItems.Length > 0)
                     {
                         budgetItemApps = new List<BudgetItemDTO_App>();
                         for (i = 1; i <= response.ForeclosureCaseSet.BudgetItems.Length; i++)
@@ -1511,10 +1511,20 @@ namespace HPF.FutureState.WebService.Test.Web
                             budgetItemApps.Add(item);
                         }
                     }
-                    grdvBudgetItem.DataSource = budgetItemApps;
-                    grdvBudgetItem.DataBind();
-                    List<CaseLoanDTO_App> caseLoanApps = new List<CaseLoanDTO_App>();
-                    if (response.ForeclosureCaseSet.CaseLoans != null)
+                    if (response.ForeclosureCaseSet.ProposedBudgetItems != null && response.ForeclosureCaseSet.ProposedBudgetItems.Length > 0)
+                    {
+                        proposedBudgetItemApps = new List<BudgetItemDTO_App>();
+                        for (i = 1; i <= response.ForeclosureCaseSet.ProposedBudgetItems.Length; i++)
+                        {
+                            BudgetItemDTO_App item = new BudgetItemDTO_App();
+                            item = item.ConvertFromBase(response.ForeclosureCaseSet.ProposedBudgetItems[i - 1]);
+                            item.BudgetItemId = i;
+                            proposedBudgetItemApps.Add(item);
+                        }
+                    }
+                    if (response.ForeclosureCaseSet.CaseLoans != null && response.ForeclosureCaseSet.CaseLoans.Length > 0)
+                    {
+                        caseLoanApps = new List<CaseLoanDTO_App>();
                         for (i = 1; i <= response.ForeclosureCaseSet.CaseLoans.Length; i++)
                         {
                             CaseLoanDTO_App item = new CaseLoanDTO_App();
@@ -1522,10 +1532,8 @@ namespace HPF.FutureState.WebService.Test.Web
                             item.CaseLoanId = i;
                             caseLoanApps.Add(item);
                         }
-                    grdvCaseLoan.DataSource = caseLoanApps;
-                    grdvCaseLoan.DataBind();
-                    List<OutcomeItemDTO_App> outcomeApps = null;
-                    if (response.ForeclosureCaseSet.Outcome != null)
+                    }
+                    if (response.ForeclosureCaseSet.Outcome != null && response.ForeclosureCaseSet.Outcome.Length > 0)
                     {
                         outcomeApps = new List<OutcomeItemDTO_App>();
                         for (i = 1; i <= response.ForeclosureCaseSet.Outcome.Length; i++)
@@ -1536,8 +1544,19 @@ namespace HPF.FutureState.WebService.Test.Web
                             outcomeApps.Add(item);
                         }
                     }
-                    grdvOutcomeItem.DataSource = outcomeApps;
-                    grdvOutcomeItem.DataBind();
+                    
+                    Session[SessionVariables.CASE_LOAN_COLLECTION] = caseLoanApps;
+                    Session[SessionVariables.BUDGET_ASSET_COLLECTION] = budgetAssetApps;
+                    Session[SessionVariables.BUDGET_ITEM_COLLECTION] = budgetItemApps;
+                    Session[SessionVariables.OUTCOME_ITEM_COLLECTION] = outcomeApps;
+                    Session[SessionVariables.FORECLOSURE_CASE] = response.ForeclosureCaseSet.ForeclosureCase;
+                    Session[SessionVariables.PROPOSED_BUDGET_ITEM_COLLECTION] = proposedBudgetItemApps;
+                    grdvCaseLoanBinding();
+                    grdvOutcomeItemBinding();
+                    grdvBudgetItemBinding();
+                    grdvProposedBudgetItemBinding();
+                    grdvBudgetAssetBinding();
+                    ForeclosureCaseToForm((ForeclosureCaseDTO)Session[SessionVariables.FORECLOSURE_CASE]);
                     #endregion
                 }
             }
