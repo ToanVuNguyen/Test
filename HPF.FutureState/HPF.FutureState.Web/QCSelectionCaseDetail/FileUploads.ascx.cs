@@ -16,14 +16,14 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using System.Text;
 using HPF.FutureState.Common;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace HPF.FutureState.Web.QCSelectionCaseDetail
 {
     public partial class FileUploads : System.Web.UI.UserControl
     {
         private CaseEvalSearchResultDTO caseEval;
-        private const string saveDir = "C:/QCTest/";
-        private const string filePath = "/agencies/{0}/QC_Audit/{1}/{2}/";
         private const int maxUploadFiles = 5;
         private int totalFile;
         protected void Page_Load(object sender, EventArgs e)
@@ -65,7 +65,9 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             tc = new TableCell();
             HyperLink hl = new HyperLink();
             hl.Attributes.Add("style", "Text");
-            hl.NavigateUrl ="file:///"+ saveDir + fileName;
+            StringBuilder navigateUrl = new StringBuilder();
+            navigateUrl.AppendFormat("file:///{0}{1}{2}",HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH,filePath, fileName);
+            hl.NavigateUrl = navigateUrl.ToString();
             hl.Text = fileName;
             hl.Target = "_blank";
             tc.Controls.Add(hl);
@@ -79,27 +81,47 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            if (this.Page.IsValid && fileUpload.HasFile)
+            if (fileUpload.HasFile)
             {
                 try
                 {
                     CaseEvalFileDTO evalFile = new CaseEvalFileDTO();
                     StringBuilder fileUploadPath = new StringBuilder();
-                    fileUpload.SaveAs(saveDir + fileUpload.FileName);
-                    fileUploadPath.AppendFormat(filePath, caseEval.AgencyName, caseEval.EvaluationYearMonth, caseEval.FcId.ToString());
-                    evalFile.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
-                    evalFile.FileName = fileUpload.FileName;
-                    evalFile.FilePath = fileUploadPath.ToString();
-                    evalFile.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
-                    CaseEvaluationBL.Instance.InsertCaseEvalFile(evalFile,caseEval, HPFWebSecurity.CurrentIdentity.LoginName);
-                    if (totalFile >= maxUploadFiles)
-                        if ((string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
-                            && (string.Compare(caseEval.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED)==0))
-                            UploadFinished();
-                        else
-                            btnUpload.Enabled = false;
-                    else totalFile++;
-                    RenderRow(totalFile.ToString(), evalFile.FileName, evalFile.FilePath,HPFWebSecurity.CurrentIdentity.LoginName);
+                    //Check file extension
+                    StringBuilder expresstion = new StringBuilder();
+                    StringBuilder errorMessage = new StringBuilder();
+                    expresstion.Append("^.+(");
+                    errorMessage.AppendFormat("Only {0} are allowed", HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_EXTENSTION);
+                    string[] extList = HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_EXTENSTION.Split(',');
+                    foreach (string ext in extList)
+                    {
+                        expresstion.AppendFormat(".{0}|.{1}", ext.ToUpper(), ext.ToLower());
+                    }
+                    expresstion.Append(")$");
+                    Regex rxValidate = new Regex(expresstion.ToString());
+                    if (!rxValidate.IsMatch(fileUpload.FileName))
+                        throw new Exception(errorMessage.ToString());
+                    //End check file extension
+                    fileUploadPath.AppendFormat("{0}/{1}-{2}/{3}", caseEval.AgencyName, caseEval.EvaluationYearMonth.Substring(4, 2), caseEval.EvaluationYearMonth.Substring(0, 4), caseEval.FcId.ToString());
+                    string folder = EnsureFolderName(fileUploadPath.ToString());
+                    string fullPath =HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH+ folder + fileUpload.FileName;
+                    if (!File.Exists(fullPath))
+                    {
+                        evalFile.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
+                        evalFile.FileName = fileUpload.FileName;
+                        evalFile.FilePath = folder;
+                        evalFile.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                        CaseEvaluationBL.Instance.InsertCaseEvalFile(evalFile, caseEval, HPFWebSecurity.CurrentIdentity.LoginName);
+                        if (totalFile >= maxUploadFiles)
+                            if ((string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_AGENCY) == 0)
+                                && (string.Compare(caseEval.EvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_UPLOAD_REQUIRED) == 0))
+                                UploadFinished();
+                            else
+                                btnUpload.Enabled = false;
+                        else totalFile++;
+                        RenderRow(totalFile.ToString(), evalFile.FileName, evalFile.FilePath, HPFWebSecurity.CurrentIdentity.LoginName);
+                    }
+                    fileUpload.SaveAs(fullPath);
                 }
                 catch (Exception ex)
                 {
@@ -107,7 +129,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
                 }
             }
-            else if (!fileUpload.HasFile)
+            else 
                 lblErrorMessage.Text = "Choose file to upload!!!";
         }
 
@@ -131,6 +153,21 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             caseEvalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
             CaseEvaluationBL.Instance.UpdateCaseEvalHeader(caseEvalHeader);
             Response.Redirect(Request.Url.ToString());
+        }
+        private string EnsureFolderName(string folder)
+        {
+            StringBuilder root = new StringBuilder();
+            root.Append(HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH);
+            foreach (string foldername in folder.Split(new Char[] { '/' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                root.AppendFormat("{0}/", foldername);
+                if (!Directory.Exists(root.ToString()))
+                {
+                    Directory.CreateDirectory(root.ToString());
+                }
+            }
+            //return relative directory
+            return root.ToString().Remove(0,HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH.Length);
         }
     }
 }

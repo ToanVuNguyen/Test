@@ -2,8 +2,8 @@
 <div class="Text">
     <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label><br />
     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="ErrorMessage"
-             runat="server" ErrorMessage="Only xls,doc,pdf,jpg files are allowed!"
-             ValidationExpression ="^.+(.pdf|.PDF|.jpg|.JPG|.wav|.WAV|.mp3|.MP3|.zip|ZIP)$"
+             runat="server" ErrorMessage=""
+             ValidationExpression =""
              ControlToValidate="fileUpload" EnableClientScript="false"> 
         </asp:RegularExpressionValidator>
 </div>
