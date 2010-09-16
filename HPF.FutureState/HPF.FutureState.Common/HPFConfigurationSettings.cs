@@ -210,6 +210,20 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_QC_MONTHLY_CALIBRATION_SUMMARY_REPORT"];
             }
         }
+        public static string HPF_QC_FILE_UPLOAD_PATH
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_QC_FILE_UPLOAD_PATH"];
+            }
+        }
+        public static string HPF_QC_FILE_UPLOAD_EXTENSTION
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_QC_FILE_UPLOAD_EXTENSTION"];
+            }
+        }
         public static string MapReportPath(string virtualPath)
         {
             return SHAREPOINT_REPORT_LIBRARY + virtualPath;

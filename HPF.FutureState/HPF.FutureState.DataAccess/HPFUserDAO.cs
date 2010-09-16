@@ -77,6 +77,38 @@ namespace HPF.FutureState.DataAccess
             }
             return hpfUsers;
         }
-
+        public HPFUserDTOCollection GetHpfUsersByAgencyId(int agencyId)
+        {
+            HPFUserDTOCollection hpfUsers = null;
+            var dbConnection = CreateConnection();
+            var command = CreateCommand("hpf_hpf_user_get_by_agency_id", dbConnection);
+            command.Parameters.Add(new SqlParameter("@pi_agency_id", agencyId));
+            command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    hpfUsers = new HPFUserDTOCollection();
+                    while (reader.Read())
+                    {
+                        hpfUsers.Add(new HPFUserDTO()
+                        {
+                            FirstName = ConvertToString(reader["fname"]),
+                            LastName = ConvertToString(reader["lname"]),
+                            Email = ConvertToString(reader["email"])
+                        });
+                    }
+                    reader.Close();
+                }
+                dbConnection.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            return hpfUsers;
+        }
     }
 }

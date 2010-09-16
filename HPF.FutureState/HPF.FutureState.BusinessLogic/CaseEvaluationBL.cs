@@ -9,6 +9,8 @@ using HPF.FutureState.Common;
 using System.Collections.Generic;
 using System;
 using HPF.FutureState.Common.Utils;
+using System.Text;
+using System.Data.SqlClient;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -92,11 +94,11 @@ namespace HPF.FutureState.BusinessLogic
         public void SaveCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft, bool isHpfUser, string userId)
         {
             CaseEvalSetDAO caseEvalSetDAO = CaseEvalSetDAO.CreateInstance();
+            string prevAuditor = string.Empty;
             try
             {
                 caseEvalSetDAO.Begin();
-                string emailNotify=string.Empty;
-                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft,caseEvalHeader,ref emailNotify);
+                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref prevAuditor);
                 string evalStatus = GetEvaluationStatus(isHpfUser, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
                 caseEvalHeader.SetUpdateTrackingInformation(userId);
                 if (evalStatus != caseEvalHeader.EvalStatus)
@@ -114,10 +116,6 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.SetInsertTrackingInformation(userId);
                     caseEvalSetDAO.InsertCaseEvalDetail(caseEvalDetailDraft);
                 }
-                //Send notify email if case needs reconciliation
-                if (!string.IsNullOrEmpty(emailNotify))
-                    SendNotifyEmail(emailNotify, caseEvalHeader.FcId);
-
             }
             catch (Exception ex)
             {
@@ -127,17 +125,18 @@ namespace HPF.FutureState.BusinessLogic
             finally
             {
                 caseEvalSetDAO.Commit();
+                SendNotifyEmail(prevAuditor, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
             }
         }
         //Use for HPF User
         public void UpdateCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft,  string userId)
         {
             CaseEvalSetDAO caseEvalSetDAO = CaseEvalSetDAO.CreateInstance();
+            string prevAuditorId = string.Empty;
             try
             {
                 caseEvalSetDAO.Begin();
-                string emailNotify = string.Empty;
-                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref emailNotify);
+                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref prevAuditorId);
                 string evalStatus = GetEvaluationStatus(true, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
                 caseEvalHeader.SetUpdateTrackingInformation(userId);
                 if (evalStatus != caseEvalHeader.EvalStatus)
@@ -153,9 +152,6 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.SetUpdateTrackingInformation(userId);
                     caseEvalSetDAO.UpdateCaseEvalDetail(caseEvalDetailDraft);
                 }
-                //Send notify email if case needs reconciliation
-                if (!string.IsNullOrEmpty(emailNotify))
-                    SendNotifyEmail(emailNotify, caseEvalHeader.FcId);
             }
             catch (Exception ex)
             {
@@ -165,6 +161,7 @@ namespace HPF.FutureState.BusinessLogic
             finally
             {
                 caseEvalSetDAO.Commit();
+                SendNotifyEmail(prevAuditorId, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
             }
         }
         public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)
@@ -259,7 +256,7 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="evalSetNew"></param>
         /// <returns>True if in 5% range,false if out of this range</returns>
-        private bool CompareScoreInRange(CaseEvalSetDTO evalSetNew, CaseEvalHeaderDTO caseEvalHeader, ref string emailNotify)
+        private bool CompareScoreInRange(CaseEvalSetDTO evalSetNew, CaseEvalHeaderDTO caseEvalHeader, ref string prevAuditorId)
         {
             //HPF Auditor have not audited yet, does not need compare score
             if (string.Compare(caseEvalHeader.EvalStatus, EvaluationStatus.AGENCY_INPUT_REQUIRED) == 0
@@ -269,25 +266,93 @@ namespace HPF.FutureState.BusinessLogic
             string hpfAuditIndLatest = (evalSetNew.HpfAuditInd==Constant.INDICATOR_YES?Constant.INDICATOR_NO:Constant.INDICATOR_YES);
             CaseEvalSetDTO evalSetLatest = GetCaseEvalLatest(evalSetNew.CaseEvalHeaderId, hpfAuditIndLatest);
             if (evalSetLatest == null) return false;
+            prevAuditorId = evalSetLatest.ChangeLastUserId;
             decimal percentNew = Math.Round((decimal)((decimal)evalSetNew.TotalAuditScore/ (decimal)evalSetNew.TotalPossibleScore), 4);
             decimal percentLatest = Math.Round((decimal)((decimal)evalSetLatest.TotalAuditScore / (decimal)evalSetLatest.TotalPossibleScore), 4);
             if (((percentNew - percentLatest <= (decimal)0.05) && (percentNew - percentLatest>=0))
                 || ((percentLatest - percentNew <= (decimal)0.05) && (percentLatest - percentNew>=0)))
                 return true;
             else
-            {
-                UserDTO user = SecurityBL.Instance.GetWebUser(evalSetLatest.ChangeLastUserId);
-                emailNotify = user.Email;
                 return false;
-            }
         }
-        private void SendNotifyEmail(string emailTo,int? fcId)
+        public void SendNotifyEmail(string prevAuditorId, int fcId, int agencyId, string evalStatus, string evalType)
         {
-            var hpfSendMail = new HPFSendMail();
-            hpfSendMail.To = emailTo;
-            hpfSendMail.Body = "The case "+fcId.ToString()+" need Reconciliation!";
-            hpfSendMail.Subject = "The case " + fcId.ToString() + " need Reconciliation!";
-            //hpfSendMail.Send();
+            //Does not send mail when status of evaluation case is OnSite
+            if (evalType == EvaluationType.ONSITE) return;
+            if (string.Compare(evalStatus, EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT) == 0
+                    || string.Compare(evalStatus, EvaluationStatus.RECON_REQUIRED_HPF_INPUT) == 0
+                    || string.Compare(evalStatus,EvaluationStatus.AGENCY_INPUT_REQUIRED)==0)
+            {
+                StringBuilder subject = new StringBuilder();
+                subject.Append("HPF Quality Control");
+
+                //Get agency info
+                CaseEvalSearchResultDTO caseEval = SearchCaseEvalByFcId(fcId);
+                string agencyCaseNum = caseEval.AgencyCaseNum;
+                string agencyName = caseEval.AgencyName;
+                if (evalStatus == EvaluationStatus.AGENCY_INPUT_REQUIRED)
+                {
+                    HPFUserDTOCollection hpfUsers = HPFUserBL.Instance.RetriveHpfUsersByAgencyId(agencyId);
+                    foreach (HPFUserDTO hpfUser in hpfUsers)
+                    {
+                        if (!string.IsNullOrEmpty(hpfUser.Email))
+                        {
+                            StringBuilder content = new StringBuilder();
+                            content.AppendFormat("Dear {0},\n \n"
+                                   + "HPF has selected case id {1}, agency number of {2}  for this month's audit.  Please use the following URL to input your evaluation result and upload the supporting files.\n \n"
+                                   + "https://www.hopenetadmin.org/QCSelectionCaseInfo.aspx?caseId={3}\n\n"
+                                   + "Sincerely Yours,\n\n"
+                                   + "HPF Auditor", hpfUser.FullName, fcId.ToString(), agencyCaseNum, fcId.ToString());
+                            var email = new HPFSendMail
+                            {
+                                To = hpfUser.Email,
+                                Body = content.ToString(),
+                                Subject = subject.ToString()
+                            };
+                            email.Send();
+                        }
+                    }
+                }
+                else
+                {
+                    UserDTO user = SecurityBL.Instance.GetWebUser(prevAuditorId);
+                    string toEmail = user.Email;
+                    string personName = user.FirstName + " " + user.LastName;
+                    StringBuilder content = new StringBuilder();
+                    HPFSendMail email;
+                    switch (evalStatus)
+                    {
+                        case EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT:
+                            content.AppendFormat("Dear {0},\n \n"
+                                   + "HPF has evaluated case id {1}, agency number of {2}  and the result is not within +/-5% range.  Please use the following URL to review the evaluation result and calibrate the scoring to fall within range.\n \n"
+                                   + "https://www.hopenetadmin.org/QCSelectionCaseInfo.aspx?caseId={3}\n\n"
+                                   + "Sincerely Yours,\n"
+                                   + "HPF Auditor", personName, fcId.ToString(), agencyCaseNum, fcId.ToString());
+                            email = new HPFSendMail
+                            {
+                                To = toEmail,
+                                Body = content.ToString(),
+                                Subject = subject.ToString()
+                            };
+                            email.Send();
+                            break;
+                        case EvaluationStatus.RECON_REQUIRED_HPF_INPUT:
+                            content.AppendFormat("Dear HPF QC Auditor,\n \n"
+                                   + "Agency {0} has updated case id {1} and still results in reconciliation stage.  Please use the following URL for reviewing the case status and calibrate the scoring to fall within range.\n \n"
+                                   + "https://www.hopenetadmin.org/QCSelectionCaseInfo.aspx?caseId={2}\n\n"
+                                   + "Sincerely Yours,\n\n"
+                                   + "HPF HopeNet Admin", agencyName, fcId.ToString(), fcId.ToString());
+                            email = new HPFSendMail
+                            {
+                                To = toEmail,
+                                Body = content.ToString(),
+                                Subject = subject.ToString()
+                            };
+                            email.Send();
+                            break;
+                    }
+                }
+            }
         }
         public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails,ref int totalYesAnswer,ref int totalNoAnswer,ref int totalNAAnswer)
         {

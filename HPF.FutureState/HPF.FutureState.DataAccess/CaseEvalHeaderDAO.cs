@@ -92,6 +92,8 @@ namespace HPF.FutureState.DataAccess
                     {
                         result = new CaseEvalHeaderDTO();
                         result.CaseEvalHeaderId = ConvertToInt(reader["case_eval_header_id"]);
+                        result.AgencyId = ConvertToInt(reader["agency_id"]);
+                        result.FcId =(int?) fc_Id;
                         result.EvalTemplateId = ConvertToInt(reader["eval_template_id"]);
                         result.EvalStatus = ConvertToString(reader["eval_status"]);
                         result.EvalType = ConvertToString(reader["eval_type"]);
@@ -187,6 +189,7 @@ namespace HPF.FutureState.DataAccess
                         result.EvalType = ConvertToString(reader["eval_type"]);
                         result.EvaluationYearMonth = ConvertToString(reader["eval_year_month"]);
                         result.AgencyName = ConvertToString(reader["agency_name"]);
+                        result.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
                         result.CounselorName = ConvertToString(reader["counselor_name"]);
                         result.HomeowenerFirstName = ConvertToString(reader["borrower_fname"]);
                         result.HomeowenerLastName = ConvertToString(reader["borrower_lname"]);

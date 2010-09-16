@@ -14,6 +14,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string EvaluationYearMonth { get; set; }
         #region Information of ForeclosureCase
         public int? FcId { get; set; }
+        public string AgencyCaseNum { get; set; }
         public string AgencyName { get; set; }
         public string CounselorName { get; set; }
         public string HomeowenerFirstName { get; set; }

@@ -65,6 +65,8 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 evalHeader.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName.ToString());
                 CaseEvaluationBL.Instance.SaveSelectForQCEvalHeader(evalHeader);
                 btnSelectQC.Enabled = false;
+                //Send notify email to all agency auditor which case belong to
+                CaseEvaluationBL.Instance.SendNotifyEmail("", evalHeader.FcId.Value,evalHeader.AgencyId.Value, evalHeader.EvalStatus, evalHeader.EvalType);
             }
             catch (Exception ex)
             {
