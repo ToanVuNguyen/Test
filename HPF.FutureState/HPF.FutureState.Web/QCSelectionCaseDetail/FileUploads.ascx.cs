@@ -66,7 +66,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             HyperLink hl = new HyperLink();
             hl.Attributes.Add("style", "Text");
             StringBuilder navigateUrl = new StringBuilder();
-            navigateUrl.AppendFormat("file:///{0}{1}{2}",HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH,filePath, fileName);
+            navigateUrl.AppendFormat("http://{0}{1}/{2}{3}{4}", Request.ServerVariables["HTTP_HOST"],Request.ApplicationPath, HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH, filePath, fileName);
             hl.NavigateUrl = navigateUrl.ToString();
             hl.Text = fileName;
             hl.Target = "_blank";
@@ -104,7 +104,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     //End check file extension
                     fileUploadPath.AppendFormat("{0}/{1}-{2}/{3}", caseEval.AgencyName, caseEval.EvaluationYearMonth.Substring(4, 2), caseEval.EvaluationYearMonth.Substring(0, 4), caseEval.FcId.ToString());
                     string folder = EnsureFolderName(fileUploadPath.ToString());
-                    string fullPath =HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH+ folder + fileUpload.FileName;
+                    string fullPath = Server.MapPath(HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH) + folder + fileUpload.FileName;
                     if (!File.Exists(fullPath))
                     {
                         evalFile.CaseEvalHeaderId = caseEval.CaseEvalHeaderId;
@@ -157,7 +157,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         private string EnsureFolderName(string folder)
         {
             StringBuilder root = new StringBuilder();
-            root.Append(HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH);
+            string uploadDirectory = Server.MapPath(HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH);
+            root.Append(uploadDirectory);
             foreach (string foldername in folder.Split(new Char[] { '/' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 root.AppendFormat("{0}/", foldername);
@@ -167,7 +168,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 }
             }
             //return relative directory
-            return root.ToString().Remove(0,HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH.Length);
+            return root.ToString().Remove(0,uploadDirectory.Length);
         }
     }
 }

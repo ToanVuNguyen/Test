@@ -100,8 +100,8 @@ namespace HPF.FutureState.Web.QCReport
             Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Print QC Report", "<script language='javascript'>window.open('PrintQCReport.aspx?ReportType=" + ddlReportingName.SelectedValue  
                 +"&AgencyId="+ddlAgency.SelectedValue
                 +"&EvalType="+ddlEvaluationType.SelectedValue
-                +"&From"+ddlYearMonthFrom.SelectedValue
-                +"&To"+ddlYearMonthTo.SelectedValue
+                +"&From="+ddlYearMonthFrom.SelectedValue
+                +"&To="+ddlYearMonthTo.SelectedValue
                 +"','','menu=no,scrollbars=no,resizable=yes,top=0,left=0,width=1010px,height=900px')</script>");
         }
     }
