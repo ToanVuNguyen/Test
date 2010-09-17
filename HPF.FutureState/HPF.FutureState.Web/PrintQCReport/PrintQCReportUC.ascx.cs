@@ -73,8 +73,8 @@ namespace HPF.FutureState.Web.PrintQCReport
             }
             ReportParameter pEvalType = new ReportParameter("pi_eval_type", evalType);
             ReportParameter pAgencyId = new ReportParameter("pi_agency_id", agencyId);
-            ReportParameter pYearMonthFrom = new ReportParameter("pi_eval_year_month_from", yearMonthFrom);
-            ReportParameter pYearMonthTo = new ReportParameter("pi_eval_year_month_to", yearMonthTo);
+            ReportParameter pYearMonthFrom = new ReportParameter("pi_from_eval_year_month", yearMonthFrom);
+            ReportParameter pYearMonthTo = new ReportParameter("pi_to_eval_year_month", yearMonthTo);
             ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { pEvalType,pAgencyId, pYearMonthFrom, pYearMonthTo });
         }
         private void SetReportServerUrl()

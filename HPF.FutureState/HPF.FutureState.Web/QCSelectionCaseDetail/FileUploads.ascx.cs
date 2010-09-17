@@ -95,10 +95,11 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     string[] extList = HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_EXTENSTION.Split(',');
                     foreach (string ext in extList)
                     {
-                        expresstion.AppendFormat(".{0}|.{1}", ext.ToUpper(), ext.ToLower());
+                        expresstion.AppendFormat(".{0}|", ext);
                     }
+                    expresstion.Remove(expresstion.Length - 1, 1);
                     expresstion.Append(")$");
-                    Regex rxValidate = new Regex(expresstion.ToString());
+                    Regex rxValidate = new Regex(expresstion.ToString(),RegexOptions.IgnoreCase);
                     if (!rxValidate.IsMatch(fileUpload.FileName))
                         throw new Exception(errorMessage.ToString());
                     //End check file extension
