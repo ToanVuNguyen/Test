@@ -36,7 +36,7 @@ namespace HPF.FutureState.BusinessLogic
         protected ForeclosureCaseBL()
         {
         }
-       
+        public ExceptionMessageCollection WarningMessage { get; private set; }
         /// <summary>
         /// Check if the user has input any info to the search criteria?
         /// </summary>
@@ -182,7 +182,130 @@ namespace HPF.FutureState.BusinessLogic
             }
             return count;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="excelStream"></param>
+        /// <param name="createdUser"></param>
+        /// <returns>Number of successfull cases have been sent</returns>
+        public int SendSummariesToServicerBasedOnFile(Stream excelStream, string createdUser)
+        {
+            //Validate excel file
+            string fcIdList = GetForeclosureCaseId(excelStream);
+            string[] fcIds = fcIdList.Split(',');
+            int count = fcIds.Length;
+            string fcIdListInvalid = "";
+            int fcIdInvalid = 0;
+            SummaryReportBL workingInstance = null;
+            //TODO: Send Summaries Completed Case to Servicer
+            foreach (string fcId in fcIds)
+            {
+                int iFcId = int.Parse(fcId);
+                workingInstance = SummaryReportBL.Instance;
+                workingInstance.SendCompletedCaseSummary(iFcId);
 
+                //Handle foreclosureCase not complete
+                if (workingInstance.WarningMessage.Count > 0)
+                {
+                    if (fcIdListInvalid.Length == 0)
+                        fcIdListInvalid += fcId;
+                    else
+                        fcIdListInvalid += ("," + fcId);
+                    fcIdInvalid++;
+                    //Remove invalid fcId out of fcIdList
+                    if (fcIdList.Length > fcId.Length)
+                    {
+                        int i = fcIdList.IndexOf(fcId);
+                        if (i > 0) fcIdList = fcIdList.Remove(i - 1, fcId.Length + 1);
+                        else fcIdList = fcIdList.Remove(i, fcId.Length + 1);
+                    }
+                }
+            }
+            if (fcIdListInvalid.Length > 0)
+            {
+                WarningMessage = new ExceptionMessageCollection();
+                WarningMessage.AddExceptionMessage("WARNING", String.Format("List of fcId can not send cause of case not complete : {0}", fcIdListInvalid));
+                count-= fcIdInvalid;
+            }
+            if (count == 0)
+            {
+                DataValidationException dataValidEx = new DataValidationException();
+                dataValidEx.ExceptionMessages.AddExceptionMessage("ERROR", "The input file has not any valid fcId");
+                throw dataValidEx;
+            }
+            //TODDO: insert info into log table
+            AdminTaskLogDTO adminLog = new AdminTaskLogDTO();
+            adminLog.SetInsertTrackingInformation(createdUser);
+            adminLog.TaskName = Constant.ADMIN_TASK_SEND_SUMMARIES;
+            adminLog.TaskNotes = "Send Summaries Case by Excel File";
+            adminLog.RecordCount = count;
+            adminLog.FcIdList = fcIdList;
+
+            AdminTaskLogDAO.Instance.InsertAdminTaskLog(adminLog);
+            return count;
+        }
+        private string GetForeclosureCaseId(Stream excelStream)
+        {
+            string fcIdList = "";
+            DataSet dataSet = null;
+            DataValidationException dataValidEx = new DataValidationException();
+
+            if (excelStream == null || excelStream.Length == 0)
+            {
+                dataValidEx.ExceptionMessages.AddExceptionMessage("ERROR", "An Excel file containing fc ids is required to process.");
+                dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR1103, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1103));
+                throw dataValidEx;
+            }
+            try
+            {
+                dataSet = ExcelFileReader.Read(excelStream, Constant.EXCEL_SEND_SUMMARIES_FC_TAB_NAME);
+            }
+            catch (ExcelFileReaderException ex)
+            {
+                if (ex.ErrorCode == -1)
+                {
+                    dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR1104, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1104));
+                    throw dataValidEx;
+                }
+                else
+                {
+                    dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR1105,ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1105));
+                    throw dataValidEx;
+                }
+            }
+            catch (Exception ex)
+            {
+                dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR1106, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1106));
+                throw dataValidEx;
+            }
+            if (dataSet == null || dataSet.Tables.Count == 0)
+            {
+                dataValidEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR1104, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1104));
+                throw dataValidEx;
+            }
+            DataTable fileContent = dataSet.Tables[0];
+            int count = 0;
+            foreach (DataRow row in fileContent.Rows)
+            {
+                int fcId;
+                if (!int.TryParse(row[0].ToString(), out fcId))
+                {
+                    dataValidEx.ExceptionMessages.AddExceptionMessage("ERROR", "Invalid fc id in row " + (count + 1));
+                    throw dataValidEx;
+                }
+                if (fcIdList.Length == 0)
+                    fcIdList += fcId.ToString();
+                else
+                    fcIdList += ("," + fcId.ToString());
+                count++;
+            }
+            if (fcIdList == "")
+            {
+                dataValidEx.ExceptionMessages.AddExceptionMessage("ERROR", "The selected file does not contain any fc ids.");
+                throw dataValidEx;
+            }
+            return fcIdList;
+        }
         public int MarkDuplicateCases(Stream excelStream, string updateUser)
         {
             string FcIdList = "";

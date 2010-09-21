@@ -665,39 +665,6 @@ namespace HPF.FutureState.DataAccess
 
             return (int[])results.ToArray(typeof(int));
         }
-        /// <summary>
-        /// Check to make sure the case is completed, it has first caseloan and servicer consent indicator is "Y"
-        /// </summary>
-        /// <param name="fcId"></param>
-        /// <returns>Number of Foreclosure Case are matched</returns>
-        public int CheckFcIdToSendSummary(int? fcId)
-        {
-            int rowCount = 0;
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_foreclosure_case_Check_FcId_To_Send_Summaries", dbConnection);
-            var sqlParam = new SqlParameter[1];
-            sqlParam[0] = new SqlParameter("@pi_fc_id", fcId);
-            try
-            {
-                command.Parameters.AddRange(sqlParam);
-                dbConnection.Open();
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    rowCount = 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-
-            return rowCount;
-        }
         public int MarkDuplicateCases(string fcIdList, string updateUser)
         {
             int rowCount = 0;

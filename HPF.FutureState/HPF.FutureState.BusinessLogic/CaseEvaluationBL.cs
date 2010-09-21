@@ -116,16 +116,17 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.SetInsertTrackingInformation(userId);
                     caseEvalSetDAO.InsertCaseEvalDetail(caseEvalDetailDraft);
                 }
+                caseEvalSetDAO.Commit();
+                SendNotifyEmail(prevAuditor, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 caseEvalSetDAO.Cancel();
                 throw ex;
             }
-            finally
+            catch (Exception ex)
             {
-                caseEvalSetDAO.Commit();
-                SendNotifyEmail(prevAuditor, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
+                throw ex;
             }
         }
         //Use for HPF User
@@ -152,16 +153,17 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalDetailDraft.SetUpdateTrackingInformation(userId);
                     caseEvalSetDAO.UpdateCaseEvalDetail(caseEvalDetailDraft);
                 }
+                caseEvalSetDAO.Commit();
+                SendNotifyEmail(prevAuditorId, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 caseEvalSetDAO.Cancel();
                 throw ex;
             }
-            finally
+            catch (Exception ex)
             {
-                caseEvalSetDAO.Commit();
-                SendNotifyEmail(prevAuditorId, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
+                throw ex;
             }
         }
         public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)

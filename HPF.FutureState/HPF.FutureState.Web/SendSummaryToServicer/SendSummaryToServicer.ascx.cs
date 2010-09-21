@@ -29,7 +29,6 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
                 Initialize();
             }
         }
-
         private void ApplySecurity()
         {
             if (!HPFWebSecurity.CurrentIdentity.CanView(Constant.MENU_ITEM_TARGET_APP_SEND_SUMMARY_TO_SERVICER))
@@ -48,6 +47,8 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
             ddlServicer.DataBind();
             txtPeriodStart.Text = DateTime.Now.ToShortDateString();
             txtPeriodEnd.Text = DateTime.Now.ToShortDateString();
+            rbtnSendBasedDateRange.Checked = true;
+            SetSendType();
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -60,19 +61,35 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
             try
             {
                 lstErrorMessage.Items.Clear();
-                AppSummariesToServicerCriteriaDTO criteriaDTO = new AppSummariesToServicerCriteriaDTO();
-                if (!string.IsNullOrEmpty(ddlServicer.SelectedValue))
-                    criteriaDTO.ServicerId = int.Parse(ddlServicer.SelectedValue);
-                DateTime datevalue;
-                if (DateTime.TryParse(txtPeriodStart.Text.Trim(), out datevalue))
-                    criteriaDTO.StartDt = datevalue;
-                if (DateTime.TryParse(txtPeriodEnd.Text.Trim(), out datevalue))
-                    criteriaDTO.EndDt = datevalue;
-                int processedCount = ForeclosureCaseBL.Instance.SendSummariesToServicer(criteriaDTO, HPFWebSecurity.CurrentIdentity.LoginName);
+                string message = "";
+                int processedCount = 0;
+                if (rbtnSendBasedDateRange.Checked)
+                {
+                    AppSummariesToServicerCriteriaDTO criteriaDTO = new AppSummariesToServicerCriteriaDTO();
+                    if (!string.IsNullOrEmpty(ddlServicer.SelectedValue))
+                        criteriaDTO.ServicerId = int.Parse(ddlServicer.SelectedValue);
+                    DateTime datevalue;
+                    if (DateTime.TryParse(txtPeriodStart.Text.Trim(), out datevalue))
+                        criteriaDTO.StartDt = datevalue;
+                    if (DateTime.TryParse(txtPeriodEnd.Text.Trim(), out datevalue))
+                        criteriaDTO.EndDt = datevalue;
+                    processedCount = ForeclosureCaseBL.Instance.SendSummariesToServicer(criteriaDTO, HPFWebSecurity.CurrentIdentity.LoginName);
 
-                SendSummaryServicerCollectionDTO servicers = LookupDataBL.Instance.GetSendSummarySevicers();
-                SendSummaryServicerDTO servicer = servicers.GetServicerById(criteriaDTO.ServicerId);
-                string message = string.Format("{0} summary cases have been sent to {1} via {2} for cases completed between {3} and {4}.", processedCount, servicer.ServicerName, servicer.SummaryDeliveryMethodDesc, criteriaDTO.StartDt.Value.ToShortDateString(), criteriaDTO.EndDt.Value.ToShortDateString());
+                    SendSummaryServicerCollectionDTO servicers = LookupDataBL.Instance.GetSendSummarySevicers();
+                    SendSummaryServicerDTO servicer = servicers.GetServicerById(criteriaDTO.ServicerId);
+                    message = string.Format("{0} summary cases have been sent to {1} via {2} for cases completed between {3} and {4}.", processedCount, servicer.ServicerName, servicer.SummaryDeliveryMethodDesc, criteriaDTO.StartDt.Value.ToShortDateString(), criteriaDTO.EndDt.Value.ToShortDateString());
+                }
+                else
+                {
+                    ForeclosureCaseBL workingInstance = ForeclosureCaseBL.Instance;
+                    processedCount = workingInstance.SendSummariesToServicerBasedOnFile(fileUpload.FileContent, HPFWebSecurity.CurrentIdentity.LoginName);
+                    message = string.Format("{0} summary cases have been sent for cases completed as per uploaded excel file", processedCount);
+                    if (workingInstance.WarningMessage.Count > 0)
+                    {
+                        lstErrorMessage.DataSource = workingInstance.WarningMessage;
+                        lstErrorMessage.DataBind();
+                    }
+                }
                 lstErrorMessage.Items.Add(message);
             }
             catch (DataValidationException dataEx)
@@ -86,6 +103,22 @@ namespace HPF.FutureState.Web.SendSummaryToServicer
                 lstErrorMessage.Items.Add(Ex.Message);
                 ExceptionProcessor.HandleException(Ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+
+        protected void rbtnSendBasedDateRange_CheckedChanged(object sender, EventArgs e)
+        {
+            SetSendType();
+        }
+        protected void rbtnSendBasedFiled_CheckedChanged(object sender, EventArgs e)
+        {
+            SetSendType();
+        }
+        private void SetSendType()
+        {
+            ddlServicer.Enabled = rbtnSendBasedDateRange.Checked;
+            txtPeriodStart.Enabled = rbtnSendBasedDateRange.Checked;
+            txtPeriodEnd.Enabled = rbtnSendBasedDateRange.Checked;
+            fileUpload.Enabled = rbtnSendBasedFiled.Checked;
         }
     }
 }

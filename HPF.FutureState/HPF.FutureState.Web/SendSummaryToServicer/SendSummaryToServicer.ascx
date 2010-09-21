@@ -2,6 +2,8 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <asp:ScriptManager runat="server" ID="ScriptManager1">
 </asp:ScriptManager>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+    <ContentTemplate>
 <table style="width:100%;">
     <tr>
         <td width="10">
@@ -24,7 +26,13 @@
                         <td>
                             <table>
                                 <tr>
-                                    <td>&nbsp;</td><td></td><td></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <asp:RadioButton ID="rbtnSendBasedDateRange" runat="server" Checked="True" 
+                                            GroupName="SendType" oncheckedchanged="rbtnSendBasedDateRange_CheckedChanged" AutoPostBack="true" />
+                                        Choose Date Range</td>
                                 </tr>
                                 <tr>
                                     <td width="80" class="sidelinks" align="right">
@@ -55,21 +63,61 @@
                                  <tr>
                                     <td></td><td></td>
                                  </tr>
+                                 
+                                    
+                            </table>
+                        </td>
+                        <td>                            
+                            <table>
+                                <tr>
+                                    <td colspan="3"></td>
+                                 </tr>
                                  <tr>
-                                     <td></td>
-                                      <td>
-                                          <asp:Button ID="btnSend" runat="server" CssClass="MyButton" Text="Send" 
-                                                Width="70px" onclick="btnSend_Click"/>&nbsp;&nbsp;
-                                          <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" Text="Cancel" 
-                                                Width="70px" onclick="btnCancel_Click" />
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                    </tr>
+                                    <td></td> <td colspan="2">
+                                     <asp:RadioButton ID="rbtnSendBasedFiled" runat="server" GroupName="SendType" 
+                                         oncheckedchanged="rbtnSendBasedFiled_CheckedChanged" AutoPostBack="true" />
+                                     Choose from file</td>
+                                </tr>
+                                <tr>              
+                                    <td></td>                      
+                                    <td colspan="2" class="sidelinks">
+                                        Select the Excel file that contains fc ids
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <asp:FileUpload ID="fileUpload" runat="server" BackColor="#EBEBE4" 
+                                            CssClass="Text" Height="18px" onkeydown="return false;" 
+                                            onkeypress="return false;" Width="400px" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>                                    
+                                    <td colspan="3">&nbsp;</td>
+                                </tr>
+                                <tr>                                    
+                                    <td colspan="3">&nbsp;</td>
+                                </tr>
                             </table>
                         </td>                        
-                    </tr>                    
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <table>
+                                <tr><td></td></tr>
+                                <tr>
+                                <td>
+                                    <asp:Button ID="btnSend" runat="server" CssClass="MyButton" Text="Send" 
+                                        Width="70px" onclick="btnSend_Click"/>&nbsp;&nbsp;
+                                    <asp:Button ID="btnCancel" runat="server" CssClass="MyButton" Text="Cancel" 
+                                        Width="70px" onclick="btnCancel_Click" />
+                                    </td>
+                                 </tr>
+                                 <tr><td></td></tr>
+                             </table>       
+                         </td>
+                     </tr>                
             </table>           
             </asp:Panel>            
         </td>
@@ -85,3 +133,8 @@
             &nbsp;</td>
     </tr>
 </table>
+</ContentTemplate>
+<Triggers>
+     <asp:PostBackTrigger ControlID="btnSend" />                   
+</Triggers>
+</asp:UpdatePanel>

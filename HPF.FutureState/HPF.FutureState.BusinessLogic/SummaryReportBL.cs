@@ -25,9 +25,9 @@ namespace HPF.FutureState.BusinessLogic
 
         protected SummaryReportBL()
         {
-            
+            WarningMessage = new ExceptionMessageCollection();
         }
-
+        public ExceptionMessageCollection WarningMessage { get; private set; } 
         /// <summary>
         /// Generate summary report as pdf format
         /// </summary>
@@ -110,13 +110,19 @@ namespace HPF.FutureState.BusinessLogic
         /// </summary>
         /// <param name="fc_id"></param>
         public void SendCompletedCaseSummary(int? fc_id)
-        {            
+        {
+            WarningMessage = new ExceptionMessageCollection();
             //<Prepare data>
             var foreclosureCase = ForeclosureCaseBL.Instance.GetForeclosureCase(fc_id);
             if (foreclosureCase == null)
             {
                 Exception ex = new Exception("Database error: Invalid fc ID " + fc_id);
-                throw ExceptionProcessor.GetHpfException(ex, foreclosureCase.FcId.ToString(), "SummaryReportBL.SendCompletedCaseSummary");
+                throw ExceptionProcessor.GetHpfException(ex, fc_id.ToString(), "SummaryReportBL.SendCompletedCaseSummary");
+            }
+            if (foreclosureCase.CompletedDt == null)
+            {
+                WarningMessage.AddExceptionMessage(ErrorMessages.WARN1107, ErrorMessages.GetExceptionMessage(ErrorMessages.WARN1107));
+                return;
             }
             var caseLoan = GetCaseLoans1St(fc_id);
             var primaryServicer = ServicerBL.Instance.GetServicer(caseLoan.ServicerId.Value);
