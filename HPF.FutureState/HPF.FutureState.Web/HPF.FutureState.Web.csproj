@@ -129,6 +129,20 @@
     <Compile Include="AppManageEvalSection\AppManageEvalSectionUC.ascx.designer.cs">
       <DependentUpon>AppManageEvalSectionUC.ascx</DependentUpon>
     </Compile>
+    <Compile Include="AppManageUserPermission\AppManageUserPermissionUC.ascx.cs">
+      <DependentUpon>AppManageUserPermissionUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppManageUserPermission\AppManageUserPermissionUC.ascx.designer.cs">
+      <DependentUpon>AppManageUserPermissionUC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AppManageUser\AppManageUserUC.ascx.cs">
+      <DependentUpon>AppManageUserUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AppManageUser\AppManageUserUC.ascx.designer.cs">
+      <DependentUpon>AppManageUserUC.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx.cs">
       <DependentUpon>AppQCSelectionCaseSearchUC.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -240,6 +254,20 @@
     </Compile>
     <Compile Include="ManageEvalTemplate\TemplateSection.ascx.designer.cs">
       <DependentUpon>TemplateSection.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageUser.aspx.cs">
+      <DependentUpon>ManageUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageUser.aspx.designer.cs">
+      <DependentUpon>ManageUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageUserPermission.aspx.cs">
+      <DependentUpon>ManageUserPermission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageUserPermission.aspx.designer.cs">
+      <DependentUpon>ManageUserPermission.aspx</DependentUpon>
     </Compile>
     <Compile Include="MarkDuplicateCases\MarkDuplicateCases.ascx.cs">
       <DependentUpon>MarkDuplicateCases.ascx</DependentUpon>
@@ -601,6 +629,8 @@
     <Content Include="AgencyPayableInfo.aspx" />
     <Content Include="AppManageEvalQuestion\AppManageEvalQuestionUC.ascx" />
     <Content Include="AppManageEvalSection\AppManageEvalSectionUC.ascx" />
+    <Content Include="AppManageUserPermission\AppManageUserPermissionUC.ascx" />
+    <Content Include="AppManageUser\AppManageUserUC.ascx" />
     <Content Include="AppQCSelectionCaseSearch\AppQCSelectionCaseSearchUC.ascx" />
     <Content Include="AppNewInvoice\NewInvoiceCriteria.ascx" />
     <Content Include="AppNewPayable\ReprintPayable.ascx" />
@@ -617,6 +647,8 @@
     <Content Include="ManageEvalTemplate\EvaluationTemplate.ascx" />
     <Content Include="ManageEvalTemplate\TemplateQuestion.ascx" />
     <Content Include="ManageEvalTemplate\TemplateSection.ascx" />
+    <Content Include="ManageUser.aspx" />
+    <Content Include="ManageUserPermission.aspx" />
     <Content Include="MarkDuplicateCases\MarkDuplicateCases.ascx" />
     <Content Include="NewPayableSelection.aspx" />
     <Content Include="PrintQCReport.aspx" />

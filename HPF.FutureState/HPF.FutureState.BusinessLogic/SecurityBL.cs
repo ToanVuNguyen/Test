@@ -47,7 +47,7 @@ namespace HPF.FutureState.BusinessLogic
         public bool WebUserChangePassword(string userName, string oldPassword, string confirmPassword)
         {
             UserDTO currentUser = SecurityDAO.Instance.GetWebUser(userName);
-            currentUser.SetInsertTrackingInformation(currentUser.HPFUserId.ToString());
+            currentUser.SetUpdateTrackingInformation(currentUser.HPFUserId.ToString());
             if (currentUser.Password.ToLower() == oldPassword.ToLower())
             {
                 currentUser.Password = confirmPassword;

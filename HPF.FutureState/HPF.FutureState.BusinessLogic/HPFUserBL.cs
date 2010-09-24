@@ -38,5 +38,14 @@ namespace HPF.FutureState.BusinessLogic
         {
             return HPFUserDAO.Instance.GetHpfUsersByAgencyId(agencyId);
         }
+        public void UpdateHpfUser(HPFUserDTO hpfUser)
+        {
+            HPFUserDAO.Instance.UpdateHpfUser(hpfUser);
+        }
+        public HPFUserDTO InsertHpfUser(HPFUserDTO hpfUser)
+        {
+            return HPFUserDAO.Instance.InsertHpfUser(hpfUser);
+        }
     }
+    
 }
