@@ -44,7 +44,7 @@ namespace HPF.FutureState.DataAccess
             return results;
         }
 
-        private HPFUserDTOCollection GetHpfUsersFromDatabase()
+        public HPFUserDTOCollection GetHpfUsersFromDatabase()
         {
             HPFUserDTOCollection hpfUsers = null;
             var dbConnection = CreateConnection();

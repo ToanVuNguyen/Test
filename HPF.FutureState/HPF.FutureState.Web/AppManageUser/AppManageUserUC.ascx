@@ -24,22 +24,17 @@
                         ForeColor="White" />
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:HyperLinkField DataTextField="HpfUserId" DataNavigateUrlFields="HpfUserId" DataNavigateUrlFormatString="../ManageUserPermission.aspx?userId={0}"
-                                    HeaderText="User ID"/>
                         <asp:TemplateField HeaderText="Index" Visible="false" >  
                             <ItemTemplate>
                                 <asp:Label ID="lblHpfUserId" runat="server" Text='<%# Bind("HpfUserId") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="User Login ID" ItemStyle-Width="80" >  
-                            <EditItemTemplate>
-                                <asp:TextBox ID="txtUserLoginId" runat="server" Text='<%# Eval("UserLoginId") %>'></asp:TextBox>
-                            </EditItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox ID="txtUserLoginId" runat="server"></asp:TextBox> 
                             </FooterTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblUserLoginId" runat="server" Text='<%# Bind("UserLoginId") %>'></asp:Label>
+                                <asp:HyperLink runat="server" Text='<%# Bind("UserLoginId") %>' ID="lnkUserLoginId"></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Password" >  

@@ -20,16 +20,20 @@ namespace HPF.FutureState.Web.AppManageUser
 {
     public partial class AppManageUserUC : System.Web.UI.UserControl
     {
-        private const string SessionUserCollection = "UserCollection";
         private const string ActivateCommandText = "Activate";
         private const string DeactivateCommandText = "Deactivate";
+        private HPFUserDTOCollection userCollection
+        {
+            get { return (HPFUserDTOCollection)ViewState["userCollection"]; }
+            set { ViewState["userCollection"] = value; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 if (!IsPostBack)
                 {
-                    Session[SessionUserCollection] = HPFUserBL.Instance.RetrieveHpfUsers();
+                    userCollection = HPFUserBL.Instance.RetriveHpfUsersFromDatabase();
                     grdvHPFUserBinding();
                 }
             }
@@ -41,10 +45,8 @@ namespace HPF.FutureState.Web.AppManageUser
         }
         private void grdvHPFUserBinding()
         {
-            HPFUserDTOCollection userCollection;
-            if (Session[SessionUserCollection] != null)
+            if (userCollection != null)
             {
-                userCollection = (HPFUserDTOCollection)Session[SessionUserCollection];
                 grdvHPFUser.DataSource = userCollection;
                 grdvHPFUser.DataBind();
             }
@@ -65,9 +67,12 @@ namespace HPF.FutureState.Web.AppManageUser
         protected void grdvHPFUser_RowCreated(object sender, GridViewRowEventArgs e)
         {
             LinkButton lbtnActivate = e.Row.FindControl("lbtnActivate") as LinkButton;
+            HyperLink lnkUserLoginId = e.Row.FindControl("lnkUserLoginId") as HyperLink;
             HPFUserDTO userItem = e.Row.DataItem as HPFUserDTO;
             if (userItem == null) return;
             lbtnActivate.Text = (userItem.ActiveInd.ToUpper() == Constant.INDICATOR_YES ? DeactivateCommandText : ActivateCommandText);
+            lnkUserLoginId.NavigateUrl = "../ManageUserPermission.aspx?userId=" + userItem.HpfUserId;
+
         }
 
         protected void grdvHPFUser_RowEditing(object sender, GridViewEditEventArgs e)
@@ -87,18 +92,16 @@ namespace HPF.FutureState.Web.AppManageUser
             try
             {
                 
-                HPFUserDTO userItem = RowToHPFUserDTO(grdvHPFUser.Rows[e.RowIndex]);
-                if (Session[SessionUserCollection] != null)
+                HPFUserDTO userItem = RowToHPFUserDTO(grdvHPFUser.Rows[e.RowIndex],"Update");
+                if (userCollection!=null)
                 {
-                    HPFUserDTOCollection userItems = Session[SessionUserCollection] as HPFUserDTOCollection;
-                    int index = userItems.ToList().FindIndex(item => item.HpfUserId == userItem.HpfUserId);
+                    int index = userCollection.ToList().FindIndex(item => item.HpfUserId == userItem.HpfUserId);
                     if (index >= 0)
                     {
-                        userItem.ActiveInd = userItems[index].ActiveInd;
-                        userItems[index] = userItem;
-                        userItems[index].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
-                        HPFUserBL.Instance.UpdateHpfUser(userItems[index]);
-                        Session[SessionUserCollection] = userItems;
+                        userItem.ActiveInd = userCollection[index].ActiveInd;
+                        userCollection[index] = userItem;
+                        userCollection[index].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                        HPFUserBL.Instance.UpdateHpfUser(userCollection[index]);
                         grdvHPFUser.EditIndex = -1;
                         grdvHPFUserBinding();
                     }
@@ -120,31 +123,26 @@ namespace HPF.FutureState.Web.AppManageUser
                     LinkButton lbtnActivate = e.CommandSource as LinkButton;
                     Label lblHpfUserId = lbtnActivate.Parent.FindControl("lblHpfUserId") as Label;
                     Label lblActiveInd = lbtnActivate.Parent.FindControl("lblActiveInd") as Label;
-                    HPFUserDTOCollection userItems = Session[SessionUserCollection] as HPFUserDTOCollection;
-                    int index = userItems.ToList().FindIndex(item => item.HpfUserId == ConvertToInt(lblHpfUserId.Text));
-                    userItems[index].ActiveInd = (lblActiveInd.Text.ToUpper() == Constant.INDICATOR_NO ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
-                    userItems[index].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
-                    HPFUserBL.Instance.UpdateHpfUser(userItems[index]);
-                    Session[SessionUserCollection] = userItems;
+                    int index = userCollection.ToList().FindIndex(item => item.HpfUserId == ConvertToInt(lblHpfUserId.Text));
+                    userCollection[index].ActiveInd = (lblActiveInd.Text.ToUpper() == Constant.INDICATOR_NO ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
+                    userCollection[index].SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                    HPFUserBL.Instance.UpdateHpfUser(userCollection[index]);
                     grdvHPFUserBinding();
                 }
                 else if (e.CommandName.Equals("AddNew"))
                 {
-                    HPFUserDTO userItem = RowToHPFUserDTO(grdvHPFUser.FooterRow);
+                    HPFUserDTO userItem = RowToHPFUserDTO(grdvHPFUser.FooterRow,"AddNew");
                     userItem.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                     userItem.ActiveInd = Constant.INDICATOR_YES;
-                    HPFUserBL.Instance.InsertHpfUser(userItem);
-                    if (Session[SessionUserCollection] != null)
+                    userItem = HPFUserBL.Instance.InsertHpfUser(userItem);
+                    if (userCollection!=null)
                     {
-                        HPFUserDTOCollection userItems = Session[SessionUserCollection] as HPFUserDTOCollection;
-                        userItems.Add(userItem);
-                        Session[SessionUserCollection] = userItems;
+                        userCollection.Add(userItem);
                     }
                     else
                     {
-                        HPFUserDTOCollection userItems = new HPFUserDTOCollection();
-                        userItems.Add(userItem);
-                        Session[SessionUserCollection] = userItems;
+                        userCollection = new HPFUserDTOCollection();
+                        userCollection.Add(userItem);
                     }
                     grdvHPFUserBinding();
                 }
@@ -155,23 +153,32 @@ namespace HPF.FutureState.Web.AppManageUser
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
-        private HPFUserDTO RowToHPFUserDTO(GridViewRow row)
+        private HPFUserDTO RowToHPFUserDTO(GridViewRow row,string status)
         {
             HPFUserDTO result = new HPFUserDTO();
             #region Retrive controls from gridview row
             Label lblHpfUserId = row.FindControl("lblHpfUserId") as Label;
-            TextBox txtUserLoginId = row.FindControl("txtUserLoginId") as TextBox;
             TextBox txtPassword = row.FindControl("txtPassword") as TextBox;
             TextBox txtFirstName = row.FindControl("txtFirstName") as TextBox;
             TextBox txtLastName = row.FindControl("txtLastName") as TextBox;
             TextBox txtEmail = row.FindControl("txtEmail") as TextBox;
             #endregion
-            result.HpfUserId = ConvertToInt(lblHpfUserId.Text);
-            result.UserLoginId = txtUserLoginId.Text;
             result.Password = txtPassword.Text;
             result.FirstName = txtFirstName.Text;
             result.LastName = txtLastName.Text;
             result.Email = txtEmail.Text;
+            if (status == "AddNew")
+            {
+                TextBox txtUserLoginId = row.FindControl("txtUserLoginId") as TextBox;
+                result.UserLoginId = txtUserLoginId.Text;
+            }
+            //Update
+            else
+            {
+                HyperLink lnkUserLoginId = row.FindControl("lnkUserLoginId") as HyperLink;
+                result.UserLoginId = lnkUserLoginId.Text;
+                result.HpfUserId = ConvertToInt(lblHpfUserId.Text);
+            }
             return result;
         }
         private int? ConvertToInt(object obj)
@@ -183,4 +190,5 @@ namespace HPF.FutureState.Web.AppManageUser
             return returnValue;
         }
     }
+    
 }

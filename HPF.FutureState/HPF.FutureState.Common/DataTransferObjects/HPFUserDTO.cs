@@ -2,9 +2,11 @@
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using HPF.FutureState.Common.Utils.DataValidator;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
+using System;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class HPFUserDTO:BaseDTO
     {
         public int? HpfUserId { get; set; }
