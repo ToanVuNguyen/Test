@@ -21,16 +21,46 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
 {
     public partial class AppQCSelectionCaseSearchUC : System.Web.UI.UserControl
     {
+        #region Properties
         private const int MONTHS = 24;
+        protected CaseEvalSearchResultDTOCollection searchResult
+        {
+            get { return (CaseEvalSearchResultDTOCollection)ViewState["SearchResult"]; }
+            set { ViewState["SearchResult"] = value; }
+        }
+        //total records in one page, get this info from web config
+        protected int PageSize
+        {
+            get { return (int.Parse(HPFConfigurationSettings.APP_EVALUATIONCASE_PAGE_SIZE)); }
+        }
+        //total rows of search data
+        protected double TotalRowNum
+        {
+            get { return Convert.ToDouble(ViewState["totalrownum"]); }
+            set { ViewState["totalrownum"] = value; }
+        }
+        //current page
+        protected int PageNum
+        {
+            get { return grvCaseEvalList.PageIndex; }
+            set { grvCaseEvalList.PageIndex = value; }
+        }
+        #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             ClearErrorMessages();
+            grvCaseEvalList.PageSize = this.PageSize;
             if (!IsPostBack)
             {
                 BindMonthYearDropDownList();
                 BindAgencyDropDownList();
                 BindEvalStatusDropDownList();
                 BindEvalTypeDropDownList();
+            }
+            else
+            {
+                double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+                GeneratePages(totalpage);
             }
         }
         /// <summary>
@@ -127,9 +157,21 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
         }
         private void CaseEvalSearch(CaseEvalSearchCriteriaDTO searchCriteria)
         {
-            CaseEvalSearchResultDTOCollection searchResult = CaseEvaluationBL.Instance.SearchCaseEval(searchCriteria);
+            searchResult = CaseEvaluationBL.Instance.SearchCaseEval(searchCriteria);
             grvCaseEvalList.DataSource = searchResult;
             grvCaseEvalList.DataBind();
+            if (searchResult.Count > 0)
+            {
+                
+                btnEditCase.Visible = true;
+                CalculatePaging(searchResult.Count);
+            }
+            else
+            {
+                btnEditCase.Visible = false;
+                ShowHidePagingControl(false);
+                lblErrorMessage.Items.Add(new ListItem("No case evaluation found !!!"));
+            }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -167,7 +209,171 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
             int fcId = (int)grvCaseEvalList.SelectedValue;
             Response.Redirect("QCSelectionCaseInfo.aspx?caseId=" + fcId.ToString());
         }
+        #region Paging
+        private void CalculatePaging(double searchResultCount)
+        {
+            this.TotalRowNum = searchResultCount;
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+            if (totalpage > 1)
+            {
+                GeneratePages(totalpage);
+                lblTemp.Text = "1";
+                ShowHidePagingControl(true);
+                int MinRow = this.PageSize * PageNum + 1;
+                int MaxRow = (PageNum + 1) * this.PageSize;
+                lblTotalRowNum.Text = this.TotalRowNum.ToString();
+                lblMinRow.Text = MinRow.ToString();
+                lblMaxRow.Text = MaxRow.ToString();
+                if (MaxRow > this.TotalRowNum)
+                    lblMaxRow.Text = this.TotalRowNum.ToString();
+                else lblMaxRow.Text = MaxRow.ToString();
+            }
+        }
 
+        private void GeneratePages(double totalpage)
+        {
+            phPages.Controls.Clear();
+            for (int i = 1; i <= totalpage; i++)
+            {
+                LinkButton myLinkBtn = new LinkButton();
+                myLinkBtn.ID = i.ToString();
+                myLinkBtn.Text = i.ToString();
+                //the first time you click searh button or choosen page. disable this page.
+                if (i == this.PageNum + 1)
+                {
+                    myLinkBtn.CssClass = "PageChoose";
+                    myLinkBtn.Enabled = false;
+                }
+                else
+                {
+                    myLinkBtn.CssClass = "UnderLine";
+                }
+                myLinkBtn.CommandName = i.ToString();
+                myLinkBtn.Command += new CommandEventHandler(myLinkBtn_Command);
+                myLinkBtn.Attributes.Add("onclick", "ShowWaitPanel();");
+                phPages.Controls.Add(myLinkBtn);
+                //add spaces beetween pages link button.
+                Literal lit = new Literal();
+                lit.Text = "&nbsp;&nbsp;";
+                phPages.Controls.Add(lit);
+            }
+
+            if (totalpage == 1)
+            {
+                lbtnLast.Enabled = false;
+                lbtnNext.Enabled = false;
+            }
+            else
+            {
+                if (this.PageNum < totalpage - 1)
+                {
+                    lbtnLast.Enabled = true;
+                    lbtnNext.Enabled = true;
+                }
+            }
+        }
+
+        protected void ShowHidePagingControl(bool isEnable)
+        {
+            lbl1.Visible = isEnable;
+            lbl2.Visible = isEnable;
+            lblMaxRow.Visible = isEnable;
+            lblMinRow.Visible = isEnable;
+            lblTotalRowNum.Visible = isEnable;
+            lbtnFirst.Visible = isEnable;
+            lbtnLast.Visible = isEnable;
+            lbtnNext.Visible = isEnable;
+            lbtnPrev.Visible = isEnable;
+            phPages.Visible = isEnable;
+        }
+        /// <summary>
+        /// when click on button:  << < > >>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void lbtnNavigate_Click(object sender, CommandEventArgs e)
+        {
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+            switch (e.CommandName)
+            {
+                // button: <<
+                case "First":
+                    this.PageNum = 0;
+                    lbtnFirst.Enabled = false;
+                    lbtnPrev.Enabled = false;
+                    break;
+                // button: >>
+                case "Last":
+                    lbtnLast.Enabled = false;
+                    lbtnNext.Enabled = false;
+                    lbtnFirst.Enabled = true;
+                    lbtnPrev.Enabled = true;
+                    this.PageNum = (int)totalpage - 1;
+                    break;
+                // button: >
+                case "Next":
+                    this.PageNum++;
+                    lbtnFirst.Enabled = true;
+                    lbtnLast.Enabled = true;
+                    lbtnPrev.Enabled = true;
+
+                    if (this.PageNum == totalpage - 1)
+                    {
+                        lbtnNext.Enabled = false;
+                        lbtnLast.Enabled = false;
+                    }
+
+                    break;
+                // button: <
+                case "Prev":
+                    this.PageNum--;
+                    lbtnFirst.Enabled = true;
+                    lbtnLast.Enabled = true;
+                    lbtnNext.Enabled = true;
+                    if (this.PageNum == 0)
+                    {
+                        lbtnPrev.Enabled = false;
+                        lbtnFirst.Enabled = false;
+                    }
+                    break;
+            }
+
+            ShowHidePagingControl(true);
+
+            grvCaseEvalList.DataSource = (CaseEvalSearchResultDTOCollection)ViewState["SearchResult"];
+            grvCaseEvalList.DataBind();
+            CalculatePaging(this.TotalRowNum);
+        }
+
+        void myLinkBtn_Command(object sender, CommandEventArgs e)
+        {
+            double totalpage = Math.Ceiling(this.TotalRowNum / this.PageSize);
+            int pagenum = int.Parse(e.CommandName);
+            this.PageNum = pagenum - 1;
+
+            lbtnFirst.Enabled = true;
+            lbtnLast.Enabled = true;
+            lbtnNext.Enabled = true;
+            lbtnPrev.Enabled = true;
+
+            if (pagenum == 1)
+            {
+                lbtnFirst.Enabled = false;
+                lbtnPrev.Enabled = false;
+            }
+            if (pagenum == totalpage)
+            {
+                lbtnLast.Enabled = false;
+                lbtnNext.Enabled = false;
+            }
+
+            ShowHidePagingControl(true);
+
+            grvCaseEvalList.DataSource = (CaseEvalSearchResultDTOCollection)ViewState["SearchResult"];
+            grvCaseEvalList.DataBind();
+            CalculatePaging(this.TotalRowNum);
+        }
+        #endregion
         
     }
 }

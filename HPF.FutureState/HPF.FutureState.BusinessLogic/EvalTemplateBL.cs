@@ -141,15 +141,12 @@ namespace HPF.FutureState.BusinessLogic
                     else 
                         instance.RemoveEvalTemplateSection(section);
                 }
+                instance.Commit();
             }
             catch (Exception ex)
             {
                 instance.Cancel();
                 throw ex;
-            }
-            finally
-            {
-                instance.Commit();
             }
         }
         public DataValidationException ValidateTemplateSection(EvalTemplateSectionDTOCollection sectionCollection)
@@ -160,6 +157,17 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1114, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1114) });
                     break;
+                }
+            if (ex.ExceptionMessages.Count > 0) return ex;
+            //Check duplicate section order
+            for (int i=0;i<sectionCollection.Count;i++)
+                for (int j = i+1; j < sectionCollection.Count; j++)
+                {
+                    if (sectionCollection[i].SectionOrder == sectionCollection[j].SectionOrder)
+                    {
+                        ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1117, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1117) });
+                        break;
+                    }
                 }
             return ex;
         }
@@ -199,15 +207,12 @@ namespace HPF.FutureState.BusinessLogic
                 evalTemplate.TotalScore = totalScore;
                 evalTemplate.SetUpdateTrackingInformation(loginName);
                 instance.UpdateEvalTemplateTotalScore(evalTemplate);
+                instance.Commit();
             }
             catch (Exception ex)
             {
                 instance.Cancel();
                 throw ex;
-            }
-            finally
-            {
-                instance.Commit();
             }
         }
         public DataValidationException ValidateSectionQuestion(EvalSectionQuestionDTOCollection questionCollection)
@@ -226,6 +231,18 @@ namespace HPF.FutureState.BusinessLogic
                     break;
                 }
             }
+            if (ex.ExceptionMessages.Count > 0) return ex;
+            //Check duplicate order of questions in the same section
+            for (int i=0;i<questionCollection.Count;i++)
+                for (int j = i + 1; j < questionCollection.Count; j++)
+                {
+                    if (questionCollection[i].QuestionOrder == questionCollection[j].QuestionOrder
+                        && questionCollection[i].EvalSectionId == questionCollection[j].EvalSectionId)
+                    {
+                        ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1118, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1118) });
+                        break;
+                    }
+                }
             return ex;
         }
     }

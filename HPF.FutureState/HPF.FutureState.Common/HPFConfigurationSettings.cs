@@ -77,7 +77,13 @@ namespace HPF.FutureState.Common
             }
 
         }
-
+        public static string APP_EVALUATIONCASE_PAGE_SIZE
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["APP_EVALUATIONCASE_PAGE_SIZE"];
+            }
+        }
         public static string TEMP_DIRECTORY
         {
             get

@@ -104,6 +104,15 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblEvaluationType;
         
         /// <summary>
+        /// lblTemplateName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTemplateName;
+        
+        /// <summary>
         /// lblErrorMessage control.
         /// </summary>
         /// <remarks>

@@ -103,6 +103,7 @@ namespace HPF.FutureState.Web
             lblCallDate.Text = caseSelection.CallDate.Value.ToShortDateString();
             lblCounselor.Text = caseSelection.CounselorName;
             lblEvaluationType.Text = caseSelection.EvalType;
+            lblTemplateName.Text = caseSelection.TemplateName;
         }
         private void AddErrorMessage(string errMes)
         {

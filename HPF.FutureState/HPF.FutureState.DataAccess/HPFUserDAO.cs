@@ -66,6 +66,7 @@ namespace HPF.FutureState.DataAccess
                            Password = ConvertToString(reader["password"]),
                            FirstName = ConvertToString(reader["fname"]),
                            LastName = ConvertToString(reader["lname"]),
+                           Email = ConvertToString(reader["email"]),
                            ActiveInd = ConvertToString(reader["active_ind"])
                        });
                     }

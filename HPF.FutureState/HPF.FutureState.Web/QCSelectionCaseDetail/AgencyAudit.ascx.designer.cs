@@ -68,31 +68,13 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::AjaxControlToolkit.CalendarExtender txtEvaluationDate_CalendarExtender;
         
         /// <summary>
-        /// lblCaseTotalScore control.
+        /// lblTotalScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCaseTotalScore;
-        
-        /// <summary>
-        /// lblCasePossibleScore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCasePossibleScore;
-        
-        /// <summary>
-        /// lblLevelPercent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLevelPercent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTotalScore;
         
         /// <summary>
         /// lblLevelName control.
@@ -185,15 +167,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.TextBox txtComments;
         
         /// <summary>
-        /// btnCloseAudit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCloseAudit;
-        
-        /// <summary>
         /// btnCalculate control.
         /// </summary>
         /// <remarks>
@@ -203,15 +176,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
-        /// btnUpdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
-        
-        /// <summary>
         /// btnSaveNew control.
         /// </summary>
         /// <remarks>
@@ -219,6 +183,24 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveNew;
+        
+        /// <summary>
+        /// btnNotifyAgency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNotifyAgency;
+        
+        /// <summary>
+        /// btnCloseAudit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCloseAudit;
         
         /// <summary>
         /// btnClose control.

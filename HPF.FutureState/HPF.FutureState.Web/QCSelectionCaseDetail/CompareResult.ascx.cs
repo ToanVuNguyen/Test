@@ -49,10 +49,14 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     if (string.Compare(prevSectionName, evalDetail.SectionName) != 0)
                         placeHolder.Controls.Add(RenderSectionRow(evalDetail.SectionName));
                     //Render Question row
-                    placeHolder.Controls.Add(RenderQuestionRow(evalDetail.CaseEvalDetailId, evalDetail.QuestionOrder, evalDetail.EvalQuestion, evalDetail.QuestionExample, evalDetail.EvalAnswer, caseEvalHPF.CaseEvalDetails[i].EvalAnswer));
+                    placeHolder.Controls.Add(RenderQuestionRow(evalDetail.QuestionOrder, evalDetail.EvalQuestion, evalDetail.QuestionExample, evalDetail.EvalAnswer, caseEvalHPF.CaseEvalDetails[i].EvalAnswer,evalDetail.Comments,caseEvalHPF.CaseEvalDetails[i].Comments));
                     prevSectionName = evalDetail.SectionName;
                     i++;
                 }
+                #region Render Section Comments
+                placeHolder.Controls.Add(RenderSectionRow("Reviewer Comment"));
+                placeHolder.Controls.Add(RenderQuestionRow(-1, "", "", "", "", caseEvalAgency.Comments, caseEvalHPF.Comments));
+                #endregion
                 lblAgencyScore.InnerText = caseEvalAgency.TotalAuditScore.ToString();
                 lblAgencyCasePossibleScore.InnerText= caseEvalAgency.TotalPossibleScore.ToString();
                 decimal percent = Math.Round((decimal)((decimal)caseEvalAgency.TotalAuditScore / (decimal)caseEvalAgency.TotalPossibleScore), 4);
@@ -76,7 +80,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         {
             TableRow tr = new TableRow();
             tr.Attributes.Add("style", "background:#CDC9C9");
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 TableCell tc = new TableCell();
                 if (i == 0)
@@ -100,7 +104,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         /// <param name="questionExample"></param>
         /// <param name="questionDescription"></param>
         /// <returns></returns>
-        private TableRow RenderQuestionRow(int? id, int? order, string question, string questionExample, string answerAgency, string answerHPF)
+        private TableRow RenderQuestionRow(int? order, string question, string questionExample, string answerAgency, string answerHPF,string commentAgency,string commentHPF)
         {
             TableRow result = new TableRow();
             //First Cell
@@ -109,7 +113,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             TableRow trChild = new TableRow();
             TableCell tcChild = new TableCell();
             Label lblOrder = new Label();
-            lblOrder.Text = order.ToString();
+            if(order>0)
+                lblOrder.Text = order.ToString();
             tcChild.Attributes.Add("align", "center");
             tcChild.Attributes.Add("class", "sidelinks");
             tcChild.Attributes.Add("width", "10px");
@@ -134,12 +139,26 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             lblAgencyAnswer.Text = answerAgency;
             tc.Controls.Add(lblAgencyAnswer);
             result.Controls.Add(tc);
+            //The next agency comment cell
+            tc = new TableCell();
+            tc.Attributes.Add("align", "justify");
+            Label lblAgencyComment = new Label();
+            lblAgencyComment.Text = commentAgency;
+            tc.Controls.Add(lblAgencyComment);
+            result.Controls.Add(tc);
             //The next HPF answer cell
             tc = new TableCell();
             tc.Attributes.Add("align", "center");
             Label lblHPFAnswer = new Label();
             lblHPFAnswer.Text = answerHPF;
             tc.Controls.Add(lblHPFAnswer);
+            result.Controls.Add(tc);
+            //The next HPF comment cell
+            tc = new TableCell();
+            tc.Attributes.Add("align", "justify");
+            Label lblHPFComment = new Label();
+            lblHPFComment.Text = commentHPF;
+            tc.Controls.Add(lblHPFComment);
             result.Controls.Add(tc);
 
             return result;

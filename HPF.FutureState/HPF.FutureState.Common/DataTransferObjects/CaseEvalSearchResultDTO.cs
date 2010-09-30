@@ -5,6 +5,7 @@ using System.Text;
 
 namespace HPF.FutureState.Common.DataTransferObjects
 {
+    [Serializable]
     public class CaseEvalSearchResultDTO:BaseDTO
     {
         public CaseEvalSetDTOCollection CaseEvalSets { get; set; }
@@ -12,6 +13,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string EvalStatus { get; set; }
         public string EvalType { get; set; }
         public string EvaluationYearMonth { get; set; }
+        public string TemplateName { get; set; }
         #region Information of ForeclosureCase
         public int? FcId { get; set; }
         public string AgencyCaseNum { get; set; }

@@ -11,6 +11,7 @@ using System;
 using HPF.FutureState.Common.Utils;
 using System.Text;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace HPF.FutureState.BusinessLogic
 {
@@ -91,21 +92,27 @@ namespace HPF.FutureState.BusinessLogic
         /// <param name="caseEvalSetDraft"></param>
         /// <param name="userId">User login</param>
         /// <param name="isHpfUser"></param>
-        public void SaveCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft, bool isHpfUser, string userId)
+        public void SaveCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft, bool isHpfUser, string userId,bool isFullFill)
         {
             CaseEvalSetDAO caseEvalSetDAO = CaseEvalSetDAO.CreateInstance();
             string prevAuditor = string.Empty;
+            bool isResultWithinRange = false;
+            string evalStatus = string.Empty;
             try
             {
                 caseEvalSetDAO.Begin();
-                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref prevAuditor);
-                string evalStatus = GetEvaluationStatus(isHpfUser, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
-                caseEvalHeader.SetUpdateTrackingInformation(userId);
-                if (evalStatus != caseEvalHeader.EvalStatus)
+                //Check if all questions be fullfilled
+                if (isFullFill)
+                {
+                    isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref prevAuditor);
+                    evalStatus = GetEvaluationStatus(isHpfUser, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
+                }
+                if (!string.IsNullOrEmpty(evalStatus) && evalStatus != caseEvalHeader.EvalStatus)
                 {
                     caseEvalHeader.EvalStatus = evalStatus;
-                    caseEvalSetDAO.UpdateCaseEvalHeader(caseEvalHeader);
                 }
+                caseEvalHeader.SetUpdateTrackingInformation(userId);
+                caseEvalSetDAO.UpdateCaseEvalHeader(caseEvalHeader);
                 //Insert new case eval set
                 caseEvalSetDraft.SetInsertTrackingInformation(userId);
                 caseEvalSetDraft.HpfAuditInd = (isHpfUser ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
@@ -117,53 +124,58 @@ namespace HPF.FutureState.BusinessLogic
                     caseEvalSetDAO.InsertCaseEvalDetail(caseEvalDetailDraft);
                 }
                 caseEvalSetDAO.Commit();
-                SendNotifyEmail(prevAuditor, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
+                if (isFullFill && !isHpfUser)
+                    SendNotifyEmail(prevAuditor, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
             }
             catch (SqlException ex)
             {
-                caseEvalSetDAO.Cancel();
+                caseEvalSetDAO.Rollback();
                 throw ex;
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                caseEvalSetDAO.CloseConnection();
             }
         }
-        //Use for HPF User
-        public void UpdateCaseEvalSet(CaseEvalHeaderDTO caseEvalHeader, CaseEvalSetDTO caseEvalSetDraft,  string userId)
+        /// <summary>
+        /// Remove Case Eval from QC 
+        /// </summary>
+        /// <param name="evalHeader"></param>
+        public void RemoveCaseEval(CaseEvalHeaderDTO evalHeader,string rootFolder)
         {
-            CaseEvalSetDAO caseEvalSetDAO = CaseEvalSetDAO.CreateInstance();
-            string prevAuditorId = string.Empty;
+            CaseEvalSetDAO instance = CaseEvalSetDAO.CreateInstance();
             try
             {
-                caseEvalSetDAO.Begin();
-                bool isResultWithinRange = CompareScoreInRange(caseEvalSetDraft, caseEvalHeader, ref prevAuditorId);
-                string evalStatus = GetEvaluationStatus(true, caseEvalHeader.EvalType, caseEvalHeader.EvalStatus, isResultWithinRange);
-                caseEvalHeader.SetUpdateTrackingInformation(userId);
-                if (evalStatus != caseEvalHeader.EvalStatus)
+                CaseEvalFileDTOCollection files = GetCaseEvalFileByEvalHeaderIdAll(evalHeader.CaseEvalHeaderId);
+                instance.Begin();
+                //Remove case_eval_header
+                instance.RemoveCaseEvalHeader(evalHeader.CaseEvalHeaderId);
+                //Remove all files belong to case eval
+                StringBuilder fullPath;
+                foreach (CaseEvalFileDTO file in files)
                 {
-                    caseEvalHeader.EvalStatus = evalStatus;
-                    caseEvalSetDAO.UpdateCaseEvalHeader(caseEvalHeader);
+                    fullPath = new StringBuilder();
+                    fullPath.AppendFormat("{0}{1}{2}", rootFolder, file.FilePath, file.FileName);
+                    if (File.Exists(fullPath.ToString()))
+                    {
+                        File.Delete(fullPath.ToString());
+                    }
                 }
-                //Insert new case eval set
-                caseEvalSetDraft.SetUpdateTrackingInformation(userId);
-                caseEvalSetDAO.UpdateCaseEvalSet(caseEvalSetDraft);
-                foreach (CaseEvalDetailDTO caseEvalDetailDraft in caseEvalSetDraft.CaseEvalDetails)
-                {
-                    caseEvalDetailDraft.SetUpdateTrackingInformation(userId);
-                    caseEvalSetDAO.UpdateCaseEvalDetail(caseEvalDetailDraft);
-                }
-                caseEvalSetDAO.Commit();
-                SendNotifyEmail(prevAuditorId, caseEvalHeader.FcId.Value, caseEvalHeader.AgencyId.Value, caseEvalHeader.EvalStatus, caseEvalHeader.EvalType);
-            }
-            catch (SqlException ex)
-            {
-                caseEvalSetDAO.Cancel();
-                throw ex;
+                //Commit all changes
+                instance.Commit();
             }
             catch (Exception ex)
             {
-                throw ex;
+                instance.Rollback();
+                throw (ex);
+            }
+            finally
+            {
+                instance.CloseConnection();
             }
         }
         public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)
@@ -173,15 +185,16 @@ namespace HPF.FutureState.BusinessLogic
             {
                 instance.Begin();
                 instance.UpdateCaseEvalHeader(caseEvalHeader);
+                instance.Commit();
             }
             catch (Exception ex)
             {
-                instance.Cancel();
+                instance.Rollback();
                 throw ex;
             }
             finally
             {
-                instance.Commit();
+                instance.CloseConnection();
             }
         }
         public void InsertCaseEvalFile(CaseEvalFileDTO caseEvalFile, CaseEvalSearchResultDTO caseEval, string loginName)
@@ -191,17 +204,17 @@ namespace HPF.FutureState.BusinessLogic
             {
                 instance.Begin();
                 instance.InsertCaseEvalFile(caseEvalFile);
+                instance.Commit();
             }
             catch (Exception ex)
             {
-                instance.Cancel();
+                instance.Rollback();
                 throw ex;
             }
             finally
             {
-                instance.Commit();
+                instance.CloseConnection();
             }
-
         }
         public CaseEvalFileDTOCollection GetCaseEvalFileByEvalHeaderIdAll(int? caseEvalHeaderId)
         {
@@ -358,7 +371,6 @@ namespace HPF.FutureState.BusinessLogic
         }
         public CaseEvalDetailDTOCollection AssignAllQuestionScores(CaseEvalDetailDTOCollection caseEvalDetails,ref int totalYesAnswer,ref int totalNoAnswer,ref int totalNAAnswer)
         {
-
             foreach (CaseEvalDetailDTO evalDetail in caseEvalDetails)
             {
                 switch (evalDetail.EvalAnswer)
@@ -376,14 +388,14 @@ namespace HPF.FutureState.BusinessLogic
                         totalNAAnswer++;
                         break;
                     case null:
-                        throw new Exception("All questions require answer");
+                        break;
                 }
             }
 
             return caseEvalDetails;
         }
 
-        public CaseEvalSetDTO CalculateCaseTotalScore(CaseEvalSetDTO caseEvalSet,ref int totalNoScore,ref int totalNAScore)
+        public CaseEvalSetDTO CalculateCaseTotalScore(CaseEvalSetDTO caseEvalSet,bool isHpfUser, ref int totalNoScore,ref int totalNAScore,ref bool warningMessage)
         {
             int totalYesScore = 0;
             int totalPossibleScore = 0;
@@ -405,20 +417,26 @@ namespace HPF.FutureState.BusinessLogic
                         totalNAScore = totalNAScore + (int)evalDetail.AuditScore;
                         break;
                     case null:
-                        throw new Exception("All questions require answer");
+                        if (!isHpfUser)
+                            throw new Exception("All questions required answer");
+                        else
+                            warningMessage = true;
+                        break;
                 }
             }
-
-            decimal percent = Math.Round((decimal)((decimal)totalYesScore /(decimal) totalPossibleScore), 4);
-
-            //Set all value back to set dto
-            caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);
-            caseEvalSet.TotalAuditScore = totalYesScore;
-            caseEvalSet.TotalPossibleScore = totalPossibleScore;
-            //Check FatalErrorInd
-            if ((!string.IsNullOrEmpty(caseEvalSet.FatalErrorInd)) && (caseEvalSet.FatalErrorInd == Constant.INDICATOR_YES))
+            if (!warningMessage)
             {
-                caseEvalSet.ResultLevel = CaseEvaluationBL.ResultLevel.REMEDIATION;
+                decimal percent = Math.Round((decimal)((decimal)totalYesScore / (decimal)totalPossibleScore), 4);
+
+                //Set all value back to set dto
+                caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);
+                caseEvalSet.TotalAuditScore = totalYesScore;
+                caseEvalSet.TotalPossibleScore = totalPossibleScore;
+                //Check FatalErrorInd
+                if ((!string.IsNullOrEmpty(caseEvalSet.FatalErrorInd)) && (caseEvalSet.FatalErrorInd == Constant.INDICATOR_YES))
+                {
+                    caseEvalSet.ResultLevel = CaseEvaluationBL.ResultLevel.REMEDIATION;
+                }
             }
             return caseEvalSet;
         }

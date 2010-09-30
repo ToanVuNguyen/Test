@@ -27,9 +27,40 @@
     <tr>
     <td align="center" colspan="2">
         <asp:Button ID="btnSelectQC" runat="server" Text="Select For QC" 
-            CssClass="MyButton" onclick="btnSelectQC_Click" />
+            CssClass="MyButton" onclick="btnSelectQC_Click" Width="120px" />
+        <asp:Button ID="btnRemoveQC" runat="server" Text="Remove From QC" 
+            CssClass="MyButton" Width="120px"/>    
         </td>
     </tr>
     </table>
  </td></tr>
  </table>
+ 
+ <script type="text/javascript" language="javascript">    
+    function CancelClientClick()
+    {
+        Popup.showModal('modal');
+            return false;
+    }
+    
+</script>
+ 
+ <div id="modal" style="border: 1px solid black;	background-color: #60A5DE;	padding: 1px;    text-align: center;     font-family: Verdana, Arial, Helvetica, sans-serif; display: none;">
+        <div class="PopUpHeader">HPF Billing&amp;Admin</div>
+        <table width="250" cellpadding="5">
+        
+            <tr>
+                <td class="PopUpMessage">
+                    Are you sure you want to remove this Foreclosure Case from QC?
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <asp:Button ID="btnYes" runat="server" OnClientClick="Popup.hide('modal');" 
+                        CssClass="MyButton" Text="Yes" onclick="btnYes_Click" Width="70px" />
+                    &nbsp;
+                    <asp:Button ID="btnNo" runat="server" OnClientClick="Popup.hide('modal');return false;" CssClass="MyButton" Width="70px" Text="No" />
+                </td>
+            </tr>
+        </table>        
+    </div>

@@ -476,6 +476,8 @@ namespace HPF.FutureState.Common
         public const string ERR1114 = "ERR1114";
         public const string ERR1115 = "ERR1115";
         public const string ERR1116 = "ERR1116";
+        public const string ERR1117 = "ERR1117";
+        public const string ERR1118 = "ERR1118";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
@@ -971,6 +973,8 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1114, "Section order must is numeric!");
                 errorMessageDict.Add(ERR1115, "Choose section which question belong to!");
                 errorMessageDict.Add(ERR1116, "Question order must is numeric!");
+                errorMessageDict.Add(ERR1117, "Section order can not duplicate!");
+                errorMessageDict.Add(ERR1118, "Question in the same section can not duplicate order!");
             }
         }
     }

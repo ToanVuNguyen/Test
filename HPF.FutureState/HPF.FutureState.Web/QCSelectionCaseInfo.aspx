@@ -85,7 +85,16 @@
                         </td>
                         <td class="Text">
                             <asp:Label ID="lblEvaluationType" runat="server"></asp:Label>
-                    </tr> 
+                    </tr>
+                     <tr>
+                        <td class="sidelinks" align="right"></td>
+                        <td class="Text"></td>
+                        <td align="right" class="sidelinks">
+                            Template Name:
+                        </td>
+                        <td class="Text">
+                            <asp:Label ID="lblTemplateName" runat="server"></asp:Label>
+                    </tr>
                     <tr>
                         <td colspan="4">
                             <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">

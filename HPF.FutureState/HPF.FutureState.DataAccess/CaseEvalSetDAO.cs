@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
+using System.Collections;
 
 namespace HPF.FutureState.DataAccess
 {
@@ -32,7 +33,6 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 trans.Commit();
-                dbConnection.Close();
             }
             catch (Exception ex)
             {
@@ -42,11 +42,21 @@ namespace HPF.FutureState.DataAccess
         /// <summary>
         /// Rollback working
         /// </summary>
-        public void Cancel()
+        public void Rollback()
         {
             try
             {
                 trans.Rollback();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
+        public void CloseConnection()
+        {
+            try
+            {
                 dbConnection.Close();
             }
             catch (Exception ex)
@@ -54,7 +64,6 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
             }
         }
-
         public void UpdateCaseEvalHeader(CaseEvalHeaderDTO caseEvalHeader)
         {
             var command = CreateCommand("hpf_case_eval_header_update", dbConnection);
@@ -67,60 +76,6 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[2] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseEvalHeader.ChangeLastDate));
                 sqlParam[3] = new SqlParameter("@pi_chg_lst_user_id", caseEvalHeader.ChangeLastUserId);
                 sqlParam[4] = new SqlParameter("@pi_chg_lst_app_name", caseEvalHeader.ChangeLastAppName);
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Transaction = trans;
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            catch (Exception ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-        }
-        public void UpdateCaseEvalSet(CaseEvalSetDTO caseEvalSet)
-        {
-            var command = CreateCommand("hpf_case_eval_set_update", dbConnection);
-            var sqlParam = new SqlParameter[11];
-            try
-            {
-                sqlParam[0] = new SqlParameter("@pi_case_eval_set_id", caseEvalSet.CaseEvalSetId);
-                sqlParam[1] = new SqlParameter("@pi_evaluation_dt", NullableDateTime(caseEvalSet.EvaluationDt));
-                sqlParam[2] = new SqlParameter("@pi_auditor_name", caseEvalSet.AuditorName);
-                sqlParam[3] = new SqlParameter("@pi_total_audit_score", caseEvalSet.TotalAuditScore);
-                sqlParam[4] = new SqlParameter("@pi_total_possible_score", caseEvalSet.TotalPossibleScore);
-                sqlParam[5] = new SqlParameter("@pi_result_level", caseEvalSet.ResultLevel);
-                sqlParam[6] = new SqlParameter("@pi_fatal_error_ind", caseEvalSet.FatalErrorInd);
-                sqlParam[7] = new SqlParameter("@pi_comments", caseEvalSet.Comments);
-
-                sqlParam[8] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseEvalSet.ChangeLastDate));
-                sqlParam[9] = new SqlParameter("@pi_chg_lst_user_id", caseEvalSet.ChangeLastUserId);
-                sqlParam[10] = new SqlParameter("@pi_chg_lst_app_name", caseEvalSet.ChangeLastAppName);
-                command.Parameters.AddRange(sqlParam);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Transaction = trans;
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            catch (Exception ex)
-            {
-                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
-            }
-        }
-        public void UpdateCaseEvalDetail(CaseEvalDetailDTO caseEvalDetail)
-        {
-            var command = CreateCommand("hpf_case_eval_detail_update", dbConnection);
-            var sqlParam = new SqlParameter[7];
-            try
-            {
-                sqlParam[0] = new SqlParameter("@pi_case_eval_detail_id", caseEvalDetail.CaseEvalDetailId);
-                sqlParam[1] = new SqlParameter("@pi_eval_answer", caseEvalDetail.EvalAnswer);
-                sqlParam[2] = new SqlParameter("@pi_audit_score", caseEvalDetail.AuditScore);
-                sqlParam[3] = new SqlParameter("@pi_comments", caseEvalDetail.Comments);
-
-                sqlParam[4] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseEvalDetail.ChangeLastDate));
-                sqlParam[5] = new SqlParameter("@pi_chg_lst_user_id", caseEvalDetail.ChangeLastUserId);
-                sqlParam[6] = new SqlParameter("@pi_chg_lst_app_name", caseEvalDetail.ChangeLastAppName);
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
@@ -238,6 +193,28 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
             }
         }
+
+        #region Remove Case Eval
+        public void RemoveCaseEvalHeader(int? evalHeaderId)
+        {
+            var command = CreateCommand("hpf_case_eval_header_remove", dbConnection);
+            var sqlParam = new SqlParameter[1];
+            try
+            {
+                sqlParam[0] = new SqlParameter("@pi_case_eval_header_id", evalHeaderId);
+
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
+        #endregion
         /// <summary>
         /// Get CaseEval Latest Set for HPF and Agency depending on hpfAuditInd
         /// </summary>

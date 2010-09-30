@@ -151,7 +151,7 @@ namespace HPF.FutureState.DataAccess
                         result.ZipCode = ConvertToString(reader["zip_code"]);
                         result.LoanNumber = ConvertToString(reader["loan_number"]);
                         result.CallDate = ConvertToDateTime(reader["call_date"]);
-
+                        result.TemplateName = ConvertToString(reader["template_name"]);
                         results.Add(result);
                     }
                     reader.Close();
@@ -197,6 +197,7 @@ namespace HPF.FutureState.DataAccess
                         result.ZipCode = ConvertToString(reader["zip_code"]);
                         result.LoanNumber = ConvertToString(reader["loan_number"]);
                         result.CallDate = ConvertToDateTime(reader["call_date"]);
+                        result.TemplateName = ConvertToString(reader["template_name"]);
                     }
                     reader.Close();
                 }

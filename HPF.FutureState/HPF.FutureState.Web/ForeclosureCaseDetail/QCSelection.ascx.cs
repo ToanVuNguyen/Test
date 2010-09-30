@@ -14,25 +14,29 @@ using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Web.Security;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.BusinessLogic;
+using HPF.FutureState.Common;
 
 namespace HPF.FutureState.Web.ForeclosureCaseDetail
 {
     public partial class QCSelection : System.Web.UI.UserControl
     {
-        int caseId;
+        private int caseId;
+        private CaseEvalHeaderDTO evalHeader;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 BindQCTemplateName();
                 caseId = int.Parse(Request.QueryString["CaseID"].ToString());
-                CaseEvalHeaderDTO evalHeader = CaseEvaluationBL.Instance.GetCaseEvalHeaderByCaseId(caseId);
+                evalHeader = CaseEvaluationBL.Instance.GetCaseEvalHeaderByCaseId(caseId);
                 if (evalHeader != null)
                 {
-                    ddlEvalTemplate.Items.FindByValue(evalHeader.EvalTemplateId.ToString()).Selected=true;
+                    ddlEvalTemplate.Items.FindByValue(evalHeader.EvalTemplateId.ToString()).Selected = true;
                     rbtnOnSite.Checked = (evalHeader.EvalType == CaseEvaluationBL.EvaluationType.ONSITE);
                     btnSelectQC.Enabled = false;
+                    btnRemoveQC.Attributes.Add("onclick", " return CancelClientClick();");
                 }
+                else btnRemoveQC.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -65,6 +69,7 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 evalHeader.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName.ToString());
                 CaseEvaluationBL.Instance.SaveSelectForQCEvalHeader(evalHeader);
                 btnSelectQC.Enabled = false;
+                btnRemoveQC.Enabled = true;
                 //Send notify email to all agency auditor which case belong to
                 CaseEvaluationBL.Instance.SendNotifyEmail("", evalHeader.FcId.Value,evalHeader.AgencyId.Value, evalHeader.EvalStatus, evalHeader.EvalType);
             }
@@ -73,6 +78,24 @@ namespace HPF.FutureState.Web.ForeclosureCaseDetail
                 lblErrorMessage.Text = ex.Message;
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
+        }
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                RemoveFCFromQC();
+                btnSelectQC.Enabled = true;
+                btnRemoveQC.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
+        private void RemoveFCFromQC()
+        {
+            CaseEvaluationBL.Instance.RemoveCaseEval(evalHeader, Server.MapPath(HPFConfigurationSettings.HPF_QC_FILE_UPLOAD_PATH));
         }
         private int ConvertToInt(object obj)
         {

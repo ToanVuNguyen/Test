@@ -29,6 +29,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         private CaseEvalHeaderDTO evalHeader = null;
         private bool isHPFUser;
         private bool isFirstTime;
+        private bool isFullFill;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -42,6 +43,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     InitControlStatus();
                     RenderHTML(evalHeader.CaseEvalHeaderId);
                 }
+                lblErrorMessage.Text = "";
             }
             catch (Exception ex)
             {
@@ -51,17 +53,17 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         }
         private void InitControlStatus()
         {
-            btnUpdate.Enabled = false;
             btnSaveNew.Enabled = false;
             txtEvaluationDate.Visible = !isHPFUser;
             lblEvaluationDate.Visible = !isHPFUser;
             txtEvaluationDate.Enabled = ((isFirstTime) && (!isHPFUser));
-            btnUpdate.Visible = ((isHPFUser) && (string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.CLOSED)!=0));
             btnCloseAudit.Visible = (((isHPFUser) && (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.RESULT_WITHIN_RANGE) == 0))
                                     || ((isHPFUser) && (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED) == 0)
                                                   && (string.Compare(evalHeader.EvalType, CaseEvaluationBL.EvaluationType.ONSITE)==0)));
-
             btnCalculate.Visible = btnSaveNew.Visible = (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.CLOSED) != 0);
+            btnNotifyAgency.Visible =((isHPFUser)&& 
+                                        (string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT)==0
+                                        ||string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT)==0));        
         }
         private void RenderHTML(int? caseEvalHeaderId)
         {
@@ -95,7 +97,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             txtComments.Text = caseEvalSetLatest.Comments;
             chkFatalError.Checked = (caseEvalSetLatest.FatalErrorInd == Constant.INDICATOR_YES ? true : false);
             //Render score, level, percent, ... again
-            CalculateScore(caseEvalSetLatest);
+            CalculateScore(caseEvalSetLatest,ref isFullFill);
         }
         /// <summary>
         /// Render html page base on EvalTemplateId
@@ -210,8 +212,9 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             tc.Attributes.Add("align", "left");
             TextBox txtBox = new TextBox();
             txtBox.ID ="txt"+id.ToString();
-            txtBox.Columns = 50;
-            txtBox.Rows = 1;
+            txtBox.Columns = 70;
+            txtBox.Rows = 3;
+            txtBox.TextMode = TextBoxMode.MultiLine;
             txtBox.Attributes.Add("class", "Text");
             txtBox.Text = comments;
             tc.Controls.Add(txtBox);
@@ -223,10 +226,11 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         {
             try
             {
+                isFullFill = true;
                 CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
-                caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
+                caseEvalSetDraft = CalculateScore(caseEvalSetDraft,ref isFullFill);
                 string curEvalStatus = evalHeader.EvalStatus; 
-                CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader, caseEvalSetDraft, isHPFUser, HPFWebSecurity.CurrentIdentity.LoginName);
+                CaseEvaluationBL.Instance.SaveCaseEvalSet(evalHeader, caseEvalSetDraft, isHPFUser, HPFWebSecurity.CurrentIdentity.LoginName,isFullFill);
                 lblErrorMessage.Text = "New Case Evaluation was inserted successfully!!!";
                 SetEvaluationCaseStatus();
                 if ((string.Compare(curEvalStatus, CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED)==0)
@@ -291,10 +295,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             try
             {
                 CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
-                caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
+                caseEvalSetDraft = CalculateScore(caseEvalSetDraft,ref isFullFill);
                 btnSaveNew.Enabled = true;
-                //Do not permit update when HPF auditor audit for the first time
-                btnUpdate.Enabled = (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED) != 0);
             }
             catch (Exception ex)
             {
@@ -308,28 +310,37 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         /// </summary>
         /// <param name="caseEvalSetDraft">caseEvalSetDraft</param>
         /// <returns>CaseEvelSetDTO</returns>
-        private CaseEvalSetDTO CalculateScore(CaseEvalSetDTO caseEvalSetDraft)
+        private CaseEvalSetDTO CalculateScore(CaseEvalSetDTO caseEvalSetDraft,ref bool isFullFill)
         {
             int totalNoScore=0;
             int totalNAScore=0;
             int totalYesAnswer = 0;
             int totalNoAnswer = 0;
             int totalNAAnswer = 0;
-            caseEvalSetDraft.CaseEvalDetails = CaseEvaluationBL.Instance.AssignAllQuestionScores(caseEvalSetDraft.CaseEvalDetails,ref totalYesAnswer,ref totalNoAnswer,ref totalNAAnswer);
-            caseEvalSetDraft = CaseEvaluationBL.Instance.CalculateCaseTotalScore(caseEvalSetDraft,ref totalNoScore,ref totalNAScore);
-            decimal percent = Math.Round((decimal)((decimal)caseEvalSetDraft.TotalAuditScore /(decimal)caseEvalSetDraft.TotalPossibleScore), 4);
-            //Bind to layout
-            lblYesScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
-            lblNoScore.InnerText = totalNoScore.ToString();
-            lblNAScore.InnerText = totalNAScore.ToString();
-            lblLevelName.InnerText = caseEvalSetDraft.ResultLevel;
-            lblYesTotal.InnerText = totalYesAnswer.ToString();
-            lblNoTotal.InnerText = totalNoAnswer.ToString();
-            lblNATotal.InnerText = totalNAAnswer.ToString();
-            lblCaseTotalScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
-            lblCasePossibleScore.InnerText = caseEvalSetDraft.TotalPossibleScore.ToString();
-            lblLevelPercent.InnerText = percent.ToString("0.0%");
-
+            bool warningMessage = false;
+            caseEvalSetDraft.CaseEvalDetails = CaseEvaluationBL.Instance.AssignAllQuestionScores(caseEvalSetDraft.CaseEvalDetails, ref totalYesAnswer,ref totalNoAnswer,ref totalNAAnswer);
+            caseEvalSetDraft = CaseEvaluationBL.Instance.CalculateCaseTotalScore(caseEvalSetDraft,isHPFUser, ref totalNoScore,ref totalNAScore,ref warningMessage);
+            //Warning when all questions not be fullfill to HPF User
+            if (isHPFUser && warningMessage)
+            {
+                isFullFill = false;
+                lblErrorMessage.Text = "Warning -- All questions required answer";
+            }
+            else
+            {
+                decimal percent = Math.Round((decimal)((decimal)caseEvalSetDraft.TotalAuditScore / (decimal)caseEvalSetDraft.TotalPossibleScore), 4);
+                //Bind to layout
+                lblYesScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
+                lblNoScore.InnerText = totalNoScore.ToString();
+                lblNAScore.InnerText = totalNAScore.ToString();
+                lblLevelName.InnerText = caseEvalSetDraft.ResultLevel;
+                lblYesTotal.InnerText = totalYesAnswer.ToString();
+                lblNoTotal.InnerText = totalNoAnswer.ToString();
+                lblNATotal.InnerText = totalNAAnswer.ToString();
+                StringBuilder totalScoreLabel = new StringBuilder();
+                totalScoreLabel.AppendFormat("{0}/{1}={2}", caseEvalSetDraft.TotalAuditScore.ToString(), caseEvalSetDraft.TotalPossibleScore.ToString(), percent.ToString("0.0%"));
+                lblTotalScore.InnerText = totalScoreLabel.ToString();
+            }
             return caseEvalSetDraft;
         }
         private DateTime ConvertToDateTime(object obj)
@@ -343,24 +354,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         {
             Response.Redirect("SearchQCSelectionCase.aspx");
         }
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CaseEvalSetDTO caseEvalSetDraft = DraftCaseEvalSet();
-                caseEvalSetDraft = CalculateScore(caseEvalSetDraft);
-                CaseEvaluationBL.Instance.UpdateCaseEvalSet(evalHeader, caseEvalSetDraft, HPFWebSecurity.CurrentIdentity.LoginName);
-                lblErrorMessage.Text = "Case Evaluation was updated successfully!!!";
-                SetEvaluationCaseStatus();
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Text = ex.Message;
-                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
-            }
-        }
-
         protected void btnCloseAudit_Click(object sender, EventArgs e)
         {
             try
@@ -383,6 +376,24 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             Label lblEvaluationStatus = this.Parent.FindControl("lblEvaluationStatus") as Label;
             if (lblEvaluationStatus != null)
                 lblEvaluationStatus.Text = evalHeader.EvalStatus;
+        }
+
+        protected void btnNotifyAgency_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CaseEvalSetDTO evalSetAgencyLatest = CaseEvaluationBL.Instance.GetCaseEvalLatest(evalHeader.CaseEvalHeaderId, "N");
+                if (evalSetAgencyLatest != null)
+                {
+                    string agencyAuditorId = evalSetAgencyLatest.ChangeLastUserId;
+                    CaseEvaluationBL.Instance.SendNotifyEmail(agencyAuditorId, evalHeader.FcId.Value, -1, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT, evalHeader.EvalType);
+                }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
         
     }

@@ -38,7 +38,8 @@
                 </tr>
                 <tr>
                     <td style="color:Red" align="left"><b>Total Score:</b>
-                    <label style="color:Red" id="lblCaseTotalScore" runat="server"/>/<label style="color:Red" id="lblCasePossibleScore" runat="server"/>=<label style="color:Red" id="lblLevelPercent" runat="server"/></td>
+                    <label style="color:Red" id ="lblTotalScore" runat="server"/>
+                    </td>
                     <td align="center"></td>
                     <td align="center"></td>
                     <td align="center"></td>
@@ -86,19 +87,19 @@
                 </tr>
                 <tr>
                 <td colspan="4" align="right" valign="top" class="sidelinks">Additional Reviewer Comments:</td>
-                <td valign="top" align="left">
-                    <asp:TextBox runat="server" ID="txtComments" Columns="40" Rows="4" TextMode="MultiLine"/>
+                <td valign="top" align="left" class="Text">
+                    <asp:TextBox runat="server" ID="txtComments" Columns="70" Rows="4" TextMode="MultiLine" class="Text"/>
                 </td>
                 </tr>
                 <tr><td colspan='5' align='right'>
-                <asp:Button ID='btnCloseAudit' runat='server' Text='Close Audit' Width='120px'
-                CssClass='MyButton' onclick="btnCloseAudit_Click"/>
                 <asp:Button ID='btnCalculate' runat='server' Text='Calculate Score' Width='120px'
                 CssClass='MyButton' onclick="btnCalculate_Click"/>
-                <asp:Button ID='btnUpdate' runat='server' Text='Update' Width='120px' 
-                        CssClass='MyButton' onclick="btnUpdate_Click"/>
-                <asp:Button ID='btnSaveNew' runat='server' Text='Save New' Width='120px' 
+                <asp:Button ID='btnSaveNew' runat='server' Text='Save' Width='120px' 
                         CssClass='MyButton' onclick="btnSaveNew_Click"/>
+                <asp:Button ID='btnNotifyAgency' runat='server' Text='Notify Agency' Width='120px' 
+                        CssClass='MyButton' onclick="btnNotifyAgency_Click"/>
+                <asp:Button ID='btnCloseAudit' runat='server' Text='Close Audit' Width='120px'
+                CssClass='MyButton' onclick="btnCloseAudit_Click"/>                
                 <asp:Button ID='btnClose' runat='server' Text='Close' Width='120px'
                 CssClass='MyButton' onclick="btnClose_Click"/></td>
                 </tr>
