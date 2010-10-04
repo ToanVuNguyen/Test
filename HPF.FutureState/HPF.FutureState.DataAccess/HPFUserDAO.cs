@@ -103,6 +103,9 @@ namespace HPF.FutureState.DataAccess
                         user.AgencyId = ConvertToInt(reader["agency_id"]);
                         user.UserType = ConvertToString(reader["user_type"]);
                         user.HPFUserId = ConvertToInt(reader["hpf_user_id"]);
+                        user.Password = ConvertToString(reader["password"]);
+                        user.IsActivate = ConvertToString(reader["active_ind"])[0];
+                        user.Email = ConvertToString(reader["email"]);
                     }
                     reader.Close();
                 }
@@ -164,12 +167,12 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[15];
             sqlParam[0] = new SqlParameter("@pi_user_login_id", hpfUser.UserLoginId);
             sqlParam[1] = new SqlParameter("@pi_hpf_user_id", null);
-            sqlParam[2] = new SqlParameter("@pi_password", hpfUser.Password);
+            sqlParam[2] = new SqlParameter("@pi_password", null);
             sqlParam[3] = new SqlParameter("@pi_active_ind", hpfUser.ActiveInd);
             sqlParam[4] = new SqlParameter("@pi_user_role_str_tbd", null);
-            sqlParam[5] = new SqlParameter("@pi_fname", hpfUser.FirstName);
-            sqlParam[6] = new SqlParameter("@pi_lname", hpfUser.LastName);
-            sqlParam[7] = new SqlParameter("@pi_email", hpfUser.Email);
+            sqlParam[5] = new SqlParameter("@pi_fname", null);
+            sqlParam[6] = new SqlParameter("@pi_lname", null);
+            sqlParam[7] = new SqlParameter("@pi_email", null);
             sqlParam[8] = new SqlParameter("@pi_phone", null);
             sqlParam[9] = new SqlParameter("@pi_user_type", null);
             sqlParam[11] = new SqlParameter("@pi_agency_id", null);
@@ -199,51 +202,6 @@ namespace HPF.FutureState.DataAccess
             {
                 dbConnection.Close();
             }
-        }
-        public HPFUserDTO InsertHpfUser(HPFUserDTO hpfUser)
-        {
-            var dbConnection = CreateConnection();
-            var command = CreateSPCommand("hpf_hpf_user_insert", dbConnection);
-            SqlTransaction trans = null;
-            //<Parameter>
-            var sqlParam = new SqlParameter[16];
-            sqlParam[0] = new SqlParameter("@pi_user_login_id", hpfUser.UserLoginId);
-            sqlParam[1] = new SqlParameter("@pi_password", hpfUser.Password);
-            sqlParam[2] = new SqlParameter("@pi_active_ind", hpfUser.ActiveInd);
-            sqlParam[3] = new SqlParameter("@pi_user_role_str_TBD", null);
-            sqlParam[4] = new SqlParameter("@pi_fname", hpfUser.FirstName);
-            sqlParam[5] = new SqlParameter("@pi_lname", hpfUser.LastName);
-            sqlParam[6] = new SqlParameter("@pi_email", hpfUser.Email);
-            sqlParam[7] = new SqlParameter("@pi_phone", null);
-            sqlParam[8] = new SqlParameter("@pi_last_login_dt", null);
-            sqlParam[9] = new SqlParameter("@pi_create_dt",NullableDateTime(hpfUser.CreateDate));
-            sqlParam[10] = new SqlParameter("@pi_create_user_id", hpfUser.CreateUserId);
-            sqlParam[11] = new SqlParameter("@pi_create_app_name", hpfUser.CreateAppName);
-            sqlParam[12] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(hpfUser.ChangeLastDate));
-            sqlParam[13] = new SqlParameter("@pi_chg_lst_user_id", hpfUser.ChangeLastUserId);
-            sqlParam[14] = new SqlParameter("@pi_chg_lst_app_name", hpfUser.ChangeLastAppName);
-            sqlParam[15] = new SqlParameter("@po_hpf_user_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
-            try
-            {
-                dbConnection.Open();
-                command.Parameters.AddRange(sqlParam);
-                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-                command.Transaction = trans;
-                command.ExecuteNonQuery();
-                trans.Commit();
-                hpfUser.HpfUserId = ConvertToInt(command.Parameters["@po_hpf_user_id"].Value);
-            }
-            catch (Exception Ex)
-            {
-                if (trans != null)
-                    trans.Rollback();
-                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
-            }
-            finally
-            {
-                dbConnection.Close();
-            }
-            return hpfUser;
         }
     }
 }

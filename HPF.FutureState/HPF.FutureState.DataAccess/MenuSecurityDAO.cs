@@ -202,6 +202,46 @@ namespace HPF.FutureState.DataAccess
 
             return result;
         }
+        public int? InsertHpfUser(UserDTO user)
+        {
+            var command = CreateSPCommand("hpf_hpf_user_insert", dbConnection);
+            //<Parameter>
+            var sqlParam = new SqlParameter[18];
+            sqlParam[0] = new SqlParameter("@pi_user_login_id", user.UserName);
+            sqlParam[1] = new SqlParameter("@pi_password", user.Password);
+            sqlParam[2] = new SqlParameter("@pi_active_ind", user.IsActivate);
+            sqlParam[3] = new SqlParameter("@pi_user_role_str_tbd", null);
+            sqlParam[4] = new SqlParameter("@pi_fname", user.FirstName);
+            sqlParam[5] = new SqlParameter("@pi_lname", user.LastName);
+            sqlParam[6] = new SqlParameter("@pi_email", user.Email);
+            sqlParam[7] = new SqlParameter("@pi_phone", user.Phone);
+            sqlParam[8] = new SqlParameter("@pi_user_type", user.UserType);
+            sqlParam[9] = new SqlParameter("@pi_last_login_dt", null);
+            sqlParam[10] = new SqlParameter("@pi_agency_id", user.AgencyId);
+            sqlParam[11] = new SqlParameter("@pi_create_dt",NullableDateTime(user.CreateDate));
+            sqlParam[12] = new SqlParameter("@pi_create_user_id",user.CreateUserId);
+            sqlParam[13] = new SqlParameter("@pi_create_app_name",user.CreateAppName);
+            sqlParam[14] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(user.ChangeLastDate));
+            sqlParam[15] = new SqlParameter("@pi_chg_lst_user_id", user.ChangeLastUserId);
+            sqlParam[16] = new SqlParameter("@pi_chg_lst_app_name", user.ChangeLastAppName);
+
+            sqlParam[17] = new SqlParameter("@po_hpf_user_id", SqlDbType.Int) { Direction = ParameterDirection.Output };
+
+            //</Parameter>            
+            try
+            {
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Transaction = trans;
+                command.ExecuteNonQuery();
+                command.Dispose();
+                return ConvertToInt(command.Parameters["@po_hpf_user_id"].Value);
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+        }
         /// <summary>
         /// Update User DTO
         /// </summary>
@@ -211,14 +251,14 @@ namespace HPF.FutureState.DataAccess
             var command = CreateSPCommand("hpf_hpf_user_update", dbConnection);
             //<Parameter>
             var sqlParam = new SqlParameter[15];
-            sqlParam[0] = new SqlParameter("@pi_user_login_id", null);
+            sqlParam[0] = new SqlParameter("@pi_user_login_id", user.UserName);
             sqlParam[1] = new SqlParameter("@pi_hpf_user_id", user.HPFUserId);
-            sqlParam[2] = new SqlParameter("@pi_password", null);
-            sqlParam[3] = new SqlParameter("@pi_active_ind", null);
-            sqlParam[4] = new SqlParameter("@pi_user_role_str_tbd", user.UserRole);
-            sqlParam[5] = new SqlParameter("@pi_fname", null);
-            sqlParam[6] = new SqlParameter("@pi_lname", null);
-            sqlParam[7] = new SqlParameter("@pi_email", null);
+            sqlParam[2] = new SqlParameter("@pi_password", user.Password);
+            sqlParam[3] = new SqlParameter("@pi_active_ind", user.IsActivate);
+            sqlParam[4] = new SqlParameter("@pi_user_role_str_tbd", null);
+            sqlParam[5] = new SqlParameter("@pi_fname", user.FirstName);
+            sqlParam[6] = new SqlParameter("@pi_lname", user.LastName);
+            sqlParam[7] = new SqlParameter("@pi_email", user.Email);
             sqlParam[8] = new SqlParameter("@pi_phone", user.Phone);
             sqlParam[9] = new SqlParameter("@pi_user_type", user.UserType);
             sqlParam[10] = new SqlParameter("@pi_last_login_dt", null);

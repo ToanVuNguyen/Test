@@ -46,10 +46,6 @@ namespace HPF.FutureState.BusinessLogic
         {
             HPFUserDAO.Instance.UpdateHpfUser(hpfUser);
         }
-        public HPFUserDTO InsertHpfUser(HPFUserDTO hpfUser)
-        {
-            return HPFUserDAO.Instance.InsertHpfUser(hpfUser);
-        }
     }
     
 }
