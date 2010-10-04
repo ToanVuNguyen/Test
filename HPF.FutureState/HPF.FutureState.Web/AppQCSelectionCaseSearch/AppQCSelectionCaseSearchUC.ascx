@@ -96,7 +96,7 @@
                                 <asp:Label ID="lblEmptySearch" runat="server">No Results Found</asp:Label>
                             </EmptyDataTemplate>
                             <Columns>
-                                <asp:BoundField HeaderText="HPF Case ID" DataField="FcId"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false"/>
+                                <asp:BoundField HeaderText="ID" DataField="FcId"  ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false"/>
                                 <asp:BoundField HeaderText="Agency" DataField="AgencyName" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="Counserlor" DataField="CounselorName" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="HO FirstName" DataField="HomeowenerFirstName"  ItemStyle-HorizontalAlign="Right"  HeaderStyle-Wrap="false" />
@@ -105,6 +105,8 @@
                                 <asp:BoundField HeaderText="Loan Number" DataField="LoanNumber" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="Servicer" DataField="ServicerName" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
                                 <asp:BoundField HeaderText="Evaluation Status" DataField="EvalStatus" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Template Name" DataField="TemplateName" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
+                                <asp:BoundField HeaderText="Eval Type" DataField="EvalType" ItemStyle-HorizontalAlign="Right" HeaderStyle-Wrap="false" />
                                 <asp:CommandField ShowSelectButton="true" ButtonType="Button" ControlStyle-CssClass="MyButton"
                                     ItemStyle-HorizontalAlign="Center" HeaderText="Select" HeaderStyle-Wrap="false" />
                             </Columns>

@@ -37,16 +37,26 @@ namespace HPF.FutureState.Web.AppManageUserPermission
             {
                 if (!IsPostBack)
                 {
-                    userId = int.Parse(Request.QueryString["userId"].ToString());
                     BindUserTypeDropDownList();
                     BindAgencyDropDownList();
-                    BindUserInfo();
+                    if (Request.QueryString["userId"]!=null)
+                    {
+                        userId = int.Parse(Request.QueryString["userId"].ToString());
+                        BindUserInfo();
+                        btnAddNew.Visible = false;
+                    }
+                    else
+                    {
+                        userId = -1;
+                        btnUpdate.Visible = false;
+                    }
                 }
                 BindMenuSecurity();
+                ClearErrorMessages();
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -54,10 +64,13 @@ namespace HPF.FutureState.Web.AppManageUserPermission
         {
             user = MenuSecurityBL.Instance.RetriveUserInfoById(userId);
             //Show user info
-            lblUserLoginId.Text = user.UserName;
-            lblUserName.Text = user.FirstName + " " + user.LastName;
-            txtUserRole.Text = (string.IsNullOrEmpty(user.UserRole) ? "" : user.UserRole);
+            txtUserLoginId.Text = user.UserName;
+            txtPassword.Attributes.Add("value",user.Password);
+            txtFirstName.Text = user.FirstName;
+            txtLastName.Text =user.LastName;
+            txtEmail.Text = user.Email;
             txtPhone.Text = (string.IsNullOrEmpty(user.Phone) ? "" : user.Phone);
+            chkActive.Checked = (user.IsActivate == Constant.INDICATOR_YES[0] ? true : false);
             if (!string.IsNullOrEmpty(user.UserType))
             {
                 ddlUserType.ClearSelection();
@@ -117,8 +130,8 @@ namespace HPF.FutureState.Web.AppManageUserPermission
             tc.Attributes.Add("align", "center");
             DropDownList ddl = new DropDownList();
             ddl.ID = "ddl" + menuSecurity.MenuItemId.ToString();
-            ddl.Items.Add(new ListItem("R", "R"));
-            ddl.Items.Add(new ListItem("U", "U"));
+            ddl.Items.Add(new ListItem("Read-Only", "R"));
+            ddl.Items.Add(new ListItem("Update", "U"));
             ddl.ClearSelection();
             ddl.Items.FindByValue(menuSecurity.Permission.ToString()).Selected = true;
             tc.Controls.Add(ddl);
@@ -128,10 +141,16 @@ namespace HPF.FutureState.Web.AppManageUserPermission
         private MenuSecurityDTOCollection DraftInfo(MenuSecurityDTOCollection items,UserDTO user)
         {
             //Get user info
-            user.UserRole = txtUserRole.Text;
+            user.UserName = txtUserLoginId.Text;
+            user.Password = txtPassword.Text;
+            user.FirstName = txtFirstName.Text;
+            user.LastName = txtLastName.Text;
+            user.Email = txtEmail.Text;
             user.Phone = txtPhone.Text;
             user.UserType = (ddlUserType.SelectedValue == "-1" ? null : ddlUserType.SelectedValue);
             user.AgencyId =ConvertToInt((ddlAgency.SelectedValue == "-1" ? null : ddlAgency.SelectedValue));
+            user.IsActivate = (chkActive.Checked==true?Constant.INDICATOR_YES[0]:Constant.INDICATOR_NO[0]);
+
             //Get menu permission info
             foreach (MenuSecurityDTO item in items)
             {
@@ -150,14 +169,21 @@ namespace HPF.FutureState.Web.AppManageUserPermission
         {
             try
             {
-                DraftInfo(menuSecurityCollection,user);
+                DraftInfo(menuSecurityCollection, user);
                 user.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
-                MenuSecurityBL.Instance.UpdateUserSecurity(menuSecurityCollection,user);
+                MenuSecurityBL.Instance.UpdateUserSecurity(menuSecurityCollection, user);
                 BindMenuSecurity();
+                lblErrorMessage.Items.Add(new ListItem("Update successfully!"));
+            }
+            catch (DataValidationException ex1)
+            {
+                lblErrorMessage.DataSource = ex1.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex1, HPFWebSecurity.CurrentIdentity.LoginName);
             }
             catch (Exception ex)
             {
-                lblErrorMessage.Text = ex.Message;
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
                 ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
             }
         }
@@ -169,10 +195,40 @@ namespace HPF.FutureState.Web.AppManageUserPermission
                 return null;
             return returnValue;
         }
-
+        private void ClearErrorMessages()
+        {
+            lblErrorMessage.Items.Clear();
+        }
         protected void btnClose_Click(object sender, EventArgs e)
         {
             Response.Redirect("ManageUser.aspx");
+        }
+
+        protected void btnAddNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                user = new UserDTO();
+                DraftInfo(menuSecurityCollection, user);
+                user.SetInsertTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                userId = MenuSecurityBL.Instance.InsertUserSecurity(menuSecurityCollection, user);
+                txtPassword.Attributes.Add("value", user.Password);
+                BindMenuSecurity();
+                lblErrorMessage.Items.Add(new ListItem("Insert successfully!"));
+                btnAddNew.Visible = false;
+                btnUpdate.Visible = true;
+            }
+            catch (DataValidationException ex1)
+            {
+                lblErrorMessage.DataSource = ex1.ExceptionMessages;
+                lblErrorMessage.DataBind();
+                ExceptionProcessor.HandleException(ex1, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Items.Add(new ListItem(ex.Message));
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
         }
     }
 }

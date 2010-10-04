@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppManageUserPermissionUC.ascx.cs" Inherits="HPF.FutureState.Web.AppManageUserPermission.AppManageUserPermissionUC" %>
 <div class="Text">
-    <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
+    <asp:BulletedList ID="lblErrorMessage" runat="server" CssClass="ErrorMessage">
+            </asp:BulletedList>
 </div>
 <div align="center">
 <h3>Manage User Permission</h3></div>
@@ -8,19 +9,31 @@
 <tr>
         <td class="sidelinks" align="left" nowrap="nowrap">User Login</td>        
         <td  align="left">
-            <asp:Label ID="lblUserLoginId" runat="server"></asp:Label>
+            <asp:TextBox ID="txtUserLoginId" runat="server"></asp:TextBox>
         </td>        
 </tr>
 <tr>
-        <td class="sidelinks" align="left" nowrap="nowrap">User Name</td>        
+        <td class="sidelinks" align="left" nowrap="nowrap">Password</td>        
         <td  align="left">
-            <asp:Label ID="lblUserName" runat="server"></asp:Label>
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
         </td>        
 </tr>
 <tr>
-        <td class="sidelinks" align="left" nowrap="nowrap">User Role:</td>        
+        <td class="sidelinks" align="left" nowrap="nowrap">First Name</td>        
         <td  align="left">
-            <asp:TextBox ID="txtUserRole" Columns="50" Rows="1" runat="server"/>
+            <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
+        </td>        
+</tr>
+<tr>
+        <td class="sidelinks" align="left" nowrap="nowrap">Last Name</td>        
+        <td  align="left">
+            <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
+        </td>        
+</tr>
+<tr>
+        <td class="sidelinks" align="left" nowrap="nowrap">Email</td>        
+        <td  align="left">
+            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
         </td>        
 </tr>
 <tr>
@@ -41,6 +54,12 @@
             <asp:DropDownList ID="ddlAgency" runat="server"></asp:DropDownList>
         </td>        
 </tr>
+<tr>
+        <td class="sidelinks" align="left" nowrap="nowrap">Active:</td>        
+        <td  align="left">
+            <asp:CheckBox ID="chkActive" Checked="true" runat="server" />
+        </td>        
+</tr>
 </table>
 <table width="100%" border="1" style="border-collapse:collapse">
 <tr>
@@ -59,6 +78,8 @@
 <!-- End List of menu permission -->
 <tr>
     <td colspan="4" align="center" nowrap="nowrap">
+        <asp:Button ID="btnAddNew" runat="server" Text="Add New" Width="120px" 
+            CssClass="MyButton" onclick="btnAddNew_Click"/>
         <asp:Button ID="btnUpdate" runat="server" Text="Update" Width="120px" 
             CssClass="MyButton" onclick="btnUpdate_Click"/>
         <asp:Button ID="btnClose" runat="server" Text="Close" Width="120px" 

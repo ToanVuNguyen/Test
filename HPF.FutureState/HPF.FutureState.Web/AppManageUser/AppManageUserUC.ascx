@@ -6,17 +6,18 @@
 <h3>Manage User</h3></div>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
+<div align="center">
+<table width="80%">
+<tr>
+<td align="right">
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
  <ContentTemplate>
     <asp:Panel ID="panHPFUser" runat="server" CssClass="ScrollTable" Width="100%"
                     Height="80%" Visible="true">
-    <asp:GridView ID="grdvHPFUser" runat="server" CellPadding="4" 
-                    CssClass="GridViewStyle" ForeColor="#333333" 
-            AutoGenerateColumns="false" ShowFooter="true" 
-            onrowcreated="grdvHPFUser_RowCreated" 
-            onrowediting="grdvHPFUser_RowEditing" 
-            onrowcancelingedit="grdvHPFUser_RowCancelingEdit" 
-            onrowcommand="grdvHPFUser_RowCommand" onrowupdating="grdvHPFUser_RowUpdating">
+    <asp:GridView ID="grdvHPFUser" runat="server" CellPadding="4" CssClass="GridViewStyle" ForeColor="#333333" 
+                    AutoGenerateColumns="false" AllowPaging="true"
+                    onrowcreated="grdvHPFUser_RowCreated" onrowcommand="grdvHPFUser_RowCommand">
+                    <PagerSettings Visible="False" />
                     <RowStyle BackColor="#EFF3FB" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                     <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
@@ -30,63 +31,18 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="User Login ID" ItemStyle-Width="80" >  
-                            <FooterTemplate>
-                                <asp:TextBox ID="txtUserLoginId" runat="server"></asp:TextBox> 
-                            </FooterTemplate>
                             <ItemTemplate>
                                 <asp:HyperLink runat="server" Text='<%# Bind("UserLoginId") %>' ID="lnkUserLoginId"></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Password" >  
-                            <EditItemTemplate>
-                                <asp:TextBox ID="txtPassword" runat="server" Text='<%# Eval("Password") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox> </FooterTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblPassword" runat="server" Text='<%# Bind("Password") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="First Name" >  
-                            <EditItemTemplate>
-                                <asp:TextBox ID="txtFirstName" runat="server" Text='<%# Eval("FirstName") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox> </FooterTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Name" >  
-                            <EditItemTemplate>
-                                <asp:TextBox ID="txtLastName" runat="server" Text='<%# Eval("LastName") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox> </FooterTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblLastName" runat="server" Text='<%# Bind("LastName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                         <asp:TemplateField HeaderText="Email" >  
-                            <EditItemTemplate>
-                                <asp:TextBox ID="txtEmail" runat="server" Text='<%# Eval("Email") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox> </FooterTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblEmail" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField> 
-                        <asp:TemplateField HeaderText="Edit" ShowHeader="True" ItemStyle-Width="100px">
-                            <EditItemTemplate>
-                                <asp:LinkButton ID="lbtnUpdate" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
-                                <asp:LinkButton ID="lbtnCancel" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:LinkButton ID="lbtnAddNew" runat="server" CausesValidation="False" CommandName="AddNew" Text="New"></asp:LinkButton>
-                            </FooterTemplate>
-                            <ItemTemplate>
-                                <asp:LinkButton ID="lbtnEdit" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Active" ShowHeader="true">
@@ -105,5 +61,52 @@
     </asp:Panel>
     </ContentTemplate>
 </asp:UpdatePanel>
- 
-
+</td>
+<td valign="top" align="left">
+    <asp:Button ID="btnAddNew" runat="server" Text="Add User" Width="120px" 
+            CssClass="MyButton" onclick="btnAddNew_Click"/></td>
+</tr>
+<tr>
+<td align="right">
+    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+         <ContentTemplate>
+            <table>
+            <tr>
+            <td>
+            <asp:Label ID="lblMinRow" runat="server" Visible="false"></asp:Label>
+            <asp:Label ID="lbl1" runat="server" Text=" - " Visible="false"></asp:Label>
+            <asp:Label ID="lblMaxRow" runat="server" Visible="false"></asp:Label>
+            <asp:Label ID="lbl2" runat="server" Text=" of " Visible="false"></asp:Label>
+            <asp:Label ID="lblTotalRowNum" runat="server" Visible="false"></asp:Label>
+            &nbsp;
+            <asp:LinkButton ID="lbtnFirst" CommandName="First" OnCommand="lbtnNavigate_Click"
+                runat="server" Text="&lt;&lt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
+            &nbsp;
+            <asp:LinkButton ID="lbtnPrev" CommandName="Prev" OnCommand="lbtnNavigate_Click" runat="server"
+                Text="&lt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
+            &nbsp;<asp:PlaceHolder ID="phPages" runat="server" Visible="true"></asp:PlaceHolder>
+            <asp:LinkButton ID="lbtnNext" CommandName="Next" OnCommand="lbtnNavigate_Click" runat="server"
+                Text="&gt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
+            &nbsp;
+            <asp:LinkButton ID="lbtnLast" CommandName="Last" OnCommand="lbtnNavigate_Click" runat="server"
+                Text="&gt;&gt;" Visible="false" CssClass="NoUnderLine" OnClientClick="ShowWaitPanel()"></asp:LinkButton>
+            <asp:Label ID="lblTemp" runat="server" Text="" Visible="false"></asp:Label>
+            </td>
+            <td width="40">&nbsp;</td>
+             <td><div id="waitPanel" style="display:none">Please wait...</div></td>
+             </tr>
+            </table>
+            </ContentTemplate>
+            </asp:UpdatePanel>
+</td>
+<td></td>
+</tr> 
+</table>
+</div>
+<script type="text/javascript">
+   function ShowWaitPanel()
+   {
+        var mypanel = document.getElementById('waitPanel');
+        mypanel.style.display ="block";
+   }
+</script>
