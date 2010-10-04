@@ -228,6 +228,8 @@ namespace HPF.FutureState.Web.ApphQCSelectionCaseSearch
                     lblMaxRow.Text = this.TotalRowNum.ToString();
                 else lblMaxRow.Text = MaxRow.ToString();
             }
+            else
+                ShowHidePagingControl(false);
         }
 
         private void GeneratePages(double totalpage)

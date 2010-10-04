@@ -86,7 +86,7 @@ namespace HPF.FutureState.Web.PrintQCReport
         #region "Disable Unwanted Export Formats"
         private void DisableUnwantedExportFormats()
         {
-            if (!String.IsNullOrEmpty(HPFConfigurationSettings.HPF_EXPORT_FORMATS))
+            if (!String.IsNullOrEmpty(HPFConfigurationSettings.HPF_QC_EXPORT_FORMATS))
             {
                 this.ReportViewerPrintSummary.ShowExportControls = true;
 
@@ -96,7 +96,7 @@ namespace HPF.FutureState.Web.PrintQCReport
                 {
                     exportFormatCtl.PreRender += delegate(object sender, EventArgs e)
                     {
-                        string[] exportFormats = HPFConfigurationSettings.HPF_EXPORT_FORMATS.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] exportFormats = HPFConfigurationSettings.HPF_QC_EXPORT_FORMATS.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                         int index = 1;
                         ListItem item;

@@ -54,7 +54,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     i++;
                 }
                 #region Render Section Comments
-                placeHolder.Controls.Add(RenderSectionRow("Reviewer Comment"));
+                placeHolder.Controls.Add(RenderSectionRow("Reviewer Session Comment"));
                 placeHolder.Controls.Add(RenderQuestionRow(-1, "", "", "", "", caseEvalAgency.Comments, caseEvalHPF.Comments));
                 #endregion
                 lblAgencyScore.InnerText = caseEvalAgency.TotalAuditScore.ToString();

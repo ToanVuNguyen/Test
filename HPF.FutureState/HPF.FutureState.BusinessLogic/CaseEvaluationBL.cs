@@ -165,6 +165,14 @@ namespace HPF.FutureState.BusinessLogic
                         File.Delete(fullPath.ToString());
                     }
                 }
+                //Remove fcid directory
+                if (files.Count > 0)
+                {
+                    fullPath = new StringBuilder();
+                    fullPath.AppendFormat("{0}{1}", rootFolder, files[0].FilePath);
+                    if (Directory.Exists(fullPath.ToString()) && Directory.GetFiles(fullPath.ToString()).Length==0)
+                        Directory.Delete(fullPath.ToString());
+                }
                 //Commit all changes
                 instance.Commit();
             }
