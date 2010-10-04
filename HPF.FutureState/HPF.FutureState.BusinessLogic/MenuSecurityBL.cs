@@ -113,7 +113,7 @@ namespace HPF.FutureState.BusinessLogic
         private DataValidationException ValidateUser(UserDTO user)
         {
             DataValidationException ex = new DataValidationException();
-            HPFUserDTOCollection hpfUsers = HPFUserBL.Instance.RetrieveHpfUsers();
+            HPFUserDTOCollection hpfUsers = HPFUserBL.Instance.RetriveHpfUsersFromDatabase();
             string regex = @"^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$";
             Regex rxValidationEmail = new Regex(regex, RegexOptions.Singleline | RegexOptions.IgnoreCase);
             foreach (HPFUserDTO hpfUser in hpfUsers)

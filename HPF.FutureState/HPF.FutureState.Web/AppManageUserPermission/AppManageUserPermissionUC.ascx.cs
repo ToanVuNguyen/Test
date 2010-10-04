@@ -172,6 +172,7 @@ namespace HPF.FutureState.Web.AppManageUserPermission
                 DraftInfo(menuSecurityCollection, user);
                 user.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
                 MenuSecurityBL.Instance.UpdateUserSecurity(menuSecurityCollection, user);
+                txtPassword.Attributes.Add("value", user.Password);
                 BindMenuSecurity();
                 lblErrorMessage.Items.Add(new ListItem("Update successfully!"));
             }
