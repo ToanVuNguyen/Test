@@ -32,6 +32,15 @@ namespace HPF.FutureState.Web.AppManageUser {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// hpfUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::HPF.FutureState.Web.HPFWebControls.StatefullScrollPanel hpfUser;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -57,15 +66,6 @@ namespace HPF.FutureState.Web.AppManageUser {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdvHPFUser;
-        
-        /// <summary>
-        /// btnAddNew control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddNew;
         
         /// <summary>
         /// UpdatePanel2 control.
@@ -174,5 +174,14 @@ namespace HPF.FutureState.Web.AppManageUser {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTemp;
+        
+        /// <summary>
+        /// btnAddNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddNew;
     }
 }

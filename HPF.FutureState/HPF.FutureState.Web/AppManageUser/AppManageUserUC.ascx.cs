@@ -32,7 +32,7 @@ namespace HPF.FutureState.Web.AppManageUser
         protected int PageSize
         {
             //get { return (int.Parse(HPFConfigurationSettings.APP_EVALUATIONCASE_PAGE_SIZE)); }
-            get { return 13; }
+            get { return 12; }
         }
         //total rows of search data
         protected double TotalRowNum

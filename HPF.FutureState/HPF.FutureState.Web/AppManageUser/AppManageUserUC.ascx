@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AppManageUserUC.ascx.cs" Inherits="HPF.FutureState.Web.AppManageUser.AppManageUserUC" %>
+<%@ Register Assembly="HPF.FutureState.Web.HPFWebControls" Namespace="HPF.FutureState.Web.HPFWebControls"
+    TagPrefix="cc1" %>
 <div class="Text">
     <asp:Label ID="lblErrorMessage" runat="server" CssClass="ErrorMessage"></asp:Label>
 </div>
@@ -7,67 +9,66 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <div align="center">
-<table width="80%">
+<table width="50%">
 <tr>
-<td align="right">
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
- <ContentTemplate>
-    <asp:Panel ID="panHPFUser" runat="server" CssClass="ScrollTable" Width="100%"
-                    Height="80%" Visible="true">
-    <asp:GridView ID="grdvHPFUser" runat="server" CellPadding="4" CssClass="GridViewStyle" ForeColor="#333333" 
-                    AutoGenerateColumns="false" AllowPaging="true"
-                    onrowcreated="grdvHPFUser_RowCreated" onrowcommand="grdvHPFUser_RowCommand">
-                    <PagerSettings Visible="False" />
-                    <RowStyle BackColor="#EFF3FB" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                    <HeaderStyle BackColor="#336699" CssClass="FixedHeader" Font-Size="XX-Small" 
-                        ForeColor="White" />
-                    <AlternatingRowStyle BackColor="White" />
-                    <Columns>
-                        <asp:TemplateField HeaderText="Index" Visible="false" >  
-                            <ItemTemplate>
-                                <asp:Label ID="lblHpfUserId" runat="server" Text='<%# Bind("HpfUserId") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="User Login ID" ItemStyle-Width="80" >  
-                            <ItemTemplate>
-                                <asp:HyperLink runat="server" Text='<%# Bind("UserLoginId") %>' ID="lnkUserLoginId"></asp:HyperLink>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="First Name" >  
-                            <ItemTemplate>
-                                <asp:Label ID="lblFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Last Name" >  
-                            <ItemTemplate>
-                                <asp:Label ID="lblLastName" runat="server" Text='<%# Bind("LastName") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Active" ShowHeader="true">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="lbtnActivate" runat="server" CausesValidation="False" CommandName="Activate"></asp:LinkButton>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField Visible="false">
-                            <ItemTemplate>
-                                <asp:Label ID="lblActiveInd" runat="server" Text='<%# Bind("ActiveInd") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>            
-                    </Columns>
-                    
-    </asp:GridView>
-    </asp:Panel>
-    </ContentTemplate>
-</asp:UpdatePanel>
+<td align="center">
+<cc1:StatefullScrollPanel ID="hpfUser" runat="server" CssClass="ScrollTable"
+                Width="100%" BorderColor="LightGray" BorderWidth="1">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+     <ContentTemplate>
+        <asp:Panel ID="panHPFUser" runat="server" Visible="true">
+        <asp:GridView Width="100%" ID="grdvHPFUser" runat="server" CellPadding="4" CssClass="GridViewStyle" ForeColor="#333333" 
+                        AutoGenerateColumns="false" AllowPaging="true"
+                        onrowcreated="grdvHPFUser_RowCreated" onrowcommand="grdvHPFUser_RowCommand">
+                        <PagerSettings Visible="False" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <HeaderStyle BackColor="#336699" CssClass="NormalHeader" Font-Size="XX-Small" 
+                            ForeColor="White" />
+                        <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="Index" Visible="false"  >  
+                                <ItemTemplate>
+                                    <asp:Label ID="lblHpfUserId" runat="server" Text='<%# Bind("HpfUserId") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="User Login ID" HeaderStyle-Wrap="false" >  
+                                <ItemTemplate>
+                                    <asp:HyperLink runat="server" Text='<%# Bind("UserLoginId") %>' ID="lnkUserLoginId"></asp:HyperLink>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="First Name" HeaderStyle-Wrap="false" >  
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFirstName" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Last Name"  HeaderStyle-Wrap="false">  
+                                <ItemTemplate>
+                                    <asp:Label ID="lblLastName" runat="server" Text='<%# Bind("LastName") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Active" ShowHeader="true" HeaderStyle-Wrap="false">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbtnActivate" runat="server" CausesValidation="False" CommandName="Activate"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField Visible="false">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblActiveInd" runat="server" Text='<%# Bind("ActiveInd") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>            
+                        </Columns>
+                        
+        </asp:GridView>
+        </asp:Panel>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    </cc1:StatefullScrollPanel>
 </td>
-<td valign="top" align="left">
-    <asp:Button ID="btnAddNew" runat="server" Text="Add User" Width="120px" 
-            CssClass="MyButton" onclick="btnAddNew_Click"/></td>
 </tr>
 <tr>
-<td align="right">
+<td align="left">
     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
          <ContentTemplate>
             <table>
@@ -99,8 +100,12 @@
             </ContentTemplate>
             </asp:UpdatePanel>
 </td>
-<td></td>
 </tr> 
+<tr>
+    <td valign="top" align="center">
+        <asp:Button ID="btnAddNew" runat="server" Text="Add User" Width="120px" 
+                CssClass="MyButton" onclick="btnAddNew_Click"/></td>
+</tr>            
 </table>
 </div>
 <script type="text/javascript">
