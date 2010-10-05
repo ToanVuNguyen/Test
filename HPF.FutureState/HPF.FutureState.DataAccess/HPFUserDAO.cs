@@ -60,23 +60,27 @@ namespace HPF.FutureState.DataAccess
                     hpfUsers = new HPFUserDTOCollection();
                     while (reader.Read())
                     {
-                       hpfUsers.Add(new HPFUserDTO(){
-                           HpfUserId = ConvertToInt(reader["hpf_user_id"]),
-                           UserLoginId = ConvertToString(reader["user_login_id"]),
-                           Password = ConvertToString(reader["password"]),
-                           FirstName = ConvertToString(reader["fname"]),
-                           LastName = ConvertToString(reader["lname"]),
-                           Email = ConvertToString(reader["email"]),
-                           ActiveInd = ConvertToString(reader["active_ind"])
-                       });
+                        hpfUsers.Add(new HPFUserDTO()
+                        {
+                            HpfUserId = ConvertToInt(reader["hpf_user_id"]),
+                            UserLoginId = ConvertToString(reader["user_login_id"]),
+                            Password = ConvertToString(reader["password"]),
+                            FirstName = ConvertToString(reader["fname"]),
+                            LastName = ConvertToString(reader["lname"]),
+                            Email = ConvertToString(reader["email"]),
+                            ActiveInd = ConvertToString(reader["active_ind"])
+                        });
                     }
                     reader.Close();
                 }
-                dbConnection.Close();
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
             }
             return hpfUsers;
         }
@@ -145,11 +149,14 @@ namespace HPF.FutureState.DataAccess
                     }
                     reader.Close();
                 }
-                dbConnection.Close();
             }
             catch (Exception Ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                dbConnection.Close();
             }
             return hpfUsers;
         }
