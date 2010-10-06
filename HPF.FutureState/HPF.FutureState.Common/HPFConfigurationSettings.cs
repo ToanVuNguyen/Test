@@ -216,6 +216,13 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["HPF_QC_MONTHLY_CALIBRATION_SUMMARY_REPORT"];
             }
         }
+        public static string HPF_QC_ANNUAL_ONSITE_SUMMARY_REPORT
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_QC_ANNUAL_ONSITE_SUMMARY_REPORT"];
+            }
+        }
         public static string HPF_QC_FILE_UPLOAD_PATH
         {
             get

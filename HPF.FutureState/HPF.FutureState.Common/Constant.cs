@@ -49,6 +49,7 @@ namespace HPF.FutureState.Common
         public const string QC_AUDIT_CASE_REPORT_TYPE = "audit_case_report";
         public const string QC_MONTHLY_SUMMARY_REPORT_TYPE = "monthly_summary_report";
         public const string QC_MONTHLY_CALIBRATION_SUMMARY_REPORT_TYPE = "monthly_calibration_summary_report";
+        public const string QC_ANNUAL_ONSITE_SUMMARY_REPORT_TYPE = "annual_onsite_summary_report";
         #endregion
         //
         public const string CALL_CENTER_OTHER = "OTHER";

@@ -70,12 +70,23 @@ namespace HPF.FutureState.Web.PrintQCReport
                     ReportViewerPrintSummary.ServerReport.ReportPath =
                 HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_QC_MONTHLY_CALIBRATION_SUMMARY_REPORT);
                     break;
+                case Constant.QC_ANNUAL_ONSITE_SUMMARY_REPORT_TYPE:
+                    ReportViewerPrintSummary.ServerReport.ReportPath =
+                HPFConfigurationSettings.MapReportPath(HPFConfigurationSettings.HPF_QC_ANNUAL_ONSITE_SUMMARY_REPORT);
+                    break;
             }
-            ReportParameter pEvalType = new ReportParameter("pi_eval_type", evalType);
             ReportParameter pAgencyId = new ReportParameter("pi_agency_id", agencyId);
             ReportParameter pYearMonthFrom = new ReportParameter("pi_from_eval_year_month", yearMonthFrom);
             ReportParameter pYearMonthTo = new ReportParameter("pi_to_eval_year_month", yearMonthTo);
-            ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { pEvalType,pAgencyId, pYearMonthFrom, pYearMonthTo });
+            if (string.Compare(reportType,Constant.QC_ANNUAL_ONSITE_SUMMARY_REPORT_TYPE)!=0)
+            {
+                ReportParameter pEvalType = new ReportParameter("pi_eval_type", evalType);
+                ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { pEvalType, pAgencyId, pYearMonthFrom, pYearMonthTo });
+            }
+            else
+            {
+                ReportViewerPrintSummary.ServerReport.SetParameters(new ReportParameter[] { pAgencyId, pYearMonthFrom, pYearMonthTo });
+            }
         }
         private void SetReportServerUrl()
         {

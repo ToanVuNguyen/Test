@@ -66,6 +66,7 @@ namespace HPF.FutureState.Web.QCReport
         {
             ddlReportingName.Items.Add(new ListItem("Monthly Summary - Detail Result",Constant.QC_MONTHLY_SUMMARY_REPORT_TYPE));
             ddlReportingName.Items.Add(new ListItem("Monthly Calibration",Constant.QC_MONTHLY_CALIBRATION_SUMMARY_REPORT_TYPE));
+            ddlReportingName.Items.Add(new ListItem("Annual Onsite Summary", Constant.QC_ANNUAL_ONSITE_SUMMARY_REPORT_TYPE));
         }
         private void BindEvalTypeDropDownList()
         {
