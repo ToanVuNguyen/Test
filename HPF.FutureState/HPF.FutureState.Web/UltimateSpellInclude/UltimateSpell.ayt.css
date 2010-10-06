@@ -1,0 +1,82 @@
+.SpellAsYouTypeContextMenu
+{
+	font-family:Tahoma;
+	font-size:11px;
+	word-wrap:break-word;
+	border:1px solid #666666;
+	padding:1px;
+	width:140px;
+	background-color:#F9F8F7;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#AAAAAA,direction=135,strength=3);
+}
+
+.SpellAsYouTypeContextMenuItem
+{
+	border:1px solid #F9F8F7;
+	background-color:#F9F8F7;
+	color:#000000;
+	padding-left:5px;
+	padding-top:2px;
+	height:20px;
+	overflow:hidden;
+	cursor:default;
+}
+
+.SpellAsYouTypeContextMenuItemOver
+{
+	border:1px solid #0A246A;
+	background-color:#B6BDD2;
+	color:#000000;
+	padding-left:5px;
+	padding-top:2px;
+	height:20px;
+	overflow:hidden;
+	cursor:default;
+}
+
+.SpellAsYouTypeContextMenuSuggestItem
+{
+	border:1px solid #F9F8F7;
+	background-color:#F9F8F7;
+	color:#000000;
+	padding-left:5px;
+	padding-top:2px;
+	height:20px;
+	overflow:hidden;
+	cursor:default;
+	font-weight:bold;
+}
+
+.SpellAsYouTypeContextMenuSuggestItemOver
+{
+	border:1px solid #0A246A;
+	background-color:#B6BDD2;
+	color:#000000;
+	padding-left:5px;
+	padding-top:2px;
+	height:20px;
+	overflow:hidden;
+	cursor:default;
+	font-weight:bold;
+}
+
+.SpellAsYouTypeContextMenuDisabledItem
+{
+	border:1px solid #F9F8F7;
+	background-color:#F9F8F7;
+	color:#A6A6A6;
+	padding-left:5px;
+	padding-top:2px;
+	height:20px;
+	overflow:hidden;
+	cursor:default;
+}
+
+.SpellAsYouTypeContextMenuSeparator
+{
+	background-color:#A6A6A6;
+	margin:1px;
+	height:1px;
+	overflow:hidden;
+	cursor:default;
+}

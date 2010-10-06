@@ -63,7 +63,8 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             btnCalculate.Visible = btnSaveNew.Visible = (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.CLOSED) != 0);
             btnNotifyAgency.Visible =((isHPFUser)&& 
                                         (string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT)==0
-                                        ||string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT)==0));        
+                                        ||string.Compare(evalHeader.EvalStatus,CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_HPF_INPUT)==0));
+            btnReopen.Visible = ((isHPFUser)&& (string.Compare(evalHeader.EvalStatus, CaseEvaluationBL.EvaluationStatus.CLOSED)==0));
         }
         private void RenderHTML(int? caseEvalHeaderId)
         {
@@ -363,6 +364,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
                 lblErrorMessage.Text = "Evaluation Case was closed successfully!!!";
                 SetEvaluationCaseStatus();
+                InitControlStatus();
             }
             catch (Exception ex)
             {
@@ -388,6 +390,24 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     string agencyAuditorId = evalSetAgencyLatest.ChangeLastUserId;
                     CaseEvaluationBL.Instance.SendNotifyEmail(agencyAuditorId, evalHeader.FcId.Value, -1, CaseEvaluationBL.EvaluationStatus.RECON_REQUIRED_AGENCY_INPUT, evalHeader.EvalType);
                 }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Text = ex.Message;
+                ExceptionProcessor.HandleException(ex, HPFWebSecurity.CurrentIdentity.LoginName);
+            }
+        }
+
+        protected void btnReopen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                evalHeader.EvalStatus = CaseEvaluationBL.EvaluationStatus.HPF_INPUT_REQUIRED;
+                evalHeader.SetUpdateTrackingInformation(HPFWebSecurity.CurrentIdentity.LoginName);
+                CaseEvaluationBL.Instance.UpdateCaseEvalHeader(evalHeader);
+                lblErrorMessage.Text = "Evaluation Case was reopened!!!";
+                SetEvaluationCaseStatus();
+                InitControlStatus();
             }
             catch (Exception ex)
             {

@@ -1,0 +1,7 @@
+////////////////////////////////////////////////////////////
+// This software is solely the property of Karamasoft LLC. /
+//   Copyright 2009 Karamasoft LLC. All rights reserved.   /
+//                  www.karamasoft.com                     /
+////////////////////////////////////////////////////////////
+
+var usdf41='ddlChangeTo'; function usdr0() { usdf29(); usd8m.usdz7(); } UltimateSpell.prototype.usdz7=function() { usdj2(usdz3).innerHTML=this.usd0j; usdj2(usdz4).innerHTML=this.usd1j; usdj2(usdy3).value=this.usd8j; usdj2(usdy4).value=this.usd9j; }; UltimateSpell.prototype.usd8l=function() { var usdt0=this.usdi0[this.usdi1]; this.usd9m(usdt0); this.usd0n(usdt0); }; UltimateSpell.prototype.usd9m=function(usdt0) { usdg1.innerHTML=usd8m.usde88+' <b>'+usd7m.usdf16+'</b>'; }; UltimateSpell.prototype.usd0n=function(usdt0) { var usdf42=usdj2(usdf41); var usds6=usdf42.options; if (usds6.length > 0) { usds6.length=0; } if (usdt0) { var usdf11=usdt0.usdf11; for (var i=0,usdn3=usdf11.length; i < usdn3; i++) { var usds8=document.createElement('option'); usds8.text=usdf11[i]; usds8.value=usdf11[i]; usds6.add(usds8); } if (usdf11.length > 0) { usdf42.selectedIndex=0; } } else { var usds8=document.createElement('option'); usds8.text=usd8m.usde80; usds8.value=''; usds6.add(usds8); usds6.disabled=true; } }; function HandleUSDOKClick() { var usdf42=usdj2(usdf41); if (usdf42.disabled) { HandleUSDCancelClick(); } else { usd8m.usdu3(); usdf33(usde59,usdf42.value); } } function SynonymsDialogOnLoad() { usdr0(); if (usd8m.usdi3) { usd8m.usdu1(usd7m.usdf16,usde59); } } 

@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AgencyAudit.ascx.cs" Inherits="HPF.FutureState.Web.QCSelectionCaseDetail.AgencyAudit" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<%@ Register assembly="UltimateSpell" namespace="Karamasoft.WebControls.UltimateSpell" tagprefix="kswc" %>
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
 <div class="Text">
@@ -99,10 +102,20 @@
                 <asp:Button ID='btnNotifyAgency' runat='server' Text='Notify Agency' Width='120px' 
                         CssClass='MyButton' onclick="btnNotifyAgency_Click"/>
                 <asp:Button ID='btnCloseAudit' runat='server' Text='Close Audit' Width='120px'
-                CssClass='MyButton' onclick="btnCloseAudit_Click"/>                
+                CssClass='MyButton' onclick="btnCloseAudit_Click"/>
+                <asp:Button ID='btnReopen' runat='server' Text='Reopen' Width='120px'
+                CssClass='MyButton' onclick="btnReopen_Click"/>                
                 <asp:Button ID='btnClose' runat='server' Text='Close' Width='120px'
                 CssClass='MyButton' onclick="btnClose_Click"/></td>
                 </tr>
                 </table>
+
+                
+                
+<kswc:UltimateSpell ID="UltimateSpell1" runat="server" SpellAsYouType="True" ShowSpellButton="False"
+CustomDictionary="SpellAsYouType" SpellWaitPeriod="300">
+</kswc:UltimateSpell>
+
+
                 
                 

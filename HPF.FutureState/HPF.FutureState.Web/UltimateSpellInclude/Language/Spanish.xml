@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- Thanks to Adrián Murillo for the Spanish.xml file. -->
+<DisplayElements>
+	<DisplayElement key="NotInDictionary" value="No en diccionario:" />
+	<DisplayElement key="MixedCase" value="Palabras mezcladas:" />
+	<DisplayElement key="RepeatedWord" value="Palabra repetida:" />
+	<DisplayElement key="GrammaticalError" value="Error Gramatical:" />
+	<DisplayElement key="NoSpellingSuggestions" value="(no hay sugerencias)" />
+	<DisplayElement key="NoSuggestions" value="(No Hay Sugerencias)" />
+	<DisplayElement key="SpellCheckComplete" value="Revisión ortográfica finalizada." />
+	<DisplayElement key="GrammarCheckComplete" value="Revisión gramática finalizada." />
+	<DisplayElement key="ClickOKToApplyChanges" value="Presione OK para aplicar los cambios." />
+	<DisplayElement key="Loading" value="Cargando..." />
+	<DisplayElement key="ChangeTo" value="Cambiar a:" />
+	<DisplayElement key="Suggestions" value="Sugerencias:" />
+	<DisplayElement key="SynonymsOf" value="Sinónimos de:" />
+	<DisplayElement key="Ignore" value="Cancelar" />
+	<DisplayElement key="IgnoreAll" value="Cancelar todos" />
+	<DisplayElement key="AddToDictionary" value="Agregue al Diccionario" />
+	<DisplayElement key="Change" value="Modificar" />
+	<DisplayElement key="ChangeAll" value="Modificar todos" />
+	<DisplayElement key="Delete" value="Quitar" />
+	<DisplayElement key="DeleteAll" value="Quitar todos" />
+	<DisplayElement key="ShowOptions" value="Opciones..." />
+	<DisplayElement key="HideOptions" value="Ocultar Opciones..." />
+	<DisplayElement key="Synonyms" value="Sinónimos..." />
+	<DisplayElement key="Cut" value="Cortar" />
+	<DisplayElement key="Copy" value="Copiar" />
+	<DisplayElement key="Paste" value="Pegar" />
+	<DisplayElement key="SelectAll" value="Seleccionar Todo" />
+	<DisplayElement key="OK" value="Aceptar" />
+	<DisplayElement key="Cancel" value="Cancelar" />
+	<DisplayElement key="IgnoreWordsInUppercase" value="Ignorar palabras en mayúscula." />
+	<DisplayElement key="IgnoreWordsInMixedCase" value="Ignorar palabras mezcladas" />
+	<DisplayElement key="IgnoreWordsWithNumbers" value="Ignorar palabras con números" />
+	<DisplayElement key="IgnoreRepeatedWords" value="Ignorar palabras repetidas" />
+	<DisplayElement key="IgnoreInternetAddresses" value="Ignorar direcciones de Internet" />
+	<DisplayElement key="IgnoreEmailAddresses" value="Ignorar direcciones de correo electrónico" />
+	<DisplayElement key="IgnoreFilenames" value="Ignorar nombres de archivo" />
+	<DisplayElement key="IgnoreHTMLTags" value="Ignorar etiquetas HTML" />
+	<DisplayElement key="DeleteRepeatedWord" value="Quitar Palabra Repetida" />
+	<DisplayElement key="LookUpMeaning" value="Definición" />
+	<DisplayElement key="LookUpMeaningURL" value="http://www.wordreference.com/definicion/[WORD]" />
+</DisplayElements>

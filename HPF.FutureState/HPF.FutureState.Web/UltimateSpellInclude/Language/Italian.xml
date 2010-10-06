@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<DisplayElements>
+	<DisplayElement key="NotInDictionary" value="Non in dizionario:" />
+	<DisplayElement key="MixedCase" value="Caso mixed:" />
+	<DisplayElement key="RepeatedWord" value="Parola ripetuta:" />
+	<DisplayElement key="GrammaticalError" value="Errore Grammaticale:" />
+	<DisplayElement key="NoSpellingSuggestions" value="(nessun suggerimenti di ortografia)" />
+	<DisplayElement key="NoSuggestions" value="(Nessun Suggerimento)" />
+	<DisplayElement key="SpellCheckComplete" value="Controllo di periodo completo." />
+	<DisplayElement key="GrammarCheckComplete" value="Grammatica di controllo completo." />
+	<DisplayElement key="ClickOKToApplyChanges" value="Scattisi OK per applicare i cambiamenti." />
+	<DisplayElement key="Loading" value="Caricamento..." />
+	<DisplayElement key="ChangeTo" value="Cambi a:" />
+	<DisplayElement key="Suggestions" value="Suggerimenti:" />
+	<DisplayElement key="SynonymsOf" value="Sinonimi di:" />
+	<DisplayElement key="Ignore" value="Ignori" />
+	<DisplayElement key="IgnoreAll" value="Ignori Tutti" />
+	<DisplayElement key="AddToDictionary" value="Aggiunga al Dizionario" />
+	<DisplayElement key="Change" value="Modifichi" />
+	<DisplayElement key="ChangeAll" value="Modifichi Tutti" />
+	<DisplayElement key="Delete" value="Rimuovere" />
+	<DisplayElement key="DeleteAll" value="Rimuovere Tutti" />
+	<DisplayElement key="ShowOptions" value="Mostrare le Opzioni..." />
+	<DisplayElement key="HideOptions" value="Nascondere le Opzioni..." />
+	<DisplayElement key="Synonyms" value="Sinonimi..." />
+	<DisplayElement key="Cut" value="Tagliare" />
+	<DisplayElement key="Copy" value="Copiare" />
+	<DisplayElement key="Paste" value="Incollare" />
+	<DisplayElement key="SelectAll" value="Seleziona Tutto" />
+	<DisplayElement key="OK" value="Approvare" />
+	<DisplayElement key="Cancel" value="Annullare" />
+	<DisplayElement key="IgnoreWordsInUppercase" value="Ignori Le Parole In Maiuscolo" />
+	<DisplayElement key="IgnoreWordsInMixedCase" value="Ignori Le Parole Nel Caso Mixed" />
+	<DisplayElement key="IgnoreWordsWithNumbers" value="Ignori Le Parole Con I Numeri" />
+	<DisplayElement key="IgnoreRepeatedWords" value="Ignori Le Parole Ripetute" />
+	<DisplayElement key="IgnoreInternetAddresses" value="Ignori Gli Indirizzi Del Internet" />
+	<DisplayElement key="IgnoreEmailAddresses" value="Ignori Gli Indirizzi Del Email" />
+	<DisplayElement key="IgnoreFilenames" value="Ignori I Nomi di schedario" />
+	<DisplayElement key="IgnoreHTMLTags" value="Ignori Le Modifiche del HTML" />
+	<DisplayElement key="DeleteRepeatedWord" value="Rimuovere Parola Ripetuta" />
+	<DisplayElement key="LookUpMeaning" value="Definizione" />
+	<DisplayElement key="LookUpMeaningURL" value="http://dictionaries.travlang.com/ItalianEnglish/dict.cgi?amp;query=[WORD]&amp;max=50" />
+</DisplayElements>

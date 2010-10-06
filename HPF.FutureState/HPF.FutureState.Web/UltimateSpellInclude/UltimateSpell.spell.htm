@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<html>
+<head>
+<title>UltimateSpell</title>
+<link href="UltimateSpell.dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" language="javascript" src="UltimateSpell.core.js">
+<!--
+//-->
+</script>
+<script type="text/javascript" language="javascript" src="UltimateSpell.dialog.js">
+<!--
+//-->
+</script>
+<script type="text/javascript" language="javascript" src="UltimateSpell.spell.js">
+<!--
+//-->
+</script>
+</head>
+<body style="background-color:#ECE9D8;margin:10px" onload="SpellDialogOnLoad()">
+	<table border="0" cellpadding="0" cellspacing="0" ID="Table1">
+		<tr>
+			<td colspan="3"><div id="divSpellErrorType" class="Caption"><span id="spanLoading" class="Loading"></span></div></td>
+		</tr>
+		<tr valign="top">
+			<td colspan="2">
+				<div id="divSpellErrorText" class="SpellErrorText"></div>
+			</td>
+			<td style="padding-left:10px">
+				<input type="button" id="btnIgnore" class="Button" style="margin-bottom:10px" onclick="HandleUSDIgnoreClick()" NAME="btnIgnore"><br>
+				<input type="button" id="btnIgnoreAll" class="Button" style="margin-bottom:10px" onclick="HandleUSDIgnoreAllClick()" NAME="btnIgnoreAll"><br>
+				<input type="button" id="btnAddToDictionary" class="Button" onclick="HandleUSDAddToDictionaryClick()" style="display:none" NAME="btnAddToDictionary">
+			</td>
+		</tr>
+		<tr valign="top">
+			<td colspan="3">
+				<div id="divChangeTo" class="Caption"></div>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td colspan="2">
+				<div class="Caption"><input type="text" id="tbChangeTo" class="ChangeTo" NAME="tbChangeTo"></div>
+				<table border="0" cellpadding="0" cellspacing="0" class="Caption" style="width:330px">
+					<tr>
+						<td><span id="spanSuggestions"></span></td>
+						<td align="right"><span id="spanLookUpMeaning" class="LookUpMeaning" onclick="HandleUSDLookUpMeaning()"></span></td>
+					</tr>
+				</table>
+				<select id="lbSuggestions" class="Suggestions" size="6" onchange="HandleUSDSuggestionsChange(this)" ondblclick="HandleUSDSuggestionsDblClick(this)" NAME="lbSuggestions"></select>
+			</td>
+			<td style="padding-left:10px">
+				<input type="button" id="btnChange" class="Button" style="margin-bottom:10px" onclick="HandleUSDChangeClick()" NAME="btnChange"><br>
+				<input type="button" id="btnChangeAll" class="Button" onclick="HandleUSDChangeAllClick()" NAME="btnChangeAll">
+			</td>
+		</tr>
+		<tr>
+			<td><input type="button" id="btnToggleOptions" class="Button" onclick="HandleUSDShowOptionsClick(this)" style="display:none" NAME="btnToggleOptions"></td>
+			<td align="right"><input type="button" id="btnOK" class="Button" onclick="HandleUSDOKClick()" NAME="btnOK"></td>
+			<td style="padding-left:10px"><input type="button" id="btnCancel" class="Button" onclick="HandleUSDCancelClick()" NAME="btnCancel"></td>
+		</tr>
+	</table>
+	<table id="tblOptions" border="0" cellpadding="0" cellspacing="0" class="Options" style="display:none">
+		<tr>
+			<td style="width:230px"><input type="checkbox" id="cbIgnoreWordsInUppercase" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreWordsInUppercase"><span id="spanIgnoreWordsInUppercase"></span></td>
+			<td><input type="checkbox" id="cbIgnoreInternetAddresses" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreInternetAddresses"><span id="spanIgnoreInternetAddresses"></span></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="cbIgnoreWordsInMixedCase" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreWordsInMixedCase"><span id="spanIgnoreWordsInMixedCase"></span></td>
+			<td><input type="checkbox" id="cbIgnoreEmailAddresses" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreEmailAddresses"><span id="spanIgnoreEmailAddresses"></span></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="cbIgnoreWordsWithNumbers" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreWordsWithNumbers"><span id="spanIgnoreWordsWithNumbers"></span></td>
+			<td><input type="checkbox" id="cbIgnoreFilenames" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreFilenames"><span id="spanIgnoreFilenames"></span></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="cbIgnoreRepeatedWords" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreRepeatedWords"><span id="spanIgnoreRepeatedWords"></span></td>
+			<td><input type="checkbox" id="cbIgnoreHTMLTags" onclick="HandleUSDOptionClick(this)" NAME="cbIgnoreHTMLTags"><span id="spanIgnoreHTMLTags"></span></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="height:5px"></td>
+		</tr>
+	</table>
+</body>
+</html>

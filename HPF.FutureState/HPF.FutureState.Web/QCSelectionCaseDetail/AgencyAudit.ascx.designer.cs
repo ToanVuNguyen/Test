@@ -203,6 +203,15 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         protected global::System.Web.UI.WebControls.Button btnCloseAudit;
         
         /// <summary>
+        /// btnReopen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReopen;
+        
+        /// <summary>
         /// btnClose control.
         /// </summary>
         /// <remarks>
@@ -210,5 +219,14 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClose;
+        
+        /// <summary>
+        /// UltimateSpell1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Karamasoft.WebControls.UltimateSpell.UltimateSpell UltimateSpell1;
     }
 }

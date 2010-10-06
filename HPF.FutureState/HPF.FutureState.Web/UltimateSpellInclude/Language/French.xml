@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<DisplayElements>
+	<DisplayElement key="NotInDictionary" value="Pas dans le dictionnaire:" />
+	<DisplayElement key="MixedCase" value="Cas mélangé:" />
+	<DisplayElement key="RepeatedWord" value="Mot répété:" />
+	<DisplayElement key="GrammaticalError" value="Erreur Grammaticale:" />
+	<DisplayElement key="NoSpellingSuggestions" value="(aucunes suggestions d'épellation)" />
+	<DisplayElement key="NoSuggestions" value="(Aucune Suggestion)" />
+	<DisplayElement key="SpellCheckComplete" value="Contrôle de charme complet." />
+	<DisplayElement key="GrammarCheckComplete" value="Contrôle de grammaire complet." />
+	<DisplayElement key="ClickOKToApplyChanges" value="Cliquetez OK pour appliquer des changements." />
+	<DisplayElement key="Loading" value="Chargement..." />
+	<DisplayElement key="ChangeTo" value="Changez en:" />
+	<DisplayElement key="Suggestions" value="Suggestions:" />
+	<DisplayElement key="SynonymsOf" value="Synonymes de:" />
+	<DisplayElement key="Ignore" value="Ignorez" />
+	<DisplayElement key="IgnoreAll" value="Ignorez Tous" />
+	<DisplayElement key="AddToDictionary" value="Ajoutez au Dictionnaire" />
+	<DisplayElement key="Change" value="Modifiez" />
+	<DisplayElement key="ChangeAll" value="Modifiez Tous" />
+	<DisplayElement key="Delete" value="Effacer" />
+	<DisplayElement key="DeleteAll" value="Effacer Tous" />
+	<DisplayElement key="ShowOptions" value="Montrer des Options..." />
+	<DisplayElement key="HideOptions" value="Cacher des Options..." />
+	<DisplayElement key="Synonyms" value="Synonymes..." />
+	<DisplayElement key="Cut" value="Couper" />
+	<DisplayElement key="Copy" value="Copier" />
+	<DisplayElement key="Paste" value="Coller" />
+	<DisplayElement key="SelectAll" value="Sélectionner L'ensemble Des" />
+	<DisplayElement key="OK" value="OK" />
+	<DisplayElement key="Cancel" value="Décommander" />
+	<DisplayElement key="IgnoreWordsInUppercase" value="Ignorez Les Mots Dans Majuscule" />
+	<DisplayElement key="IgnoreWordsInMixedCase" value="Ignorez Les Mots Dans Le Cas Mélangé" />
+	<DisplayElement key="IgnoreWordsWithNumbers" value="Ignorez Les Mots Avec Des Nombres" />
+	<DisplayElement key="IgnoreRepeatedWords" value="Ignorez Les Mots Répétés" />
+	<DisplayElement key="IgnoreInternetAddresses" value="Ignorez Les Adresses D'Internet" />
+	<DisplayElement key="IgnoreEmailAddresses" value="Ignorez Les Adresses D'Email" />
+	<DisplayElement key="IgnoreFilenames" value="Ignorez Les Noms de fichier" />
+	<DisplayElement key="IgnoreHTMLTags" value="Ignorez Les Étiquettes de HTML" />
+	<DisplayElement key="DeleteRepeatedWord" value="Effacer Mot Répété" />
+	<DisplayElement key="LookUpMeaning" value="Définition" />
+	<DisplayElement key="LookUpMeaningURL" value="http://www.ultralingua.com/onlinedictionary/index.html?nv=0&amp;action=define&amp;sub=1&amp;searchtype=stemming&amp;text=[WORD]&amp;service=french2french" />
+</DisplayElements>
