@@ -89,7 +89,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="UltimateSpell, Version=3.6.3861.37135, Culture=neutral, PublicKeyToken=722373a75218b33c, processorArchitecture=MSIL" />
+    <Reference Include="UltimateSpell, Version=3.6.3861.37135, Culture=neutral, PublicKeyToken=722373a75218b33c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common Library\UltimateSpell.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
