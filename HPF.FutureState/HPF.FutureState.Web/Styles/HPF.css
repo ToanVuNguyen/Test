@@ -282,7 +282,14 @@ h2
     font-size: 11px;
     color:White;
 }
-
+.SpellCheckTextBox
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: Black;
+    font-size: 10px;
+    border: 1px solid #7F9DB9;
+    width:auto;
+}
 .ajax__calendar_container {padding:4px;position:absolute;cursor:default;width:170px;font-size:11px;text-align:center;font-family:tahoma,verdana,helvetica;}
 .ajax__calendar_body {height:139px;width:170px;position:relative;overflow:hidden;margin:auto;}
 .ajax__calendar_days, .ajax__calendar_months, .ajax__calendar_years {top:0px;left:0px;height:139px;width:170px;position:absolute;text-align:center;margin:auto;}

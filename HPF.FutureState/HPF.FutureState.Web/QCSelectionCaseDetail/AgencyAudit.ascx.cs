@@ -30,6 +30,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         private bool isHPFUser;
         private bool isFirstTime;
         private bool isFullFill;
+        private StringBuilder idTextboxs;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,10 +41,14 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 isFirstTime = (evalHeader.EvalStatus == CaseEvaluationBL.EvaluationStatus.AGENCY_INPUT_REQUIRED);
                 if (evalHeader != null)
                 {
+                    idTextboxs = new StringBuilder();
+                    idTextboxs.Append("txtComments");
                     InitControlStatus();
                     RenderHTML(evalHeader.CaseEvalHeaderId);
                 }
                 lblErrorMessage.Text = "";
+                //Set list text box id to ultimateSpell control
+                UltimateSpell1.ControlIdsToCheck = idTextboxs.ToString();
             }
             catch (Exception ex)
             {
@@ -133,7 +138,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 }
             }
             lblAuditorName.Text = HPFWebSecurity.CurrentIdentity.DisplayName;
-            txtEvaluationDate.Text = DateTime.Now.ToShortDateString();
             btnCloseAudit.Visible = false;
         }
         /// <summary>
@@ -210,13 +214,14 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             //Comment cell
             tc = new TableCell();
-            tc.Attributes.Add("align", "left");
+            tc.Attributes.Add("align", "center");
             TextBox txtBox = new TextBox();
             txtBox.ID ="txt"+id.ToString();
-            txtBox.Columns = 70;
+            idTextboxs.AppendFormat(",{0}", txtBox.ID);
+            txtBox.Columns = 100;
             txtBox.Rows = 3;
             txtBox.TextMode = TextBoxMode.MultiLine;
-            txtBox.Attributes.Add("class", "Text");
+            txtBox.CssClass = "SpellCheckTextBox";
             txtBox.Text = comments;
             tc.Controls.Add(txtBox);
             result.Controls.Add(tc);
@@ -251,6 +256,18 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         private CaseEvalSetDTO DraftCaseEvalSet()
         {
             CaseEvalSetDTO result = new CaseEvalSetDTO();
+            //Check evaluation date input by agency for the first time
+            if (isFirstTime && !isHPFUser)
+            {
+                DateTime evaluationDate = ConvertToDateTime(txtEvaluationDate.Text);
+                if (evaluationDate == DateTime.MinValue)
+                    throw new Exception("Evaluation date is incorrect !");
+                else
+                    result.EvaluationDt = evaluationDate;
+            }
+            else
+                result.EvaluationDt = DateTime.Now;
+            result.EvaluationDt = (((isFirstTime) && (!isHPFUser)) ? ConvertToDateTime(txtEvaluationDate.Text) : DateTime.Now);
             int i = 0;
             foreach (CaseEvalDetailDTO caseEvalDetailDraft in caseEvalDetailDraftCollection)
             {
@@ -262,7 +279,6 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             result.CaseEvalHeaderId = evalHeader.CaseEvalHeaderId;
             result.AuditorName = HPFWebSecurity.CurrentIdentity.DisplayName;
             result.HpfAuditInd = (string.Compare(HPFWebSecurity.CurrentIdentity.UserType, Constant.USER_TYPE_HPF) == 0 ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
-            result.EvaluationDt = (((isFirstTime) && (!isHPFUser)) ? ConvertToDateTime(txtEvaluationDate.Text):DateTime.Now);
             result.FatalErrorInd = (chkFatalError.Checked ? Constant.INDICATOR_YES : Constant.INDICATOR_NO);
             result.Comments =txtComments.Text;
             return result;

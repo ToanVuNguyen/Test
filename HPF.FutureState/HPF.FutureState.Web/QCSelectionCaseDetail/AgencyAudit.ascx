@@ -18,7 +18,7 @@
                         </tr>
                         <tr>
                             <td><asp:Label ID="lblEvaluationDate" runat="server" Text="Evaluation Date:" CssClass="sidelinks"/></td>
-                            <td><asp:TextBox ID="txtEvaluationDate" runat="server" CssClass="Text"  MaxLength="100"></asp:TextBox>
+                            <td><asp:TextBox ID="txtEvaluationDate" runat="server" CssClass="SpellCheckTextBox"  MaxLength="100"></asp:TextBox>
                             <cc1:CalendarExtender ID="txtEvaluationDate_CalendarExtender" runat="server" Enabled="True"
                         TargetControlID="txtEvaluationDate">
                     </cc1:CalendarExtender>
@@ -69,7 +69,7 @@
                     <td class="sidelinks" align="center">Y</td>
                     <td class="sidelinks" align="center">N</td>
                     <td class="sidelinks" align="center">N/A</td>
-                    <td class="sidelinks" align="left">Comments</td>
+                    <td class="sidelinks" align="center">Comments</td>
                 </tr>
                 <!-- List of questions -->
                 <asp:PlaceHolder ID="placeHolder" runat="server"></asp:PlaceHolder>
@@ -90,8 +90,8 @@
                 </tr>
                 <tr>
                 <td colspan="4" align="right" valign="top" class="sidelinks">Additional Reviewer Comments:</td>
-                <td valign="top" align="left" class="Text">
-                    <asp:TextBox runat="server" ID="txtComments" Columns="70" Rows="4" TextMode="MultiLine" class="Text"/>
+                <td valign="top" align="center">
+                    <asp:TextBox runat="server" ID="txtComments" Columns="100" Rows="7" TextMode="MultiLine" CssClass="SpellCheckTextBox"/>
                 </td>
                 </tr>
                 <tr><td colspan='5' align='right'>
@@ -109,9 +109,8 @@
                 CssClass='MyButton' onclick="btnClose_Click"/></td>
                 </tr>
                 </table>
-
-                
-                
+              
+               
 <kswc:UltimateSpell ID="UltimateSpell1" runat="server" SpellAsYouType="True" ShowSpellButton="False"
 CustomDictionary="SpellAsYouType" SpellWaitPeriod="300">
 </kswc:UltimateSpell>
