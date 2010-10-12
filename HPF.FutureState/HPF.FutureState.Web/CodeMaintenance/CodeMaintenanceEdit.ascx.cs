@@ -45,7 +45,7 @@ namespace HPF.FutureState.Web.CodeMaintenance
             drpCodeSet.DataValueField = "RefCodeSetName";
             drpCodeSet.DataBind();
             drpCodeSet.Items.Insert(0, "");
-
+            drpActiveInd.SelectedIndex = drpActiveInd.Items.IndexOf(drpActiveInd.Items.FindByValue(Constant.INDICATOR_YES));
             if (!string.IsNullOrEmpty(refCodeItemId))
             {
                 RefCodeSetDTOCollection codeSet = LookupDataBL.Instance.GetRefCodeSet();
@@ -68,7 +68,7 @@ namespace HPF.FutureState.Web.CodeMaintenance
             {
                 int sortOrder = 0;
                 RefCodeItemDTO refCode = new RefCodeItemDTO();
-                refCode.ActiveInd = (drpActiveInd.SelectedIndex > 0) ? drpActiveInd.SelectedValue : null;
+                refCode.ActiveInd = (drpActiveInd.SelectedIndex >= 0) ? drpActiveInd.SelectedValue : null;
                 refCode.CodeComment = string.IsNullOrEmpty(txtCodeComment.Text.Trim()) ? null : txtCodeComment.Text.Trim();
                 refCode.CodeDescription = string.IsNullOrEmpty(txtCodeDescription.Text.Trim()) ? null : txtCodeDescription.Text.Trim();
                 refCode.CodeValue = string.IsNullOrEmpty(txtCode.Text.Trim()) ? null : txtCode.Text.Trim().ToUpper();

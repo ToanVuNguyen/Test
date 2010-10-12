@@ -78,9 +78,8 @@
             Active Indicator:</td>
         <td>
             <asp:DropDownList ID="drpActiveInd" runat="server" Height="20px" Width="64px">
-                <asp:ListItem></asp:ListItem>
-                <asp:ListItem Value="Y">Y</asp:ListItem>
-                <asp:ListItem Value="N">N</asp:ListItem>
+                <asp:ListItem Value="Y" Selected="True">Yes</asp:ListItem>
+                <asp:ListItem Value="N">No</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>

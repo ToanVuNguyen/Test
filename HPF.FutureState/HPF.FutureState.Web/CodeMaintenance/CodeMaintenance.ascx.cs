@@ -26,7 +26,7 @@ namespace HPF.FutureState.Web.CodeMaintenance
             ApplySecurity();
             if (!IsPostBack)
             {
-                SearchRefCodeItems(new RefCodeSearchCriteriaDTO());
+                //SearchRefCodeItems(new RefCodeSearchCriteriaDTO());
                 dropCodeSet.DataSource = LookupDataBL.Instance.GetRefCodeSet();
                 dropCodeSet.DataTextField = "RefCodeSetName";
                 dropCodeSet.DataBind();

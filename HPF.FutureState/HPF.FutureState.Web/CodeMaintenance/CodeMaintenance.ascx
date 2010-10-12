@@ -80,23 +80,18 @@
                         <asp:BoundField DataField="CodeValue" HeaderText="Code" 
                             ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false">
                             <HeaderStyle Wrap="False" />
-                            <ItemStyle HorizontalAlign="Left" Wrap="false"/>
+                            <ItemStyle HorizontalAlign="Left" Wrap="true"/>
                         </asp:BoundField>
                         <asp:BoundField DataField="CodeDescription" HeaderText="Description" 
-                            ItemStyle-HorizontalAlign="Left"  ItemStyle-Width="100%" 
-                            HeaderStyle-Wrap="false" >
+                            ItemStyle-HorizontalAlign="Left"  ItemStyle-Width="30%" 
+                            HeaderStyle-Wrap="true" >
                             <HeaderStyle Wrap="False" />
-                            <ItemStyle HorizontalAlign="Left" Wrap="false"/>
-                        </asp:BoundField>
-                        <asp:BoundField DataField="CodeComment" ItemStyle-HorizontalAlign="Right"  
-                            HeaderText="Comment" HeaderStyle-Wrap="false" ItemStyle-Width="100%">
-                            <HeaderStyle Wrap="False" />
-                            <ItemStyle HorizontalAlign="Left" Wrap="false"/>
+                            <ItemStyle HorizontalAlign="Left" Wrap="true"/>
                         </asp:BoundField>
                         <asp:BoundField DataField="SortOrder" ItemStyle-HorizontalAlign="Right"  
-                            HeaderText="Sort Order" HeaderStyle-Wrap="false" >
+                            HeaderText="Sort Order" HeaderStyle-Wrap="true" >
                             <HeaderStyle Wrap="False" />
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" Wrap="true" />
                         </asp:BoundField>
                         <asp:BoundField DataField="ActiveInd" HeaderText="Active" 
                             ItemStyle-HorizontalAlign="Left"  HeaderStyle-Wrap="false" >

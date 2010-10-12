@@ -10,7 +10,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
     [Serializable]
     public class RefCodeSearchCriteriaDTO: BaseDTO
     {
-        [RequiredObjectValidator(Tag = ErrorMessages.ERR1101, Ruleset = "Default")]
         public string CodeSetName { get; set; }
         public bool? IncludedInActive { get; set; }
     }

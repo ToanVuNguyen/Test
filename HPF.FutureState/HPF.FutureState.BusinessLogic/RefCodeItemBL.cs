@@ -47,13 +47,6 @@ namespace HPF.FutureState.BusinessLogic
 
         public RefCodeItemDTOCollection GetRefCodeItems(RefCodeSearchCriteriaDTO criteria)
         {            
-            if (criteria.CodeSetName == null && criteria.IncludedInActive != null)
-            {
-                DataValidationException dataEx = new DataValidationException();
-                dataEx.ExceptionMessages.AddExceptionMessage(ErrorMessages.ERR1101, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1101));
-                throw dataEx;
-            }
-
             RefCodeItemDTOCollection results = RefCodeItemDAO.Instance.GetRefCodeItems(criteria);
             if (results.Count == 0)
             {
@@ -72,14 +65,39 @@ namespace HPF.FutureState.BusinessLogic
 
         public void SaveRefCodeItem(RefCodeItemDTO refCode)
         {            
-            if (string.IsNullOrEmpty(refCode.RefCodeSetName))
+            var ex = ValidateRefCodeItem(refCode);
+            if (ex.Count > 0)
             {
-                DataValidationException dataEx = new DataValidationException();
-                dataEx.ExceptionMessages.AddExceptionMessage("ERROR", "A Code Set is required to save Ref Code Item.");
-                throw dataEx;
+                var ex1 = new DataValidationException(ex);
+                throw ex1;
             }
-
             RefCodeItemDAO.Instance.SaveRefCodeItem(refCode);
         }
+        /// <summary>
+        /// 1: Min request validate of Code Set
+        /// 2: Min request validate of Code Value
+        /// 3: Min request validate of Code Description
+        /// 4: Min request validate of Sort Order
+        /// 5: Validate of sort order
+        /// </summary>
+        private ExceptionMessageCollection ValidateRefCodeItem(RefCodeItemDTO refCode)
+        {
+            ExceptionMessageCollection ex = new ExceptionMessageCollection();
+            ex = HPFValidator.ValidateToGetExceptionMessage(refCode, Constant.RULESET_MIN_REQUIRE_FIELD) ;
+            if (ex.Count>0)
+                return ex;
+            //Check duplicate sort order
+            RefCodeSearchCriteriaDTO criteria = new RefCodeSearchCriteriaDTO();
+            criteria.CodeSetName = refCode.RefCodeSetName;
+            criteria.IncludedInActive = true;
+            RefCodeItemDTOCollection results = RefCodeItemDAO.Instance.GetRefCodeItems(criteria);
+            foreach (RefCodeItemDTO item in results)
+                if ((item.SortOrder == refCode.SortOrder) &&(string.Compare(item.CodeValue,refCode.CodeValue)!=0))
+                {
+                    ex.AddExceptionMessage(ErrorMessages.ERR1123, ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1123));
+                    break;
+                }
+            return ex;
+        }  
     }
 }

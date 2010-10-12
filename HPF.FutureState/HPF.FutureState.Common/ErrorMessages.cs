@@ -301,8 +301,7 @@ namespace HPF.FutureState.Common
         public const string WARN0375 = "WARN0375";
         public const string WARN0450 = "WARN0450";
         public const string WARN0903 = "WARN0903";
-        public const string WARN1100 = "WARN1100";
-
+        
 
         //App foreclosure Case Search
         public const string WARN0500 = "WARN0500";
@@ -450,9 +449,7 @@ namespace HPF.FutureState.Common
         public const string ERR0997 = "ERR0997";
         public const string ERR0998 = "ERR0998";
         public const string ERR0999 = "ERR0999";
-        public const string ERR1101 = "ERR1101";
-        public const string ERR1102 = "ERR1102";
-
+        
         public const string ERR1000 = "ERR1000";
         public const string ERR1001 = "ERR1001";
         public const string ERR1002 = "ERR1002";
@@ -478,6 +475,15 @@ namespace HPF.FutureState.Common
         public const string ERR1116 = "ERR1116";
         public const string ERR1117 = "ERR1117";
         public const string ERR1118 = "ERR1118";
+
+        //Code Maintenance
+        public const string ERR1102 = "ERR1102";
+        public const string ERR1119 = "ERR1119";
+        public const string ERR1120 = "ERR1120";
+        public const string ERR1121 = "ERR1121";
+        public const string ERR1122 = "ERR1122";
+        public const string ERR1123 = "ERR1123";
+        public const string WARN1100 = "WARN1100";
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
@@ -951,10 +957,6 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1002, "Unable to retrieve summary. The specified summary format is not supported.");
                 errorMessageDict.Add(ERR0399, "The CcCallKey provided already exists in the call table.");
 
-                errorMessageDict.Add(ERR1101, "A Code Set is required to search for Code Items.");
-                errorMessageDict.Add(ERR1102, "A Code Item must be selected in order to edit it.");
-
-                errorMessageDict.Add(WARN1100, "No codes were found that match your search criteria.");
                 //Send Summaries completed fc to servicer
                 errorMessageDict.Add(ERR1103, "An Excel file containing fc ids is required to process.");
                 errorMessageDict.Add(ERR1104, "Unable to process the fcids input excel file. The \"SendSummariesFC\" tab cannot be located.");
@@ -975,6 +977,16 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1116, "Question order must is numeric!");
                 errorMessageDict.Add(ERR1117, "Section order can not duplicate!");
                 errorMessageDict.Add(ERR1118, "Question in the same section can not duplicate order!");
+
+                //Code Maintenance
+                errorMessageDict.Add(ERR1102, "A Code Item must be selected in order to edit it.");
+                errorMessageDict.Add(WARN1100, "No codes were found that match your search criteria.");
+                errorMessageDict.Add(ERR1119, "A Code Set is required to save Ref Code Item.");
+                errorMessageDict.Add(ERR1120, "A Code Value is required to save Ref Code Item.");
+                errorMessageDict.Add(ERR1121, "A Code Description is required to save Ref Code Item.");
+                errorMessageDict.Add(ERR1122, "A Sort Order is required to save Ref Code Item.");
+                errorMessageDict.Add(ERR1123, "Duplicate Sort Order.");
+                
             }
         }
     }
