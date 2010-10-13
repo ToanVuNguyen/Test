@@ -8,6 +8,7 @@ using HPF.FutureState.Common.DataTransferObjects.WebServices;
 using HPF.FutureState.Common.DataTransferObjects;
 using HPF.FutureState.Common.Utils.Exceptions;
 using HPF.FutureState.Common.Utils.DataValidator;
+using HPF.FutureState.Common.Utils;
 
 namespace HPF.FutureState.WebServices
 {
@@ -35,7 +36,6 @@ namespace HPF.FutureState.WebServices
                     response.FcId = fc.FcId;
                     response.CompletedDt = fc.CompletedDt;
                     response.AgencyId = (int)fc.AgencyId;
-
                     if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     {
                         response.Status = ResponseStatus.Warning;
@@ -86,7 +86,26 @@ namespace HPF.FutureState.WebServices
 
             if (workingInstance != null && workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
                     response.Messages.Add(workingInstance.WarningMessage);
-
+            
+            //Send WS debug info collector if any
+            if ((response.Status!=ResponseStatus.AuthenticationFail) && (string.Compare(HPFConfigurationSettings.WS_DEBUG_MODE.ToUpper(), "ON") == 0))
+            {
+                try
+                {
+                    string[] agencyIds = HPFConfigurationSettings.WS_DEBUG_AGENCY_LIST.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < agencyIds.Length; i++)
+                        if (string.Compare(CurrentAgencyID.ToString(), agencyIds[i]) == 0)
+                        {
+                            DebugInfoCollector debugInfo = new DebugInfoCollector() { FCaseSetRequest = request.ForeclosureCaseSet, Response = response, CurAgencyId = CurrentAgencyID, FcId = GetFcId(request) };
+                            debugInfo.SaveForeclosureCaseWSDebugInfo();
+                            break;
+                        }
+                }
+                catch (Exception ex)
+                {
+                    HandleException(ex,GetFcId(request));
+                }
+            }
             return response;
         }
 

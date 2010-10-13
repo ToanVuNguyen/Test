@@ -307,5 +307,27 @@ namespace HPF.FutureState.Common
                 return value;
             }
         }
+        //WS Debug Info Collector
+        public static string WS_DEBUG_MODE
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WS_DEBUG_MODE"];
+            }
+        }
+        public static string WS_DEBUG_AGENCY_LIST
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WS_DEBUG_AGENCY_LIST"];
+            }
+        }
+        public static string WS_DEBUG_OUTPUT_PATH
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WS_DEBUG_OUTPUT_PATH"];
+            }
+        }
     }
 }
