@@ -64,6 +64,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
 
@@ -108,6 +109,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -163,6 +165,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return results;
@@ -208,6 +211,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -244,6 +248,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;

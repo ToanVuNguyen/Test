@@ -34,7 +34,6 @@ namespace HPF.FutureState.DataAccess
             try
             {
                 trans.Commit();
-                dbConnection.Close();
             }
             catch (Exception ex)
             {
@@ -44,11 +43,21 @@ namespace HPF.FutureState.DataAccess
         /// <summary>
         /// Rollback working
         /// </summary>
-        public void Cancel()
+        public void Rollback()
         {
             try
             {
                 trans.Rollback();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+        }
+        public void CloseConnection()
+        {
+            try
+            {
                 dbConnection.Close();
             }
             catch (Exception ex)
@@ -107,6 +116,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -128,11 +138,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void InsertEvalTemplateSection(EvalTemplateSectionDTO evalTemplateSection)
@@ -155,11 +168,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void RemoveEvalTemplateSection(EvalTemplateSectionDTO evalTemplateSection)
@@ -175,11 +191,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
 
@@ -234,6 +253,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -256,11 +276,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void InsertEvalQuestionSection(EvalSectionQuestionDTO evalSectionQuestion)
@@ -284,11 +307,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void RemoveEvalSectionQuestion(EvalSectionQuestionDTO evalSectionQuestion)
@@ -305,11 +331,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void UpdateEvalTemplateTotalScore(EvalTemplateDTO evalTemplate)
@@ -330,11 +359,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
     }

@@ -54,7 +54,8 @@ namespace HPF.FutureState.DataAccess
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
             }
             finally 
-            { 
+            {
+                command.Dispose();
                 dbConnection.Close(); 
             }
             return result;
@@ -79,6 +80,7 @@ namespace HPF.FutureState.DataAccess
                 var reader = command.ExecuteXmlReader();
                 doc.Load(reader);
                 result = GetEvalTemplate(doc);
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -86,6 +88,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -169,6 +172,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -204,6 +208,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -240,6 +245,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return evalSection.EvalSectionId;
@@ -272,6 +278,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
         }
@@ -309,6 +316,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -348,6 +356,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return evalQuestion.EvalQuestionId;
@@ -383,6 +392,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
         }
@@ -419,6 +429,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return evalTemplate.EvalTemplateId;
@@ -452,6 +463,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
         }

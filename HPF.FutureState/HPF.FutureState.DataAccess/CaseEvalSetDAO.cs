@@ -70,8 +70,8 @@ namespace HPF.FutureState.DataAccess
             var sqlParam = new SqlParameter[5];
             try
             {
-                sqlParam[0] = new SqlParameter("@pi_case_eval_header_id",caseEvalHeader.CaseEvalHeaderId);
-                sqlParam[1] = new SqlParameter("@pi_eval_status",caseEvalHeader.EvalStatus);
+                sqlParam[0] = new SqlParameter("@pi_case_eval_header_id", caseEvalHeader.CaseEvalHeaderId);
+                sqlParam[1] = new SqlParameter("@pi_eval_status", caseEvalHeader.EvalStatus);
 
                 sqlParam[2] = new SqlParameter("@pi_chg_lst_dt", NullableDateTime(caseEvalHeader.ChangeLastDate));
                 sqlParam[3] = new SqlParameter("@pi_chg_lst_user_id", caseEvalHeader.ChangeLastUserId);
@@ -80,11 +80,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public int? InsertCaseEvalSet(CaseEvalSetDTO aCaseEvalSet)
@@ -97,7 +100,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[1] = new SqlParameter("@pi_evaluation_dt", NullableDateTime(aCaseEvalSet.EvaluationDt));
                 sqlParam[2] = new SqlParameter("@pi_auditor_name", aCaseEvalSet.AuditorName);
                 sqlParam[3] = new SqlParameter("@pi_total_audit_score", aCaseEvalSet.TotalAuditScore);
-                sqlParam[4] = new SqlParameter("pi_total_possible_score",aCaseEvalSet.TotalPossibleScore);
+                sqlParam[4] = new SqlParameter("pi_total_possible_score", aCaseEvalSet.TotalPossibleScore);
                 sqlParam[5] = new SqlParameter("@pi_result_level", aCaseEvalSet.ResultLevel);
                 sqlParam[6] = new SqlParameter("@pi_fatal_error_ind", aCaseEvalSet.FatalErrorInd);
                 sqlParam[7] = new SqlParameter("@pi_hpf_audit_ind", aCaseEvalSet.HpfAuditInd);
@@ -116,12 +119,15 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
                 return ConvertToInt(command.Parameters["@po_case_eval_set_id"].Value).Value;
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void InsertCaseEvalDetail(CaseEvalDetailDTO aCaseEvalDetail)
@@ -136,12 +142,12 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[3] = new SqlParameter("@pi_section_order", aCaseEvalDetail.SectionOrder);
                 sqlParam[4] = new SqlParameter("@pi_eval_question_id", aCaseEvalDetail.EvalQuestionId);
                 sqlParam[5] = new SqlParameter("@pi_eval_question", aCaseEvalDetail.EvalQuestion);
-                sqlParam[6] = new SqlParameter("@pi_question_example",aCaseEvalDetail.QuestionExample);
+                sqlParam[6] = new SqlParameter("@pi_question_example", aCaseEvalDetail.QuestionExample);
                 sqlParam[7] = new SqlParameter("@pi_question_order", aCaseEvalDetail.QuestionOrder);
                 sqlParam[8] = new SqlParameter("@pi_eval_answer", aCaseEvalDetail.EvalAnswer);
                 sqlParam[9] = new SqlParameter("@pi_question_score", aCaseEvalDetail.QuestionScore);
                 sqlParam[10] = new SqlParameter("@pi_audit_score", aCaseEvalDetail.AuditScore);
-                sqlParam[11] = new SqlParameter("@pi_comments",aCaseEvalDetail.Comments);
+                sqlParam[11] = new SqlParameter("@pi_comments", aCaseEvalDetail.Comments);
 
                 sqlParam[12] = new SqlParameter("@pi_create_dt", NullableDateTime(aCaseEvalDetail.CreateDate));
                 sqlParam[13] = new SqlParameter("@pi_create_user_id", aCaseEvalDetail.CreateUserId);
@@ -154,11 +160,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         public void InsertCaseEvalFile(CaseEvalFileDTO aCaseEvalFile)
@@ -186,11 +195,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
 
@@ -207,11 +219,14 @@ namespace HPF.FutureState.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.Transaction = trans;
                 command.ExecuteNonQuery();
-                command.Dispose();
             }
             catch (Exception ex)
             {
                 throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
             }
         }
         #endregion
@@ -281,6 +296,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;
@@ -378,6 +394,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return result;

@@ -134,19 +134,23 @@ namespace HPF.FutureState.BusinessLogic
                 instance.Begin();
                 foreach (EvalTemplateSectionDTO section in sectionCollection)
                 {
-                    if (section.StatusChanged ==(byte) StatusChanged.Insert)
+                    if (section.StatusChanged == (byte)StatusChanged.Insert)
                         instance.InsertEvalTemplateSection(section);
-                    else if (section.StatusChanged ==(byte) StatusChanged.Update)
+                    else if (section.StatusChanged == (byte)StatusChanged.Update)
                         instance.UpdateEvalTemplateSection(section);
-                    else 
+                    else
                         instance.RemoveEvalTemplateSection(section);
                 }
                 instance.Commit();
             }
             catch (Exception ex)
             {
-                instance.Cancel();
+                instance.Rollback();
                 throw ex;
+            }
+            finally
+            {
+                instance.CloseConnection();
             }
         }
         public DataValidationException ValidateTemplateSection(EvalTemplateSectionDTOCollection sectionCollection)
@@ -191,12 +195,12 @@ namespace HPF.FutureState.BusinessLogic
                 {
                     if (question.StatusChanged == (byte)StatusChanged.Insert)
                     {
-                        totalScore +=(int) question.EvalQuestion.QuestionScore;
+                        totalScore += (int)question.EvalQuestion.QuestionScore;
                         instance.InsertEvalQuestionSection(question);
                     }
                     else if (question.StatusChanged == (byte)StatusChanged.Update)
                     {
-                        totalScore +=(int) question.EvalQuestion.QuestionScore;
+                        totalScore += (int)question.EvalQuestion.QuestionScore;
                         instance.UpdateEvalSectionQuestion(question);
                     }
                     else
@@ -211,8 +215,12 @@ namespace HPF.FutureState.BusinessLogic
             }
             catch (Exception ex)
             {
-                instance.Cancel();
+                instance.Rollback();
                 throw ex;
+            }
+            finally
+            {
+                instance.CloseConnection();
             }
         }
         public DataValidationException ValidateSectionQuestion(EvalSectionQuestionDTOCollection questionCollection)

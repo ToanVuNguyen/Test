@@ -120,6 +120,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return user;
@@ -156,6 +157,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
             return hpfUsers;
@@ -207,6 +209,7 @@ namespace HPF.FutureState.DataAccess
             }
             finally
             {
+                command.Dispose();
                 dbConnection.Close();
             }
         }
