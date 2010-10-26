@@ -31,9 +31,9 @@
                     </tr>
                     <tr>
                         <td class="sidelinks" align="right" >
-                            Homeowner Name:</td>
+                            Agency Case Num:</td>
                         <td  class="Text">
-                            <asp:Label ID="lblHomeOwner" runat="server"></asp:Label>
+                            <asp:Label ID="lblAgencyCaseNum" runat="server"></asp:Label>
                             &nbsp;
                         </td>
                         <td align="right" class="sidelinks">
@@ -45,10 +45,9 @@
                     </tr>
                     <tr>
                         <td class="sidelinks" align="right" >
-                            Loan Number:
-                        </td>
-                        <td class="Text">
-                            <asp:Label ID="lblLoanNumber" runat="server" ></asp:Label>
+                            Homeowner Name:</td>
+                        <td  class="Text">
+                            <asp:Label ID="lblHomeOwner" runat="server"></asp:Label>
                             &nbsp;
                         </td>
                         <td align="right" class="sidelinks">
@@ -59,14 +58,14 @@
                         </td>
                     </tr>
                     <tr>
-                       <td align="right" class="sidelinks">
-                            Servicer Name:
+                       <td class="sidelinks" align="right" >
+                            Loan Number:
                         </td>
                         <td class="Text">
-                            <asp:Label ID="lblServicerName" runat="server">Servicer</asp:Label>
+                            <asp:Label ID="lblLoanNumber" runat="server" ></asp:Label>
+                            &nbsp;
                         </td>
-                        
-                        <td align="right" class="sidelinks">
+                       <td align="right" class="sidelinks">
                             Call Date:
                         </td>
                         <td class="Text">
@@ -74,11 +73,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="sidelinks" align="right">
-                            Evaluation Status:
+                        <td align="right" class="sidelinks">
+                            Servicer Name:
                         </td>
                         <td class="Text">
-                            <asp:Label ID="lblEvaluationStatus" runat="server"></asp:Label>
+                            <asp:Label ID="lblServicerName" runat="server">Servicer</asp:Label>
                         </td>
                         <td align="right" class="sidelinks">
                             Evaluation Type:
@@ -87,8 +86,12 @@
                             <asp:Label ID="lblEvaluationType" runat="server"></asp:Label>
                     </tr>
                      <tr>
-                        <td class="sidelinks" align="right"></td>
-                        <td class="Text"></td>
+                        <td class="sidelinks" align="right">
+                            Evaluation Status:
+                        </td>
+                        <td class="Text">
+                            <asp:Label ID="lblEvaluationStatus" runat="server"></asp:Label>
+                        </td>
                         <td align="right" class="sidelinks">
                             Template Name:
                         </td>

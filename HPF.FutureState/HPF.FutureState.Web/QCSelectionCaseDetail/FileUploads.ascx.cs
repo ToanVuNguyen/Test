@@ -138,7 +138,10 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
         {
             try
             {
-                UploadFinished();
+                if (totalFile > 0)
+                    UploadFinished();
+                else
+                    lblErrorMessage.Text = "Error: At least one file uploaded before finishing upload !";
             }
             catch (Exception ex)
             {

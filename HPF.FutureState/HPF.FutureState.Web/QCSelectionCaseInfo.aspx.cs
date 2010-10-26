@@ -94,6 +94,7 @@ namespace HPF.FutureState.Web
         private void BindSelectionCaseToUI(CaseEvalSearchResultDTO caseSelection)
         {
             lblHpfID.Text = caseSelection.FcId.ToString();
+            lblAgencyCaseNum.Text = caseSelection.AgencyCaseNum;
             lblAgencyName.Text = caseSelection.AgencyName;
             lblHomeOwner.Text = caseSelection.HomeowenerFirstName + " " + caseSelection.HomeowenerLastName;
             lblEvaluationStatus.Text = caseSelection.EvalStatus;

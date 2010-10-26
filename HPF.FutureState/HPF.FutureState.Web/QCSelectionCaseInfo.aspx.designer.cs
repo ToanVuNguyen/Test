@@ -32,13 +32,13 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblCounselor;
         
         /// <summary>
-        /// lblHomeOwner control.
+        /// lblAgencyCaseNum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHomeOwner;
+        protected global::System.Web.UI.WebControls.Label lblAgencyCaseNum;
         
         /// <summary>
         /// lblAgencyName control.
@@ -50,13 +50,13 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblAgencyName;
         
         /// <summary>
-        /// lblLoanNumber control.
+        /// lblHomeOwner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLoanNumber;
+        protected global::System.Web.UI.WebControls.Label lblHomeOwner;
         
         /// <summary>
         /// lblZipCode control.
@@ -68,13 +68,13 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblZipCode;
         
         /// <summary>
-        /// lblServicerName control.
+        /// lblLoanNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblServicerName;
+        protected global::System.Web.UI.WebControls.Label lblLoanNumber;
         
         /// <summary>
         /// lblCallDate control.
@@ -86,13 +86,13 @@ namespace HPF.FutureState.Web {
         protected global::System.Web.UI.WebControls.Label lblCallDate;
         
         /// <summary>
-        /// lblEvaluationStatus control.
+        /// lblServicerName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEvaluationStatus;
+        protected global::System.Web.UI.WebControls.Label lblServicerName;
         
         /// <summary>
         /// lblEvaluationType control.
@@ -102,6 +102,15 @@ namespace HPF.FutureState.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEvaluationType;
+        
+        /// <summary>
+        /// lblEvaluationStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEvaluationStatus;
         
         /// <summary>
         /// lblTemplateName control.
