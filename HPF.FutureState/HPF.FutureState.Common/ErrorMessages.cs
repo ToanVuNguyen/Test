@@ -1020,16 +1020,16 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1137, "BorrowerSelfEmployedInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR1138, "CoBorrowerSelfEmployedInd must be either a Y, N or a blank.");
                 errorMessageDict.Add(ERR1139, "An AgencyCaseNum is required.");
-                errorMessageDict.Add(ERR1140, "");
-                errorMessageDict.Add(ERR1141, "");
-                errorMessageDict.Add(ERR1142, "");
-                errorMessageDict.Add(ERR1143, "");
-                errorMessageDict.Add(ERR1144, "");
-                errorMessageDict.Add(ERR1145, "");
-                errorMessageDict.Add(ERR1146, "");
-                errorMessageDict.Add(ERR1147, "");
-                errorMessageDict.Add(ERR1148, "");
-                errorMessageDict.Add(ERR1149, "");
+                errorMessageDict.Add(ERR1140, "A BorrowerAuthorizationInd is required.");
+                errorMessageDict.Add(ERR1141, "A BorrowerEmployerName is required.");
+                errorMessageDict.Add(ERR1142, "A BorrowerSelfEmployedInd is required.");
+                errorMessageDict.Add(ERR1143, "A BorrowerYearsEmployed is required.");
+                errorMessageDict.Add(ERR1144, "A CounselorIdRef is required.");
+                errorMessageDict.Add(ERR1145, "A CounselorFName is required.");
+                errorMessageDict.Add(ERR1146, "A CounselorLName is required.");
+                errorMessageDict.Add(ERR1147, "A CounselorEmail is required.");
+                errorMessageDict.Add(ERR1148, "A CounselorPhone is required.");
+                errorMessageDict.Add(ERR1149, "A CounselingDurationMinsis required.");
                 
             }
         }
