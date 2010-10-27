@@ -129,6 +129,11 @@
     <Compile Include="DataTransferObjects\NonProfitReferralDTO.cs" />
     <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\PPBudgetAssetDTO.cs" />
+    <Compile Include="DataTransferObjects\PPBudgetItemDTO.cs" />
+    <Compile Include="DataTransferObjects\PPBudgetItemDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\PPBudgetSetDTO.cs" />
+    <Compile Include="DataTransferObjects\PrePurchaseCaseDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSetDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSetDTOCollection.cs" />

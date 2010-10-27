@@ -485,6 +485,28 @@ namespace HPF.FutureState.Common
         public const string ERR1123 = "ERR1123";
         public const string WARN1100 = "WARN1100";
 
+        //Pre purchase
+        public const string ERR1130 = "ERR1130";
+        public const string ERR1131 = "ERR1131";
+        public const string ERR1132 = "ERR1132";
+        public const string ERR1133 = "ERR1133";
+        public const string ERR1134 = "ERR1134";
+        public const string ERR1135 = "ERR1135";
+        public const string ERR1136 = "ERR1136";
+        public const string ERR1137 = "ERR1137";
+        public const string ERR1138 = "ERR1138";
+        public const string ERR1139 = "ERR1139";
+        public const string ERR1140 = "ERR1140";
+        public const string ERR1141 = "ERR1141";
+        public const string ERR1142 = "ERR1142";
+        public const string ERR1143 = "ERR1143";
+        public const string ERR1144 = "ERR1144";
+        public const string ERR1145 = "ERR1145";
+        public const string ERR1146 = "ERR1146";
+        public const string ERR1147 = "ERR1147";
+        public const string ERR1148 = "ERR1148";
+        public const string ERR1149 = "ERR1149";
+
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
         public static string GetExceptionMessage(string exceptionId)
@@ -986,6 +1008,28 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1121, "A Code Description is required to save Ref Code Item.");
                 errorMessageDict.Add(ERR1122, "A Sort Order is required to save Ref Code Item.");
                 errorMessageDict.Add(ERR1123, "Duplicate Sort Order.");
+
+                //Pre purchase
+                errorMessageDict.Add(ERR1130, "Pre-purchase budget asset name is required.");
+                errorMessageDict.Add(ERR1131, "Pre-purchase budget asset value is required.");
+                errorMessageDict.Add(ERR1132, "Pre-purchase budget asset note has a maximum length of 100 characters.");
+                errorMessageDict.Add(ERR1133, "Pre-purchase borrower id is required.");
+                errorMessageDict.Add(ERR1134, "An AgencyId is required!");
+                errorMessageDict.Add(ERR1135, "RightPartyContactInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1136, "BorrowerAuthorizationInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1137, "BorrowerSelfEmployedInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1138, "CoBorrowerSelfEmployedInd must be either a Y, N or a blank.");
+                errorMessageDict.Add(ERR1139, "An AgencyCaseNum is required.");
+                errorMessageDict.Add(ERR1140, "");
+                errorMessageDict.Add(ERR1141, "");
+                errorMessageDict.Add(ERR1142, "");
+                errorMessageDict.Add(ERR1143, "");
+                errorMessageDict.Add(ERR1144, "");
+                errorMessageDict.Add(ERR1145, "");
+                errorMessageDict.Add(ERR1146, "");
+                errorMessageDict.Add(ERR1147, "");
+                errorMessageDict.Add(ERR1148, "");
+                errorMessageDict.Add(ERR1149, "");
                 
             }
         }
