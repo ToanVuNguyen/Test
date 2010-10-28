@@ -49,7 +49,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                     if (string.Compare(prevSectionName, evalDetail.SectionName) != 0)
                         placeHolder.Controls.Add(RenderSectionRow(evalDetail.SectionName));
                     //Render Question row
-                    placeHolder.Controls.Add(RenderQuestionRow(evalDetail.QuestionOrder, evalDetail.EvalQuestion, evalDetail.QuestionExample, evalDetail.EvalAnswer, caseEvalHPF.CaseEvalDetails[i].EvalAnswer,evalDetail.Comments,caseEvalHPF.CaseEvalDetails[i].Comments));
+                    placeHolder.Controls.Add(RenderQuestionRow(evalDetail.QuestionOrder, evalDetail.EvalQuestion, evalDetail.QuestionExample, evalDetail.EvalAnswer, caseEvalHPF.CaseEvalDetails[i].EvalAnswer, evalDetail.Comments, caseEvalHPF.CaseEvalDetails[i].Comments));
                     prevSectionName = evalDetail.SectionName;
                     i++;
                 }
@@ -58,13 +58,13 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 placeHolder.Controls.Add(RenderQuestionRow(-1, "", "", "", "", caseEvalAgency.Comments, caseEvalHPF.Comments));
                 #endregion
                 lblAgencyScore.InnerText = caseEvalAgency.TotalAuditScore.ToString();
-                lblAgencyCasePossibleScore.InnerText= caseEvalAgency.TotalPossibleScore.ToString();
-                decimal percent = Math.Round((decimal)((decimal)caseEvalAgency.TotalAuditScore / (decimal)caseEvalAgency.TotalPossibleScore), 4);
-                lblAgencyLevelPercent.InnerText = percent.ToString("0.0%");
+                lblAgencyCasePossibleScore.InnerText = caseEvalAgency.TotalPossibleScore.ToString();
+                decimal percent = Math.Round((decimal)((decimal)caseEvalAgency.TotalAuditScore / (decimal)caseEvalAgency.TotalPossibleScore), 2);
+                lblAgencyLevelPercent.InnerText = percent.ToString("0%");
                 lblHPFScore.InnerText = caseEvalHPF.TotalAuditScore.ToString();
                 lblHPFCasePossibleScore.InnerText = caseEvalHPF.TotalPossibleScore.ToString();
-                percent = Math.Round((decimal)((decimal)caseEvalHPF.TotalAuditScore / (decimal)caseEvalHPF.TotalPossibleScore), 4);
-                lblHPFLevelPercent.InnerText = percent.ToString("0.0%");
+                percent = Math.Round((decimal)((decimal)caseEvalHPF.TotalAuditScore / (decimal)caseEvalHPF.TotalPossibleScore), 2);
+                lblHPFLevelPercent.InnerText = percent.ToString("0%");
                 lblAgencyLevel.InnerText = caseEvalAgency.ResultLevel;
                 lblHPFLevel.InnerText = caseEvalHPF.ResultLevel;
                 lblAgencyFatalError.InnerText = caseEvalAgency.FatalErrorInd;

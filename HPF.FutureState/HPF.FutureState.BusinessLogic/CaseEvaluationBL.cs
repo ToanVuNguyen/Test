@@ -434,7 +434,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             if (!warningMessage)
             {
-                decimal percent = Math.Round((decimal)((decimal)totalYesScore / (decimal)totalPossibleScore), 4);
+                decimal percent = Math.Round((decimal)((decimal)totalYesScore / (decimal)totalPossibleScore), 2);
 
                 //Set all value back to set dto
                 caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);

@@ -345,7 +345,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             else
             {
-                decimal percent = Math.Round((decimal)((decimal)caseEvalSetDraft.TotalAuditScore / (decimal)caseEvalSetDraft.TotalPossibleScore), 4);
+                decimal percent = Math.Round((decimal)((decimal)caseEvalSetDraft.TotalAuditScore / (decimal)caseEvalSetDraft.TotalPossibleScore), 2);
                 //Bind to layout
                 lblYesScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
                 lblNoScore.InnerText = totalNoScore.ToString();
@@ -355,7 +355,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
                 lblNoTotal.InnerText = totalNoAnswer.ToString();
                 lblNATotal.InnerText = totalNAAnswer.ToString();
                 StringBuilder totalScoreLabel = new StringBuilder();
-                totalScoreLabel.AppendFormat("{0}/{1}={2}", caseEvalSetDraft.TotalAuditScore.ToString(), caseEvalSetDraft.TotalPossibleScore.ToString(), percent.ToString("0.0%"));
+                totalScoreLabel.AppendFormat("{0}/{1}={2}", caseEvalSetDraft.TotalAuditScore.ToString(), caseEvalSetDraft.TotalPossibleScore.ToString(), percent.ToString("0%"));
                 lblTotalScore.InnerText = totalScoreLabel.ToString();
             }
             return caseEvalSetDraft;
