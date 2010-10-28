@@ -130,10 +130,15 @@
     <Compile Include="DataTransferObjects\NonProfitReferralDTOCollection.cs" />
     <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />
     <Compile Include="DataTransferObjects\PPBudgetAssetDTO.cs" />
+    <Compile Include="DataTransferObjects\PPBudgetAssetDTOCollection.cs" />
     <Compile Include="DataTransferObjects\PPBudgetItemDTO.cs" />
     <Compile Include="DataTransferObjects\PPBudgetItemDTOCollection.cs" />
     <Compile Include="DataTransferObjects\PPBudgetSetDTO.cs" />
+    <Compile Include="DataTransferObjects\PPPBudgetItemDTO.cs" />
+    <Compile Include="DataTransferObjects\PPPBudgetSetDTO.cs" />
+    <Compile Include="DataTransferObjects\PrePurchaseBorrowerDTO.cs" />
     <Compile Include="DataTransferObjects\PrePurchaseCaseDTO.cs" />
+    <Compile Include="DataTransferObjects\PrePurchaseSetDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSearchCriteriaDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSetDTO.cs" />
     <Compile Include="DataTransferObjects\RefCodeSetDTOCollection.cs" />
@@ -145,6 +150,8 @@
     <Compile Include="DataTransferObjects\WebServices\CallLogSearchResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\CallLogWSReturnDTOCollection.cs" />
     <Compile Include="DataTransferObjects\WebServices\ICTForeclosureCaseSearchRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\PrePurchaseSaveRequest.cs" />
+    <Compile Include="DataTransferObjects\WebServices\PrePurchaseSaveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\ReferenceCodeRetrieveRequest.cs" />
     <Compile Include="DataTransferObjects\WebServices\ReferenceCodeRetrieveResponse.cs" />
     <Compile Include="DataTransferObjects\WebServices\SendSummaryRequest.cs">
@@ -271,6 +278,7 @@
     <Compile Include="ErrorMessages.cs" />
     <Compile Include="BusinessLogicInterface\IReferenceCodeValidatorBL.cs" />
     <Compile Include="DataTransferObjects\InvoicePaymentDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\PPPBudgetItemDTOCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

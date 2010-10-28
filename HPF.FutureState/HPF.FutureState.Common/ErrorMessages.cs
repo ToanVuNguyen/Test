@@ -506,6 +506,28 @@ namespace HPF.FutureState.Common
         public const string ERR1147 = "ERR1147";
         public const string ERR1148 = "ERR1148";
         public const string ERR1149 = "ERR1149";
+        public const string ERR1150 = "ERR1150";
+        public const string ERR1151 = "ERR1151";
+        public const string ERR1152 = "ERR1152";
+        public const string ERR1153 = "ERR1153";
+        public const string ERR1154 = "ERR1154";
+        public const string ERR1155 = "ERR1155";
+        public const string ERR1156 = "ERR1156";
+        public const string ERR1157 = "ERR1157";
+        public const string ERR1158 = "ERR1158";
+        public const string ERR1159 = "ERR1159";
+        public const string ERR1160 = "ERR1160";
+        public const string ERR1161 = "ERR1161";
+        public const string ERR1162 = "ERR1162";
+        public const string ERR1163 = "ERR1163";
+        public const string ERR1164 = "ERR1164";
+        public const string ERR1165 = "ERR1165";
+        public const string ERR1166 = "ERR1166";
+        public const string ERR1167 = "ERR1167";
+        public const string ERR1168 = "ERR1168";
+        public const string ERR1169 = "ERR1169";
+
+
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
 
@@ -1030,6 +1052,26 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1147, "A CounselorEmail is required.");
                 errorMessageDict.Add(ERR1148, "A CounselorPhone is required.");
                 errorMessageDict.Add(ERR1149, "A CounselingDurationMinsis required.");
+                errorMessageDict.Add(ERR1150, "A ServicerId is required!");
+                errorMessageDict.Add(ERR1151, "A ReceivedDt is required!");
+                errorMessageDict.Add(ERR1152, "An AcctNum is required!");
+                errorMessageDict.Add(ERR1153, "A Borrower First Name is required!");
+                errorMessageDict.Add(ERR1154, "A Borrower Last Name is required!");
+                errorMessageDict.Add(ERR1155, "A PropAddr1 is required!");
+                errorMessageDict.Add(ERR1156, "A PropCity is required");
+                errorMessageDict.Add(ERR1157, "A PropState is required!");
+                errorMessageDict.Add(ERR1158, "A PropZip is required!");
+                errorMessageDict.Add(ERR1159, "A MailAddr1 is required!");
+                errorMessageDict.Add(ERR1160, "A MailCity is required!");
+                errorMessageDict.Add(ERR1161, "A MailState is required!");
+                errorMessageDict.Add(ERR1162, "A MailZip is required!");
+                errorMessageDict.Add(ERR1163, "A HomePhone is required!");
+                errorMessageDict.Add(ERR1164, "A ScheduledCloseDt is required!");
+                errorMessageDict.Add(ERR1165, "");
+                errorMessageDict.Add(ERR1166, "");
+                errorMessageDict.Add(ERR1167, "");
+                errorMessageDict.Add(ERR1168, "");
+                errorMessageDict.Add(ERR1169, "");
                 
             }
         }
