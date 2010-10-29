@@ -68,6 +68,8 @@
     <Compile Include="EvalTemplateSectionQuestionDAO.cs" />
     <Compile Include="MSARefDAO.cs" />
     <Compile Include="NonProfitReferralDAO.cs" />
+    <Compile Include="PPBudgetDAO.cs" />
+    <Compile Include="PrePurchaseCaseSetDAO.cs" />
     <Compile Include="RefCodeSettDAO.cs" />
     <Compile Include="ServicerDAO.cs" />
     <Compile Include="OutcomeDAO.cs" />

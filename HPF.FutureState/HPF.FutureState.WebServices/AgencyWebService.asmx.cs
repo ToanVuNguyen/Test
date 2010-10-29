@@ -111,6 +111,14 @@ namespace HPF.FutureState.WebServices
 
         [WebMethod]
         [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
+        public PrePurchaseCaseSaveResponse SavePrePurchaseCase(PrePurchaseCaseSaveRequest request)
+        {
+            PrePurchaseCaseSaveResponse response = new PrePurchaseCaseSaveResponse();
+            return response;
+        }
+
+        [WebMethod]
+        [SoapHeader("Authentication", Direction = SoapHeaderDirection.In)]
         public CallLogRetrieveResponse RetrieveCallLog(CallLogRetrieveRequest request)
         {
             var response = new CallLogRetrieveResponse();
