@@ -345,7 +345,7 @@ namespace HPF.FutureState.Web.QCSelectionCaseDetail
             }
             else
             {
-                decimal percent = Math.Round((decimal)((decimal)caseEvalSetDraft.TotalAuditScore / (decimal)caseEvalSetDraft.TotalPossibleScore), 2);
+                decimal percent = Math.Round((decimal)((decimal)caseEvalSetDraft.TotalAuditScore / (decimal)caseEvalSetDraft.TotalPossibleScore), 2, MidpointRounding.AwayFromZero);
                 //Bind to layout
                 lblYesScore.InnerText = caseEvalSetDraft.TotalAuditScore.ToString();
                 lblNoScore.InnerText = totalNoScore.ToString();

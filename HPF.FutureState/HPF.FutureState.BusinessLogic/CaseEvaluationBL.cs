@@ -290,8 +290,8 @@ namespace HPF.FutureState.BusinessLogic
             CaseEvalSetDTO evalSetLatest = GetCaseEvalLatest(evalSetNew.CaseEvalHeaderId, hpfAuditIndLatest);
             if (evalSetLatest == null) return false;
             prevAuditorId = evalSetLatest.ChangeLastUserId;
-            decimal percentNew = Math.Round((decimal)((decimal)evalSetNew.TotalAuditScore/ (decimal)evalSetNew.TotalPossibleScore), 4);
-            decimal percentLatest = Math.Round((decimal)((decimal)evalSetLatest.TotalAuditScore / (decimal)evalSetLatest.TotalPossibleScore), 4);
+            decimal percentNew = Math.Round((decimal)((decimal)evalSetNew.TotalAuditScore/ (decimal)evalSetNew.TotalPossibleScore), 2,MidpointRounding.AwayFromZero);
+            decimal percentLatest = Math.Round((decimal)((decimal)evalSetLatest.TotalAuditScore / (decimal)evalSetLatest.TotalPossibleScore), 2, MidpointRounding.AwayFromZero);
             if (((percentNew - percentLatest <= (decimal)0.05) && (percentNew - percentLatest>=0))
                 || ((percentLatest - percentNew <= (decimal)0.05) && (percentLatest - percentNew>=0)))
                 return true;
@@ -434,7 +434,7 @@ namespace HPF.FutureState.BusinessLogic
             }
             if (!warningMessage)
             {
-                decimal percent = Math.Round((decimal)((decimal)totalYesScore / (decimal)totalPossibleScore), 2);
+                decimal percent = Math.Round((decimal)((decimal)totalYesScore / (decimal)totalPossibleScore), 2,MidpointRounding.AwayFromZero);
 
                 //Set all value back to set dto
                 caseEvalSet.ResultLevel = GetLevelNameFromPercent((double)percent);
