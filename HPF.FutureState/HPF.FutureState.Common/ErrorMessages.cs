@@ -526,7 +526,26 @@ namespace HPF.FutureState.Common
         public const string ERR1167 = "ERR1167";
         public const string ERR1168 = "ERR1168";
         public const string ERR1169 = "ERR1169";
-
+        public const string ERR1170 = "ERR1170";
+        public const string ERR1171 = "ERR1171";
+        public const string ERR1172 = "ERR1172";
+        public const string ERR1173 = "ERR1173";
+        public const string ERR1174 = "ERR1174";
+        public const string ERR1175 = "ERR1175";
+        public const string ERR1176 = "ERR1176";
+        public const string ERR1177 = "ERR1177";
+        public const string ERR1178 = "ERR1178";
+        public const string ERR1179 = "ERR1179";
+        public const string ERR1180 = "ERR1180";
+        public const string ERR1181 = "ERR1181";
+        public const string ERR1182 = "ERR1182";
+        public const string ERR1183 = "ERR1183";
+        public const string ERR1184 = "ERR1184";
+        public const string ERR1185 = "ERR1185";
+        public const string ERR1186 = "ERR1186";
+        public const string ERR1187 = "ERR1187";
+        public const string ERR1188 = "ERR1188";
+        public const string ERR1189 = "ERR1189";
 
 
         private static readonly Dictionary<string, string> errorMessageDict = new Dictionary<string, string>();
@@ -1067,12 +1086,31 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1162, "A MailZip is required!");
                 errorMessageDict.Add(ERR1163, "A HomePhone is required!");
                 errorMessageDict.Add(ERR1164, "A ScheduledCloseDt is required!");
-                errorMessageDict.Add(ERR1165, "");
-                errorMessageDict.Add(ERR1166, "");
-                errorMessageDict.Add(ERR1167, "");
-                errorMessageDict.Add(ERR1168, "");
-                errorMessageDict.Add(ERR1169, "");
-                
+                errorMessageDict.Add(ERR1165, "A null pre-purchase case is not allowed to insert.");
+                errorMessageDict.Add(ERR1166, "MotherMaidenLName may not contain the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR1167, "BorrowerEmployerName may not contain the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR1168, "CoBorrowerEmployerName may not contain the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR1169, "CounselorFName may not contain the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR1170, "CounselorLName may not contain the following characters:  !@#$%^*(){}|:;?><567890");
+                errorMessageDict.Add(ERR1171, "NewEmailZip and NewEmailStateCd must be a valid state-zip combinaton.");
+                errorMessageDict.Add(ERR1172, "NewEmailZip must contain 5 numeric digits.");
+                errorMessageDict.Add(ERR1173, "");
+                errorMessageDict.Add(ERR1174, "");
+                errorMessageDict.Add(ERR1175, "");
+                errorMessageDict.Add(ERR1176, "");
+                errorMessageDict.Add(ERR1177, "");
+                errorMessageDict.Add(ERR1178, "");
+                errorMessageDict.Add(ERR1179, "");
+                errorMessageDict.Add(ERR1180, "");
+                errorMessageDict.Add(ERR1181, "");
+                errorMessageDict.Add(ERR1182, "");
+                errorMessageDict.Add(ERR1183, "");
+                errorMessageDict.Add(ERR1184, "");
+                errorMessageDict.Add(ERR1185, "");
+                errorMessageDict.Add(ERR1186, "");
+                errorMessageDict.Add(ERR1187, "");
+                errorMessageDict.Add(ERR1188, "");
+                errorMessageDict.Add(ERR1189, "");
             }
         }
     }
