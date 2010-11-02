@@ -60,12 +60,17 @@ namespace HPF.FutureState.DataAccess
                             item.CaseLoanId = ConvertToInt(reader["case_loan_id"]);
                             item.FcId = ConvertToInt(reader["fc_id"]);
                             item.ServicerId = ConvertToInt(reader["servicer_id"]);
+                            item.ServicerName = ConvertToString(reader["servicer_name"]);
                             item.OtherServicerName = ConvertToString(reader["other_servicer_name"]);
                             item.AcctNum = ConvertToString(reader["acct_num"]);
                             item.Loan1st2nd = ConvertToString(reader["loan_1st_2nd_cd"]);
                             item.MortgageTypeCd = ConvertToString(reader["mortgage_type_cd"]);
+                            item.MortgageTypeCdDesc = ConvertToString(reader["mortgage_type_code_desc"]);
+                            item.MortgageProgramCdDesc = ConvertToString(reader["mortgage_program_code_desc"]);
                             item.ArmResetInd = ConvertToString(reader["arm_reset_ind"]);
                             item.LoanDelinqStatusCd = ConvertToString(reader["loan_delinq_status_cd"]);
+                            item.LoanDelinquencyDesc = ConvertToString(reader["delinq_code_desc"]);
+                            item.TermLengthDesc = ConvertToString(reader["term_code_desc"]);
                             item.CurrentLoanBalanceAmt = ConvertToDouble(reader["current_loan_balance_amt"]);
                             item.OrigLoanAmt = ConvertToDouble(reader["orig_loan_amt"]);
                             item.InterestRate = ConvertToDouble(reader["interest_rate"]);
