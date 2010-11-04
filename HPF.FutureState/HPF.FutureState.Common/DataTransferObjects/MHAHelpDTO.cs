@@ -12,6 +12,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ItemCreatedUser { get; set; }
         public DateTime? ItemModifiedDt { get; set; }
         public string ItemModifiedUser { get; set; }
+        public int? ItemId { get; set; }
         public string BorrowerFName { get; set; }
         public string BorrowerLName { get; set; }
         public string Servicer { get; set; }

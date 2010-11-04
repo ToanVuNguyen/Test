@@ -198,6 +198,7 @@ namespace HPF.FutureState.Common.Utils
             foreach (MHAHelpInfo mha in mhaInfos)
             {
                 MHAHelpDTO mhaHelp = new MHAHelpDTO();
+                mhaHelp.ItemId = mha.ItemId;
                 mhaHelp.AcctNum = mha.LoanNumber;
                 mhaHelp.AllDocumentsSubmitted = mha.AllDocumentsSubmitted;
                 mhaHelp.BestTimeToReach = mha.BestTimeToReach;

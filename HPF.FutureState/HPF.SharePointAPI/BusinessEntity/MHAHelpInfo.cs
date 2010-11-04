@@ -10,6 +10,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string ItemCreatedUser { get; set; }
         public DateTime? ItemModifiedDate { get; set; }
         public string ItemModifiedUser { get; set; }
+        public int? ItemId { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

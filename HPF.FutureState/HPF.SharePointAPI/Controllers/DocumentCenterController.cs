@@ -184,7 +184,8 @@ namespace HPF.SharePointAPI.Controllers
 
                     foreach (SPListItem item in listItems)
                     {
-                        MHAHelpInfo mhaInfo = new MHAHelpInfo(); trackingName = MHAHelp.Default.Address;
+                        MHAHelpInfo mhaInfo = new MHAHelpInfo(); trackingName = MHAHelp.Default.ItemId;
+                        mhaInfo.ItemId =ConvertToInt(item[MHAHelp.Default.ItemId]); trackingName = MHAHelp.Default.Address;
                         mhaInfo.Address = (string)item[MHAHelp.Default.Address]; trackingName = MHAHelp.Default.AllDocumentsSubmitted;
                         mhaInfo.AllDocumentsSubmitted = (string)item[MHAHelp.Default.AllDocumentsSubmitted]; trackingName = MHAHelp.Default.BestTimeToReach;
                         mhaInfo.BestTimeToReach = (string)item[MHAHelp.Default.BestTimeToReach]; trackingName = MHAHelp.Default.BorrowerInTrialMod;
