@@ -988,13 +988,12 @@
                                                 <br />
     <asp:GridView ID="grdvCaseLoan" runat="server" 
         ShowFooter = "True" 
-        AutoGenerateColumns = "False" 
+        AutoGenerateColumns = "False"
+        onrowcreated="grdvCaseLoan_RowCreated" 
         onrowediting="grdvCaseLoan_RowEditing"
         OnRowCancelingEdit = "grdvCaseLoan_RowCancelEditing"
-        onrowupdating="grdvCaseLoan_RowUpdating"
         onrowcommand="grdvCaseLoan_RowCommand" 
-        onrowdeleting="grdvCaseLoan_RowDeleting" 
-            onrowcreated="grdvCaseLoan_RowCreated">
+        onrowupdating="grdvCaseLoan_RowUpdating" onrowdeleting="grdvCaseLoan_RowDeleting">
         <Columns>
             
             <asp:TemplateField HeaderText="Edit" ShowHeader="False">

@@ -333,7 +333,148 @@ namespace HPF.FutureState.WebService.Test.Web
 
         }
 
-        
+        #region PrePurchase Case Set
+        public static PrePurchaseCaseDTO ParsePrePurchaseCaseDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("PrePurchaseCase")
+                           select new PrePurchaseCaseDTO
+                           {
+
+                               AgencyCaseNum = Util.ConvertToString(obj.Element("AgencyCaseNum")),
+                               AgencyId = Util.ConvertToInt(obj.Element("AgencyId")),
+                               AssignedToGroupDt = Util.ConvertToDateTime(obj.Element("AssignedToGroupDt")),
+                               BorrowerAuthorizationInd = Util.ConvertToString(obj.Element("BorrowerAuthorizationInd")),
+                               BorrowerEmployerName = Util.ConvertToString(obj.Element("BorrowerEmployerName")),
+                               BorrowerJobTitle = Util.ConvertToString(obj.Element("BorrowerJobTitle")),
+                               BorrowerSelfEmployedInd = Util.ConvertToString(obj.Element("BorrowerSelfEmployedInd")),
+                               BorrowerYearsEmployed = Util.ConvertToDouble(obj.Element("BorrowerYearsEmployed")),
+                               CoBorrowerEmployerName = Util.ConvertToString(obj.Element("CoBorrowerEmployerName")),
+                               CoBorrowerJobTitle = Util.ConvertToString(obj.Element("CoBorrowerJobTitle")),
+                               CoBorrowerSelfEmployedInd = Util.ConvertToString(obj.Element("CoBorrowerSelfEmployedInd")),
+                               CoBorrowerYearsEmployed = Util.ConvertToDouble(obj.Element("CoBorrowerYearsEmployed")),
+                               CounselingAcceptedDt = Util.ConvertToDateTime(obj.Element("CounselingAcceptedDt")),
+                               CounselingCompletedDt = Util.ConvertToDateTime(obj.Element("CounselingCompletedDt")),
+                               CounselingDurationMins = Util.ConvertToInt(obj.Element("CounselingDurationMins")),
+                               CounselingRefusedDt = Util.ConvertToDateTime(obj.Element("CounselingRefusedDt")),
+                               CounselingScheduledDt = Util.ConvertToDateTime(obj.Element("CounselingScheduledDt")),
+                               CounselorEmail = Util.ConvertToString(obj.Element("CounselorEmail")),
+                               CounselorExt = Util.ConvertToString(obj.Element("CounselorExt")),
+                               CounselorFName = Util.ConvertToString(obj.Element("CounselorFName")),
+                               CounselorIdRef = Util.ConvertToString(obj.Element("CounselorIdRef")),
+                               CounselorLName = Util.ConvertToString(obj.Element("CounselorLName")),
+                               CounselorPhone = Util.ConvertToString(obj.Element("CounselorPhone")),
+                               FirstCounseledDt = Util.ConvertToDateTime(obj.Element("FirstCounseledDt")),
+                               GroupCd = Util.ConvertToString(obj.Element("GroupCd")),
+                               InboundCallToNumDt = Util.ConvertToDateTime(obj.Element("InboundCallToNumDt")),
+                               InboundCallToNumReason = Util.ConvertToString(obj.Element("InboundCallToNumReason")),
+                               MotherMaidenLName = Util.ConvertToString(obj.Element("MotherMaidenLName")),
+                               NewMailAddr1 = Util.ConvertToString(obj.Element("NewMailAddr1")),
+                               NewMailAddr2 = Util.ConvertToString(obj.Element("NewMailAddr2")),
+                               NewMailCity = Util.ConvertToString(obj.Element("NewMailCity")),
+                               NewMailStateCd = Util.ConvertToString(obj.Element("NewMailStateCd")),
+                               NewMailZip = Util.ConvertToString(obj.Element("NewMailZip")),
+                               NoRpcReason = Util.ConvertToString(obj.Element("NoRpcReason")),
+                               PPBorrowerId = Util.ConvertToInt(obj.Element("PPBorrowerId")),
+                               PPCaseId = Util.ConvertToInt(obj.Element("PPCaseId")),
+                               PrimaryContactNo = Util.ConvertToString(obj.Element("PrimaryContactNo")),
+                               ProgramId = Util.ConvertToInt(obj.Element("ProgramId")),
+                               RightPartyContactInd = Util.ConvertToString(obj.Element("RightPartyContactInd")),
+                               RpcMostRecentDt = Util.ConvertToDateTime(obj.Element("RpcMostRecentDt")),
+                               SecondaryContactNo = Util.ConvertToString(obj.Element("SecondaryContactNo")),
+                               SecondCounseledDt = Util.ConvertToDateTime(obj.Element("SecondCounseledDt")),
+                               SentToSurveyorDt = Util.ConvertToDateTime(obj.Element("SentToSurveyorDt")),
+                               SurveyorId = Util.ConvertToInt(obj.Element("SurveyorId")),
+                               ChgLstUserId = Util.ConvertToString(obj.Element("ChgLstUserId"))
+                           };
+                PrePurchaseCaseDTO PPCase = objs.ToList<PrePurchaseCaseDTO>()[0];
+                return PPCase;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+
+        }
+        public static List<PPBudgetAssetDTO_App> ParsePPBudgetAssetDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("PPBudgetAsset")
+                           select new PPBudgetAssetDTO_App
+                           {
+                               PPBudgetAssetName = Util.ConvertToString(obj.Element("PPBudgetAssetName")),
+                               PPBudgetAssetValue = Util.ConvertToDouble(obj.Element("PPBudgetAssetValue")),
+                               PPBudgetAssetNote = Util.ConvertToString(obj.Element("PPBudgetAssetNote"))
+                           };
+                int i = 1;
+                List<PPBudgetAssetDTO_App> list = objs.ToList<PPBudgetAssetDTO_App>();
+                foreach (var item in list)
+                {
+                    item.PPBudgetAssetId = i;
+                    i++;
+                }
+                return list;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+        }
+        public static List<PPBudgetItemDTO_App> ParsePPBudgetItemDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("PPBudgetItem")
+                           select new PPBudgetItemDTO_App
+                           {
+                               PPBudgetItemAmt = Util.ConvertToDouble(obj.Element("PPBudgetItemAmt")),
+                               PPBudgetNote = Util.ConvertToString(obj.Element("PPBudgetNote")),
+                               BudgetSubcategoryId = Util.ConvertToInt(obj.Element("BudgetSubcategoryId"))
+                           };
+                int i = 1;
+                List<PPBudgetItemDTO_App> list = objs.ToList<PPBudgetItemDTO_App>();
+                foreach (var item in list)
+                {
+                    item.PPBudgetItemId = i;
+                    i++;
+                }
+                return list;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+
+        }
+        public static List<PPPBudgetItemDTO_App> ParseProposedPPBudgetItemDTO(XDocument xdoc)
+        {
+            try
+            {
+                var objs = from obj in xdoc.Descendants("ProposedPPBudgetItem")
+                           select new PPPBudgetItemDTO_App
+                           {
+                               ProposedBudgetItemAmt = Util.ConvertToDouble(obj.Element("ProposedBudgetItemAmt")),
+                               ProposedBudgetNote = Util.ConvertToString(obj.Element("ProposedBudgetNote")),
+                               BudgetSubcategoryId = Util.ConvertToInt(obj.Element("BudgetSubcategoryId")),
+                           };
+                int i = 1;
+                List<PPPBudgetItemDTO_App> list = objs.ToList<PPPBudgetItemDTO_App>();
+                foreach (var item in list)
+                {
+                    item.PPPBudgetItemId = i;
+                    i++;
+                }
+                return list;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+
+        }
+        #endregion
 
     }
 
@@ -486,6 +627,79 @@ namespace HPF.FutureState.WebService.Test.Web
             {
                 AssetName = budgetAsset.AssetName,
                 AssetValue = budgetAsset.AssetValue
+
+            };
+        }
+    }
+
+    public class PPBudgetItemDTO_App : PPBudgetItemDTO
+    {
+        public int? PPBudgetItemId { get; set; }
+        public PPBudgetItemDTO ConvertToBase()
+        {
+            return new PPBudgetItemDTO()
+            {
+                PPBudgetItemAmt = this.PPBudgetItemAmt,
+                PPBudgetNote = this.PPBudgetNote,
+                BudgetSubcategoryId = this.BudgetSubcategoryId
+            };
+        }
+        public PPBudgetItemDTO_App ConvertFromBase(PPBudgetItemDTO ppBudgetItem)
+        {
+            return new PPBudgetItemDTO_App()
+            {
+                PPBudgetItemAmt = ppBudgetItem.PPBudgetItemAmt,
+                PPBudgetNote = ppBudgetItem.PPBudgetNote,
+                BudgetSubcategoryId = ppBudgetItem.BudgetSubcategoryId
+            };
+        }
+
+    }
+
+    public class PPPBudgetItemDTO_App : PPPBudgetItemDTO
+    {
+        public int? PPPBudgetItemId { get; set; }
+        public PPPBudgetItemDTO ConvertToBase()
+        {
+            return new PPPBudgetItemDTO()
+            {
+                ProposedBudgetItemAmt = this.ProposedBudgetItemAmt,
+                ProposedBudgetNote = this.ProposedBudgetNote,
+                BudgetSubcategoryId = this.BudgetSubcategoryId
+            };
+        }
+        public PPPBudgetItemDTO_App ConvertFromBase(PPPBudgetItemDTO pppBudgetItem)
+        {
+            return new PPPBudgetItemDTO_App()
+            {
+                ProposedBudgetItemAmt = pppBudgetItem.ProposedBudgetItemAmt,
+                ProposedBudgetNote = pppBudgetItem.ProposedBudgetNote,
+                BudgetSubcategoryId = pppBudgetItem.BudgetSubcategoryId
+            };
+        }
+
+    }
+
+    public class PPBudgetAssetDTO_App : PPBudgetAssetDTO
+    {
+        public int? PPBudgetAssetId { get; set; }
+        public PPBudgetAssetDTO ConvertToBase()
+        {
+            return new PPBudgetAssetDTO()
+            {
+                PPBudgetAssetName = this.PPBudgetAssetName,
+                PPBudgetAssetValue = this.PPBudgetAssetValue,
+                PPBudgetAssetNote = this.PPBudgetAssetNote
+
+            };
+        }
+        public PPBudgetAssetDTO_App ConvertFromBase(PPBudgetAssetDTO ppBudgetAsset)
+        {
+            return new PPBudgetAssetDTO_App()
+            {
+                PPBudgetAssetName = ppBudgetAsset.PPBudgetAssetName,
+                PPBudgetAssetValue = ppBudgetAsset.PPBudgetAssetValue,
+                PPBudgetAssetNote = ppBudgetAsset.PPBudgetAssetNote
 
             };
         }

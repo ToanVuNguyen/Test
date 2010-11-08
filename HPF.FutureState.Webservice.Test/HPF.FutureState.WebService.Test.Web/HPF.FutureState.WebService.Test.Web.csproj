@@ -102,6 +102,13 @@
     <Compile Include="SaveForeclosureCase.aspx.designer.cs">
       <DependentUpon>SaveForeclosureCase.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SavePrePurchaseCase.aspx.cs">
+      <DependentUpon>SavePrePurchaseCase.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SavePrePurchaseCase.aspx.designer.cs">
+      <DependentUpon>SavePrePurchaseCase.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SearchForeclosureCase.aspx.cs">
       <DependentUpon>SearchForeclosureCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -156,8 +163,10 @@
     <Content Include="ICTSearchForeclosureCase.aspx" />
     <Content Include="InsertCallLog.aspx" />
     <Content Include="Menu.xml" />
+    <Content Include="PrePurchaseCaseSet.xml" />
     <Content Include="RetrieveCallLog.aspx" />
     <Content Include="SaveForeclosureCase.aspx" />
+    <Content Include="SavePrePurchaseCase.aspx" />
     <Content Include="SearchForeclosureCase.aspx" />
     <Content Include="SendSummary.aspx" />
     <Content Include="Site.Master" />

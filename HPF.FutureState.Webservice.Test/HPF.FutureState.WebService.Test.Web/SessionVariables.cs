@@ -23,5 +23,10 @@ namespace HPF.FutureState.WebService.Test.Web
         public static string FORECLOSURE_CASE = "ForeclosureCase";
         public static string CALLLOG_WS = "CallLogWS";
 
+        //Session Variables for Pre-Purchase Case
+        public static string PP_BUDGET_ASSET_COLLECTION = "PPBudgetAssetCollection";
+        public static string PP_BUDGET_ITEM_COLLECTION = "PPBudgetItemCollection";
+        public static string PROPOSED_PP_BUDGET_ITEM_COLLECTION = "ProposedPPBudgetItemCollection";
+        public static string PREPURCHASE_CASE = "PrePurchaseCase";
     }
 }
