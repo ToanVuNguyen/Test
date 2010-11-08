@@ -19,7 +19,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR1151, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "ReceivedDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime ReceivedDt { get; set; }
+        public DateTime? ReceivedDt { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR1152, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 30, "AcctNum", Ruleset = Constant.RULESET_LENGTH)]
@@ -89,10 +89,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR1164, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "ScheduledCloseDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime ScheduledCloseDt { get; set; }
+        public DateTime? ScheduledCloseDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SentToAgencyDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime SentToAgencyDt { get; set; }
+        public DateTime? SentToAgencyDt { get; set; }
 
         [NullableOrStringLengthValidator(true, 8000, "Comments", Ruleset = Constant.RULESET_LENGTH)]
         public string Comments { get; set; }

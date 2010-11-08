@@ -31,18 +31,26 @@ namespace HPF.FutureState.WebServices
             {
                 if (IsAuthenticated())//Authentication checking                
                 {
-                    workingInstance = ForeclosureCaseSetBL.Instance;
-                    ForeclosureCaseDTO fc = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
-                    response.FcId = fc.FcId;
-                    response.CompletedDt = fc.CompletedDt;
-                    response.AgencyId = (int)fc.AgencyId;
-                    if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
+                    if (CurrentAgencyID == Constant.AGENCY_CCCS_SAN_FRANCISCO_ID)
                     {
-                        response.Status = ResponseStatus.Warning;
-                        //response.Messages = workingInstance.WarningMessage;
-                    }                    
+                        workingInstance = ForeclosureCaseSetBL.Instance;
+                        ForeclosureCaseDTO fc = workingInstance.SaveForeclosureCaseSet(request.ForeclosureCaseSet);
+                        response.FcId = fc.FcId;
+                        response.CompletedDt = fc.CompletedDt;
+                        response.AgencyId = (int)fc.AgencyId;
+                        if (workingInstance.WarningMessage != null && workingInstance.WarningMessage.Count != 0)
+                        {
+                            response.Status = ResponseStatus.Warning;
+                            //response.Messages = workingInstance.WarningMessage;
+                        }
+                        else
+                            response.Status = ResponseStatus.Success;
+                    }
                     else
-                        response.Status = ResponseStatus.Success;
+                    {
+                        AuthenticationException ex = new AuthenticationException("Web Service Authentication failed, you do not have permission to excute SavePrePurchaseCase web service.");
+                        throw ex;
+                    }
                 }
             }
             catch (AuthenticationException Ex)
@@ -114,6 +122,51 @@ namespace HPF.FutureState.WebServices
         public PrePurchaseCaseSaveResponse SavePrePurchaseCase(PrePurchaseCaseSaveRequest request)
         {
             PrePurchaseCaseSaveResponse response = new PrePurchaseCaseSaveResponse();
+            PrePurchaseCaseSetBL workingInstance = null;
+            try
+            {
+                if (IsAuthenticated())//Authentication checking                
+                {
+                    workingInstance = PrePurchaseCaseSetBL.Instance;
+                    PrePurchaseCaseDTO ppc = workingInstance.SavePrePurchaseCaseSet(request.PrePurchaseCaseSet);
+                    response.PPCaseId = ppc.PPCaseId;
+                    response.AgencyId = (int)ppc.AgencyId;
+                    if (workingInstance.WarningMessages != null && workingInstance.WarningMessages.Count != 0)
+                    {
+                        response.Status = ResponseStatus.Warning;
+                    }
+                    else
+                        response.Status = ResponseStatus.Success;
+                }
+            }
+            catch (AuthenticationException Ex)
+            {
+                response.Status = ResponseStatus.AuthenticationFail;
+                response.Messages.AddExceptionMessage(ErrorMessages.ERR0451, Ex.Message);
+
+                HandleException(Ex, GetPPCaseId(request));
+            }
+            catch (DataValidationException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                if (Ex.ExceptionMessages != null && Ex.ExceptionMessages.Count > 0)
+                    response.Messages = Ex.ExceptionMessages;
+                else
+                    response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex, GetPPCaseId(request));
+            }
+            catch (DataAccessException Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage("Data access error.");
+                HandleException(Ex, GetPPCaseId(request));
+            }
+            catch (Exception Ex)
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Messages.AddExceptionMessage(Ex.Message);
+                HandleException(Ex, GetPPCaseId(request));
+            }
             return response;
         }
 
@@ -457,6 +510,17 @@ namespace HPF.FutureState.WebServices
                 return request.ForeclosureCaseSet.ForeclosureCase.FcId.Value.ToString();
             }
             catch 
+            {
+                return "";
+            }
+        }
+        private string GetPPCaseId(PrePurchaseCaseSaveRequest request)
+        {
+            try
+            {
+                return request.PrePurchaseCaseSet.PrePurchaseCase.PPCaseId.Value.ToString();
+            }
+            catch
             {
                 return "";
             }

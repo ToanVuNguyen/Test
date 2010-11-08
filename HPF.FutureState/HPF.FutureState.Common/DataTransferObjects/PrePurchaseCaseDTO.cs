@@ -34,7 +34,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "AssignedToGroupDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime AssignedToGroupDt { get; set; }
+        public DateTime? AssignedToGroupDt { get; set; }
 
         [XmlElement(IsNullable = true)]
         [RequiredObjectValidator(Tag = ErrorMessages.ERR1134, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
@@ -43,7 +43,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public int? SurveyorId { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SentToSurveyorDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime SentToSurveyorDt { get; set; }
+        public DateTime? SentToSurveyorDt { get; set; }
 
         private string _rightPartyContactInd;
         [YesNoIndicatorValidator(true, Ruleset = Constant.RULESET_LENGTH, Tag = ErrorMessages.ERR1135)]
@@ -58,31 +58,31 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "RpcMostRecentDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime RpcMostRecentDt{get;set;}
+        public DateTime? RpcMostRecentDt{get;set;}
 
         [NullableOrStringLengthValidator(true, 300, "No Rpc Reason", Ruleset = Constant.RULESET_LENGTH)]
         public string NoRpcReason { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CounselingAcceptedDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime CounselingAcceptedDt { get; set; }
+        public DateTime? CounselingAcceptedDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CounselingScheduledDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime CounselingScheduledDt { get; set; }
+        public DateTime? CounselingScheduledDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CounselingCompletedDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime CounselingCompletedDt { get; set; }
+        public DateTime? CounselingCompletedDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "CounselingRefusedDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime CounselingRefusedDt { get; set; }
+        public DateTime? CounselingRefusedDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "FirstCounseledDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime FirstCounseledDt { get; set; }
+        public DateTime? FirstCounseledDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "SecondCounseledDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime SecondCounseledDt { get; set; }
+        public DateTime? SecondCounseledDt { get; set; }
 
         [NullableOrInRangeNumberValidator(true, "1-1-1753", "12-31-9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "InboundCallToNumDt must be between 1/1/1753 and 12/31/9999")]
-        public DateTime InboundCallToNumDt { get; set; }
+        public DateTime? InboundCallToNumDt { get; set; }
 
         [NullableOrStringLengthValidator(true, 300, "InboundCallToNumReason", Ruleset = Constant.RULESET_LENGTH)]
         public string InboundCallToNumReason { get; set; }
@@ -159,7 +159,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [RequiredObjectValidator(Tag = ErrorMessages.ERR1143, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrInRangeNumberValidator(true, "0", "99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "An invalid BorrowerYearsEmployed was provided.")]
-        public double BorrowerYearsEmployed { get; set; }
+        public double? BorrowerYearsEmployed { get; set; }
 
         [NullableOrStringLengthValidator(true, 50, "CoBorrowerEmployerName", Ruleset = Constant.RULESET_LENGTH)]
         public string CoBorrowerEmployerName { get; set; }
@@ -180,7 +180,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         }
 
         [NullableOrInRangeNumberValidator(true, "0", "99", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "An invalid CoBorrowerYearsEmployed was provided.")]
-        public double CoBorrowerYearsEmployed { get; set; }
+        public double? CoBorrowerYearsEmployed { get; set; }
 
         [StringRequiredValidator(Tag = ErrorMessages.ERR1144, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD, MessageTemplate = "Required!")]
         [NullableOrStringLengthValidator(true, 30, "CounselorIdRef", Ruleset = Constant.RULESET_LENGTH)]
@@ -207,7 +207,10 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         [RequiredObjectValidator (Tag=ErrorMessages.ERR1149,Ruleset=Constant.RULESET_MIN_REQUIRE_FIELD,MessageTemplate="Required!")]
         [NullableOrInRangeNumberValidator(true, "0", "9999", Ruleset = Constant.RULESET_LENGTH, MessageTemplate = "An invalid CounselingDurationMins was provided.")]
-        public int CounselingDurationMins { get; set; }
+        public int? CounselingDurationMins { get; set; }
 
+        [StringRequiredValidator(Tag = ErrorMessages.ERR1176, Ruleset = Constant.RULESET_MIN_REQUIRE_FIELD)]
+        [NullableOrStringLengthValidator(true, 30, "Change Last User ID", Ruleset = Constant.RULESET_LENGTH)]
+        public string ChgLstUserId { get; set; }
     }
 }

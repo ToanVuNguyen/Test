@@ -1094,10 +1094,10 @@ namespace HPF.FutureState.Common
                 errorMessageDict.Add(ERR1170, "CounselorLName may not contain the following characters:  !@#$%^*(){}|:;?><567890");
                 errorMessageDict.Add(ERR1171, "NewEmailZip and NewEmailStateCd must be a valid state-zip combinaton.");
                 errorMessageDict.Add(ERR1172, "NewEmailZip must contain 5 numeric digits.");
-                errorMessageDict.Add(ERR1173, "");
-                errorMessageDict.Add(ERR1174, "");
-                errorMessageDict.Add(ERR1175, "");
-                errorMessageDict.Add(ERR1176, "");
+                errorMessageDict.Add(ERR1173, "An update was submitted without a PPCaseID. All updates require a HPF PPCaseId. Please correct and resubmit the case.");
+                errorMessageDict.Add(ERR1174, "An invalid AgencyID was provided for the Corresponding PPCaseId.  Your agency does not own this pre-purchase case. ");
+                errorMessageDict.Add(ERR1175, "An invalid PPCaseID was provided.  Please correct the PPCaseID and resend the pre-purchase case.");
+                errorMessageDict.Add(ERR1176, "A ChgLstUserId is required to save a pre-purchase case.");
                 errorMessageDict.Add(ERR1177, "");
                 errorMessageDict.Add(ERR1178, "");
                 errorMessageDict.Add(ERR1179, "");

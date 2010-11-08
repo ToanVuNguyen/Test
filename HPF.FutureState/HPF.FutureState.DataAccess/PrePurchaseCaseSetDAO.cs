@@ -155,12 +155,12 @@ namespace HPF.FutureState.DataAccess
         /// Update PrePurchase Case
         /// </summary>
         /// <param name="prePurchaseCase">PrePurchaseCaseDTO</param>
-        public void UpdatePrePurchaseCase(PrePurchaseCaseDTO prePurchaseCase)
+        public int? UpdatePrePurchaseCase(PrePurchaseCaseDTO prePurchaseCase)
         {
-            var command = CreateSPCommand("hpf_pre_purchase_case_insert", this.dbConnection);
+            var command = CreateSPCommand("hpf_pre_purchase_case_update", this.dbConnection);
             try
             {
-                var sqlParam = new SqlParameter[50];
+                var sqlParam = new SqlParameter[47];
 
                 sqlParam[0] = new SqlParameter("@pi_pp_borrower_id", prePurchaseCase.PPBorrowerId);
                 sqlParam[1] = new SqlParameter("@pi_program_id", prePurchaseCase.ProgramId);
@@ -210,7 +210,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[44] = new SqlParameter("@pi_chg_lst_user_id", prePurchaseCase.ChangeLastUserId);
                 sqlParam[45] = new SqlParameter("@pi_chg_lst_app_name", prePurchaseCase.ChangeLastAppName);
 
-                sqlParam[46] = new SqlParameter("@po_pp_case_id",prePurchaseCase.PPCaseId );
+                sqlParam[46] = new SqlParameter("@pi_pp_case_id",prePurchaseCase.PPCaseId );
                 //</Parameter> 
                 command.Parameters.AddRange(sqlParam);
                 command.CommandType = CommandType.StoredProcedure;
@@ -225,6 +225,7 @@ namespace HPF.FutureState.DataAccess
             {
                 command.Dispose();
             }
+            return prePurchaseCase.PPCaseId;
         }
 
         /// <summary>
@@ -234,7 +235,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public int? InsertPPBudgetSet(PPBudgetSetDTO ppBudgetSet, int? pp_case_id)
         {
-            var command = new SqlCommand("hpf_budget_set_insert", this.dbConnection);
+            var command = new SqlCommand("hpf_pp_budget_set_insert", this.dbConnection);
             //<Parameter>
             try
             {
@@ -281,7 +282,7 @@ namespace HPF.FutureState.DataAccess
                 sqlParam[1] = new SqlParameter("@pi_total_income", pppBudgetSet.TotalIncome);
                 sqlParam[2] = new SqlParameter("@pi_total_expenses", pppBudgetSet.TotalExpenses);
                 sqlParam[3] = new SqlParameter("@pi_total_assets", pppBudgetSet.TotalAssets);
-                sqlParam[4] = new SqlParameter("@pi_budget_set_dt", NullableDateTime(pppBudgetSet.PPPBudgetSetDt));
+                sqlParam[4] = new SqlParameter("@pi_ppp_budget_set_dt", NullableDateTime(pppBudgetSet.PPPBudgetSetDt));
                 sqlParam[5] = new SqlParameter("@pi_create_dt", NullableDateTime(pppBudgetSet.CreateDate));
                 sqlParam[6] = new SqlParameter("@pi_create_user_id", pppBudgetSet.CreateUserId);
                 sqlParam[7] = new SqlParameter("@pi_create_app_name", pppBudgetSet.CreateAppName);
@@ -360,8 +361,8 @@ namespace HPF.FutureState.DataAccess
                 var sqlParam = new SqlParameter[10];
                 sqlParam[0] = new SqlParameter("@pi_ppp_budget_set_id", pppBudgetSetId);
                 sqlParam[1] = new SqlParameter("@pi_budget_subcategory_id", pppBudgetItem.BudgetSubcategoryId);
-                sqlParam[2] = new SqlParameter("@pi_budget_item_amt", pppBudgetItem.ProposedBudgetItemAmt);
-                sqlParam[3] = new SqlParameter("@pi_budget_note", NullableString(pppBudgetItem.ProposedBudgetNote));
+                sqlParam[2] = new SqlParameter("@pi_proposed_budget_item_amt", pppBudgetItem.ProposedBudgetItemAmt);
+                sqlParam[3] = new SqlParameter("@pi_proposed_budget_note", NullableString(pppBudgetItem.ProposedBudgetNote));
                 sqlParam[4] = new SqlParameter("@pi_create_dt", NullableDateTime(pppBudgetItem.CreateDate));
                 sqlParam[5] = new SqlParameter("@pi_create_user_id", pppBudgetItem.CreateUserId);
                 sqlParam[6] = new SqlParameter("@pi_create_app_name", pppBudgetItem.CreateAppName);
@@ -392,7 +393,7 @@ namespace HPF.FutureState.DataAccess
         /// <returns></returns>
         public void InsertPPBudgetAsset(PPBudgetAssetDTO ppBudgetAsset, int? ppBudgetSetId)
         {
-            var command = CreateCommand("hpf_budget_asset_insert", this.dbConnection);
+            var command = CreateCommand("hpf_pp_budget_asset_insert", this.dbConnection);
             //<Parameter>
             try
             {
@@ -422,6 +423,133 @@ namespace HPF.FutureState.DataAccess
             {
                 command.Dispose();
             }
+        }
+
+        public bool CheckExistingAgencyIdAndCaseNumber(int? agency_id, string agency_case_number)
+        {
+            bool returnValue = true;
+            var dbConnection = CreateConnection();
+            SqlCommand command = base.CreateCommand("hpf_pre_purchase_case_get_from_agencyID_and_caseNumber", dbConnection);//new SqlCommand("hpf_foreclosure_case_get_from_agencyID_and_caseNumber", dbConnection);
+            try
+            {
+                //<Parameter>
+                var sqlParam = new SqlParameter[2];
+                sqlParam[0] = new SqlParameter("@pi_agency_case_num", agency_case_number);
+                sqlParam[1] = new SqlParameter("@pi_agency_id", agency_id);
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                var reader = command.ExecuteReader();
+                returnValue = reader.HasRows;
+                reader.Close();
+            }
+            catch (Exception Ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(Ex);
+            }
+            finally
+            {
+                command.Dispose();
+                dbConnection.Close();
+            }
+            return returnValue;
+
+        }  
+
+        /// <summary>
+        /// get Pre-Purchase Case
+        /// </summary>
+        /// <param name="ppCaseId">id of a Pre-Purchase Case</param>
+        /// <returns>PrePurchaseCase if exists, otherwise: null</returns>
+        public PrePurchaseCaseDTO GetPrePurchaseCase(int? ppCaseId)
+        {
+            PrePurchaseCaseDTO returnObject = null;
+            SqlConnection dbConnection = base.CreateConnection();
+            SqlCommand command = base.CreateCommand("hpf_pre_purchase_case_detail_get", dbConnection);
+            try
+            {
+                //<Parameter>
+                SqlParameter[] sqlParam = new SqlParameter[1];
+                sqlParam[0] = new SqlParameter("@pi_pp_case_id", ppCaseId);
+
+                //</Parameter>
+                command.Parameters.AddRange(sqlParam);
+                command.CommandType = CommandType.StoredProcedure;
+                dbConnection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        returnObject = new PrePurchaseCaseDTO();
+                        #region set PrePurchaseCase value
+                        returnObject.PPCaseId = ConvertToInt(reader["pp_case_id"]);
+                        returnObject.PPBorrowerId = ConvertToInt(reader["pp_borrower_id"]);
+                        returnObject.ProgramId = ConvertToInt(reader["program_id"]);
+                        returnObject.GroupCd = ConvertToString(reader["group_cd"]);
+                        returnObject.AssignedToGroupDt = ConvertToDateTime(reader["assigned_to_group_dt"]);
+                        returnObject.AgencyId = ConvertToInt(reader["agency_id"]);
+                        returnObject.SurveyorId = ConvertToInt(reader["surveyor_id"]);
+                        returnObject.SentToSurveyorDt = ConvertToDateTime(reader["sent_to_surveyor_dt"]);
+                        returnObject.RightPartyContactInd = ConvertToString(reader["right_party_contact_ind"]);
+                        returnObject.RpcMostRecentDt = ConvertToDateTime(reader["rpc_most_recent_dt"]);
+                        returnObject.NoRpcReason = ConvertToString(reader["no_rpc_reason"]);
+                        returnObject.CounselingAcceptedDt = ConvertToDateTime(reader["counseling_accepted_dt"]);
+                        returnObject.CounselingScheduledDt = ConvertToDateTime(reader["counseling_schedule_dt"]);
+                        returnObject.CounselingCompletedDt = ConvertToDateTime(reader["counseling_completed_dt"]);
+                        returnObject.CounselingRefusedDt = ConvertToDateTime(reader["counseling_refused_dt"]);
+                        returnObject.FirstCounseledDt = ConvertToDateTime(reader["first_counseled_dt"]);
+                        returnObject.SecondCounseledDt = ConvertToDateTime(reader["second_counseled_dt"]);
+                        returnObject.InboundCallToNumDt = ConvertToDateTime(reader["inbound_call_to_num_dt"]);
+                        returnObject.InboundCallToNumReason = ConvertToString(reader["inbound_call_to_num_reason"]);
+                        returnObject.AgencyCaseNum = ConvertToString(reader["agency_case_num"]);
+                        returnObject.NewMailAddr1 = ConvertToString(reader["new_email_addr1"]);
+                        returnObject.NewMailAddr2 = ConvertToString(reader["new_email_addr2"]);
+                        returnObject.NewMailCity = ConvertToString(reader["new_mail_city"]);
+                        returnObject.NewMailStateCd = ConvertToString(reader["new_mail_state_cd"]);
+                        returnObject.NewMailZip = ConvertToString(reader["new_mail_zip"]);
+                        returnObject.BorrowerAuthorizationInd = ConvertToString(reader["borrower_authorization_ind"]);
+                        returnObject.MotherMaidenLName = ConvertToString(reader["mother_maiden_lname"]);
+                        returnObject.PrimaryContactNo = ConvertToString(reader["primary_contact_no"]);
+                        returnObject.SecondaryContactNo = ConvertToString(reader["secondary_contact_no"]);
+                        returnObject.BorrowerEmployerName = ConvertToString(reader["borrower_employer_name"]);
+                        returnObject.BorrowerJobTitle = ConvertToString(reader["borrower_job_title"]);
+                        returnObject.BorrowerSelfEmployedInd = ConvertToString(reader["borrower_self_employed_ind"]);
+                        returnObject.BorrowerYearsEmployed = ConvertToDouble(reader["borrower_years_employed"]);
+                        returnObject.CoBorrowerEmployerName = ConvertToString(reader["co_borrower_employer_name"]);
+                        returnObject.CoBorrowerJobTitle = ConvertToString(reader["co_borrower_job_title"]);
+                        returnObject.CoBorrowerSelfEmployedInd = ConvertToString(reader["co_borrower_self_employed_ind"]);
+                        returnObject.CoBorrowerYearsEmployed = ConvertToDouble(reader["co_borrower_years_employed"]);
+                        returnObject.CounselorIdRef = ConvertToString(reader["counselor_id_ref"]);
+                        returnObject.CounselorFName = ConvertToString(reader["counselor_fname"]);
+                        returnObject.CounselorLName = ConvertToString(reader["counselor_lname"]);
+                        returnObject.CounselorEmail = ConvertToString(reader["counselor_email"]);
+                        returnObject.CounselorPhone = ConvertToString(reader["counselor_phone"]);
+                        returnObject.CounselorExt = ConvertToString(reader["counselor_ext"]);
+                        returnObject.CounselingDurationMins = ConvertToInt(reader["counseling_duration_mins"]).Value;
+                        returnObject.CreateAppName = ConvertToString(reader["create_app_name"]);
+                        returnObject.CreateDate = ConvertToDateTime(reader["create_dt"]);
+                        returnObject.CreateUserId = ConvertToString(reader["create_user_id"]);
+                        returnObject.ChangeLastAppName = ConvertToString(reader["chg_lst_app_name"]);
+                        returnObject.ChangeLastDate = ConvertToDateTime(reader["chg_lst_dt"]);
+                        returnObject.ChangeLastUserId = ConvertToString(reader["chg_lst_user_id"]);
+                        returnObject.ChgLstUserId = returnObject.ChangeLastUserId;
+                        #endregion
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                command.Dispose();
+                dbConnection.Close();
+            }
+            return returnObject;
         }
     }
 }

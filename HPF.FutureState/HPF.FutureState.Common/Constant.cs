@@ -9,6 +9,7 @@ namespace HPF.FutureState.Common
         public const int AGENCY_MMI_ID = 17081;
         public const int AGENCY_NOVADEBT_ID = 4;
         public const int AGENCY_AURITON_ID = 2;
+        public const int AGENCY_CCCS_SAN_FRANCISCO_ID = 15881;
         public const int PROGRAM_ESCALATION_ID = 2001;
 
         public const string LOAN_1ST = "1ST";

@@ -131,6 +131,7 @@
     <Compile Include="DataTransferObjects\BatchJobDTOCollection.cs" />
     <Compile Include="DataTransferObjects\PPBudgetAssetDTO.cs" />
     <Compile Include="DataTransferObjects\PPBudgetAssetDTOCollection.cs" />
+    <Compile Include="DataTransferObjects\PPBudgetDetailDTO.cs" />
     <Compile Include="DataTransferObjects\PPBudgetItemDTO.cs" />
     <Compile Include="DataTransferObjects\PPBudgetItemDTOCollection.cs" />
     <Compile Include="DataTransferObjects\PPBudgetSetDTO.cs" />

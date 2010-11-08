@@ -10,5 +10,6 @@ namespace HPF.FutureState.Common.DataTransferObjects.WebServices
         public int? PPCaseId { get; set; }
         public int? PPBorrowerId { get; set; }
         public DateTime UploadDt { get; set; }
+        public int AgencyId { get; set; }
     }
 }

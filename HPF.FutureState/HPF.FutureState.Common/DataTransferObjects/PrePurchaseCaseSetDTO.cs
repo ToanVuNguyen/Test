@@ -22,6 +22,6 @@ namespace HPF.FutureState.Common.DataTransferObjects
 
         public PPPBudgetItemDTOCollection ProposedPPBudgetItems { get; set; }
         [XmlIgnore]
-        public PPBudgetSetDTO ProposedPPBudgetSet { get; set; }  
+        public PPPBudgetSetDTO ProposedPPBudgetSet { get; set; }  
     }
 }
