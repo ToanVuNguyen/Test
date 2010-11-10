@@ -329,13 +329,5 @@ namespace HPF.FutureState.Common
                 return ConfigurationManager.AppSettings["WS_DEBUG_OUTPUT_PATH"];
             }
         }
-        //Batch Manger- MHA HELP Import
-        public static string HPF_MHA_HELP_IMPORT_DAY_RANGE
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["HPF_MHA_HELP_IMPORT_DAY_RANGE"];
-            }
-        }
     }
 }
