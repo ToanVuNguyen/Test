@@ -7,6 +7,7 @@ using System.Security;
 using HPF.SharePointAPI.ContentTypes;
 using System.Net.Mail;
 using System.Configuration;
+using Microsoft.SharePoint.Utilities;
 
 namespace HPF.SharePointAPI.Controllers
 {
@@ -176,11 +177,10 @@ namespace HPF.SharePointAPI.Controllers
 
                 List<MHAHelpInfo> mhaList = new List<MHAHelpInfo>();
                 using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
-                {                    
+                {
                     SPWeb web = site.OpenWeb();
                     web.AllowUnsafeUpdates = true;
                     SPList docLib = web.Lists[DocumentCenter.Default.MHAHelpList];
-                    SPListItemCollection listItems = docLib.Items;
 
                     //Set previous day to grab sharepoint items which have modified date in this range
                     int importDayRange = 4;
@@ -188,84 +188,83 @@ namespace HPF.SharePointAPI.Controllers
                     {
                         int.TryParse(HPF_MHA_HELP_IMPORT_DAY_RANGE, out importDayRange);
                     }
-                    DateTime previousDay = DateTime.Now.AddDays(0 - importDayRange);
-
+                    SPQuery query = new SPQuery();
+                    query.Query = String.Format("<Where><Gt><FieldRef Name='Modified'/>" +
+                                    "<Value Type='DateTime' StorageTZ='TRUE'>{0}</Value></Gt></Where>",
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.UtcNow.AddDays(0 - importDayRange)));
+                    SPListItemCollection listItems = docLib.GetItems(query);
                     foreach (SPListItem item in listItems)
                     {
-                        DateTime? modifiedDay = (DateTime?)item[MHAHelp.Default.ItemModifiedDate];
-                        if (modifiedDay.HasValue && (modifiedDay.Value >= previousDay))
+                        MHAHelpInfo mhaInfo = new MHAHelpInfo();
+                        trackingName = MHAHelp.Default.ItemId;
+                        mhaInfo.ItemId = ConvertToInt(item[MHAHelp.Default.ItemId]); trackingName = MHAHelp.Default.Address;
+                        mhaInfo.Address = (string)item[MHAHelp.Default.Address]; trackingName = MHAHelp.Default.AllDocumentsSubmitted;
+                        mhaInfo.AllDocumentsSubmitted = (string)item[MHAHelp.Default.AllDocumentsSubmitted]; trackingName = MHAHelp.Default.BestTimeToReach;
+                        mhaInfo.BestTimeToReach = (string)item[MHAHelp.Default.BestTimeToReach]; trackingName = MHAHelp.Default.BorrowerInTrialMod;
+                        mhaInfo.BorrowerInTrialMod = (string)item[MHAHelp.Default.BorrowerInTrialMod]; trackingName = MHAHelp.Default.CallSource;
+                        mhaInfo.CallSource = (string)item[MHAHelp.Default.CallSource]; trackingName = MHAHelp.Default.City;
+                        mhaInfo.City = (string)item[MHAHelp.Default.City]; trackingName = MHAHelp.Default.Comments;
+                        mhaInfo.Comments = (string)item[MHAHelp.Default.Comments]; trackingName = MHAHelp.Default.CounselorEmail;
+                        mhaInfo.CounselorEmail = (string)item[MHAHelp.Default.CounselorEmail]; trackingName = MHAHelp.Default.CounselorName;
+                        mhaInfo.CounselorName = (string)item[MHAHelp.Default.CounselorName]; trackingName = MHAHelp.Default.CurrentOnPayments;
+                        mhaInfo.CurrentOnPayments = (string)item[MHAHelp.Default.CurrentOnPayments]; trackingName = MHAHelp.Default.DocumentsSubmitted;
+                        mhaInfo.DocumentsSubmitted = (string)item[MHAHelp.Default.DocumentsSubmitted]; trackingName = MHAHelp.Default.Email;
+                        mhaInfo.Email = (string)item[MHAHelp.Default.Email]; trackingName = MHAHelp.Default.FinalResolutionNotes;
+                        mhaInfo.FinalResolutionNotes = (string)item[MHAHelp.Default.FinalResolutionNotes]; trackingName = MHAHelp.Default.FirstName;
+                        mhaInfo.FirstName = (string)item[MHAHelp.Default.FirstName]; trackingName = MHAHelp.Default.IfWageEarnerWereTwoPayStubsSentIn;
+                        mhaInfo.IfWageEarnerWereTwoPayStubsSentIn = (string)item[MHAHelp.Default.IfWageEarnerWereTwoPayStubsSentIn]; trackingName = MHAHelp.Default.ItemCreatedDate;
+                        mhaInfo.ItemCreatedDate = (DateTime?)item[MHAHelp.Default.ItemCreatedDate]; trackingName = MHAHelp.Default.ItemCreatedUser;
+                        mhaInfo.ItemCreatedUser = (string)item[MHAHelp.Default.ItemCreatedUser]; trackingName = MHAHelp.Default.ItemModifiedDate;
+                        mhaInfo.ItemModifiedDate = (DateTime?)item[MHAHelp.Default.ItemModifiedDate]; trackingName = MHAHelp.Default.ItemModifiedUser;
+                        mhaInfo.ItemModifiedUser = (string)item[MHAHelp.Default.ItemModifiedUser]; trackingName = MHAHelp.Default.LastName;
+                        mhaInfo.LastName = (string)item[MHAHelp.Default.LastName]; trackingName = MHAHelp.Default.LoanNumber;
+                        mhaInfo.LoanNumber = (string)item[MHAHelp.Default.LoanNumber]; trackingName = MHAHelp.Default.MHAConversionCampaignFields;
+                        mhaInfo.MHAConversionCampainFields = (string)item[MHAHelp.Default.MHAConversionCampaignFields]; trackingName = MHAHelp.Default.MHAHelpReason;
+                        mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReason]; trackingName = MHAHelp.Default.MHAHelpResolution;
+                        mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolution];
+
+                        if (string.IsNullOrEmpty(mhaInfo.MHAHelpReason))
                         {
-                            MHAHelpInfo mhaInfo = new MHAHelpInfo();
-                            trackingName = MHAHelp.Default.ItemId;
-                            mhaInfo.ItemId = ConvertToInt(item[MHAHelp.Default.ItemId]); trackingName = MHAHelp.Default.Address;
-                            mhaInfo.Address = (string)item[MHAHelp.Default.Address]; trackingName = MHAHelp.Default.AllDocumentsSubmitted;
-                            mhaInfo.AllDocumentsSubmitted = (string)item[MHAHelp.Default.AllDocumentsSubmitted]; trackingName = MHAHelp.Default.BestTimeToReach;
-                            mhaInfo.BestTimeToReach = (string)item[MHAHelp.Default.BestTimeToReach]; trackingName = MHAHelp.Default.BorrowerInTrialMod;
-                            mhaInfo.BorrowerInTrialMod = (string)item[MHAHelp.Default.BorrowerInTrialMod]; trackingName = MHAHelp.Default.CallSource;
-                            mhaInfo.CallSource = (string)item[MHAHelp.Default.CallSource]; trackingName = MHAHelp.Default.City;
-                            mhaInfo.City = (string)item[MHAHelp.Default.City]; trackingName = MHAHelp.Default.Comments;
-                            mhaInfo.Comments = (string)item[MHAHelp.Default.Comments]; trackingName = MHAHelp.Default.CounselorEmail;
-                            mhaInfo.CounselorEmail = (string)item[MHAHelp.Default.CounselorEmail]; trackingName = MHAHelp.Default.CounselorName;
-                            mhaInfo.CounselorName = (string)item[MHAHelp.Default.CounselorName]; trackingName = MHAHelp.Default.CurrentOnPayments;
-                            mhaInfo.CurrentOnPayments = (string)item[MHAHelp.Default.CurrentOnPayments]; trackingName = MHAHelp.Default.DocumentsSubmitted;
-                            mhaInfo.DocumentsSubmitted = (string)item[MHAHelp.Default.DocumentsSubmitted]; trackingName = MHAHelp.Default.Email;
-                            mhaInfo.Email = (string)item[MHAHelp.Default.Email]; trackingName = MHAHelp.Default.FinalResolutionNotes;
-                            mhaInfo.FinalResolutionNotes = (string)item[MHAHelp.Default.FinalResolutionNotes]; trackingName = MHAHelp.Default.FirstName;
-                            mhaInfo.FirstName = (string)item[MHAHelp.Default.FirstName]; trackingName = MHAHelp.Default.IfWageEarnerWereTwoPayStubsSentIn;
-                            mhaInfo.IfWageEarnerWereTwoPayStubsSentIn = (string)item[MHAHelp.Default.IfWageEarnerWereTwoPayStubsSentIn]; trackingName = MHAHelp.Default.ItemCreatedDate;
-                            mhaInfo.ItemCreatedDate = (DateTime?)item[MHAHelp.Default.ItemCreatedDate]; trackingName = MHAHelp.Default.ItemCreatedUser;
-                            mhaInfo.ItemCreatedUser = (string)item[MHAHelp.Default.ItemCreatedUser]; trackingName = MHAHelp.Default.ItemModifiedDate;
-                            mhaInfo.ItemModifiedDate = (DateTime?)item[MHAHelp.Default.ItemModifiedDate]; trackingName = MHAHelp.Default.ItemModifiedUser;
-                            mhaInfo.ItemModifiedUser = (string)item[MHAHelp.Default.ItemModifiedUser]; trackingName = MHAHelp.Default.LastName;
-                            mhaInfo.LastName = (string)item[MHAHelp.Default.LastName]; trackingName = MHAHelp.Default.LoanNumber;
-                            mhaInfo.LoanNumber = (string)item[MHAHelp.Default.LoanNumber]; trackingName = MHAHelp.Default.MHAConversionCampaignFields;
-                            mhaInfo.MHAConversionCampainFields = (string)item[MHAHelp.Default.MHAConversionCampaignFields]; trackingName = MHAHelp.Default.MHAHelpReason;
-                            mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReason]; trackingName = MHAHelp.Default.MHAHelpResolution;
-                            mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolution];
-
-                            if (string.IsNullOrEmpty(mhaInfo.MHAHelpReason))
-                            {
-                                trackingName = MHAHelp.Default.MHAHelpReasonOld;
-                                mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReasonOld];
-                            }
-                            if (string.IsNullOrEmpty(mhaInfo.MHAHelpResolution))
-                            {
-                                trackingName = MHAHelp.Default.MHAHelpResolutionOld;
-                                mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolutionOld];
-                            }
-                            trackingName = MHAHelp.Default.MMICaseId;
-                            mhaInfo.MMICaseId = (string)item[MHAHelp.Default.MMICaseId]; trackingName = MHAHelp.Default.Phone;
-                            mhaInfo.Phone = (string)item[MHAHelp.Default.Phone]; trackingName = MHAHelp.Default.PrivacyConsent;
-                            mhaInfo.PrivacyConsent = (string)item[MHAHelp.Default.PrivacyConsent]; trackingName = MHAHelp.Default.Servicer;
-                            mhaInfo.Servicer = (string)item[MHAHelp.Default.Servicer]; trackingName = MHAHelp.Default.State;
-                            mhaInfo.State = (string)item[MHAHelp.Default.State]; trackingName = MHAHelp.Default.TrialModStartedBeforeNov1;
-                            mhaInfo.TrialModStartedBeforeNov1 = (string)item[MHAHelp.Default.TrialModStartedBeforeNov1]; trackingName = MHAHelp.Default.VoicemailDate;
-                            mhaInfo.VoicemailDate = (DateTime?)item[MHAHelp.Default.VoicemailDate]; trackingName = MHAHelp.Default.WageEarner;
-                            mhaInfo.WageEarner = (string)item[MHAHelp.Default.WageEarner]; trackingName = MHAHelp.Default.Zip;
-                            mhaInfo.Zip = (string)item[MHAHelp.Default.Zip]; trackingName = MHAHelp.Default.HandleTimeHrs;
-                            mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAHelp.Default.HandleTimeHrs]); trackingName = MHAHelp.Default.HandleTimeMins;
-                            mhaInfo.HandleTimeMins = ConvertToInt(item[MHAHelp.Default.HandleTimeMins]);
-
-                            if (!string.IsNullOrEmpty(mhaInfo.Servicer))
-                            {
-                                int index = mhaInfo.Servicer.IndexOf(";#");
-                                if (index > 0)
-                                    mhaInfo.Servicer = mhaInfo.Servicer.Substring(index + 2, mhaInfo.Servicer.Length - index - 2);
-                            }
-                            if (!string.IsNullOrEmpty(mhaInfo.ItemCreatedUser))
-                            {
-                                int index = mhaInfo.ItemCreatedUser.IndexOf(";#");
-                                if (index > 0)
-                                    mhaInfo.ItemCreatedUser = mhaInfo.ItemCreatedUser.Substring(index + 2, mhaInfo.ItemCreatedUser.Length - index - 2);
-                            }
-                            if (!string.IsNullOrEmpty(mhaInfo.ItemModifiedUser))
-                            {
-                                int index = mhaInfo.ItemModifiedUser.IndexOf(";#");
-                                if (index > 0)
-                                    mhaInfo.ItemModifiedUser = mhaInfo.ItemModifiedUser.Substring(index + 2, mhaInfo.ItemModifiedUser.Length - index - 2);
-                            }
-                            mhaList.Add(mhaInfo);
+                            trackingName = MHAHelp.Default.MHAHelpReasonOld;
+                            mhaInfo.MHAHelpReason = (string)item[MHAHelp.Default.MHAHelpReasonOld];
                         }
+                        if (string.IsNullOrEmpty(mhaInfo.MHAHelpResolution))
+                        {
+                            trackingName = MHAHelp.Default.MHAHelpResolutionOld;
+                            mhaInfo.MHAHelpResolution = (string)item[MHAHelp.Default.MHAHelpResolutionOld];
+                        }
+                        trackingName = MHAHelp.Default.MMICaseId;
+                        mhaInfo.MMICaseId = (string)item[MHAHelp.Default.MMICaseId]; trackingName = MHAHelp.Default.Phone;
+                        mhaInfo.Phone = (string)item[MHAHelp.Default.Phone]; trackingName = MHAHelp.Default.PrivacyConsent;
+                        mhaInfo.PrivacyConsent = (string)item[MHAHelp.Default.PrivacyConsent]; trackingName = MHAHelp.Default.Servicer;
+                        mhaInfo.Servicer = (string)item[MHAHelp.Default.Servicer]; trackingName = MHAHelp.Default.State;
+                        mhaInfo.State = (string)item[MHAHelp.Default.State]; trackingName = MHAHelp.Default.TrialModStartedBeforeNov1;
+                        mhaInfo.TrialModStartedBeforeNov1 = (string)item[MHAHelp.Default.TrialModStartedBeforeNov1]; trackingName = MHAHelp.Default.VoicemailDate;
+                        mhaInfo.VoicemailDate = (DateTime?)item[MHAHelp.Default.VoicemailDate]; trackingName = MHAHelp.Default.WageEarner;
+                        mhaInfo.WageEarner = (string)item[MHAHelp.Default.WageEarner]; trackingName = MHAHelp.Default.Zip;
+                        mhaInfo.Zip = (string)item[MHAHelp.Default.Zip]; trackingName = MHAHelp.Default.HandleTimeHrs;
+                        mhaInfo.HandleTimeHrs = ConvertToInt(item[MHAHelp.Default.HandleTimeHrs]); trackingName = MHAHelp.Default.HandleTimeMins;
+                        mhaInfo.HandleTimeMins = ConvertToInt(item[MHAHelp.Default.HandleTimeMins]);
+
+                        if (!string.IsNullOrEmpty(mhaInfo.Servicer))
+                        {
+                            int index = mhaInfo.Servicer.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.Servicer = mhaInfo.Servicer.Substring(index + 2, mhaInfo.Servicer.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(mhaInfo.ItemCreatedUser))
+                        {
+                            int index = mhaInfo.ItemCreatedUser.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.ItemCreatedUser = mhaInfo.ItemCreatedUser.Substring(index + 2, mhaInfo.ItemCreatedUser.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(mhaInfo.ItemModifiedUser))
+                        {
+                            int index = mhaInfo.ItemModifiedUser.IndexOf(";#");
+                            if (index > 0)
+                                mhaInfo.ItemModifiedUser = mhaInfo.ItemModifiedUser.Substring(index + 2, mhaInfo.ItemModifiedUser.Length - index - 2);
+                        }
+                        mhaList.Add(mhaInfo);
                     }
                 }
                 return mhaList;
