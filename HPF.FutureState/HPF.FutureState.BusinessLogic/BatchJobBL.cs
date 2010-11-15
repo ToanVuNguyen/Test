@@ -69,6 +69,8 @@ namespace HPF.FutureState.BusinessLogic
                     rowCount = SendCompletedCounselingDetailReportToPortal(job);
                 else if (job.JobName.Equals(Constant.ATT_CALLING_RECORD_IMPORT))
                     rowCount = ImportATTCallingData(job);
+                else if (job.JobName.Equals(Constant.SCAM_IMPORT))
+                    rowCount = ImportScamData();
                 else
                     throw ExceptionProcessor.GetHpfExceptionForBatchJob(new Exception("Error: Invalid job name for [" + job.JobName + "]"), job.BatchJobId.ToString(), "ProcessBatchJobs");
 
@@ -90,6 +92,15 @@ namespace HPF.FutureState.BusinessLogic
                 mail.Send();
             }
 
+        }
+
+        private int ImportScamData()
+        {
+            ScamDTOCollection scamCol = HPFPortalGateway.GetScams();
+            if (scamCol.Count > 0)
+                BatchJobDAO.Instance.ImportScam(scamCol);
+
+            return scamCol.Count;
         }
         private bool DetermineTodayBatchJob(BatchJobDTO batchJobs)
         {            

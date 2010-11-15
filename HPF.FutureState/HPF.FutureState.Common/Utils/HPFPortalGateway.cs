@@ -240,6 +240,62 @@ namespace HPF.FutureState.Common.Utils
             return result;
         }
 
+        public static ScamDTOCollection GetScams()
+        {
+            var scamInfos = DocumentCenterController.GetScamList();
+            ScamDTOCollection result = new ScamDTOCollection();
+
+            foreach (ScamInfo scamInfo in scamInfos)
+            {
+                ScamDTO scam = new ScamDTO();
+                scam.ItemId= scamInfo.ItemId;
+                scam.LoanModificationScamConsent = scamInfo.LoanModificationScamConsent;
+                scam.InformationSharingConsent = scamInfo.InformationSharingConsent;
+                scam.MortgageModificationOffer = scamInfo.MortgageModificationOffer;
+                scam.ListOfWereYous = scamInfo.ListOfWereYous;
+                scam.BorrowerFName = scamInfo.BorrowerFName;
+                scam.BorrowerLName = scamInfo.BorrowerLName;
+                scam.BorrowerPhone = scamInfo.BorrowerPhone;
+                scam.BorrowerSecondPhone = scamInfo.BorrowerSecondPhone;
+                scam.Address1 = scamInfo.Address1;
+                scam.Address2 = scamInfo.Address2;
+                scam.City = scamInfo.City;
+                scam.State = scamInfo.State;
+                scam.Zip = scamInfo.Zip;
+                scam.BorrowerAgeRange = scamInfo.BorrowerAgeRange;
+                scam.BorrowerEmail = scamInfo.BorrowerEmail;
+                scam.BorrowerRace = scamInfo.BorrowerRace;
+                scam.ListOfServicesOffered = scamInfo.ListOfServicesOffered;
+                scam.GuraranteedLoanModification = scamInfo.GuraranteedLoanModification;
+                scam.FeePaid = scamInfo.FeePaid;
+                scam.TotalAmountPaid = scamInfo.TotalAmountPaid;
+                scam.ContractServicesPerfomed = scamInfo.ContractServicesPerfomed;
+                scam.MainContact = scamInfo.MainContact;
+                scam.ScamOrgName = scamInfo.ScamOrgName;
+                scam.ScamOrgAddress = scamInfo.ScamOrgAddress;
+                scam.ScamOrgCity = scamInfo.ScamOrgCity;
+                scam.ScamOrgState = scamInfo.ScamOrgState;
+                scam.ScamOrgZip = scamInfo.ScamOrgZip;
+                scam.ScamOrgPhone = scamInfo.ScamOrgPhone;
+                scam.ScamOrgURL = scamInfo.ScamOrgURL;
+                scam.ScamOrgEmail = scamInfo.ScamOrgEmail;
+                scam.FindOutAboutDate = scamInfo.FindOutAboutDate;
+                scam.LastContactDate = scamInfo.LastContactDate;
+                scam.Summary = scamInfo.Summary;
+                scam.CounselorName = scamInfo.CounselorName;
+                scam.CounselorEmail = scamInfo.CounselorEmail;
+                scam.Agency = scamInfo.Agency;
+                scam.AgencyCaseNum = scamInfo.AgencyCaseNum;
+                scam.LoanNumber = scamInfo.LoanNumber;
+                scam.Servicer = scamInfo.Servicer;
+                scam.ItemCreatedDt = scamInfo.ItemCreatedDate;
+                scam.ItemCreatedUser = scamInfo.ItemCreatedUser;
+                scam.ItemModifiedDt = scamInfo.ItemModifiedDate;
+                scam.ItemModifiedUser = scamInfo.ItemModifiedUser;
+            }
+            return result;
+        }
+
         public static CounselingSummaryAuditLogDTOCollection GetCounselingSummaryAuditLog()
         {
             var counselingAudit = DocumentCenterController.GetCounselingSummaryAuditLog();

@@ -68,5 +68,8 @@
     <Setting Name="CounselingSummaryAuditLogList" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Audit</Value>
     </Setting>
+    <Setting Name="ScamList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ScamList</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

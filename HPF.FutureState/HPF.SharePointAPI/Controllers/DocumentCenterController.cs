@@ -88,8 +88,19 @@ namespace HPF.SharePointAPI.Controllers
                     //SPWeb web = site.AllWebs[DocumentCenter.Default.DocumentCenterWeb];  
                     SPWeb web = site.OpenWeb();
                     web.AllowUnsafeUpdates = true;                 
-                    SPList docLib = web.Lists[DocumentCenter.Default.MHAEscalationList];                    
-                    SPListItemCollection listItems = docLib.Items;
+                    SPList docLib = web.Lists[DocumentCenter.Default.MHAEscalationList];
+
+                    //Set previous day to grab sharepoint items which have modified date in this range
+                    int importDayRange = 4;
+                    if (!string.IsNullOrEmpty(HPF_MHA_ESCALATION_IMPORT_DAY_RANGE))
+                    {
+                        int.TryParse(HPF_MHA_ESCALATION_IMPORT_DAY_RANGE, out importDayRange);
+                    }
+                    SPQuery query = new SPQuery();
+                    query.Query = String.Format("<Where><Gt><FieldRef Name='Modified'/>" +
+                                    "<Value Type='DateTime' StorageTZ='TRUE'>{0}</Value></Gt></Where>",
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.UtcNow.AddDays(0 - importDayRange)));
+                    SPListItemCollection listItems = docLib.GetItems(query);
                     
                     foreach (SPListItem item in listItems)
                     {
@@ -268,6 +279,111 @@ namespace HPF.SharePointAPI.Controllers
                     }
                 }
                 return mhaList;
+            }
+            catch (Exception ex)
+            {
+                WriteLog("----------------\n" + System.DateTime.Now.ToString() + "--" + ex.Message + "\n" + ex.StackTrace + "--Current Error Field: " + trackingName);
+                throw ex;
+            }
+        }
+
+        public static IList<ScamInfo> GetScamList()
+        {
+            string trackingName = "";
+            try
+            {
+                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.DocumentCenterWeb, DocumentCenter.Default.MHAHelpLoginName);
+
+                List<ScamInfo> scamList = new List<ScamInfo>();
+                using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))
+                {
+                    SPWeb web = site.OpenWeb();
+                    web.AllowUnsafeUpdates = true;
+                    SPList docLib = web.Lists[DocumentCenter.Default.ScamList];
+
+                    //Set previous day to grab sharepoint items which have modified date in this range
+                    int importDayRange = 4;
+                    if (!string.IsNullOrEmpty(HPF_SCAM_IMPORT_DAY_RANGE))
+                    {
+                        int.TryParse(HPF_SCAM_IMPORT_DAY_RANGE, out importDayRange);
+                    }
+                    SPQuery query = new SPQuery();
+                    query.Query = String.Format("<Where><Gt><FieldRef Name='Modified'/>" +
+                                    "<Value Type='DateTime' StorageTZ='TRUE'>{0}</Value></Gt></Where>",
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.UtcNow.AddDays(0 - importDayRange)));
+                    SPListItemCollection listItems = docLib.GetItems(query);
+                    foreach (SPListItem item in listItems)
+                    {
+                        ScamInfo scamInfo = new ScamInfo();
+                        trackingName = Scam.Default.ItemId;
+                        scamInfo.ItemId = ConvertToInt(item[Scam.Default.ItemId]); trackingName = Scam.Default.LoanModificationScamConsent;
+                        scamInfo.LoanModificationScamConsent = (string)item[Scam.Default.LoanModificationScamConsent]; trackingName = Scam.Default.InformationSharingConsent;
+                        scamInfo.InformationSharingConsent = (string)item[Scam.Default.InformationSharingConsent]; trackingName = Scam.Default.MortgageModificationOffer;
+                        scamInfo.MortgageModificationOffer = (string)item[Scam.Default.MortgageModificationOffer]; trackingName = Scam.Default.ListOfWereYous;
+                        scamInfo.ListOfWereYous = (string)item[Scam.Default.ListOfWereYous]; trackingName = Scam.Default.BorrowerFName;
+                        scamInfo.BorrowerFName = (string)item[Scam.Default.BorrowerFName]; trackingName = Scam.Default.BorrowerLName;
+                        scamInfo.BorrowerLName = (string)item[Scam.Default.BorrowerLName]; trackingName = Scam.Default.BorrowerPhone;
+                        scamInfo.BorrowerPhone = (string)item[Scam.Default.BorrowerPhone]; trackingName = Scam.Default.BorrowerSecondPhone;
+                        scamInfo.BorrowerSecondPhone = (string)item[Scam.Default.BorrowerSecondPhone]; trackingName = Scam.Default.Address1;
+                        scamInfo.Address1 = (string)item[Scam.Default.Address1]; trackingName = Scam.Default.Address2;
+                        scamInfo.Address2 = (string)item[Scam.Default.Address2]; trackingName = Scam.Default.City;
+                        scamInfo.City = (string)item[Scam.Default.City]; trackingName = Scam.Default.State;
+                        scamInfo.State = (string)item[Scam.Default.State]; trackingName = Scam.Default.Zip;
+                        scamInfo.Zip = (string)item[Scam.Default.Zip]; trackingName = Scam.Default.BorrowerAgeRange;
+                        scamInfo.BorrowerAgeRange = (string)item[Scam.Default.BorrowerAgeRange]; trackingName = Scam.Default.BorrowerEmail;
+                        scamInfo.BorrowerEmail = (string)item[Scam.Default.BorrowerEmail]; trackingName = Scam.Default.BorrowerRace;
+                        scamInfo.BorrowerRace = (string)item[Scam.Default.BorrowerRace]; trackingName = Scam.Default.ListOfServicesOffered;
+                        scamInfo.ListOfServicesOffered = (string)item[Scam.Default.ListOfServicesOffered]; trackingName = Scam.Default.GuraranteedLoanModification;
+                        scamInfo.GuraranteedLoanModification = (string)item[Scam.Default.GuraranteedLoanModification]; trackingName = Scam.Default.FeePaid;
+                        scamInfo.FeePaid = (string)item[Scam.Default.FeePaid]; trackingName = Scam.Default.TotalAmountPaid;
+                        scamInfo.TotalAmountPaid = (string)item[Scam.Default.TotalAmountPaid]; trackingName = Scam.Default.ContractServicesPerfomed;
+                        scamInfo.ContractServicesPerfomed = (string)item[Scam.Default.ContractServicesPerfomed]; trackingName = Scam.Default.MainContact;
+                        scamInfo.MainContact = (string)item[Scam.Default.MainContact]; trackingName = Scam.Default.ScamOrgName;
+                        scamInfo.ScamOrgName = (string)item[Scam.Default.ScamOrgName]; trackingName = Scam.Default.ScamOrgAddress;
+                        scamInfo.ScamOrgAddress = (string)item[Scam.Default.ScamOrgAddress]; trackingName = Scam.Default.ScamOrgCity;
+                        scamInfo.ScamOrgCity = (string)item[Scam.Default.ScamOrgCity]; trackingName = Scam.Default.ScamOrgState;
+                        scamInfo.ScamOrgState = (string)item[Scam.Default.ScamOrgState]; trackingName = Scam.Default.ScamOrgZip;
+                        scamInfo.ScamOrgZip = (string)item[Scam.Default.ScamOrgZip]; trackingName = Scam.Default.ScamOrgPhone;
+                        scamInfo.ScamOrgPhone = (string)item[Scam.Default.ScamOrgPhone]; trackingName = Scam.Default.ScamOrgURL;
+                        scamInfo.ScamOrgURL = (string)item[Scam.Default.ScamOrgURL]; trackingName = Scam.Default.ScamOrgEmail;
+                        scamInfo.ScamOrgEmail = (string)item[Scam.Default.ScamOrgEmail]; trackingName = Scam.Default.FindOutAboutDate;
+                        scamInfo.FindOutAboutDate = (DateTime?)item[Scam.Default.FindOutAboutDate]; trackingName = Scam.Default.LastContactDate;
+                        scamInfo.LastContactDate = (DateTime?)item[Scam.Default.LastContactDate]; trackingName = Scam.Default.Summary;
+                        scamInfo.Summary = (string)item[Scam.Default.Summary]; trackingName = Scam.Default.CounselorName;
+                        scamInfo.CounselorName = (string)item[Scam.Default.CounselorName]; trackingName = Scam.Default.CounselorEmail;
+                        scamInfo.CounselorEmail = (string)item[Scam.Default.CounselorEmail]; trackingName = Scam.Default.Agency;
+                        scamInfo.Agency = (string)item[Scam.Default.Agency]; trackingName = Scam.Default.AgencyCaseNum;
+                        scamInfo.AgencyCaseNum = (string)item[Scam.Default.AgencyCaseNum]; trackingName = Scam.Default.LoanNumber;
+                        scamInfo.LoanNumber = (string)item[Scam.Default.LoanNumber]; trackingName = Scam.Default.Servicer;
+                        scamInfo.Servicer = (string)item[Scam.Default.Servicer]; trackingName = Scam.Default.ItemCreatedDate;
+                        scamInfo.ItemCreatedDate = (DateTime?)item[Scam.Default.ItemCreatedDate]; trackingName = Scam.Default.ItemCreatedUser;
+                        scamInfo.ItemCreatedUser = (string)item[Scam.Default.ItemCreatedUser]; trackingName = Scam.Default.ItemModifiedDate;
+                        scamInfo.ItemModifiedDate = (DateTime?)item[Scam.Default.ItemModifiedDate]; trackingName = Scam.Default.ItemModifiedUser;
+                        scamInfo.ItemModifiedUser = (string)item[Scam.Default.ItemModifiedUser];
+                        
+
+                        if (!string.IsNullOrEmpty(scamInfo.Servicer))
+                        {
+                            int index = scamInfo.Servicer.IndexOf(";#");
+                            if (index > 0)
+                                scamInfo.Servicer = scamInfo.Servicer.Substring(index + 2, scamInfo.Servicer.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(scamInfo.ItemCreatedUser))
+                        {
+                            int index = scamInfo.ItemCreatedUser.IndexOf(";#");
+                            if (index > 0)
+                                scamInfo.ItemCreatedUser = scamInfo.ItemCreatedUser.Substring(index + 2, scamInfo.ItemCreatedUser.Length - index - 2);
+                        }
+                        if (!string.IsNullOrEmpty(scamInfo.ItemModifiedUser))
+                        {
+                            int index = scamInfo.ItemModifiedUser.IndexOf(";#");
+                            if (index > 0)
+                                scamInfo.ItemModifiedUser = scamInfo.ItemModifiedUser.Substring(index + 2, scamInfo.ItemModifiedUser.Length - index - 2);
+                        }
+                        scamList.Add(scamInfo);
+                    }
+                }
+                return scamList;
             }
             catch (Exception ex)
             {
@@ -705,6 +821,20 @@ namespace HPF.SharePointAPI.Controllers
             get
             {
                 return ConfigurationManager.AppSettings["HPF_MHA_HELP_IMPORT_DAY_RANGE"];
+            }
+        }
+        public static string HPF_MHA_ESCALATION_IMPORT_DAY_RANGE
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_MHA_ESCALATION_IMPORT_DAY_RANGE"];
+            }
+        }
+        public static string HPF_SCAM_IMPORT_DAY_RANGE
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HPF_SCAM_IMPORT_DAY_RANGE"];
             }
         }
         private static int? ConvertToInt(object obj)

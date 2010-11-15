@@ -539,6 +539,88 @@ namespace HPF.FutureState.DataAccess
             }
         }
 
+        public void ImportScam(ScamDTOCollection scams)
+        {
+            SqlConnection dbConnection = null;
+            SqlTransaction trans;
+
+            try
+            {
+                dbConnection = CreateConnection();
+                dbConnection.Open();
+                trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+                foreach (ScamDTO scam in scams)
+                {
+                    var InsertCmd = CreateSPCommand("hpf_mha_help_insert", dbConnection);
+                    var sqlParam = new SqlParameter[46];
+                    
+                    sqlParam[0] = new SqlParameter("@pi_item_id", scam.ItemId);
+                    sqlParam[1] = new SqlParameter("@pi_loan_mod_scam_consent",scam.LoanModificationScamConsent );
+                    sqlParam[2] = new SqlParameter("@pi_info_share_consent", scam.InformationSharingConsent);
+                    sqlParam[3] = new SqlParameter("@pi_mortgage_mod_offer", scam.MortgageModificationOffer);
+                    sqlParam[4] = new SqlParameter("@pi_list_of_were_yous", scam.ListOfWereYous);
+                    sqlParam[5] = new SqlParameter("@pi_borrower_fname", scam.BorrowerFName);
+                    sqlParam[6] = new SqlParameter("@pi_borrower_lname", scam.BorrowerLName);
+                    sqlParam[7] = new SqlParameter("@pi_borrower_phone", scam.BorrowerPhone);
+                    sqlParam[8] = new SqlParameter("@pi_borrower_second_phone", scam.BorrowerSecondPhone);
+                    sqlParam[9] = new SqlParameter("@pi_address1", scam.Address1);
+                    sqlParam[10] = new SqlParameter("@pi_address2", scam.Address2);
+                    sqlParam[11] = new SqlParameter("@pi_city", scam.City);
+                    sqlParam[12] = new SqlParameter("@pi_state", scam.State);
+                    sqlParam[13] = new SqlParameter("@pi_zip", scam.Zip);
+                    sqlParam[14] = new SqlParameter("@pi_borrower_age_range",scam.BorrowerAgeRange );
+                    sqlParam[15] = new SqlParameter("@pi_borrower_email", scam.BorrowerEmail);
+                    sqlParam[16] = new SqlParameter("@pi_borrower_race", scam.BorrowerRace);
+                    sqlParam[17] = new SqlParameter("@pi_list_of_services_offered", scam.ListOfServicesOffered);
+                    sqlParam[18] = new SqlParameter("@pi_guaranteed_loan_mod", scam.GuraranteedLoanModification);
+                    sqlParam[19] = new SqlParameter("@pi_fee_paid", scam.FeePaid);
+                    sqlParam[20] = new SqlParameter("@pi_total_amt_paid", scam.TotalAmountPaid);
+                    sqlParam[21] = new SqlParameter("@pi_contract_services_performed", scam.ContractServicesPerfomed);
+                    sqlParam[22] = new SqlParameter("@pi_scam_org_name", scam.ScamOrgName);
+                    sqlParam[23] = new SqlParameter("@pi_main_contact", scam.MainContact);
+                    sqlParam[24] = new SqlParameter("@pi_scam_org_address", scam.ScamOrgAddress);
+                    sqlParam[25] = new SqlParameter("@pi_scam_org_city", scam.ScamOrgCity);
+                    sqlParam[26] = new SqlParameter("@pi_scam_org_state", scam.ScamOrgState);
+                    sqlParam[27] = new SqlParameter("@pi_scam_org_zip", scam.ScamOrgZip);
+                    sqlParam[28] = new SqlParameter("@pi_scam_org_phone", scam.ScamOrgPhone);
+                    sqlParam[29] = new SqlParameter("@pi_scam_org_url", scam.ScamOrgURL);
+                    sqlParam[30] = new SqlParameter("@pi_scam_org_email", scam.ScamOrgEmail);
+                    sqlParam[31] = new SqlParameter("@pi_find_out_about_dt",scam.FindOutAboutDate );
+                    sqlParam[32] = new SqlParameter("@pi_last_contact_dt", scam.LastContactDate);
+                    sqlParam[33] = new SqlParameter("@pi_summary", scam.Summary);
+                    sqlParam[34] = new SqlParameter("@pi_counselor_name", scam.CounselorName);
+                    sqlParam[35] = new SqlParameter("@pi_counselor_email", scam.CounselorEmail);
+                    sqlParam[36] = new SqlParameter("@pi_agency", scam.Agency);
+                    sqlParam[37] = new SqlParameter("@pi_agency_case_num", scam.AgencyCaseNum);
+                    sqlParam[38] = new SqlParameter("@pi_acct_num", scam.LoanNumber);
+                    sqlParam[39] = new SqlParameter("@pi_servicer", scam.Servicer);
+                    
+                    sqlParam[40] = new SqlParameter("@pi_item_created_dt", scam.ItemCreatedDt);
+                    sqlParam[41] = new SqlParameter("@pi_item_created_user", scam.ItemCreatedUser);
+                    sqlParam[42] = new SqlParameter("@pi_item_modified_dt", scam.ItemModifiedDt);
+                    sqlParam[43] = new SqlParameter("@pi_item_modified_user", scam.ItemModifiedUser);
+                    
+                    sqlParam[44] = new SqlParameter("@pi_created_user_id", scam.CreateUserId);
+                    sqlParam[45] = new SqlParameter("@pi_created_app_name", scam.CreateAppName);
+                    
+                    InsertCmd.CommandType = CommandType.StoredProcedure;
+                    InsertCmd.Parameters.AddRange(sqlParam);
+                    InsertCmd.Transaction = trans;
+                    InsertCmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+            }
+            catch (Exception ex)
+            {
+                throw ExceptionProcessor.Wrap<DataAccessException>(ex);
+            }
+            finally
+            {
+                if (dbConnection != null) dbConnection.Close();
+            }
+        }
+
         public void ImportCounselingSummaryAuditLog(CounselingSummaryAuditLogDTOCollection auditLogs)
         {
             var dbConnection = CreateConnection();            

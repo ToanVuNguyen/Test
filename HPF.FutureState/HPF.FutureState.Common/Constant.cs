@@ -148,6 +148,7 @@ namespace HPF.FutureState.Common
         public const string COUNSELOR_LIST_GENERATION = "Counselor List Generation";
         public const string MHA_ESCALALATION_IMPORT = "MHA Escalation Import";
         public const string MHA_HELP_IMPORT = "MHA Help Import";
+        public const string SCAM_IMPORT = "Scam Import";
         public const string COUNSELING_SUMMARY_AUDIT_IMPORT = "Counseling Summary Audit Import";
         public const string COMPLETED_COUNSELING_DETAIL_REPORT = "Completed Counseling Detail Report";
         public const string ATT_CALLING_RECORD_IMPORT = "ATT Calling Record Import";

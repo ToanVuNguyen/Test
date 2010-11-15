@@ -58,6 +58,7 @@
     <Compile Include="BusinessEntity\MHAEscalationInfo.cs" />
     <Compile Include="BusinessEntity\MHAHelpInfo.cs" />
     <Compile Include="BusinessEntity\ResultInfo.cs" />
+    <Compile Include="BusinessEntity\ScamInfo.cs" />
     <Compile Include="ContentTypes\AgencyPayable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -92,6 +93,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>MHAHelp.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ContentTypes\Scam.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Scam.settings</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DocumentCenterController.cs" />
     <Compile Include="DocumentCenter.Designer.cs">
@@ -135,6 +141,10 @@
     <None Include="ContentTypes\MHAHelp.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>MHAHelp.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ContentTypes\Scam.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Scam.Designer.cs</LastGenOutput>
     </None>
     <None Include="DocumentCenter.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
