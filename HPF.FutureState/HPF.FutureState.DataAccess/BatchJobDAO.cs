@@ -381,16 +381,11 @@ namespace HPF.FutureState.DataAccess
                 dbConnection = CreateConnection();
                 dbConnection.Open();
                 trans = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-
-                var Deletecmd = CreateSPCommand("Delete from mha_escalation", dbConnection);
-                Deletecmd.CommandType = CommandType.Text;
-                Deletecmd.Transaction = trans;
-                Deletecmd.ExecuteNonQuery();
-                Deletecmd.Dispose();
+                                
                 foreach (MHAEscalationDTO mhaEscaltion in mhaEscaltions)
                 {
                     var InsertCmd = CreateSPCommand("hpf_mha_escalation_insert", dbConnection);
-                    var sqlParam = new SqlParameter[47];
+                    var sqlParam = new SqlParameter[48];
                     ServicerDTO servicer = servicers.GetServicerByName(mhaEscaltion.Servicer);
                     RefCodeItemDTO mhaEscalationCode = mhaEscalationCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.Escalation);
                     RefCodeItemDTO mhaFinalResolutionCode = mhaFinalResolutionCodes.GetRefCodeItemByCodeDescription(mhaEscaltion.FinalResolution);
@@ -400,7 +395,7 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[2] = new SqlParameter("@pi_borrower_fname", mhaEscaltion.BorrowerFname);
                     sqlParam[3] = new SqlParameter("@pi_acct_num", mhaEscaltion.AcctNum);
                     sqlParam[4] = new SqlParameter("@pi_servicer", mhaEscaltion.Servicer);
-                    sqlParam[5] = new SqlParameter("@pi_servicer_id", (servicer == null)?null:servicer.ServicerID);
+                    sqlParam[5] = new SqlParameter("@pi_servicer_id", (servicer == null) ? null : servicer.ServicerID);
                     sqlParam[6] = new SqlParameter("@pi_escalation", mhaEscaltion.Escalation);
                     sqlParam[7] = new SqlParameter("@pi_escalation_cd", (mhaEscalationCode == null)?null:mhaEscalationCode.CodeValue);
                     sqlParam[8] = new SqlParameter("@pi_escalation_team_notes", mhaEscaltion.EscalationTeamNotes);
@@ -425,27 +420,26 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[27] = new SqlParameter("@pi_city", mhaEscaltion.City);
                     sqlParam[28] = new SqlParameter("@pi_state", mhaEscaltion.State);
                     sqlParam[29] = new SqlParameter("@pi_zip", mhaEscaltion.Zip);
-                    sqlParam[30] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
-                    sqlParam[31] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
 
+                    sqlParam[30] = new SqlParameter("@pi_handle_time_hrs", mhaEscaltion.HandleTimeHrs);
+                    sqlParam[31] = new SqlParameter("@pi_handle_time_mins", mhaEscaltion.HandleTimeMins);
                     sqlParam[32] = new SqlParameter("@pi_best_time_to_reach", mhaEscaltion.BestTime);
                     sqlParam[33] = new SqlParameter("@pi_best_number_to_call", mhaEscaltion.BestNumber);
                     sqlParam[34] = new SqlParameter("@pi_borrower_email", mhaEscaltion.BorrowerEmail);
-                    sqlParam[35] = new SqlParameter("@pi_handle_time_hrs", mhaEscaltion.HandleTimeHrs);
-                    sqlParam[36] = new SqlParameter("@pi_handle_time_mins", mhaEscaltion.HandleTimeMins);
-                    sqlParam[37] = new SqlParameter("@pi_escalated_to_gse_dt", mhaEscaltion.EscalatedToGseDt);
-                    sqlParam[38] = new SqlParameter("@pi_escalated_to_mmi_mgmt_dt", mhaEscaltion.EscalatedToMMIMgmtDt);
-                    sqlParam[39] = new SqlParameter("@pi_gse_notes_completed_dt", mhaEscaltion.GSENotesCompletedDt);
+                    sqlParam[35] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
+                    sqlParam[36] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
+                    sqlParam[37] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);
+                    sqlParam[38] = new SqlParameter("@pi_escalated_to_gse_dt", mhaEscaltion.EscalatedToGseDt);
+                    sqlParam[39] = new SqlParameter("@pi_escalated_to_mmi_mgmt_dt", mhaEscaltion.EscalatedToMMIMgmtDt);
+                    sqlParam[40] = new SqlParameter("@pi_gse_notes_completed_dt", mhaEscaltion.GSENotesCompletedDt);
+                    sqlParam[41] = new SqlParameter("@pi_commitment_ind", mhaEscaltion.CommitmentInd);
+                    sqlParam[42] = new SqlParameter("@pi_followup_dt", mhaEscaltion.FollowupDt);
+                    sqlParam[43] = new SqlParameter("@pi_commitment_closed_dt", mhaEscaltion.CommitmentClosedDt);
+                    sqlParam[44] = new SqlParameter("@pi_escalated_to_hsc_ind", mhaEscaltion.EscalatedToHscInd);                    
+                    sqlParam[45] = new SqlParameter("@pi_created_user_id", mhaEscaltion.CreateUserId);
+                    sqlParam[46] = new SqlParameter("@pi_created_app_name", mhaEscaltion.CreateAppName);
+                    sqlParam[47] = new SqlParameter("@pi_item_id",mhaEscaltion.ItemId);
                     
-                    sqlParam[40] = new SqlParameter("@pi_item_created_user", mhaEscaltion.ItemCreatedUser);
-                    sqlParam[41] = new SqlParameter("@pi_item_modified_dt", mhaEscaltion.ItemModifiedDt);
-                    sqlParam[42] = new SqlParameter("@pi_item_modified_user", mhaEscaltion.ItemModifiedUser);
-
-                    sqlParam[43] = new SqlParameter("@pi_commitment_ind", mhaEscaltion.CommitmentInd);
-                    sqlParam[44] = new SqlParameter("@pi_followup_dt", mhaEscaltion.FollowupDt);
-                    sqlParam[45] = new SqlParameter("@pi_commitment_closed_dt", mhaEscaltion.CommitmentClosedDt);
-                    sqlParam[46] = new SqlParameter("@pi_escalated_to_hsc_ind", mhaEscaltion.EscalatedToHscInd);                    
-
                     InsertCmd.CommandType = CommandType.StoredProcedure;
                     InsertCmd.Parameters.AddRange(sqlParam);
                     InsertCmd.Transaction = trans;
@@ -573,8 +567,8 @@ namespace HPF.FutureState.DataAccess
                     sqlParam[15] = new SqlParameter("@pi_borrower_email", scam.BorrowerEmail);
                     sqlParam[16] = new SqlParameter("@pi_borrower_race", scam.BorrowerRace);
                     sqlParam[17] = new SqlParameter("@pi_list_of_services_offered", scam.ListOfServicesOffered);
-                    sqlParam[18] = new SqlParameter("@pi_guaranteed_loan_mod", scam.GuraranteedLoanModification);
-                    sqlParam[19] = new SqlParameter("@pi_fee_paid", scam.FeePaid);
+                    sqlParam[18] = new SqlParameter("@pi_guaranteed_loan_mod", scam.GuraranteedLoanModificationInd);
+                    sqlParam[19] = new SqlParameter("@pi_fee_paid", scam.FeePaidInd);
                     sqlParam[20] = new SqlParameter("@pi_total_amt_paid", scam.TotalAmountPaid);
                     sqlParam[21] = new SqlParameter("@pi_contract_services_performed", scam.ContractServicesPerfomed);
                     sqlParam[22] = new SqlParameter("@pi_scam_org_name", scam.ScamOrgName);

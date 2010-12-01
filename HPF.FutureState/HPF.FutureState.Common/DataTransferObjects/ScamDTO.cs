@@ -31,8 +31,8 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string BorrowerEmail { get; set; }
         public string BorrowerRace { get; set; }
         public string ListOfServicesOffered { get; set; }
-        public string GuraranteedLoanModification { get; set; }
-        public string FeePaid { get; set; }
+        public string GuraranteedLoanModificationInd { get; set; }
+        public string FeePaidInd { get; set; }
         public string TotalAmountPaid { get; set; }
         public string ContractServicesPerfomed { get; set; }
         public string MainContact { get; set; }

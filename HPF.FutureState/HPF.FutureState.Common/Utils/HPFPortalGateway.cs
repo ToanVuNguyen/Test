@@ -136,6 +136,7 @@ namespace HPF.FutureState.Common.Utils
             foreach (MHAEscalationInfo mha in mhaInfos)
             {
                 MHAEscalationDTO mhaDTO = new MHAEscalationDTO();
+                mhaDTO.ItemId = mha.ItemId;
                 mhaDTO.ItemCreatedDt = mha.ItemCreatedDate;
                 mhaDTO.ItemCreatedUser = mha.ItemCreatedUser;
                 mhaDTO.ItemModifiedDt = mha.ItemModifiedDate;
@@ -155,13 +156,13 @@ namespace HPF.FutureState.Common.Utils
                 //mhaDTO.EscalationCd = mha.EscalationCd;
                 mhaDTO.EscalationTeamNotes = mha.EscalationTeamNotes;
                 //mhaDTO.FcId = mha.FcId;
+                mhaDTO.FcId = null;
                 mhaDTO.FinalResolution = mha.FinalResolution;
                 mhaDTO.FinalResolutionDate = mha.FinalResolutionDate;
                 mhaDTO.FinalResolutionNotes = mha.FinalResolutionNotes;
                 mhaDTO.GseLookup = mha.GSELookup;
                 mhaDTO.GseNotes = mha.GseNotes;
                 mhaDTO.HpfNotes = mha.HpfNotes;
-                //mhaDTO.ReplicateDt = mha.ReplicateDt;
                 mhaDTO.ResolvedBy = mha.ResolvedBy;
                 mhaDTO.Servicer = mha.Servicer;
                 //mhaDTO.ServicerId = mha.ServicerId;
@@ -266,8 +267,8 @@ namespace HPF.FutureState.Common.Utils
                 scam.BorrowerEmail = scamInfo.BorrowerEmail;
                 scam.BorrowerRace = scamInfo.BorrowerRace;
                 scam.ListOfServicesOffered = scamInfo.ListOfServicesOffered;
-                scam.GuraranteedLoanModification = scamInfo.GuraranteedLoanModification;
-                scam.FeePaid = scamInfo.FeePaid;
+                scam.GuraranteedLoanModificationInd = scamInfo.GuraranteedLoanModification;
+                scam.FeePaidInd = scamInfo.FeePaid;
                 scam.TotalAmountPaid = scamInfo.TotalAmountPaid;
                 scam.ContractServicesPerfomed = scamInfo.ContractServicesPerfomed;
                 scam.MainContact = scamInfo.MainContact;

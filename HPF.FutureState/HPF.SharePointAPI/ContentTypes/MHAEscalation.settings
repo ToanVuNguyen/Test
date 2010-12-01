@@ -128,5 +128,8 @@
     <Setting Name="EscalatedToHSC" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Escalated To HSC</Value>
     </Setting>
+    <Setting Name="ItemId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ID</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

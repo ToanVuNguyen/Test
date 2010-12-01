@@ -104,7 +104,9 @@ namespace HPF.SharePointAPI.Controllers
                     
                     foreach (SPListItem item in listItems)
                     {
-                        MHAEscalationInfo mhaInfo = new MHAEscalationInfo(); trackingName = MHAEscalation.Default.LoanNumber;
+                        MHAEscalationInfo mhaInfo = new MHAEscalationInfo();
+                        trackingName = MHAEscalation.Default.ItemId;
+                        mhaInfo.ItemId = ConvertToInt(item[MHAEscalation.Default.ItemId]); trackingName = MHAEscalation.Default.LoanNumber;
                         mhaInfo.LoanNumber = (string)item[MHAEscalation.Default.LoanNumber]; trackingName = MHAEscalation.Default.MMICaseId;
                         mhaInfo.MMICaseId = (string)item[MHAEscalation.Default.MMICaseId];trackingName = MHAEscalation.Default.FirstName;
                         mhaInfo.Firstname = (string)item[MHAEscalation.Default.FirstName];trackingName = MHAEscalation.Default.LastName;
@@ -334,8 +336,10 @@ namespace HPF.SharePointAPI.Controllers
                         scamInfo.BorrowerEmail = (string)item[Scam.Default.BorrowerEmail]; trackingName = Scam.Default.BorrowerRace;
                         scamInfo.BorrowerRace = (string)item[Scam.Default.BorrowerRace]; trackingName = Scam.Default.ListOfServicesOffered;
                         scamInfo.ListOfServicesOffered = (string)item[Scam.Default.ListOfServicesOffered]; trackingName = Scam.Default.GuraranteedLoanModification;
-                        scamInfo.GuraranteedLoanModification = (string)item[Scam.Default.GuraranteedLoanModification]; trackingName = Scam.Default.FeePaid;
-                        scamInfo.FeePaid = (string)item[Scam.Default.FeePaid]; trackingName = Scam.Default.TotalAmountPaid;
+                        bool? Ind = (bool?)item[Scam.Default.GuraranteedLoanModification];
+                        scamInfo.GuraranteedLoanModification = (Ind.HasValue && Ind.Value == true ? "Y" : "N");trackingName = Scam.Default.FeePaid;
+                        Ind = (bool?)item[Scam.Default.FeePaid];
+                        scamInfo.FeePaid = (Ind.HasValue && Ind.Value==true?"Y":"N"); trackingName = Scam.Default.TotalAmountPaid;
                         scamInfo.TotalAmountPaid = (string)item[Scam.Default.TotalAmountPaid]; trackingName = Scam.Default.ContractServicesPerfomed;
                         scamInfo.ContractServicesPerfomed = (string)item[Scam.Default.ContractServicesPerfomed]; trackingName = Scam.Default.MainContact;
                         scamInfo.MainContact = (string)item[Scam.Default.MainContact]; trackingName = Scam.Default.ScamOrgName;
