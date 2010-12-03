@@ -230,5 +230,14 @@ namespace HPF.SharePointAPI {
                 return ((string)(this["ScamList"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("serverimage\\Administrator")]
+        public string ScamLoginName {
+            get {
+                return ((string)(this["ScamLoginName"]));
+            }
+        }
     }
 }

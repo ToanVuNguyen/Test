@@ -88,7 +88,7 @@ namespace HPF.FutureState.BusinessLogic
         private DataValidationException ValidateQuestion(EvalQuestionDTO evalQuestion)
         {
             DataValidationException ex = new DataValidationException();
-            if (evalQuestion.IsInUse!=null && evalQuestion.IsInUse && (evalQuestion.ActiveInd == Constant.INDICATOR_NO))
+            if (evalQuestion.IsInUse && (evalQuestion.ActiveInd == Constant.INDICATOR_NO))
                 ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1109, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1109) });
             if (string.IsNullOrEmpty(evalQuestion.Question))
                 ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1110, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1110) });
@@ -113,7 +113,7 @@ namespace HPF.FutureState.BusinessLogic
         private DataValidationException ValidateTemplate(EvalTemplateDTO evalTemplate)
         {
             DataValidationException ex = new DataValidationException();
-            if (evalTemplate.IsInUse!=null && evalTemplate.IsInUse && (evalTemplate.ActiveInd == Constant.INDICATOR_NO))
+            if (evalTemplate.IsInUse && (evalTemplate.ActiveInd == Constant.INDICATOR_NO))
                 ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1113, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1113) });
             if (string.IsNullOrEmpty(evalTemplate.TemplateName))
                 ex.ExceptionMessages.Add(new ExceptionMessage() { ErrorCode = ErrorMessages.ERR1112, Message = ErrorMessages.GetExceptionMessage(ErrorMessages.ERR1112) });

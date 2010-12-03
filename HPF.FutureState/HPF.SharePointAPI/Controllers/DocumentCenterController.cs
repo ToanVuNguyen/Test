@@ -294,7 +294,7 @@ namespace HPF.SharePointAPI.Controllers
             string trackingName = "";
             try
             {
-                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.DocumentCenterWeb, DocumentCenter.Default.MHAHelpLoginName);
+                SPUserToken token = GetUploadSPUserToken(DocumentCenter.Default.DocumentCenterWeb, DocumentCenter.Default.ScamLoginName);
 
                 List<ScamInfo> scamList = new List<ScamInfo>();
                 using (SPSite site = new SPSite(DocumentCenter.Default.SharePointSite, token))

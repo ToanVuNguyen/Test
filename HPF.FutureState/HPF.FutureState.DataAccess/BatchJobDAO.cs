@@ -546,7 +546,7 @@ namespace HPF.FutureState.DataAccess
 
                 foreach (ScamDTO scam in scams)
                 {
-                    var InsertCmd = CreateSPCommand("hpf_mha_help_insert", dbConnection);
+                    var InsertCmd = CreateSPCommand("hpf_scam_insert", dbConnection);
                     var sqlParam = new SqlParameter[46];
                     
                     sqlParam[0] = new SqlParameter("@pi_item_id", scam.ItemId);

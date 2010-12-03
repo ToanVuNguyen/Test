@@ -94,12 +94,11 @@ namespace HPF.FutureState.BusinessLogic
 
         }
 
-        private int ImportScamData()
+        public int ImportScamData()
         {
             ScamDTOCollection scamCol = HPFPortalGateway.GetScams();
             if (scamCol.Count > 0)
                 BatchJobDAO.Instance.ImportScam(scamCol);
-
             return scamCol.Count;
         }
         private bool DetermineTodayBatchJob(BatchJobDTO batchJobs)

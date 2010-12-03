@@ -224,7 +224,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Scam Organization or Individual  Name")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Scam Organization or Individual Name")]
         public string ScamOrgName {
             get {
                 return ((string)(this["ScamOrgName"]));

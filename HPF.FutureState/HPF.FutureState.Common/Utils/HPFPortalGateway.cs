@@ -253,7 +253,7 @@ namespace HPF.FutureState.Common.Utils
                 scam.LoanModificationScamConsent = scamInfo.LoanModificationScamConsent;
                 scam.InformationSharingConsent = scamInfo.InformationSharingConsent;
                 scam.MortgageModificationOffer = scamInfo.MortgageModificationOffer;
-                scam.ListOfWereYous = scamInfo.ListOfWereYous;
+                scam.ListOfWereYous = scamInfo.ListOfWereYous.Trim();
                 scam.BorrowerFName = scamInfo.BorrowerFName;
                 scam.BorrowerLName = scamInfo.BorrowerLName;
                 scam.BorrowerPhone = scamInfo.BorrowerPhone;
@@ -293,6 +293,8 @@ namespace HPF.FutureState.Common.Utils
                 scam.ItemCreatedUser = scamInfo.ItemCreatedUser;
                 scam.ItemModifiedDt = scamInfo.ItemModifiedDate;
                 scam.ItemModifiedUser = scamInfo.ItemModifiedUser;
+
+                result.Add(scam);
             }
             return result;
         }
