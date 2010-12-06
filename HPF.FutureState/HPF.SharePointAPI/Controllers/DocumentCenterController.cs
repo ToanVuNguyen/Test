@@ -340,7 +340,7 @@ namespace HPF.SharePointAPI.Controllers
                         scamInfo.GuraranteedLoanModification = (Ind.HasValue && Ind.Value == true ? "Y" : "N");trackingName = Scam.Default.FeePaid;
                         Ind = (bool?)item[Scam.Default.FeePaid];
                         scamInfo.FeePaid = (Ind.HasValue && Ind.Value==true?"Y":"N"); trackingName = Scam.Default.TotalAmountPaid;
-                        scamInfo.TotalAmountPaid = (string)item[Scam.Default.TotalAmountPaid]; trackingName = Scam.Default.ContractServicesPerfomed;
+                        scamInfo.TotalAmountPaid = ConvertToDouble(item[Scam.Default.TotalAmountPaid]); trackingName = Scam.Default.ContractServicesPerfomed;
                         scamInfo.ContractServicesPerfomed = (string)item[Scam.Default.ContractServicesPerfomed]; trackingName = Scam.Default.MainContact;
                         scamInfo.MainContact = (string)item[Scam.Default.MainContact]; trackingName = Scam.Default.ScamOrgName;
                         scamInfo.ScamOrgName = (string)item[Scam.Default.ScamOrgName]; trackingName = Scam.Default.ScamOrgAddress;
@@ -359,12 +359,11 @@ namespace HPF.SharePointAPI.Controllers
                         scamInfo.Agency = (string)item[Scam.Default.Agency]; trackingName = Scam.Default.AgencyCaseNum;
                         scamInfo.AgencyCaseNum = (string)item[Scam.Default.AgencyCaseNum]; trackingName = Scam.Default.LoanNumber;
                         scamInfo.LoanNumber = (string)item[Scam.Default.LoanNumber]; trackingName = Scam.Default.Servicer;
-                        scamInfo.Servicer = (string)item[Scam.Default.Servicer]; trackingName = Scam.Default.ItemCreatedDate;
+                        scamInfo.Servicer = (string)item[docLib.Fields[Scam.Default.Servicer].InternalName]; trackingName = Scam.Default.ItemCreatedDate;
                         scamInfo.ItemCreatedDate = (DateTime?)item[Scam.Default.ItemCreatedDate]; trackingName = Scam.Default.ItemCreatedUser;
                         scamInfo.ItemCreatedUser = (string)item[Scam.Default.ItemCreatedUser]; trackingName = Scam.Default.ItemModifiedDate;
                         scamInfo.ItemModifiedDate = (DateTime?)item[Scam.Default.ItemModifiedDate]; trackingName = Scam.Default.ItemModifiedUser;
                         scamInfo.ItemModifiedUser = (string)item[Scam.Default.ItemModifiedUser];
-                        
 
                         if (!string.IsNullOrEmpty(scamInfo.Servicer))
                         {
@@ -854,6 +853,13 @@ namespace HPF.SharePointAPI.Controllers
             //{
             //    return null;
             //}
+        }
+        private static double? ConvertToDouble(object obj)
+        {
+            double returnValue = 0;
+            if (obj == null || !double.TryParse(obj.ToString(), out returnValue))
+                return null;
+            return returnValue;
         }
         #endregion
     }   

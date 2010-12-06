@@ -18,10 +18,10 @@
       <Value Profile="(Default)">Were you</Value>
     </Setting>
     <Setting Name="BorrowerFName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Borrower First Name</Value>
+      <Value Profile="(Default)">First Name</Value>
     </Setting>
     <Setting Name="BorrowerLName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Borrower Last Name</Value>
+      <Value Profile="(Default)">Last Name</Value>
     </Setting>
     <Setting Name="BorrowerPhone" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Phone</Value>
@@ -69,7 +69,7 @@
       <Value Profile="(Default)">If you signed a contract, did the person perform the services agreed to in the contract?</Value>
     </Setting>
     <Setting Name="ScamOrgName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Scam Organization or Individual  Name</Value>
+      <Value Profile="(Default)">Scam Organization or Individual Name</Value>
     </Setting>
     <Setting Name="MainContact" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Main Contact</Value>

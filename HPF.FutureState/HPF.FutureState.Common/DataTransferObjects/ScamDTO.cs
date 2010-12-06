@@ -33,7 +33,7 @@ namespace HPF.FutureState.Common.DataTransferObjects
         public string ListOfServicesOffered { get; set; }
         public string GuraranteedLoanModificationInd { get; set; }
         public string FeePaidInd { get; set; }
-        public string TotalAmountPaid { get; set; }
+        public double? TotalAmountPaid { get; set; }
         public string ContractServicesPerfomed { get; set; }
         public string MainContact { get; set; }
         public string ScamOrgName { get; set; }

@@ -31,7 +31,7 @@ namespace HPF.SharePointAPI.BusinessEntity
         public string ListOfServicesOffered { get; set; }
         public string GuraranteedLoanModification { get; set; }
         public string FeePaid { get; set; }
-        public string TotalAmountPaid { get; set; }
+        public double?  TotalAmountPaid { get; set; }
         public string ContractServicesPerfomed { get; set; }
         public string MainContact { get; set; }
         public string ScamOrgName { get; set; }

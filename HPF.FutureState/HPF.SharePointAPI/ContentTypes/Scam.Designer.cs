@@ -70,7 +70,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Borrower First Name")]
+        [global::System.Configuration.DefaultSettingValueAttribute("First Name")]
         public string BorrowerFName {
             get {
                 return ((string)(this["BorrowerFName"]));
@@ -79,7 +79,7 @@ namespace HPF.SharePointAPI.ContentTypes {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Borrower Last Name")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Last Name")]
         public string BorrowerLName {
             get {
                 return ((string)(this["BorrowerLName"]));
