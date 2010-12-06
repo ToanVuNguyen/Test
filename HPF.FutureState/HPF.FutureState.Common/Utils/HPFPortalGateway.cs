@@ -293,7 +293,7 @@ namespace HPF.FutureState.Common.Utils
                 scam.ItemCreatedUser = scamInfo.ItemCreatedUser;
                 scam.ItemModifiedDt = scamInfo.ItemModifiedDate;
                 scam.ItemModifiedUser = scamInfo.ItemModifiedUser;
-
+                scam.SetInsertTrackingInformation("System");
                 result.Add(scam);
             }
             return result;
